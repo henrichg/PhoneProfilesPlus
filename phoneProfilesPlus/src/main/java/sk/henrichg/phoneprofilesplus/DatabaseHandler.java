@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2442;
+    private static final int DATABASE_VERSION = 2443;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -338,6 +338,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_AT_END_HOW_UNDO = "atEndHowUndo";
     private static final String KEY_E_CALENDAR_STATUS = "calendarStatus";
     private static final String KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END = "manualProfileActivationAtEnd";
+    private static final String KEY_E_CALENDAR_EVENT_TODAY_EXISTS = "calendarEventTodayExists";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -723,7 +724,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_ALARM_CLOCK_PACKAGE_NAME + " " + TEXT_TYPE + ","
                 + KEY_E_AT_END_HOW_UNDO + " " + INTEGER_TYPE + ","
                 + KEY_E_CALENDAR_STATUS + " " + INTEGER_TYPE + ","
-                + KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END + " " + INTEGER_TYPE
+                + KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_EVENT_TODAY_EXISTS + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1132,6 +1134,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_AT_END_HOW_UNDO, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_STATUS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_EVENT_TODAY_EXISTS, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -2985,6 +2988,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion < 2442)
         {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END + "=0");
+        }
+
+        if (oldVersion < 2443)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_EVENT_TODAY_EXISTS + "=0");
         }
 
     }
@@ -5391,7 +5399,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS,
                         KEY_E_CALENDAR_START_BEFORE_EVENT,
                         KEY_E_CALENDAR_SENSOR_PASSED,
-                        KEY_E_CALENDAR_ALL_EVENTS
+                        KEY_E_CALENDAR_ALL_EVENTS,
+                        KEY_E_CALENDAR_EVENT_TODAY_EXISTS
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -5415,6 +5424,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._ignoreAllDayEvents = (cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS)) == 1);
                 eventPreferences._startBeforeEvent = cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_START_BEFORE_EVENT));
                 eventPreferences._allEvents = (cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_ALL_EVENTS)) == 1);
+                eventPreferences._eventTodayExists = (cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_TODAY_EXISTS)) == 1);
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_SENSOR_PASSED)));
             }
             cursor.close();
@@ -5945,6 +5955,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_CALENDAR_START_BEFORE_EVENT, eventPreferences._startBeforeEvent);
         values.put(KEY_E_CALENDAR_SENSOR_PASSED, eventPreferences.getSensorPassed());
         values.put(KEY_E_CALENDAR_ALL_EVENTS, (eventPreferences._allEvents) ? 1 : 0);
+        values.put(KEY_E_CALENDAR_EVENT_TODAY_EXISTS, (eventPreferences._eventTodayExists) ? 1 : 0);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -6941,10 +6952,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //SQLiteDatabase db = this.getWritableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
 
-                /*ContentValues values = new ContentValues();
-                values.put(KEY_E_CALENDAR_EVENT_START_TIME, event._eventPreferencesCalendar._startTime);
-                values.put(KEY_E_CALENDAR_EVENT_END_TIME, event._eventPreferencesCalendar._endTime);
-                values.put(KEY_E_CALENDAR_EVENT_FOUND, event._eventPreferencesCalendar._eventFound ? 1 : 0);
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_CALENDAR_EVENT_TODAY_EXISTS, event._eventPreferencesCalendar._eventTodayExists ? 1 : 0);
 
                 db.beginTransaction();
 
@@ -6962,7 +6971,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } finally {
                     db.endTransaction();
                 }
-                */
 
                 //db.close();
             } catch (Exception e) {
