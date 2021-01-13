@@ -121,6 +121,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_DEVICE_BOOT_EVENT_END = "deviceBootEventEnd";
     static final String SENSOR_TYPE_PERIODIC_EVENTS_HANDLER = "periodicEventsHandler";
     static final String SENSOR_TYPE_PERIHERALS = "peripherals";
+    static final String SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK = "calendarEventExistsCheck";
     static final String SENSOR_TYPE_ALL = "ALL";
 
     public EventsHandler(Context context) {
@@ -294,6 +295,7 @@ class EventsHandler {
             if (sensorType.equals(SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED) ||
                     sensorType.equals(SENSOR_TYPE_SEARCH_CALENDAR_EVENTS) ||
                     sensorType.equals(SENSOR_TYPE_CALENDAR) ||
+                    sensorType.equals(SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK) ||
                     saveCalendarStartEndTime) {
                 // search for calendar events
                 //PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "search for calendar events");
@@ -301,6 +303,7 @@ class EventsHandler {
                     if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
                         //PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "event._id=" + _event._id);
                         _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
+                        _event._eventPreferencesCalendar.saveCalendarEventExists(dataWrapper);
                     }
                 }
             }
@@ -1037,6 +1040,7 @@ class EventsHandler {
             case SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED:
             case SENSOR_TYPE_CALENDAR:
             case SENSOR_TYPE_SEARCH_CALENDAR_EVENTS:
+            case SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK:
                 return DatabaseHandler.ETYPE_CALENDAR;
             case SENSOR_TYPE_DOCK_CONNECTION:
             case SENSOR_TYPE_HEADSET_CONNECTION:
@@ -1118,6 +1122,7 @@ class EventsHandler {
                     case SENSOR_TYPE_CALENDAR_PROVIDER_CHANGED:
                     case SENSOR_TYPE_CALENDAR:
                     case SENSOR_TYPE_SEARCH_CALENDAR_EVENTS:
+                    case SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK:
                         //eventType = DatabaseHandler.ETYPE_CALENDAR;
                         sensorEnabled = _event._eventPreferencesCalendar._enabled;
                         break;

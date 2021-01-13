@@ -44,9 +44,10 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-//                        PPApplication.logE("[EVENTS_HANDLER_CALL] EventTimeBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_TIME");
-                    //EventsHandler eventsHandler = new EventsHandler(appContext);
-                    //eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_TIME);
+
+                    PPApplication.logE("[EVENTS_HANDLER_CALL] EventTimeBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_TIME");
+                    EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
 
                     //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventTimeBroadcastReceiver.doWork");
                 } catch (Exception e) {

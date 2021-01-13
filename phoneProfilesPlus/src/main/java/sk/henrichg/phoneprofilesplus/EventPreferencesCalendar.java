@@ -952,14 +952,91 @@ class EventPreferencesCalendar extends EventPreferences {
             _event._eventPreferencesCalendar.setSystemEventForStart(dataWrapper.context);
     }
 
-    /*void saveStartEndTime(DataWrapper dataWrapper) {
-        //_event._eventPreferencesCalendar.searchEvent(dataWrapper.context);
-        //   searchEvent is called from setSystemEventForPause and setSystemEventForStart
+    void saveCalendarEventExists(DataWrapper dataWrapper) {
+        if (!(/*isRunnable(context) && _enabled &&*/ Permissions.checkCalendar(dataWrapper.context)))
+        {
+            _eventTodayExists = false;
+            DatabaseHandler.getInstance(dataWrapper.context).updateEventCalendarTodayExists(_event);
+            return;
+        }
+
+        final String[] INSTANCE_PROJECTION = new String[] {
+                //Instances.BEGIN,           // 0
+                //Instances.END,			   // 1
+                Instances.CALENDAR_ID,     // 2
+                //Instances.ALL_DAY,         // 3
+        };
+
+        // The indices for the projection array above.
+        //final int PROJECTION_BEGIN_INDEX = 0;
+        //final int PROJECTION_END_INDEX = 1;
+        final int PROJECTION_CALENDAR_ID_INDEX = 2;
+        //final int PROJECTION_ALL_DAY_INDEX = 3;
+
+        Cursor cur;
+        ContentResolver cr = dataWrapper.context.getContentResolver();
+
+        // Construct the query with the desired date range.
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        long startMillis = calendar.getTimeInMillis();
+        calendar.add(Calendar.DAY_OF_YEAR, 1);
+        long endMillis = calendar.getTimeInMillis();
+
+        Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
+        ContentUris.appendId(builder, startMillis);
+        ContentUris.appendId(builder, endMillis - 1);
+
+        String[] calendarsSplits = _calendars.split("\\|");
+
+        // Submit the query
+        try {
+            cur = cr.query(builder.build(), INSTANCE_PROJECTION, null, null, null);
+        } catch (SecurityException e) {
+            //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
+            //PPApplication.recordException(e);
+            cur = null;
+        } catch (Exception e) {
+            //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+            cur = null;
+        }
+
+        if (cur != null)
+        {
+            _eventTodayExists = false;
+            while (cur.moveToNext()) {
+
+                boolean calendarFound = false;
+                for (String split : calendarsSplits) {
+                    long calendarId = Long.parseLong(split);
+                    if (cur.getLong(PROJECTION_CALENDAR_ID_INDEX) == calendarId) {
+                        calendarFound = true;
+                    }
+                }
+                if (!calendarFound)
+                    continue;
+
+                //if (cur.getInt(PROJECTION_ALL_DAY_INDEX) == 1) {
+                //    _eventTodayExists = true;
+                //    continue;
+                //}
+
+                _eventTodayExists = true;
+            }
+
+            cur.close();
+        }
+
+        DatabaseHandler.getInstance(dataWrapper.context).updateEventCalendarTodayExists(_event);
+
         if (_event.getStatus() == Event.ESTATUS_RUNNING)
             _event._eventPreferencesCalendar.setSystemEventForPause(dataWrapper.context);
         if (_event.getStatus() == Event.ESTATUS_PAUSE)
             _event._eventPreferencesCalendar.setSystemEventForStart(dataWrapper.context);
-    }*/
+    }
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
