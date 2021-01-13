@@ -5123,11 +5123,15 @@ class ActivateProfileHelper {
     static void setRingerVolume(Context context, int volume)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            //PPApplication.logE("ActivateProfileHelper.(s)setRingerVolume","volume="+volume);
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putInt(PREF_RINGER_VOLUME, volume);
-            editor.apply();
-            ApplicationPreferences.prefRingerVolume = volume;
+            final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            int systemZenMode = getSystemZenMode(context/*, -1*/);
+            if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/)) {
+                //PPApplication.logE("ActivateProfileHelper.(s)setRingerVolume","volume="+volume);
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                editor.putInt(PREF_RINGER_VOLUME, volume);
+                editor.apply();
+                ApplicationPreferences.prefRingerVolume = volume;
+            }
         }
     }
 
@@ -5142,10 +5146,14 @@ class ActivateProfileHelper {
     static void setNotificationVolume(Context context, int volume)
     {
         synchronized (PPApplication.profileActivationMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
-            editor.apply();
-            ApplicationPreferences.prefNotificationVolume = volume;
+            final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            int systemZenMode = getSystemZenMode(context/*, -1*/);
+            if (isAudibleSystemRingerMode(audioManager, systemZenMode/*, appContext*/)) {
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                editor.putInt(PREF_NOTIFICATION_VOLUME, volume);
+                editor.apply();
+                ApplicationPreferences.prefNotificationVolume = volume;
+            }
         }
     }
 

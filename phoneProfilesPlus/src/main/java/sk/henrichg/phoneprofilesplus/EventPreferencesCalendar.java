@@ -38,6 +38,7 @@ class EventPreferencesCalendar extends EventPreferences {
     int _status;
     boolean _ignoreAllDayEvents;
     int _startBeforeEvent;
+    boolean _eventTodayExists;
 
     long _startTime;
     long _endTime;
@@ -53,6 +54,7 @@ class EventPreferencesCalendar extends EventPreferences {
     private static final String PREF_EVENT_CALENDAR_START_BEFORE_EVENT = "eventCalendarStartBeforeEvent";
     static final String PREF_EVENT_CALENDAR_APP_SETTINGS = "eventCalendarBackgroundScanningAppSettings";
     private static final String PREF_EVENT_CALENDAR_STATUS = "eventCalendarStatus";
+    private static final String PREF_EVENT_CALENDAR_EVENT_TODAY_EXISTS = "eventCalendarEventTodayExists";
 
     private static final String PREF_EVENT_CALENDAR_CATEGORY = "eventCalendarCategoryRoot";
 
