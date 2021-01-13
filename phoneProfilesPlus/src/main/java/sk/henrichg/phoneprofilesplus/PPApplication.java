@@ -746,6 +746,7 @@ public class PPApplication extends Application
     static PowerSaveModeBroadcastReceiver powerSaveModeReceiver = null;
     static DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
     static DeviceBootEventEndBroadcastReceiver deviceBootEventEndBroadcastReceiver = null;
+    static CalendarEventExistsCheckBroadcastReceiver calendarEventExistsCheckBroadcastReceiver = null;
 
     static SettingsContentObserver settingsContentObserver = null;
     static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;

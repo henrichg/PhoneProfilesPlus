@@ -515,12 +515,25 @@ class EventPreferencesCalendar extends EventPreferences {
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
-                //Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
+                //Intent intent = new Intent(context, CalendarEventExistsCheckBroadcastReceiver.class);
                 Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_CALENDAR_EVENT_EXISTS_CHECK_BROADCAST_RECEIVER);
+                //intent.setClass(context, CalendarEventExistsCheckBroadcastReceiver.class);
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
+                if (pendingIntent != null) {
+                    //PPApplication.logE("EventPreferencesCalendar.removeAlarm", "alarm found");
+
+                    alarmManager.cancel(pendingIntent);
+                    pendingIntent.cancel();
+                }
+
+                //Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
+                intent = new Intent();
                 intent.setAction(PhoneProfilesService.ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER);
                 //intent.setClass(context, EventCalendarBroadcastReceiver.class);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
+                pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("EventPreferencesCalendar.removeAlarm", "alarm found");
 
@@ -528,6 +541,7 @@ class EventPreferencesCalendar extends EventPreferences {
                     pendingIntent.cancel();
                 }
             }
+
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -546,10 +560,48 @@ class EventPreferencesCalendar extends EventPreferences {
                 PPApplication.logE("EventPreferencesCalendar.setAlarm", "endTime=" + result);
         }*/
 
+        boolean applicationUseAlarmClock = ApplicationPreferences.applicationUseAlarmClock;
+
+        //Intent intent = new Intent(context, CalendarEventExistsCheckBroadcastReceiver.class);
+        Intent intent = new Intent();
+        intent.setAction(PhoneProfilesService.ACTION_CALENDAR_EVENT_EXISTS_CHECK_BROADCAST_RECEIVER);
+        //intent.setClass(context, CalendarEventExistsCheckBroadcastReceiver.class);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Calendar _alarmTime = Calendar.getInstance();
+
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+
+        _alarmTime.set(Calendar.HOUR, 0);
+        _alarmTime.set(Calendar.MINUTE, 0);
+        _alarmTime.set(Calendar.SECOND, 0);
+        _alarmTime.set(Calendar.MILLISECOND, 0);
+
+        if (alarmManager != null) {
+            if (applicationUseAlarmClock) {
+                Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(_alarmTime.getTimeInMillis() - gmtOffset + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
+                alarmManager.setAlarmClock(clockInfo, pendingIntent);
+            }
+            else {
+                //if (android.os.Build.VERSION.SDK_INT >= 23)
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, _alarmTime.getTimeInMillis() - gmtOffset + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                //else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+                //else
+                //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
+            }
+        }
+
+
         if (alarmTime == 0)
             return;
 
-        boolean applicationUseAlarmClock = ApplicationPreferences.applicationUseAlarmClock;
         // not set alarm if alarmTime is over.
         Calendar now = Calendar.getInstance();
         if (applicationUseAlarmClock) {
@@ -562,15 +614,14 @@ class EventPreferencesCalendar extends EventPreferences {
         }
 
         //Intent intent = new Intent(context, EventCalendarBroadcastReceiver.class);
-        Intent intent = new Intent();
+        intent = new Intent();
         intent.setAction(PhoneProfilesService.ACTION_EVENT_CALENDAR_BROADCAST_RECEIVER);
         //intent.setClass(context, EventCalendarBroadcastReceiver.class);
 
         //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (alarmManager != null) {
             if (applicationUseAlarmClock) {
                 Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
