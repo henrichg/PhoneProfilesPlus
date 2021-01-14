@@ -1733,6 +1733,46 @@ class ActivateProfileHelper {
                         PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ringer mode and volumes are not configured");
                     }*/
 
+                    /*
+                    if (profile._volumeSpeakerPhone != 0) {
+                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile._volumeSpeakerPhone="+profile._volumeSpeakerPhone);
+                        boolean savedSpeakerphone = false; audioManager.isSpeakerphoneOn();
+                        boolean changeSpeakerphone = false;
+                        if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
+                            changeSpeakerphone = true;
+                        if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
+                            changeSpeakerphone = true;
+                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "changeSpeakerphone="+changeSpeakerphone);
+                        if (changeSpeakerphone) {
+                            /// activate SpeakerPhone
+
+                            // not working in EMUI :-/
+                            audioManager.setMode(AudioManager.MODE_IN_CALL);
+
+                            // Delay 2 seconds mode changed to MODE_IN_CALL
+                            long start = SystemClock.uptimeMillis();
+                            do {
+                                if (audioManager.getMode() != AudioManager.MODE_IN_CALL) {
+                                    //if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
+                                    PPApplication.logE("ActivateProfileHelper.executeForVolumes", "xxx - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
+                                    //PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "xxx - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
+                                    PPApplication.sleep(500);
+                                }
+                                else
+                                    break;
+                                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "SystemClock.uptimeMillis() - start="+(SystemClock.uptimeMillis() - start));
+                            } while (SystemClock.uptimeMillis() - start < (5 * 1000));
+                            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "yyy - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
+                            //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "yyy - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
+
+                            PPApplication.sleep(500);
+                            audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
+                            //PhoneCallBroadcastReceiver.speakerphoneSelected = true;
+                            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ACTIVATED SPEAKERPHONE");
+                        }
+                    }
+                    */
+
                     if (noErrorSetTone) {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 2");
                         setTones(appContext, profile);

@@ -273,6 +273,11 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.setVolumes"
                                                 //+"|EventsHandler.doEndHandler"
 
+                                                //+"|PhoneCallBroadcastReceiver.callStarted"
+                                                //+"|PhoneCallBroadcastReceiver.callAnswered"
+                                                //+"|PhoneCallBroadcastReceiver.callEnded"
+                                                //+"|ActivateProfileHelper.executeForVolumes"
+
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
