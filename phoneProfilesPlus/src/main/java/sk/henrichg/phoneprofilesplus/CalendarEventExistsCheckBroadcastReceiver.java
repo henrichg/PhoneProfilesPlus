@@ -10,7 +10,7 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST]  EventTimeBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST]  CalendarEventExistsCheckBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "EventTimeBroadcastReceiver.onReceive", "EventTimeBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -45,7 +45,7 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
                     }
 
 
-                    PPApplication.logE("[EVENTS_HANDLER_CALL] EventTimeBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_TIME");
+                    PPApplication.logE("[EVENTS_HANDLER_CALL] CalendarEventExistsCheckBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
 

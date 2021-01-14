@@ -129,7 +129,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = true && DebugVersion.enabled;
@@ -189,35 +189,6 @@ public class PPApplication extends Application
                                                 //+"|%%%%BLE BluetoothScanWorker.startLEScan"
                                                 //+"|%%%%BLE BluetoothScanWorker.stopLEScan"
 
-                                                //+"|EditorProfilesActivity.copyToBackupDirectory"
-                                                //+"|EditorProfilesActivity.copyFromBackupDirectory"
-                                                //+"|EditorProfilesActivity.onActivityResult"
-                                                //+"|EditorProfilesActivity.doExportData"
-
-                                                //+"|********* RingerModeChangeReceiver.setRingerMode"
-                                                //+"|********* PPNotificationListenerService.setZenMode"
-                                                //+"|********* InterruptionFilterChangedBroadcastReceiver.setZenMode"
-                                                //+"|ActivateProfileHelper.setRingerMode"
-                                                //+"|ActivateProfileHelper.setZenMode"
-                                                //+"|ActivateProfileHelper.getSystemZenMode"
-                                                //+"|ActivateProfileHelper.changeRingerModeForVolumeEqual0"
-                                                //+"|RingerModeChangeReceiver.getRingerMode"
-                                                //+"|RingerModeChangeReceiver.onReceive"
-                                                //+"|InterruptionFilterChangedBroadcastReceiver.getZenMode"
-                                                //+"|InterruptionFilterChangedBroadcastReceiver.onReceive"
-                                                //+"|SettingsContentObserver.onChange"
-
-                                                //+"|MainWorker.doWork"
-                                                //+"|DisableInternalChangeWorker"
-                                                //+"|DisableScreenTimeoutInternalChangeWorker"
-
-                                                //+"|****** EventsHandler.handleEvents"
-                                                //+"|PPApplication.forceUpdateGUI"
-                                                //+"|UpdateGUIWorker.doWork"
-                                                //+"|###### PPApplication.updateGUI"
-                                                //+"|$$$ EventsHandler.handleEvents"
-                                                //+"|$$$ DataWrapper.setProfileActive"
-                                                //+"|PPApplication.updateGUI"
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
@@ -246,37 +217,8 @@ public class PPApplication extends Application
 
                                                 //+"|[BACKGROUND_ACTIVITY]"
 
-                                                //+"|ActivateProfileHelper.setVibrateWhenRinging"
-
-                                                //+"|EventPreferencesBattery"
-                                                //+"|$$$ EventsHandler.handleEvents"
-                                                //+"|@@@ Event.doActivateEndProfile"
-
-                                                //+"|OrientationScanner.onSensorChanged"
-                                                //+"|EventsPrefsFragment.onSharedPreferenceChanged"
-
-                                                //+"|CheckGitHubReleasesBroadcastReceiver"
-                                                //+"|OneRowWidgetProvider"
-
-                                                //+"|GenerateNotificationDialogPreferenceX"
-                                                //+"|EditorProfileListFragment.startProfilePreferencesActivity"
-                                                //+"|ProfilePrefsActivity.loadPreferences"
-
-                                                //+"|CheckCriticalGitHubReleasesBroadcastReceiver"
-                                                //+"|CheckCriticalGitHubReleasesDisableActivity"
-
-                                                //+"|EventPreferencesWifi"
-                                                //+"|EventPreferencesCall.doHandleEvent"
-
-                                                //+"|PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume"
-                                                //+"|ActivateProfileHelper.executeForVolumes"
-                                                //+"|ActivateProfileHelper.setVolumes"
-                                                //+"|EventsHandler.doEndHandler"
-
-                                                //+"|PhoneCallBroadcastReceiver.callStarted"
-                                                //+"|PhoneCallBroadcastReceiver.callAnswered"
-                                                //+"|PhoneCallBroadcastReceiver.callEnded"
-                                                //+"|ActivateProfileHelper.executeForVolumes"
+                                                +"|EventPreferencesCalendar.saveCalendarEventExists"
+                                                +"|CalendarEventExistsCheckBroadcastReceiver"
 
                                                 ;
 

@@ -969,6 +969,9 @@ class EventPreferencesCalendar extends EventPreferences {
     }
 
     void saveCalendarEventExists(DataWrapper dataWrapper) {
+        PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "--- START");
+        PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "_eventTodayExists="+_eventTodayExists);
+
         if (!(/*isRunnable(context) && _enabled &&*/ Permissions.checkCalendar(dataWrapper.context)))
         {
             _eventTodayExists = false;
@@ -1010,6 +1013,7 @@ class EventPreferencesCalendar extends EventPreferences {
         // Submit the query
         try {
             cur = cr.query(builder.build(), INSTANCE_PROJECTION, null, null, null);
+            PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "cursor created");
         } catch (SecurityException e) {
             //Log.e("EventPreferencesCalendar.saveStartEndTime", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
@@ -1025,6 +1029,8 @@ class EventPreferencesCalendar extends EventPreferences {
             _eventTodayExists = false;
             while (cur.moveToNext()) {
 
+                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "record exists");
+
                 boolean calendarFound = false;
                 for (String split : calendarsSplits) {
                     long calendarId = Long.parseLong(split);
@@ -1032,6 +1038,7 @@ class EventPreferencesCalendar extends EventPreferences {
                         calendarFound = true;
                     }
                 }
+                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "rcalendar configured");
                 if (!calendarFound)
                     continue;
 
@@ -1052,6 +1059,9 @@ class EventPreferencesCalendar extends EventPreferences {
             _event._eventPreferencesCalendar.setSystemEventForPause(dataWrapper.context);
         if (_event.getStatus() == Event.ESTATUS_PAUSE)
             _event._eventPreferencesCalendar.setSystemEventForStart(dataWrapper.context);
+
+        PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "_eventTodayExists="+_eventTodayExists);
+        PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "--- END");
     }
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
