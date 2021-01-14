@@ -1691,7 +1691,7 @@
     <string name="accessibility_service_enabled">Enabled</string>
     <string name="accessibility_service_disabled">Disabled</string>
 
-    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not supported for Android 10+</string>
+    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>
 
     <!-- **************************************************************************************** -->
 
