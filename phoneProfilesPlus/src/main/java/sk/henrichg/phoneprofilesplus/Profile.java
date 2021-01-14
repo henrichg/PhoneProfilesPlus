@@ -3934,8 +3934,11 @@ public class Profile {
                 } else
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
-            else
+            else {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_android_version);
+            }
 
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.allowed=" + preferenceAllowed.allowed);
@@ -4662,6 +4665,26 @@ public class Profile {
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
+
+        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE))
+        {
+            if (Build.VERSION.SDK_INT < 29) {
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+            }
+            else {
+                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_android_version);
+            }
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
+        }
+
+
 
         if (profile == null)
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
