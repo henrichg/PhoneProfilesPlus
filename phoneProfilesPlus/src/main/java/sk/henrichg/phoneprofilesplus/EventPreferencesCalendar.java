@@ -610,12 +610,14 @@ class EventPreferencesCalendar extends EventPreferences {
 
             if (alarmManager != null) {
                 if (applicationUseAlarmClock) {
+                    PPApplication.logE("EventPreferencesCalendar.setAlarm", "applicationUseAlarmClock=true");
                     Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(_alarmTime.getTimeInMillis() - gmtOffset + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
                 } else {
+                    PPApplication.logE("EventPreferencesCalendar.setAlarm", "applicationUseAlarmClock=false");
                     //if (android.os.Build.VERSION.SDK_INT >= 23)
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, _alarmTime.getTimeInMillis() - gmtOffset + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                     //else //if (android.os.Build.VERSION.SDK_INT >= 19)
