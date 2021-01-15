@@ -217,6 +217,7 @@ public class PPApplication extends Application
 
                                                 //+"|[BACKGROUND_ACTIVITY]"
 
+                                                +"|PhoneProfilesService.registerReceiverForCalendarSensor"
                                                 +"|EventPreferencesCalendar"
                                                 +"|CalendarEventExistsCheckBroadcastReceiver"
 

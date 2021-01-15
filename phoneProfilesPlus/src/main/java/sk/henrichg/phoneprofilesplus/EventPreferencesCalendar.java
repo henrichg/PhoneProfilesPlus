@@ -21,6 +21,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -478,6 +479,7 @@ class EventPreferencesCalendar extends EventPreferences {
         if (!(isRunnable(context) && _enabled))
             return;
 
+        PPApplication.logE("[CALENDAR] EventPreferencesCalendar.setSystemEventForStart", "event._id=" + _event._id);
         setAlarm(/*true,*/ 0, context, true);
 
         if (!_eventFound)
@@ -502,6 +504,7 @@ class EventPreferencesCalendar extends EventPreferences {
         if (!(isRunnable(context) && _enabled))
             return;
 
+        PPApplication.logE("[CALENDAR] EventPreferencesCalendar.setSystemEventForPause", "event._id=" + _event._id);
         setAlarm(/*false,*/ 0, context, true);
 
         if (!_eventFound)
@@ -591,11 +594,19 @@ class EventPreferencesCalendar extends EventPreferences {
 
             int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
-            _alarmTime.add(Calendar.DAY_OF_YEAR, 1);
-            _alarmTime.set(Calendar.HOUR, 0);
-            _alarmTime.set(Calendar.MINUTE, 0);
-            _alarmTime.set(Calendar.SECOND, 1);
-            _alarmTime.set(Calendar.MILLISECOND, 0);
+            //if (DebugVersion.enabled) {
+            //    _alarmTime.add(Calendar.MINUTE, 1);
+            //} else {
+                _alarmTime.add(Calendar.DAY_OF_YEAR, 1);
+                _alarmTime.set(Calendar.HOUR, 0);
+                _alarmTime.set(Calendar.MINUTE, 0);
+                _alarmTime.set(Calendar.SECOND, 1);
+                _alarmTime.set(Calendar.MILLISECOND, 0);
+            //}
+
+            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+            String result = sdf.format(_alarmTime.getTimeInMillis());
+            PPApplication.logE("EventPreferencesCalendar.setAlarm", "now=" + result);
 
             if (alarmManager != null) {
                 if (applicationUseAlarmClock) {
