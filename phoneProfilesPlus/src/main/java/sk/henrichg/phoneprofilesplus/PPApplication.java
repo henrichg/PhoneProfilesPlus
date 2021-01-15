@@ -217,7 +217,7 @@ public class PPApplication extends Application
 
                                                 //+"|[BACKGROUND_ACTIVITY]"
 
-                                                +"|EventPreferencesCalendar.saveCalendarEventExists"
+                                                +"|EventPreferencesCalendar"
                                                 +"|CalendarEventExistsCheckBroadcastReceiver"
 
                                                 ;

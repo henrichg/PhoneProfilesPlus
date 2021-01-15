@@ -49,6 +49,17 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
 
+                    DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+                    dataWrapper.fillEventList();
+
+                    for (Event _event : dataWrapper.eventList) {
+                        if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
+                            //PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "event._id=" + _event._id);
+                            _event._eventPreferencesCalendar.setAlarm(/*true,*/ 0, context, true);
+                        }
+                    }
+
+
                     //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=EventTimeBroadcastReceiver.doWork");
                 } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
