@@ -21,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.os.storage.StorageManager;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -1797,7 +1798,16 @@ public class EditorProfilesActivity extends AppCompatActivity
             if ((resultCode == RESULT_OK) && (data != null)) {
                 boolean ok = false;
                 try {
-                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                    Intent intent;
+                    if (Build.VERSION.SDK_INT >= 29) {
+                        StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
+                        intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                    }
+                    else {
+                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    }
                     //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
                     //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
                     //noinspection deprecation
@@ -1841,7 +1851,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Uri treeUri = data.getData();
                 if (treeUri != null) {
                     getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, treeUri,
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION/* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
                     // persistent permissions
                     final int takeFlags = //data.getFlags() &
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -1985,7 +1995,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Uri treeUri = data.getData();
                 if (treeUri != null) {
                     getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, treeUri,
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION/* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
                     // persistent permissions
                     final int takeFlags = //data.getFlags() &
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -2542,7 +2552,16 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (Permissions.grantImportPermissions(getApplicationContext(), EditorProfilesActivity.this/*, PPApplication.EXPORT_PATH*/)) {
                 boolean ok = false;
                 try {
-                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                    Intent intent;
+                    if (Build.VERSION.SDK_INT >= 29) {
+                        StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
+                        intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                    }
+                    else {
+                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    }
                     //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
                     //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
                     //noinspection deprecation
@@ -3594,7 +3613,16 @@ public class EditorProfilesActivity extends AppCompatActivity
                             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                                 boolean ok = false;
                                 try {
-                                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                                    Intent intent;
+                                    if (Build.VERSION.SDK_INT >= 29) {
+                                        StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
+                                        intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                                    }
+                                    else {
+                                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                                        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                                    }
                                     //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
                                     //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
                                     //PPApplication.logE("--------- EditorProfilesActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
