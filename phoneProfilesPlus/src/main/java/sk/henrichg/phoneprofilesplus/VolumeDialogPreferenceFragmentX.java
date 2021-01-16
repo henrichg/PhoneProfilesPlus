@@ -262,28 +262,28 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                 try {
                     if (preference.volumeType.equalsIgnoreCase("RINGTONE")) {
                         Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(_context, RingtoneManager.TYPE_RINGTONE);
-                        if (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE))
+                        if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
                             preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                         else
                             preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
                     }
                     else if (preference.volumeType.equalsIgnoreCase("NOTIFICATION")) {
                         Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(_context, RingtoneManager.TYPE_NOTIFICATION);
-                        if (_ringtoneUri.toString().equals(TonesHandler.NOTIFICATION_TONE_URI_NONE))
+                        if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.NOTIFICATION_TONE_URI_NONE)))
                             preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                         else
                             preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
                     }
                     else if (preference.volumeType.equalsIgnoreCase("MEDIA")) {
                         Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(_context, RingtoneManager.TYPE_RINGTONE);
-                        if (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE))
+                        if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
                             preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                         else
                             preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
                     }
                     else if (preference.volumeType.equalsIgnoreCase("ALARM")) {
                         Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(_context, RingtoneManager.TYPE_ALARM);
-                        if (_ringtoneUri.toString().equals(TonesHandler.ALARM_TONE_URI_NONE))
+                        if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.ALARM_TONE_URI_NONE)))
                             preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                         else
                             preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
@@ -292,7 +292,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                         preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                     else if (preference.volumeType.equalsIgnoreCase("VOICE")) {
                         Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(_context, RingtoneManager.TYPE_RINGTONE);
-                        if (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE))
+                        if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
                             preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                         else
                             preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
@@ -303,7 +303,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                         preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                     else if (preference.volumeType.equalsIgnoreCase("BLUETOOTHSCO")) {
                         Uri _ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(_context, RingtoneManager.TYPE_RINGTONE);
-                        if (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE))
+                        if ((_ringtoneUri == null) || (_ringtoneUri.toString().equals(TonesHandler.RINGING_TONE_URI_NONE)))
                             preference.mediaPlayer = MediaPlayer.create(_context, R.raw.volume_change_notif);
                         else
                             preference.mediaPlayer = MediaPlayer.create(_context, _ringtoneUri);
