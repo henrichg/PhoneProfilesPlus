@@ -606,7 +606,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
             String result = sdf.format(_alarmTime.getTimeInMillis());
-            PPApplication.logE("EventPreferencesCalendar.setAlarm", "now=" + result);
+            PPApplication.logE("EventPreferencesCalendar.setAlarm", "_alarmTime=" + result);
 
             if (alarmManager != null) {
                 if (applicationUseAlarmClock) {
