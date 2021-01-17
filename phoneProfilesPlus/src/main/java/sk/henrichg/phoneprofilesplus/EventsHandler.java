@@ -301,9 +301,11 @@ class EventsHandler {
                 //PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "search for calendar events");
                 for (Event _event : dataWrapper.eventList) {
                     if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
-                        //PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "event._id=" + _event._id);
-                        _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
-                        _event._eventPreferencesCalendar.saveCalendarEventExists(dataWrapper);
+                        if (_event._eventPreferencesCalendar.isRunnable(context)) {
+                            //PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "event._id=" + _event._id);
+                            _event._eventPreferencesCalendar.saveStartEndTime(dataWrapper);
+                            _event._eventPreferencesCalendar.saveCalendarEventExists(dataWrapper);
+                        }
                     }
                 }
             }

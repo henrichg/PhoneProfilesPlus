@@ -342,7 +342,7 @@ class EventPreferencesCalendar extends EventPreferences {
         Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CALENDARS);
         if (preference != null) {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALENDAR_CALENDARS, "").isEmpty();
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !bold, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_ALL_EVENTS);
         if (preference != null) {
@@ -362,11 +362,11 @@ class EventPreferencesCalendar extends EventPreferences {
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALENDAR_SEARCH_STRING, "").isEmpty();
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
         }
-        preference = prefMng.findPreference(PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT);
-        if (preference != null) {
-            boolean bold = Integer.parseInt(prefMng.getSharedPreferences().getString(PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT, "0")) > 0;
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
-        }
+        //preference = prefMng.findPreference(PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT);
+        //if (preference != null) {
+        //    boolean bold = Integer.parseInt(prefMng.getSharedPreferences().getString(PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT, "0")) > 0;
+        //    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
+        //}
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
@@ -443,7 +443,13 @@ class EventPreferencesCalendar extends EventPreferences {
         boolean runnable = super.isRunnable(context);
 
         runnable = runnable && (!_calendars.isEmpty());
-        runnable = runnable && ((_dayContainsEvent > 0) || _allEvents || (!_searchString.isEmpty()));
+        //if (_dayContainsEvent > 0)
+        //    runnable = runnable && (_allEvents || (!_searchString.isEmpty()));
+        //else
+        //if (_dayContainsEvent == 2)
+        //    runnable = runnable && (_allEvents || (!_searchString.isEmpty()));
+        //else
+            runnable = runnable && (_allEvents || (!_searchString.isEmpty()));
 
         return runnable;
     }
