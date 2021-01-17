@@ -1121,6 +1121,7 @@ class EventPreferencesCalendar extends EventPreferences {
             if ((Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
                 /*&& (Permissions.checkEventCalendar(context, event, null))*/) {
+
                 // compute start datetime
                 long startAlarmTime;
                 long endAlarmTime;
@@ -1147,6 +1148,11 @@ class EventPreferencesCalendar extends EventPreferences {
                     eventsHandler.calendarPassed = ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
                 } else
                     eventsHandler.calendarPassed = false;
+
+                if (_dayContainsEvent == 1)
+                    eventsHandler.calendarPassed = eventsHandler.calendarPassed && _eventTodayExists;
+                if (_dayContainsEvent == 2)
+                    eventsHandler.calendarPassed = eventsHandler.calendarPassed || (!_eventTodayExists);
 
                 if (!eventsHandler.notAllowedCalendar) {
                     if (eventsHandler.calendarPassed)
