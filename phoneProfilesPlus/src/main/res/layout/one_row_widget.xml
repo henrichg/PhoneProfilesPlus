@@ -28,7 +28,7 @@
             android:id="@+id/widget_one_row_header_restart_events"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="8dp"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
             android:contentDescription="@string/menu_restart_events"
