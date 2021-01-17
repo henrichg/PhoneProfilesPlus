@@ -585,36 +585,36 @@ class EventPreferencesTime extends EventPreferences {
             Calendar midnightTime = Calendar.getInstance();
             midnightTime.set(Calendar.HOUR_OF_DAY, 0);
             midnightTime.set(Calendar.MINUTE, 0);
+            midnightTime.set(Calendar.SECOND, 0);
+            midnightTime.set(Calendar.MILLISECOND, 0);
             midnightTime.set(Calendar.DAY_OF_MONTH, 0);
             midnightTime.set(Calendar.MONTH, 0);
             midnightTime.set(Calendar.YEAR, 0);
-            midnightTime.set(Calendar.SECOND, 0);
-            midnightTime.set(Calendar.MILLISECOND, 0);
 
             Calendar midnightMinusOneTime = Calendar.getInstance();
             midnightMinusOneTime.set(Calendar.HOUR_OF_DAY, 23);
             midnightMinusOneTime.set(Calendar.MINUTE, 59);
+            midnightMinusOneTime.set(Calendar.SECOND, 59);
+            midnightMinusOneTime.set(Calendar.MILLISECOND, 999);
             midnightMinusOneTime.set(Calendar.DAY_OF_MONTH, 0);
             midnightMinusOneTime.set(Calendar.MONTH, 0);
             midnightMinusOneTime.set(Calendar.YEAR, 0);
-            midnightMinusOneTime.set(Calendar.SECOND, 59);
-            midnightMinusOneTime.set(Calendar.MILLISECOND, 999);
 
             calStartTime.set(Calendar.HOUR_OF_DAY, _startTime / 60);
             calStartTime.set(Calendar.MINUTE, _startTime % 60);
+            calStartTime.set(Calendar.SECOND, 0);
+            calStartTime.set(Calendar.MILLISECOND, 0);
             calStartTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
             calStartTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
             calStartTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
-            calStartTime.set(Calendar.SECOND, 0);
-            calStartTime.set(Calendar.MILLISECOND, 0);
 
             calEndTime.set(Calendar.HOUR_OF_DAY, _endTime / 60);
             calEndTime.set(Calendar.MINUTE, _endTime % 60);
+            calEndTime.set(Calendar.SECOND, 0);
+            calEndTime.set(Calendar.MILLISECOND, 0);
             calEndTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
             calEndTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
             calEndTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
-            calEndTime.set(Calendar.SECOND, 0);
-            calEndTime.set(Calendar.MILLISECOND, 0);
 
             /*if (testEvent) {
                 if (PPApplication.logEnabled()) {

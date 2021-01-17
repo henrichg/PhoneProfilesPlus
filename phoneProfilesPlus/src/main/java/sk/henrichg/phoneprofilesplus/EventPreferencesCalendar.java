@@ -597,11 +597,11 @@ class EventPreferencesCalendar extends EventPreferences {
             //if (DebugVersion.enabled) {
             //    _alarmTime.add(Calendar.MINUTE, 1);
             //} else {
-                _alarmTime.add(Calendar.DAY_OF_YEAR, 1);
-                _alarmTime.set(Calendar.HOUR, 0);
+                _alarmTime.set(Calendar.HOUR_OF_DAY, 0);
                 _alarmTime.set(Calendar.MINUTE, 0);
                 _alarmTime.set(Calendar.SECOND, 1);
                 _alarmTime.set(Calendar.MILLISECOND, 0);
+                _alarmTime.add(Calendar.DAY_OF_YEAR, 1);
             //}
 
             SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
@@ -1013,7 +1013,7 @@ class EventPreferencesCalendar extends EventPreferences {
 
         // Construct the query with the desired date range.
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         long startMillis = calendar.getTimeInMillis();
