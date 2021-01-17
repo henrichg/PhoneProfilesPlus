@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -262,8 +263,10 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
                 //}
 
                 Notification notification = mBuilder.build();
-                notification.vibrate = null;
-                notification.defaults &= ~DEFAULT_VIBRATE;
+                if (Build.VERSION.SDK_INT < 26) {
+                    notification.vibrate = null;
+                    notification.defaults &= ~DEFAULT_VIBRATE;
+                }
 
                 NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
                 try {

@@ -330,7 +330,7 @@ class Event {
 
     private void createEventPreferencesCalendar()
     {
-        this._eventPreferencesCalendar = new EventPreferencesCalendar(this, false, "", false,0, "", 0, 0, false, 0);
+        this._eventPreferencesCalendar = new EventPreferencesCalendar(this, false, "", false,0, "", 0, 0, false, 0, 0);
     }
 
     private void createEventPreferencesWiFi()
@@ -3213,10 +3213,12 @@ class Event {
                 mBuilder.setDeleteIntent(deletePendingIntent);
 
                 Notification notification = mBuilder.build();
-                notification.sound = null;
-                notification.vibrate = null;
-                notification.defaults &= ~DEFAULT_SOUND;
-                notification.defaults &= ~DEFAULT_VIBRATE;
+                if (Build.VERSION.SDK_INT < 26) {
+                    notification.sound = null;
+                    notification.vibrate = null;
+                    notification.defaults &= ~DEFAULT_SOUND;
+                    notification.defaults &= ~DEFAULT_VIBRATE;
+                }
 
                 NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
                 try {

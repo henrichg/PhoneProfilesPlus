@@ -15,6 +15,15 @@
         app:title="@string/event_preferences_calendar_calendars"
         app:dependency="eventCalendarEnabled"
         app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/event_preferences_calendar_day_contains_event"
+        app:summary="@string/array_event_pref_calendarDayContainsEvent_notTestIt"
+        app:key="eventCalendarDayContainsEvent"
+        app:defaultValue="0"
+        app:entries="@array/eventCalendarDayContainsEventArray"
+        app:entryValues="@array/eventCalendarDayContainsEventValues"
+        app:dependency="eventCalendarEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="eventCalendarAllEvents"
         app:title="@string/event_preferences_calendar_all_events"

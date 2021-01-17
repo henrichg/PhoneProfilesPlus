@@ -38,6 +38,7 @@ class EventPreferencesCalendar extends EventPreferences {
     int _status;
     boolean _ignoreAllDayEvents;
     int _startBeforeEvent;
+    int _dayContainsEvent;
 
     long _startTime;
     long _endTime;
@@ -54,6 +55,7 @@ class EventPreferencesCalendar extends EventPreferences {
     private static final String PREF_EVENT_CALENDAR_START_BEFORE_EVENT = "eventCalendarStartBeforeEvent";
     static final String PREF_EVENT_CALENDAR_APP_SETTINGS = "eventCalendarBackgroundScanningAppSettings";
     private static final String PREF_EVENT_CALENDAR_STATUS = "eventCalendarStatus";
+    private static final String PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT = "eventCalendarDayContainsEvent";
 
     private static final String PREF_EVENT_CALENDAR_CATEGORY = "eventCalendarCategoryRoot";
 
@@ -80,7 +82,8 @@ class EventPreferencesCalendar extends EventPreferences {
                                 int availability,
                                 int status,
                                 boolean ignoreAllDayEvents,
-                                int startBeforeEvent)
+                                int startBeforeEvent,
+                                int dayContainsEvent)
     {
         super(event, enabled);
 
@@ -92,6 +95,7 @@ class EventPreferencesCalendar extends EventPreferences {
         this._status = status;
         this._ignoreAllDayEvents = ignoreAllDayEvents;
         this._startBeforeEvent = startBeforeEvent;
+        this._dayContainsEvent = dayContainsEvent;
 
         this._startTime = 0;
         this._endTime = 0;
@@ -110,6 +114,7 @@ class EventPreferencesCalendar extends EventPreferences {
         this._status = fromEvent._eventPreferencesCalendar._status;
         this._ignoreAllDayEvents = fromEvent._eventPreferencesCalendar._ignoreAllDayEvents;
         this._startBeforeEvent = fromEvent._eventPreferencesCalendar._startBeforeEvent;
+        this._dayContainsEvent = fromEvent._eventPreferencesCalendar._dayContainsEvent;
         this.setSensorPassed(fromEvent._eventPreferencesCalendar.getSensorPassed());
 
         this._startTime = 0;
@@ -130,6 +135,7 @@ class EventPreferencesCalendar extends EventPreferences {
         editor.putString(PREF_EVENT_CALENDAR_STATUS, String.valueOf(_status));
         editor.putBoolean(PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS, _ignoreAllDayEvents);
         editor.putString(PREF_EVENT_CALENDAR_START_BEFORE_EVENT, Integer.toString(_startBeforeEvent));
+        editor.putString(PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT, Integer.toString(_dayContainsEvent));
         editor.apply();
     }
 
@@ -144,6 +150,7 @@ class EventPreferencesCalendar extends EventPreferences {
         this._status = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_STATUS, "0"));
         this._ignoreAllDayEvents = preferences.getBoolean(PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS, false);
         this._startBeforeEvent = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_START_BEFORE_EVENT, "0"));
+        this._dayContainsEvent = Integer.parseInt(preferences.getString(PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT, "0"));
 
         this._startTime = 0;
         this._endTime = 0;
@@ -169,6 +176,11 @@ class EventPreferencesCalendar extends EventPreferences {
                 descr = descr + context.getString(R.string.event_preferences_calendar_calendars) + ": ";
                 descr = descr + "<b>" + CalendarsMultiSelectDialogPreferenceX.getSummary(_calendars, context) + "</b> • ";
 
+                if (this._dayContainsEvent > 0) {
+                    descr = descr + context.getString(R.string.event_preferences_calendar_day_contains_event) + ": ";
+                    String[] dayContainsEventArray = context.getResources().getStringArray(R.array.eventCalendarDayContainsEventArray);
+                    descr = descr + "<b>" + dayContainsEventArray[this._dayContainsEvent] + "</b> • ";
+                }
                 if (this._allEvents) {
                     descr = descr + "<b>" + context.getString(R.string.event_preferences_calendar_all_events) + "</b> • ";
                 } else {
@@ -277,7 +289,8 @@ class EventPreferencesCalendar extends EventPreferences {
 
         if (key.equals(PREF_EVENT_CALENDAR_SEARCH_FIELD) ||
             key.equals(PREF_EVENT_CALENDAR_AVAILABILITY) ||
-            key.equals(PREF_EVENT_CALENDAR_STATUS))
+            key.equals(PREF_EVENT_CALENDAR_STATUS) ||
+            key.equals(PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT))
         {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
@@ -336,7 +349,6 @@ class EventPreferencesCalendar extends EventPreferences {
             boolean bold = prefMng.getSharedPreferences().getBoolean(PREF_EVENT_CALENDAR_ALL_EVENTS, false);
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
         }
-
         boolean allEventsNotChecked = !preferences.getBoolean(PREF_EVENT_CALENDAR_ALL_EVENTS, false);
         enabled = enabled && allEventsNotChecked;
         preference = prefMng.findPreference(PREF_EVENT_CALENDAR_SEARCH_FIELD);
@@ -348,6 +360,11 @@ class EventPreferencesCalendar extends EventPreferences {
         if (preference != null) {
             preference.setEnabled(allEventsNotChecked);
             boolean bold = !prefMng.getSharedPreferences().getString(PREF_EVENT_CALENDAR_SEARCH_STRING, "").isEmpty();
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
+        }
+        preference = prefMng.findPreference(PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT);
+        if (preference != null) {
+            boolean bold = Integer.parseInt(prefMng.getSharedPreferences().getString(PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT, "0")) > 0;
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
         }
     }
@@ -368,7 +385,8 @@ class EventPreferencesCalendar extends EventPreferences {
             key.equals(PREF_EVENT_CALENDAR_AVAILABILITY) ||
             key.equals(PREF_EVENT_CALENDAR_STATUS) ||
             key.equals(PREF_EVENT_CALENDAR_START_BEFORE_EVENT) ||
-            key.equals(PREF_EVENT_CALENDAR_APP_SETTINGS))
+            key.equals(PREF_EVENT_CALENDAR_APP_SETTINGS) ||
+            key.equals(PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -386,13 +404,15 @@ class EventPreferencesCalendar extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALENDAR_ALL_EVENTS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALENDAR_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_CALENDAR_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesCalendar tmp = new EventPreferencesCalendar(this._event, this._enabled, this._calendars, this._allEvents,
-                    this._searchField, this._searchString, this._availability, this._status, this._ignoreAllDayEvents, this._startBeforeEvent);
+                    this._searchField, this._searchString, this._availability, this._status, this._ignoreAllDayEvents, this._startBeforeEvent,
+                    this._dayContainsEvent);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -423,7 +443,7 @@ class EventPreferencesCalendar extends EventPreferences {
         boolean runnable = super.isRunnable(context);
 
         runnable = runnable && (!_calendars.isEmpty());
-        runnable = runnable && (_allEvents || (!_searchString.isEmpty()));
+        runnable = runnable && ((_dayContainsEvent > 0) || _allEvents || (!_searchString.isEmpty()));
 
         return runnable;
     }

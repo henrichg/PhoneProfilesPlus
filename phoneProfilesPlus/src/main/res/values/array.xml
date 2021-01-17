@@ -1207,5 +1207,15 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+    <string-array name="eventCalendarDayContainsEventArray">
+        <item>@string/array_event_pref_calendarDayContainsEvent_notTestIt</item>
+        <item>@string/array_event_pref_calendarDayContainsEvent_contains</item>
+        <item>@string/array_event_pref_calendarDayContainsEvent_notContains</item>
+    </string-array>
+    <string-array name="eventCalendarDayContainsEventValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
 </resources>

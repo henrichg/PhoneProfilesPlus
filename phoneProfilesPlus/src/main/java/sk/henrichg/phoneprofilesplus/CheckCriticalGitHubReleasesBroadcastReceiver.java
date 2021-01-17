@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -317,8 +318,10 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             mBuilder.addAction(actionBuilder.build());
 
             Notification notification = mBuilder.build();
-            notification.vibrate = null;
-            notification.defaults &= ~DEFAULT_VIBRATE;
+            if (Build.VERSION.SDK_INT < 26) {
+                notification.vibrate = null;
+                notification.defaults &= ~DEFAULT_VIBRATE;
+            }
 
             NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
             try {

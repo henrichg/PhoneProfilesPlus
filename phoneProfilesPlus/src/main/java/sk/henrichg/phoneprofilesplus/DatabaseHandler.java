@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2443;
+    private static final int DATABASE_VERSION = 2444;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -339,6 +339,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_CALENDAR_STATUS = "calendarStatus";
     private static final String KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END = "manualProfileActivationAtEnd";
     private static final String KEY_E_CALENDAR_EVENT_TODAY_EXISTS = "calendarEventTodayExists";
+    private static final String KEY_E_CALENDAR_DAY_CONTAINS_EVENT = "calendarDayContainsEvent";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -725,7 +726,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_AT_END_HOW_UNDO + " " + INTEGER_TYPE + ","
                 + KEY_E_CALENDAR_STATUS + " " + INTEGER_TYPE + ","
                 + KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END + " " + INTEGER_TYPE + ","
-                + KEY_E_CALENDAR_EVENT_TODAY_EXISTS + " " + INTEGER_TYPE
+                + KEY_E_CALENDAR_EVENT_TODAY_EXISTS + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_DAY_CONTAINS_EVENT + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1135,6 +1137,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_STATUS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_EVENT_TODAY_EXISTS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_DAY_CONTAINS_EVENT, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -2993,6 +2996,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion < 2443)
         {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_EVENT_TODAY_EXISTS + "=0");
+        }
+
+        if (oldVersion < 2444)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_DAY_CONTAINS_EVENT + "=0");
         }
 
     }
@@ -5400,7 +5408,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_CALENDAR_START_BEFORE_EVENT,
                         KEY_E_CALENDAR_SENSOR_PASSED,
                         KEY_E_CALENDAR_ALL_EVENTS,
-                        KEY_E_CALENDAR_EVENT_TODAY_EXISTS
+                        KEY_E_CALENDAR_EVENT_TODAY_EXISTS,
+                        KEY_E_CALENDAR_DAY_CONTAINS_EVENT
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -5425,6 +5434,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._startBeforeEvent = cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_START_BEFORE_EVENT));
                 eventPreferences._allEvents = (cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_ALL_EVENTS)) == 1);
                 eventPreferences._eventTodayExists = (cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_EVENT_TODAY_EXISTS)) == 1);
+                eventPreferences._dayContainsEvent = cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_DAY_CONTAINS_EVENT));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_SENSOR_PASSED)));
             }
             cursor.close();
@@ -5956,6 +5966,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_CALENDAR_SENSOR_PASSED, eventPreferences.getSensorPassed());
         values.put(KEY_E_CALENDAR_ALL_EVENTS, (eventPreferences._allEvents) ? 1 : 0);
         values.put(KEY_E_CALENDAR_EVENT_TODAY_EXISTS, (eventPreferences._eventTodayExists) ? 1 : 0);
+        values.put(KEY_E_CALENDAR_DAY_CONTAINS_EVENT, eventPreferences._dayContainsEvent);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
