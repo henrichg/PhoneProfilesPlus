@@ -143,7 +143,7 @@ class ContactsCache {
     {
         if (cached || caching) return;
 
-//        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- START");
+        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- START");
 
         caching = true;
         //cancelled = false;
@@ -166,6 +166,7 @@ class ContactsCache {
 
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
+                        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "(1)");
 
                         long contactId = mCursor.getLong(0);
                         String phoneNumber = mCursor.getString(1);
@@ -186,6 +187,8 @@ class ContactsCache {
                     mCursor.close();
                 }
 
+                PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "(2)");
+
                 //if (cancelled)
                 //    return;
 
@@ -199,6 +202,8 @@ class ContactsCache {
 
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
+                        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "(3)");
+
                         long contactId = mCursor.getLong(0);
                         String name = mCursor.getString(1);
                         String photo = mCursor.getString(2);
@@ -226,6 +231,8 @@ class ContactsCache {
 
                     mCursor.close();
                 }
+
+                PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "(4)");
 
                 //if (cancelled)
                 //    return;
@@ -259,7 +266,7 @@ class ContactsCache {
         }
         //}
 
-        //PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- END");
+        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- END");
 
         caching = false;
     }
