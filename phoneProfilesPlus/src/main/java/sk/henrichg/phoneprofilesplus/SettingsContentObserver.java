@@ -126,10 +126,10 @@ class SettingsContentObserver  extends ContentObserver {
         //super.onChange(selfChange);
 
 //        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
-        if (uri != null)
-            PPApplication.logE("[TEST BATTERY] SettingsContentObserver.onChange", "uri="+uri.toString());
-        else
-            PPApplication.logE("[TEST BATTERY] SettingsContentObserver.onChange", "without Uri");
+//        if (uri != null)
+//            PPApplication.logE("[TEST BATTERY] SettingsContentObserver.onChange", "uri="+uri.toString());
+//        else
+//            PPApplication.logE("[TEST BATTERY] SettingsContentObserver.onChange", "without Uri");
 
         /*if (PPApplication.logEnabled()) {
             //int currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
