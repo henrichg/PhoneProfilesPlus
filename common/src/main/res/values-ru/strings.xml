@@ -1557,10 +1557,15 @@
     <string name="normal_github_release">Новая версия приложения</string>
     <string name="normal_github_release_notification">Нажмите на это уведомление, чтобы загрузить с GitHub новую версию PhoneProfilesPlus.</string>
     <string name="normal_github_release_confirm_notification_disable">Вы уверены, что больше не хотите видеть это уведомление?</string>
-    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
-    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
-    <string name="accessibility_service_enabled">Enabled</string>
-    <string name="accessibility_service_disabled">Disabled</string>
+    <string name="profile_preferences_PPPExtender_installed_summary">Установлен:</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Не установлен</string>
+    <string name="accessibility_service_enabled">Включена</string>
+    <string name="accessibility_service_disabled">Отключена</string>
+    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Не работает в Android 10+</string>
+    <string name="event_preferences_calendar_day_contains_event">День содержит событие</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Не проверять</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Содержит</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Не содержит</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

@@ -1558,10 +1558,15 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="normal_github_release">Nuova versione dell\'app</string>
     <string name="normal_github_release_notification">Clicca su questa notifica per scaricare la nuova versione di PhoneProfilesPlus rilasciata da GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Sei sicuro di non mostrare questa notifica in futuro?</string>
-    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
-    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
-    <string name="accessibility_service_enabled">Enabled</string>
-    <string name="accessibility_service_disabled">Disabled</string>
+    <string name="profile_preferences_PPPExtender_installed_summary">Installato:</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Non installato</string>
+    <string name="accessibility_service_enabled">Abilitato</string>
+    <string name="accessibility_service_disabled">Disabilitato</string>
+    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Non funziona in Android 10+</string>
+    <string name="event_preferences_calendar_day_contains_event">Il giorno contiene l\'evento</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Non provarlo</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Contiene</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Non contiene</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>

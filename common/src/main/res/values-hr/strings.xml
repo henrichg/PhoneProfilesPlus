@@ -1558,10 +1558,15 @@
     <string name="normal_github_release">Verzija najnovije aplikacije</string>
     <string name="normal_github_release_notification">Kliknuti na ovu obavijest za preuzimanje nove aplikacije PhoneProfilesPlus sa GitHub-a.</string>
     <string name="normal_github_release_confirm_notification_disable">Da li stvarno ne želite da se ova obavijest ne prikazuje u budućnosti?</string>
-    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
-    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
-    <string name="accessibility_service_enabled">Enabled</string>
-    <string name="accessibility_service_disabled">Disabled</string>
+    <string name="profile_preferences_PPPExtender_installed_summary">Instalirano:</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Nije instalirano</string>
+    <string name="accessibility_service_enabled">Omogućeno</string>
+    <string name="accessibility_service_disabled">Onemogućeno</string>
+    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>
+    <string name="event_preferences_calendar_day_contains_event">Day contains event</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Do not test it</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

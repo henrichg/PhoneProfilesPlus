@@ -1557,10 +1557,15 @@
     <string name="normal_github_release">Nieuwe app versie</string>
     <string name="normal_github_release_notification">Klik op deze melding om de belangrijke PhoneProfilesPlus versie te downloaden vanuit GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Weet je zeker dat je deze melding in de toekomst niet meer wilt weergeven?</string>
-    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
-    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
-    <string name="accessibility_service_enabled">Enabled</string>
-    <string name="accessibility_service_disabled">Disabled</string>
+    <string name="profile_preferences_PPPExtender_installed_summary">Geïnstalleerd:</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Niet geïnstalleerd</string>
+    <string name="accessibility_service_enabled">Ingeschakeld</string>
+    <string name="accessibility_service_disabled">Uitgeschakeld</string>
+    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>
+    <string name="event_preferences_calendar_day_contains_event">Day contains event</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Do not test it</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

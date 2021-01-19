@@ -1551,17 +1551,22 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignoruj i nie wstrzymuj</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Ręczna aktywacja profilu na końcu</string>
     <string name="critical_github_release_confirm_notification_disable">Do pobrania jest wymagana krytyczna aktualizacja PhoneProfilesPlus. Czy na pewno nie pokazywać tego powiadomienia w przyszłości?</string>
-    <string name="critical_github_release_notification_disable_button">Ignore this version</string>
+    <string name="critical_github_release_notification_disable_button">Ignoruj tę wersję</string>
     <string name="editor_drawer_order_start_profile_name">Start profile name</string>
     <string name="editor_drawer_order_end_profile_name">End profile name</string>
     <string name="donation_paypal_donate_button">Wesprzyj</string>
-    <string name="normal_github_release">New app. release</string>
-    <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from it\'s GitHub.</string>
-    <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
-    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
-    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
-    <string name="accessibility_service_enabled">Enabled</string>
-    <string name="accessibility_service_disabled">Disabled</string>
+    <string name="normal_github_release">Nowa wersja aplikacji</string>
+    <string name="normal_github_release_notification">Kliknij to powiadomienie, aby pobrać nową wersję PhoneProfilesPlus z GitHub.</string>
+    <string name="normal_github_release_confirm_notification_disable">Czy na pewno nie pokazywać tego powiadomienia w przyszłości?</string>
+    <string name="profile_preferences_PPPExtender_installed_summary">Zainstalowano:</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Nie zainstalowano</string>
+    <string name="accessibility_service_enabled">Włączona</string>
+    <string name="accessibility_service_disabled">Wyłączona</string>
+    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>
+    <string name="event_preferences_calendar_day_contains_event">Day contains event</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Do not test it</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

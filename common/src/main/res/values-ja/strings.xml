@@ -1557,10 +1557,15 @@
     <string name="normal_github_release">New app. release</string>
     <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from it\'s GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Are you sure to not show this notification in future?</string>
-    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
-    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
-    <string name="accessibility_service_enabled">Enabled</string>
-    <string name="accessibility_service_disabled">Disabled</string>
+    <string name="profile_preferences_PPPExtender_installed_summary">インストール済み:</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">インストールされていません</string>
+    <string name="accessibility_service_enabled">有効</string>
+    <string name="accessibility_service_disabled">無効</string>
+    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>
+    <string name="event_preferences_calendar_day_contains_event">Day contains event</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Do not test it</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

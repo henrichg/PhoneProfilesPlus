@@ -1561,6 +1561,11 @@
     <string name="profile_preferences_PPPExtender_not_installed_summary">Nenainštalované</string>
     <string name="accessibility_service_enabled">Povolené</string>
     <string name="accessibility_service_disabled">Zakázané</string>
+    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Nefunguje v Android 10+</string>
+    <string name="event_preferences_calendar_day_contains_event">Deň obsahuje udalosť</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Netestovať</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Obsahuje</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Neobsahuje</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

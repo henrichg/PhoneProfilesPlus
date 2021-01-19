@@ -1561,6 +1561,11 @@
     <string name="profile_preferences_PPPExtender_not_installed_summary">Nicht installiert</string>
     <string name="accessibility_service_enabled">Aktiviert</string>
     <string name="accessibility_service_disabled">Deaktiviert</string>
+    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>
+    <string name="event_preferences_calendar_day_contains_event">Day contains event</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Do not test it</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

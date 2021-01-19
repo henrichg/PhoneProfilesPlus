@@ -1557,10 +1557,15 @@
     <string name="normal_github_release">Nouvelle version de l\'application</string>
     <string name="normal_github_release_notification">Cliquez sur cette notification pour télécharger la mise à jour de PhoneProfilesPlus à partir de GitHub.</string>
     <string name="normal_github_release_confirm_notification_disable">Êtes-vous sûr de ne pas afficher cette notification à l\'avenir ?</string>
-    <string name="profile_preferences_PPPExtender_installed_summary">Installed:</string>
-    <string name="profile_preferences_PPPExtender_not_installed_summary">Not installed</string>
-    <string name="accessibility_service_enabled">Enabled</string>
-    <string name="accessibility_service_disabled">Disabled</string>
+    <string name="profile_preferences_PPPExtender_installed_summary">Installé :</string>
+    <string name="profile_preferences_PPPExtender_not_installed_summary">Non installé</string>
+    <string name="accessibility_service_enabled">Activé</string>
+    <string name="accessibility_service_disabled">Désactivé</string>
+    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>
+    <string name="event_preferences_calendar_day_contains_event">Day contains event</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Do not test it</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
