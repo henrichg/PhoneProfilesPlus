@@ -10,7 +10,7 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST]  CalendarEventExistsCheckBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST]  CalendarEventExistsCheckBroadcastReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "EventTimeBroadcastReceiver.onReceive", "EventTimeBroadcastReceiver_onReceive");
 
         String action = intent.getAction();
@@ -45,7 +45,7 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
                     }
 
 
-                    PPApplication.logE("[EVENTS_HANDLER_CALL] CalendarEventExistsCheckBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK");
+//                    PPApplication.logE("[EVENTS_HANDLER_CALL] CalendarEventExistsCheckBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
 
@@ -54,13 +54,13 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
 
                     for (Event _event : dataWrapper.eventList) {
                         if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
-                            PPApplication.logE("[CALENDAR] CalendarEventExistsCheckBroadcastReceiver.doWork", "setAlarm() - event._id=" + _event._id);
+//                            PPApplication.logE("[CALENDAR] CalendarEventExistsCheckBroadcastReceiver.doWork", "setAlarm() - event._id=" + _event._id);
                             _event._eventPreferencesCalendar.setAlarm(/*true,*/ 0, context, true);
                         }
                     }
 
 
-                    PPApplication.logE("[EVENTS_HANDLER_CALL] CalendarEventExistsCheckBroadcastReceiver.doWork", "END run");
+//                    PPApplication.logE("[EVENTS_HANDLER_CALL] CalendarEventExistsCheckBroadcastReceiver.doWork", "END run");
                 } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
