@@ -56,7 +56,7 @@ public class EditorProfileListFragment extends Fragment
 
     private View rootView;
     private RelativeLayout activatedProfileHeader;
-    private RecyclerView listView;
+    RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
     private Toolbar bottomToolbar;
@@ -321,7 +321,7 @@ public class EditorProfileListFragment extends Fragment
                         Profile profile = activityDataWrapper.getActivatedProfile(true,
                                 ApplicationPreferences.applicationEditorPrefIndicator);
                         updateHeader(profile);
-                        //listView.getRecycledViewPool().clear();
+                        listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
                     }
                     else {
                         if (filterType != EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
@@ -333,7 +333,7 @@ public class EditorProfileListFragment extends Fragment
                                 ApplicationPreferences.applicationEditorPrefIndicator);
                         updateHeader(profile);
 
-                        //listView.getRecycledViewPool().clear();
+                        listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
                         profileListAdapter = new EditorProfileListAdapter(fragment, activityDataWrapper, filterType, fragment);
 
@@ -359,7 +359,7 @@ public class EditorProfileListFragment extends Fragment
                         ApplicationPreferences.applicationEditorPrefIndicator);
                 updateHeader(profile);
 
-                //fragment.listView.getRecycledViewPool().clear();
+                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
                 fragment.profileListAdapter = new EditorProfileListAdapter(fragment, fragment.activityDataWrapper, filterType, fragment);
 
@@ -511,7 +511,7 @@ public class EditorProfileListFragment extends Fragment
                 fragment.listView.setAdapter(fragment.profileListAdapter);
 
                 // update activity for activated profile
-                //fragment.listView.getRecycledViewPool().clear();
+                fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
                 Profile profile = fragment.activityDataWrapper.getActivatedProfile(true,
                                 applicationEditorPrefIndicator);

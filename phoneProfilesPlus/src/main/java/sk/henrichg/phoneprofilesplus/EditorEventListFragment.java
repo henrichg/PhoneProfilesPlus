@@ -62,7 +62,7 @@ public class EditorEventListFragment extends Fragment
 
     private View rootView;
     private RelativeLayout activatedProfileHeader;
-    private RecyclerView listView;
+    RecyclerView listView;
     private TextView activeProfileName;
     private ImageView activeProfileIcon;
     private Toolbar bottomToolbar;

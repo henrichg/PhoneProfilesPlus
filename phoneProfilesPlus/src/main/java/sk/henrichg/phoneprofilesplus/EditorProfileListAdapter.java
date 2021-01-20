@@ -285,7 +285,7 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
             if (!activityDataWrapper.profileListFilled)
                 return;
 
-            //fragment.listView.getRecycledViewPool().clear();
+            fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
 
             //noinspection ForLoopReplaceableByForEach
             for (Iterator<Profile> it = activityDataWrapper.profileList.iterator(); it.hasNext(); ) {

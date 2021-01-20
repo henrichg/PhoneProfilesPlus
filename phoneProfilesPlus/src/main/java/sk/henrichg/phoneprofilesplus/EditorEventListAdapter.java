@@ -272,7 +272,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
             if (!activityDataWrapper.eventListFilled)
                 return;
 
-            //fragment.listView.getRecycledViewPool().clear();
+            fragment.listView.getRecycledViewPool().clear(); // maybe fix for java.lang.IndexOutOfBoundsException: Inconsistency detected.
             activityDataWrapper.eventList.clear();
         }
         notifyDataSetChanged();
