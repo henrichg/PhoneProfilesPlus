@@ -897,13 +897,27 @@ class EventPreferencesCalendar extends EventPreferences {
         }*/
 
         // Construct the query with the desired date range.
+        long startMillis;
+        long endMillis;
         Calendar calendar = Calendar.getInstance();
         long now = calendar.getTimeInMillis();
-        calendar.add(Calendar.DAY_OF_YEAR, -1);
-        long startMillis = calendar.getTimeInMillis();
-        calendar.add(Calendar.DAY_OF_YEAR, 32);
-        long endMillis = calendar.getTimeInMillis();
-
+        //noinspection IfStatementWithIdenticalBranches
+        if (_dayContainsEvent == 0) {
+            // search now - 1 day .. now + 31 days
+            calendar.add(Calendar.DAY_OF_YEAR, -1);
+            startMillis = calendar.getTimeInMillis();
+            calendar.add(Calendar.DAY_OF_YEAR, 32);
+            endMillis = calendar.getTimeInMillis();
+        }
+        else {
+            // search now at 00:00:00 .. now at 00:00:00 + 1 day
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            startMillis = calendar.getTimeInMillis();
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            endMillis = calendar.getTimeInMillis();
+        }
         Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
         ContentUris.appendId(builder, startMillis);
         ContentUris.appendId(builder, endMillis);
@@ -936,8 +950,7 @@ class EventPreferencesCalendar extends EventPreferences {
             cur = null;
         }
 
-        if (cur != null)
-        {
+        if (cur != null) {
             while (cur.moveToNext()) {
 
                 boolean calendarFound = false;
@@ -961,8 +974,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
                 endVal = cur.getLong(PROJECTION_END_INDEX);
 
-                if (cur.getInt(PROJECTION_ALL_DAY_INDEX) == 1)
-                {
+                if (cur.getInt(PROJECTION_ALL_DAY_INDEX) == 1) {
                     // get UTC offset
                     Date _now = new Date();
                     int utcOffset = TimeZone.getDefault().getOffset(_now.getTime());
@@ -975,24 +987,19 @@ class EventPreferencesCalendar extends EventPreferences {
 
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
-                if ((beginVal <= now) && (endVal > now))
-                {
+                if ((beginVal <= now) && (endVal > now)) {
                     // event instance is found - actual instance
                     _eventFound = true;
                     _startTime = beginVal + gmtOffset;
                     _endTime = endVal + gmtOffset;
                     break;
-                }
-                else
-                if (beginVal > now)
-                {
+                } else if (beginVal > now) {
                     // event instance is found - future instance
                     _eventFound = true;
                     _startTime = beginVal + gmtOffset;
                     _endTime = endVal + gmtOffset;
                     break;
                 }
-
             }
 
             cur.close();

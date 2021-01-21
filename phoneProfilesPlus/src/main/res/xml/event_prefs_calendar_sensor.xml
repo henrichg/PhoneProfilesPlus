@@ -24,66 +24,76 @@
         app:entryValues="@array/eventCalendarDayContainsEventValues"
         app:dependency="eventCalendarEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
-        app:key="eventCalendarAllEvents"
-        app:title="@string/event_preferences_calendar_all_events"
-        app:defaultValue="false"
-        app:dependency="eventCalendarEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/event_preferences_calendar_search_field"
-        app:summary="@string/array_event_pref_calendarSearchField_eventName"
-        app:key="eventCalendarSearchField"
-        app:defaultValue="0"
-        app:entries="@array/eventCalendarSearchFieldArray"
-        app:entryValues="@array/eventCalendarSearchFieldValues"
-        app:dependency="eventCalendarEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.SearchStringPreferenceX
-        app:key="eventCalendarSearchString"
-        app:summary="@string/event_preferences_calendar_search_string"
-        app:title="@string/event_preferences_calendar_search_string"
-        app:dependency="eventCalendarEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
-        app:key="eventCalendarIgnoreAllDayEvents"
-        app:title="@string/event_preferences_calendar_ignore_all_day_events"
-        app:defaultValue="false"
-        app:dependency="eventCalendarEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/event_preference_calendar_availability"
-        app:summary="@string/array_event_pref_calendarAvailability_noCheck"
-        app:key="eventCalendarAvailability"
-        app:defaultValue="0"
-        app:entries="@array/eventCalendarAvailabilityArray"
-        app:entryValues="@array/eventCalendarAvailabilityValues"
-        app:dependency="eventCalendarEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/event_preference_calendar_status"
-        app:summary="@string/array_event_pref_calendarStatus_noCheck"
-        app:key="eventCalendarStatus"
-        app:defaultValue="0"
-        app:entries="@array/eventCalendarStatusArray"
-        app:entryValues="@array/eventCalendarStatusValues"
-        app:dependency="eventCalendarEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
-        app:key="eventCalendarStartBeforeEvent"
-        app:summary="@string/event_preferences_startBeforeEvent"
-        app:title="@string/event_preferences_startBeforeEvent"
-        app:defaultValue="0"
-        app:dMin="0"
-        app:dMax="86400"
-        app:dependency="eventCalendarEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-    <Preference
-        app:key="eventCalendarBackgroundScanningAppSettings"
-        app:title="@string/phone_profiles_pref_category_background_scanning"
-        app:summary="@string/phone_profiles_pref_eventBackgroundScanningAppSettings_summary"
-        app:dependency="eventCalendarEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget" />
+    <PreferenceCategory
+        app:key="eventCalendarCalendarEventParametersCategory"
+        app:title="@string/event_preferences_calendar_event_parameters"
+        app:layout="@layout/mp_preference_category" >
+        <SwitchPreferenceCompat
+            app:key="eventCalendarAllEvents"
+            app:title="@string/event_preferences_calendar_all_events"
+            app:defaultValue="false"
+            app:dependency="eventCalendarEnabled"
+            app:layout="@layout/mp_preference_material_widget" />
+        <ListPreference
+            app:title="@string/event_preferences_calendar_search_field"
+            app:summary="@string/array_event_pref_calendarSearchField_eventName"
+            app:key="eventCalendarSearchField"
+            app:defaultValue="0"
+            app:entries="@array/eventCalendarSearchFieldArray"
+            app:entryValues="@array/eventCalendarSearchFieldValues"
+            app:dependency="eventCalendarEnabled"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.SearchStringPreferenceX
+            app:key="eventCalendarSearchString"
+            app:summary="@string/event_preferences_calendar_search_string"
+            app:title="@string/event_preferences_calendar_search_string"
+            app:dependency="eventCalendarEnabled"
+            app:layout="@layout/mp_preference_material_widget" />
+        <SwitchPreferenceCompat
+            app:key="eventCalendarIgnoreAllDayEvents"
+            app:title="@string/event_preferences_calendar_ignore_all_day_events"
+            app:defaultValue="false"
+            app:dependency="eventCalendarEnabled"
+            app:layout="@layout/mp_preference_material_widget" />
+        <ListPreference
+            app:title="@string/event_preference_calendar_availability"
+            app:summary="@string/array_event_pref_calendarAvailability_noCheck"
+            app:key="eventCalendarAvailability"
+            app:defaultValue="0"
+            app:entries="@array/eventCalendarAvailabilityArray"
+            app:entryValues="@array/eventCalendarAvailabilityValues"
+            app:dependency="eventCalendarEnabled"
+            app:layout="@layout/mp_preference_material_widget" />
+        <ListPreference
+            app:title="@string/event_preference_calendar_status"
+            app:summary="@string/array_event_pref_calendarStatus_noCheck"
+            app:key="eventCalendarStatus"
+            app:defaultValue="0"
+            app:entries="@array/eventCalendarStatusArray"
+            app:entryValues="@array/eventCalendarStatusValues"
+            app:dependency="eventCalendarEnabled"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="eventCalendarOtherParametersCategory"
+        app:title="@string/event_preferences_other_parameters"
+        app:layout="@layout/mp_preference_category" >
+        <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+            app:key="eventCalendarStartBeforeEvent"
+            app:summary="@string/event_preferences_startBeforeEvent"
+            app:title="@string/event_preferences_startBeforeEvent"
+            app:defaultValue="0"
+            app:dMin="0"
+            app:dMax="86400"
+            app:dependency="eventCalendarEnabled"
+            app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="eventCalendarBackgroundScanningAppSettings"
+            app:title="@string/phone_profiles_pref_category_background_scanning"
+            app:summary="@string/phone_profiles_pref_eventBackgroundScanningAppSettings_summary"
+            app:dependency="eventCalendarEnabled"
+            app:widgetLayout="@layout/widget_start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>
