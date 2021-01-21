@@ -208,7 +208,7 @@ class EventPreferencesCalendar extends EventPreferences {
                         if (_eventFound) {
                             long alarmTime;
                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
-                            if (_dayContainsEvent == 0) {
+                            /*if (_dayContainsEvent == 0) {
                                 String alarmTimeS;
                                 if (_event.getStatus() == Event.ESTATUS_PAUSE) {
                                     alarmTime = computeAlarm(true);
@@ -226,7 +226,7 @@ class EventPreferencesCalendar extends EventPreferences {
                                     descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
                                 }
                             }
-                            else {
+                            else {*/
                                 String alarmTimeS;
                                 alarmTime = computeAlarm(true);
                                 // date and time format by user system settings configuration
@@ -241,7 +241,7 @@ class EventPreferencesCalendar extends EventPreferences {
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                 descr = descr + "<br>"; //'\n';
                                 descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
-                            }
+                            //}
                         } else {
                             descr = descr + "<br>"; //'\n';
                             descr = descr + "&nbsp;&nbsp;&nbsp;-> " + context.getResources().getString(R.string.event_preferences_calendar_no_event);
