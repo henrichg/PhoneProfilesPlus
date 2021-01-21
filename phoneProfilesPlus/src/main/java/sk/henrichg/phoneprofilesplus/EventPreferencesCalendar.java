@@ -208,15 +208,33 @@ class EventPreferencesCalendar extends EventPreferences {
                         if (_eventFound) {
                             long alarmTime;
                             //SimpleDateFormat sdf = new SimpleDateFormat("EEd/MM/yy HH:mm");
-                            String alarmTimeS;
-                            if (_event.getStatus() == Event.ESTATUS_PAUSE) {
+                            if (_dayContainsEvent == 0) {
+                                String alarmTimeS;
+                                if (_event.getStatus() == Event.ESTATUS_PAUSE) {
+                                    alarmTime = computeAlarm(true);
+                                    // date and time format by user system settings configuration
+                                    alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                            " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                                    descr = descr + "<br>"; //'\n';
+                                    descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                                } else if (_event.getStatus() == Event.ESTATUS_RUNNING) {
+                                    alarmTime = computeAlarm(false);
+                                    // date and time format by user system settings configuration
+                                    alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
+                                            " " + DateFormat.getTimeFormat(context).format(alarmTime);
+                                    descr = descr + "<br>"; //'\n';
+                                    descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
+                                }
+                            }
+                            else {
+                                String alarmTimeS;
                                 alarmTime = computeAlarm(true);
                                 // date and time format by user system settings configuration
                                 alarmTimeS = "(st) " + DateFormat.getDateFormat(context).format(alarmTime) +
                                         " " + DateFormat.getTimeFormat(context).format(alarmTime);
                                 descr = descr + "<br>"; //'\n';
                                 descr = descr + "&nbsp;&nbsp;&nbsp;-> " + alarmTimeS;
-                            } else if (_event.getStatus() == Event.ESTATUS_RUNNING) {
+
                                 alarmTime = computeAlarm(false);
                                 // date and time format by user system settings configuration
                                 alarmTimeS = "(et) " + DateFormat.getDateFormat(context).format(alarmTime) +
@@ -464,6 +482,9 @@ class EventPreferencesCalendar extends EventPreferences {
     {
         //PPApplication.logE("EventPreferencesCalendar.computeAlarm","startEvent="+startEvent);
 
+        if ((_startTime == 0) || (_endTime == 0))
+            return 0;
+
         ///// set calendar for startTime and endTime
         Calendar calStartTime = Calendar.getInstance();
         Calendar calEndTime = Calendar.getInstance();
@@ -485,7 +506,6 @@ class EventPreferencesCalendar extends EventPreferences {
             alarmTime = calEndTime.getTimeInMillis();
 
         return alarmTime;
-
     }
 
     @Override
@@ -651,6 +671,8 @@ class EventPreferencesCalendar extends EventPreferences {
                     //    alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime + Event.EVENT_ALARM_TIME_OFFSET, pendingIntent);
                 }
             }
+
+            return;
         }
 
 
@@ -902,13 +924,13 @@ class EventPreferencesCalendar extends EventPreferences {
         Calendar calendar = Calendar.getInstance();
         long now = calendar.getTimeInMillis();
         //noinspection IfStatementWithIdenticalBranches
-        if (_dayContainsEvent == 0) {
+        //if (_dayContainsEvent == 0) {
             // search now - 1 day .. now + 31 days
             calendar.add(Calendar.DAY_OF_YEAR, -1);
             startMillis = calendar.getTimeInMillis();
             calendar.add(Calendar.DAY_OF_YEAR, 32);
             endMillis = calendar.getTimeInMillis();
-        }
+        /*}
         else {
             // search now at 00:00:00 .. now at 00:00:00 + 1 day
             calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -917,7 +939,7 @@ class EventPreferencesCalendar extends EventPreferences {
             startMillis = calendar.getTimeInMillis();
             calendar.add(Calendar.DAY_OF_YEAR, 1);
             endMillis = calendar.getTimeInMillis();
-        }
+        }*/
         Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
         ContentUris.appendId(builder, startMillis);
         ContentUris.appendId(builder, endMillis);
