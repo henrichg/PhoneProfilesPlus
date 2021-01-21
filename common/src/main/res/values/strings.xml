@@ -1693,7 +1693,7 @@
 
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>
 
-    <string name="event_preferences_calendar_day_contains_event">Day contains event</string>
+    <string name="event_preferences_calendar_day_contains_event">Current day contains event</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Do not test it</string>
     <string name="array_event_pref_calendarDayContainsEvent_contains">Contains</string>
     <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains</string>
