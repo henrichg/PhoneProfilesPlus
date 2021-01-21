@@ -1562,10 +1562,12 @@
     <string name="accessibility_service_enabled">Povolené</string>
     <string name="accessibility_service_disabled">Zakázané</string>
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Nefunguje v Android 10+</string>
-    <string name="event_preferences_calendar_day_contains_event">Deň obsahuje udalosť</string>
+    <string name="event_preferences_calendar_day_contains_event">Aktuálny deň obsahuje udalosť kalendára</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Netestovať</string>
-    <string name="array_event_pref_calendarDayContainsEvent_contains">Obsahuje</string>
-    <string name="array_event_pref_calendarDayContainsEvent_notContains">Neobsahuje</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Obsahuje A má nakonfigurované parametre</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Neobsahuje ALEBO má nakonfigurované parametre</string>
+    <string name="event_preferences_calendar_event_parameters">Parametre udalosti kalendára</string>
+    <string name="event_preferences_other_parameters">Ostatné parametre</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

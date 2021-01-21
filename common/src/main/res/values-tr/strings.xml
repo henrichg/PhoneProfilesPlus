@@ -1562,10 +1562,12 @@
     <string name="accessibility_service_enabled">Faal</string>
     <string name="accessibility_service_disabled">Kapalı</string>
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Android 10 ve üstünde çalışmıyor</string>
-    <string name="event_preferences_calendar_day_contains_event">Gün, durum ihtiva ediyor</string>
+    <string name="event_preferences_calendar_day_contains_event">Current day contains calendar event</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Tecrübe edilmesin</string>
-    <string name="array_event_pref_calendarDayContainsEvent_contains">İhtiva ediyor</string>
-    <string name="array_event_pref_calendarDayContainsEvent_notContains">İhtiva etmiyor</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains AND has configured parameters</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
+    <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
+    <string name="event_preferences_other_parameters">Other parameters</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
