@@ -49,12 +49,23 @@
             app:title="@string/event_preferences_calendar_search_string"
             app:dependency="eventCalendarEnabled"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
-            app:key="eventCalendarIgnoreAllDayEvents"
-            app:title="@string/event_preferences_calendar_ignore_all_day_events"
-            app:defaultValue="false"
+
+<!--        <SwitchPreferenceCompat-->
+<!--            app:key="eventCalendarIgnoreAllDayEvents"-->
+<!--            app:title="@string/event_preferences_calendar_ignore_all_day_events"-->
+<!--            app:defaultValue="false"-->
+<!--            app:dependency="eventCalendarEnabled"-->
+<!--            app:layout="@layout/mp_preference_material_widget" />-->
+        <ListPreference
+            app:title="@string/event_preferences_calendar_all_day_events"
+            app:summary="@string/array_event_pref_calendarAllDayEvents_dontCheck"
+            app:key="eventCalendarAllDayEvents"
+            app:defaultValue="0"
+            app:entries="@array/eventCalendarAllDayEventsArray"
+            app:entryValues="@array/eventCalendarAllDayEventsValues"
             app:dependency="eventCalendarEnabled"
             app:layout="@layout/mp_preference_material_widget" />
+
         <ListPreference
             app:title="@string/event_preference_calendar_availability"
             app:summary="@string/array_event_pref_calendarAvailability_noCheck"

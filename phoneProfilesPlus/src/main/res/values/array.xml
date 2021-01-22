@@ -1217,5 +1217,15 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="eventCalendarAllDayEventsArray">
+        <item>@string/array_event_pref_calendarAllDayEvents_dontCheck</item>
+        <item>@string/array_event_pref_calendarAllDayEvents_onlyNotAllDays</item>
+        <item>@string/array_event_pref_calendarDayContainsEvent_onlyAllDays</item>
+    </string-array>
+    <string-array name="eventCalendarAllDayEventsValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
 </resources>
