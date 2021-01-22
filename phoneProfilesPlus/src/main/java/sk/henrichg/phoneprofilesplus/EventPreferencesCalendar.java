@@ -201,11 +201,9 @@ class EventPreferencesCalendar extends EventPreferences {
 
                 //if (this._ignoreAllDayEvents)
                 //    descr = descr + "<b>" + context.getString(R.string.event_preferences_calendar_ignore_all_day_events) + "</b> • ";
-                if (this._allDayEvents > 0) {
-                    descr = descr + context.getString(R.string.event_preferences_calendar_all_day_events) + ": ";
-                    String[] dayContainsEventArray = context.getResources().getStringArray(R.array.eventCalendarAllDayEventsArray);
-                    descr = descr + "<b>" + dayContainsEventArray[this._allDayEvents] + "</b> • ";
-                }
+                descr = descr + context.getString(R.string.event_preferences_calendar_all_day_events) + ": ";
+                String[] dayContainsEventArray = context.getResources().getStringArray(R.array.eventCalendarAllDayEventsArray);
+                descr = descr + "<b>" + dayContainsEventArray[this._allDayEvents] + "</b> • ";
 
 
                 String[] availabilities = context.getResources().getStringArray(R.array.eventCalendarAvailabilityArray);
