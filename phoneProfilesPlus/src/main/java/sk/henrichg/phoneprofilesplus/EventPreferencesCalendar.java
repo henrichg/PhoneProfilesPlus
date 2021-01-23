@@ -1018,7 +1018,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
                 endVal = cur.getLong(PROJECTION_END_INDEX);
 
-                if (cur.getInt(PROJECTION_ALL_DAY_INDEX) == 1) {
+                if (allDays == 1) {
                     // get UTC offset
                     Date _now = new Date();
                     int utcOffset = TimeZone.getDefault().getOffset(_now.getTime());
