@@ -3010,27 +3010,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_ALL_DAY_EVENTS + "=0");
 
-            final String selectQuery = "SELECT " + KEY_E_ID + "," +
-                    KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS +
-                    " FROM " + TABLE_EVENTS;
+            try {
+                final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                        KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS +
+                        " FROM " + TABLE_EVENTS;
 
-            Cursor cursor = db.rawQuery(selectQuery, null);
+                Cursor cursor = db.rawQuery(selectQuery, null);
 
-            if (cursor.moveToFirst()) {
-                do {
-                    long id = cursor.getLong(cursor.getColumnIndex(KEY_E_ID));
-                    int ignoreAllDayEvents = cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS));
+                if (cursor.moveToFirst()) {
+                    do {
+                        long id = cursor.getLong(cursor.getColumnIndex(KEY_E_ID));
+                        int ignoreAllDayEvents = cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS));
 
-                    if (ignoreAllDayEvents == 1) {
-                        db.execSQL("UPDATE " + TABLE_EVENTS +
-                                " SET " + KEY_E_CALENDAR_ALL_DAY_EVENTS + "=1 " +
-                                "WHERE " + KEY_E_ID + "=" + id);
+                        if (ignoreAllDayEvents == 1) {
+                            db.execSQL("UPDATE " + TABLE_EVENTS +
+                                    " SET " + KEY_E_CALENDAR_ALL_DAY_EVENTS + "=1 " +
+                                    "WHERE " + KEY_E_ID + "=" + id);
 
-                    }
-                } while (cursor.moveToNext());
+                        }
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+            } catch (Exception ignored) {
+                // KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS may not exists
             }
-
-            cursor.close();
 
         }
 
