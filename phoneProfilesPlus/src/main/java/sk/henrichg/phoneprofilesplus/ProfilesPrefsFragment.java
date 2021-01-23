@@ -3755,53 +3755,51 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
 
-                if (!preferenceAllowed.notAllowedRoot) {
-                    // not some permissions
-                    if (Permissions.checkProfilePermissions(context, profile).size() == 0) {
+                // not some permissions
+                if (Permissions.checkProfilePermissions(context, profile).size() == 0) {
 //                        PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "profile permisions=all granted");
-                        Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
-                        if (preference != null) {
-                            PreferenceScreen preferenceCategory = prefMng.findPreference(rootScreen);
-                            if (preferenceCategory != null)
-                                preferenceCategory.removePreference(preference);
-                        }
-                    } else {
+                    Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                    if (preference != null) {
+                        PreferenceScreen preferenceCategory = prefMng.findPreference(rootScreen);
+                        if (preferenceCategory != null)
+                            preferenceCategory.removePreference(preference);
+                    }
+                } else {
 //                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "app. permissions not granted");
-                        //PPApplication.logE("ProfilesPrefsFragment.setRedTextToPreferences", "profile._id="+profile._id);
-                        Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
-                        if (preference == null) {
-                            PreferenceScreen preferenceCategory = findPreference(rootScreen);
-                            if (preferenceCategory != null) {
-                                preference = new Preference(context);
-                                preference.setKey(PRF_GRANT_PERMISSIONS);
-                                preference.setIconSpaceReserved(false);
-                                if (profile._id > 0)
-                                    preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
-                                else
-                                    preference.setWidgetLayoutResource(R.layout.widget_exclamation_preference);
-                                preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                                preference.setOrder(-100);
-                                preferenceCategory.addPreference(preference);
-                            }
+                    //PPApplication.logE("ProfilesPrefsFragment.setRedTextToPreferences", "profile._id="+profile._id);
+                    Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                    if (preference == null) {
+                        PreferenceScreen preferenceCategory = findPreference(rootScreen);
+                        if (preferenceCategory != null) {
+                            preference = new Preference(context);
+                            preference.setKey(PRF_GRANT_PERMISSIONS);
+                            preference.setIconSpaceReserved(false);
+                            if (profile._id > 0)
+                                preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                            else
+                                preference.setWidgetLayoutResource(R.layout.widget_exclamation_preference);
+                            preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                            preference.setOrder(-100);
+                            preferenceCategory.addPreference(preference);
                         }
-                        if (preference != null) {
-                            String _title = order + ". " + getString(R.string.preferences_grantPermissions_title);
-                            ++order;
-                            Spannable title = new SpannableString(_title);
-                            title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
-                            preference.setTitle(title);
-                            Spannable summary = new SpannableString(getString(R.string.preferences_grantPermissions_summary));
-                            summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
-                            preference.setSummary(summary);
+                    }
+                    if (preference != null) {
+                        String _title = order + ". " + getString(R.string.preferences_grantPermissions_title);
+                        ++order;
+                        Spannable title = new SpannableString(_title);
+                        title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
+                        preference.setTitle(title);
+                        Spannable summary = new SpannableString(getString(R.string.preferences_grantPermissions_summary));
+                        summary.setSpan(new ForegroundColorSpan(Color.RED), 0, summary.length(), 0);
+                        preference.setSummary(summary);
 
-                            if (profile._id > 0) {
-                                preference.setOnPreferenceClickListener(preference1 -> {
-                                    //Profile mappedProfile = Profile.getMappedProfile(profile, appContext);
-                                    Permissions.grantProfilePermissions(activity, profile/*, false, false,*/
-                                            /*true, false, 0,*/ /*PPApplication.STARTUP_SOURCE_EDITOR, false, false, true*/);
-                                    return false;
-                                });
-                            }
+                        if (profile._id > 0) {
+                            preference.setOnPreferenceClickListener(preference1 -> {
+                                //Profile mappedProfile = Profile.getMappedProfile(profile, appContext);
+                                Permissions.grantProfilePermissions(activity, profile/*, false, false,*/
+                                        /*true, false, 0,*/ /*PPApplication.STARTUP_SOURCE_EDITOR, false, false, true*/);
+                                return false;
+                            });
                         }
                     }
                 }

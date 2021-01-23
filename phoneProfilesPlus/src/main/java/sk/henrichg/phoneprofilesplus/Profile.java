@@ -2212,7 +2212,7 @@ public class Profile {
         return value == 0; // in preference dialog is checked=No change
     }
 
-    private static boolean getDeviceBrightnessChange(String _deviceBrightness)
+    static boolean getDeviceBrightnessChange(String _deviceBrightness)
     {
         int value;
         try {
@@ -3476,8 +3476,10 @@ public class Profile {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
             } else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                if ((profile != null) && (profile._deviceAirplaneMode != 0))
+                if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
                     preferenceAllowed.notAllowedRoot = true;
+                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceAirplaneMode");
+                }
             }
             //}
             //else
@@ -3630,8 +3632,10 @@ public class Profile {
                     }
                     else {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                        if ((profile != null) && (profile._deviceMobileData != 0))
+                        if ((profile != null) && (profile._deviceMobileData != 0)) {
                             preferenceAllowed.notAllowedRoot = true;
+                            //Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
+                        }
                     }
                 /*}
                 else
@@ -3925,8 +3929,10 @@ public class Profile {
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                             }
                         } else {
-                            if ((profile != null) && (profile._deviceWiFiAP != 0))
+                            if ((profile != null) && (profile._deviceWiFiAP != 0)) {
                                 preferenceAllowed.notAllowedRoot = true;
+                                //Log.e("Profile.isProfilePreferenceAllowed", "_deviceWiFiAP");
+                            }
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                         }
                     } else
@@ -3990,8 +3996,10 @@ public class Profile {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
                 else {
-                    if ((profile != null) && (profile._vibrateWhenRinging != 0))
+                    if ((profile != null) && (profile._vibrateWhenRinging != 0)) {
                         preferenceAllowed.notAllowedRoot = true;
+                        //Log.e("Profile.isProfilePreferenceAllowed", "_vibrateWhenRinging");
+                    }
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
             }
@@ -4007,7 +4015,9 @@ public class Profile {
         //if (checked && (profile == null))
         //    return preferenceAllowed;
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
+        // !!! test this only for preference key !!!
+        //if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
+        if ((profile == null) && preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
         {
             //if (android.os.Build.VERSION.SDK_INT >= 21) {
                 //if (android.os.Build.VERSION.SDK_INT >= 23)
@@ -4020,7 +4030,7 @@ public class Profile {
                     if (PPApplication.isRooted(fromUIThread)) {
                         // device is rooted
 
-                        if (profile != null) {
+                        /*if (profile != null) {
                             // test if grant root is disabled
                             if (profile.getDeviceBrightnessChange() && profile.getDeviceBrightnessAutomatic()) {
                                 if (applicationNeverAskForGrantRoot) {
@@ -4031,7 +4041,7 @@ public class Profile {
                                 }
                             }
                         }
-                        else
+                        else*/
                         if (sharedPreferences != null) {
                             String value = sharedPreferences.getString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS));
                             if (Profile.getDeviceBrightnessChange(value) && Profile.getDeviceBrightnessAutomatic(value)) {
@@ -4049,9 +4059,11 @@ public class Profile {
                         else
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     } else {
-                        if (profile != null)
-                            if (profile.getDeviceBrightnessChange() && profile.getDeviceBrightnessAutomatic())
+                        /*if (profile != null)
+                            if (profile.getDeviceBrightnessChange() && profile.getDeviceBrightnessAutomatic()) {
                                 preferenceAllowed.notAllowedRoot = true;
+                                //Log.e("Profile.isProfilePreferenceAllowed", "getDeviceBrightnessChange");
+                            }*/
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                     }
                 //}
@@ -4064,7 +4076,7 @@ public class Profile {
             }*/
 
             //checked = true;
-            if (profile == null)
+            //if (profile == null)
                 return preferenceAllowed;
             //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             //    return preferenceAllowed;
@@ -4181,8 +4193,10 @@ public class Profile {
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
                             }
                         } else {
-                            if ((profile != null) && (profile._deviceNetworkType != 0))
+                            if ((profile != null) && (profile._deviceNetworkType != 0)) {
                                 preferenceAllowed.notAllowedRoot = true;
+                                //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+                            }
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                         }
                     } else {
@@ -4248,8 +4262,10 @@ public class Profile {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
                 else {
-                    if ((profile != null) && (profile._notificationLed != 0))
+                    if ((profile != null) && (profile._notificationLed != 0)) {
                         preferenceAllowed.notAllowedRoot = true;
+                        //Log.e("Profile.isProfilePreferenceAllowed", "_notificationLed");
+                    }
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
             }
@@ -4582,8 +4598,10 @@ public class Profile {
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                 }
                 else {
-                    if ((profile != null) && (profile._alwaysOnDisplay != 0))
+                    if ((profile != null) && (profile._alwaysOnDisplay != 0)) {
                         preferenceAllowed.notAllowedRoot = true;
+                        //Log.e("Profile.isProfilePreferenceAllowed", "_alwaysOnDisplay");
+                    }
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
             }
