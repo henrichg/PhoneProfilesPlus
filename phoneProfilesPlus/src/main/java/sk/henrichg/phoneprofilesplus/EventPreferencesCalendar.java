@@ -542,8 +542,8 @@ class EventPreferencesCalendar extends EventPreferences {
 //        PPApplication.logE("[CALENDAR] EventPreferencesCalendar.setSystemEventForStart", "event._id=" + _event._id);
         setAlarm(/*true,*/ 0, context, true);
 
-        if (!_eventFound)
-            return;
+        //if (!_eventFound)
+        //    return;
 
         setAlarm(/*true,*/ computeAlarm(true), context, false);
     }
@@ -567,8 +567,8 @@ class EventPreferencesCalendar extends EventPreferences {
 //        PPApplication.logE("[CALENDAR] EventPreferencesCalendar.setSystemEventForPause", "event._id=" + _event._id);
         setAlarm(/*false,*/ 0, context, true);
 
-        if (!_eventFound)
-            return;
+        //if (!_eventFound)
+        //    return;
 
         setAlarm(/*false,*/ computeAlarm(false), context, false);
     }
