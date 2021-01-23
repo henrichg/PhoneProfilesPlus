@@ -639,7 +639,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_APPLICATION_ENABLED + " " + INTEGER_TYPE + ","
                 + KEY_E_APPLICATION_APPLICATIONS + " " + TEXT_TYPE + ","
                 + KEY_E_NOTIFICATION_END_WHEN_REMOVED + " " + INTEGER_TYPE + ","
-                //+ KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + " " + INTEGER_TYPE + ","
+                + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + " " + INTEGER_TYPE + ","
                 + KEY_E_LOCATION_ENABLED + " " + INTEGER_TYPE + ","
                 + KEY_E_LOCATION_FK_GEOFENCE + " " + INTEGER_TYPE + ","
                 + KEY_E_LOCATION_WHEN_OUTSIDE + " " + INTEGER_TYPE + ","
@@ -1050,7 +1050,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_APPLICATION_ENABLED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_APPLICATION_APPLICATIONS, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_END_WHEN_REMOVED, INTEGER_TYPE, columns);
-                //createColumnWhenNotExists(db, table, KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_LOCATION_ENABLED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_LOCATION_FK_GEOFENCE, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_LOCATION_WHEN_OUTSIDE, INTEGER_TYPE, columns);
