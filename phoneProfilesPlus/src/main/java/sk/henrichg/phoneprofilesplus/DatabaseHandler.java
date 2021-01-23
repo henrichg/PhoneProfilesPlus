@@ -1971,7 +1971,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1470)
         {
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + "=0");
+            try {
+                db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + "=0");
+            } catch (Exception ignored) {}
         }
 
         if (oldVersion < 1490)
