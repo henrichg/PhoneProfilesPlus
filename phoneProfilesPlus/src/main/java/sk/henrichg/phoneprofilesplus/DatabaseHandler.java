@@ -11,7 +11,6 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -3056,14 +3055,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2446)
         {
-            Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- START");
+//            Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- START");
 
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_ALL_DAY_EVENTS + "=0");
 
             try {
                 List<String> columns = getTableColums(db, TABLE_EVENTS);
                 if (columnExists(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, columns)) {
-                    Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- column exists");
+//                    Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- column exists");
 
                     final String selectQuery = "SELECT " + KEY_E_ID + "," +
                             KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS +
@@ -3087,10 +3086,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     cursor.close();
                 }
-                else
-                    Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- column NOT exists");
-
-                Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- END");
+//                else
+//                    Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- column NOT exists");
+//
+//                Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- END");
             } catch (Exception ignored) {
                 //Log.e("DatabaseHandler.updateDb", Log.getStackTraceString(e));
             }
