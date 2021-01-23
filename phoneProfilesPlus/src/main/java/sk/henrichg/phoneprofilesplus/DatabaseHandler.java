@@ -1229,6 +1229,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private boolean columnExists (String column, List<String> columns) {
         boolean isExists = false;
         for (String _column : columns) {
+            //Log.e("DatabaseHandler.columnExists", "oldVersion < 2446 --- "+_column);
             if (column.equalsIgnoreCase(_column)) {
                 isExists = true;
                 break;
@@ -1971,9 +1972,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1470)
         {
-            try {
-                db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + "=0");
-            } catch (Exception ignored) {}
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS + "=0");
         }
 
         if (oldVersion < 1490)
@@ -3056,31 +3055,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2446)
         {
+            //Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- START");
+
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALENDAR_ALL_DAY_EVENTS + "=0");
 
             try {
-                final String selectQuery = "SELECT " + KEY_E_ID + "," +
-                        KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS +
-                        " FROM " + TABLE_EVENTS;
+                List<String> columns = getTableColums(db, TABLE_EVENTS);
+                if (columnExists(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS, columns)) {
+                    //Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- column exists");
 
-                Cursor cursor = db.rawQuery(selectQuery, null);
+                    final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                            KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS +
+                            " FROM " + TABLE_EVENTS;
 
-                if (cursor.moveToFirst()) {
-                    do {
-                        long id = cursor.getLong(cursor.getColumnIndex(KEY_E_ID));
-                        int ignoreAllDayEvents = cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS));
+                    Cursor cursor = db.rawQuery(selectQuery, null);
 
-                        if (ignoreAllDayEvents == 1) {
-                            db.execSQL("UPDATE " + TABLE_EVENTS +
-                                    " SET " + KEY_E_CALENDAR_ALL_DAY_EVENTS + "=1 " +
-                                    "WHERE " + KEY_E_ID + "=" + id);
+                    if (cursor.moveToFirst()) {
+                        do {
+                            long id = cursor.getLong(cursor.getColumnIndex(KEY_E_ID));
+                            int ignoreAllDayEvents = cursor.getInt(cursor.getColumnIndex(KEY_E_CALENDAR_IGNORE_ALL_DAY_EVENTS));
 
-                        }
-                    } while (cursor.moveToNext());
+                            if (ignoreAllDayEvents == 1) {
+                                db.execSQL("UPDATE " + TABLE_EVENTS +
+                                        " SET " + KEY_E_CALENDAR_ALL_DAY_EVENTS + "=1 " +
+                                        "WHERE " + KEY_E_ID + "=" + id);
+
+                            }
+                        } while (cursor.moveToNext());
+                    }
+
+                    cursor.close();
                 }
+                //else
+                //    Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- column NOT exists");
 
-                cursor.close();
-            } catch (Exception ignored) {}
+                //Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- END");
+            } catch (Exception ignored) {
+                //Log.e("DatabaseHandler.updateDb", Log.getStackTraceString(e));
+            }
         }
 
     }
