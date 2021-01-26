@@ -5301,6 +5301,37 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    boolean isAnyEventEnabled() {
+        importExportLock.lock();
+        try {
+            boolean r = false;
+            try {
+                startRunningCommand();
+
+                String countQuery = "SELECT count(" + KEY_E_ID + ") FROM " + TABLE_EVENTS +
+                                        " WHERE " + KEY_E_STATUS + " != " + Event.ESTATUS_STOP;
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(countQuery, null);
+
+                if (cursor.getCount() > 0) {
+                    if (cursor.moveToFirst()) {
+                        r = cursor.getInt(0) > 0;
+                    }
+                }
+
+                cursor.close();
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+            return r;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
     // this is called only from getEvent and getAllEvents
     // for this is not needed to calling importExportLock.lock();
     private void getEventPreferences(Event event, SQLiteDatabase db) {

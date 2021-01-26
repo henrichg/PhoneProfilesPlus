@@ -716,6 +716,7 @@ class EventsHandler {
 //            }
             long defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
             boolean notifyDefaultProfile = false;
+            boolean isAnyEventEnabled =  DatabaseHandler.getInstance(context.getApplicationContext()).isAnyEventEnabled();
 
             //boolean fullyStarted = false;
             //if (ppService != null)
@@ -738,7 +739,7 @@ class EventsHandler {
                     defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
                     //if (!fullyStarted)
                     //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                    if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+                    if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
 //                        if (isRestart)
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "default profile is set");
 
@@ -815,7 +816,7 @@ class EventsHandler {
                     defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
                     //if (!fullyStarted)
                     //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                    if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+                    if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
                         // if not any profile activated, activate default profile
                         notifyDefaultProfile = true;
                         mergedProfile.mergeProfiles(defaultProfileId, dataWrapper/*, false*/);
@@ -840,14 +841,17 @@ class EventsHandler {
 //                    PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "isRestart="+isRestart);
 //                    PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "manualRestart="+manualRestart);
 //                    PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "mergedProfile._id="+mergedProfile._id);
-                    if (((semiOldActivatedProfileId == defaultProfileId) &&
-                            ((mergedProfilesCount > 0) || defaultProfileActivated)) ||
-                            (isRestart && (!manualRestart))) {
-                        // block interactive parameters when
-                        // - activated profile is default profile
-                        // - it is not manual restart of events
+
+                    if (isAnyEventEnabled) {
+                        if (((semiOldActivatedProfileId == defaultProfileId) &&
+                                ((mergedProfilesCount > 0) || defaultProfileActivated)) ||
+                                (isRestart && (!manualRestart))) {
+                            // block interactive parameters when
+                            // - activated profile is default profile
+                            // - it is not manual restart of events
 //                        PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "true");
-                        PPApplication.setBlockProfileEventActions(true);
+                            PPApplication.setBlockProfileEventActions(true);
+                        }
                     }
                 }
             }
@@ -857,7 +861,7 @@ class EventsHandler {
             String defaultProfileNotificationSound = "";
             boolean defaultProfileNotificationVibrate = false;
 
-            if (/*(!isRestart) &&*/ (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && notifyDefaultProfile) {
+            if (/*(!isRestart) &&*/ (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled && notifyDefaultProfile) {
                 // only when activated is background profile, play event notification sound
 
                 defaultProfileNotificationSound = ApplicationPreferences.applicationDefaultProfileNotificationSound;
