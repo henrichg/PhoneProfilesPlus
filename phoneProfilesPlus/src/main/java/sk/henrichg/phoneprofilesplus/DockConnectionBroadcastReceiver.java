@@ -23,10 +23,10 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning())
         {
             /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-            boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;
+            boolean accessoryEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ACCESSORY) > 0;
             dataWrapper.invalidateDataWrapper();
 
-            if (peripheralEventsExists)
+            if (accessoryEventsExists)
             {*/
                 PPApplication.startHandlerThreadBroadcast(/*"DockConnectionBroadcastReceiver.onReceive"*/);
                 final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());

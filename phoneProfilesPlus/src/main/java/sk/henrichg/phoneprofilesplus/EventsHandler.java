@@ -43,7 +43,7 @@ class EventsHandler {
     boolean notAllowedTime;
     boolean notAllowedBattery;
     boolean notAllowedCall;
-    boolean notAllowedPeripheral;
+    boolean notAllowedAccessory;
     boolean notAllowedCalendar;
     boolean notAllowedWifi;
     boolean notAllowedScreen;
@@ -62,7 +62,7 @@ class EventsHandler {
     boolean timePassed;
     boolean batteryPassed;
     boolean callPassed;
-    boolean peripheralPassed;
+    boolean accessoryPassed;
     boolean calendarPassed;
     boolean wifiPassed;
     boolean screenPassed;
@@ -120,7 +120,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_DEVICE_BOOT = "deviceBoot";
     static final String SENSOR_TYPE_DEVICE_BOOT_EVENT_END = "deviceBootEventEnd";
     static final String SENSOR_TYPE_PERIODIC_EVENTS_HANDLER = "periodicEventsHandler";
-    static final String SENSOR_TYPE_PERIHERALS = "peripherals";
+    static final String SENSOR_TYPE_ACCESSORIES = "accessories";
     static final String SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK = "calendarEventExistsCheck";
     static final String SENSOR_TYPE_ALL = "ALL";
 
@@ -1050,7 +1050,7 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_CALENDAR;
             case SENSOR_TYPE_DOCK_CONNECTION:
             case SENSOR_TYPE_HEADSET_CONNECTION:
-                return DatabaseHandler.ETYPE_PERIPHERAL;
+                return DatabaseHandler.ETYPE_ACCESSORY;
             case SENSOR_TYPE_TIME:
                 return DatabaseHandler.ETYPE_TIME;
             case SENSOR_TYPE_APPLICATION:
@@ -1134,8 +1134,8 @@ class EventsHandler {
                         break;
                     case SENSOR_TYPE_DOCK_CONNECTION:
                     case SENSOR_TYPE_HEADSET_CONNECTION:
-                        //eventType = DatabaseHandler.ETYPE_PERIPHERAL;
-                        sensorEnabled = _event._eventPreferencesPeripherals._enabled;
+                        //eventType = DatabaseHandler.ETYPE_ACCESSORY;
+                        sensorEnabled = _event._eventPreferencesAccessories._enabled;
                         break;
                     case SENSOR_TYPE_TIME:
                         //eventType = DatabaseHandler.ETYPE_TIME;
@@ -1351,7 +1351,7 @@ class EventsHandler {
         notAllowedTime = false;
         notAllowedBattery = false;
         notAllowedCall = false;
-        notAllowedPeripheral = false;
+        notAllowedAccessory = false;
         notAllowedCalendar = false;
         notAllowedWifi = false;
         notAllowedScreen = false;
@@ -1370,7 +1370,7 @@ class EventsHandler {
         timePassed = true;
         batteryPassed = true;
         callPassed = true;
-        peripheralPassed = true;
+        accessoryPassed = true;
         calendarPassed = true;
         wifiPassed = true;
         screenPassed = true;
@@ -1398,7 +1398,7 @@ class EventsHandler {
         event._eventPreferencesTime.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesBattery.doHandleEvent(this/*, sensorType, forRestartEvents*/);
         event._eventPreferencesCall.doHandleEvent(this/*, forRestartEvents*/);
-        event._eventPreferencesPeripherals.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesAccessories.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesCalendar.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesWifi.doHandleEvent(this, forRestartEvents);
         event._eventPreferencesScreen.doHandleEvent(this/*, forRestartEvents*/);
@@ -1445,10 +1445,10 @@ class EventsHandler {
             else
                 someNotAllowed = true;
         }
-        if (event._eventPreferencesPeripherals._enabled) {
+        if (event._eventPreferencesAccessories._enabled) {
             anySensorEnabled = true;
-            if (!notAllowedPeripheral)
-                allPassed &= peripheralPassed;
+            if (!notAllowedAccessory)
+                allPassed &= accessoryPassed;
             else
                 someNotAllowed = true;
         }
@@ -1561,7 +1561,7 @@ class EventsHandler {
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "timePassed=" + timePassed);
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "batteryPassed=" + batteryPassed);
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "callPassed=" + callPassed);
-//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "peripheralPassed=" + peripheralPassed);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "accessoryPassed=" + accessoryPassed);
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "calendarPassed=" + calendarPassed);
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "wifiPassed=" + wifiPassed);
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "screenPassed=" + screenPassed);
@@ -1579,7 +1579,7 @@ class EventsHandler {
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedTime=" + notAllowedTime);
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedBattery=" + notAllowedBattery);
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedCall=" + notAllowedCall);
-//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedPeripheral=" + notAllowedPeripheral);
+//                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedAccessory=" + notAllowedAccessory);
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedCalendar=" + notAllowedCalendar);
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedWifi=" + notAllowedWifi);
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.doHandleEvents", "notAllowedScreen=" + notAllowedScreen);

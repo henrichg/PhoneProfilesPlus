@@ -93,10 +93,10 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
                         }
 
                         /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
-                        boolean peripheralEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_PERIPHERAL) > 0;
+                        boolean accessoryEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ACCESSORY) > 0;
                         dataWrapper.invalidateDataWrapper();
 
-                        if (peripheralEventsExists)
+                        if (accessoryEventsExists)
                         {*/
                         // start events handler
 //                            PPApplication.logE("[EVENTS_HANDLER_CALL] HeadsetConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_HEADSET_CONNECTION");
@@ -123,7 +123,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
     }
 
     static void getEventHeadsetParameters(Context context) {
-        synchronized (PPApplication.eventPeripheralsSensorMutex) {
+        synchronized (PPApplication.EVENT_ACCESSORIES_SENSOR_MUTEX) {
             SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(context);
             ApplicationPreferences.prefWiredHeadsetConnected = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_WIRED_HEADSET_CONNECTED, false);
             ApplicationPreferences.prefWiredHeadsetMicrophone = preferences.getBoolean(HeadsetConnectionBroadcastReceiver.PREF_EVENT_WIRED_HEADSET_MICROPHONE, false);
@@ -133,7 +133,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
     }
     private static void setEventHeadsetParameters(Context context, boolean connectedWiredHeadphones, boolean connectedWiredMicrophone,
                                                 boolean connectedBluetoothHeadphones, boolean connectedBluetoothMicrophone) {
-        synchronized (PPApplication.eventPeripheralsSensorMutex) {
+        synchronized (PPApplication.EVENT_ACCESSORIES_SENSOR_MUTEX) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putBoolean(PREF_EVENT_WIRED_HEADSET_CONNECTED, connectedWiredHeadphones);
             editor.putBoolean(PREF_EVENT_WIRED_HEADSET_MICROPHONE, connectedWiredMicrophone);

@@ -367,14 +367,14 @@
         <item>-4</item>
         <item>-5</item>
     </string-array>
-    <string-array name="eventPeripheralTypeArray">
+    <string-array name="eventAccessoryTypeArray">
         <item>@string/array_event_pref_peripheralType_deskDock</item>
         <item>@string/array_event_pref_peripheralType_carDock</item>
         <item>@string/array_event_pref_peripheralType_wired_headset</item>
         <item>@string/array_event_pref_peripheralType_bluetooth_headset</item>
         <item>@string/array_event_pref_peripheralType_headphones</item>
     </string-array>
-    <string-array name="eventPeripheralTypeValues">
+    <string-array name="eventAccessoryTypeValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>

@@ -3071,8 +3071,8 @@ public class DataWrapper {
                         case DatabaseHandler.ETYPE_CALL:
                             sensorEnabled = _event._eventPreferencesCall._enabled;
                             break;
-                        case DatabaseHandler.ETYPE_PERIPHERAL:
-                            sensorEnabled = _event._eventPreferencesPeripherals._enabled;
+                        case DatabaseHandler.ETYPE_ACCESSORY:
+                            sensorEnabled = _event._eventPreferencesAccessories._enabled;
                             break;
                         case DatabaseHandler.ETYPE_CALENDAR:
                             sensorEnabled = _event._eventPreferencesCalendar._enabled;

@@ -74,7 +74,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_TIME = 1;
     static final int ETYPE_BATTERY = 2;
     static final int ETYPE_CALL = 3;
-    static final int ETYPE_PERIPHERAL = 4;
+    static final int ETYPE_ACCESSORY = 4;
     static final int ETYPE_CALENDAR = 5;
     static final int ETYPE_WIFI_CONNECTED = 6;
     static final int ETYPE_WIFI_NEARBY = 7;
@@ -209,8 +209,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_BLOCKED = "blocked";
     private static final String KEY_E_UNDONE_PROFILE = "undoneProfile";
     private static final String KEY_E_PRIORITY = "priority";
-    private static final String KEY_E_PERIPHERAL_ENABLED = "peripheralEnabled";
-    private static final String KEY_E_PERIPHERAL_TYPE = "peripheralType";
+    private static final String KEY_E_ACCESSORY_ENABLED = "peripheralEnabled";
+    private static final String KEY_E_ACCESSORY_TYPE = "peripheralType";
     private static final String KEY_E_CALENDAR_ENABLED = "calendarEnabled";
     private static final String KEY_E_CALENDAR_CALENDARS = "calendarCalendars";
     private static final String KEY_E_CALENDAR_SEARCH_FIELD = "calendarSearchField";
@@ -304,7 +304,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_CALL_SENSOR_PASSED = "callSensorPassed";
     private static final String KEY_E_NFC_SENSOR_PASSED = "nfcSensorPassed";
     private static final String KEY_E_NOTIFICATION_SENSOR_PASSED = "notificationSensorPassed";
-    private static final String KEY_E_PERIPHERAL_SENSOR_PASSED = "peripheralSensorPassed";
+    private static final String KEY_E_ACCESSORY_SENSOR_PASSED = "peripheralSensorPassed";
     private static final String KEY_E_RADIO_SWITCH_SENSOR_PASSED = "radioSwitchSensorPassed";
     private static final String KEY_E_SCREEN_SENSOR_PASSED = "screenSensorPassed";
     private static final String KEY_E_SMS_SENSOR_PASSED = "smsSensorPassed";
@@ -598,8 +598,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_BLOCKED + " " + INTEGER_TYPE + ","
                 //+ KEY_E_UNDONE_PROFILE + " " + INTEGER_TYPE + ","
                 + KEY_E_PRIORITY + " " + INTEGER_TYPE + ","
-                + KEY_E_PERIPHERAL_ENABLED + " " + INTEGER_TYPE + ","
-                + KEY_E_PERIPHERAL_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_E_ACCESSORY_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_ACCESSORY_TYPE + " " + INTEGER_TYPE + ","
                 + KEY_E_CALENDAR_ENABLED + " " + INTEGER_TYPE + ","
                 + KEY_E_CALENDAR_CALENDARS + " " + TEXT_TYPE + ","
                 + KEY_E_CALENDAR_SEARCH_FIELD + " " + INTEGER_TYPE + ","
@@ -693,7 +693,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_CALL_SENSOR_PASSED + " " + INTEGER_TYPE + ","
                 + KEY_E_NFC_SENSOR_PASSED + " " + INTEGER_TYPE + ","
                 + KEY_E_NOTIFICATION_SENSOR_PASSED + " " + INTEGER_TYPE + ","
-                + KEY_E_PERIPHERAL_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_ACCESSORY_SENSOR_PASSED + " " + INTEGER_TYPE + ","
                 + KEY_E_RADIO_SWITCH_SENSOR_PASSED + " " + INTEGER_TYPE + ","
                 + KEY_E_SCREEN_SENSOR_PASSED + " " + INTEGER_TYPE + ","
                 + KEY_E_SMS_SENSOR_PASSED + " " + INTEGER_TYPE + ","
@@ -860,7 +860,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__TIME_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_TIME_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__BATTERY_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_BATTERY_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__CALL_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_CALL_ENABLED + ")");
-        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__PERIPHERAL_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_PERIPHERAL_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__PERIPHERAL_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_ACCESSORY_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__CALENDAR_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_CALENDAR_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__WIFI_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_WIFI_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__SCREEN_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_SCREEN_ENABLED + ")");
@@ -1010,8 +1010,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_FORCE_RUN, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_BLOCKED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_PRIORITY, INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, KEY_E_PERIPHERAL_ENABLED, INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, KEY_E_PERIPHERAL_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ACCESSORY_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ACCESSORY_TYPE, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_ENABLED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_CALENDARS, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_SEARCH_FIELD, INTEGER_TYPE, columns);
@@ -1104,7 +1104,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_CALL_SENSOR_PASSED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_NFC_SENSOR_PASSED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_NOTIFICATION_SENSOR_PASSED, INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, KEY_E_PERIPHERAL_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ACCESSORY_SENSOR_PASSED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_SENSOR_PASSED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_SCREEN_SENSOR_PASSED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_SMS_SENSOR_PASSED, INTEGER_TYPE, columns);
@@ -1494,8 +1494,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 1080)
         {
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIPHERAL_ENABLED + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIPHERAL_TYPE + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ACCESSORY_ENABLED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ACCESSORY_TYPE + "=0");
         }
 
         if (oldVersion < 1081)
@@ -2455,7 +2455,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NFC_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_NOTIFICATION_SENSOR_PASSED + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIPHERAL_SENSOR_PASSED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ACCESSORY_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SCREEN_SENSOR_PASSED + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_SENSOR_PASSED + "=0");
@@ -5338,7 +5338,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesTime(event, db);
         getEventPreferencesBattery(event, db);
         getEventPreferencesCall(event, db);
-        getEventPreferencesPeripheral(event, db);
+        getEventPreferencesAccessory(event, db);
         getEventPreferencesCalendar(event, db);
         getEventPreferencesWifi(event, db);
         getEventPreferencesScreen(event, db);
@@ -5492,11 +5492,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    private void getEventPreferencesPeripheral(Event event, SQLiteDatabase db) {
+    private void getEventPreferencesAccessory(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
-                new String[]{KEY_E_PERIPHERAL_ENABLED,
-                        KEY_E_PERIPHERAL_TYPE,
-                        KEY_E_PERIPHERAL_SENSOR_PASSED
+                new String[]{KEY_E_ACCESSORY_ENABLED,
+                        KEY_E_ACCESSORY_TYPE,
+                        KEY_E_ACCESSORY_SENSOR_PASSED
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -5506,11 +5506,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             if (cursor.getCount() > 0)
             {
-                EventPreferencesPeripherals eventPreferences = event._eventPreferencesPeripherals;
+                EventPreferencesAccessories eventPreferences = event._eventPreferencesAccessories;
 
-                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndex(KEY_E_PERIPHERAL_ENABLED)) == 1);
-                eventPreferences._peripheralType = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIPHERAL_TYPE));
-                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_PERIPHERAL_SENSOR_PASSED)));
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndex(KEY_E_ACCESSORY_ENABLED)) == 1);
+                eventPreferences._accessoryType = cursor.getInt(cursor.getColumnIndex(KEY_E_ACCESSORY_TYPE));
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_ACCESSORY_SENSOR_PASSED)));
             }
             cursor.close();
         }
@@ -5976,7 +5976,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         updateEventPreferencesTime(event, db);
         updateEventPreferencesBattery(event, db);
         updateEventPreferencesCall(event, db);
-        updateEventPreferencesPeripheral(event, db);
+        updateEventPreferencesAccessory(event, db);
         updateEventPreferencesCalendar(event, db);
         updateEventPreferencesWifi(event, db);
         updateEventPreferencesScreen(event, db);
@@ -6058,14 +6058,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         new String[] { String.valueOf(event._id) });
     }
 
-    private void updateEventPreferencesPeripheral(Event event, SQLiteDatabase db) {
+    private void updateEventPreferencesAccessory(Event event, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
 
-        EventPreferencesPeripherals eventPreferences = event._eventPreferencesPeripherals;
+        EventPreferencesAccessories eventPreferences = event._eventPreferencesAccessories;
 
-        values.put(KEY_E_PERIPHERAL_ENABLED, (eventPreferences._enabled) ? 1 : 0);
-        values.put(KEY_E_PERIPHERAL_TYPE, eventPreferences._peripheralType);
-        values.put(KEY_E_PERIPHERAL_SENSOR_PASSED, eventPreferences.getSensorPassed());
+        values.put(KEY_E_ACCESSORY_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_ACCESSORY_TYPE, eventPreferences._accessoryType);
+        values.put(KEY_E_ACCESSORY_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -6599,8 +6599,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         case ETYPE_CALL:
                             sensorPassedField = KEY_E_CALL_SENSOR_PASSED;
                             break;
-                        case ETYPE_PERIPHERAL:
-                            sensorPassedField = KEY_E_PERIPHERAL_SENSOR_PASSED;
+                        case ETYPE_ACCESSORY:
+                            sensorPassedField = KEY_E_ACCESSORY_SENSOR_PASSED;
                             break;
                         case ETYPE_CALENDAR:
                             sensorPassedField = KEY_E_CALENDAR_SENSOR_PASSED;
@@ -6707,9 +6707,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         sensorPassed = event._eventPreferencesCall.getSensorPassed();
                         sensorPassedField = KEY_E_CALL_SENSOR_PASSED;
                         break;
-                    case ETYPE_PERIPHERAL:
-                        sensorPassed = event._eventPreferencesPeripherals.getSensorPassed();
-                        sensorPassedField = KEY_E_PERIPHERAL_SENSOR_PASSED;
+                    case ETYPE_ACCESSORY:
+                        sensorPassed = event._eventPreferencesAccessories.getSensorPassed();
+                        sensorPassedField = KEY_E_ACCESSORY_SENSOR_PASSED;
                         break;
                     case ETYPE_CALENDAR:
                         sensorPassed = event._eventPreferencesCalendar.getSensorPassed();
@@ -6799,7 +6799,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_CALL_SENSOR_PASSED, event._eventPreferencesCall.getSensorPassed());
                 values.put(KEY_E_NFC_SENSOR_PASSED, event._eventPreferencesNFC.getSensorPassed());
                 values.put(KEY_E_NOTIFICATION_SENSOR_PASSED, event._eventPreferencesNotification.getSensorPassed());
-                values.put(KEY_E_PERIPHERAL_SENSOR_PASSED, event._eventPreferencesPeripherals.getSensorPassed());
+                values.put(KEY_E_ACCESSORY_SENSOR_PASSED, event._eventPreferencesAccessories.getSensorPassed());
                 values.put(KEY_E_RADIO_SWITCH_SENSOR_PASSED, event._eventPreferencesRadioSwitch.getSensorPassed());
                 values.put(KEY_E_SCREEN_SENSOR_PASSED, event._eventPreferencesScreen.getSensorPassed());
                 values.put(KEY_E_SMS_SENSOR_PASSED, event._eventPreferencesSMS.getSensorPassed());
@@ -6855,7 +6855,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_CALL_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_NFC_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_NOTIFICATION_SENSOR_PASSED, sensorPassed);
-                values.put(KEY_E_PERIPHERAL_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_ACCESSORY_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_RADIO_SWITCH_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_SCREEN_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_SMS_SENSOR_PASSED, sensorPassed);
@@ -6913,8 +6913,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 "((" + KEY_E_BATTERY_LEVEL_LOW + " > 0) OR (" + KEY_E_BATTERY_LEVEL_HIGHT + " < 100))";
                     else if (eventType == ETYPE_CALL)
                         eventTypeChecked = eventTypeChecked + KEY_E_CALL_ENABLED + "=1";
-                    else if (eventType == ETYPE_PERIPHERAL)
-                        eventTypeChecked = eventTypeChecked + KEY_E_PERIPHERAL_ENABLED + "=1";
+                    else if (eventType == ETYPE_ACCESSORY)
+                        eventTypeChecked = eventTypeChecked + KEY_E_ACCESSORY_ENABLED + "=1";
                     else if (eventType == ETYPE_CALENDAR)
                         eventTypeChecked = eventTypeChecked + KEY_E_CALENDAR_ENABLED + "=1";
                     else if (eventType == ETYPE_WIFI_CONNECTED)

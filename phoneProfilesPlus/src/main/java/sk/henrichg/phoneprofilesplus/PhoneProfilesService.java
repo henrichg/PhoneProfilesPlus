@@ -1261,71 +1261,71 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerReceiverForPeripheralsSensor(boolean register, DataWrapper dataWrapper) {
+    private void registerReceiverForAccessoriesSensor(boolean register, DataWrapper dataWrapper) {
         Context appContext = getApplicationContext();
-        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
-        //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "xxx");
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForAccessoriesSensor", "PhoneProfilesService_registerReceiverForAccessoriesSensor");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAccessoriesSensor", "xxx");
         if (!register) {
             if (PPApplication.headsetPlugReceiver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor->UNREGISTER headset plug", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAccessoriesSensor->UNREGISTER headset plug", "PhoneProfilesService_registerReceiverForAccessoriesSensor");
                 try {
                     appContext.unregisterReceiver(PPApplication.headsetPlugReceiver);
                     PPApplication.headsetPlugReceiver = null;
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "UNREGISTER headset plug");
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAccessoriesSensor", "UNREGISTER headset plug");
                 } catch (Exception e) {
                     PPApplication.headsetPlugReceiver = null;
                 }
             }
             //else
-            //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "not registered headset plug");
+            //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAccessoriesSensor", "not registered headset plug");
             if (PPApplication.dockConnectionBroadcastReceiver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor->UNREGISTER dock connection", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAccessoriesSensor->UNREGISTER dock connection", "PhoneProfilesService_registerReceiverForAccessoriesSensor");
                 try {
                     appContext.unregisterReceiver(PPApplication.dockConnectionBroadcastReceiver);
                     PPApplication.dockConnectionBroadcastReceiver = null;
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "UNREGISTER dock connection");
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAccessoriesSensor", "UNREGISTER dock connection");
                 } catch (Exception e) {
                     PPApplication.dockConnectionBroadcastReceiver = null;
                 }
             }
             //else
-            //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "not registered dock connection");
+            //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAccessoriesSensor", "not registered dock connection");
         }
         if (register) {
-            //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "REGISTER");
+            //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAccessoriesSensor", "REGISTER");
             dataWrapper.fillEventList();
             boolean allowed = false;
-            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_PERIPHERAL/*, false*/);
+            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ACCESSORY/*, false*/);
             if (eventsExists)
-                allowed = Event.isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, appContext).allowed ==
+                allowed = Event.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
                 if (PPApplication.headsetPlugReceiver == null) {
-                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor->REGISTER headset plug", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
+                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAccessoriesSensor->REGISTER headset plug", "PhoneProfilesService_registerReceiverForAccessoriesSensor");
                     PPApplication.headsetPlugReceiver = new HeadsetConnectionBroadcastReceiver();
                     IntentFilter intentFilter2 = new IntentFilter();
                     intentFilter2.addAction(Intent.ACTION_HEADSET_PLUG);
                     intentFilter2.addAction(BluetoothHeadset.ACTION_AUDIO_STATE_CHANGED);
                     intentFilter2.addAction(BluetoothHeadset.ACTION_CONNECTION_STATE_CHANGED);
                     appContext.registerReceiver(PPApplication.headsetPlugReceiver, intentFilter2);
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "REGISTER headset plug");
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAccessoriesSensor", "REGISTER headset plug");
                 }
                 //else
-                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "registered headset plug");
+                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAccessoriesSensor", "registered headset plug");
                 if (PPApplication.dockConnectionBroadcastReceiver == null) {
-                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForPeripheralsSensor->REGISTER dock connection", "PhoneProfilesService_registerReceiverForPeripheralsSensor");
+                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForAccessoriesSensor->REGISTER dock connection", "PhoneProfilesService_registerReceiverForAccessoriesSensor");
                     PPApplication.dockConnectionBroadcastReceiver = new DockConnectionBroadcastReceiver();
                     IntentFilter intentFilter12 = new IntentFilter();
                     intentFilter12.addAction(Intent.ACTION_DOCK_EVENT);
                     intentFilter12.addAction("android.intent.action.ACTION_DOCK_EVENT");
                     appContext.registerReceiver(PPApplication.dockConnectionBroadcastReceiver, intentFilter12);
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "REGISTER dock connection");
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAccessoriesSensor", "REGISTER dock connection");
                 }
                 //else
-                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeripheralsSensor", "registered dock connection");
+                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForAccessoriesSensor", "registered dock connection");
             }
             else
-                registerReceiverForPeripheralsSensor(false, dataWrapper);
+                registerReceiverForAccessoriesSensor(false, dataWrapper);
         }
     }
 
@@ -3447,8 +3447,8 @@ public class PhoneProfilesService extends Service
         registerBatteryLevelChangedReceiver(true, dataWrapper);
         registerBatteryChargingChangedReceiver(true, dataWrapper);
 
-        // required for peripherals event
-        registerReceiverForPeripheralsSensor(true, dataWrapper);
+        // required for accessories event
+        registerReceiverForAccessoriesSensor(true, dataWrapper);
 
         // required for sms event
         registerReceiverForSMSSensor(true, dataWrapper);
@@ -3578,7 +3578,7 @@ public class PhoneProfilesService extends Service
         registerCallbacks(false);
         registerBatteryLevelChangedReceiver(false, null);
         registerBatteryChargingChangedReceiver(false, null);
-        registerReceiverForPeripheralsSensor(false, null);
+        registerReceiverForAccessoriesSensor(false, null);
         registerReceiverForSMSSensor(false, null);
         registerReceiverForCalendarSensor(false, null);
         registerReceiverForRadioSwitchMobileDataSensor(false, null);
@@ -3638,7 +3638,7 @@ public class PhoneProfilesService extends Service
 
         registerBatteryLevelChangedReceiver(true, dataWrapper);
         registerBatteryChargingChangedReceiver(true, dataWrapper);
-        registerReceiverForPeripheralsSensor(true, dataWrapper);
+        registerReceiverForAccessoriesSensor(true, dataWrapper);
         registerReceiverForSMSSensor(true, dataWrapper);
         registerReceiverForCalendarSensor(true, dataWrapper);
         registerReceiverForRadioSwitchMobileDataSensor(true, dataWrapper);

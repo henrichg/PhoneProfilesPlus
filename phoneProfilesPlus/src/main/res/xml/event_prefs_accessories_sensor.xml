@@ -14,8 +14,8 @@
         app:summary="@string/array_event_pref_peripheralType_deskDock"
         app:key="eventPeripheralType"
         app:defaultValue="0"
-        app:entries="@array/eventPeripheralTypeArray"
-        app:entryValues="@array/eventPeripheralTypeValues"
+        app:entries="@array/eventAccessoryTypeArray"
+        app:entryValues="@array/eventAccessoryTypeValues"
         app:dependency="eventPeripheralEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     

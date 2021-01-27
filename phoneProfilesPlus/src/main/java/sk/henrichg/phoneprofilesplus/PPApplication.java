@@ -315,7 +315,7 @@ public class PPApplication extends Application
     static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
     static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
     static final EventCallSensorMutex eventCallSensorMutex = new EventCallSensorMutex();
-    static final EventPeripheralsSensorMutex eventPeripheralsSensorMutex = new EventPeripheralsSensorMutex();
+    static final EventAccessoriesSensorMutex EVENT_ACCESSORIES_SENSOR_MUTEX = new EventAccessoriesSensorMutex();
     static final EventWifiSensorMutex eventWifiSensorMutex = new EventWifiSensorMutex();
     static final EventBluetoothSensorMutex eventBluetoothSensorMutex = new EventBluetoothSensorMutex();
     static final ContactsCacheMutex contactsCacheMutex = new ContactsCacheMutex();

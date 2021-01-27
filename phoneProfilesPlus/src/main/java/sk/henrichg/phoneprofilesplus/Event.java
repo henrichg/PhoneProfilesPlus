@@ -69,7 +69,7 @@ class Event {
     EventPreferencesTime _eventPreferencesTime;
     EventPreferencesBattery _eventPreferencesBattery;
     EventPreferencesCall _eventPreferencesCall;
-    EventPreferencesPeripherals _eventPreferencesPeripherals;
+    EventPreferencesAccessories _eventPreferencesAccessories;
     EventPreferencesCalendar _eventPreferencesCalendar;
     EventPreferencesWifi _eventPreferencesWifi;
     EventPreferencesScreen _eventPreferencesScreen;
@@ -323,9 +323,9 @@ class Event {
         this._eventPreferencesCall = new EventPreferencesCall(this, false, 0, "", "", 0, false, 5);
     }
 
-    private void createEventPreferencesPeripherals()
+    private void createEventPreferencesAccessories()
     {
-        this._eventPreferencesPeripherals = new EventPreferencesPeripherals(this, false, 0);
+        this._eventPreferencesAccessories = new EventPreferencesAccessories(this, false, 0);
     }
 
     private void createEventPreferencesCalendar()
@@ -403,7 +403,7 @@ class Event {
         createEventPreferencesTime();
         createEventPreferencesBattery();
         createEventPreferencesCall();
-        createEventPreferencesPeripherals();
+        createEventPreferencesAccessories();
         createEventPreferencesCalendar();
         createEventPreferencesWiFi();
         createEventPreferencesScreen();
@@ -428,8 +428,8 @@ class Event {
             createEventPreferencesBattery();
         if (this._eventPreferencesCall == null)
             createEventPreferencesCall();
-        if (this._eventPreferencesPeripherals == null)
-            createEventPreferencesPeripherals();
+        if (this._eventPreferencesAccessories == null)
+            createEventPreferencesAccessories();
         if (this._eventPreferencesCalendar == null)
             createEventPreferencesCalendar();
         if (this._eventPreferencesWifi == null)
@@ -461,7 +461,7 @@ class Event {
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
-        this._eventPreferencesPeripherals.copyPreferences(fromEvent);
+        this._eventPreferencesAccessories.copyPreferences(fromEvent);
         this._eventPreferencesCalendar.copyPreferences(fromEvent);
         this._eventPreferencesWifi.copyPreferences(fromEvent);
         this._eventPreferencesScreen.copyPreferences(fromEvent);
@@ -486,8 +486,8 @@ class Event {
                         (isEventPreferenceAllowed(EventPreferencesBattery.PREF_EVENT_BATTERY_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesCall._enabled &&
                         (isEventPreferenceAllowed(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
-                (this._eventPreferencesPeripherals._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesPeripherals.PREF_EVENT_PERIPHERAL_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesAccessories._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesCalendar._enabled &&
                         (isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesWifi._enabled &&
@@ -533,8 +533,8 @@ class Event {
             runnable = runnable && this._eventPreferencesBattery.isRunnable(appContext);
         if (this._eventPreferencesCall._enabled)
             runnable = runnable && this._eventPreferencesCall.isRunnable(appContext);
-        if (this._eventPreferencesPeripherals._enabled)
-            runnable = runnable && this._eventPreferencesPeripherals.isRunnable(appContext);
+        if (this._eventPreferencesAccessories._enabled)
+            runnable = runnable && this._eventPreferencesAccessories.isRunnable(appContext);
         if (this._eventPreferencesCalendar._enabled)
             runnable = runnable && this._eventPreferencesCalendar.isRunnable(appContext);
         if (this._eventPreferencesWifi._enabled)
@@ -575,7 +575,7 @@ class Event {
                     this._eventPreferencesTime._enabled ||
                             this._eventPreferencesBattery._enabled ||
                             this._eventPreferencesCall._enabled ||
-                            this._eventPreferencesPeripherals._enabled ||
+                            this._eventPreferencesAccessories._enabled ||
                             this._eventPreferencesCalendar._enabled ||
                             this._eventPreferencesWifi._enabled ||
                             this._eventPreferencesScreen._enabled ||
@@ -598,8 +598,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesBattery.isAccessibilityServiceEnabled(context);
             if (this._eventPreferencesCall._enabled)
                 accessibilityEnabled = this._eventPreferencesCall.isAccessibilityServiceEnabled(context);
-            if (this._eventPreferencesPeripherals._enabled)
-                accessibilityEnabled = this._eventPreferencesPeripherals.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesAccessories._enabled)
+                accessibilityEnabled = this._eventPreferencesAccessories.isAccessibilityServiceEnabled(context);
             if (this._eventPreferencesCalendar._enabled)
                 accessibilityEnabled = this._eventPreferencesCalendar.isAccessibilityServiceEnabled(context);
             if (this._eventPreferencesWifi._enabled)
@@ -662,7 +662,7 @@ class Event {
         this._eventPreferencesTime.loadSharedPreferences(preferences);
         this._eventPreferencesBattery.loadSharedPreferences(preferences);
         this._eventPreferencesCall.loadSharedPreferences(preferences);
-        this._eventPreferencesPeripherals.loadSharedPreferences(preferences);
+        this._eventPreferencesAccessories.loadSharedPreferences(preferences);
         this._eventPreferencesCalendar.loadSharedPreferences(preferences);
         this._eventPreferencesWifi.loadSharedPreferences(preferences);
         this._eventPreferencesScreen.loadSharedPreferences(preferences);
@@ -718,7 +718,7 @@ class Event {
         this._eventPreferencesTime.saveSharedPreferences(preferences);
         this._eventPreferencesBattery.saveSharedPreferences(preferences);
         this._eventPreferencesCall.saveSharedPreferences(preferences);
-        this._eventPreferencesPeripherals.saveSharedPreferences(preferences);
+        this._eventPreferencesAccessories.saveSharedPreferences(preferences);
         this._eventPreferencesCalendar.saveSharedPreferences(preferences);
         this._eventPreferencesWifi.saveSharedPreferences(preferences);
         this._eventPreferencesScreen.saveSharedPreferences(preferences);
@@ -1113,8 +1113,8 @@ class Event {
         _eventPreferencesBattery.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesCall.setSummary(prefMng, key, preferences, context);
         _eventPreferencesCall.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesPeripherals.setSummary(prefMng, key, preferences, context);
-        _eventPreferencesPeripherals.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesAccessories.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesAccessories.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesCalendar.setSummary(prefMng, key, preferences, context);
         _eventPreferencesCalendar.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesWifi.setSummary(prefMng, key, preferences, context);
@@ -1182,8 +1182,8 @@ class Event {
         _eventPreferencesBattery.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesCall.setAllSummary(prefMng, preferences, context);
         _eventPreferencesCall.setCategorySummary(prefMng, preferences, context);
-        _eventPreferencesPeripherals.setAllSummary(prefMng, preferences, context);
-        _eventPreferencesPeripherals.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesAccessories.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesAccessories.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesCalendar.setAllSummary(prefMng, preferences, context);
         _eventPreferencesCalendar.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesWifi.setAllSummary(prefMng, preferences, context);
@@ -1280,8 +1280,8 @@ class Event {
                 description = description + "<li>" + desc + "</li>";
         }
 
-        if (_eventPreferencesPeripherals._enabled) {
-            String desc = _eventPreferencesPeripherals.getPreferencesDescription(true, addPassStatus, context);
+        if (_eventPreferencesAccessories._enabled) {
+            String desc = _eventPreferencesAccessories.getPreferencesDescription(true, addPassStatus, context);
             if (desc != null)
                 description = description + "<li>" + desc + "</li>";
         }
@@ -1338,7 +1338,7 @@ class Event {
         _eventPreferencesTime.checkPreferences(prefMng, context);
         _eventPreferencesBattery.checkPreferences(prefMng, context);
         _eventPreferencesCall.checkPreferences(prefMng, context);
-        _eventPreferencesPeripherals.checkPreferences(prefMng, context);
+        _eventPreferencesAccessories.checkPreferences(prefMng, context);
         _eventPreferencesCalendar.checkPreferences(prefMng, context);
         _eventPreferencesWifi.checkPreferences(prefMng, context);
         _eventPreferencesScreen.checkPreferences(prefMng, context);
@@ -2142,10 +2142,10 @@ class Event {
         //else
         //    _eventPreferencesOrientation.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
 
-        //if (_eventPreferencesPeripherals._enabled)
-            _eventPreferencesPeripherals.setSensorPassed(_eventPreferencesPeripherals.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        //if (_eventPreferencesAccessories._enabled)
+            _eventPreferencesAccessories.setSensorPassed(_eventPreferencesAccessories.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         //else
-        //    _eventPreferencesPeripherals.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+        //    _eventPreferencesAccessories.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
 
         //if (_eventPreferencesRadioSwitch._enabled)
             _eventPreferencesRadioSwitch.setSensorPassed(_eventPreferencesRadioSwitch.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
@@ -2192,7 +2192,7 @@ class Event {
             _eventPreferencesTime.setSystemEventForStart(context);
             _eventPreferencesBattery.setSystemEventForStart(context);
             _eventPreferencesCall.setSystemEventForStart(context);
-            _eventPreferencesPeripherals.setSystemEventForStart(context);
+            _eventPreferencesAccessories.setSystemEventForStart(context);
             _eventPreferencesCalendar.setSystemEventForStart(context);
             _eventPreferencesWifi.setSystemEventForStart(context);
             _eventPreferencesScreen.setSystemEventForStart(context);
@@ -2216,7 +2216,7 @@ class Event {
             _eventPreferencesTime.setSystemEventForPause(context);
             _eventPreferencesBattery.setSystemEventForPause(context);
             _eventPreferencesCall.setSystemEventForPause(context);
-            _eventPreferencesPeripherals.setSystemEventForPause(context);
+            _eventPreferencesAccessories.setSystemEventForPause(context);
             _eventPreferencesCalendar.setSystemEventForPause(context);
             _eventPreferencesWifi.setSystemEventForPause(context);
             _eventPreferencesScreen.setSystemEventForPause(context);
@@ -2240,7 +2240,7 @@ class Event {
             _eventPreferencesTime.removeSystemEvent(context);
             _eventPreferencesBattery.removeSystemEvent(context);
             _eventPreferencesCall.removeSystemEvent(context);
-            _eventPreferencesPeripherals.removeSystemEvent(context);
+            _eventPreferencesAccessories.removeSystemEvent(context);
             _eventPreferencesCalendar.removeSystemEvent(context);
             _eventPreferencesWifi.removeSystemEvent(context);
             _eventPreferencesScreen.removeSystemEvent(context);

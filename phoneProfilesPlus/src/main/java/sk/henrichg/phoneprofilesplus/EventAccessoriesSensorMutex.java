@@ -1,4 +1,4 @@
 package sk.henrichg.phoneprofilesplus;
 
-class EventPeripheralsSensorMutex {
+class EventAccessoriesSensorMutex {
 }
