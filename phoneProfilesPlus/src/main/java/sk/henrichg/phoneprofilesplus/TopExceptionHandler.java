@@ -40,9 +40,9 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 boolean canWriteSettings;// = true;
                 canWriteSettings = Settings.System.canWrite(applicationContext);
                 if (canWriteSettings) {
-                    if (PPApplication.screenTimeoutHandler != null) {
-                        PPApplication.screenTimeoutHandler.post(() -> {
-                            if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                        if (PPApplication.screenTimeoutHandler != null) {
+                            PPApplication.screenTimeoutHandler.post(() -> {
                                 synchronized (PPApplication.rootMutex) {
                                     PPApplication.logE("TopExceptionHandler.uncaughtException", "" + PPApplication.screenTimeoutBeforeDeviceLock);
                                     String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " " + PPApplication.screenTimeoutBeforeDeviceLock;
@@ -58,10 +58,10 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                                         //PPApplication.recordException(e);
                                     }
                                 }
-                            } else
-                                Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
-                        });
-                    }
+                            });
+                        }
+                    } else
+                        Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
                 }
             }
         } catch (Exception ee) {
