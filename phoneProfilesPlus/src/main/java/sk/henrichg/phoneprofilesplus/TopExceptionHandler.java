@@ -50,7 +50,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                                     //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                                     Command command = new Command(0, false, command1); //, command2);
                                     try {
-                                        RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                        RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command, "TopExceptionHandler.uncaughtException");
                                     } catch (Exception ee) {
                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied

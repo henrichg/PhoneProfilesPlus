@@ -91,7 +91,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                                 //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                                 Command command = new Command(0, false, command1); //, command2);
                                 try {
-                                    RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                    RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command, "LockDeviceActivity.onCreate");
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
@@ -151,7 +151,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
-                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
                                 PPApplication.commandWait(command, "LockDeviceActivity.onDestroy");
                             } catch (Exception e) {
                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied

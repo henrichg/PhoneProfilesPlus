@@ -3664,7 +3664,7 @@ class ActivateProfileHelper {
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
-                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
                                 PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
@@ -3693,7 +3693,7 @@ class ActivateProfileHelper {
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
-                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
                                 PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
@@ -3723,7 +3723,7 @@ class ActivateProfileHelper {
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
-                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
                                 PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
@@ -3753,7 +3753,7 @@ class ActivateProfileHelper {
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
-                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
                                 PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
@@ -3783,7 +3783,7 @@ class ActivateProfileHelper {
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
-                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
                                 PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
@@ -3825,7 +3825,7 @@ class ActivateProfileHelper {
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
-                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
                                 PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
@@ -3863,7 +3863,7 @@ class ActivateProfileHelper {
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
-                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
                                 PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
