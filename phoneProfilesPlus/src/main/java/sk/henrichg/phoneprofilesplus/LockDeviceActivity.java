@@ -10,6 +10,10 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
+import com.stericson.roottools.RootTools;
+
 public class LockDeviceActivity extends AppCompatActivity {
 
     private View view = null;
@@ -77,7 +81,24 @@ public class LockDeviceActivity extends AppCompatActivity {
                 PPApplication.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
                 //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
 
-                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
+                if (PPApplication.deviceIsOppo) {
+                    synchronized (PPApplication.rootMutex) {
+                        PPApplication.logE("LockDeviceActivity.onCreate", "1000");
+                        String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 1000";
+                        //if (PPApplication.isSELinuxEnforcing())
+                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                        Command command = new Command(0, false, command1); //, command2);
+                        try {
+                            RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                            PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                        } catch (Exception e) {
+                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                            //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                            //PPApplication.recordException(e);
+                        }
+                    }
+                } else
+                    Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
                 LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
             //}
@@ -116,7 +137,24 @@ public class LockDeviceActivity extends AppCompatActivity {
 
             PPApplication.lockDeviceActivity = null;
 
-            Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+            if (PPApplication.deviceIsOppo) {
+                synchronized (PPApplication.rootMutex) {
+                    PPApplication.logE("LockDeviceActivity.onDestroy", ""+PPApplication.screenTimeoutBeforeDeviceLock);
+                    String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " " + PPApplication.screenTimeoutBeforeDeviceLock;
+                    //if (PPApplication.isSELinuxEnforcing())
+                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                    Command command = new Command(0, false, command1); //, command2);
+                    try {
+                        RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                        PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                    } catch (Exception e) {
+                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                        //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                        //PPApplication.recordException(e);
+                    }
+                }
+            } else
+                Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
 
             // change screen timeout
             //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);

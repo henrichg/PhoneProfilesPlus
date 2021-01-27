@@ -6,6 +6,10 @@ import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 
+import com.stericson.rootshell.execution.Command;
+import com.stericson.rootshell.execution.Shell;
+import com.stericson.roottools.RootTools;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -35,8 +39,26 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
             if (PPApplication.lockDeviceActivity != null) {
                 boolean canWriteSettings;// = true;
                 canWriteSettings = Settings.System.canWrite(applicationContext);
-                if (canWriteSettings)
-                    Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+                if (canWriteSettings) {
+                    if (PPApplication.deviceIsOppo) {
+                        synchronized (PPApplication.rootMutex) {
+                            PPApplication.logE("TopExceptionHandler.uncaughtException", ""+PPApplication.screenTimeoutBeforeDeviceLock);
+                            String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " " + PPApplication.screenTimeoutBeforeDeviceLock;
+                            //if (PPApplication.isSELinuxEnforcing())
+                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                            Command command = new Command(0, false, command1); //, command2);
+                            try {
+                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                            } catch (Exception ee) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                    } else
+                        Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+                }
             }
         } catch (Exception ee) {
             //Log.e("TopExceptionHandler.uncaughtException", Log.getStackTraceString(ee));
