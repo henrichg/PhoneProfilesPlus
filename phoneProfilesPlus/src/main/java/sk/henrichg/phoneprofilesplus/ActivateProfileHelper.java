@@ -40,6 +40,7 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -3658,13 +3659,16 @@ class ActivateProfileHelper {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 15000";
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "command="+command1);
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
                                 RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
@@ -3684,13 +3688,16 @@ class ActivateProfileHelper {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 30000";
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "command="+command1);
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
                                 RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
@@ -3711,13 +3718,16 @@ class ActivateProfileHelper {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 60000";
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "command="+command1);
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
                                 RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
@@ -3738,13 +3748,16 @@ class ActivateProfileHelper {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 120000";
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "command="+command1);
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
                                 RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
@@ -3765,13 +3778,16 @@ class ActivateProfileHelper {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 600000";
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "command="+command1);
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
                                 RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
@@ -3804,13 +3820,16 @@ class ActivateProfileHelper {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 300000";
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "command="+command1);
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
                                 RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
@@ -3839,13 +3858,16 @@ class ActivateProfileHelper {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 1800000";
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "command="+command1);
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
                             try {
                                 RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
                                 PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "end - "+screenTimeout);
                             } catch (Exception e) {
+                                PPApplication.logE("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                 //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
