@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">מושהה: אירוע אינו פועל. פרמטרים של האירוע לא התקיימו. האירוע ממתין לקיום כל הפרמטרים.</string>
     <string name="info_notification_event_states_stopped">מופסק: אירוע מופסק ולא ניתן להתחילו. פרמטר האירוע \"אפשר להפעיל\" אינו מסומן.</string>
     <string name="info_notification_event_states_paused_delay">מושהה עם השהיה: האירוע התחיל, אך ממתין למשך ההשהיה. הפרמטרים של האירוע התקיימו.</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">התעלמות מאירועי \"כל היום\"</string>
     <string name="important_info_default_profile">כאשר לא פועל כל אירוע, הפרופיל הפעיל הוא \"פרופיל ברירת המחדל\", אם מוגדר. ניתן להגדיר פרופיל ברירת-מחדל בהגדרות היישום ב- \"הפעלה פרופיל\". לחצו כאן להגדרות.</string>
     <string name="important_info_how_does_volume_separation_work_title">איך עובדת \"ביטול קישור עוצמות קול הצלצול וההתראות\":</string>
     <string name="important_info_how_does_volume_separation_work">הפעלת פרופיל קובעת את עוצמת הקול של המכשיר עפ\"י הגדרת עוצמת השמע של הודעות בפרופיל. כאשר מזוהה צלצול של שיחה, עוצמת הצלצול נקבעת כמוגדר בפרופיל. לאחר סיום השיחה, מותאמת עוצמת השמע חזרה לעוצמת צליל הודעה המוגדרת בפרופיל.</string>
@@ -1571,6 +1570,10 @@
     <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
     <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
     <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="event_preferences_calendar_all_day_events">All day events</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1882,4 +1885,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

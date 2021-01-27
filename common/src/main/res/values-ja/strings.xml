@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">一時停止: イベントが実行されていません。イベントパラメーターが満たされていません。イベントはパラメーターが満たされるのを待っています。</string>
     <string name="info_notification_event_states_stopped">停止: イベントが停止し、開始できません。イベントパラメーター「実行を可能にする」がチェックされていません。</string>
     <string name="info_notification_event_states_paused_delay">遅延で一時停止: イベントは開始されていますが、遅延時間が過ぎるのを待っています。イベントパラメーターは満たしています。</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">「終日」イベントを無視する</string>
     <string name="important_info_default_profile">イベントが実行されていない場合は、設定された「既定のプロファイル」が有効になります。アプリケーション設定の 「プロファイルの有効化」で、既定のプロファイルを設定できます。設定するにはここをクリックしてください。</string>
     <string name="important_info_how_does_volume_separation_work_title">「着信音と通知音のリンクを解除」とは:</string>
     <string name="important_info_how_does_volume_separation_work">プロファイルの有効化は、実行中のプロファイルの通知音量レベルによってデバイスのボリュームを調整します。 着信が検出されると、実行中のプロファイルによる着信音量レベルが調整されます。 通話が終了すると、実行中のプロファイルの通知音量レベルが復元されます。</string>
@@ -765,7 +764,7 @@
     <string name="profile_preferences_zenMode_totalSilence_summary">すべての通知を無音にする</string>
     <string name="array_pref_applicationDisableScanning_disabled">スキャンは無効です</string>
     <string name="array_pref_applicationDisableScanning_enabled">スキャンは有効です</string>
-    <string name="duration_pref_dlg_duration_label">Duration:</string>
+    <string name="duration_pref_dlg_duration_label">継続時間:</string>
     <string name="duration_pref_dlg_activation_end_label">有効化終了:</string>
     <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
@@ -808,7 +807,7 @@
     <string name="important_info_quick_guide_sensors_1">センサーの例:</string>
     <string name="important_info_quick_guide_sensors_2"><![CDATA[<b>時間センサー:</b> 指定された曜日または指定された時間に開始・終了します。]]></string>
     <string name="important_info_quick_guide_sensors_3"><![CDATA[<b>Wi-Fi センサー:</b> Wi-Fi SSID (接続済み、付近のデバイス) によって開始・終了します。付近のデバイス機能は、デバイスの位置を検出するのに便利です。たとえば、デバイスが自宅の Wi-Fi ネットワークのスキャン範囲内にある場合にイベントを開始します。]]></string>
-    <string name="important_info_quick_guide_sensors_4"><![CDATA[<b>Bluetooth sensor:</b> Similar to Wi-Fi sensor. Useful for car Bluetooth.]]></string>
+    <string name="important_info_quick_guide_sensors_4"><![CDATA[<b>Bluetoothセンサー:</b> Wi-Fiセンサーと同様です。車のBluetoothに便利です。]]></string>
     <string name="important_info_quick_guide_sensors_5"><![CDATA[<b>位置センサー:</b> デバイスの位置(GPS) で開始・終了します。デバイスのシステム設定で位置情報サービスを有効にする必要があります。]]></string>
     <string name="important_info_quick_guide_sensors_6"><![CDATA[<b>モバイルセルセンサー:</b> モバイルセルタワーへの接続または切断によって開始・終了します。]]></string>
     <string name="important_info_quick_guide_sensors_7"><![CDATA[<b>通話センサー：</b> 設定された連絡先によって開始・終了します。たとえば、着信時です。]]></string>
@@ -822,15 +821,15 @@
     <string name="phone_profiles_pref_applicationStartEvents">起動時にイベントを開始</string>
     <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">画面がオンのときにのみスキャンする</string>
     <string name="phone_profiles_pref_applicationRestartEventsAlert">イベントを再起動するときに確認</string>
-    <string name="applications_editor_dialog_startApplicationDelay">Startup delay:</string>
+    <string name="applications_editor_dialog_startApplicationDelay">起動の遅延:</string>
     <string name="number_picker_min_error">Please input a number greater than or equal to %1$s</string>
     <string name="number_picker_max_error">Please input a number less than or equal to %1$s</string>
     <string name="number_picker_min_max_error">%1$s から %2$s の間の数を入力してください</string>
-    <string name="email_chooser">Send e-mail using</string>
-    <string name="web_browser_chooser">View web link using</string>
-    <string name="google_play_chooser">View Google Play using</string>
-    <string name="preference_not_allowed_reason_not_extender_installed">not installed PhoneProfilesPlusExtender</string>
-    <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">not enabled Accessibility settings for PhoneProfilesPlusExtender</string>
+    <string name="email_chooser">メール送信方法</string>
+    <string name="web_browser_chooser">Webリンクの表示方法</string>
+    <string name="google_play_chooser">Google Playの表示方法</string>
+    <string name="preference_not_allowed_reason_not_extender_installed">PhoneProfilesPlusExtender がインストールされていません</string>
+    <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">PhoneProfilesPlusExtenderのユーザー補助設定が有効になっていません</string>
     <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">To enable \"Applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="event_preferences_orientation_AccessibilitySettingsForExtender_summary">To enable \"Ignore for applications\" parameter, allow PhoneProfilesPlusExtender \"Accessibility\" in system settings.</string>
     <string name="event_preferences_applications_PPPExtender_install_summary">To enable \"Applications\" parameter, click here to install PhoneProfilesPlusExtender.</string>
@@ -867,20 +866,20 @@
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary1">スキャン間隔を</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary2">分以下に設定しないでください。電池の消費量が大幅に増加します。</string>
     <string name="phone_profiles_pref_applicationEventScanIntervalInfo_summary3">秒以下に設定しないでください。電池の消費量が大幅に増加します。</string>
-    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">Rounded corners (widget)</string>
-    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">Rounded corners</string>
-    <string name="preference_not_allowed_reason_extender_not_upgraded">not upgraded PhoneProfilesPlusExtender</string>
-    <string name="profile_activation_interactive_preference_notification_title">Activated profile:</string>
-    <string name="profile_activation_interactive_preference_notification_text">Click here to open:</string>
-    <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi hotspot preferences</string>
-    <string name="preference_not_allowed_reason_not_supported_android_version">not supported Android version</string>
-    <string name="event_preferences_notifications_inCall">In call</string>
-    <string name="event_preferences_notifications_missedCall">Missed call</string>
+    <string name="phone_profiles_pref_applicationWidgetIconRoundedCorners">角を丸くする (ウィジェット)</string>
+    <string name="phone_profiles_pref_applicationWidgetRoundedCorners">角を丸くする</string>
+    <string name="preference_not_allowed_reason_extender_not_upgraded">PhoneProfilesPlusExtender がアップグレードされていません</string>
+    <string name="profile_activation_interactive_preference_notification_title">有効なプロファイル:</string>
+    <string name="profile_activation_interactive_preference_notification_text">ここをクリックして開く:</string>
+    <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi ホットスポット設定</string>
+    <string name="preference_not_allowed_reason_not_supported_android_version">このAndroidバージョンではサポートされていません。</string>
+    <string name="event_preferences_notifications_inCall">通話中</string>
+    <string name="event_preferences_notifications_missedCall">不在着信</string>
     <string name="colorChooser_pref_dialog_defaultIconColor">既定のアイコンの色</string>
-    <string name="phone_profiles_pref_applicationWidgetBackgroundType">Color background type</string>
+    <string name="phone_profiles_pref_applicationWidgetBackgroundType">背景色の種類</string>
     <string name="phone_profiles_pref_applicationWidgetColorB">背景色</string>
-    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">Color background type (widget)</string>
-    <string name="phone_profiles_pref_applicationWidgetIconColorB">Background color (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconBackgroundType">背景色の種類 (ウィジェット)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconColorB">背景色 (ウィジェット)</string>
     <string name="phone_profiles_pref_applicationEventWifiEnableScanning">Wi-Fiスキャンを有効にする</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIfWifiOff">Wi-Fiが無効の場合でもスキャン</string>
     <string name="phone_profiles_pref_applicationEventBluetoothEnableScanning">Bluetooth スキャンを有効にする</string>
@@ -1568,6 +1567,10 @@
     <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
     <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
     <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="event_preferences_calendar_all_day_events">All day events</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1879,4 +1882,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

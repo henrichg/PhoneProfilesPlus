@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">Paused: event is not running. Event parameters are not satisfied. Event is waiting for parameters to be satisfied.</string>
     <string name="info_notification_event_states_stopped">Stopped: event is stopped and cannot be started. Event parameter \"Enable run\" is not checked.</string>
     <string name="info_notification_event_states_paused_delay">Paused with delay: event is started, but is waiting for the delay to expire. Event parameters are satisfied.</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>
     <string name="important_info_default_profile">When no events are running, the \"Default profile\" is enabled if configured. You can configure a default profile in application settings in \"Profile activation\". Click here to configure it.</string>
     <string name="important_info_how_does_volume_separation_work_title">How \"Unlink ringer and notification volumes\" works:</string>
     <string name="important_info_how_does_volume_separation_work">Profile activation adjusts device volume by the running profile notifications volume level. When call ringing is detected, the ringing volume level from the running profile is adjusted. After the call ends, the notification volume level from the running profile is restored.</string>
@@ -1568,6 +1567,10 @@
     <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
     <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
     <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="event_preferences_calendar_all_day_events">All day events</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir PhoneProfilesPlusExtender por:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1879,4 +1882,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">Dijeda: acara tidak berjalan Parameter acara tidak terpenuhi. Event menunggu parameter untuk dipuaskan.</string>
     <string name="info_notification_event_states_stopped">Berhenti: acara dihentikan dan tidak bisa dimulai. Parameter acara \"Aktifkan lari\" tidak dicentang.</string>
     <string name="info_notification_event_states_paused_delay">Dijeda dengan penundaan: acara dimulai, namun menunggu penundaan berakhir. Parameter acara terpenuhi.</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">Abaikan \"sepanjang hari\" acara</string>
     <string name="important_info_default_profile">Bila tidak ada aktivitas yang berjalan, \"Profil default\" diaktifkan jika dikonfigurasi. Anda dapat mengkonfigurasi profil default dalam pengaturan aplikasi di \"Aktivasi Profil\". Klik disini untuk mengkonfigurasinya.</string>
     <string name="important_info_how_does_volume_separation_work_title">Cara \"Batalkan pengiriman volume dering dan notifikasi\" bekerja:</string>
     <string name="important_info_how_does_volume_separation_work">Pengaktifan profil akan menyesuaikan volume perangkat menurut tingkat profil yang sedang berjalan tingkat pemberitahuan. Saat deringan panggilan terdeteksi, tingkat volume dering dari profil berjalan disesuaikan. Setelah panggilan berakhir, tingkat volume notifikasi dari profil berjalan dipulihkan.</string>
@@ -1568,6 +1567,10 @@
     <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
     <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
     <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="event_preferences_calendar_all_day_events">All day events</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1879,4 +1882,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">Angehalten: Ereignis angehalten, bis die Parameter erfüllt sind.</string>
     <string name="info_notification_event_states_stopped">Deaktiviert: Das Ereignis ist deaktiviert und kann nicht gestartet werden. Zum Einschalten Haken bei \"Aktivieren\" setzen.</string>
     <string name="info_notification_event_states_paused_delay">Angehalten mit Verzögerung: Ereignis ist gestartet, wartet aber ä die eingestellte Verzögerung ab. Ereignisparameter sind erfüllt.</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">Ignoriere ganztägige Termine</string>
     <string name="important_info_default_profile">Wenn kein Ereignis ausgeführt wird, ist das \"Standardprofil\" aktiv, sofern es konfiguriert ist. Es kann in den Einstellungen unter \"Profil Aktivierung\" konfiguriert werden. Zur Konfiguration hier tippen.</string>
     <string name="important_info_how_does_volume_separation_work_title">Wie das getrennte Festlegen für Rufton- und Benachrichtigungslautstärke funktioniert:</string>
     <string name="important_info_how_does_volume_separation_work">Wenn ein Anruf-Klingeln beginnt, wird die Lautstärke auf die \"Anruflautstärke\" gesetzt und hinterher wird die Ursprungslautstärke wiederhergestellt.</string>
@@ -1562,12 +1561,16 @@
     <string name="accessibility_service_enabled">Aktiviert</string>
     <string name="accessibility_service_disabled">Deaktiviert</string>
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Funktioniert nicht in Android 10+</string>
-    <string name="event_preferences_calendar_day_contains_event">Current day contains calendar event</string>
+    <string name="event_preferences_calendar_day_contains_event">Der aktuelle Tag enthält ein Kalenderereignis</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Nicht ausprobieren</string>
     <string name="array_event_pref_calendarDayContainsEvent_contains">Contains AND has configured parameters</string>
     <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
-    <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
-    <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="event_preferences_calendar_event_parameters">Parameter für Kalenderereignisse</string>
+    <string name="event_preferences_other_parameters">Weitere Parameter</string>
+    <string name="event_preferences_calendar_all_day_events">Ganztägige Ereignisse</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Nicht prüfen</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Nur nicht-ganztägige</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Nur ganztägige</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1879,4 +1882,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

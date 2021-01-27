@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">Паузирано: догађај не ради. Параметри догађаја нису испуњени. Догађај чека да се параметри испуне.</string>
     <string name="info_notification_event_states_stopped">Заустављено: догађај је заустављен и неможе се покренути. Параметар догађаја \"Омогући рад\" није чекиран.</string>
     <string name="info_notification_event_states_paused_delay">Паузирано са кашњењем: догађај је започет, али чека да истекне кашњење. Параметри догађаја су испуњени.</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">Игнориши \"цео дан\" догађаје</string>
     <string name="important_info_default_profile">Када нема догађаја који раде, \"подразумевани профил\" је омогућен и конфигурисан. Подразумевани профил можете конфигурисати у подешавањима апликације \" Активација профила\". Кликните овде за конфигурацију.</string>
     <string name="important_info_how_does_volume_separation_work_title">Како \"Раздвоји гласноће звона и обавештења \" функционише:</string>
     <string name="important_info_how_does_volume_separation_work">Активирање профила прилагођава јачину звука уређаја нивоом јачине звука нотификација профила. Када се препозна звоно позива, подешава се јачина звука звона из текућег профила. По завршетку позива враћа се разина јачине звука обавијести из активног профила.</string>
@@ -1568,6 +1567,10 @@
     <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
     <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
     <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="event_preferences_calendar_all_day_events">All day events</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1879,4 +1882,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

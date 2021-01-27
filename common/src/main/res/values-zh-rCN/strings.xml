@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">暂停: 事件没有运行；事件参数不满足要求；或事件正在等待参数满足要求。</string>
     <string name="info_notification_event_states_stopped">停止: 事件已停止，不能被启动；事件参数“允许运行”没有被选中。</string>
     <string name="info_notification_event_states_paused_delay">延迟暂停: 事件已开始，但在延迟中等待。事件参数已满足。</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">忽略“全天”事件</string>
     <string name="important_info_default_profile">当没有任何事件在运行时，如果已经设置，则激活的是“默认情景”。您可以在应用程序设定中的“情景激活”来设置默认情景。按这里进行设置。</string>
     <string name="important_info_how_does_volume_separation_work_title">”取消关联音量”是如何工作的：</string>
     <string name="important_info_how_does_volume_separation_work">设备音量由情景激活中的情景通知来调整音量级别。当检测到电话响了时，来电音量级别从激活情景中获取。通话完毕后，通知音量从恢复的情景中获取。</string>
@@ -1568,6 +1567,10 @@
     <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
     <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
     <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="event_preferences_calendar_all_day_events">All day events</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1879,4 +1882,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

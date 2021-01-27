@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">En pause : L\'événement ne fonctionne pas. Les paramètres de déclenchement ne sont pas remplies.</string>
     <string name="info_notification_event_states_stopped">Arrêté : L\'événement est arrêté et ne peut pas être démarré. Le paramètres de l\'évènement \"valider\" n\'est pas coché.</string>
     <string name="info_notification_event_states_paused_delay">Pause avec tempo : L\'événement est démarré, mais est en attente pendant une pause. Paramètres d\'événement sont remplies.</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">Ignorer les événements de \"Journaliers\"</string>
     <string name="important_info_default_profile">Quand pas n\'importe quel événement est en cours d\'exécution, activé est \"Le profil par défaut\" lorsqu\'est configuré. Vous pouvez configurer le profil par défaut dans les paramètres de l\'application dans \"Activation du profil\". Cliquez ici pour le configurer.</string>
     <string name="important_info_how_does_volume_separation_work_title">Comment fonctionne la \"Délier volumes et sonnerie de notification\":</string>
     <string name="important_info_how_does_volume_separation_work">L\'activation du profil ajuste le volume de l\'appareil de niveau des notifications. Lorsque la sonnerie est détectée, Le volume est ajustée. Après la fin de l\'appel, le volume est réinitialisé à la valeur des notifications.</string>
@@ -1562,12 +1561,16 @@
     <string name="accessibility_service_enabled">Activé</string>
     <string name="accessibility_service_disabled">Désactivé</string>
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Ne fonctionne pas sur Android 10+</string>
-    <string name="event_preferences_calendar_day_contains_event">Current day contains calendar event</string>
+    <string name="event_preferences_calendar_day_contains_event">Le jour actuel contient un événement de calendrier</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Ne pas le tester</string>
-    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains AND has configured parameters</string>
-    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
-    <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
-    <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Contient ET a des paramètres configurés</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Ne contient pas OU a des paramètres configurés</string>
+    <string name="event_preferences_calendar_event_parameters">Paramètres de l\'événement du calendrier</string>
+    <string name="event_preferences_other_parameters">Autres paramètres</string>
+    <string name="event_preferences_calendar_all_day_events">All day events</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
@@ -1879,4 +1882,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

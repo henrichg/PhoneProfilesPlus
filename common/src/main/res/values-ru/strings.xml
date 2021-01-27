@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">Приостановлено: событие не выполняется. Параметры события не удовлетворяются. Событие ожидает удовлетворения параметров.</string>
     <string name="info_notification_event_states_stopped">Остановлено: событие остановлено и не может быть запущено. Параметр события \"Разрешить выполнение\" не отмечен.</string>
     <string name="info_notification_event_states_paused_delay">Приостановлено с задержкой: событие выполняется, но отложено. Параметры событий удовлетворены.</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">Игнорировать события \"Весь день\"</string>
     <string name="important_info_default_profile">Когда ни одно событие не выполняется, активируется \"Профиль по умолчанию\", если он настроен. Профиль по умолчанию можно настроить в настройках приложения в разделе \"Активация профиля\". Нажмите здесь, чтобы настроить его.</string>
     <string name="important_info_how_does_volume_separation_work_title">Как работает разделение уровней громкости звонка и уведомлений:</string>
     <string name="important_info_how_does_volume_separation_work">Активация профиля устанавливает громкость устройства по уровню громкости уведомлений этого профиля. При обнаружении вызова уровень громкости звонка устанавливается в зависимости от настроек профиля. После окончания вызова восстанавливается уровень громкости уведомлений запущенного профиля.</string>
@@ -1562,12 +1561,16 @@
     <string name="accessibility_service_enabled">Включена</string>
     <string name="accessibility_service_disabled">Отключена</string>
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Не работает в Android 10+</string>
-    <string name="event_preferences_calendar_day_contains_event">Current day contains calendar event</string>
+    <string name="event_preferences_calendar_day_contains_event">Текущий день содержит событие календаря</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Не проверять</string>
-    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains AND has configured parameters</string>
-    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
-    <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
-    <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Содержит И имеет настроенные параметры</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Не содержит ИЛИ не имеет настроенных параметров</string>
+    <string name="event_preferences_calendar_event_parameters">Параметры событий календаря</string>
+    <string name="event_preferences_other_parameters">Другие параметры</string>
+    <string name="event_preferences_calendar_all_day_events">События на весь день</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Не проверять</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Только не на весь день</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Только на весь день</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1879,4 +1882,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

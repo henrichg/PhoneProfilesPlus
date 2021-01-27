@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">Fasıla verildi: Durum çalışmıyor. Durum değerleri yerine gelmiş değildir. Durum, değerlerin yerine gelmesini bekliyor.</string>
     <string name="info_notification_event_states_stopped">Durdu: Durum durdurulmuş ve başlatılamaz. Durum değeri olan \"Çalışmaya izin ver\" seçilmemiş.</string>
     <string name="info_notification_event_states_paused_delay">Erteleme ile fasıla verildi: Durum başladı, fakat ertelemede bekliyor. Durum değerleri karşılanmıştır.</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">\"Tam gün\" Durumlarını ihmal eder</string>
     <string name="important_info_default_profile">Herhangi bir Durum çalışmadığı zaman, ayarlanmış ise \"Varsayılan tercih\" başlatılır. Varsayılan tercihi, uygulama ayarlarında \"Tercihi faaliyete geçir\" olarak ayarlayabilirsiniz. Ayarlamak için buraya dokunun.</string>
     <string name="important_info_how_does_volume_separation_work_title">\"Zil ve bildirim seslerinin seviyelerini birleştir\" nasıl çalışır:</string>
     <string name="important_info_how_does_volume_separation_work">Tercih faaliyete geçince, zil ses seviyesi, tercih bildirim ses seviyesi olarak ayarlanır. Arama tesbit edildiğinde, bildirim ses seviyesi, tercih tarafından otomatik olarak seçtiğiniz zil sesi seviyesine ayarlanır. Çağrı bitiminden sonra bildirim ses seviyesi, tekrar otomatik olarak tercih tarafından geri ayarlanır.</string>
@@ -1562,12 +1561,16 @@
     <string name="accessibility_service_enabled">Faal</string>
     <string name="accessibility_service_disabled">Kapalı</string>
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Android 10 ve üstünde çalışmıyor</string>
-    <string name="event_preferences_calendar_day_contains_event">Current day contains calendar event</string>
+    <string name="event_preferences_calendar_day_contains_event">Bugün takvim durumu ihtiva ediyor</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Tecrübe edilmesin</string>
-    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains AND has configured parameters</string>
-    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
-    <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
-    <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">VE ayarlanmış şartlarını ihtiva eder</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">VEYA ayarlanmış şartlarını ihtiva etmiyor</string>
+    <string name="event_preferences_calendar_event_parameters">Takvim durum şartları</string>
+    <string name="event_preferences_other_parameters">Diğer şartlar</string>
+    <string name="event_preferences_calendar_all_day_events">All day events</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1879,4 +1882,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">Pozastavená: udalosť nebeží. Parametre udalosti nie sú splnené. Udalosť čaká na ich splnenie.</string>
     <string name="info_notification_event_states_stopped">Zastavená: udalosť je zastavená a nemôže byť spustená. Parameter udalosti \"Povoľ beh\" nie je zaškrtnutý.</string>
     <string name="info_notification_event_states_paused_delay">Pozastavená s pozdržaním: udalosť je spustená, ale čaká v pozdržaní. Parametre udalosti sú splnené.</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">Ignoruj \"celodenné\" udalosti</string>
     <string name="important_info_default_profile">Ak nebežia žiadne udalosti, aktivovaný je \"Predvolený profil\". Predvolený profil môžete nastaviť v nastaveniach aplikácie v \"Aktivácia profilu\". Kliknite sem na jeho nakonfigurovanie.</string>
     <string name="important_info_how_does_volume_separation_work_title">Ako funguje \"Oddeľ hlasitosť zvonenia a notifikácií\":</string>
     <string name="important_info_how_does_volume_separation_work">Aktivácia profilu nastaví hlasitosť zariadenia podľa hlasitosti notifikácií v profile. Ak je zachytený príchodzí hovor, nastaví sa hlasitosť zvonenia z profilu. Po ukončení hovoru sa spať nastaví hlasitosť notifikácií z profilu.</string>
@@ -1568,6 +1567,10 @@
     <string name="array_event_pref_calendarDayContainsEvent_notContains">Neobsahuje ALEBO má nakonfigurované parametre</string>
     <string name="event_preferences_calendar_event_parameters">Parametre udalosti kalendára</string>
     <string name="event_preferences_other_parameters">Ostatné parametre</string>
+    <string name="event_preferences_calendar_all_day_events">Celodenné udalosti</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Netestovať</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Iba necelodenné</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Iba celodenné</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1879,4 +1882,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

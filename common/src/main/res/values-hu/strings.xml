@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">Szüneteltetett: esemény nem fut. Esemény paraméterek nem teljesülnek. Esemény várja paraméterek teljesülésére.</string>
     <string name="info_notification_event_states_stopped">Megállt: esemény leáll, és nem indítható. Esemény paraméter \"Futtatás aktiválás\" nincs bejelölve.</string>
     <string name="info_notification_event_states_paused_delay">Szünetel késleltetéssel: esemény elindult, de a késleltetve vár. Esemény paraméterei teljesüljenek.</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">Figyelmen kívül hagyja a \"Egész napos\"-eseményeket</string>
     <string name="important_info_default_profile">Nem minden esetben működik, ha aktiválva van \"Alapértelmezett profil\", ha be van állítva. Beállíthatja az alapértelmezett profilt, az alkalmazás beállításaiban \"Profil aktiválás\". Kattintson ide, hogy beállítsd.</string>
     <string name="important_info_how_does_volume_separation_work_title">Hogyan működik a \"Csengőhang és értesítés hangerő szétválasztása\":</string>
     <string name="important_info_how_does_volume_separation_work">Profil aktiválás a hangerőt eszköz által profil értesítések hangerejét. Hívás csengetés észlelésekor igazítja a csengetés hangerejét a profilból. Után a hívás befejeztével értesítés hangerő profilból vissza kell állítani.</string>
@@ -1568,6 +1567,10 @@
     <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
     <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
     <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="event_preferences_calendar_all_day_events">All day events</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>
@@ -1879,4 +1882,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">Gepauzeerd: event is gepauzeerd. Aan event parameters wordt niet voldaan. Het event wacht tot wordt voldaan aan de parameters.</string>
     <string name="info_notification_event_states_stopped">Gestopt: event is gestopt en kan niet worden gestart. De event parameter \"Uitvoeren inschakelen\" niet gecontroleerd.</string>
     <string name="info_notification_event_states_paused_delay">Gepauzeerd met vertraging: event is gestart maar wacht. Aan event parameters wordt voldaan.</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">\"Dagvullende\" events negeren</string>
     <string name="important_info_default_profile">Als geen event loopt, dan wordt \"Standaard profiel\" geactiveerd, mits geconfigureerd. Je kunt Standaard profiel configureren in programma-instellingen bij \"Profiel activering\". Klik hier om te configureren.</string>
     <string name="important_info_how_does_volume_separation_work_title">Hoe \"Beltoon- en meldingsvolumes ontkoppelen\" werkt:</string>
     <string name="important_info_how_does_volume_separation_work">Profiel activering wijzigt het apparaat volume in het meldingen volume. Als een telefoonoproep gedetecteerd wordt zal het volume niveau van het profiel aangepast worden. Na de oproep gaat het volume niveau weer naar het voorgaande niveau.</string>
@@ -1562,12 +1561,16 @@
     <string name="accessibility_service_enabled">Ingeschakeld</string>
     <string name="accessibility_service_disabled">Uitgeschakeld</string>
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Werkt niet in Android 10+</string>
-    <string name="event_preferences_calendar_day_contains_event">Current day contains calendar event</string>
+    <string name="event_preferences_calendar_day_contains_event">Huidige dag bevat agenda event</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Test het niet</string>
-    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains AND has configured parameters</string>
-    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
-    <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
-    <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Bevat EN heeft geconfigureerde parameters</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Bevat niet OF heeft geconfigureerde parameters</string>
+    <string name="event_preferences_calendar_event_parameters">Kalender event parameters</string>
+    <string name="event_preferences_other_parameters">Andere parameters</string>
+    <string name="event_preferences_calendar_all_day_events">Hele dag event</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Niet controleren</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Niet alle dagen</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Alleen alle dagen</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1879,4 +1882,5 @@
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>

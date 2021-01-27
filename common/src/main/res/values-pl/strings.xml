@@ -452,7 +452,6 @@
     <string name="info_notification_event_states_paused">Wstrzymane: zdarzenie nie jest uruchomione. Parametry zdarzenia nie są spełnione. Zdarzenie oczekuje na spełnienie parametrów.</string>
     <string name="info_notification_event_states_stopped">Zatrzymano: zdarzenie jest zatrzymane i nie można go uruchomić. Parametr zdarzenia \"Zezwól na uruchomienie\" nie jest zaznaczony.</string>
     <string name="info_notification_event_states_paused_delay">Zatrzymane z opóźnieniem: zdarzenie jest rozpoczęte, ale czeka na wygaśnięcie opóźnienia. Parametry zdarzenia są spełnione.</string>
-    <string name="event_preferences_calendar_ignore_all_day_events">Ignoruj wydarzenia całodniowe</string>
     <string name="important_info_default_profile">Kiedy nie jest uruchomione żadne zdarzenie, \"Domyślny profil\" jest włączony jeśli skonfigurowany. Możesz skonfigurować domyślny profil w ustawieniach aplikacji w \"Aktywacja profilu\". Kliknij tutaj aby to skonfigurować.</string>
     <string name="important_info_how_does_volume_separation_work_title">Jak działa \"Rozłącz ustawienia głośności dzwonka i powiadomień\":</string>
     <string name="important_info_how_does_volume_separation_work">Aktywacja profilu dostosowuje głośność urządzenia przez uruchamianie poziomu głośności powiadomień profilu. Kiedy połączenie zostaje wykryte, poziom głośności dzwonka z uruchomionego profilu jest korygowana. Po zakończeniu połączenia, poziom głośności powiadomień z uruchomionego profilu jest przywracany.</string>
@@ -1563,12 +1562,16 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="accessibility_service_enabled">Włączona</string>
     <string name="accessibility_service_disabled">Wyłączona</string>
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Nie działa w Android 10+</string>
-    <string name="event_preferences_calendar_day_contains_event">Current day contains calendar event</string>
+    <string name="event_preferences_calendar_day_contains_event">Bieżący dzień zawiera wydarzenie kalendarza</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Nie sprawdzaj</string>
-    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains AND has configured parameters</string>
-    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
-    <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
-    <string name="event_preferences_other_parameters">Other parameters</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Zawiera ORAZ ma skonfigurowane parametry</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Nie zawiera LUB ma skonfigurowane parametry</string>
+    <string name="event_preferences_calendar_event_parameters">Parametry wydarzenia kalendarza</string>
+    <string name="event_preferences_other_parameters">Inne parametry</string>
+    <string name="event_preferences_calendar_all_day_events">Wydarzenia całodniowe</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Nie sprawdzaj</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Wyłącznie nie całodniowe</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Wyłącznie całodniowe</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1880,4 +1883,5 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="not_more_maintained_notification_text">PhoneProfiles is not more maintained. Only critical bug fixes will be made. If you want, install PhoneProfilesPlus and in Editor menu use function \"Backup/restore\"/\"Import data from PhoneProfiles\".</string>-->
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
+    <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
 </resources>
