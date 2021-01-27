@@ -3653,40 +3653,129 @@ class ActivateProfileHelper {
                 if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 15000;
-                else
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+                else {
+                    if (PPApplication.deviceIsOppo) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 15000";
+                            //if (PPApplication.isSELinuxEnforcing())
+                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                            Command command = new Command(0, false, command1); //, command2);
+                            try {
+                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                    } else
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
+                }
                 break;
             case 2:
                 //removeScreenTimeoutAlwaysOnView(context);
                 if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 30000;
-                else
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
+                else {
+                    if (PPApplication.deviceIsOppo) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 30000";
+                            //if (PPApplication.isSELinuxEnforcing())
+                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                            Command command = new Command(0, false, command1); //, command2);
+                            try {
+                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                    }
+                    else
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
+                }
                 break;
             case 3:
                 //removeScreenTimeoutAlwaysOnView(context);
                 if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 60000;
-                else
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
+                else {
+                    if (PPApplication.deviceIsOppo) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 60000";
+                            //if (PPApplication.isSELinuxEnforcing())
+                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                            Command command = new Command(0, false, command1); //, command2);
+                            try {
+                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                    }
+                    else
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
+                }
                 break;
             case 4:
                 //removeScreenTimeoutAlwaysOnView(context);
                 if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 120000;
-                else
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
+                else {
+                    if (PPApplication.deviceIsOppo) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 120000";
+                            //if (PPApplication.isSELinuxEnforcing())
+                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                            Command command = new Command(0, false, command1); //, command2);
+                            try {
+                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                    }
+                    else
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
+                }
                 break;
             case 5:
                 //removeScreenTimeoutAlwaysOnView(context);
                 if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 600000;
-                else
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
+                else {
+                    if (PPApplication.deviceIsOppo) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 600000";
+                            //if (PPApplication.isSELinuxEnforcing())
+                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                            Command command = new Command(0, false, command1); //, command2);
+                            try {
+                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                    }
+                    else
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
+                }
                 break;
             /*case 6:
                 //2147483647 = Integer.MAX_VALUE
@@ -3705,8 +3794,26 @@ class ActivateProfileHelper {
                 if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 300000;
-                else
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
+                else {
+                    if (PPApplication.deviceIsOppo) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 300000";
+                            //if (PPApplication.isSELinuxEnforcing())
+                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                            Command command = new Command(0, false, command1); //, command2);
+                            try {
+                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                    }
+                    else
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
+                }
                 break;
             /*case 8:
                 removeScreenTimeoutAlwaysOnView(context);
@@ -3721,8 +3828,26 @@ class ActivateProfileHelper {
                 if (/*(PhoneProfilesService.getInstance() != null) &&*/ (PPApplication.lockDeviceActivity != null))
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 1800000;
-                else
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1800000);
+                else {
+                    if (PPApplication.deviceIsOppo) {
+                        synchronized (PPApplication.rootMutex) {
+                            String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 1800000";
+                            //if (PPApplication.isSELinuxEnforcing())
+                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                            Command command = new Command(0, false, command1); //, command2);
+                            try {
+                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                            } catch (Exception e) {
+                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                    }
+                    else
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1800000);
+                }
                 break;
         }
         setActivatedProfileScreenTimeout(appContext, 0);
