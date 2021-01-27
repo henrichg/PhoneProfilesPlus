@@ -221,6 +221,8 @@ public class PPApplication extends Application
                                                 //+"|EventPreferencesCalendar"
                                                 //+"|CalendarEventExistsCheckBroadcastReceiver"
 
+                                                +"|ActivateProfileHelper.setScreenTimeout"
+
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

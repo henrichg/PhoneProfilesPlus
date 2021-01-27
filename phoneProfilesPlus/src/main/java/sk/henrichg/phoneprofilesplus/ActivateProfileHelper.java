@@ -3656,6 +3656,7 @@ class ActivateProfileHelper {
                 else {
                     if (PPApplication.deviceIsOppo) {
                         synchronized (PPApplication.rootMutex) {
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 15000";
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
@@ -3681,6 +3682,7 @@ class ActivateProfileHelper {
                 else {
                     if (PPApplication.deviceIsOppo) {
                         synchronized (PPApplication.rootMutex) {
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 30000";
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
@@ -3707,6 +3709,7 @@ class ActivateProfileHelper {
                 else {
                     if (PPApplication.deviceIsOppo) {
                         synchronized (PPApplication.rootMutex) {
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 60000";
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
@@ -3733,6 +3736,7 @@ class ActivateProfileHelper {
                 else {
                     if (PPApplication.deviceIsOppo) {
                         synchronized (PPApplication.rootMutex) {
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 120000";
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
@@ -3759,6 +3763,7 @@ class ActivateProfileHelper {
                 else {
                     if (PPApplication.deviceIsOppo) {
                         synchronized (PPApplication.rootMutex) {
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 600000";
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
@@ -3797,6 +3802,7 @@ class ActivateProfileHelper {
                 else {
                     if (PPApplication.deviceIsOppo) {
                         synchronized (PPApplication.rootMutex) {
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 300000";
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
@@ -3831,6 +3837,7 @@ class ActivateProfileHelper {
                 else {
                     if (PPApplication.deviceIsOppo) {
                         synchronized (PPApplication.rootMutex) {
+                            PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 1800000";
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
