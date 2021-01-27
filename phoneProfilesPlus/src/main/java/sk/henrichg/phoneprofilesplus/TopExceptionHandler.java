@@ -40,24 +40,28 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 boolean canWriteSettings;// = true;
                 canWriteSettings = Settings.System.canWrite(applicationContext);
                 if (canWriteSettings) {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
-                        synchronized (PPApplication.rootMutex) {
-                            PPApplication.logE("TopExceptionHandler.uncaughtException", ""+PPApplication.screenTimeoutBeforeDeviceLock);
-                            String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " " + PPApplication.screenTimeoutBeforeDeviceLock;
-                            //if (PPApplication.isSELinuxEnforcing())
-                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                            Command command = new Command(0, false, command1); //, command2);
-                            try {
-                                RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
-                                PPApplication.commandWait(command, "TopExceptionHandler.uncaughtException");
-                            } catch (Exception ee) {
-                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                //PPApplication.recordException(e);
-                            }
-                        }
-                    } else
-                        Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+                    if (PPApplication.screenTimeoutHandler != null) {
+                        PPApplication.screenTimeoutHandler.post(() -> {
+                            if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                                synchronized (PPApplication.rootMutex) {
+                                    PPApplication.logE("TopExceptionHandler.uncaughtException", "" + PPApplication.screenTimeoutBeforeDeviceLock);
+                                    String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " " + PPApplication.screenTimeoutBeforeDeviceLock;
+                                    //if (PPApplication.isSELinuxEnforcing())
+                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                    Command command = new Command(0, false, command1); //, command2);
+                                    try {
+                                        RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
+                                        PPApplication.commandWait(command, "TopExceptionHandler.uncaughtException");
+                                    } catch (Exception ee) {
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                        //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                                        //PPApplication.recordException(e);
+                                    }
+                                }
+                            } else
+                                Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
+                        });
+                    }
                 }
             }
         } catch (Exception ee) {
