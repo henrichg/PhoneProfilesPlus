@@ -40,7 +40,6 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -3655,7 +3654,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 15000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 15000";
@@ -3674,7 +3673,7 @@ class ActivateProfileHelper {
                                 //PPApplication.recordException(e);
                             }
                         }
-                    } else
+                    } else*/
                         Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
                 }
                 break;
@@ -3684,7 +3683,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 30000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 30000";
@@ -3704,7 +3703,7 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                    else
+                    else*/
                         Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 30000);
                 }
                 break;
@@ -3714,7 +3713,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 60000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 60000";
@@ -3734,7 +3733,7 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                    else
+                    else*/
                         Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 60000);
                 }
                 break;
@@ -3744,7 +3743,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 120000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 120000";
@@ -3764,7 +3763,7 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                    else
+                    else*/
                         Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 120000);
                 }
                 break;
@@ -3774,7 +3773,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 600000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 600000";
@@ -3794,7 +3793,7 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                    else
+                    else*/
                         Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 600000);
                 }
                 break;
@@ -3816,7 +3815,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 300000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 300000";
@@ -3836,7 +3835,7 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                    else
+                    else*/
                         Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 300000);
                 }
                 break;
@@ -3854,7 +3853,7 @@ class ActivateProfileHelper {
                     // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
                     PPApplication.screenTimeoutBeforeDeviceLock = 1800000;
                 else {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("ActivateProfileHelper.setScreenTimeout", ""+screenTimeout);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 1800000";
@@ -3874,7 +3873,7 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                    else
+                    else*/
                         Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1800000);
                 }
                 break;

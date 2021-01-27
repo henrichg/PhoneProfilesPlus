@@ -10,10 +10,6 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.stericson.rootshell.execution.Command;
-import com.stericson.rootshell.execution.Shell;
-import com.stericson.roottools.RootTools;
-
 public class LockDeviceActivity extends AppCompatActivity {
 
     private View view = null;
@@ -81,7 +77,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                 PPApplication.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
                 //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
 
-                if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                     if (PPApplication.screenTimeoutHandler != null) {
                         PPApplication.screenTimeoutHandler.post(() -> {
                             synchronized (PPApplication.rootMutex) {
@@ -101,7 +97,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                             }
                         });
                     }
-                } else
+                } else*/
                     Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 1000);
 
                 LockDeviceActivityFinishBroadcastReceiver.setAlarm(getApplicationContext());
@@ -141,7 +137,7 @@ public class LockDeviceActivity extends AppCompatActivity {
 
             PPApplication.lockDeviceActivity = null;
 
-            if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+            /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                 if (PPApplication.screenTimeoutHandler != null) {
                     PPApplication.screenTimeoutHandler.post(() -> {
                         synchronized (PPApplication.rootMutex) {
@@ -161,7 +157,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                         }
                     });
                 }
-            } else
+            } else*/
                 Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
 
             // change screen timeout

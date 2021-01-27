@@ -6,10 +6,6 @@ import android.provider.Settings;
 
 import androidx.annotation.NonNull;
 
-import com.stericson.rootshell.execution.Command;
-import com.stericson.rootshell.execution.Shell;
-import com.stericson.roottools.RootTools;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -40,7 +36,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 boolean canWriteSettings;// = true;
                 canWriteSettings = Settings.System.canWrite(applicationContext);
                 if (canWriteSettings) {
-                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         if (PPApplication.screenTimeoutHandler != null) {
                             PPApplication.screenTimeoutHandler.post(() -> {
                                 synchronized (PPApplication.rootMutex) {
@@ -60,7 +56,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                                 }
                             });
                         }
-                    } else
+                    } else*/
                         Settings.System.putInt(applicationContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
                 }
             }
