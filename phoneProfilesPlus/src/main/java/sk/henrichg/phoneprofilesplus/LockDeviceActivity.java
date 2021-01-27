@@ -90,7 +90,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                         Command command = new Command(0, false, command1); //, command2);
                         try {
                             RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
-                            PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                            PPApplication.commandWait(command, "LockDeviceActivity.onCreate");
                         } catch (Exception e) {
                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                             //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
@@ -146,7 +146,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                     Command command = new Command(0, false, command1); //, command2);
                     try {
                         RootTools.getShell(false, Shell.ShellContext.NORMAL).add(command);
-                        PPApplication.commandWait(command, "ActivateProfileHelper.setScreenTimeout");
+                        PPApplication.commandWait(command, "LockDeviceActivity.onDestroy");
                     } catch (Exception e) {
                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                         //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
