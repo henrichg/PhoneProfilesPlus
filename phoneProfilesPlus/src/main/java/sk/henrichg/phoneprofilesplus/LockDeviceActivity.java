@@ -81,7 +81,7 @@ public class LockDeviceActivity extends AppCompatActivity {
                 PPApplication.screenTimeoutBeforeDeviceLock = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 15000);
                 //ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(getApplicationContext());
 
-                if (PPApplication.deviceIsOppo) {
+                if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                     synchronized (PPApplication.rootMutex) {
                         PPApplication.logE("LockDeviceActivity.onCreate", "1000");
                         String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " 1000";
@@ -137,7 +137,7 @@ public class LockDeviceActivity extends AppCompatActivity {
 
             PPApplication.lockDeviceActivity = null;
 
-            if (PPApplication.deviceIsOppo) {
+            if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                 synchronized (PPApplication.rootMutex) {
                     PPApplication.logE("LockDeviceActivity.onDestroy", ""+PPApplication.screenTimeoutBeforeDeviceLock);
                     String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " " + PPApplication.screenTimeoutBeforeDeviceLock;

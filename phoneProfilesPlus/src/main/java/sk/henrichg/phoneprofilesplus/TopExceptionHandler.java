@@ -40,7 +40,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 boolean canWriteSettings;// = true;
                 canWriteSettings = Settings.System.canWrite(applicationContext);
                 if (canWriteSettings) {
-                    if (PPApplication.deviceIsOppo) {
+                    if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
                         synchronized (PPApplication.rootMutex) {
                             PPApplication.logE("TopExceptionHandler.uncaughtException", ""+PPApplication.screenTimeoutBeforeDeviceLock);
                             String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " " + PPApplication.screenTimeoutBeforeDeviceLock;
