@@ -798,6 +798,7 @@ public class PPApplication extends Application
                 .setResText(R.string.acra_notification_text)
                 .setResSendButtonText(R.string.acra_notification_send_button)
                 .setResDiscardButtonText(R.string.acra_notification_discard_button)
+                .setSendOnClick(true)
                 .setEnabled(true);
         builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
                 .setMailTo("henrich.gron@gmail.com")
