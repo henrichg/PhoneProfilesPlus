@@ -285,6 +285,7 @@ public class PPApplication extends Application
     static final int ALTYPE_ACTION_FROM_EXTERNAL_APP_ENABLE_RUN_FOR_EVENT = 104;
     static final int ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT = 105;
     static final int ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT = 106;
+    static final int ALTYPE_APPLICATION_SYSTEM_RESTART = 107;
 
     static boolean doNotShowProfileNotification = false;
     private static boolean applicationStarted = false;
@@ -1301,11 +1302,11 @@ public class PPApplication extends Application
             handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.addActivityLog");
 
-//if (ApplicationPreferences.preferences == null)
-//    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-//ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
-DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
-       logType, eventName, profileName, profileIcon, durationDelay, profilesEventsCount);
+                //if (ApplicationPreferences.preferences == null)
+                //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
+                DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
+                       logType, eventName, profileName, profileIcon, durationDelay, profilesEventsCount);
             });
         }
     }

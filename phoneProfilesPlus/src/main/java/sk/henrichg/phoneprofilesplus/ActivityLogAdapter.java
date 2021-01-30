@@ -90,6 +90,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_ENABLE_RUN_FOR_EVENT, R.string.altype_actionFromExternalApp_enableRunForEvent);
         activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT, R.string.altype_actionFromExternalApp_pauseEvent);
         activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT, R.string.altype_actionFromExternalApp_stopEvent);
+        activityTypeStrings.put(PPApplication.ALTYPE_APPLICATION_SYSTEM_RESTART, R.string.altype_applicationSystemRestart);
 
         int otherColor = R.color.altype_other;
         /*//noinspection SwitchStatementWithTooFewBranches
@@ -146,6 +147,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_ENABLE_RUN_FOR_EVENT, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_SYSTEM_RESTART, otherColor);
 
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, R.color.altype_error);

@@ -1703,6 +1703,8 @@
     <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
 
+    <string name="altype_applicationSystemRestart">application restart by system</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
