@@ -4560,8 +4560,8 @@ public class PhoneProfilesService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-//        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
-//        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
+        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
+        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
 
         //startForegroundNotification = true;
 
