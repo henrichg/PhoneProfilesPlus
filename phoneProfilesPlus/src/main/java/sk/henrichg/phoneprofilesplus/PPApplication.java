@@ -172,6 +172,7 @@ public class PPApplication extends Application
                                                 +"|ShutdownBroadcastReceiver"
                                                 +"|DatabaseHandler.onUpgrade"
                                                 //+"|IgnoreBatteryOptimizationNotification"
+                                                +"|LauncherActivity.startPPServiceWhenNotStarted"
 
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
@@ -222,7 +223,6 @@ public class PPApplication extends Application
                                                 //+"|CalendarEventExistsCheckBroadcastReceiver"
 
                                                 //+"|ActivateProfileHelper.setScreenTimeout"
-
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -373,7 +373,7 @@ public class PPApplication extends Application
     static final String EXTRA_EVENT_ID = "event_id";
     static final String EXTRA_STARTUP_SOURCE = "startup_source";
     static final String EXTRA_EVENT_STATUS = "event_status";
-    //static final String EXTRA_APPLICATION_START = "application_start";
+    static final String EXTRA_APPLICATION_START = "application_start";
     static final String EXTRA_DEVICE_BOOT = "device_boot";
 
     static final int STARTUP_SOURCE_NOTIFICATION = 1;
@@ -1059,7 +1059,15 @@ public class PPApplication extends Application
             sLook = null;
         }
 
-        if (PPApplication.getApplicationStarted(false)) {
+        // do not start service - is started itself, when system restarts it
+        // or from Default activity (LauncherActivity) when PPP is started from Android Studio
+        // or another activities.
+        // !!! Must be in Android Studio configured in Edit configuration:
+        //     - General/Launch: Default activity
+        //     - Miscellaneous/Skip installation when APK has not chabger = DISABLED
+        //     - Miscellaneous/Force stop running application before launching activity
+        //    This configuration force call of PackageReplacedReceiver even when verson cocde is not changed
+        /*if (PPApplication.getApplicationStarted(false)) {
             try {
                 PPApplication.logE("##### PPApplication.onCreate", "start service");
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -1069,12 +1077,13 @@ public class PPApplication extends Application
                 //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, false);
                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-                startPPService(getApplicationContext(), serviceIntent/*, true*/);
+                startPPService(getApplicationContext(), serviceIntent);
             } catch (Exception e) {
                 PPApplication.recordException(e);
-            }
-        }
-        else
+            }*/
+        //}
+        //else
+        if (!PPApplication.getApplicationStarted(false))
             PPApplication.logE("##### PPApplication.onCreate", "application is not started");
     }
 

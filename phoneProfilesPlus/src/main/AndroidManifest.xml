@@ -114,7 +114,11 @@
         android:resizeableActivity="true"
         android:largeHeap="true"
         android:allowBackup="false"
-        tools:ignore="UnusedAttribute">
+        android:persistent="true"
+        tools:ignore="UnusedAttribute" >
+
+        <!-- keep application persistent
+        android:persistent="true"  -->
 
         <!-- Do not use this. this may shutdown PPP
 

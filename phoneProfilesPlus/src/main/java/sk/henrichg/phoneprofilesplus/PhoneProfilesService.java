@@ -218,6 +218,7 @@ public class PhoneProfilesService extends Service
         synchronized (PPApplication.phoneProfilesServiceMutex) {
             instance = this;
         }
+        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OLD serviceHasFirstStart=" + serviceHasFirstStart);
         serviceHasFirstStart = false;
 
         //startForegroundNotification = true;
@@ -240,7 +241,7 @@ public class PhoneProfilesService extends Service
                 notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
             } catch (Exception ignored) {}
         }
-        // show empty notification to avoid ANR in api level 26
+        // show empty notification to avoid ANR in api level 26+
         showProfileNotification(/*true,*/ true/*, false*/);
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "after show profile notification");
@@ -500,6 +501,11 @@ public class PhoneProfilesService extends Service
     boolean getServiceHasFirstStart() {
         return serviceHasFirstStart;
     }
+
+//    @SuppressWarnings("SameParameterValue")
+//    void setServiceHasFirstStart(boolean value) {
+//        serviceHasFirstStart = value;
+//    }
 
 //    boolean getServiceRunning() {
 //        return serviceRunning;
@@ -3699,11 +3705,12 @@ public class PhoneProfilesService extends Service
         int startForExternalAppDataType = 0;
         String startForExternalAppDataValue = "";
 
+        //noinspection UnnecessaryLocalVariable
         final Intent serviceIntent = intent;
 
         if (serviceIntent != null) {
-            //applicationStart = serviceIntent.getBooleanExtra(PPApplication.EXTRA_APPLICATION_START, false);
-            applicationStart = true;
+            applicationStart = serviceIntent.getBooleanExtra(PPApplication.EXTRA_APPLICATION_START, false);
+            //applicationStart = true;
             //deactivateProfile = serviceIntent.getBooleanExtra(EXTRA_DEACTIVATE_PROFILE, false);
             activateProfiles = serviceIntent.getBooleanExtra(EXTRA_ACTIVATE_PROFILES, false);
             deviceBoot = serviceIntent.getBooleanExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
@@ -3715,18 +3722,15 @@ public class PhoneProfilesService extends Service
         }
 
         if (PPApplication.logEnabled()) {
-            if (deviceBoot)
-                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_DEVICE_BOOT");
-            if (applicationStart)
-                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_APPLICATION_START");
+            PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_DEVICE_BOOT="+deviceBoot);
+            PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_APPLICATION_START="+applicationStart);
             //if (startOnPackageReplace)
             //    PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_ON_PACKAGE_REPLACE");
             //if (deactivateProfile)
             //    PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_DEACTIVATE_PROFILE");
-            if (activateProfiles)
-                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_ACTIVATE_PROFILES");
+            PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_ACTIVATE_PROFILES="+activateProfiles);
+            PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_FOR_EXTERNAL_APPLICATION="+startFromExternalApplication);
             if (startFromExternalApplication) {
-                PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_FOR_EXTERNAL_APPLICATION");
                 PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_FOR_EXTERNAL_APP_ACTION="+startForExternalAppAction);
                 PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE="+startForExternalAppDataType);
                 PPApplication.logE("----- PhoneProfilesService.doForFirstStart", "EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE="+startForExternalAppDataValue);
@@ -3761,6 +3765,7 @@ public class PhoneProfilesService extends Service
 
                 // is needed beacuse will be changed
                 boolean __activateProfiles = _activateProfiles;
+                boolean __applicationStart = _applicationStart;
 
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.doForFirstStart");
 
@@ -3839,8 +3844,13 @@ public class PhoneProfilesService extends Service
                 PPApplication.getServicesList();
 
                 boolean newVersion = doForPackageReplaced(appContext);
-                if (newVersion)
+                if (newVersion) {
                     __activateProfiles = true;
+                    __applicationStart = true;
+                }
+
+                PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "__applicationStart="+__applicationStart);
+                PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "__activateProfiles="+__activateProfiles);
 
                 /*if (PPApplication.logEnabled()) {
                     // get list of TRANSACTIONS for "phone"
@@ -3919,11 +3929,12 @@ public class PhoneProfilesService extends Service
 
                 //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "7");
 
-                if (serviceIntent != null) {
+                //if (serviceIntent != null) {
                     // it is not restart of service
                     // From documentation: This may be null if the service is being restarted after its process has gone away
-
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "it is not restart of service");
+                    //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "it is not restart of service");
+                if (__applicationStart) {
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "--- initialization for application start");
 
                     dataWrapper.fillProfileList(false, false);
                     for (Profile profile : dataWrapper.profileList)
@@ -4560,12 +4571,14 @@ public class PhoneProfilesService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+        Context appContext = getApplicationContext();
+
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
         PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
+        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "isServiceRunning (foreground)="+isServiceRunning(appContext, PhoneProfilesService.class, true));
 
         //startForegroundNotification = true;
 
-        Context appContext = getApplicationContext();
         showProfileNotification(/*true,*/ !isServiceRunning(appContext, PhoneProfilesService.class, true)/*, false*/);
 
         if (!serviceHasFirstStart) {
