@@ -1061,7 +1061,7 @@ public class PPApplication extends Application
 
         // do not start service - is started itself, when system restarts it
         // or from Default activity (LauncherActivity) when PPP is started from Android Studio
-        // or another activities.
+        // or another activities or BotUpReceiver or PackageReplacedReceiver.
         // !!! Must be in Android Studio configured in Edit configuration:
         //     - General/Launch: Default activity
         //     - Miscellaneous/Skip installation when APK has not chabger = DISABLED
