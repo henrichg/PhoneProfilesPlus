@@ -139,6 +139,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     public static final String PREF_START_TARGET_HELPS_RUN_STOP_INDICATOR = "editor_profile_activity_start_target_helps_run_stop_indicator";
     public static final String PREF_START_TARGET_HELPS_BOTTOM_NAVIGATION = "editor_profile_activity_start_target_helps_bottom_navigation";
 
+    private static final String PREF_BACKUP_CREATE_PPP_SUBFOLDER = "backup_create_ppp_subfolder";
+
     static final String EXTRA_NEW_PROFILE_MODE = "new_profile_mode";
     static final String EXTRA_PREDEFINED_PROFILE_INDEX = "predefined_profile_index";
     static final String EXTRA_NEW_EVENT_MODE = "new_event_mode";
@@ -3605,14 +3607,25 @@ public class EditorProfilesActivity extends AppCompatActivity
                             View layout = inflater.inflate(R.layout.dialog_backup_settings_alert, null);
                             dialogBuilder.setView(layout);
                             dialogBuilder.setTitle(R.string.backup_settings_alert_title);
+
+                            boolean createPPPSubfolder = ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_BACKUP_CREATE_PPP_SUBFOLDER, true);
+
                             final TextView rewriteInfo = layout.findViewById(R.id.backup_settings_alert_dialog_rewrite_files_info);
-                            rewriteInfo.setEnabled(false);
+                            rewriteInfo.setEnabled(!createPPPSubfolder);
+
                             final CheckBox checkBox = layout.findViewById(R.id.backup_settings_alert_dialog_checkBox);
-                            checkBox.setChecked(true);
+                            checkBox.setChecked(createPPPSubfolder);
+
                             checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> rewriteInfo.setEnabled(!isChecked));
                             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                                 boolean ok = false;
                                 try {
+
+                                    boolean _createPPPSubfolder = checkBox.isChecked();
+                                    Editor editor = ApplicationPreferences.getEditor(context);
+                                    editor.putBoolean(PREF_BACKUP_CREATE_PPP_SUBFOLDER, _createPPPSubfolder);
+                                    editor.apply();
+
                                     Intent intent;
                                     if (Build.VERSION.SDK_INT >= 29) {
                                         StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
@@ -3626,7 +3639,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
                                     //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
                                     //PPApplication.logE("--------- EditorProfilesActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
-                                    if (checkBox.isChecked())
+                                    if (_createPPPSubfolder)
                                         //noinspection deprecation
                                         startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
                                     else
