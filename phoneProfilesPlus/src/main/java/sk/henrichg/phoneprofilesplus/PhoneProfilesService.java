@@ -143,6 +143,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE = "start_for_external_app_data_type";
     static final String EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE = "start_for_external_app_data_value";
     static final String EXTRA_RESCAN_SCANNERS = "rescan_scanners";
+    static final String EXTRA_SHOW_TOAST = "show_toast";
 
     static final int START_FOR_EXTERNAL_APP_PROFILE = 1;
     static final int START_FOR_EXTERNAL_APP_EVENT = 2;
@@ -4150,6 +4151,7 @@ public class PhoneProfilesService extends Service
                                 .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION, _startForExternalAppAction)
                                 .putInt(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, _startForExternalAppDataType)
                                 .putString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, _startForExternalAppDataValue)
+                                .putBoolean(PhoneProfilesService.EXTRA_SHOW_TOAST, serviceIntent != null)
                                 .build();
 
                         OneTimeWorkRequest worker =
@@ -4585,8 +4587,10 @@ public class PhoneProfilesService extends Service
         showProfileNotification(/*true,*/ !isServiceRunning(appContext, PhoneProfilesService.class, true)/*, false*/);
 
         if (!serviceHasFirstStart) {
-            String text = appContext.getString(R.string.ppp_app_name) + " " + appContext.getString(R.string.application_is_starting_toast);
-            PPApplication.showToast(appContext.getApplicationContext(), text, Toast.LENGTH_SHORT);
+            if (intent != null) {
+                String text = appContext.getString(R.string.ppp_app_name) + " " + appContext.getString(R.string.application_is_starting_toast);
+                PPApplication.showToast(appContext.getApplicationContext(), text, Toast.LENGTH_SHORT);
+            }
 
             doForFirstStart(intent);
         }

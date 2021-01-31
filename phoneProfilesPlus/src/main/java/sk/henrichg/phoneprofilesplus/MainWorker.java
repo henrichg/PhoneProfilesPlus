@@ -137,7 +137,8 @@ public class MainWorker extends Worker {
                                 getInputData().getBoolean(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APPLICATION, false),
                                 getInputData().getString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_ACTION),
                                 getInputData().getInt(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_TYPE, 0),
-                                getInputData().getString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE));
+                                getInputData().getString(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE),
+                                getInputData().getBoolean(PhoneProfilesService.EXTRA_SHOW_TOAST, true));
                         break;
                     /*case PPApplication.PACKAGE_REPLACED_WORK_TAG:
                         PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "START");
@@ -655,7 +656,8 @@ public class MainWorker extends Worker {
                                           boolean startForExternalApplication,
                                           String startForExternalAppAction,
                                           int startForExternalAppDataType,
-                                          String startForExternalAppDataValue) {
+                                          String startForExternalAppDataValue,
+                                          boolean showToast) {
         PPApplication.logE("------- PhoneProfilesService.doForFirstStart.doWork", "START");
 
         //BootUpReceiver.bootUpCompleted = true;
@@ -672,7 +674,7 @@ public class MainWorker extends Worker {
         //PhoneProfilesService instance = PhoneProfilesService.getInstance();
         //if (instance != null)
         //    instance.PhoneProfilesService.setApplicationFullyStarted(appContext/*true*/);
-        PPApplication.setApplicationFullyStarted(appContext);
+        PPApplication.setApplicationFullyStarted(appContext, showToast);
         //}
 
 

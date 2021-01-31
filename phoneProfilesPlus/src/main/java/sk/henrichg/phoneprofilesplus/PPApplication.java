@@ -1273,22 +1273,17 @@ public class PPApplication extends Application
         return (int) PackageInfoCompat.getLongVersionCode(pInfo);
     }
 
-    static void setApplicationFullyStarted(Context context/*boolean started, boolean showToast*/) {
+    static void setApplicationFullyStarted(Context context, boolean showToast) {
         applicationFullyStarted = true; //started;
 
         final Context appContext = context.getApplicationContext();
 
-        //if (started)
-        //PPApplication.logE("###### PPApplication.updateGUI", "from=PPApplication.setApplicationFullyStarted");
         updateGUI(0/*appContext, true, true*/);
 
-        //if (/*started && *//*showToast &&*/
-        //    //(!ApplicationPreferences.applicationPackageReplaced(appContext))) {
-        //        (!applicationPackageReplaced)) {
-
+        if (showToast) {
             String text = context.getString(R.string.ppp_app_name) + " " + context.getString(R.string.application_is_started_toast);
             showToast(appContext, text, Toast.LENGTH_SHORT);
-        //}
+        }
     }
 
     //--------------------------------------------------------------
