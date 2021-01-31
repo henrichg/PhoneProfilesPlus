@@ -221,10 +221,9 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.registerReceiverForCalendarSensor"
                                                 //+"|EventPreferencesCalendar"
                                                 //+"|CalendarEventExistsCheckBroadcastReceiver"
-
                                                 //+"|ActivateProfileHelper.setScreenTimeout"
-
                                                 //+"|ContactGroupsCache"
+                                                //+"|EventsPrefsFragment"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
