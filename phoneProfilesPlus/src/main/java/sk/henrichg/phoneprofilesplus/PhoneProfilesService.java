@@ -255,6 +255,7 @@ public class PhoneProfilesService extends Service
             PPApplication.accelerometerSensor = PPApplication.getAccelerometerSensor(getApplicationContext());
             PPApplication.magneticFieldSensor = PPApplication.getMagneticFieldSensor(getApplicationContext());
             PPApplication.proximitySensor = PPApplication.getProximitySensor(getApplicationContext());
+            PPApplication.lightSensor = PPApplication.getLightSensor(getApplicationContext());
             PPApplication.startHandlerThreadOrientationScanner();
         }
 
@@ -1058,7 +1059,7 @@ public class PhoneProfilesService extends Service
                 try {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER settings content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                     //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER settings content observer");
-                    //settingsContentObserver = new SettingsContentObserver(this, new Handler(getMainLooper()));
+                    //settingsContentObserver = new SettingsContentObserver(appContext, new Handler(getMainLooper()));
                     PPApplication.settingsContentObserver = new SettingsContentObserver(appContext, new Handler());
                     appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, PPApplication.settingsContentObserver);
                 } catch (Exception e) {
@@ -6498,7 +6499,7 @@ public class PhoneProfilesService extends Service
 
             String applicationEventOrientationScanInPowerSaveMode = ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode;
 
-            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(this);
+            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
             if (isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("2"))
                 // start scanning in power save mode is not allowed
                 return;
@@ -6546,7 +6547,7 @@ public class PhoneProfilesService extends Service
                 }
             }
 
-            //Sensor orientation = PPApplication.getOrientationSensor(this);
+            //Sensor orientation = PPApplication.getOrientationSensor(getApplicationContext());
             //PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors","orientation="+orientation);
             PPApplication.mStartedOrientationSensors = true;
 
@@ -6923,7 +6924,7 @@ public class PhoneProfilesService extends Service
                     //int requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT;
                     //if (android.os.Build.VERSION.SDK_INT >= 19)
                     //    requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE;
-                    //int result = audioManager.requestAudioFocus(this, usedRingingStream, requestType);
+                    //int result = audioManager.requestAudioFocus(getApplicationContext(), usedRingingStream, requestType);
                     //if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                         ringingMediaPlayer = new MediaPlayer();
 
@@ -6944,7 +6945,7 @@ public class PhoneProfilesService extends Service
                         }
                         //ringingMediaPlayer.setAudioStreamType(stream);
 
-                        ringingMediaPlayer.setDataSource(this, Uri.parse(ringtone));
+                        ringingMediaPlayer.setDataSource(getApplicationContext(), Uri.parse(ringtone));
                         ringingMediaPlayer.prepare();
                         ringingMediaPlayer.setLooping(true);
 
@@ -6989,8 +6990,8 @@ public class PhoneProfilesService extends Service
                         }
                     }, 3000);*/
                     //PostDelayedBroadcastReceiver.setAlarm(
-                    //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
-                    Permissions.grantPlayRingtoneNotificationPermissions(this, false);
+                    //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, getApplicationContext());
+                    Permissions.grantPlayRingtoneNotificationPermissions(getApplicationContext(), false);
                 }
             }
         }
@@ -7027,7 +7028,7 @@ public class PhoneProfilesService extends Service
             }
             /*if (abandonFocus) {
                 if (audioManager != null)
-                    audioManager.abandonAudioFocus(this);
+                    audioManager.abandonAudioFocus(getApplicationContext());
             }*/
         //}
         ringingCallIsSimulating = false;
@@ -7045,7 +7046,7 @@ public class PhoneProfilesService extends Service
                 }
             }, 3000);*/
                 //PostDelayedBroadcastReceiver.setAlarm(
-                //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
+                //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, getApplicationContext());
         }
     }
 
@@ -7165,7 +7166,7 @@ public class PhoneProfilesService extends Service
             }
 
             if ((notificationTone != null) && !notificationTone.isEmpty()) {
-                RingerModeChangeReceiver.removeAlarm(this);
+                RingerModeChangeReceiver.removeAlarm(getApplicationContext());
                 RingerModeChangeReceiver.internalChange = true;
 
                 usedNotificationStream = stream;
@@ -7178,7 +7179,7 @@ public class PhoneProfilesService extends Service
                     int requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT;
                     if (android.os.Build.VERSION.SDK_INT >= 19)
                         requestType = AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE;
-                    //int result = audioManager.requestAudioFocus(this, usedNotificationStream, requestType);
+                    //int result = audioManager.requestAudioFocus(getApplicationContext(), usedNotificationStream, requestType);
                     //if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                         notificationMediaPlayer = new MediaPlayer();
 
@@ -7189,7 +7190,7 @@ public class PhoneProfilesService extends Service
                         notificationMediaPlayer.setAudioAttributes(attrs);
                         //notificationMediaPlayer.setAudioStreamType(usedNotificationStream);
 
-                        notificationMediaPlayer.setDataSource(this, Uri.parse(notificationTone));
+                        notificationMediaPlayer.setDataSource(getApplicationContext(), Uri.parse(notificationTone));
                         notificationMediaPlayer.prepare();
                         notificationMediaPlayer.setLooping(false);
 
@@ -7213,7 +7214,7 @@ public class PhoneProfilesService extends Service
                         notificationToneIsSimulating = true;
                         PPApplication.logE("PhoneProfilesService.startSimulatingNotificationTone", "notification played");
 
-                        final Context context = this;
+                        final Context context = getApplicationContext();
                         new Timer().schedule(new TimerTask() {
                             @Override
                             public void run() {
@@ -7225,13 +7226,13 @@ public class PhoneProfilesService extends Service
                     //    PPApplication.logE("PhoneProfilesService.startSimulatingNotificationTone", "focus not granted");
                 } catch (SecurityException e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingNotificationTone", " security exception");
-                    Permissions.grantPlayRingtoneNotificationPermissions(this, true, false);
+                    Permissions.grantPlayRingtoneNotificationPermissions(getApplicationContext(), true, false);
                     notificationMediaPlayer = null;
-                    RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
+                    RingerModeChangeReceiver.setAlarmForDisableInternalChange(getApplicationContext());
                 } catch (Exception e) {
                     PPApplication.logE("PhoneProfilesService.startSimulatingNotificationTone", "exception");
                     notificationMediaPlayer = null;
-                    RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
+                    RingerModeChangeReceiver.setAlarmForDisableInternalChange(getApplicationContext());
                 }
             }
         }
@@ -7255,10 +7256,10 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService.stopSimulatingNotificationTone", "notification stopped");
         }
         //if (abandonFocus)
-        //    audioManager.abandonAudioFocus(this);
+        //    audioManager.abandonAudioFocus(getApplicationContext());
         //}
         notificationToneIsSimulating = false;
-        RingerModeChangeReceiver.setAlarmForDisableInternalChange(this);
+        RingerModeChangeReceiver.setAlarmForDisableInternalChange(getApplicationContext());
     }*/
 
     /*
@@ -7278,7 +7279,7 @@ public class PhoneProfilesService extends Service
             //        notificationMediaPlayer.pause();
             stopSimulatingRingingCall(false);
             //stopSimulatingNotificationTone(false);
-            audioManager.abandonAudioFocus(this);
+            audioManager.abandonAudioFocus(getApplicationContext());
         }
         if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
             // Lower the volume
@@ -7311,7 +7312,7 @@ public class PhoneProfilesService extends Service
             PPApplication.logE("PhoneProfilesService.onAudioFocusChange","AUDIOFOCUS_LOSS");
             stopSimulatingRingingCall(false);
             //stopSimulatingNotificationTone(false);
-            audioManager.abandonAudioFocus(this);
+            audioManager.abandonAudioFocus(getApplicationContext());
         }
     }
     */
@@ -7390,14 +7391,14 @@ public class PhoneProfilesService extends Service
                         notificationMediaPlayer.setAudioAttributes(attrs);
                         //notificationMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-                        notificationMediaPlayer.setDataSource(this, notificationUri);
+                        notificationMediaPlayer.setDataSource(getApplicationContext(), notificationUri);
                         notificationMediaPlayer.prepare();
                         notificationMediaPlayer.setLooping(false);
 
                         /*
                         oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-                        int notificationVolume = ActivateProfileHelper.getNotificationVolume(this);
+                        int notificationVolume = ActivateProfileHelper.getNotificationVolume(getApplicationContext());
 
                         PPApplication.logE("PhoneProfilesService.playNotificationSound", "notificationVolume=" + notificationVolume);
 
@@ -7416,7 +7417,7 @@ public class PhoneProfilesService extends Service
 
                         notificationIsPlayed = true;
 
-                        //final Context context = this;
+                        //final Context context = getApplicationContext();
                         notificationPlayTimer = new Timer();
                         notificationPlayTimer.schedule(new TimerTask() {
                             @Override
@@ -7475,8 +7476,8 @@ public class PhoneProfilesService extends Service
                             }
                         }, 3000);*/
                         //PostDelayedBroadcastReceiver.setAlarm(
-                        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, this);
-                        Permissions.grantPlayRingtoneNotificationPermissions(this, false);
+                        //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, getApplicationContext());
+                        Permissions.grantPlayRingtoneNotificationPermissions(getApplicationContext(), false);
                     }
                 }
             }
