@@ -147,7 +147,7 @@ class ContactGroupsCache {
     void getContactGroupListX(Context context) {
         if (cached || caching) return;
 
-//        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "---- START");
+//        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "---- START");
 
         caching = true;
         //cancelled = false;
@@ -158,7 +158,7 @@ class ContactGroupsCache {
             return;
         }
 
-//        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "(1)");
+//        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(1)");
 
         ArrayList<ContactGroup> _contactGroupList = new ArrayList<>();
 
@@ -173,7 +173,9 @@ class ContactGroupsCache {
                 _contactListWithoutNumber.addAll(contacts);*/
         }
 
-//        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "(2)");
+//        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(2)");
+
+//        long kolegoviaGroupId = 0;
 
         try {
             if (Permissions.checkContacts(context)) {
@@ -194,7 +196,7 @@ class ContactGroupsCache {
 
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
-//                        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "(3)");
+//                        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(3)");
 
                         long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
                         String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
@@ -209,6 +211,16 @@ class ContactGroupsCache {
                             aContactGroup.count = count;
 
                             _contactGroupList.add(aContactGroup);
+
+//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.groupId="+aContactGroup.groupId);
+//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.name="+aContactGroup.name);
+//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.count="+aContactGroup.count);
+
+//                            if (aContactGroup.name.equals("Coworkers")) {
+//                                PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "skupina Kolegovia");
+//                                PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.groupId="+aContactGroup.groupId);
+//                                kolegoviaGroupId = contactGroupId;
+//                            }
                         }
 
                         //if (cancelled)
@@ -221,11 +233,12 @@ class ContactGroupsCache {
                 //if (cancelled)
                 //    return;
 
-//                PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "(4)");
+//                PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(4)");
 
                 String[] projectionGroup = new String[]{
                         ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID,
-                        ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID
+                        ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID,
+                        ContactsContract.CommonDataKinds.GroupMembership.DISPLAY_NAME
                 };
                 String selectionGroup = ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
                         + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
@@ -233,17 +246,22 @@ class ContactGroupsCache {
                 Cursor mCursorGroup = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projectionGroup, selectionGroup, null, null);
                 if (mCursorGroup != null) {
                     while (mCursorGroup.moveToNext()) {
-//                        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "(5)");
+//                        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(5)");
+
+                        long groupRowId = mCursorGroup.getLong(mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID));
+//                        PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "groupRowId=" + groupRowId);
 
                         for (long contactGroupId : contactGroupIds) {
-                            if (mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID) == contactGroupId) {
+                            if (groupRowId == contactGroupId) {
                                 // contact is in contactGroupId group
 
                                 long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-                                /*if (name.equals("Family")) {
-                                    Log.e("ContactGroupsCache.getContactGroupList", "contactGroupId=" + contactGroupId);
-                                    Log.e("ContactGroupsCache.getContactGroupList", "contactId=" + contactId);
-                                }*/
+//                                String contactName = mCursorGroup.getString(mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.DISPLAY_NAME));
+//                                if (/*(contactGroupId == kolegoviaGroupId) &&*/ (contactName.equals("Marek Bobak"))) {
+//                                    PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "contactGroupId=" + contactGroupId);
+//                                    PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "contactId=" + contactId);
+//                                    PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "contactName=" + contactName);
+//                                }
                                 addGroup(contactId, contactGroupId, _contactList);
                                 //contactsCache.addGroup(contactId, contactGroupId, _contactListWithoutNumber);
                             }
@@ -252,12 +270,14 @@ class ContactGroupsCache {
                     mCursorGroup.close();
                 }
 
-//                PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "(6)");
+//                PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(6)");
 
                 cached = true;
             }
+//            else
+//                PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(7)");
         } catch (SecurityException e) {
-            //Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
+//            Log.e("ContactGroupsCache.getContactGroupListX", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
 
             _contactGroupList.clear();
@@ -266,7 +286,7 @@ class ContactGroupsCache {
 
             cached = false;
         } catch (Exception e) {
-            //Log.e("ContactGroupsCache.getContactList", Log.getStackTraceString(e));
+//            Log.e("ContactGroupsCache.getContactGroupListX", Log.getStackTraceString(e));
             PPApplication.recordException(e);
 
             _contactGroupList.clear();
@@ -286,7 +306,7 @@ class ContactGroupsCache {
         }
         //}
 
-//        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactList", "---- END");
+//        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "---- END");
 
         caching = false;
     }
