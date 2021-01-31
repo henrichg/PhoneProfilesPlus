@@ -124,6 +124,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             //ColorStateList textColorSecondary = themeArray.getColorStateList(0);
 
             if (EventsPrefsFragment.isRedTextNotificationRequired(event, context)) {
+//                if (event._name.equals("Nočný hovor"))
+//                    Log.e("------ EditorEventListViewHolder.bindEvent", "--- RED TEXT ---");
                 //if (!isRunnable)
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //else
@@ -133,6 +135,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             else
             if (!Event.getGlobalEventsRunning()/* || (manualProfileActivation && !event._ignoreManualActivation)*/) {
+//                if (event._name.equals("Nočný hovor"))
+//                    Log.e("------ EditorEventListViewHolder.bindEvent", "--- GLOBAL EVENTS RUN ---");
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions
@@ -141,6 +145,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             else
             if (_eventStatus == Event.ESTATUS_STOP) {
+//                if (event._name.equals("Nočný hovor"))
+//                    Log.e("------ EditorEventListViewHolder.bindEvent", "--- STOPPED ---");
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions
@@ -148,6 +154,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             else
             if (_eventStatus == Event.ESTATUS_PAUSE) {
+//                if (event._name.equals("Nočný hovor"))
+//                    Log.e("------ EditorEventListViewHolder.bindEvent", "--- PAUSED ---");
                 eventName.setTypeface(null, Typeface.BOLD/*NORMAL*/);
                 //eventName.setTextSize(15);
                 //if (event._isInDelayEnd)
@@ -160,6 +168,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             }
             else
             if (_eventStatus == Event.ESTATUS_RUNNING) {
+//                if (event._name.equals("Nočný hovor"))
+//                    Log.e("------ EditorEventListViewHolder.bindEvent", "--- RUNNING ---");
                 eventName.setTypeface(null, Typeface.BOLD);
                 //eventName.setTextSize(15);
                 //if (event._isInDelayEnd)
@@ -169,6 +179,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTextColor(GlobalGUIRoutines.getThemeAccentColor(editorFragment.getActivity()));
             }
             else {
+//                if (event._name.equals("Nočný hovor"))
+//                    Log.e("------ EditorEventListViewHolder.bindEvent", "--- OTHERS ---");
                 eventName.setTypeface(null, Typeface.BOLD/*NORMAL*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions

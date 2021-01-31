@@ -23,6 +23,7 @@ class PreferenceAllowed {
     static final int PREFERENCE_NOT_ALLOWED_NO_SIM_CARD = 10;
     static final int PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION = 11;
     static final int PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED = 12;
+    static final int PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION = 13;
 
     String getNotAllowedPreferenceReasonString(Context context) {
         switch (notAllowedReason) {
@@ -41,6 +42,7 @@ class PreferenceAllowed {
                 return context.getString(R.string.preference_not_allowed_reason_not_supported_android_version) + " (" + notAllowedReasonDetail + ")";
             case PREFERENCE_NOT_ALLOWED_NO_SIM_CARD: return context.getString(R.string.preference_not_allowed_reason_no_sim_card);
             case PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION: return context.getString(R.string.preference_not_allowed_reason_not_granted_g1_permission);
+            case PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION: return context.getString(R.string.preference_not_allowed_reason_not_granted_phone_permission);
             default: return context.getString(R.string.empty_string);
         }
     }

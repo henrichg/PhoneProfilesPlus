@@ -1398,7 +1398,14 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false) == 1;
         boolean eventIsRunnable = event.isRunnable(appContext, false);
 
-        return (enabledSomeSensor) && ((!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable));
+//        if (event._name.equals("Nočný hovor")) {
+//            Log.e("------ EventsPrefsFragment.isRedTextNotificationRequired", "enabledSomeSensor="+enabledSomeSensor);
+//            Log.e("------ EventsPrefsFragment.isRedTextNotificationRequired", "grantedAllPermissions="+grantedAllPermissions);
+//            Log.e("------ EventsPrefsFragment.isRedTextNotificationRequired", "accessibilityEnabled="+accessibilityEnabled);
+//            Log.e("------ EventsPrefsFragment.isRedTextNotificationRequired", "eventIsRunnable="+eventIsRunnable);
+//        }
+
+        return ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable));
     }
 
     private void setRedTextToPreferences() {
