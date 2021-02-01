@@ -342,12 +342,6 @@ public class MobileCellsRegistrationService extends Service {
 
     public class MobileCellsRegistrationStopButtonBroadcastReceiver extends BroadcastReceiver {
 
-        //final MobileCellsRegistrationDialogPreference preference;
-
-        MobileCellsRegistrationStopButtonBroadcastReceiver(/*MobileCellsRegistrationDialogPreference preference*/) {
-            //this.preference = preference;
-        }
-
         @Override
         public void onReceive(Context context, Intent intent) {
 //            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationService.MobileCellsRegistrationStopButtonBroadcastReceiver", "xxx");
@@ -356,9 +350,6 @@ public class MobileCellsRegistrationService extends Service {
     }
 
     public static class MobileCellsPreferenceUseBroadcastReceiver extends BroadcastReceiver {
-
-        MobileCellsPreferenceUseBroadcastReceiver() {
-        }
 
         @Override
         public void onReceive(Context context, Intent intent) {

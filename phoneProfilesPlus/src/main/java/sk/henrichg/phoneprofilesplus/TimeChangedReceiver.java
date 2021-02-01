@@ -7,8 +7,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 
 public class TimeChangedReceiver extends BroadcastReceiver {
-    public TimeChangedReceiver() {
-    }
 
     @Override
     public void onReceive(Context context, Intent intent) {

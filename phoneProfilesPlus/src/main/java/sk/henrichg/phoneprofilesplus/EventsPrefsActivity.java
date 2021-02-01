@@ -722,9 +722,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     public class MobileCellsRegistrationCountDownBroadcastReceiver extends BroadcastReceiver {
 
-        MobileCellsRegistrationCountDownBroadcastReceiver(/*MobileCellsRegistrationDialogPreferenceX preference*/) {
-        }
-
         @Override
         public void onReceive(Context context, Intent intent) {
 //            PPApplication.logE("[IN_BROADCAST] MobileCellsRegistrationCountDownBroadcastReceiver.onReceive", "xxx");
@@ -737,9 +734,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
     }
 
     public class MobileCellsRegistrationStoppedBroadcastReceiver extends BroadcastReceiver {
-
-        MobileCellsRegistrationStoppedBroadcastReceiver(/*MobileCellsPreferenceX preference*/) {
-        }
 
         @Override
         public void onReceive(Context context, Intent intent) {
