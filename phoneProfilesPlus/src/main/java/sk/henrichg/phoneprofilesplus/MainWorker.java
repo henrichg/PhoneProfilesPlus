@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -658,7 +659,7 @@ public class MainWorker extends Worker {
                                           int startForExternalAppDataType,
                                           String startForExternalAppDataValue,
                                           boolean showToast) {
-        PPApplication.logE("------- PhoneProfilesService.doForFirstStart.doWork", "START");
+        PPApplication.logE("------- MainWorker.doAfterFirstStart", "START");
 
         //BootUpReceiver.bootUpCompleted = true;
 
@@ -677,14 +678,14 @@ public class MainWorker extends Worker {
         PPApplication.setApplicationFullyStarted(appContext, showToast);
         //}
 
-
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
         if (Event.getGlobalEventsRunning()) {
-            PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "global event run is enabled, first start events");
+            PPApplication.logE("MainWorker.doAfterFirstStart", "global event run is enabled, first start events");
 
             if (activateProfiles) {
                 if (!DataWrapper.getIsManualProfileActivation(false, appContext)) {
+                    PPApplication.logE("MainWorker.doAfterFirstStart", "pause all events");
                     ////// unblock all events for first start
                     //     that may be blocked in previous application run
                     synchronized (PPApplication.eventsHandlerMutex) {
@@ -693,14 +694,45 @@ public class MainWorker extends Worker {
                 }
             }
 
+            PPApplication.logE("MainWorker.doAfterFirstStart", "start donation and check GitHub releases alarms");
+
+            if (PPApplication.donationBroadcastReceiver == null) {
+                PPApplication.donationBroadcastReceiver = new DonationBroadcastReceiver();
+                IntentFilter intentFilter5 = new IntentFilter();
+                intentFilter5.addAction(PPApplication.ACTION_DONATION);
+                appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5);
+            }
+            if (PPApplication.checkGitHubReleasesBroadcastReceiver == null) {
+                PPApplication.checkGitHubReleasesBroadcastReceiver = new CheckGitHubReleasesBroadcastReceiver();
+                IntentFilter intentFilter5 = new IntentFilter();
+                intentFilter5.addAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
+                appContext.registerReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver, intentFilter5);
+            }
+            if (PPApplication.checkCriticalGitHubReleasesBroadcastReceiver == null) {
+                PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = new CheckCriticalGitHubReleasesBroadcastReceiver();
+                IntentFilter intentFilter5 = new IntentFilter();
+                intentFilter5.addAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
+                appContext.registerReceiver(PPApplication.checkCriticalGitHubReleasesBroadcastReceiver, intentFilter5);
+            }
+
+            DonationBroadcastReceiver.setAlarm(appContext);
+            CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
+            CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm(appContext);
+
             dataWrapper.firstStartEvents(true, false);
+
+            // This is fix for 2, 3 restarts of events after first start.
+            // Bradcast, callback registration starts events and this is not good
+            // Only observers must be registered in service, because of FC in call of "new Hander()".
+            PPApplication.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
+            PhoneProfilesService.getInstance().registerReceiversAndWorkers(false, false);
 
             if (PPApplication.deviceBoot) {
                 PPApplication.deviceBoot = false;
-                PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "device boot");
+                PPApplication.logE("MainWorker.doAfterFirstStart", "device boot");
                 boolean deviceBootEvents = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_DEVICE_BOOT);
                 if (deviceBootEvents) {
-                    PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "device boot event exists");
+                    PPApplication.logE("MainWorker.doAfterFirstStart", "device boot event exists");
 
                     // start events handler
                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_AFTER_FIRST_START)");
@@ -722,7 +754,7 @@ public class MainWorker extends Worker {
             //PPApplication.updateNotificationAndWidgets(true, true, appContext);
             //PPApplication.updateGUI(appContext, true, true);
         } else {
-            PPApplication.logE("PhoneProfilesService.doForFirstStart.doWork", "global event run is not enabled, manually activate profile");
+            PPApplication.logE("MainWorker.doAfterFirstStart", "global event run is not enabled, manually activate profile");
 
             if (activateProfiles) {
                 ////// unblock all events for first start
@@ -753,7 +785,7 @@ public class MainWorker extends Worker {
             appContext.startActivity(intent);
         }
 
-        PPApplication.logE("------- PhoneProfilesService.doForFirstStart.doWork", "END");
+        PPApplication.logE("------- MainWorker.doAfterFirstStart", "END");
     }
 
 }

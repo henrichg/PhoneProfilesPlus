@@ -714,16 +714,6 @@ public class PhoneProfilesService extends Service
                     PPApplication.notUsedMobileCellsNotificationDisableReceiver = null;
                 }
             }
-            if (PPApplication.donationBroadcastReceiver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER donationBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER donationBroadcastReceiver");
-                try {
-                    appContext.unregisterReceiver(PPApplication.donationBroadcastReceiver);
-                    PPApplication.donationBroadcastReceiver = null;
-                } catch (Exception e) {
-                    PPApplication.donationBroadcastReceiver = null;
-                }
-            }
             if (PPApplication.lockDeviceAfterScreenOffBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER lockDeviceAfterScreenOffBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER lockDeviceAfterScreenOffBroadcastReceiver");
@@ -966,33 +956,6 @@ public class PhoneProfilesService extends Service
                 intentFilter5.addAction(PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION);
                 appContext.registerReceiver(PPApplication.notUsedMobileCellsNotificationDisableReceiver, intentFilter5);
             }
-
-            if (PPApplication.donationBroadcastReceiver == null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER donationBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER donationBroadcastReceiver");
-                PPApplication.donationBroadcastReceiver = new DonationBroadcastReceiver();
-                IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(PPApplication.ACTION_DONATION);
-                appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5);
-            }
-
-            if (PPApplication.checkGitHubReleasesBroadcastReceiver == null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER checkGitHubReleasesBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER checkGitHubReleasesBroadcastReceiver");
-                PPApplication.checkGitHubReleasesBroadcastReceiver = new CheckGitHubReleasesBroadcastReceiver();
-                IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
-                appContext.registerReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver, intentFilter5);
-            }
-            if (PPApplication.checkCriticalGitHubReleasesBroadcastReceiver == null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER checkCriticalGitHubReleasesBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER checkCriticalGitHubReleasesBroadcastReceiver");
-                PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = new CheckCriticalGitHubReleasesBroadcastReceiver();
-                IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
-                appContext.registerReceiver(PPApplication.checkCriticalGitHubReleasesBroadcastReceiver, intentFilter5);
-            }
-
             if (PPApplication.lockDeviceAfterScreenOffBroadcastReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->REGISTER lockDeviceAfterScreenOffBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "REGISTER lockDeviceAfterScreenOffBroadcastReceiver");
@@ -3433,7 +3396,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerReceiversAndWorkers(boolean fromCommand) {
+    void registerReceiversAndWorkers(boolean fromCommand, boolean alsoObservers) {
 //        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.registerReceiversAndWorkers", "xxx");
 
         // --- receivers and content observers for events -- register it only if any event exists
@@ -3443,8 +3406,13 @@ public class PhoneProfilesService extends Service
         // get actual battery status
         BatteryLevelChangedBroadcastReceiver.initialize(appContext);
 
+        // !!! Do not register donation and GitHub releases broadcasts, these are registered outside of this method
+
         registerAllTheTimeRequiredReceivers(true);
-        registerContentObservers(true);
+
+        if (alsoObservers)
+            registerContentObservers(true);
+
         registerCallbacks(true);
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
@@ -3581,6 +3549,39 @@ public class PhoneProfilesService extends Service
 
     private void unregisterReceiversAndWorkers() {
 //         PPApplication.logE("[FIFO_TEST] PhoneProfilesService.unregisterReceiversAndWorkers", "xxx");
+
+        Context appContext = getApplicationContext();
+        if (PPApplication.donationBroadcastReceiver != null) {
+            //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER donationBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+            //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER donationBroadcastReceiver");
+            try {
+                appContext.unregisterReceiver(PPApplication.donationBroadcastReceiver);
+                PPApplication.donationBroadcastReceiver = null;
+            } catch (Exception e) {
+                PPApplication.donationBroadcastReceiver = null;
+            }
+        }
+        if (PPApplication.checkGitHubReleasesBroadcastReceiver != null) {
+            //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER checkGitHubReleasesBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+            //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER checkGitHubReleasesBroadcastReceiver");
+            try {
+                appContext.unregisterReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver);
+                PPApplication.checkGitHubReleasesBroadcastReceiver = null;
+            } catch (Exception e) {
+                PPApplication.checkGitHubReleasesBroadcastReceiver = null;
+            }
+        }
+        if (PPApplication.checkCriticalGitHubReleasesBroadcastReceiver != null) {
+            //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER checkCriticalGitHubReleasesBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+            //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER checkCriticalGitHubReleasesBroadcastReceiver");
+            try {
+                appContext.unregisterReceiver(PPApplication.checkCriticalGitHubReleasesBroadcastReceiver);
+                PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = null;
+            } catch (Exception e) {
+                PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = null;
+            }
+        }
+
         registerAllTheTimeRequiredReceivers(false);
         registerContentObservers(false);
         registerCallbacks(false);
@@ -3617,8 +3618,6 @@ public class PhoneProfilesService extends Service
         //SMSBroadcastReceiver.unregisterSMSContentObserver(appContext);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
 
-        final Context appContext = getApplicationContext();
-
         startGeofenceScanner(false, true, null, false);
         startPhoneStateScanner(false, true, null, false, false);
         startOrientationScanner(false, true, null, false);
@@ -3640,7 +3639,28 @@ public class PhoneProfilesService extends Service
         dataWrapper.fillEventList();
         //dataWrapper.fillProfileList(false, false);
 
+        final Context appContext = getApplicationContext();
+        if (PPApplication.donationBroadcastReceiver == null) {
+            PPApplication.donationBroadcastReceiver = new DonationBroadcastReceiver();
+            IntentFilter intentFilter5 = new IntentFilter();
+            intentFilter5.addAction(PPApplication.ACTION_DONATION);
+            appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5);
+        }
+        if (PPApplication.checkGitHubReleasesBroadcastReceiver == null) {
+            PPApplication.checkGitHubReleasesBroadcastReceiver = new CheckGitHubReleasesBroadcastReceiver();
+            IntentFilter intentFilter5 = new IntentFilter();
+            intentFilter5.addAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
+            appContext.registerReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver, intentFilter5);
+        }
+        if (PPApplication.checkCriticalGitHubReleasesBroadcastReceiver == null) {
+            PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = new CheckCriticalGitHubReleasesBroadcastReceiver();
+            IntentFilter intentFilter5 = new IntentFilter();
+            intentFilter5.addAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
+            appContext.registerReceiver(PPApplication.checkCriticalGitHubReleasesBroadcastReceiver, intentFilter5);
+        }
+
         registerAllTheTimeRequiredReceivers(true);
+
         registerContentObservers(true);
         registerCallbacks(true);
 
@@ -4024,15 +4044,9 @@ public class PhoneProfilesService extends Service
 
                 //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "13");
 
-                registerReceiversAndWorkers(false);
-
-                //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "14");
-
-                PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "start donation and check GitHub releases alarms");
-                DonationBroadcastReceiver.setAlarm(appContext);
-                CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
-                //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "ApplicationPreferences.prefShowCriticalGitHubReleasesNotificationNotification="+ApplicationPreferences.prefShowCriticalGitHubReleasesNotificationNotification);
-                CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm(appContext);
+                // !!! registerReceiversAndWorkers moved into MainWorker.doAfterFirstStart
+                // But observers mus t be registered in tis service, because of FC in call of "new Hander()".
+                registerContentObservers(true);
 
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application started");
 
@@ -4691,7 +4705,26 @@ public class PhoneProfilesService extends Service
                     else
                     if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_WORKERS");
-                        registerReceiversAndWorkers(true);
+                        if (PPApplication.donationBroadcastReceiver == null) {
+                            PPApplication.donationBroadcastReceiver = new DonationBroadcastReceiver();
+                            IntentFilter intentFilter5 = new IntentFilter();
+                            intentFilter5.addAction(PPApplication.ACTION_DONATION);
+                            appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5);
+                        }
+                        if (PPApplication.checkGitHubReleasesBroadcastReceiver == null) {
+                            PPApplication.checkGitHubReleasesBroadcastReceiver = new CheckGitHubReleasesBroadcastReceiver();
+                            IntentFilter intentFilter5 = new IntentFilter();
+                            intentFilter5.addAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
+                            appContext.registerReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver, intentFilter5);
+                        }
+                        if (PPApplication.checkCriticalGitHubReleasesBroadcastReceiver == null) {
+                            PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = new CheckCriticalGitHubReleasesBroadcastReceiver();
+                            IntentFilter intentFilter5 = new IntentFilter();
+                            intentFilter5.addAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
+                            appContext.registerReceiver(PPApplication.checkCriticalGitHubReleasesBroadcastReceiver, intentFilter5);
+                        }
+
+                        registerReceiversAndWorkers(true, true);
                     }
                     else
                     if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, false)) {
