@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -696,24 +695,7 @@ public class MainWorker extends Worker {
 
             PPApplication.logE("MainWorker.doAfterFirstStart", "start donation and check GitHub releases alarms");
 
-            if (PPApplication.donationBroadcastReceiver == null) {
-                PPApplication.donationBroadcastReceiver = new DonationBroadcastReceiver();
-                IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(PPApplication.ACTION_DONATION);
-                appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5);
-            }
-            if (PPApplication.checkGitHubReleasesBroadcastReceiver == null) {
-                PPApplication.checkGitHubReleasesBroadcastReceiver = new CheckGitHubReleasesBroadcastReceiver();
-                IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
-                appContext.registerReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver, intentFilter5);
-            }
-            if (PPApplication.checkCriticalGitHubReleasesBroadcastReceiver == null) {
-                PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = new CheckCriticalGitHubReleasesBroadcastReceiver();
-                IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
-                appContext.registerReceiver(PPApplication.checkCriticalGitHubReleasesBroadcastReceiver, intentFilter5);
-            }
+            PhoneProfilesService.getInstance().registerPPPBroadcastReceivers(true);
 
             DonationBroadcastReceiver.setAlarm(appContext);
             CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
