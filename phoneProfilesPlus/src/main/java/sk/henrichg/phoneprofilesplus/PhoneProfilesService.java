@@ -1510,19 +1510,6 @@ public class PhoneProfilesService extends Service
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesCalendar.PREF_EVENT_CALENDAR_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
             if (allowed) {
-                if (PPApplication.calendarProviderChangedBroadcastReceiver == null) {
-                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForCalendarSensor->REGISTER calendarProviderChangedBroadcastReceiver", "PhoneProfilesService_registerReceiverForCalendarSensor");
-                    PPApplication.calendarProviderChangedBroadcastReceiver = new CalendarProviderChangedBroadcastReceiver();
-                    IntentFilter intentFilter23 = new IntentFilter();
-                    intentFilter23.addAction(Intent.ACTION_PROVIDER_CHANGED);
-                    intentFilter23.addDataScheme("content");
-                    intentFilter23.addDataAuthority("com.android.calendar", null);
-                    intentFilter23.setPriority(Integer.MAX_VALUE);
-                    appContext.registerReceiver(PPApplication.calendarProviderChangedBroadcastReceiver, intentFilter23);
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "REGISTER calendarProviderChangedBroadcastReceiver");
-                }
-                //else
-                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "registered calendarProviderChangedBroadcastReceiver");
                 if (PPApplication.eventCalendarBroadcastReceiver == null) {
                     //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForCalendarSensor->REGISTER eventCalendarBroadcastReceiver", "PhoneProfilesService_registerReceiverForCalendarSensor");
                     PPApplication.eventCalendarBroadcastReceiver = new EventCalendarBroadcastReceiver();
@@ -1541,6 +1528,19 @@ public class PhoneProfilesService extends Service
                 }
                 //else
                 //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "registered calendarEventExistsCheckBroadcastReceiver");
+                if (PPApplication.calendarProviderChangedBroadcastReceiver == null) {
+                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForCalendarSensor->REGISTER calendarProviderChangedBroadcastReceiver", "PhoneProfilesService_registerReceiverForCalendarSensor");
+                    PPApplication.calendarProviderChangedBroadcastReceiver = new CalendarProviderChangedBroadcastReceiver();
+                    IntentFilter intentFilter23 = new IntentFilter();
+                    intentFilter23.addAction(Intent.ACTION_PROVIDER_CHANGED);
+                    intentFilter23.addDataScheme("content");
+                    intentFilter23.addDataAuthority("com.android.calendar", null);
+                    intentFilter23.setPriority(Integer.MAX_VALUE);
+                    appContext.registerReceiver(PPApplication.calendarProviderChangedBroadcastReceiver, intentFilter23);
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "REGISTER calendarProviderChangedBroadcastReceiver");
+                }
+                //else
+                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForCalendarSensor", "registered calendarProviderChangedBroadcastReceiver");
             }
             else
                 registerReceiverForCalendarSensor(false, dataWrapper);
@@ -2447,6 +2447,15 @@ public class PhoneProfilesService extends Service
                     }
                 }
                 if (allowed) {
+                    if (PPApplication.bluetoothLEScanReceiver == null) {
+                        //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothScannerReceivers->REGISTER bluetoothLEScanReceiver", "PhoneProfilesService_registerBluetoothScannerReceivers");
+                        PPApplication.bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
+                        LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.bluetoothLEScanReceiver,
+                                new IntentFilter(PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver"));
+                        //PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "REGISTER bluetoothLEScanReceiver");
+                    }
+                    //else
+                    //    PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "registered bluetoothLEScanReceiver");
                     if (PPApplication.bluetoothScanReceiver == null) {
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothScannerReceivers->REGISTER bluetoothLEScanReceiver", "PhoneProfilesService_registerBluetoothScannerReceivers");
                         PPApplication.bluetoothScanReceiver = new BluetoothScanBroadcastReceiver();
@@ -2456,15 +2465,6 @@ public class PhoneProfilesService extends Service
                         intentFilter14.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
                         appContext.registerReceiver(PPApplication.bluetoothScanReceiver, intentFilter14);
                         //PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "REGISTER bluetoothScanReceiver");
-                    }
-                    //else
-                    //    PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "registered bluetoothLEScanReceiver");
-                    if (PPApplication.bluetoothLEScanReceiver == null) {
-                        //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerBluetoothScannerReceivers->REGISTER bluetoothLEScanReceiver", "PhoneProfilesService_registerBluetoothScannerReceivers");
-                        PPApplication.bluetoothLEScanReceiver = new BluetoothLEScanBroadcastReceiver();
-                        LocalBroadcastManager.getInstance(appContext).registerReceiver(PPApplication.bluetoothLEScanReceiver,
-                                new IntentFilter(PPApplication.PACKAGE_NAME + ".BluetoothLEScanBroadcastReceiver"));
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "REGISTER bluetoothLEScanReceiver");
                     }
                     //else
                     //    PPApplication.logE("[RJS] PhoneProfilesService.registerBluetoothScannerReceivers", "registered bluetoothLEScanReceiver");
