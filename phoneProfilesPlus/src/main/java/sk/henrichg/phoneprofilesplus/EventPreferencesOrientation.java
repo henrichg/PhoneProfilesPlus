@@ -15,7 +15,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -342,13 +341,13 @@ class EventPreferencesOrientation extends EventPreferences {
                 key.equals(PREF_EVENT_ORIENTATION_LIGHT_MAX))
         {
 //            PPApplication.logE("[LOCAL_BROADCAST_CALL] EventPreferencesOrientation.setSummary", "xxx");
-            Log.e("EventPreferencesOrientation.setSummary", "XXX");
+//            Log.e("EventPreferencesOrientation.setSummary", "XXX");
             Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".RefreshEventsPrefsGUIBroadcastReceiver");
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
             boolean hasLight = (sensorManager != null) && (sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT) != null);
             if (preferences.getBoolean(PREF_EVENT_ORIENTATION_CHECK_LIGHT, false)) {
-                Log.e("EventPreferencesOrientation.setSummary", "checkLight = true");
+//                Log.e("EventPreferencesOrientation.setSummary", "checkLight = true");
                 Preference currentLightValuePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);
                 if (currentLightValuePreference != null) {
                     currentLightValuePreference.setEnabled(hasLight);
@@ -368,7 +367,7 @@ class EventPreferencesOrientation extends EventPreferences {
                 }
             }
             else {
-                Log.e("EventPreferencesOrientation.setSummary", "checkLight = false");
+//                Log.e("EventPreferencesOrientation.setSummary", "checkLight = false");
                 Preference currentLightValuePreference = prefMng.findPreference(PREF_EVENT_ORIENTATION_LIGHT_CURRENT_VALUE);
                 if (currentLightValuePreference != null) {
                     currentLightValuePreference.setEnabled(false);

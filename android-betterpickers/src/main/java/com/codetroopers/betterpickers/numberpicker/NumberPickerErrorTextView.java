@@ -3,6 +3,7 @@ package com.codetroopers.betterpickers.numberpicker;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
@@ -52,7 +53,7 @@ public class NumberPickerErrorTextView extends TextView {
 
     private final Runnable hideRunnable = this::hide;
 
-    private final Handler fadeInEndHandler = new Handler();
+    private final Handler fadeInEndHandler = new Handler(Looper.getMainLooper());
 
     private void hide() {
         fadeInEndHandler.removeCallbacks(hideRunnable);
