@@ -126,6 +126,8 @@ class SettingsContentObserver  extends ContentObserver {
         //super.onChange(selfChange);
 
 //        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "uri="+uri);
+//        PPApplication.logE("[IN_OBSERVER] SettingsContentObserver.onChange", "current thread="+Thread.currentThread());
+
 //        if (uri != null)
 //            PPApplication.logE("[TEST BATTERY] SettingsContentObserver.onChange", "uri="+uri.toString());
 //        else

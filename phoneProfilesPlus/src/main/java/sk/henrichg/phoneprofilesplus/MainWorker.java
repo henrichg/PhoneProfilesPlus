@@ -693,21 +693,12 @@ public class MainWorker extends Worker {
                 }
             }
 
-            PPApplication.logE("MainWorker.doAfterFirstStart", "start donation and check GitHub releases alarms");
-
-            PhoneProfilesService.getInstance().registerPPPBroadcastReceivers(true);
-
-            DonationBroadcastReceiver.setAlarm(appContext);
-            CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
-            CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm(appContext);
-
             dataWrapper.firstStartEvents(true, false);
 
             // This is fix for 2, 3 restarts of events after first start.
-            // Bradcast, callback registration starts events and this is not good
-            // Only observers must be registered in service, because of FC in call of "new Hander()".
+            // Bradcasts, observers, callbacks registration starts events and this is not good
             PPApplication.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
-            PhoneProfilesService.getInstance().registerReceiversAndWorkers(false, false);
+            PhoneProfilesService.getInstance().registerReceiversAndWorkers(false);
 
             if (PPApplication.deviceBoot) {
                 PPApplication.deviceBoot = false;

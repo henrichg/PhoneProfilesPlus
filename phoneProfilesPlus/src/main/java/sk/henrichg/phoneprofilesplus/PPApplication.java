@@ -225,6 +225,8 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.setScreenTimeout"
                                                 //+"|ContactGroupsCache"
                                                 //+"|EventsPrefsFragment"
+
+                                                //+"|PPWifiNetworkCallback"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
