@@ -721,6 +721,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+            PPApplication.logE("[START_PP_SERVICE] EditorProfileActivity.startPPServiceWhenNotStarted", "(1)");
             PPApplication.startPPService(this, serviceIntent/*, true*/);
             return true;
         } else {
@@ -740,6 +741,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                PPApplication.logE("[START_PP_SERVICE] EditorProfileActivity.startPPServiceWhenNotStarted", "(2)");
                 PPApplication.startPPService(this, serviceIntent/*, true*/);
                 return true;
             }
@@ -2499,6 +2501,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                     serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                    PPApplication.logE("[START_PP_SERVICE] EditorProfileActivity.doImportData", "xxx");
                     PPApplication.startPPService(activity, serviceIntent/*, true*/);
                 }
 
@@ -3181,6 +3184,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                         serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                        PPApplication.logE("[START_PP_SERVICE] EditorProfileActivity.doImportDataFromPP", "xxx");
                         PPApplication.startPPService(activity, serviceIntent/*, true*/);
                     }
 
@@ -3503,6 +3507,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                         serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                        PPApplication.logE("[START_PP_SERVICE] EditorProfileActivity.doExportData", "xxx");
                         PPApplication.startPPService(getApplicationContext(), serviceIntent/*, true*/);
 
                         return ret;

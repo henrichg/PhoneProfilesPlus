@@ -122,6 +122,8 @@ public class MobileCellsRegistrationService extends Service {
             stopSelf();
         }
 
+        super.onStartCommand(intent, flags, startId);
+
         return START_STICKY;
     }
 

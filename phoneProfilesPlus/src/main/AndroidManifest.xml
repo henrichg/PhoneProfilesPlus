@@ -603,8 +603,8 @@
         <service
             android:name=".PhoneProfilesService"
             android:enabled="true"
-            android:stopWithTask="false"
-            android:foregroundServiceType="location|connectedDevice"/>
+            android:stopWithTask="false"/>
+<!--        android:foregroundServiceType="location|connectedDevice"/>-->
 
         <!-- widget services -->
         <service
@@ -648,8 +648,8 @@
         <service
             android:name=".MobileCellsRegistrationService"
             android:enabled="true"
-            android:stopWithTask="false"
-            android:foregroundServiceType="location"/>
+            android:stopWithTask="false" />
+<!--        android:foregroundServiceType="location"/>-->
 
     </application>
 

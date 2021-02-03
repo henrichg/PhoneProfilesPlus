@@ -4628,11 +4628,13 @@ public class PhoneProfilesService extends Service
         if (!serviceHasFirstStart) {
             if (intent != null) {
                 String text = appContext.getString(R.string.ppp_app_name) + " " + appContext.getString(R.string.application_is_starting_toast);
-                PPApplication.showToast(appContext.getApplicationContext(), text, Toast.LENGTH_SHORT);
+                PPApplication.showToast(appContext, text, Toast.LENGTH_SHORT);
             }
 
             doForFirstStart(intent);
         }
+
+        super.onStartCommand(intent, flags, startId);
 
         // do not use START_REDELIVER_INTENT because this remains intent and this is not good for me
         return START_STICKY;
