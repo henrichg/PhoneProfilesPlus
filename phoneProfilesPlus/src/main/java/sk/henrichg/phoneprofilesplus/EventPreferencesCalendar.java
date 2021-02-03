@@ -745,7 +745,8 @@ class EventPreferencesCalendar extends EventPreferences {
             return;
         }
 
-        //PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "xxx xxx");
+//        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "--- START");
+//        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
 
         final String[] INSTANCE_PROJECTION = new String[] {
                 Instances.BEGIN,           // 0
@@ -791,6 +792,9 @@ class EventPreferencesCalendar extends EventPreferences {
                         // only positive
                         continue;
                     }
+
+                    // trim leading and trailing spaces
+                    searchPattern = searchPattern.trim();
 
                     if (!positiveExists)
                         selection.append("(");
@@ -854,6 +858,9 @@ class EventPreferencesCalendar extends EventPreferences {
 
                     // remove !
                     searchPattern = searchPattern.substring(1);
+
+                    // trim leading and trailing spaces
+                    searchPattern = searchPattern.trim();
 
                     // when in searchPattern are not wildcards add %
                     if (!(searchPattern.contains("%") || searchPattern.contains("_")))
@@ -1048,7 +1055,9 @@ class EventPreferencesCalendar extends EventPreferences {
 
             cur.close();
         }
-        //PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
+
+//        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "_eventFound="+_eventFound);
+//        PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "--- END");
 
         DatabaseHandler.getInstance(dataWrapper.context).updateEventCalendarTimes(_event);
 
@@ -1070,18 +1079,18 @@ class EventPreferencesCalendar extends EventPreferences {
         }
 
         final String[] INSTANCE_PROJECTION = new String[] {
-                //Instances.BEGIN,           // 0
-                //Instances.END,			   // 1
-                Instances.CALENDAR_ID,     // 2
-                //Instances.ALL_DAY,         // 3
+                Instances.CALENDAR_ID,     // 0
+                Instances.ALL_DAY,         // 1
+                Instances.BEGIN,           // 2
+                Instances.END			   // 3
                 //Instances.CALENDAR_DISPLAY_NAME // 4
         };
 
         // The indices for the projection array above.
-        //final int PROJECTION_BEGIN_INDEX = 0;
-        //final int PROJECTION_END_INDEX = 1;
-        final int PROJECTION_CALENDAR_ID_INDEX = 0; //2;
-        //final int PROJECTION_ALL_DAY_INDEX = 3;
+        final int PROJECTION_CALENDAR_ID_INDEX = 0;
+        final int PROJECTION_ALL_DAY_INDEX = 1;
+        final int PROJECTION_BEGIN_INDEX = 2;
+        final int PROJECTION_END_INDEX = 3;
         //final int PROJECTION_CALENDAR_DISPLAY_NAME_INDEX = 4;
 
         Cursor cur;
@@ -1089,16 +1098,17 @@ class EventPreferencesCalendar extends EventPreferences {
 
         // Construct the query with the desired date range.
         Calendar calendar = Calendar.getInstance();
+        long now = calendar.getTimeInMillis();
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         long startMillis = calendar.getTimeInMillis();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
-        long endMillis = calendar.getTimeInMillis();
+        long endMillis = calendar.getTimeInMillis() - 1;
 
         Uri.Builder builder = Instances.CONTENT_URI.buildUpon();
         ContentUris.appendId(builder, startMillis);
-        ContentUris.appendId(builder, endMillis - 1);
+        ContentUris.appendId(builder, endMillis);
 
         String[] calendarsSplits = _calendars.split("\\|");
 
@@ -1123,11 +1133,16 @@ class EventPreferencesCalendar extends EventPreferences {
 
 //                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "record exists");
 //
-//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "cur.getLong(PROJECTION_CALENDAR_ID_INDEX)="+cur.getLong(PROJECTION_CALENDAR_ID_INDEX));
-//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "cur.getLong(PROJECTION_CALENDAR_DISPLAY_NAME_INDEX)="+cur.getLong(PROJECTION_CALENDAR_DISPLAY_NAME_INDEX));
-//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "cur.getLong(PROJECTION_ALL_DAY_INDEX)="+cur.getLong(PROJECTION_ALL_DAY_INDEX));
-//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "cur.getLong(PROJECTION_BEGIN_INDEX)="+cur.getLong(PROJECTION_BEGIN_INDEX));
-//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "cur.getLong(PROJECTION_END_INDEX)="+cur.getLong(PROJECTION_END_INDEX));
+//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "CALENDAR_ID="+cur.getLong(PROJECTION_CALENDAR_ID_INDEX));
+//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "CALENDAR_DISPLAY_NAME="+cur.getString(PROJECTION_CALENDAR_DISPLAY_NAME_INDEX));
+//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "ALL_DAY_INDEX="+cur.getInt(PROJECTION_ALL_DAY_INDEX));
+//
+//                String time = DateFormat.getDateFormat(dataWrapper.context).format(cur.getLong(PROJECTION_BEGIN_INDEX)) +
+//                        " " + DateFormat.getTimeFormat(dataWrapper.context).format(cur.getLong(PROJECTION_BEGIN_INDEX));
+//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "BEGIN_INDEX="+time);
+//                time = DateFormat.getDateFormat(dataWrapper.context).format(cur.getLong(PROJECTION_END_INDEX)) +
+//                        " " + DateFormat.getTimeFormat(dataWrapper.context).format(cur.getLong(PROJECTION_END_INDEX));
+//                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "END_INDEX="+time);
 
                 boolean calendarFound = false;
                 for (String split : calendarsSplits) {
@@ -1141,12 +1156,26 @@ class EventPreferencesCalendar extends EventPreferences {
                     continue;
 //                PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "calendar configured");
 
-                //if (cur.getInt(PROJECTION_ALL_DAY_INDEX) == 1) {
-                //    _eventTodayExists = true;
-                //    continue;
-                //}
+                long beginVal = cur.getLong(PROJECTION_BEGIN_INDEX);
+                long endVal = cur.getLong(PROJECTION_END_INDEX);
 
-                _eventTodayExists = true;
+                if (cur.getInt(PROJECTION_ALL_DAY_INDEX) == 1) {
+                    // get UTC offset
+                    Date _now = new Date();
+                    int utcOffset = TimeZone.getDefault().getOffset(_now.getTime());
+
+                    beginVal -= utcOffset;
+                    endVal -= utcOffset;
+                }
+
+                //int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+
+                if ((beginVal <= now) && (endVal > now)) {
+                    // event instance is found - actual instance
+//                    PPApplication.logE("EventPreferencesCalendar.saveCalendarEventExists", "event today exists");
+                    _eventTodayExists = true;
+                    break;
+                }
             }
 
             cur.close();

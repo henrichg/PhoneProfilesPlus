@@ -758,6 +758,9 @@ class EventPreferencesNotification extends EventPreferences {
                                         continue;
                                     }
 
+                                    // trim leading and trailing spaces
+                                    searchPattern = searchPattern.trim();
+
                                     // when in searchPattern are not wildcards add %
                                     if (!(searchPattern.contains("%") || searchPattern.contains("_")))
                                         searchPattern = "%" + searchPattern + "%";
@@ -805,6 +808,9 @@ class EventPreferencesNotification extends EventPreferences {
 
                                     // remove !
                                     searchPattern = searchPattern.substring(1);
+
+                                    // trim leading and trailing spaces
+                                    searchPattern = searchPattern.trim();
 
                                     // when in searchPattern are not wildcards add %
                                     if (!(searchPattern.contains("%") || searchPattern.contains("_")))
