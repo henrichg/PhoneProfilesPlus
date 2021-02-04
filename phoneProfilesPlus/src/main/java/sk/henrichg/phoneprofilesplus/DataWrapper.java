@@ -1243,6 +1243,7 @@ public class DataWrapper {
             }
             else {
                 Event.setGlobalEventsRunning(context, false);
+                PPApplication.setApplicationFullyStarted(context);
                 activateProfileOnBoot();
             }
         }

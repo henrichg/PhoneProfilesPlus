@@ -785,6 +785,7 @@ class EventsHandler {
                             PPApplication.setBlockProfileEventActions(true);
                         }
                     } else {
+                        PPApplication.setApplicationFullyStarted(context);
                         if (PPApplication.prefLastActivatedProfile != 0) {
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
                             dataWrapper.addProfileToFIFO(PPApplication.prefLastActivatedProfile, 0);
