@@ -2610,6 +2610,8 @@ public class DataWrapper {
             //return ApplicationPreferences.prefEventsBlocked;
             return Event.getEventsBlocked(context);
         else {
+//            PPApplication.logE("[APP START] DataWrapper.getIsManualProfileActivation", "Event.getEventsBlocked(context)="+Event.getEventsBlocked(context));
+//            PPApplication.logE("[APP START] DataWrapper.getIsManualProfileActivation", "Event.getForceRunEventRunning(context)="+Event.getForceRunEventRunning(context));
             //if (!ApplicationPreferences.prefEventsBlocked)
             if (!Event.getEventsBlocked(context))
                 return false;

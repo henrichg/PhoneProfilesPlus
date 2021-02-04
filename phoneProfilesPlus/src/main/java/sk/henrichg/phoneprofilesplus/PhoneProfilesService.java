@@ -66,7 +66,6 @@ import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -3984,18 +3983,20 @@ public class PhoneProfilesService extends Service
                     //Profile profile = DataWrapper.getNonInitializedProfile(
                     //        getString(R.string.empty_string), Profile.PROFILE_ICON_DEFAULT, 0);
                     //Profile.saveProfileToSharedPreferences(profile, appContext);
-                    Event.setEventsBlocked(appContext, false);
-                    dataWrapper.fillEventList();
-                    synchronized (dataWrapper.eventList) {
+
+                    // DO NOT UNBLOCK EVENTS. AT START MUST MANUALLY ACTIVATED PROFILE, IF WAS ACTIVATED BEFORE PPService start
+                    //Event.setEventsBlocked(appContext, false);
+                    //dataWrapper.fillEventList();
+                    //synchronized (dataWrapper.eventList) {
                         //noinspection ForLoopReplaceableByForEach
-                        for (Iterator<Event> it = dataWrapper.eventList.iterator(); it.hasNext(); ) {
-                            Event event = it.next();
-                            if (event != null)
-                                event._blocked = false;
-                        }
-                    }
-                    DatabaseHandler.getInstance(appContext).unblockAllEvents();
-                    Event.setForceRunEventRunning(appContext, false);
+                    //    for (Iterator<Event> it = dataWrapper.eventList.iterator(); it.hasNext(); ) {
+                    //        Event event = it.next();
+                    //        if (event != null)
+                    //            event._blocked = false;
+                    //    }
+                    //}
+                    //DatabaseHandler.getInstance(appContext).unblockAllEvents();
+                    //Event.setForceRunEventRunning(appContext, false);
 
 //                        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.doFirstStart", "#### clear");
                     synchronized (PPApplication.profileActivationMutex) {
