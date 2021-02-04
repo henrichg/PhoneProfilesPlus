@@ -698,6 +698,10 @@ public class MainWorker extends Worker {
             // This is fix for 2, 3 restarts of events after first start.
             // Bradcasts, observers, callbacks registration starts events and this is not good
             PPApplication.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
+            PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
+            PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
+            PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
+            PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
             PhoneProfilesService.getInstance().registerReceiversAndWorkers(false);
 
             if (PPApplication.deviceBoot) {

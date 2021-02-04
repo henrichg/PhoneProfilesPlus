@@ -388,6 +388,11 @@ public class PhoneProfilesService extends Service
 
         reenableKeyguard();
 
+        registerAllTheTimeRequiredPPPBroadcastReceivers(false);
+        registerAllTheTimeRequiredSystemReceivers(false);
+        registerAllTheTimeContentObservers(false);
+        registerAllTheTimeCallbacks(false);
+        registerPPPPExtenderReceiver(false, null);
         unregisterReceiversAndWorkers();
 
         try {
@@ -807,7 +812,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerAllTheTimeRequiredSystemReceivers(boolean register) {
+    void registerAllTheTimeRequiredSystemReceivers(boolean register) {
         final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "xxx");
@@ -1055,7 +1060,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerContentObservers(boolean register) {
+    void registerAllTheTimeContentObservers(boolean register) {
         final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerContentObservers", "PhoneProfilesService_registerContentObservers");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerContentObservers", "xxx");
@@ -1066,16 +1071,6 @@ public class PhoneProfilesService extends Service
                     PPApplication.settingsContentObserver = null;
                 } catch (Exception e) {
                     PPApplication.settingsContentObserver = null;
-                }
-            }
-            if (PPApplication.contactsContentObserver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER contacts content observer");
-                try {
-                    appContext.getContentResolver().unregisterContentObserver(PPApplication.contactsContentObserver);
-                    PPApplication.contactsContentObserver = null;
-                } catch (Exception e) {
-                    PPApplication.contactsContentObserver = null;
                 }
             }
         }
@@ -1092,6 +1087,26 @@ public class PhoneProfilesService extends Service
                     PPApplication.recordException(e);
                 }
             }
+        }
+    }
+
+    private void registerContactsContentObservers(boolean register) {
+        final Context appContext = getApplicationContext();
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerContentObservers", "PhoneProfilesService_registerContentObservers");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerContentObservers", "xxx");
+        if (!register) {
+            if (PPApplication.contactsContentObserver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredReceivers->UNREGISTER contacts content observer", "PhoneProfilesService_registerAllTheTimeRequiredReceivers");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredReceivers", "UNREGISTER contacts content observer");
+                try {
+                    appContext.getContentResolver().unregisterContentObserver(PPApplication.contactsContentObserver);
+                    PPApplication.contactsContentObserver = null;
+                } catch (Exception e) {
+                    PPApplication.contactsContentObserver = null;
+                }
+            }
+        }
+        if (register) {
             if (PPApplication.contactsContentObserver == null) {
                 try {
                     if (Permissions.checkContacts(appContext)) {
@@ -1108,7 +1123,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerCallbacks(boolean register) {
+    void registerAllTheTimeCallbacks(boolean register) {
         final Context appContext = getApplicationContext();
         //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerCallbacks", "PhoneProfilesService_registerCallbacks");
         //PPApplication.logE("[RJS] PhoneProfilesService.registerCallbacks", "xxx");
@@ -3471,12 +3486,7 @@ public class PhoneProfilesService extends Service
         // get actual battery status
         BatteryLevelChangedBroadcastReceiver.initialize(appContext);
 
-        // !!! Do not register donation and GitHub releases broadcasts, these are registered outside of this method
-
-        registerAllTheTimeRequiredSystemReceivers(true);
-
-        registerContentObservers(true);
-        registerCallbacks(true);
+        registerContactsContentObservers(true);
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
         dataWrapper.fillEventList();
@@ -3505,9 +3515,6 @@ public class PhoneProfilesService extends Service
 
         // required for device boot event
         registerReceiverForDeviceBootSensor(true, dataWrapper);
-
-        // required for force stop applications, applications event and orientation event
-        registerPPPPExtenderReceiver(true, dataWrapper);
 
         // required for location and radio switch event
         registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
@@ -3615,11 +3622,7 @@ public class PhoneProfilesService extends Service
 
         Context appContext = getApplicationContext();
 
-        registerAllTheTimeRequiredPPPBroadcastReceivers(false);
-        registerAllTheTimeRequiredSystemReceivers(false);
-
-        registerContentObservers(false);
-        registerCallbacks(false);
+        registerContactsContentObservers(false);
 
         registerBatteryLevelChangedReceiver(false, null);
         registerBatteryChargingChangedReceiver(false, null);
@@ -3631,7 +3634,6 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchAirplaneModeSensor(false, null);
         registerReceiverForAlarmClockSensor(false, null);
         registerReceiverForDeviceBootSensor(false, null);
-        registerPPPPExtenderReceiver(false, null);
         registerLocationModeChangedBroadcastReceiver(false, null);
         registerBluetoothStateChangedBroadcastReceiver(false, null, false);
         //registerBluetoothConnectionBroadcastReceiver(false, true, false, false);
@@ -3677,11 +3679,7 @@ public class PhoneProfilesService extends Service
 
         //final Context appContext = getApplicationContext();
 
-        registerAllTheTimeRequiredPPPBroadcastReceivers(true);
-        registerAllTheTimeRequiredSystemReceivers(true);
-
-        registerContentObservers(true);
-        registerCallbacks(true);
+        registerContactsContentObservers(true);
 
         registerBatteryLevelChangedReceiver(true, dataWrapper);
         registerBatteryChargingChangedReceiver(true, dataWrapper);
@@ -3693,7 +3691,6 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchAirplaneModeSensor(true, dataWrapper);
         registerReceiverForAlarmClockSensor(true, dataWrapper);
         registerReceiverForDeviceBootSensor(true, dataWrapper);
-        registerPPPPExtenderReceiver(true, dataWrapper);
         registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
         registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false);
         //registerBluetoothConnectionBroadcastReceiver(true, true, true, false);
@@ -4731,7 +4728,6 @@ public class PhoneProfilesService extends Service
                     else
                     if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_WORKERS");
-                        registerAllTheTimeRequiredPPPBroadcastReceivers(true);
                         registerReceiversAndWorkers(true);
                     }
                     else
@@ -4742,17 +4738,20 @@ public class PhoneProfilesService extends Service
                     else
                     if (intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_WORKERS");
+                        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                        registerPPPPExtenderReceiver(true, dataWrapper);
                         reregisterReceiversAndWorkers();
                     }
                     else
                     if (intent.getBooleanExtra(EXTRA_REGISTER_CONTENT_OBSERVERS, false)) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REGISTER_CONTENT_OBSERVERS");
-                        registerContentObservers(true);
+                        registerAllTheTimeContentObservers(true);
+                        registerContactsContentObservers(true);
                     }
                     else
                     if (intent.getBooleanExtra(EXTRA_REGISTER_CALLBACKS, false)) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REGISTER_CALLBACKS");
-                        registerCallbacks(true);
+                        registerAllTheTimeCallbacks(true);
                     }
                     else
                     if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
