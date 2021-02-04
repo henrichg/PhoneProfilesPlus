@@ -742,6 +742,7 @@ public class MainWorker extends Worker {
                 }
             }
 
+//            PPApplication.logE("[APP START] MainWorker.doAfterFirstStart", "PPApplication.setApplicationFullyStarted");
             PPApplication.setApplicationFullyStarted(appContext);
 
             dataWrapper.activateProfileOnBoot();

@@ -277,7 +277,10 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
                         long activateProfileId = 0;
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_DEFAULT_PROFILE) {
-                            activateProfileId = ApplicationPreferences.applicationDefaultProfile;
+
+//                            PPApplication.logE("[APP START] ProfileDurationAlarmBroadcastReceiver._doWork", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+                            activateProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
+
                             if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
                                 activateProfileId = 0;
 

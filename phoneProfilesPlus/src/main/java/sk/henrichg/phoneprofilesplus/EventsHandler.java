@@ -737,17 +737,18 @@ class EventsHandler {
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "no events running");
                     // no events running
 
-//                    PPApplication.logE("EventsHandler.handleEvents (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
-                    if (PPApplication.applicationFullyStarted)
-                        defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
-                    else
-                        defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+//                    PPApplication.logE("[APP START] EventsHandler.handleEvents (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+                    // THIS MUST BE PURE DEFAULT PROFILE, BECAUSE IT IS TESTED
+                    defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
 
                     //if (!fullyStarted)
                     //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
                     if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
 //                        if (isRestart)
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "default profile is set");
+
+//                        PPApplication.logE("[APP START] EventsHandler.handleEvents (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+                        defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
 
                         long semiOldActivatedProfileId = 0;
                         if (semiOldActivatedProfile != null)
@@ -785,6 +786,7 @@ class EventsHandler {
                             PPApplication.setBlockProfileEventActions(true);
                         }
                     } else {
+//                        PPApplication.logE("[APP START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (1)");
                         PPApplication.setApplicationFullyStarted(context);
                         if (PPApplication.prefLastActivatedProfile != 0) {
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
@@ -792,14 +794,17 @@ class EventsHandler {
                         }
                     }
                 }
-                else
+                else {
+//                    PPApplication.logE("[APP START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (2)");
                     PPApplication.setApplicationFullyStarted(context);
+                }
             } else {
                 // manual profile activation
 
  //                if (isRestart)
 //                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "active profile is activated manually");
 
+//                PPApplication.logE("[APP START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (3)");
                 PPApplication.setApplicationFullyStarted(context);
 
                 boolean defaultProfileActivated = false;
@@ -825,10 +830,8 @@ class EventsHandler {
                     // not any profile activated
 
 //                    PPApplication.logE("EventsHandler.handleEvents (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
-                    if (PPApplication.applicationFullyStarted)
-                        defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
-                    else
-                        defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+//                    PPApplication.logE("[APP START] EventsHandler.handleEvents (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+                    defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
 
                     //if (!fullyStarted)
                     //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;

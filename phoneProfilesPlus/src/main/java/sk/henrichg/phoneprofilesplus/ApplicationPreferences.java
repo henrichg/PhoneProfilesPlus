@@ -650,6 +650,12 @@ class ApplicationPreferences {
     static void applicationDefaultProfile(Context context) {
         applicationDefaultProfile = Long.parseLong(getSharedPreferences(context).getString(PREF_APPLICATION_DEFAULT_PROFILE, "-999"));
     }
+    static long getApplicationDefaultProfileOnBoot() {
+        if (PPApplication.applicationFullyStarted)
+            return ApplicationPreferences.applicationDefaultProfile;
+        else
+            return Profile.PROFILE_NO_ACTIVATE;
+    }
 
     static void applicationDefaultProfileNotificationSound(Context context) {
         applicationDefaultProfileNotificationSound = getSharedPreferences(context).getString(PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND, "");

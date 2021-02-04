@@ -1219,9 +1219,13 @@ public class DataWrapper {
                     profileId = 0;
             }
             */
+
             long profileId = PPApplication.prefLastActivatedProfile;
             if (profileId == 0) {
-                profileId = ApplicationPreferences.applicationDefaultProfile;
+
+//                PPApplication.logE("[APP START] DataWrapper.activateProfileOnBoot", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+                profileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
+
                 if (profileId == Profile.PROFILE_NO_ACTIVATE)
                     profileId = 0;
             }
@@ -1243,6 +1247,7 @@ public class DataWrapper {
             }
             else {
                 Event.setGlobalEventsRunning(context, false);
+//                PPApplication.logE("[APP START] DataWrapper.startEventsOnBoot", "PPApplication.setApplicationFullyStarted");
                 PPApplication.setApplicationFullyStarted(context);
                 activateProfileOnBoot();
             }
@@ -1609,20 +1614,24 @@ public class DataWrapper {
             //boolean fullyStarted = false;
             //if (PhoneProfilesService.getInstance() != null)
             //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
-            boolean fullyStarted = PPApplication.applicationFullyStarted;
+
+//            boolean fullyStarted = PPApplication.applicationFullyStarted;
+
             //boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "fullyStarted=" + fullyStarted);
                 PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "applicationPackageReplaced=" + applicationPackageReplaced);
             }*/
-            if ((!fullyStarted) /*|| applicationPackageReplaced*/) {
+
+//            if ((!fullyStarted) /*|| applicationPackageReplaced*/) {
                 // do not activate profile during application start
                 //PPApplication.showProfileNotification(/*context*/forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT), false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
                 //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper._activateProfile (1)");
-                PPApplication.updateGUI(1/*context, true, forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT)*/);
-                return;
-            }
+//                PPApplication.updateGUI(1/*context, true, forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT)*/);
+//                return;
+//            }
+
             //PPApplication.logE("DataWrapper._activateProfile", "activate");
 
             /*if (PPApplication.logEnabled()) {
@@ -1841,11 +1850,13 @@ public class DataWrapper {
         //boolean fullyStarted = false;
         //if (PhoneProfilesService.getInstance() != null)
         //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
-        boolean fullyStarted = PPApplication.applicationFullyStarted;
+
+//        boolean fullyStarted = PPApplication.applicationFullyStarted;
+
         //fullyStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
 
-        if (!fullyStarted)
-            return;
+//        if (!fullyStarted)
+//            return;
 
         try {
             String profileName = getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, this);
