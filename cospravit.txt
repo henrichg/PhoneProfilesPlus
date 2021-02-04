@@ -618,3 +618,21 @@ Zistujem, ktory ton je nastaveny (najdi kde), preco by som ho mal aj prehravat? 
 
 -----------------------
 
+Ak po PPApplication.startTimeOfApplicationStart nebude true PPApplication.applicationFullyStarted,
+teraz zobrazim len dialog a vobec sa neda nic robit.
+
+Po novom:
+- ActivateProfileActivity
+  - Disabluj klik na profily, proste sa len zobraz toast, ze nie je nastarovane, taky uz mas.
+  - Klik na restart udalosti tiez len toast.
+  - Klik na Editor nech zobrazi Editor.
+- BackgroundActivateProfileActivity - zobrazi len toast.
+- LaucherActivity - nech spusti aktivity. Bude ignorovat, ze nie je nastartovane
+- RestartEventsFromGUI - zobrazi len toast.
+
+- PhoneProfilesPrefsActivity - zobrazi len toast. Ak je to spustene z Editora, malo by to dovolit normalne pracovat? Neviem. :-(
+- EditorProfilesActivity
+  - Tu je to zlozitejsie, o dost. Z neho sa spusta vsetko ostatne, robi sa restart udalosti atd.
+  - Fakt zatial netusim, ze co s tymto.
+  - Asi dovolit normalnu editaciu, len restart udalosti nie
+
