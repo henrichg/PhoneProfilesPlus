@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
+
 public class WorkManagerNotWorkingActivity extends AppCompatActivity {
 
     @Override
@@ -40,6 +42,9 @@ public class WorkManagerNotWorkingActivity extends AppCompatActivity {
             if (serviceStarted) {
                 stopService(new Intent(getApplicationContext(), PhoneProfilesService.class));
                 PPApplication.sleep(2000);
+
+                PPApplication.startTimeOfApplicationStart = Calendar.getInstance().getTimeInMillis();
+
                 PPApplication.setApplicationStarted(getApplicationContext(), true);
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
