@@ -623,12 +623,12 @@ teraz zobrazim len dialog a vobec sa neda nic robit.
 
 Po novom:
 - ActivateProfileActivity
-  - Disabluj klik na profily, proste sa len zobraz toast, ze nie je nastarovane, taky uz mas.
+  - Klik na profily - len zobraz toast, ze nie je nastartovane, taky uz mas.
   - Klik na restart udalosti tiez len toast.
   - Klik na Editor nech zobrazi Editor.
-- BackgroundActivateProfileActivity - zobrazi len toast.
-- LaucherActivity - nech spusti aktivity. Bude ignorovat, ze nie je nastartovane
-- RestartEventsFromGUI - zobrazi len toast.
+- BackgroundActivateProfileActivity - zobrazi len toast. Toto je volane zo shortcutov a widgetov.
+- LaucherActivity - nech spustia aktivity. Bude ignorovat, ze nie je nastartovane. Musia sa dat spustit.
+- RestartEventsFromGUI - zobrazi len toast. Toto je volane z notifikacie a widgetov.
 
 - PhoneProfilesPrefsActivity - zobrazi len toast. Ak je to spustene z Editora, malo by to dovolit normalne pracovat? Neviem. :-(
 - EditorProfilesActivity
