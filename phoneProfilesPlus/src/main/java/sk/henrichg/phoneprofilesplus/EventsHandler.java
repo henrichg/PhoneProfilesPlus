@@ -263,9 +263,14 @@ class EventsHandler {
 //                    if (isRestart)
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
 
+//                    PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (01)");
+                    PPApplication.setApplicationFullyStarted(context);
+
                     return;
                 }
             }
+
+//            PPApplication.logE("[APP_START] EventsHandler.handleEvents (01)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
 
             //restartAtEndOfEvent = false;
 
@@ -689,6 +694,8 @@ class EventsHandler {
 
             PPApplication.lockRefresh = false;
 
+//            PPApplication.logE("[APP_START] EventsHandler.handleEvents (02)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+
 //            if (isRestart) {
 //                if (mergedProfile._id == 0)
 //                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "no profile for activation");
@@ -738,6 +745,7 @@ class EventsHandler {
                     // no events running
 
 //                    PPApplication.logE("[APP_START] EventsHandler.handleEvents (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+
                     // THIS MUST BE PURE DEFAULT PROFILE, BECAUSE IT IS TESTED
                     defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
 
