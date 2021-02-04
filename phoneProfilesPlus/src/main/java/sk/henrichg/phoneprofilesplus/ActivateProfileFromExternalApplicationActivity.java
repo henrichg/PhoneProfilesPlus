@@ -52,7 +52,8 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
     {
         super.onStart();
 
-        if (!PPApplication.getApplicationStarted(true)) {
+        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        if (!serviceStarted) {
             //Log.e("ActivateProfileFromExternalApplicationActivity.onStart", "application not started");
 
             PPApplication.setApplicationStarted(getApplicationContext(), true);
@@ -72,7 +73,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE, profileName);
             }
             PPApplication.logE("[START_PP_SERVICE] ActivateProfileFromExternalApplicationActivity.onStart", "xxx");
-            PPApplication.startPPService(this, serviceIntent/*, true*/);
+            PPApplication.startPPService(this, serviceIntent);
             finish();
             return;
         }

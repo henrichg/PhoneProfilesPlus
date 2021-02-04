@@ -367,7 +367,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header
-        if (!PPApplication.getApplicationStarted(true)) {
+        boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+        if (!serviceStarted) {
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("EditorProfilesActivity.onStart", "application is not started");
                 PPApplication.logE("EditorProfilesActivity.onStart", "service instance=" + PhoneProfilesService.getInstance());
@@ -385,9 +386,10 @@ public class ActivateProfileActivity extends AppCompatActivity {
             serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
             PPApplication.logE("[START_PP_SERVICE] ActivateProfileActivity.startPPServiceWhenNotStarted", "(1)");
-            PPApplication.startPPService(this, serviceIntent/*, true*/);
+            PPApplication.startPPService(this, serviceIntent);
             return true;
         } else {
+            //noinspection RedundantIfStatement
             if ((PhoneProfilesService.getInstance() == null) || (!PhoneProfilesService.getInstance().getServiceHasFirstStart())) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EditorProfilesActivity.onStart", "application is started");
@@ -397,6 +399,8 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 }*/
                 // start PhoneProfilesService
                 //PPApplication.firstStartServiceStarted = false;
+
+                /*
                 Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
                 //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
@@ -405,7 +409,9 @@ public class ActivateProfileActivity extends AppCompatActivity {
                 serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                 serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
                 PPApplication.logE("[START_PP_SERVICE] ActivateProfileActivity.startPPServiceWhenNotStarted", "(2)");
-                PPApplication.startPPService(this, serviceIntent/*, true*/);
+                PPApplication.startPPService(this, serviceIntent);
+                */
+
                 return true;
             }
             //else {

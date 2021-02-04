@@ -2464,7 +2464,8 @@ public class DataWrapper {
                 if (finish)
                     activity.finish();
 
-                if (!PPApplication.getApplicationStarted(true)) {
+                boolean serviceStarted = PhoneProfilesService.isServiceRunning(context, PhoneProfilesService.class, false);
+                if (!serviceStarted) {
                     PPApplication.setApplicationStarted(context, true);
                     Intent serviceIntent = new Intent(context, PhoneProfilesService.class);
                     //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
@@ -2474,7 +2475,7 @@ public class DataWrapper {
                     serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
                     serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
                     PPApplication.logE("[START_PP_SERVICE] DataWrapper.restartEventsWithAlert", "xxx");
-                    PPApplication.startPPService(context, serviceIntent/*, true*/);
+                    PPApplication.startPPService(context, serviceIntent);
                 }
                 else {
 //                        PPApplication.logE("[APP_START] DataWrapper.restartEventsWithAlert", "(1)");

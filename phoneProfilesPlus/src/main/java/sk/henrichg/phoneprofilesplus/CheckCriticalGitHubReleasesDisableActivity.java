@@ -2,12 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Calendar;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivity
@@ -26,10 +23,10 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
 
 //        PPApplication.logE("[BACKGROUND_ACTIVITY] CheckCriticalGitHubReleasesDisableActivity.onCreate", "xxx");
 
-        if (showNotStartedToast()) {
-            finish();
-            return;
-        }
+//        if (showNotStartedToast()) {
+//            finish();
+//            return;
+//        }
 
         Intent intent = getIntent();
         criticalRelease = intent.getBooleanExtra(EXTRA_GITHUB_RELEASE_CRITICAL, true);
@@ -50,11 +47,11 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
     {
         super.onStart();
 
-        if (showNotStartedToast()) {
-            if (!isFinishing())
-                finish();
-            return;
-        }
+//        if (showNotStartedToast()) {
+//            if (!isFinishing())
+//                finish();
+//            return;
+//        }
 
         if (activityStarted) {
             // set theme and language for dialog alert ;-)
@@ -106,44 +103,31 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
         }
     }
 
-    private boolean showNotStartedToast() {
-//        PPApplication.logE("[APP_START] CheckCriticalGitHubReleasesDisableActivity.showNotStartedToast", "xxx");
-        boolean applicationStarted = PPApplication.getApplicationStarted(true);
-        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
-        if (!applicationStarted) {
-            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
-            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
-            return true;
-        }
-        if (!fullyStarted) {
-            if ((PPApplication.startTimeOfApplicationStart > 0) &&
-                    ((Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart) > PPApplication.APPLICATION_START_DELAY)) {
-                Intent activityIntent = new Intent(this, WorkManagerNotWorkingActivity.class);
-                // clear all opened activities
-                activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(activityIntent);
-            }
-            else {
-                String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
-                PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
-            }
-            return true;
-        }
-        /*boolean fullyStarted = true;
-        if (applicationStarted) {
-            PhoneProfilesService instance = PhoneProfilesService.getInstance();
-            fullyStarted = instance.getApplicationFullyStarted();
-            applicationStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
-        }
-        if (!applicationStarted) {
-            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
-            if (!fullyStarted)
-                text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
-            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
-            return true;
-        }*/
-        return false;
-    }
+//    private boolean showNotStartedToast() {
+////        PPApplication.logE("[APP_START] CheckCriticalGitHubReleasesDisableActivity.showNotStartedToast", "xxx");
+//        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+//        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
+//        if (!applicationStarted) {
+//            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
+//            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+//            return true;
+//        }
+//        if (!fullyStarted) {
+//            if ((PPApplication.startTimeOfApplicationStart > 0) &&
+//                    ((Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart) > PPApplication.APPLICATION_START_DELAY)) {
+//                Intent activityIntent = new Intent(this, WorkManagerNotWorkingActivity.class);
+//                // clear all opened activities
+//                activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(activityIntent);
+//            }
+//            else {
+//                String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
+//                PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+//            }
+//            return true;
+//        }
+//        return false;
+//    }
 
     @Override
     public void finish()

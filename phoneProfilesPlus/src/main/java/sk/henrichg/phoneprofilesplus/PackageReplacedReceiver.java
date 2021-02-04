@@ -53,7 +53,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
                             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
                             PPApplication.logE("[START_PP_SERVICE] PackageReplacedReceiver.onReceive", "xxx");
-                            PPApplication.startPPService(appContext, serviceIntent/*, true*/);
+                            PPApplication.startPPService(appContext, serviceIntent);
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }

@@ -1509,7 +1509,7 @@ public class PPApplication extends Application
 
     //--------------------------------------------------------------
 
-    static void startPPService(Context context, Intent serviceIntent/*, boolean isPPService*/) {
+    static void startPPService(Context context, Intent serviceIntent) {
         //if (isPPService)
         //    PhoneProfilesService.startForegroundNotification = true;
         //PPApplication.logE("PPApplication.startPPService", "xxx");
