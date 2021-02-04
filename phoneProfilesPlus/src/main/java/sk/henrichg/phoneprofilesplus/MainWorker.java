@@ -702,7 +702,7 @@ public class MainWorker extends Worker {
             PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
             PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
             PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
-            PhoneProfilesService.getInstance().registerReceiversAndWorkers(false);
+            PhoneProfilesService.getInstance().registerEventsReceiversAndWorkers(false);
 
             if (PPApplication.deviceBoot) {
                 PPApplication.deviceBoot = false;

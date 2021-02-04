@@ -393,7 +393,7 @@ public class PhoneProfilesService extends Service
         registerAllTheTimeContentObservers(false);
         registerAllTheTimeCallbacks(false);
         registerPPPPExtenderReceiver(false, null);
-        unregisterReceiversAndWorkers();
+        unregisterEventsReceiversAndWorkers();
 
         try {
             appContext.unregisterReceiver(PPApplication.startLauncherFromNotificationReceiver);
@@ -3476,7 +3476,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    void registerReceiversAndWorkers(boolean fromCommand) {
+    void registerEventsReceiversAndWorkers(boolean fromCommand) {
 //        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.registerReceiversAndWorkers", "xxx");
 
         // --- receivers and content observers for events -- register it only if any event exists
@@ -3617,7 +3617,7 @@ public class PhoneProfilesService extends Service
         AvoidRescheduleReceiverWorker.enqueueWork();
     }
 
-    private void unregisterReceiversAndWorkers() {
+    private void unregisterEventsReceiversAndWorkers() {
 //         PPApplication.logE("[FIFO_TEST] PhoneProfilesService.unregisterReceiversAndWorkers", "xxx");
 
         Context appContext = getApplicationContext();
@@ -3670,7 +3670,7 @@ public class PhoneProfilesService extends Service
 
     }
 
-    private void reregisterReceiversAndWorkers() {
+    private void reregisterEventsReceiversAndWorkers() {
 //        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.reregisterReceiversAndWorkers", "xxx");
 
         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
@@ -4728,19 +4728,19 @@ public class PhoneProfilesService extends Service
                     else
                     if (intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_WORKERS");
-                        registerReceiversAndWorkers(true);
+                        registerEventsReceiversAndWorkers(true);
                     }
                     else
                     if (intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS");
-                        unregisterReceiversAndWorkers();
+                        unregisterEventsReceiversAndWorkers();
                     }
                     else
                     if (intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_WORKERS");
                         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                         registerPPPPExtenderReceiver(true, dataWrapper);
-                        reregisterReceiversAndWorkers();
+                        reregisterEventsReceiversAndWorkers();
                     }
                     else
                     if (intent.getBooleanExtra(EXTRA_REGISTER_CONTENT_OBSERVERS, false)) {
