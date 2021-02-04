@@ -221,7 +221,7 @@ public class PPApplication extends Application
                                                 //+"|ContactGroupsCache"
                                                 //+"|EventsPrefsFragment"
                                                 //+"|PPWifiNetworkCallback"
-                                                +"|EventsHandler.handleEvents"
+                                                //+"|EventsHandler.handleEvents"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -1272,14 +1272,15 @@ public class PPApplication extends Application
         return (int) PackageInfoCompat.getLongVersionCode(pInfo);
     }
 
-    static void setApplicationFullyStarted(Context context, boolean showToast) {
+    static void setApplicationFullyStarted(Context context) {
+        boolean oldApplicationFullyStarted = applicationFullyStarted;
         applicationFullyStarted = true; //started;
 
         final Context appContext = context.getApplicationContext();
 
         updateGUI(0/*appContext, true, true*/);
 
-        if (showToast) {
+        if (!oldApplicationFullyStarted) {
             String text = context.getString(R.string.ppp_app_name) + " " + context.getString(R.string.application_is_started_toast);
             showToast(appContext, text, Toast.LENGTH_SHORT);
         }

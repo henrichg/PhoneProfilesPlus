@@ -737,7 +737,7 @@ class EventsHandler {
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "no events running");
                     // no events running
 
-                    PPApplication.logE("EventsHandler.handleEvents (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+//                    PPApplication.logE("EventsHandler.handleEvents (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
                     if (PPApplication.applicationFullyStarted)
                         defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
                     else
@@ -791,11 +791,15 @@ class EventsHandler {
                         }
                     }
                 }
+                else
+                    PPApplication.setApplicationFullyStarted(context);
             } else {
                 // manual profile activation
 
  //                if (isRestart)
 //                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "active profile is activated manually");
+
+                PPApplication.setApplicationFullyStarted(context);
 
                 boolean defaultProfileActivated = false;
 
@@ -819,7 +823,7 @@ class EventsHandler {
                 else {
                     // not any profile activated
 
-                    PPApplication.logE("EventsHandler.handleEvents (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+//                    PPApplication.logE("EventsHandler.handleEvents (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
                     if (PPApplication.applicationFullyStarted)
                         defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
                     else
