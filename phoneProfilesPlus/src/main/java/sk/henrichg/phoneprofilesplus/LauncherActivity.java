@@ -2,11 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Calendar;
 //import me.drakeet.support.toast.ToastCompat;
 
 public class LauncherActivity extends AppCompatActivity {
@@ -24,12 +22,12 @@ public class LauncherActivity extends AppCompatActivity {
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
 //        PPApplication.logE("LauncherActivity.onCreate", "doServiceStart="+doServiceStart);
-        if (showNotStartedToast()) {
+//        if (showNotStartedToast()) {
 //            PPApplication.logE("LauncherActivity.onCreate", "showNotStartedToast()=true");
-            finish();
-            return;
-        }
-        else
+//            finish();
+//            return;
+//        }
+//        else
         if (doServiceStart) {
             finish();
             return;
@@ -50,13 +48,13 @@ public class LauncherActivity extends AppCompatActivity {
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
 //        PPApplication.logE("LauncherActivity.onStart", "doServiceStart="+doServiceStart);
-        if (showNotStartedToast()) {
+//        if (showNotStartedToast()) {
 //            PPApplication.logE("LauncherActivity.onStart", "showNotStartedToast()=true");
-            if (!isFinishing())
-                finish();
-            return;
-        }
-        else
+//            if (!isFinishing())
+//                finish();
+//            return;
+//        }
+//        else
         if (doServiceStart) {
             if (!isFinishing())
                 finish();
@@ -147,49 +145,34 @@ public class LauncherActivity extends AppCompatActivity {
         //}
     }
 
-    private boolean showNotStartedToast() {
-        //PPApplication.logE("[APP_START] LauncherActivity.showNotStartedToast", "xxx");
-        boolean applicationStarted = PPApplication.getApplicationStarted(true);
-        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
-        if (!applicationStarted) {
-            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
-            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
-            return true;
-        }
-        if (!fullyStarted) {
-            //Log.e("LauncherActivity.showNotStartedToast", "PPApplication.startTimeOfApplicationStart="+PPApplication.startTimeOfApplicationStart);
-            //Log.e("LauncherActivity.showNotStartedToast", "PPApplication.APPLICATION_START_DELAY="+PPApplication.APPLICATION_START_DELAY);
-            //Log.e("LauncherActivity.showNotStartedToast", "delta="+(Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart));
-            if ((PPApplication.startTimeOfApplicationStart > 0) &&
-                    ((Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart) > PPApplication.APPLICATION_START_DELAY)) {
-                Intent activityIntent = new Intent(this, WorkManagerNotWorkingActivity.class);
-                // clear all opened activities
-                activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(activityIntent);
-            }
-            else {
-                String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
-                PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
-            }
-            return true;
-        }
-        /*//boolean fullyStarted = true;
-        if (applicationStarted) {
-            //PhoneProfilesService instance = PhoneProfilesService.getInstance();
-            //fullyStarted = instance.getApplicationFullyStarted();
-            boolean fullyStarted = PPApplication.applicationFullyStarted;
-            applicationStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
-        }
-        if (!applicationStarted) {
-            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
-            boolean fullyStarted = PPApplication.applicationFullyStarted;
-            if (!fullyStarted)
-                text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
-            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
-            return true;
-        }*/
-        return false;
-    }
+//    private boolean showNotStartedToast() {
+//        //PPApplication.logE("[APP_START] LauncherActivity.showNotStartedToast", "xxx");
+//        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+//        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
+//        if (!applicationStarted) {
+//            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
+//            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+//            return true;
+//        }
+//        if (!fullyStarted) {
+//            //Log.e("LauncherActivity.showNotStartedToast", "PPApplication.startTimeOfApplicationStart="+PPApplication.startTimeOfApplicationStart);
+//            //Log.e("LauncherActivity.showNotStartedToast", "PPApplication.APPLICATION_START_DELAY="+PPApplication.APPLICATION_START_DELAY);
+//            //Log.e("LauncherActivity.showNotStartedToast", "delta="+(Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart));
+//            if ((PPApplication.startTimeOfApplicationStart > 0) &&
+//                    ((Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart) > PPApplication.APPLICATION_START_DELAY)) {
+//                Intent activityIntent = new Intent(this, WorkManagerNotWorkingActivity.class);
+//                // clear all opened activities
+//                activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(activityIntent);
+//            }
+//            else {
+//                String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
+//                PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
+//            }
+//            return true;
+//        }
+//        return false;
+//    }
 
     private boolean startPPServiceWhenNotStarted() {
         // this is for list widget header

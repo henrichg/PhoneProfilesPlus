@@ -88,10 +88,12 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         if (!fullyStarted) {
             if ((PPApplication.startTimeOfApplicationStart > 0) &&
                     ((Calendar.getInstance().getTimeInMillis() - PPApplication.startTimeOfApplicationStart) > PPApplication.APPLICATION_START_DELAY)) {
-                Intent activityIntent = new Intent(this, WorkManagerNotWorkingActivity.class);
+                /*Intent activityIntent = new Intent(this, WorkManagerNotWorkingActivity.class);
                 // clear all opened activities
                 activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(activityIntent);
+                startActivity(activityIntent);*/
+                String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_cannot_be_started);
+                PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
             }
             else {
                 String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);

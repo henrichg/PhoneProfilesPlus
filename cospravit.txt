@@ -622,15 +622,18 @@ Ak po PPApplication.startTimeOfApplicationStart nebude true PPApplication.applic
 teraz zobrazim len dialog a vobec sa neda nic robit.
 
 Po novom:
+- LaucherActivity - nech spustia aktivity. Bude ignorovat, ze nie je nastartovane. Musia sa dat spustit.
+
+- BackgroundActivateProfileActivity - zobrazi len toast. Toto je volane zo shortcutov a widgetov.
+- RestartEventsFromGUI - zobrazi len toast. Toto je volane z notifikacie a widgetov.
+
 - ActivateProfileActivity
   - Klik na profily - len zobraz toast, ze nie je nastartovane, taky uz mas.
   - Klik na restart udalosti tiez len toast.
   - Klik na Editor nech zobrazi Editor.
-- BackgroundActivateProfileActivity - zobrazi len toast. Toto je volane zo shortcutov a widgetov.
-- LaucherActivity - nech spustia aktivity. Bude ignorovat, ze nie je nastartovane. Musia sa dat spustit.
-- RestartEventsFromGUI - zobrazi len toast. Toto je volane z notifikacie a widgetov.
 
 - PhoneProfilesPrefsActivity - zobrazi len toast. Ak je to spustene z Editora, malo by to dovolit normalne pracovat? Neviem. :-(
+
 - EditorProfilesActivity
   - Tu je to zlozitejsie, o dost. Z neho sa spusta vsetko ostatne, robi sa restart udalosti atd.
   - Fakt zatial netusim, ze co s tymto.
