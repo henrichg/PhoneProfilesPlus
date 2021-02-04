@@ -736,7 +736,13 @@ class EventsHandler {
 //                    if (isRestart)
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "no events running");
                     // no events running
-                    defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+
+                    PPApplication.logE("EventsHandler.handleEvents (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+                    if (PPApplication.applicationFullyStarted)
+                        defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                    else
+                        defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+
                     //if (!fullyStarted)
                     //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
                     if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
@@ -813,7 +819,12 @@ class EventsHandler {
                 else {
                     // not any profile activated
 
-                    defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                    PPApplication.logE("EventsHandler.handleEvents (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+                    if (PPApplication.applicationFullyStarted)
+                        defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
+                    else
+                        defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+
                     //if (!fullyStarted)
                     //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
                     if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {

@@ -674,7 +674,7 @@ public class MainWorker extends Worker {
         //PhoneProfilesService instance = PhoneProfilesService.getInstance();
         //if (instance != null)
         //    instance.PhoneProfilesService.setApplicationFullyStarted(appContext/*true*/);
-        PPApplication.setApplicationFullyStarted(appContext, showToast);
+//        PPApplication.setApplicationFullyStarted(appContext, showToast);
         //}
 
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
@@ -741,6 +741,8 @@ public class MainWorker extends Worker {
             //PPApplication.updateNotificationAndWidgets(true, true, appContext);
             //PPApplication.updateGUI(appContext, true, true);
         }
+
+        PPApplication.setApplicationFullyStarted(appContext, showToast);
 
         //PPApplication.logE("-------- PPApplication.forceUpdateGUI", "from=DelayedWorksWorker.doWork");
 //        PPApplication.logE("------- PhoneProfilesService.doForFirstStart.doWork", "forceUpdateGUI");

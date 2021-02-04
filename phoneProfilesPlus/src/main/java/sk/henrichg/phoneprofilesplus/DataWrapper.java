@@ -1239,6 +1239,7 @@ public class DataWrapper {
                 //restartEvents(false, false, true, false, useHandler);
 //                PPApplication.logE("[APP START] DataWrapper.startEventsOnBoot", "(1)");
                 restartEventsWithRescan(true, false, useHandler, false, false, false);
+//                restartEventsWithDelay(5, true, false, true, PPApplication.ALTYPE_UNDEFINED);
             }
             else {
                 Event.setGlobalEventsRunning(context, false);
@@ -1249,6 +1250,7 @@ public class DataWrapper {
             //restartEvents(false, false, true, false, useHandler);
 //            PPApplication.logE("[APP START] DataWrapper.startEventsOnBoot", "(2)");
             restartEventsWithRescan(true, false, useHandler, false, false, false);
+//            restartEventsWithDelay(5, true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
     }
 
