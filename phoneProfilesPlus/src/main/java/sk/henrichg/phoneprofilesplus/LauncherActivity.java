@@ -148,7 +148,7 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
     private boolean showNotStartedToast() {
-        //PPApplication.logE("[APP START] LauncherActivity.showNotStartedToast", "xxx");
+        //PPApplication.logE("[APP_START] LauncherActivity.showNotStartedToast", "xxx");
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
         if (!applicationStarted) {

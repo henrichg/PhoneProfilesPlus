@@ -132,7 +132,7 @@ class EventsHandler {
         synchronized (PPApplication.eventsHandlerMutex) {
             //CallsCounter.logCounter(context, "EventsHandler.handleEvents", "EventsHandler_handleEvents");
 
-//            PPApplication.logE("[APP START] EventsHandler.handleEvents", "sensorType="+sensorType);
+//            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "sensorType="+sensorType);
 
             boolean manualRestart = sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS);
             boolean isRestart = sensorType.equals(SENSOR_TYPE_RESTART_EVENTS) || manualRestart;
@@ -737,7 +737,7 @@ class EventsHandler {
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "no events running");
                     // no events running
 
-//                    PPApplication.logE("[APP START] EventsHandler.handleEvents (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+//                    PPApplication.logE("[APP_START] EventsHandler.handleEvents (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
                     // THIS MUST BE PURE DEFAULT PROFILE, BECAUSE IT IS TESTED
                     defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
 
@@ -747,7 +747,7 @@ class EventsHandler {
 //                        if (isRestart)
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "default profile is set");
 
-//                        PPApplication.logE("[APP START] EventsHandler.handleEvents (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+//                        PPApplication.logE("[APP_START] EventsHandler.handleEvents (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
                         defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
 
                         long semiOldActivatedProfileId = 0;
@@ -786,7 +786,7 @@ class EventsHandler {
                             PPApplication.setBlockProfileEventActions(true);
                         }
                     } else {
-//                        PPApplication.logE("[APP START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (1)");
+//                        PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (1)");
                         PPApplication.setApplicationFullyStarted(context);
                         if (PPApplication.prefLastActivatedProfile != 0) {
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
@@ -795,7 +795,7 @@ class EventsHandler {
                     }
                 }
                 else {
-//                    PPApplication.logE("[APP START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (2)");
+//                    PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (2)");
                     PPApplication.setApplicationFullyStarted(context);
                 }
             } else {
@@ -804,7 +804,7 @@ class EventsHandler {
  //                if (isRestart)
 //                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "active profile is activated manually");
 
-//                PPApplication.logE("[APP START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (3)");
+//                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (3)");
                 PPApplication.setApplicationFullyStarted(context);
 
                 boolean defaultProfileActivated = false;
@@ -830,7 +830,7 @@ class EventsHandler {
                     // not any profile activated
 
 //                    PPApplication.logE("EventsHandler.handleEvents (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
-//                    PPApplication.logE("[APP START] EventsHandler.handleEvents (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+//                    PPApplication.logE("[APP_START] EventsHandler.handleEvents (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
                     defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
 
                     //if (!fullyStarted)

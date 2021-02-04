@@ -6165,7 +6165,7 @@ public class PhoneProfilesService extends Service
             if (forServiceStart) {
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-//                PPApplication.logE("[APP START] PhoneProfilesService.showProfileNotification", "forServiceStart="+forServiceStart);
+//                PPApplication.logE("[APP_START] PhoneProfilesService.showProfileNotification", "forServiceStart="+forServiceStart);
                 _showProfileNotification(/*null,*/ dataWrapper, true/*, true*/);
                 //dataWrapper.invalidateDataWrapper();
                 //return; // do not return, dusplay activated profile immediatelly
@@ -6177,7 +6177,7 @@ public class PhoneProfilesService extends Service
 
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","before run handler");
 
-//        PPApplication.logE("[APP START] PhoneProfilesService.showProfileNotification", "PPApplication.doNotShowProfileNotification="+PPApplication.doNotShowProfileNotification);
+//        PPApplication.logE("[APP_START] PhoneProfilesService.showProfileNotification", "PPApplication.doNotShowProfileNotification="+PPApplication.doNotShowProfileNotification);
         if (PPApplication.doNotShowProfileNotification)
             return;
 

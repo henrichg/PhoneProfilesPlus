@@ -357,7 +357,7 @@ class EventPreferencesWifi extends EventPreferences {
         if (_enabled) {
 
 //            if (_event._name.equals("Wi-fi"))
-//                PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "----------- START");
+//                PPApplication.logE("[APP_START] EventPreferencesWifi.doHandleEvent", "----------- START");
 
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -366,8 +366,8 @@ class EventPreferencesWifi extends EventPreferences {
 
 //                if (PPApplication.logEnabled()) {
 //                    if (_event._name.equals("Wi-fi")) {
-//                        PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "------- event._id=" + _event._id);
-//                        PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "------- event._name=" + _event._name);
+//                        PPApplication.logE("[APP_START] EventPreferencesWifi.doHandleEvent", "------- event._id=" + _event._id);
+//                        PPApplication.logE("[APP_START] EventPreferencesWifi.doHandleEvent", "------- event._name=" + _event._name);
 //                    }
 //                }
 
@@ -691,9 +691,9 @@ class EventPreferencesWifi extends EventPreferences {
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
 //            if (PPApplication.logEnabled()) {
 //                if (_event._name.equals("Wi-fi")) {
-//                    PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "wifi - event._name=" + _event._name);
-//                    PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "wifi - old pass=" + oldSensorPassed);
-//                    PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "wifi - new pass=" + newSensorPassed);
+//                    PPApplication.logE("[APP_START] EventPreferencesWifi.doHandleEvent", "wifi - event._name=" + _event._name);
+//                    PPApplication.logE("[APP_START] EventPreferencesWifi.doHandleEvent", "wifi - old pass=" + oldSensorPassed);
+//                    PPApplication.logE("[APP_START] EventPreferencesWifi.doHandleEvent", "wifi - new pass=" + newSensorPassed);
 //                }
 //            }
             if (oldSensorPassed != newSensorPassed) {
@@ -703,7 +703,7 @@ class EventPreferencesWifi extends EventPreferences {
             }
 
 //            if (_event._name.equals("Wi-fi"))
-//                PPApplication.logE("[APP START] EventPreferencesWifi.doHandleEvent", "----------- END");
+//                PPApplication.logE("[APP_START] EventPreferencesWifi.doHandleEvent", "----------- END");
         }
     }
 

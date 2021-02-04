@@ -107,7 +107,7 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
     }
 
     private boolean showNotStartedToast() {
-//        PPApplication.logE("[APP START] CheckCriticalGitHubReleasesDisableActivity.showNotStartedToast", "xxx");
+//        PPApplication.logE("[APP_START] CheckCriticalGitHubReleasesDisableActivity.showNotStartedToast", "xxx");
         boolean applicationStarted = PPApplication.getApplicationStarted(true);
         boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
         if (!applicationStarted) {

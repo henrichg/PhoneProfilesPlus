@@ -147,7 +147,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
             PPApplication.logE("*********** restartEvents", "from TimeChangedReceiver.doWork() - 3");
             dataWrapper.restartEventsWithRescan(false, false, false, false);
         }*/
-//        PPApplication.logE("[APP START] TimeChangedReceiver.doWork", "xxxx");
+//        PPApplication.logE("[APP_START] TimeChangedReceiver.doWork", "xxxx");
         dataWrapper.restartEventsWithRescan(true, true, false, false, logRestart, false);
     }
 

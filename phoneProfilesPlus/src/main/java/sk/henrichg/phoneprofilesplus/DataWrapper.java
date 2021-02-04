@@ -1005,7 +1005,7 @@ public class DataWrapper {
         }
         //PPApplication.logE("$$$ restartEvents", "from DataWrapper.stopEventsForProfile");
         //restartEvents(false, true, true, true, true);
-//        PPApplication.logE("[APP START] DataWrapper.stopEventsForProfile", "xxx");
+//        PPApplication.logE("[APP_START] DataWrapper.stopEventsForProfile", "xxx");
         restartEventsWithRescan(true, false, true, false, true, false);
     }
 
@@ -1223,7 +1223,7 @@ public class DataWrapper {
             long profileId = PPApplication.prefLastActivatedProfile;
             if (profileId == 0) {
 
-//                PPApplication.logE("[APP START] DataWrapper.activateProfileOnBoot", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+//                PPApplication.logE("[APP_START] DataWrapper.activateProfileOnBoot", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
                 profileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
 
                 if (profileId == Profile.PROFILE_NO_ACTIVATE)
@@ -1238,23 +1238,24 @@ public class DataWrapper {
 
     private void startEventsOnBoot(boolean startedFromService, boolean useHandler)
     {
+//        PPApplication.logE("[APP_START] DataWrapper.startEventsOnBoot", "START");
         if (startedFromService) {
             if (ApplicationPreferences.applicationStartEvents) {
                 //restartEvents(false, false, true, false, useHandler);
-//                PPApplication.logE("[APP START] DataWrapper.startEventsOnBoot", "(1)");
+//                PPApplication.logE("[APP_START] DataWrapper.startEventsOnBoot", "(1)");
                 restartEventsWithRescan(true, false, useHandler, false, false, false);
 //                restartEventsWithDelay(5, true, false, true, PPApplication.ALTYPE_UNDEFINED);
             }
             else {
                 Event.setGlobalEventsRunning(context, false);
-//                PPApplication.logE("[APP START] DataWrapper.startEventsOnBoot", "PPApplication.setApplicationFullyStarted");
+//                PPApplication.logE("[APP_START] DataWrapper.startEventsOnBoot", "PPApplication.setApplicationFullyStarted");
                 PPApplication.setApplicationFullyStarted(context);
                 activateProfileOnBoot();
             }
         }
         else {
             //restartEvents(false, false, true, false, useHandler);
-//            PPApplication.logE("[APP START] DataWrapper.startEventsOnBoot", "(2)");
+//            PPApplication.logE("[APP_START] DataWrapper.startEventsOnBoot", "(2)");
             restartEventsWithRescan(true, false, useHandler, false, false, false);
 //            restartEventsWithDelay(5, true, false, true, PPApplication.ALTYPE_UNDEFINED);
         }
@@ -1579,18 +1580,19 @@ public class DataWrapper {
 
     private void _activateProfile(Profile _profile, boolean merged, int startupSource, final boolean forRestartEvents)
     {
+
 //        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._activateProfile", "before synchronized");
 //        synchronized (PPApplication.restartEventsMutex) {
 //            PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._activateProfile", "after synchronized");
 
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "_profile=" + _profile);
-                if (_profile != null)
-                    PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "_profile._name=" + _profile._name);
-                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "merged=" + merged);
-                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "startupSource=" + startupSource);
-                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "forRestartEvents=" + forRestartEvents);
-            }*/
+//            if (PPApplication.logEnabled()) {
+//                PPApplication.logE("[APP_START] DataWrapper._activateProfile", "_profile=" + _profile);
+//                if (_profile != null)
+//                    PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "_profile._name=" + _profile._name);
+//                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "merged=" + merged);
+//                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "startupSource=" + startupSource);
+//                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "forRestartEvents=" + forRestartEvents);
+//            }
 
             // show notification when battery optimization is not enabled
             DrawOverAppsPermissionNotification.showNotification(context, false);
@@ -1750,7 +1752,7 @@ public class DataWrapper {
             PPApplication.updateGUI(1/*context, true, forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT)*/);
 
             //if (mappedProfile != null) {
-            //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "call execute");
+//            PPApplication.logE("[APP_START] DataWrapper._activateProfile", "call execute");
             //PPApplication.logE("$$$ DataWrapper._activateProfile","execute activation");
             ActivateProfileHelper.execute(context, _profile);
             //}
@@ -2169,6 +2171,8 @@ public class DataWrapper {
     private void _restartEvents(final boolean unblockEventsRun, /*final boolean notClearActivatedProfile,*/
                                 /*final boolean reactivateProfile,*/ final boolean manualRestart, final boolean logRestart)
     {
+//        PPApplication.logE("[APP_START] DataWrapper._restartEvents", "START");
+
 //        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._restartEvents", "before synchronized");
 //        synchronized (PPApplication.restartEventsMutex) {
 //            PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._restartEvents", "after synchronized");
@@ -2186,6 +2190,7 @@ public class DataWrapper {
             if ((Event.getEventsBlocked(context) && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (1)");
 //            PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "(1)");
+//                PPApplication.logE("[APP_START] DataWrapper._restartEvents", "(1)");
 
 //                PPApplication.logE("[EVENTS_HANDLER_CALL] DataWrapper._restartEvents", "sensorType=SENSOR_TYPE_RESTART_EVENTS_NOT_UNBLOCK");
                 EventsHandler eventsHandler = new EventsHandler(context);
@@ -2235,6 +2240,7 @@ public class DataWrapper {
             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DataWrapper._restartEvents (2)");
 
 //        PPApplication.logE("[FIFO_TEST] DataWrapper._restartEvents", "(3)");
+//        PPApplication.logE("[APP_START] DataWrapper._restartEvents", "(2)");
 
             EventsHandler eventsHandler = new EventsHandler(context);
             if (manualRestart) {
@@ -2256,6 +2262,7 @@ public class DataWrapper {
                        /*, final boolean useHandler*/)
     {
 //        PPApplication.logE("[FIFO_TEST] DataWrapper.restartEvents","xxx");
+//        PPApplication.logE("[APP_START] DataWrapper.restartEvents", "START");
 
         /*if (!Event.getGlobalEventsRunning()) {
             // events are globally stopped
@@ -2307,6 +2314,7 @@ public class DataWrapper {
 
     private void _restartEventsWithRescan(boolean alsoRescan, boolean unblockEventsRun, boolean manualRestart, boolean logRestart) {
 //        PPApplication.logE("[FIFO_TEST] DataWrapper._restartEventsWithRescan","xxx");
+//        PPApplication.logE("[APP_START] DataWrapper._restartEventsWithRescan", "START");
 
         if (alsoRescan) {
             // remove all event delay alarms
@@ -2346,6 +2354,7 @@ public class DataWrapper {
             final boolean manualRestart, final boolean logRestart, boolean showToast)
     {
 //        PPApplication.logE("[FIFO_TEST] DataWrapper.restartEventsWithRescan","xxx");
+//        PPApplication.logE("[APP_START] DataWrapper.restartEventsWithRescan", "START");
 
         if (useHandler) {
             final DataWrapper dataWrapper = copyDataWrapper();
@@ -2468,7 +2477,7 @@ public class DataWrapper {
                     PPApplication.startPPService(context, serviceIntent/*, true*/);
                 }
                 else {
-//                        PPApplication.logE("[APP START] DataWrapper.restartEventsWithAlert", "(1)");
+//                        PPApplication.logE("[APP_START] DataWrapper.restartEventsWithAlert", "(1)");
                     restartEventsWithRescan(true, true, true, true, true, true);
                     //IgnoreBatteryOptimizationNotification.showNotification(context);
                 }
@@ -2525,7 +2534,7 @@ public class DataWrapper {
                 });
             }
 
-//            PPApplication.logE("[APP START] DataWrapper.restartEventsWithAlert", "(2)");
+//            PPApplication.logE("[APP_START] DataWrapper.restartEventsWithAlert", "(2)");
             restartEventsWithRescan(true, true, true, true, true, true);
 
             //IgnoreBatteryOptimizationNotification.showNotification(context);
@@ -2610,8 +2619,8 @@ public class DataWrapper {
             //return ApplicationPreferences.prefEventsBlocked;
             return Event.getEventsBlocked(context);
         else {
-//            PPApplication.logE("[APP START] DataWrapper.getIsManualProfileActivation", "Event.getEventsBlocked(context)="+Event.getEventsBlocked(context));
-//            PPApplication.logE("[APP START] DataWrapper.getIsManualProfileActivation", "Event.getForceRunEventRunning(context)="+Event.getForceRunEventRunning(context));
+//            PPApplication.logE("[APP_START] DataWrapper.getIsManualProfileActivation", "Event.getEventsBlocked(context)="+Event.getEventsBlocked(context));
+//            PPApplication.logE("[APP_START] DataWrapper.getIsManualProfileActivation", "Event.getForceRunEventRunning(context)="+Event.getForceRunEventRunning(context));
             //if (!ApplicationPreferences.prefEventsBlocked)
             if (!Event.getEventsBlocked(context))
                 return false;

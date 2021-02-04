@@ -1721,7 +1721,7 @@ class Event {
 //                        PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
                         //if (eventTimeline._fkProfileEndActivated == 0) {
                         if (activateProfile == 0) {
-//                            PPApplication.logE("[APP START] Event.doActivateEndProfile (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+//                            PPApplication.logE("[APP_START] Event.doActivateEndProfile (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
                             long defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
 
                             //if (!fullyStarted)
@@ -1829,7 +1829,7 @@ class Event {
                         //                        PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
                         //if (eventTimeline._fkProfileEndActivated == 0) {
                         if (activateProfile == 0) {
-//                            PPApplication.logE("[APP START] Event.doActivateEndProfile (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+//                            PPApplication.logE("[APP_START] Event.doActivateEndProfile (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
                             long defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
                             //if (!fullyStarted)
                             //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
