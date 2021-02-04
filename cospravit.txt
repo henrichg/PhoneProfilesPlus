@@ -632,10 +632,9 @@ Po novom:
   - Klik na restart udalosti tiez len toast.
   - Klik na Editor nech zobrazi Editor.
 
-- PhoneProfilesPrefsActivity - zobrazi len toast. Ak je to spustene z Editora, malo by to dovolit normalne pracovat? Neviem. :-(
-
+- PhoneProfilesPrefsActivity
 - EditorProfilesActivity
-  - Tu je to zlozitejsie, o dost. Z neho sa spusta vsetko ostatne, robi sa restart udalosti atd.
-  - Fakt zatial netusim, ze co s tymto.
-  - Asi dovolit normalnu editaciu, len restart udalosti nie
+  - Nechat zobrazit WorkManagerNotWorkingActivity. Mohol by ten dialog mat tlacitko na restart PPP.
+    Cize stopnut PPService a znova nastartovat ako pri prvom starte.
+
 

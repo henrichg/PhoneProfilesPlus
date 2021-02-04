@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -31,7 +32,28 @@ public class WorkManagerNotWorkingActivity extends AppCompatActivity {
         dialogBuilder.setMessage(R.string.background_jobs_not_working_alert_message);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(false);
+
         dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> WorkManagerNotWorkingActivity.this.finish());
+
+        dialogBuilder.setNegativeButton(R.string.application_cannot_be_started_button_restart, (dialog, which) -> {
+            boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
+            if (serviceStarted) {
+                stopService(new Intent(getApplicationContext(), PhoneProfilesService.class));
+                PPApplication.sleep(2000);
+                PPApplication.setApplicationStarted(getApplicationContext(), true);
+                Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
+                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
+                serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+                PPApplication.logE("[START_PP_SERVICE] WorkManagerNotWorkingActivity.onStart", "xxx");
+                PPApplication.startPPService(getApplicationContext(), serviceIntent);
+                WorkManagerNotWorkingActivity.this.finish();
+            }
+        });
+
         /*dialogBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {

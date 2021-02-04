@@ -1707,6 +1707,7 @@
     <string name="preference_not_allowed_reason_not_granted_phone_permission">not granted Phone permission</string>
 
     <string name="application_cannot_be_started">cannot be started</string>
+    <string name="application_cannot_be_started_button_restart">Restart application</string>
 
     <!-- **************************************************************************************** -->
 
