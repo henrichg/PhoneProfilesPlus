@@ -23,7 +23,10 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "xxx");
+//        if (intent != null)
+//            PPApplication.logE("[IN_BROADCAST] LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
+//        else
+//            PPApplication.logE("[IN_BROADCAST] LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "LockDeviceAfterScreenOffBroadcastReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "LockDeviceAfterScreenOffBroadcastReceiver.onReceive->action="+intent.getAction(), "LockDeviceAfterScreenOffBroadcastReceiver_onReceive");
@@ -145,7 +148,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
     }
 
     static void doWork(boolean useHandler, Context context) {
-        //PPApplication.logE("[HANDLER] LockDeviceAfterScreenOffBroadcastReceiver.doWork", "useHandler="+useHandler);
+//        PPApplication.logE("[IN_WORKER] LockDeviceAfterScreenOffBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         final Context appContext = context.getApplicationContext();
 

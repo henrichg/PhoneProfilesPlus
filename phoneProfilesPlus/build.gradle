@@ -104,7 +104,7 @@ dependencies {
     //implementation 'androidx.test:core:1.2.0'
     //implementation 'androidx.test.uiautomator:uiautomator:2.2.0'
 
-    implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
+    implementation 'com.google.android.apps.dashclock:dashclock-api:2.1.0'
     //implementation 'com.github.KeepSafe:TapTargetView:master-SNAPSHOT'
     implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.0'
 //    implementation 'com.simplecityapps:recyclerview-fastscroll:2.0.1'

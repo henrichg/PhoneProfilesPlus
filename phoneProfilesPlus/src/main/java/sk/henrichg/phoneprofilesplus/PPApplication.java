@@ -202,7 +202,7 @@ public class PPApplication extends Application
 //                                                +"|[IN_EVENTS_HANDLER]"
 //                                                +"|[EVENTS_HANDLER_CALL]"
 //                                                +"|[TEST BATTERY]"
-                                                +"|[APP_START]"
+//                                                +"|[APP_START]"
                                                 //+"|[SHEDULE_WORK]"
                                                 //+"|[SHEDULE_SCANNER]"
                                                 //+"|[TEST MEDIA VOLUME]"
@@ -212,7 +212,7 @@ public class PPApplication extends Application
                                                 //+"|[ACTIVATOR]"
                                                 //+"|[G1_TEST]"
                                                 //+"|[BACKGROUND_ACTIVITY]"
-                                                +"|[START_PP_SERVICE]"
+                                                //+"|[START_PP_SERVICE]"
 
                                                 //+"|PhoneProfilesService.registerReceiverForCalendarSensor"
                                                 //+"|EventPreferencesCalendar"

@@ -107,6 +107,7 @@ public class MainWorker extends Worker {
                         LockDeviceActivityFinishBroadcastReceiver.doWork();
                         break;
                     case LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK:
+//                        PPApplication.logE("[WORKER_CALL] MainWorker.doWork", "xxx");
                         LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
                         break;
                     case CLOSE_ALL_APPLICATIONS_WORK_TAG:

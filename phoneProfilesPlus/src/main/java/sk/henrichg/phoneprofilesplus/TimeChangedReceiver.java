@@ -10,7 +10,10 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] TimeChangedReceiver.onReceive", "xxx");
+//        if (intent != null)
+//            PPApplication.logE("[IN_BROADCAST] TimeChangedReceiver.onReceive", "intent.getAction()="+intent.getAction());
+//        else
+//            PPApplication.logE("[IN_BROADCAST] TimeChangedReceiver.onReceive", "xxx");
 
         if ((intent != null) && (intent.getAction() != null)) {
             final String action = intent.getAction();
@@ -118,6 +121,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 
         //Profile.setActivatedProfileForDuration(appContext, 0);
 
+//        PPApplication.logE("[WORKER_CALL] TimeChangedReceiver.doWork", "xxx");
         LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
         LockDeviceActivityFinishBroadcastReceiver.doWork();
         GeofencesScanner.useGPS = true;

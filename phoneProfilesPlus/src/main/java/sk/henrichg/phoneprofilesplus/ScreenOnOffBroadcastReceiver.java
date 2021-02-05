@@ -12,7 +12,11 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
+//        if (intent != null)
+//            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
+//        else
+//            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
+
         //CallsCounter.logCounter(context, "ScreenOnOffBroadcastReceiver.onReceive", "ScreenOnOffBroadcastReceiver_onReceive");
 
         /*if (intent != null)
@@ -56,7 +60,16 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen on");
                             PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
                         }*/
-                        PPApplication.isScreenOn = true;
+
+//                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+//                        if (pm != null) {
+//                            PPApplication.isScreenOn = pm.isInteractive();
+//                            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (from PowerManager)", "isScreenOn="+PPApplication.isScreenOn);
+//                        }
+//                        else {
+                            PPApplication.isScreenOn = true;
+//                            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "isScreenOn="+PPApplication.isScreenOn);
+//                        }
 
                         /*
                         Profile profile = DatabaseHandler.getInstance(appContext).getActivatedProfile();
@@ -95,7 +108,16 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen off");
                             PPApplication.logE("[XXX] ScreenOnOffBroadcastReceiver.onReceive", "restartAllScanners");
                         }*/
-                        PPApplication.isScreenOn = false;
+
+//                        PowerManager pm = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+//                        if (pm != null) {
+//                            PPApplication.isScreenOn = pm.isInteractive();
+//                            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (from PowerManager)", "isScreenOn="+PPApplication.isScreenOn);
+//                        }
+//                        else {
+                            PPApplication.isScreenOn = false;
+//                            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "isScreenOn="+PPApplication.isScreenOn);
+//                        }
 
                         // call this, because device my not be locked immediately after screen off
                         KeyguardManager keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
