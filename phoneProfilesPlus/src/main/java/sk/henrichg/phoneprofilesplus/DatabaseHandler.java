@@ -6999,6 +6999,39 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    int getNotStoppedEventsCount() {
+        importExportLock.lock();
+        try {
+            int r = 0;
+            try {
+                startRunningCommand();
+
+                final String countQuery;
+                countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
+                                " WHERE " + KEY_E_STATUS + "!=0";
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.rawQuery(countQuery, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+                    r = cursor.getInt(0);
+                    cursor.close();
+                }
+
+                //db.close();
+
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+            return r;
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
     void updateEventCalendarTimes(Event event)
     {
         importExportLock.lock();

@@ -214,6 +214,16 @@ class EventsHandler {
             //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "sensorType=" + this.sensorType);
             //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
+            if (DatabaseHandler.getInstance(context.getApplicationContext()).getNotStoppedEventsCount() == 0) {
+                // not any event is paused or running
+//                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (01)");
+                PPApplication.setApplicationFullyStarted(context);
+
+                doEndHandler(null);
+
+                return;
+            }
+
             if (!alwaysEnabledSensors(sensorType)) {
                 int eventType = getEventTypeForSensor(sensorType);
                 if (DatabaseHandler.getInstance(context.getApplicationContext()).getTypeEventsCount(eventType/*, false*/) == 0) {
@@ -262,9 +272,6 @@ class EventsHandler {
 
 //                    if (isRestart)
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "-- end: not events found --------------------------------");
-
-//                    PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (01)");
-                    PPApplication.setApplicationFullyStarted(context);
 
                     return;
                 }
