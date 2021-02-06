@@ -230,6 +230,9 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "before show profile notification");
 
+        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "service is running="+isServiceRunning(getApplicationContext(), PhoneProfilesService.class, true));
+
+        /*
         // delete notification if is displayed
         PPApplication.cancelWork(ShowProfileNotificationWorker.WORK_TAG, true);
         NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -240,9 +243,9 @@ public class PhoneProfilesService extends Service
             try {
                 notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
             } catch (Exception ignored) {}
-        }
-        // show empty notification to avoid ANR in api level 26+
-        showProfileNotification(/*true,*/ true/*, false*/);
+        }*/
+        // show notification to avoid ANR in api level 26+
+        showProfileNotification(!isServiceRunning(getApplicationContext(), PhoneProfilesService.class, true), true);
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "after show profile notification");
 
@@ -4621,7 +4624,7 @@ public class PhoneProfilesService extends Service
 
         //startForegroundNotification = true;
 
-        showProfileNotification(/*true,*/ !isServiceRunning(appContext, PhoneProfilesService.class, true)/*, false*/);
+        showProfileNotification(!isServiceRunning(appContext, PhoneProfilesService.class, true), true);
 
         if (!serviceHasFirstStart) {
             if (intent != null) {
@@ -6153,19 +6156,19 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    void showProfileNotification(/*final boolean refresh,*/ boolean forServiceStart/*, final boolean cleared*/) {
+    void showProfileNotification(boolean drawEmptyFirst, boolean drawImmediatelly) {
         //if (Build.VERSION.SDK_INT >= 26) {
             //if (DebugVersion.enabled)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
-//        PPApplication.logE("-------> PhoneProfilesService.showProfileNotification","forServiceStart="+forServiceStart);
+//        PPApplication.logE("-------> PhoneProfilesService.showProfileNotification","drawEmptyFirst="+drawEmptyFirst);
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh="+refresh);
 
         //if (!runningInForeground) {
-            if (forServiceStart) {
+            if (drawEmptyFirst) {
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-//                PPApplication.logE("[APP_START] PhoneProfilesService.showProfileNotification", "forServiceStart="+forServiceStart);
+//                PPApplication.logE("[APP_START] PhoneProfilesService.showProfileNotification", "drawEmptyFirst="+drawEmptyFirst);
                 _showProfileNotification(/*null,*/ dataWrapper, true/*, true*/);
                 //dataWrapper.invalidateDataWrapper();
                 //return; // do not return, dusplay activated profile immediatelly
@@ -6236,7 +6239,7 @@ public class PhoneProfilesService extends Service
 
         // KEEP IT AS WORK !!!
         OneTimeWorkRequest worker;
-        if (forServiceStart)
+        if (drawImmediatelly)
             worker =
                     new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
                             .addTag(ShowProfileNotificationWorker.WORK_TAG)

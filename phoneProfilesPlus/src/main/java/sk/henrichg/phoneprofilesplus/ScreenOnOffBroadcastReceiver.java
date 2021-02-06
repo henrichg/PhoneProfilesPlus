@@ -247,7 +247,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         }
                     } else {*/
                         if (PhoneProfilesService.getInstance() != null)
-                            PhoneProfilesService.getInstance().showProfileNotification(/*true,*/ false/*, false*/);
+                            PhoneProfilesService.getInstance().showProfileNotification(false, false);
                     //}
                 }
 
