@@ -230,7 +230,8 @@ public class PhoneProfilesService extends Service
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "before show profile notification");
 
-        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "service is running="+isServiceRunning(getApplicationContext(), PhoneProfilesService.class, true));
+        boolean isServiceRunning = isServiceRunning(getApplicationContext(), PhoneProfilesService.class, true);
+        PPApplication.logE("$$$ PhoneProfilesService.onCreate", "------- service is running (in foreground)="+isServiceRunning);
 
         /*
         // delete notification if is displayed
@@ -245,7 +246,7 @@ public class PhoneProfilesService extends Service
             } catch (Exception ignored) {}
         }*/
         // show notification to avoid ANR in api level 26+
-        showProfileNotification(!isServiceRunning(getApplicationContext(), PhoneProfilesService.class, true), true);
+        showProfileNotification(!isServiceRunning, true);
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "after show profile notification");
 
@@ -6162,6 +6163,7 @@ public class PhoneProfilesService extends Service
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
 
 //        PPApplication.logE("-------> PhoneProfilesService.showProfileNotification","drawEmptyFirst="+drawEmptyFirst);
+//        PPApplication.logE("-------> PhoneProfilesService.showProfileNotification","drawImmediatelly="+drawImmediatelly);
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh="+refresh);
 
         //if (!runningInForeground) {
@@ -6252,7 +6254,9 @@ public class PhoneProfilesService extends Service
                             .setInitialDelay(1, TimeUnit.SECONDS)
                             .build();
         try {
-            if (PPApplication.getApplicationStarted(false)) { // do not needed to by PPP fully started
+            // EVEN WHEN SERVICE IS NOT FULLY STARTED, SHOW NOTIFICATION IS REQUIRED !!!
+            // FOR THIS REASON, DO NOT TEST serviceHasFirstStart
+            if (PPApplication.getApplicationStarted(false)) {
                 WorkManager workManager = PPApplication.getWorkManagerInstance();
                 if (workManager != null) {
 
