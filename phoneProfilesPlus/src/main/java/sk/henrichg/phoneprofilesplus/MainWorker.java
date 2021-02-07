@@ -718,9 +718,6 @@ public class MainWorker extends Worker {
             handler.post(() -> {
                 PPApplication.logE("MainWorker.doAfterFirstStart", "START");
 
-                if (appContext == null)
-                    return;
-
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -805,9 +802,6 @@ public class MainWorker extends Worker {
             final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(() -> {
                 PPApplication.logE("MainWorker.doAfterFirstStart", "START");
-
-                if (appContext == null)
-                    return;
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;

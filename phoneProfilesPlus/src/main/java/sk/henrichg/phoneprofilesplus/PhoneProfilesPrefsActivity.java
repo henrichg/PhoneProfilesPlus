@@ -558,8 +558,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock) {
             //final Context appContext = getApplicationContext();
-            PPApplication.startHandlerThreadPPCommand();
-            final Handler handler2 = new Handler(PPApplication.handlerThreadPPCommand.getLooper());
+            PPApplication.startHandlerThreadBroadcast();
+            final Handler handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler2.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
 

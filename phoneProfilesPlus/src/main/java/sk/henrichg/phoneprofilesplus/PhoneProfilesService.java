@@ -4648,8 +4648,8 @@ public class PhoneProfilesService extends Service
         if (intent != null) {
             //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "intent="+intent.getAction());
             final Context appContext = getApplicationContext();
-            PPApplication.startHandlerThreadPPCommand();
-            final Handler handler = new Handler(PPApplication.handlerThreadPPCommand.getLooper());
+            PPApplication.startHandlerThreadBroadcast();
+            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPCommand", "START run - from=PhoneProfilesService.doCommand");
 
