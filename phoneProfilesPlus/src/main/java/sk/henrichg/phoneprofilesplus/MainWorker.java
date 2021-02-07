@@ -788,6 +788,56 @@ public class MainWorker extends Worker {
                 }
             }
 
+            // must be used hanlder for this, because of FC:
+            // ava.lang.RuntimeException: Can't create handler inside thread Thread[pool-1-thread-2,5,main] that has not called Looper.prepare()
+            //	at android.os.Handler.<init>(Handler.java:207)
+            //	at android.os.Handler.<init>(Handler.java:119)
+            //	at sk.henrichg.phoneprofilesplus.TwilightScanner$LocationHandler.<init>(TwilightScanner.java:198)
+            //	at sk.henrichg.phoneprofilesplus.TwilightScanner$LocationHandler.<init>(TwilightScanner.java:198)
+            //	at sk.henrichg.phoneprofilesplus.TwilightScanner.<init>(TwilightScanner.java:50)
+            //	at sk.henrichg.phoneprofilesplus.PhoneProfilesService.startTwilightScanner(PhoneProfilesService.java:6743)
+            //	at sk.henrichg.phoneprofilesplus.PhoneProfilesService.startTwilightScanner(PhoneProfilesService.java:3430)
+            //	at sk.henrichg.phoneprofilesplus.PhoneProfilesService.registerEventsReceiversAndWorkers(PhoneProfilesService.java:3611)
+            //	at sk.henrichg.phoneprofilesplus.MainWorker.doAfterFirstStart(MainWorker.java:707)
+            //
+            // !!! Worker do not have Looper !!!
+            PPApplication.startHandlerThread(/*"PhoneProfilesService.doForFirstStart"*/);
+            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+            handler.post(() -> {
+                PPApplication.logE("MainWorker.doAfterFirstStart", "START");
+
+                if (appContext == null)
+                    return;
+
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesService_doForFirstStart");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    // This is fix for 2, 3 restarts of events after first start.
+                    // Bradcasts, observers, callbacks registration starts events and this is not good
+                    PPApplication.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
+                    PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
+                    PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
+                    PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
+                    PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
+
+                } catch (Exception eee) {
+                    PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
+                    //PPApplication.recordException(eee);
+                    throw eee;
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {}
+                    }
+                }
+            });
+
 //            PPApplication.logE("[APP_START] MainWorker.doAfterFirstStart", "PPApplication.setApplicationFullyStarted");
             PPApplication.setApplicationFullyStarted(appContext);
 
