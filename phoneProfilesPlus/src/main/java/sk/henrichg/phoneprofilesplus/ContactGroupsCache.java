@@ -270,12 +270,13 @@ class ContactGroupsCache {
                     mCursorGroup.close();
                 }
 
+//                PPApplication.logE("ContactGroupsCache.getContactGroupListX", "_contactGroupList.size()="+_contactGroupList.size());
 //                PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(6)");
 
                 cached = true;
             }
 //            else
-//                PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(7)");
+//                PPApplication.logE("ContactGroupsCache.getContactGroupListX", "not granted permission");
         } catch (SecurityException e) {
 //            Log.e("ContactGroupsCache.getContactGroupListX", Log.getStackTraceString(e));
             //PPApplication.recordException(e);

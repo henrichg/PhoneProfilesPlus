@@ -27,6 +27,7 @@ public class ContactsContentObserverWorker extends Worker {
 
             Context appContext = context.getApplicationContext();
 
+//            PPApplication.logE("ContactsContentObserverWorker.doWork", "========> create contacts cache - true");
             // must be first
             PhoneProfilesService.createContactsCache(appContext, true);
             //must be seconds, this ads groups int contacts

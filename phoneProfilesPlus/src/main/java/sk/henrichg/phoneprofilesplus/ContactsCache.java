@@ -233,6 +233,7 @@ class ContactsCache {
                 }
 
 //                PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "(4)");
+//                PPApplication.logE("ContactsCache.getContactListX", "_contactList.size()="+_contactList.size());
 
                 //if (cancelled)
                 //    return;

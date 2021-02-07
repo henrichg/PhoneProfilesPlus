@@ -3966,6 +3966,7 @@ public class PhoneProfilesService extends Service
 
                 //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "6");
 
+//                PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "========> create contacts cache - true");
                 // must be first
                 createContactsCache(appContext, true);
                 //must be seconds, this ads groups int contacts
