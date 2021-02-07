@@ -1571,6 +1571,10 @@
     <string name="array_event_pref_calendarAllDayEvents_dontCheck">Niet controleren</string>
     <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Niet alle dagen</string>
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Alleen alle dagen</string>
+    <string name="altype_applicationSystemRestart">herstart programma per systeem</string>
+    <string name="preference_not_allowed_reason_not_granted_phone_permission">geen toestemming voor telefoon verleend</string>
+    <string name="application_cannot_be_started">kan niet worden gestart</string>
+    <string name="application_cannot_be_started_button_restart">Herstart applicatie</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

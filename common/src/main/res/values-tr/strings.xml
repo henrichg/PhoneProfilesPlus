@@ -1567,10 +1567,14 @@
     <string name="array_event_pref_calendarDayContainsEvent_notContains">VEYA ayarlanmış şartlarını ihtiva etmiyor</string>
     <string name="event_preferences_calendar_event_parameters">Takvim durum şartları</string>
     <string name="event_preferences_other_parameters">Diğer şartlar</string>
-    <string name="event_preferences_calendar_all_day_events">All day events</string>
-    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
-    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
-    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
+    <string name="event_preferences_calendar_all_day_events">Tüm gün durumları</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Kontrol edilmesin</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Sadece bütün günler değil</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Sadece bütün günler</string>
+    <string name="altype_applicationSystemRestart">uygulama sistem tarafından yeniden başlatıldı</string>
+    <string name="preference_not_allowed_reason_not_granted_phone_permission">telefon izinleri verilmedi</string>
+    <string name="application_cannot_be_started">uygulama başlatılamıyor</string>
+    <string name="application_cannot_be_started_button_restart">Uygulamayı yeniden başlatın</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

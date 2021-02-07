@@ -1572,6 +1572,10 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="array_event_pref_calendarAllDayEvents_dontCheck">Non controllare</string>
     <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Solo non tutti i giorni</string>
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Solo tutti i giorni</string>
+    <string name="altype_applicationSystemRestart">riavvio dell\'applicazione dal sistema</string>
+    <string name="preference_not_allowed_reason_not_granted_phone_permission">autorizzazione Telefono non concessa</string>
+    <string name="application_cannot_be_started">non può essere avviato</string>
+    <string name="application_cannot_be_started_button_restart">Riavvia l\'applicazione</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>

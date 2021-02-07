@@ -1571,6 +1571,10 @@
     <string name="array_event_pref_calendarAllDayEvents_dontCheck">Netestovať</string>
     <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Iba necelodenné</string>
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Iba celodenné</string>
+    <string name="altype_applicationSystemRestart">reštart aplikácie systémom</string>
+    <string name="preference_not_allowed_reason_not_granted_phone_permission">neudelené povolenie Telefón</string>
+    <string name="application_cannot_be_started">sa nedá spustiť</string>
+    <string name="application_cannot_be_started_button_restart">Reštartovať aplikáciu</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

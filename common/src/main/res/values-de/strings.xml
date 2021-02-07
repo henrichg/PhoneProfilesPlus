@@ -1571,6 +1571,10 @@
     <string name="array_event_pref_calendarAllDayEvents_dontCheck">Nicht prüfen</string>
     <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Nur nicht-ganztägige</string>
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Nur ganztägige</string>
+    <string name="altype_applicationSystemRestart">Anwendung durch System neu starten</string>
+    <string name="preference_not_allowed_reason_not_granted_phone_permission">Zugriff auf das Telefon nicht zugelassen</string>
+    <string name="application_cannot_be_started">konnte nicht gestartet werden</string>
+    <string name="application_cannot_be_started_button_restart">Anwendung neu starten</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

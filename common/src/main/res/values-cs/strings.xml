@@ -1571,6 +1571,10 @@
     <string name="array_event_pref_calendarAllDayEvents_dontCheck">Netestovat</string>
     <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Pouze necelodenné</string>
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Pouze celodenní</string>
+    <string name="altype_applicationSystemRestart">restart aplikace systémem</string>
+    <string name="preference_not_allowed_reason_not_granted_phone_permission">neuděleno povolení Telefon</string>
+    <string name="application_cannot_be_started">nelze spustit</string>
+    <string name="application_cannot_be_started_button_restart">Restartovat aplikaci</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

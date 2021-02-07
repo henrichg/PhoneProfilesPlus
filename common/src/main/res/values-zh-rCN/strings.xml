@@ -1561,16 +1561,20 @@
     <string name="accessibility_service_enabled">已启用</string>
     <string name="accessibility_service_disabled">已禁用</string>
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">在 Android 10+ 中不工作</string>
-    <string name="event_preferences_calendar_day_contains_event">Current day contains calendar event</string>
+    <string name="event_preferences_calendar_day_contains_event">当前日期包含日历事件</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">不测试</string>
-    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains AND has configured parameters</string>
-    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
-    <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
-    <string name="event_preferences_other_parameters">Other parameters</string>
-    <string name="event_preferences_calendar_all_day_events">All day events</string>
-    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
-    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
-    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">包含并配置了参数</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">不包含或已配置参数</string>
+    <string name="event_preferences_calendar_event_parameters">日历事件参数</string>
+    <string name="event_preferences_other_parameters">其他参数</string>
+    <string name="event_preferences_calendar_all_day_events">全天事件</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">不检查</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">仅限非全天事件</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">仅限全天事件</string>
+    <string name="altype_applicationSystemRestart">application restart by system</string>
+    <string name="preference_not_allowed_reason_not_granted_phone_permission">not granted Phone permission</string>
+    <string name="application_cannot_be_started">cannot be started</string>
+    <string name="application_cannot_be_started_button_restart">Restart application</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>

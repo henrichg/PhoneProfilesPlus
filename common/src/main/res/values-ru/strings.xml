@@ -1571,6 +1571,10 @@
     <string name="array_event_pref_calendarAllDayEvents_dontCheck">Не проверять</string>
     <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Только не на весь день</string>
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Только на весь день</string>
+    <string name="altype_applicationSystemRestart">перезапуск приложения системой</string>
+    <string name="preference_not_allowed_reason_not_granted_phone_permission">не предоставлено разрешение \"Телефон\"</string>
+    <string name="application_cannot_be_started">не может быть запущено</string>
+    <string name="application_cannot_be_started_button_restart">Перезапустить приложение</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

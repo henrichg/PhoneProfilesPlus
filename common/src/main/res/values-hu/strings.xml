@@ -1571,6 +1571,10 @@
     <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
     <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
+    <string name="altype_applicationSystemRestart">application restart by system</string>
+    <string name="preference_not_allowed_reason_not_granted_phone_permission">not granted Phone permission</string>
+    <string name="application_cannot_be_started">cannot be started</string>
+    <string name="application_cannot_be_started_button_restart">Restart application</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>

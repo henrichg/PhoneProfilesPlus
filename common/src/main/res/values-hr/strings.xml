@@ -1561,17 +1561,21 @@
     <string name="profile_preferences_PPPExtender_not_installed_summary">Nije instalirano</string>
     <string name="accessibility_service_enabled">Omogućeno</string>
     <string name="accessibility_service_disabled">Onemogućeno</string>
-    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>
-    <string name="event_preferences_calendar_day_contains_event">Current day contains calendar event</string>
-    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Do not test it</string>
-    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains AND has configured parameters</string>
-    <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
-    <string name="event_preferences_calendar_event_parameters">Calendar event parameters</string>
-    <string name="event_preferences_other_parameters">Other parameters</string>
-    <string name="event_preferences_calendar_all_day_events">All day events</string>
-    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Don\'t check</string>
-    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Only not all days</string>
-    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
+    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Ne radi na Androidu 10+</string>
+    <string name="event_preferences_calendar_day_contains_event">Tekući dan sadrži događaj iz kalendara</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Nemojte ovo testirati</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Sadrži i ima podešene parametre</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notContains">Ne sadrži ili nema podešene parametre</string>
+    <string name="event_preferences_calendar_event_parameters">Parametri događaja u kalendaru</string>
+    <string name="event_preferences_other_parameters">Ostali parametri</string>
+    <string name="event_preferences_calendar_all_day_events">Događaji u toku cijelog dana</string>
+    <string name="array_event_pref_calendarAllDayEvents_dontCheck">Ne proveravati</string>
+    <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Samo negirati tijekom svih dana</string>
+    <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Samo tijekom svih dana</string>
+    <string name="altype_applicationSystemRestart">application restart by system</string>
+    <string name="preference_not_allowed_reason_not_granted_phone_permission">not granted Phone permission</string>
+    <string name="application_cannot_be_started">cannot be started</string>
+    <string name="application_cannot_be_started_button_restart">Restart application</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
