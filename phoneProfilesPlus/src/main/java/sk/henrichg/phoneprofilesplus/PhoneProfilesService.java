@@ -5129,7 +5129,7 @@ public class PhoneProfilesService extends Service
         }
         if (contactsCache == null)
             contactsCache = new ContactsCache();
-        contactsCache.getContactListX(context);
+        contactsCache.getContactList(context);
     }
 
     public static ContactsCache getContactsCache()

@@ -27,7 +27,6 @@ class ContactsCache {
         caching = false;
     }
 
-    @SuppressWarnings("unused")
     void getContactList(Context context)
     {
         if (cached || caching) return;
@@ -46,10 +45,10 @@ class ContactsCache {
                         ContactsContract.Contacts._ID,
                         ContactsContract.Contacts.DISPLAY_NAME,
                         ContactsContract.Contacts.PHOTO_ID};
-                String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1'";
+                //String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1'";
                 String order = ContactsContract.Contacts.DISPLAY_NAME + " ASC";
 
-                Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, null, order);
+                Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, null /*selection*/, null, order);
 
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
@@ -139,6 +138,7 @@ class ContactsCache {
         caching = false;
     }
 
+    @SuppressWarnings("unused")
     void getContactListX(Context context)
     {
         if (cached || caching) return;
@@ -162,7 +162,7 @@ class ContactsCache {
                         ContactsContract.CommonDataKinds.Phone._ID,
                         ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET
                 };
-                String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1" + " AND " +
+                String selection = //ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1" + " AND " +
                         "(" +
                         //ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "<>'vnd.sec.contact.phone' AND " +
                         //ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "<>'vnd.sec.contact.sim' AND " +
