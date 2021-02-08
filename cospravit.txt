@@ -637,4 +637,7 @@ Po novom:
   - Nechat zobrazit WorkManagerNotWorkingActivity. Mohol by ten dialog mat tlacitko na restart PPP.
     Cize stopnut PPService a znova nastartovat ako pri prvom starte.
 
+-------------------------
+
+com.osp.app.signin - skupina, kontakt z konta Samsung
 

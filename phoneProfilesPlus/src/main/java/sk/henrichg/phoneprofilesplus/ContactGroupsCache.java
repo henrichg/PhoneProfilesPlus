@@ -424,9 +424,20 @@ class ContactGroupsCache {
                     if (!groupFound) {
                         // group not found, add it
                         contact.groups.add(contactGroupId);
-                        /*if ((contactGroupId == 1) || (contactGroupId == 15) || (contactGroupId == 20)) {
-                            Log.e("ContactsCache.addGroup", "group added");
-                            Log.e("ContactsCache.addGroup", "contact.groups.size()="+contact.groups.size());
+                        /*if ((contactGroupId == 11) || (contactGroupId == 25)) {
+                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "Family");
+                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.groupId=" + contactGroupId);
+                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "contact.name=" + contact.name);
+                        }
+                        if ((contactGroupId == 6) || (contactGroupId == 23)) {
+                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "Starred");
+                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.groupId=" + contactGroupId);
+                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "contact.name=" + contact.name);
+                        }
+                        if ((contactGroupId == 10) || (contactGroupId == 22)) {
+                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "Friends");
+                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.groupId=" + contactGroupId);
+                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "contact.name=" + contact.name);
                         }*/
                     }
                 }
