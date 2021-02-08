@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 class ContactGroupsCache {
@@ -60,14 +62,22 @@ class ContactGroupsCache {
                         ContactsContract.Groups.SUMMARY_COUNT};
                 String selection = ContactsContract.Groups.DELETED + "!='1'";// + " AND "+
                 //ContactsContract.Groups.GROUP_VISIBLE+"!='0' ";
-                String order = ContactsContract.Groups.TITLE + " ASC";
+                //String order = ContactsContract.Groups.TITLE + " ASC";
 
-                Cursor mCursor = context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, order);
+                Cursor mCursor = context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, null);
 
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
                         long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
+
                         String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
+                        if (name.equals("My Contacts")) name = context.getString(R.string.contact_group_name_myContacts);
+                        if (name.equals("Family")) name = context.getString(R.string.contact_group_name_family);
+                        if (name.equals("Friends")) name = context.getString(R.string.contact_group_name_friends);
+                        if (name.equals("Coworkers")) name = context.getString(R.string.contact_group_name_coworkers);
+                        if (name.equals("Starred in Android")) name = context.getString(R.string.contact_group_name_starred);
+                        if (name.equals("Starred")) name = context.getString(R.string.contact_group_name_starred);
+
                         int count = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT));
 
                         if (count > 0) {
@@ -106,6 +116,8 @@ class ContactGroupsCache {
 
                 //if (cancelled)
                 //    return;
+
+                Collections.sort(_contactList, new ContactGroupsCache.ContactGroupsComparator());
 
                 cached = true;
             }
@@ -193,9 +205,9 @@ class ContactGroupsCache {
                 String selection = ContactsContract.Groups.DELETED + "=0" + " AND " +
                 //ContactsContract.Groups.GROUP_VISIBLE+"=1 ";
                 ContactsContract.Groups.ACCOUNT_TYPE + "<>'vnd.sec.contact.phone'";
-                String order = ContactsContract.Groups.TITLE + " ASC";
+                //String order = ContactsContract.Groups.TITLE + " ASC";
 
-                Cursor mCursor = context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, order);
+                Cursor mCursor = context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, null);
 
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
@@ -209,7 +221,15 @@ class ContactGroupsCache {
 //                        }
 
                         long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
+
                         String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
+                        if (name.equals("My Contacts")) name = context.getString(R.string.contact_group_name_myContacts);
+                        if (name.equals("Family")) name = context.getString(R.string.contact_group_name_family);
+                        if (name.equals("Friends")) name = context.getString(R.string.contact_group_name_friends);
+                        if (name.equals("Coworkers")) name = context.getString(R.string.contact_group_name_coworkers);
+                        if (name.equals("Starred in Android")) name = context.getString(R.string.contact_group_name_starred);
+                        if (name.equals("Starred")) name = context.getString(R.string.contact_group_name_starred);
+
                         int count = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT));
 
                         if (count > 0) {
@@ -247,8 +267,8 @@ class ContactGroupsCache {
 
                 String[] projectionGroup = new String[]{
                         ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID,
-                        ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID,
-                        ContactsContract.CommonDataKinds.GroupMembership.DISPLAY_NAME
+                        ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID//,
+                        //ContactsContract.CommonDataKinds.GroupMembership.DISPLAY_NAME
                 };
                 String selectionGroup = ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
                         + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
@@ -282,6 +302,8 @@ class ContactGroupsCache {
 
 //                PPApplication.logE("ContactGroupsCache.getContactGroupListX", "_contactGroupList.size()="+_contactGroupList.size());
 //                PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(6)");
+
+                Collections.sort(_contactList, new ContactGroupsCache.ContactGroupsComparator());
 
                 cached = true;
             }
@@ -426,6 +448,16 @@ class ContactGroupsCache {
 
     boolean getCaching() {
         return caching;
+    }
+
+    private static class ContactGroupsComparator implements Comparator<Contact> {
+
+        public int compare(Contact lhs, Contact rhs) {
+            if (PPApplication.collator != null)
+                return PPApplication.collator.compare(lhs.name, rhs.name);
+            else
+                return 0;
+        }
     }
 
 }

@@ -1709,6 +1709,12 @@
     <string name="application_cannot_be_started">cannot be started</string>
     <string name="application_cannot_be_started_button_restart">Restart application</string>
 
+    <string name="contact_group_name_myContacts">My Contacts</string>
+    <string name="contact_group_name_family">Family</string>
+    <string name="contact_group_name_friends">Friends</string>
+    <string name="contact_group_name_coworkers">Coworkers</string>
+    <string name="contact_group_name_starred">Starred</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
