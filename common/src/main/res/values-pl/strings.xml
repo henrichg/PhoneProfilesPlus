@@ -1576,6 +1576,11 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="preference_not_allowed_reason_not_granted_phone_permission">nie przyznano dostępu do Telefonu</string>
     <string name="application_cannot_be_started">nie może zostać uruchomiona</string>
     <string name="application_cannot_be_started_button_restart">Uruchom ponownie aplikację</string>
+    <string name="contact_group_name_myContacts">My Contacts</string>
+    <string name="contact_group_name_family">Family</string>
+    <string name="contact_group_name_friends">Friends</string>
+    <string name="contact_group_name_coworkers">Coworkers</string>
+    <string name="contact_group_name_starred">Starred</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

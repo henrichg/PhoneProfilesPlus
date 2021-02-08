@@ -1575,6 +1575,11 @@
     <string name="preference_not_allowed_reason_not_granted_phone_permission">не предоставлено разрешение \"Телефон\"</string>
     <string name="application_cannot_be_started">не может быть запущено</string>
     <string name="application_cannot_be_started_button_restart">Перезапустить приложение</string>
+    <string name="contact_group_name_myContacts">My Contacts</string>
+    <string name="contact_group_name_family">Family</string>
+    <string name="contact_group_name_friends">Friends</string>
+    <string name="contact_group_name_coworkers">Coworkers</string>
+    <string name="contact_group_name_starred">Starred</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

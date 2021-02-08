@@ -117,7 +117,7 @@ class ContactGroupsCache {
                 //if (cancelled)
                 //    return;
 
-                Collections.sort(_contactList, new ContactGroupsCache.ContactGroupsComparator());
+                Collections.sort(_contactGroupList, new ContactGroupsCache.ContactGroupsComparator());
 
                 cached = true;
             }
@@ -303,7 +303,7 @@ class ContactGroupsCache {
 //                PPApplication.logE("ContactGroupsCache.getContactGroupListX", "_contactGroupList.size()="+_contactGroupList.size());
 //                PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(6)");
 
-                Collections.sort(_contactList, new ContactGroupsCache.ContactGroupsComparator());
+                Collections.sort(_contactGroupList, new ContactGroupsCache.ContactGroupsComparator());
 
                 cached = true;
             }
@@ -450,9 +450,9 @@ class ContactGroupsCache {
         return caching;
     }
 
-    private static class ContactGroupsComparator implements Comparator<Contact> {
+    private static class ContactGroupsComparator implements Comparator<ContactGroup> {
 
-        public int compare(Contact lhs, Contact rhs) {
+        public int compare(ContactGroup lhs, ContactGroup rhs) {
             if (PPApplication.collator != null)
                 return PPApplication.collator.compare(lhs.name, rhs.name);
             else

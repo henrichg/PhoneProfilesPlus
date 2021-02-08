@@ -1575,6 +1575,11 @@
     <string name="preference_not_allowed_reason_not_granted_phone_permission">neuděleno povolení Telefon</string>
     <string name="application_cannot_be_started">nelze spustit</string>
     <string name="application_cannot_be_started_button_restart">Restartovat aplikaci</string>
+    <string name="contact_group_name_myContacts">Mé kontakty</string>
+    <string name="contact_group_name_family">Rodina</string>
+    <string name="contact_group_name_friends">Přátelé</string>
+    <string name="contact_group_name_coworkers">Kolegové</string>
+    <string name="contact_group_name_starred">Oblíbené</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
