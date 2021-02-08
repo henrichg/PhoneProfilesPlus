@@ -187,9 +187,12 @@ class ContactGroupsCache {
                 String[] projection = new String[]{
                         ContactsContract.Groups._ID,
                         ContactsContract.Groups.TITLE,
-                        ContactsContract.Groups.SUMMARY_COUNT};
-                String selection = ContactsContract.Groups.DELETED + "!='1'";// + " AND "+
-                //ContactsContract.Groups.GROUP_VISIBLE+"!='0' ";
+                        ContactsContract.Groups.SUMMARY_COUNT,
+                        ContactsContract.Groups.ACCOUNT_TYPE
+                };
+                String selection = ContactsContract.Groups.DELETED + "=0" + " AND " +
+                //ContactsContract.Groups.GROUP_VISIBLE+"=1 ";
+                ContactsContract.Groups.ACCOUNT_TYPE + "<>'vnd.sec.contact.phone'";
                 String order = ContactsContract.Groups.TITLE + " ASC";
 
                 Cursor mCursor = context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, order);
@@ -197,6 +200,13 @@ class ContactGroupsCache {
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
 //                        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(3)");
+
+//                        if (mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT)) > 0) {
+//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.groupId=" + mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID)));
+//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.name=" + mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE)));
+//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.count=" + mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT)));
+//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.accountType=" + mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.ACCOUNT_TYPE)));
+//                        }
 
                         long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
                         String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));

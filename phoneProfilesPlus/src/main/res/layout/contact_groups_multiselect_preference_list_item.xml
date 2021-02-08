@@ -23,8 +23,6 @@
         android:layout_marginStart="3dp"
         android:layout_toEndOf="@id/contact_groups_multiselect_pref_dlg_item_checkbox"
         android:text="@string/empty_string"
-        android:textSize="17sp"
-        android:ellipsize="end"
-        android:maxLines="1"/>
+        android:textSize="17sp"/>
 
 </RelativeLayout>

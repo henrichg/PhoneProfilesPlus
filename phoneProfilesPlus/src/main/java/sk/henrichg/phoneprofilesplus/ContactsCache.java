@@ -159,14 +159,25 @@ class ContactsCache {
                 String[] projection = new String[]{
                         ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
                         ContactsContract.CommonDataKinds.Phone.NUMBER,
-                        ContactsContract.CommonDataKinds.Phone._ID
+                        ContactsContract.CommonDataKinds.Phone._ID,
+                        ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET
                 };
+                String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1" + " AND " +
+                        "(" +
+                        //ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "<>'vnd.sec.contact.phone' AND " +
+                        //ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "<>'vnd.sec.contact.sim' AND " +
+                        ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "<>'com.google.android.apps.tachyon' AND " +
+                        ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET + "<>'org.thoughtcrime.securesms'" +
+                        ")"
+                        ;
 
-                Cursor mCursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection, null, null, null);
+                Cursor mCursor = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection, selection, null, null);
 
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
 //                        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "(1)");
+
+                        PPApplication.logE("------- ContactsCache.getContactListX", "accountType=" + mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET)));
 
                         long contactId = mCursor.getLong(0);
                         String phoneNumber = mCursor.getString(1);

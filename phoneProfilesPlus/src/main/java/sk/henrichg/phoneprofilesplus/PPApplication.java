@@ -225,8 +225,8 @@ public class PPApplication extends Application
 
                                                 //+"|ContactsContentObserver.onChange"
                                                 //+"|ContactsContentObserverWorker.doWork"
-                                                //+"|ContactsCache.getContactListX"
-                                                //+"|ContactGroupsCache.getContactGroupListX"
+                                                +"|ContactsCache.getContactListX"
+                                                +"|ContactGroupsCache.getContactGroupListX"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
