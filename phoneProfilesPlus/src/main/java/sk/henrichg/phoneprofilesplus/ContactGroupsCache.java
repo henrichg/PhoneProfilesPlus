@@ -23,7 +23,7 @@ class ContactGroupsCache {
         caching = false;
     }
 
-    @SuppressWarnings("unused")
+    /*
     void getContactGroupList(Context context) {
         if (cached || caching) return;
 
@@ -43,12 +43,12 @@ class ContactGroupsCache {
         ArrayList<Contact> _contactList = new ArrayList<>();
         //ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
         synchronized (PPApplication.contactsCacheMutex) {
-            List<Contact> contacts = contactsCache.getList(/*false*/);
+            List<Contact> contacts = contactsCache.getList();
             if (contacts != null)
                 _contactList.addAll(contacts);
-            /*contacts = contactsCache.getList(true);
-            if (contacts != null)
-                _contactListWithoutNumber.addAll(contacts);*/
+//            contacts = contactsCache.getList(true);
+//            if (contacts != null)
+//                _contactListWithoutNumber.addAll(contacts);
         }
 
         try {
@@ -101,10 +101,10 @@ class ContactGroupsCache {
                         if (mCursorGroup != null) {
                             while (mCursorGroup.moveToNext()) {
                                 long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-                                /*if (name.equals("Family")) {
-                                    Log.e("ContactGroupsCache.getContactGroupList", "contactGroupId=" + contactGroupId);
-                                    Log.e("ContactGroupsCache.getContactGroupList", "contactId=" + contactId);
-                                }*/
+//                                if (name.equals("Family")) {
+//                                    Log.e("ContactGroupsCache.getContactGroupList", "contactGroupId=" + contactGroupId);
+//                                    Log.e("ContactGroupsCache.getContactGroupList", "contactId=" + contactId);
+//                                }
                                 addGroup(contactId, contactGroupId, _contactList);
                                 //contactsCache.addGroup(contactId, contactGroupId, _contactListWithoutNumber);
                             }
@@ -143,7 +143,7 @@ class ContactGroupsCache {
 
         //if (cached) {
             synchronized (PPApplication.contactsCacheMutex) {
-                contactsCache.updateContacts(_contactList/*, false*/);
+                contactsCache.updateContacts(_contactList);
                 //contactsCache.updateContacts(_contactListWithoutNumber, true);
 
                 contactGroupList.clear();
@@ -155,6 +155,7 @@ class ContactGroupsCache {
 
         caching = false;
     }
+*/
 
     void getContactGroupListX(Context context) {
         if (cached || caching) return;
@@ -217,7 +218,7 @@ class ContactGroupsCache {
 //                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.groupId=" + mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID)));
 //                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.name=" + mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE)));
 //                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.count=" + mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT)));
-//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.accountType=" + mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.ACCOUNT_TYPE)));
+                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.accountType=" + mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.ACCOUNT_TYPE)));
 //                        }
 
                         long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
@@ -232,7 +233,7 @@ class ContactGroupsCache {
 
                         int count = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT));
 
-                        if (count > 0) {
+                        //if (count > 0) {
                             contactGroupIds.add(contactGroupId);
 
                             ContactGroup aContactGroup = new ContactGroup();
@@ -251,7 +252,7 @@ class ContactGroupsCache {
 //                                PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.groupId="+aContactGroup.groupId);
 //                                kolegoviaGroupId = contactGroupId;
 //                            }
-                        }
+                        //}
 
                         //if (cancelled)
                         //    break;

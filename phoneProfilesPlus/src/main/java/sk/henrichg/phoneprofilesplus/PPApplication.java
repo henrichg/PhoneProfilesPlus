@@ -225,7 +225,7 @@ public class PPApplication extends Application
 
                                                 //+"|ContactsContentObserver.onChange"
                                                 //+"|ContactsContentObserverWorker.doWork"
-                                                +"|ContactsCache.getContactListX"
+                                                +"|ContactsCache.getContactList"
                                                 +"|ContactGroupsCache.getContactGroupListX"
                                                 ;
 

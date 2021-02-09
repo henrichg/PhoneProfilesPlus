@@ -3,13 +3,12 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 class ContactsCache {
 
@@ -41,14 +40,15 @@ class ContactsCache {
 
         try {
             if (Permissions.checkContacts(context)) {
-                String[] projection = new String[]{ContactsContract.Contacts.HAS_PHONE_NUMBER,
+                String[] projection = new String[]{
+                        ContactsContract.Contacts.HAS_PHONE_NUMBER,
                         ContactsContract.Contacts._ID,
                         ContactsContract.Contacts.DISPLAY_NAME,
                         ContactsContract.Contacts.PHOTO_ID};
                 //String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1'";
-                String order = ContactsContract.Contacts.DISPLAY_NAME + " ASC";
+                //String order = ContactsContract.Contacts.DISPLAY_NAME + " ASC";
 
-                Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, null /*selection*/, null, order);
+                Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, null /*selection*/, null, null);
 
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
@@ -58,11 +58,19 @@ class ContactsCache {
                         //String hasPhone = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
                         String photoId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
                         if (Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-                            Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
+                            projection = new String[]{
+                                    ContactsContract.CommonDataKinds.Phone._ID,
+                                    ContactsContract.CommonDataKinds.Phone.NUMBER,
+                                    ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET
+                            };
+                            Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
                             if (phones != null) {
                                 while (phones.moveToNext()) {
                                     long phoneId = phones.getLong(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
                                     String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                                    PPApplication.logE("------- ContactsCache.getContactList", "aContact.accountType=" + phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET)));
+
                                     Contact aContact = new Contact();
                                     aContact.contactId = contactId;
                                     aContact.name = name;
@@ -106,10 +114,12 @@ class ContactsCache {
                 //if (cancelled)
                 //    return;
 
+                Collections.sort(_contactList, new ContactsComparator());
+
                 cached = true;
             }
         } catch (SecurityException e) {
-            //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
+            Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
 
             _contactList.clear();
@@ -117,7 +127,7 @@ class ContactsCache {
 
             cached = false;
         } catch (Exception e) {
-            //Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
+            Log.e("ContactsCache.getContactList", Log.getStackTraceString(e));
             PPApplication.recordException(e);
 
             _contactList.clear();
@@ -138,7 +148,7 @@ class ContactsCache {
         caching = false;
     }
 
-    @SuppressWarnings("unused")
+/*
     void getContactListX(Context context)
     {
         if (cached || caching) return;
@@ -273,7 +283,7 @@ class ContactsCache {
 
         //if (cached) {
         synchronized (PPApplication.contactsCacheMutex) {
-            updateContacts(_contactList/*, false*/);
+            updateContacts(_contactList);
             //updateContacts(_contactListWithoutNumber, true);
         }
         //}
@@ -282,6 +292,7 @@ class ContactsCache {
 
         caching = false;
     }
+*/
 
     void updateContacts(List<Contact> _contactList/*, boolean withoutNumber*/) {
         /*if (withoutNumber) {

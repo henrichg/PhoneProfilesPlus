@@ -639,5 +639,16 @@ Po novom:
 
 -------------------------
 
-com.osp.app.signin - skupina, kontakt z konta Samsung
+Skus najprv najst aplikaciu s takym package name. Ak najdes, zisi nazov aplikacie a ten zobrazuj.
+Ak nenajdes aplikaciu, daj natvrdo toto:
+
+com.osp.app.signin - z konta Samsung
+com.google - z konta Google
+vnd.sec.contact.sim - zo sim karty
+vnd.sec.contact.phone - z telefonnej aplikacie ???
+org.thoughtcrime.securesms - Signal
+com.google.android.apps.tachyon - Duo
+com.whatsapp - WhatsApp
+
+Ostatne daj to, co ti vrati databaza. Lebo nevies, co to je.
 
