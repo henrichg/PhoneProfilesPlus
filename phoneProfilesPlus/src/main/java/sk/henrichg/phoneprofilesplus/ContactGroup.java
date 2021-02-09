@@ -7,6 +7,7 @@ class ContactGroup {
     String name = "";
     int count = 0;
     boolean checked = false;
+    String accountType = "";
 
     ContactGroup() {
     }

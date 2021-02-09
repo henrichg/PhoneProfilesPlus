@@ -1714,6 +1714,10 @@
     <string name="contact_group_name_friends">Friends</string>
     <string name="contact_group_name_coworkers">Coworkers</string>
     <string name="contact_group_name_starred">Starred</string>
+    <string name="contact_account_type_google_account">Google account</string>
+    <string name="contact_account_type_samsung_account">Samsung account</string>
+    <string name="contact_account_type_sim_card">SIM card</string>
+    <string name="contact_account_type_phone_application">Phone application</string>
 
     <!-- **************************************************************************************** -->
 

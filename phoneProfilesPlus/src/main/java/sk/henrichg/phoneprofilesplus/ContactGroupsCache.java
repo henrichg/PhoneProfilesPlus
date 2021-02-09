@@ -203,9 +203,9 @@ class ContactGroupsCache {
                         ContactsContract.Groups.SUMMARY_COUNT,
                         ContactsContract.Groups.ACCOUNT_TYPE
                 };
-                String selection = ContactsContract.Groups.DELETED + "=0" + " AND " +
+                String selection = ContactsContract.Groups.DELETED + "=0"; //' + " AND " +
                 //ContactsContract.Groups.GROUP_VISIBLE+"=1 ";
-                ContactsContract.Groups.ACCOUNT_TYPE + "<>'vnd.sec.contact.phone'";
+                //ContactsContract.Groups.ACCOUNT_TYPE + "<>'vnd.sec.contact.phone'";
                 //String order = ContactsContract.Groups.TITLE + " ASC";
 
                 Cursor mCursor = context.getContentResolver().query(ContactsContract.Groups.CONTENT_SUMMARY_URI, projection, selection, null, null);
@@ -214,32 +214,42 @@ class ContactGroupsCache {
                     while (mCursor.moveToNext()) {
 //                        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(3)");
 
+                        long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
+
+                        String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
+                        if (name != null) {
+                            if (name.equals("My Contacts"))
+                                name = context.getString(R.string.contact_group_name_myContacts);
+                            if (name.equals("Family"))
+                                name = context.getString(R.string.contact_group_name_family);
+                            if (name.equals("Friends"))
+                                name = context.getString(R.string.contact_group_name_friends);
+                            if (name.equals("Coworkers"))
+                                name = context.getString(R.string.contact_group_name_coworkers);
+                            if (name.equals("Starred in Android"))
+                                name = context.getString(R.string.contact_group_name_starred);
+                            if (name.equals("Starred"))
+                                name = context.getString(R.string.contact_group_name_starred);
+
+                            String accountType = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.ACCOUNT_TYPE));
+
+                            int count = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT));
+
 //                        if (mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT)) > 0) {
 //                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.groupId=" + mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID)));
 //                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.name=" + mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE)));
 //                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.count=" + mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT)));
-                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.accountType=" + mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.ACCOUNT_TYPE)));
+//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.accountType=" + accountType);
 //                        }
 
-                        long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
-
-                        String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
-                        if (name.equals("My Contacts")) name = context.getString(R.string.contact_group_name_myContacts);
-                        if (name.equals("Family")) name = context.getString(R.string.contact_group_name_family);
-                        if (name.equals("Friends")) name = context.getString(R.string.contact_group_name_friends);
-                        if (name.equals("Coworkers")) name = context.getString(R.string.contact_group_name_coworkers);
-                        if (name.equals("Starred in Android")) name = context.getString(R.string.contact_group_name_starred);
-                        if (name.equals("Starred")) name = context.getString(R.string.contact_group_name_starred);
-
-                        int count = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT));
-
-                        //if (count > 0) {
+                            //if (count > 0) {
                             contactGroupIds.add(contactGroupId);
 
                             ContactGroup aContactGroup = new ContactGroup();
                             aContactGroup.groupId = contactGroupId;
                             aContactGroup.name = name;
                             aContactGroup.count = count;
+                            aContactGroup.accountType = accountType;
 
                             _contactGroupList.add(aContactGroup);
 
@@ -252,7 +262,8 @@ class ContactGroupsCache {
 //                                PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.groupId="+aContactGroup.groupId);
 //                                kolegoviaGroupId = contactGroupId;
 //                            }
-                        //}
+                            //}
+                        }
 
                         //if (cancelled)
                         //    break;

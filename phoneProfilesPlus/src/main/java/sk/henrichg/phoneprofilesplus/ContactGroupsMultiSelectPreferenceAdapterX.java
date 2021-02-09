@@ -2,6 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +50,7 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
         // The child views in each row.
         TextView textViewDisplayName;
         CheckBox checkBox;
+        TextView textViewAccountType;
 
         // Create a new row view
         if (convertView == null)
@@ -56,11 +60,12 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
             // Find the child views.
             textViewDisplayName = convertView.findViewById(R.id.contact_groups_multiselect_pref_dlg_item_display_name);
             checkBox = convertView.findViewById(R.id.contact_groups_multiselect_pref_dlg_item_checkbox);
+            textViewAccountType = convertView.findViewById(R.id.contact_groups_multiselect_pref_dlg_item_account_type);
 
             // Optimization: Tag the row with it's child views, so we don't
             // have to
             // call findViewById() later when we reuse the row.
-            convertView.setTag(new ContactGroupViewHolder(textViewDisplayName, checkBox));
+            convertView.setTag(new ContactGroupViewHolder(textViewDisplayName, checkBox, textViewAccountType));
 
             // If CheckBox is toggled, update the ContactGroup it is tagged with.
             checkBox.setOnClickListener(v -> {
@@ -78,6 +83,7 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
             ContactGroupViewHolder viewHolder = (ContactGroupViewHolder) convertView.getTag();
             textViewDisplayName = viewHolder.textViewDisplayName;
             checkBox = viewHolder.checkBox;
+            textViewAccountType = viewHolder.textViewAccountType;
         }
 
         ContactGroupsCache contactGroupsCache = PhoneProfilesService.getContactGroupsCache();
@@ -95,11 +101,40 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
                 // Display ContactGroup data
                 textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
 
+                boolean found = false;
+                PackageManager packageManager = context.getPackageManager();
+                try {
+                    ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contactGroup.accountType, 0);
+                    if (applicationInfo != null) {
+                        contactGroup.accountType = packageManager.getApplicationLabel(applicationInfo).toString();
+                        found = true;
+                    }
+                } catch (Exception ignored) {}
+                Log.e("ContactGroupsMultiSelectPreferenceAdapterX.getView", "found="+found);
+                if (!found) {
+                    if (contactGroup.accountType.equals("com.osp.app.signin"))
+                        contactGroup.accountType = context.getString(R.string.contact_account_type_samsung_account);
+                    if (contactGroup.accountType.equals("com.google"))
+                        contactGroup.accountType = context.getString(R.string.contact_account_type_google_account);
+                    if (contactGroup.accountType.equals("vnd.sec.contact.sim"))
+                        contactGroup.accountType = context.getString(R.string.contact_account_type_sim_card);
+                    if (contactGroup.accountType.equals("vnd.sec.contact.phone"))
+                        contactGroup.accountType = context.getString(R.string.contact_account_type_phone_application);
+                    if (contactGroup.accountType.equals("org.thoughtcrime.securesms"))
+                        contactGroup.accountType = "Signal";
+                    if (contactGroup.accountType.equals("com.google.android.apps.tachyon"))
+                        contactGroup.accountType = "Duo";
+                    if (contactGroup.accountType.equals("com.whatsapp"))
+                        contactGroup.accountType = "WhatsApp";
+                }
+                textViewAccountType.setText(contactGroup.accountType);
+
                 checkBox.setChecked(contactGroup.checked);
             }
             else {
                 textViewDisplayName.setText(context.getString(R.string.empty_string));
                 checkBox.setChecked(false);
+                textViewAccountType.setText(context.getString(R.string.empty_string));
             }
         }
 

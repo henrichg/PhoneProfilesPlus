@@ -2,7 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/contacts_multiselect_pref_dlg_item_root"
     android:layout_width="match_parent"
-    android:layout_height="53dp" >
+    android:layout_height="wrap_content"
+    android:paddingStart="3dp"
+    android:paddingEnd="3dp"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp" >
 
     <CheckBox
         android:id="@+id/contacts_multiselect_pref_dlg_item_checkbox"
@@ -40,19 +44,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/empty_string"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:ellipsize="end"
-            android:maxLines="1"/>
+            android:textSize="15sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/contacts_multiselect_pref_dlg_item_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/empty_string"
+            android:textSize="13sp"/>
+
+        <TextView
+            android:id="@+id/contacts_multiselect_pref_dlg_item_account_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_string"
             android:textSize="13sp"
-            android:ellipsize="end"
-            android:maxLines="1"/>
+            android:textStyle="italic"/>
 
     </LinearLayout>
     
