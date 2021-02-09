@@ -7,7 +7,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -73,7 +72,7 @@ class ContactsMultiSelectDialogPreferenceViewHolderX extends RecyclerView.ViewHo
                     found = true;
                 }
             } catch (Exception ignored) {}
-            Log.e("ContactsMultiSelectDialogPreferenceViewHolderX.bindContact", "found="+found);
+//            Log.e("ContactsMultiSelectDialogPreferenceViewHolderX.bindContact", "found="+found);
             if (!found) {
                 if (contact.accountType.equals("com.osp.app.signin"))
                     contact.accountType = context.getString(R.string.contact_account_type_samsung_account);

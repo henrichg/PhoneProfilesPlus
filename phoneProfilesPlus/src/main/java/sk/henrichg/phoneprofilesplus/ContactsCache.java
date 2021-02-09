@@ -56,7 +56,8 @@ class ContactsCache {
                         long contactId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Contacts._ID));
                         String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                         if (name != null) {
-                            //String hasPhone = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+//                            String hasPhone = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+//                            PPApplication.logE("------- ContactsCache.getContactList", "hasPhone=" + hasPhone);
                             String photoId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
                             if (Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
                                 projection = new String[]{

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,7 +109,7 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
                         found = true;
                     }
                 } catch (Exception ignored) {}
-                Log.e("ContactGroupsMultiSelectPreferenceAdapterX.getView", "found="+found);
+//                Log.e("ContactGroupsMultiSelectPreferenceAdapterX.getView", "found="+found);
                 if (!found) {
                     if (contactGroup.accountType.equals("com.osp.app.signin"))
                         contactGroup.accountType = context.getString(R.string.contact_account_type_samsung_account);
