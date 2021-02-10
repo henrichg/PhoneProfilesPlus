@@ -847,11 +847,12 @@ public class MainWorker extends Worker {
         PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
         //}
 
-//         PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "========> create contacts cache - true");
+        PPApplication.logE("MainWorker.doAfterFirstStart", "========> create contacts cache - true - START");
         // must be first
         PhoneProfilesService.createContactsCache(appContext, true);
         //must be seconds, this ads groups int contacts
         PhoneProfilesService.createContactGroupsCache(appContext, true);
+        PPApplication.logE("MainWorker.doAfterFirstStart", "========> create contacts cache - true - END");
 
         if (startForExternalApplication) {
             Intent intent = new Intent(startForExternalAppAction);

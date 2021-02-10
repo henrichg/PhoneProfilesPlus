@@ -58,45 +58,44 @@ class ContactsMultiSelectDialogPreferenceViewHolderX extends RecyclerView.ViewHo
         else
             imageViewPhoto.setImageResource(R.drawable.ic_contacts_multiselect_dialog_preference_no_photo);
         textViewDisplayName.setText(contact.name);
+
         if (contact.phoneId != 0) {
             textViewPhoneNumber.setVisibility(View.VISIBLE);
             textViewPhoneNumber.setText(contact.phoneNumber);
-            textViewAccountType.setVisibility(View.VISIBLE);
-
-            boolean found = false;
-            PackageManager packageManager = context.getPackageManager();
-            try {
-                ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contact.accountType, 0);
-                if (applicationInfo != null) {
-                    contact.accountType = packageManager.getApplicationLabel(applicationInfo).toString();
-                    found = true;
-                }
-            } catch (Exception ignored) {}
-//            Log.e("ContactsMultiSelectDialogPreferenceViewHolderX.bindContact", "found="+found);
-            if (!found) {
-                if (contact.accountType.equals("com.osp.app.signin"))
-                    contact.accountType = context.getString(R.string.contact_account_type_samsung_account);
-                if (contact.accountType.equals("com.google"))
-                    contact.accountType = context.getString(R.string.contact_account_type_google_account);
-                if (contact.accountType.equals("vnd.sec.contact.sim"))
-                    contact.accountType = context.getString(R.string.contact_account_type_sim_card);
-                if (contact.accountType.equals("vnd.sec.contact.phone"))
-                    contact.accountType = context.getString(R.string.contact_account_type_phone_application);
-                if (contact.accountType.equals("org.thoughtcrime.securesms"))
-                    contact.accountType = "Signal";
-                if (contact.accountType.equals("com.google.android.apps.tachyon"))
-                    contact.accountType = "Duo";
-                if (contact.accountType.equals("com.whatsapp"))
-                    contact.accountType = "WhatsApp";
-            }
-            textViewAccountType.setText(contact.accountType);
         }
         else {
             textViewPhoneNumber.setVisibility(View.GONE);
             textViewPhoneNumber.setText(R.string.empty_string);
-            textViewAccountType.setVisibility(View.GONE);
-            textViewAccountType.setText(R.string.empty_string);
         }
+
+        boolean found = false;
+        String accountType = "";
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(contact.accountType, 0);
+            if (applicationInfo != null) {
+                accountType = packageManager.getApplicationLabel(applicationInfo).toString();
+                found = true;
+            }
+        } catch (Exception ignored) {}
+//            Log.e("ContactsMultiSelectDialogPreferenceViewHolderX.bindContact", "found="+found);
+        if (!found) {
+            if (contact.accountType.equals("com.osp.app.signin"))
+                accountType = context.getString(R.string.contact_account_type_samsung_account);
+            if (contact.accountType.equals("com.google"))
+                accountType = context.getString(R.string.contact_account_type_google_account);
+            if (contact.accountType.equals("vnd.sec.contact.sim"))
+                accountType = context.getString(R.string.contact_account_type_sim_card);
+            if (contact.accountType.equals("vnd.sec.contact.phone"))
+                accountType = context.getString(R.string.contact_account_type_phone_application);
+            if (contact.accountType.equals("org.thoughtcrime.securesms"))
+                accountType = "Signal";
+            if (contact.accountType.equals("com.google.android.apps.tachyon"))
+                accountType = "Duo";
+            if (contact.accountType.equals("com.whatsapp"))
+                accountType = "WhatsApp";
+        }
+        textViewAccountType.setText(accountType);
 
         // Tag the CheckBox with the Contact it is displaying, so that we
         // can
