@@ -652,3 +652,11 @@ com.whatsapp - WhatsApp
 
 Ostatne daj to, co ti vrati databaza. Lebo nevies, co to je.
 
+1. Ist cez RawContacts. Tie usporiadat podla contact_id
+2. Kazda zmena contact_id
+   2.1 vybrat data contact_id z Contacts
+   2.2 ak ma phone number
+       2.2.1 vybrat data z Phone
+       2.2.1 naplnit lokalny _contactList, pouzit account_type z Phone
+   2.3 ak nema phone number
+       2.3.1 naplnit lokalny _contactList, pouzit account_type z RawContacts
