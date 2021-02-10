@@ -853,6 +853,8 @@ public class MainWorker extends Worker {
         //must be seconds, this ads groups int contacts
         PhoneProfilesService.createContactGroupsCache(appContext, true);
         PPApplication.logE("MainWorker.doAfterFirstStart", "========> create contacts cache - true - END");
+        EventsHandler eventsHandler = new EventsHandler(appContext);
+        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
 
         if (startForExternalApplication) {
             Intent intent = new Intent(startForExternalAppAction);

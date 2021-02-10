@@ -33,6 +33,9 @@ public class ContactsContentObserverWorker extends Worker {
             //must be seconds, this ads groups int contacts
             PhoneProfilesService.createContactGroupsCache(appContext, true);
 
+            EventsHandler eventsHandler = new EventsHandler(appContext);
+            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CONTACTS_CACHE_CHANGED);
+
             return Result.success();
         } catch (Exception e) {
             PPApplication.recordException(e);

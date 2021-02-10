@@ -33,10 +33,8 @@ class ContactsCache {
 //        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "---- START");
 
         caching = true;
-        //cancelled = false;
 
         ArrayList<Contact> _contactList = new ArrayList<>();
-        //ArrayList<Contact> _contactListWithoutNumber = new ArrayList<>();
 
         try {
             if (Permissions.checkContacts(context)) {
@@ -44,8 +42,7 @@ class ContactsCache {
                 long contactId = 0;
                 String name = null;
                 String photoId = "0";
-                int hasPhone = 0;
-                //ArrayList<Contact> _oneContactIdList = null;
+                //int hasPhone = 0;
 
                 String[] projection = new String[]{
                         ContactsContract.RawContacts.CONTACT_ID,
@@ -64,17 +61,18 @@ class ContactsCache {
                             //_oneContactIdList = new ArrayList<>();
 
                             projection = new String[]{
-                                    ContactsContract.Contacts.HAS_PHONE_NUMBER,
+                                    //ContactsContract.Contacts.HAS_PHONE_NUMBER,
                                     //ContactsContract.Contacts._ID,
                                     ContactsContract.Contacts.DISPLAY_NAME,
-                                    ContactsContract.Contacts.PHOTO_ID};
+                                    ContactsContract.Contacts.PHOTO_ID
+                            };
 
                             Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, ContactsContract.Contacts._ID + " = " + contactId, null, null);
                             if (mCursor != null) {
                                 if (mCursor.moveToFirst()) {
                                     name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                                     photoId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
-                                    hasPhone = Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)));
+                                    //hasPhone = Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)));
                                 }
                                 else
                                     name = null;

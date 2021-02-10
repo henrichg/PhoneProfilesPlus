@@ -122,6 +122,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_PERIODIC_EVENTS_HANDLER = "periodicEventsHandler";
     static final String SENSOR_TYPE_ACCESSORIES = "accessories";
     static final String SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK = "calendarEventExistsCheck";
+    static final String SENSOR_TYPE_CONTACTS_CACHE_CHANGED = "contactsCacheChanged";
     static final String SENSOR_TYPE_ALL = "ALL";
 
     public EventsHandler(Context context) {
@@ -339,7 +340,7 @@ class EventsHandler {
                 // for restart events, set startTime to 0
                 dataWrapper.clearSensorsStartTime();
             } else {
-                if (sensorType.equals(SENSOR_TYPE_SMS)) {
+                if (sensorType.equals(SENSOR_TYPE_SMS) || sensorType.equals(SENSOR_TYPE_CONTACTS_CACHE_CHANGED)) {
                     // search for sms events, save start time
                     //PPApplication.logE("EventsHandler.handleEvents", "search for sms events");
                     for (Event _event : dataWrapper.eventList) {
@@ -363,7 +364,7 @@ class EventsHandler {
                         }
                     }
                 }
-                if (sensorType.equals(SENSOR_TYPE_PHONE_CALL)) {
+                if (sensorType.equals(SENSOR_TYPE_PHONE_CALL) || sensorType.equals(SENSOR_TYPE_CONTACTS_CACHE_CHANGED)) {
                     // search for call events, save start time
                     //PPApplication.logE("[CALL] EventsHandler.handleEvents", "search for call events");
                     for (Event _event : dataWrapper.eventList) {
