@@ -6,21 +6,21 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
-//import android.preference.CheckBoxPreference;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.PreferenceManager;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 class EventPreferencesAccessories extends EventPreferences {
 
-    int _accessoryType;
+    String _accessoryType;
 
     static final String PREF_EVENT_ACCESSORIES_ENABLED = "eventPeripheralEnabled";
-    private static final String PREF_EVENT_ACCESSORIES_TYPE = "eventPeripheralType";
+    private static final String PREF_EVENT_ACCESSORIES_TYPE = "eventAccessoryType";
 
     private static final String PREF_EVENT_ACCESSORIES_CATEGORY = "eventAccessoriesCategoryRoot";
 
@@ -32,7 +32,7 @@ class EventPreferencesAccessories extends EventPreferences {
 
     EventPreferencesAccessories(Event event,
                                 boolean enabled,
-                                int accessoryType)
+                                String accessoryType)
     {
         super(event, enabled);
 
@@ -50,14 +50,32 @@ class EventPreferencesAccessories extends EventPreferences {
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_ACCESSORIES_ENABLED, _enabled);
-        editor.putString(PREF_EVENT_ACCESSORIES_TYPE, String.valueOf(this._accessoryType));
+
+        String[] splits;
+        if (this._accessoryType != null)
+            splits = this._accessoryType.split("\\|");
+        else
+            splits = new String[]{};
+        Set<String> set = new HashSet<>(Arrays.asList(splits));
+        editor.putStringSet(PREF_EVENT_ACCESSORIES_TYPE, set);
+
         editor.apply();
     }
 
     void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_ACCESSORIES_ENABLED, false);
-        this._accessoryType = Integer.parseInt(preferences.getString(PREF_EVENT_ACCESSORIES_TYPE, "0"));
+
+        Set<String> set = preferences.getStringSet(PREF_EVENT_ACCESSORIES_TYPE, null);
+        StringBuilder plugged = new StringBuilder();
+        if (set != null) {
+            for (String s : set) {
+                if (plugged.length() > 0)
+                    plugged.append("|");
+                plugged.append(s);
+            }
+        }
+        this._accessoryType = plugged.toString();
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
@@ -76,8 +94,22 @@ class EventPreferencesAccessories extends EventPreferences {
                 }
 
                 descr = descr + context.getString(R.string.event_preferences_peripheral_type) + ": ";
-                String[] accessoryTypes = context.getResources().getStringArray(R.array.eventAccessoryTypeArray);
-                descr = descr + "<b>" + accessoryTypes[this._accessoryType] + "</b>";
+                String selectedAccessory = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                if ((this._accessoryType != null) && !this._accessoryType.isEmpty() && !this._accessoryType.equals("-")) {
+                    String[] splits = this._accessoryType.split("\\|");
+                    List<String> accessoryTypeValues = Arrays.asList(context.getResources().getStringArray(R.array.eventAccessoryTypeValues));
+                    String[] accessoryTypeNames = context.getResources().getStringArray(R.array.eventAccessoryTypeArray);
+                    selectedAccessory = "";
+                    for (String s : splits) {
+                        int idx = accessoryTypeValues.indexOf(s);
+                        if (idx != -1) {
+                            if (!selectedAccessory.isEmpty())
+                                selectedAccessory = selectedAccessory + ", ";
+                            selectedAccessory = selectedAccessory + accessoryTypeNames[idx];
+                        }
+                    }
+                }
+                descr = descr + "<b>" + selectedAccessory + "</b>";
             }
         }
 
@@ -97,11 +129,21 @@ class EventPreferencesAccessories extends EventPreferences {
 
         if (key.equals(PREF_EVENT_ACCESSORIES_TYPE))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
-            if (listPreference != null) {
-                int index = listPreference.findIndexOfValue(value);
-                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                listPreference.setSummary(summary);
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                preference.setSummary(value);
+
+                Set<String> set = prefMng.getSharedPreferences().getStringSet(PREF_EVENT_ACCESSORIES_TYPE, null);
+                StringBuilder accessoryType = new StringBuilder();
+                if (set != null) {
+                    for (String s : set) {
+                        if (accessoryType.length() > 0)
+                            accessoryType.append("|");
+                        accessoryType.append(s);
+                    }
+                }
+                boolean bold = accessoryType.length() > 0;
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, true, false, false);
             }
         }
     }
@@ -115,7 +157,24 @@ class EventPreferencesAccessories extends EventPreferences {
         }
         if (key.equals(PREF_EVENT_ACCESSORIES_TYPE))
         {
-            setSummary(prefMng, key, preferences.getString(key, "")/*, context*/);
+            Set<String> set = preferences.getStringSet(key, null);
+            String accessoryType = "";
+            if (set != null) {
+                String[] accessoryTypeValues = context.getResources().getStringArray(R.array.eventAccessoryTypeValues);
+                String[] accessoryTypeNames = context.getResources().getStringArray(R.array.eventAccessoryTypeArray);
+                for (String s : set) {
+                    if (!s.isEmpty()) {
+                        if (!accessoryType.isEmpty())
+                            accessoryType = accessoryType + ", ";
+                        accessoryType = accessoryType + accessoryTypeNames[Arrays.asList(accessoryTypeValues).indexOf(s)];
+                    }
+                }
+                if (accessoryType.isEmpty())
+                    accessoryType = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+            }
+            else
+                accessoryType = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+            setSummary(prefMng, key, accessoryType/*, context*/);
         }
     }
 
@@ -152,6 +211,16 @@ class EventPreferencesAccessories extends EventPreferences {
         }
     }
 
+    @Override
+    boolean isRunnable(Context context)
+    {
+        boolean runnable = super.isRunnable(context);
+
+        runnable = runnable && (!_accessoryType.isEmpty());
+
+        return runnable;
+    }
+
     /*
     @Override
     void setSystemEventForStart(Context context)
@@ -173,57 +242,70 @@ class EventPreferencesAccessories extends EventPreferences {
         if (_enabled) {
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesAccessories.PREF_EVENT_ACCESSORIES_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                if ((_accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_DESK_DOCK) ||
-                        (_accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_CAR_DOCK)) {
-                    // get dock status
-                    IntentFilter iFilter = new IntentFilter(Intent.ACTION_DOCK_EVENT);
-                    Intent dockStatus = eventsHandler.context.registerReceiver(null, iFilter);
+                if (!this._accessoryType.isEmpty()) {
+                    String[] splits = this._accessoryType.split("\\|");
+                    for (String split : splits) {
+                        int accessoryType = Integer.parseInt(split);
 
-                    if (dockStatus != null) {
-                        int dockState = dockStatus.getIntExtra(Intent.EXTRA_DOCK_STATE, -1);
-                        boolean isDocked = dockState != Intent.EXTRA_DOCK_STATE_UNDOCKED;
-                        boolean isCar = dockState == Intent.EXTRA_DOCK_STATE_CAR;
-                        boolean isDesk = dockState == Intent.EXTRA_DOCK_STATE_DESK ||
-                                dockState == Intent.EXTRA_DOCK_STATE_LE_DESK ||
-                                dockState == Intent.EXTRA_DOCK_STATE_HE_DESK;
+                        if ((accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_DESK_DOCK) ||
+                                (accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_CAR_DOCK)) {
+                            // get dock status
+                            IntentFilter iFilter = new IntentFilter(Intent.ACTION_DOCK_EVENT);
+                            Intent dockStatus = eventsHandler.context.registerReceiver(null, iFilter);
 
-                        if (isDocked) {
-                            if ((_accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_DESK_DOCK)
-                                    && isDesk)
-                                eventsHandler.accessoryPassed = true;
-                            else
-                                eventsHandler.accessoryPassed = (_accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_CAR_DOCK)
-                                        && isCar;
-                        } else
+                            if (dockStatus != null) {
+                                int dockState = dockStatus.getIntExtra(Intent.EXTRA_DOCK_STATE, -1);
+                                boolean isDocked = dockState != Intent.EXTRA_DOCK_STATE_UNDOCKED;
+                                boolean isCar = dockState == Intent.EXTRA_DOCK_STATE_CAR;
+                                boolean isDesk = dockState == Intent.EXTRA_DOCK_STATE_DESK ||
+                                        dockState == Intent.EXTRA_DOCK_STATE_LE_DESK ||
+                                        dockState == Intent.EXTRA_DOCK_STATE_HE_DESK;
+
+                                if (isDocked) {
+                                    if ((accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_DESK_DOCK)
+                                            && isDesk)
+                                        eventsHandler.accessoryPassed = true;
+                                    else
+                                        eventsHandler.accessoryPassed = (accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_CAR_DOCK)
+                                                && isCar;
+                                } else
+                                    eventsHandler.accessoryPassed = false;
+                                //eventStart = eventStart && accessoryPassed;
+                            } else
+                                eventsHandler.notAllowedAccessory = true;
+                        } else if ((accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_WIRED_HEADSET) ||
+                                (accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_BLUETOOTH_HEADSET) ||
+                                (accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_HEADPHONES)) {
+                            boolean wiredHeadsetConnected = ApplicationPreferences.prefWiredHeadsetConnected;
+                            boolean wiredHeadsetMicrophone = ApplicationPreferences.prefWiredHeadsetMicrophone;
+                            boolean bluetoothHeadsetConnected = ApplicationPreferences.prefBluetoothHeadsetConnected;
+                            boolean bluetoothHeadsetMicrophone = ApplicationPreferences.prefBluetoothHeadsetMicrophone;
+
                             eventsHandler.accessoryPassed = false;
-                        //eventStart = eventStart && accessoryPassed;
-                    } else
-                        eventsHandler.notAllowedAccessory = true;
-                } else if ((_accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_WIRED_HEADSET) ||
-                        (_accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_BLUETOOTH_HEADSET) ||
-                        (_accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_HEADPHONES)) {
-                    boolean wiredHeadsetConnected = ApplicationPreferences.prefWiredHeadsetConnected;
-                    boolean wiredHeadsetMicrophone = ApplicationPreferences.prefWiredHeadsetMicrophone;
-                    boolean bluetoothHeadsetConnected = ApplicationPreferences.prefBluetoothHeadsetConnected;
-                    boolean bluetoothHeadsetMicrophone = ApplicationPreferences.prefBluetoothHeadsetMicrophone;
+                            if (wiredHeadsetConnected) {
+                                if ((accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_WIRED_HEADSET)
+                                        && wiredHeadsetMicrophone)
+                                    eventsHandler.accessoryPassed = true;
+                                else
+                                if ((accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_HEADPHONES)
+                                        && (!wiredHeadsetMicrophone))
+                                    eventsHandler.accessoryPassed = true;
+                            }
+                            if (bluetoothHeadsetConnected) {
+                                if ((accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_BLUETOOTH_HEADSET)
+                                        && bluetoothHeadsetMicrophone)
+                                    eventsHandler.accessoryPassed = true;
+                            }
+                            //eventStart = eventStart && accessoryPassed;
+                        }
 
-                    eventsHandler.accessoryPassed = false;
-                    if (wiredHeadsetConnected) {
-                        if ((_accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_WIRED_HEADSET)
-                                && wiredHeadsetMicrophone)
-                            eventsHandler.accessoryPassed = true;
-                        else
-                        if ((_accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_HEADPHONES)
-                                && (!wiredHeadsetMicrophone))
-                            eventsHandler.accessoryPassed = true;
+                        // this type is passed
+                        if (eventsHandler.accessoryPassed)
+                            break;
                     }
-                    if (bluetoothHeadsetConnected) {
-                        if ((_accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_BLUETOOTH_HEADSET)
-                                && bluetoothHeadsetMicrophone)
-                            eventsHandler.accessoryPassed = true;
-                    }
-                    //eventStart = eventStart && accessoryPassed;
                 }
+                else
+                    eventsHandler.accessoryPassed = false;
 
                 if (!eventsHandler.notAllowedAccessory) {
                     if (eventsHandler.accessoryPassed)

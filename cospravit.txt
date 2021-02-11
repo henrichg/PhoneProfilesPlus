@@ -660,3 +660,6 @@ Ostatne daj to, co ti vrati databaza. Lebo nevies, co to je.
        2.2.1 naplnit lokalny _contactList, pouzit account_type z Phone
    2.3 ak nema phone number
        2.3.1 naplnit lokalny _contactList, pouzit account_type z RawContacts
+
+----------------------------
+

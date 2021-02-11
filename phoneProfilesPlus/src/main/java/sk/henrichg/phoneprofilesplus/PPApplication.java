@@ -132,7 +132,7 @@ public class PPApplication extends Application
     static final boolean logIntoFile = false;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
-    static final boolean crashIntoFile = true && DebugVersion.enabled;
+    static final boolean crashIntoFile = false && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
     private static final String logFilterTags = "##### PPApplication.onCreate"
                                                 //+"|PPApplication.isXiaomi"
@@ -225,8 +225,8 @@ public class PPApplication extends Application
 
                                                 //+"|ContactsContentObserver.onChange"
                                                 //+"|ContactsContentObserverWorker.doWork"
-                                                +"|ContactsCache.getContactList"
-                                                +"|ContactGroupsCache.getContactGroupListX"
+                                                //+"|ContactsCache.getContactList"
+                                                //+"|ContactGroupsCache.getContactGroupListX"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

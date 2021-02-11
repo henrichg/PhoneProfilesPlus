@@ -9,14 +9,14 @@
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+
+    <MultiSelectListPreference
+        app:key="eventAccessoryType"
         app:title="@string/event_preferences_peripheral_type"
-        app:summary="@string/array_event_pref_peripheralType_deskDock"
-        app:key="eventPeripheralType"
-        app:defaultValue="0"
+        app:defaultValue="@array/emptyArray"
         app:entries="@array/eventAccessoryTypeArray"
         app:entryValues="@array/eventAccessoryTypeValues"
         app:dependency="eventPeripheralEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    
+
 </androidx.preference.PreferenceScreen>

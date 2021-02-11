@@ -36,7 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2447;
+    private static final int DATABASE_VERSION = 2448;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -210,7 +210,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_UNDONE_PROFILE = "undoneProfile";
     private static final String KEY_E_PRIORITY = "priority";
     private static final String KEY_E_ACCESSORY_ENABLED = "peripheralEnabled";
-    private static final String KEY_E_ACCESSORY_TYPE = "peripheralType";
+    private static final String KEY_E_PERIPHERAL_TYPE = "peripheralType";
     private static final String KEY_E_CALENDAR_ENABLED = "calendarEnabled";
     private static final String KEY_E_CALENDAR_CALENDARS = "calendarCalendars";
     private static final String KEY_E_CALENDAR_SEARCH_FIELD = "calendarSearchField";
@@ -341,6 +341,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_CALENDAR_EVENT_TODAY_EXISTS = "calendarEventTodayExists";
     private static final String KEY_E_CALENDAR_DAY_CONTAINS_EVENT = "calendarDayContainsEvent";
     private static final String KEY_E_CALENDAR_ALL_DAY_EVENTS = "calendarAllDayEvents";
+    private static final String KEY_E_ACCESSORY_TYPE = "accessoryType";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -599,7 +600,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //+ KEY_E_UNDONE_PROFILE + " " + INTEGER_TYPE + ","
                 + KEY_E_PRIORITY + " " + INTEGER_TYPE + ","
                 + KEY_E_ACCESSORY_ENABLED + " " + INTEGER_TYPE + ","
-                + KEY_E_ACCESSORY_TYPE + " " + INTEGER_TYPE + ","
+                //+ KEY_E_ACCESSORY_TYPE + " " + INTEGER_TYPE + ","
                 + KEY_E_CALENDAR_ENABLED + " " + INTEGER_TYPE + ","
                 + KEY_E_CALENDAR_CALENDARS + " " + TEXT_TYPE + ","
                 + KEY_E_CALENDAR_SEARCH_FIELD + " " + INTEGER_TYPE + ","
@@ -729,7 +730,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_MANUAL_PROFILE_ACTIVATION_AT_END + " " + INTEGER_TYPE + ","
                 + KEY_E_CALENDAR_EVENT_TODAY_EXISTS + " " + INTEGER_TYPE + ","
                 + KEY_E_CALENDAR_DAY_CONTAINS_EVENT + " " + INTEGER_TYPE + ","
-                + KEY_E_CALENDAR_ALL_DAY_EVENTS + " " + INTEGER_TYPE
+                + KEY_E_CALENDAR_ALL_DAY_EVENTS + " " + INTEGER_TYPE + ","
+                + KEY_E_ACCESSORY_TYPE + " " + TEXT_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1011,7 +1013,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_BLOCKED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_PRIORITY, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_ACCESSORY_ENABLED, INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, KEY_E_ACCESSORY_TYPE, INTEGER_TYPE, columns);
+                //createColumnWhenNotExists(db, table, KEY_E_ACCESSORY_TYPE, TINTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_ENABLED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_CALENDARS, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_SEARCH_FIELD, INTEGER_TYPE, columns);
@@ -1141,6 +1143,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_EVENT_TODAY_EXISTS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_DAY_CONTAINS_EVENT, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_ALL_DAY_EVENTS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_ACCESSORY_TYPE, TEXT_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -1495,7 +1498,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion < 1080)
         {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ACCESSORY_ENABLED + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ACCESSORY_TYPE + "=0");
+            //db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ACCESSORY_TYPE + "=0");
         }
 
         if (oldVersion < 1081)
@@ -3081,6 +3084,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         "WHERE " + KEY_E_ID + "=" + id);
 
                             }
+                        } while (cursor.moveToNext());
+                    }
+
+                    cursor.close();
+                }
+//                else
+//                    Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- column NOT exists");
+//
+//                Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- END");
+            } catch (Exception ignored) {
+                //Log.e("DatabaseHandler.updateDb", Log.getStackTraceString(e));
+            }
+        }
+
+        if (oldVersion < 2448)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_ACCESSORY_TYPE + "=\"\"");
+
+            try {
+                List<String> columns = getTableColums(db, TABLE_EVENTS);
+                if (columnExists(KEY_E_PERIPHERAL_TYPE, columns)) {
+//                    Log.e("DatabaseHandler.updateDb", "oldVersion < 2446 --- column exists");
+
+                    final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                            KEY_E_PERIPHERAL_TYPE +
+                            " FROM " + TABLE_EVENTS;
+
+                    Cursor cursor = db.rawQuery(selectQuery, null);
+
+                    if (cursor.moveToFirst()) {
+                        do {
+                            long id = cursor.getLong(cursor.getColumnIndex(KEY_E_ID));
+                            int peripheralType = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIPHERAL_TYPE));
+
+                            db.execSQL("UPDATE " + TABLE_EVENTS +
+                                    " SET " + KEY_E_ACCESSORY_TYPE + "=\"" + peripheralType + "\"" +
+                                    " WHERE " + KEY_E_ID + "=" + id);
+
                         } while (cursor.moveToNext());
                     }
 
@@ -5509,7 +5550,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 EventPreferencesAccessories eventPreferences = event._eventPreferencesAccessories;
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndex(KEY_E_ACCESSORY_ENABLED)) == 1);
-                eventPreferences._accessoryType = cursor.getInt(cursor.getColumnIndex(KEY_E_ACCESSORY_TYPE));
+                eventPreferences._accessoryType = cursor.getString(cursor.getColumnIndex(KEY_E_ACCESSORY_TYPE));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_ACCESSORY_SENSOR_PASSED)));
             }
             cursor.close();

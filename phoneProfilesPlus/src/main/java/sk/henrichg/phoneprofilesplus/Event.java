@@ -325,7 +325,7 @@ class Event {
 
     private void createEventPreferencesAccessories()
     {
-        this._eventPreferencesAccessories = new EventPreferencesAccessories(this, false, 0);
+        this._eventPreferencesAccessories = new EventPreferencesAccessories(this, false, "");
     }
 
     private void createEventPreferencesCalendar()
