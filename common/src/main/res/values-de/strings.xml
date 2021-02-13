@@ -1575,11 +1575,11 @@
     <string name="preference_not_allowed_reason_not_granted_phone_permission">Zugriff auf das Telefon nicht zugelassen</string>
     <string name="application_cannot_be_started">konnte nicht gestartet werden</string>
     <string name="application_cannot_be_started_button_restart">Anwendung neu starten</string>
-    <string name="contact_group_name_myContacts">My Contacts</string>
-    <string name="contact_group_name_family">Family</string>
-    <string name="contact_group_name_friends">Friends</string>
-    <string name="contact_group_name_coworkers">Coworkers</string>
-    <string name="contact_group_name_starred">Starred</string>
+    <string name="contact_group_name_myContacts">Meine Kontakte</string>
+    <string name="contact_group_name_family">Familie</string>
+    <string name="contact_group_name_friends">Freunde</string>
+    <string name="contact_group_name_coworkers">Kollegen</string>
+    <string name="contact_group_name_starred">Favorit</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

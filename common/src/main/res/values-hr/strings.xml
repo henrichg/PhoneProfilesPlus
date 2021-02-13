@@ -1572,15 +1572,15 @@
     <string name="array_event_pref_calendarAllDayEvents_dontCheck">Ne proveravati</string>
     <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Samo negirati tijekom svih dana</string>
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Samo tijekom svih dana</string>
-    <string name="altype_applicationSystemRestart">application restart by system</string>
-    <string name="preference_not_allowed_reason_not_granted_phone_permission">not granted Phone permission</string>
-    <string name="application_cannot_be_started">cannot be started</string>
-    <string name="application_cannot_be_started_button_restart">Restart application</string>
-    <string name="contact_group_name_myContacts">My Contacts</string>
-    <string name="contact_group_name_family">Family</string>
-    <string name="contact_group_name_friends">Friends</string>
-    <string name="contact_group_name_coworkers">Coworkers</string>
-    <string name="contact_group_name_starred">Starred</string>
+    <string name="altype_applicationSystemRestart">restart aplikacije sa sustavom</string>
+    <string name="preference_not_allowed_reason_not_granted_phone_permission">nije omogućena dozvola za Telefon</string>
+    <string name="application_cannot_be_started">nemože da se pokrene</string>
+    <string name="application_cannot_be_started_button_restart">Ponovo pokrenite aplikaciju</string>
+    <string name="contact_group_name_myContacts">Moji kontakti</string>
+    <string name="contact_group_name_family">Obitelj</string>
+    <string name="contact_group_name_friends">Prijatelji</string>
+    <string name="contact_group_name_coworkers">Suradnici</string>
+    <string name="contact_group_name_starred">Sa zvjezdicom</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

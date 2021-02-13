@@ -1575,11 +1575,11 @@
     <string name="preference_not_allowed_reason_not_granted_phone_permission">autorisation non accordée par le téléphone</string>
     <string name="application_cannot_be_started">ne peut pas être démarré</string>
     <string name="application_cannot_be_started_button_restart">Redémarrer l\'application</string>
-    <string name="contact_group_name_myContacts">My Contacts</string>
-    <string name="contact_group_name_family">Family</string>
-    <string name="contact_group_name_friends">Friends</string>
-    <string name="contact_group_name_coworkers">Coworkers</string>
-    <string name="contact_group_name_starred">Starred</string>
+    <string name="contact_group_name_myContacts">Mes contacts</string>
+    <string name="contact_group_name_family">Famille</string>
+    <string name="contact_group_name_friends">Amis</string>
+    <string name="contact_group_name_coworkers">Collègues</string>
+    <string name="contact_group_name_starred">Favoris</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

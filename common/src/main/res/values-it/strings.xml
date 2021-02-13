@@ -1576,10 +1576,10 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="preference_not_allowed_reason_not_granted_phone_permission">autorizzazione Telefono non concessa</string>
     <string name="application_cannot_be_started">non può essere avviato</string>
     <string name="application_cannot_be_started_button_restart">Riavvia l\'applicazione</string>
-    <string name="contact_group_name_myContacts">My Contacts</string>
-    <string name="contact_group_name_family">Family</string>
-    <string name="contact_group_name_friends">Friends</string>
-    <string name="contact_group_name_coworkers">Coworkers</string>
+    <string name="contact_group_name_myContacts">I Miei Contatti</string>
+    <string name="contact_group_name_family">Famiglia</string>
+    <string name="contact_group_name_friends">Amici</string>
+    <string name="contact_group_name_coworkers">Colleghi</string>
     <string name="contact_group_name_starred">Starred</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->

@@ -1575,11 +1575,11 @@
     <string name="preference_not_allowed_reason_not_granted_phone_permission">no se ha concedido el permiso Teléfono</string>
     <string name="application_cannot_be_started">no se puede iniciar</string>
     <string name="application_cannot_be_started_button_restart">Reiniciar aplicación</string>
-    <string name="contact_group_name_myContacts">My Contacts</string>
-    <string name="contact_group_name_family">Family</string>
-    <string name="contact_group_name_friends">Friends</string>
-    <string name="contact_group_name_coworkers">Coworkers</string>
-    <string name="contact_group_name_starred">Starred</string>
+    <string name="contact_group_name_myContacts">Mis Contactos</string>
+    <string name="contact_group_name_family">Familia</string>
+    <string name="contact_group_name_friends">Amigos</string>
+    <string name="contact_group_name_coworkers">Colaboradores</string>
+    <string name="contact_group_name_starred">Destacados</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>
