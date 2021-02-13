@@ -762,7 +762,6 @@ public class MainWorker extends Worker {
                 } catch (Exception eee) {
                     PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
                     //PPApplication.recordException(eee);
-                    throw eee;
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {
@@ -771,6 +770,10 @@ public class MainWorker extends Worker {
                     }
                 }
             });
+
+            // !!! FOR TESTING NOT STARTED PPP BUG !!!!
+//            PPApplication.logE("[APP_START] MainWorker.doAfterFirstStart", "PPApplication.setApplicationFullyStarted");
+//            PPApplication.setApplicationFullyStarted(appContext);
 
             //PPApplication.updateNotificationAndWidgets(true, true, appContext);
             //PPApplication.updateGUI(appContext, true, true);
@@ -822,7 +825,6 @@ public class MainWorker extends Worker {
                 } catch (Exception eee) {
                     PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
                     //PPApplication.recordException(eee);
-                    throw eee;
                 } finally {
                     if ((wakeLock != null) && wakeLock.isHeld()) {
                         try {

@@ -212,6 +212,8 @@ class EventsHandler {
                 return;
             }
 
+//            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (1)");
+
             //PPApplication.logE("[TEST BATTERY] EventsHandler.handleEvents", "sensorType=" + this.sensorType);
             //CallsCounter.logCounterNoInc(context, "EventsHandler.handleEvents->sensorType=" + this.sensorType, "EventsHandler_handleEvents");
 
@@ -278,7 +280,7 @@ class EventsHandler {
                 }
             }
 
-//            PPApplication.logE("[APP_START] EventsHandler.handleEvents (01)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
+//            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (2)");
 
             //restartAtEndOfEvent = false;
 
@@ -472,11 +474,15 @@ class EventsHandler {
             }
             */
 
+//            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (3)");
+
             List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
             //int runningEventCount0 = eventTimelineList.size();
 
             sortEventsByStartOrderDesc(dataWrapper.eventList);
             if (isRestart) {
+//                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (4)");
+
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "restart events");
                     PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "restart events");
@@ -586,6 +592,8 @@ class EventsHandler {
                     }
                 }
             } else {
+//                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (5)");
+
                 //PPApplication.logE("[TEST BATTERY]  EventsHandler.handleEvents", "NO restart events");
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("$$$ EventsHandler.handleEvents", "NO restart events");
@@ -737,14 +745,21 @@ class EventsHandler {
             //if (ppService != null)
             //    fullyStarted = ppService.getApplicationFullyStarted();
 
+//            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (6)");
+
             if (!DataWrapper.getIsManualProfileActivation(false, context)) {
-//                if (PPApplication.logEnabled()) {
+                // no manual profile activation
+//                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "continue (7)");
+
+                //                if (PPApplication.logEnabled()) {
 //                    if (isRestart) {
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "active profile is NOT activated manually");
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "runningEventCountE=" + runningEventCountE);
 //                    }
 //                }
-                // no manual profile activation
+
+//                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "runningEventCountE="+runningEventCountE);
+
                 if (runningEventCountE == 0) {
                     // activate default profile
 
@@ -757,6 +772,8 @@ class EventsHandler {
                     // THIS MUST BE PURE DEFAULT PROFILE, BECAUSE IT IS TESTED
                     defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
 
+//                    PPApplication.logE("[APP_START] EventsHandler.handleEvents", "defaultProfileId="+defaultProfileId);
+
                     //if (!fullyStarted)
                     //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
                     if ((defaultProfileId != Profile.PROFILE_NO_ACTIVATE) && isAnyEventEnabled) {
@@ -765,10 +782,13 @@ class EventsHandler {
 
 //                        PPApplication.logE("[APP_START] EventsHandler.handleEvents (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
                         defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
+//                        PPApplication.logE("[APP_START] EventsHandler.handleEvents", "getApplicationDefaultProfileOnBoot()="+defaultProfileId);
 
                         long semiOldActivatedProfileId = 0;
                         if (semiOldActivatedProfile != null)
                             semiOldActivatedProfileId = semiOldActivatedProfile._id;
+
+//                        PPApplication.logE("[APP_START] EventsHandler.handleEvents", "semiOldActivatedProfileId="+semiOldActivatedProfileId);
 
                         boolean defaultProfileActivated = false;
                         if ((semiOldActivatedProfileId == 0) ||
@@ -782,7 +802,8 @@ class EventsHandler {
 //                            if (isRestart)
 //                                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "activated default profile");
 
-//                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add default profile - profileId=" + PPApplication.prefLastActivatedProfile);
+//                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add default profile - profileId=" + defaultProfileId);
+//                            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "#### add default profile - profileId=" + defaultProfileId);
                             dataWrapper.addProfileToFIFO(defaultProfileId, 0);
                         }
 
@@ -801,6 +822,12 @@ class EventsHandler {
 //                            PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "true");
                             PPApplication.setBlockProfileEventActions(true);
                         }
+
+                        if (!isRestart) {
+//                            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (xx)");
+                            PPApplication.setApplicationFullyStarted(context);
+                        }
+
                     } else {
 //                        PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (1)");
                         PPApplication.setApplicationFullyStarted(context);
@@ -848,6 +875,7 @@ class EventsHandler {
 //                    PPApplication.logE("EventsHandler.handleEvents (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
 //                    PPApplication.logE("[APP_START] EventsHandler.handleEvents (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
                     defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
+                    //defaultProfileId = ApplicationPreferences.applicationDefaultProfile;
 
                     //if (!fullyStarted)
                     //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;

@@ -3292,6 +3292,9 @@ public class DataWrapper {
     }
 
     void addProfileToFIFO(long profileId, long eventId) {
+        if (profileId == Profile.PROFILE_NO_ACTIVATE)
+            return;
+
         synchronized (PPApplication.profileActivationMutex) {
             List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
             if (activateProfilesFIFO == null)
