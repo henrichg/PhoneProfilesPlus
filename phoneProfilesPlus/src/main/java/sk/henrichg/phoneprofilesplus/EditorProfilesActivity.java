@@ -245,12 +245,12 @@ public class EditorProfilesActivity extends AppCompatActivity
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
-        if (showNotStartedToast()) {
+        if (doServiceStart) {
             finish();
             return;
         }
         else
-        if (doServiceStart) {
+        if (showNotStartedToast()) {
             finish();
             return;
         }
@@ -626,13 +626,13 @@ public class EditorProfilesActivity extends AppCompatActivity
         super.onStart();
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
-        if (showNotStartedToast()) {
+        if (doServiceStart) {
             if (!isFinishing())
                 finish();
             return;
         }
         else
-        if (doServiceStart) {
+        if (showNotStartedToast()) {
             if (!isFinishing())
                 finish();
             return;
