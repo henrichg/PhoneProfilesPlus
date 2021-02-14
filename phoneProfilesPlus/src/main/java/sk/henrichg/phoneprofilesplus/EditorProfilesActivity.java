@@ -61,7 +61,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -71,8 +70,6 @@ import sk.henrichg.phoneprofiles.PPProfileForExport;
 import sk.henrichg.phoneprofiles.PPShortcutForExport;
 import sk.henrichg.phoneprofilesplus.EditorEventListFragment.OnStartEventPreferences;
 import sk.henrichg.phoneprofilesplus.EditorProfileListFragment.OnStartProfilePreferences;
-
-//import me.drakeet.support.toast.ToastCompat;
 
 public class EditorProfilesActivity extends AppCompatActivity
                                     implements OnStartProfilePreferences,
@@ -661,10 +658,13 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
         //PPApplication.logE("[APP_START] EditorProfilesActivity.showNotStartedToast", "xxx");
-        boolean applicationStarted = PPApplication.getApplicationStarted(true);
-        boolean fullyStarted = PPApplication.applicationFullyStarted /*&& (!PPApplication.applicationPackageReplaced)*/;
+        PPApplication.setApplicationFullyStarted(getApplicationContext());
+        return false;
+/*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
+        boolean fullyStarted = PPApplication.applicationFullyStarted;
         if (!applicationStarted) {
             String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
             PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
@@ -684,22 +684,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
             return true;
         }
-        /*//boolean fullyStarted = true;
-        if (applicationStarted) {
-            //PhoneProfilesService instance = PhoneProfilesService.getInstance();
-            //fullyStarted = instance.getApplicationFullyStarted();
-            boolean fullyStarted = PPApplication.applicationFullyStarted;
-            applicationStarted = fullyStarted && (!PPApplication.applicationPackageReplaced);
-        }
-        if (!applicationStarted) {
-            String text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_not_started);
-            boolean fullyStarted = PPApplication.applicationFullyStarted;
-            if (!fullyStarted)
-                text = getString(R.string.ppp_app_name) + " " + getString(R.string.application_is_starting_toast);
-            PPApplication.showToast(getApplicationContext(), text, Toast.LENGTH_SHORT);
-            return true;
-        }*/
-        return false;
+        return false;*/
     }
 
     private boolean startPPServiceWhenNotStarted() {

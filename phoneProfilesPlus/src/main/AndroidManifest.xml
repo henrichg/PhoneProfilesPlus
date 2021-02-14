@@ -406,13 +406,13 @@
 <!--            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"-->
 <!--            android:theme="@style/BackgroundBrightnessActivity">-->
 <!--        </activity>-->
-        <activity
-            android:name=".WorkManagerNotWorkingActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/empty_string"
-            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyAppCompatActivity">
-        </activity>
+<!--        <activity-->
+<!--            android:name=".WorkManagerNotWorkingActivity"-->
+<!--            android:excludeFromRecents="true"-->
+<!--            android:label="@string/empty_string"-->
+<!--            android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"-->
+<!--            android:theme="@style/EmptyAppCompatActivity">-->
+<!--        </activity>-->
         <activity
             android:name=".IgnoreBatteryOptimizationDisableActivity"
             android:excludeFromRecents="true"

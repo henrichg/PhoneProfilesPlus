@@ -15,6 +15,8 @@ import java.util.Set;
 
 public class MainWorker extends Worker {
 
+    static final String APPLICATION_FULLY_STARTED_WORK_TAG = "applicationFullyStartedWork";
+
     static final String GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK = "geofenceScannerSwitchGPSWork";
     static final String LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK = "lockDeviceFinishActivityWork";
     static final String LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK = "lockDeviceAfterScreenOffWork";
@@ -134,6 +136,9 @@ public class MainWorker extends Worker {
                                 ActivateProfileHelper.showError(appContext, profileName, Profile.PARAMETER_CLOSE_ALL_APPLICATION);
                             }
                         }
+                        break;
+                    case APPLICATION_FULLY_STARTED_WORK_TAG:
+                        PPApplication.setApplicationFullyStarted(appContext);
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
                         doAfterFirstStart(appContext,

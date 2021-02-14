@@ -104,7 +104,7 @@ public class PPApplication extends Application
     static boolean applicationFullyStarted = false;
 
     // this for display of alert dialog when works not started at start of app
-    static long startTimeOfApplicationStart = 0;
+    //static long startTimeOfApplicationStart = 0;
 
     static final long APPLICATION_START_DELAY = 2 * 60 * 1000;
     static final int WORK_PRUNE_DELAY_DAYS = 1;

@@ -104,7 +104,9 @@ class EventPreferencesAccessories extends EventPreferences {
                         int idx = accessoryTypeValues.indexOf(s);
                         if (idx != -1) {
                             if (!selectedAccessory.isEmpty())
+                                //noinspection StringConcatenationInLoop
                                 selectedAccessory = selectedAccessory + ", ";
+                            //noinspection StringConcatenationInLoop
                             selectedAccessory = selectedAccessory + accessoryTypeNames[idx];
                         }
                     }
@@ -165,7 +167,9 @@ class EventPreferencesAccessories extends EventPreferences {
                 for (String s : set) {
                     if (!s.isEmpty()) {
                         if (!accessoryType.isEmpty())
+                            //noinspection StringConcatenationInLoop
                             accessoryType = accessoryType + ", ";
+                        //noinspection StringConcatenationInLoop
                         accessoryType = accessoryType + accessoryTypeNames[Arrays.asList(accessoryTypeValues).indexOf(s)];
                     }
                 }

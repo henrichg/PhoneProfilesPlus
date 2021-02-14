@@ -65,7 +65,6 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -364,7 +363,25 @@ public class PhoneProfilesService extends Service
             }
         });*/
 
-        PPApplication.startTimeOfApplicationStart = Calendar.getInstance().getTimeInMillis();
+        //PPApplication.startTimeOfApplicationStart = Calendar.getInstance().getTimeInMillis();
+
+        OneTimeWorkRequest worker =
+                new OneTimeWorkRequest.Builder(MainWorker.class)
+                        .addTag(MainWorker.APPLICATION_FULLY_STARTED_WORK_TAG)
+                        .setInitialDelay(PPApplication.APPLICATION_START_DELAY, TimeUnit.MILLISECONDS)
+                        .build();
+        try {
+            if (PPApplication.getApplicationStarted(true)) {
+                WorkManager workManager = PPApplication.getWorkManagerInstance();
+                //PPApplication.logE("PhoneProfilesService.onCreate", "workManager="+workManager);
+                if (workManager != null) {
+                    workManager.enqueueUniqueWork(MainWorker.APPLICATION_FULLY_STARTED_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                }
+            }
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+
     }
 
     @Override
