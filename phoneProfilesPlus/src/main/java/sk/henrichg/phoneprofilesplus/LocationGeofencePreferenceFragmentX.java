@@ -86,7 +86,8 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
                 preference.refreshListView();
             }
             else {
-                startEditor(gid);
+                //startEditor(gid);
+                startEditorOSM(gid);
             }
 
         });
@@ -113,7 +114,8 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
         });
         */
 
-        addButton.setOnClickListener(v -> startEditor(0));
+        //addButton.setOnClickListener(v -> startEditor(0));
+        addButton.setOnClickListener(v -> startEditorOSM(0));
 
         final Button unselectAllButton = view.findViewById(R.id.location_pref_dlg_unselectAll);
         if (preference.onlyEdit == 0) {
@@ -231,6 +233,24 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
         }
     }
 
+    private void startEditorOSM(long geofenceId) {
+        if (getActivity() != null) {
+            Intent intent = new Intent(prefContext, LocationGeofenceEditorActivityOSM.class);
+            intent.putExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, geofenceId);
+
+            // is not possible to get activity from preference, used is static method
+            /*if (preference.onlyEdit == 0) {
+                //EventPrefsFragment.setChangedLocationGeofencePreference(this);
+                getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
+            } else {
+                //PhoneProfilesPrefsFragment.setChangedLocationGeofencePreference(this);
+                getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
+            }*/
+            //noinspection deprecation
+            getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
+        }
+    }
+
     public void showEditMenu(View view)
     {
         //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
@@ -247,7 +267,8 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
         popup.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.location_geofence_pref_item_menu_edit) {
-                startEditor(geofenceId);
+                //startEditor(geofenceId);
+                startEditorOSM(geofenceId);
                 return true;
             }
             else

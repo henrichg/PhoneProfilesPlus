@@ -1945,6 +1945,41 @@ class Permissions {
         //    return true;
     }
 
+    static boolean grantLocationGeofenceEditorPermissionsOSM(Context context, LocationGeofenceEditorActivityOSM activity) {
+        //if (android.os.Build.VERSION.SDK_INT >= 23) {
+        boolean granted = checkLocation(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                //if (Build.VERSION.SDK_INT >= 29)
+                //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                activity.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY);
+                //bluetoothNamePreference = null;
+                //wifiSSIDPreference = null;
+                //locationGeofenceEditorActivity = activity;
+                //mobileCellsPreference = null;
+                //mobileCellsRegistrationDialogPreference = null;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
+        //}
+        //else
+        //    return true;
+    }
+
     static boolean grantMobileCellsDialogPermissions(Context context) {
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkLocation(context);
