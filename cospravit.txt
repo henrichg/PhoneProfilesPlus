@@ -663,3 +663,13 @@ Ostatne daj to, co ti vrati databaza. Lebo nevies, co to je.
 
 ----------------------------
 
+- Klik na mapu nasatvi suradnice editovaneho geofence bodu.
+- Da sa zoomovat prstami mapa.
+- Da sa presuvat mapa prstom.
+- Zobrazuje dva body:
+  - modry - aktualna poloha
+  - oranzovy - poloha editovaneho geofence bodu
+- Kazdy bod ma aj kruh, polomer (zisti, ci nie priememr) je dany:
+  - pri aktualnej polohe - accuracy lokacie
+  - pri edditovanom geofence bede - zadany polomer dole pod mapou
+- Mapa moze byt svetla a tmava podla aktualnej temy.
