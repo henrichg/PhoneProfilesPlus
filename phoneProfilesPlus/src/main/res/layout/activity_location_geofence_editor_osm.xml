@@ -199,16 +199,14 @@
             android:ellipsize="end"
             android:maxLines="1"/>
 
-        <androidx.fragment.app.FragmentContainerView
+        <org.osmdroid.views.MapView
             android:id="@+id/location_editor_map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/location_editor_address_text"
             android:layout_alignParentTop="true"
             tools:context="sk.henrichg.phoneprofilesplus.LocationGeofenceEditorActivityOSM"
-            xmlns:map="http://schemas.android.com/apk/res-auto"
-            map:cameraZoom="15" />
+            />
 
     </RelativeLayout>
 
