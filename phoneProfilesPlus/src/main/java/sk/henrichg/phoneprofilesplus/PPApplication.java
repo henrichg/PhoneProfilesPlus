@@ -102,6 +102,7 @@ public class PPApplication extends Application
     private static WorkManager workManagerInstance;
 
     static boolean applicationFullyStarted = false;
+    static boolean applicationFullyStartedShowToast = false;
 
     // this for display of alert dialog when works not started at start of app
     //static long startTimeOfApplicationStart = 0;
@@ -822,6 +823,7 @@ public class PPApplication extends Application
             return;
 
         applicationFullyStarted = false;
+        applicationFullyStartedShowToast = false;
         instance = this;
 
         PPApplication.logE("##### PPApplication.onCreate", "xxx");
@@ -1288,10 +1290,12 @@ public class PPApplication extends Application
 
         updateGUI(0/*appContext, true, true*/);
 
-        if (!oldApplicationFullyStarted) {
+        if (!oldApplicationFullyStarted && applicationFullyStartedShowToast) {
             String text = context.getString(R.string.ppp_app_name) + " " + context.getString(R.string.application_is_started_toast);
             showToast(appContext, text, Toast.LENGTH_SHORT);
         }
+
+        applicationFullyStartedShowToast = false;
     }
 
     //--------------------------------------------------------------
