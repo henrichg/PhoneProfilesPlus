@@ -698,4 +698,4 @@ Co treba v osmdroid:
 - zobrazit na mape znacku geofence oranzovou farbou
 - zobrazit kruh accuracy aktualnej polohy - modrou farbou
 - zobrazit kruh znacky geofence s nastavenym polomerom - oranzovou farbou
-
+- Tmava tema mapy
