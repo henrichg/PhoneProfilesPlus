@@ -1197,7 +1197,7 @@ public class PPApplication extends Application
         cancelWork(GeofenceScanWorker.WORK_TAG, false);
         cancelWork(GeofenceScanWorker.WORK_TAG_SHORT, false);
         cancelWork(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK, false);
-        cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG, false);
+        //cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG, false);
         cancelWork(LocationGeofenceEditorActivityOSM.FETCH_ADDRESS_WORK_TAG_OSM, false);
         if (atStart)
             cancelWork(MainWorker.LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK, false);

@@ -308,10 +308,6 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
-            android:name=".LocationGeofenceEditorActivity"
-            android:label="@string/location_editor_title">
-        </activity>
-        <activity
             android:name=".LocationGeofenceEditorActivityOSM"
             android:label="@string/location_editor_title">
         </activity>

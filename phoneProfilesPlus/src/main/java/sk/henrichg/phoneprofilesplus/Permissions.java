@@ -1910,6 +1910,7 @@ class Permissions {
         //    return true;
     }
 
+    /*
     static boolean grantLocationGeofenceEditorPermissions(Context context, LocationGeofenceEditorActivity activity) {
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             boolean granted = checkLocation(context);
@@ -1944,6 +1945,7 @@ class Permissions {
         //else
         //    return true;
     }
+    */
 
     static boolean grantLocationGeofenceEditorPermissionsOSM(Context context, LocationGeofenceEditorActivityOSM activity) {
         //if (android.os.Build.VERSION.SDK_INT >= 23) {

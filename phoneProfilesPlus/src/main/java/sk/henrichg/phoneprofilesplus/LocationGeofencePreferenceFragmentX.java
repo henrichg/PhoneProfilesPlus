@@ -215,23 +215,25 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
         }
     }
 
+    /*
     private void startEditor(long geofenceId) {
         if (getActivity() != null) {
             Intent intent = new Intent(prefContext, LocationGeofenceEditorActivity.class);
             intent.putExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, geofenceId);
 
             // is not possible to get activity from preference, used is static method
-            /*if (preference.onlyEdit == 0) {
-                //EventPrefsFragment.setChangedLocationGeofencePreference(this);
-                getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
-            } else {
-                //PhoneProfilesPrefsFragment.setChangedLocationGeofencePreference(this);
-                getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
-            }*/
+            //if (preference.onlyEdit == 0) {
+            //    //EventPrefsFragment.setChangedLocationGeofencePreference(this);
+            //    getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
+            //} else {
+            //    //PhoneProfilesPrefsFragment.setChangedLocationGeofencePreference(this);
+            //    getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
+            //}
             //noinspection deprecation
             getActivity().startActivityForResult(intent, LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR);
         }
     }
+    */
 
     private void startEditorOSM(long geofenceId) {
         if (getActivity() != null) {
