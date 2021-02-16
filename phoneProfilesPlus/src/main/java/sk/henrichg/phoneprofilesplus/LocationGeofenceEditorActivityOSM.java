@@ -46,21 +46,6 @@ import org.osmdroid.views.overlay.MapEventsOverlay;
 
 import java.math.BigDecimal;
 
-/*
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MapStyleOptions;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-*/
-//import org.osmdroid.config.Configuration;
-
 public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationCallback mLocationCallback;
@@ -181,13 +166,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             geofence._radius = 100;
         }
 
-        /*
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.location_editor_map);
-        //noinspection ConstantConditions
-        mapFragment.getMapAsync(this);
-        */
         mMap = (MapView) findViewById(R.id.location_editor_map);
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
@@ -449,48 +427,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-/*    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        if (mMap != null) {
-            int nightModeFlags =
-                    this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-            switch (nightModeFlags) {
-                case Configuration.UI_MODE_NIGHT_YES:
-                    mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_dark));
-                    break;
-                case Configuration.UI_MODE_NIGHT_NO:
-                case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                    mMap.setMapStyle(null);
-                    break;
-            }
-
-            mMap.getUiSettings().setMapToolbarEnabled(false);
-            updateEditedMarker(true);
-
-            mMap.setOnMapClickListener(point -> {
-                //Log.d("Map", "Map clicked");
-                if (mLocation == null)
-                    mLocation = new Location("LOC");
-                mLocation.setLatitude(point.latitude);
-                mLocation.setLongitude(point.longitude);
-                refreshActivity(false);
-            });
-        }
-        //else {
-        //    PPApplication.logE("LocationGeofenceEditorActivityOSM.onMapReady", "mMap==null");
-        //}
-    }
- */
     private void updateEditedMarker(boolean setMapCamera) {
         if (mMap != null) {
 
@@ -815,30 +751,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     private boolean isSmaller(BigDecimal number) {
         return number.compareTo(BigDecimal.valueOf(MIN_RADIUS)) < 0;
     }
-
-    /*
-    private double getCircleZoomValue(double latitude, double longitude, double radius,
-                                     double minZoom, double maxZoom) {
-        LatLng position = new LatLng(latitude, longitude);
-        float currZoom = (minZoom + maxZoom) / 2;
-        CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(position, currZoom);
-        mMap.moveCamera(camera);
-        float[] results = new float[1];
-        LatLng topLeft = mMap.getProjection().getVisibleRegion().farLeft;
-        LatLng topRight = mMap.getProjection().getVisibleRegion().farRight;
-        Location.distanceBetween(topLeft.latitude, topLeft.longitude, topRight.latitude,
-                topRight.longitude, results);
-        // Difference between visible width in meters and 2.5 * radius.
-        double delta = results[0] - 2.5 * radius;
-        double accuracy = 10; // 10 meters.
-        if (delta < -accuracy)
-            return getCircleZoomValue(latitude, longitude, radius, minZoom, currZoom);
-        else if (delta > accuracy)
-            return getCircleZoomValue(latitude, longitude, radius, currZoom, maxZoom);
-        else
-            return currZoom;
-    }
-    */
 
     private int getParallelLength(double atLatitude)
     {
