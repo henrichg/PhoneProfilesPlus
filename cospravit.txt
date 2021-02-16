@@ -663,6 +663,7 @@ Ostatne daj to, co ti vrati databaza. Lebo nevies, co to je.
 
 ----------------------------
 
+Ako to funguje s Google Mapami:
 - Klik na mapu nasatvi suradnice editovaneho geofence bodu.
 - Da sa zoomovat prstami mapa.
 - Da sa presuvat mapa prstom.
@@ -673,3 +674,22 @@ Ostatne daj to, co ti vrati databaza. Lebo nevies, co to je.
   - pri aktualnej polohe - accuracy lokacie
   - pri edditovanom geofence bede - zadany polomer dole pod mapou
 - Mapa moze byt svetla a tmava podla aktualnej temy.
+
+Co treba v osmdroid:
+- zmenit v activity_location_geofence_editor_osm.xml zmenit
+  androidx.fragment.app.FragmentContainerView na
+  org.osmdroid.views.MapView
+- zmenit vsetky inicializacie a deklaracie com.google.android.gms.* na
+  org.osmdroid.*
+- zinicializovat osmdroid
+- nastavit cache na PPP adresar v internom storage, aby nebolo treba
+  android.permission.WRITE_EXTERNAL_STORAGE
+- zakazat moznost rotacie osm mapy
+- umoznit presuvat mapu prstom
+- umoznit zmenu zoomu pinch-to-zoom systemom
+- zobrazit na mape znacku s aktualnou polohou - modou farbou
+- zobrazit na mape znacku geofence oranzovou farbou
+- zobrazit kruh accuracy aktualnej polohy - modrou farbou
+- zobrazit kruh znacky geofence s nastavenym polomerom - oranzovou farbou
+- umoznit kliknutim na mapu presunut znacky geofence
+
