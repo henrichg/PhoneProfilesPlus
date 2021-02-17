@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.content.ContextCompat;
@@ -436,24 +437,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         if (mMap != null) {
 
             if (mLastLocation != null) {
-                /*LatLng lastLocationGeofence = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                if (lastLocationRadius == null) {
-                    float radius = mLastLocation.getAccuracy();
-                    if (radius < 0) radius = 0;
-                    lastLocationRadius = mMap.addCircle(new CircleOptions()
-                            .center(lastLocationGeofence)
-                            .radius(radius)
-                            .strokeColor(ContextCompat.getColor(this, R.color.map_last_location_marker_stroke))
-                            .fillColor(ContextCompat.getColor(this, R.color.map_last_location_marker_fill))
-                            .strokeWidth(5)
-                            .zIndex(1));
-                } else {
-                    float radius = mLastLocation.getAccuracy();
-                    if (radius < 0) radius = 0;
-                    lastLocationRadius.setRadius(radius);
-                    lastLocationRadius.setCenter(lastLocationGeofence);
-                }*/
-
                 if (currentLocationOverlay != null) {
                     mMap.getOverlays().remove(currentLocationOverlay);
                     //mMap.invalidate();
@@ -466,28 +449,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             }
 
             if (mLocation != null) {
-                /*LatLng editedGeofence = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-                if (editedMarker == null) {
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(editedGeofence);
-                    editedMarker = mMap.addMarker(markerOptions);
-                } else
-                    editedMarker.setPosition(editedGeofence);
-                editedMarker.setTitle(geofenceNameEditText.getText().toString());
-
-                if (editedRadius == null) {
-                    editedRadius = mMap.addCircle(new CircleOptions()
-                            .center(editedGeofence)
-                            .radius(geofence._radius)
-                            .strokeColor(ContextCompat.getColor(this, R.color.map_edited_location_marker_stroke))
-                            .fillColor(ContextCompat.getColor(this, R.color.map_edited_location_marker_fill))
-                            .strokeWidth(5)
-                            .zIndex(2));
-                } else {
-                    editedRadius.setRadius(geofence._radius);
-                    editedRadius.setCenter(editedGeofence);
-                }*/
-
                 if (geofenceOverlay != null) {
                     mMap.getOverlays().remove(geofenceOverlay);
                     //mMap.invalidate();
@@ -503,9 +464,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 }
                 editedMarker = new Marker(mMap);
                 editedMarker.setPosition(new GeoPoint(mLocation));
-                //editedMarker.setIcon(AppCompatResources.getDrawable(this, R.drawable.ic_profile_default));
-                editedMarker.setDefaultIcon();
-                //editedMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                editedMarker.setIcon(AppCompatResources.getDrawable(this, R.drawable.ic_edited_location_marker));
+                //editedMarker.setDefaultIcon();
+                editedMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                 editedMarker.setTitle(geofenceNameEditText.getText().toString());
                 mMap.getOverlays().add(editedMarker);
 
@@ -514,26 +475,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
 
                 if (setMapCamera) {
-                    /*if (editedRadius != null) {
-                        try {
-                            float zoom = getCircleZoomValue(mLocation.getLatitude(), mLocation.getLongitude(), geofence._radius,
-                                    mMap.getMinZoomLevel(), mMap.getMaxZoomLevel());
-                            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "zoom=" + zoom);
-                            if (zoom > 16)
-                                zoom = 16;
-                            mMap.animateCamera(CameraUpdateFactory.zoomTo(zoom));//, 1000, null);
-                        } catch (StackOverflowError e) {
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
-                        }
-                    } else {
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(editedGeofence));
-                    }*/
-
                     IMapController mapController = mMap.getController();
                     try {
-                        //double zoom = getCircleZoomValue(geofence._latitude, geofence._longitude, /*geofence._radius*/ 200,
-                        //        mMap.getMinZoomLevel(), mMap.getMaxZoomLevel());
-
                         DisplayMetrics metrics = getResources().getDisplayMetrics();
                         int mapWidth = Math.round(mMap.getWidth() / metrics.scaledDensity);
                         double zoom = calcZoom(geofence._radius * 2, mapWidth, mLocation.getLatitude());
@@ -542,17 +485,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                         if (zoom > 20f)
                             zoom = 20f;
                         mapController.setZoom(zoom);
-
-                        /*
-                        double nord = 0, sud = 0, ovest = 0, est = 0;
-                        nord = geofence._latitude - (geofence._radius + 50);
-                        est = geofence._longitude - (geofence._radius + 50);
-                        sud = geofence._latitude + (geofence._radius + 50);
-                        ovest = geofence._longitude + (geofence._radius + 50);
-
-                        BoundingBox boundingBox = new BoundingBox(nord, est, sud, ovest);
-                        mMap.zoomToBoundingBox(boundingBox, true);
-                         */
 
                         GeoPoint startPoint = new GeoPoint(mLocation.getLatitude(), mLocation.getLongitude());
                         mapController.setCenter(startPoint);
