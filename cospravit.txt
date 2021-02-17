@@ -679,23 +679,16 @@ Co treba v osmdroid:
 - zmenit v activity_location_geofence_editor_osm.xml zmenit - HOTOVO
   androidx.fragment.app.FragmentContainerView na
   org.osmdroid.views.MapView
-
 - zmenit vsetky inicializacie a deklaracie com.google.android.gms.* na org.osmdroid.* - HOTOVO
-
-- zinicializovat osmdroid - HOTOVO ???
-
+- zinicializovat osmdroid - HOTOVO
 - nastavit cache na PPP adresar v internom storage, aby nebolo treba android.permission.WRITE_EXTERNAL_STORAGE - HOTOVO
-
 - umoznit kliknutim na mapu presunut znacky geofence - HOTOVO
-
 - zakazat moznost rotacie osm mapy - HOTOVO
-
 - umoznit presuvat mapu prstom - HOTOVO
-
 - umoznit zmenu zoomu pinch-to-zoom systemom - HOTOVO
+- zobrazit na mape znacku s aktualnou polohou - modou farbou - HOTOVO
+- zobrazit na mape znacku geofence oranzovou farbou - HOTOVO
+- zobrazit kruh accuracy aktualnej polohy - modrou farbou - HOTOVO
+- zobrazit kruh znacky geofence s nastavenym polomerom - oranzovou farbou - HOTOVO
 
-- zobrazit na mape znacku s aktualnou polohou - modou farbou
-- zobrazit na mape znacku geofence oranzovou farbou
-- zobrazit kruh accuracy aktualnej polohy - modrou farbou
-- zobrazit kruh znacky geofence s nastavenym polomerom - oranzovou farbou
 - Tmava tema mapy
