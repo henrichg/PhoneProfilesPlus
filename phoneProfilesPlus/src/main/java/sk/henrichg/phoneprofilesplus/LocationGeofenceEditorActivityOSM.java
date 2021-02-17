@@ -384,17 +384,73 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         });
 
         AppCompatImageButton myLocationButton = findViewById(R.id.location_editor_my_location);
-        TooltipCompat.setTooltipText(myLocationButton, getString(R.string.location_editor_set_to_my_location_button_tooltip));
+        TooltipCompat.setTooltipText(myLocationButton, getString(R.string.location_editor_change_location_dialog_title));
         myLocationButton.setOnClickListener(v -> {
-            getLastLocation();
-            if (mLastLocation != null)
-                mLocation = new Location(mLastLocation);
-            refreshActivity(true);
+            AlertDialog changeLocationDialog = new AlertDialog.Builder(this)
+                    .setTitle(R.string.location_editor_change_location_dialog_title)
+                    .setCancelable(true)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setItems(R.array.locationEditorChangeLocationArray, (dialog, which) -> {
+                        IMapController _mapController = mMap.getController();
+                        switch (which) {
+                            case 0:
+                                if (mLocation != null)
+                                    _mapController.setCenter(new GeoPoint(mLocation));
+                                break;
+                            case 1:
+                                if (mLastLocation != null)
+                                    _mapController.setCenter(new GeoPoint(mLastLocation));
+                                break;
+                            case 2:
+                                getLastLocation();
+                                if (mLastLocation != null)
+                                    mLocation = new Location(mLastLocation);
+                                refreshActivity(true);
+                                break;
+                            default:
+                        }
+                    })
+                    .create();
+
+//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
+
+            changeLocationDialog.show();
         });
 
         addressButton = findViewById(R.id.location_editor_address_btn);
         TooltipCompat.setTooltipText(addressButton, getString(R.string.location_editor_rename_with_address_button_tooltip));
-        addressButton.setOnClickListener(v -> getGeofenceAddress(/*true*/));
+        addressButton.setOnClickListener(v -> {
+            AlertDialog renameGeofenceDialog = new AlertDialog.Builder(this)
+                    .setTitle(R.string.location_editor_rename_with_address_button_tooltip)
+                    .setCancelable(true)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setItems(R.array.locationEditorRenameLocationArray, (dialog, which) -> {
+                        if (which == 0) {
+                            getGeofenceAddress(/*true*/);
+                        }
+                    })
+                    .create();
+
+//                    mSelectorDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
+
+            renameGeofenceDialog.show();
+        });
 
         if (geofence != null)
             mapController.setCenter(new GeoPoint(geofence._latitude, geofence._longitude));

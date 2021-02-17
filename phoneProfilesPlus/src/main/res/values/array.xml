@@ -1227,5 +1227,12 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-
+    <string-array name="locationEditorChangeLocationArray">
+        <item>@string/array_location_editor_show_geofence</item>
+        <item>@string/array_location_editor_show_actual_location</item>
+        <item>@string/array_location_editor_change_geofence_location_to_actual</item>
+    </string-array>
+    <string-array name="locationEditorRenameLocationArray">
+        <item>@string/array_location_editor_rename_geofence_with_address</item>
+    </string-array>
 </resources>
