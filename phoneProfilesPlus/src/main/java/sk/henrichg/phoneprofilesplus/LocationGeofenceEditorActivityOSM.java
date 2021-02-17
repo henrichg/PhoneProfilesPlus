@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.TilesOverlay;
 
 import java.math.BigDecimal;
 
@@ -176,6 +178,43 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         mMap.setMultiTouchControls(true);
+
+        boolean isNightMode = false;
+        String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
+        switch (applicationThene) {
+            case "white":
+                isNightMode = false;
+                break;
+            case "dark":
+                isNightMode= true;
+                break;
+            case "night_mode":
+                int nightModeFlags =
+                        getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                //if (notificationNightMode) {
+                switch (nightModeFlags) {
+                    case Configuration.UI_MODE_NIGHT_YES:
+                        isNightMode = true;
+                        // this is possible only when device has option for set background color
+                        //if ((Build.VERSION.SDK_INT < 29) && notificationNightMode)
+                        //    notificationTextColor = "2";
+                        break;
+                    case Configuration.UI_MODE_NIGHT_NO:
+                        isNightMode = false;
+                        // this is possible only when device has option for set background color
+                        //if ((Build.VERSION.SDK_INT < 29) && notificationNightMode)
+                        //    notificationTextColor = "1";
+                        break;
+                    case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                        break;
+                }
+                break;
+        }
+        if (isNightMode)
+            mMap.getOverlayManager().getTilesOverlay().setColorFilter(TilesOverlay.INVERT_COLORS);
+        else
+            mMap.getOverlayManager().getTilesOverlay().setColorFilter(null);
+
         IMapController mapController = mMap.getController();
         mapController.setZoom(15f);
         mMap.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
@@ -467,7 +506,13 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 editedMarker.setIcon(AppCompatResources.getDrawable(this, R.drawable.ic_edited_location_marker));
                 //editedMarker.setDefaultIcon();
                 editedMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                editedMarker.setTitle(geofenceNameEditText.getText().toString());
+                //editedMarker.setTitle(geofenceNameEditText.getText().toString());
+                editedMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                    @Override
+                    public boolean onMarkerClick(Marker marker, MapView mapView) {
+                        return false;
+                    }
+                });
                 mMap.getOverlays().add(editedMarker);
 
                 mMap.invalidate();

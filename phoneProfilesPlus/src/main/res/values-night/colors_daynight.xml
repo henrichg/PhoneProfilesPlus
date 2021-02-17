@@ -50,12 +50,8 @@
     <color name="sensor_pass_status_not_passed">#FFffb000</color>
     <color name="sensor_pass_status_waiting">#FF0060FF</color>
 
-<!--    <color name="map_edited_location_marker_stroke">#FFE99B7F</color>-->
-<!--    <color name="map_edited_location_marker_fill">#77E99B7F</color>-->
-<!--    <color name="map_last_location_marker_stroke">#FF84d2ef</color>-->
-<!--    <color name="map_last_location_marker_fill">#7784d2ef</color>-->
-    <color name="map_edited_location_marker_stroke">#FFDC8160</color>
-    <color name="map_edited_location_marker_fill">#77DC8160</color>
+    <color name="map_edited_location_marker_stroke">#FFE99B7F</color>
+    <color name="map_edited_location_marker_fill">#77E99B7F</color>
     <color name="map_last_location_marker_stroke">#FF84d2ef</color>
     <color name="map_last_location_marker_fill">#7784d2ef</color>
 
