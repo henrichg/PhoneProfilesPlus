@@ -229,7 +229,7 @@ public class PPApplication extends Application
                                                 //+"|ContactsCache.getContactList"
                                                 //+"|ContactGroupsCache.getContactGroupListX"
 
-                                                +"|LocationGeofenceEditorActivityOSM"
+                                                //+"|LocationGeofenceEditorActivityOSM"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

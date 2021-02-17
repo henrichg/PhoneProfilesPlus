@@ -220,7 +220,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         mMap.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint point) {
-                PPApplication.logE("LocationGeofenceEditorActivityOSM.singleTapConfirmedHelper", "Map clicked");
+//                PPApplication.logE("LocationGeofenceEditorActivityOSM.singleTapConfirmedHelper", "Map clicked");
                 if (mLocation == null)
                     mLocation = new Location("LOC");
                 mLocation.setLatitude(point.getLatitude());
@@ -475,9 +475,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        PPApplication.logE("LocationGeofenceEditorActivityOSM.onStart", "getLastLocation");
+//        PPApplication.logE("LocationGeofenceEditorActivityOSM.onStart", "getLastLocation");
         getLastLocation();
-        PPApplication.logE("LocationGeofenceEditorActivityOSM.onStart", "startLocationUpdates");
+//        PPApplication.logE("LocationGeofenceEditorActivityOSM.onStart", "startLocationUpdates");
         startLocationUpdates();
     }
 
@@ -501,7 +501,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         try {
-            PPApplication.logE("LocationGeofenceEditorActivityOSM.onResume", "xxx");
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.onResume", "xxx");
             startLocationUpdates();
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -525,7 +525,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
-            PPApplication.logE("LocationGeofenceEditorActivityOSM.onActivityResult", "xxx");
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.onActivityResult", "xxx");
             getLastLocation();
         }
     }
@@ -578,7 +578,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                         DisplayMetrics metrics = getResources().getDisplayMetrics();
                         int mapWidth = Math.round(mMap.getWidth() / metrics.scaledDensity);
                         double zoom = calcZoom(geofence._radius * 2, mapWidth, mLocation.getLatitude());
-                        PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "zoom=" + zoom);
+//                        PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "zoom=" + zoom);
 
                         if (zoom > 20f)
                             zoom = 20f;
@@ -721,7 +721,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
         OneTimeWorkRequest fetchAddressWorkerOSM =
                 new OneTimeWorkRequest.Builder(FetchAddressWorkerOSM.class)
-                        .addTag(LocationGeofenceEditorActivityOSM.FETCH_ADDRESS_WORK_TAG_OSM)
+                        .addTag(FETCH_ADDRESS_WORK_TAG_OSM)
                         .setInputData(workData)
                         //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
                         .build();
@@ -743,7 +743,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
 //                    PPApplication.logE("[WORKER_CALL] LocationGeofenceEditorActivityOSM.startIntentService", "xxx");
                     //workManager.enqueue(fetchAddressWorkerOSM);
-                    workManager.enqueueUniqueWork(LocationGeofenceEditorActivityOSM.FETCH_ADDRESS_WORK_TAG_OSM, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, fetchAddressWorkerOSM);
+                    workManager.enqueueUniqueWork(FETCH_ADDRESS_WORK_TAG_OSM, ExistingWorkPolicy./*APPEND_OR_*/REPLACE, fetchAddressWorkerOSM);
 
                     workManager.getWorkInfoByIdLiveData(fetchAddressWorkerOSM.getId())
                             .observe(this, workInfo -> {
@@ -765,7 +765,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                                         // Display the address string
                                         // or an error message sent from the intent service.
                                         String addressOutput = outputData.getString(RESULT_DATA_KEY);
-                                        PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
+//                                        PPApplication.logE("LocationGeofenceEditorActivityOSM.getWorkInfoByIdLiveData", "addressOutput=" + addressOutput);
 
                                         addressText.setText(addressOutput);
 
