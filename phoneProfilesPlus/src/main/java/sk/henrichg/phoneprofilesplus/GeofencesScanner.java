@@ -564,7 +564,7 @@ class GeofencesScanner
                         locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
                         locationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
 
-                        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(appContext);
                         if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
                             //PPApplication.logE("##### GeofenceScanner.createLocationRequest","PRIORITY_BALANCED_POWER_ACCURACY");
                             locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);

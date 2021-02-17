@@ -396,7 +396,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         TooltipCompat.setTooltipText(addressButton, getString(R.string.location_editor_rename_with_address_button_tooltip));
         addressButton.setOnClickListener(v -> getGeofenceAddress(/*true*/));
 
-        updateEditedMarker(true);
+        if (geofence != null)
+            mapController.setCenter(new GeoPoint(geofence._latitude, geofence._longitude));
     }
 
     @Override
@@ -417,6 +418,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
         PPApplication.logE("LocationGeofenceEditorActivityOSM.onStart", "getLastLocation");
         getLastLocation();
         PPApplication.logE("LocationGeofenceEditorActivityOSM.onStart", "startLocationUpdates");
@@ -507,12 +509,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 //editedMarker.setDefaultIcon();
                 editedMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                 //editedMarker.setTitle(geofenceNameEditText.getText().toString());
-                editedMarker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-                    @Override
-                    public boolean onMarkerClick(Marker marker, MapView mapView) {
-                        return false;
-                    }
-                });
+                editedMarker.setOnMarkerClickListener((marker, mapView) -> false);
                 mMap.getOverlays().add(editedMarker);
 
                 mMap.invalidate();
@@ -1082,8 +1079,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         return zoom256 + x + 2f;
     }
 
-
-
     public class LocationGeofenceEditorOnlineStatusBroadcastReceiver extends BroadcastReceiver
     {
         @Override
@@ -1118,4 +1113,5 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 refreshActivity(CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext()));
         }
     }
+
 }
