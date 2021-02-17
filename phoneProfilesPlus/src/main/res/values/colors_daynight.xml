@@ -51,7 +51,7 @@
 
     <color name="map_edited_location_marker_stroke">#FFDC8160</color>
     <color name="map_edited_location_marker_fill">#77DC8160</color>
-    <color name="map_last_location_marker_stroke">#FF84d2ef</color>
-    <color name="map_last_location_marker_fill">#7784d2ef</color>
+    <color name="map_last_location_marker_stroke">#FF76b8d1</color>
+    <color name="map_last_location_marker_fill">#7776b8d1</color>
 
 </resources>
