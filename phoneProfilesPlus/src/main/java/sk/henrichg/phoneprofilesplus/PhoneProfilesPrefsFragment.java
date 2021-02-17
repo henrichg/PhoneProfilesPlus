@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -203,6 +204,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
     }
 
+    @SuppressLint("BatteryLife")
     @SuppressWarnings("deprecation")
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -754,9 +756,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null) {
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 preference.setOnPreferenceClickListener(preference18 -> {
-                    //PowerManager pm = (PowerManager) getActivity().getApplicationContext().getSystemService(Context.POWER_SERVICE);
-                    //String packageName = getActivity().getApplicationContext().PPApplication.PACKAGE_NAME;
-                    //if (pm.isIgnoringBatteryOptimizations(packageName)) {
+                    PowerManager pm = (PowerManager) getActivity().getApplicationContext().getSystemService(Context.POWER_SERVICE);
+                    String packageName = PPApplication.PACKAGE_NAME;
+                    if (pm.isIgnoringBatteryOptimizations(packageName)) {
                         boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext())) {
                             try {
@@ -789,7 +791,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             if (!getActivity().isFinishing())
                                 dialog.show();
                         }
-                    /*} else {
+                    } else {
                         boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, getActivity().getApplicationContext())) {
                             try {
@@ -820,7 +822,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             if (!getActivity().isFinishing())
                                 dialog.show();
                         }
-                    }*/
+                    }
                     return false;
                 });
             }

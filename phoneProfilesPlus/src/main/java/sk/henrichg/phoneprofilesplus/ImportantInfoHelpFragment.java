@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -46,7 +47,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         return inflater.inflate(R.layout.important_info_fragment_important_info, container, false);
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "BatteryLife"})
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -447,9 +448,9 @@ public class ImportantInfoHelpFragment extends Fragment {
 
                 TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
                 infoText10a.setOnClickListener(v -> {
-                    //PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    //String packageName = context.PPApplication.PACKAGE_NAME;
-                    //if (pm.isIgnoringBatteryOptimizations(packageName)) {
+                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    String packageName = PPApplication.PACKAGE_NAME;
+                    if (pm.isIgnoringBatteryOptimizations(packageName)) {
                         boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context)) {
                             try {
@@ -482,7 +483,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                             if (!activity.isFinishing())
                                 dialog.show();
                         }
-                    /*} else {
+                    } else {
                         boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, context)) {
                             try {
@@ -513,7 +514,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                             if (!activity.isFinishing())
                                 dialog.show();
                         }
-                    }*/
+                    }
                 });
             //}
         //}
