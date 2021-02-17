@@ -21,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
 import androidx.work.Data;
@@ -43,6 +44,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MapEventsOverlay;
+import org.osmdroid.views.overlay.Marker;
 
 import java.math.BigDecimal;
 
@@ -54,6 +56,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     //private Circle editedRadius;
     //private Circle lastLocationRadius;
     private MapView mMap = null;
+    private CurrentLocationOverlayOSM currentLocationOverlay = null;
+    private GeofenceOverlayOSM geofenceOverlay = null;
+    private Marker editedMarker = null;
 
     static final int SUCCESS_RESULT = 0;
     static final int FAILURE_RESULT = 1;
@@ -430,8 +435,8 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     private void updateEditedMarker(boolean setMapCamera) {
         if (mMap != null) {
 
-            /*if (mLastLocation != null) {
-                LatLng lastLocationGeofence = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+            if (mLastLocation != null) {
+                /*LatLng lastLocationGeofence = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
                 if (lastLocationRadius == null) {
                     float radius = mLastLocation.getAccuracy();
                     if (radius < 0) radius = 0;
@@ -447,8 +452,18 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                     if (radius < 0) radius = 0;
                     lastLocationRadius.setRadius(radius);
                     lastLocationRadius.setCenter(lastLocationGeofence);
+                }*/
+
+                if (currentLocationOverlay != null) {
+                    mMap.getOverlays().remove(currentLocationOverlay);
+                    //mMap.invalidate();
                 }
-            }*/
+                currentLocationOverlay = new CurrentLocationOverlayOSM(new GeoPoint(mLastLocation), mLastLocation.getAccuracy(),
+                        ContextCompat.getColor(this, R.color.map_last_location_marker_fill),
+                        ContextCompat.getColor(this, R.color.map_last_location_marker_stroke));
+                mMap.getOverlays().add(currentLocationOverlay);
+                mMap.invalidate();
+            }
 
             if (mLocation != null) {
                 /*LatLng editedGeofence = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
@@ -472,6 +487,30 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                     editedRadius.setRadius(geofence._radius);
                     editedRadius.setCenter(editedGeofence);
                 }*/
+
+                if (geofenceOverlay != null) {
+                    mMap.getOverlays().remove(geofenceOverlay);
+                    //mMap.invalidate();
+                }
+                geofenceOverlay = new GeofenceOverlayOSM(new GeoPoint(mLocation), geofence._radius,
+                        ContextCompat.getColor(this, R.color.map_edited_location_marker_fill),
+                        ContextCompat.getColor(this, R.color.map_edited_location_marker_stroke));
+                mMap.getOverlays().add(geofenceOverlay);
+
+                if (editedMarker != null) {
+                    mMap.getOverlays().remove(editedMarker);
+                    //mMap.invalidate();
+                }
+                editedMarker = new Marker(mMap);
+                editedMarker.setPosition(new GeoPoint(mLocation));
+                //editedMarker.setIcon(AppCompatResources.getDrawable(this, R.drawable.ic_profile_default));
+                editedMarker.setDefaultIcon();
+                //editedMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                editedMarker.setTitle(geofenceNameEditText.getText().toString());
+                mMap.getOverlays().add(editedMarker);
+
+                mMap.invalidate();
+
                 radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
 
                 if (setMapCamera) {
