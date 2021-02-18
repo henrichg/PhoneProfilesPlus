@@ -195,18 +195,34 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:layout_alignParentBottom="true"
+            android:visibility="invisible"
             android:text="@string/empty_string"
             android:ellipsize="end"
             android:maxLines="1"/>
 
-        <org.osmdroid.views.MapView
-            android:id="@+id/location_editor_map"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/location_editor_address_text"
-            android:layout_alignParentTop="true"
-            tools:context="sk.henrichg.phoneprofilesplus.LocationGeofenceEditorActivityOSM"
-            />
+            android:layout_alignParentTop="true" >
+
+            <TextView
+                android:id="@+id/location_editor_map_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:text="Map is loading..."/>
+
+            <org.osmdroid.views.MapView
+                android:id="@+id/location_editor_map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                tools:context="sk.henrichg.phoneprofilesplus.LocationGeofenceEditorActivityOSM"
+                />
+
+        </FrameLayout>
 
     </RelativeLayout>
 

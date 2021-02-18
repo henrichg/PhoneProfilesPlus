@@ -90,6 +90,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     //private TextView radiusLabel;
     private TextView radiusValue;
     private PPNumberPicker numberPicker;
+    private TextView mapIsLoading;
 
     private AlertDialog valueDialog;
 
@@ -142,12 +143,15 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             geofence._radius = 100;
         }
 
+        mapIsLoading = findViewById(R.id.location_editor_map_loading);
+
         mMap = findViewById(R.id.location_editor_map);
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
         //mMap.setMaxZoomLevel(20d);
         mMap.setMultiTouchControls(true);
         //mMap.setTilesScaledToDpi(true);
+        //mMap.getTileProvider().clearTileCache();
 
         boolean isNightMode = false;
         String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
@@ -187,7 +191,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
         IMapController mapController = mMap.getController();
         //mapController.setZoom(15f);
-        mMap.getTileProvider().clearTileCache();
 
         mMap.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
             @Override
@@ -1095,9 +1098,22 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
             if (mLocation == null) {
                 mLocation = new Location(mLastLocation);
+                if (mapIsLoading.getVisibility() != View.GONE)
+                    mapIsLoading.setVisibility(View.GONE);
+                if (mMap.getVisibility() != View.VISIBLE) {
+                    mMap.setVisibility(View.VISIBLE);
+                    addressText.setVisibility(View.VISIBLE);
+                }
                 refreshActivity(true, true);
-            } else
+            } else {
+                if (mapIsLoading.getVisibility() != View.GONE)
+                    mapIsLoading.setVisibility(View.GONE);
+                if (mMap.getVisibility() != View.VISIBLE) {
+                    mMap.setVisibility(View.VISIBLE);
+                    addressText.setVisibility(View.VISIBLE);
+                }
                 updateEditedMarker(oldLastLocation == null);
+            }
         }
 
         public void onProviderDisabled(String provider) {
