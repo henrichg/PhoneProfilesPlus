@@ -10,6 +10,8 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -32,13 +34,6 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-
 import org.osmdroid.api.IMapController;
 import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -52,12 +47,9 @@ import org.osmdroid.views.overlay.TilesOverlay;
 import java.math.BigDecimal;
 
 public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
-    private FusedLocationProviderClient mFusedLocationClient;
-    private LocationCallback mLocationCallback;
-    //private GoogleMap mMap;
-    //private Marker editedMarker;
-    //private Circle editedRadius;
-    //private Circle lastLocationRadius;
+    private LocationManager mLocationManager;
+    private boolean mListenerEnabled = false;
+
     private MapView mMap = null;
     private CurrentLocationOverlayOSM currentLocationOverlay = null;
     private GeofenceOverlayOSM geofenceOverlay = null;
@@ -74,17 +66,16 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
-    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
+    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 500;
 
     /**
      * The fastest rate for active location updates. Exact. Updates will never be more frequent
      * than this value.
      */
-    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
+    //private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
 
-    private Location mLastLocation;
-    private Location mLocation;
-    private LocationRequest mLocationRequest;
+    private Location mLastLocation = null;
+    private Location mLocation = null;
 
     private long geofenceId;
     private Geofence geofence;
@@ -134,29 +125,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
         //mResultReceiver = new AddressResultReceiver(new Handler(getMainLooper()));
 
-        mLocationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-//                PPApplication.logE("LocationGeofenceEditorActivityOSM.LocationCallback","xxx");
-                if (locationResult == null) {
-                    return;
-                }
-
-                for (Location location : locationResult.getLocations()) {
-                    mLastLocation = location;
-//                    PPApplication.logE("LocationGeofenceEditorActivityOSM.LocationCallback","location="+location);
-
-                    if (mLocation == null) {
-                        mLocation = new Location(mLastLocation);
-                        refreshActivity(true);
-                    } else
-                        updateEditedMarker(false);
-                }
-            }
-        };
-
-        createLocationRequest();
-
         Intent intent = getIntent();
         geofenceId = intent.getLongExtra(LocationGeofencePreferenceX.EXTRA_GEOFENCE_ID, 0);
 
@@ -174,10 +142,12 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             geofence._radius = 100;
         }
 
-        mMap = (MapView) findViewById(R.id.location_editor_map);
+        mMap = findViewById(R.id.location_editor_map);
         mMap.setTileSource(TileSourceFactory.MAPNIK);
         mMap.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
+        //mMap.setMaxZoomLevel(20d);
         mMap.setMultiTouchControls(true);
+        //mMap.setTilesScaledToDpi(true);
 
         boolean isNightMode = false;
         String applicationThene = ApplicationPreferences.applicationTheme(getApplicationContext(), false);
@@ -216,7 +186,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             mMap.getOverlayManager().getTilesOverlay().setColorFilter(null);
 
         IMapController mapController = mMap.getController();
-        mapController.setZoom(15f);
+        //mapController.setZoom(15f);
+        mMap.getTileProvider().clearTileCache();
+
         mMap.getOverlays().add(new MapEventsOverlay(new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint point) {
@@ -225,7 +197,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                     mLocation = new Location("LOC");
                 mLocation.setLatitude(point.getLatitude());
                 mLocation.setLongitude(point.getLongitude());
-                refreshActivity(false);
+                refreshActivity(true, false);
 
                 return true;
             }
@@ -402,10 +374,10 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                                     _mapController.setCenter(new GeoPoint(mLastLocation));
                                 break;
                             case 2:
-                                getLastLocation();
+                                //getLastLocation();
                                 if (mLastLocation != null)
                                     mLocation = new Location(mLastLocation);
-                                refreshActivity(true);
+                                refreshActivity(true, true);
                                 break;
                             default:
                         }
@@ -460,12 +432,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         GlobalGUIRoutines.lockScreenOrientation(this, true);
-        try {
-            int version = GoogleApiAvailability.getInstance().getApkVersion(this.getApplicationContext());
-            PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION, version);
-        } catch (Exception e) {
-            //PPApplication.recordException(e);
-        }
 
         if (checkOnlineStatusBroadcatReceiver == null) {
             checkOnlineStatusBroadcatReceiver = new LocationGeofenceEditorOnlineStatusBroadcastReceiver();
@@ -473,12 +439,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".LocationGeofenceEditorOnlineStatusBroadcastReceiver"));
         }
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-//        PPApplication.logE("LocationGeofenceEditorActivityOSM.onStart", "getLastLocation");
-        getLastLocation();
 //        PPApplication.logE("LocationGeofenceEditorActivityOSM.onStart", "startLocationUpdates");
         startLocationUpdates();
+        refreshActivity(false, false);
     }
 
     @Override
@@ -526,8 +491,25 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.onActivityResult", "xxx");
-            getLastLocation();
+            startLocationUpdates();
         }
+    }
+
+    private double calcZoom() {
+        double zoom;
+        if (mLocation == null)
+            zoom = 15f;
+        else {
+            DisplayMetrics metrics = getResources().getDisplayMetrics();
+            int mapWidth = Math.round(mMap.getWidth() / metrics.scaledDensity);
+            zoom = calcZoom(geofence._radius * 2, mapWidth, mLocation.getLatitude());
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "zoom=" + zoom);
+
+            if (zoom > 20f)
+                zoom = 20f;
+        }
+
+        return zoom;
     }
 
     private void updateEditedMarker(boolean setMapCamera) {
@@ -568,21 +550,12 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 editedMarker.setOnMarkerClickListener((marker, mapView) -> false);
                 mMap.getOverlays().add(editedMarker);
 
-                mMap.invalidate();
-
                 radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
 
                 if (setMapCamera) {
                     IMapController mapController = mMap.getController();
                     try {
-                        DisplayMetrics metrics = getResources().getDisplayMetrics();
-                        int mapWidth = Math.round(mMap.getWidth() / metrics.scaledDensity);
-                        double zoom = calcZoom(geofence._radius * 2, mapWidth, mLocation.getLatitude());
-//                        PPApplication.logE("LocationGeofenceEditorActivityOSM.updateEditedMarker", "zoom=" + zoom);
-
-                        if (zoom > 20f)
-                            zoom = 20f;
-                        mapController.setZoom(zoom);
+                        mapController.setZoom(calcZoom());
 
                         GeoPoint startPoint = new GeoPoint(mLocation.getLatitude(), mLocation.getLongitude());
                         mapController.setCenter(startPoint);
@@ -591,6 +564,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                         mapController.setCenter(startPoint);
                     }
                 }
+
+                mMap.invalidate();
+                mMap.postInvalidate();
             }
         }
         //else {
@@ -599,21 +575,22 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     }
     //----------------------------------------------------
 
-    private void refreshActivity(boolean setMapCamera) {
+    private void refreshActivity(boolean updateEditedMarker, boolean setMapCamera) {
         if (CheckOnlineStatusBroadcastReceiver.isOnline(getApplicationContext())) {
             boolean enableAddressButton = false;
-            if (mLocation != null) {
+            //if (mLocation != null) {
                 // Determine whether a geo-coder is available.
                 if (Geocoder.isPresent()) {
                     startIntentService(false);
                     enableAddressButton = true;
                 }
-            }
+            //}
             if (addressButton.isEnabled())
                 GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, getApplicationContext());
             String name = geofenceNameEditText.getText().toString();
 
-            updateEditedMarker(setMapCamera);
+            if (updateEditedMarker)
+                updateEditedMarker(setMapCamera);
 
             okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
         }
@@ -622,63 +599,31 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private void getLastLocation() {
-//        PPApplication.logE("LocationGeofenceEditorActivityOSM.getLastLocation", "xxx");
-        if (Permissions.grantLocationGeofenceEditorPermissionsOSM(getApplicationContext(), this)) {
-            try {
-                mFusedLocationClient.getLastLocation()
-                        .addOnSuccessListener(this, location -> {
-                            // Got last known location. In some rare situations this can be null.
-//                            PPApplication.logE("LocationGeofenceEditorActivityOSM.getLastLocation","location="+location);
-                            if (location != null) {
-                                mLastLocation = location;
-                            }
-                            if (mLastLocation == null) {
-//                                PPApplication.logE("LocationGeofenceEditorActivityOSM.getLastLocation", "startLocationUpdates");
-                                startLocationUpdates();
-                            } else if (mLocation == null)
-                                mLocation = new Location(mLastLocation);
-                            refreshActivity(true);
-                        });
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        }
-    }
-
-    private void createLocationRequest() {
-        mLocationRequest = LocationRequest.create();
-
-        // Sets the desired interval for active location updates. This interval is
-        // inexact. You may not receive updates at all if no location sources are available, or
-        // you may receive them slower than requested. You may also receive updates faster than
-        // requested if other applications are requesting location at a faster interval.
-        mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
-
-        // Sets the fastest rate for active location updates. This interval is exact, and your
-        // application will never receive updates faster than this value.
-        mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
-
-        // batched location (better for Android 8.0)
-        //mLocationRequest.setMaxWaitTime(UPDATE_INTERVAL_IN_MILLISECONDS * 4);
-
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-    }
-
-
     /**
      * Requests location updates from the FusedLocationApi.
      */
     @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
 //        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
-        if (Permissions.checkLocation(getApplicationContext())) {
-            try {
-                if (mFusedLocationClient != null)
-                    mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
+
+        boolean networkLocationEnabled;
+        try {
+            //noinspection ConstantConditions
+            networkLocationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception e) {
+            // we may get IllegalArgumentException if network location provider
+            // does not exist or is not yet installed.
+            networkLocationEnabled = false;
+        }
+        if (!mListenerEnabled && networkLocationEnabled) {
+            if (Permissions.checkLocation(getApplicationContext())) {
+                mListenerEnabled = true;
+                try {
+                    mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                            UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
             }
         }
     }
@@ -691,8 +636,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         // stopped state. Doing so helps battery performance and is especially
         // recommended in applications that request frequent location updates.
 
-        if (mFusedLocationClient != null)
-            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+        if (mListenerEnabled) {
+            if (mLocationManager != null)
+                mLocationManager.removeUpdates(mLocationListener);
+            mListenerEnabled = false;
+        }
     }
 
     private void getGeofenceAddress(/*boolean updateName*/) {
@@ -772,7 +720,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                                         if (outputData.getBoolean(UPDATE_NAME_EXTRA, false))
                                             geofenceNameEditText.setText(addressOutput);
 
-                                        updateEditedMarker(false);
+                                        //updateEditedMarker(false);
 
                                         enableAddressButton = true;
                                     }
@@ -1135,6 +1083,37 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         return zoom256 + x + 2f;
     }
 
+
+    private final LocationListener mLocationListener = new LocationListener() {
+        public void onLocationChanged(Location location) {
+//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
+
+            final Location oldLastLocation = mLastLocation;
+
+            mLastLocation = location;
+//            PPApplication.logE("LocationGeofenceEditorActivityOSM.mLocationListener.onStatusChanged","location="+location);
+
+            if (mLocation == null) {
+                mLocation = new Location(mLastLocation);
+                refreshActivity(true, true);
+            } else
+                updateEditedMarker(oldLastLocation == null);
+        }
+
+        public void onProviderDisabled(String provider) {
+//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onProviderDisabled", "xxx");
+        }
+
+        public void onProviderEnabled(String provider) {
+//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onProviderEnabled", "xxx");
+        }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onStatusChanged", "xxx");
+        }
+    };
+
+
     public class LocationGeofenceEditorOnlineStatusBroadcastReceiver extends BroadcastReceiver
     {
         @Override
@@ -1166,7 +1145,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             }
 
             if (!LocationGeofenceEditorActivityOSM.this.isFinishing())
-                refreshActivity(CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext()));
+                refreshActivity(true, CheckOnlineStatusBroadcastReceiver.isOnline(context.getApplicationContext()));
         }
     }
 
