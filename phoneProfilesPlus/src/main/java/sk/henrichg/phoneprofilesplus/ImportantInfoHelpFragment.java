@@ -450,7 +450,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                 infoText10a.setOnClickListener(v -> {
                     PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                     String packageName = PPApplication.PACKAGE_NAME;
-                    if (pm.isIgnoringBatteryOptimizations(packageName)) {
+                    if (pm.isIgnoringBatteryOptimizations(packageName) ||
+                        (!GlobalGUIRoutines.activityActionExists(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, context))) {
                         boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context)) {
                             try {

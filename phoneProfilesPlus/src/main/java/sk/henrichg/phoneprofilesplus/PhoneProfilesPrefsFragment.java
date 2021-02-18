@@ -758,7 +758,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setOnPreferenceClickListener(preference18 -> {
                     PowerManager pm = (PowerManager) getActivity().getApplicationContext().getSystemService(Context.POWER_SERVICE);
                     String packageName = PPApplication.PACKAGE_NAME;
-                    if (pm.isIgnoringBatteryOptimizations(packageName)) {
+                    if (pm.isIgnoringBatteryOptimizations(packageName) ||
+                        (!GlobalGUIRoutines.activityActionExists(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, getActivity().getApplicationContext()))) {
                         boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext())) {
                             try {
