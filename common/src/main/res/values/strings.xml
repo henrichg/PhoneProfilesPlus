@@ -1724,6 +1724,7 @@
     <string name="array_location_editor_show_actual_location">Show actual location</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
     <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
+    <string name="location_editor_map_is_loading">Map is loading...</string>
 
     <!-- **************************************************************************************** -->
 

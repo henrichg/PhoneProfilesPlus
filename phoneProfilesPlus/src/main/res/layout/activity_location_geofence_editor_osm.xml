@@ -212,7 +212,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textSize="20sp"
-                android:text="Map is loading..."/>
+                android:text="@string/location_editor_map_is_loading"/>
 
             <org.osmdroid.views.MapView
                 android:id="@+id/location_editor_map"
