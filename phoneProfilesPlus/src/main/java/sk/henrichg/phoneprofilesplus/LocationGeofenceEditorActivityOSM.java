@@ -615,16 +615,16 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     private void startLocationUpdates() {
         PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
 
-        boolean networkLocationEnabled;
+        boolean locationEnabled;
         try {
             //noinspection ConstantConditions
-            networkLocationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         } catch (Exception e) {
             // we may get IllegalArgumentException if network location provider
             // does not exist or is not yet installed.
-            networkLocationEnabled = false;
+            locationEnabled = false;
         }
-        if (!mListenerEnabled && networkLocationEnabled) {
+        if (!mListenerEnabled && locationEnabled) {
             if (Permissions.checkLocation(getApplicationContext())) {
                 mListenerEnabled = true;
                 try {

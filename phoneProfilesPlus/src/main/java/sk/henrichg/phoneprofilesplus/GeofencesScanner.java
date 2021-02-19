@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -20,8 +21,12 @@ import java.util.List;
 class GeofencesScanner
 {
     private FusedLocationProviderClient mFusedLocationClient;
-    private final GeofenceScannerCallback mLocationCallback;
+    private GeofenceScannerCallback mLocationCallback;
     private LocationRequest mLocationRequest;
+
+    private LocationManager mLocationManager;
+    private GeofenceScannerListener mLocationListener;
+    private boolean mListenerEnabled = false;
 
     final Context context;
     //private final DataWrapper dataWrapper;
@@ -39,7 +44,10 @@ class GeofencesScanner
         this.context = context;
         //dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
-        mLocationCallback = new GeofenceScannerCallback();
+        if (PPApplication.googlePlayServiceAvailable)
+            mLocationCallback = new GeofenceScannerCallback();
+        else
+            mLocationListener = new GeofenceScannerListener();
 
 //        if (lastLocation == null) {
 //            //PPApplication.logE("##### GeofenceScanner", "lastLocation update");
@@ -79,8 +87,14 @@ class GeofencesScanner
                 }*/
                 try {
                     //PPApplication.logE("##### GeofenceScanner.onConnected", "xxx2");
-                    if (mFusedLocationClient == null)
-                        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+                    if (PPApplication.googlePlayServiceAvailable) {
+                        if (mFusedLocationClient == null)
+                            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+                    }
+                    else {
+                        if (mLocationManager == null)
+                            mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+                    }
                     if (resetUseGPS)
                         useGPS = true;
 
@@ -311,19 +325,71 @@ class GeofencesScanner
             synchronized (PPApplication.geofenceScannerMutex) {
                 try {
                     if (Permissions.checkLocation(context)) {
-                        try {
-                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "xxx");
-                            createLocationRequest();
-                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mFusedLocationClient="+mFusedLocationClient);
-                            if (mFusedLocationClient != null)
-                                mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, PPApplication.handlerThreadPPScanners.getLooper());
-                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=true");
-                            mUpdatesStarted = true;
-                        } catch (SecurityException securityException) {
-                            // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
-                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
-                            mUpdatesStarted = false;
-                            return;
+                        if (PPApplication.googlePlayServiceAvailable) {
+                            try {
+                                //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "xxx");
+                                createLocationRequest();
+                                //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mFusedLocationClient="+mFusedLocationClient);
+                                if ((mFusedLocationClient != null) && (mLocationRequest != null)) {
+                                    mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, PPApplication.handlerThreadPPScanners.getLooper());
+                                    //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=true");
+                                    mUpdatesStarted = true;
+                                }
+                            } catch (SecurityException securityException) {
+                                // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+                                //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
+                                mUpdatesStarted = false;
+                                return;
+                            }
+                        } else {
+                            boolean locationEnabled;
+                            try {
+                                //noinspection ConstantConditions
+                                locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                            } catch (Exception e) {
+                                // we may get IllegalArgumentException if network location provider
+                                // does not exist or is not yet installed.
+                                locationEnabled = false;
+                            }
+
+                            if (!mListenerEnabled && locationEnabled) {
+                                try {
+                                    // check power save mode
+                                    String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode;
+                                    //boolean powerSaveMode = PPApplication.isPowerSaveMode;
+                                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                                    if (!(isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2"))) {
+
+                                        int interval = 25; // seconds
+                                        if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1)
+                                            interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / INTERVAL_DIVIDE_VALUE; // interval is in minutes
+                                        //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "ApplicationPreferences.applicationEventLocationUpdateInterval="+ApplicationPreferences.applicationEventLocationUpdateInterval);
+                                        //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "interval="+interval);
+                                        if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("1"))
+                                            interval = 2 * interval;
+                                        final long UPDATE_INTERVAL_IN_MILLISECONDS = (interval * 1000) / 2;
+
+                                        String provider;
+                                        if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
+                                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates","NETWORK_PROVIDER");
+                                            provider = LocationManager.NETWORK_PROVIDER;
+                                        } else {
+                                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates","PRIORITY_HIGH_ACCURACY");
+                                            provider = LocationManager.GPS_PROVIDER;
+                                        }
+
+                                        mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener, PPApplication.handlerThreadPPScanners.getLooper());
+                                        mListenerEnabled = true;
+
+                                        mUpdatesStarted = true;
+                                    }
+                                } catch (SecurityException securityException) {
+                                    // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+                                    //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
+                                    mUpdatesStarted = false;
+                                    return;
+                                }
+                            }
                         }
                     }
                 } catch (Exception e) {
@@ -356,14 +422,26 @@ class GeofencesScanner
 
         if (mUpdatesStarted) {
             synchronized (PPApplication.geofenceScannerMutex) {
-                try {
-                    //PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "xxx");
-                    if (mFusedLocationClient != null)
-                        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-                    //PPApplication.logE("##### GeofenceScanWorker.mUpdatesStarted=false", "from GeofenceScanner.stopLocationUpdates");
-                    mUpdatesStarted = false;
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
+                if (PPApplication.googlePlayServiceAvailable) {
+                    try {
+                        //PPApplication.logE("##### GeofenceScanner.stopLocationUpdates", "xxx");
+                        if (mFusedLocationClient != null)
+                            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+                        mUpdatesStarted = false;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                } else {
+                    if (mListenerEnabled) {
+                        try {
+                            if (mLocationManager != null)
+                                mLocationManager.removeUpdates(mLocationListener);
+                            mListenerEnabled = false;
+                            mUpdatesStarted = false;
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+                    }
                 }
             }
         }
@@ -380,7 +458,8 @@ class GeofencesScanner
     }
     */
 
-    final LocationCallback updateTransitionsByLastKnownLocationCallback = new UpdateTransitionsByLastKnownLocationCallback();
+    final UpdateTransitionsByLastKnownLocationCallback updateTransitionsByLastKnownLocationCallback = new UpdateTransitionsByLastKnownLocationCallback();
+    final UpdateTransitionsByLastKnownLocationListener updateTransitionsByLastKnownLocationListener = new UpdateTransitionsByLastKnownLocationListener();
 
     @SuppressLint("MissingPermission")
     void updateTransitionsByLastKnownLocation() {
@@ -404,8 +483,13 @@ class GeofencesScanner
                 handler.post(() -> {
 //                         PPApplication.logE("[IN_THREAD_HANDLER] GeofenceScanner.updateTransitionsByLastKnownLocation", "START update");
 
-                    if (mFusedLocationClient == null)
-                        return;
+                    if (PPApplication.googlePlayServiceAvailable) {
+                        if (mFusedLocationClient == null)
+                            return;
+                    } else {
+                        if (mLocationManager == null)
+                            return;
+                    }
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -415,29 +499,50 @@ class GeofencesScanner
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        final LocationRequest locationRequest = LocationRequest.create();
+                        if (PPApplication.googlePlayServiceAvailable) {
+                            final LocationRequest locationRequest = LocationRequest.create();
 
-                        final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
-                        final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
-                        locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
-                        locationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
+                            final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
+                            final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = UPDATE_INTERVAL_IN_MILLISECONDS / 2;
+                            locationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
+                            locationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
 
-                        boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(appContext);
-                        if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
-                            //PPApplication.logE("##### GeofenceScanner.createLocationRequest","PRIORITY_BALANCED_POWER_ACCURACY");
-                            locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+                            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(appContext);
+                            if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
+                                //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation","PRIORITY_BALANCED_POWER_ACCURACY");
+                                locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+                            } else {
+                                //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation","PRIORITY_HIGH_ACCURACY");
+                                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                            }
+
+                            //FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
+                            mFusedLocationClient.requestLocationUpdates(locationRequest, updateTransitionsByLastKnownLocationCallback, null);
                         } else {
-                            //PPApplication.logE("##### GeofenceScanner.createLocationRequest","PRIORITY_HIGH_ACCURACY");
-                            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                        }
+                            final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000 / 2;
 
-                        //FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
-                        mFusedLocationClient.requestLocationUpdates(locationRequest, updateTransitionsByLastKnownLocationCallback, null);
+                            String provider;
+                            boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(appContext);
+                            if (isPowerSaveMode) {
+                                //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation","PRIORITY_BALANCED_POWER_ACCURACY");
+                                provider = LocationManager.NETWORK_PROVIDER;
+                            } else {
+                                //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation","PRIORITY_HIGH_ACCURACY");
+                                provider = LocationManager.GPS_PROVIDER;
+                            }
+
+                            mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, updateTransitionsByLastKnownLocationListener);
+                        }
 
                         PPApplication.sleep(6000);
 
-                        mFusedLocationClient.flushLocations();
-                        mFusedLocationClient.removeLocationUpdates(updateTransitionsByLastKnownLocationCallback);
+                        if (PPApplication.googlePlayServiceAvailable) {
+                            mFusedLocationClient.flushLocations();
+                            mFusedLocationClient.removeLocationUpdates(updateTransitionsByLastKnownLocationCallback);
+                        } else {
+                            if (mLocationManager != null)
+                                mLocationManager.removeUpdates(updateTransitionsByLastKnownLocationListener);
+                        }
 
                         mUpdateTransitionsByLastKnownLocationIsRunning = false;
 
@@ -462,8 +567,10 @@ class GeofencesScanner
 
     void flushLocations() {
         synchronized (PPApplication.geofenceScannerMutex) {
-            if (mFusedLocationClient != null) {
-                mFusedLocationClient.flushLocations();
+            if (PPApplication.googlePlayServiceAvailable) {
+                if (mFusedLocationClient != null) {
+                    mFusedLocationClient.flushLocations();
+                }
             }
         }
     }
