@@ -187,11 +187,11 @@ class GeofencesScannerGMS
 
                 int transitionType;
                 if (distance <= radius) {
-                    transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER;
+                    transitionType = Geofence.GEOFENCE_TRANSITION_ENTER;
                     //PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "transition=ENTER");
                 }
                 else {
-                    transitionType = com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT;
+                    transitionType = Geofence.GEOFENCE_TRANSITION_EXIT;
                     //PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "transition=exit");
                 }
 
@@ -204,14 +204,14 @@ class GeofencesScannerGMS
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "transition changed");
 
-                        if (transitionType == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
+                        if (transitionType == Geofence.GEOFENCE_TRANSITION_ENTER)
                             PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "transitionType=GEOFENCE_TRANSITION_ENTER");
                         else
                             PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "transitionType=GEOFENCE_TRANSITION_EXIT");
 
-                        if (geofence._transition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
+                        if (geofence._transition == Geofence.GEOFENCE_TRANSITION_ENTER)
                             PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "geofence._transition=GEOFENCE_TRANSITION_ENTER");
-                        else if (geofence._transition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_EXIT)
+                        else if (geofence._transition == Geofence.GEOFENCE_TRANSITION_EXIT)
                             PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "geofence._transition=GEOFENCE_TRANSITION_EXIT");
                         else
                             PPApplication.logE("#####  GeofenceScanner.updateGeofencesInDB", "geofence._transition=0");

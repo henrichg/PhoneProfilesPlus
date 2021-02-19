@@ -361,12 +361,12 @@ class EventPreferencesLocation extends EventPreferences {
                                     if (!_geofence.isEmpty()) {
 
                                         int geofenceTransition = DatabaseHandler.getInstance(eventsHandler.context).getGeofenceTransition(Long.parseLong(_geofence));
-                                        /*if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER)
+                                        /*if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER)
                                             PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_ENTER");
                                         else
                                             PPApplication.logE("EventPreferencesLocation.doHandleEvent", "transitionType=GEOFENCE_TRANSITION_EXIT");*/
 
-                                        if (geofenceTransition == com.google.android.gms.location.Geofence.GEOFENCE_TRANSITION_ENTER) {
+                                        if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
                                             passed[i] = true;
                                         }
                                     }
