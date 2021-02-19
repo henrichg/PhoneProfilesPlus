@@ -445,8 +445,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 //        PPApplication.logE("LocationGeofenceEditorActivityOSM.onStart", "startLocationUpdates");
-        startLocationUpdates();
-        refreshActivity(false, false);
+
+        if (Permissions.grantLocationGeofenceEditorPermissionsOSM(getApplicationContext(), this)) {
+            startLocationUpdates();
+            refreshActivity(false, false);
+        }
     }
 
     @Override
@@ -495,6 +498,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.onActivityResult", "xxx");
             startLocationUpdates();
+            refreshActivity(false, false);
         }
     }
 
@@ -584,8 +588,10 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             //if (mLocation != null) {
                 // Determine whether a geo-coder is available.
                 if (Geocoder.isPresent()) {
-                    startIntentService(false);
-                    enableAddressButton = true;
+                    if (mLocation != null) {
+                        startIntentService(false);
+                        enableAddressButton = true;
+                    }
                 }
             //}
             if (addressButton.isEnabled())
@@ -607,7 +613,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
      */
     @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
-//        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
+        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
 
         boolean networkLocationEnabled;
         try {
@@ -622,6 +628,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             if (Permissions.checkLocation(getApplicationContext())) {
                 mListenerEnabled = true;
                 try {
+                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
                     mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                             UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener);
                 } catch (Exception e) {
@@ -1089,7 +1096,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
-//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
+            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
 
             final Location oldLastLocation = mLastLocation;
 
