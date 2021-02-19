@@ -646,7 +646,7 @@ class GeofencesScannerGMS
         public void onStatusChanged(String provider, int status, Bundle extras) {
 //            PPApplication.logE("[IN_LISTENER] GeofenceScannerGMS.GeofenceScannerListener.onStatusChanged", "xxx");
         }
-    };
+    }
 
     static class UpdateTransitionsByLastKnownLocationListener implements LocationListener {
 
@@ -708,6 +708,6 @@ class GeofencesScannerGMS
         public void onStatusChanged(String provider, int status, Bundle extras) {
 //            PPApplication.logE("[IN_LISTENER] GeofenceScannerGMS.UpdateTransitionsByLastKnownLocationListener.onStatusChanged", "xxx");
         }
-    };
+    }
 
 }
