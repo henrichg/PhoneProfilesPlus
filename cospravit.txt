@@ -671,5 +671,17 @@ Zmena GofenceScanner na pouzitie z Android location API
         Tu musim zistit, ci sa GPS p[ouziva trvale, ak to zaskrtnem v Settings skekera
 3. Obaja manageri budu popuizvat jeden, zdielany listener
 
+GPS bolo zapnute, neviem na ako dlho, potom sa vyplo. Ked mam nastavene, ze sa ma pouzivat.
+Cakam, ci sa znova zapne.
+Je mozne, ze sa pri kazdom skene na cas zapne a potom sa vypne. Uvidime.
+
+Ak sa nema GPS pouzivat, tak sa nezapne? Nikdy? Pozri.
+
+// aby som mohol spustit listener v broadcast threade
+public void requestLocationUpdates (String provider,
+                long minTimeMs,
+                float minDistanceM,
+                LocationListener listener,
+                Looper looper)
 
 ------------------------

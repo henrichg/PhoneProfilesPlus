@@ -230,6 +230,10 @@ public class PPApplication extends Application
                                                 //+"|ContactGroupsCache.getContactGroupListX"
 
                                                 //+"|LocationGeofenceEditorActivityOSM"
+                                                +"|TimeChangedReceiver"
+                                                +"|MainWorker.doWork"
+                                                +"|GeofencesScannerSwitchGPSBroadcastReceiver.onReceive"
+                                                +"|GeofencesScannerSwitchGPSBroadcastReceiver.doWork"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -895,10 +899,10 @@ public class PPApplication extends Application
         proximitySensor = getProximitySensor(getApplicationContext());
         lightSensor = getLightSensor(getApplicationContext());
 
-        if (lastLocation == null) {
-            //PPApplication.logE("##### GeofenceScanner", "lastLocation update");
-            lastLocation = new Location("GL");
-        }
+//        if (lastLocation == null) {
+//            //PPApplication.logE("##### GeofenceScanner", "lastLocation update");
+//            lastLocation = new Location("GL");
+//        }
 
         if (logEnabled()) {
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsXiaomi=" + deviceIsXiaomi);

@@ -97,7 +97,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
     }
 
     static void doWork(Context appContext, boolean logRestart/*, boolean forceRestart*/) {
-        //PPApplication.logE("TimeChangedReceiver.doWork", "xxx");
+//        PPApplication.logE("TimeChangedReceiver.doWork", "xxx");
 
         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
 
@@ -124,6 +124,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
 //        PPApplication.logE("[WORKER_CALL] TimeChangedReceiver.doWork", "xxx");
         LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
         LockDeviceActivityFinishBroadcastReceiver.doWork();
+        PPApplication.logE("TimeChangedReceiver.doWork", "call of GeofencesScannerSwitchGPSBroadcastReceiver.doWork, useGPS=true");
         GeofencesScannerGMS.useGPS = true;
         GeofencesScannerSwitchGPSBroadcastReceiver.doWork(appContext);
 
