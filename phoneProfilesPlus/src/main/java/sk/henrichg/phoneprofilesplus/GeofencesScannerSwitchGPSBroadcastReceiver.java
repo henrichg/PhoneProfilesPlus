@@ -61,10 +61,10 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 
         int interval = 25; // seconds
         if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1)
-            interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / GeofencesScannerGMS.INTERVAL_DIVIDE_VALUE; // interval is in minutes
+            interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / GeofencesScanner.INTERVAL_DIVIDE_VALUE; // interval is in minutes
         int delay = interval + 10; // interval from settings + 10 seconds;
 
-        if (!GeofencesScannerGMS.useGPS)
+        if (!GeofencesScanner.useGPS)
             delay = 30 * 60;  // 30 minutes with GPS OFF
 
         if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
@@ -186,15 +186,15 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                 }
 
                 if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                    GeofencesScannerGMS geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                    GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                     if (geofencesScanner != null) {
-                        if (GeofencesScannerGMS.mUpdatesStarted) {
-                            if (GeofencesScannerGMS.useGPS) {
+                        if (GeofencesScanner.mUpdatesStarted) {
+                            if (GeofencesScanner.useGPS) {
                                 geofencesScanner.flushLocations();
                                 PPApplication.sleep(5000);
                             }
                             PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "switch of useGPS");
-                            GeofencesScannerGMS.useGPS = !GeofencesScannerGMS.useGPS;
+                            GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
                             geofencesScanner.stopLocationUpdates();
                             geofencesScanner.startLocationUpdates();
                             geofencesScanner.updateTransitionsByLastKnownLocation();

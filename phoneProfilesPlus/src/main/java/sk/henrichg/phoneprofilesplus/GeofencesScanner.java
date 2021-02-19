@@ -17,7 +17,7 @@ import com.google.android.gms.location.LocationServices;
 
 import java.util.List;
 
-class GeofencesScannerGMS
+class GeofencesScanner
 {
     private FusedLocationProviderClient mFusedLocationClient;
     private final GeofenceScannerCallback mLocationCallback;
@@ -35,7 +35,7 @@ class GeofencesScannerGMS
 
     private boolean mUpdateTransitionsByLastKnownLocationIsRunning;
 
-    GeofencesScannerGMS(Context context) {
+    GeofencesScanner(Context context) {
         this.context = context;
         //dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
@@ -98,7 +98,7 @@ class GeofencesScannerGMS
                             }
 
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                                GeofencesScannerGMS scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                                GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                                 if (scanner != null) {
                                     scanner.clearAllEventGeofences();
                                     //PPApplication.logE("##### GeofenceScanner.onConnected", "updateTransitionsByLastKnownLocation");
@@ -508,7 +508,7 @@ class GeofencesScannerGMS
             if (Event.getGlobalEventsRunning()) {
                 if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                     //PPApplication.logE("##### GeofenceScannerGMS.GeofenceScannerCallback.onLocationResult", "updateGeofencesInDB");
-                    GeofencesScannerGMS scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                    GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                     scanner.updateGeofencesInDB();
                         /*if (useGPS) {
                             // location is from enabled GPS, disable it
@@ -567,7 +567,7 @@ class GeofencesScannerGMS
             if (Event.getGlobalEventsRunning()) {
                 if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                     //PPApplication.logE("##### GeofenceScannerGMS.UpdateTransitionsByLastKnownLocationCallback.onLocationResult", "updateGeofencesInDB");
-                    GeofencesScannerGMS scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                    GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                     scanner.updateGeofencesInDB();
                     //}
                     //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
@@ -618,7 +618,7 @@ class GeofencesScannerGMS
             if (Event.getGlobalEventsRunning()) {
                 if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                     //PPApplication.logE("##### GeofenceScannerGMS.GeofenceScannerListener.onLocationChanged", "updateGeofencesInDB");
-                    GeofencesScannerGMS scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                    GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                     scanner.updateGeofencesInDB();
                         /*if (useGPS) {
                             // location is from enabled GPS, disable it
@@ -684,7 +684,7 @@ class GeofencesScannerGMS
             if (Event.getGlobalEventsRunning()) {
                 if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                     //PPApplication.logE("##### GeofenceScannerGMS.UpdateTransitionsByLastKnownLocationListener.onLocationChanged", "updateGeofencesInDB");
-                    GeofencesScannerGMS scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                    GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                     scanner.updateGeofencesInDB();
                     //}
                     //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {

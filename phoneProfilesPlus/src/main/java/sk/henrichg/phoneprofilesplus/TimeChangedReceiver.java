@@ -125,7 +125,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
         LockDeviceAfterScreenOffBroadcastReceiver.doWork(false, appContext);
         LockDeviceActivityFinishBroadcastReceiver.doWork();
         PPApplication.logE("TimeChangedReceiver.doWork", "call of GeofencesScannerSwitchGPSBroadcastReceiver.doWork, useGPS=true");
-        GeofencesScannerGMS.useGPS = true;
+        GeofencesScanner.useGPS = true;
         GeofencesScannerSwitchGPSBroadcastReceiver.doWork(appContext);
 
         DonationBroadcastReceiver.setAlarm(appContext);
