@@ -15,7 +15,7 @@ import com.google.android.gms.location.LocationServices;
 
 import java.util.List;
 
-class GeofencesScanner
+class GeofencesScannerGMS
 {
     private FusedLocationProviderClient mFusedLocationClient;
     private final LocationCallback mLocationCallback;
@@ -29,11 +29,11 @@ class GeofencesScanner
 
     static boolean mTransitionsUpdated = false;
 
-    static final int INTRVAL_DIVIDE_VALUE = 6;
+    static final int INTERVAL_DIVIDE_VALUE = 6;
 
     private boolean mUpdateTransitionsByLastKnownLocationIsRunning;
 
-    GeofencesScanner(Context context) {
+    GeofencesScannerGMS(Context context) {
         this.context = context;
         //dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
 
@@ -73,7 +73,7 @@ class GeofencesScanner
                 if (Event.getGlobalEventsRunning()) {
                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                         //PPApplication.logE("##### GeofenceScanner.LocationCallback", "updateGeofencesInDB");
-                        GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                        GeofencesScannerGMS scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                         scanner.updateGeofencesInDB();
                         /*if (useGPS) {
                             // location is from enabled GPS, disable it
@@ -148,7 +148,7 @@ class GeofencesScanner
                             }
 
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
-                                GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                                GeofencesScannerGMS scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                                 if (scanner != null) {
                                     scanner.clearAllEventGeofences();
                                     //PPApplication.logE("##### GeofenceScanner.onConnected", "updateTransitionsByLastKnownLocation");
@@ -304,7 +304,7 @@ class GeofencesScanner
          */
         int interval = 25; // seconds
         if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1)
-            interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / INTRVAL_DIVIDE_VALUE; // interval is in minutes
+            interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / INTERVAL_DIVIDE_VALUE; // interval is in minutes
         //PPApplication.logE("##### GeofenceScanner.createLocationRequest", "ApplicationPreferences.applicationEventLocationUpdateInterval="+ApplicationPreferences.applicationEventLocationUpdateInterval);
         //PPApplication.logE("##### GeofenceScanner.createLocationRequest", "interval="+interval);
         if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("1"))
@@ -464,7 +464,7 @@ class GeofencesScanner
             if (Event.getGlobalEventsRunning()) {
                 if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                     //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation.LocationCallback", "updateGeofencesInDB");
-                    GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                    GeofencesScannerGMS scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                     scanner.updateGeofencesInDB();
                 //}
                 //if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {

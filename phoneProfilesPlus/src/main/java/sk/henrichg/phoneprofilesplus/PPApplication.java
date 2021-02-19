@@ -718,7 +718,7 @@ public class PPApplication extends Application
 
     static OrientationScanner orientationScanner = null;
     static boolean mStartedOrientationSensors = false;
-    static GeofencesScanner geofencesScanner = null;
+    static GeofencesScannerGMS geofencesScanner = null;
     static PhoneStateScanner phoneStateScanner = null;
     static TwilightScanner twilightScanner = null;
 

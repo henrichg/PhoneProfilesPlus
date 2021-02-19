@@ -6454,7 +6454,7 @@ public class PhoneProfilesService extends Service
         }*/
 
         if (PPApplication.geofencesScanner == null) {
-            PPApplication.geofencesScanner = new GeofencesScanner(getApplicationContext());
+            PPApplication.geofencesScanner = new GeofencesScannerGMS(getApplicationContext());
             //PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "geofencesScanner="+geofencesScanner);
             /*if (instance != null) {
                 PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "instance==this? " + (instance == this));
@@ -6480,7 +6480,7 @@ public class PhoneProfilesService extends Service
         return (PPApplication.geofencesScanner != null);
     }
 
-    GeofencesScanner getGeofencesScanner() {
+    GeofencesScannerGMS getGeofencesScanner() {
         return PPApplication.geofencesScanner;
     }
 

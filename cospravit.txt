@@ -663,31 +663,13 @@ Ostatne daj to, co ti vrati databaza. Lebo nevies, co to je.
 
 ----------------------------
 
-Ako to funguje s Google Mapami:
-- Klik na mapu nasatvi suradnice editovaneho geofence bodu.
-- Da sa zoomovat prstami mapa.
-- Da sa presuvat mapa prstom.
-- Zobrazuje dva body:
-  - modry - aktualna poloha
-  - oranzovy - poloha editovaneho geofence bodu
-- Kazdy bod ma aj kruh, polomer (zisti, ci nie priememr) je dany:
-  - pri aktualnej polohe - accuracy lokacie
-  - pri edditovanom geofence bede - zadany polomer dole pod mapou
-- Mapa moze byt svetla a tmava podla aktualnej temy.
+Zmena GofenceScanner na pouzitie z Android location API
+1. Vsetko z google play services zamenit na Android location API
+2. Treba 2 managerov:
+   2.1. NETWORK_PROVIDER - na bezne pouzitie skenera
+   2.2. GPS_PROVIDER - na pouzitie, ked chcem GPS lokaciu
+        Tu musim zistit, ci sa GPS p[ouziva trvale, ak to zaskrtnem v Settings skekera
+3. Obaja manageri budu popuizvat jeden, zdielany listener
 
-Co treba v osmdroid:
-- zmenit v activity_location_geofence_editor_osm.xml zmenit - HOTOVO
-  androidx.fragment.app.FragmentContainerView na
-  org.osmdroid.views.MapView
-- zmenit vsetky inicializacie a deklaracie com.google.android.gms.* na org.osmdroid.* - HOTOVO
-- zinicializovat osmdroid - HOTOVO
-- nastavit cache na PPP adresar v internom storage, aby nebolo treba android.permission.WRITE_EXTERNAL_STORAGE - HOTOVO
-- umoznit kliknutim na mapu presunut znacky geofence - HOTOVO
-- zakazat moznost rotacie osm mapy - HOTOVO
-- umoznit presuvat mapu prstom - HOTOVO
-- umoznit zmenu zoomu pinch-to-zoom systemom - HOTOVO
-- zobrazit na mape znacku s aktualnou polohou - modou farbou - HOTOVO
-- zobrazit na mape znacku geofence oranzovou farbou - HOTOVO
-- zobrazit kruh accuracy aktualnej polohy - modrou farbou - HOTOVO
-- zobrazit kruh znacky geofence s nastavenym polomerom - oranzovou farbou - HOTOVO
-- Tmava tema mapy - HOTOVO
+
+------------------------

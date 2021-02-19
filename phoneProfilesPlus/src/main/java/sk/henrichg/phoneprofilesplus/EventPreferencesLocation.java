@@ -339,9 +339,9 @@ class EventPreferencesLocation extends EventPreferences {
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
                             boolean transitionsUpdated = false;
                             synchronized (PPApplication.geofenceScannerMutex) {
-                                GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                                GeofencesScannerGMS scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                                 if (scanner != null)
-                                    transitionsUpdated = GeofencesScanner.mTransitionsUpdated;
+                                    transitionsUpdated = GeofencesScannerGMS.mTransitionsUpdated;
                             }
                             //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "transitionsUpdated=" + transitionsUpdated);
                             if (transitionsUpdated) {
