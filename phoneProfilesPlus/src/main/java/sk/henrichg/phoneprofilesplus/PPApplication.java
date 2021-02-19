@@ -38,6 +38,8 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
@@ -103,6 +105,8 @@ public class PPApplication extends Application
 
     static boolean applicationFullyStarted = false;
     static boolean applicationFullyStartedShowToast = false;
+
+    static boolean googlePlayServiceAvailable = false;
 
     // this for display of alert dialog when works not started at start of app
     //static long startTimeOfApplicationStart = 0;
@@ -826,12 +830,6 @@ public class PPApplication extends Application
         if (ACRA.isACRASenderServiceProcess())
             return;
 
-        applicationFullyStarted = false;
-        applicationFullyStartedShowToast = false;
-        instance = this;
-
-        PPApplication.logE("##### PPApplication.onCreate", "xxx");
-
         //if (DebugVersion.enabled) {
         int actualVersionCode = 0;
         try {
@@ -840,6 +838,26 @@ public class PPApplication extends Application
         } catch (Exception ignored) {}
         Thread.setDefaultUncaughtExceptionHandler(new TopExceptionHandler(getApplicationContext(), actualVersionCode));
         //}
+
+        applicationFullyStarted = false;
+        applicationFullyStartedShowToast = false;
+        instance = this;
+
+        PPApplication.logE("##### PPApplication.onCreate", "xxx");
+
+        GoogleApiAvailability api = GoogleApiAvailability.getInstance();
+        int resultCode = api.isGooglePlayServicesAvailable(getApplicationContext());
+        switch (resultCode) {
+            case ConnectionResult.SERVICE_DISABLED:
+            case ConnectionResult.SERVICE_INVALID:
+            case ConnectionResult.SERVICE_MISSING:
+            case ConnectionResult.SERVICE_MISSING_PERMISSION:
+                googlePlayServiceAvailable = false;
+                break;
+            default:
+                googlePlayServiceAvailable = true;
+        }
+        PPApplication.logE("##### PPApplication.onCreate", "googlePlayServiceAvailable="+googlePlayServiceAvailable);
 
         //registerActivityLifecycleCallbacks(PPApplication.this);
 
