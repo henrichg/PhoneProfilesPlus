@@ -252,6 +252,13 @@ class GeofencesScanner
                                 }
                             }
 
+                            if (locationEnabled && provider.equals(LocationManager.NETWORK_PROVIDER)) {
+                                if (!CheckOnlineStatusBroadcastReceiver.isOnline(context)) {
+                                    PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "NOT ONLINE");
+                                    locationEnabled = false;
+                                }
+                            }
+
                             if (locationEnabled) {
                                 try {
                                     // check power save mode
@@ -286,8 +293,10 @@ class GeofencesScanner
                                     return;
                                 }
                             }
-                            else
-                                PPApplication.logE("##### GeofenceScanner.startLocationUpdates","location not allowed");
+                            else {
+                                PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "location not allowed");
+                                mListenerEnabled = true;
+                            }
                         }
                     }
                 } catch (Exception e) {
@@ -413,6 +422,51 @@ class GeofencesScanner
 
         public void onStatusChanged(String provider, int status, Bundle extras) {
 //            PPApplication.logE("[IN_LISTENER] GeofenceScanner.GeofenceScannerListener.onStatusChanged", "xxx");
+        }
+    }
+
+    static void onlineStatusChanged(Context context) {
+        if (PhoneProfilesService.getInstance() != null) {
+            PhoneProfilesService serviceInstance = PhoneProfilesService.getInstance();
+            GeofencesScanner scanner = serviceInstance.getGeofencesScanner();
+            if (scanner != null) {
+                if (serviceInstance.isGeofenceScannerStarted()) {
+
+                    List<String> providers = scanner.mLocationManager.getProviders(true);
+                    boolean foundGPS = false;
+                    for (String provider : providers) {
+                        if (provider.equals(LocationManager.GPS_PROVIDER)) {
+                            foundGPS = true;
+                            break;
+                        }
+                    }
+                    if (!foundGPS) {
+                        // enabled is other then GPS provider
+
+                        if (!CheckOnlineStatusBroadcastReceiver.isOnline(context)) {
+                            // device is not online
+                            PPApplication.logE("GeofenceScanner.onlineStatusChanged", "NOT ONLINE");
+
+                            if (PPApplication.lastLocation == null) {
+                                PPApplication.lastLocation = new Location("GL");
+                            }
+
+                            doLocationChanged(PPApplication.lastLocation);
+                        } else {
+                            // device is online
+                            PPApplication.logE("GeofenceScanner.onlineStatusChanged", "ONLINE");
+
+                            scanner.stopLocationUpdates();
+
+                            PPApplication.sleep(1000);
+
+                            // this also calls GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm()
+                            scanner.startLocationUpdates();
+                            scanner.updateTransitionsByLastKnownLocation();
+                        }
+                    }
+                }
+            }
         }
     }
 
