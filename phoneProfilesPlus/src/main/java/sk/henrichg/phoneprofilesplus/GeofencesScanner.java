@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -17,6 +21,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 class GeofencesScanner
 {
@@ -528,6 +533,25 @@ class GeofencesScanner
                     mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, updateTransitionsByLastKnownLocationListener, PPApplication.handlerThreadLastKnownLocation.getLooper());
                 }
 
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.GEOFENCE_REMOVE_LAST_KNOWN_LOCATION_UPDATES_WORK_TAG)
+                                .setInitialDelay(15, TimeUnit.SECONDS)
+                                .build();
+                try {
+                    if (PPApplication.getApplicationStarted(true)) {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
+                        //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "workManager="+workManager);
+                        if (workManager != null) {
+                            //workManager.enqueue(worker);
+                            workManager.enqueueUniqueWork(MainWorker.GEOFENCE_REMOVE_LAST_KNOWN_LOCATION_UPDATES_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                        }
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+
+/*
                 PPApplication.startHandlerThreadPPScanners();
                 final Handler handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
                 handler.postDelayed(() -> {
@@ -544,10 +568,26 @@ class GeofencesScanner
 
                     mUpdateTransitionsByLastKnownLocationIsRunning = false;
                 }, 15000);
+ */
             }
         } catch (Exception ee) {
             PPApplication.recordException(ee);
         }
+    }
+
+    void removeLastKnownLocationUpdates() {
+        if (PPApplication.googlePlayServiceAvailable) {
+            if (mFusedLocationClient != null) {
+                mFusedLocationClient.flushLocations();
+                mFusedLocationClient.removeLocationUpdates(updateTransitionsByLastKnownLocationCallback);
+            }
+        } else {
+            PPApplication.logE("[IN_THREAD_HANDLER] GeofenceScanner.removeLastKnownLocationUpdates", "remove location updates");
+            if (mLocationManager != null)
+                mLocationManager.removeUpdates(updateTransitionsByLastKnownLocationListener);
+        }
+
+        mUpdateTransitionsByLastKnownLocationIsRunning = false;
     }
 
     void flushLocations() {
