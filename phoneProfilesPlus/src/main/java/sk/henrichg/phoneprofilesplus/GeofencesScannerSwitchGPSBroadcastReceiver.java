@@ -190,14 +190,19 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                     if (geofencesScanner != null) {
                         if (GeofencesScanner.mUpdatesStarted) {
                             if (GeofencesScanner.useGPS) {
-                                geofencesScanner.flushLocations();
-                                PPApplication.sleep(5000);
+                                if (PPApplication.googlePlayServiceAvailable) {
+                                    geofencesScanner.flushLocations();
+                                    PPApplication.sleep(5000);
+                                }
                             }
-                            PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "switch of useGPS");
                             GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
+                            PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "GeofencesScanner.useGPS="+GeofencesScanner.useGPS);
                             geofencesScanner.stopLocationUpdates();
+
+                            PPApplication.sleep(500);
+
                             geofencesScanner.startLocationUpdates();
-                            geofencesScanner.updateTransitionsByLastKnownLocation();
+                            //geofencesScanner.updateTransitionsByLastKnownLocation();
                         }
                     }
                 }

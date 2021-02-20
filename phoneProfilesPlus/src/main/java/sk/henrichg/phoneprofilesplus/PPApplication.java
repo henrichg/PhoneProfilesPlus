@@ -38,8 +38,6 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
@@ -134,7 +132,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
@@ -847,6 +845,7 @@ public class PPApplication extends Application
 
         PPApplication.logE("##### PPApplication.onCreate", "xxx");
 
+        /*
         GoogleApiAvailability api = GoogleApiAvailability.getInstance();
         int resultCode = api.isGooglePlayServicesAvailable(getApplicationContext());
         switch (resultCode) {
@@ -858,7 +857,7 @@ public class PPApplication extends Application
                 break;
             default:
                 googlePlayServiceAvailable = true;
-        }
+        }*/
         PPApplication.logE("##### PPApplication.onCreate", "googlePlayServiceAvailable="+googlePlayServiceAvailable);
 
         //registerActivityLifecycleCallbacks(PPApplication.this);
