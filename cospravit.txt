@@ -692,4 +692,7 @@ Takze (mozno, porozmyslam):
 
 A co tak EventsHandler volat workom so startIntevalom skenera. A REPLACE, nech sa replacne ak uz existuje vo fronte.
 
+Este jeda vec. Co tak zistovat, ci som pripojeny na sieti. Zda sa mi totiz, ze ak nebudem, tak lokacia nebude
+fungovat. Pozri TwilightScanner. Ten pouizva PASSIVE_PROVIDER. Zisti kedy a ako.
+
 ------------------------
