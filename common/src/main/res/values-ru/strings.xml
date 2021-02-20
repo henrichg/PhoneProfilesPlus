@@ -1580,6 +1580,16 @@
     <string name="contact_group_name_friends">Друзья</string>
     <string name="contact_group_name_coworkers">Коллеги</string>
     <string name="contact_group_name_starred">Избранное</string>
+    <string name="contact_account_type_google_account">Аккаунт Google</string>
+    <string name="contact_account_type_samsung_account">Аккаунт Samsung</string>
+    <string name="contact_account_type_sim_card">SIM-карта</string>
+    <string name="contact_account_type_phone_application">Приложение \"Телефон\"</string>
+    <string name="location_editor_change_location_dialog_title">Change location</string>
+    <string name="array_location_editor_show_geofence">Show edited location</string>
+    <string name="array_location_editor_show_actual_location">Show actual location</string>
+    <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
+    <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
+    <string name="location_editor_map_is_loading">Map is loading...</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

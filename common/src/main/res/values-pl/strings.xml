@@ -1576,11 +1576,21 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="preference_not_allowed_reason_not_granted_phone_permission">nie przyznano dostępu do Telefonu</string>
     <string name="application_cannot_be_started">nie może zostać uruchomiona</string>
     <string name="application_cannot_be_started_button_restart">Uruchom ponownie aplikację</string>
-    <string name="contact_group_name_myContacts">My Contacts</string>
-    <string name="contact_group_name_family">Family</string>
-    <string name="contact_group_name_friends">Friends</string>
-    <string name="contact_group_name_coworkers">Coworkers</string>
-    <string name="contact_group_name_starred">Starred</string>
+    <string name="contact_group_name_myContacts">Moje kontakty</string>
+    <string name="contact_group_name_family">Rodzina</string>
+    <string name="contact_group_name_friends">Przyjaciele</string>
+    <string name="contact_group_name_coworkers">Współpracownicy</string>
+    <string name="contact_group_name_starred">Ulubione</string>
+    <string name="contact_account_type_google_account">Konto Google</string>
+    <string name="contact_account_type_samsung_account">Konto Samsung</string>
+    <string name="contact_account_type_sim_card">Karta SIM</string>
+    <string name="contact_account_type_phone_application">Aplikacja telefonu</string>
+    <string name="location_editor_change_location_dialog_title">Change location</string>
+    <string name="array_location_editor_show_geofence">Show edited location</string>
+    <string name="array_location_editor_show_actual_location">Show actual location</string>
+    <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
+    <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
+    <string name="location_editor_map_is_loading">Map is loading...</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

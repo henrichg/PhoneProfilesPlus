@@ -1580,6 +1580,16 @@
     <string name="contact_group_name_friends">Amigos</string>
     <string name="contact_group_name_coworkers">Colaboradores</string>
     <string name="contact_group_name_starred">Destacados</string>
+    <string name="contact_account_type_google_account">Cuenta de Google</string>
+    <string name="contact_account_type_samsung_account">Cuenta de Samsung</string>
+    <string name="contact_account_type_sim_card">Tarjeta SIM</string>
+    <string name="contact_account_type_phone_application">Aplicación de teléfono</string>
+    <string name="location_editor_change_location_dialog_title">Change location</string>
+    <string name="array_location_editor_show_geofence">Show edited location</string>
+    <string name="array_location_editor_show_actual_location">Show actual location</string>
+    <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
+    <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
+    <string name="location_editor_map_is_loading">Map is loading...</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>

@@ -1581,6 +1581,16 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="contact_group_name_friends">Amici</string>
     <string name="contact_group_name_coworkers">Colleghi</string>
     <string name="contact_group_name_starred">Starred</string>
+    <string name="contact_account_type_google_account">Account Google</string>
+    <string name="contact_account_type_samsung_account">Account Samsung</string>
+    <string name="contact_account_type_sim_card">Scheda SIM</string>
+    <string name="contact_account_type_phone_application">Applicazione telefono</string>
+    <string name="location_editor_change_location_dialog_title">Change location</string>
+    <string name="array_location_editor_show_geofence">Show edited location</string>
+    <string name="array_location_editor_show_actual_location">Show actual location</string>
+    <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
+    <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
+    <string name="location_editor_map_is_loading">Map is loading...</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>

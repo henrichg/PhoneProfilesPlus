@@ -1583,6 +1583,16 @@
     <string name="contact_group_name_friends">Friends</string>
     <string name="contact_group_name_coworkers">Coworkers</string>
     <string name="contact_group_name_starred">Starred</string>
+    <string name="contact_account_type_google_account">Google account</string>
+    <string name="contact_account_type_samsung_account">Samsung account</string>
+    <string name="contact_account_type_sim_card">SIM card</string>
+    <string name="contact_account_type_phone_application">Phone application</string>
+    <string name="location_editor_change_location_dialog_title">Change location</string>
+    <string name="array_location_editor_show_geofence">Show edited location</string>
+    <string name="array_location_editor_show_actual_location">Show actual location</string>
+    <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
+    <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
+    <string name="location_editor_map_is_loading">Map is loading...</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

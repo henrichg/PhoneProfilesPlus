@@ -1580,6 +1580,16 @@
     <string name="contact_group_name_friends">Priatelia</string>
     <string name="contact_group_name_coworkers">Kolegovia</string>
     <string name="contact_group_name_starred">Obľúbené</string>
+    <string name="contact_account_type_google_account">Účet Google</string>
+    <string name="contact_account_type_samsung_account">Účet Samsung</string>
+    <string name="contact_account_type_sim_card">SIM karta</string>
+    <string name="contact_account_type_phone_application">Aplikácia Telefón</string>
+    <string name="location_editor_change_location_dialog_title">Zmeniť polohu</string>
+    <string name="array_location_editor_show_geofence">Zobraziť editovanú polohu</string>
+    <string name="array_location_editor_show_actual_location">Zobraziť aktuálnu polohu</string>
+    <string name="array_location_editor_change_geofence_location_to_actual">Zmeniť editovanú polohu na aktuálnu</string>
+    <string name="array_location_editor_rename_geofence_with_address">Premenovať editovanú polohu adresou</string>
+    <string name="location_editor_map_is_loading">Mapa sa načítava...</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

@@ -1575,11 +1575,21 @@
     <string name="preference_not_allowed_reason_not_granted_phone_permission">telefon izinleri verilmedi</string>
     <string name="application_cannot_be_started">uygulama başlatılamıyor</string>
     <string name="application_cannot_be_started_button_restart">Uygulamayı yeniden başlatın</string>
-    <string name="contact_group_name_myContacts">My Contacts</string>
-    <string name="contact_group_name_family">Family</string>
-    <string name="contact_group_name_friends">Friends</string>
-    <string name="contact_group_name_coworkers">Coworkers</string>
-    <string name="contact_group_name_starred">Starred</string>
+    <string name="contact_group_name_myContacts">Kişilerim</string>
+    <string name="contact_group_name_family">Aile</string>
+    <string name="contact_group_name_friends">Arkadaşlar</string>
+    <string name="contact_group_name_coworkers">İş arkadaşları</string>
+    <string name="contact_group_name_starred">Yıldız işaretli</string>
+    <string name="contact_account_type_google_account">Google hesabı</string>
+    <string name="contact_account_type_samsung_account">Samsung hesabı</string>
+    <string name="contact_account_type_sim_card">SIM kart</string>
+    <string name="contact_account_type_phone_application">Telefon uygulaması</string>
+    <string name="location_editor_change_location_dialog_title">Change location</string>
+    <string name="array_location_editor_show_geofence">Show edited location</string>
+    <string name="array_location_editor_show_actual_location">Show actual location</string>
+    <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
+    <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
+    <string name="location_editor_map_is_loading">Map is loading...</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
