@@ -680,4 +680,16 @@ public void requestLocationUpdates (String provider,
                 LocationListener listener,
                 Looper looper)
 
+A je zapnuat GPS, mohla by sa castejsie updatovat poloha. Ten interval mam teraz rovnaky ako pri vypnutej GPS.
+No a pri intervale skeneru 15 minut sa spravia len 3 updaty za 2,6 minuty trvania zapnutej GPS. Malo.
+Ale zasa castejsie to bude volat EventsHandler. Hm.
+
+Prva poloha zjavne pride hned po requeste updatov.
+
+Takze (mozno, porozmyslam):
+1. Ak je zapnute GPS, skrat intervaly updatov.
+2. Cas trvania GPS skrat o polovicu. Nemusi byt tak dlho, ak bude kratky interval.
+
+A co tak EventsHandler volat workom so startIntevalom skenera. A REPLACE, nech sa replacne ak uz existuje vo fronte.
+
 ------------------------
