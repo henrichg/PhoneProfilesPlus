@@ -238,6 +238,7 @@ public class PPApplication extends Application
                                                 +"|MainWorker.doWork"
                                                 +"|GeofencesScannerSwitchGPSBroadcastReceiver.onReceive"
                                                 +"|GeofencesScannerSwitchGPSBroadcastReceiver.doWork"
+                                                +"|GeofenceScanner"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -748,6 +749,7 @@ public class PPApplication extends Application
     public static HandlerThread handlerThreadPlayTone = null;
     public static HandlerThread handlerThreadPPScanners = null;
     public static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
+    public static HandlerThread handlerThreadLastKnownLocation = null;
     //public static HandlerThread handlerThreadPPCommand = null;
 
     public static HandlerThread handlerThreadVolumes = null;
@@ -1039,6 +1041,7 @@ public class PPApplication extends Application
         startHandlerThreadPPScanners(); // for minutes interval
         startHandlerThreadOrientationScanner(); // for seconds interval
         //startHandlerThreadPPCommand();
+        startHandlerThreadLastKnownLocation();
         startHandlerThreadWidget();
         startHandlerThreadPlayTone();
         startHandlerThreadVolumes();
@@ -3911,6 +3914,13 @@ public class PPApplication extends Application
         }
     }
     */
+
+    static void startHandlerThreadLastKnownLocation() {
+        if (handlerThreadLastKnownLocation == null) {
+            handlerThreadLastKnownLocation = new HandlerThread("PPHandlerThreadLastKnownLocation", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadLastKnownLocation.start();
+        }
+    }
 
     static void startHandlerThreadWidget() {
         if (handlerThreadWidget == null) {
