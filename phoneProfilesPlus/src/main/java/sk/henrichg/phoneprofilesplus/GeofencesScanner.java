@@ -46,7 +46,7 @@ class GeofencesScanner
     static final int INTERVAL_DIVIDE_VALUE = 6;
 
 //    UpdateTransitionsByLastKnownLocationCallback updateTransitionsByLastKnownLocationCallback;
-    UpdateTransitionsByLastKnownLocationListener updateTransitionsByLastKnownLocationListener;
+    final UpdateTransitionsByLastKnownLocationListener updateTransitionsByLastKnownLocationListener;
     private boolean mUpdateTransitionsByLastKnownLocationIsRunning;
 
     GeofencesScanner(Context context) {

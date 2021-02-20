@@ -1269,7 +1269,6 @@
     <string name="application_editor_intent_edit_flags_button_tooltip">Upraviť príznaky</string>
     <string name="mobile_cells_pref_dlg_rename_cell_button_tooltip">Premenovať bunku</string>
     <string name="location_editor_rename_with_address_button_tooltip">Premenovať s adresou</string>
-    <string name="location_editor_set_to_my_location_button_tooltip">Nastaviť na moju polohu</string>
     <string name="help_button_tooltip">Pomoc</string>
     <string name="bluetooth_name_pref_dlg_select_button_tooltip">Vybrať názvy Bluetooth</string>
     <string name="mobile_cells_pref_dlg_select_button_tooltip">Vybrať bunky</string>
@@ -1354,7 +1353,6 @@
     <string name="array_pref_87_percent" formatted="false">87,5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Zobrazovať trvanie profilu (miniaplikácia)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Vo vašom zariadení nemusí fungovať vôbec.</string>
-    <string name="application_is_not_started">nie je spustený</string>
     <string name="application_is_starting_toast">štartuje…</string>
     <string name="application_is_started_toast">je spustený</string>
     <string name="popupmenu_title_click_below_toast">Na zmenu tohto parametra kliknite nižšie</string>
@@ -1573,7 +1571,6 @@
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Iba celodenné</string>
     <string name="altype_applicationSystemRestart">reštart aplikácie systémom</string>
     <string name="preference_not_allowed_reason_not_granted_phone_permission">neudelené povolenie Telefón</string>
-    <string name="application_cannot_be_started">sa nedá spustiť</string>
     <string name="application_cannot_be_started_button_restart">Reštartovať aplikáciu</string>
     <string name="contact_group_name_myContacts">Moje kontakty</string>
     <string name="contact_group_name_family">Rodina</string>
@@ -1589,7 +1586,7 @@
     <string name="array_location_editor_show_actual_location">Zobraziť aktuálnu polohu</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Zmeniť editovanú polohu na aktuálnu</string>
     <string name="array_location_editor_rename_geofence_with_address">Premenovať editovanú polohu adresou</string>
-    <string name="location_editor_map_is_loading">Mapa sa načítava...</string>
+    <string name="location_editor_map_is_loading">Mapa sa načítava…</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1902,4 +1899,7 @@
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
     <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
+    <!--    <string name="location_editor_set_to_my_location_button_tooltip">Set to my location</string>-->
+    <!--    <string name="application_is_not_started">is not started</string>-->
+    <!--    <string name="application_cannot_be_started">cannot be started</string>-->
 </resources>

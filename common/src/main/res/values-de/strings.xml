@@ -1269,7 +1269,6 @@
     <string name="application_editor_intent_edit_flags_button_tooltip">Kennzeichen bearbeiten</string>
     <string name="mobile_cells_pref_dlg_rename_cell_button_tooltip">Zelle umbenennen</string>
     <string name="location_editor_rename_with_address_button_tooltip">Mit Adresse umbenennen</string>
-    <string name="location_editor_set_to_my_location_button_tooltip">Meinen Standort festlegen</string>
     <string name="help_button_tooltip">Hilfe</string>
     <string name="bluetooth_name_pref_dlg_select_button_tooltip">Bluetooth-Namen auswählen</string>
     <string name="mobile_cells_pref_dlg_select_button_tooltip">Zelle wählen</string>
@@ -1354,7 +1353,6 @@
     <string name="array_pref_87_percent" formatted="false">87,5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Profildauer anzeigen (Widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Möglicherweise funktioniert es mit Ihrem Gerät überhaupt nicht.</string>
-    <string name="application_is_not_started">nicht gestartet</string>
     <string name="application_is_starting_toast">wird gestartet …</string>
     <string name="application_is_started_toast">gestartet</string>
     <string name="popupmenu_title_click_below_toast">Klicken Sie unten, um diesen Parameter zu ändern</string>
@@ -1573,7 +1571,6 @@
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Nur ganztägige</string>
     <string name="altype_applicationSystemRestart">Anwendung durch System neu starten</string>
     <string name="preference_not_allowed_reason_not_granted_phone_permission">Zugriff auf das Telefon nicht zugelassen</string>
-    <string name="application_cannot_be_started">konnte nicht gestartet werden</string>
     <string name="application_cannot_be_started_button_restart">Anwendung neu starten</string>
     <string name="contact_group_name_myContacts">Meine Kontakte</string>
     <string name="contact_group_name_family">Familie</string>
@@ -1589,7 +1586,7 @@
     <string name="array_location_editor_show_actual_location">Show actual location</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
     <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
-    <string name="location_editor_map_is_loading">Map is loading...</string>
+    <string name="location_editor_map_is_loading">Map is loading…</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1902,4 +1899,7 @@
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
     <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
+    <!--    <string name="location_editor_set_to_my_location_button_tooltip">Set to my location</string>-->
+    <!--    <string name="application_is_not_started">is not started</string>-->
+    <!--    <string name="application_cannot_be_started">cannot be started</string>-->
 </resources>

@@ -1269,7 +1269,6 @@
     <string name="application_editor_intent_edit_flags_button_tooltip">İşaretleri Düzenle</string>
     <string name="mobile_cells_pref_dlg_rename_cell_button_tooltip">Hücreye yeni isim ver</string>
     <string name="location_editor_rename_with_address_button_tooltip">Adresle yeni isim ver</string>
-    <string name="location_editor_set_to_my_location_button_tooltip">Konumum olarak ayarla</string>
     <string name="help_button_tooltip">Yardım</string>
     <string name="bluetooth_name_pref_dlg_select_button_tooltip">Bluetooth isimlerini seç</string>
     <string name="mobile_cells_pref_dlg_select_button_tooltip">Hücreleri seç</string>
@@ -1354,7 +1353,6 @@
     <string name="array_pref_87_percent" formatted="false">%87.5</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Tercih ismini göster (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Her cihazınızda çalışmayabilir.</string>
-    <string name="application_is_not_started">başlatılmamış</string>
     <string name="application_is_starting_toast">başlıyor…</string>
     <string name="application_is_started_toast">başladı</string>
     <string name="popupmenu_title_click_below_toast">Bu değeri değiştirmek için aşağıdaki düğmeye dokunun</string>
@@ -1573,7 +1571,6 @@
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Sadece bütün günler</string>
     <string name="altype_applicationSystemRestart">uygulama sistem tarafından yeniden başlatıldı</string>
     <string name="preference_not_allowed_reason_not_granted_phone_permission">telefon izinleri verilmedi</string>
-    <string name="application_cannot_be_started">uygulama başlatılamıyor</string>
     <string name="application_cannot_be_started_button_restart">Uygulamayı yeniden başlatın</string>
     <string name="contact_group_name_myContacts">Kişilerim</string>
     <string name="contact_group_name_family">Aile</string>
@@ -1589,7 +1586,7 @@
     <string name="array_location_editor_show_actual_location">Show actual location</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
     <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
-    <string name="location_editor_map_is_loading">Map is loading...</string>
+    <string name="location_editor_map_is_loading">Map is loading…</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1902,4 +1899,7 @@
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
     <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
+    <!--    <string name="location_editor_set_to_my_location_button_tooltip">Set to my location</string>-->
+    <!--    <string name="application_is_not_started">is not started</string>-->
+    <!--    <string name="application_cannot_be_started">cannot be started</string>-->
 </resources>

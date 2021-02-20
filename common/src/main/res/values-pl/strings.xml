@@ -1269,7 +1269,6 @@
     <string name="application_editor_intent_edit_flags_button_tooltip">Edytuj flagi</string>
     <string name="mobile_cells_pref_dlg_rename_cell_button_tooltip">Zmień nazwę stacji</string>
     <string name="location_editor_rename_with_address_button_tooltip">Ustaw adres jako nazwę</string>
-    <string name="location_editor_set_to_my_location_button_tooltip">Ustaw jako moją lokalizację</string>
     <string name="help_button_tooltip">Pomoc</string>
     <string name="bluetooth_name_pref_dlg_select_button_tooltip">Wybierz nazwy Bluetooth</string>
     <string name="mobile_cells_pref_dlg_select_button_tooltip">Wybierz stacje</string>
@@ -1355,7 +1354,6 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="array_pref_87_percent" formatted="false">87.5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Pokaż czas trwania profilu (widżet)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Może w ogóle nie działać w twoim urządzeniu.</string>
-    <string name="application_is_not_started">nie jest uruchomiony</string>
     <string name="application_is_starting_toast">uruchamia się…</string>
     <string name="application_is_started_toast">jest uruchomiony</string>
     <string name="popupmenu_title_click_below_toast">Kliknij poniżej, aby zmienić ten parametr</string>
@@ -1574,7 +1572,6 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Wyłącznie całodniowe</string>
     <string name="altype_applicationSystemRestart">ponowne uruchomienie aplikacji przez system</string>
     <string name="preference_not_allowed_reason_not_granted_phone_permission">nie przyznano dostępu do Telefonu</string>
-    <string name="application_cannot_be_started">nie może zostać uruchomiona</string>
     <string name="application_cannot_be_started_button_restart">Uruchom ponownie aplikację</string>
     <string name="contact_group_name_myContacts">Moje kontakty</string>
     <string name="contact_group_name_family">Rodzina</string>
@@ -1590,7 +1587,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="array_location_editor_show_actual_location">Show actual location</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
     <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
-    <string name="location_editor_map_is_loading">Map is loading...</string>
+    <string name="location_editor_map_is_loading">Map is loading…</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1903,4 +1900,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
     <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
+    <!--    <string name="location_editor_set_to_my_location_button_tooltip">Set to my location</string>-->
+    <!--    <string name="application_is_not_started">is not started</string>-->
+    <!--    <string name="application_cannot_be_started">cannot be started</string>-->
 </resources>

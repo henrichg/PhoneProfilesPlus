@@ -104,7 +104,7 @@ public class PPApplication extends Application
     static boolean applicationFullyStarted = false;
     static boolean applicationFullyStartedShowToast = false;
 
-    static boolean googlePlayServiceAvailable = false;
+//    static boolean googlePlayServiceAvailable = false;
 
     // this for display of alert dialog when works not started at start of app
     //static long startTimeOfApplicationStart = 0;
@@ -619,7 +619,7 @@ public class PPApplication extends Application
 
     static final String CRASHLYTICS_LOG_DEVICE_ROOTED = "DEVICE_ROOTED";
     static final String CRASHLYTICS_LOG_DEVICE_ROOTED_WITH = "ROOTED_WITH";
-    static final String CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION = "GOOGLE_PLAY_SERVICES_VERSION";
+//    static final String CRASHLYTICS_LOG_GOOGLE_PLAY_SERVICES_VERSION = "GOOGLE_PLAY_SERVICES_VERSION";
     static final String CRASHLYTICS_LOG_RESTORE_BACKUP_OK = "RESTORE_BACKUP_OK";
     static final String CRASHLYTICS_LOG_IMPORT_FROM_PP_OK = "IMPORT_FROM_PP_OK";
 
@@ -858,7 +858,7 @@ public class PPApplication extends Application
             default:
                 googlePlayServiceAvailable = true;
         }*/
-        PPApplication.logE("##### PPApplication.onCreate", "googlePlayServiceAvailable="+googlePlayServiceAvailable);
+        //PPApplication.logE("##### PPApplication.onCreate", "googlePlayServiceAvailable="+googlePlayServiceAvailable);
 
         //registerActivityLifecycleCallbacks(PPApplication.this);
 

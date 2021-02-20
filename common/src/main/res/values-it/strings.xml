@@ -1270,7 +1270,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="application_editor_intent_edit_flags_button_tooltip">Modifica Bandiere</string>
     <string name="mobile_cells_pref_dlg_rename_cell_button_tooltip">Rinomina cella</string>
     <string name="location_editor_rename_with_address_button_tooltip">Rinomina con indirizzo</string>
-    <string name="location_editor_set_to_my_location_button_tooltip">Imposta alla mia posizione</string>
     <string name="help_button_tooltip">Aiuto</string>
     <string name="bluetooth_name_pref_dlg_select_button_tooltip">Seleziona nomi Bluetooth</string>
     <string name="mobile_cells_pref_dlg_select_button_tooltip">Seleziona celle</string>
@@ -1355,7 +1354,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="array_pref_87_percent" formatted="false">87.5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Mostra durata del profilo (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Potrebbe non funzionare affatto nel tuo dispositivo.</string>
-    <string name="application_is_not_started">non è avviato</string>
     <string name="application_is_starting_toast">si sta avviando…</string>
     <string name="application_is_started_toast">è avviato</string>
     <string name="popupmenu_title_click_below_toast">Clicca sotto per modificare questo parametro</string>
@@ -1574,7 +1572,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Solo tutti i giorni</string>
     <string name="altype_applicationSystemRestart">riavvio dell\'applicazione dal sistema</string>
     <string name="preference_not_allowed_reason_not_granted_phone_permission">autorizzazione Telefono non concessa</string>
-    <string name="application_cannot_be_started">non può essere avviato</string>
     <string name="application_cannot_be_started_button_restart">Riavvia l\'applicazione</string>
     <string name="contact_group_name_myContacts">I Miei Contatti</string>
     <string name="contact_group_name_family">Famiglia</string>
@@ -1590,7 +1587,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="array_location_editor_show_actual_location">Show actual location</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
     <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
-    <string name="location_editor_map_is_loading">Map is loading...</string>
+    <string name="location_editor_map_is_loading">Map is loading…</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>
@@ -1903,4 +1900,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
     <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
+    <!--    <string name="location_editor_set_to_my_location_button_tooltip">Set to my location</string>-->
+    <!--    <string name="application_is_not_started">is not started</string>-->
+    <!--    <string name="application_cannot_be_started">cannot be started</string>-->
 </resources>

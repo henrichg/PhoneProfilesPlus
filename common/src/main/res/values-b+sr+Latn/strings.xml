@@ -1269,7 +1269,6 @@
     <string name="application_editor_intent_edit_flags_button_tooltip">Uredi zastavice</string>
     <string name="mobile_cells_pref_dlg_rename_cell_button_tooltip">Promeni ime ćeliji</string>
     <string name="location_editor_rename_with_address_button_tooltip">Promeni ime sa adresom</string>
-    <string name="location_editor_set_to_my_location_button_tooltip">Postavi na moju lokaciju</string>
     <string name="help_button_tooltip">Pomoć</string>
     <string name="bluetooth_name_pref_dlg_select_button_tooltip">Odaberi Bluetooth imena</string>
     <string name="mobile_cells_pref_dlg_select_button_tooltip">Odaberi ćelije</string>
@@ -1354,7 +1353,6 @@
     <string name="array_pref_87_percent" formatted="false">87,5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Prikaži trajanje profila (vidžet)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Neće da radi uopšte sa vašim uređajem.</string>
-    <string name="application_is_not_started">nije pokrenut</string>
     <string name="application_is_starting_toast">pokretanje u toku…</string>
     <string name="application_is_started_toast">pokrenuto</string>
     <string name="popupmenu_title_click_below_toast">Kliknite ispod za promenu ovog parametra</string>
@@ -1574,7 +1572,6 @@
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Samo tokom svih dana</string>
     <string name="altype_applicationSystemRestart">restart aplikacije sistemom</string>
     <string name="preference_not_allowed_reason_not_granted_phone_permission">telefon nema dozvolu</string>
-    <string name="application_cannot_be_started">nemože da se pokrene</string>
     <string name="application_cannot_be_started_button_restart">Restart aplikacije</string>
     <string name="contact_group_name_myContacts">Moji kontakti</string>
     <string name="contact_group_name_family">Porodica</string>
@@ -1590,7 +1587,7 @@
     <string name="array_location_editor_show_actual_location">Show actual location</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
     <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
-    <string name="location_editor_map_is_loading">Map is loading...</string>
+    <string name="location_editor_map_is_loading">Map is loading…</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1903,4 +1900,7 @@
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
     <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
+    <!--    <string name="location_editor_set_to_my_location_button_tooltip">Set to my location</string>-->
+    <!--    <string name="application_is_not_started">is not started</string>-->
+    <!--    <string name="application_cannot_be_started">cannot be started</string>-->
 </resources>

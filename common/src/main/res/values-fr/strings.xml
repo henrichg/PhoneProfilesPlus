@@ -1269,7 +1269,6 @@
     <string name="application_editor_intent_edit_flags_button_tooltip">Modifier les drapeaux</string>
     <string name="mobile_cells_pref_dlg_rename_cell_button_tooltip">Renommer la cellule</string>
     <string name="location_editor_rename_with_address_button_tooltip">Renommer avec l\'adresse</string>
-    <string name="location_editor_set_to_my_location_button_tooltip">Définir à ma position</string>
     <string name="help_button_tooltip">Aide</string>
     <string name="bluetooth_name_pref_dlg_select_button_tooltip">Sélectionner les noms Bluetooth</string>
     <string name="mobile_cells_pref_dlg_select_button_tooltip">Sélectionner les cellules</string>
@@ -1354,7 +1353,6 @@
     <string name="array_pref_87_percent" formatted="false">87,5%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Afficher la durée du profil (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Peut ne pas fonctionner sur votre appareil.</string>
-    <string name="application_is_not_started">non démarré</string>
     <string name="application_is_starting_toast">démarrage…</string>
     <string name="application_is_started_toast">est démarré</string>
     <string name="popupmenu_title_click_below_toast">Cliquez ci-dessous pour modifier ce paramètre</string>
@@ -1573,7 +1571,6 @@
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Only all days</string>
     <string name="altype_applicationSystemRestart">application restart by system</string>
     <string name="preference_not_allowed_reason_not_granted_phone_permission">autorisation non accordée par le téléphone</string>
-    <string name="application_cannot_be_started">ne peut pas être démarré</string>
     <string name="application_cannot_be_started_button_restart">Redémarrer l\'application</string>
     <string name="contact_group_name_myContacts">Mes contacts</string>
     <string name="contact_group_name_family">Famille</string>
@@ -1584,12 +1581,12 @@
     <string name="contact_account_type_samsung_account">Compte Samsung</string>
     <string name="contact_account_type_sim_card">Carte SIM</string>
     <string name="contact_account_type_phone_application">Application du téléphone</string>
-    <string name="location_editor_change_location_dialog_title">Change location</string>
-    <string name="array_location_editor_show_geofence">Show edited location</string>
-    <string name="array_location_editor_show_actual_location">Show actual location</string>
-    <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
-    <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
-    <string name="location_editor_map_is_loading">Map is loading...</string>
+    <string name="location_editor_change_location_dialog_title">Changer d\'emplacement</string>
+    <string name="array_location_editor_show_geofence">Afficher l\'emplacement modifié</string>
+    <string name="array_location_editor_show_actual_location">Afficher la position actuelle</string>
+    <string name="array_location_editor_change_geofence_location_to_actual">Changer l\'emplacement modifié pour l\'emplacement actuel</string>
+    <string name="array_location_editor_rename_geofence_with_address">Renommer l\'emplacement modifié avec l\'adresse</string>
+    <string name="location_editor_map_is_loading">Map is loading…</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
@@ -1902,4 +1899,7 @@
     <!--    <string name="not_more_maintained_notification_disable_button">Do not show again</string>-->
     <!--    <string name="not_more_maintained_confirm_notification_disable">PhoneProfiles is not more maintained. Are you sure to not show this notification in future?</string>-->
     <!--    <string name="event_preferences_calendar_ignore_all_day_events">Ignore \"All day\" events</string>-->
+    <!--    <string name="location_editor_set_to_my_location_button_tooltip">Set to my location</string>-->
+    <!--    <string name="application_is_not_started">is not started</string>-->
+    <!--    <string name="application_cannot_be_started">cannot be started</string>-->
 </resources>
