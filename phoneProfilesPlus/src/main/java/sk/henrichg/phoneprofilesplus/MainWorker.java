@@ -45,8 +45,6 @@ public class MainWorker extends Worker {
     static final String START_EVENT_NOTIFICATION_WORK_TAG = "startEventNotificationWork";
     static final String RUN_APPLICATION_WITH_DELAY_WORK_TAG = "runApplicationWithDelayWork";
     static final String PROFILE_DURATION_WORK_TAG = "profileDurationWork";
-    static final String GEOFENCE_REMOVE_LAST_KNOWN_LOCATION_UPDATES_WORK_TAG = "removeLastKnownLocationUpdatesWork";
-
 
     final Context context;
 
@@ -563,11 +561,6 @@ public class MainWorker extends Worker {
                     case SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG:
 //                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "SCHEDULE_LONG_INTERVAL_WIFI_WORK_TAG");
                         WifiScanWorker.scheduleWork(appContext, false);
-                        break;
-                    case GEOFENCE_REMOVE_LAST_KNOWN_LOCATION_UPDATES_WORK_TAG:
-//                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "GEOFENCE_REMOVE_LAST_KNOWN_LOCATION_UPDATES_WORK_TAG");
-                        if (PPApplication.geofencesScanner != null)
-                            PPApplication.geofencesScanner.removeLastKnownLocationUpdates();
                         break;
                     default:
                         if (tag.startsWith(PROFILE_DURATION_WORK_TAG)) {

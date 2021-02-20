@@ -76,10 +76,6 @@ import me.drakeet.support.toast.ToastCompat;
 
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
-//import org.acra.annotation.*;
-//import org.acra.config.ToastConfigurationBuilder;
-//import com.google.firebase.crashlytics.FirebaseCrashlytics;
-
 @SuppressWarnings("WeakerAccess")
 public class PPApplication extends Application
                                         //implements Configuration.Provider
@@ -103,8 +99,6 @@ public class PPApplication extends Application
 
     static boolean applicationFullyStarted = false;
     static boolean applicationFullyStartedShowToast = false;
-
-//    static boolean googlePlayServiceAvailable = false;
 
     // this for display of alert dialog when works not started at start of app
     //static long startTimeOfApplicationStart = 0;
@@ -844,21 +838,6 @@ public class PPApplication extends Application
         instance = this;
 
         PPApplication.logE("##### PPApplication.onCreate", "xxx");
-
-        /*
-        GoogleApiAvailability api = GoogleApiAvailability.getInstance();
-        int resultCode = api.isGooglePlayServicesAvailable(getApplicationContext());
-        switch (resultCode) {
-            case ConnectionResult.SERVICE_DISABLED:
-            case ConnectionResult.SERVICE_INVALID:
-            case ConnectionResult.SERVICE_MISSING:
-            case ConnectionResult.SERVICE_MISSING_PERMISSION:
-                googlePlayServiceAvailable = false;
-                break;
-            default:
-                googlePlayServiceAvailable = true;
-        }*/
-        //PPApplication.logE("##### PPApplication.onCreate", "googlePlayServiceAvailable="+googlePlayServiceAvailable);
 
         //registerActivityLifecycleCallbacks(PPApplication.this);
 

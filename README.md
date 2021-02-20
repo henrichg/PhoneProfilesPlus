@@ -31,7 +31,6 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 - AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager
 - Google Material library
-- Google Play services library (GMS): location
 - google-gson - https://code.google.com/p/google-gson/
 - ACRA - https://github.com/ACRA/acra
 - osmdroid - https://github.com/osmdroid/osmdroid

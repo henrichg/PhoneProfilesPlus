@@ -199,10 +199,11 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                             PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "GeofencesScanner.useGPS="+GeofencesScanner.useGPS);
                             geofencesScanner.stopLocationUpdates();
 
-                            PPApplication.sleep(500);
+                            PPApplication.sleep(1000);
 
+                            // this also calls GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm()
                             geofencesScanner.startLocationUpdates();
-                            //geofencesScanner.updateTransitionsByLastKnownLocation();
+                            geofencesScanner.updateTransitionsByLastKnownLocation();
                         }
                     }
                 }
