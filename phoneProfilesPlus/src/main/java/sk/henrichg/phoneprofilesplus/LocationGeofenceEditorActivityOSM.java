@@ -1102,6 +1102,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
             mLastLocation = location;
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.mLocationListener.onStatusChanged","location="+location);
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("##### LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "lastLocation.getLatitude()=" + location.getLatitude());
+                PPApplication.logE("##### LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "lastLocation.getLongitude()=" + location.getLongitude());
+                PPApplication.logE("##### LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "lastLocation.getAccuracy()=" + location.getAccuracy());
+            }
 
             if (mLocation == null) {
                 mLocation = new Location(mLastLocation);

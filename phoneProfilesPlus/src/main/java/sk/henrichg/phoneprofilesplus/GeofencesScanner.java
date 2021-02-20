@@ -682,9 +682,7 @@ class GeofencesScanner
             return;
 
         //CallsCounter.logCounter(GeofencesScanner.this.context, "GeofenceScanner.doLocationChanged", "GeofenceScannerGMS_doLocationChanged");
-        //PPApplication.logE("[IN_LISTENER] GeofenceScanner.doLocationChanged", "locationResult="+locationResult);
-        //PPApplication.logE("[IN_LISTENER] GeofenceScanner.doLocationChanged", "locationResult="+locationResult.getLocations().size());
-        //PPApplication.logE("##### GeofenceScanner.doLocationChanged", "locationResult="+locationResult.getLocations().size());
+        //PPApplication.logE("GeofenceScanner.doLocationChanged", "location="+location);
 
         synchronized (PPApplication.geofenceScannerLastLocationMutex) {
             //PPApplication.logE("##### GeofenceScanner.doLocationChanged", "lastLocation update");
@@ -694,11 +692,11 @@ class GeofencesScanner
             PPApplication.lastLocation.set(location);
             //PPApplication.logE("[IN_LISTENER] GeofenceScanner.doLocationChanged", "lastLocation=" + lastLocation);
             //PPApplication.logE("##### GeofenceScanner.doLocationChanged", "lastLocation=" + lastLocation);
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("##### GeofenceScanner.doLocationChanged", "lastLocation.getLatitude()=" + lastLocation.getLatitude());
-                PPApplication.logE("##### GeofenceScanner.doLocationChanged", "lastLocation.getLongitude()=" + lastLocation.getLongitude());
-                PPApplication.logE("##### GeofenceScanner.doLocationChanged", "lastLocation.getAccuracy()=" + lastLocation.getAccuracy());
-            }*/
+            if (PPApplication.logEnabled()) {
+                PPApplication.logE("##### GeofenceScanner.doLocationChanged", "lastLocation.getLatitude()=" + location.getLatitude());
+                PPApplication.logE("##### GeofenceScanner.doLocationChanged", "lastLocation.getLongitude()=" + location.getLongitude());
+                PPApplication.logE("##### GeofenceScanner.doLocationChanged", "lastLocation.getAccuracy()=" + location.getAccuracy());
+            }
         }
 
         if (Event.getGlobalEventsRunning()) {
