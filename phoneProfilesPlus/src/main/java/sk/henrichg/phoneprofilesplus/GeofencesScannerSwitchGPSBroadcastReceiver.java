@@ -189,12 +189,12 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
                     GeofencesScanner geofencesScanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                     if (geofencesScanner != null) {
                         if (GeofencesScanner.mUpdatesStarted) {
-                            if (GeofencesScanner.useGPS) {
-                                if (PPApplication.googlePlayServiceAvailable) {
-                                    geofencesScanner.flushLocations();
-                                    PPApplication.sleep(5000);
-                                }
-                            }
+//                            if (GeofencesScanner.useGPS) {
+//                                if (PPApplication.googlePlayServiceAvailable) {
+//                                    geofencesScanner.flushLocations();
+//                                    PPApplication.sleep(5000);
+//                                }
+//                            }
                             GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
                             PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "GeofencesScanner.useGPS="+GeofencesScanner.useGPS);
                             geofencesScanner.stopLocationUpdates();
