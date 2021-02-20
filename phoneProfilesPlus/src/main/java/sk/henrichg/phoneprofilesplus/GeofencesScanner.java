@@ -343,7 +343,8 @@ class GeofencesScanner
                                 createLocationRequest();
                                 //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mFusedLocationClient="+mFusedLocationClient);
                                 if ((mFusedLocationClient != null) && (mLocationRequest != null)) {
-                                    mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, PPApplication.handlerThreadLastKnownLocation.getLooper());
+                                    PPApplication.startHandlerThreadLocation();
+                                    mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, PPApplication.handlerThreadLocation.getLooper());
                                     //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=true");
                                     mUpdatesStarted = true;
                                 }
@@ -354,53 +355,68 @@ class GeofencesScanner
                                 return;
                             }
                         } else {
-                            /*boolean locationEnabled;
-                            try {
-                                //noinspection ConstantConditions
-                                locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-                            } catch (Exception e) {
-                                // we may get IllegalArgumentException if network location provider
-                                // does not exist or is not yet installed.
-                                locationEnabled = false;
-                            }*/
+                            if (!mListenerEnabled) {
 
-                            if (!mListenerEnabled/* && locationEnabled*/) {
-                                try {
-                                    // check power save mode
-                                    String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode;
-                                    //boolean powerSaveMode = PPApplication.isPowerSaveMode;
-                                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                                    if (!(isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2"))) {
+                                String provider;
+                                boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+                                if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
+                                    //PPApplication.logE("##### GeofenceScanner.startLocationUpdates","NETWORK_PROVIDER");
+                                    provider = LocationManager.NETWORK_PROVIDER;
+                                } else {
+                                    //PPApplication.logE("##### GeofenceScanner.startLocationUpdates","PRIORITY_HIGH_ACCURACY");
+                                    provider = LocationManager.GPS_PROVIDER;
+                                }
 
-                                        int interval = 25; // seconds
-                                        if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1)
-                                            interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / INTERVAL_DIVIDE_VALUE; // interval is in minutes
-                                        //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "ApplicationPreferences.applicationEventLocationUpdateInterval="+ApplicationPreferences.applicationEventLocationUpdateInterval);
-                                        //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "interval="+interval);
-                                        if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("1"))
-                                            interval = 2 * interval;
-                                        final long UPDATE_INTERVAL_IN_MILLISECONDS = (interval * 1000) / 2;
-
-                                        String provider;
-                                        if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
-                                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates","NETWORK_PROVIDER");
-                                            provider = LocationManager.NETWORK_PROVIDER;
-                                        } else {
-                                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates","PRIORITY_HIGH_ACCURACY");
-                                            provider = LocationManager.GPS_PROVIDER;
-                                        }
-
-                                        PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "request location updates - provider="+provider);
-                                        mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener, PPApplication.handlerThreadLastKnownLocation.getLooper());
-                                        mListenerEnabled = true;
-
-                                        mUpdatesStarted = true;
+                                boolean locationEnabled = false;
+                                if (provider.equals(LocationManager.GPS_PROVIDER)) {
+                                    try {
+                                        //noinspection ConstantConditions
+                                        locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                                    } catch (Exception e) {
+                                        // we may get IllegalArgumentException if network location provider
+                                        // does not exist or is not yet installed.
+                                        locationEnabled = false;
                                     }
-                                } catch (SecurityException securityException) {
-                                    // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
-                                    //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
-                                    mUpdatesStarted = false;
-                                    return;
+                                }
+                                if (!locationEnabled) {
+                                    try {
+                                        //noinspection ConstantConditions
+                                        locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+                                    } catch (Exception e) {
+                                        // we may get IllegalArgumentException if network location provider
+                                        // does not exist or is not yet installed.
+                                        locationEnabled = false;
+                                    }
+                                }
+
+                                if (locationEnabled) {
+                                    try {
+                                        // check power save mode
+                                        String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode;
+                                        //boolean powerSaveMode = PPApplication.isPowerSaveMode;
+                                        if (!(isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2"))) {
+                                            int interval = 25; // seconds
+                                            if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1)
+                                                interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / INTERVAL_DIVIDE_VALUE; // interval is in minutes
+                                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "ApplicationPreferences.applicationEventLocationUpdateInterval="+ApplicationPreferences.applicationEventLocationUpdateInterval);
+                                            //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "interval="+interval);
+                                            if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("1"))
+                                                interval = 2 * interval;
+                                            final long UPDATE_INTERVAL_IN_MILLISECONDS = (interval * 1000) / 2;
+
+                                            PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "request location updates - provider=" + provider);
+                                            PPApplication.startHandlerThreadLocation();
+                                            mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener, PPApplication.handlerThreadLocation.getLooper());
+                                            mListenerEnabled = true;
+
+                                            mUpdatesStarted = true;
+                                        }
+                                    } catch (SecurityException securityException) {
+                                        // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
+                                        //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
+                                        mUpdatesStarted = false;
+                                        return;
+                                    }
                                 }
                             }
                         }
@@ -499,8 +515,10 @@ class GeofencesScanner
                 if (PPApplication.googlePlayServiceAvailable) {
                     //FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
 
-                    if (mFusedLocationClient != null)
+                    if (mFusedLocationClient != null) {
                         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+                        PPApplication.sleep(500);
+                    }
 
                     final LocationRequest locationRequest = LocationRequest.create();
 
@@ -518,28 +536,54 @@ class GeofencesScanner
                         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
                     }
 
-                    PPApplication.startHandlerThreadLastKnownLocation();
-                    mFusedLocationClient.requestLocationUpdates(locationRequest, updateTransitionsByLastKnownLocationCallback, PPApplication.handlerThreadLastKnownLocation.getLooper());
+                    PPApplication.startHandlerThreadLocation();
+                    mFusedLocationClient.requestLocationUpdates(locationRequest, updateTransitionsByLastKnownLocationCallback, PPApplication.handlerThreadLocation.getLooper());
                 } else {
-                    if (mLocationManager != null)
+                    if (mLocationManager != null) {
                         mLocationManager.removeUpdates(mLocationListener);
-                    mListenerEnabled = false;
-
-                    final long UPDATE_INTERVAL_IN_MILLISECONDS = 1000 / 2;
+                        mListenerEnabled = false;
+                        PPApplication.sleep(500);
+                    }
 
                     String provider;
-                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(appContext);
+                    boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
                     if ((!ApplicationPreferences.applicationEventLocationUseGPS) || isPowerSaveMode || (!useGPS)) {
-                        //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation","PRIORITY_BALANCED_POWER_ACCURACY");
+                        //PPApplication.logE("##### GeofenceScanner.startLocationUpdates","NETWORK_PROVIDER");
                         provider = LocationManager.NETWORK_PROVIDER;
                     } else {
-                        //PPApplication.logE("##### GeofenceScanner.updateTransitionsByLastKnownLocation","PRIORITY_HIGH_ACCURACY");
+                        //PPApplication.logE("##### GeofenceScanner.startLocationUpdates","PRIORITY_HIGH_ACCURACY");
                         provider = LocationManager.GPS_PROVIDER;
                     }
 
-                    PPApplication.logE("[IN_THREAD_HANDLER] GeofenceScanner.updateTransitionsByLastKnownLocation", "request location updates");
-                    PPApplication.startHandlerThreadLastKnownLocation();
-                    mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, updateTransitionsByLastKnownLocationListener, PPApplication.handlerThreadLastKnownLocation.getLooper());
+                    boolean locationEnabled = false;
+                    if (provider.equals(LocationManager.GPS_PROVIDER)) {
+                        try {
+                            //noinspection ConstantConditions
+                            locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                        } catch (Exception e) {
+                            // we may get IllegalArgumentException if network location provider
+                            // does not exist or is not yet installed.
+                            locationEnabled = false;
+                        }
+                    }
+                    if (!locationEnabled) {
+                        try {
+                            //noinspection ConstantConditions
+                            locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+                        } catch (Exception e) {
+                            // we may get IllegalArgumentException if network location provider
+                            // does not exist or is not yet installed.
+                            locationEnabled = false;
+                        }
+                    }
+
+                    if (locationEnabled) {
+                        final long UPDATE_INTERVAL_IN_MILLISECONDS = 1000 / 2;
+
+                        PPApplication.logE("[IN_THREAD_HANDLER] GeofenceScanner.updateTransitionsByLastKnownLocation", "request location updates");
+                        PPApplication.startHandlerThreadLocation();
+                        mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, updateTransitionsByLastKnownLocationListener, PPApplication.handlerThreadLocation.getLooper());
+                    }
                 }
 
                 OneTimeWorkRequest worker =

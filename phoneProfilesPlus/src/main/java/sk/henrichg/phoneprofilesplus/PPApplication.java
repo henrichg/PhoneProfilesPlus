@@ -747,7 +747,7 @@ public class PPApplication extends Application
     public static HandlerThread handlerThreadPlayTone = null;
     public static HandlerThread handlerThreadPPScanners = null;
     public static OrientationScannerHandlerThread handlerThreadOrientationScanner = null;
-    public static HandlerThread handlerThreadLastKnownLocation = null;
+    public static HandlerThread handlerThreadLocation = null;
     //public static HandlerThread handlerThreadPPCommand = null;
 
     public static HandlerThread handlerThreadVolumes = null;
@@ -1040,7 +1040,7 @@ public class PPApplication extends Application
         startHandlerThreadPPScanners(); // for minutes interval
         startHandlerThreadOrientationScanner(); // for seconds interval
         //startHandlerThreadPPCommand();
-        startHandlerThreadLastKnownLocation();
+        startHandlerThreadLocation();
         startHandlerThreadWidget();
         startHandlerThreadPlayTone();
         startHandlerThreadVolumes();
@@ -3914,10 +3914,10 @@ public class PPApplication extends Application
     }
     */
 
-    static void startHandlerThreadLastKnownLocation() {
-        if (handlerThreadLastKnownLocation == null) {
-            handlerThreadLastKnownLocation = new HandlerThread("PPHandlerThreadLastKnownLocation", THREAD_PRIORITY_MORE_FAVORABLE); //);
-            handlerThreadLastKnownLocation.start();
+    static void startHandlerThreadLocation() {
+        if (handlerThreadLocation == null) {
+            handlerThreadLocation = new HandlerThread("PPHandlerThreadLocation", THREAD_PRIORITY_MORE_FAVORABLE); //);
+            handlerThreadLocation.start();
         }
     }
 
