@@ -22,8 +22,9 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 ##### Features
 - [Show it](docs/ppp_features.md)
 
-##### Supported Android SDK
+##### Supported Android versions
 
+- From Android 6.0
 - minSdkVersion = 23
 - targetSdkVersion = 28
 
