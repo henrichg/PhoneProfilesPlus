@@ -1614,6 +1614,8 @@ class Event {
 //                    PPApplication.logE("[FIFO_TEST] Event.startEvent", "#### add profileId=" + profileId);
                         dataWrapper.addProfileToFIFO(profileId, _id);
                     }
+                } else {
+                    PPApplication.updateGUI(1/*dataWrapper.context, true, false*/);
                 }
             }
         }
