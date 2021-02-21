@@ -1577,9 +1577,12 @@ class Event {
                 Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
                 if (activatedProfile != null)
                     activatedProfileId = activatedProfile._id;
-                if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
-//                if (_name.equals("Evening "))
-//                    PPApplication.logE("[***] Event.startEvent", "(1) called is DataWrapper.activateProfileFromEvent");
+                if ((this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) &&
+                    (//PPApplication.applicationFullyStarted ||
+                     PPApplication.applicationFullyStartedShowToast ||
+                     (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context)))) {
+//                    if (_name.equals("Evening "))
+//                        PPApplication.logE("[***] Event.startEvent", "(1) called is DataWrapper.activateProfileFromEvent");
                     dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
                 } else {
                     //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
@@ -1588,19 +1591,23 @@ class Event {
                     PPApplication.updateGUI(1/*dataWrapper.context, true, false*/);
                 }
             } else {
-                mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper/*, true*/);
+                if (//PPApplication.applicationFullyStarted ||
+                    PPApplication.applicationFullyStartedShowToast ||
+                    (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
+                    mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper/*, true*/);
 
-                //PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
-                if (this._manualProfileActivation) {
-                    DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
-//                if (_name.equals("Evening "))
-//                    PPApplication.logE("[***] Event.startEvent", "(2) called is DataWrapper.activateProfileFromEvent");
-                    dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents);
-                    mergedProfile._id = 0;
-                } else {
-                    long profileId = _fkProfileStart;
-//                PPApplication.logE("[FIFO_TEST] Event.startEvent", "#### add profileId=" + profileId);
-                    dataWrapper.addProfileToFIFO(profileId, _id);
+                    //PPApplication.logE("Event.startEvent","mergedProfile="+mergedProfile._name);
+                    if (this._manualProfileActivation) {
+                        DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
+//                    if (_name.equals("Evening "))
+//                        PPApplication.logE("[***] Event.startEvent", "(2) called is DataWrapper.activateProfileFromEvent");
+                        dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents);
+                        mergedProfile._id = 0;
+                    } else {
+                        long profileId = _fkProfileStart;
+//                    PPApplication.logE("[FIFO_TEST] Event.startEvent", "#### add profileId=" + profileId);
+                        dataWrapper.addProfileToFIFO(profileId, _id);
+                    }
                 }
             }
         }
@@ -1642,30 +1649,29 @@ class Event {
 //        }
 
         boolean profileActivated = false;
-        if (activateReturnProfile/* && canActivateReturnProfile()*/)
-        {
-            if (mergedProfile == null) {
-                Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-                long activatedProfileId = 0;
-                if (activatedProfile != null)
-                    activatedProfileId = activatedProfile._id;
-                // first activate _fkProfileEnd
-                if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
-                {
-                    if (_manualProfileActivationAtEnd || (_fkProfileEnd != activatedProfileId) || forRestartEvents)
-                    {
-                        //PPApplication.logE("&&&&&&& Event.doActivateEndProfile", "(1) called is DataWrapper.activateProfileFromEvent");
-                        dataWrapper.activateProfileFromEvent(_id, _fkProfileEnd, false, false, forRestartEvents);
-                        activatedProfileId = _fkProfileEnd;
-                        profileActivated = true;
+        if (//PPApplication.applicationFullyStarted ||
+            PPApplication.applicationFullyStartedShowToast ||
+            (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
+            if (activateReturnProfile/* && canActivateReturnProfile()*/) {
+                if (mergedProfile == null) {
+                    Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
+                    long activatedProfileId = 0;
+                    if (activatedProfile != null)
+                        activatedProfileId = activatedProfile._id;
+                    // first activate _fkProfileEnd
+                    if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE) {
+                        if (_manualProfileActivationAtEnd || (_fkProfileEnd != activatedProfileId) || forRestartEvents) {
+                            //PPApplication.logE("&&&&&&& Event.doActivateEndProfile", "(1) called is DataWrapper.activateProfileFromEvent");
+                            dataWrapper.activateProfileFromEvent(_id, _fkProfileEnd, false, false, forRestartEvents);
+                            activatedProfileId = _fkProfileEnd;
+                            profileActivated = true;
+                        }
                     }
-                }
-                // second activate when undone profile is set
-                if (_atEndDo == EATENDDO_UNDONE_PROFILE)
-                {
+                    // second activate when undone profile is set
+                    if (_atEndDo == EATENDDO_UNDONE_PROFILE) {
 //                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "undone profile");
 //                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "_atEndHowUndo="+_atEndHowUndo);
-                    long activateProfile;
+                        long activateProfile;
                     /*if (_atEndHowUndo == 0) {
                         if (!(eventPosition == (timeLineSize-1))) {
                             // when in timeline list is event, get start profile from last event in timeline list
@@ -1688,91 +1694,86 @@ class Event {
                             }
                         } else
                             eventTimeline._fkProfileEndActivated = 0;
-                    } else*/ {
+                    } else*/
+                        {
 //                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### remove last profile");
-                        synchronized (PPApplication.profileActivationMutex) {
-                            List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
-                            List<String> newActivateProfilesFIFO = new ArrayList<>();
-                            int size = activateProfilesFIFO.size();
-                            if (size > 0) {
-                                //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
-                                // remove profiles from this event
-                                for (String fromFifo : activateProfilesFIFO) {
-                                    String[] splits = fromFifo.split("\\|");
-                                    if (!splits[1].equals(String.valueOf(_id))) {
-                                        // profile is not from this event
-                                        newActivateProfilesFIFO.add(fromFifo);
-                                    }
-                                }
-                                dataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
-                                // get latest profile for Undo
-                                size = newActivateProfilesFIFO.size();
+                            synchronized (PPApplication.profileActivationMutex) {
+                                List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                                List<String> newActivateProfilesFIFO = new ArrayList<>();
+                                int size = activateProfilesFIFO.size();
                                 if (size > 0) {
-                                    String fromFifo = newActivateProfilesFIFO.get(size - 1);
-                                    String[] splits = fromFifo.split("\\|");
-                                    activateProfile = Long.parseLong(splits[0]);
+                                    //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
+                                    // remove profiles from this event
+                                    for (String fromFifo : activateProfilesFIFO) {
+                                        String[] splits = fromFifo.split("\\|");
+                                        if (!splits[1].equals(String.valueOf(_id))) {
+                                            // profile is not from this event
+                                            newActivateProfilesFIFO.add(fromFifo);
+                                        }
+                                    }
+                                    dataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
+                                    // get latest profile for Undo
+                                    size = newActivateProfilesFIFO.size();
+                                    if (size > 0) {
+                                        String fromFifo = newActivateProfilesFIFO.get(size - 1);
+                                        String[] splits = fromFifo.split("\\|");
+                                        activateProfile = Long.parseLong(splits[0]);
+                                    } else
+                                        activateProfile = 0;
                                 } else
+                                    //eventTimeline._fkProfileEndActivated = 0;
                                     activateProfile = 0;
-                            } else
-                                //eventTimeline._fkProfileEndActivated = 0;
-                                activateProfile = 0;
-                        }
+                            }
 
 //                        PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
-                        //if (eventTimeline._fkProfileEndActivated == 0) {
-                        if (activateProfile == 0) {
+                            //if (eventTimeline._fkProfileEndActivated == 0) {
+                            if (activateProfile == 0) {
 //                            PPApplication.logE("[APP_START] Event.doActivateEndProfile (1)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
-                            long defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
+                                long defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
 
-                            //if (!fullyStarted)
-                            //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                            if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+                                //if (!fullyStarted)
+                                //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                                if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
 //                                PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated=default profile");
-                                //eventTimeline._fkProfileEndActivated = defaultProfileId;
-                                activateProfile = defaultProfileId;
+                                    //eventTimeline._fkProfileEndActivated = defaultProfileId;
+                                    activateProfile = defaultProfileId;
+                                }
+                            }
+                        }
+//                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "doActivateEndProfile-_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
+                        //if ((eventTimeline._fkProfileEndActivated != activatedProfileId) || forRestartEvents)
+                        if (_manualProfileActivationAtEnd || (activateProfile != activatedProfileId) || forRestartEvents) {
+                            //if (eventTimeline._fkProfileEndActivated != 0)
+                            if (activateProfile != 0) {
+                                //PPApplication.logE("&&&&&&& Event.doActivateEndProfile", "(2) called is DataWrapper.activateProfileFromEvent");
+                                // do not save to fifo profile with event for Undo
+                                dataWrapper.activateProfileFromEvent(0, activateProfile, false, false, forRestartEvents);
+                                profileActivated = true;
                             }
                         }
                     }
-//                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "doActivateEndProfile-_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
-                    //if ((eventTimeline._fkProfileEndActivated != activatedProfileId) || forRestartEvents)
-                    if (_manualProfileActivationAtEnd || (activateProfile != activatedProfileId) || forRestartEvents)
-                    {
-                        //if (eventTimeline._fkProfileEndActivated != 0)
-                        if (activateProfile != 0)
-                        {
-                            //PPApplication.logE("&&&&&&& Event.doActivateEndProfile", "(2) called is DataWrapper.activateProfileFromEvent");
-                            // do not save to fifo profile with event for Undo
-                            dataWrapper.activateProfileFromEvent(0, activateProfile, false, false, forRestartEvents);
-                            profileActivated = true;
-                        }
-                    }
-                }
-            }
-            else {
-                // first activate _fkProfileEnd
-                if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
-                {
-                    //PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-activate end profile");
-                    mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper/*, false*/);
+                } else {
+                    // first activate _fkProfileEnd
+                    if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE) {
+                        //PPApplication.logE("@@@ Event.pauseEvent","doActivateEndProfile-activate end profile");
+                        mergedProfile.mergeProfiles(_fkProfileEnd, dataWrapper/*, false*/);
 
-                    if (_manualProfileActivationAtEnd) {
-                        DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
-                        dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents);
-                        mergedProfile._id = 0;
-                    }
-                    else {
-                        long profileId = _fkProfileEnd;
+                        if (_manualProfileActivationAtEnd) {
+                            DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
+                            dataWrapper.activateProfileFromEvent(this._id, mergedProfile._id, true, true, forRestartEvents);
+                            mergedProfile._id = 0;
+                        } else {
+                            long profileId = _fkProfileEnd;
 
 //                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profileId=" + profileId);
-                        dataWrapper.addProfileToFIFO(profileId, _id);
+                            dataWrapper.addProfileToFIFO(profileId, _id);
+                        }
                     }
-                }
-                // second activate when undone profile is set
-                if (_atEndDo == EATENDDO_UNDONE_PROFILE)
-                {
+                    // second activate when undone profile is set
+                    if (_atEndDo == EATENDDO_UNDONE_PROFILE) {
 //                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "undone profile for merged profile");
 //                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "_atEndHowUndo="+_atEndHowUndo);
-                    long activateProfile;
+                        long activateProfile;
                     /*if (_atEndHowUndo == 0) {
                         if (!(eventPosition == (timeLineSize-1))) {
                             // when in timeline list is event, get start profile from last event in timeline list
@@ -1795,79 +1796,80 @@ class Event {
                             }
                         } else
                             eventTimeline._fkProfileEndActivated = 0;
-                    } else*/ {
+                    } else*/
+                        {
 //                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### merge profile for Undo");
-                        synchronized (PPApplication.profileActivationMutex) {
-                            List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
-                            List<String> newActivateProfilesFIFO = new ArrayList<>();
-                            int size = activateProfilesFIFO.size();
-                            if (size > 0) {
-                                //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
-                                // remove profiles from this event
-                                for (String fromFifo : activateProfilesFIFO) {
-                                    String[] splits = fromFifo.split("\\|");
-                                    if (!splits[1].equals(String.valueOf(_id))) {
-                                        // profile is not from this event
-//                                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profile for Undo fromFifo="+fromFifo);
-                                        newActivateProfilesFIFO.add(fromFifo);
-                                    }
-                                }
-                                dataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
-                                // get latest profile for Undo
-                                size = newActivateProfilesFIFO.size();
+                            synchronized (PPApplication.profileActivationMutex) {
+                                List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                                List<String> newActivateProfilesFIFO = new ArrayList<>();
+                                int size = activateProfilesFIFO.size();
                                 if (size > 0) {
-                                    String fromFifo = newActivateProfilesFIFO.get(size - 1);
-                                    String[] splits = fromFifo.split("\\|");
-                                    activateProfile = Long.parseLong(splits[0]);
+                                    //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
+                                    // remove profiles from this event
+                                    for (String fromFifo : activateProfilesFIFO) {
+                                        String[] splits = fromFifo.split("\\|");
+                                        if (!splits[1].equals(String.valueOf(_id))) {
+                                            // profile is not from this event
+//                                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profile for Undo fromFifo="+fromFifo);
+                                            newActivateProfilesFIFO.add(fromFifo);
+                                        }
+                                    }
+                                    dataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
+                                    // get latest profile for Undo
+                                    size = newActivateProfilesFIFO.size();
+                                    if (size > 0) {
+                                        String fromFifo = newActivateProfilesFIFO.get(size - 1);
+                                        String[] splits = fromFifo.split("\\|");
+                                        activateProfile = Long.parseLong(splits[0]);
+                                    } else
+                                        activateProfile = 0;
                                 } else
+                                    //eventTimeline._fkProfileEndActivated = 0;
                                     activateProfile = 0;
-                            } else
-                                //eventTimeline._fkProfileEndActivated = 0;
-                                activateProfile = 0;
-                        }
+                            }
 
-                        //                        PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
-                        //if (eventTimeline._fkProfileEndActivated == 0) {
-                        if (activateProfile == 0) {
+                            //                        PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated="+eventTimeline._fkProfileEndActivated);
+                            //if (eventTimeline._fkProfileEndActivated == 0) {
+                            if (activateProfile == 0) {
 //                            PPApplication.logE("[APP_START] Event.doActivateEndProfile (2)", "PPApplication.applicationFullyStarted="+PPApplication.applicationFullyStarted);
-                            long defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
-                            //if (!fullyStarted)
-                            //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
-                            if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
+                                long defaultProfileId = ApplicationPreferences.getApplicationDefaultProfileOnBoot();
+                                //if (!fullyStarted)
+                                //    defaultProfileId = Profile.PROFILE_NO_ACTIVATE;
+                                if (defaultProfileId != Profile.PROFILE_NO_ACTIVATE) {
 //                                PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "eventTimeline._fkProfileEndActivated=default profile");
-                                //eventTimeline._fkProfileEndActivated = defaultProfileId;
-                                activateProfile = defaultProfileId;
+                                    //eventTimeline._fkProfileEndActivated = defaultProfileId;
+                                    activateProfile = defaultProfileId;
+                                }
+                            }
+                        }
+//                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
+                        //if (eventTimeline._fkProfileEndActivated != 0)
+                        if (activateProfile != 0) {
+                            //mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper/*, false*/);
+                            mergedProfile.mergeProfiles(activateProfile, dataWrapper/*, false*/);
+
+                            if (_manualProfileActivationAtEnd) {
+                                DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
+                                // do not save to fifo profile with event for Undo
+                                dataWrapper.activateProfileFromEvent(0, mergedProfile._id, true, true, forRestartEvents);
+                                mergedProfile._id = 0;
                             }
                         }
                     }
-//                    PPApplication.logE("----------- @@@ Event.doActivateEndProfile", "_fkProfileEndActivated=" + eventTimeline._fkProfileEndActivated);
-                    //if (eventTimeline._fkProfileEndActivated != 0)
-                    if (activateProfile != 0)
-                    {
-                        //mergedProfile.mergeProfiles(eventTimeline._fkProfileEndActivated, dataWrapper/*, false*/);
-                        mergedProfile.mergeProfiles(activateProfile, dataWrapper/*, false*/);
-
-                        if (_manualProfileActivationAtEnd) {
-                            DatabaseHandler.getInstance(dataWrapper.context).saveMergedProfile(mergedProfile);
-                            // do not save to fifo profile with event for Undo
-                            dataWrapper.activateProfileFromEvent(0, mergedProfile._id, true, true, forRestartEvents);
-                            mergedProfile._id = 0;
-                        }
-                    }
                 }
-            }
 
-            // restart events when is set
-            if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart && !forRestartEvents) {
-                // test of forRestartEvents is required!!!
-                // Do not restart events when is event paused during restart events !!!
+                // restart events when is set
+                if ((_atEndDo == EATENDDO_RESTART_EVENTS) && allowRestart && !forRestartEvents) {
+                    // test of forRestartEvents is required!!!
+                    // Do not restart events when is event paused during restart events !!!
 //                PPApplication.logE("[FIFO_TEST] Event.pauseEvent","doActivateEndProfile-restart events");
 //                PPApplication.logE("[FIFO_TEST] Event.pauseEvent","    event._name="+_name);
-                // do not reactivate profile to avoid infinite loop
-                dataWrapper.restartEventsWithDelay(5, false, true, true, PPApplication.ALTYPE_UNDEFINED);
-                profileActivated = true;
-            }
+                    // do not reactivate profile to avoid infinite loop
+                    dataWrapper.restartEventsWithDelay(5, false, true, true, PPApplication.ALTYPE_UNDEFINED);
+                    profileActivated = true;
+                }
 
+            }
         }
 
         if ((!profileActivated) && updateGUI)

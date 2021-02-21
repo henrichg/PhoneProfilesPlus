@@ -28,8 +28,8 @@
 // 6200 = enable notification scanning when any non-stopped event has Notification sensor
 
 ext.ppVersions = [
-    publishVersion: '4.3.2.3b',
-    publishVersionCode: 6448,
+    publishVersion: '4.3.3b',
+    publishVersionCode: 6449,
 
     minSdk: 23,
     targetSdk: 28,
