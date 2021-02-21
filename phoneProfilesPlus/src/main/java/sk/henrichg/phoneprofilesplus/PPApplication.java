@@ -81,15 +81,12 @@ public class PPApplication extends Application
                                         //implements Configuration.Provider
                                         //implements Application.ActivityLifecycleCallbacks
 {
-    //static final int VERSION_CODE_EXTENDER_1_0_4 = 60;
-    //static final int VERSION_CODE_EXTENDER_2_0 = 100;
     static final int VERSION_CODE_EXTENDER_3_0 = 200;
     static final int VERSION_CODE_EXTENDER_4_0 = 400;
-    //static final int VERSION_CODE_EXTENDER_5_1_2 = 465;
     static final int VERSION_CODE_EXTENDER_5_1_3_1 = 540;
-    //static final int VERSION_CODE_EXTENDER_5_1_3_5 = 580;
     static final int VERSION_CODE_EXTENDER_5_1_4 = 590;
-    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_5_1_4;
+    static final int VERSION_CODE_EXTENDER_5_1_4_1 = 600;
+    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_5_1_4_1;
 
     static final int pid = Process.myPid();
     static final int uid = Process.myUid();
