@@ -1573,26 +1573,32 @@ class Event {
 
         if (this._fkProfileStart != Profile.PROFILE_NO_ACTIVATE) {
             if (mergedProfile == null) {
-                long activatedProfileId = 0;
-                Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
-                if (activatedProfile != null)
-                    activatedProfileId = activatedProfile._id;
-                if ((this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) &&
-                    (//PPApplication.applicationFullyStarted ||
-                     PPApplication.applicationFullyStartedShowToast ||
-                     (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context)))) {
+                if (PPApplication.applicationFullyStarted ||
+                    PPApplication.applicationFullyStartedShowToast || // true = it is not restart by system
+                    (!this._ignoreManualActivation) ||
+                    (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
+                    long activatedProfileId = 0;
+                    Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
+                    if (activatedProfile != null)
+                        activatedProfileId = activatedProfile._id;
+                    if (this._manualProfileActivation || forRestartEvents || (this._fkProfileStart != activatedProfileId)) {
 //                    if (_name.equals("Evening "))
 //                        PPApplication.logE("[***] Event.startEvent", "(1) called is DataWrapper.activateProfileFromEvent");
-                    dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
-                } else {
-                    //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
-                    //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
-                    //PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
+                        dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
+                    } else {
+                        //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
+                        //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
+                        //PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
+                        PPApplication.updateGUI(1/*dataWrapper.context, true, false*/);
+                    }
+                }
+                else {
                     PPApplication.updateGUI(1/*dataWrapper.context, true, false*/);
                 }
             } else {
-                if (//PPApplication.applicationFullyStarted ||
-                    PPApplication.applicationFullyStartedShowToast ||
+                if (PPApplication.applicationFullyStarted ||
+                    PPApplication.applicationFullyStartedShowToast || // true = it is not restart by system
+                    (!this._ignoreManualActivation) ||
                     (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
                     mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper/*, true*/);
 
@@ -1649,8 +1655,9 @@ class Event {
 //        }
 
         boolean profileActivated = false;
-        if (//PPApplication.applicationFullyStarted ||
-            PPApplication.applicationFullyStartedShowToast ||
+        if (PPApplication.applicationFullyStarted ||
+            PPApplication.applicationFullyStartedShowToast || // true = it is not restart by system
+            (!this._ignoreManualActivation) ||
             (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
             if (activateReturnProfile/* && canActivateReturnProfile()*/) {
                 if (mergedProfile == null) {
