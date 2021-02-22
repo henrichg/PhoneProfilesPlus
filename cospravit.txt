@@ -696,3 +696,50 @@ Este jeda vec. Co tak zistovat, ci som pripojeny na sieti. Zda sa mi totiz, ze a
 fungovat. Pozri TwilightScanner. Ten pouizva PASSIVE_PROVIDER. Zisti kedy a ako.
 
 ------------------------
+
+am mám funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
+
+nastavení-aplikace- aplikace-PPP-podrobnosti o spotřebě energie-spouštění aplikací:
+Spravovat automaticky - ne
+Spravovat ručně 3x ano
+-automatické souštění
+-sekundární souštění
+-Spustit na ozadí
+třeba se to bude hodit.
+
+--------------------------
+
+Wi-Fi AP na Android 11 - FC:
+2021-02-21 21:42:05.465 32009-32075/sk.henrichg.phoneprofilesplus E/CmdWifiAP.setWifiAP: java.lang.NoSuchMethodError: No interface method startTethering(ILandroid/os/ResultReceiver;ZLjava/lang/String;)V in class Landroid/net/IConnectivityManager; or its super classes (declaration of 'android.net.IConnectivityManager' appears in /system/framework/framework.jar!classes2.dex)
+        at sk.henrichg.phoneprofilesplus.CmdWifiAP.setWifiAP(CmdWifiAP.java:43)
+        at sk.henrichg.phoneprofilesplus.ActivateProfileHelper.doExecuteForRadios(ActivateProfileHelper.java:256)
+        at sk.henrichg.phoneprofilesplus.ActivateProfileHelper.lambda$executeForRadios$0(ActivateProfileHelper.java:636)
+        at sk.henrichg.phoneprofilesplus.-$$Lambda$ActivateProfileHelper$9Dy_bb-t1BpNKFY1TtiZ77s9QH8.run(Unknown Source:4)
+        at android.os.Handler.handleCallback(Handler.java:938)
+        at android.os.Handler.dispatchMessage(Handler.java:99)
+        at android.os.Looper.loop(Looper.java:246)
+        at android.os.HandlerThread.run(HandlerThread.java:67)
+
+--------------------------
+
+PPApplication.STARTUP_SOURCE_SERVICE_MANUAL
+- nastavi sa pri manualnej aktivacii z udalosti
+
+Duration ignorujem:
+- pri nemanualnej aktivacii z udalosti
+- pri boote
+
+Duration neignorujem, ak na koniec duration sa ma aktivovat specificky profil, je jedno odkial je aktivacia volana.
+
+Pri manualnej aktivacii z udalosti nerobim Undo po konci duration, ostatne robim. Proste aktivuje ten isty profil.
+To aby zostal manulane aktivovany profil. Ostatne "after duration" robim.
+
+Cize duration robim pri aktivacii od hociakeho zdroja + pri manualnej aktivacii z udalosti.
+Cize musi byt profil aktivovany manualne.
+
+Nova funkcia predlzovania duration nech ignoruje:
+- manualnu aktivaciu profilu z udalosti, cize PPApplication.STARTUP_SOURCE_SERVICE_MANUAL
+- nemanualnu aktivaciu z udalosti, cize PPApplication.STARTUP_SOURCE_SERVICE
+- boot, cize PPApplication.STARTUP_SOURCE_BOOT
+
+
