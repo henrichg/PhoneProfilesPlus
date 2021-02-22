@@ -537,9 +537,9 @@ public class DataWrapper {
             }
         }
 
-        int startupSource = PPApplication.STARTUP_SOURCE_SERVICE;
+        int startupSource = PPApplication.STARTUP_SOURCE_EVENT;
         if (manualActivation)
-            startupSource = PPApplication.STARTUP_SOURCE_SERVICE_MANUAL;
+            startupSource = PPApplication.STARTUP_SOURCE_EVENT_MANUAL;
         Profile profile = getProfileById(profile_id, false, false, merged);
         if (profile == null)
             return;
@@ -1659,7 +1659,7 @@ public class DataWrapper {
                     PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "activatedProfile._name=" + activatedProfile._name);
             }*/
 
-            if ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) //&&
+            if ((startupSource != PPApplication.STARTUP_SOURCE_EVENT) //&&
                 //(startupSource != PPApplication.STARTUP_SOURCE_BOOT) &&  // on boot must set as manual activation
                 //(startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START)
             ) {
@@ -1701,7 +1701,7 @@ public class DataWrapper {
 
                 //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
 
-                if (((startupSource != PPApplication.STARTUP_SOURCE_SERVICE) &&
+                if (((startupSource != PPApplication.STARTUP_SOURCE_EVENT) &&
                      (startupSource != PPApplication.STARTUP_SOURCE_BOOT) //&&
                    //(startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START)
                 ) || (_profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
@@ -1728,7 +1728,7 @@ public class DataWrapper {
                         //Profile.setActivatedProfileForDuration(context, profileId);
                     //}
 
-                    if (startupSource != PPApplication.STARTUP_SOURCE_SERVICE_MANUAL) {
+                    if (startupSource != PPApplication.STARTUP_SOURCE_EVENT_MANUAL) {
                         long profileId = _profile._id;
 //                        PPApplication.logE("[FIFO_TEST] DataWrapper._activateProfile", "#### add profileId=" + profileId);
                         addProfileToFIFO(profileId, 0);
@@ -2038,14 +2038,14 @@ public class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
             (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_SERVICE) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_SERVICE_MANUAL) ||
+            (startupSource == PPApplication.STARTUP_SOURCE_EVENT) ||
+            (startupSource == PPApplication.STARTUP_SOURCE_EVENT_MANUAL) ||
             (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER))
         {
             // activation is invoked from shortcut, widget, Activator, Editor, service,
             // do profile activation
             actProfile = true;
-            //interactive = ((startupSource != PPApplication.STARTUP_SOURCE_SERVICE));
+            //interactive = ((startupSource != PPApplication.STARTUP_SOURCE_EVENT));
         }
         else
         if (startupSource == PPApplication.STARTUP_SOURCE_BOOT)
@@ -2095,7 +2095,7 @@ public class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
             (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_SERVICE) ||
+            (startupSource == PPApplication.STARTUP_SOURCE_EVENT) ||
             //(startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER_START) ||
             (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER))
         {

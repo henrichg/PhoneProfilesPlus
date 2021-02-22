@@ -588,7 +588,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 if (dataWrapper.getActivatedProfile() == null)
                 {
                     dataWrapper.getActivateProfileHelper().initialize(dataWrapper, null, getApplicationContext());
-                    dataWrapper.activateProfile(lApplicationDefaultProfile, PPApplication.STARTUP_SOURCE_SERVICE, null, "");
+                    dataWrapper.activateProfile(lApplicationDefaultProfile, PPApplication.STARTUP_SOURCE_EVENT, null, "");
                 }
                 //invalidateEditor = true;
             }

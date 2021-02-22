@@ -566,7 +566,7 @@ public class MainWorker extends Worker {
                         if (tag.startsWith(PROFILE_DURATION_WORK_TAG)) {
                             long profileId = getInputData().getLong(PPApplication.EXTRA_PROFILE_ID, 0);
                             boolean forRestartEvents = getInputData().getBoolean(ProfileDurationAlarmBroadcastReceiver.EXTRA_FOR_RESTART_EVENTS, false);
-                            int startupSource = getInputData().getInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_SERVICE_MANUAL);
+                            int startupSource = getInputData().getInt(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EVENT_MANUAL);
                             ProfileDurationAlarmBroadcastReceiver.doWork(false, appContext, profileId, forRestartEvents, startupSource);
                         }
                         else
