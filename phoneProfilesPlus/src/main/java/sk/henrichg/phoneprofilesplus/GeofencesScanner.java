@@ -268,7 +268,7 @@ class GeofencesScanner
                                         int interval = 25; // seconds
                                         if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1) {
                                             // interval is in minutes
-                                            if (provider.equals( LocationManager.GPS_PROVIDER))
+                                            if (provider.equals(LocationManager.GPS_PROVIDER))
                                                 interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / INTERVAL_DIVIDE_VALUE_FOR_GPS;
                                             else
                                                 interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / INTERVAL_DIVIDE_VALUE;
@@ -282,10 +282,14 @@ class GeofencesScanner
                                         PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "request location updates - provider=" + provider);
                                         PPApplication.startHandlerThreadLocation();
                                         mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener, PPApplication.handlerThreadLocation.getLooper());
+
                                         mListenerEnabled = true;
 
                                         mUpdatesStarted = true;
                                     }
+                                    else
+                                        PPApplication.cancelWork(LocationSensorWorker.LOCATION_SENSOR_WORK_TAG, false);
+
                                 } catch (SecurityException securityException) {
                                     // Catch exception generated if the app does not use ACCESS_FINE_LOCATION permission.
                                     //PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "mUpdatesStarted=false");
@@ -331,6 +335,8 @@ class GeofencesScanner
             synchronized (PPApplication.geofenceScannerMutex) {
                 if (mListenerEnabled) {
                     try {
+                        PPApplication.cancelWork(LocationSensorWorker.LOCATION_SENSOR_WORK_TAG, false);
+
                         if (mLocationManager != null)
                             mLocationManager.removeUpdates(mLocationListener);
                         mListenerEnabled = false;
@@ -352,10 +358,12 @@ class GeofencesScanner
             location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         else
             location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        doLocationChanged(location);
+
+        LocationSensorWorker.enqueueWork(true, context);
+        doLocationChanged(location, true);
     }
 
-    static void doLocationChanged(Location location) {
+    static void doLocationChanged(Location location, boolean callEventsHandler) {
         //PPApplication.logE("##### GeofenceScanner.doLocationChanged", "xxx");
         //PPApplication.logE("##### GeofenceScanner.doLocationChanged", "locationResult="+locationResult);
         if (location == null)
@@ -399,8 +407,10 @@ class GeofencesScanner
                 //PPApplication.logE("##### GeofenceScanner.doLocationChanged", "handleEvents");
 //                PPApplication.logE("[EVENTS_HANDLER] GeofenceScanner.doLocationChanged", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
 
-                EventsHandler eventsHandler = new EventsHandler(scanner.context);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
+                if (callEventsHandler) {
+                    EventsHandler eventsHandler = new EventsHandler(scanner.context);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
+                }
             }
         }
     }
@@ -409,7 +419,7 @@ class GeofencesScanner
 
         public void onLocationChanged(Location location) {
             PPApplication.logE("[IN_LISTENER] GeofenceScanner.GeofenceScannerListener.onLocationChanged", "xxx");
-            doLocationChanged(location);
+            doLocationChanged(location, false);
         }
 
         public void onProviderDisabled(String provider) {
@@ -451,7 +461,7 @@ class GeofencesScanner
                                 PPApplication.lastLocation = new Location("GL");
                             }
 
-                            doLocationChanged(PPApplication.lastLocation);
+                            doLocationChanged(PPApplication.lastLocation, true);
                         } else {
                             // device is online
                             PPApplication.logE("GeofenceScanner.onlineStatusChanged", "ONLINE");

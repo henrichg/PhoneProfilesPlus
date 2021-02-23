@@ -71,7 +71,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
 
     static void enqueueWork() {
 //        WorkManager workManager = PPApplication.getWorkManagerInstance();
-//        //PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
+//        //PPApplication.logE("##### AvoidRescheduleReceiverWorker.enqueueWork", "workManager="+workManager);
 //        if (workManager != null) {
 //            //if (PPApplication.logEnabled()) {
 //            ListenableFuture<List<WorkInfo>> statuses;
@@ -92,7 +92,7 @@ public class AvoidRescheduleReceiverWorker extends Worker {
                         .build();
         try {
             WorkManager workManager = PPApplication.getWorkManagerInstance();
-            //PPApplication.logE("##### PPApplication.onCreate", "workManager="+workManager);
+            //PPApplication.logE("##### AvoidRescheduleReceiverWorker.enqueueWork", "workManager="+workManager);
             if (workManager != null) {
 
 //                //if (PPApplication.logEnabled()) {
