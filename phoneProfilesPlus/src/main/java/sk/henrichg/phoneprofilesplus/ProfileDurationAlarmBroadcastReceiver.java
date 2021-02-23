@@ -13,10 +13,14 @@ import android.os.SystemClock;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
+
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
@@ -165,6 +169,56 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
         //dataWrapper.getDatabaseHandler().updateEventInDelay(this);
 
+    }
+
+    static boolean alarmIsRunning(Profile profile, Context context) {
+        boolean isAlarmRunning = false;
+        boolean isWorkRunning = false;
+        if (profile != null) {
+            try {
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
+                    Intent intent = new Intent();
+                    intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
+                    //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
+
+                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_NO_CREATE);
+                    if (pendingIntent != null) {
+                        isAlarmRunning = true;
+                    }
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+
+            WorkManager workManager = PPApplication.getWorkManagerInstance();
+            if (workManager != null) {
+                String workName = MainWorker.PROFILE_DURATION_WORK_TAG +"_"+(int) profile._id;
+                ListenableFuture<List<WorkInfo>> statuses;
+                statuses = workManager.getWorkInfosForUniqueWork(workName);
+                //noinspection TryWithIdenticalCatches
+                try {
+                    List<WorkInfo> workInfoList = statuses.get();
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.cancelWork", "name="+name+" workInfoList.size()="+workInfoList.size());
+                    // cancel only enqueued works
+                    for (WorkInfo workInfo : workInfoList) {
+                        WorkInfo.State state = workInfo.getState();
+                        //noinspection IfStatementMissingBreakInLoop
+                        if (state == WorkInfo.State.ENQUEUED) {
+                            // any work is enqueued, cancel it
+                            isWorkRunning = true;
+                        }
+                    }
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+        return isAlarmRunning || isWorkRunning;
     }
 
     static public void removeAlarm(Profile profile, Context context)
