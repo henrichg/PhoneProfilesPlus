@@ -35,8 +35,8 @@ public class LocationSensorWorker extends Worker {
 //            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "xxxx");
 
             if (Event.getGlobalEventsRunning()) {
-                    EventsHandler eventsHandler = new EventsHandler(context);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
+                EventsHandler eventsHandler = new EventsHandler(context);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
             }
 
             enqueueWork(false, context);
