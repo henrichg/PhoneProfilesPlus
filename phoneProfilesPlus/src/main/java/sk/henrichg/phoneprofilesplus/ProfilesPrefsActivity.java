@@ -356,7 +356,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._volumeMuteSound,
                         origProfile._deviceLocationMode,
                         origProfile._applicationDisableNotificationScanning,
-                        origProfile._generateNotification
+                        origProfile._generateNotification,
+                        origProfile._cameraFlashlight
                 );
                 showSaveMenu = true;
             }

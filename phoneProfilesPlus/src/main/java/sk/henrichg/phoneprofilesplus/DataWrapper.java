@@ -229,7 +229,8 @@ public class DataWrapper {
                 Profile.defaultValuesBoolean.get("prf_pref_volumeMuteSound"),
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceLocationMode")),
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_applicationDisableNotificationScanning")),
-                Profile.defaultValuesString.get("prf_pref_generateNotification")
+                Profile.defaultValuesString.get("prf_pref_generateNotification"),
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_cameraFlashlight"))
             );
     }
 

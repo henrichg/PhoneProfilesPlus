@@ -367,6 +367,7 @@ public class PPApplication extends Application
     static boolean HAS_FEATURE_NFC = false;
     static boolean HAS_FEATURE_LOCATION = false;
     static boolean HAS_FEATURE_LOCATION_GPS = false;
+    static boolean HAS_FEATURE_CAMERA_FLASH = false;
 
     static final String PACKAGE_NAME = "sk.henrichg.phoneprofilesplus";
     static final String PACKAGE_NAME_EXTENDER = "sk.henrichg.phoneprofilesplusextender";
@@ -863,6 +864,7 @@ public class PPApplication extends Application
         HAS_FEATURE_NFC = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_NFC);
         HAS_FEATURE_LOCATION = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION);
         HAS_FEATURE_LOCATION_GPS = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_LOCATION_GPS);
+        HAS_FEATURE_CAMERA_FLASH = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_CAMERA_FLASH);
 
         PPApplication.logE("##### PPApplication.onCreate", "end of get features");
 

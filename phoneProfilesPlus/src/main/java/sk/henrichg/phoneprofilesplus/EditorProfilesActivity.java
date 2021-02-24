@@ -3051,7 +3051,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                                                 false,
                                                 0,
                                                 0,
-                                                "0|0||"
+                                                "0|0||",
+                                                0
                                         );
 
                                         // replace ids in profile._deviceRunApplicationPackageName
