@@ -2180,6 +2180,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + summaryString + "</b>";
             }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_CAMERA_FLASH, R.string.profile_preferences_cameraFlash, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CAMERA_FLASH)),
+                        R.array.cameraFlashValues, R.array.cameraFlashArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
         }
 
         if (key.equals(PREF_FORCE_STOP_APPLICATIONS_CATEGORY)) {
@@ -3201,6 +3213,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, change, false, false, false);
             }
         }
+        if (key.equals(Profile.PREF_PROFILE_CAMERA_FLASH))
+        {
+            String sValue = value.toString();
+            ListPreference listPreference = prefMng.findPreference(key);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(sValue);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+                String cameraFlashDefaultValue = Profile.defaultValuesString.get(Profile.PREF_PROFILE_CAMERA_FLASH);
+                String cameraFlashValue = preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, cameraFlashDefaultValue);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true,
+                        (cameraFlashValue != null) && (!cameraFlashValue.equals(cameraFlashDefaultValue)),
+                        false, false, false);
+            }
+        }
     }
 
     private void setSummary(String key) {
@@ -3317,6 +3344,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
         setSummary(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS);
         setSummary(Profile.PREF_PROFILE_GENERATE_NOTIFICATION);
+        setSummary(Profile.PREF_PROFILE_CAMERA_FLASH);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {

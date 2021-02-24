@@ -1175,6 +1175,37 @@ class ProfilePreferencesIndicator {
                         countItems[countPreferences++] = 1;
                 }
             }
+            // camera flash
+            if (profile._cameraFlash != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._cameraFlash == 1) || (profile._cameraFlash == 3)) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_cameraFlash) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                        if (fillStrings)
+                            strings[countDrawables++] = "fla:1";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_camera_flash;
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                    if (profile._cameraFlash == 2) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_cameraFlash) + ": " +
+                                    appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                        if (fillStrings)
+                            strings[countDrawables++] = "fla:0";
+                        else {
+                            if (monochrome)
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_camera_flash_off_mono;
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_camera_flash_off;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                }
+            }
 
             // disable wifi scanning
             if (profile._applicationDisableWifiScanning != 0) {

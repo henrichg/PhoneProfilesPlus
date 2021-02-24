@@ -103,7 +103,7 @@ public class Profile {
     int _deviceLocationMode;
     int _applicationDisableNotificationScanning;
     String _generateNotification;
-    int _cameraFlashlight;
+    int _cameraFlash;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -189,7 +189,7 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_LOCATION_MODE = "prf_pref_deviceLocationMode";
     static final String PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING = "prf_pref_applicationDisableNotificationScanning";
     static final String PREF_PROFILE_GENERATE_NOTIFICATION = "prf_pref_generateNotification";
-    static final String PREF_PROFILE_CAMERA_FLASLIGHT = "prf_pref_cameraFlashlight";
+    static final String PREF_PROFILE_CAMERA_FLASH = "prf_pref_cameraFlash";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -275,7 +275,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_deviceLocationMode", "0");
         defaultValuesString.put("prf_pref_applicationDisableNotificationScanning", "0");
         defaultValuesString.put("prf_pref_generateNotification", "0|0||");
-        defaultValuesString.put("prf_pref_cameraFlashlight", "0");
+        defaultValuesString.put("prf_pref_cameraFlash", "0");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -830,7 +830,7 @@ public class Profile {
                    int deviceLocationMode,
                    int applicationDisableNotificationScanning,
                    String generateNotification,
-                   int cameraFlashlight
+                   int cameraFlash
     )
     {
         this._id = id;
@@ -910,7 +910,7 @@ public class Profile {
         this._deviceLocationMode = deviceLocationMode;
         this._applicationDisableNotificationScanning = applicationDisableNotificationScanning;
         this._generateNotification = generateNotification;
-        this._cameraFlashlight = cameraFlashlight;
+        this._cameraFlash = cameraFlash;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -995,7 +995,7 @@ public class Profile {
                    int deviceLocationMode,
                    int applicationDisableNotificationScanning,
                    String generateNotification,
-                   int cameraFlashlight
+                   int cameraFlash
     )
     {
         this._name = name;
@@ -1074,7 +1074,7 @@ public class Profile {
         this._deviceLocationMode = deviceLocationMode;
         this._applicationDisableNotificationScanning = applicationDisableNotificationScanning;
         this._generateNotification = generateNotification;
-        this._cameraFlashlight = cameraFlashlight;
+        this._cameraFlash = cameraFlash;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1160,7 +1160,7 @@ public class Profile {
         this._deviceLocationMode = profile._deviceLocationMode;
         this._applicationDisableNotificationScanning = profile._applicationDisableNotificationScanning;
         this._generateNotification = profile._generateNotification;
-        this._cameraFlashlight = profile._cameraFlashlight;
+        this._cameraFlash = profile._cameraFlash;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1427,8 +1427,8 @@ public class Profile {
                     this._applicationDisableNotificationScanning = withProfile._applicationDisableNotificationScanning;
                 if (withProfile.getGenerateNotificationGenerate())
                     this._generateNotification = withProfile._generateNotification;
-                if (withProfile._cameraFlashlight != 0)
-                    this._cameraFlashlight = withProfile._cameraFlashlight;
+                if (withProfile._cameraFlash != 0)
+                    this._cameraFlash = withProfile._cameraFlash;
 
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
@@ -1756,7 +1756,7 @@ public class Profile {
                 //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableNotificationScanning");
                 return false;
             }
-            if (this._cameraFlashlight != withProfile._cameraFlashlight) {
+            if (this._cameraFlash != withProfile._cameraFlash) {
                 return false;
             }
 
@@ -3117,7 +3117,7 @@ public class Profile {
         profile._deviceLocationMode = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_LOCATION_MODE, "0"));
         profile._applicationDisableNotificationScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, "0"));
         profile._generateNotification = preferences.getString(PREF_PROFILE_GENERATE_NOTIFICATION, "0|0||");
-        profile._cameraFlashlight = Integer.parseInt(preferences.getString(PREF_PROFILE_CAMERA_FLASLIGHT, "0"));
+        profile._cameraFlash = Integer.parseInt(preferences.getString(PREF_PROFILE_CAMERA_FLASH, "0"));
 
         return profile;
     }
@@ -3196,7 +3196,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_DEVICE_LOCATION_MODE, String.valueOf(profile._deviceLocationMode));
         editor.putString(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, String.valueOf(profile._applicationDisableNotificationScanning));
         editor.putString(PREF_PROFILE_GENERATE_NOTIFICATION, profile._generateNotification);
-        editor.putString(PREF_PROFILE_CAMERA_FLASLIGHT, String.valueOf(profile._cameraFlashlight));
+        editor.putString(PREF_PROFILE_CAMERA_FLASH, String.valueOf(profile._cameraFlash));
 
         editor.apply();
     }
@@ -3290,7 +3290,7 @@ public class Profile {
                     profile._deviceLocationMode,
                     profile._applicationDisableNotificationScanning,
                     profile._generateNotification,
-                    profile._cameraFlashlight
+                    profile._cameraFlash
                     );
 
             boolean zenModeMapped = false;
@@ -3430,8 +3430,8 @@ public class Profile {
                 mappedProfile._applicationDisableNotificationScanning = sharedProfile._applicationDisableNotificationScanning;
             if (profile.getGenerateNotificationSharedProfile())
                 mappedProfile._generateNotification = sharedProfile._generateNotification;
-            if (profile._cameraFlashlight == SHARED_PROFILE_VALUE)
-                mappedProfile._cameraFlashlight = sharedProfile._cameraFlashlight;
+            if (profile._cameraFlash == SHARED_PROFILE_VALUE)
+                mappedProfile._cameraFlash = sharedProfile._cameraFlash;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -4720,7 +4720,7 @@ public class Profile {
             //    return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_CAMERA_FLASLIGHT))
+        if (preferenceKey.equals(Profile.PREF_PROFILE_CAMERA_FLASH))
         {
             if (PPApplication.HAS_FEATURE_CAMERA_FLASH)
             {

@@ -357,7 +357,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._deviceLocationMode,
                         origProfile._applicationDisableNotificationScanning,
                         origProfile._generateNotification,
-                        origProfile._cameraFlashlight
+                        origProfile._cameraFlash
                 );
                 showSaveMenu = true;
             }
@@ -467,6 +467,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, Integer.toString(profile._deviceLocationMode));
             editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, Integer.toString(profile._applicationDisableNotificationScanning));
             editor.putString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, profile._generateNotification);
+            editor.putString(Profile.PREF_PROFILE_CAMERA_FLASH, Integer.toString(profile._cameraFlash));
             editor.apply();
         }
     }
@@ -593,6 +594,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceLocationMode = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, ""));
             profile._applicationDisableNotificationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, ""));
             profile._generateNotification = preferences.getString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, "");
+            profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, ""));
         }
 
         //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");

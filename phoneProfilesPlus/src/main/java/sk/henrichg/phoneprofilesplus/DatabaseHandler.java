@@ -182,7 +182,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DEVICE_LOCATION_MODE = "deviceLocationMode";
     private static final String KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING = "applicationDisableNotificationScanning";
     private static final String KEY_GENERATE_NOTIFICATION = "generateNotification";
-    private static final String KEY_CAMERA_FLASHLIGHT = "cameraFlashlight";
+    private static final String KEY_CAMERA_FLASH = "cameraFlash";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -566,7 +566,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_DEVICE_LOCATION_MODE + " " + INTEGER_TYPE + ","
                 + KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING + " " + INTEGER_TYPE + ","
                 + KEY_GENERATE_NOTIFICATION + " " + TEXT_TYPE + ","
-                + KEY_CAMERA_FLASHLIGHT + " " + INTEGER_TYPE
+                + KEY_CAMERA_FLASH + " " + INTEGER_TYPE
                 + ")";
     }
 
@@ -991,7 +991,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_DEVICE_LOCATION_MODE, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_GENERATE_NOTIFICATION, TEXT_TYPE, columns);
-                createColumnWhenNotExists(db, table, KEY_CAMERA_FLASHLIGHT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_CAMERA_FLASH, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, KEY_E_NAME, TEXT_TYPE, columns);
@@ -2742,7 +2742,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values.put(KEY_SOUND_ON_TOUCH, profile._soundOnTouch);
                             values.put(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, profile._applicationDisableNotificationScanning);
                             values.put(KEY_GENERATE_NOTIFICATION, profile._generateNotification);
-                            values.put(KEY_CAMERA_FLASHLIGHT, profile._cameraFlashlight);
+                            values.put(KEY_CAMERA_FLASH, profile._cameraFlash);
                             // do not add another columns here
 
                             // updating row
@@ -3143,9 +3143,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (oldVersion < 2449)
         {
-            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_CAMERA_FLASHLIGHT + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_CAMERA_FLASH + "=0");
 
-            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_CAMERA_FLASHLIGHT + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_CAMERA_FLASH + "=0");
         }
 
     }
@@ -3298,7 +3298,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
                 values.put(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, profile._applicationDisableNotificationScanning);
                 values.put(KEY_GENERATE_NOTIFICATION, profile._generateNotification);
-                values.put(KEY_CAMERA_FLASHLIGHT, profile._cameraFlashlight);
+                values.put(KEY_CAMERA_FLASH, profile._cameraFlash);
 
                 // Insert Row
                 if (!merged) {
@@ -3412,7 +3412,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_LOCATION_MODE,
                                 KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING,
                                 KEY_GENERATE_NOTIFICATION,
-                                KEY_CAMERA_FLASHLIGHT
+                                KEY_CAMERA_FLASH
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3499,7 +3499,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING)),
                                 cursor.getString(cursor.getColumnIndex(KEY_GENERATE_NOTIFICATION)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_CAMERA_FLASHLIGHT))
+                                cursor.getInt(cursor.getColumnIndex(KEY_CAMERA_FLASH))
                         );
                     }
 
@@ -3606,7 +3606,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_LOCATION_MODE + "," +
                         KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING + "," +
                         KEY_GENERATE_NOTIFICATION + "," +
-                        KEY_CAMERA_FLASHLIGHT +
+                        KEY_CAMERA_FLASH +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -3696,7 +3696,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._deviceLocationMode = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE));
                         profile._applicationDisableNotificationScanning = cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING));
                         profile._generateNotification = cursor.getString(cursor.getColumnIndex(KEY_GENERATE_NOTIFICATION));
-                        profile._cameraFlashlight = cursor.getInt(cursor.getColumnIndex(KEY_CAMERA_FLASHLIGHT));
+                        profile._cameraFlash = cursor.getInt(cursor.getColumnIndex(KEY_CAMERA_FLASH));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -3804,7 +3804,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_LOCATION_MODE, profile._deviceLocationMode);
                 values.put(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING, profile._applicationDisableNotificationScanning);
                 values.put(KEY_GENERATE_NOTIFICATION, profile._generateNotification);
-                values.put(KEY_CAMERA_FLASHLIGHT, profile._cameraFlashlight);
+                values.put(KEY_CAMERA_FLASH, profile._cameraFlash);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -4167,7 +4167,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_LOCATION_MODE,
                                 KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING,
                                 KEY_GENERATE_NOTIFICATION,
-                                KEY_CAMERA_FLASHLIGHT
+                                KEY_CAMERA_FLASH
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -4256,7 +4256,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_LOCATION_MODE)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_NOTIFICATION_SCANNING)),
                                 cursor.getString(cursor.getColumnIndex(KEY_GENERATE_NOTIFICATION)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_CAMERA_FLASHLIGHT))
+                                cursor.getInt(cursor.getColumnIndex(KEY_CAMERA_FLASH))
                         );
                     }
 

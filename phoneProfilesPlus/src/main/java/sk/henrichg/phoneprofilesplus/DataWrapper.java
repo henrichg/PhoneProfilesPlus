@@ -230,7 +230,7 @@ public class DataWrapper {
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceLocationMode")),
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_applicationDisableNotificationScanning")),
                 Profile.defaultValuesString.get("prf_pref_generateNotification"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_cameraFlashlight"))
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_cameraFlash"))
             );
     }
 
