@@ -32,7 +32,7 @@ public class LocationSensorWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-//            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "xxxx");
+            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "xxxx");
 
             if (Event.getGlobalEventsRunning()) {
                 EventsHandler eventsHandler = new EventsHandler(context);
@@ -57,6 +57,8 @@ public class LocationSensorWorker extends Worker {
     }
 
     static void enqueueWork(boolean immediate, Context context) {
+        PPApplication.logE("##### LocationSensorWorker.enqueueWork", "immediate=" + immediate);
+
         OneTimeWorkRequest worker = null;
 
         if (immediate) {
@@ -77,8 +79,8 @@ public class LocationSensorWorker extends Worker {
                     // interval is in minutes
                     interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60);
                 }
-                PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "ApplicationPreferences.applicationEventLocationUpdateInterval=" + ApplicationPreferences.applicationEventLocationUpdateInterval);
-                PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "interval=" + interval);
+                PPApplication.logE("##### LocationSensorWorker.enqueueWork", "ApplicationPreferences.applicationEventLocationUpdateInterval=" + ApplicationPreferences.applicationEventLocationUpdateInterval);
+                PPApplication.logE("##### LocationSensorWorker.enqueueWork", "interval=" + interval);
                 if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
                 final long UPDATE_INTERVAL_IN_MILLISECONDS = (interval * 1000) / 2;
