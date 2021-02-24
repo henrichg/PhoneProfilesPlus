@@ -6,6 +6,7 @@ include ':android-betterpickers'
 include ':time-duration-picker'
 include ':AndroidClearChroma'
 include ':recyclerview-fastscroll'
+include ':noobcameraflash'
 include ':phoneProfilesImport'
 include ':phoneProfilesPlus'
 

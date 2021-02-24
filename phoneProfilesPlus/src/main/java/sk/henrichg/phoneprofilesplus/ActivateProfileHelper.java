@@ -53,6 +53,7 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.noob.noobcameraflash.managers.NoobCameraManager;
 import com.stericson.rootshell.execution.Command;
 import com.stericson.rootshell.execution.Shell;
 import com.stericson.roottools.RootTools;
@@ -3580,6 +3581,35 @@ class ActivateProfileHelper {
             } catch (Exception e) {
                 //Log.e("CheckGitHubReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
+            }
+        }
+
+        if (profile._cameraFlash != 0) {
+            if (Permissions.checkProfileCameraFlash(context, profile, null)) {
+                switch (profile._cameraFlash) {
+                    case 1:
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
+                        NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
+                        if (noobCameraManager != null) {
+                            try {
+                                noobCameraManager.turnOnFlash();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        }
+                        break;
+                    case 2:
+                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
+                        noobCameraManager = NoobCameraManager.getInstance();
+                        if (noobCameraManager != null) {
+                            try {
+                                noobCameraManager.turnOffFlash();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        }
+                        break;
+                }
             }
         }
 

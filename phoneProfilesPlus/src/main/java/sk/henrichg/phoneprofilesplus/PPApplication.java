@@ -39,6 +39,7 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import com.noob.noobcameraflash.managers.NoobCameraManager;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.rootshell.RootShell;
@@ -889,6 +890,12 @@ public class PPApplication extends Application
         PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker START of enqueue");
         AvoidRescheduleReceiverWorker.enqueueWork();
         PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker END of enqueue");
+
+        try {
+            NoobCameraManager.getInstance().init(this);
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
 
         sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = getAccelerometerSensor(getApplicationContext());

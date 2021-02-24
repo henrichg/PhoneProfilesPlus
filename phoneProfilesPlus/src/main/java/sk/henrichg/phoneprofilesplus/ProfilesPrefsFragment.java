@@ -2192,6 +2192,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
+
+            Profile profile = new Profile();
+            profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, "0"));
+            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            Permissions.checkProfileCameraFlash(context, profile, permissions);
+            _permissionGranted = permissions.size() == 0;
         }
 
         if (key.equals(PREF_FORCE_STOP_APPLICATIONS_CATEGORY)) {
@@ -3221,11 +3227,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 int index = listPreference.findIndexOfValue(sValue);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
-                String cameraFlashDefaultValue = Profile.defaultValuesString.get(Profile.PREF_PROFILE_CAMERA_FLASH);
-                String cameraFlashValue = preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, cameraFlashDefaultValue);
-                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true,
-                        (cameraFlashValue != null) && (!cameraFlashValue.equals(cameraFlashDefaultValue)),
-                        false, false, false);
+
+                Profile profile = new Profile();
+                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, "0"));
+                Permissions.checkProfileCameraFlash(context, profile, permissions);
+                boolean _permissionGranted = permissions.size() == 0;
+
+                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, !_permissionGranted, false);
             }
         }
     }

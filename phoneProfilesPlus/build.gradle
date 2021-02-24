@@ -121,6 +121,7 @@ dependencies {
     implementation project(path: ':time-duration-picker')
     implementation project(path: ':AndroidClearChroma')
     implementation project(path: ':recyclerview-fastscroll')
+    implementation project(path: ':noobcameraflash')
     implementation project(path: ':phoneProfilesImport')
 
     implementation files('libs/sdk-v1.0.0.jar')

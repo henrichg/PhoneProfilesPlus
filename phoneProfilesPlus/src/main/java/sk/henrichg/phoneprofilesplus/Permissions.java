@@ -69,6 +69,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_ALWAYS_ON_DISPLAY = 40;
     static final int PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE = 41;
     static final int PERMISSION_PROFILE_SCREEN_ON_PERMANENT = 42;
+    static final int PERMISSION_PROFILE_CAMERA_FLASH = 43;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -258,6 +259,7 @@ class Permissions {
             checkProfileSoundOnTouch(context, profile, permissions);
             checkProfileAlwaysOnDisplay(context, profile, permissions);
             checkProfileScreenOnPermanent(context, profile, permissions);
+            checkProfileCameraFlash(context, profile, permissions);
 
             return permissions;
         //}
@@ -913,6 +915,22 @@ class Permissions {
                         permissions.add(new PermissionType(PERMISSION_PROFILE_SCREEN_ON_PERMANENT, permission.SYSTEM_ALERT_WINDOW));
                 }
                 return grantedDrawOverlays;
+            } else
+                return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    static boolean checkProfileCameraFlash(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return true;
+
+        try {
+            if (profile._cameraFlash != 0) {
+                boolean granted = ContextCompat.checkSelfPermission(context, permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+                if ((permissions != null) && (!granted))
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_CAMERA_FLASH, permission.CAMERA));
+                return granted;
             } else
                 return true;
         } catch (Exception e) {

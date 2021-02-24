@@ -744,6 +744,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_PROFILE_SCREEN_ON_PERMANENT:
                         s = getString(R.string.permission_why_profile_screen_on_permanent);
                         break;
+                    case Permissions.PERMISSION_PROFILE_CAMERA_FLASH:
+                        s = getString(R.string.permission_why_profile_camera_flash);
+                        break;
                 }
             }
         }

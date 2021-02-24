@@ -111,6 +111,7 @@
     <orderEntry type="module" module-name="PhoneProfilesPlus.time-duration-picker" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.AndroidClearChroma" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.recyclerview-fastscroll" />
+    <orderEntry type="module" module-name="PhoneProfilesPlus.noobcameraflash" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.phoneProfilesImport" />
   </component>
 </module>

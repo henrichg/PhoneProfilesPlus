@@ -1724,6 +1724,7 @@
     <string name="location_editor_map_is_loading">Map is loading…</string>
 
     <string name="profile_preferences_cameraFlash">Camera flash</string>
+    <string name="permission_why_profile_camera_flash">for switch camera flash</string>
 
     <!-- **************************************************************************************** -->
 

@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+apply from: '../dependencies.gradle'
+
+android {
+    compileSdkVersion ppVersions.compileSdk
+    buildToolsVersion ppVersions.buildTools
+
+    defaultConfig {
+        minSdkVersion ppVersions.minSdk
+        targetSdkVersion ppVersions.targetSdk
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    //compile fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleDependency
+    implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
+    //noinspection GradleDependency
+    implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
+}
