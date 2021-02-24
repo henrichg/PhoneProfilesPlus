@@ -3221,20 +3221,37 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(Profile.PREF_PROFILE_CAMERA_FLASH))
         {
-            String sValue = value.toString();
-            ListPreference listPreference = prefMng.findPreference(key);
-            if (listPreference != null) {
-                int index = listPreference.findIndexOfValue(sValue);
-                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                listPreference.setSummary(summary);
+            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            {
+                Preference preference = prefMng.findPreference(key);
+                if (preference != null) {
+                    boolean errorColor = false;
+                    if (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
+                        preference.setEnabled(false);
+                    else
+                        errorColor = !value.toString().equals("0");
+                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                        preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                                ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
+                }
+            } else {
+                String sValue = value.toString();
+                ListPreference listPreference = prefMng.findPreference(key);
+                if (listPreference != null) {
+                    int index = listPreference.findIndexOfValue(sValue);
+                    CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                    listPreference.setSummary(summary);
 
-                Profile profile = new Profile();
-                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, "0"));
-                Permissions.checkProfileCameraFlash(context, profile, permissions);
-                boolean _permissionGranted = permissions.size() == 0;
+                    Profile profile = new Profile();
+                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                    profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, "0"));
+                    Permissions.checkProfileCameraFlash(context, profile, permissions);
+                    boolean _permissionGranted = permissions.size() == 0;
 
-                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, !_permissionGranted, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, !_permissionGranted, false);
+                }
             }
         }
     }
