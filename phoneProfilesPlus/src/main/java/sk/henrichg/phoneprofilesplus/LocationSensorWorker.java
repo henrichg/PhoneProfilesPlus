@@ -80,15 +80,14 @@ public class LocationSensorWorker extends Worker {
                     interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60);
                 }
                 PPApplication.logE("##### LocationSensorWorker.enqueueWork", "ApplicationPreferences.applicationEventLocationUpdateInterval=" + ApplicationPreferences.applicationEventLocationUpdateInterval);
-                PPApplication.logE("##### LocationSensorWorker.enqueueWork", "interval=" + interval);
                 if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
-                final long UPDATE_INTERVAL_IN_MILLISECONDS = (interval * 1000) / 2;
+                PPApplication.logE("##### LocationSensorWorker.enqueueWork", "interval=" + interval);
 
                 worker =
                         new OneTimeWorkRequest.Builder(LocationSensorWorker.class)
                                 .addTag(LOCATION_SENSOR_WORK_TAG)
-                                .setInitialDelay(UPDATE_INTERVAL_IN_MILLISECONDS, TimeUnit.SECONDS)
+                                .setInitialDelay(interval, TimeUnit.SECONDS)
                                 .build();
             }
         }
@@ -108,7 +107,7 @@ public class LocationSensorWorker extends Worker {
 //                //}
 
                 if (worker != null) {
-//                    PPApplication.logE("[WORKER_CALL] LocationSensorWorker.enqueueWork", "xxx");
+                    PPApplication.logE("[WORKER_CALL] LocationSensorWorker.enqueueWork", "enqueue with REPLACE");
                     workManager.enqueueUniqueWork(LOCATION_SENSOR_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }

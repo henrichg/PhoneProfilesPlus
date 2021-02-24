@@ -26,7 +26,7 @@ class GeofencesScanner
     static boolean mTransitionsUpdated = false;
 
     static final int INTERVAL_DIVIDE_VALUE = 6;
-    static final int INTERVAL_DIVIDE_VALUE_FOR_GPS = 12;
+    //static final int INTERVAL_DIVIDE_VALUE_FOR_GPS = 12;
 
     GeofencesScanner(Context context) {
         this.context = context;
@@ -268,9 +268,9 @@ class GeofencesScanner
                                         int interval = 25; // seconds
                                         if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1) {
                                             // interval is in minutes
-                                            if (provider.equals(LocationManager.GPS_PROVIDER))
-                                                interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / INTERVAL_DIVIDE_VALUE_FOR_GPS;
-                                            else
+                                            //if (provider.equals(LocationManager.GPS_PROVIDER))
+                                            //    interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / INTERVAL_DIVIDE_VALUE_FOR_GPS;
+                                            //else
                                                 interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60) / INTERVAL_DIVIDE_VALUE;
                                         }
                                         PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "ApplicationPreferences.applicationEventLocationUpdateInterval="+ApplicationPreferences.applicationEventLocationUpdateInterval);
@@ -280,6 +280,7 @@ class GeofencesScanner
                                         final long UPDATE_INTERVAL_IN_MILLISECONDS = (interval * 1000) / 2;
 
                                         PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "request location updates - provider=" + provider);
+                                        PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "request location updates - interval=" + UPDATE_INTERVAL_IN_MILLISECONDS / 1000);
                                         PPApplication.startHandlerThreadLocation();
                                         mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener, PPApplication.handlerThreadLocation.getLooper());
 
