@@ -1725,6 +1725,8 @@
 
     <string name="profile_preferences_cameraFlash">Camera flash</string>
     <string name="permission_why_profile_camera_flash">for switch camera flash</string>
+    <string name="permission_group_name_camera">Camera</string>
+
 
     <!-- **************************************************************************************** -->
 

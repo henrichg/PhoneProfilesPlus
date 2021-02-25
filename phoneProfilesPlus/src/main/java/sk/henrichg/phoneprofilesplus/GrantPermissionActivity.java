@@ -64,6 +64,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private boolean showRequestAccessCoarseLocation = false;
     private boolean showRequestAccessFineLocation = false;
     //private boolean showRequestAccessBackgroundLocation = false;
+    private boolean showRequestCamera = false;
+
     private boolean[][] whyPermissionType = null;
     private boolean rationaleAlreadyShown = false;
 
@@ -280,6 +282,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         showRequestReadContacts = false;
         showRequestAccessCoarseLocation = false;
         showRequestAccessFineLocation = false;
+        showRequestCamera = false;
 
         if (permissions != null) {
             whyPermissionType = new boolean[20][100];
@@ -331,6 +334,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         whyPermissionType[14][permissionType.type] = true;
                     }
                 }*/
+                if (permissionType.permission.equals(Manifest.permission.CAMERA)) {
+                    showRequestCamera = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                    whyPermissionType[15][permissionType.type] = true;
+                }
             }
         }
 
@@ -344,7 +351,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestAccessFineLocation ||
                 //showRequestAccessBackgroundLocation ||
                 //showRequestAccessNotificationPolicy ||
-                showRequestDrawOverlays);
+                showRequestDrawOverlays||
+                showRequestCamera);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -499,6 +507,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 String whyPermissionString = getWhyPermissionString(whyPermissionType[2]);
                 //if (whyPermissionString != null)
                     whyString = whyString + whyPermissionString;
+                whyString = whyString + "</li>";
+            }
+            if (showRequestCamera) {
+                whyString = whyString + "<li>";
+                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_camera) + "</b>";
+                String whyPermissionString = getWhyPermissionString(whyPermissionType[15]);
+                //if (whyPermissionString != null)
+                whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
             if (!whyString.isEmpty())
