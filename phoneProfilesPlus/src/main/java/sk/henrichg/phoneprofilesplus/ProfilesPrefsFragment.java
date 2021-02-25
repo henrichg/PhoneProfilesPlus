@@ -3685,6 +3685,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 //            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "profile="+profile);
             if (profile != null) {
 
+                // test only root or G1 parameters, because key is not set but profile is
                 PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, true, context);
 //                PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "profile="+ profile._name);
 //                PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "preferenceAllowed.allowed="+ ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));

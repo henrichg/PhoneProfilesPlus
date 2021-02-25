@@ -10555,7 +10555,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_WIFI_AP_PREFS + "," +
                         KEY_HEADS_UP_NOTIFICATIONS + "," +
                         KEY_ALWAYS_ON_DISPLAY + "," +
-                        KEY_DEVICE_LOCATION_MODE +
+                        KEY_DEVICE_LOCATION_MODE + "," +
+                        KEY_CAMERA_FLASH +
                         " FROM " + TABLE_PROFILES;
                 final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                         KEY_E_WIFI_ENABLED + "," +
@@ -10833,6 +10834,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
                                     values.clear();
                                     values.put(KEY_DEVICE_LOCATION_MODE, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
+                            }
+
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_CAMERA_FLASH)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_CAMERA_FLASH, 0);
                                     db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
                                 }
