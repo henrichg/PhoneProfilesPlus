@@ -58,8 +58,12 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
         for (String id : cameraIds) {
             CameraCharacteristics characteristics = getCameraManager().getCameraCharacteristics(id);
             if (characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
-                getCameraManager().setTorchMode(id, true);
-                setTorchMode(TorchMode.SwitchedOn);
+                // added facing check - allowed is only back flash
+                Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
+                if ((facing != null) && (facing == CameraCharacteristics.LENS_FACING_BACK)) {
+                    getCameraManager().setTorchMode(id, true);
+                    setTorchMode(TorchMode.SwitchedOn);
+                }
             }
         }
     }
@@ -70,8 +74,12 @@ public class CameraUtilMarshMallow extends BaseCameraUtil {
         for (String id : cameraIds) {
             CameraCharacteristics characteristics = getCameraManager().getCameraCharacteristics(id);
             if (characteristics.get(CameraCharacteristics.FLASH_INFO_AVAILABLE)) {
-                getCameraManager().setTorchMode(id, false);
-                setTorchMode(TorchMode.SwitchedOff);
+                // added facing check - allowed is only back flash
+                Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
+                if ((facing != null) && (facing == CameraCharacteristics.LENS_FACING_BACK)) {
+                    getCameraManager().setTorchMode(id, false);
+                    setTorchMode(TorchMode.SwitchedOff);
+                }
             }
         }
     }
