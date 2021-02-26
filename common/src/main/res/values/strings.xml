@@ -1729,7 +1729,7 @@
 
     <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>
     <string name="phone_profiles_pref_systemAutoStartManager">Automatic start system setting</string>
-    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_summary">If PhoneProfilesPlus not starts at phone boot, click here and search parameter for enabling automatic start of PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Setting screen not found, but this setting is not needed, if PhoneProfilesPlus starts at phone boot.</string>
 
     <!-- **************************************************************************************** -->
