@@ -1727,6 +1727,10 @@
     <string name="permission_why_profile_camera_flash">for switch camera flash</string>
     <string name="permission_group_name_camera">Camera</string>
 
+    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>
+    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start system setting</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Setting screen not found, but this setting is not needed, if PhoneProfilesPlus starts at phone boot.</string>
 
     <!-- **************************************************************************************** -->
 
@@ -2028,10 +2032,6 @@
 <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
 <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
 <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
-
-<!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
-<!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start system setting</string>-->
-<!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
 
 <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
 <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->

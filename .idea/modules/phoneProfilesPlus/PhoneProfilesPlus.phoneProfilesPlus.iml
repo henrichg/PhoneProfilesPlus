@@ -103,6 +103,7 @@
     <orderEntry type="library" name="Gradle: org.osmdroid:osmdroid-android:6.1.10@aar" level="project" />
     <orderEntry type="library" name="Gradle: dev.doubledot.doki:library:0.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: dev.doubledot.doki:api:0.0.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.judemanutd:autostarter:1.0.8@aar" level="project" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.common" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.ToastCompat" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.RootShell" />

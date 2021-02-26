@@ -31,10 +31,9 @@ import androidx.preference.SwitchPreferenceCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.work.PeriodicWorkRequest;
 
-import java.util.concurrent.TimeUnit;
+import com.judemanutd.autostarter.AutoStartPermissionHelper;
 
-//import com.judemanutd.autostarter.AutoStartPermissionHelper;
-//import com.kunzisoft.androidclearchroma.ChromaPreferenceCompat;
+import java.util.concurrent.TimeUnit;
 
 class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -984,13 +983,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferenceScreen.removePreference(preferenceCategory);
         }
 
-        /*
         preference = findPreference(PREF_AUTOSTART_MANAGER);
         if (preference != null) {
-            Log.e("****** PhoneProfilesPreferencesFragment.onActivityCreated", "xxx");
+            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "xxx");
             final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
             if (autoStartPermissionHelper.isAutoStartPermissionAvailable(getActivity().getApplicationContext())) {
-                Log.e("****** PhoneProfilesPreferencesFragment.onActivityCreated", "available");
+                PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "available");
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @SuppressWarnings("ConstantConditions")
                     @Override
@@ -998,14 +996,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         boolean success;
                         try {
                             success = autoStartPermissionHelper.getAutoStartPermission(getActivity());
-                            Log.e("****** PhoneProfilesPreferencesFragment.onActivityCreated", "success="+success);
+                            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "success="+success);
                         }catch (Exception e) {
                             success = false;
                         }
                         if (!success) {
                             //PPApplication.logE("PhoneProfilesPrefsFragment.onActivityCreated", Log.getStackTraceString(e));
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                            dialogBuilder.setMessage(R.string.phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert);
                             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                             dialogBuilder.setPositiveButton(android.R.string.ok, null);
                             AlertDialog dialog = dialogBuilder.create();
@@ -1033,7 +1031,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
-        */
 
         long workMinInterval = TimeUnit.MILLISECONDS.toMinutes(PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS);
         String summary = getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary1) + " " +

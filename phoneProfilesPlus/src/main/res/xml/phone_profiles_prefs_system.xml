@@ -78,7 +78,6 @@
             app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
 
-    <!--
     <PreferenceCategory
         app:key="applicationAutostartCategory"
         app:title="@string/phone_profiles_pref_applicationAutostartCategory"
@@ -89,7 +88,6 @@
             app:summary="@string/phone_profiles_pref_systemAutoStartManager_summary"
             app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
-    -->
 
     <PreferenceCategory
         app:key="applicationOtherParametersCategory"
