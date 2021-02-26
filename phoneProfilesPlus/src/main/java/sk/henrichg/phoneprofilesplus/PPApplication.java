@@ -229,9 +229,6 @@ public class PPApplication extends Application
                                                 +"|GeofencesScannerSwitchGPSBroadcastReceiver.doWork"
                                                 +"|GeofenceScanner"
                                                 +"|LocationSensorWorker"
-
-                                                +"|PhoneProfilesPreferencesFragment.onActivityCreated"
-
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
