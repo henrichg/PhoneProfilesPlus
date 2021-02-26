@@ -985,10 +985,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = findPreference(PREF_AUTOSTART_MANAGER);
         if (preference != null) {
-            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "xxx");
+//            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "xxx");
             final AutoStartPermissionHelper autoStartPermissionHelper = AutoStartPermissionHelper.getInstance();
             if (autoStartPermissionHelper.isAutoStartPermissionAvailable(getActivity().getApplicationContext())) {
-                PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "available");
+//                PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "available");
                 preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @SuppressWarnings("ConstantConditions")
                     @Override
@@ -996,7 +996,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         boolean success;
                         try {
                             success = autoStartPermissionHelper.getAutoStartPermission(getActivity());
-                            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "success="+success);
+//                            PPApplication.logE("****** PhoneProfilesPreferencesFragment.onActivityCreated", "success="+success);
                         }catch (Exception e) {
                             success = false;
                         }
@@ -1028,6 +1028,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     PreferenceCategory preferenceCategory = findPreference("applicationAutostartCategory");
                     if (preferenceCategory != null)
                         preferenceScreen.removePreference(preferenceCategory);
+                }
+                preferenceScreen = findPreference("categoryApplicationStart");
+                if (preferenceScreen != null) {
+                    preference = findPreference("applicationAutoStartManager");
+                    if (preference != null)
+                        preferenceScreen.removePreference(preference);
                 }
             }
         }
