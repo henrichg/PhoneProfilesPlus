@@ -13,14 +13,10 @@ import android.os.SystemClock;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
-
-import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
@@ -171,6 +167,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
     }
 
+    /*
     static boolean alarmIsRunning(Profile profile, Context context) {
         boolean isAlarmRunning = false;
         boolean isWorkRunning = false;
@@ -220,6 +217,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         }
         return isAlarmRunning || isWorkRunning;
     }
+    */
 
     static public void removeAlarm(Profile profile, Context context)
     {

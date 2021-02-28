@@ -1581,12 +1581,19 @@
     <string name="contact_account_type_samsung_account">Аккаунт Samsung</string>
     <string name="contact_account_type_sim_card">SIM-карта</string>
     <string name="contact_account_type_phone_application">Приложение \"Телефон\"</string>
-    <string name="location_editor_change_location_dialog_title">Change location</string>
-    <string name="array_location_editor_show_geofence">Show edited location</string>
-    <string name="array_location_editor_show_actual_location">Show actual location</string>
-    <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
-    <string name="array_location_editor_rename_geofence_with_address">Rename edited location with address</string>
-    <string name="location_editor_map_is_loading">Map is loading…</string>
+    <string name="location_editor_change_location_dialog_title">Изменить местоположение</string>
+    <string name="array_location_editor_show_geofence">Показать изменённое местоположение</string>
+    <string name="array_location_editor_show_actual_location">Показать текущее местоположение</string>
+    <string name="array_location_editor_change_geofence_location_to_actual">Сменить изменённое местоположение на текущее</string>
+    <string name="array_location_editor_rename_geofence_with_address">Сменить название изменённого местоположения на адрес</string>
+    <string name="location_editor_map_is_loading">Карта загружается…</string>
+    <string name="profile_preferences_cameraFlash">Camera flash</string>
+    <string name="permission_why_profile_camera_flash">for switch camera flash</string>
+    <string name="permission_group_name_camera">Camera</string>
+    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>
+    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start system setting</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_summary">If PhoneProfilesPlus not starts at phone boot, click here and search parameter for enabling automatic start of PhoneProfilesPlus.</string>
+    <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Setting screen not found, but this setting is not needed, if PhoneProfilesPlus starts at phone boot.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1869,9 +1876,6 @@
     <!--    <string name="toast_tone_installation_installed_error">Error when installing tone \"PhoneProfiles Silent\"!</string>-->
     <!--    <string name="profile_preferences_volumeNotificationVolume0_summaryPhoneProfilesSilentConfigured">Notification tone \"PhoneProfiles Silent\" is configured.</string>-->
     <!--    <string name="profile_preferences_volumeNotificationVolume0_toneNotInstalled">Notification tone \"PhoneProfiles Silent\" is not installed. Please install it in profile parameter \"Sounds\".</string>-->
-    <!--    <string name="phone_profiles_pref_applicationAutostartCategory">Automatic start</string>-->
-    <!--    <string name="phone_profiles_pref_systemAutoStartManager">Automatic start system setting</string>-->
-    <!--    <string name="phone_profiles_pref_systemAutoStartManager_summary">Click here to enable automatic start for PhoneProfilesPlus</string>-->
     <!--    <string name="run_applications_error_dialog_text_application">Error on start of application.</string>-->
     <!--    <string name="run_applications_error_dialog_text_shortcut">Error on start of shortcut.</string>-->
     <!--    <string name="run_applications_error_dialog_text_intent">Error on start of intent.</string>-->

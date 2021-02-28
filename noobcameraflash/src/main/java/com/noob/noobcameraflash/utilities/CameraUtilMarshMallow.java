@@ -1,4 +1,4 @@
-package com.noob.noobcameraflash.Utilities;
+package com.noob.noobcameraflash.utilities;
 
 import android.annotation.TargetApi;
 import android.content.Context;

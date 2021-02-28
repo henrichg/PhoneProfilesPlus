@@ -1,4 +1,4 @@
-package com.noob.noobcameraflash.Utilities;
+package com.noob.noobcameraflash.utilities;
 
 import android.content.Context;
 
@@ -7,7 +7,7 @@ import android.content.Context;
  */
 
 public abstract class BaseCameraUtil implements CameraFlashUtility {
-    private Context mContext;
+    private final Context mContext;
 
     //private boolean torchModeOn = false;
     private TorchMode mTorchMode = TorchMode.None;
@@ -25,6 +25,7 @@ public abstract class BaseCameraUtil implements CameraFlashUtility {
         return mTorchMode == TorchMode.SwitchedOn;
     }
 
+    @SuppressWarnings("unused")
     @Override
     public void setTorchModeCallback(TorchModeCallback torchModeCallback) {
         mTorchModeCallback = torchModeCallback;
@@ -32,7 +33,7 @@ public abstract class BaseCameraUtil implements CameraFlashUtility {
     //endregion
 
     //protected methods
-    void onCameraTorchModeChanged(TorchMode torchMode) {
+    void onCameraTorchModeChanged(@SuppressWarnings("SameParameterValue") TorchMode torchMode) {
         if (mTorchModeCallback != null) {
             mTorchModeCallback.onTorchModeChanged(torchMode);
         }
@@ -46,6 +47,7 @@ public abstract class BaseCameraUtil implements CameraFlashUtility {
         return mContext;
     }
 
+    @SuppressWarnings("unused")
     public TorchMode getTorchMode() {
         return mTorchMode;
     }

@@ -5,8 +5,8 @@ import android.hardware.camera2.CameraAccessException;
 
 import androidx.annotation.NonNull;
 
-import com.noob.noobcameraflash.Utilities.CameraFlashUtility;
-import com.noob.noobcameraflash.Utilities.CameraUtilMarshMallow;
+import com.noob.noobcameraflash.utilities.CameraFlashUtility;
+import com.noob.noobcameraflash.utilities.CameraUtilMarshMallow;
 
 /**
  * Created by abhi on 23/10/16.
@@ -32,6 +32,7 @@ public class NoobCameraManager {
         mCameraUtil = new CameraUtilMarshMallow(context);
     }
 
+    @SuppressWarnings("unused")
     public void setCameraUtil(CameraFlashUtility cameraUtil) {
         mCameraUtil = cameraUtil;
     }
@@ -48,6 +49,7 @@ public class NoobCameraManager {
         mCameraUtil.turnOffFlash();
     }
 
+    @SuppressWarnings("unused")
     public void toggleFlash() throws CameraAccessException {
         if (isFlashOn()) {
             turnOffFlash();
@@ -57,6 +59,7 @@ public class NoobCameraManager {
     }
 
     //May or may not release all resources
+    @SuppressWarnings("unused")
     public void release() {
         if (mCameraUtil != null)
             mCameraUtil.release();

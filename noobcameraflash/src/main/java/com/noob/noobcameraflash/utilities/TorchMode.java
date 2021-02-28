@@ -1,4 +1,4 @@
-package com.noob.noobcameraflash.Utilities;
+package com.noob.noobcameraflash.utilities;
 
 /**
  * Created by Abhishek on 08-12-2016.
