@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -14,6 +15,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -35,40 +37,39 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
 
         //PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "xxx");
 
-        Calendar now = Calendar.getInstance();
+        Calendar alarm = Calendar.getInstance();
         //if (DebugVersion.enabled) {
-        //    now.add(Calendar.MINUTE, 1);
-            /*now.set(Calendar.HOUR_OF_DAY, 13);
-            now.set(Calendar.MINUTE, 0);
-            //now.add(Calendar.DAY_OF_MONTH, 30);
-            now.add(Calendar.DAY_OF_MONTH, 1);
-            now.set(Calendar.SECOND, 0);
-            now.set(Calendar.MILLISECOND, 0);
+        //    alarm.add(Calendar.MINUTE, 1);
+            /*alarm.set(Calendar.HOUR_OF_DAY, 13);
+            alarm.set(Calendar.MINUTE, 0);
+            //alarm.add(Calendar.DAY_OF_MONTH, 30);
+            alarm.add(Calendar.DAY_OF_MONTH, 1);
+            alarm.set(Calendar.SECOND, 0);
+            alarm.set(Calendar.MILLISECOND, 0);
 
             if (PPApplication.logEnabled()) {
                 @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(now.getTimeInMillis());
-                //PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
+                String result = sdf.format(alarm.getTimeInMillis());
+                //PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
             }*/
         //} else {
             // each month at 13:00
-            now.set(Calendar.HOUR_OF_DAY, 13);
-            now.set(Calendar.MINUTE, 0);
-            now.add(Calendar.DAY_OF_MONTH, 30);
-            //now.add(Calendar.DAY_OF_MONTH, 1);
-            now.set(Calendar.SECOND, 0);
-            now.set(Calendar.MILLISECOND, 0);
+            alarm.set(Calendar.HOUR_OF_DAY, 13);
+            alarm.set(Calendar.MINUTE, 0);
+            alarm.add(Calendar.DAY_OF_MONTH, 30);
+            alarm.set(Calendar.SECOND, 0);
+            alarm.set(Calendar.MILLISECOND, 0);
 
-            /*if (PPApplication.logEnabled()) {
+            if (PPApplication.logEnabled()) {
                 @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(now.getTimeInMillis());
-                PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
-            }*/
+                String result = sdf.format(alarm.getTimeInMillis());
+                PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+            }
         //}
 
-        long alarmTime = now.getTimeInMillis();
+        long alarmTime = alarm.getTimeInMillis();
 
         //Intent intent = new Intent(_context, CheckGitHubReleasesBroadcastReceiver.class);
         Intent intent = new Intent();

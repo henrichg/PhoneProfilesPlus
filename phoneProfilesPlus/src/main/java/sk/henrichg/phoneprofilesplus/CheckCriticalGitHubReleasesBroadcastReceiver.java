@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -23,6 +24,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -46,32 +48,43 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
 
 //        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "xxx");
 
-        Calendar now = Calendar.getInstance();
+        Calendar alarm = Calendar.getInstance();
         /*if (DebugVersion.enabled) {
-            now.add(Calendar.MINUTE, 1);
+            alarm.add(Calendar.MINUTE, 1);
 
             //    if (PPApplication.logEnabled()) {
             //        @SuppressLint("SimpleDateFormat")
             //        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            //        String result = sdf.format(now.getTimeInMillis());
-            //        Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
+            //        String result = sdf.format(alarm.getTimeInMillis());
+            //        Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
         } else {*/
             // each day at 12:30
-            now.set(Calendar.HOUR_OF_DAY, 12);
-            now.set(Calendar.MINUTE, 30);
-            now.add(Calendar.DAY_OF_MONTH, 1);
-            now.set(Calendar.SECOND, 0);
-            now.set(Calendar.MILLISECOND, 0);
+            if (PPApplication.applicationFullyStarted) {
+                alarm.set(Calendar.HOUR_OF_DAY, 12);
+                alarm.set(Calendar.MINUTE, 30);
+                alarm.add(Calendar.DAY_OF_MONTH, 1);
+                alarm.set(Calendar.SECOND, 0);
+                alarm.set(Calendar.MILLISECOND, 0);
+            }
+            else {
+                alarm.set(Calendar.HOUR_OF_DAY, 12);
+                alarm.set(Calendar.MINUTE, 30);
+                alarm.set(Calendar.SECOND, 0);
+                alarm.set(Calendar.MILLISECOND, 0);
+                if (alarm.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
+                    alarm.add(Calendar.DAY_OF_MONTH, 1);
+                }
+            }
 
-            /*if (PPApplication.logEnabled()) {
+            if (PPApplication.logEnabled()) {
                 @SuppressLint("SimpleDateFormat")
                 SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(now.getTimeInMillis());
-                PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
-            }*/
+                String result = sdf.format(alarm.getTimeInMillis());
+                PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+            }
         //}
 
-        long alarmTime = now.getTimeInMillis();
+        long alarmTime = alarm.getTimeInMillis();
 
         //Intent intent = new Intent(_context, CheckGitHubReleasesBroadcastReceiver.class);
         Intent intent = new Intent();
