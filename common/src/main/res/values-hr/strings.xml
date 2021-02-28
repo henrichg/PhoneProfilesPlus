@@ -1543,8 +1543,7 @@
     <string name="profile_preferences_savedProfilePreferences_title">Snimljeni parametri uređaja</string>
     <string name="profile_preferences_savedProfilePreferences_summary">Klikni ovdje za prikaz snimljenih parametara uređaja.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Aplikacija umesto ikone profila</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Ako je u status baru prikazana PhoneProfilesPlus aplikacija umesto ikone profila, možete je promeniti. Podesite uređaj
-\"Postavke\"/\"Obavijesti\"/\"Senka za obavijesti\"=\"Android\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Ako je u status baru prikazana PhoneProfilesPlus aplikacija umesto ikone profila, možete je promeniti. Podesite uređaj \"Postavke\"/\"Obavijesti\"/\"Senka za obavijesti\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignoriraj i nemoj prekidati</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Ručno aktiviranje profila na kraju</string>
     <string name="critical_github_release_confirm_notification_disable">Kritična ažuriranja PhoneProfilesPlus su pronađena i potrebno ih je preuzeti. U njima se nalaze ispravke kritičnih pogreški. Da li ste sigurni da ne želite ovu obavijest u budućnosti?</string>
