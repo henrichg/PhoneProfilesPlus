@@ -507,6 +507,7 @@
         <item>@string/profile_preferences_zenMode_priority_summary</item>
         <item>@string/profile_preferences_zenMode_alarms_summary</item>
     </string-array>
+
     <string-array name="keyguardArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
