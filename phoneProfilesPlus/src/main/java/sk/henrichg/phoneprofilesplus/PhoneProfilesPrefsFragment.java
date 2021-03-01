@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.Vibrator;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -2512,9 +2513,21 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND);
             if (_preference != null)
                 _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
+
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE);
-            if (_preference != null)
-                _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            boolean hasVibrator = (vibrator != null) && vibrator.hasVibrator();
+            if (hasVibrator) {
+                if (_preference != null) {
+                    _preference.setVisible(true);
+                    _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
+                }
+            }
+            else {
+                if (_preference != null)
+                    _preference.setVisible(false);
+            }
+
             //_preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE);
             //if (_preference != null)
             //    _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);

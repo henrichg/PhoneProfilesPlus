@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
@@ -1107,9 +1108,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 /*boolean defaultValue =
                         getResources().getBoolean(
                                 GlobalGUIRoutines.getResourceId(key, "bool", context));*/
+
+                boolean hasVibrator = true;
+                if (key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE)) {
+                    Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                    hasVibrator = (vibrator != null) && vibrator.hasVibrator();
+                }
+
                 //noinspection ConstantConditions
                 boolean defaultValue = Profile.defaultValuesBoolean.get(key);
-                if (preferences.getBoolean(key, defaultValue) != defaultValue) {
+                if (hasVibrator && preferences.getBoolean(key, defaultValue) != defaultValue) {
                     title = getString(preferenceTitleId);
                     notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                 }
@@ -1240,11 +1248,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (!summary.isEmpty()) summary = summary + " • ";
                     summary = summary + title + ": <b><ringtone_name></b>";
                 }
-                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, R.string.profile_preferences_durationNotificationVibrate, false, context);
-                if (!title.isEmpty()) {
-                    if (!summary.isEmpty()) summary = summary + " • ";
-                    summary = summary + title +  ": <b>" + getString(R.string.profile_preferences_enabled) + "</b>";
+
+                Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                if ((vibrator != null) && vibrator.hasVibrator()) {
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, R.string.profile_preferences_durationNotificationVibrate, false, context);
+                    if (!title.isEmpty()) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        summary = summary + title + ": <b>" + getString(R.string.profile_preferences_enabled) + "</b>";
+                    }
                 }
+
                 GlobalGUIRoutines.setRingtonePreferenceSummary(summary,
                         preferences.getString(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND,
                                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND)),
@@ -2950,11 +2963,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE))
         {
-            String sValue = value.toString();
-            SwitchPreferenceCompat checkBoxPreference = prefMng.findPreference(key);
-            if (checkBoxPreference != null) {
-                boolean show = sValue.equals("true");
-                GlobalGUIRoutines.setPreferenceTitleStyleX(checkBoxPreference, true, show, false, false, false);
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            if ((vibrator != null) && vibrator.hasVibrator()) {
+                String sValue = value.toString();
+                SwitchPreferenceCompat checkBoxPreference = prefMng.findPreference(key);
+                if (checkBoxPreference != null) {
+                    checkBoxPreference.setVisible(true);
+                    boolean show = sValue.equals("true");
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(checkBoxPreference, true, show, false, false, false);
+                }
+            }
+            else {
+                SwitchPreferenceCompat checkBoxPreference = prefMng.findPreference(key);
+                if (checkBoxPreference != null)
+                    checkBoxPreference.setVisible(false);
             }
         }
         if (key.equals(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON) && (Build.VERSION.SDK_INT < 26))

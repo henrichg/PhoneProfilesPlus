@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Build;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -879,8 +880,24 @@ class Event {
             key.equals(PREF_EVENT_NO_PAUSE_BY_MANUAL_ACTIVATION) ||
             key.equals(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END)) {
 
-            Preference preference = prefMng.findPreference(key);
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals("true"), false, false, false);
+            boolean hasVibrator = true;
+            if (key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_START) ||
+                    key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_END)) {
+                Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                hasVibrator = (vibrator != null) && vibrator.hasVibrator();
+            }
+
+            //noinspection IfStatementWithIdenticalBranches
+            if (hasVibrator) {
+                Preference preference = prefMng.findPreference(key);
+                if (preference != null)
+                    preference.setVisible(true);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, value.equals("true"), false, false, false);
+            } else {
+                Preference preference = prefMng.findPreference(key);
+                if (preference != null)
+                    preference.setVisible(false);
+            }
         }
 
     }
@@ -941,10 +958,21 @@ class Event {
                 delayStart = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_START, "0"));
                 delayEnd = Integer.parseInt(preferences.getString(PREF_EVENT_DELAY_END, "0"));
                 notificationSoundStartChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND_START, "").isEmpty();
+
                 notificationVibrateStartChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_VIBRATE_START, false);
+                notificationVibrateEndChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_VIBRATE_END, false);
+                if (key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_START) ||
+                        key.equals(PREF_EVENT_NOTIFICATION_VIBRATE_END)) {
+                    Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                    boolean hasVibrator = (vibrator != null) && vibrator.hasVibrator();
+                    if (!hasVibrator) {
+                        notificationVibrateStartChanged = false;
+                        notificationVibrateEndChanged = false;
+                    }
+                }
+
                 notificationRepeatStartChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_REPEAT_START, false);
                 notificationSoundEndChanged = !preferences.getString(PREF_EVENT_NOTIFICATION_SOUND_END, "").isEmpty();
-                notificationVibrateEndChanged = preferences.getBoolean(PREF_EVENT_NOTIFICATION_VIBRATE_END, false);
                 manualProfileActivationAtEndChanged = preferences.getBoolean(PREF_EVENT_MANUAL_PROFILE_ACTIVATION_AT_END, false);
             }
             Preference preference = prefMng.findPreference("eventStartOthersCategoryRoot");
