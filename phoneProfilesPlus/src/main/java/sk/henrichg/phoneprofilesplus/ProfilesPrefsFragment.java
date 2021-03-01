@@ -412,13 +412,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (ringerModePreference != null) {
-            CharSequence[] entries = ringerModePreference.getEntries();
-            /*if (Build.VERSION.SDK_INT < 23) {
-                entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_Off) + ")";
-                entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_Off) + ")";
-                entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeL_On) + ")";
-            }
-            else*/ {
+            CharSequence[] entries;
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            if ((vibrator != null) && vibrator.hasVibrator()) {
+                entries = ringerModePreference.getEntries();
                 entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
                 if (PPApplication.deviceIsSamsung || PPApplication.romIsEMUI)
@@ -426,8 +423,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 else
                     entries[3] = entries[3] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
             }
+            else {
+                ringerModePreference.setEntries(R.array.soundModeNotVibratorArray);
+                ringerModePreference.setEntryValues(R.array.soundModeNotVibratorValues);
+                entries = ringerModePreference.getEntries();
+                entries[1] = entries[1] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
+                if (PPApplication.deviceIsSamsung || PPApplication.romIsEMUI)
+                    entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_Off) + ")";
+                else
+                    entries[2] = entries[2] + " (" + getString(R.string.array_pref_soundModeArray_ZenModeM_On) + ")";
+            }
             ringerModePreference.setEntries(entries);
             setSummary(Profile.PREF_PROFILE_VOLUME_RINGER_MODE);
+
+            ListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+            if (zenModePreference != null) {
+                if (!((vibrator != null) && vibrator.hasVibrator())) {
+                    zenModePreference.setEntries(R.array.zenModeNotVibratorArray);
+                    zenModePreference.setEntryValues(R.array.zenModeNotVibratorValues);
+                }
+            }
 
             ringerModePreference.setOnPreferenceChangeListener((preference, newValue) -> {
                 String sNewValue = (String) newValue;
@@ -443,19 +458,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         );*/
                 final boolean canEnableZenMode1 = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
 
-                Preference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
-                if (zenModePreference != null) {
-                    zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode1);
+                ListPreference _zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
+                if (_zenModePreference != null) {
+                    _zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode1);
 
                     boolean a60 = (Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
                     @SuppressLint("InlinedApi")
                     boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                             GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(zenModePreference, true, false, false, false, addS);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(_zenModePreference, true, false, false, false, addS);
 
                     Preference zenModePreferenceInfo = prefMng.findPreference("prf_pref_volumeZenModeInfo");
                     if (zenModePreferenceInfo != null) {
-                        zenModePreferenceInfo.setEnabled(zenModePreference.isEnabled());
+                        zenModePreferenceInfo.setEnabled(_zenModePreference.isEnabled());
                     }
                 }
 

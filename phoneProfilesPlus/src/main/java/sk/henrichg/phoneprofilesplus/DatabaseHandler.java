@@ -11,6 +11,7 @@ import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Vibrator;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10696,8 +10697,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                             ringerMode = 4;
                                             break;
                                         case 4:
-                                            ringerMode = 2;
-                                            break;
                                         case 5:
                                             ringerMode = 3;
                                             break;
@@ -10706,6 +10705,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     values.put(KEY_VOLUME_RINGER_MODE, ringerMode);
                                     db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
+                                Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                                if (!((vibrator != null) && vibrator.hasVibrator())) {
+                                    int ringerMode = profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_VOLUME_RINGER_MODE));
+                                    if (ringerMode == 3) {
+                                        ringerMode = 1;
+
+                                        values.clear();
+                                        values.put(KEY_VOLUME_RINGER_MODE, ringerMode);
+                                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                                new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                    }
+                                    else
+                                    if (ringerMode == 5) {
+                                        int zenMode = profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_VOLUME_ZEN_MODE));
+                                        if (zenMode == 4)
+                                            zenMode = 1;
+                                        else
+                                        if (zenMode == 5)
+                                            zenMode = 2;
+
+                                        values.clear();
+                                        values.put(KEY_VOLUME_ZEN_MODE, zenMode);
+                                        db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                                new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                    }
                                 }
                             }
 

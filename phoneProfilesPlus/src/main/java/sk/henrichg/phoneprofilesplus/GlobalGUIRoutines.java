@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.Html;
@@ -671,8 +672,19 @@ class GlobalGUIRoutines {
     }
 
     static String getZenModePreferenceString(String value, Context context) {
-        String[] arrayValues = context.getResources().getStringArray(R.array.zenModeValues);
-        String[] arrayStrings = context.getResources().getStringArray(R.array.zenModeArray);
+        String[] arrayValues;
+        String[] arrayStrings;
+
+        Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        if ((vibrator != null) && vibrator.hasVibrator()) {
+            arrayValues = context.getResources().getStringArray(R.array.zenModeValues);
+            arrayStrings = context.getResources().getStringArray(R.array.zenModeArray);
+        }
+        else {
+            arrayValues = context.getResources().getStringArray(R.array.zenModeNotVibratorValues);
+            arrayStrings = context.getResources().getStringArray(R.array.zenModeNotVibratorArray);
+        }
+
         String[] arraySummaryStrings = context.getResources().getStringArray(R.array.zenModeSummaryArray);
         int index = 0;
         for (String arrayValue : arrayValues) {

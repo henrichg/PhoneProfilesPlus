@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
     <string-array name="emptyArray"></string-array>
+
     <string-array name="soundModeArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_soundModeArray_sound</item>
@@ -16,6 +17,19 @@
         <item>4</item>
         <item>5</item>
     </string-array>
+    <string-array name="soundModeNotVibratorArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_soundModeArray_sound</item>
+        <item>@string/array_pref_soundModeArray_silentM</item>
+        <item>@string/array_pref_soundModeArray_ZenModeM</item>
+    </string-array>
+    <string-array name="soundModeNotVibratorValues">
+        <item>0</item>
+        <item>1</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
     <string-array name="hardwareModeArray">
         <item>@string/array_pref_no_change</item>
         <item>@string/array_pref_hardwareModeArray_on</item>
@@ -455,6 +469,7 @@
         <item>1</item>
         <item>3</item>
     </string-array>-->
+
     <string-array name="zenModeArray">
         <item>@string/array_pref_zenModeArray_off</item>
         <item>@string/array_pref_zenModeArray_offButVibration</item>
@@ -471,6 +486,19 @@
         <item>6</item>
         <item>3</item>
     </string-array>
+    <string-array name="zenModeNotVibratorArray">
+        <item>@string/array_pref_zenModeArray_off</item>
+        <item>@string/array_pref_zenModeArray_priority</item>
+        <item>@string/array_pref_zenModeArray_alarms</item>
+        <item>@string/array_pref_zenModeArray_totalSilence</item>
+    </string-array>
+    <string-array name="zenModeNotVibratorValues">
+        <item>1</item>
+        <item>2</item>
+        <item>6</item>
+        <item>3</item>
+    </string-array>
+
     <string-array name="zenModeSummaryArray">
         <item>@string/profile_preferences_zenMode_off_summary</item>
         <item>@string/profile_preferences_zenMode_priority_summary</item>
