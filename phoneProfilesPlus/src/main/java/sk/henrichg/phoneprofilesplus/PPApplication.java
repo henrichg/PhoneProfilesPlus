@@ -230,9 +230,9 @@ public class PPApplication extends Application
                                                 +"|GeofenceScanner"
                                                 +"|LocationSensorWorker"
 
-                                                +"|CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm"
-                                                +"|CheckGitHubReleasesBroadcastReceiver.setAlarm"
-                                                +"|DonationBroadcastReceiver.setAlarm"
+                                                +"|CheckCriticalGitHubReleasesBroadcastReceiver"
+                                                +"|CheckGitHubReleasesBroadcastReceiver"
+                                                +"|DonationBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

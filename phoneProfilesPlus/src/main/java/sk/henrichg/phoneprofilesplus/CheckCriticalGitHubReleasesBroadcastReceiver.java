@@ -34,7 +34,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
     private static final String PREF_SHOW_CRITICAL_GITHUB_RELEASE_CODE_NOTIFICATION = "show_critical_github_release_code_notification";
 
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
 //        CallsCounter.logCounter(context, "CheckGitHubReleasesBroadcastReceiver.onReceive", "DonationBroadcastReceiver_onReceive");
 
         if (intent != null) {
