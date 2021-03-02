@@ -253,7 +253,7 @@ class GeofencesScanner
                             }
 
                             if (locationEnabled /*&& provider.equals(LocationManager.NETWORK_PROVIDER)*/) {
-                                if (!CheckOnlineStatusBroadcastReceiver.isOnline(context)) {
+                                if (ApplicationPreferences.applicationEventLocationUseGPS && (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
                                     PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "NOT ONLINE");
                                     // force GPS_PROVIDER
                                     provider = LocationManager.GPS_PROVIDER;
@@ -312,7 +312,7 @@ class GeofencesScanner
             }
         }
 
-        if (ApplicationPreferences.applicationEventLocationUseGPS) {
+        if (ApplicationPreferences.applicationEventLocationUseGPS && CheckOnlineStatusBroadcastReceiver.isOnline(context)) {
             // recursive call this for switch usage of GPS
             GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm(context);
         }
@@ -448,7 +448,7 @@ class GeofencesScanner
 
                     PPApplication.logE("GeofenceScanner.onlineStatusChanged", "xxx");
 
-                    if (!CheckOnlineStatusBroadcastReceiver.isOnline(context)) {
+                    if (ApplicationPreferences.applicationEventLocationUseGPS && (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
                         // device is not online
                         PPApplication.logE("GeofenceScanner.onlineStatusChanged", "NOT ONLINE");
 

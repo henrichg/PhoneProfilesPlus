@@ -196,16 +196,16 @@ public class GeofencesScannerSwitchGPSBroadcastReceiver extends BroadcastReceive
 //                                }
 //                            }
 
-                            if (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext))
-                                // force useGPS
-                                GeofencesScanner.useGPS = true;
-                            else
-                                GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
-
                             PPApplication.logE("##### GeofencesScannerSwitchGPSBroadcastReceiver.doWork", "GeofencesScanner.useGPS="+GeofencesScanner.useGPS);
                             geofencesScanner.stopLocationUpdates();
 
                             PPApplication.sleep(1000);
+
+                            if (ApplicationPreferences.applicationEventLocationUseGPS && (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext)))
+                                // force useGPS
+                                GeofencesScanner.useGPS = true;
+                            else
+                                GeofencesScanner.useGPS = !GeofencesScanner.useGPS;
 
                             // this also calls GeofencesScannerSwitchGPSBroadcastReceiver.setAlarm()
                             geofencesScanner.startLocationUpdates();
