@@ -762,3 +762,5 @@ V Profile.isProfilePreferenceAllowed() to uz je.
 PhoneProfilesService.hasSIMCard() - testuje, ci aspon jedna sim je pichnuta. Uprav na dual SIM.
 
 ---------------------------------
+
+Lokacia: ak nie je mobil online, daj natvrdo GPS ale s dlhsim intervalom.
