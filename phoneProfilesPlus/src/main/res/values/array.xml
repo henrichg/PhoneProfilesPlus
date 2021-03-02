@@ -647,6 +647,10 @@
         <item>2G/3G/4G - GSM/WCDMA, LTE</item>
         <item>4G - LTE</item>
         <item>3G/4G - WCDMA/LTE</item>
+        <item>5G - only</item>
+        <item>4G/5G - LTE</item>
+        <item>2G/3G/4G/5G - GSM/WCDMA, LTE</item>
+        <item>3G/4G/5G - WCDMA/LTE</item>
     </string-array>
     <string-array name="networkTypeGSMValues">
         <item>0</item>
@@ -657,6 +661,10 @@
         <item>109</item>
         <item>111</item>
         <item>112</item>
+        <item>123</item>
+        <item>124</item>
+        <item>126</item>
+        <item>128</item>
     </string-array>
     <string-array name="networkTypeCDMAArray">
         <item>@string/array_pref_no_change</item>
@@ -666,6 +674,7 @@
         <item>2G/3G - GSM/WCDMA, CDMA, EvDo</item>
         <item>2G/3G/4G - CDMA, EvDo, LTE</item>
         <item>2G/3G/4G - GSM/WCDMA, CDMA, EvDo, LTE</item>
+        <item>2G/3G/4G/5G - GSM/WCDMA, CDMA, EvDo, LTE</item>
     </string-array>
     <string-array name="networkTypeCDMAValues">
         <item>0</item>
@@ -675,6 +684,7 @@
         <item>107</item>
         <item>108</item>
         <item>110</item>
+        <item>125</item>
     </string-array>
     <string-array name="networkTypeNotSupportedArray">
         <item>@string/array_pref_no_change</item>

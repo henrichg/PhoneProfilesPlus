@@ -756,8 +756,9 @@ setMobileData()
 
 Takze pre oba sprav podporu dual sim. Nech si uzivatel nastavi, pre kroru sim to chce nastavovat.
 
-Ked budem robit mobilne data, musim testovat ak toto:
+Ked budem robit mobilne data, musim testovat aj toto:
 PPApplication.serviceBinaryExists(false) v ActivateProfileHelper.setMobileData()
 V Profile.isProfilePreferenceAllowed() to uz je.
+PhoneProfilesService.hasSIMCard() - testuje, ci aspon jedna sim je pichnuta. Uprav na dual SIM.
 
 ---------------------------------

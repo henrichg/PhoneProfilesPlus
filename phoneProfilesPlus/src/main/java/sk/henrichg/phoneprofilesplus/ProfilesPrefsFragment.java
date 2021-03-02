@@ -550,8 +550,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMDPArray));
                         networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMDPValues));
                     } else {*/
+
+                    // https://github.com/aosp-mirror/platform_frameworks_base/blob/master/telephony/java/com/android/internal/telephony/RILConstants.java
                     networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMArray));
                     networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMValues));
+
                     //}
                     String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "");
                     networkTypePreference.setValue(value);
@@ -563,8 +566,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMADPArray));
                         networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMADPValues));
                     } else {*/
+
+                    // https://github.com/aosp-mirror/platform_frameworks_base/blob/master/telephony/java/com/android/internal/telephony/RILConstants.java
                     networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMAArray));
                     networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMAValues));
+
                     //}
                     String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "");
                     networkTypePreference.setValue(value);
