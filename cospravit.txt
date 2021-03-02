@@ -756,3 +756,9 @@ setMobileData()
 
 Takze pre oba sprav podporu dual sim. Nech si uzivatel nastavi, pre kroru sim to chce nastavovat.
 
+---------------------------------
+
+Ak nie je pichnuta SIM karta:
+Profily:
+- Mobile data - nesmie byt povolene (disabluj) - napis, ze nema sim kartu do summary, ako pri roote
+- Prefered network type - nesmie byt povolene (disabluj) - napis, ze nema sim kartu do summary, ako pri roote

@@ -154,7 +154,7 @@ class ActivateProfileHelper {
                 }
                 if (_setMobileData) {
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
-                    setMobileData(/*appContext,*/ _isMobileData);
+                    setMobileData(appContext, _isMobileData);
                     PPApplication.sleep(200);
                 }
             }
@@ -4391,7 +4391,7 @@ class ActivateProfileHelper {
         }*/
     }
 
-    private static void setMobileData(/*Context context, */boolean enable)
+    private static void setMobileData(Context context, boolean enable)
     {
         //PPApplication.logE("ActivateProfileHelper.setMobileData", "xxx");
 
@@ -4447,7 +4447,8 @@ class ActivateProfileHelper {
         }
         else*/
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                (PPApplication.isRooted(false)))
+            PPApplication.isRooted(false) &&
+            PhoneProfilesService.hasSIMCard(context))
         {
             //PPApplication.logE("ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
 
@@ -4646,7 +4647,9 @@ class ActivateProfileHelper {
     private static void setPreferredNetworkType(Context context, int networkType)
     {
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                (PPApplication.isRooted(false) && PPApplication.serviceBinaryExists(false)))
+            PPApplication.isRooted(false) &&
+            PPApplication.serviceBinaryExists(false) &&
+            PhoneProfilesService.hasSIMCard(context))
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
                 try {
