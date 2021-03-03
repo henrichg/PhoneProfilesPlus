@@ -105,7 +105,7 @@ public class MainWorker extends Worker {
                         }
                         break;
                     case GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK:
-                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
+//                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
                         GeofencesScannerSwitchGPSBroadcastReceiver.doWork(appContext);
                         break;
                     case LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK:

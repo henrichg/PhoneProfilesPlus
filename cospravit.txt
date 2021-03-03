@@ -761,6 +761,10 @@ PPApplication.serviceBinaryExists(false) v ActivateProfileHelper.setMobileData()
 V Profile.isProfilePreferenceAllowed() to uz je.
 PhoneProfilesService.hasSIMCard() - testuje, ci aspon jedna sim je pichnuta. Uprav na dual SIM.
 
----------------------------------
+Toto pouzi na ziskanie default subscription id pre Prefered network type a to pouzi v sucasnej, nie-dual sim verzii:
+After api level 22, you can use the hidden system api android.telephony.SubscriptionManager#getDefaultDataSubId
+via reflection to get current active data sim subscription index.
+After api level 24, there is a public system api android.telephony.SubscriptionManager#getDefaultDataSubscriptionId
+to get current active data sim subscription index.
 
-Lokacia: ak nie je mobil online, daj natvrdo GPS ale s dlhsim intervalom.
+---------------------------------

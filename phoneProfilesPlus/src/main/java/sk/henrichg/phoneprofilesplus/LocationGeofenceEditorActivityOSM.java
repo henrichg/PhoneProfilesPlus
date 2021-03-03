@@ -613,7 +613,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
      */
     @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
-        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
+//        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
 
         boolean locationEnabled;
         try {
@@ -628,7 +628,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             if (Permissions.checkLocation(getApplicationContext())) {
                 mListenerEnabled = true;
                 try {
-                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
+//                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
                     mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                             UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener);
                 } catch (Exception e) {
@@ -1096,17 +1096,17 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
-            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
+//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
 
             final Location oldLastLocation = mLastLocation;
 
             mLastLocation = location;
 //            PPApplication.logE("LocationGeofenceEditorActivityOSM.mLocationListener.onStatusChanged","location="+location);
-            if (PPApplication.logEnabled()) {
-                PPApplication.logE("##### LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "lastLocation.getLatitude()=" + location.getLatitude());
-                PPApplication.logE("##### LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "lastLocation.getLongitude()=" + location.getLongitude());
-                PPApplication.logE("##### LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "lastLocation.getAccuracy()=" + location.getAccuracy());
-            }
+//            if (PPApplication.logEnabled()) {
+//                PPApplication.logE("##### LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "lastLocation.getLatitude()=" + location.getLatitude());
+//                PPApplication.logE("##### LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "lastLocation.getLongitude()=" + location.getLongitude());
+//                PPApplication.logE("##### LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "lastLocation.getAccuracy()=" + location.getAccuracy());
+//            }
 
             if (mLocation == null) {
                 mLocation = new Location(mLastLocation);

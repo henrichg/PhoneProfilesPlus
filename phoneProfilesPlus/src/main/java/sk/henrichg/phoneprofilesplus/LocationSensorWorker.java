@@ -32,7 +32,7 @@ public class LocationSensorWorker extends Worker {
     @Override
     public Result doWork() {
         try {
-            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "xxxx");
+//            PPApplication.logE("[IN_WORKER] LocationSensorWorker.doWork", "xxxx");
 
             if (Event.getGlobalEventsRunning()) {
                 EventsHandler eventsHandler = new EventsHandler(context);
@@ -57,7 +57,7 @@ public class LocationSensorWorker extends Worker {
     }
 
     static void enqueueWork(boolean immediate, Context context) {
-        PPApplication.logE("##### LocationSensorWorker.enqueueWork", "immediate=" + immediate);
+//        PPApplication.logE("##### LocationSensorWorker.enqueueWork", "immediate=" + immediate);
 
         OneTimeWorkRequest worker = null;
 
@@ -79,10 +79,10 @@ public class LocationSensorWorker extends Worker {
                     // interval is in minutes
                     interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60);
                 }
-                PPApplication.logE("##### LocationSensorWorker.enqueueWork", "ApplicationPreferences.applicationEventLocationUpdateInterval=" + ApplicationPreferences.applicationEventLocationUpdateInterval);
+//                PPApplication.logE("##### LocationSensorWorker.enqueueWork", "ApplicationPreferences.applicationEventLocationUpdateInterval=" + ApplicationPreferences.applicationEventLocationUpdateInterval);
                 if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("1"))
                     interval = 2 * interval;
-                PPApplication.logE("##### LocationSensorWorker.enqueueWork", "interval=" + interval);
+//                PPApplication.logE("##### LocationSensorWorker.enqueueWork", "interval=" + interval);
 
                 worker =
                         new OneTimeWorkRequest.Builder(LocationSensorWorker.class)
@@ -107,7 +107,7 @@ public class LocationSensorWorker extends Worker {
 //                //}
 
                 if (worker != null) {
-                    PPApplication.logE("[WORKER_CALL] LocationSensorWorker.enqueueWork", "enqueue with REPLACE");
+//                    PPApplication.logE("[WORKER_CALL] LocationSensorWorker.enqueueWork", "enqueue with REPLACE");
                     workManager.enqueueUniqueWork(LOCATION_SENSOR_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                 }
             }
