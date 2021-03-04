@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -24,7 +23,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -34,7 +32,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
     private static final String PREF_SHOW_CRITICAL_GITHUB_RELEASE_CODE_NOTIFICATION = "show_critical_github_release_code_notification";
 
     public void onReceive(Context context, Intent intent) {
-        PPApplication.logE("[IN_BROADCAST] CheckCriticalGitHubReleasesBroadcastReceiver.onReceive", "xxx");
+//        PPApplication.logE("[IN_BROADCAST] CheckCriticalGitHubReleasesBroadcastReceiver.onReceive", "xxx");
 //        CallsCounter.logCounter(context, "CheckGitHubReleasesBroadcastReceiver.onReceive", "DonationBroadcastReceiver_onReceive");
 
         if (intent != null) {
@@ -76,12 +74,12 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                 }
             }
 
-            if (PPApplication.logEnabled()) {
-                @SuppressLint("SimpleDateFormat")
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarm.getTimeInMillis());
-                PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-            }
+//            if (PPApplication.logEnabled()) {
+//                @SuppressLint("SimpleDateFormat")
+//                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                String result = sdf.format(alarm.getTimeInMillis());
+//                PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//            }
         //}
 
         long alarmTime = alarm.getTimeInMillis();

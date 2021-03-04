@@ -676,7 +676,7 @@ public class PhoneProfilesService extends Service
 
             if (PPApplication.donationBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->UNREGISTER donationBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER donationBroadcastReceiver");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER donationBroadcastReceiver");
                 try {
                     appContext.unregisterReceiver(PPApplication.donationBroadcastReceiver);
                     PPApplication.donationBroadcastReceiver = null;
@@ -686,7 +686,7 @@ public class PhoneProfilesService extends Service
             }
             if (PPApplication.checkGitHubReleasesBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->UNREGISTER checkGitHubReleasesBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER checkGitHubReleasesBroadcastReceiver");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER checkGitHubReleasesBroadcastReceiver");
                 try {
                     appContext.unregisterReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver);
                     PPApplication.checkGitHubReleasesBroadcastReceiver = null;
@@ -696,7 +696,7 @@ public class PhoneProfilesService extends Service
             }
             if (PPApplication.checkCriticalGitHubReleasesBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->UNREGISTER checkCriticalGitHubReleasesBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER checkCriticalGitHubReleasesBroadcastReceiver");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER checkCriticalGitHubReleasesBroadcastReceiver");
                 try {
                     appContext.unregisterReceiver(PPApplication.checkCriticalGitHubReleasesBroadcastReceiver);
                     PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = null;
@@ -816,21 +816,21 @@ public class PhoneProfilesService extends Service
             }
 
             if (PPApplication.donationBroadcastReceiver == null) {
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER donationBroadcastReceiver");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER donationBroadcastReceiver");
                 PPApplication.donationBroadcastReceiver = new DonationBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_DONATION);
                 appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5);
             }
             if (PPApplication.checkGitHubReleasesBroadcastReceiver == null) {
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER checkGitHubReleasesBroadcastReceiver");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER checkGitHubReleasesBroadcastReceiver");
                 PPApplication.checkGitHubReleasesBroadcastReceiver = new CheckGitHubReleasesBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
                 appContext.registerReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver, intentFilter5);
             }
             if (PPApplication.checkCriticalGitHubReleasesBroadcastReceiver == null) {
-                PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER checkCriticalGitHubReleasesBroadcastReceiver");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER checkCriticalGitHubReleasesBroadcastReceiver");
                 PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = new CheckCriticalGitHubReleasesBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
