@@ -84,6 +84,25 @@
         <item name="android:windowDisablePreview">true</item>
         <item name="android:background">@color/activityBackgroundColor</item>
         <item name="colorAccent">@color/accent</item>
+
+        <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
+    </style>
+
+    <style name="DialogStyleDayNight" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:background">@color/activityBackgroundColor</item>
+        <item name="colorAccent">@color/accent</item>
+
+        <item name="buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
+    </style>
+
+    <style name="AlertButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:background">@drawable/pp_alert_button_background</item>
+<!--        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>-->
     </style>
 
     <!--<style name="DialogStyleColor" parent="Theme.AppCompat.Light.Dialog">-->
@@ -102,11 +121,6 @@
         <!--<item name="android:background">@color/activityBackgroundColor_white</item>-->
         <!--<item name="colorAccent">@color/accent_white</item>-->
     <!--</style>-->
-    <style name="DialogStyleDayNight" parent="Theme.AppCompat.DayNight.Dialog">
-        <item name="android:windowDisablePreview">true</item>
-        <item name="android:background">@color/activityBackgroundColor</item>
-        <item name="colorAccent">@color/accent</item>
-    </style>
 
     <style name="Doki.Custom.Headline" parent="Doki.Headline">
         <item name="android:textSize">16sp</item>
