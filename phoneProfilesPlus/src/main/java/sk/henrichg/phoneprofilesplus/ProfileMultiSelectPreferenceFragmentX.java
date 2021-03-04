@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -18,6 +19,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
 
     private LinearLayout linlaProgress;
     private ListView listView;
+    private RelativeLayout listViewRoot;
     private ProfileMultiSelectPreferenceAdapterX profilePreferenceAdapter;
 
     private Context prefContext;
@@ -41,6 +43,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
 
         linlaProgress = view.findViewById(R.id.profile_multiselect_pref_dlg_linla_progress);
 
+        listViewRoot = view.findViewById(R.id.profile_multiselect_pref_dlg_listview_root);
         listView = view.findViewById(R.id.profile_multiselect_pref_dlg_listview);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
@@ -56,7 +59,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
             protected void onPreExecute()
             {
                 super.onPreExecute();
-                listView.setVisibility(View.GONE);
+                listViewRoot.setVisibility(View.GONE);
                 linlaProgress.setVisibility(View.VISIBLE);
             }
 
@@ -78,7 +81,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
             {
                 super.onPostExecute(result);
 
-                listView.setVisibility(View.VISIBLE);
+                listViewRoot.setVisibility(View.VISIBLE);
                 linlaProgress.setVisibility(View.GONE);
 
                 profilePreferenceAdapter = new ProfileMultiSelectPreferenceAdapterX(prefContext, preference.dataWrapper.profileList);

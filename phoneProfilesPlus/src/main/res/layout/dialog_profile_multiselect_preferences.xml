@@ -21,15 +21,37 @@
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/profile_multiselect_pref_dlg_listview"
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:clipToPadding="false"
-        android:choiceMode="singleChoice"
-        android:scrollbarStyle="outsideOverlay"
-        android:divider="@android:color/transparent" />
+    <RelativeLayout
+        android:id="@+id/profile_multiselect_pref_dlg_listview_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/profile_multiselect_pref_dlg_listview_titleBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/dialogDivider"
+            android:layout_alignParentTop="true" />
+
+        <View
+            android:id="@+id/profile_multiselect_pref_dlg_listview_buttonBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/dialogDivider"
+            android:layout_alignParentBottom="true" />
+
+        <ListView
+            android:id="@+id/profile_multiselect_pref_dlg_listview"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:clipToPadding="false"
+            android:choiceMode="singleChoice"
+            android:scrollbarStyle="outsideOverlay"
+            android:divider="@android:color/transparent" />
+
+    </RelativeLayout>
 
 </LinearLayout>
