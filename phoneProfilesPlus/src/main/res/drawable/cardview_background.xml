@@ -10,7 +10,7 @@
                 android:right="1dp"
                 android:top="1dp" />
 
-            <solid android:color="#FFCCCCCC" />
+            <solid android:color="@color/activityBackgroundColor" />
 
             <corners android:radius="@dimen/popup_corner_radius" />
         </shape>
