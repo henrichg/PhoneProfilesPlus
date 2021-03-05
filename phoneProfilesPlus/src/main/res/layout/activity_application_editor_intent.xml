@@ -11,14 +11,16 @@
     <RelativeLayout
         android:id="@+id/application_editor_intent_buttons"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:layout_alignParentBottom="true">
 
         <View
             android:id="@+id/application_editor_intent_buttonBarDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
+            android:layout_alignParentTop="true"
             android:background="?attr/dialogDivider" />
 
         <Button
@@ -28,9 +30,12 @@
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:text="@android:string/ok"
             android:textColor="@color/action_button_text_color"
-            android:background="?attr/selectableItemBackground"/>
+            android:minHeight="40dp"
+            android:background="?attr/buttonBackground"
+            android:foreground="?attr/selectableItemBackgroundBorderless" />
 
         <Button
             android:id="@+id/application_editor_intent_cancel"
@@ -38,10 +43,14 @@
             android:layout_height="wrap_content"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_toStartOf="@+id/application_editor_intent_ok"
+            android:layout_centerVertical="true"
             android:text="@android:string/cancel"
             android:textColor="@color/action_button_text_color"
-            android:background="?attr/selectableItemBackground"
+            android:minHeight="40dp"
+            android:background="?attr/buttonBackground"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
             tools:ignore="RelativeOverlap"/>
 
         <Button
@@ -54,7 +63,9 @@
             android:layout_centerVertical="true"
             android:text="@string/application_editor_intent_test_button"
             android:textColor="@color/action_button_text_color"
-            android:background="?attr/selectableItemBackground"/>
+            android:minHeight="40dp"
+            android:background="?attr/buttonBackground"
+            android:foreground="?attr/selectableItemBackgroundBorderless" />
 
 
     </RelativeLayout>
@@ -63,6 +74,8 @@
         android:id="@+id/application_editor_intent_titleBarDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:background="?attr/dialogDivider"
         android:layout_alignParentTop="true" />
 

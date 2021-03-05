@@ -39,6 +39,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:background="?attr/dialogDivider" />
 
             <Button
@@ -68,6 +70,8 @@
                 android:id="@+id/contact_groups_pref_dlg_titleBarDivider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:background="?attr/dialogDivider" />
 
             <ListView

@@ -38,6 +38,8 @@
             android:id="@+id/applications_editor_dialog_titleBarDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:background="?attr/dialogDivider"
             android:layout_alignParentTop="true" />
 
@@ -45,6 +47,8 @@
             android:id="@+id/applications_editor_dialog_buttonBarDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:background="?attr/dialogDivider"
             android:layout_alignParentBottom="true" />
 
@@ -63,6 +67,7 @@
                 android:paddingEnd="20dp"
                 android:layout_marginEnd="5dp"
                 android:scrollbars="none"
+                android:clipToPadding="false"
                 app:fastScrollAutoHide="false"
                 app:fastScrollPopupTextSize="44sp"
                 app:fastScrollPopupBackgroundSize="70dp"
@@ -174,6 +179,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:background="?attr/dialogDivider" />
 
     </LinearLayout>
