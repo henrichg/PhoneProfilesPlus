@@ -222,7 +222,7 @@ public class PPApplication extends Application
                                                 //+"|ContactsCache.getContactList"
                                                 //+"|ContactGroupsCache.getContactGroupListX"
 
-                                                //+"|LocationGeofenceEditorActivityOSM"
+                                                +"|LocationGeofenceEditorActivityOSM"
                                                 //+"|TimeChangedReceiver"
                                                 //+"|MainWorker.doWork"
                                                 //+"|GeofencesScannerSwitchGPSBroadcastReceiver.onReceive"

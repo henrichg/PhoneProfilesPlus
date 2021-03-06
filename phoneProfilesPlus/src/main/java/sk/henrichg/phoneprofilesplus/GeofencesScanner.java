@@ -229,6 +229,7 @@ class GeofencesScanner
                             }
 
                             boolean locationEnabled = false;
+                            // check if network provider is enabled in system settongs
                             if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
                                 try {
                                     //noinspection ConstantConditions
@@ -240,23 +241,24 @@ class GeofencesScanner
                                     //locationEnabled = false;
                                 }
                             }
+                            if (locationEnabled) {
+                                if (ApplicationPreferences.applicationEventLocationUseGPS && (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
+//                                    PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "NOT ONLINE");
+                                    // force GPS_PROVIDER
+                                    provider = LocationManager.GPS_PROVIDER;
+                                    locationEnabled = false; // force check GPS_PROVIDER
+                                }
+                            }
                             if (!locationEnabled) {
+                                // check if GPS provider is enabled in system settongs
                                 try {
                                     //noinspection ConstantConditions
                                     locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 //                                    PPApplication.logE("##### GeofenceScanner.startLocationUpdates","GPS_PROVIDER="+locationEnabled);
                                 } catch (Exception e) {
-                                    // we may get IllegalArgumentException if network location provider
+                                    // we may get IllegalArgumentException if gps location provider
                                     // does not exist or is not yet installed.
                                     //locationEnabled = false;
-                                }
-                            }
-
-                            if (locationEnabled /*&& provider.equals(LocationManager.NETWORK_PROVIDER)*/) {
-                                if (ApplicationPreferences.applicationEventLocationUseGPS && (!CheckOnlineStatusBroadcastReceiver.isOnline(context))) {
-//                                    PPApplication.logE("##### GeofenceScanner.startLocationUpdates", "NOT ONLINE");
-                                    // force GPS_PROVIDER
-                                    provider = LocationManager.GPS_PROVIDER;
                                 }
                             }
 

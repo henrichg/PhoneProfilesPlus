@@ -219,6 +219,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
         radiusValue = findViewById(R.id.location_pref_dlg_radius_value);
         TooltipCompat.setTooltipText(radiusValue, getString(R.string.location_pref_dlg_edit_radius_tooltip));
+        radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle(R.string.event_preferences_location_radius_label);
@@ -246,6 +247,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
             if (persist) {
                 geofence._radius = numberPicker.getNumber().floatValue();
+                radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
                 updateEditedMarker(true);
             }
         });
@@ -557,8 +559,6 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 editedMarker.setOnMarkerClickListener((marker, mapView) -> false);
                 mMap.getOverlays().add(editedMarker);
 
-                radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
-
                 if (setMapCamera) {
                     IMapController mapController = mMap.getController();
                     try {
@@ -589,21 +589,27 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 // Determine whether a geo-coder is available.
                 if (Geocoder.isPresent()) {
                     if (mLocation != null) {
-                        startIntentService(false);
+                        startWorkerForFetchAddress(false);
                         enableAddressButton = true;
                     }
                 }
             //}
             if (addressButton.isEnabled())
                 GlobalGUIRoutines.setImageButtonEnabled(enableAddressButton, addressButton, getApplicationContext());
-            String name = geofenceNameEditText.getText().toString();
 
-            if (updateEditedMarker)
+            if (updateEditedMarker) {
+                radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
                 updateEditedMarker(setMapCamera);
+            }
 
+            PPApplication.logE("##### LocationGeofenceEditorActivityOSM.refreshActivity (1)", "enable/disable okButton");
+            String name = geofenceNameEditText.getText().toString();
+            PPApplication.logE("##### LocationGeofenceEditorActivityOSM.refreshActivity (1)", "name="+name);
+            PPApplication.logE("##### LocationGeofenceEditorActivityOSM.refreshActivity (1)", "mLocation="+mLocation);
             okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
         }
         else {
+            PPApplication.logE("##### LocationGeofenceEditorActivityOSM.refreshActivity (2)", "disable okButton");
             okButton.setEnabled(false);
         }
     }
@@ -616,21 +622,36 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 //        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "xxx");
 
         boolean locationEnabled;
+        String provider = "";
         try {
             //noinspection ConstantConditions
             locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+            if (locationEnabled)
+                provider = LocationManager.GPS_PROVIDER;
         } catch (Exception e) {
-            // we may get IllegalArgumentException if network location provider
+            // we may get IllegalArgumentException if gps location provider
             // does not exist or is not yet installed.
             locationEnabled = false;
         }
+        if (!locationEnabled) {
+            try {
+                //noinspection ConstantConditions
+                locationEnabled = mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+                if (locationEnabled)
+                    provider = LocationManager.NETWORK_PROVIDER;
+            } catch (Exception e) {
+                // we may get IllegalArgumentException if network location provider
+                // does not exist or is not yet installed.
+                locationEnabled = false;
+            }
+        }
+        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "locationEnabled="+locationEnabled);
         if (!mListenerEnabled && locationEnabled) {
             if (Permissions.checkLocation(getApplicationContext())) {
                 mListenerEnabled = true;
                 try {
-//                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
-                    mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                            UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener);
+                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
+                    mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -656,7 +677,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
     private void getGeofenceAddress(/*boolean updateName*/) {
         try {
             if (mLocation != null) {
-                startIntentService(true);
+                startWorkerForFetchAddress(true);
             }
             //mAddressRequested = true;
         } catch (Exception e) {
@@ -664,7 +685,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
         }
     }
 
-    private void startIntentService(boolean updateName) {
+    private void startWorkerForFetchAddress(boolean updateName) {
         /*Intent intent = new Intent(this, FetchAddressIntentService.class);
         intent.putExtra(RECEIVER, mResultReceiver);
         intent.putExtra(LOCATION_DATA_EXTRA, mLocation);
@@ -1096,7 +1117,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
-//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
+            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
 
             final Location oldLastLocation = mLastLocation;
 
@@ -1124,6 +1145,12 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                     mMap.setVisibility(View.VISIBLE);
                     addressText.setVisibility(View.VISIBLE);
                 }
+
+                //PPApplication.logE("##### LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "enable/disable okButton");
+                String name = geofenceNameEditText.getText().toString();
+                okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
+
+                radiusValue.setText(String.valueOf(Math.round(geofence._radius)));
                 updateEditedMarker(oldLastLocation == null);
             }
         }
