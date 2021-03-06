@@ -602,14 +602,14 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 updateEditedMarker(setMapCamera);
             }
 
-            PPApplication.logE("##### LocationGeofenceEditorActivityOSM.refreshActivity (1)", "enable/disable okButton");
+//            PPApplication.logE("##### LocationGeofenceEditorActivityOSM.refreshActivity (1)", "enable/disable okButton");
             String name = geofenceNameEditText.getText().toString();
-            PPApplication.logE("##### LocationGeofenceEditorActivityOSM.refreshActivity (1)", "name="+name);
-            PPApplication.logE("##### LocationGeofenceEditorActivityOSM.refreshActivity (1)", "mLocation="+mLocation);
+//            PPApplication.logE("##### LocationGeofenceEditorActivityOSM.refreshActivity (1)", "name="+name);
+//            PPApplication.logE("##### LocationGeofenceEditorActivityOSM.refreshActivity (1)", "mLocation="+mLocation);
             okButton.setEnabled((!name.isEmpty()) && (mLocation != null));
         }
         else {
-            PPApplication.logE("##### LocationGeofenceEditorActivityOSM.refreshActivity (2)", "disable okButton");
+//            PPApplication.logE("##### LocationGeofenceEditorActivityOSM.refreshActivity (2)", "disable okButton");
             okButton.setEnabled(false);
         }
     }
@@ -645,12 +645,12 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                 locationEnabled = false;
             }
         }
-        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "locationEnabled="+locationEnabled);
+//        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "locationEnabled="+locationEnabled);
         if (!mListenerEnabled && locationEnabled) {
             if (Permissions.checkLocation(getApplicationContext())) {
                 mListenerEnabled = true;
                 try {
-                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
+//                    PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "requestLocationUpdates");
                     mLocationManager.requestLocationUpdates(provider, UPDATE_INTERVAL_IN_MILLISECONDS, 0, mLocationListener);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
@@ -1117,7 +1117,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
     private final LocationListener mLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
-            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
+//            PPApplication.logE("[IN_LISTENER] LocationGeofenceEditorActivityOSM.mLocationListener.onLocationChanged", "xxx");
 
             final Location oldLastLocation = mLastLocation;
 

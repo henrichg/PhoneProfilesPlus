@@ -229,7 +229,7 @@ class GeofencesScanner
                             }
 
                             boolean locationEnabled = false;
-                            // check if network provider is enabled in system settongs
+                            // check if network provider is enabled in system settings
                             if (provider.equals(LocationManager.NETWORK_PROVIDER)) {
                                 try {
                                     //noinspection ConstantConditions
@@ -250,7 +250,7 @@ class GeofencesScanner
                                 }
                             }
                             if (!locationEnabled) {
-                                // check if GPS provider is enabled in system settongs
+                                // check if GPS provider is enabled in system settings
                                 try {
                                     //noinspection ConstantConditions
                                     locationEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
