@@ -431,7 +431,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             if (PhoneProfilesService.getInstance() != null) {
                 PPApplication.doNotShowProfileNotification = false;
                 // forServiceStart must be true because of call of clearProfileNotification()
-                PhoneProfilesService.getInstance().showProfileNotification(true, true);
+                PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
             }
         }, 1000);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");

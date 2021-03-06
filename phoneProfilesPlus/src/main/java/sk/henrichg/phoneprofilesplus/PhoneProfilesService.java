@@ -247,7 +247,7 @@ public class PhoneProfilesService extends Service
             } catch (Exception ignored) {}
         }*/
         // show notification to avoid ANR in api level 26+
-        showProfileNotification(!isServiceRunning, true);
+        showProfileNotification(!isServiceRunning, isServiceRunning, true);
 
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "after show profile notification");
 
@@ -4644,7 +4644,8 @@ public class PhoneProfilesService extends Service
 
         //startForegroundNotification = true;
 
-        showProfileNotification(!isServiceRunning(appContext, PhoneProfilesService.class, true), true);
+        boolean isServiceRunning = isServiceRunning(appContext, PhoneProfilesService.class, true);
+        showProfileNotification(!isServiceRunning, true, true);
 
         PPApplication.applicationFullyStartedShowToast = (intent != null);
 
@@ -6150,10 +6151,10 @@ public class PhoneProfilesService extends Service
                 //if (startForegroundNotification || setForeground /*|| (!isInForeground)*/) {
                 //if (!serviceInfo.foreground) {
 //                    PPApplication.logE("--------------- PhoneProfilesService._showProfileNotification", "startForeground()");
-                    if (notificationNotificationStyle.equals("0"))
+                    //if (notificationNotificationStyle.equals("0"))
                         startForeground(PPApplication.PROFILE_NOTIFICATION_ID, phoneProfilesNotification);
-                    else
-                        startForeground(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID, phoneProfilesNotification);
+                    //else
+                    //    startForeground(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID, phoneProfilesNotification);
                     //startForegroundNotification = false;
                     //isInForeground = true;
                 /*}
@@ -6178,7 +6179,7 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    void showProfileNotification(boolean drawEmptyFirst, boolean drawImmediatelly) {
+    void showProfileNotification(boolean drawEmpty, boolean drawActivatedProfle, boolean drawImmediatelly) {
         //if (Build.VERSION.SDK_INT >= 26) {
             //if (DebugVersion.enabled)
             //    isServiceRunningInForeground(appContext, PhoneProfilesService.class);
@@ -6188,7 +6189,7 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh="+refresh);
 
         //if (!runningInForeground) {
-            if (drawEmptyFirst) {
+            if (drawEmpty) {
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
 //                PPApplication.logE("[APP_START] PhoneProfilesService.showProfileNotification", "drawEmptyFirst="+drawEmptyFirst);
@@ -6259,6 +6260,9 @@ public class PhoneProfilesService extends Service
             ShowProfileNotificationBroadcastReceiver.setAlarm(getApplicationContext());
         }
         */
+
+        if (!drawActivatedProfle)
+            return;
 
         // KEEP IT AS WORK !!!
         OneTimeWorkRequest worker;
