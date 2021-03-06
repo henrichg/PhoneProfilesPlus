@@ -167,8 +167,7 @@
                     android:paddingBottom="5dp"
                     android:textColor="?attr/colorAccent"
                     android:textSize="17sp"
-                    android:background="?attr/buttonBackground"
-                    android:foreground="?attr/selectableItemBackgroundBorderless" />
+                    android:background="?attr/buttonBackground" />
 
             </LinearLayout>
 

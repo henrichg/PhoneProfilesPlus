@@ -16,8 +16,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
         android:textColor="?attr/colorAccent"
-        android:background="?attr/buttonBackground"
-        android:foreground="?attr/selectableItemBackgroundBorderless" />
+        android:background="?attr/buttonBackground" />
     -->
     <TextView
         android:id="@+id/donation_paypal_grid_item_price"
@@ -28,7 +27,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
         android:textColor="?attr/colorAccent"
-        android:background="?attr/buttonBackground"
-        android:foreground="?attr/selectableItemBackgroundBorderless" />
+        android:background="?attr/buttonBackground" />
 
 </LinearLayout>

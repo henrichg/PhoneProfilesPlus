@@ -15,11 +15,10 @@
     <item>
         <shape>
             <padding
-                android:bottom="10dp"
+                android:bottom="5dp"
                 android:left="3dp"
                 android:right="3dp"
-                android:top="10dp" />
-
+                android:top="5dp" />
         </shape>
     </item>
 
@@ -43,8 +42,8 @@
             <padding
                 android:left="10dp"
                 android:right="10dp"
-                android:top="10dp"
-                android:bottom="10dp" />
+                android:top="0dp"
+                android:bottom="0dp" />
 
             <solid android:color="@color/activityPopupMenuBackgroundColor" />
 

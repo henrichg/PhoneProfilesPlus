@@ -64,13 +64,11 @@
             android:layout_marginTop="25dp"
             android:textColor="@color/action_button_text_color"
             android:background="?attr/buttonBackground"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:minHeight="40dp"
             android:clickable="true"
             android:focusable="true"
             android:text="@string/about_application_donate_button"
-            style="?android:attr/borderlessButtonStyle"
-            />
+            style="?android:attr/borderlessButtonStyle" />
 
         <TextView
             android:id="@+id/about_application_author"

@@ -81,7 +81,6 @@
                         android:textSize="17sp"
                         android:textColor="?attr/colorAccent"
                         android:background="?attr/buttonBackground"
-                        android:foreground="?attr/selectableItemBackgroundBorderless"
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:clickable="true"
@@ -205,7 +204,6 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:background="?attr/buttonBackground"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
             android:clickable="true"
             android:focusable="true">
 
@@ -268,7 +266,6 @@
             android:minHeight="40dp"
             android:textColor="@color/action_button_text_color"
             android:background="?attr/buttonBackground"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
             style="?android:attr/borderlessButtonStyle"/>
 
     </LinearLayout>

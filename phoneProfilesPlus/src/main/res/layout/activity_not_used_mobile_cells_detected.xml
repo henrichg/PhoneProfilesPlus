@@ -42,7 +42,6 @@
         android:textColor="?attr/colorAccent"
         android:textColorHint="?attr/colorAccent"
         android:background="?attr/buttonBackground"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:textSize="17sp"/>
 
     <TextView

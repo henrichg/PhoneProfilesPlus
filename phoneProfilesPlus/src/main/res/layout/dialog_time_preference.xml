@@ -21,7 +21,6 @@
         android:textSize="17sp"
         android:textColor="?attr/colorAccent"
         android:background="?attr/buttonBackground"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:focusable="true"/>
 
