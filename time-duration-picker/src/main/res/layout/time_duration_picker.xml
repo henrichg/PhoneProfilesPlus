@@ -76,7 +76,7 @@
             android:id="@+id/backspace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/clear"
+            android:layout_toStartOf="@id/clear"
             android:minWidth="@dimen/touchable"
             android:minHeight="@dimen/touchable"
             android:src="@drawable/ic_backspace_light"

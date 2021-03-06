@@ -44,7 +44,7 @@
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:layout_marginEnd="5dp"
-            android:layout_toStartOf="@+id/application_editor_intent_ok"
+            android:layout_toStartOf="@id/application_editor_intent_ok"
             android:layout_centerVertical="true"
             android:text="@android:string/cancel"
             android:textColor="@color/action_button_text_color"
@@ -83,7 +83,7 @@
         android:id="@+id/application_editor_intent_frLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/application_editor_intent_buttons">
+        android:layout_above="@id/application_editor_intent_buttons">
 
         <ScrollView
             android:id="@+id/application_editor_intent_scroll_view"
