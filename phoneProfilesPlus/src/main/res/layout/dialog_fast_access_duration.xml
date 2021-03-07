@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_fast_access_duration_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp" >
 
     <LinearLayout
         android:id="@+id/fragment_important_info_scroll_view"
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/alert_dialog_top_padding"
+        android:paddingBottom="5dp"
         android:paddingStart="23dp"
         android:paddingEnd="28dp">
 
