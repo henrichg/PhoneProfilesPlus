@@ -234,6 +234,8 @@ public class PPApplication extends Application
                                                 //+"|CheckGitHubReleasesBroadcastReceiver"
                                                 //+"|DonationBroadcastReceiver"
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
+
+                                                //+"|ActivateProfileHelper.doExecuteForRadios"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
