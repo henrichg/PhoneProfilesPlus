@@ -15,10 +15,10 @@
     <item>
         <shape>
             <padding
-                android:bottom="5dp"
+                android:bottom="7dp"
                 android:left="3dp"
                 android:right="3dp"
-                android:top="5dp" />
+                android:top="7dp" />
         </shape>
     </item>
 
