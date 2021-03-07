@@ -222,7 +222,7 @@ public class PPApplication extends Application
                                                 //+"|ContactsCache.getContactList"
                                                 //+"|ContactGroupsCache.getContactGroupListX"
 
-                                                +"|LocationGeofenceEditorActivityOSM"
+                                                //+"|LocationGeofenceEditorActivityOSM"
                                                 //+"|TimeChangedReceiver"
                                                 //+"|MainWorker.doWork"
                                                 //+"|GeofencesScannerSwitchGPSBroadcastReceiver.onReceive"
@@ -236,6 +236,9 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
 
                                                 //+"|ActivateProfileHelper.doExecuteForRadios"
+
+                                                +"|OneRowWidgetProvider.onUpdate"
+                                                +"|IconWidgetProvider.onUpdate"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -1978,6 +1981,9 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationEventNotificationEnableScanning(context);
             ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode(context);
             ApplicationPreferences.applicationEventNotificationScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius(context);
+            ApplicationPreferences.applicationWidgetListRoundedCornersRadius(context);
+            ApplicationPreferences.applicationWidgetIconRoundedCornersRadius(context);
         }
     }
 

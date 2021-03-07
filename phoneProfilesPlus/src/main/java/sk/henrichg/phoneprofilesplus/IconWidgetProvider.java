@@ -48,6 +48,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetIconRoundedCorners;
         String applicationWidgetIconLightnessT;
         boolean applicationWidgetIconShowProfileDuration;
+        int applicationWidgetIconRoundedCornersRadius;
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
             applicationWidgetIconColor = ApplicationPreferences.applicationWidgetIconColor;
@@ -62,6 +63,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
             applicationWidgetIconLightnessT = ApplicationPreferences.applicationWidgetIconLightnessT;
             applicationWidgetIconShowProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;
+            applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
         }
 
         //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconLightness="+ApplicationPreferences.applicationWidgetIconLightness);
@@ -318,6 +320,80 @@ public class IconWidgetProvider extends AppWidgetProvider {
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget_one_line_text);
                     }
                 }
+
+                PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconRoundedCornersRadius="+applicationWidgetIconRoundedCornersRadius);
+                int roundedBackground = 0;
+                int roundedBorder = 0;
+                switch (applicationWidgetIconRoundedCornersRadius) {
+                    case 1:
+                        roundedBackground = R.drawable.rounded_widget_background_1;
+                        roundedBorder = R.drawable.rounded_widget_border_1;
+                        break;
+                    case 2:
+                        roundedBackground = R.drawable.rounded_widget_background_2;
+                        roundedBorder = R.drawable.rounded_widget_border_2;
+                        break;
+                    case 3:
+                        roundedBackground = R.drawable.rounded_widget_background_3;
+                        roundedBorder = R.drawable.rounded_widget_border_3;
+                        break;
+                    case 4:
+                        roundedBackground = R.drawable.rounded_widget_background_4;
+                        roundedBorder = R.drawable.rounded_widget_border_4;
+                        break;
+                    case 5:
+                        roundedBackground = R.drawable.rounded_widget_background_5;
+                        roundedBorder = R.drawable.rounded_widget_border_5;
+                        break;
+                    case 6:
+                        roundedBackground = R.drawable.rounded_widget_background_6;
+                        roundedBorder = R.drawable.rounded_widget_border_6;
+                        break;
+                    case 7:
+                        roundedBackground = R.drawable.rounded_widget_background_7;
+                        roundedBorder = R.drawable.rounded_widget_border_7;
+                        break;
+                    case 8:
+                        roundedBackground = R.drawable.rounded_widget_background_8;
+                        roundedBorder = R.drawable.rounded_widget_border_8;
+                        break;
+                    case 9:
+                        roundedBackground = R.drawable.rounded_widget_background_9;
+                        roundedBorder = R.drawable.rounded_widget_border_9;
+                        break;
+                    case 10:
+                        roundedBackground = R.drawable.rounded_widget_background_10;
+                        roundedBorder = R.drawable.rounded_widget_border_10;
+                        break;
+                    case 11:
+                        roundedBackground = R.drawable.rounded_widget_background_11;
+                        roundedBorder = R.drawable.rounded_widget_border_11;
+                        break;
+                    case 12:
+                        roundedBackground = R.drawable.rounded_widget_background_12;
+                        roundedBorder = R.drawable.rounded_widget_border_12;
+                        break;
+                    case 13:
+                        roundedBackground = R.drawable.rounded_widget_background_13;
+                        roundedBorder = R.drawable.rounded_widget_border_13;
+                        break;
+                    case 14:
+                        roundedBackground = R.drawable.rounded_widget_background_14;
+                        roundedBorder = R.drawable.rounded_widget_border_14;
+                        break;
+                    case 15:
+                        roundedBackground = R.drawable.rounded_widget_background_15;
+                        roundedBorder = R.drawable.rounded_widget_border_15;
+                        break;
+                }
+                if (roundedBackground != 0)
+                    remoteViews.setImageViewResource(R.id.widget_icon_background, roundedBackground);
+                else
+                    remoteViews.setImageViewResource(R.id.widget_icon_background, R.drawable.ic_empty);
+                if (roundedBorder != 0)
+                    remoteViews.setImageViewResource(R.id.widget_icon_rounded_border, roundedBorder);
+                else
+                    remoteViews.setImageViewResource(R.id.widget_icon_rounded_border, R.drawable.ic_empty);
 
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconRoundedCorners="+applicationWidgetIconRoundedCorners);
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconShowBorder="+applicationWidgetIconShowBorder);

@@ -197,6 +197,9 @@ class ApplicationPreferences {
     static boolean applicationEventNotificationEnableScanning;
     static String applicationEventNotificationScanInPowerSaveMode;
     static boolean applicationEventNotificationScanOnlyWhenScreenIsOn;
+    static int applicationWidgetOneRowRoundedCornersRadius;
+    static int applicationWidgetListRoundedCornersRadius;
+    static int applicationWidgetIconRoundedCornersRadius;
 
     static boolean prefActivatorActivityStartTargetHelps;
     static boolean prefActivatorFragmentStartTargetHelps;
@@ -386,6 +389,9 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING = "applicationEventNotificationEnableScannig";
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE = "applicationEventNotificationScanInPowerSaveMode";
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventNotificationScanOnlyWhenScreenIsOn";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS = "applicationWidgetOneRowRoundedCornersRadius";
+    static final String PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS = "applicationWidgetListRoundedCornersRadius";
+    static final String PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS = "applicationWidgetIconRoundedCornersRadius";
 
     @CheckResult
     static SharedPreferences getSharedPreferences(Context context) {
@@ -1108,6 +1114,18 @@ class ApplicationPreferences {
 
     static void applicationEventNotificationScanOnlyWhenScreenIsOn(Context context) {
         applicationEventNotificationScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
+    }
+
+    static void applicationWidgetOneRowRoundedCornersRadius(Context context) {
+        applicationWidgetOneRowRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS, "5"));
+    }
+
+    static void applicationWidgetListRoundedCornersRadius(Context context) {
+        applicationWidgetListRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS, "5"));
+    }
+
+    static void applicationWidgetIconRoundedCornersRadius(Context context) {
+        applicationWidgetIconRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, "5"));
     }
 
     static void loadStartTargetHelps(Context context) {

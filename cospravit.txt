@@ -768,3 +768,32 @@ After api level 24, there is a public system api android.telephony.SubscriptionM
 to get current active data sim subscription index.
 
 ---------------------------------
+
+Set ringtone:
+Vid aplikacia SetEdit - System table
+// uri musi byt retazec
+Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, uri);
+
+// pre SIM 1:
+- "ringtone" - rington (content) Ziadny = "null" (Samsung ale mozno aj Pixel)
+- "ringtone_set" - vzdy 1 (Samsung ale mozno aj Pixel)
+
+- "ringtone_CONSTANT_PATH" (Samsung) - cesta ku suboru tonu, neviem na co, ale budis
+- "ringtone_path" (Huawei) - cesta ku suboru tonu, neviem na co, ale budis
+
+// pre SIM 2:
+- "ringtone_2" (Samsung) - rington (content)
+- "ringtone2" (Huawei)- rington (content)
+- "ringtpne_2_set" (Samsung) - 1 = nastavene, 0 = nenastavene (= ton NONE)
+, "ringtone2_set" (Huawei) - 1 = nastavene, 0 = nenastavene (= ton NONE)
+
+- "ringtone_2_CONSTANT_PATH" (Samsung) - cesta ku suboru tonu, neviem na co, ale budis
+- "ringtone2_path" (Huawei) - cesta ku suboru tonu, neviem na co, ale budis
+
+// Xiaomy ????:
+- "ringtone" - file???
+- "ringtone_default" - file???
+- "ringtone_set" - 1 = nastavene, 0 = nenastavene (= ton NONE)
+- "ringtone_sound_slot_1" - file???
+- "ringtone_sound_slot_2" - file???
+

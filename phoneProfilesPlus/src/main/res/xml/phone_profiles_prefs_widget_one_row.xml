@@ -55,11 +55,22 @@
         app:entries="@array/widgetLightnessArray"
         app:entryValues="@array/widgetLightnessValues"
         app:layout="@layout/mp_preference_material_widget" />
+
     <SwitchPreferenceCompat
         app:key="applicationWidgetOneRowRoundedCorners"
         app:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        app:key="applicationWidgetOneRowRoundedCornersRadius"
+        app:summary="@string/phone_profiles_pref_applicationWidgetCornerRadius"
+        app:title="@string/phone_profiles_pref_applicationWidgetCornerRadius"
+        app:defaultValue="5"
+        app:min="1"
+        app:max="15"
+        app:dependency="applicationWidgetOneRowRoundedCorners"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
         app:summary="100%%"
