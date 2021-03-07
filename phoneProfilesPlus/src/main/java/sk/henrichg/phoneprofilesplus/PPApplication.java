@@ -236,9 +236,6 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
 
                                                 //+"|ActivateProfileHelper.doExecuteForRadios"
-
-                                                +"|OneRowWidgetProvider.onUpdate"
-                                                +"|IconWidgetProvider.onUpdate"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
