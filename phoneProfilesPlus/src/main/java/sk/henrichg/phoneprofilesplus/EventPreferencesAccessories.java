@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -278,12 +280,9 @@ class EventPreferencesAccessories extends EventPreferences {
                             } else
                                 eventsHandler.notAllowedAccessory = true;
                         } else if ((accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_WIRED_HEADSET) ||
-                                (accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_BLUETOOTH_HEADSET) ||
                                 (accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_HEADPHONES)) {
                             boolean wiredHeadsetConnected = ApplicationPreferences.prefWiredHeadsetConnected;
                             boolean wiredHeadsetMicrophone = ApplicationPreferences.prefWiredHeadsetMicrophone;
-                            boolean bluetoothHeadsetConnected = ApplicationPreferences.prefBluetoothHeadsetConnected;
-                            boolean bluetoothHeadsetMicrophone = ApplicationPreferences.prefBluetoothHeadsetMicrophone;
 
                             eventsHandler.accessoryPassed = false;
                             if (wiredHeadsetConnected) {
@@ -295,11 +294,30 @@ class EventPreferencesAccessories extends EventPreferences {
                                         && (!wiredHeadsetMicrophone))
                                     eventsHandler.accessoryPassed = true;
                             }
-                            if (bluetoothHeadsetConnected) {
-                                if ((accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_BLUETOOTH_HEADSET)
-                                        && bluetoothHeadsetMicrophone)
-                                    eventsHandler.accessoryPassed = true;
+                            //eventStart = eventStart && accessoryPassed;
+                        } else if (accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_BLUETOOTH_HEADSET) {
+                            BluetoothAdapter bluetooth = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
+                            if (bluetooth != null) {
+                                boolean isBluetoothEnabled = bluetooth.isEnabled();
+                                boolean isHeadsetConnected = false;
+                                if (isBluetoothEnabled) {
+                                    boolean isBluetoothConnected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "");
+                                    if (isBluetoothConnected)
+                                        isHeadsetConnected = BluetoothProfile.STATE_CONNECTED == bluetooth.getProfileConnectionState(BluetoothProfile.HEADSET);
+                                }
+
+                                boolean bluetoothHeadsetConnected = ApplicationPreferences.prefBluetoothHeadsetConnected && isHeadsetConnected;
+                                boolean bluetoothHeadsetMicrophone = ApplicationPreferences.prefBluetoothHeadsetMicrophone && isHeadsetConnected;
+
+                                eventsHandler.accessoryPassed = false;
+                                if (bluetoothHeadsetConnected) {
+                                    if ((accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_BLUETOOTH_HEADSET)
+                                            && bluetoothHeadsetMicrophone)
+                                        eventsHandler.accessoryPassed = true;
+                                }
                             }
+                            else
+                                eventsHandler.accessoryPassed = false;
                             //eventStart = eventStart && accessoryPassed;
                         }
 
