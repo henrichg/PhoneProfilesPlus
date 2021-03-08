@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,13 +81,13 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
             holder.icon.setBackgroundResource(0);
 
         int iconRes = Profile.profileIconId[position];
-        if (iconResName.equals(preference.imageIdentifier) && preference.isImageResourceID && preference.useCustomColor) {
+        /*if (iconResName.equals(preference.imageIdentifier) && preference.isImageResourceID && preference.useCustomColor) {
             //Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), iconRes);
             Bitmap bitmap = BitmapManipulator.getBitmapFromResource(iconRes, true, context);
-            bitmap = BitmapManipulator.recolorBitmap(bitmap, preference.customColor/*, context*/);
+            bitmap = BitmapManipulator.recolorBitmap(bitmap, preference.customColor);
             holder.icon.setImageBitmap(bitmap);
         }
-        else
+        else*/
             holder.icon.setImageResource(iconRes);
 
         return vi;
