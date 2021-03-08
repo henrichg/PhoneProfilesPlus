@@ -69,7 +69,8 @@ class ProfileIconPreferenceAdapterX extends BaseAdapter {
         String iconResName = getImageResourceName(position);
         if (iconResName.equals(preference.imageIdentifier) && preference.isImageResourceID) {
             //if (Build.VERSION.SDK_INT >= 21)
-                holder.icon.setBackgroundColor(GlobalGUIRoutines.getThemeColorControlHighlight(context));
+                //holder.icon.setBackgroundColor(GlobalGUIRoutines.getThemeColorControlHighlight(context));
+                holder.icon.setBackgroundResource(R.drawable.profile_icon_background);
             /*else {
                 if (ApplicationPreferences.applicationTheme(context, true).equals("dark"))
                     holder.icon.setBackgroundResource(R.drawable.abc_list_selector_background_transition_holo_dark);

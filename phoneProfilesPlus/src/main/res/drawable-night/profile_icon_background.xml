@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Drop Shadow Stack -->
+    <!-- alpha 00 is for disabling shadow over popup -->
+<!--    <item>-->
+<!--        <shape>-->
+
+<!--            <solid android:color="#00707070" />-->
+
+<!--            <corners android:radius="@dimen/button_corner_radius" />-->
+<!--        </shape>-->
+<!--    </item>-->
+    <item>
+        <shape>
+            <padding
+                android:bottom="4dp"
+                android:left="4dp"
+                android:right="4dp"
+                android:top="4dp" />
+
+            <solid android:color="#FF505050" />
+
+            <corners android:radius="@dimen/profile_icon_corner_radius" />
+        </shape>
+    </item>
+
+    <!-- Background -->
+    <item>
+        <shape>
+            <padding
+                android:left="2dp"
+                android:right="2dp"
+                android:top="2dp"
+                android:bottom="2dp"/>
+
+            <solid android:color="@color/activityPopupMenuBackgroundColor" />
+
+            <corners android:radius="@dimen/profile_icon_corner_radius" />
+        </shape>
+    </item>
+
+</layer-list>
