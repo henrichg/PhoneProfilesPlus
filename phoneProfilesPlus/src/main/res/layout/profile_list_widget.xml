@@ -31,31 +31,44 @@
             android:layout_marginTop="0dp"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/widget_profile_list_header_restart_events"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:layout_marginEnd="8dp"
+            <RelativeLayout
+                android:id="@+id/widget_profile_list_header_restart_events_click"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
-                android:contentDescription="@string/menu_restart_events"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_widget_restart_events"
                 android:clickable="true"
-                android:focusable="true" />
+                android:focusable="true"
+                android:background="@drawable/widget_ripple_restart_events" >
+
+                <ImageView
+                    android:id="@+id/widget_profile_list_header_restart_events"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitCenter"
+                    android:contentDescription="@string/menu_restart_events"
+                    android:src="@drawable/ic_widget_restart_events" />
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/widget_profile_list_header_profile_root"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toStartOf="@id/widget_profile_list_header_restart_events"
+                android:layout_toStartOf="@id/widget_profile_list_header_restart_events_click"
                 android:layout_centerVertical="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/widget_ripple_background">
 
                 <ImageView
                     android:id="@+id/widget_profile_list_header_profile_icon"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="3dp"
                     android:adjustViewBounds="true"

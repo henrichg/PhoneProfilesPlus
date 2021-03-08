@@ -459,9 +459,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 //remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, VISIBLE);
                 Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
-                remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events, pIntentRE);
+                remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events_click, pIntentRE);
                 //} else
-                //    remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, View.GONE);
+                //    remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events_click, View.GONE);
 
                 // intent for start LauncherActivity on widget click
                 Intent intent = new Intent(context, LauncherActivity.class);

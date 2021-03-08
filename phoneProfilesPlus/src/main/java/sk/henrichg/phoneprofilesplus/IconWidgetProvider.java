@@ -453,8 +453,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
                 PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                remoteViews.setOnClickPendingIntent(R.id.icon_widget_icon, pendingIntent);
-                remoteViews.setOnClickPendingIntent(R.id.icon_widget_name, pendingIntent);
+                //remoteViews.setOnClickPendingIntent(R.id.icon_widget_icon, pendingIntent);
+                //remoteViews.setOnClickPendingIntent(R.id.icon_widget_name, pendingIntent);
+                remoteViews.setOnClickPendingIntent(R.id.icon_widget_relLa1, pendingIntent);
 
                 // widget update
                 //PPApplication.logE("IconWidgetProvider.onUpdate", "appWidgetIds.length="+appWidgetIds.length);

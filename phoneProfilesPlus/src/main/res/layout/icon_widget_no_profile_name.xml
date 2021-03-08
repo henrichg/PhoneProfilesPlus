@@ -21,14 +21,17 @@
         android:id="@+id/icon_widget_relLa1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center" >
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/widget_ripple_background" >
 
         <ImageView
             android:id="@+id/icon_widget_icon"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:adjustViewBounds="true"
-            android:scaleType="@integer/profilePrefIndicatorScaleType"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default"
             android:contentDescription="@string/profile_preferences_profileIcon"/>
 
