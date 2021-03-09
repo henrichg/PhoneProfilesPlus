@@ -769,10 +769,21 @@ to get current active data sim subscription index.
 
 ---------------------------------
 
+
 Set ringtone:
 Vid aplikacia SetEdit - System table
 // uri musi byt retazec
 Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, uri);
+
+Ono to nepojde:
+1. S10 neberie tony z /Ringtones. Zjavne dake pravo chyba, ci co. Nechapem, ze preco,
+   ved v RingtonePreferenceX mi ich RingtoneManager da.
+2. Predpokladam, ze aj tak si to cachuje, takze aj ked nastavim System, nezarucuje to, ze to bude aj pouizvat.
+   Toto ale nemam testnute.
+
+S10
+- ton zvonenia pre kazdu sim zvalst
+- ton oznamenia pre kazdu sim zvlast - predpoladam, ze pre sms/mms. Toto momentalne podporovat nemienim.
 
 // pre SIM 1:
 - "ringtone" - rington (content) Ziadny = "null" (Samsung ale mozno aj Pixel)

@@ -1423,18 +1423,29 @@ class ActivateProfileHelper {
                                 // java.lang.SecurityException: UID 10157 does not have permission to
                                 // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
                                 // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
-                                //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
+                                //Log.e("ActivateProfileHelper.setTones (1)", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
                             }
-                            //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, splits[0]);
-                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, uri);
+                            /*if (PPApplication.deviceIsSamsung) {
+                                //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
+                                //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
+
+                                Log.e("ActivateProfileHelper.setTones", "uri="+uri.toString());
+
+                                Settings.System.putString(context.getContentResolver(), "ringtone", uri.toString());
+                                Settings.System.putString(context.getContentResolver(), "ringtone_2", uri.toString());
+                            }
+                            else*/
+                                RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, uri);
                         }
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
+                        //Log.e("ActivateProfileHelper.setTones (2)", Log.getStackTraceString(e));
                         //PPApplication.recordException(e);
                     }
                     catch (Exception e){
+                        //Log.e("ActivateProfileHelper.setTones (3)", Log.getStackTraceString(e));
                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE, null,
                                 profile._name, profile._icon, 0, "");
                         noError = false;
@@ -1466,8 +1477,12 @@ class ActivateProfileHelper {
                 } else {
                     // selected is None tone
                     try {
-                        //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, null);
-                        RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, null);
+                        //if (PPApplication.deviceIsSamsung) {
+                        //    Settings.System.putString(context.getContentResolver(), "ringtone", "null");
+                        //    Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
+                        //}
+                        //else
+                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, null);
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
