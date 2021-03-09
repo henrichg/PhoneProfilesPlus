@@ -923,11 +923,13 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
+    /*
     static int getThemeColorControlHighlight(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorControlHighlight, value, true);
         return value.data;
     }
+    */
 
     /*
     static int getThemeEventPauseColor(final Context context) {
