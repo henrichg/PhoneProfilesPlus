@@ -357,7 +357,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._deviceLocationMode,
                         origProfile._applicationDisableNotificationScanning,
                         origProfile._generateNotification,
-                        origProfile._cameraFlash
+                        origProfile._cameraFlash,
+                        origProfile._deviceNetworkTypeSIM1,
+                        origProfile._deviceNetworkTypeSIM2
                 );
                 showSaveMenu = true;
             }

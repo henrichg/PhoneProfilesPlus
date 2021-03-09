@@ -4464,7 +4464,7 @@ class ActivateProfileHelper {
         else*/
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
             PPApplication.isRooted(false) &&
-            PhoneProfilesService.hasSIMCard(context))
+            PhoneProfilesService.hasSIMCard(context, 0))
         {
             //PPApplication.logE("ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
 
@@ -4665,7 +4665,7 @@ class ActivateProfileHelper {
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
             PPApplication.isRooted(false) &&
             PPApplication.serviceBinaryExists(false) &&
-            PhoneProfilesService.hasSIMCard(context))
+            PhoneProfilesService.hasSIMCard(context, 0))
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
                 try {

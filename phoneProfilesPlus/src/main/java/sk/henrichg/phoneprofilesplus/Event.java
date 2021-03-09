@@ -2932,7 +2932,7 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED)) {
-                        if (PhoneProfilesService.hasSIMCard(appContext))
+                        if (PhoneProfilesService.hasSIMCard(appContext, 0))
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (!Permissions.checkPhone(appContext)) {
@@ -2976,7 +2976,7 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED)) {
-                        if (PhoneProfilesService.hasSIMCard(appContext))
+                        if (PhoneProfilesService.hasSIMCard(appContext, 0))
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (!Permissions.checkPhone(appContext)) {
@@ -3008,7 +3008,7 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED)) {
-                        if (PhoneProfilesService.hasSIMCard(appContext))
+                        if (PhoneProfilesService.hasSIMCard(appContext, 0))
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (!Permissions.checkPhone(appContext)) {

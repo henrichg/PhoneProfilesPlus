@@ -6389,7 +6389,7 @@ public class PhoneProfilesService extends Service
             return false;
     }
 
-    static boolean hasSIMCard(Context appContext) {
+    static boolean hasSIMCard(Context appContext, int simCard) {
         TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
             if (Build.VERSION.SDK_INT < 26) {
@@ -6414,10 +6414,21 @@ public class PhoneProfilesService extends Service
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                 if (subscriptionInfo != null) {
                                     int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                    if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
-                                        // sim card is ready
-                                        hasSIM = true;
-                                        break;
+                                    if (simCard == 0) {
+                                        if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                            // sim card is ready
+                                            hasSIM = true;
+                                            break;
+                                        }
+                                    }
+                                    else {
+                                        if (simCard == slotIndex) {
+                                            if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                                // sim card is ready
+                                                hasSIM = true;
+                                                break;
+                                            }
+                                        }
                                     }
                                 }
                             }
