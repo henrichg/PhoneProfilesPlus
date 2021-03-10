@@ -152,6 +152,7 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.showProfileNotification"
                                                 //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|ShowProfileNotificationBroadcastReceiver"
+                                                //+"|ShowProfileNotificationWorker.doWork"
                                                 //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|[CUST] PhoneProfilesService._showProfileNotification"
                                                 //+"|PhoneProfilesService.onConfigurationChanged"

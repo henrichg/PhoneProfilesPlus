@@ -33,6 +33,7 @@ public class ShowProfileNotificationWorker extends Worker {
                 try {
                     if (PhoneProfilesService.getInstance() != null) {
 //                        PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "call of _showProfileNotification()");
+//                        PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "Build.MODEL="+Build.MODEL);
 
                         boolean clear = false;
                         if (Build.MANUFACTURER.equals("HMD Global"))
