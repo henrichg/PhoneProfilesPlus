@@ -2981,14 +2981,22 @@ public class Profile {
                 profileName = profileName + " " + indicators;
         }
         if (!durationString.isEmpty()) {
-            if (durationInNextLine)
-                profileName = profileName + "\n";
+            if (durationInNextLine) {
+                if (_checked)
+                    profileName = durationString + "\n" + profileName;
+                else
+                    profileName = profileName + "\n" + durationString;
+            }
             else
-                profileName = profileName + " ";
-            profileName = profileName + durationString;
+                profileName = profileName + " " + durationString;
         }
         Spannable sbt = new SpannableString(profileName);
-        sbt.setSpan(new RelativeSizeSpan(0.8f), startSpan, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        if (!durationString.isEmpty()) {
+            if (durationInNextLine && _checked)
+                sbt.setSpan(new RelativeSizeSpan(0.8f), 0, durationString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            else
+                sbt.setSpan(new RelativeSizeSpan(0.8f), startSpan, profileName.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
         return sbt;
     }
 

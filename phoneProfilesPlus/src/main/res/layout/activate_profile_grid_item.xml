@@ -13,6 +13,7 @@
         android:id="@+id/act_prof_list_item_profile_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_marginBottom="2dp"
         android:layout_gravity="center_horizontal"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
@@ -20,11 +21,11 @@
         android:contentDescription="@string/profile_preferences_profileIcon"/>
 
     <!-- space between icon and name - useful for multiline profile name -->
-    <FrameLayout
-        android:id="@+id/act_prof_list_item_space"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+<!--    <FrameLayout-->
+<!--        android:id="@+id/act_prof_list_item_space"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1"/>-->
 
     <TextView
         android:id="@+id/act_prof_list_item_profile_name"
@@ -33,7 +34,7 @@
         android:layout_marginBottom="7dp"
         android:layout_gravity="center_horizontal"
         android:minLines="1"
-        android:maxLines = "2"
+        android:maxLines="2"
         android:text="@string/profile_name_default"
         android:textSize="13sp"
         android:gravity="center_horizontal" />

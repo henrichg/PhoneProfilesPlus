@@ -90,7 +90,7 @@
             android:gravity="center"
             android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
             android:verticalSpacing="1dp"
-            android:numColumns="3"
+            android:numColumns="4"
             android:stretchMode="columnWidth"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
