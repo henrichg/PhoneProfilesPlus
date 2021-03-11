@@ -119,8 +119,32 @@ class ActivateProfileHelper {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                 // in array.xml, networkTypeGSMValues are 100+ values
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
-                setPreferredNetworkType(appContext, profile._deviceNetworkType - 100);
+                setPreferredNetworkType(appContext, profile._deviceNetworkType - 100, 0);
                 PPApplication.sleep(200);
+            }
+        }
+        final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManager != null) {
+            int phoneCount = telephonyManager.getPhoneCount();
+            if (phoneCount > 1) {
+                if (profile._deviceNetworkTypeSIM1 >= 100) {
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
+                        // in array.xml, networkTypeGSMValues are 100+ values
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
+                        setPreferredNetworkType(appContext, profile._deviceNetworkTypeSIM1 - 100, 1);
+                        PPApplication.sleep(200);
+                    }
+                }
+                if (profile._deviceNetworkTypeSIM2 >= 100) {
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
+                        // in array.xml, networkTypeGSMValues are 100+ values
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
+                        setPreferredNetworkType(appContext, profile._deviceNetworkTypeSIM2 - 100, 1);
+                        PPApplication.sleep(200);
+                    }
+                }
             }
         }
 
@@ -4662,12 +4686,12 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void setPreferredNetworkType(Context context, int networkType)
+    private static void setPreferredNetworkType(Context context, int networkType, int simCard)
     {
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
             PPApplication.isRooted(false) &&
-            PPApplication.serviceBinaryExists(false) &&
-            PhoneProfilesService.hasSIMCard(context, 0))
+            PPApplication.serviceBinaryExists(false)/* &&
+            PhoneProfilesService.hasSIMCard(context, 0)*/)
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
                 try {
@@ -4697,18 +4721,21 @@ class ActivateProfileHelper {
                                     // Get the active subscription ID for a given SIM card.
                                     SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                     if (subscriptionInfo != null) {
-                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                        synchronized (PPApplication.rootMutex) {
-                                            String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, networkType);
-                                            if (command1 != null) {
-                                                Command command = new Command(0, false, command1);
-                                                try {
-                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                    PPApplication.commandWait(command, "ActivateProfileHelper.setPreferredNetworkType");
-                                                } catch (Exception e) {
-                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                    //Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
-                                                    //PPApplication.recordException(e);
+                                        int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                        if ((simCard == 0) || (simCard == slotIndex)) {
+                                            int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                            synchronized (PPApplication.rootMutex) {
+                                                String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, networkType);
+                                                if (command1 != null) {
+                                                    Command command = new Command(0, false, command1);
+                                                    try {
+                                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                        PPApplication.commandWait(command, "ActivateProfileHelper.setPreferredNetworkType");
+                                                    } catch (Exception e) {
+                                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                        //Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
+                                                        //PPApplication.recordException(e);
+                                                    }
                                                 }
                                             }
                                         }
