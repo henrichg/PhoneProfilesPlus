@@ -4690,8 +4690,8 @@ class ActivateProfileHelper {
     {
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
             PPApplication.isRooted(false) &&
-            PPApplication.serviceBinaryExists(false)/* &&
-            PhoneProfilesService.hasSIMCard(context, 0)*/)
+            PPApplication.serviceBinaryExists(false) &&
+            PhoneProfilesService.hasSIMCard(context, simCard))
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
                 try {
