@@ -172,8 +172,8 @@
     <string name="event_type_battery">Batteria</string>
     <string name="profile_preferences_volumeSpeakerPhone">Vivavoce</string>
     <string name="event_preferences_notificationSound">Suono di notifica</string>
-    <string name="event_preferences_battery_level_low">Livello inferiore</string>
-    <string name="event_preferences_battery_level_hight">Livello superiore</string>
+    <string name="event_preferences_battery_level_low">Livello inferiore (%)</string>
+    <string name="event_preferences_battery_level_hight">Livello superiore (%)</string>
     <string name="event_preferences_battery_charging">Ricarica</string>
     <string name="pref_event_battery_level">Livello</string>
     <string name="pref_event_battery_charging">Ricarica</string>
@@ -1595,8 +1595,12 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="phone_profiles_pref_systemAutoStartManager">Impostazione del sistema di avvio automatico</string>
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Se PhoneProfilesPlus non si avvia all\'accensione del telefono, fare clic qui e cercare il parametro per abilitare l\'avvio automatico di PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Schermata di impostazione non trovata, ma questa impostazione non è necessaria, se PhoneProfilesPlus si avvia all\'accensione del telefono.</string>
-    <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetCornerRadius">Raggio dell\'angolo</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Raggio dell\'angolo (widget)</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>

@@ -177,8 +177,8 @@
     <string name="event_type_battery">Battery</string>
     <string name="profile_preferences_volumeSpeakerPhone">Speakerphone</string>
     <string name="event_preferences_notificationSound">Notification sound</string>
-    <string name="event_preferences_battery_level_low">Lower level</string>
-    <string name="event_preferences_battery_level_hight">Upper level</string>
+    <string name="event_preferences_battery_level_low">Lower level (%)</string>
+    <string name="event_preferences_battery_level_hight">Upper level (%)</string>
     <string name="event_preferences_battery_charging">Charging</string>
     <string name="pref_event_battery_level">Level</string>
     <string name="pref_event_battery_charging">Charging</string>

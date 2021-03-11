@@ -43,7 +43,7 @@
     <string name="phone_profiles_pref_notificationsToast">Felugró értesítések megjelenítése</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle">Értesítési ikon stílusa</string>
     <string name="profile_preferences_category_profileIdentification">Profil azonosítása</string>
-    <string name="profile_preferences_category_volumes">Hangerő</string>
+    <string name="profile_preferences_category_volumes">Hangerők</string>
     <string name="profile_preferences_category_sounds">Hangok</string>
     <string name="profile_preferences_profileName">Profil neve</string>
     <string name="profile_preferences_profileIcon">Profil ikonja</string>
@@ -135,7 +135,7 @@
     <string name="default_profile_name_meeting">Találkozó</string>
     <string name="default_profile_name_sleep">Alvás</string>
     <string name="alert_button_yes">Igen</string>
-    <string name="alert_button_no">nem</string>
+    <string name="alert_button_no">Nem</string>
     <string name="profile_preferences_deviceAutoRotation">Kijelző elforgatás</string>
     <string name="title_activity_activator">Profilok</string>
     <string name="title_activity_editor">Szerkesztő</string>
@@ -172,8 +172,8 @@
     <string name="event_type_battery">Akkumulátor</string>
     <string name="profile_preferences_volumeSpeakerPhone">Kihangosító</string>
     <string name="event_preferences_notificationSound">Értesítések hangja</string>
-    <string name="event_preferences_battery_level_low">Alsó szint</string>
-    <string name="event_preferences_battery_level_hight">Felső szint</string>
+    <string name="event_preferences_battery_level_low">Alsó szint (%)</string>
+    <string name="event_preferences_battery_level_hight">Felső szint (%)</string>
     <string name="event_preferences_battery_charging">Töltés</string>
     <string name="pref_event_battery_level">Szint</string>
     <string name="pref_event_battery_charging">Töltés</string>
@@ -1366,7 +1366,7 @@
     <string name="altype_mergedProfileActivation">profilok aktiválása események alapján</string>
     <string name="altype_manualRestartEvents">események kézi újraindítása</string>
     <string name="profile_preferences_configureSoundMode_info">Kérem állítsa be a \"Hang profil\"/\"Hang üzemmód\" paramétert is</string>
-    <string name="profile_preferences_category_volumeTypes">Volume types</string>
+    <string name="profile_preferences_category_volumeTypes">Hangerő típusok</string>
     <string name="array_pref_soundModeArray_ZenModeM_Off">Ne zavarjanak ki</string>
     <string name="array_pref_soundModeArray_ZenModeM_On">A „Ne zavarjanak” mód bekapcsolva</string>
     <string name="draw_over_apps_permission_notification_title">\"Draw over apps\" permission</string>
@@ -1596,6 +1596,10 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Setting screen not found, but this setting is not needed, if PhoneProfilesPlus starts at phone boot.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius (widget)</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>

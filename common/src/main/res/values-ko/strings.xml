@@ -172,8 +172,8 @@
     <string name="event_type_battery">배터리</string>
     <string name="profile_preferences_volumeSpeakerPhone">스피커폰</string>
     <string name="event_preferences_notificationSound">알림음</string>
-    <string name="event_preferences_battery_level_low">배터리 낮은 수준</string>
-    <string name="event_preferences_battery_level_hight">배터리 높은 수준</string>
+    <string name="event_preferences_battery_level_low">배터리 낮은 수준 (%)</string>
+    <string name="event_preferences_battery_level_hight">배터리 높은 수준 (%)</string>
     <string name="event_preferences_battery_charging">충전 중</string>
     <string name="pref_event_battery_level">배터리 수준</string>
     <string name="pref_event_battery_charging">충전 중</string>
@@ -1596,6 +1596,10 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Setting screen not found, but this setting is not needed, if PhoneProfilesPlus starts at phone boot.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius (widget)</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

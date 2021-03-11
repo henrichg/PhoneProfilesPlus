@@ -172,8 +172,8 @@
     <string name="event_type_battery">Batterij</string>
     <string name="profile_preferences_volumeSpeakerPhone">Luidspreker</string>
     <string name="event_preferences_notificationSound">Meldingsgeluid</string>
-    <string name="event_preferences_battery_level_low">Lager niveau</string>
-    <string name="event_preferences_battery_level_hight">Hoger niveau</string>
+    <string name="event_preferences_battery_level_low">Lager niveau (%)</string>
+    <string name="event_preferences_battery_level_hight">Hoger niveau (%)</string>
     <string name="event_preferences_battery_charging">Opladen</string>
     <string name="pref_event_battery_level">Niveau</string>
     <string name="pref_event_battery_charging">Opladen</string>
@@ -1594,8 +1594,12 @@
     <string name="phone_profiles_pref_systemAutoStartManager">Automatische start systeem instelling</string>
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Als PhoneProfilesPlus niet start bij opstarten telefoon, klik hier en zoek de parameter voor het automatisch starten van PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Instellingenscherm niet gevonden, maar deze instelling is niet nodig als PhoneProfilesPlus start bij opstarten van de telefoon.</string>
-    <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetCornerRadius">Hoekradius</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Radius van hoek (widget)</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

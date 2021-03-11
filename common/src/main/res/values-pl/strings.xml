@@ -172,8 +172,8 @@
     <string name="event_type_battery">Bateria</string>
     <string name="profile_preferences_volumeSpeakerPhone">Głośnik</string>
     <string name="event_preferences_notificationSound">Dźwięk powiadomienia</string>
-    <string name="event_preferences_battery_level_low">Niższy poziom</string>
-    <string name="event_preferences_battery_level_hight">Wyższy poziom</string>
+    <string name="event_preferences_battery_level_low">Niższy poziom (%)</string>
+    <string name="event_preferences_battery_level_hight">Wyższy poziom (%)</string>
     <string name="event_preferences_battery_charging">Ładowanie</string>
     <string name="pref_event_battery_level">Poziom</string>
     <string name="pref_event_battery_charging">Ładowanie</string>
@@ -1595,8 +1595,12 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="phone_profiles_pref_systemAutoStartManager">Ustawienie systemu: Autostart</string>
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Jeśli PhoneProfilesPlus nie uruchamia się przy starcie telefonu, kliknij tutaj i wyszukaj ustawienie, aby włączyć automatyczne uruchamianie PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Ekran ustawień nie został znaleziony, ale to ustawienie nie jest potrzebne, jeśli PhoneProfilesPlus uruchomi się przy starcie telefonu.</string>
-    <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetCornerRadius">Promień narożnika</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Promień narożnika (widżet)</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

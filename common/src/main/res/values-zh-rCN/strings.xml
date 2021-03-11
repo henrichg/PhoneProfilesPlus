@@ -172,8 +172,8 @@
     <string name="event_type_battery">电池</string>
     <string name="profile_preferences_volumeSpeakerPhone">免提电话</string>
     <string name="event_preferences_notificationSound">通知铃声</string>
-    <string name="event_preferences_battery_level_low">较低的水平</string>
-    <string name="event_preferences_battery_level_hight">较高的水平</string>
+    <string name="event_preferences_battery_level_low">较低的水平 (%)</string>
+    <string name="event_preferences_battery_level_hight">较高的水平 (%)</string>
     <string name="event_preferences_battery_charging">正在充电</string>
     <string name="pref_event_battery_level">级别</string>
     <string name="pref_event_battery_charging">正在充电</string>
@@ -1596,6 +1596,10 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">找不到设定画面，但如果 PhoneProfilesPlus 开机启动，则不需要此设置。</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius (widget)</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>

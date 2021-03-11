@@ -172,8 +172,8 @@
     <string name="event_type_battery">Batéria</string>
     <string name="profile_preferences_volumeSpeakerPhone">Hlasitý odposluch</string>
     <string name="event_preferences_notificationSound">Tón notifikácie</string>
-    <string name="event_preferences_battery_level_low">Spodná úroveň</string>
-    <string name="event_preferences_battery_level_hight">Horná úroveň</string>
+    <string name="event_preferences_battery_level_low">Spodná úroveň (%)</string>
+    <string name="event_preferences_battery_level_hight">Horná úroveň (%)</string>
     <string name="event_preferences_battery_charging">Nabíjanie</string>
     <string name="pref_event_battery_level">Úroveň</string>
     <string name="pref_event_battery_charging">Nabíjanie</string>
@@ -1596,6 +1596,10 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Obrazovka nastavenia sa nenašla, ale toto nastavenie nie je potrebné, ak sa PhoneProfilesPlus spustí pri štarte telefónu.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Polomer rohu</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Polomer rohu (miniapl.)</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Typ mobilnej siete pre SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Typ mobilnej siete pre SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Typ mobilnej siete pre zariadenia s dvoma SIM</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimentálne. Nemusí fungovať vo vašom zariadení.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

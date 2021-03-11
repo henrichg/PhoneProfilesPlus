@@ -172,8 +172,8 @@
     <string name="event_type_battery">Batería</string>
     <string name="profile_preferences_volumeSpeakerPhone">Altavoz</string>
     <string name="event_preferences_notificationSound">Sonido de notificación</string>
-    <string name="event_preferences_battery_level_low">Nivel inferior</string>
-    <string name="event_preferences_battery_level_hight">Nivel superior</string>
+    <string name="event_preferences_battery_level_low">Nivel inferior (%)</string>
+    <string name="event_preferences_battery_level_hight">Nivel superior (%)</string>
     <string name="event_preferences_battery_charging">Cargando</string>
     <string name="pref_event_battery_level">Nivel</string>
     <string name="pref_event_battery_charging">Cargando</string>
@@ -1594,8 +1594,12 @@
     <string name="phone_profiles_pref_systemAutoStartManager">Ajuste del sistema del inicio automático</string>
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Si PhoneProfilesPlus no se inicia al iniciar el teléfono, haz clic aquí y busca el parámetro para activar el inicio automático de PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">No se ha encontrado la pantalla de ajuste, pero esta opción no es necesaria, si PhoneProfilesPlus se inicia al iniciar el teléfono.</string>
-    <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetCornerRadius">Radio de esquina</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Radio de esquina (widget)</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Tipo de red móvil para la SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Tipo de red móvil para la SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Tipo de red móvil para dispositivos con doble SIM</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. Puede que no funcione en su dispositivo.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>

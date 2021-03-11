@@ -172,8 +172,8 @@
     <string name="event_type_battery">Батарея</string>
     <string name="profile_preferences_volumeSpeakerPhone">Гучний зв\'язок</string>
     <string name="event_preferences_notificationSound">Звук сповіщень</string>
-    <string name="event_preferences_battery_level_low">Низький рівень</string>
-    <string name="event_preferences_battery_level_hight">Високий рівень</string>
+    <string name="event_preferences_battery_level_low">Низький рівень (%)</string>
+    <string name="event_preferences_battery_level_hight">Високий рівень (%)</string>
     <string name="event_preferences_battery_charging">Заряджається</string>
     <string name="pref_event_battery_level">Рівень</string>
     <string name="pref_event_battery_charging">Заряджається</string>
@@ -1595,8 +1595,12 @@
     <string name="phone_profiles_pref_systemAutoStartManager">Автозапуск в налаштуваннях системи</string>
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Якщо PhoneProfilesPlus не запускається при завантаженні телефону, натисніть тут і виберіть параметр автозапуску PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Налаштування екрану не знайдено, але цей параметр не потрібен, якщо PhoneProfilesPlus запускається при завантаженні телефону.</string>
-    <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetCornerRadius">Закруглення кута</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Закруглення кута ( віджет)</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

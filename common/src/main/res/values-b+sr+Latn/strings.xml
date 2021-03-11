@@ -172,8 +172,8 @@
     <string name="event_type_battery">Baterija</string>
     <string name="profile_preferences_volumeSpeakerPhone">Spikerfon</string>
     <string name="event_preferences_notificationSound">Zvuk obaveštenja</string>
-    <string name="event_preferences_battery_level_low">Niži nivo</string>
-    <string name="event_preferences_battery_level_hight">Viši nivo</string>
+    <string name="event_preferences_battery_level_low">Niži nivo (%)</string>
+    <string name="event_preferences_battery_level_hight">Viši nivo (%)</string>
     <string name="event_preferences_battery_charging">Puni se</string>
     <string name="pref_event_battery_level">Nivo</string>
     <string name="pref_event_battery_charging">Puni se</string>
@@ -1597,6 +1597,10 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Setting screen not found, but this setting is not needed, if PhoneProfilesPlus starts at phone boot.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius (widget)</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

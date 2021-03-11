@@ -1047,15 +1047,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             infoDialogPreference.setInfoText(info);
         }
 
-        preference = prefMng.findPreference(EventPreferencesBattery.PREF_EVENT_BATTERY_LEVEL_LOW);
-        if (preference != null) {
-            preference.setTitle(getString(R.string.event_preferences_battery_level_low) + " (%)");
-        }
-        preference = prefMng.findPreference(EventPreferencesBattery.PREF_EVENT_BATTERY_LEVEL_HIGHT);
-        if (preference != null) {
-            preference.setTitle(getString(R.string.event_preferences_battery_level_hight) + " (%)");
-        }
-
     }
 
     @Override

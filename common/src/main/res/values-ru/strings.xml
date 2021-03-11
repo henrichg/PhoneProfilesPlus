@@ -172,8 +172,8 @@
     <string name="event_type_battery">Батарея</string>
     <string name="profile_preferences_volumeSpeakerPhone">Динамик</string>
     <string name="event_preferences_notificationSound">Звук уведомления</string>
-    <string name="event_preferences_battery_level_low">Нижний уровень</string>
-    <string name="event_preferences_battery_level_hight">Верхний уровень</string>
+    <string name="event_preferences_battery_level_low">Нижний уровень (%)</string>
+    <string name="event_preferences_battery_level_hight">Верхний уровень (%)</string>
     <string name="event_preferences_battery_charging">Зарядка</string>
     <string name="pref_event_battery_level">Уровень</string>
     <string name="pref_event_battery_charging">Зарядка</string>
@@ -1594,8 +1594,12 @@
     <string name="phone_profiles_pref_systemAutoStartManager">Настройка системы \"Автозапуск\"</string>
     <string name="phone_profiles_pref_systemAutoStartManager_summary">Если PhoneProfilesPlus не запускается при загрузке телефона, нажмите сюда и найдите параметр, включающий автозапуск PhoneProfilesPlus.</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Экран настройки не найден, но если PhoneProfilesPlus запускается при загрузке телефона, то она и не нужна.</string>
-    <string name="phone_profiles_pref_applicationWidgetCornerRadius">Corner radius</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Corner radius (widget)</string>
+    <string name="phone_profiles_pref_applicationWidgetCornerRadius">Радиус cкругления</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Радиус скругления (виджет)</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
