@@ -1884,6 +1884,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             profile._deviceBluetooth = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, "0"));
             profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, "0"));
             profile._deviceNetworkType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
+            profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
+            profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
             profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
             profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
             ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
@@ -2656,6 +2658,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
         {
@@ -2704,13 +2708,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP) ||
                             key.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH) ||
                             key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
-                            key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
+                            key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
+                            key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) ||
+                            key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2)) {
                         Profile profile = new Profile();
                         ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                         profile._deviceWiFiAP = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, "0"));
                         profile._deviceBluetooth = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, "0"));
                         profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, "0"));
                         profile._deviceNetworkType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
+                        profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
+                        profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
                         Permissions.checkProfileRadioPreferences(context, profile, permissions);
                         profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, "0"));
                         profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
@@ -3414,6 +3422,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS);
         setSummary(Profile.PREF_PROFILE_GENERATE_NOTIFICATION);
         setSummary(Profile.PREF_PROFILE_CAMERA_FLASH);
+        setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1);
+        setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {

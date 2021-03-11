@@ -654,7 +654,9 @@ class Permissions {
                 }
             }
             boolean grantedReadPhoneState = true;
-            if ((profile._deviceMobileData != 0) || (profile._deviceNetworkType != 0))
+            if ((profile._deviceMobileData != 0) ||
+                    (profile._deviceNetworkType != 0) ||
+                    (profile._deviceNetworkTypeSIM1 != 0) || (profile._deviceNetworkTypeSIM2 != 0))
                 grantedReadPhoneState = (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
             //if (profile._deviceNFC != 0)
             //    granted = checkNFC(context);

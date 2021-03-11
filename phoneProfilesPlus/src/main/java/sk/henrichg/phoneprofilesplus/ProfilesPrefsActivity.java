@@ -470,6 +470,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, Integer.toString(profile._applicationDisableNotificationScanning));
             editor.putString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, profile._generateNotification);
             editor.putString(Profile.PREF_PROFILE_CAMERA_FLASH, Integer.toString(profile._cameraFlash));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, Integer.toString(profile._deviceNetworkTypeSIM1));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, Integer.toString(profile._deviceNetworkTypeSIM2));
             editor.apply();
         }
     }
@@ -597,6 +599,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._applicationDisableNotificationScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, ""));
             profile._generateNotification = preferences.getString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, "");
             profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, ""));
+            profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, ""));
+            profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, ""));
         }
 
         //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");

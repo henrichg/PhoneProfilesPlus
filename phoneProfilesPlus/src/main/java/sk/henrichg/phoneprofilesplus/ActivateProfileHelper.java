@@ -4650,7 +4650,9 @@ class ActivateProfileHelper {
                         transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDataEnabled");
                 }
                 else
-                if (preference.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE))
+                if (preference.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
+                        preference.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) ||
+                        preference.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2))
                     transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setPreferredNetworkType");
                 return transactionCode != -1;
             }

@@ -4288,7 +4288,11 @@ public class Profile {
                             }
 
                         } else {
-                            if ((profile != null) && (profile._deviceNetworkType != 0)) {
+                            if ((profile != null) &&
+                                    ((profile._deviceNetworkType != 0) ||
+                                     (profile._deviceNetworkTypeSIM1 != 0) ||
+                                     (profile._deviceNetworkTypeSIM2 != 0))
+                            ) {
                                 preferenceAllowed.notAllowedRoot = true;
                                 //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
                             }

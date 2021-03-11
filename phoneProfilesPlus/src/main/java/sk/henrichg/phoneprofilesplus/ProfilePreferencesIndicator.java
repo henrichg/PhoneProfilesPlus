@@ -517,6 +517,31 @@ class ProfilePreferencesIndicator {
                         countItems[countPreferences++] = 1;
                 }
             }
+            if (profile._deviceNetworkTypeSIM1 != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkTypeSIM1);
+                    if (fillStrings)
+                        strings[countDrawables++] = "ntp1";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_sim1;
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
+                }
+            }
+            if (profile._deviceNetworkTypeSIM2 != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkTypeSIM2);
+                    if (fillStrings)
+                        strings[countDrawables++] = "ntp2";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_sim2;
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
+                }
+            }
+
             // network type prefs
             if (profile._deviceNetworkTypePrefs != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
