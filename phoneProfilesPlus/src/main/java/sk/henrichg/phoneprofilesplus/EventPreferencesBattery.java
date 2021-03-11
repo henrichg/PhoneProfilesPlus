@@ -36,8 +36,8 @@ class EventPreferencesBattery extends EventPreferences {
     boolean _powerSaveMode;
 
     static final String PREF_EVENT_BATTERY_ENABLED = "eventBatteryEnabled";
-    private static final String PREF_EVENT_BATTERY_LEVEL_LOW = "eventBatteryLevelLow";
-    private static final String PREF_EVENT_BATTERY_LEVEL_HIGHT = "eventBatteryLevelHight";
+    static final String PREF_EVENT_BATTERY_LEVEL_LOW = "eventBatteryLevelLow";
+    static final String PREF_EVENT_BATTERY_LEVEL_HIGHT = "eventBatteryLevelHight";
     private static final String PREF_EVENT_BATTERY_CHARGING = "eventBatteryCharging";
     private static final String PREF_EVENT_BATTERY_PLUGGED = "eventBatteryPlugged";
     private static final String PREF_EVENT_BATTERY_POWER_SAVE_MODE = "eventBatteryPowerSaveMode";
@@ -190,12 +190,12 @@ class EventPreferencesBattery extends EventPreferences {
             }
         }
 
-        if (key.equals(PREF_EVENT_BATTERY_LEVEL_LOW) || key.equals(PREF_EVENT_BATTERY_LEVEL_HIGHT))
+        /*if (key.equals(PREF_EVENT_BATTERY_LEVEL_LOW) || key.equals(PREF_EVENT_BATTERY_LEVEL_HIGHT))
         {
             Preference preference = prefMng.findPreference(key);
             if (preference != null)
                 preference.setSummary(value + "%");
-        }
+        }*/
         if (key.equals(PREF_EVENT_BATTERY_CHARGING)) {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
