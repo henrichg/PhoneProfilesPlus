@@ -4226,6 +4226,9 @@ public class Profile {
             {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
+
                     final int phoneType = telephonyManager.getPhoneType();
                     if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
                         if (PPApplication.isRooted(fromUIThread)) {
@@ -4268,14 +4271,14 @@ public class Profile {
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
                             }
 
-                            if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1)) {
+                            if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) && (phoneCount > 1)) {
                                 if (!PhoneProfilesService.hasSIMCard(appContext, 1)) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                                 }
                             }
                             else
-                            if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2)) {
+                            if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2) && (phoneCount > 1)) {
                                 if (!PhoneProfilesService.hasSIMCard(appContext, 2)) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;

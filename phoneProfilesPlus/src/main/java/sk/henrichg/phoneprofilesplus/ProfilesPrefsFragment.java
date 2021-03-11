@@ -73,7 +73,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS = "prf_pref_lockDeviceAccessibilitySettings";
     private static final String PREF_FORCE_STOP_APPLICATIONS_LAUNCH_EXTENDER = "prf_pref_deviceForceStopApplicationLaunchExtender";
     private static final String PREF_LOCK_DEVICE_LAUNCH_EXTENDER = "prf_pref_lockDeviceLaunchExtender";
-    private static final String PRF_NOTIFICATION_ACCESS_ENABLED = "prf_pref_notificationAccessEnable";
+    private static final String PREF_NOTIFICATION_ACCESS_ENABLED = "prf_pref_notificationAccessEnable";
+    private static final String PREF_NOTIFICATION_LED_INFO = "prf_pref_notificationLedInfo";
+    private static final String PREF_ALWAYS_ON_DISPLAY_INFO = "prf_pref_alwaysOnDisplayInfo";
+    private static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM_INFO = "prf_pref_deviceNetworkTypeDualSIMInfo";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -538,45 +541,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }*/
         if (PPApplication.HAS_FEATURE_TELEPHONY)
         {
-            ListPreference networkTypePreference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE);
-            if (networkTypePreference != null) {
-                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                int phoneType = TelephonyManager.PHONE_TYPE_GSM;
-                if (telephonyManager != null)
-                    phoneType = telephonyManager.getPhoneType();
-
-                if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
-                    /*if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
-                        networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMDPArray));
-                        networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMDPValues));
-                    } else {*/
-
-                    // https://github.com/aosp-mirror/platform_frameworks_base/blob/master/telephony/java/com/android/internal/telephony/RILConstants.java
-                    networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMArray));
-                    networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMValues));
-
-                    //}
-                    String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "");
-                    networkTypePreference.setValue(value);
-                    setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, value);
-                }
-
-                if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
-                    /*if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
-                        networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMADPArray));
-                        networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMADPValues));
-                    } else {*/
-
-                    // https://github.com/aosp-mirror/platform_frameworks_base/blob/master/telephony/java/com/android/internal/telephony/RILConstants.java
-                    networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMAArray));
-                    networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMAValues));
-
-                    //}
-                    String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "");
-                    networkTypePreference.setValue(value);
-                    setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, value);
-                }
-            }
+            fillDeviceNetworkTypePreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, context);
+            fillDeviceNetworkTypePreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, context);
+            fillDeviceNetworkTypePreference(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, context);
         }
         DurationDialogPreferenceX durationPreference = prefMng.findPreference(Profile.PREF_PROFILE_DURATION);
         if (durationPreference != null)
@@ -802,6 +769,24 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (preference != null) {
             preference.setSummary(getString(R.string.profile_preferences_volumeMuteSound_summary)+". "+
                     getString(R.string.profile_preferences_volumeMuteSound_summary_2));
+        }
+
+        preference = findPreference(PREF_NOTIFICATION_LED_INFO);
+        if (preference != null) {
+            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, preferences, true, context);
+            preference.setEnabled(preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+        }
+        preference = findPreference(PREF_ALWAYS_ON_DISPLAY_INFO);
+        if (preference != null) {
+            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, preferences, true, context);
+            preference.setEnabled(preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+        }
+        preference = findPreference(PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM_INFO);
+        if (preference != null) {
+            PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, preferences, true, context);
+            PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, preferences, true, context);
+            preference.setEnabled((preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                                    (preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
         }
 
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
@@ -1686,6 +1671,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
+
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, R.string.profile_preferences_deviceNetworkType, false, context);
 //            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE - notGrantedG1Permission="+notGrantedG1Permission);
             if (!title.isEmpty()) {
@@ -1716,6 +1702,67 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, R.string.profile_preferences_deviceNetworkTypeSIM1, false, context);
+            //PPApplication.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1 - notGrantedG1Permission="+notGrantedG1Permission);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                int phoneType = TelephonyManager.PHONE_TYPE_GSM;
+                if (telephonyManager != null)
+                    phoneType = telephonyManager.getPhoneType();
+
+                int arrayValues = 0;
+                int arrayStrings = 0;
+                if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
+                    arrayStrings = R.array.networkTypeGSMArray;
+                    arrayValues = R.array.networkTypeGSMValues;
+                }
+
+                if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
+                    arrayStrings = R.array.networkTypeCDMAArray;
+                    arrayValues = R.array.networkTypeCDMAValues;
+                }
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1)),
+                        arrayValues, arrayStrings, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, R.string.profile_preferences_deviceNetworkTypeSIM2, false, context);
+            //PPApplication.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                int phoneType = TelephonyManager.PHONE_TYPE_GSM;
+                if (telephonyManager != null)
+                    phoneType = telephonyManager.getPhoneType();
+
+                int arrayValues = 0;
+                int arrayStrings = 0;
+                if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
+                    arrayStrings = R.array.networkTypeGSMArray;
+                    arrayValues = R.array.networkTypeGSMValues;
+                }
+
+                if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
+                    arrayStrings = R.array.networkTypeCDMAArray;
+                    arrayValues = R.array.networkTypeCDMAValues;
+                }
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2)),
+                        arrayValues, arrayStrings, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
+
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, R.string.profile_preferences_deviceNetworkTypePrefs, false, context);
 //            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS - notGrantedG1Permission="+notGrantedG1Permission);
             if (!title.isEmpty()) {
@@ -3914,7 +3961,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 // not enabled notification access
                 if (/*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context)) {
-                    Preference preference = prefMng.findPreference(PRF_NOTIFICATION_ACCESS_ENABLED);
+                    Preference preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_ENABLED);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
                         if (preferenceCategory != null)
@@ -3922,12 +3969,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 } else {
 //                    PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "notification access not granted");
-                    Preference preference = prefMng.findPreference(PRF_NOTIFICATION_ACCESS_ENABLED);
+                    Preference preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_ENABLED);
                     if (preference == null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
                         if (preferenceCategory != null) {
                             preference = new Preference(context);
-                            preference.setKey(PRF_NOTIFICATION_ACCESS_ENABLED);
+                            preference.setKey(PREF_NOTIFICATION_ACCESS_ENABLED);
                             preference.setIconSpaceReserved(false);
                             preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
                             preference.setLayoutResource(R.layout.mp_preference_material_widget);
@@ -4051,7 +4098,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
             }
-            preference = prefMng.findPreference(PRF_NOTIFICATION_ACCESS_ENABLED);
+            preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_ENABLED);
             if (preference != null) {
                 PreferenceScreen preferenceCategory = findPreference(rootScreen);
                 if (preferenceCategory != null)
@@ -4206,6 +4253,48 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 if (!getActivity().isFinishing())
                     dialog.show();
+            }
+        }
+    }
+
+    private void fillDeviceNetworkTypePreference(String key, Context context) {
+        ListPreference networkTypePreference = prefMng.findPreference(key);
+        if (networkTypePreference != null) {
+            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            int phoneType = TelephonyManager.PHONE_TYPE_GSM;
+            if (telephonyManager != null)
+                phoneType = telephonyManager.getPhoneType();
+
+            if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
+                    /*if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
+                        networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMDPArray));
+                        networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMDPValues));
+                    } else {*/
+
+                // https://github.com/aosp-mirror/platform_frameworks_base/blob/master/telephony/java/com/android/internal/telephony/RILConstants.java
+                networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeGSMArray));
+                networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeGSMValues));
+
+                //}
+                String value = preferences.getString(key, "");
+                networkTypePreference.setValue(value);
+                setSummary(key, value);
+            }
+
+            if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
+                    /*if (startupSource == PPApplication.PREFERENCES_STARTUP_SOURCE_SHARED_PROFILE) {
+                        networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMADPArray));
+                        networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMADPValues));
+                    } else {*/
+
+                // https://github.com/aosp-mirror/platform_frameworks_base/blob/master/telephony/java/com/android/internal/telephony/RILConstants.java
+                networkTypePreference.setEntries(context.getResources().getStringArray(R.array.networkTypeCDMAArray));
+                networkTypePreference.setEntryValues(context.getResources().getStringArray(R.array.networkTypeCDMAValues));
+
+                //}
+                String value = preferences.getString(key, "");
+                networkTypePreference.setValue(value);
+                setSummary(key, value);
             }
         }
     }

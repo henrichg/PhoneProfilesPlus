@@ -237,6 +237,7 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
 
                                                 //+"|ActivateProfileHelper.doExecuteForRadios"
+                                                +"|[DUAL_SIM]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
