@@ -4227,7 +4227,7 @@ public class Profile {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
-                    PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
+//                    PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
 
                     final int phoneType = telephonyManager.getPhoneType();
                     if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
