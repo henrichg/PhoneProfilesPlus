@@ -3665,28 +3665,30 @@ public class Profile {
                     // Dual SIM?? Bug in Android ???
                     PPApplication.recordException(e);
                 }
+
                 if (connManager != null) {
                     //if (android.os.Build.VERSION.SDK_INT >= 21) {
                     Network[] networks = connManager.getAllNetworks();
                     if ((networks != null) && (networks.length > 0)) {
                         for (Network network : networks) {
                             try {
-                                    /*if (Build.VERSION.SDK_INT < 28) {
-                                        NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
-                                        if (ntkInfo != null) {
-                                            if (ntkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-                                                mobileDataSupported = true;
-                                                break;
-                                            }
+                                /*if (Build.VERSION.SDK_INT < 28) {
+                                    NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
+                                    if (ntkInfo != null) {
+                                        if (ntkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                                            mobileDataSupported = true;
+                                            PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "mobileDataSupported=true");
+                                            break;
                                         }
                                     }
-                                    else*/ {
+                                }
+                                else {*/
                                     NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                     if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                                         mobileDataSupported = true;
                                         break;
                                     }
-                                }
+                                //}
                             } catch (Exception ee) {
                                 PPApplication.recordException(ee);
                             }
