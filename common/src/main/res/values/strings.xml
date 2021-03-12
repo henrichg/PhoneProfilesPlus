@@ -91,7 +91,6 @@
     <string name="import_profiles_alert_error">Error during restore process</string>
     <string name="export_profiles_alert_title">Export settings</string>
     <string name="export_profiles_alert_error">Error during export process</string>
-    <string name="profile_preferences_deviceMobileData">Mobile data</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Mobile data preferences</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Colorful</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">Native</string>
@@ -1742,6 +1741,11 @@
 
     <string name="profile_preferences_category_led_accessories">LED accessories</string>
 
+    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobile data for SIM 1</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobile data for SIM 2</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM">(R) Mobile data for dual SIM devices</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM_summary">Experimental. It may not work on your device.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -1782,6 +1786,8 @@
     <string name="extender_acra_notification_send_button">Send</string>
     <string name="extender_acra_notification_discard_button">Discard</string>
     <string name="extender_notification_channel_crash_report">Crash report</string>
+
+<!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
 
 </resources>
 

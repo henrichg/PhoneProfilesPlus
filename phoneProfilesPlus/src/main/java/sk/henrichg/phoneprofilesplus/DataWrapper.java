@@ -232,7 +232,9 @@ public class DataWrapper {
                 Profile.defaultValuesString.get("prf_pref_generateNotification"),
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_cameraFlash")),
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceNetworkTypeSIM1")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceNetworkTypeSIM2"))
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceNetworkTypeSIM2")),
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceMobileDataSIM1")),
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceMobileDataSIM2"))
             );
     }
 

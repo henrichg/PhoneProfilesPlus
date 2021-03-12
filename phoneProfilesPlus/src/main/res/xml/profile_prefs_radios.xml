@@ -20,6 +20,7 @@
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
+
     <ListPreference
         app:title="@string/profile_preferences_deviceMobileData_21"
         app:summary="@string/array_pref_no_change"
@@ -28,6 +29,29 @@
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="prf_pref_deviceMobileDataDualSIMInfo"
+        app:title="@string/profile_preferences_deviceMobileDataDualSIM"
+        app:summary="@string/profile_preferences_deviceMobileDataDualSIM_summary"
+        app:widgetLayout="@layout/widget_info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_deviceMobileData_21_SIM1"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceMobileDataSIM1"
+        app:defaultValue="0"
+        app:entries="@array/hardwareModeArray"
+        app:entryValues="@array/hardwareModeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_deviceMobileData_21_SIM2"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceMobileDataSIM2"
+        app:defaultValue="0"
+        app:entries="@array/hardwareModeArray"
+        app:entryValues="@array/hardwareModeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <ListPreference
         app:title="@string/profile_preferences_deviceMobileDataPrefs"
         app:summary="@string/array_pref_no_change"

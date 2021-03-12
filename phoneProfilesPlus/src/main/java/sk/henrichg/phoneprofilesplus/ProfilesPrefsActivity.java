@@ -359,7 +359,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._generateNotification,
                         origProfile._cameraFlash,
                         origProfile._deviceNetworkTypeSIM1,
-                        origProfile._deviceNetworkTypeSIM2
+                        origProfile._deviceNetworkTypeSIM2,
+                        origProfile._deviceMobileDataSIM1,
+                        origProfile._deviceMobileDataSIM2
                 );
                 showSaveMenu = true;
             }
@@ -472,6 +474,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_CAMERA_FLASH, Integer.toString(profile._cameraFlash));
             editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, Integer.toString(profile._deviceNetworkTypeSIM1));
             editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, Integer.toString(profile._deviceNetworkTypeSIM2));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, Integer.toString(profile._deviceMobileDataSIM1));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, Integer.toString(profile._deviceMobileDataSIM2));
             editor.apply();
         }
     }
@@ -601,6 +605,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, ""));
             profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, ""));
             profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, ""));
+            profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, ""));
+            profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, ""));
         }
 
         //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");

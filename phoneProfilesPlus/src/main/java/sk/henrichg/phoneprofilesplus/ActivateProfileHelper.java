@@ -4581,7 +4581,9 @@ class ActivateProfileHelper {
             Object serviceManager = PPApplication.getServiceManager("phone");
             if (serviceManager != null) {
                 int transactionCode = -1;
-                if (preference.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
+                if (preference.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
+                        preference.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1) ||
+                        preference.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2)) {
                     if (Build.VERSION.SDK_INT >= 28)
                         transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setUserDataEnabled");
                     else

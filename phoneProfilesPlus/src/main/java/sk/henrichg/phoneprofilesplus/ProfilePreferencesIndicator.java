@@ -505,63 +505,6 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            // network type
-            if (profile._deviceNetworkType != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (fillPreferences)
-                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkType);
-                    if (fillStrings)
-                        strings[countDrawables++] = "ntyp";
-                    else
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type;
-                    if (fillPreferences)
-                        countItems[countPreferences++] = 1;
-                }
-            }
-            final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-            if (telephonyManager != null) {
-                int phoneCount = telephonyManager.getPhoneCount();
-                if (phoneCount > 1) {
-                    if (profile._deviceNetworkTypeSIM1 != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                            if (fillPreferences)
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkTypeSIM1);
-                            if (fillStrings)
-                                strings[countDrawables++] = "ntp1";
-                            else
-                                drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_sim1;
-                            if (fillPreferences)
-                                countItems[countPreferences++] = 1;
-                        }
-                    }
-                    if (profile._deviceNetworkTypeSIM2 != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                            if (fillPreferences)
-                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkTypeSIM2);
-                            if (fillStrings)
-                                strings[countDrawables++] = "ntp2";
-                            else
-                                drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_sim2;
-                            if (fillPreferences)
-                                countItems[countPreferences++] = 1;
-                        }
-                    }
-                }
-            }
-
-            // network type prefs
-            if (profile._deviceNetworkTypePrefs != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                    if (fillPreferences)
-                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkTypePrefs);
-                    if (fillStrings)
-                        strings[countDrawables++] = "ntpr";
-                    else
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_pref;
-                    if (fillPreferences)
-                        countItems[countPreferences++] = 1;
-                }
-            }
             // mobile data
             if (profile._deviceMobileData != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -593,6 +536,75 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
+            final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                int phoneCount = telephonyManager.getPhoneCount();
+                if (phoneCount > 1) {
+
+                    if (profile._deviceMobileDataSIM1 != 0) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            if ((profile._deviceMobileDataSIM1 == 1) || (profile._deviceMobileDataSIM1 == 3)) {
+                                if (fillPreferences)
+                                    preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceMobileData_21_SIM1) + ": " +
+                                            appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                                if (fillStrings)
+                                    strings[countDrawables++] = "md1:1";
+                                else
+                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim1;
+                                if (fillPreferences)
+                                    countItems[countPreferences++] = 1;
+                            }
+                            if (profile._deviceMobileDataSIM1 == 2) {
+                                if (fillPreferences)
+                                    preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceMobileData_21_SIM1) + ": " +
+                                            appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                                if (fillStrings)
+                                    strings[countDrawables++] = "md1:0";
+                                else {
+                                    if (monochrome)
+                                        drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim1_off_mono;
+                                    else
+                                        drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim1_off;
+                                }
+                                if (fillPreferences)
+                                    countItems[countPreferences++] = 1;
+                            }
+                        }
+                    }
+                    if (profile._deviceMobileDataSIM2 != 0) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            if ((profile._deviceMobileDataSIM2 == 1) || (profile._deviceMobileDataSIM2 == 3)) {
+                                if (fillPreferences)
+                                    preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceMobileData_21_SIM2) + ": " +
+                                            appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                                if (fillStrings)
+                                    strings[countDrawables++] = "md2:1";
+                                else
+                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim2;
+                                if (fillPreferences)
+                                    countItems[countPreferences++] = 1;
+                            }
+                            if (profile._deviceMobileDataSIM2 == 2) {
+                                if (fillPreferences)
+                                    preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceMobileData_21_SIM2) + ": " +
+                                            appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                                if (fillStrings)
+                                    strings[countDrawables++] = "md2:0";
+                                else {
+                                    if (monochrome)
+                                        drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim2_off_mono;
+                                    else
+                                        drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim2_off;
+                                }
+                                if (fillPreferences)
+                                    countItems[countPreferences++] = 1;
+                            }
+                        }
+                    }
+
+                }
+            }
+
             // mobile data preferences
             if (profile._deviceMobileDataPrefs == 1) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -833,6 +845,62 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
+            // network type
+            if (profile._deviceNetworkType != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkType);
+                    if (fillStrings)
+                        strings[countDrawables++] = "ntyp";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type;
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
+                }
+            }
+            if (telephonyManager != null) {
+                int phoneCount = telephonyManager.getPhoneCount();
+                if (phoneCount > 1) {
+                    if (profile._deviceNetworkTypeSIM1 != 0) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            if (fillPreferences)
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkTypeSIM1);
+                            if (fillStrings)
+                                strings[countDrawables++] = "ntp1";
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_sim1;
+                            if (fillPreferences)
+                                countItems[countPreferences++] = 1;
+                        }
+                    }
+                    if (profile._deviceNetworkTypeSIM2 != 0) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            if (fillPreferences)
+                                preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkTypeSIM2);
+                            if (fillStrings)
+                                strings[countDrawables++] = "ntp2";
+                            else
+                                drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_sim2;
+                            if (fillPreferences)
+                                countItems[countPreferences++] = 1;
+                        }
+                    }
+                }
+            }
+            // network type prefs
+            if (profile._deviceNetworkTypePrefs != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkTypePrefs);
+                    if (fillStrings)
+                        strings[countDrawables++] = "ntpr";
+                    else
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_pref;
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
+                }
+            }
+
             // screen timeout
             if (profile._deviceScreenTimeout != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
