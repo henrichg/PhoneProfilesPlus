@@ -3783,9 +3783,9 @@ public class Profile {
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                     if ((profile != null) &&
-                            (profile._deviceMobileData != 0) ||
+                            ((profile._deviceMobileData != 0) ||
                             (profile._deviceMobileDataSIM1 != 0) ||
-                            (profile._deviceMobileDataSIM2 != 0)) {
+                            (profile._deviceMobileDataSIM2 != 0))) {
                         preferenceAllowed.notAllowedRoot = true;
                         //Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
                     }

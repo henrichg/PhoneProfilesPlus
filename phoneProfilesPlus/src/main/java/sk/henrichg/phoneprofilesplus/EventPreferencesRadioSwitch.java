@@ -419,7 +419,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if ((_mobileData == 1 || _mobileData == 2)
                         && PPApplication.HAS_FEATURE_TELEPHONY) {
 
-                    boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context);
+                    boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 0);
                     //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataState=" + enabled);
                     tested = true;
                     if (_mobileData == 1)

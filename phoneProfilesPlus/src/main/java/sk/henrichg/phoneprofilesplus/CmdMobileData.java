@@ -30,7 +30,7 @@ public class CmdMobileData {
         }
     }
 
-    static boolean isEnabled(Context context) {
+    static boolean isEnabled(Context context, int simCard) {
         try {
             boolean enabled = false;
             if (Permissions.checkPhone(context.getApplicationContext())) {
@@ -53,13 +53,16 @@ public class CmdMobileData {
                                 // Get the active subscription ID for a given SIM card.
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                 if (subscriptionInfo != null) {
-                                    int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                    enabled = adapter.getDataEnabled(subscriptionId);
-                                    ok = true;
-                                /*if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("CmdMobileData.isEnabled", "subscriptionId=" + subscriptionId);
-                                    PPApplication.logE("CmdMobileData.isEnabled", "enabled=" + enabled);
-                                }*/
+                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                    if ((simCard == 0) || (simCard == slotIndex)) {
+                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                        enabled = adapter.getDataEnabled(subscriptionId);
+                                        ok = true;
+                                    }
+                                    /*if (PPApplication.logEnabled()) {
+                                        PPApplication.logE("CmdMobileData.isEnabled", "subscriptionId=" + subscriptionId);
+                                        PPApplication.logE("CmdMobileData.isEnabled", "enabled=" + enabled);
+                                    }*/
                                     if (enabled)
                                         break;
                                 }

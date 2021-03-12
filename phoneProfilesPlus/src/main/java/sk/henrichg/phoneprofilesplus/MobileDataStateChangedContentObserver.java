@@ -19,7 +19,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
         context=c;
 
-        previousState = ActivateProfileHelper.isMobileData(context);
+        previousState = ActivateProfileHelper.isMobileData(context, 0);
     }
 
     /*
@@ -38,7 +38,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
         //CallsCounter.logCounter(context, "MobileDataStateChangedContentObserver.onChange", "MobileDataStateChangedContentObserver_onChange");
 
         if (PPApplication.HAS_FEATURE_TELEPHONY) {
-            boolean actualState = ActivateProfileHelper.isMobileData(context);
+            boolean actualState = ActivateProfileHelper.isMobileData(context, 0);
             if (previousState != actualState) {
 
                 if (Event.getGlobalEventsRunning()) {

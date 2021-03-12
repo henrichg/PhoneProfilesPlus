@@ -141,7 +141,7 @@ class ActivateProfileHelper {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                         // in array.xml, networkTypeGSMValues are 100+ values
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
-                        setPreferredNetworkType(appContext, profile._deviceNetworkTypeSIM2 - 100, 1);
+                        setPreferredNetworkType(appContext, profile._deviceNetworkTypeSIM2 - 100, 2);
                         PPApplication.sleep(200);
                     }
                 }
@@ -152,7 +152,7 @@ class ActivateProfileHelper {
         if (profile._deviceMobileData != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData");
-                boolean _isMobileData = isMobileData(appContext);
+                boolean _isMobileData = isMobileData(appContext, 0);
                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
                 boolean _setMobileData = false;
                 switch (profile._deviceMobileData) {
@@ -184,6 +184,85 @@ class ActivateProfileHelper {
             }
             //else
             //    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData NOT ALLOWED");
+        }
+        if (telephonyManager != null) {
+            int phoneCount = telephonyManager.getPhoneCount();
+            if (phoneCount > 1) {
+
+                if (profile._deviceMobileDataSIM1 != 0) {
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1");
+                        boolean _isMobileData = isMobileData(appContext, 1);
+                        //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
+                        boolean _setMobileData = false;
+                        switch (profile._deviceMobileDataSIM1) {
+                            case 1:
+                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1 1");
+                                if (!_isMobileData) {
+                                    _isMobileData = true;
+                                    _setMobileData = true;
+                                }
+                                break;
+                            case 2:
+                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1 2");
+                                if (_isMobileData) {
+                                    _isMobileData = false;
+                                    _setMobileData = true;
+                                }
+                                break;
+                            case 3:
+                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1 3");
+                                _isMobileData = !_isMobileData;
+                                _setMobileData = true;
+                                break;
+                        }
+                        if (_setMobileData) {
+                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
+                            setMobileData(appContext, _isMobileData, 1);
+                            PPApplication.sleep(200);
+                        }
+                    }
+                    //else
+                    //    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1 NOT ALLOWED");
+                }
+                if (profile._deviceMobileDataSIM2 != 0) {
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2");
+                        boolean _isMobileData = isMobileData(appContext, 2);
+                        //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
+                        boolean _setMobileData = false;
+                        switch (profile._deviceMobileDataSIM2) {
+                            case 1:
+                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2 1");
+                                if (!_isMobileData) {
+                                    _isMobileData = true;
+                                    _setMobileData = true;
+                                }
+                                break;
+                            case 2:
+                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2 2");
+                                if (_isMobileData) {
+                                    _isMobileData = false;
+                                    _setMobileData = true;
+                                }
+                                break;
+                            case 3:
+                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2 3");
+                                _isMobileData = !_isMobileData;
+                                _setMobileData = true;
+                                break;
+                        }
+                        if (_setMobileData) {
+                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
+                            setMobileData(appContext, _isMobileData, 2);
+                            PPApplication.sleep(200);
+                        }
+                    }
+                    //else
+                    //    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2 NOT ALLOWED");
+                }
+
+            }
         }
 
         // setup WiFi AP
@@ -4274,7 +4353,7 @@ class ActivateProfileHelper {
         }
     }
 
-    static boolean isMobileData(Context context)
+    static boolean isMobileData(Context context, int simCard)
     {
         Context appContext = context.getApplicationContext();
 
@@ -4337,7 +4416,7 @@ class ActivateProfileHelper {
                 return false;
         }
         else*/
-        if (android.os.Build.VERSION.SDK_INT < 28)
+        /*if (android.os.Build.VERSION.SDK_INT < 28)
         {
             TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
@@ -4360,8 +4439,8 @@ class ActivateProfileHelper {
                 return false;
 
         }
-        else
-            return CmdMobileData.isEnabled(appContext);
+        else*/
+            return CmdMobileData.isEnabled(appContext, simCard);
     }
 
     static boolean canSetMobileData(Context context)
@@ -4439,7 +4518,7 @@ class ActivateProfileHelper {
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
             PPApplication.isRooted(false) &&
-            PhoneProfilesService.hasSIMCard(context, 0))
+            PhoneProfilesService.hasSIMCard(appContext, 0))
         {
             //PPApplication.logE("ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
 
@@ -4473,8 +4552,8 @@ class ActivateProfileHelper {
                 if (transactionCode != -1) {
                     PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode=" + transactionCode);
 
-                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                    //SubscriptionManager.from(context);
+                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                    //SubscriptionManager.from(appContext);
                     if (mSubscriptionManager != null) {
                         PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager != null");
                         List<SubscriptionInfo> subscriptionList = null;
