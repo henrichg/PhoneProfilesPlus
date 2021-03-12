@@ -178,7 +178,7 @@ class ActivateProfileHelper {
                 }
                 if (_setMobileData) {
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
-                    setMobileData(appContext, _isMobileData);
+                    setMobileData(appContext, _isMobileData, 0);
                     PPApplication.sleep(200);
                 }
             }
@@ -4431,184 +4431,98 @@ class ActivateProfileHelper {
         }*/
     }
 
-    private static void setMobileData(Context context, boolean enable)
+    private static void setMobileData(Context context, boolean enable, int simCard)
     {
-        //PPApplication.logE("ActivateProfileHelper.setMobileData", "xxx");
+        PPApplication.logE("ActivateProfileHelper.setMobileData", "xxx");
 
-        //Context appContext = context.getApplicationContext();
+        Context appContext = context.getApplicationContext();
 
-        // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
-        // not working :-/
-        /*if (Permissions.hasPermission(context, Manifest.permission.MODIFY_PHONE_STATE)) {
-            if (android.os.Build.VERSION.SDK_INT == 21)
-            {
-                Method dataConnSwitchMethod;
-                Class<?> telephonyManagerClass;
-                Object ITelephonyStub;
-                Class<?> ITelephonyClass;
-
-                TelephonyManager telephonyManager = (TelephonyManager) context
-                        .getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null) {
-                    try {
-                        telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
-                        Method getITelephonyMethod = telephonyManagerClass.getDeclaredMethod("getITelephony");
-                        getITelephonyMethod.setAccessible(true);
-                        ITelephonyStub = getITelephonyMethod.invoke(telephonyManager);
-                        ITelephonyClass = Class.forName(ITelephonyStub.getClass().getName());
-                        dataConnSwitchMethod = ITelephonyClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
-
-                        dataConnSwitchMethod.setAccessible(true);
-                        dataConnSwitchMethod.invoke(ITelephonyStub, enable);
-
-                    } catch (Exception ignored) {
-                    }
-                }
-            }
-            else
-            {
-                Method setDataEnabledMethod;
-                Class<?> telephonyManagerClass;
-
-                TelephonyManager telephonyManager = (TelephonyManager) context
-                        .getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null) {
-                    try {
-                        telephonyManagerClass = Class.forName(telephonyManager.getClass().getName());
-                        setDataEnabledMethod = telephonyManagerClass.getDeclaredMethod("setDataEnabled", Boolean.TYPE);
-                        setDataEnabledMethod.setAccessible(true);
-
-                        setDataEnabledMethod.invoke(telephonyManager, enable);
-
-                    } catch (Exception ignored) {
-                    }
-                }
-            }
-        }
-        else*/
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
             PPApplication.isRooted(false) &&
             PhoneProfilesService.hasSIMCard(context, 0))
         {
             //PPApplication.logE("ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
 
-            synchronized (PPApplication.rootMutex) {
-                String command1 = "svc data " + (enable ? "enable" : "disable");
-                //PPApplication.logE("ActivateProfileHelper.setMobileData", "command=" + command1);
-                Command command = new Command(0, false, command1);// {
-//                @Override
-//                public void commandOutput(int id, String line) {
-//                    super.commandOutput(id, line);
-//                    PPApplication.logE("ActivateProfileHelper.setMobileData","shell output="+line);
-//                }
-//
-//                @Override
-//                public void commandTerminated(int id, String reason) {
-//                    super.commandTerminated(id, reason);
-//                    PPApplication.logE("ActivateProfileHelper.setMobileData","terminated="+reason);
-//                }
-//
-//                @Override
-//                public void commandCompleted(int id, int exitCode) {
-//                    super.commandCompleted(id, exitCode);
-//                    PPApplication.logE("ActivateProfileHelper.setMobileData","completed="+exitCode);
-//                }
-//                };
-                try {
-                    RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
-                    PPApplication.commandWait(command, "ActivateProfileHelper.setMobileData");
-                    //PPApplication.logE("ActivateProfileHelper.setMobileData", "after wait");
-                } catch (Exception e) {
-                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+            if (simCard == 0) {
+                synchronized (PPApplication.rootMutex) {
+                    String command1 = "svc data " + (enable ? "enable" : "disable");
+                    //PPApplication.logE("ActivateProfileHelper.setMobileData", "command=" + command1);
+                    Command command = new Command(0, false, command1);
+                    try {
+                        RootTools.getShell(true, Shell.ShellContext.SHELL).add(command);
+                        PPApplication.commandWait(command, "ActivateProfileHelper.setMobileData");
+                        //PPApplication.logE("ActivateProfileHelper.setMobileData", "after wait");
+                    } catch (Exception e) {
+                        //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                    }
                 }
             }
+            else {
+                // Get the value of the "TRANSACTION_setDataEnabled" field.
+                Object serviceManager = PPApplication.getServiceManager("phone");
+                int transactionCode = -1;
+                if (serviceManager != null) {
+                    if (Build.VERSION.SDK_INT >= 28)
+                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setUserDataEnabled");
+                    else
+                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDataEnabled");
+                }
 
-/*
-            // Get the value of the "TRANSACTION_setDataEnabled" field.
-            Object serviceManager = PPApplication.getServiceManager("phone");
-            int transactionCode = -1;
-            if (serviceManager != null) {
-                if (Build.VERSION.SDK_INT >= 28)
-                    transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setUserDataEnabled");
-                else
-                    transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDataEnabled");
-            }
+                int state = enable ? 1 : 0;
 
-            int state = enable ? 1 : 0;
+                if (transactionCode != -1) {
+                    PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode=" + transactionCode);
 
-            if (transactionCode != -1) {
-                //PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode="+transactionCode);
-
-                // Android 5.1?
-                //if (Build.VERSION.SDK_INT >= 22) {
-                    SubscriptionManager mSubscriptionManager = (SubscriptionManager)appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(context);
                     if (mSubscriptionManager != null) {
-                        //PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager != null");
+                        PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager != null");
                         List<SubscriptionInfo> subscriptionList = null;
                         try {
                             // Loop through the subscription list i.e. SIM list.
                             subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                            //PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList="+subscriptionList);
+                            PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList=" + subscriptionList);
                         } catch (SecurityException e) {
                             PPApplication.recordException(e);
                         }
                         if (subscriptionList != null) {
-                            //PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList.size()="+subscriptionList.size());
+                            PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList.size()=" + subscriptionList.size());
                             for (int i = 0; i < subscriptionList.size(); i++) {
                                 // Get the active subscription ID for a given SIM card.
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                //PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionInfo="+subscriptionInfo);
+                                PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionInfo=" + subscriptionInfo);
                                 if (subscriptionInfo != null) {
-                                    int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                    //PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionId="+subscriptionId);
-                                    synchronized (PPApplication.rootMutex) {
-                                        String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, state);
-                                        //PPApplication.logE("ActivateProfileHelper.setMobileData", "command1="+command1);
-                                        if (command1 != null) {
-                                            Command command = new Command(0, false, command1);
-                                            try {
-                                                roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                PPApplication.commandWait(command);
-                                            } catch (Exception e) {
-                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-                                                //PPApplication.recordException(e);
+                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                    if (simCard == slotIndex) {
+                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                        PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionId=" + subscriptionId);
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, state);
+                                            PPApplication.logE("ActivateProfileHelper.setMobileData", "command1=" + command1);
+                                            if (command1 != null) {
+                                                Command command = new Command(0, false, command1);
+                                                try {
+                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                    PPApplication.commandWait(command, "ActivateProfileHelper.setMobileData");
+                                                } catch (Exception e) {
+                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                    //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
+                                                    //PPApplication.recordException(e);
+                                                }
                                             }
                                         }
                                     }
-                                }
-                                //else
-                                //    PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionInfo == null");
+                                } else
+                                    PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionInfo == null");
                             }
-                        }
-                        //else
-                        //    PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList == null");
-                    }
-                    //else
-                    //    PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager == null");
-//                } else {
-//                    synchronized (PPApplication.rootMutex) {
-//                        String command1 = PPApplication.getServiceCommand("phone", transactionCode, state);
-//                        //PPApplication.logE("ActivateProfileHelper.setMobileData", "command1="+command1);
-//                        if (command1 != null) {
-//                            Command command = new Command(0, false, command1);
-//                            try {
-//                                roottools.getShell(true, Shell.ShellContext.SHELL).add(command);
-//                                PPApplication.commandWait(command);
-//                            } catch (Exception e) {
-//                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-//                                //og.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
-//                                //PPApplication.recordException(e);
-//                            }
-//                        }
-//                    }
-//                }
+                        } else
+                            PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList == null");
+                    } else
+                        PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager == null");
+                } else
+                    PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode == -1");
             }
-            //else
-            //    PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode == -1");
- */
-        }
+         }
     }
 
     /*

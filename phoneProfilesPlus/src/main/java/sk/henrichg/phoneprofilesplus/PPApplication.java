@@ -236,7 +236,7 @@ public class PPApplication extends Application
                                                 //+"|DonationBroadcastReceiver"
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
 
-                                                //+"|ActivateProfileHelper.doExecuteForRadios"
+                                                +"|ActivateProfileHelper.setMobileData"
                                                 +"|[DUAL_SIM]"
                                                 ;
 
