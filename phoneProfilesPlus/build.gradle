@@ -88,7 +88,8 @@ dependencies {
 
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
     //implementation 'com.github.KeepSafe:TapTargetView:master-SNAPSHOT'
-    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.0'
+    //implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.0'
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.2'
 
     implementation('dev.doubledot.doki:library:0.0.1@aar') {
         transitive = true
