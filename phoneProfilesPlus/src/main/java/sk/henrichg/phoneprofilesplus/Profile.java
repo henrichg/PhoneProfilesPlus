@@ -106,6 +106,8 @@ public class Profile {
     int _cameraFlash;
     int _deviceNetworkTypeSIM1;
     int _deviceNetworkTypeSIM2;
+    int _deviceMobileDataSIM1;
+    int _deviceMobileDataSIM2;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -194,6 +196,8 @@ public class Profile {
     static final String PREF_PROFILE_CAMERA_FLASH = "prf_pref_cameraFlash";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1 = "prf_pref_deviceNetworkTypeSIM1";
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 = "prf_pref_deviceNetworkTypeSIM2";
+    static final String PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1 = "prf_pref_deviceMobileDataSIM1";
+    static final String PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2 = "prf_pref_deviceMobileDataSIM2";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -282,6 +286,8 @@ public class Profile {
         defaultValuesString.put("prf_pref_cameraFlash", "0");
         defaultValuesString.put("prf_pref_deviceNetworkTypeSIM1", "0");
         defaultValuesString.put("prf_pref_deviceNetworkTypeSIM2", "0");
+        defaultValuesString.put("prf_pref_deviceMobileDataSIM1", "0");
+        defaultValuesString.put("prf_pref_deviceMobileDataSIM2", "0");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -838,7 +844,9 @@ public class Profile {
                    String generateNotification,
                    int cameraFlash,
                    int deviceNetworkTypeSIM1,
-                   int deviceNetworkTypeSIM2
+                   int deviceNetworkTypeSIM2,
+                   int deviceMobileDataSIM1,
+                   int deviceMobileDataSIM2
     )
     {
         this._id = id;
@@ -921,6 +929,8 @@ public class Profile {
         this._cameraFlash = cameraFlash;
         this._deviceNetworkTypeSIM1 = deviceNetworkTypeSIM1;
         this._deviceNetworkTypeSIM2 = deviceNetworkTypeSIM2;
+        this._deviceMobileDataSIM1 = deviceMobileDataSIM1;
+        this._deviceMobileDataSIM2 = deviceMobileDataSIM2;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1007,7 +1017,9 @@ public class Profile {
                    String generateNotification,
                    int cameraFlash,
                    int deviceNetworkTypeSIM1,
-                   int deviceNetworkTypeSIM2
+                   int deviceNetworkTypeSIM2,
+                   int deviceMobileDataSIM1,
+                   int deviceMobileDataSIM2
     )
     {
         this._name = name;
@@ -1089,6 +1101,8 @@ public class Profile {
         this._cameraFlash = cameraFlash;
         this._deviceNetworkTypeSIM1 = deviceNetworkTypeSIM1;
         this._deviceNetworkTypeSIM2 = deviceNetworkTypeSIM2;
+        this._deviceMobileDataSIM1 = deviceMobileDataSIM1;
+        this._deviceMobileDataSIM2 = deviceMobileDataSIM2;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1177,6 +1191,8 @@ public class Profile {
         this._cameraFlash = profile._cameraFlash;
         this._deviceNetworkTypeSIM1 = profile._deviceNetworkTypeSIM1;
         this._deviceNetworkTypeSIM2 = profile._deviceNetworkTypeSIM2;
+        this._deviceMobileDataSIM1 = profile._deviceMobileDataSIM1;
+        this._deviceMobileDataSIM2 = profile._deviceMobileDataSIM2;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1449,6 +1465,26 @@ public class Profile {
                     this._deviceNetworkTypeSIM1 = withProfile._deviceNetworkTypeSIM1;
                 if (withProfile._deviceNetworkTypeSIM2 != 0)
                     this._deviceNetworkTypeSIM2 = withProfile._deviceNetworkTypeSIM2;
+                if (withProfile._deviceMobileDataSIM1 != 0) {
+                    if (withProfile._deviceMobileDataSIM1 != 3) // toggle
+                        this._deviceMobileDataSIM1 = withProfile._deviceMobileDataSIM1;
+                    else {
+                        if (this._deviceMobileDataSIM1 == 1)
+                            this._deviceMobileDataSIM1 = 2;
+                        else if (this._deviceMobileDataSIM1 == 2)
+                            this._deviceMobileDataSIM1 = 1;
+                    }
+                }
+                if (withProfile._deviceMobileDataSIM2 != 0) {
+                    if (withProfile._deviceMobileDataSIM2 != 3) // toggle
+                        this._deviceMobileDataSIM2 = withProfile._deviceMobileDataSIM2;
+                    else {
+                        if (this._deviceMobileDataSIM2 == 1)
+                            this._deviceMobileDataSIM2 = 2;
+                        else if (this._deviceMobileDataSIM2 == 2)
+                            this._deviceMobileDataSIM2 = 1;
+                    }
+                }
 
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
@@ -1785,6 +1821,14 @@ public class Profile {
             }
             if (this._deviceNetworkTypeSIM2 != withProfile._deviceNetworkTypeSIM2) {
                 //PPApplication.logE("$$$ Profile.compareProfiles","_deviceNetworkTypeSIM2");
+                return false;
+            }
+            if (this._deviceMobileDataSIM1 != withProfile._deviceMobileDataSIM1) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceMobileDataSIM1");
+                return false;
+            }
+            if (this._deviceMobileDataSIM2 != withProfile._deviceMobileDataSIM2) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceMobileDataSIM2");
                 return false;
             }
 
@@ -3156,6 +3200,8 @@ public class Profile {
         profile._cameraFlash = Integer.parseInt(preferences.getString(PREF_PROFILE_CAMERA_FLASH, "0"));
         profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
         profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
+        profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "1")); //ON
+        profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "1")); //ON
 
         return profile;
     }
@@ -3237,6 +3283,8 @@ public class Profile {
         editor.putString(PREF_PROFILE_CAMERA_FLASH, String.valueOf(profile._cameraFlash));
         editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, String.valueOf(profile._deviceNetworkTypeSIM1));
         editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, String.valueOf(profile._deviceNetworkTypeSIM2));
+        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, String.valueOf(profile._deviceMobileDataSIM1));
+        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, String.valueOf(profile._deviceMobileDataSIM2));
 
         editor.apply();
     }
@@ -3332,7 +3380,9 @@ public class Profile {
                     profile._generateNotification,
                     profile._cameraFlash,
                     profile._deviceNetworkTypeSIM1,
-                    profile._deviceNetworkTypeSIM2
+                    profile._deviceNetworkTypeSIM2,
+                    profile._deviceMobileDataSIM1,
+                    profile._deviceMobileDataSIM2
                     );
 
             boolean zenModeMapped = false;
@@ -3478,6 +3528,10 @@ public class Profile {
                 mappedProfile._deviceNetworkTypeSIM1 = sharedProfile._deviceNetworkTypeSIM1;
             if (profile._deviceNetworkTypeSIM2 == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceNetworkTypeSIM2 = sharedProfile._deviceNetworkTypeSIM2;
+            if (profile._deviceMobileDataSIM1 == SHARED_PROFILE_VALUE)
+                mappedProfile._deviceMobileDataSIM1 = sharedProfile._deviceMobileDataSIM1;
+            if (profile._deviceMobileDataSIM2 == SHARED_PROFILE_VALUE)
+                mappedProfile._deviceMobileDataSIM2 = sharedProfile._deviceMobileDataSIM2;
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;
@@ -3594,10 +3648,15 @@ public class Profile {
         //if (checked && (profile == null))
         //    return preferenceAllowed;
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA))
+        if ((profile != null) ||
+                preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
+                preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1) ||
+                preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2))
         {
             boolean mobileDataSupported = false;
             if (!PPApplication.HAS_FEATURE_TELEPHONY) {
+                // check mobile data capability for devices without phone call hardware (for example tablets)
+
                 ConnectivityManager connManager = null;
                 try {
                     connManager = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -3660,7 +3719,11 @@ public class Profile {
 
                     if (profile != null) {
                         // test if grant root is disabled
-                        if (profile._deviceMobileData != 0) {
+                        if ((profile._deviceMobileData != 0) ||
+                                (profile._deviceMobileDataSIM1 != 0) ||
+                                (profile._deviceMobileDataSIM2 != 0)
+                        )
+                        {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
@@ -3693,14 +3756,36 @@ public class Profile {
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
 
-                    if (!PhoneProfilesService.hasSIMCard(appContext, 0)) {
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                    final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                    if (telephonyManager != null) {
+                        int phoneCount = telephonyManager.getPhoneCount();
+
+                        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1) && (phoneCount > 1)) {
+                            if (!PhoneProfilesService.hasSIMCard(appContext, 1)) {
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            }
+                        } else if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2) && (phoneCount > 1)) {
+                            if (!PhoneProfilesService.hasSIMCard(appContext, 2)) {
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            }
+                        } else if (!PhoneProfilesService.hasSIMCard(appContext, 0)) {
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        }
+                    }
+                    else {
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
                     }
                 }
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                    if ((profile != null) && (profile._deviceMobileData != 0)) {
+                    if ((profile != null) &&
+                            (profile._deviceMobileData != 0) ||
+                            (profile._deviceMobileDataSIM1 != 0) ||
+                            (profile._deviceMobileDataSIM2 != 0)) {
                         preferenceAllowed.notAllowedRoot = true;
                         //Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
                     }
