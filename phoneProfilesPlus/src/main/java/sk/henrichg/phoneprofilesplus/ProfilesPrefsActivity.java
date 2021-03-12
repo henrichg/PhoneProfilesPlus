@@ -897,4 +897,14 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
+    @SuppressWarnings("unused")
+    static public class ProfilesPrefsLedAccessories extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            setPreferencesFromResource(R.xml.profile_prefs_led_accessories, rootKey);
+        }
+
+    }
+
 }

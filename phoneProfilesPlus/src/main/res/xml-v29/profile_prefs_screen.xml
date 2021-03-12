@@ -84,20 +84,6 @@
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsLockDevice" />
 
-    <Preference
-        app:key="prf_pref_notificationLedInfo"
-        app:title="@string/profile_preferences_notificationLed_23"
-        app:summary="@string/profile_preferences_notificationLedInfo_summary"
-        app:widgetLayout="@layout/widget_info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/profile_preferences_notificationLed_23"
-        app:summary="@string/array_pref_no_change"
-        app:key="prf_pref_notificationLed"
-        app:defaultValue="0"
-        app:entries="@array/notificationLedArray"
-        app:entryValues="@array/notificationLedValues"
-        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_headsUpNotifications"
         app:summary="@string/array_pref_no_change"

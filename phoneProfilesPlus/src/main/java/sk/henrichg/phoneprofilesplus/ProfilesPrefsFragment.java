@@ -291,6 +291,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setCategorySummary("prf_pref_touchEffectsCategoryRoot", context);
         setCategorySummary("prf_pref_radiosCategoryRoot", context);
         setCategorySummary("prf_pref_screenCategoryRoot", context);
+        setCategorySummary("prf_pref_ledAccessoriesCategoryRoot", context);
         setCategorySummary("prf_pref_othersCategoryRoot", context);
         setCategorySummary("prf_pref_applicationCategoryRoot", context);
         setCategorySummary(PREF_FORCE_STOP_APPLICATIONS_CATEGORY, context);
@@ -2088,18 +2089,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_NOTIFICATION_LED, R.string.profile_preferences_notificationLed, false, context);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-
-                String value = GlobalGUIRoutines.getListPreferenceString(
-                        preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_NOTIFICATION_LED)),
-                        R.array.notificationLedValues, R.array.notificationLedArray, context);
-
-                summary = summary + title + ": <b>" + value + "</b>";
-            }
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, R.string.profile_preferences_headsUpNotifications, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
@@ -2144,7 +2133,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             profile._deviceBrightness = preferences.getString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, "");
             profile._deviceAutoRotate = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, "0"));
             profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
-            profile._notificationLed = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED, "0"));
             profile._alwaysOnDisplay = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, "0"));
             ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
             Permissions.checkProfileScreenTimeout(context, profile, permissions);
@@ -2152,12 +2140,46 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Permissions.checkProfileScreenBrightness(context, profile, permissions);
             Permissions.checkProfileAutoRotation(context, profile, permissions);
             Permissions.checkProfileWallpaper(context, profile, permissions);
-            Permissions.checkProfileNotificationLed(context, profile, permissions);
             Permissions.checkProfileAlwaysOnDisplay(context, profile, permissions);
             _permissionGranted = permissions.size() == 0;
 
             profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, "0"));
             _accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
+        }
+
+        if (key.equals("prf_pref_ledAccessoriesCategoryRoot")) {
+            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_NOTIFICATION_LED, R.string.profile_preferences_notificationLed, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_NOTIFICATION_LED)),
+                        R.array.notificationLedValues, R.array.notificationLedArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
+            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_CAMERA_FLASH, R.string.profile_preferences_cameraFlash, false, context);
+            if (!title.isEmpty()) {
+                _bold = true;
+                if (!summary.isEmpty()) summary = summary +" • ";
+
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CAMERA_FLASH)),
+                        R.array.cameraFlashValues, R.array.cameraFlashArray, context);
+
+                summary = summary + title + ": <b>" + value + "</b>";
+            }
+
+            Profile profile = new Profile();
+            profile._notificationLed = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED, "0"));
+            profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, "0"));
+            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+            Permissions.checkProfileNotificationLed(context, profile, permissions);
+            Permissions.checkProfileCameraFlash(context, profile, permissions);
+            _permissionGranted = permissions.size() == 0;
         }
 
         if (key.equals("prf_pref_othersCategoryRoot")) {
@@ -2296,24 +2318,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + summaryString + "</b>";
             }
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_CAMERA_FLASH, R.string.profile_preferences_cameraFlash, false, context);
-            if (!title.isEmpty()) {
-                _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
-
-                String value = GlobalGUIRoutines.getListPreferenceString(
-                        preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH,
-                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_CAMERA_FLASH)),
-                        R.array.cameraFlashValues, R.array.cameraFlashArray, context);
-
-                summary = summary + title + ": <b>" + value + "</b>";
-            }
-
-            Profile profile = new Profile();
-            profile._cameraFlash = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_CAMERA_FLASH, "0"));
-            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-            Permissions.checkProfileCameraFlash(context, profile, permissions);
-            _permissionGranted = permissions.size() == 0;
         }
 
         if (key.equals(PREF_FORCE_STOP_APPLICATIONS_CATEGORY)) {

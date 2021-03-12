@@ -108,6 +108,13 @@
             app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsScreen" />
 
         <Preference
+            app:title="@string/profile_preferences_category_led_accessories"
+            app:key="prf_pref_ledAccessoriesCategoryRoot"
+            app:widgetLayout="@layout/widget_start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsLedAccessories" />
+
+        <Preference
             app:title="@string/profile_preferences_category_application"
             app:key="prf_pref_applicationCategoryRoot"
             app:widgetLayout="@layout/widget_start_activity_preference"
