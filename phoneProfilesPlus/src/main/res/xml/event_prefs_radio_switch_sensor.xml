@@ -21,8 +21,8 @@
         app:summary="@string/array_pref_radioSwitch_notDetect"
         app:key="eventRadioSwitchWifi"
         app:defaultValue="0"
-        app:entries="@array/eventRadioSwitchArray"
-        app:entryValues="@array/eventRadioSwitchValues"
+        app:entries="@array/eventRadioSwitchWithConnectionArray"
+        app:entryValues="@array/eventRadioSwitchhWithConnectionValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
@@ -30,8 +30,8 @@
         app:summary="@string/array_pref_radioSwitch_notDetect"
         app:key="eventRadioSwitchBluetooth"
         app:defaultValue="0"
-        app:entries="@array/eventRadioSwitchArray"
-        app:entryValues="@array/eventRadioSwitchValues"
+        app:entries="@array/eventRadioSwitchWithConnectionArray"
+        app:entryValues="@array/eventRadioSwitchhWithConnectionValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
@@ -39,8 +39,8 @@
         app:summary="@string/array_pref_radioSwitch_notDetect"
         app:key="eventRadioSwitchMobileData"
         app:defaultValue="0"
-        app:entries="@array/eventRadioSwitchArray"
-        app:entryValues="@array/eventRadioSwitchValues"
+        app:entries="@array/eventRadioSwitchWithConnectionArray"
+        app:entryValues="@array/eventRadioSwitchhWithConnectionValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference

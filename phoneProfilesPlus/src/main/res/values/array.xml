@@ -1284,4 +1284,18 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="eventRadioSwitchWithConnectionArray">
+        <item>@string/array_pref_radioSwitch_notDetect</item>
+        <item>@string/array_pref_radioSwitch_on</item>
+        <item>@string/array_pref_radioSwitch_off</item>
+        <item>@string/array_pref_radioSwitch_connected</item>
+        <item>@string/array_pref_radioSwitch_disconnected</item>
+    </string-array>
+    <string-array name="eventRadioSwitchhWithConnectionValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
 </resources>
