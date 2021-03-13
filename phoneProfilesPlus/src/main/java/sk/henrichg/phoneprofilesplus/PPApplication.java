@@ -1777,8 +1777,8 @@ public class PPApplication extends Application
                 Toast msg = ToastCompat.makeText(appContext, text, length);
                 //Toast msg = Toast.makeText(appContext, text, length);
                 msg.show();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
+            } catch (Exception ignored) {
+                //PPApplication.recordException(e);
             }
         });
     }
