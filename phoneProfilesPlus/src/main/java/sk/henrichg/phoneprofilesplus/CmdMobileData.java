@@ -38,10 +38,14 @@ public class CmdMobileData {
                 boolean ok = false;
                 ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
                 if (adapter != null) {
-                    //if (Build.VERSION.SDK_INT >= 22) {
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(context);
                     if (mSubscriptionManager != null) {
+                        int defaultDataId = 0;
+                        if (Build.VERSION.SDK_INT > 23)
+                            defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
+                        PPApplication.logE("CmdMobileData.isEnabled", "defaultDataId=" + defaultDataId);
+
                         List<SubscriptionInfo> subscriptionList = null;
                         try {
                             // Loop through the subscription list i.e. SIM list.
@@ -55,28 +59,26 @@ public class CmdMobileData {
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                 if (subscriptionInfo != null) {
                                     int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                    if ((Build.VERSION.SDK_INT < 26) || (simCard == 0) || (simCard == slotIndex)) {
+                                    if ((simCard == 0) || (simCard == (slotIndex + 1))) {
                                         int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                        enabled = adapter.getDataEnabled(subscriptionId);
+                                        if (Build.VERSION.SDK_INT > 23)
+                                            enabled = adapter.getDataEnabled(subscriptionId) && (subscriptionId == defaultDataId);
+                                        else
+                                            enabled = adapter.getDataEnabled(subscriptionId);
+                                        PPApplication.logE("CmdMobileData.isEnabled", "subscriptionId=" + subscriptionId);
+                                        PPApplication.logE("CmdMobileData.isEnabled", "simCard=" + simCard);
+                                        PPApplication.logE("CmdMobileData.isEnabled", "slotIndex=" + (slotIndex + 1));
+                                        PPApplication.logE("CmdMobileData.isEnabled", "enabled=" + enabled);
                                         ok = true;
                                     }
-                                    /*if (PPApplication.logEnabled()) {
-                                        PPApplication.logE("CmdMobileData.isEnabled", "subscriptionId=" + subscriptionId);
-                                        PPApplication.logE("CmdMobileData.isEnabled", "enabled=" + enabled);
-                                    }*/
-                                    if (enabled)
+                                    if (ok)
                                         break;
                                 }
                             }
                         }
                     }
-                    //}
                     if (!ok) {
                         enabled = adapter.getDataEnabled(1);
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("CmdMobileData.isEnabled", "subscriptionId=0");
-                    PPApplication.logE("CmdMobileData.isEnabled", "enabled=" + enabled);
-                }*/
                     }
                 }
             }

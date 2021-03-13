@@ -1700,6 +1700,10 @@ public class PhoneProfilesService extends Service
             dataWrapper.fillEventList();
             boolean allowed = false;
             boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA/*, false*/);
+            if (Build.VERSION.SDK_INT >= 26) {
+                eventsExists = eventsExists || dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM1/*, false*/);
+                eventsExists = eventsExists || dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM2/*, false*/);
+            }
             if (eventsExists)
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -6422,7 +6426,7 @@ public class PhoneProfilesService extends Service
                                         }
                                     }
                                     else {
-                                        if (simCard == slotIndex) {
+                                        if (simCard == (slotIndex+1)) {
                                             if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
                                                 // sim card is ready
                                                 hasSIM = true;

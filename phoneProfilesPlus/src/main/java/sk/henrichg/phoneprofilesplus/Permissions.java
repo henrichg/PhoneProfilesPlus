@@ -13,6 +13,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
+import android.telephony.TelephonyManager;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -70,6 +71,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE = 41;
     static final int PERMISSION_PROFILE_SCREEN_ON_PERMANENT = 42;
     static final int PERMISSION_PROFILE_CAMERA_FLASH = 43;
+    static final int PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES = 44;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
@@ -1355,7 +1357,8 @@ class Permissions {
             try {
                 if (event._eventPreferencesCall._enabled ||
                     event._eventPreferencesMobileCells._enabled ||
-                    event._eventPreferencesSMS._enabled) {
+                    event._eventPreferencesSMS._enabled ||
+                    event._eventPreferencesRadioSwitch._enabled) {
                     boolean grantedPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (event._eventPreferencesCall._enabled) {
@@ -1380,33 +1383,30 @@ class Permissions {
                                         permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_PHONE_STATE));
                                 }
                             }
+                            if (event._eventPreferencesRadioSwitch._enabled) {
+                                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                                if (telephonyManager != null) {
+                                    int phoneCount = telephonyManager.getPhoneCount();
+                                    if (phoneCount > 1) {
+                                        //noinspection DuplicateExpressions
+                                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_SMS)) {
+                                            if (!grantedPhoneState)
+                                                permissions.add(new PermissionType(PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES, permission.READ_PHONE_STATE));
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-            } catch (Exception e) {
-                /*boolean grantedPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
-                if (permissions != null) {
-                    if (event._eventPreferencesCall._enabled) {
-                        if (!grantedPhoneState)
-                            permissions.add(new PermissionType(PERMISSION_EVENT_CALL_PREFERENCES, permission.READ_PHONE_STATE));
-                    }
-                    if (Build.VERSION.SDK_INT >= 26) {
-                        if (event._eventPreferencesMobileCells._enabled) {
-                            if (!grantedPhoneState)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.READ_PHONE_STATE));
-                        }
-                        if (event._eventPreferencesSMS._enabled) {
-                            if (!grantedPhoneState)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_PHONE_STATE));
-                        }
-                    }
-                }*/
+            } catch (Exception ignored) {
             }
         }
         else {
             if (preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false) ||
                 preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false) ||
-                preferences.getBoolean(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false)) {
+                preferences.getBoolean(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, false) ||
+                preferences.getBoolean(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, false)) {
                 boolean grantedPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
                 if (permissions != null) {
                     if (preferences.getBoolean(EventPreferencesCall.PREF_EVENT_CALL_ENABLED, false)) {
@@ -1429,6 +1429,19 @@ class Permissions {
                             if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_SMS)) {
                                 if (!grantedPhoneState)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_PHONE_STATE));
+                            }
+                        }
+                        if (preferences.getBoolean(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, false)) {
+                            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                            if (telephonyManager != null) {
+                                int phoneCount = telephonyManager.getPhoneCount();
+                                if (phoneCount > 1) {
+                                    //noinspection DuplicateExpressions
+                                    if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_RADIO_SWITCH)) {
+                                        if (!grantedPhoneState)
+                                            permissions.add(new PermissionType(PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES, permission.READ_PHONE_STATE));
+                                    }
+                                }
                             }
                         }
                     }

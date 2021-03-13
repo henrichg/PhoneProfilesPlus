@@ -238,6 +238,9 @@ public class PPApplication extends Application
 
                                                 +"|ActivateProfileHelper.setMobileData"
                                                 +"|[DUAL_SIM]"
+                                                +"|[IN_OBSERVER]"
+                                                +"|EventPreferencesRadioSwitch.doHandleEvent"
+                                                +"|CmdMobileData.isEnabled"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

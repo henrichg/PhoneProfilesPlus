@@ -23,6 +23,8 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
         context=c;
 
         previousState = ActivateProfileHelper.isMobileData(context, 0);
+        previousStateSIM1 = ActivateProfileHelper.isMobileData(context, 1);
+        previousStateSIM2 = ActivateProfileHelper.isMobileData(context, 2);
     }
 
     /*
@@ -32,7 +34,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
     }
     */
 
-    private void doOnChange(boolean selfChange, Uri uri) {
+    private void doOnChange(/*boolean selfChange, Uri uri*/) {
         if (Event.getGlobalEventsRunning()) {
             final Context appContext = context.getApplicationContext();
 
@@ -64,7 +66,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
-//        PPApplication.logE("[IN_OBSERVER] MobileDataStateChangedContentObserver.onChange", "uri="+uri);
+        PPApplication.logE("[IN_OBSERVER] MobileDataStateChangedContentObserver.onChange", "uri="+uri);
 //        PPApplication.logE("[IN_OBSERVER] MobileDataStateChangedContentObserver.onChange", "current thread="+Thread.currentThread());
 
         //CallsCounter.logCounter(context, "MobileDataStateChangedContentObserver.onChange", "MobileDataStateChangedContentObserver_onChange");
@@ -74,17 +76,17 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
                 boolean actualStateSIM1 = ActivateProfileHelper.isMobileData(context, 1);
                 boolean actualStateSIM2 = ActivateProfileHelper.isMobileData(context, 2);
                 if (previousStateSIM1 != actualStateSIM1) {
-                    doOnChange(selfChange, uri);
+                    doOnChange(/*selfChange, uri*/);
                     previousStateSIM1 = actualStateSIM1;
                 }
                 if (previousStateSIM2 != actualStateSIM2) {
-                    doOnChange(selfChange, uri);
+                    doOnChange(/*selfChange, uri*/);
                     previousStateSIM2 = actualStateSIM2;
                 }
             }
             boolean actualState = ActivateProfileHelper.isMobileData(context, 0);
             if (previousState != actualState) {
-                doOnChange(selfChange, uri);
+                doOnChange(/*selfChange, uri*/);
                 previousState = actualState;
             }
         }

@@ -4578,7 +4578,7 @@ class ActivateProfileHelper {
                                     PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionInfo=" + subscriptionInfo);
                                     if (subscriptionInfo != null) {
                                         int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                        if (simCard == slotIndex) {
+                                        if (simCard == (slotIndex+1)) {
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
                                             PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionId=" + subscriptionId);
                                             synchronized (PPApplication.rootMutex) {
@@ -4724,7 +4724,7 @@ class ActivateProfileHelper {
                                     SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                     if (subscriptionInfo != null) {
                                         int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                        if ((Build.VERSION.SDK_INT < 26) || (simCard == 0) || (simCard == slotIndex)) {
+                                        if ((Build.VERSION.SDK_INT < 26) || (simCard == 0) || (simCard == (slotIndex+1))) {
                                             // dual sim is supported by TelephonyManager from API 26
 
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
