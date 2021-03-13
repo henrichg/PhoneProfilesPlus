@@ -5,15 +5,22 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+
+import java.util.List;
 //import android.preference.CheckBoxPreference;
 //import android.preference.ListPreference;
 //import android.preference.Preference;
@@ -494,8 +501,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 eventsHandler.radioSwitchPassed = true;
                 boolean tested = false;
 
-                if ((_wifi == 1 || _wifi == 2)
-                        && PPApplication.HAS_FEATURE_WIFI) {
+                if (((_wifi == 1) || (_wifi == 2)) && PPApplication.HAS_FEATURE_WIFI) {
 
                     if (!(ApplicationPreferences.prefEventWifiScanRequest ||
                             ApplicationPreferences.prefEventWifiWaitForResult ||
@@ -506,12 +512,48 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         if (wifiManager != null) {
                             int wifiState = wifiManager.getWifiState();
                             boolean enabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
-                            //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "wifiState=" + enabled);
+                            //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "wifi enabled=" + enabled);
+
+                            boolean connected = false;
+                            ConnectivityManager connManager = null;
+                            try {
+                                connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                            } catch (Exception e) {
+                                // java.lang.NullPointerException: missing IConnectivityManager
+                                // Dual SIM?? Bug in Android ???
+                                PPApplication.recordException(e);
+                            }
+                            if (connManager != null) {
+                                Network[] networks = connManager.getAllNetworks();
+                                if ((networks != null) && (networks.length > 0)) {
+                                    for (Network network : networks) {
+                                        try {
+                                            NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
+                                            if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                                                connected = WifiNetworkCallback.connected;
+                                                break;
+                                            }
+                                        } catch (Exception e) {
+//                                            Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
+                                            PPApplication.recordException(e);
+                                        }
+                                    }
+                                }
+                            }
+                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "wifi connected=" + connected);
+
                             tested = true;
                             if (_wifi == 1)
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
                             else
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                            if (_wifi == 2)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!enabled);
+                            else
+                            if (_wifi == 3)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
+                            else
+                            if (_wifi == 4)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
                         }
                         else
                             eventsHandler.notAllowedRadioSwitch = true;
@@ -519,8 +561,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         eventsHandler.notAllowedRadioSwitch = true;
                 }
 
-                if ((_bluetooth == 1 || _bluetooth == 2)
-                        && PPApplication.HAS_FEATURE_BLUETOOTH) {
+                if (((_bluetooth == 1) || (_bluetooth == 2)) && PPApplication.HAS_FEATURE_BLUETOOTH) {
 
                     if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
                             ApplicationPreferences.prefEventBluetoothLEScanRequest ||
@@ -533,58 +574,252 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                         if (bluetoothAdapter != null) {
                             boolean enabled = bluetoothAdapter.isEnabled();
-                            //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "bluetoothState=" + enabled);
+                            //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "bluetooth enabled=" + enabled);
+
+                            BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
+                            boolean connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "");
+                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "bluetooth connected=" + connected);
+
                             tested = true;
                             if (_bluetooth == 1)
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
                             else
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                            if (_bluetooth == 2)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!enabled);
+                            else
+                            if (_bluetooth == 3)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
+                            else
+                            if (_bluetooth == 4)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
                         }
                     } else
                         eventsHandler.notAllowedRadioSwitch = true;
                 }
 
-                if ((_mobileData == 1 || _mobileData == 2)
-                        && PPApplication.HAS_FEATURE_TELEPHONY) {
+                if (((_mobileData == 1) || (_mobileData == 2)) && PPApplication.HAS_FEATURE_TELEPHONY) {
                     boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 0);
-                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataState=" + enabled);
+                    //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileData enabled=" + enabled);
+
+                    boolean connected = false;
+                    ConnectivityManager connManager = null;
+                    try {
+                        connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    } catch (Exception e) {
+                        // java.lang.NullPointerException: missing IConnectivityManager
+                        // Dual SIM?? Bug in Android ???
+                        PPApplication.recordException(e);
+                    }
+                    if (connManager != null) {
+                        Network[] networks = connManager.getAllNetworks();
+                        if ((networks != null) && (networks.length > 0)) {
+                            for (Network network : networks) {
+                                try {
+                                    NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
+                                    if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                                        connected = WifiNetworkCallback.connected;
+                                        break;
+                                    }
+                                } catch (Exception e) {
+//                                    Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
+                                    PPApplication.recordException(e);
+                                }
+                            }
+                        }
+                    }
+                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileData connected=" + connected);
+
                     tested = true;
                     if (_mobileData == 1)
                         eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
                     else
-                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                    if (_mobileData == 2)
+                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!enabled);
+                    else
+                    if (_mobileData == 3)
+                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
+                    else
+                    if (_mobileData == 4)
+                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
                 }
-                if (Build.VERSION.SDK_INT >= 26) {
+                if ((Build.VERSION.SDK_INT >= 26) && PPApplication.HAS_FEATURE_TELEPHONY) {
                     final TelephonyManager telephonyManager = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
-                            if ((_mobileDataSIM1 == 1 || _mobileDataSIM1 == 2)
-                                    && PPApplication.HAS_FEATURE_TELEPHONY) {
-                                boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 1);
-                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataStateSIM1=" + enabled);
-                                tested = true;
-                                if (_mobileDataSIM1 == 1)
-                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
-                                else
-                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                            boolean enabled = false;
+                            boolean connected = false;
+
+                            if ((_mobileDataSIM1 == 1) || (_mobileDataSIM1 == 2)) {
+                                enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 1);
+                                //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM1 enabled=" + enabled);
                             }
-                            if ((_mobileDataSIM2 == 1 || _mobileDataSIM2 == 2)
-                                    && PPApplication.HAS_FEATURE_TELEPHONY) {
-                                boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 2);
-                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataStateSIM2=" + enabled);
-                                tested = true;
-                                if (_mobileDataSIM2 == 1)
-                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
-                                else
-                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                            if ((_mobileDataSIM1 == 3) || (_mobileDataSIM1 == 4)) {
+                                boolean defaultIsSIM1 = false;
+                                SubscriptionManager mSubscriptionManager = (SubscriptionManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                                //SubscriptionManager.from(context);
+                                if (mSubscriptionManager != null) {
+                                    if (Build.VERSION.SDK_INT > 23) {
+                                        int defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
+
+                                        List<SubscriptionInfo> subscriptionList = null;
+                                        try {
+                                            // Loop through the subscription list i.e. SIM list.
+                                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                                        } catch (SecurityException e) {
+                                            PPApplication.recordException(e);
+                                        }
+                                        if (subscriptionList != null) {
+                                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                                                // Get the active subscription ID for a given SIM card.
+                                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                                if (subscriptionInfo != null) {
+                                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                                    if (1 == (slotIndex + 1)) {
+                                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                                        if (subscriptionId == defaultDataId) {
+                                                            defaultIsSIM1 = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (defaultIsSIM1) {
+                                    ConnectivityManager connManager = null;
+                                    try {
+                                        connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                                    } catch (Exception e) {
+                                        // java.lang.NullPointerException: missing IConnectivityManager
+                                        // Dual SIM?? Bug in Android ???
+                                        PPApplication.recordException(e);
+                                    }
+                                    if (connManager != null) {
+                                        Network[] networks = connManager.getAllNetworks();
+                                        if ((networks != null) && (networks.length > 0)) {
+                                            for (Network network : networks) {
+                                                try {
+                                                    NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
+                                                    if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                                                        connected = WifiNetworkCallback.connected;
+                                                        break;
+                                                    }
+                                                } catch (Exception e) {
+//                                                Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
+                                                    PPApplication.recordException(e);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM1 connected=" + connected);
                             }
+
+                            if (_mobileDataSIM1 != 0)
+                                tested = true;
+                            if (_mobileDataSIM1 == 1)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
+                            else
+                            if (_mobileDataSIM1 == 2)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!enabled);
+                            else
+                            if (_mobileDataSIM1 == 3)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
+                            else
+                            if (_mobileDataSIM1 == 4)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
+
+                            enabled = false;
+                            connected = false;
+                            if ((_mobileDataSIM2 == 1) || (_mobileDataSIM2 == 2)) {
+                                enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 2);
+                                //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM2 enabled=" + enabled);
+                            }
+                            if ((_mobileDataSIM2 == 3) || (_mobileDataSIM2 == 4)) {
+                                boolean defaultIsSIM2 = false;
+                                SubscriptionManager mSubscriptionManager = (SubscriptionManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                                //SubscriptionManager.from(context);
+                                if (mSubscriptionManager != null) {
+                                    if (Build.VERSION.SDK_INT > 23) {
+                                        int defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
+
+                                        List<SubscriptionInfo> subscriptionList = null;
+                                        try {
+                                            // Loop through the subscription list i.e. SIM list.
+                                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                                        } catch (SecurityException e) {
+                                            PPApplication.recordException(e);
+                                        }
+                                        if (subscriptionList != null) {
+                                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                                                // Get the active subscription ID for a given SIM card.
+                                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                                if (subscriptionInfo != null) {
+                                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                                    if (2 == (slotIndex + 1)) {
+                                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                                        if (subscriptionId == defaultDataId) {
+                                                            defaultIsSIM2 = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (defaultIsSIM2) {
+                                    ConnectivityManager connManager = null;
+                                    try {
+                                        connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                                    } catch (Exception e) {
+                                        // java.lang.NullPointerException: missing IConnectivityManager
+                                        // Dual SIM?? Bug in Android ???
+                                        PPApplication.recordException(e);
+                                    }
+                                    if (connManager != null) {
+                                        Network[] networks = connManager.getAllNetworks();
+                                        if ((networks != null) && (networks.length > 0)) {
+                                            for (Network network : networks) {
+                                                try {
+                                                    NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
+                                                    if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                                                        connected = WifiNetworkCallback.connected;
+                                                        break;
+                                                    }
+                                                } catch (Exception e) {
+//                                                Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
+                                                    PPApplication.recordException(e);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM1 connected=" + connected);
+                            }
+
+                            if (_mobileDataSIM2 != 0)
+                                tested = true;
+                            if (_mobileDataSIM2 == 1)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
+                            else
+                            if (_mobileDataSIM2 == 2)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!enabled);
+                            else
+                            if (_mobileDataSIM2 == 3)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
+                            else
+                            if (_mobileDataSIM2 == 4)
+                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
                         }
                     }
                 }
 
-                if ((_gps == 1 || _gps == 2)
-                        && PPApplication.HAS_FEATURE_LOCATION_GPS) {
+                if (((_gps == 1) || (_gps == 2)) && PPApplication.HAS_FEATURE_LOCATION_GPS) {
 
                     boolean enabled;
                     /*if (android.os.Build.VERSION.SDK_INT < 19)
@@ -605,8 +840,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         eventsHandler.notAllowedRadioSwitch = true;
                 }
 
-                if ((_nfc == 1 || _nfc == 2)
-                        && PPApplication.HAS_FEATURE_NFC) {
+                if (((_nfc == 1) || (_nfc == 2)) && PPApplication.HAS_FEATURE_NFC) {
 
                     NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(eventsHandler.context);
                     if (nfcAdapter != null) {
@@ -620,7 +854,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     }
                 }
 
-                if (_airplaneMode == 1 || _airplaneMode == 2) {
+                if ((_airplaneMode == 1) || (_airplaneMode == 2)) {
 
                     boolean enabled = ActivateProfileHelper.isAirplaneMode(eventsHandler.context);
                     //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "airplaneModeState=" + enabled);

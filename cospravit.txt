@@ -812,3 +812,5 @@ S10
 
 Test ci su mobilne data pripojene, vid EventPreferencesWifi.doHandleEvent()
 Len pouzi NetworkCapabilities.TRANSPORT_CELLULAR a nie WIFI.
+
+Sprav connect-disconnect aj pre wi-fi a bluetooth do senzora radii.

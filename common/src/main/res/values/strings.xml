@@ -1750,7 +1750,7 @@
     <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>
     <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>
     <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>
-    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual sim devices</string>
+    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>
 
     <!-- **************************************************************************************** -->
 
