@@ -7,6 +7,7 @@ import android.content.SharedPreferences.Editor;
 import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
+import android.os.Build;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -419,7 +420,17 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if ((_mobileData == 1 || _mobileData == 2)
                         && PPApplication.HAS_FEATURE_TELEPHONY) {
 
+                    // TODO add dual sim support -> test only configured sim card
+                    boolean actualStateSIM1 = false;
+                    boolean actualStateSIM2 = false;
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        actualStateSIM1 = ActivateProfileHelper.isMobileData(eventsHandler.context, 1);
+                        actualStateSIM2 = ActivateProfileHelper.isMobileData(eventsHandler.context, 2);
+                    }
                     boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 0);
+                    if (Build.VERSION.SDK_INT >= 26)
+                        enabled = enabled || actualStateSIM1 || actualStateSIM2;
+
                     //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataState=" + enabled);
                     tested = true;
                     if (_mobileData == 1)
