@@ -156,8 +156,11 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                     // start events handler
                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PPWifiNetworkCallback._doConnection");
 
-//                                PPApplication.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_WIFI_CONNECTION");
+//                                    PPApplication.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+
+//                                PPApplication.logE("[EVENTS_HANDLER_CALL] WifiNetworkCallback._doConnection", "sensorType=SENSOR_TYPE_WIFI_CONNECTION");
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_WIFI_CONNECTION);
 
                     //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPWifiNetworkCallback._doConnection");
