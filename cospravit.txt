@@ -808,4 +808,7 @@ S10
 - "ringtone_sound_slot_1" - file???
 - "ringtone_sound_slot_2" - file???
 
-x
+---------------------
+
+Test ci su mobilne data pripojene, vid EventPreferencesWifi.doHandleEvent()
+Len pouzi NetworkCapabilities.TRANSPORT_CELLULAR a nie WIFI.
