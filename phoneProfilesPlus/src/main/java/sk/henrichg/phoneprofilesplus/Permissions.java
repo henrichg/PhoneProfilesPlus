@@ -251,7 +251,7 @@ class Permissions {
             checkProfileNotificationLed(context, profile, permissions);
             checkProfileWallpaper(context, profile, permissions);
             checkProfileRadioPreferences(context, profile, permissions);
-            checkProfilePhoneState(context, profile, permissions);
+            checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
             checkCustomProfileIcon(context, profile, true, permissions);
             //checkProfileAccessNotificationPolicy(context, profile, permissions);
             checkProfileLockDevice(context, profile, permissions);
@@ -712,19 +712,19 @@ class Permissions {
             return true;
     }
 
-    static void checkProfilePhoneState(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+    static void checkProfileLinkUnkinkAndSpeakerPhone(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;
 
         try {
             boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() &&
                     ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
             if (unlinkEnabled ||
-                    (profile._volumeSpeakerPhone != 0) ||
+                    (profile._volumeSpeakerPhone != 0)/* ||
                     (profile._deviceNetworkTypePrefs != 0) ||
                     ((Build.VERSION.SDK_INT >= 28) &&
                             (profile._deviceMobileData != 0) ||
                             (profile._deviceMobileDataSIM1 != 0) ||
-                            (profile._deviceMobileDataSIM2 != 0))
+                            (profile._deviceMobileDataSIM2 != 0))*/
             ) {
                 boolean grantedReadPhoneState = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED;
                 if (permissions != null) {

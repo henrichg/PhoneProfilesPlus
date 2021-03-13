@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.ServiceManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
@@ -54,7 +55,7 @@ public class CmdMobileData {
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                 if (subscriptionInfo != null) {
                                     int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                    if ((simCard == 0) || (simCard == slotIndex)) {
+                                    if ((Build.VERSION.SDK_INT < 26) || (simCard == 0) || (simCard == slotIndex)) {
                                         int subscriptionId = subscriptionInfo.getSubscriptionId();
                                         enabled = adapter.getDataEnabled(subscriptionId);
                                         ok = true;
