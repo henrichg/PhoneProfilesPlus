@@ -410,8 +410,15 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     static boolean isBluetoothConnected(BluetoothDeviceData deviceData, String sensorDeviceName)
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
-            if ((deviceData == null) && sensorDeviceName.isEmpty())
+            if ((deviceData == null) && sensorDeviceName.isEmpty()) {
+//                PPApplication.logE("BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "connectedDevices="+connectedDevices);
+//                if (connectedDevices != null) {
+//                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "connectedDevices.size()=" + connectedDevices.size());
+//                    if (connectedDevices.size() > 0)
+//                        PPApplication.logE("BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "connectedDevices.get(0).name=" + connectedDevices.get(0).name);
+//                }
                 return (connectedDevices != null) && (connectedDevices.size() > 0);
+            }
             else {
                 if (connectedDevices != null) {
                     if (deviceData != null) {

@@ -66,7 +66,7 @@ class MobileDataStateChangedContentObserver extends ContentObserver {
 
     @Override
     public void onChange(boolean selfChange, Uri uri) {
-        PPApplication.logE("[IN_OBSERVER] MobileDataStateChangedContentObserver.onChange", "uri="+uri);
+//        PPApplication.logE("[IN_OBSERVER] MobileDataStateChangedContentObserver.onChange", "uri="+uri);
 //        PPApplication.logE("[IN_OBSERVER] MobileDataStateChangedContentObserver.onChange", "current thread="+Thread.currentThread());
 
         //CallsCounter.logCounter(context, "MobileDataStateChangedContentObserver.onChange", "MobileDataStateChangedContentObserver_onChange");

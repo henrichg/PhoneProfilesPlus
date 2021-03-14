@@ -132,7 +132,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 boolean _addBullet = false;
                 if (this._wifi != 0) {
                     descr = descr + context.getString(R.string.event_preferences_radioSwitch_wifi) + ": ";
-                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
                     descr = descr + "<b>" + fields[this._wifi] + "</b>";
                     _addBullet = true;
                 }
@@ -141,7 +141,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     if (_addBullet)
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.event_preferences_radioSwitch_bluetooth) + ": ";
-                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
                     descr = descr + "<b>" + fields[this._bluetooth] + "</b>";
                     _addBullet = true;
                 }
@@ -150,7 +150,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     if (_addBullet)
                         descr = descr +  " • ";
                     descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData) + ": ";
-                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                    String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
                     descr = descr + "<b>" + fields[this._mobileData] + "</b>";
                     _addBullet = true;
                 }
@@ -163,7 +163,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 if (_addBullet)
                                     descr = descr + " • ";
                                 descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData_SIM1) + ": ";
-                                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
                                 descr = descr + "<b>" + fields[this._mobileDataSIM1] + "</b>";
                                 _addBullet = true;
                             }
@@ -171,7 +171,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 if (_addBullet)
                                     descr = descr + " • ";
                                 descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData_SIM2) + ": ";
-                                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchArray);
+                                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
                                 descr = descr + "<b>" + fields[this._mobileDataSIM2] + "</b>";
                                 _addBullet = true;
                             }
@@ -501,7 +501,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 eventsHandler.radioSwitchPassed = true;
                 boolean tested = false;
 
-                if (((_wifi == 1) || (_wifi == 2)) && PPApplication.HAS_FEATURE_WIFI) {
+                if ((_wifi != 0) && PPApplication.HAS_FEATURE_WIFI) {
 
                     if (!(ApplicationPreferences.prefEventWifiScanRequest ||
                             ApplicationPreferences.prefEventWifiWaitForResult ||
@@ -512,7 +512,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         if (wifiManager != null) {
                             int wifiState = wifiManager.getWifiState();
                             boolean enabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
-                            //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "wifi enabled=" + enabled);
+//                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "wifi enabled=" + enabled);
 
                             boolean connected = false;
                             ConnectivityManager connManager = null;
@@ -540,7 +540,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                     }
                                 }
                             }
-                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "wifi connected=" + connected);
+//                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "wifi connected=" + connected);
 
                             tested = true;
                             if (_wifi == 1)
@@ -561,7 +561,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         eventsHandler.notAllowedRadioSwitch = true;
                 }
 
-                if (((_bluetooth == 1) || (_bluetooth == 2)) && PPApplication.HAS_FEATURE_BLUETOOTH) {
+                if ((_bluetooth != 0) && PPApplication.HAS_FEATURE_BLUETOOTH) {
 
                     if (!(ApplicationPreferences.prefEventBluetoothScanRequest ||
                             ApplicationPreferences.prefEventBluetoothLEScanRequest ||
@@ -574,11 +574,11 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                         if (bluetoothAdapter != null) {
                             boolean enabled = bluetoothAdapter.isEnabled();
-                            //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "bluetooth enabled=" + enabled);
+//                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "bluetooth enabled=" + enabled);
 
                             BluetoothConnectionBroadcastReceiver.getConnectedDevices(eventsHandler.context);
                             boolean connected = BluetoothConnectionBroadcastReceiver.isBluetoothConnected(null, "");
-                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "bluetooth connected=" + connected);
+//                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "bluetooth connected=" + connected);
 
                             tested = true;
                             if (_bluetooth == 1)
@@ -597,9 +597,9 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         eventsHandler.notAllowedRadioSwitch = true;
                 }
 
-                if (((_mobileData == 1) || (_mobileData == 2)) && PPApplication.HAS_FEATURE_TELEPHONY) {
+                if ((_mobileData != 0) && PPApplication.HAS_FEATURE_TELEPHONY) {
                     boolean enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 0);
-                    //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileData enabled=" + enabled);
+//                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileData enabled=" + enabled);
 
                     boolean connected = false;
                     ConnectivityManager connManager = null;
@@ -611,13 +611,16 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         PPApplication.recordException(e);
                     }
                     if (connManager != null) {
+//                        PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "connManager != null");
                         Network[] networks = connManager.getAllNetworks();
                         if ((networks != null) && (networks.length > 0)) {
+//                            PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "networks.length > 0");
                             for (Network network : networks) {
                                 try {
                                     NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                     if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                                        connected = WifiNetworkCallback.connected;
+//                                        PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "(NetworkCapabilities.TRANSPORT_CELLULAR");
+                                        connected = MobileDataNetworkCallback.connected;
                                         break;
                                     }
                                 } catch (Exception e) {
@@ -627,7 +630,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             }
                         }
                     }
-                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileData connected=" + connected);
+//                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileData connected=" + connected);
 
                     tested = true;
                     if (_mobileData == 1)
@@ -652,13 +655,14 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
                             if ((_mobileDataSIM1 == 1) || (_mobileDataSIM1 == 2)) {
                                 enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 1);
-                                //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM1 enabled=" + enabled);
+//                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM1 enabled=" + enabled);
                             }
                             if ((_mobileDataSIM1 == 3) || (_mobileDataSIM1 == 4)) {
                                 boolean defaultIsSIM1 = false;
                                 SubscriptionManager mSubscriptionManager = (SubscriptionManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                                 //SubscriptionManager.from(context);
                                 if (mSubscriptionManager != null) {
+                                    //noinspection ConstantConditions
                                     if (Build.VERSION.SDK_INT > 23) {
                                         int defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
 
@@ -704,7 +708,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                                 try {
                                                     NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                                     if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                                                        connected = WifiNetworkCallback.connected;
+                                                        connected = MobileDataNetworkCallback.connected;
                                                         break;
                                                     }
                                                 } catch (Exception e) {
@@ -715,7 +719,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                         }
                                     }
                                 }
-                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM1 connected=" + connected);
+//                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM1 connected=" + connected);
                             }
 
                             if (_mobileDataSIM1 != 0)
@@ -736,13 +740,14 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             connected = false;
                             if ((_mobileDataSIM2 == 1) || (_mobileDataSIM2 == 2)) {
                                 enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 2);
-                                //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM2 enabled=" + enabled);
+//                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM2 enabled=" + enabled);
                             }
                             if ((_mobileDataSIM2 == 3) || (_mobileDataSIM2 == 4)) {
                                 boolean defaultIsSIM2 = false;
                                 SubscriptionManager mSubscriptionManager = (SubscriptionManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                                 //SubscriptionManager.from(context);
                                 if (mSubscriptionManager != null) {
+                                    //noinspection ConstantConditions
                                     if (Build.VERSION.SDK_INT > 23) {
                                         int defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
 
@@ -788,7 +793,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                                 try {
                                                     NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                                     if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                                                        connected = WifiNetworkCallback.connected;
+                                                        connected = MobileDataNetworkCallback.connected;
                                                         break;
                                                     }
                                                 } catch (Exception e) {
@@ -799,7 +804,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                         }
                                     }
                                 }
-                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM1 connected=" + connected);
+//                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM1 connected=" + connected);
                             }
 
                             if (_mobileDataSIM2 != 0)
@@ -819,7 +824,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     }
                 }
 
-                if (((_gps == 1) || (_gps == 2)) && PPApplication.HAS_FEATURE_LOCATION_GPS) {
+                if ((_gps != 0) && PPApplication.HAS_FEATURE_LOCATION_GPS) {
 
                     boolean enabled;
                     /*if (android.os.Build.VERSION.SDK_INT < 19)
@@ -840,7 +845,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         eventsHandler.notAllowedRadioSwitch = true;
                 }
 
-                if (((_nfc == 1) || (_nfc == 2)) && PPApplication.HAS_FEATURE_NFC) {
+                if ((_nfc != 0) && PPApplication.HAS_FEATURE_NFC) {
 
                     NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(eventsHandler.context);
                     if (nfcAdapter != null) {
@@ -854,7 +859,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     }
                 }
 
-                if ((_airplaneMode == 1) || (_airplaneMode == 2)) {
+                if (_airplaneMode != 0) {
 
                     boolean enabled = ActivateProfileHelper.isAirplaneMode(eventsHandler.context);
                     //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "airplaneModeState=" + enabled);

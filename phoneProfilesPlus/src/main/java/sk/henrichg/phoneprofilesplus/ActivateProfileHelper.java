@@ -3712,7 +3712,7 @@ class ActivateProfileHelper {
             if (Permissions.checkProfileCameraFlash(context, profile, null)) {
                 switch (profile._cameraFlash) {
                     case 1:
-                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
+//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
                         NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
                         if (noobCameraManager != null) {
                             try {
@@ -3723,7 +3723,7 @@ class ActivateProfileHelper {
                         }
                         break;
                     case 2:
-                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
+//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
                         noobCameraManager = NoobCameraManager.getInstance();
                         if (noobCameraManager != null) {
                             try {
@@ -4517,7 +4517,7 @@ class ActivateProfileHelper {
 
     private static void setMobileData(Context context, boolean enable, int simCard)
     {
-        PPApplication.logE("ActivateProfileHelper.setMobileData", "xxx");
+//        PPApplication.logE("ActivateProfileHelper.setMobileData", "xxx");
 
         Context appContext = context.getApplicationContext();
 
@@ -4556,34 +4556,34 @@ class ActivateProfileHelper {
                     int state = enable ? 1 : 0;
 
                     if (transactionCode != -1) {
-                        PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode=" + transactionCode);
+//                        PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode=" + transactionCode);
 
                         SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                         //SubscriptionManager.from(appContext);
                         if (mSubscriptionManager != null) {
-                            PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager != null");
+//                            PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager != null");
                             List<SubscriptionInfo> subscriptionList = null;
                             try {
                                 // Loop through the subscription list i.e. SIM list.
                                 subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                                PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList=" + subscriptionList);
+//                                PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList=" + subscriptionList);
                             } catch (SecurityException e) {
                                 PPApplication.recordException(e);
                             }
                             if (subscriptionList != null) {
-                                PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList.size()=" + subscriptionList.size());
+//                                PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList.size()=" + subscriptionList.size());
                                 for (int i = 0; i < subscriptionList.size(); i++) {
                                     // Get the active subscription ID for a given SIM card.
                                     SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                    PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionInfo=" + subscriptionInfo);
+//                                    PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionInfo=" + subscriptionInfo);
                                     if (subscriptionInfo != null) {
                                         int slotIndex = subscriptionInfo.getSimSlotIndex();
                                         if (simCard == (slotIndex+1)) {
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                            PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionId=" + subscriptionId);
+//                                            PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionId=" + subscriptionId);
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, state);
-                                                PPApplication.logE("ActivateProfileHelper.setMobileData", "command1=" + command1);
+//                                                PPApplication.logE("ActivateProfileHelper.setMobileData", "command1=" + command1);
                                                 if (command1 != null) {
                                                     Command command = new Command(0, false, command1);
                                                     try {
@@ -4597,15 +4597,19 @@ class ActivateProfileHelper {
                                                 }
                                             }
                                         }
-                                    } else
-                                        PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionInfo == null");
+                                    }
+//                                    else
+//                                        PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionInfo == null");
                                 }
-                            } else
-                                PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList == null");
-                        } else
-                            PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager == null");
-                    } else
-                        PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode == -1");
+                            }
+//                            else
+//                                PPApplication.logE("ActivateProfileHelper.setMobileData", "subscriptionList == null");
+                        }
+//                        else
+//                            PPApplication.logE("ActivateProfileHelper.setMobileData", "mSubscriptionManager == null");
+                    }
+//                    else
+//                        PPApplication.logE("ActivateProfileHelper.setMobileData", "transactionCode == -1");
                 }
             }
          }

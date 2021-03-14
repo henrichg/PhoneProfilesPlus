@@ -303,7 +303,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 else
                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator);
 
-                PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCornersRadius="+applicationWidgetOneRowRoundedCornersRadius);
+//                PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCornersRadius="+applicationWidgetOneRowRoundedCornersRadius);
                 int roundedBackground = 0;
                 int roundedBorder = 0;
                 switch (applicationWidgetOneRowRoundedCornersRadius) {

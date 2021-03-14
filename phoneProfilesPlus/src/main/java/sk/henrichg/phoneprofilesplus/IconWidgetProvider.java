@@ -321,7 +321,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     }
                 }
 
-                PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconRoundedCornersRadius="+applicationWidgetIconRoundedCornersRadius);
+//                PPApplication.logE("IconWidgetProvider.onUpdate", "applicationWidgetIconRoundedCornersRadius="+applicationWidgetIconRoundedCornersRadius);
                 int roundedBackground = 0;
                 int roundedBorder = 0;
                 switch (applicationWidgetIconRoundedCornersRadius) {

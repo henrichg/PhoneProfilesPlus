@@ -44,7 +44,7 @@ public class CmdMobileData {
                         int defaultDataId = 0;
                         if (Build.VERSION.SDK_INT > 23)
                             defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
-                        PPApplication.logE("CmdMobileData.isEnabled", "defaultDataId=" + defaultDataId);
+//                        PPApplication.logE("CmdMobileData.isEnabled", "defaultDataId=" + defaultDataId);
 
                         List<SubscriptionInfo> subscriptionList = null;
                         try {
@@ -65,10 +65,10 @@ public class CmdMobileData {
                                             enabled = adapter.getDataEnabled(subscriptionId) && (subscriptionId == defaultDataId);
                                         else
                                             enabled = adapter.getDataEnabled(subscriptionId);
-                                        PPApplication.logE("CmdMobileData.isEnabled", "subscriptionId=" + subscriptionId);
-                                        PPApplication.logE("CmdMobileData.isEnabled", "simCard=" + simCard);
-                                        PPApplication.logE("CmdMobileData.isEnabled", "slotIndex=" + (slotIndex + 1));
-                                        PPApplication.logE("CmdMobileData.isEnabled", "enabled=" + enabled);
+//                                        PPApplication.logE("CmdMobileData.isEnabled", "subscriptionId=" + subscriptionId);
+//                                        PPApplication.logE("CmdMobileData.isEnabled", "simCard=" + simCard);
+//                                        PPApplication.logE("CmdMobileData.isEnabled", "slotIndex=" + (slotIndex + 1));
+//                                        PPApplication.logE("CmdMobileData.isEnabled", "enabled=" + enabled);
                                         ok = true;
                                     }
                                     if (ok)

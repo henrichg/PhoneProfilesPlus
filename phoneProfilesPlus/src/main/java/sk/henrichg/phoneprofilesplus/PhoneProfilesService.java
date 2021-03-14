@@ -1167,6 +1167,18 @@ public class PhoneProfilesService extends Service
                     PPApplication.wifiConnectionCallback = null;
                 }
             }
+            if (PPApplication.mobileDataConnectionCallback != null) {
+                try {
+                    ConnectivityManager connectivityManager =
+                            (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    if (connectivityManager != null) {
+                        connectivityManager.unregisterNetworkCallback(PPApplication.mobileDataConnectionCallback);
+                    }
+                    PPApplication.mobileDataConnectionCallback = null;
+                } catch (Exception e) {
+                    PPApplication.mobileDataConnectionCallback = null;
+                }
+            }
         }
         if (register) {
             if (PPApplication.wifiConnectionCallback == null) {
@@ -1186,6 +1198,26 @@ public class PhoneProfilesService extends Service
                     }
                 } catch (Exception e) {
                     PPApplication.wifiConnectionCallback = null;
+                    PPApplication.recordException(e);
+                }
+            }
+            if (PPApplication.mobileDataConnectionCallback == null) {
+                try {
+                    ConnectivityManager connectivityManager =
+                            (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    if (connectivityManager != null) {
+                        NetworkRequest networkRequest = new NetworkRequest.Builder()
+                                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                                .build();
+
+                        PPApplication.mobileDataConnectionCallback = new MobileDataNetworkCallback(appContext);
+                        if (Build.VERSION.SDK_INT >= 26)
+                            connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback, PPApplication.handlerThreadBroadcast.getThreadHandler());
+                        else
+                            connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback);
+                    }
+                } catch (Exception e) {
+                    PPApplication.mobileDataConnectionCallback = null;
                     PPApplication.recordException(e);
                 }
             }
@@ -4642,9 +4674,9 @@ public class PhoneProfilesService extends Service
     {
         Context appContext = getApplicationContext();
 
-        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
-        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
-        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "isServiceRunning (foreground)="+isServiceRunning(appContext, PhoneProfilesService.class, true));
+//        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "intent="+intent);
+//        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "serviceHasFirstStart="+serviceHasFirstStart);
+//        PPApplication.logE("$$$ PhoneProfilesService.onStartCommand", "isServiceRunning (foreground)="+isServiceRunning(appContext, PhoneProfilesService.class, true));
 
         //startForegroundNotification = true;
 

@@ -236,11 +236,12 @@ public class PPApplication extends Application
                                                 //+"|DonationBroadcastReceiver"
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
 
-                                                +"|ActivateProfileHelper.setMobileData"
-                                                +"|[DUAL_SIM]"
-                                                +"|[IN_OBSERVER]"
-                                                +"|EventPreferencesRadioSwitch.doHandleEvent"
-                                                +"|CmdMobileData.isEnabled"
+                                                //+"|ActivateProfileHelper.setMobileData"
+                                                //+"|[DUAL_SIM]"
+                                                //+"|WifiNetworkCallback"
+                                                //+"|MobileDataNetworkCallback"
+                                                //+"|EventPreferencesRadioSwitch.doHandleEvent"
+                                                //+"|BluetoothConnectionBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -680,6 +681,7 @@ public class PPApplication extends Application
     static DockConnectionBroadcastReceiver dockConnectionBroadcastReceiver = null;
     //static WifiConnectionBroadcastReceiver wifiConnectionBroadcastReceiver = null;
     static WifiNetworkCallback wifiConnectionCallback = null;
+    static MobileDataNetworkCallback mobileDataConnectionCallback = null;
     static BluetoothConnectionBroadcastReceiver bluetoothConnectionBroadcastReceiver = null;
     static BluetoothStateChangedBroadcastReceiver bluetoothStateChangedBroadcastReceiver = null;
     static WifiAPStateChangeBroadcastReceiver wifiAPStateChangeBroadcastReceiver = null;

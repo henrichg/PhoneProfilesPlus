@@ -285,7 +285,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 widget=new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.profile_list_widget_small_no_indicator);
         }*/
 
-        PPApplication.logE("ProfileListWidgetProvider.onUpdate", "applicationWidgetListRoundedCornersRadius="+applicationWidgetListRoundedCornersRadius);
+//        PPApplication.logE("ProfileListWidgetProvider.onUpdate", "applicationWidgetListRoundedCornersRadius="+applicationWidgetListRoundedCornersRadius);
         int roundedBackground = 0;
         int roundedBorder = 0;
         switch (applicationWidgetListRoundedCornersRadius) {
