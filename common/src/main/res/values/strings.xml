@@ -737,7 +737,6 @@
     <string name="event_preferences_calendar_start_before_event">Start before the event</string>
     <string name="event_preferences_startBeforeEvent">Start before the event</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Radio sensor</string>
-    <string name="event_preference_sensor_radioSwitch_summary">This sensor will start an event by switching radios (on/off). Parameters: Wi-Fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode.</string>
     <string name="event_type_radioSwitch">Radios</string>
     <string name="array_pref_radioSwitch_notDetect">Don\'t detect</string>
     <string name="array_pref_radioSwitch_on">On</string>
@@ -1754,6 +1753,7 @@
 
     <string name="array_pref_radioSwitch_connected">Connected</string>
     <string name="array_pref_radioSwitch_disconnected">Disconnected</string>
+    <string name="event_preference_sensor_radioSwitch_summary">This sensor will start an event by switching radios (on/off) and by its connected/disconnected state. Parameters: Wi-Fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode.</string>
 
     <!-- **************************************************************************************** -->
 
