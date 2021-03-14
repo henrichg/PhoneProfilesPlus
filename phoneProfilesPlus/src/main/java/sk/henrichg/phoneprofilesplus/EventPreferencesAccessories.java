@@ -311,8 +311,8 @@ class EventPreferencesAccessories extends EventPreferences {
 
                                 eventsHandler.accessoryPassed = false;
                                 if (bluetoothHeadsetConnected) {
-                                    if ((accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_BLUETOOTH_HEADSET)
-                                            && bluetoothHeadsetMicrophone)
+                                    if (/*(accessoryType == EventPreferencesAccessories.ACCESSORY_TYPE_BLUETOOTH_HEADSET)
+                                            &&*/ bluetoothHeadsetMicrophone)
                                         eventsHandler.accessoryPassed = true;
                                 }
                             }

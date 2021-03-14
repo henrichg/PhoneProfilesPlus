@@ -1965,9 +1965,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             _bold = true;
                             if (!summary.isEmpty()) summary = summary + " • ";
 
-                            int phoneType = TelephonyManager.PHONE_TYPE_GSM;
-                            if (telephonyManager != null)
-                                phoneType = telephonyManager.getPhoneType();
+                            int phoneType;// = TelephonyManager.PHONE_TYPE_GSM;
+                            phoneType = telephonyManager.getPhoneType();
 
                             int arrayValues = 0;
                             int arrayStrings = 0;
@@ -1994,9 +1993,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             _bold = true;
                             if (!summary.isEmpty()) summary = summary + " • ";
 
-                            int phoneType = TelephonyManager.PHONE_TYPE_GSM;
-                            if (telephonyManager != null)
-                                phoneType = telephonyManager.getPhoneType();
+                            int phoneType; // = TelephonyManager.PHONE_TYPE_GSM;
+                            phoneType = telephonyManager.getPhoneType();
 
                             int arrayValues = 0;
                             int arrayStrings = 0;
@@ -2227,7 +2225,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_NOTIFICATION_LED, R.string.profile_preferences_notificationLed, false, context);
             if (!title.isEmpty()) {
                 _bold = true;
-                if (!summary.isEmpty()) summary = summary +" • ";
+                //if (!summary.isEmpty()) summary = summary +" • ";
 
                 String value = GlobalGUIRoutines.getListPreferenceString(
                         preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED,

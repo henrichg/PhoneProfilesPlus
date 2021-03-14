@@ -642,7 +642,7 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
             } catch (Exception e) {
                 // we may get IllegalArgumentException if network location provider
                 // does not exist or is not yet installed.
-                locationEnabled = false;
+                //locationEnabled = false;
             }
         }
 //        PPApplication.logE("LocationGeofenceEditorActivityOSM.startLocationUpdates", "locationEnabled="+locationEnabled);
