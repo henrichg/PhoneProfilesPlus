@@ -229,6 +229,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof DefaultSIMDialogPreferenceX)
+        {
+            ((DefaultSIMDialogPreferenceX)preference).fragment = new DefaultSIMDialogPreferenceFragmentX();
+            dialogFragment = ((DefaultSIMDialogPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {

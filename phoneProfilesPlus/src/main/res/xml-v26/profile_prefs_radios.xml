@@ -21,6 +21,19 @@
         app:entryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <Preference
+        app:key="prf_pref_deviceDefaultSIMInfo"
+        app:title="@string/profile_preferences_deviceDefaultSIM"
+        app:summary="@string/profile_preferences_deviceDefaultSIM_summary"
+        app:widgetLayout="@layout/widget_info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.DefaultSIMDialogPreferenceX
+        app:key="prf_pref_deviceDefaultSIMInfo"
+        app:defaultValue="0|0|0"
+        app:title="@string/profile_preferences_deviceDefaultSIM"
+        app:summary="@string/profile_preferences_deviceDefaultSIM"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <ListPreference
         app:title="@string/profile_preferences_deviceMobileData_21"
         app:summary="@string/array_pref_no_change"

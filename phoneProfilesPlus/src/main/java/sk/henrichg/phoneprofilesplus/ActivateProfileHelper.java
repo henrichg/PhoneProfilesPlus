@@ -5399,6 +5399,9 @@ class ActivateProfileHelper {
     {
 //        PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "xxx");
 
+        //TODO dorob este test, ktory default je nastaveny a ak ten, ktory idem menit, tak nerob nic.
+        // Lebo vraj to hadze exception, ak zavolam nahodenie uz nastaveneho subscription.
+
         Context appContext = context.getApplicationContext();
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&

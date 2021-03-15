@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/default_sim_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <TextView
+        android:id="@+id/default_sim_voice_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="@string/default_sim_pref_dlg_voice"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/default_sim_voice_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="5dp"
+        android:popupElevation="0dp"
+        android:entries="@array/defaultSIMVoiceArray"
+        style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+
+    <TextView
+        android:id="@+id/default_sim_sms_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="@string/default_sim_pref_dlg_sms"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/default_sim_sms_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="5dp"
+        android:popupElevation="0dp"
+        android:entries="@array/defaultSIMSMSArray"
+        style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+
+    <TextView
+        android:id="@+id/default_sim_data_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="@string/default_sim_pref_dlg_data"/>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/default_sim_data_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="5dp"
+        android:popupElevation="0dp"
+        android:entries="@array/defaultSIMDataArray"
+        style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
+
+</LinearLayout>
