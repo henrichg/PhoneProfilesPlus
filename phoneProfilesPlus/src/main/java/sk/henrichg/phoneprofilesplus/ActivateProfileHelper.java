@@ -4688,6 +4688,15 @@ class ActivateProfileHelper {
                         preference.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) ||
                         preference.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2))
                     transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setPreferredNetworkType");
+                else
+                if (preference.equals(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS)) {
+                    int transactionCodeVoice = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
+                    int transactionCodeSMS = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
+                    int transactionCodeData = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultDataSubId");
+                    if ((transactionCodeVoice != -1) && (transactionCodeSMS != -1) && (transactionCodeData != -1))
+                        transactionCode = 1;
+                }
+
                 return transactionCode != -1;
             }
             return false;

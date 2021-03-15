@@ -361,7 +361,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._deviceNetworkTypeSIM1,
                         origProfile._deviceNetworkTypeSIM2,
                         origProfile._deviceMobileDataSIM1,
-                        origProfile._deviceMobileDataSIM2
+                        origProfile._deviceMobileDataSIM2,
+                        origProfile._deviceDefaultSIMCards
                 );
                 showSaveMenu = true;
             }

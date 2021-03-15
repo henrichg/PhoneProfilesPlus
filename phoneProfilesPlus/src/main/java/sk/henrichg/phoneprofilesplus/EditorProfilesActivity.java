@@ -2140,7 +2140,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
     */
 
-    private void importExportErrorDialog(int importExport, int dbResult, int appSettingsResult, int sharedProfileResult)
+    private void importExportErrorDialog(int importExport, int dbResult, int appSettingsResult/*, int sharedProfileResult*/)
     {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         String title;
@@ -2163,8 +2163,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
             if (appSettingsResult == 0)
                 message = message + "\n• " + getString(R.string.import_profiles_alert_error_appSettings_bug);
-            if (sharedProfileResult == 0)
-                message = message + "\n• " + getString(R.string.import_profiles_alert_error_sharedProfile_bug);
+            //if (sharedProfileResult == 0)
+            //    message = message + "\n• " + getString(R.string.import_profiles_alert_error_sharedProfile_bug);
         }
         else
         if (importExport == IMPORTEXPORT_IMPORTFROMPP) {
@@ -2207,7 +2207,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean importApplicationPreferences(File src, int what) {
+    private boolean importApplicationPreferences(File src/*, int what*/) {
         boolean res = true;
         ObjectInputStream input = null;
         try {
@@ -2228,11 +2228,14 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     input = new ObjectInputStream(new FileInputStream(src));
                     Editor prefEdit;
-                    if (what == 1)
+                    //if (what == 1) {
                         prefEdit = getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE).edit();
-                    else
-                        prefEdit = getSharedPreferences("profile_preferences_default_profile", Activity.MODE_PRIVATE).edit();
-                    prefEdit.clear();
+                        prefEdit.clear();
+                    //}
+                    //else {
+                    //    prefEdit = getSharedPreferences("profile_preferences_default_profile", Activity.MODE_PRIVATE).edit();
+                    //    prefEdit.clear();
+                    //}
                     //noinspection unchecked
                     Map<String, ?> entries = (Map<String, ?>) input.readObject();
                     for (Entry<String, ?> entry : entries.entrySet()) {
@@ -2250,7 +2253,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         else if (v instanceof String)
                             prefEdit.putString(key, ((String) v));
 
-                        if (what == 1) {
+                        //if (what == 1) {
                             if (key.equals(ApplicationPreferences.PREF_APPLICATION_THEME)) {
                                 if (v.equals("light") || v.equals("material") || v.equals("color") || v.equals("dlight")) {
                                     String defaultValue = "white";
@@ -2263,7 +2266,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 ActivateProfileHelper.setMergedRingNotificationVolumes(getApplicationContext(), /*true,*/ prefEdit);
                             if (key.equals(ApplicationPreferences.PREF_APPLICATION_FIRST_START))
                                 prefEdit.putBoolean(ApplicationPreferences.PREF_APPLICATION_FIRST_START, false);
-                        }
+                        //}
 
                     /*if (what == 2) {
                         if (key.equals(Profile.PREF_PROFILE_LOCK_DEVICE)) {
@@ -2273,7 +2276,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     }*/
                     }
                     prefEdit.apply();
-                    if (what == 1) {
+                    //if (what == 1) {
                         // save version code
                         try {
                             Context appContext = getApplicationContext();
@@ -2283,7 +2286,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }
-                    }
+                    //}
 
                     PPApplication.loadGlobalApplicationData(getApplicationContext());
                     PPApplication.loadApplicationPreferences(getApplicationContext());
@@ -2332,7 +2335,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             private final DataWrapper _dataWrapper;
             private int dbError = DatabaseHandler.IMPORT_OK;
             private boolean appSettingsError = false;
-            private boolean sharedProfileError = false;
+            //private boolean sharedProfileError = false;
 
             private ImportAsyncTask() {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
@@ -2408,11 +2411,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // because in DatabaseHandler.importDB is recompute of volumes in profiles
                     //File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
                     File exportFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                    appSettingsError = !importApplicationPreferences(exportFile, 1);
+                    appSettingsError = !importApplicationPreferences(exportFile/*, 1*/);
                     //exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                    exportFile = new File(sd, GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                    if (exportFile.exists())
-                        sharedProfileError = !importApplicationPreferences(exportFile, 2);
+                    //exportFile = new File(sd, GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                    //if (exportFile.exists())
+                    //    sharedProfileError = !importApplicationPreferences(exportFile, 2);
 
                     //dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(_applicationDataPath);
                     dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(/*_applicationDataPath*/);
@@ -2450,7 +2453,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //PhoneStateScanner.setShowEnableLocationNotification(_dataWrapper.context, true);
                     }
 
-                    if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError)))
+                    if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError/* || sharedProfileError*/)))
                         return 1;
                     else
                         return 0;
@@ -2497,7 +2500,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     PPApplication.startPPService(activity, serviceIntent);
                 }
 
-                if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError || sharedProfileError))) {
+                if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError/* || sharedProfileError*/))) {
                     //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
 
                     // restart events
@@ -2526,10 +2529,10 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     int appSettingsResult = 1;
                     if (appSettingsError) appSettingsResult = 0;
-                    int sharedProfileResult = 1;
-                    if (sharedProfileError) sharedProfileResult = 0;
+                    //int sharedProfileResult = 1;
+                    //if (sharedProfileError) sharedProfileResult = 0;
                     if (!isFinishing())
-                        importExportErrorDialog(IMPORTEXPORT_IMPORT, dbError, appSettingsResult, sharedProfileResult);
+                        importExportErrorDialog(IMPORTEXPORT_IMPORT, dbError, appSettingsResult/*, sharedProfileResult*/);
 
                     PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, false);
                 }
@@ -3056,7 +3059,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                                                 0,
                                                 0,
                                                 0,
-                                                0
+                                                0,
+                                                "0|0|0"
                                         );
 
                                         // replace ids in profile._deviceRunApplicationPackageName
@@ -3218,7 +3222,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         if (deleteProfilesError || profilesError || shortcutsError || intentsError)
                             dbError = DatabaseHandler.IMPORT_ERROR_BUG;
                         if (!isFinishing())
-                            importExportErrorDialog(IMPORTEXPORT_IMPORTFROMPP, dbError, appSettingsResult, 1);
+                            importExportErrorDialog(IMPORTEXPORT_IMPORTFROMPP, dbError, appSettingsResult/*, 1*/);
 
                         PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_IMPORT_FROM_PP_OK, false);
                     }
@@ -3692,7 +3696,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                     } else {
                         if (!isFinishing())
-                            importExportErrorDialog(IMPORTEXPORT_EXPORT, 0, 0, 0);
+                            importExportErrorDialog(IMPORTEXPORT_EXPORT, 0, 0/*, 0*/);
                     }
                 }
 

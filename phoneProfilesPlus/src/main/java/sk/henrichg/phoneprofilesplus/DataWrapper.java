@@ -234,7 +234,8 @@ public class DataWrapper {
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceNetworkTypeSIM1")),
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceNetworkTypeSIM2")),
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceMobileDataSIM1")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceMobileDataSIM2"))
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceMobileDataSIM2")),
+                Profile.defaultValuesString.get("prf_pref_deviceDefaultSIMCards")
             );
     }
 
