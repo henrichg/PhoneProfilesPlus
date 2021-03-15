@@ -242,6 +242,8 @@ public class PPApplication extends Application
                                                 //+"|MobileDataNetworkCallback"
                                                 //+"|EventPreferencesRadioSwitch.doHandleEvent"
                                                 //+"|BluetoothConnectionBroadcastReceiver"
+
+                                                +"|ActivateProfileHelper.setDefaultSimCard"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

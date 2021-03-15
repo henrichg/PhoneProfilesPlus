@@ -837,3 +837,55 @@ Daj na zaciatok nazvu [I] = interne, [E] = externe, aby si vedel, aky ton nastav
 TELEPHONY_SERVICE = "phone"
 Context.TELEPHONY_SUBSCRIPTION_SERVICE = "telephony_subscription_service"  -- skus na ziskanie ISub.xxx
 Potom uz budem moct zavolat z ISub nahodenie default data, sms, voice. Hadam ano. ;-)
+
+2021-03-15 13:00:45.357 16074-16197/sk.henrichg.phoneprofilesplus E/PPApplication.getServicesList: line=12	isub: [com.android.internal.telephony.ISub]
+2021-03-15 13:00:45.358 16074-16197/sk.henrichg.phoneprofilesplus E/PPApplication.getServicesList: matcher.group(1)=isub
+2021-03-15 13:00:45.358 16074-16197/sk.henrichg.phoneprofilesplus E/PPApplication.getServicesList: matcher.group(2)=com.android.internal.telephony.ISub
+
+import com.android.internal.telephony.ISub;
+
+    @SystemApi
+    @RequiresPermission(Manifest.permission.MODIFY_PHONE_STATE)
+    public void setDefaultVoiceSubscriptionId(int subscriptionId) {
+        if (VDBG) logd("setDefaultVoiceSubId sub id = " + subscriptionId);
+        try {
+            ISub iSub = TelephonyManager.getSubscriptionService();
+            if (iSub != null) {
+                iSub.setDefaultVoiceSubId(subscriptionId);
+            }
+        } catch (RemoteException ex) {
+            // ignore it
+        }
+    }
+
+    public void setDefaultVoiceSubId(int subId) {
+        setDefaultVoiceSubscriptionId(subId);
+    }
+
+    @SystemApi
+    @RequiresPermission(android.Manifest.permission.MODIFY_PHONE_STATE)
+    public void setDefaultSmsSubId(int subscriptionId) {
+        if (VDBG) logd("setDefaultSmsSubId sub id = " + subscriptionId);
+        try {
+            ISub iSub = TelephonyManager.getSubscriptionService();
+            if (iSub != null) {
+                iSub.setDefaultSmsSubId(subscriptionId);
+            }
+        } catch (RemoteException ex) {
+            ex.rethrowFromSystemServer();
+        }
+    }
+
+    @SystemApi
+    @RequiresPermission(android.Manifest.permission.MODIFY_PHONE_STATE)
+    public void setDefaultDataSubId(int subscriptionId) {
+        if (VDBG) logd("setDataSubscription sub id = " + subscriptionId);
+        try {
+            ISub iSub = TelephonyManager.getSubscriptionService();
+            if (iSub != null) {
+                iSub.setDefaultDataSubId(subscriptionId);
+            }
+        } catch (RemoteException ex) {
+            // ignore it
+        }
+    }
