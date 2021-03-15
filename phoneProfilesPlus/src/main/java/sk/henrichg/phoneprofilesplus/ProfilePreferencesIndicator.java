@@ -505,6 +505,28 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
+            // default sim card
+            if (Build.VERSION.SDK_INT >= 26) {
+                if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                        if (telephonyManager != null) {
+                            int phoneCount = telephonyManager.getPhoneCount();
+                            if (phoneCount > 1) {
+                                if (fillPreferences)
+                                    preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceDefaultSIM);
+                                if (fillStrings)
+                                    strings[countDrawables++] = "dsim";
+                                else
+                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_defaultsimcards;
+                                if (fillPreferences)
+                                    countItems[countPreferences++] = 1;
+                            }
+                        }
+                    }
+                }
+            }
+
             // mobile data
             if (profile._deviceMobileData != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -601,7 +623,6 @@ class ProfilePreferencesIndicator {
                                 }
                             }
                         }
-
                     }
                 }
             }
