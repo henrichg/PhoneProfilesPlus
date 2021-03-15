@@ -808,9 +808,32 @@ S10
 - "ringtone_sound_slot_1" - file???
 - "ringtone_sound_slot_2" - file???
 
+Pozri na kod. Ta metoda robi presne to iste, co ja. Tak preco kua mi neberie tony z /Ringtones, ked tiez priamo
+zapisujem do Settings.System?
+Skus toto: do RinmgtonePreferences daj, ci je uri interne alebo externe. Interne by malo mat v stingu "internal".
+Daj na zaciatok nazvu [I] = interne, [E] = externe, aby si vedel, aky ton nastavujes.
+
+
+    public static void setActualDefaultRingtoneUri(Context context, int type, Uri ringtoneUri) {
+        String setting = getSettingForType(type);
+        if (setting == null) return;
+        Settings.System.putString(context.getContentResolver(), setting,
+                ringtoneUri != null ? ringtoneUri.toString() : null);
+    }
+
+    private static String getSettingForType(int type) {
+        if ((type & TYPE_RINGTONE) != 0) {
+            return Settings.System.RINGTONE;
+        } else if ((type & TYPE_NOTIFICATION) != 0) {
+            return Settings.System.NOTIFICATION_SOUND;
+        } else if ((type & TYPE_ALARM) != 0) {
+            return Settings.System.ALARM_ALERT;
+        } else {
+            return null;
+        }
+    }
 ---------------------
 
-Test ci su mobilne data pripojene, vid EventPreferencesWifi.doHandleEvent()
-Len pouzi NetworkCapabilities.TRANSPORT_CELLULAR a nie WIFI.
-
-Sprav connect-disconnect aj pre wi-fi a bluetooth do senzora radii.
+TELEPHONY_SERVICE = "phone"
+Context.TELEPHONY_SUBSCRIPTION_SERVICE = "telephony_subscription_service"  -- skus na ziskanie ISub.xxx
+Potom uz budem moct zavolat z ISub nahodenie default data, sms, voice. Hadam ano. ;-)

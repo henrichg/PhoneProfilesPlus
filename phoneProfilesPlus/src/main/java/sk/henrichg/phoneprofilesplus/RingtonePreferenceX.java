@@ -16,6 +16,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.preference.DialogPreference;
@@ -200,7 +201,14 @@ public class RingtonePreferenceX extends DialogPreference {
                                 while (cursor.moveToNext()) {
                                     String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
                                     String _title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+                                    if (_uri.contains("internal"))
+                                        _title = "[I] " + _title;
+                                    else
+                                        _title = "[E] " + _title;
                                     String _id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+                                    Log.e("RingtonePreferenceX.refreshListView", "_uri="+_uri);
+                                    Log.e("RingtonePreferenceX.refreshListView", "_title="+_title);
+                                    Log.e("RingtonePreferenceX.refreshListView", "_id="+_id);
                                     _toneList.put(_uri + "/" + _id, _title);
                                 }
                             } catch (Exception e) {
