@@ -5437,9 +5437,6 @@ class ActivateProfileHelper {
     {
 //        PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "xxx");
 
-        //TODO dorob este test, ktory default je nastaveny a ak ten, ktory idem menit, tak nerob nic.
-        // Lebo vraj to hadze exception, ak zavolam nahodenie uz nastaveneho subscription.
-
         Context appContext = context.getApplicationContext();
 
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -5449,20 +5446,25 @@ class ActivateProfileHelper {
             if (Permissions.checkPhone(context.getApplicationContext())) {
 //                PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "ask for root enabled and is rooted");
                 if (Build.VERSION.SDK_INT >= 26) {
+                    int defaultSubscriotionId = -1;
+
                     // Get the value of the "TRANSACTION_setDefaultSimCard" field.
                     Object serviceManager = PPApplication.getServiceManager("isub");
                     int transactionCode = -1;
                     if (serviceManager != null) {
                         switch (subscriptionType) {
                             case SUBSCRIPTRION_VOICE:
+                                defaultSubscriotionId = SubscriptionManager.getDefaultVoiceSubscriptionId();
 //                                PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultVoiceSubId");
                                 transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
                                 break;
                             case SUBSCRIPTRION_SMS:
+                                defaultSubscriotionId = SubscriptionManager.getDefaultSmsSubscriptionId();
 //                                PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultSmsSubId");
                                 transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
                                 break;
                             case SUBSCRIPTRION_DATA:
+                                defaultSubscriotionId = SubscriptionManager.getDefaultDataSubscriptionId();
 //                                PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultDataSubId");
                                 transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultDataSubId");
                                 break;
@@ -5494,19 +5496,23 @@ class ActivateProfileHelper {
                                         int slotIndex = subscriptionInfo.getSimSlotIndex();
                                         if (simCard == (slotIndex+1)) {
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
-//                                            PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "subscriptionId=" + subscriptionId);
-                                            synchronized (PPApplication.rootMutex) {
-                                                String command1 = PPApplication.getServiceCommand("isub", transactionCode, subscriptionId);
+                                            if (subscriptionId != defaultSubscriotionId) {
+                                                // do not call subscription change, when is aleredy set, this cause FC
+
+//                                                PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "subscriptionId=" + subscriptionId);
+                                                synchronized (PPApplication.rootMutex) {
+                                                    String command1 = PPApplication.getServiceCommand("isub", transactionCode, subscriptionId);
 //                                                PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "command1=" + command1);
-                                                if (command1 != null) {
-                                                    Command command = new Command(0, false, command1);
-                                                    try {
-                                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                        PPApplication.commandWait(command, "ActivateProfileHelper.setDefaultSimCard");
-                                                    } catch (Exception e) {
-                                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                        //Log.e("ActivateProfileHelper.setDefaultSimCard", Log.getStackTraceString(e));
-                                                        //PPApplication.recordException(e);
+                                                    if (command1 != null) {
+                                                        Command command = new Command(0, false, command1);
+                                                        try {
+                                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                            PPApplication.commandWait(command, "ActivateProfileHelper.setDefaultSimCard");
+                                                        } catch (Exception e) {
+                                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                            //Log.e("ActivateProfileHelper.setDefaultSimCard", Log.getStackTraceString(e));
+                                                            //PPApplication.recordException(e);
+                                                        }
                                                     }
                                                 }
                                             }
