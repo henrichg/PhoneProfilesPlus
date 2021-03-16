@@ -3781,6 +3781,7 @@ public class Profile {
                 mappedProfile._deviceMobileDataSIM1 = 0;
             if (profile._deviceMobileDataSIM2 == SHARED_PROFILE_VALUE)
                 mappedProfile._deviceMobileDataSIM2 = 0;
+            // !!! do not add other profile aprameters. Shared profile is never used !!!
 
             mappedProfile._iconBitmap = profile._iconBitmap;
             mappedProfile._preferencesIndicator = profile._preferencesIndicator;

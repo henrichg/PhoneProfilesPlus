@@ -78,6 +78,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_ALWAYS_ON_DISPLAY_INFO = "prf_pref_alwaysOnDisplayInfo";
     private static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM_INFO = "prf_pref_deviceNetworkTypeDualSIMInfo";
     private static final String PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM_INFO = "prf_pref_deviceMobileDataDualSIMInfo";
+    private static final String PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS_INFO = "prf_pref_deviceDefaultSIMInfo";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -858,6 +859,30 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference != null)
                         preference.setVisible(false);
                     preference = findPreference(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2);
+                    if (preference != null)
+                        preference.setVisible(false);
+                }
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            preference = findPreference(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS_INFO);
+            if (preference != null) {
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    if (phoneCount > 1) {
+                        PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, preferences, true, context);
+                        preference.setEnabled(preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                    } else {
+                        preference.setVisible(false);
+                        preference = findPreference(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS);
+                        if (preference != null)
+                            preference.setVisible(false);
+                    }
+                } else {
+                    preference.setVisible(false);
+                    preference = findPreference(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS);
                     if (preference != null)
                         preference.setVisible(false);
                 }
@@ -1747,6 +1772,46 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + title + ": <b>" + value + "</b>";
             }
 
+            if (Build.VERSION.SDK_INT >= 26) {
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    if (phoneCount > 1) {
+                        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, R.string.profile_preferences_deviceDefaultSIM, false, context);
+//                        Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS - notGrantedG1Permission="+notGrantedG1Permission);
+                        if (!title.isEmpty()) {
+                            _bold = true;
+                            if (!summary.isEmpty()) summary = summary +" • ";
+
+                            String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS,
+                                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS));
+
+                            String[] splits = value.split("\\|");
+                            String voiceStr = "";
+                            try {
+                                String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMVoiceArray);
+                                int index = Integer.parseInt(splits[0]);
+                                voiceStr = arrayStrings[index];
+                            } catch (Exception ignored) {}
+                            String smsStr = "";
+                            try {
+                                String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMSMSArray);
+                                int index = Integer.parseInt(splits[1]);
+                                smsStr = arrayStrings[index];
+                            } catch (Exception ignored) {}
+                            String dataStr = "";
+                            try {
+                                String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMDataArray);
+                                int index = Integer.parseInt(splits[2]);
+                                dataStr = arrayStrings[index];
+                            } catch (Exception ignored) {}
+
+                            summary = summary + title + ": <b>" + voiceStr + "; " + smsStr + "; " + dataStr + "</b>";
+                        }
+                    }
+                }
+            }
+
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, R.string.profile_preferences_deviceMobileData_21, false, context);
 //            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_MOBILE_DATA - notGrantedG1Permission="+notGrantedG1Permission);
             if (!title.isEmpty()) {
@@ -2043,6 +2108,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             Profile profile = new Profile();
             profile._deviceWiFiAP = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, "0"));
             profile._deviceBluetooth = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, "0"));
+            profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
             profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, "0"));
             profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
             profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
@@ -2924,8 +2990,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                                 profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
                                 profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
-                                profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
-                                profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
                                 Permissions.checkProfileRadioPreferences(context, profile, permissions);
                                 //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
                                 _permissionGranted = permissions.size() == 0;
@@ -2980,6 +3044,49 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
             }
+
+            if (key.equals(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS)) {
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    if (phoneCount > 1) {
+                        PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                        if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            Preference preference = prefMng.findPreference(key);
+                            if (preference != null) {
+                                boolean errorColor = false;
+                                if (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
+                                    preference.setEnabled(false);
+                                else
+                                    errorColor = !value.toString().equals("0");
+                                if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                                    preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                            ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
+                            }
+                        } else {
+                            String sValue = value.toString();
+                            Preference preference = prefMng.findPreference(key);
+                            if (preference != null) {
+
+                                //int index = listPreference.findIndexOfValue(sValue);
+                                //CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                                //listPreference.setSummary(summary);
+
+                                boolean _permissionGranted;
+                                Profile profile = new Profile();
+                                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                                profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
+                                Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                                _permissionGranted = permissions.size() == 0;
+
+                                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !sValue.equals("0|0|0"), false, !_permissionGranted, false);
+                            }
+                        }
+                    }
+                }
+            }
+
         }
 
         if (key.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD))
@@ -3677,6 +3784,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2);
         setSummary(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1);
         setSummary(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2);
+        setSummary(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
