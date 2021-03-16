@@ -5446,7 +5446,7 @@ class ActivateProfileHelper {
             if (Permissions.checkPhone(context.getApplicationContext())) {
 //                PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "ask for root enabled and is rooted");
                 if (Build.VERSION.SDK_INT >= 26) {
-                    int defaultSubscriotionId = -1;
+                    int defaultSubscriptionId = -1;
 
                     // Get the value of the "TRANSACTION_setDefaultSimCard" field.
                     Object serviceManager = PPApplication.getServiceManager("isub");
@@ -5454,17 +5454,17 @@ class ActivateProfileHelper {
                     if (serviceManager != null) {
                         switch (subscriptionType) {
                             case SUBSCRIPTRION_VOICE:
-                                defaultSubscriotionId = SubscriptionManager.getDefaultVoiceSubscriptionId();
+                                defaultSubscriptionId = SubscriptionManager.getDefaultVoiceSubscriptionId();
 //                                PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultVoiceSubId");
                                 transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
                                 break;
                             case SUBSCRIPTRION_SMS:
-                                defaultSubscriotionId = SubscriptionManager.getDefaultSmsSubscriptionId();
+                                defaultSubscriptionId = SubscriptionManager.getDefaultSmsSubscriptionId();
 //                                PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultSmsSubId");
                                 transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
                                 break;
                             case SUBSCRIPTRION_DATA:
-                                defaultSubscriotionId = SubscriptionManager.getDefaultDataSubscriptionId();
+                                defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
 //                                PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultDataSubId");
                                 transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultDataSubId");
                                 break;
@@ -5496,7 +5496,8 @@ class ActivateProfileHelper {
                                         int slotIndex = subscriptionInfo.getSimSlotIndex();
                                         if (simCard == (slotIndex+1)) {
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                            if (subscriptionId != defaultSubscriotionId) {
+
+                                            if (subscriptionId != defaultSubscriptionId) {
                                                 // do not call subscription change, when is aleredy set, this cause FC
 
 //                                                PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "subscriptionId=" + subscriptionId);
