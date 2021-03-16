@@ -4723,13 +4723,11 @@ class ActivateProfileHelper {
                     serviceManager = PPApplication.getServiceManager("isub");
                     if (serviceManager != null) {
                         // support for only data devices
-                        //int transactionCodeVoice = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
-                        //int transactionCodeSMS = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
+                        int transactionCodeVoice = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
+                        int transactionCodeSMS = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
                         int transactionCodeData = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultDataSubId");
-                        if (transactionCodeData != -1)
+                        if ((transactionCodeVoice != -1) || (transactionCodeSMS != -1) || (transactionCodeData != -1))
                             transactionCode = 1;
-                        //if ((transactionCodeVoice != -1) && (transactionCodeSMS != -1) && (transactionCodeData != -1))
-                        //    transactionCode = 1;
                     }
                     break;
             }
