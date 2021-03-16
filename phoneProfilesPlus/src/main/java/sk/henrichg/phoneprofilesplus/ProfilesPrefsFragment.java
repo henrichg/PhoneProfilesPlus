@@ -79,6 +79,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM_INFO = "prf_pref_deviceNetworkTypeDualSIMInfo";
     private static final String PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM_INFO = "prf_pref_deviceMobileDataDualSIMInfo";
     private static final String PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS_INFO = "prf_pref_deviceDefaultSIMCardsInfo";
+    private static final String PREF_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_deviceDualSIMSupportCategoryRoot";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -306,6 +307,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setCategorySummary("prf_pref_applicationCategoryRoot", context);
         setCategorySummary(PREF_FORCE_STOP_APPLICATIONS_CATEGORY, context);
         setCategorySummary(PREF_LOCK_DEVICE_CATEGORY, context);
+        setCategorySummary(PREF_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
 
         setRedTextToPreferences();
 
@@ -2648,6 +2650,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + title + ": <b>" + value + "</b>";
             }
         }
+
+//        if (key.equals(PREF_FORCE_STOP_APPLICATIONS_CATEGORY)) {
+//
+//        }
 
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("ProfilesPrefsFragment.setCategorySummary", "key=" + key);

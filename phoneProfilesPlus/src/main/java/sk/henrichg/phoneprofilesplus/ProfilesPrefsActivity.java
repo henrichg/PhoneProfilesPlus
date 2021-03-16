@@ -916,4 +916,14 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
+    @SuppressWarnings("unused")
+    static public class ProfilesPrefsDualSIMSupport extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            setPreferencesFromResource(R.xml.profile_prefs_dual_sim_support, rootKey);
+        }
+
+    }
+
 }

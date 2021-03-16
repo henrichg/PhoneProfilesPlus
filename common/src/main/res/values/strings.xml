@@ -1765,6 +1765,8 @@
     <string name="default_sim_subscription_sms">SMS</string>
     <string name="default_sim_subscription_data">Data</string>
 
+    <string name="profile_preferences_deviceDualSIMSupport">Dual SIM support</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
