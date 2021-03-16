@@ -87,7 +87,6 @@
     <string name="import_profiles_alert_error">Chyba počas procesu obnovy</string>
     <string name="export_profiles_alert_title">Export nastavení</string>
     <string name="export_profiles_alert_error">Chyba počas exportu nastavení</string>
-    <string name="profile_preferences_deviceMobileData">Mobilné dáta</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Nastavenia mobilných dát</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Farebné</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">Natívne</string>
@@ -733,7 +732,6 @@
     <string name="event_preferences_calendar_start_before_event">Štart pred udalosťou</string>
     <string name="event_preferences_startBeforeEvent">Štart pred udalosťou</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Senzor rádií</string>
-    <string name="event_preference_sensor_radioSwitch_summary">Tento senzor je pre štart udalosti podľa prepínania rádií (zapnúť/vypnúť). Parametre: Wi-Fi, Bluetooth, Mobilné dáta, GPS, NFC, Režim lietadlo.</string>
     <string name="event_type_radioSwitch">Rádiá</string>
     <string name="array_pref_radioSwitch_notDetect">Nezisťovať</string>
     <string name="array_pref_radioSwitch_on">Zapnuté</string>
@@ -967,7 +965,6 @@
     <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) nakonfigurované v systéme, (S) vrátené skenerom.</string>
     <string name="import_profiles_alert_error_database_bug">Chyba pri obnovovaní databázy.</string>
     <string name="import_profiles_alert_error_appSettings_bug">Chyba pri obnovovaní nastavenia aplikácie.</string>
-    <string name="import_profiles_alert_error_sharedProfile_bug">Chyba pri obnovovaní parametrov zdieľaného profilu.</string>
     <string name="phone_profiles_pref_applicationTheme_white">Biela téma</string>
     <string name="permission_ask_button">Pýtať sa</string>
     <string name="permission_not_ask_button">Nepýtať sa</string>
@@ -1600,6 +1597,29 @@
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Typ mobilnej siete pre SIM 2</string>
     <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Typ mobilnej siete pre zariadenia s dvoma SIM</string>
     <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimentálne. Nemusí fungovať vo vašom zariadení.</string>
+    <string name="profile_preferences_category_led_accessories">LED príslušenstvo</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobilné dáta pre SIM 1</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobilné dáta pre SIM 2</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM">(R) Mobilné dáta pre zariadenia s dvoma SIM</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM_summary">Experimentálne. Nemusí fungovať vo vašom zariadení.</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobilné dáta pre SIM 1</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobilné dáta pre SIM 2</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobilné dáta pre zariadenia s dvoma SIM</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimentálne. Nemusí fungovať vo vašom zariadení.</string>
+    <string name="permission_why_event_radio_switch_preferences">na kontrolu zmeny prepínača mobilných dát v zariadeniach s dvoma SIM</string>
+    <string name="array_pref_radioSwitch_connected">Pripojené</string>
+    <string name="array_pref_radioSwitch_disconnected">Odpojené</string>
+    <string name="event_preference_sensor_radioSwitch_summary">Tento senzor je pre štart udalosti podľa prepínania rádií (zapnúť/vypnúť) a podľa ich stavu pripojené/odpojené. Parametre: Wi-Fi, Bluetooth, Mobilné dáta, GPS, NFC, Režim lietadlo.</string>
+    <string name="default_sim_pref_dlg_voice">Predvolená SIM pre hlas</string>
+    <string name="default_sim_pref_dlg_sms">Predvolená SIM pre SMS</string>
+    <string name="default_sim_pref_dlg_data">Predvolená SIM pre dáta</string>
+    <string name="array_default_sim_pref_sim1">SIM 1</string>
+    <string name="array_default_sim_pref_sim2">SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) Predvolená SIM karta</string>
+    <string name="profile_preferences_deviceDefaultSIM_summary">Experimentálne. Nemusí fungovať vo vašom zariadení.</string>
+    <string name="default_sim_subscription_voice">Hlas</string>
+    <string name="default_sim_subscription_sms">SMS</string>
+    <string name="default_sim_subscription_data">Dáta</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1630,4 +1650,6 @@
     <string name="extender_acra_notification_send_button">Odoslať</string>
     <string name="extender_acra_notification_discard_button">Zahodiť</string>
     <string name="extender_notification_channel_crash_report">Správa o zlyhaní</string>
+    <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
+    <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
 </resources>

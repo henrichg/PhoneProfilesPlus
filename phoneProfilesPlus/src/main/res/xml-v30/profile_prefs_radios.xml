@@ -22,13 +22,13 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
-        app:key="prf_pref_deviceDefaultSIMInfo"
+        app:key="prf_pref_deviceDefaultSIMCardsInfo"
         app:title="@string/profile_preferences_deviceDefaultSIM"
         app:summary="@string/profile_preferences_deviceDefaultSIM_summary"
         app:widgetLayout="@layout/widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.DefaultSIMDialogPreferenceX
-        app:key="prf_pref_deviceDefaultSIMInfo"
+        app:key="prf_pref_deviceDefaultSIMCards"
         app:defaultValue="0|0|0"
         app:title="@string/profile_preferences_deviceDefaultSIM"
         app:summary="@string/profile_preferences_deviceDefaultSIM"

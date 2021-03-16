@@ -87,7 +87,6 @@
     <string name="import_profiles_alert_error">Chyba během procesu obnovy</string>
     <string name="export_profiles_alert_title">Export nastavení</string>
     <string name="export_profiles_alert_error">Chyba během exportu nastavení</string>
-    <string name="profile_preferences_deviceMobileData">Mobilní data</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Nastavení mobilních dat</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Barevné</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">Nativní</string>
@@ -733,7 +732,6 @@
     <string name="event_preferences_calendar_start_before_event">Start před událostí</string>
     <string name="event_preferences_startBeforeEvent">Start před událostí</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Senzor rádií</string>
-    <string name="event_preference_sensor_radioSwitch_summary">Tento senzor je pro start události podle přepínání rádií (zapnout/vypnout). Parametry: Wi-fi, Bluetooth, Mobilní data, GPS, NFC, Režim letadlo.</string>
     <string name="event_type_radioSwitch">Rádia</string>
     <string name="array_pref_radioSwitch_notDetect">Nezjišťovat</string>
     <string name="array_pref_radioSwitch_on">Zapnout</string>
@@ -967,7 +965,6 @@
     <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) nakonfigurované v systému, (S) vráceny skenerem.</string>
     <string name="import_profiles_alert_error_database_bug">Chyba při obnovování databáze.</string>
     <string name="import_profiles_alert_error_appSettings_bug">Chyba při obnovování nastavení aplikace.</string>
-    <string name="import_profiles_alert_error_sharedProfile_bug">Chyba při obnovování parametrů sdíleného profilu.</string>
     <string name="phone_profiles_pref_applicationTheme_white">Bílé</string>
     <string name="permission_ask_button">Zeptat se</string>
     <string name="permission_not_ask_button">Neptat se</string>
@@ -1600,6 +1597,29 @@
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Typ mobilní sítě pro SIM 2</string>
     <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Typ mobilní sítě pro zařízení s dvěma SIM</string>
     <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimentální. Nemusí fungovat ve vašem zařízení.</string>
+    <string name="profile_preferences_category_led_accessories">LED příslušenství</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobilní data pro SIM 1</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobilní data pro SIM 2</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM">(R) Mobilní data pro zařízení s dvěma SIM</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM_summary">Experimentální. Nemusí fungovat ve vašem zařízení.</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobilní data pro SIM 1</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobilní data pro SIM 2</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobilní data pro zařízení s dvěma SIM</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimentální. Nemusí fungovat ve vašem zařízení.</string>
+    <string name="permission_why_event_radio_switch_preferences">pro kontrolu změny přepínače mobilních dat v zařízeních se dvěma SIM</string>
+    <string name="array_pref_radioSwitch_connected">Připojeno</string>
+    <string name="array_pref_radioSwitch_disconnected">Odpojeno</string>
+    <string name="event_preference_sensor_radioSwitch_summary">Tento senzor je pro start události podle přepínání rádií (zapnout/vypnout) a podle jejich stavu připojeno/odpojeno. Parametry: Wi-fi, Bluetooth, Mobilní data, GPS, NFC, Režim letadlo.</string>
+    <string name="default_sim_pref_dlg_voice">Výchozí SIM pro hlas</string>
+    <string name="default_sim_pref_dlg_sms">Výchozí SIM pro SMS</string>
+    <string name="default_sim_pref_dlg_data">Výchozí SIM pro data</string>
+    <string name="array_default_sim_pref_sim1">SIM 1</string>
+    <string name="array_default_sim_pref_sim2">SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) Výchozí SIM karta</string>
+    <string name="profile_preferences_deviceDefaultSIM_summary">Experimentální. Nemusí fungovat ve vašem zařízení.</string>
+    <string name="default_sim_subscription_voice">Hlas</string>
+    <string name="default_sim_subscription_sms">SMS</string>
+    <string name="default_sim_subscription_data">Data</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1630,4 +1650,6 @@
     <string name="extender_acra_notification_send_button">Odeslat</string>
     <string name="extender_acra_notification_discard_button">Zahodit</string>
     <string name="extender_notification_channel_crash_report">Zpráva o selhání</string>
+    <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
+    <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
 </resources>

@@ -1149,7 +1149,6 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
-            //TODO add support for notification scanning
             PPApplication.restartNotificationScanner(context);
 
             event._eventPreferencesNotification.checkPreferences(prefMng, context);

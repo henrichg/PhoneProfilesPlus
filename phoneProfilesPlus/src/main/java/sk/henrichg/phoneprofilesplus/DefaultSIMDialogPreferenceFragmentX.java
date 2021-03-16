@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.content.ContextCompat;
@@ -42,62 +43,97 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
         smsSpinner = view.findViewById(R.id.default_sim_sms_spinner);
         dataSpinner = view.findViewById(R.id.default_sim_data_spinner);
 
-        GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                (ProfilesPrefsActivity)context,
-                R.layout.highlighted_spinner,
-                getResources().getStringArray(R.array.defaultSIMVoiceArray));
-        voiceSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-        voiceSpinner.setAdapter(voiceSpinnerAdapter);
-        voiceSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        voiceSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner));
-        voiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        int transactionCodeVoice = -1;
+        int transactionCodeSMS = -1;
+        int transactionCodeData = -1;
+        Object serviceManager = PPApplication.getServiceManager("isub");
+        if (serviceManager != null) {
+            // support for only data devices
+            transactionCodeVoice = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
+            transactionCodeSMS = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
+            transactionCodeData = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultDataSubId");
+        }
 
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)voiceSpinner.getAdapter()).setSelection(position);
-            }
+        if (transactionCodeVoice != -1) {
+            GlobalGUIRoutines.HighlightedSpinnerAdapter voiceSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                    (ProfilesPrefsActivity) context,
+                    R.layout.highlighted_spinner,
+                    getResources().getStringArray(R.array.defaultSIMVoiceArray));
+            voiceSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+            voiceSpinner.setAdapter(voiceSpinnerAdapter);
+            voiceSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+            voiceSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner));
+            voiceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        voiceSpinner.setSelection(preference.voiceValue);
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) voiceSpinner.getAdapter()).setSelection(position);
+                    preference.voiceValue = position;
+                }
 
-        GlobalGUIRoutines.HighlightedSpinnerAdapter smsSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                (ProfilesPrefsActivity)context,
-                R.layout.highlighted_spinner,
-                getResources().getStringArray(R.array.defaultSIMSMSArray));
-        smsSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-        smsSpinner.setAdapter(smsSpinnerAdapter);
-        smsSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        smsSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner));
-        smsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+            voiceSpinner.setSelection(preference.voiceValue);
+        }
+        else {
+            TextView textView = view.findViewById(R.id.default_sim_voice_textView);
+            textView.setVisibility(View.GONE);
+            voiceSpinner.setVisibility(View.GONE);
+        }
 
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)smsSpinner.getAdapter()).setSelection(position);
-            }
+        if (transactionCodeSMS != -1) {
+            GlobalGUIRoutines.HighlightedSpinnerAdapter smsSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                    (ProfilesPrefsActivity) context,
+                    R.layout.highlighted_spinner,
+                    getResources().getStringArray(R.array.defaultSIMSMSArray));
+            smsSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+            smsSpinner.setAdapter(smsSpinnerAdapter);
+            smsSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+            smsSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner));
+            smsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        smsSpinner.setSelection(preference.smsValue);
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) smsSpinner.getAdapter()).setSelection(position);
+                    preference.smsValue = position;
+                }
 
-        GlobalGUIRoutines.HighlightedSpinnerAdapter dataSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                (ProfilesPrefsActivity)context,
-                R.layout.highlighted_spinner,
-                getResources().getStringArray(R.array.defaultSIMDataArray));
-        dataSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-        dataSpinner.setAdapter(dataSpinnerAdapter);
-        dataSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
-        dataSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner));
-        dataSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+            smsSpinner.setSelection(preference.smsValue);
+        }
+        else {
+            TextView textView = view.findViewById(R.id.default_sim_sms_textView);
+            textView.setVisibility(View.GONE);
+            smsSpinner.setVisibility(View.GONE);
+        }
 
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)dataSpinner.getAdapter()).setSelection(position);
-            }
+        if (transactionCodeData != -1) {
+            GlobalGUIRoutines.HighlightedSpinnerAdapter dataSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                    (ProfilesPrefsActivity) context,
+                    R.layout.highlighted_spinner,
+                    getResources().getStringArray(R.array.defaultSIMDataArray));
+            dataSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+            dataSpinner.setAdapter(dataSpinnerAdapter);
+            dataSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
+            dataSpinner.setBackgroundTintList(ContextCompat.getColorStateList(context/*getBaseContext()*/, R.color.highlighted_spinner));
+            dataSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        dataSpinner.setSelection(preference.dataValue);
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((GlobalGUIRoutines.HighlightedSpinnerAdapter) dataSpinner.getAdapter()).setSelection(position);
+                    preference.dataValue = position;
+                }
+
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+            });
+            dataSpinner.setSelection(preference.dataValue);
+        }
+        else {
+            TextView textView = view.findViewById(R.id.default_sim_data_textView);
+            textView.setVisibility(View.GONE);
+            dataSpinner.setVisibility(View.GONE);
+        }
 
     }
 

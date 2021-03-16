@@ -87,8 +87,7 @@
     <string name="import_profiles_alert_error">Ошибка во время процесса восстановления</string>
     <string name="export_profiles_alert_title">Экспортировать настройки</string>
     <string name="export_profiles_alert_error">Ошибка при экспорте настроек</string>
-    <string name="profile_preferences_deviceMobileData">Мобильные данные</string>
-    <string name="profile_preferences_deviceMobileDataPrefs">(I) Настройки мобильных данных</string>
+    <string name="profile_preferences_deviceMobileDataPrefs">(I) Настройки передачи данных</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Цветная иконка</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">Встроенная</string>
     <string name="phone_profiles_pref_applicationLongClickActivation">Активировать профиль долгим нажатием</string>
@@ -281,7 +280,7 @@
     <string name="toast_events_restarted">События перезапущены</string>
     <string name="event_name_background_profile">Профиль по умолчанию</string>
     <string name="array_pref_zenModeArray_priority">Важные</string>
-    <string name="profile_preferences_deviceMobileData_21">(R) Передача данных</string>
+    <string name="profile_preferences_deviceMobileData_21">(R) Мобильный интернет</string>
     <string name="preference_profile_adaptiveBrightness">Адаптивная</string>
     <string name="profile_preferences_deviceKeyguard">Блокировка экрана</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Скрыть имя профиля (виджет)</string>
@@ -733,14 +732,13 @@
     <string name="event_preferences_calendar_start_before_event">Перед началом события</string>
     <string name="event_preferences_startBeforeEvent">Запустить до начала события</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Датчик радиомодулей</string>
-    <string name="event_preference_sensor_radioSwitch_summary">Этот датчик предназначен для запуска события переключением радиомодулей (вкл./выкл.). Параметры: \"Wi-Fi\", \"Bluetooth\", \"Мобильные данные\", \"GPS\", \"NFC\", \"Режим полёта\".</string>
     <string name="event_type_radioSwitch">Радиомодули</string>
     <string name="array_pref_radioSwitch_notDetect">Не определять</string>
     <string name="array_pref_radioSwitch_on">Вкл.</string>
     <string name="array_pref_radioSwitch_off">Выкл.</string>
     <string name="event_preferences_radioSwitch_wifi">Wi-Fi</string>
     <string name="event_preferences_radioSwitch_bluetooth">Bluetooth</string>
-    <string name="event_preferences_radioSwitch_mobileData">Мобильные данные</string>
+    <string name="event_preferences_radioSwitch_mobileData">Мобильный интернет</string>
     <string name="event_preferences_radioSwitch_gps">GPS</string>
     <string name="event_preferences_radioSwitch_nfc">NFC</string>
     <string name="event_preferences_radioSwitch_airplaneMode">Режим полета</string>
@@ -799,7 +797,7 @@
     <string name="important_info_quick_guide_1">PhoneProfilesPlus (PPP) состоит из двух компонентов:</string>
     <string name="important_info_quick_guide_2"><![CDATA[<b>ПРОФИЛИ:</b> указывают, как изменить настройки устройства.]]></string>
     <string name="important_info_quick_guide_3"><![CDATA[<b>СОБЫТИЯ:</b> указывают, когда изменить настройки устройства.]]></string>
-    <string name="important_info_quick_guide_profiles_1"><b>ПРОФИЛИ:</b> Позволяют вам настроить параметры устройства, такие как режим звонка, уровни громкости, мелодию звонка и звуки уведомлений, переключение радиомодулей (Wi-Fi, Bluetooth, мобильные данные и т.д.). Когда профиль активирован, соответствующие ему параметры постоянны. Если вы хотите изменить какой-то параметр, нужно активировать другой профиль.</string>
+    <string name="important_info_quick_guide_profiles_1"><b>ПРОФИЛИ:</b> Позволяют вам настроить параметры устройства, такие как режим звонка, уровни громкости, мелодию звонка и звуки уведомлений, переключение радиомодулей (Wi-Fi, Bluetooth, мобильный интернет и т.д.). Когда профиль активирован, соответствующие ему параметры постоянны. Если вы хотите изменить какой-то параметр, нужно активировать другой профиль.</string>
     <string name="important_info_quick_guide_profiles_2">Профили можно активировать вручную или событием.</string>
     <string name="important_info_quick_guide_profiles_3">Вы можете вручную активировать профиль через Активатор (всплывающее окно со списком доступных профилей). Активатор можно вызвать нажатием на иконку приложения на домашнем экране, через виджеты приложения и, для устройств Samsung Edge, из панели Edge. Также вы можете напрямую активировать нужный профиль через виджет приложения 4x4, ярлык профиля или, на устройствах Samsung Edge, из панели Edge.</string>
     <string name="important_info_quick_guide_events_1"><b>СОБЫТИЯ:</b> Позволяют вам настроить, когда активируется профиль. У событий есть начало и конец. Вы можете настроить, что произойдёт в начале события, и что произойдёт, когда событие завершится.</string>
@@ -967,7 +965,6 @@
     <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) настроено в системе, (S) возвращено сканером.</string>
     <string name="import_profiles_alert_error_database_bug">Ошибка при восстановлении базы данных.</string>
     <string name="import_profiles_alert_error_appSettings_bug">Ошибка при восстановлении настроек приложения.</string>
-    <string name="import_profiles_alert_error_sharedProfile_bug">Ошибка при восстановлении настроек Исходного профиля.</string>
     <string name="phone_profiles_pref_applicationTheme_white">Белая</string>
     <string name="permission_ask_button">Спрашивать</string>
     <string name="permission_not_ask_button">Не спрашивать</string>
@@ -1007,7 +1004,7 @@
     <string name="permission_why_profile_screen_brightness">для изменения яркости экрана</string>
     <string name="permission_why_profile_autorotation">для изменения ориентации экрана</string>
     <string name="permission_why_profile_wallpaper">для изменения обоев</string>
-    <string name="permission_why_profile_radio_preferences">для включения/отключения мобильных данных, изменения типа мобильной сети, подключения к SSID</string>
+    <string name="permission_why_profile_radio_preferences">для включения/отключения мобильного интернета, изменения типа мобильной сети, подключения к SSID</string>
     <string name="permission_why_profile_phone_state_broadcast">для разделения уровней громкости звонка и уведомлений, включения/отключения динамика во время вызова</string>
     <string name="permission_why_profile_custom_profile_icon">для пользовательской иконки профиля</string>
     <string name="permission_why_export">для сохранения резервных копий в хранилище</string>
@@ -1154,7 +1151,7 @@
     <string name="info_notification_event_not_started_3">Вы активировали профиль вручную (оранжевый цвет \"светофора\") - необходимо перезапустить все события. В меню Активатора, Редактора или в уведомлении нажмите \"Перезапустить события\". Если профиль активирован вручную, то перед его названием появляется буква \"[M]\" (Manual). Исключение: в настройках события включено \"Игнорировать ручную активацию\".</string>
     <string name="info_notification_event_not_started_4">Вы отключили запуск данного события в его настройках - включите \"Разрешить запуск\" в настройках данного события. Примечание: \"светофор\" показывается в шапках Активатора и Редактора.</string>
     <string name="phone_profiles_pref_eventMobileCellsLocationSystemSettingsNotA9_summary">Если сканирование мобильных вышек не работает, включите определение местоположения в настройках системы.</string>
-    <string name="permission_why_profile_radio_preferences_emui">для включения/выключения мобильных данных, изменения типа мобильной сети, подключения к SSID, включения/выключения Bluetooth</string>
+    <string name="permission_why_profile_radio_preferences_emui">для включения/выключения мобильного интернета, изменения типа мобильной сети, подключения к SSID, включения/выключения Bluetooth</string>
     <string name="permission_why_event_bluetooth_preferences_emui">для переключения состояния Bluetooth в Датчике Bluetooth</string>
     <string name="event_preferences_priority_appSettings_enabled">Приоритет включён</string>
     <string name="event_preferences_priority_appSettings_disabled">Приоритет отключён</string>
@@ -1596,10 +1593,33 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Экран настройки не найден, но если PhoneProfilesPlus запускается при загрузке телефона, то она и не нужна.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Радиус cкругления</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Радиус скругления (виджет)</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
-    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
-    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Тип мобильной сети для SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Тип мобильной сети для SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Тип мобильной сети для устройств с 2 SIM-картами</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Эта функция - экспериментальная и может не работать на вашем устройстве.</string>
+    <string name="profile_preferences_category_led_accessories">LED-аксессуары</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Мобильный интернет для SIM 1</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Мобильный интернет для SIM 2</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM">(R) Мобильный интернет для устройств с 2 SIM-картами</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM_summary">Эта функция - экспериментальная и может не работать на вашем устройстве.</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM1">Мобильный интернет для SIM 1</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM2">Мобильный интернет для SIM 2</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Мобильный интернет для устройств с 2 SIM-картами</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Эта функция - экспериментальная и может не работать на вашем устройстве.</string>
+    <string name="permission_why_event_radio_switch_preferences">для проверки переключения состояния мобильного интернета на устройствах с 2 SIM-картами</string>
+    <string name="array_pref_radioSwitch_connected">Подключено</string>
+    <string name="array_pref_radioSwitch_disconnected">Отключено</string>
+    <string name="event_preference_sensor_radioSwitch_summary">Этот датчик запускает событие по переключению радиомодулей (вкл./выкл.) и по их состоянию (подключено/отключено). Параметры: \"Wi-Fi\", \"Bluetooth\", \"Мобильный интернет\", \"GPS\", \"NFC\", \"Режим полёта\".</string>
+    <string name="default_sim_pref_dlg_voice">Default voice SIM</string>
+    <string name="default_sim_pref_dlg_sms">Default SMS SIM</string>
+    <string name="default_sim_pref_dlg_data">Default data SIM</string>
+    <string name="array_default_sim_pref_sim1">SIM 1</string>
+    <string name="array_default_sim_pref_sim2">SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
+    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="default_sim_subscription_voice">Voice</string>
+    <string name="default_sim_subscription_sms">SMS</string>
+    <string name="default_sim_subscription_data">Data</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1630,4 +1650,6 @@
     <string name="extender_acra_notification_send_button">Отправить</string>
     <string name="extender_acra_notification_discard_button">Отменить</string>
     <string name="extender_notification_channel_crash_report">Отчёт об ошибке</string>
+    <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
+    <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
 </resources>

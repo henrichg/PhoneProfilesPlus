@@ -78,7 +78,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_ALWAYS_ON_DISPLAY_INFO = "prf_pref_alwaysOnDisplayInfo";
     private static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM_INFO = "prf_pref_deviceNetworkTypeDualSIMInfo";
     private static final String PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM_INFO = "prf_pref_deviceMobileDataDualSIMInfo";
-    private static final String PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS_INFO = "prf_pref_deviceDefaultSIMInfo";
+    private static final String PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS_INFO = "prf_pref_deviceDefaultSIMCardsInfo";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

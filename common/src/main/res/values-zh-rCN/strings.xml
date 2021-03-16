@@ -87,7 +87,6 @@
     <string name="import_profiles_alert_error">恢复过程中出错</string>
     <string name="export_profiles_alert_title">导出设置</string>
     <string name="export_profiles_alert_error">导出过程中出错</string>
-    <string name="profile_preferences_deviceMobileData">移动数据</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) 移动数据首选项</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">彩色的</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">原生</string>
@@ -733,7 +732,6 @@
     <string name="event_preferences_calendar_start_before_event">在事件发生之前开始</string>
     <string name="event_preferences_startBeforeEvent">在事件发生之前开始</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">无线传感器</string>
-    <string name="event_preference_sensor_radioSwitch_summary">该传感器将通过切换无线电 (开/关) 来启动事件。参数：Wi-Fi，蓝牙，移动数据，GPS，NFC，飞行模式。</string>
     <string name="event_type_radioSwitch">无线电</string>
     <string name="array_pref_radioSwitch_notDetect">未检测到</string>
     <string name="array_pref_radioSwitch_on">启用</string>
@@ -967,7 +965,6 @@
     <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) 在系统中配置，(S) 由扫描器返回。</string>
     <string name="import_profiles_alert_error_database_bug">恢复数据库时出错。</string>
     <string name="import_profiles_alert_error_appSettings_bug">恢复应用程序设置时出错。</string>
-    <string name="import_profiles_alert_error_sharedProfile_bug">恢复共享情景首选项时出错。</string>
     <string name="phone_profiles_pref_applicationTheme_white">白色</string>
     <string name="permission_ask_button">询问</string>
     <string name="permission_not_ask_button">不询问</string>
@@ -1600,6 +1597,29 @@
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
     <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
     <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="profile_preferences_category_led_accessories">LED accessories</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobile data for SIM 1</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobile data for SIM 2</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM">(R) Mobile data for dual SIM devices</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>
+    <string name="array_pref_radioSwitch_connected">Connected</string>
+    <string name="array_pref_radioSwitch_disconnected">Disconnected</string>
+    <string name="event_preference_sensor_radioSwitch_summary">This sensor will start an event by switching radios (on/off) and by its connected/disconnected state. Parameters: Wi-Fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode.</string>
+    <string name="default_sim_pref_dlg_voice">Default voice SIM</string>
+    <string name="default_sim_pref_dlg_sms">Default SMS SIM</string>
+    <string name="default_sim_pref_dlg_data">Default data SIM</string>
+    <string name="array_default_sim_pref_sim1">SIM 1</string>
+    <string name="array_default_sim_pref_sim2">SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
+    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="default_sim_subscription_voice">Voice</string>
+    <string name="default_sim_subscription_sms">SMS</string>
+    <string name="default_sim_subscription_data">Data</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1630,4 +1650,6 @@
     <string name="extender_acra_notification_send_button">发送​​</string>
     <string name="extender_acra_notification_discard_button">丢弃</string>
     <string name="extender_notification_channel_crash_report">崩溃报告</string>
+    <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
+    <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
 </resources>

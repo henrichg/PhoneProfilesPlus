@@ -970,7 +970,6 @@
     <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configured in system, (S) returned by scanner.</string>
     <string name="import_profiles_alert_error_database_bug">Error restoring the database.</string>
     <string name="import_profiles_alert_error_appSettings_bug">Error restoring the application settings.</string>
-    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>
     <string name="phone_profiles_pref_applicationTheme_white">White</string>
     <string name="array_pref_value_white" translatable="false">white</string>
     <string name="permission_ask_button">Ask</string>
@@ -1808,6 +1807,7 @@
     <string name="extender_notification_channel_crash_report">Crash report</string>
 
 <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
+<!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
 
 </resources>
 

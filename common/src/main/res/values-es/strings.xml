@@ -87,7 +87,6 @@
     <string name="import_profiles_alert_error">Error en el proceso de restauración</string>
     <string name="export_profiles_alert_title">Exportar ajustes</string>
     <string name="export_profiles_alert_error">Error durante el proceso de exportación</string>
-    <string name="profile_preferences_deviceMobileData">Datos móviles</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Preferencias de datos móviles</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">A todo color</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">Nativo</string>
@@ -733,7 +732,6 @@
     <string name="event_preferences_calendar_start_before_event">Iniciar antes del evento</string>
     <string name="event_preferences_startBeforeEvent">Iniciar antes del evento</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Sensor de radio</string>
-    <string name="event_preference_sensor_radioSwitch_summary">Este sensor iniciará un evento por hacer cambios en la radio (encender/apagar). Parámetros: Wi-Fi, Bluetooth, Datos móviles, GPS, NFC, Modo avión.</string>
     <string name="event_type_radioSwitch">Radios</string>
     <string name="array_pref_radioSwitch_notDetect">No detectar</string>
     <string name="array_pref_radioSwitch_on">Encendido</string>
@@ -967,7 +965,6 @@
     <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configurado en el sistema, (S) devuelto por escáner.</string>
     <string name="import_profiles_alert_error_database_bug">Error restaurando la base de datos.</string>
     <string name="import_profiles_alert_error_appSettings_bug">Error restaurando los ajustes de aplicación.</string>
-    <string name="import_profiles_alert_error_sharedProfile_bug">Error al restaurar las preferencias del perfil compartido.</string>
     <string name="phone_profiles_pref_applicationTheme_white">Blanco</string>
     <string name="permission_ask_button">Preguntar</string>
     <string name="permission_not_ask_button">No preguntar</string>
@@ -1600,6 +1597,29 @@
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Tipo de red móvil para la SIM 2</string>
     <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Tipo de red móvil para dispositivos con doble SIM</string>
     <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. Puede que no funcione en su dispositivo.</string>
+    <string name="profile_preferences_category_led_accessories">Accesorios LED</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobile data for SIM 1</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobile data for SIM 2</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM">(R) Mobile data for dual SIM devices</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="permission_why_event_radio_switch_preferences">para comprobar el cambio de datos móviles en dispositivos con doble SIM</string>
+    <string name="array_pref_radioSwitch_connected">Conectado</string>
+    <string name="array_pref_radioSwitch_disconnected">Desconectado</string>
+    <string name="event_preference_sensor_radioSwitch_summary">Este sensor iniciará un evento al cambiar el estado de las radios (encendido/apagado) y por su estado conectado/desconectado. Parámetros: Wi-Fi, Bluetooth, datos móviles, GPS, NFC, modo avión.</string>
+    <string name="default_sim_pref_dlg_voice">Default voice SIM</string>
+    <string name="default_sim_pref_dlg_sms">Default SMS SIM</string>
+    <string name="default_sim_pref_dlg_data">Default data SIM</string>
+    <string name="array_default_sim_pref_sim1">SIM 1</string>
+    <string name="array_default_sim_pref_sim2">SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
+    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="default_sim_subscription_voice">Voice</string>
+    <string name="default_sim_subscription_sms">SMS</string>
+    <string name="default_sim_subscription_data">Data</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>
@@ -1630,4 +1650,6 @@
     <string name="extender_acra_notification_send_button">Enviar</string>
     <string name="extender_acra_notification_discard_button">Descartar</string>
     <string name="extender_notification_channel_crash_report">Informe de error</string>
+    <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
+    <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
 </resources>

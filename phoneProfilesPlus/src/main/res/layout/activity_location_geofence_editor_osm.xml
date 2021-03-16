@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".LocationGeofenceEditorActivityOSM">
 
-    <LinearLayout
-        android:id="@+id/location_editor_et_btn3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical" >
+<!--    <LinearLayout-->
+<!--        android:id="@+id/location_editor_et_btn3"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:orientation="vertical" >-->
 
 <!--        <View-->
 <!--            android:id="@+id/location_editor_buttonBarDivider2"-->
@@ -29,7 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="15dp"
-            android:paddingEnd="15dp" >
+            android:paddingEnd="15dp"
+            android:layout_alignParentBottom="true" >
 
             <Button
                 android:id="@+id/location_editor_ok"
@@ -60,13 +61,13 @@
 
         </RelativeLayout>
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/location_editor_et_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/location_editor_et_btn3"
+        android:layout_above="@id/location_editor_et_btn4"
         android:orientation="vertical" >
 
 <!--        <View-->

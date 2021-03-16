@@ -87,7 +87,6 @@
     <string name="import_profiles_alert_error">Errore durante il ripristino</string>
     <string name="export_profiles_alert_title">Impostazioni di esportazione</string>
     <string name="export_profiles_alert_error">Errore durante il processo di esportazione</string>
-    <string name="profile_preferences_deviceMobileData">Dati mobile</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Preferenze dati mobili</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Colorato</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">Nativo</string>
@@ -733,7 +732,6 @@
     <string name="event_preferences_calendar_start_before_event">Avvia prima dell\'evento</string>
     <string name="event_preferences_startBeforeEvent">Avvia prima dell\'evento</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Sensore radio</string>
-    <string name="event_preference_sensor_radioSwitch_summary">Questo sensore serve per avviare eventi legati alle connessioni radio. Parametri: Wi-Fi, Bluetooth, Connessione dati, GPS, NFC, Modalità aereo.</string>
     <string name="event_type_radioSwitch">Radio</string>
     <string name="array_pref_radioSwitch_notDetect">Non rilevato</string>
     <string name="array_pref_radioSwitch_on">Acceso</string>
@@ -968,7 +966,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) configurato nel sistema, (S) restituito dallo scanner.</string>
     <string name="import_profiles_alert_error_database_bug">Errore nel ripristino del database.</string>
     <string name="import_profiles_alert_error_appSettings_bug">Errore nel ripristino delle impostazioni dell\'applicazione.</string>
-    <string name="import_profiles_alert_error_sharedProfile_bug">Errore nel ripristino delle preferenze del profilo condiviso.</string>
     <string name="phone_profiles_pref_applicationTheme_white">Bianco</string>
     <string name="permission_ask_button">Chiedi</string>
     <string name="permission_not_ask_button">Non chiedere</string>
@@ -1601,6 +1598,29 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
     <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
     <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="profile_preferences_category_led_accessories">LED accessories</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Dati mobili per SIM 1</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Dati mobili per SIM 2</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM">(R) Dati mobili per dispositivi dual SIM</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM_summary">Sperimentale. Potrebbe non funzionare sul tuo dispositivo.</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM1">Dati mobili per SIM 1</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM2">Dati mobili per SIM 2</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Dati mobili per dispositivi dual SIM</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Sperimentale. Potrebbe non funzionare sul tuo dispositivo.</string>
+    <string name="permission_why_event_radio_switch_preferences">per controllare la modifica della selezione dati mobili nei dispositivi dual SIM</string>
+    <string name="array_pref_radioSwitch_connected">Connesso</string>
+    <string name="array_pref_radioSwitch_disconnected">Disconnesso</string>
+    <string name="event_preference_sensor_radioSwitch_summary">Questo sensore avvierà un evento attivando le radio (on/off) e lo stato connesso/disconnesso. Parametri: Wi-Fi, Bluetooth, Dati mobili, GPS, NFC, Modalità aereo.</string>
+    <string name="default_sim_pref_dlg_voice">Default voice SIM</string>
+    <string name="default_sim_pref_dlg_sms">Default SMS SIM</string>
+    <string name="default_sim_pref_dlg_data">Default data SIM</string>
+    <string name="array_default_sim_pref_sim1">SIM 1</string>
+    <string name="array_default_sim_pref_sim2">SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
+    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="default_sim_subscription_voice">Voice</string>
+    <string name="default_sim_subscription_sms">SMS</string>
+    <string name="default_sim_subscription_data">Data</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>
@@ -1631,4 +1651,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="extender_acra_notification_send_button">Invia</string>
     <string name="extender_acra_notification_discard_button">Scarta</string>
     <string name="extender_notification_channel_crash_report">Rapporto di crash</string>
+    <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
+    <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
 </resources>

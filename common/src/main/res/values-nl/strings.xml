@@ -87,7 +87,6 @@
     <string name="import_profiles_alert_error">Fout tijdens herstelproces</string>
     <string name="export_profiles_alert_title">Exporteer Instellingen</string>
     <string name="export_profiles_alert_error">Fout tijdens export proces</string>
-    <string name="profile_preferences_deviceMobileData">Mobiele data</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Voorkeuren mobiele data</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Kleurrijk</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">Standaard</string>
@@ -733,7 +732,6 @@
     <string name="event_preferences_calendar_start_before_event">Start voor het event</string>
     <string name="event_preferences_startBeforeEvent">Start voor het event</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Radio sensor</string>
-    <string name="event_preference_sensor_radioSwitch_summary">Deze sensor is voor starten van event door radio\'s te schakelen (aan/uit). Parameters: Wi-fi, Bluetooth, mobiele data, GPS, NFC, vliegtuig-modus.</string>
     <string name="event_type_radioSwitch">Radio\'s</string>
     <string name="array_pref_radioSwitch_notDetect">Niet detecteren</string>
     <string name="array_pref_radioSwitch_on">Aan</string>
@@ -967,7 +965,6 @@
     <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) geconfigureerd in systeem, (S) door scanner gevonden.</string>
     <string name="import_profiles_alert_error_database_bug">Fout bij het terugzetten van de database.</string>
     <string name="import_profiles_alert_error_appSettings_bug">Fout bij het terugzetten van de applicatie instellingen.</string>
-    <string name="import_profiles_alert_error_sharedProfile_bug">Fout bij het terugzetten voorkeuren van het gedeelde profiel.</string>
     <string name="phone_profiles_pref_applicationTheme_white">Wit</string>
     <string name="permission_ask_button">Vraag</string>
     <string name="permission_not_ask_button">Niet vragen</string>
@@ -1596,10 +1593,33 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Instellingenscherm niet gevonden, maar deze instelling is niet nodig als PhoneProfilesPlus start bij opstarten van de telefoon.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Hoekradius</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Radius van hoek (widget)</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
-    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
-    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobiel netwerk type voor SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobiel netwerk type voor SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobiel netwerktype voor dubbele SIM apparaat</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimenteel. Mogelijk werkt het niet op je apparaat.</string>
+    <string name="profile_preferences_category_led_accessories">LED accessoires</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobiele gegevens voor simkaart 1</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobiele gegevens voor simkaart 2</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM">(R) Mobiele data voor dubbel SIM apparaten</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM_summary">Experimenteel. Mogelijk werkt het niet op je apparaat.</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobiele gegevens voor simkaart 1</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobiele gegevens voor simkaart 2</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobiele gegevens voor dubbel SIM-apparaten</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimenteel. Mogelijk werkt het niet op je apparaat.</string>
+    <string name="permission_why_event_radio_switch_preferences">voor het controleren van de mobiele gegevensschakelaar in dubbel SIM-apparaten</string>
+    <string name="array_pref_radioSwitch_connected">Verbonden</string>
+    <string name="array_pref_radioSwitch_disconnected">Losgekoppeld</string>
+    <string name="event_preference_sensor_radioSwitch_summary">Deze sensor start een event door radio\'s te schakelen (aan/uit) en door de verbonden / ontkoppelde status. Parameters: Wi-Fi, Bluetooth, mobiele data, GPS, NFC, Vliegtuigmodus.</string>
+    <string name="default_sim_pref_dlg_voice">Default voice SIM</string>
+    <string name="default_sim_pref_dlg_sms">Default SMS SIM</string>
+    <string name="default_sim_pref_dlg_data">Default data SIM</string>
+    <string name="array_default_sim_pref_sim1">SIM 1</string>
+    <string name="array_default_sim_pref_sim2">SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
+    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="default_sim_subscription_voice">Voice</string>
+    <string name="default_sim_subscription_sms">SMS</string>
+    <string name="default_sim_subscription_data">Data</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1630,4 +1650,6 @@
     <string name="extender_acra_notification_send_button">Verzend</string>
     <string name="extender_acra_notification_discard_button">Verwijder</string>
     <string name="extender_notification_channel_crash_report">Crashrapport</string>
+    <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
+    <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
 </resources>

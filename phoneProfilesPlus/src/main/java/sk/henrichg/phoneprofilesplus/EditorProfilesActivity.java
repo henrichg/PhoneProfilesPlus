@@ -3606,7 +3606,6 @@ public class EditorProfilesActivity extends AppCompatActivity
                             }
                         }
                         else {
-                            // TODO do copy into user folder
                             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                             LayoutInflater inflater = (activity).getLayoutInflater();
                             @SuppressLint("InflateParams")

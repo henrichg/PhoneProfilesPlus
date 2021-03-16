@@ -4697,38 +4697,44 @@ class ActivateProfileHelper {
     }
     */
 
-    static boolean telephonyServiceExists(/*Context context, */
-            @SuppressWarnings("SameParameterValue") String preference) {
+    static boolean telephonyServiceExists(String preference) {
         try {
-            Object serviceManager = PPApplication.getServiceManager("phone");
-            if (serviceManager != null) {
-                int transactionCode = -1;
-                switch (preference) {
-                    case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA:
-                    case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
-                    case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
+            int transactionCode = -1;
+            switch (preference) {
+                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA:
+                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
+                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
+                    Object serviceManager = PPApplication.getServiceManager("phone");
+                    if (serviceManager != null) {
                         if (Build.VERSION.SDK_INT >= 28)
                             transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setUserDataEnabled");
                         else
                             transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDataEnabled");
-                        break;
-                    case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE:
-                    case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1:
-                    case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2:
+                    }
+                    break;
+                case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE:
+                case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1:
+                case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2:
+                    serviceManager = PPApplication.getServiceManager("phone");
+                    if (serviceManager != null)
                         transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setPreferredNetworkType");
-                        break;
-                    case Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS:
-                        int transactionCodeVoice = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
-                        int transactionCodeSMS = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
+                    break;
+                case Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS:
+                    serviceManager = PPApplication.getServiceManager("isub");
+                    if (serviceManager != null) {
+                        // support for only data devices
+                        //int transactionCodeVoice = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
+                        //int transactionCodeSMS = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
                         int transactionCodeData = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultDataSubId");
-                        if ((transactionCodeVoice != -1) && (transactionCodeSMS != -1) && (transactionCodeData != -1))
+                        if (transactionCodeData != -1)
                             transactionCode = 1;
-                        break;
-                }
-
-                return transactionCode != -1;
+                        //if ((transactionCodeVoice != -1) && (transactionCodeSMS != -1) && (transactionCodeData != -1))
+                        //    transactionCode = 1;
+                    }
+                    break;
             }
-            return false;
+
+            return transactionCode != -1;
         } catch(Exception e) {
             return false;
         }

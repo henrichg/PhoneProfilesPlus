@@ -243,7 +243,7 @@ public class PPApplication extends Application
                                                 //+"|EventPreferencesRadioSwitch.doHandleEvent"
                                                 //+"|BluetoothConnectionBroadcastReceiver"
 
-                                                +"|ActivateProfileHelper.setDefaultSimCard"
+                                                //+"|ActivateProfileHelper.setDefaultSimCard"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

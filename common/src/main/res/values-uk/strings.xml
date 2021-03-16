@@ -87,7 +87,6 @@
     <string name="import_profiles_alert_error">Помилка під час відновлення</string>
     <string name="export_profiles_alert_title">Експортувати налаштування</string>
     <string name="export_profiles_alert_error">Помилка під час експорту</string>
-    <string name="profile_preferences_deviceMobileData">Передача даних</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Налаштування передачі даних</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Кольорова</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">Вбудована</string>
@@ -733,7 +732,6 @@
     <string name="event_preferences_calendar_start_before_event">Почати перед подією</string>
     <string name="event_preferences_startBeforeEvent">Почати перед подією</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Датчик радіомодулів</string>
-    <string name="event_preference_sensor_radioSwitch_summary">Цей датчик призначено для запуску події перемиканням радіомодулів ( вкл/вимк). Параметри: \"Wi-Fi\", \"Bluetooth\", \"Передача даних\", \"GPS\", \"NFC\", режим \"В літаку\".</string>
     <string name="event_type_radioSwitch">Радіомодулі</string>
     <string name="array_pref_radioSwitch_notDetect">Не визначати</string>
     <string name="array_pref_radioSwitch_on">Увімк</string>
@@ -967,7 +965,6 @@
     <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) налаштований в системі, (S), повернутий сканером.</string>
     <string name="import_profiles_alert_error_database_bug">Помилка відновлення бази даних.</string>
     <string name="import_profiles_alert_error_appSettings_bug">Помилка відновлення налаштувань додатку.</string>
-    <string name="import_profiles_alert_error_sharedProfile_bug">Помилка відновлення налаштувань спільного профілю.</string>
     <string name="phone_profiles_pref_applicationTheme_white">Білий</string>
     <string name="permission_ask_button">Запитувати</string>
     <string name="permission_not_ask_button">Не запитувати</string>
@@ -1597,10 +1594,33 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Налаштування екрану не знайдено, але цей параметр не потрібен, якщо PhoneProfilesPlus запускається при завантаженні телефону.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Закруглення кута</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Закруглення кута ( віджет)</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
-    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
-    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Тип мобільної мережі для SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Тип мобільної мережі для SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Тип мобільної мережі для Dual SIM пристроїв</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Експериментально. Може не працювати на Вашому пристрої.</string>
+    <string name="profile_preferences_category_led_accessories">LED аксесуари</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Інтернет через SIM 1</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Інтернет через SIM 2</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM">(R) Мобільний інтернет для пристроїв з 2-ма SIM</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM_summary">Експериментально. Може не працювати на Вашому пристрої.</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM1">Інтернет через SIM 1</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM2">Інтернет через SIM 2</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Мобільний інтернет для пристроїв з 2-ма SIM</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Експериментально. Може не працювати на Вашому пристрої.</string>
+    <string name="permission_why_event_radio_switch_preferences">для перевірки перемикання мобільного інтернету на пристроях з 2-ма SIM</string>
+    <string name="array_pref_radioSwitch_connected">З\'єднано</string>
+    <string name="array_pref_radioSwitch_disconnected">Від’єднано</string>
+    <string name="event_preference_sensor_radioSwitch_summary">Цей датчик призначено для запуску події перемиканням радіомодулів (увімк./вимкн.) та їх станом (з\'єднано/від\'єднано). Параметри: Wi-Fi, Bluetooth, Мобільний інтернет, GPS, NFC, режим польоту.</string>
+    <string name="default_sim_pref_dlg_voice">Default voice SIM</string>
+    <string name="default_sim_pref_dlg_sms">Default SMS SIM</string>
+    <string name="default_sim_pref_dlg_data">Default data SIM</string>
+    <string name="array_default_sim_pref_sim1">SIM 1</string>
+    <string name="array_default_sim_pref_sim2">SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
+    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="default_sim_subscription_voice">Voice</string>
+    <string name="default_sim_subscription_sms">SMS</string>
+    <string name="default_sim_subscription_data">Data</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1631,4 +1651,6 @@
     <string name="extender_acra_notification_send_button">Відправити</string>
     <string name="extender_acra_notification_discard_button">Відхилити</string>
     <string name="extender_notification_channel_crash_report">Звіт про аварію</string>
+    <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
+    <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
 </resources>

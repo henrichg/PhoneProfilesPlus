@@ -115,7 +115,7 @@ public class Profile {
 
     static final long PROFILE_NO_ACTIVATE = -999;
 
-    private static final String PREF_PROFILE_ID = "prf_pref_id";
+    //private static final String PREF_PROFILE_ID = "prf_pref_id";
     static final String PREF_PROFILE_NAME = "prf_pref_profileName";
     static final String PREF_PROFILE_ICON = "prf_pref_profileIcon";
     //private static final String PREF_PROFILE_CHECKED = "prf_pref_checked";
@@ -5219,7 +5219,6 @@ public class Profile {
 
                         if (PPApplication.isRooted(fromUIThread)) {
                             // device is rooted
-
                             if (profile != null) {
                                 // test if grant root is disabled
                                 if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
@@ -5252,10 +5251,12 @@ public class Profile {
                             }
 
                             if (!PhoneProfilesService.hasSIMCard(appContext, 1)) {
+//                                PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "not has sim 1");
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
                             if (!PhoneProfilesService.hasSIMCard(appContext, 2)) {
+//                                PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "not has sim 2");
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }

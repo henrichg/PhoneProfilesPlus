@@ -87,7 +87,6 @@
     <string name="import_profiles_alert_error">Fehler beim Wiederherstellen</string>
     <string name="export_profiles_alert_title">Einstellungen exportieren</string>
     <string name="export_profiles_alert_error">Fehler beim Exportieren</string>
-    <string name="profile_preferences_deviceMobileData">Mobilfunkverbindung</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Einstellungen für mobile Daten</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Farbig</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">Standard</string>
@@ -733,7 +732,6 @@
     <string name="event_preferences_calendar_start_before_event">Starte vor dem Ereignis</string>
     <string name="event_preferences_startBeforeEvent">Starte vor dem Ereignis</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Funk basierte Ereignisse</string>
-    <string name="event_preference_sensor_radioSwitch_summary">Dieser Sensor startet ein Ereignis, indem er die Funkgeräte ein- und ausschaltet. Parameter: WLAN, Bluetooth, Mobilfunkdaten, GPS, NFC und, Flugmodus</string>
     <string name="event_type_radioSwitch">Verbindungen</string>
     <string name="array_pref_radioSwitch_notDetect">Nicht erkennen</string>
     <string name="array_pref_radioSwitch_on">An</string>
@@ -967,7 +965,6 @@
     <string name="event_preference_bluetooth_btName_type" tools:ignore="TypographyOther">(C) eingerichtet in den Systemeinstellungen, (S) Rückgabewert vom Scanner.</string>
     <string name="import_profiles_alert_error_database_bug">Fehler beim Wiederherstellen der Datenbank</string>
     <string name="import_profiles_alert_error_appSettings_bug">Fehler bei der Wiederherstellung der Anwendungseinstellungen.</string>
-    <string name="import_profiles_alert_error_sharedProfile_bug">Fehler bei der Wiederherstellung der gemeinsamen Profileinstellungen.</string>
     <string name="phone_profiles_pref_applicationTheme_white">Weiß</string>
     <string name="permission_ask_button">Fragen</string>
     <string name="permission_not_ask_button">Nicht fragen</string>
@@ -1596,10 +1593,33 @@
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">Einstellungsbildschirm nicht gefunden. Jedoch wird diese Einstellung nicht benötigt, wenn PhoneProfilesPlus beim Hochfahren des Telefons startet.</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">Eckradius</string>
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Eckradius (Widget)</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobile network type for SIM 1</string>
-    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobile network type for SIM 2</string>
-    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>
-    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Mobilfunknetz-Typ für SIM 1</string>
+    <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Mobilfunknetz-Typ für SIM 2</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobilfunknetz-Typ für Geräte mit Dual-SIM</string>
+    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimentell. Dies kann möglicherweise nicht auf Ihrem Gerät genutzt werden.</string>
+    <string name="profile_preferences_category_led_accessories">LED-Zubehör</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobile Daten für SIM 1</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobile Daten für SIM 2</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM">(R) Mobile Daten für Geräte mit zwei SIM-Karten</string>
+    <string name="profile_preferences_deviceMobileDataDualSIM_summary">Experimentell. Dies kann möglicherweise nicht auf Ihrem Gerät genutzt werden.</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile Daten für SIM 1</string>
+    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile Daten für SIM 2</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile Daten für Geräte mit zwei SIM-Karten</string>
+    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimentell. Dies kann möglicherweise nicht auf Ihrem Gerät genutzt werden.</string>
+    <string name="permission_why_event_radio_switch_preferences">zum Prüfen mobiler Daten, Wechseln in Geräten mit zwei SIM-Karten</string>
+    <string name="array_pref_radioSwitch_connected">Verbunden</string>
+    <string name="array_pref_radioSwitch_disconnected">Verbindung getrennt</string>
+    <string name="event_preference_sensor_radioSwitch_summary">Dieser Sensor startet ein Ereignis durch das Ein-/Ausschalten von Funkgeräten und durch seinen Status (Verbunden/Getrennt). Parameter: WLAN, Bluetooth, Mobile Daten, GPS, NFC, Flugmodus.</string>
+    <string name="default_sim_pref_dlg_voice">Default voice SIM</string>
+    <string name="default_sim_pref_dlg_sms">Default SMS SIM</string>
+    <string name="default_sim_pref_dlg_data">Default data SIM</string>
+    <string name="array_default_sim_pref_sim1">SIM 1</string>
+    <string name="array_default_sim_pref_sim2">SIM 2</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
+    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="default_sim_subscription_voice">Voice</string>
+    <string name="default_sim_subscription_sms">SMS</string>
+    <string name="default_sim_subscription_data">Data</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1630,4 +1650,6 @@
     <string name="extender_acra_notification_send_button">Senden</string>
     <string name="extender_acra_notification_discard_button">Verwerfen</string>
     <string name="extender_notification_channel_crash_report">Absturzbericht</string>
+    <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
+    <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
 </resources>
