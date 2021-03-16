@@ -116,6 +116,34 @@ class ActivateProfileHelper {
 
         Context appContext = context.getApplicationContext();
 
+        if (Build.VERSION.SDK_INT >= 26) {
+            if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    String[] splits = profile._deviceDefaultSIMCards.split("\\|");
+                    try {
+                        String voice = splits[0];
+                        if (!voice.equals("0"))
+                            setDefaultSimCard(context, SUBSCRIPTRION_VOICE, Integer.parseInt(voice));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                    try {
+                        String sms = splits[1];
+                        if (!sms.equals("0"))
+                            setDefaultSimCard(context, SUBSCRIPTRION_SMS, Integer.parseInt(sms));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                    try {
+                        String data = splits[2];
+                        if (!data.equals("0"))
+                            setDefaultSimCard(context, SUBSCRIPTRION_DATA, Integer.parseInt(data));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            }
+        }
         // setup network type
         // in array.xml, networkTypeGSMValues are 100+ values
         if (profile._deviceNetworkType >= 100) {
@@ -4675,26 +4703,27 @@ class ActivateProfileHelper {
             Object serviceManager = PPApplication.getServiceManager("phone");
             if (serviceManager != null) {
                 int transactionCode = -1;
-                if (preference.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
-                        preference.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1) ||
-                        preference.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2)) {
-                    if (Build.VERSION.SDK_INT >= 28)
-                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setUserDataEnabled");
-                    else
-                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDataEnabled");
-                }
-                else
-                if (preference.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
-                        preference.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) ||
-                        preference.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2))
-                    transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setPreferredNetworkType");
-                else
-                if (preference.equals(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS)) {
-                    int transactionCodeVoice = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
-                    int transactionCodeSMS = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
-                    int transactionCodeData = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultDataSubId");
-                    if ((transactionCodeVoice != -1) && (transactionCodeSMS != -1) && (transactionCodeData != -1))
-                        transactionCode = 1;
+                switch (preference) {
+                    case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA:
+                    case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
+                    case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
+                        if (Build.VERSION.SDK_INT >= 28)
+                            transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setUserDataEnabled");
+                        else
+                            transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDataEnabled");
+                        break;
+                    case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE:
+                    case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1:
+                    case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2:
+                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setPreferredNetworkType");
+                        break;
+                    case Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS:
+                        int transactionCodeVoice = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
+                        int transactionCodeSMS = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
+                        int transactionCodeData = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultDataSubId");
+                        if ((transactionCodeVoice != -1) && (transactionCodeSMS != -1) && (transactionCodeData != -1))
+                            transactionCode = 1;
+                        break;
                 }
 
                 return transactionCode != -1;
