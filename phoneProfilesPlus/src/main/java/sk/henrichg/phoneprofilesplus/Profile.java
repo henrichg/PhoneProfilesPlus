@@ -294,6 +294,8 @@ public class Profile {
         defaultValuesString.put("prf_pref_deviceMobileDataSIM1", "0");
         defaultValuesString.put("prf_pref_deviceMobileDataSIM2", "0");
         defaultValuesString.put("prf_pref_deviceDefaultSIMCards", "0|0|0");
+        defaultValuesString.put("prf_pref_deviceOnOffSIM1", "0");
+        defaultValuesString.put("prf_pref_deviceOnOffSIM2", "0");
     }
 
     static final int RINGERMODE_RING = 1;

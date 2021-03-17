@@ -1769,6 +1769,8 @@
 
     <string name="profile_preferences_deviceOnOff_SIM1">Switch SIM 1 on/off</string>
     <string name="profile_preferences_deviceOnOff_SIM2">Switch SIM 2 on/off</string>
+    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>
+    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>
 
     <!-- **************************************************************************************** -->
 

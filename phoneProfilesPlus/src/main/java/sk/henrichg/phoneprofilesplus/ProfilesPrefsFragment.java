@@ -2554,7 +2554,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             String value = GlobalGUIRoutines.getListPreferenceString(
                                     preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1,
                                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1)),
-                                    R.array.hardwareModeValues, R.array.hardwareModeArray, context);
+                                    R.array.onOffSIMValues, R.array.onOffSIMArray, context);
 
                             summary = summary + title + ": <b>" + value + "</b>";
                         }
@@ -2567,7 +2567,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             String value = GlobalGUIRoutines.getListPreferenceString(
                                     preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2,
                                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2)),
-                                    R.array.hardwareModeValues, R.array.hardwareModeArray, context);
+                                    R.array.onOffSIMValues, R.array.onOffSIMArray, context);
 
                             summary = summary + title + ": <b>" + value + "</b>";
                         }

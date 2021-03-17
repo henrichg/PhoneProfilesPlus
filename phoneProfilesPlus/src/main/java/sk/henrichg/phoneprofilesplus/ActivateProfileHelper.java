@@ -116,6 +116,69 @@ class ActivateProfileHelper {
 
         Context appContext = context.getApplicationContext();
 
+        // switch on/off SIM
+        if (Build.VERSION.SDK_INT >= 26) {
+            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                int phoneCount = telephonyManager.getPhoneCount();
+                if (phoneCount > 1) {
+
+                    if (profile._deviceOnOffSIM1 != 0) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1");
+                            //boolean _isSIM1On = isSIMOn(appContext, 1);
+                            //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isSIM1On="+_isSIM1On);
+                            boolean _setSIM1OnOff = false;
+                            switch (profile._deviceOnOffSIM1) {
+                                case 1:
+                                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 1");
+                                    _setSIM1OnOff = true;
+                                    break;
+                                case 2:
+                                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 2");
+                                    _setSIM1OnOff = true;
+                                    break;
+                            }
+                            if ( _setSIM1OnOff) {
+                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setOnOffSIM()");
+                                setOnOffSIM(appContext, _setSIM1OnOff, 1);
+                                PPApplication.sleep(200);
+                            }
+                        }
+                        //else
+                        //    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 NOT ALLOWED");
+                    }
+                    if (profile._deviceOnOffSIM2 != 0) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2");
+                            //boolean _isSIM2On = isSIMOn(appContext, 2);
+                            //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isSIM2On="+_isSIM2On);
+                            boolean _setSIM2OnOff = false;
+                            switch (profile._deviceOnOffSIM1) {
+                                case 1:
+                                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2 1");
+                                    _setSIM2OnOff = true;
+                                    break;
+                                case 2:
+                                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2 2");
+                                    _setSIM2OnOff = true;
+                                    break;
+                            }
+                            if ( _setSIM2OnOff) {
+                                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setOnOffSIM()");
+                                setOnOffSIM(appContext, _setSIM2OnOff, 2);
+                                PPApplication.sleep(200);
+                            }
+                        }
+                        //else
+                        //    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 NOT ALLOWED");
+                    }
+
+                }
+            }
+        }
+
+        // change default SIM
         if (Build.VERSION.SDK_INT >= 26) {
             if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -144,6 +207,7 @@ class ActivateProfileHelper {
                 }
             }
         }
+
         // setup network type
         // in array.xml, networkTypeGSMValues are 100+ values
         if (profile._deviceNetworkType >= 100) {
@@ -5542,6 +5606,86 @@ class ActivateProfileHelper {
 //                    else
 //                        PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "transactionCode == -1");
                 }
+            }
+        }
+    }
+
+    private static void setOnOffSIM(Context context, boolean enable, int simCard)
+    {
+//        PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "xxx");
+
+        Context appContext = context.getApplicationContext();
+
+        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                PPApplication.isRooted(false) &&
+                PhoneProfilesService.hasSIMCard(appContext, simCard))
+        {
+            if (Permissions.checkPhone(context.getApplicationContext())) {
+                //PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "ask for root enabled and is rooted");
+                // Get the value of the "TRANSACTION_setDataEnabled" field.
+                Object serviceManager = PPApplication.getServiceManager("isub");
+                int transactionCode = -1;
+                if (serviceManager != null) {
+                    transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setSubscriptionEnabled");
+                }
+
+                int state = enable ? 1 : 0;
+
+                if (transactionCode != -1) {
+//                    PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "transactionCode=" + transactionCode);
+
+                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                    //SubscriptionManager.from(appContext);
+                    if (mSubscriptionManager != null) {
+//                        PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "mSubscriptionManager != null");
+                        List<SubscriptionInfo> subscriptionList = null;
+                        try {
+                            // Loop through the subscription list i.e. SIM list.
+                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+//                            PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "subscriptionList=" + subscriptionList);
+                        } catch (SecurityException e) {
+                            PPApplication.recordException(e);
+                        }
+                        if (subscriptionList != null) {
+//                            PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "subscriptionList.size()=" + subscriptionList.size());
+                            for (int i = 0; i < subscriptionList.size(); i++) {
+                                // Get the active subscription ID for a given SIM card.
+                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+//                                PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "subscriptionInfo=" + subscriptionInfo);
+                                if (subscriptionInfo != null) {
+                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                    if (simCard == (slotIndex+1)) {
+                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
+//                                        PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "subscriptionId=" + subscriptionId);
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1 = PPApplication.getServiceCommand("isub", transactionCode, subscriptionId, state);
+//                                            PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "command1=" + command1);
+                                            if (command1 != null) {
+                                                Command command = new Command(0, false, command1);
+                                                try {
+                                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                    PPApplication.commandWait(command, "ActivateProfileHelper.setOnOffSIM");
+                                                } catch (Exception e) {
+                                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                    //Log.e("ActivateProfileHelper.setOnOffSIM", Log.getStackTraceString(e));
+                                                    //PPApplication.recordException(e);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+//                                else
+//                                    PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "subscriptionInfo == null");
+                            }
+                        }
+//                        else
+//                            PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "subscriptionList == null");
+                    }
+//                    else
+//                        PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "mSubscriptionManager == null");
+                }
+//                else
+//                    PPApplication.logE("ActivateProfileHelper.setOnOffSIM", "transactionCode == -1");
             }
         }
     }

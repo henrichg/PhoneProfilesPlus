@@ -1313,5 +1313,15 @@
         <item>@string/array_default_sim_pref_sim1</item>
         <item>@string/array_default_sim_pref_sim2</item>
     </string-array>
+    <string-array name="onOffSIMArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_hardwareModeArray_on</item>
+        <item>@string/array_pref_hardwareModeArray_off</item>
+    </string-array>
+    <string-array name="onOffSIMValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
 </resources>
