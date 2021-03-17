@@ -362,7 +362,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._deviceNetworkTypeSIM2,
                         origProfile._deviceMobileDataSIM1,
                         origProfile._deviceMobileDataSIM2,
-                        origProfile._deviceDefaultSIMCards
+                        origProfile._deviceDefaultSIMCards,
+                        origProfile._deviceOnOffSIM1,
+                        origProfile._deviceOnOffSIM2
                 );
                 showSaveMenu = true;
             }
@@ -478,6 +480,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, Integer.toString(profile._deviceMobileDataSIM1));
             editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, Integer.toString(profile._deviceMobileDataSIM2));
             editor.putString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, profile._deviceDefaultSIMCards);
+            editor.putString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, Integer.toString(profile._deviceOnOffSIM1));
+            editor.putString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, Integer.toString(profile._deviceOnOffSIM2));
             editor.apply();
         }
     }
@@ -610,6 +614,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, ""));
             profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, ""));
             profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "");
+            profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, ""));
+            profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, ""));
         }
 
         //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");

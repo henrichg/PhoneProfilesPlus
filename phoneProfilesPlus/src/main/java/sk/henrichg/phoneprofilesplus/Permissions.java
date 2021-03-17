@@ -660,7 +660,8 @@ class Permissions {
                     (profile._deviceMobileDataSIM1 != 0) || (profile._deviceMobileDataSIM2 != 0) ||
                     (profile._deviceNetworkType != 0) ||
                     (profile._deviceNetworkTypeSIM1 != 0) || (profile._deviceNetworkTypeSIM2 != 0) ||
-                    (!profile._deviceDefaultSIMCards.equals("0|0|0")))
+                    (!profile._deviceDefaultSIMCards.equals("0|0|0")) ||
+                    (profile._deviceOnOffSIM1 != 0) || (profile._deviceOnOffSIM2 != 0))
                 grantedReadPhoneState = (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
             //if (profile._deviceNFC != 0)
             //    granted = checkNFC(context);

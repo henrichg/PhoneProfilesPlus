@@ -505,6 +505,76 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
+            // on/off sim
+            if (Build.VERSION.SDK_INT >= 26) {
+                final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    if (phoneCount > 1) {
+                        if (profile._deviceOnOffSIM1 != 0) {
+                            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                                if ((profile._deviceOnOffSIM1 == 1) || (profile._deviceOnOffSIM1 == 3)) {
+                                    if (fillPreferences)
+                                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceOnOff_SIM1) + ": " +
+                                                appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                                    if (fillStrings)
+                                        strings[countDrawables++] = "so1:1";
+                                    else
+                                        drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim1;
+                                    if (fillPreferences)
+                                        countItems[countPreferences++] = 1;
+                                }
+                                if (profile._deviceOnOffSIM1 == 2) {
+                                    if (fillPreferences)
+                                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceOnOff_SIM1) + ": " +
+                                                appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                                    if (fillStrings)
+                                        strings[countDrawables++] = "so1:0";
+                                    else {
+                                        if (monochrome)
+                                            drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim1_off_mono;
+                                        else
+                                            drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim1_off;
+                                    }
+                                    if (fillPreferences)
+                                        countItems[countPreferences++] = 1;
+                                }
+                            }
+                        }
+                        if (profile._deviceOnOffSIM2 != 0) {
+                            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                                if ((profile._deviceOnOffSIM2 == 1) || (profile._deviceOnOffSIM2 == 3)) {
+                                    if (fillPreferences)
+                                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceOnOff_SIM2) + ": " +
+                                                appContext.getString(R.string.array_pref_hardwareModeArray_on);
+                                    if (fillStrings)
+                                        strings[countDrawables++] = "so2:1";
+                                    else
+                                        drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim2;
+                                    if (fillPreferences)
+                                        countItems[countPreferences++] = 1;
+                                }
+                                if (profile._deviceOnOffSIM2 == 2) {
+                                    if (fillPreferences)
+                                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceOnOff_SIM2) + ": " +
+                                                appContext.getString(R.string.array_pref_hardwareModeArray_off);
+                                    if (fillStrings)
+                                        strings[countDrawables++] = "so2:0";
+                                    else {
+                                        if (monochrome)
+                                            drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim2_off_mono;
+                                        else
+                                            drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim2_off;
+                                    }
+                                    if (fillPreferences)
+                                        countItems[countPreferences++] = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             // default sim card
             if (Build.VERSION.SDK_INT >= 26) {
                 if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {

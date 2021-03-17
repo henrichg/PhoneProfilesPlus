@@ -4730,6 +4730,12 @@ class ActivateProfileHelper {
                             transactionCode = 1;
                     }
                     break;
+                case Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1:
+                case Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2:
+                    serviceManager = PPApplication.getServiceManager("isub");
+                    if (serviceManager != null)
+                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setSubscriptionEnabled");
+                    break;
             }
 
             return transactionCode != -1;
