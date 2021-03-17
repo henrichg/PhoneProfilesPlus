@@ -1772,6 +1772,9 @@
     <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>
     <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>
 
+    <string name="ringtone_pref_dlg_indicators_internal_tone">system tone</string>
+    <string name="ringtone_pref_dlg_indicators_extenal_tone_folder">external tone, folder:</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

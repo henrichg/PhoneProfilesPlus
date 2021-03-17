@@ -36,7 +36,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
     //String oldRingtoneUri;
 
-    private final String ringtoneType;
+    final String ringtoneType;
     private final boolean showSilent;
     private final boolean showDefault;
 
@@ -202,7 +202,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                     String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
                                     String _title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
                                     if (_uri.contains("internal"))
-                                        _title = "[I] " + _title;
+                                        _title = "[S] " + _title;
                                     else
                                         _title = "[E] " + _title;
                                     String _id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
