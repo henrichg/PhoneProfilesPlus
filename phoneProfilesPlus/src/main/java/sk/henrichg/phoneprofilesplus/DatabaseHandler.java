@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2453;
+    private static final int DATABASE_VERSION = 2454;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -191,6 +191,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DEVICE_MOBILE_DATA_SIM1 = "deviceMobileDataSIM1";
     private static final String KEY_DEVICE_MOBILE_DATA_SIM2 = "deviceMobileDataSIM2";
     private static final String KEY_DEVICE_DEFAULT_SIM_CARDS = "deviceDefaultSIMCards";
+    private static final String KEY_DEVICE_ONOFF_SIM1 = "deviceOnOffSIM1";
+    private static final String KEY_DEVICE_ONOFF_SIM2 = "deviceOnOffSIM2";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -581,7 +583,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_DEVICE_NETWORK_TYPE_SIM2 + " " + INTEGER_TYPE + ","
                 + KEY_DEVICE_MOBILE_DATA_SIM1 + " " + INTEGER_TYPE + ","
                 + KEY_DEVICE_MOBILE_DATA_SIM2 + " " + INTEGER_TYPE + ","
-                + KEY_DEVICE_DEFAULT_SIM_CARDS + " " + TEXT_TYPE
+                + KEY_DEVICE_DEFAULT_SIM_CARDS + " " + TEXT_TYPE + ","
+                + KEY_DEVICE_ONOFF_SIM1 + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_ONOFF_SIM2 + " " + INTEGER_TYPE
                 + ")";
     }
 
@@ -1014,6 +1018,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_DEVICE_MOBILE_DATA_SIM1, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_DEVICE_MOBILE_DATA_SIM2, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_DEVICE_DEFAULT_SIM_CARDS, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_ONOFF_SIM1, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_ONOFF_SIM2, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, KEY_E_NAME, TEXT_TYPE, columns);
@@ -2696,7 +2702,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 0,
                                 0,
                                 0,
-                                "0|0|0"
+                                "0|0|0",
+                                0,
+                                0
                         );
 
                         //profile = Profile.getMappedProfile(profile, sharedProfile);
@@ -2778,6 +2786,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values.put(KEY_DEVICE_MOBILE_DATA_SIM1, profile._deviceMobileDataSIM1);
                             values.put(KEY_DEVICE_MOBILE_DATA_SIM2, profile._deviceMobileDataSIM2);
                             values.put(KEY_DEVICE_DEFAULT_SIM_CARDS, profile._deviceDefaultSIMCards);
+                            values.put(KEY_DEVICE_ONOFF_SIM1, profile._deviceOnOffSIM1);
+                            values.put(KEY_DEVICE_ONOFF_SIM2, profile._deviceOnOffSIM2);
 
                             // updating row
                             db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -3213,6 +3223,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_DEFAULT_SIM_CARDS + "=\"0|0|0\"");
         }
 
+        if (oldVersion < 2454)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_ONOFF_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_ONOFF_SIM2 + "=0");
+
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_ONOFF_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_ONOFF_SIM2 + "=0");
+        }
+
     }
 
     @Override
@@ -3369,6 +3388,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_MOBILE_DATA_SIM1, profile._deviceMobileDataSIM1);
                 values.put(KEY_DEVICE_MOBILE_DATA_SIM2, profile._deviceMobileDataSIM2);
                 values.put(KEY_DEVICE_DEFAULT_SIM_CARDS, profile._deviceDefaultSIMCards);
+                values.put(KEY_DEVICE_ONOFF_SIM1, profile._deviceOnOffSIM1);
+                values.put(KEY_DEVICE_ONOFF_SIM2, profile._deviceOnOffSIM2);
 
                 // Insert Row
                 if (!merged) {
@@ -3487,7 +3508,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_NETWORK_TYPE_SIM2,
                                 KEY_DEVICE_MOBILE_DATA_SIM1,
                                 KEY_DEVICE_MOBILE_DATA_SIM2,
-                                KEY_DEVICE_DEFAULT_SIM_CARDS
+                                KEY_DEVICE_DEFAULT_SIM_CARDS,
+                                KEY_DEVICE_ONOFF_SIM1,
+                                KEY_DEVICE_ONOFF_SIM2
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3579,7 +3602,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_SIM2)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_SIM1)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_SIM2)),
-                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_DEFAULT_SIM_CARDS))
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_DEFAULT_SIM_CARDS)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_ONOFF_SIM1)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_ONOFF_SIM2))
                         );
                     }
 
@@ -3691,7 +3716,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_NETWORK_TYPE_SIM2 + "," +
                         KEY_DEVICE_MOBILE_DATA_SIM1 + "," +
                         KEY_DEVICE_MOBILE_DATA_SIM2 + "," +
-                        KEY_DEVICE_DEFAULT_SIM_CARDS +
+                        KEY_DEVICE_DEFAULT_SIM_CARDS + "," +
+                        KEY_DEVICE_ONOFF_SIM1 + "," +
+                        KEY_DEVICE_ONOFF_SIM2 +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -3787,6 +3814,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._deviceMobileDataSIM1 = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_SIM1));
                         profile._deviceMobileDataSIM2 = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_SIM2));
                         profile._deviceDefaultSIMCards = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_DEFAULT_SIM_CARDS));
+                        profile._deviceOnOffSIM1 = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_ONOFF_SIM1));
+                        profile._deviceOnOffSIM2 = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_ONOFF_SIM2));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -3900,6 +3929,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_MOBILE_DATA_SIM1, profile._deviceMobileDataSIM1);
                 values.put(KEY_DEVICE_MOBILE_DATA_SIM2, profile._deviceMobileDataSIM2);
                 values.put(KEY_DEVICE_DEFAULT_SIM_CARDS, profile._deviceDefaultSIMCards);
+                values.put(KEY_DEVICE_ONOFF_SIM1, profile._deviceOnOffSIM1);
+                values.put(KEY_DEVICE_ONOFF_SIM2, profile._deviceOnOffSIM2);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -4267,7 +4298,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_NETWORK_TYPE_SIM2,
                                 KEY_DEVICE_MOBILE_DATA_SIM1,
                                 KEY_DEVICE_MOBILE_DATA_SIM2,
-                                KEY_DEVICE_DEFAULT_SIM_CARDS
+                                KEY_DEVICE_DEFAULT_SIM_CARDS,
+                                KEY_DEVICE_ONOFF_SIM1,
+                                KEY_DEVICE_ONOFF_SIM2
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -4361,7 +4394,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE_SIM2)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_SIM1)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_MOBILE_DATA_SIM2)),
-                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_DEFAULT_SIM_CARDS))
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_DEFAULT_SIM_CARDS)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_ONOFF_SIM1)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_ONOFF_SIM2))
                         );
                     }
 
@@ -10678,7 +10713,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_NETWORK_TYPE_SIM2 + "," +
                         KEY_DEVICE_MOBILE_DATA_SIM1 + "," +
                         KEY_DEVICE_MOBILE_DATA_SIM2 + "," +
-                        KEY_DEVICE_DEFAULT_SIM_CARDS +
+                        KEY_DEVICE_DEFAULT_SIM_CARDS + "," +
+                        KEY_DEVICE_ONOFF_SIM1 + "," +
+                        KEY_DEVICE_ONOFF_SIM2 +
                         " FROM " + TABLE_PROFILES;
                 final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                         KEY_E_WIFI_ENABLED + "," +
@@ -11043,6 +11080,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
                                     values.clear();
                                     values.put(KEY_DEVICE_DEFAULT_SIM_CARDS, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
+                            }
+
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_ONOFF_SIM1)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_ONOFF_SIM1, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
+                            }
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_DEVICE_ONOFF_SIM2)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_DEVICE_ONOFF_SIM2, 0);
                                     db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
                                 }
