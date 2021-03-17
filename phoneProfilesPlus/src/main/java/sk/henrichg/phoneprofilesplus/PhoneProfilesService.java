@@ -1089,8 +1089,8 @@ public class PhoneProfilesService extends Service
 
     void registerAllTheTimeContentObservers(boolean register) {
         final Context appContext = getApplicationContext();
-        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerContentObservers", "PhoneProfilesService_registerContentObservers");
-        //PPApplication.logE("[RJS] PhoneProfilesService.registerContentObservers", "xxx");
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerAllTheTimeContentObservers", "PhoneProfilesService_registerAllTheTimeContentObservers");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeContentObservers", "xxx");
         if (!register) {
             if (PPApplication.settingsContentObserver != null) {
                 try {
@@ -1111,7 +1111,7 @@ public class PhoneProfilesService extends Service
                     appContext.getContentResolver().registerContentObserver(android.provider.Settings.System.CONTENT_URI, true, PPApplication.settingsContentObserver);
                 } catch (Exception e) {
                     PPApplication.settingsContentObserver = null;
-                    PPApplication.recordException(e);
+                    //PPApplication.recordException(e);
                 }
             }
         }
@@ -1144,7 +1144,7 @@ public class PhoneProfilesService extends Service
                     }
                 } catch (Exception e) {
                     PPApplication.contactsContentObserver = null;
-                    PPApplication.recordException(e);
+                    //PPApplication.recordException(e);
                 }
             }
         }
@@ -1152,8 +1152,8 @@ public class PhoneProfilesService extends Service
 
     void registerAllTheTimeCallbacks(boolean register) {
         final Context appContext = getApplicationContext();
-        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerCallbacks", "PhoneProfilesService_registerCallbacks");
-        //PPApplication.logE("[RJS] PhoneProfilesService.registerCallbacks", "xxx");
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerAllTheTimeCallbacks", "PhoneProfilesService_registerAllTheTimeCallbacks");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeCallbacks", "xxx");
         if (!register) {
             if (PPApplication.wifiConnectionCallback != null) {
                 try {
@@ -1198,7 +1198,7 @@ public class PhoneProfilesService extends Service
                     }
                 } catch (Exception e) {
                     PPApplication.wifiConnectionCallback = null;
-                    PPApplication.recordException(e);
+                    //PPApplication.recordException(e);
                 }
             }
             if (PPApplication.mobileDataConnectionCallback == null) {
@@ -1218,7 +1218,7 @@ public class PhoneProfilesService extends Service
                     }
                 } catch (Exception e) {
                     PPApplication.mobileDataConnectionCallback = null;
-                    PPApplication.recordException(e);
+                    //PPApplication.recordException(e);
                 }
             }
         }
