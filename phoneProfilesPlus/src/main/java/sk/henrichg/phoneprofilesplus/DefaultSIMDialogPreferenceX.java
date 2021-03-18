@@ -64,41 +64,26 @@ public class DefaultSIMDialogPreferenceX extends DialogPreference {
         String prefVolumeDataSummary;
 
         prefVolumeDataSummary = _context.getString(R.string.default_sim_subscription_voice) + ": ";
-        if (voiceValue == 0)
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_no_change);
-        else
-        if (voiceValue == 1)
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.array_default_sim_pref_ask_for_sim);
-        else
-        if (voiceValue == 2)
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.array_default_sim_pref_sim1);
-        else
-        if (voiceValue == 3)
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.array_default_sim_pref_sim2);
+        String[] arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMVoiceArray);
+        try {
+            prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[voiceValue];
+        } catch (Exception ignored) {}
 
         prefVolumeDataSummary = prefVolumeDataSummary + "; ";
 
         prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.default_sim_subscription_sms) + ": ";
-        if (smsValue == 0)
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_no_change);
-        else
-        if (smsValue == 1)
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.array_default_sim_pref_sim1);
-        else
-        if (smsValue == 2)
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.array_default_sim_pref_sim2);
+        arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMSMSArray);
+        try {
+            prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[smsValue];
+        } catch (Exception ignored) {}
 
         prefVolumeDataSummary = prefVolumeDataSummary + "; ";
 
         prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.default_sim_subscription_data) + ": ";
-        if (dataValue == 0)
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_no_change);
-        else
-        if (dataValue == 1)
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.array_default_sim_pref_sim1);
-        else
-        if (dataValue == 2)
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.array_default_sim_pref_sim2);
+        arrayStrings = _context.getResources().getStringArray(R.array.defaultSIMDataArray);
+        try {
+            prefVolumeDataSummary = prefVolumeDataSummary + arrayStrings[dataValue];
+        } catch (Exception ignored) {}
 
         setSummary(prefVolumeDataSummary);
     }
