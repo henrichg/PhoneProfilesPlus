@@ -6480,10 +6480,11 @@ public class PhoneProfilesService extends Service
             return false;
     }
 
-    static boolean hasSIMCard(Context appContext, int simCard) {
+    @SuppressLint("NewApi")
+    static boolean hasSIMCard(Context appContext, int simCard, boolean testSim0) {
         TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
-            if (Build.VERSION.SDK_INT < 26) {
+            if ((Build.VERSION.SDK_INT < 26) || ((simCard == 0) && (!testSim0))) {
                 // sim card is ready
                 return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
             } else {

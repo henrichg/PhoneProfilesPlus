@@ -3703,11 +3703,9 @@ public class Profile {
                     profile._deviceOnOffSIM2
             );
 
-            boolean zenModeMapped = false;
-            if (profile._volumeRingerMode == SHARED_PROFILE_VALUE) {
+            if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
                 mappedProfile._volumeRingerMode = 0;
-            }
-            if ((profile._volumeZenMode == SHARED_PROFILE_VALUE) && (!zenModeMapped))
+            if (profile._volumeZenMode == SHARED_PROFILE_VALUE)
                 mappedProfile._volumeZenMode = 0;
             if (profile.getVolumeRingtoneSharedProfile())
                 mappedProfile._volumeRingtone = defaultValuesString.get(PREF_PROFILE_VOLUME_RINGTONE);
@@ -4070,19 +4068,19 @@ public class Profile {
                         if (Build.VERSION.SDK_INT >= 26) {
                             int phoneCount = telephonyManager.getPhoneCount();
                             if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1) && (phoneCount > 1)) {
-                                if (!PhoneProfilesService.hasSIMCard(appContext, 1)) {
+                                if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                                 }
                             } else if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2) && (phoneCount > 1)) {
-                                if (!PhoneProfilesService.hasSIMCard(appContext, 2)) {
+                                if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                                 }
                             }
                         }
                         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 0)) {
+                            if (!PhoneProfilesService.hasSIMCard(appContext, 0, true)) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
@@ -4692,19 +4690,19 @@ public class Profile {
 
                             if (Build.VERSION.SDK_INT >= 26) {
                                 if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) && (phoneCount > 1)) {
-                                    if (!PhoneProfilesService.hasSIMCard(appContext, 1)) {
+                                    if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
                                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                                     }
                                 } else if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2) && (phoneCount > 1)) {
-                                    if (!PhoneProfilesService.hasSIMCard(appContext, 2)) {
+                                    if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
                                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                                     }
                                 }
                             }
                             if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
-                                if (!PhoneProfilesService.hasSIMCard(appContext, 0)) {
+                                if (!PhoneProfilesService.hasSIMCard(appContext, 0, true)) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                                 }
@@ -5296,12 +5294,12 @@ public class Profile {
                                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                             }
 
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 1)) {
+                            if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
 //                                PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "not has sim 1");
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 2)) {
+                            if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
 //                                PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "not has sim 2");
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
@@ -5383,12 +5381,12 @@ public class Profile {
                     if (telephonyManager != null) {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1) && (phoneCount > 1)) {
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 1)) {
+                            if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
                         } else if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2) && (phoneCount > 1)) {
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 2)) {
+                            if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
