@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2455;
+    private static final int DATABASE_VERSION = 2458;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -3231,9 +3231,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_ONOFF_SIM1 + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_ONOFF_SIM2 + "=0");
         }
-
 /*
-        if (oldVersion < 2455)
+        if (oldVersion < 2458)
         {
             try {
 
@@ -3267,20 +3266,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         String ringtoneTone = cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE));
                         Uri ringtoneToneUri;
                         boolean setRingtoneUri = false;
+//                        Log.e("DatabaseHandler.updateDb", "ringtoneChange="+ringtoneChange);
+//                        Log.e("DatabaseHandler.updateDb", "ringtoneTone="+ringtoneTone);
 
                         int notificationChange = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE));
                         String notificationTone = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION));
                         Uri notificationToneUri;
                         boolean setNotificationUri = false;
+//                        Log.e("DatabaseHandler.updateDb", "notificationChange="+notificationChange);
+//                        Log.e("DatabaseHandler.updateDb", "notificationTone="+notificationTone);
 
                         int alarmChange = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_ALARM_CHANGE));
                         String alarmTone = cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM));
                         Uri alarmToneUri;
                         boolean setAlarmUri = false;
+//                        Log.e("DatabaseHandler.updateDb", "alarmChange="+alarmChange);
+//                        Log.e("DatabaseHandler.updateDb", "alarmTone="+alarmTone);
 
                         String durationTone = cursor.getString(cursor.getColumnIndex(KEY_DURATION_NOTIFICATION_SOUND));
                         Uri durationToneUri;
                         boolean setDurationUri = false;
+//                        Log.e("DatabaseHandler.updateDb", "durationTone="+durationTone);
 
                         RingtoneManager manager = new RingtoneManager(context.getApplicationContext());
 
@@ -3306,7 +3312,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
                                         String toneFromCursor = _uri + "/" + _id;
                                         if (toneFromCursor.equals(ringtoneTone)) {
-                                            ringtoneToneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                            ringtoneToneUri = _toneUri;
                                             ringtoneChange = 1;
                                             setRingtoneUri = true;
                                             break;
@@ -3319,6 +3325,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             ringtoneToneUri = null;
                             setRingtoneUri = true;
                         }
+//                        if (ringtoneToneUri != null)
+//                            Log.e("DatabaseHandler.updateDb", "ringtoneToneUri="+ringtoneToneUri.toString());
+//                        Log.e("DatabaseHandler.updateDb", "setRingtoneUri="+setRingtoneUri);
 
                         if (notificationChange == 1) {
                             if (notificationTone.equals("")) {
@@ -3342,7 +3351,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
                                         String toneFromCursor = _uri + "/" + _id;
                                         if (toneFromCursor.equals(notificationTone)) {
-                                            notificationToneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                            notificationToneUri = _toneUri;
                                             notificationChange = 1;
                                             setNotificationUri = true;
                                             break;
@@ -3355,6 +3364,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             notificationToneUri = null;
                             setNotificationUri = true;
                         }
+//                        if (notificationToneUri != null)
+//                            Log.e("DatabaseHandler.updateDb", "notificationToneUri="+notificationToneUri.toString());
+//                        Log.e("DatabaseHandler.updateDb", "setNotificationUri="+setNotificationUri);
 
                         if (alarmChange == 1) {
                             if (alarmTone.equals("")) {
@@ -3378,7 +3390,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
                                         String toneFromCursor = _uri + "/" + _id;
                                         if (toneFromCursor.equals(alarmTone)) {
-                                            alarmToneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                            alarmToneUri = _toneUri;
                                             alarmChange = 1;
                                             setAlarmUri = true;
                                             break;
@@ -3391,6 +3403,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             alarmToneUri = null;
                             setAlarmUri = true;
                         }
+//                        if (alarmToneUri != null)
+//                            Log.e("DatabaseHandler.updateDb", "alarmToneUri="+alarmToneUri.toString());
+//                        Log.e("DatabaseHandler.updateDb", "setAlarmUri="+setAlarmUri);
 
                         if (durationTone.equals("")) {
                             durationToneUri = null;
@@ -3412,54 +3427,61 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
                                     String toneFromCursor = _uri + "/" + _id;
                                     if (toneFromCursor.equals(durationTone)) {
-                                        durationToneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                        durationToneUri = _toneUri;
                                         setDurationUri = true;
                                         break;
                                     }
                                 }
                             }
                         }
+//                        if (durationToneUri != null)
+//                            Log.e("DatabaseHandler.updateDb", "durationToneUri="+durationToneUri.toString());
+//                        Log.e("DatabaseHandler.updateDb", "setDurationUri="+setDurationUri);
 
                         String toneString;
 
-                        if (false) { //(setRingtoneUri) {
+                        if (setRingtoneUri) {
                             if ((ringtoneChange == 0) || (ringtoneToneUri == null))
                                 toneString = "";
                             else
                                 toneString = ringtoneToneUri.toString();
+//                            Log.e("DatabaseHandler.updateDb", "ringtone toneString="+toneString);
                             db.execSQL("UPDATE " + TABLE_PROFILES +
-                                    " SET " + KEY_SOUND_RINGTONE_CHANGE + "=" + ringtoneChange + " " +
-                                    KEY_SOUND_RINGTONE + "=\"" + toneString + "\" " +
+                                    " SET " + KEY_SOUND_RINGTONE_CHANGE + "=" + ringtoneChange + ", " +
+                                                KEY_SOUND_RINGTONE + "=\"" + toneString + "\" " +
                                     "WHERE " + KEY_ID + "=" + id);
                         }
 
-                        if (false) { //(setNotificationUri) {
+                        if (setNotificationUri) {
                             if ((notificationChange == 0) || (notificationToneUri == null))
                                 toneString = "";
                             else
                                 toneString = notificationToneUri.toString();
+//                            Log.e("DatabaseHandler.updateDb", "notification toneString="+toneString);
                             db.execSQL("UPDATE " + TABLE_PROFILES +
-                                    " SET " + KEY_SOUND_NOTIFICATION_CHANGE + "=" + notificationChange + " " +
-                                    KEY_SOUND_NOTIFICATION + "=\"" + toneString + "\" " +
+                                    " SET " + KEY_SOUND_NOTIFICATION_CHANGE + "=" + notificationChange + ", " +
+                                                KEY_SOUND_NOTIFICATION + "=\"" + toneString + "\" " +
                                     "WHERE " + KEY_ID + "=" + id);
                         }
 
-                        if (false) { //(setAlarmUri) {
+                        if (setAlarmUri) {
                             if ((alarmChange == 0) || (alarmToneUri == null))
                                 toneString = "";
                             else
                                 toneString = alarmToneUri.toString();
+//                            Log.e("DatabaseHandler.updateDb", "alarm toneString="+toneString);
                             db.execSQL("UPDATE " + TABLE_PROFILES +
-                                    " SET " + KEY_SOUND_ALARM_CHANGE + "=" + alarmChange + " " +
-                                    KEY_SOUND_ALARM + "=\"" + toneString + "\" " +
+                                    " SET " + KEY_SOUND_ALARM_CHANGE + "=" + alarmChange + ", " +
+                                                KEY_SOUND_ALARM + "=\"" + toneString + "\" " +
                                     "WHERE " + KEY_ID + "=" + id);
                         }
 
-                        if (false) { //(setDurationUri) {
+                        if (setDurationUri) {
                             if (durationToneUri == null)
                                 toneString = "";
                             else
                                 toneString = durationToneUri.toString();
+//                            Log.e("DatabaseHandler.updateDb", "duration toneString="+toneString);
                             db.execSQL("UPDATE " + TABLE_PROFILES +
                                     " SET " + KEY_DURATION_NOTIFICATION_SOUND + "=\"" + toneString + "\" " +
                                     "WHERE " + KEY_ID + "=" + id);
@@ -3484,10 +3506,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         String startTone = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_START));
                         Uri startToneUri;
                         boolean setStartUri = false;
+//                        Log.e("DatabaseHandler.updateDb", "startTone="+startTone);
 
                         String endTone = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_END));
                         Uri endToneUri;
                         boolean setEndUri = false;
+//                        Log.e("DatabaseHandler.updateDb", "endTone="+endTone);
 
                         RingtoneManager manager = new RingtoneManager(context.getApplicationContext());
 
@@ -3511,13 +3535,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
                                     String toneFromCursor = _uri + "/" + _id;
                                     if (toneFromCursor.equals(startTone)) {
-                                        startToneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                        startToneUri = _toneUri;
                                         setStartUri = true;
                                         break;
                                     }
                                 }
                             }
                         }
+//                        if (startToneUri != null)
+//                            Log.e("DatabaseHandler.updateDb", "startToneUri="+startToneUri.toString());
+//                        Log.e("DatabaseHandler.updateDb", "setStartUri="+setStartUri);
 
                         if (endTone.equals("")) {
                             endToneUri = null;
@@ -3539,31 +3566,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
                                     String toneFromCursor = _uri + "/" + _id;
                                     if (toneFromCursor.equals(endTone)) {
-                                        endToneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                        endToneUri = _toneUri;
                                         setEndUri = true;
                                         break;
                                     }
                                 }
                             }
                         }
+//                        if (endToneUri != null)
+//                            Log.e("DatabaseHandler.updateDb", "endToneUri="+endToneUri.toString());
+//                        Log.e("DatabaseHandler.updateDb", "setEndUri="+setEndUri);
 
                         String toneString;
 
-                        if (false) { //(setStartUri) {
+                        if (setStartUri) {
                             if (startToneUri == null)
                                 toneString = "";
                             else
                                 toneString = startToneUri.toString();
+//                            Log.e("DatabaseHandler.updateDb", "start toneString="+toneString);
                             db.execSQL("UPDATE " + TABLE_EVENTS +
                                     " SET " + KEY_E_NOTIFICATION_SOUND_START + "=\"" + toneString + "\" " +
                                     "WHERE " + KEY_E_ID + "=" + id);
                         }
 
-                        if (false) { //(setEndUri) {
+                        if (setEndUri) {
                             if (endToneUri == null)
                                 toneString = "";
                             else
                                 toneString = endToneUri.toString();
+//                            Log.e("DatabaseHandler.updateDb", "end toneString="+toneString);
                             db.execSQL("UPDATE " + TABLE_EVENTS +
                                     " SET " + KEY_E_NOTIFICATION_SOUND_END + "=\"" + toneString + "\" " +
                                     "WHERE " + KEY_E_ID + "=" + id);

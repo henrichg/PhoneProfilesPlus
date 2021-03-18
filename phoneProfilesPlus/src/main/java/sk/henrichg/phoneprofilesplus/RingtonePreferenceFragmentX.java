@@ -49,7 +49,7 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
             preference.playRingtone();
         });
 
-        listAdapter = new RingtonePreferenceAdapterX(this, prefContext, preference.toneList, preference.toneUris);
+        listAdapter = new RingtonePreferenceAdapterX(this, prefContext, preference.toneList);
         listView.setAdapter(listAdapter);
 
         if (Permissions.grantRingtonePreferenceDialogPermissions(prefContext)) {

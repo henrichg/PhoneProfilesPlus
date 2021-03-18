@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,18 +15,16 @@ import java.util.Map;
 class RingtonePreferenceAdapterX extends BaseAdapter {
 
     final Map<String, String> toneList;
-    final Map<String, Uri> toneUris;
     private final RingtonePreferenceFragmentX preferenceFragment;
 
     //private final LayoutInflater inflater;
     private final Context context;
 
     RingtonePreferenceAdapterX(RingtonePreferenceFragmentX preferenceFragment, Context c,
-                               Map<String, String> toneList, Map<String, Uri> toneUris)
+                               Map<String, String> toneList)
     {
         this.preferenceFragment = preferenceFragment;
         this.toneList = toneList;
-        this.toneUris = toneUris;
 
         //inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = c;
@@ -61,7 +58,6 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
 
         String ringtone = (new ArrayList<>(toneList.keySet())).get(position);
         String ringtoneTitle = (new ArrayList<>(toneList.values())).get(position);
-        Uri ringtoneUri = (new ArrayList<>(toneUris.values())).get(position);
 
         View vi = convertView;
         if (convertView == null) {
@@ -89,12 +85,12 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
         holder.ringtoneLabel.setText(ringtoneTitle);
         if (ringtone.contains("internal")) {
             holder.ringtonePath.setVisibility(View.VISIBLE);
-            holder.ringtonePath.setText("system tone");
+            holder.ringtonePath.setText(R.string.ringtone_pref_dlg_system_tone);
         }
         else
         if (ringtone.contains("external")) {
             holder.ringtonePath.setVisibility(View.VISIBLE);
-            holder.ringtonePath.setText("external tone");
+            holder.ringtonePath.setText(R.string.ringtone_pref_dlg_extenal_tone);
         }
         else {
             /*if (ringtoneUri != null) {
