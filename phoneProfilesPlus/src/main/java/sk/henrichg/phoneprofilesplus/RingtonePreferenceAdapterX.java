@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +16,18 @@ import java.util.Map;
 class RingtonePreferenceAdapterX extends BaseAdapter {
 
     final Map<String, String> toneList;
+    final Map<String, Uri> toneUris;
     private final RingtonePreferenceFragmentX preferenceFragment;
 
     //private final LayoutInflater inflater;
     private final Context context;
 
-    RingtonePreferenceAdapterX(RingtonePreferenceFragmentX preferenceFragment, Context c, Map<String, String> toneList)
+    RingtonePreferenceAdapterX(RingtonePreferenceFragmentX preferenceFragment, Context c,
+                               Map<String, String> toneList, Map<String, Uri> toneUris)
     {
         this.preferenceFragment = preferenceFragment;
         this.toneList = toneList;
+        this.toneUris = toneUris;
 
         //inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = c;
@@ -46,6 +50,7 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
 
     static class ViewHolder {
         TextView ringtoneLabel;
+        TextView ringtonePath;
         RadioButton radioBtn;
         //int position;
     }
@@ -56,6 +61,7 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
 
         String ringtone = (new ArrayList<>(toneList.keySet())).get(position);
         String ringtoneTitle = (new ArrayList<>(toneList.values())).get(position);
+        Uri ringtoneUri = (new ArrayList<>(toneUris.values())).get(position);
 
         View vi = convertView;
         if (convertView == null) {
@@ -63,6 +69,7 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
 
             holder = new ViewHolder();
             holder.ringtoneLabel = vi.findViewById(R.id.ringtone_pref_dlg_item_label);
+            holder.ringtonePath = vi.findViewById(R.id.ringtone_pref_dlg_item_path);
             holder.radioBtn = vi.findViewById(R.id.ringtone_pref_dlg_item_radiobtn);
             vi.setTag(holder);
         }
@@ -80,6 +87,26 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
         });
 
         holder.ringtoneLabel.setText(ringtoneTitle);
+        if (ringtone.contains("internal")) {
+            holder.ringtonePath.setVisibility(View.VISIBLE);
+            holder.ringtonePath.setText("system tone");
+        }
+        else
+        if (ringtone.contains("external")) {
+            holder.ringtonePath.setVisibility(View.VISIBLE);
+            holder.ringtonePath.setText("external tone");
+        }
+        else {
+            /*if (ringtoneUri != null) {
+                try {
+                    FileUtils fileUtils = new FileUtils(context);
+                    holder.ringtonePath.setText(fileUtils.getPath(ringtoneUri));
+                } catch (Exception e) {
+                    holder.ringtonePath.setVisibility(View.GONE);
+                }
+            } else*/
+                holder.ringtonePath.setVisibility(View.GONE);
+        }
 
         return vi;
     }

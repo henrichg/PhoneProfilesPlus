@@ -41,6 +41,7 @@ public class RingtonePreferenceX extends DialogPreference {
     private final boolean showDefault;
 
     final Map<String, String> toneList = new LinkedHashMap<>();
+    final Map<String, Uri> toneUris = new LinkedHashMap<>();
     @SuppressWarnings("rawtypes")
     AsyncTask asyncTask = null;
 
@@ -113,6 +114,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
                     //Ringtone defaultRingtone;
                     private final Map<String, String> _toneList = new LinkedHashMap<>();
+                    private final Map<String, Uri> _toneUris = new LinkedHashMap<>();
 
                     @Override
                     protected Void doInBackground(Void... params) {
@@ -151,6 +153,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                         ringtoneName = prefContext.getString(R.string.ringtone_preference_default_ringtone);
                                     }
                                     _toneList.put(Settings.System.DEFAULT_RINGTONE_URI.toString(), ringtoneName);
+                                    _toneUris.put(Settings.System.DEFAULT_RINGTONE_URI.toString(), uri);
                                 }
                                 break;
                             case "notification":
@@ -166,6 +169,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                         ringtoneName = prefContext.getString(R.string.ringtone_preference_default_notification);
                                     }
                                     _toneList.put(Settings.System.DEFAULT_NOTIFICATION_URI.toString(), ringtoneName);
+                                    _toneUris.put(Settings.System.DEFAULT_NOTIFICATION_URI.toString(), uri);
                                 }
                                 break;
                             case "alarm":
@@ -181,12 +185,15 @@ public class RingtonePreferenceX extends DialogPreference {
                                         ringtoneName = prefContext.getString(R.string.ringtone_preference_default_alarm);
                                     }
                                     _toneList.put(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(), ringtoneName);
+                                    _toneUris.put(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(), uri);
                                 }
                                 break;
                         }
 
-                        if (showSilent)
+                        if (showSilent) {
                             _toneList.put("", prefContext.getString(R.string.ringtone_preference_none));
+                            _toneUris.put("", null);
+                        }
 
                         if (typeIsSet) {
                             try {
@@ -201,15 +208,18 @@ public class RingtonePreferenceX extends DialogPreference {
                                 while (cursor.moveToNext()) {
                                     String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
                                     String _title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
-                                    if (_uri.contains("internal"))
+                                    /*if (_uri.contains("internal"))
                                         _title = "[S] " + _title;
                                     else
-                                        _title = "[E] " + _title;
+                                        _title = "[E] " + _title;*/
                                     String _id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
                                     Log.e("RingtonePreferenceX.refreshListView", "_uri="+_uri);
                                     Log.e("RingtonePreferenceX.refreshListView", "_title="+_title);
                                     Log.e("RingtonePreferenceX.refreshListView", "_id="+_id);
+
+                                    Log.e("RingtonePreferenceX.refreshListView", "manager.getRingtoneUri()="+manager.getRingtoneUri(cursor.getPosition()));
                                     _toneList.put(_uri + "/" + _id, _title);
+                                    _toneUris.put(_uri + "/" + _id, manager.getRingtoneUri(cursor.getPosition()));
                                 }
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
@@ -225,6 +235,8 @@ public class RingtonePreferenceX extends DialogPreference {
 
                         toneList.clear();
                         toneList.putAll(_toneList);
+                        toneUris.clear();
+                        toneUris.putAll(_toneUris);
 
                         /*if (defaultRingtone == null) {
                             // ringtone not found

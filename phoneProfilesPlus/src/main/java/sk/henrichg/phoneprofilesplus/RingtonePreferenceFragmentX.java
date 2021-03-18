@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -41,27 +40,6 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
     {
         super.onBindDialogView(view);
 
-        TextView indicators = view.findViewById(R.id.ringtone_pref_dlg_indicators);
-        String indicatorsText = "[S] = " + getString(R.string.ringtone_pref_dlg_indicators_internal_tone);
-        switch (preference.ringtoneType) {
-            case "ringtone":
-                indicatorsText = indicatorsText + "\n[E] = " +
-                        getString(R.string.ringtone_pref_dlg_indicators_extenal_tone_folder) +
-                        " /Ringtones";
-                break;
-            case "notification":
-                indicatorsText = indicatorsText + "\n[E] = " +
-                        getString(R.string.ringtone_pref_dlg_indicators_extenal_tone_folder) +
-                        " /Notifications";
-                break;
-            case "alarm":
-                indicatorsText = indicatorsText + "\n[E] = " +
-                        getString(R.string.ringtone_pref_dlg_indicators_extenal_tone_folder) +
-                        " /Alarms";
-                break;
-        }
-        indicators.setText(indicatorsText);
-
         listView = view.findViewById(R.id.ringtone_pref_dlg_listview);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
@@ -71,7 +49,7 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
             preference.playRingtone();
         });
 
-        listAdapter = new RingtonePreferenceAdapterX(this, prefContext, preference.toneList);
+        listAdapter = new RingtonePreferenceAdapterX(this, prefContext, preference.toneList, preference.toneUris);
         listView.setAdapter(listAdapter);
 
         if (Permissions.grantRingtonePreferenceDialogPermissions(prefContext)) {
