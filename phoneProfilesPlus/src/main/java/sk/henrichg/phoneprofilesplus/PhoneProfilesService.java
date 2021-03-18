@@ -4622,67 +4622,6 @@ public class PhoneProfilesService extends Service
                         }
                     }
                 }
-/*
-                if (actualVersionCode <= 6520) {
-//                    application preferences
-//                    - applicationBackgroundProfileNotificationSound
-
-                    ApplicationPreferences.applicationDefaultProfileNotificationSound(appContext);
-//                    Log.e("PhoneProfilesService.doForPackageReplaced", "applicationDefaultProfileNotificationSound="+ApplicationPreferences.applicationDefaultProfileNotificationSound);
-
-                    Uri toneUri;
-                    boolean setUri = false;
-                    if (ApplicationPreferences.applicationDefaultProfileNotificationSound.equals("")) {
-                        toneUri = null;
-                        setUri = true;
-                    }
-                    else
-                    if (ApplicationPreferences.applicationDefaultProfileNotificationSound.equals(Settings.System.DEFAULT_NOTIFICATION_URI.toString())) {
-                        toneUri = Settings.System.DEFAULT_NOTIFICATION_URI;
-                        setUri = true;
-                    }
-                    else {
-                        toneUri = null;
-                        RingtoneManager manager = new RingtoneManager(appContext);
-                        manager.setType(RingtoneManager.TYPE_NOTIFICATION);
-                        Cursor ringtoneCursor = manager.getCursor();
-                        while (ringtoneCursor.moveToNext()) {
-                            Uri _toneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
-                            if (!ApplicationPreferences.applicationDefaultProfileNotificationSound.equals(_toneUri.toString())) {
-                                String _uri = ringtoneCursor.getString(RingtoneManager.URI_COLUMN_INDEX);
-                                String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
-                                String toneFromCursor = _uri + "/" + _id;
-                                if (toneFromCursor.equals(ApplicationPreferences.applicationDefaultProfileNotificationSound)) {
-                                    toneUri = _toneUri;
-                                    setUri = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-//                    if (toneUri != null)
-//                        Log.e("PhoneProfilesService.doForPackageReplaced", "toneUri="+toneUri.toString());
-//                    Log.e("PhoneProfilesService.doForPackageReplaced", "setUri="+setUri);
-
-                    if (setUri) {
-                        SharedPreferences preferences = ApplicationPreferences.getSharedPreferences(appContext);
-                        if (preferences != null) {
-                            SharedPreferences.Editor editor = preferences.edit();
-
-                            if (toneUri == null)
-                                ApplicationPreferences.applicationDefaultProfileNotificationSound = "";
-                            else
-                                ApplicationPreferences.applicationDefaultProfileNotificationSound = toneUri.toString();
-//                            Log.e("PhoneProfilesService.doForPackageReplaced", "applicationDefaultProfileNotificationSound="+ApplicationPreferences.applicationDefaultProfileNotificationSound);
-
-                            editor.putString(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND,
-                                    ApplicationPreferences.applicationDefaultProfileNotificationSound);
-                            editor.apply();
-                        }
-                    }
-
-                }
-*/
             }
         } catch (Exception ee) {
             PPApplication.recordException(ee);

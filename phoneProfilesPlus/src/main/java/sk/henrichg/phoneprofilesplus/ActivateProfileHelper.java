@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
@@ -40,6 +41,7 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -1843,6 +1845,55 @@ class ActivateProfileHelper {
         }
 
         return noError;
+    }
+
+    Uri getUriOfSavedTone(Context context, String savedTone) {
+        Uri toneUri;
+        boolean uriFound = false;
+        if (savedTone.equals("")) {
+            toneUri = null;
+            uriFound = true;
+        }
+        else
+        if (savedTone.equals(Settings.System.DEFAULT_RINGTONE_URI.toString())) {
+            toneUri = Settings.System.DEFAULT_RINGTONE_URI;
+            uriFound = true;
+        }
+        else
+        if (savedTone.equals(Settings.System.DEFAULT_NOTIFICATION_URI.toString())) {
+            toneUri = Settings.System.DEFAULT_NOTIFICATION_URI;
+            uriFound = true;
+        }
+        else
+        if (savedTone.equals(Settings.System.DEFAULT_ALARM_ALERT_URI.toString())) {
+            toneUri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+            uriFound = true;
+        }
+        else {
+            toneUri = null;
+
+            RingtoneManager manager = new RingtoneManager(context.getApplicationContext());
+            manager.setType(RingtoneManager.TYPE_NOTIFICATION);
+            Cursor ringtoneCursor = manager.getCursor();
+            while (ringtoneCursor.moveToNext()) {
+                Uri _toneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                String _uri = ringtoneCursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+                String toneFromCursor = _uri + "/" + _id;
+                if (toneFromCursor.equals(savedTone)) {
+                    toneUri = _toneUri;
+                    uriFound = true;
+                    break;
+                }
+            }
+        }
+        if (toneUri != null)
+            Log.e("DatabaseHandler.updateDb", "toneUri="+toneUri.toString());
+        Log.e("DatabaseHandler.updateDb", "uriFound="+uriFound);
+        if (uriFound)
+            return toneUri;
+        else
+            return null;
     }
 
     static void executeForVolumes(final Profile profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context) {
