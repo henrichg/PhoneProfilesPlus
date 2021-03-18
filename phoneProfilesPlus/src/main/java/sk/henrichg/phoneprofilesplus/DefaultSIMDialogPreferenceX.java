@@ -68,9 +68,12 @@ public class DefaultSIMDialogPreferenceX extends DialogPreference {
             prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.preference_profile_no_change);
         else
         if (voiceValue == 1)
-            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.array_default_sim_pref_sim1);
+            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.array_default_sim_pref_ask_for_sim);
         else
         if (voiceValue == 2)
+            prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.array_default_sim_pref_sim1);
+        else
+        if (voiceValue == 3)
             prefVolumeDataSummary = prefVolumeDataSummary + _context.getString(R.string.array_default_sim_pref_sim2);
 
         prefVolumeDataSummary = prefVolumeDataSummary + "; ";

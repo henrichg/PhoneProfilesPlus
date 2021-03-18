@@ -186,7 +186,7 @@ class ActivateProfileHelper {
                     try {
                         String voice = splits[0];
                         if (!voice.equals("0"))
-                            setDefaultSimCard(context, SUBSCRIPTRION_VOICE, Integer.parseInt(voice)-1);
+                            setDefaultSimCard(context, SUBSCRIPTRION_VOICE, Integer.parseInt(voice));
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
