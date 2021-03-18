@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2454;
+    private static final int DATABASE_VERSION = 2455;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -3232,6 +3232,352 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_ONOFF_SIM2 + "=0");
         }
 
+/*
+        if (oldVersion < 2455)
+        {
+            try {
+
+//                events
+//                - eventEndNotificationSound
+//                - eventStartNotificationSound
+//
+//                profiles
+//                - prf_pref_durationNotificationSound
+//                - prf_pref_soundRingtone
+//                - prf_pref_soundNotification
+//                - prf_pref_soundAlarm
+
+                String selectQuery = "SELECT " + KEY_ID + "," +
+                        KEY_SOUND_RINGTONE_CHANGE + "," +
+                        KEY_SOUND_RINGTONE + "," +
+                        KEY_SOUND_NOTIFICATION_CHANGE + "," +
+                        KEY_SOUND_NOTIFICATION + "," +
+                        KEY_SOUND_ALARM_CHANGE + "," +
+                        KEY_SOUND_ALARM + "," +
+                        KEY_DURATION_NOTIFICATION_SOUND +
+                        " FROM " + TABLE_PROFILES;
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        long id = cursor.getLong(cursor.getColumnIndex(KEY_ID));
+
+                        int ringtoneChange = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_RINGTONE_CHANGE));
+                        String ringtoneTone = cursor.getString(cursor.getColumnIndex(KEY_SOUND_RINGTONE));
+                        Uri ringtoneToneUri;
+                        boolean setRingtoneUri = false;
+
+                        int notificationChange = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE));
+                        String notificationTone = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION));
+                        Uri notificationToneUri;
+                        boolean setNotificationUri = false;
+
+                        int alarmChange = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_ALARM_CHANGE));
+                        String alarmTone = cursor.getString(cursor.getColumnIndex(KEY_SOUND_ALARM));
+                        Uri alarmToneUri;
+                        boolean setAlarmUri = false;
+
+                        String durationTone = cursor.getString(cursor.getColumnIndex(KEY_DURATION_NOTIFICATION_SOUND));
+                        Uri durationToneUri;
+                        boolean setDurationUri = false;
+
+                        RingtoneManager manager = new RingtoneManager(context.getApplicationContext());
+
+                        if (ringtoneChange == 1) {
+                            if (ringtoneTone.equals("")) {
+                                ringtoneToneUri = null;
+                                setRingtoneUri = true;
+                            }
+                            else
+                            if (ringtoneTone.equals(Settings.System.DEFAULT_RINGTONE_URI.toString())) {
+                                ringtoneToneUri = Settings.System.DEFAULT_RINGTONE_URI;
+                                setRingtoneUri = true;
+                            }
+                            else {
+                                ringtoneToneUri = null;
+                                ringtoneChange = 0;
+                                manager.setType(RingtoneManager.TYPE_RINGTONE);
+                                Cursor ringtoneCursor = manager.getCursor();
+                                while (ringtoneCursor.moveToNext()) {
+                                    Uri _toneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                    if (!ringtoneTone.equals(_toneUri.toString())) {
+                                        String _uri = ringtoneCursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                        String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+                                        String toneFromCursor = _uri + "/" + _id;
+                                        if (toneFromCursor.equals(ringtoneTone)) {
+                                            ringtoneToneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                            ringtoneChange = 1;
+                                            setRingtoneUri = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            ringtoneToneUri = null;
+                            setRingtoneUri = true;
+                        }
+
+                        if (notificationChange == 1) {
+                            if (notificationTone.equals("")) {
+                                notificationToneUri = null;
+                                setNotificationUri = true;
+                            }
+                            else
+                            if (notificationTone.equals(Settings.System.DEFAULT_NOTIFICATION_URI.toString())) {
+                                notificationToneUri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                                setNotificationUri = true;
+                            }
+                            else {
+                                notificationToneUri = null;
+                                notificationChange = 0;
+                                manager.setType(RingtoneManager.TYPE_NOTIFICATION);
+                                Cursor ringtoneCursor = manager.getCursor();
+                                while (ringtoneCursor.moveToNext()) {
+                                    Uri _toneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                    if (!notificationTone.equals(_toneUri.toString())) {
+                                        String _uri = ringtoneCursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                        String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+                                        String toneFromCursor = _uri + "/" + _id;
+                                        if (toneFromCursor.equals(notificationTone)) {
+                                            notificationToneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                            notificationChange = 1;
+                                            setNotificationUri = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            notificationToneUri = null;
+                            setNotificationUri = true;
+                        }
+
+                        if (alarmChange == 1) {
+                            if (alarmTone.equals("")) {
+                                alarmToneUri = null;
+                                setAlarmUri = true;
+                            }
+                            else
+                            if (alarmTone.equals(Settings.System.DEFAULT_ALARM_ALERT_URI.toString())) {
+                                alarmToneUri = Settings.System.DEFAULT_ALARM_ALERT_URI;
+                                setAlarmUri = true;
+                            }
+                            else {
+                                alarmToneUri = null;
+                                alarmChange = 0;
+                                manager.setType(RingtoneManager.TYPE_ALARM);
+                                Cursor ringtoneCursor = manager.getCursor();
+                                while (ringtoneCursor.moveToNext()) {
+                                    Uri _toneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                    if (!alarmTone.equals(_toneUri.toString())) {
+                                        String _uri = ringtoneCursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                        String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+                                        String toneFromCursor = _uri + "/" + _id;
+                                        if (toneFromCursor.equals(alarmTone)) {
+                                            alarmToneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                            alarmChange = 1;
+                                            setAlarmUri = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else {
+                            alarmToneUri = null;
+                            setAlarmUri = true;
+                        }
+
+                        if (durationTone.equals("")) {
+                            durationToneUri = null;
+                            setDurationUri = true;
+                        }
+                        else
+                        if (durationTone.equals(Settings.System.DEFAULT_NOTIFICATION_URI.toString())) {
+                            durationToneUri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                            setDurationUri = true;
+                        }
+                        else {
+                            durationToneUri = null;
+                            manager.setType(RingtoneManager.TYPE_NOTIFICATION);
+                            Cursor ringtoneCursor = manager.getCursor();
+                            while (ringtoneCursor.moveToNext()) {
+                                Uri _toneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                if (!durationTone.equals(_toneUri.toString())) {
+                                    String _uri = ringtoneCursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                    String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+                                    String toneFromCursor = _uri + "/" + _id;
+                                    if (toneFromCursor.equals(durationTone)) {
+                                        durationToneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                        setDurationUri = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        String toneString;
+
+                        if (false) { //(setRingtoneUri) {
+                            if ((ringtoneChange == 0) || (ringtoneToneUri == null))
+                                toneString = "";
+                            else
+                                toneString = ringtoneToneUri.toString();
+                            db.execSQL("UPDATE " + TABLE_PROFILES +
+                                    " SET " + KEY_SOUND_RINGTONE_CHANGE + "=" + ringtoneChange + " " +
+                                    KEY_SOUND_RINGTONE + "=\"" + toneString + "\" " +
+                                    "WHERE " + KEY_ID + "=" + id);
+                        }
+
+                        if (false) { //(setNotificationUri) {
+                            if ((notificationChange == 0) || (notificationToneUri == null))
+                                toneString = "";
+                            else
+                                toneString = notificationToneUri.toString();
+                            db.execSQL("UPDATE " + TABLE_PROFILES +
+                                    " SET " + KEY_SOUND_NOTIFICATION_CHANGE + "=" + notificationChange + " " +
+                                    KEY_SOUND_NOTIFICATION + "=\"" + toneString + "\" " +
+                                    "WHERE " + KEY_ID + "=" + id);
+                        }
+
+                        if (false) { //(setAlarmUri) {
+                            if ((alarmChange == 0) || (alarmToneUri == null))
+                                toneString = "";
+                            else
+                                toneString = alarmToneUri.toString();
+                            db.execSQL("UPDATE " + TABLE_PROFILES +
+                                    " SET " + KEY_SOUND_ALARM_CHANGE + "=" + alarmChange + " " +
+                                    KEY_SOUND_ALARM + "=\"" + toneString + "\" " +
+                                    "WHERE " + KEY_ID + "=" + id);
+                        }
+
+                        if (false) { //(setDurationUri) {
+                            if (durationToneUri == null)
+                                toneString = "";
+                            else
+                                toneString = durationToneUri.toString();
+                            db.execSQL("UPDATE " + TABLE_PROFILES +
+                                    " SET " + KEY_DURATION_NOTIFICATION_SOUND + "=\"" + toneString + "\" " +
+                                    "WHERE " + KEY_ID + "=" + id);
+                        }
+
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+
+                selectQuery = "SELECT " + KEY_E_ID + "," +
+                        KEY_E_NOTIFICATION_SOUND_START + "," +
+                        KEY_E_NOTIFICATION_SOUND_END +
+                        " FROM " + TABLE_EVENTS;
+
+                cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        long id = cursor.getLong(cursor.getColumnIndex(KEY_E_ID));
+
+                        String startTone = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_START));
+                        Uri startToneUri;
+                        boolean setStartUri = false;
+
+                        String endTone = cursor.getString(cursor.getColumnIndex(KEY_E_NOTIFICATION_SOUND_END));
+                        Uri endToneUri;
+                        boolean setEndUri = false;
+
+                        RingtoneManager manager = new RingtoneManager(context.getApplicationContext());
+
+                        if (startTone.equals("")) {
+                            startToneUri = null;
+                            setStartUri = true;
+                        }
+                        else
+                        if (startTone.equals(Settings.System.DEFAULT_NOTIFICATION_URI.toString())) {
+                            startToneUri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                            setStartUri = true;
+                        }
+                        else {
+                            startToneUri = null;
+                            manager.setType(RingtoneManager.TYPE_NOTIFICATION);
+                            Cursor ringtoneCursor = manager.getCursor();
+                            while (ringtoneCursor.moveToNext()) {
+                                Uri _toneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                if (!startTone.equals(_toneUri.toString())) {
+                                    String _uri = ringtoneCursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                    String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+                                    String toneFromCursor = _uri + "/" + _id;
+                                    if (toneFromCursor.equals(startTone)) {
+                                        startToneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                        setStartUri = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (endTone.equals("")) {
+                            endToneUri = null;
+                            setEndUri = true;
+                        }
+                        else
+                        if (endTone.equals(Settings.System.DEFAULT_NOTIFICATION_URI.toString())) {
+                            endToneUri = Settings.System.DEFAULT_NOTIFICATION_URI;
+                            setEndUri = true;
+                        }
+                        else {
+                            endToneUri = null;
+                            manager.setType(RingtoneManager.TYPE_NOTIFICATION);
+                            Cursor ringtoneCursor = manager.getCursor();
+                            while (ringtoneCursor.moveToNext()) {
+                                Uri _toneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                if (!endTone.equals(_toneUri.toString())) {
+                                    String _uri = ringtoneCursor.getString(RingtoneManager.URI_COLUMN_INDEX);
+                                    String _id = ringtoneCursor.getString(RingtoneManager.ID_COLUMN_INDEX);
+                                    String toneFromCursor = _uri + "/" + _id;
+                                    if (toneFromCursor.equals(endTone)) {
+                                        endToneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
+                                        setEndUri = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        String toneString;
+
+                        if (false) { //(setStartUri) {
+                            if (startToneUri == null)
+                                toneString = "";
+                            else
+                                toneString = startToneUri.toString();
+                            db.execSQL("UPDATE " + TABLE_EVENTS +
+                                    " SET " + KEY_E_NOTIFICATION_SOUND_START + "=\"" + toneString + "\" " +
+                                    "WHERE " + KEY_E_ID + "=" + id);
+                        }
+
+                        if (false) { //(setEndUri) {
+                            if (endToneUri == null)
+                                toneString = "";
+                            else
+                                toneString = endToneUri.toString();
+                            db.execSQL("UPDATE " + TABLE_EVENTS +
+                                    " SET " + KEY_E_NOTIFICATION_SOUND_END + "=\"" + toneString + "\" " +
+                                    "WHERE " + KEY_E_ID + "=" + id);
+                        }
+
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+
+                //}
+            } catch (Exception ignored) {}
+        }
+*/
     }
 
     @Override
