@@ -1663,6 +1663,7 @@ class ActivateProfileHelper {
                                     Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
                                 }
                             }
+                            else
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
                                 Log.e("ActivateProfileHelper.setTones", "ringtone Huawei uri="+uri.toString());
 
@@ -1679,6 +1680,32 @@ class ActivateProfileHelper {
                                 }
                                 try {
                                     Settings.System.putString(context.getContentResolver(), "ringtone2", uri.toString());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
+                                }
+                            }
+                            else
+                            if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI) && (uri != null)) {
+                                Log.e("ActivateProfileHelper.setTones", "ringtone Xiaomi uri="+uri.toString());
+
+                                try {
+                                    uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
+                                }
+
+                                try {
+                                    Settings.System.putString(context.getContentResolver(), "ringtone_sound_slot_1", uri.toString());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones - SIM1", Log.getStackTraceString(e));
+                                }
+                                try {
+                                    Settings.System.putString(context.getContentResolver(), "ringtone_sound_use_uniform", "0");
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
+                                }
+                                try {
+                                    Settings.System.putString(context.getContentResolver(), "ringtone_sound_slot_2", uri.toString());
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
                                 }
@@ -1755,6 +1782,26 @@ class ActivateProfileHelper {
                             }
                         }
                         else
+                        if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
+                            Log.e("ActivateProfileHelper.setTones", "ringtone Xiaomi uri=null");
+
+                            try {
+                                Settings.System.putString(context.getContentResolver(), "ringtone_sound_slot_1", null);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setTones - SIM1", Log.getStackTraceString(e));
+                            }
+                            try {
+                                Settings.System.putString(context.getContentResolver(), "ringtone_sound_use_uniform", null);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
+                            }
+                            try {
+                                Settings.System.putString(context.getContentResolver(), "ringtone_sound_slot_2", null);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
+                            }
+                        }
+                        else
                             RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, null);
                     }
                     catch (IllegalArgumentException e) {
@@ -1811,7 +1858,7 @@ class ActivateProfileHelper {
                                     Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
                                 }
                             }
-                            /*else
+                            else
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
                                 Log.e("ActivateProfileHelper.setTones", "notification Huawei uri="+uri.toString());
 
@@ -1834,8 +1881,9 @@ class ActivateProfileHelper {
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
                                 }
-                            }*/
+                            }
                             else
+                                // Xiaomi devices do not has dual sim notifications
                                 RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, uri);
                         }
                     }
@@ -1911,6 +1959,7 @@ class ActivateProfileHelper {
                             }
                         }
                         else
+                            // Xiaomi devices do not has dual sim notifications
                             RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, null);
                     }
                     catch (IllegalArgumentException e) {

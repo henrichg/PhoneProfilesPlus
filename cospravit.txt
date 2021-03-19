@@ -796,7 +796,7 @@ Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE
    - E/ActivateProfileHelper.setTones - SIM2: java.lang.IllegalArgumentException: You cannot keep your settings in the secure settings.
 
 2. Huawei:
-   Ma tony zvonenia podobne, len s trocha inymi nazvami.
+   Ma tony zvonenia podobne, len s inymi nazvami.
    Adresar /Ringtones mi na P40 lite nefungoval, ale /Sounds ano.
    Na nastavenie netreba root, funguju aj tie zo /Sounds.
 
@@ -806,6 +806,14 @@ Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE
      RingtoneManager neponuka externe tony zo /Sounds pre notifikacie. Neviem preco.
    - notifikacie - nie su dual sim, zvlastna kategoria, nemam asi jej podporu.
      Meni sa cez RingtoneManager.setActualDefaultRingtoneUri().
+
+3. Xiaomi:
+   Ma tony zvonenia podobne, len s inymi nazvami. SIM1 nastavuje aj "ringtone".
+   Ak chem samostatny ton pre SIM1 a SIM2, treba nastavit aj "ringtone_sound_use_uniform"="0".
+   Lenze, ten vyzaduje root:
+   E/ActivateProfileHelper.setTones - SIM2: java.lang.IllegalArgumentException: You cannot keep your settings in the secure settings.
+
+   Notifikacie nema dual SIM.
 
 Predpokladam, ze aj tak si to cachuje, takze aj ked nastavim System, nezarucuje to, ze to bude aj pouizvat.
 Toto ale nemam testnute. Nemam tretiu simku :-(.
@@ -830,11 +838,13 @@ Zvonenia (notifikacie asi podobne, pozriem, testnem):
 // Len Huawei:
 - "notification_sound" - notifikacie, okrem SMS? - (Huawei)
 
-// Xiaomy ????:
-- "ringtone" - file???
-- "ringtone_default" - file???
-- "ringtone_sound_slot_1" - file???
-- "ringtone_sound_slot_2" - file???
+// Xiaomy - file??? - pozri, co vrati RingtoneManager:
+- "ringtone" - MyJazz.ogg - asi nastavi, ze chcem pouzit ten isty ton aj pre SIM2, pozri
+- "ringtone_sound_slot_1" - MyJazz.ogg - nastavil tak aj "ringtone"
+- "ringtone_sound_slot_2" - MyHouse.ogg
+- "ringtone_sound_use_uniform" - "1" - ten isty ton aj pre SIM2, "0" - samostatny ton pre SIM2
+  vyzaduje root. :-(
+- "notification_sound" - NotificationXilophone.ogg
 
 ---------------------
 
