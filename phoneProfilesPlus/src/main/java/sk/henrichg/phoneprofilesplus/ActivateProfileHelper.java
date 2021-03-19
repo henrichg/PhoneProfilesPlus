@@ -139,11 +139,13 @@ class ActivateProfileHelper {
                                     break;
                                 case 2:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 2");
+                                    //noinspection DuplicateBranchesInSwitch
                                     _setSIM1OnOff = true;
                                     break;
                             }
                             if ( _setSIM1OnOff) {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setSIMOnOff()");
+                                //noinspection ConstantConditions
                                 setSIMOnOff(appContext, _setSIM1OnOff, 1);
                                 PPApplication.sleep(200);
                             }
@@ -157,18 +159,20 @@ class ActivateProfileHelper {
                             //boolean _isSIM2On = isSIMOn(appContext, 2);
                             //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isSIM2On="+_isSIM2On);
                             boolean _setSIM2OnOff = false;
-                            switch (profile._deviceOnOffSIM1) {
+                            switch (profile._deviceOnOffSIM2) {
                                 case 1:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2 1");
                                     _setSIM2OnOff = true;
                                     break;
                                 case 2:
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2 2");
+                                    //noinspection DuplicateBranchesInSwitch
                                     _setSIM2OnOff = true;
                                     break;
                             }
                             if ( _setSIM2OnOff) {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setSIMOnOff()");
+                                //noinspection ConstantConditions
                                 setSIMOnOff(appContext, _setSIM2OnOff, 2);
                                 PPApplication.sleep(200);
                             }
