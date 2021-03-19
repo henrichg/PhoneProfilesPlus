@@ -11,6 +11,7 @@ import android.app.WallpaperManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
+import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -1619,7 +1620,9 @@ class ActivateProfileHelper {
                     try {
                         String[] splits = profile._soundRingtone.split("\\|");
                         if (!splits[0].isEmpty()) {
-                            Uri uri = Uri.parse(splits[0]);
+                            //Uri uri = Uri.parse(splits[0]);
+                            Uri uri = getUriOfSavedTone(context, splits[0], RingtoneManager.TYPE_RINGTONE);
+                            //TODO je mozne, ze to Uri z RingtoneManagera je uz grantnute, tak toto nebude treba robit.
                             try {
                                 ContentResolver contentResolver = context.getContentResolver();
                                 context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
@@ -1632,16 +1635,31 @@ class ActivateProfileHelper {
                                 //Log.e("ActivateProfileHelper.setTones (1)", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
                             }
-                            /*if (PPApplication.deviceIsSamsung) {
+
+                            if (PPApplication.deviceIsSamsung && (uri != null)) {
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
                                 Log.e("ActivateProfileHelper.setTones", "uri="+uri.toString());
 
-                                Settings.System.putString(context.getContentResolver(), "ringtone", uri.toString());
-                                Settings.System.putString(context.getContentResolver(), "ringtone_2", uri.toString());
+                                try {
+                                    uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
+                                }
+
+                                try {
+                                    Settings.System.putString(context.getContentResolver(), "ringtone", uri.toString());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones - SIM1", Log.getStackTraceString(e));
+                                }
+                                try {
+                                    Settings.System.putString(context.getContentResolver(), "ringtone_2", uri.toString());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
+                                }
                             }
-                            else*/
+                            else
                                 RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, uri);
                         }
                     }
@@ -1705,7 +1723,9 @@ class ActivateProfileHelper {
                     try {
                         String[] splits = profile._soundNotification.split("\\|");
                         if (!splits[0].isEmpty()) {
-                            Uri uri = Uri.parse(splits[0]);
+                            //Uri uri = Uri.parse(splits[0]);
+                            Uri uri = getUriOfSavedTone(context, splits[0], RingtoneManager.TYPE_NOTIFICATION);
+                            //TODO je mozne, ze to Uri z RingtoneManagera je uz grantnute, tak toto nebude treba robit.
                             try {
                                 ContentResolver contentResolver = context.getContentResolver();
                                 context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
@@ -1776,7 +1796,9 @@ class ActivateProfileHelper {
                     try {
                         String[] splits = profile._soundAlarm.split("\\|");
                         if (!splits[0].isEmpty()) {
-                            Uri uri = Uri.parse(splits[0]);
+                            //Uri uri = Uri.parse(splits[0]);
+                            Uri uri = getUriOfSavedTone(context, splits[0], RingtoneManager.TYPE_ALARM);
+                            //TODO je mozne, ze to Uri z RingtoneManagera je uz grantnute, tak toto nebude treba robit.
                             try {
                                 ContentResolver contentResolver = context.getContentResolver();
                                 context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
@@ -1847,7 +1869,8 @@ class ActivateProfileHelper {
         return noError;
     }
 
-    Uri getUriOfSavedTone(Context context, String savedTone) {
+    private static Uri getUriOfSavedTone(Context context, String savedTone, int toneType) {
+        Log.e("ActivateProfileHelper.getUriOfSavedTone", "savedTone="+savedTone);
         Uri toneUri;
         boolean uriFound = false;
         if (savedTone.equals("")) {
@@ -1871,9 +1894,8 @@ class ActivateProfileHelper {
         }
         else {
             toneUri = null;
-
             RingtoneManager manager = new RingtoneManager(context.getApplicationContext());
-            manager.setType(RingtoneManager.TYPE_NOTIFICATION);
+            manager.setType(toneType);
             Cursor ringtoneCursor = manager.getCursor();
             while (ringtoneCursor.moveToNext()) {
                 Uri _toneUri = manager.getRingtoneUri(ringtoneCursor.getPosition());
@@ -1888,8 +1910,8 @@ class ActivateProfileHelper {
             }
         }
         if (toneUri != null)
-            Log.e("DatabaseHandler.updateDb", "toneUri="+toneUri.toString());
-        Log.e("DatabaseHandler.updateDb", "uriFound="+uriFound);
+            Log.e("ActivateProfileHelper.getUriOfSavedTone", "toneUri="+toneUri.toString());
+        Log.e("ActivateProfileHelper.getUriOfSavedTone", "uriFound="+uriFound);
         if (uriFound)
             return toneUri;
         else

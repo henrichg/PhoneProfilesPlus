@@ -769,8 +769,18 @@ to get current active data sim subscription index.
 
 ---------------------------------
 
-
 Set ringtone:
+
+S21:
+Zvonenie:
+- SIM1 = Galaxy/Plaris
+- SIM2 = Galaxy/Atomic Bell
+
+Notifikacie:
+- SIM1 = Upokojujuci/Crystal
+- SIM2 = Galaxy/Transmitter
+
+
 Vid aplikacia SetEdit - System table
 // uri musi byt retazec
 Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, uri);
@@ -808,30 +818,6 @@ S10
 - "ringtone_sound_slot_1" - file???
 - "ringtone_sound_slot_2" - file???
 
-Pozri na kod. Ta metoda robi presne to iste, co ja. Tak preco kua mi neberie tony z /Ringtones, ked tiez priamo
-zapisujem do Settings.System?
-Skus toto: do RinmgtonePreferences daj, ci je uri interne alebo externe. Interne by malo mat v stingu "internal".
-Daj na zaciatok nazvu [I] = interne, [E] = externe, aby si vedel, aky ton nastavujes.
-
-
-    public static void setActualDefaultRingtoneUri(Context context, int type, Uri ringtoneUri) {
-        String setting = getSettingForType(type);
-        if (setting == null) return;
-        Settings.System.putString(context.getContentResolver(), setting,
-                ringtoneUri != null ? ringtoneUri.toString() : null);
-    }
-
-    private static String getSettingForType(int type) {
-        if ((type & TYPE_RINGTONE) != 0) {
-            return Settings.System.RINGTONE;
-        } else if ((type & TYPE_NOTIFICATION) != 0) {
-            return Settings.System.NOTIFICATION_SOUND;
-        } else if ((type & TYPE_ALARM) != 0) {
-            return Settings.System.ALARM_ALERT;
-        } else {
-            return null;
-        }
-    }
 ---------------------
 
 TELEPHONY_SERVICE = "phone"
