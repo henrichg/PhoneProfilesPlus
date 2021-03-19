@@ -785,15 +785,27 @@ Vid aplikacia SetEdit - System table
 // uri musi byt retazec
 Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, uri);
 
-1. S10, S21 neberie tony z /Ringtones. Zjavne dake pravo chyba, ci co. Nechapem, ze preco,
+1. S10, S21:
+   Neberie tony z /Ringtones. Zjavne dake pravo chyba, ci co. Nechapem, ze preco,
    ved v RingtonePreferenceX mi ich RingtoneManager da.
    Mozno rootom by to zapisal aj externy ton pre SIM 2. Ze by som spravil toto?
    - ak nie je rootnuty, RingtonePreferenceX ponukne len systemove (internal) tony
    - ak je rootnuty, tak ponukne vsetky
+
    Pre notifikacie nie je mozne vobec menit ton pre SIM 2. Cize tuto len root:
    - E/ActivateProfileHelper.setTones - SIM2: java.lang.IllegalArgumentException: You cannot keep your settings in the secure settings.
 
 2. Huawei:
+   Ma tony zvonenia podobne, len s trocha inymi nazvami.
+   Adresar /Ringtones mi na P40 lite nefungoval, ale /Sounds ano.
+   Na nastavenie netreba root, funguju aj tie zo /Sounds.
+
+   Notifikacie ma podelene na 2 casti:
+   - spravy - tie su dual SIM, pre SIM2 alo pri samusng, treba root
+     E/ActivateProfileHelper.setTones - SIM2: java.lang.IllegalArgumentException: You cannot keep your settings in the secure settings.
+     RingtoneManager neponuka externe tony zo /Sounds pre notifikacie. Neviem preco.
+   - notifikacie - nie su dual sim, zvlastna kategoria, nemam asi jej podporu.
+     Meni sa cez RingtoneManager.setActualDefaultRingtoneUri().
 
 Predpokladam, ze aj tak si to cachuje, takze aj ked nastavim System, nezarucuje to, ze to bude aj pouizvat.
 Toto ale nemam testnute. Nemam tretiu simku :-(.
@@ -802,14 +814,21 @@ Toto ale nemam testnute. Nemam tretiu simku :-(.
 Zvonenia (notifikacie asi podobne, pozriem, testnem):
 
 // pre SIM 1:
+
 - "ringtone" - rington - standarny parameter, myslim, ze funguje vsade
-- "notification_sound" - notifikacia - standarny parameter, myslim, ze funguje vsade
+
+- "notification_sound" - notifikacia - (Samsung)
+- "message" - spravy, ze by SMS? - (Huawei)
 
 // pre SIM 2:
-- "ringtone_2" (Samsung) - rington - len interne tony, na externe jedine root
-- "notification_sound_2" - notifikacia (Samsung) - iba root
+- "ringtone_2" - rington - len interne tony, na externe jedine root - (Samsung)
+- "notification_sound_2" - notifikacia - iba root - (Samsung)
 
-- "ringtone2" (Huawei)- rington (testni so simkami)
+- "ringtone2" - rington - (Huawei)
+- "messageSub1" - spravy, ze by SMS? - iba root - (Huawei)
+
+// Len Huawei:
+- "notification_sound" - notifikacie, okrem SMS? - (Huawei)
 
 // Xiaomy ????:
 - "ringtone" - file???

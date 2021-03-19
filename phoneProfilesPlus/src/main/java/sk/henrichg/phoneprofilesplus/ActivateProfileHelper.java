@@ -1644,7 +1644,7 @@ class ActivateProfileHelper {
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
-                                Log.e("ActivateProfileHelper.setTones", "ringtone uri="+uri.toString());
+                                Log.e("ActivateProfileHelper.setTones", "ringtone Samsung uri="+uri.toString());
 
                                 try {
                                     uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -1659,6 +1659,26 @@ class ActivateProfileHelper {
                                 }
                                 try {
                                     Settings.System.putString(context.getContentResolver(), "ringtone_2", uri.toString());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
+                                }
+                            }
+                            if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
+                                Log.e("ActivateProfileHelper.setTones", "ringtone Huawei uri="+uri.toString());
+
+                                try {
+                                    uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
+                                }
+
+                                try {
+                                    Settings.System.putString(context.getContentResolver(), "ringtone", uri.toString());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones - SIM1", Log.getStackTraceString(e));
+                                }
+                                try {
+                                    Settings.System.putString(context.getContentResolver(), "ringtone2", uri.toString());
                                 } catch (Exception e) {
                                     Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
                                 }
@@ -1706,10 +1726,7 @@ class ActivateProfileHelper {
                     // selected is None tone
                     try {
                         if (PPApplication.deviceIsSamsung) {
-                            //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
-                            //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
-
-                            Log.e("ActivateProfileHelper.setTones", "ringtone uri=null");
+                            Log.e("ActivateProfileHelper.setTones", "ringtone Samsung uri=null");
 
                             try {
                                 Settings.System.putString(context.getContentResolver(), "ringtone", null);
@@ -1718,6 +1735,21 @@ class ActivateProfileHelper {
                             }
                             try {
                                 Settings.System.putString(context.getContentResolver(), "ringtone_2", null);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setTones - SIM2 - NULL", Log.getStackTraceString(e));
+                            }
+                        }
+                        else
+                        if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
+                            Log.e("ActivateProfileHelper.setTones", "ringtone Huawei uri=null");
+
+                            try {
+                                Settings.System.putString(context.getContentResolver(), "ringtone", null);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setTones - SIM1 - NULL", Log.getStackTraceString(e));
+                            }
+                            try {
+                                Settings.System.putString(context.getContentResolver(), "ringtone2", null);
                             } catch (Exception e) {
                                 Log.e("ActivateProfileHelper.setTones - SIM2 - NULL", Log.getStackTraceString(e));
                             }
@@ -1760,7 +1792,7 @@ class ActivateProfileHelper {
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
-                                Log.e("ActivateProfileHelper.setTones", " notification uri="+uri.toString());
+                                Log.e("ActivateProfileHelper.setTones", " notification Samsung uri="+uri.toString());
 
                                 try {
                                     uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -1779,6 +1811,30 @@ class ActivateProfileHelper {
                                     Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
                                 }
                             }
+                            /*else
+                            if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
+                                Log.e("ActivateProfileHelper.setTones", "notification Huawei uri="+uri.toString());
+
+                                // notifikacie ine ako sms - zvlastna katergoria v Huawei
+                                //Settings.System.putString(context.getContentResolver(), "notification_sound", uri.toString());
+
+                                try {
+                                    uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
+                                }
+
+                                try {
+                                    Settings.System.putString(context.getContentResolver(), "message", uri.toString());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones - SIM1", Log.getStackTraceString(e));
+                                }
+                                try {
+                                    Settings.System.putString(context.getContentResolver(), "messageSub1", uri.toString());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
+                                }
+                            }*/
                             else
                                 RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, uri);
                         }
@@ -1823,7 +1879,7 @@ class ActivateProfileHelper {
                             //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                             //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
-                            Log.e("ActivateProfileHelper.setTones", " notification uri=null");
+                            Log.e("ActivateProfileHelper.setTones", " notification Samsung uri=null");
 
                             try {
                                 Settings.System.putString(context.getContentResolver(), "notification_sound", null);
@@ -1832,6 +1888,24 @@ class ActivateProfileHelper {
                             }
                             try {
                                 Settings.System.putString(context.getContentResolver(), "notification_sound_2", null);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
+                            }
+                        }
+                        else
+                        if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
+                            Log.e("ActivateProfileHelper.setTones", "notification Huawei uri=null");
+
+                            // notifikacie ine ako sms - zvlastna katergoria v Huawei
+                            //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
+
+                            try {
+                                Settings.System.putString(context.getContentResolver(), "message", null);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setTones - SIM1", Log.getStackTraceString(e));
+                            }
+                            try {
+                                Settings.System.putString(context.getContentResolver(), "messageSub1", null);
                             } catch (Exception e) {
                                 Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
                             }
