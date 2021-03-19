@@ -1640,7 +1640,7 @@ class ActivateProfileHelper {
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
-                                Log.e("ActivateProfileHelper.setTones", "uri="+uri.toString());
+                                Log.e("ActivateProfileHelper.setTones", "ringtone uri="+uri.toString());
 
                                 try {
                                     uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -1701,11 +1701,24 @@ class ActivateProfileHelper {
                 } else {
                     // selected is None tone
                     try {
-                        //if (PPApplication.deviceIsSamsung) {
-                        //    Settings.System.putString(context.getContentResolver(), "ringtone", "null");
-                        //    Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
-                        //}
-                        //else
+                        if (PPApplication.deviceIsSamsung) {
+                            //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
+                            //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
+
+                            Log.e("ActivateProfileHelper.setTones", "ringtone uri=null");
+
+                            try {
+                                Settings.System.putString(context.getContentResolver(), "ringtone", null);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setTones - SIM1 - NULL", Log.getStackTraceString(e));
+                            }
+                            try {
+                                Settings.System.putString(context.getContentResolver(), "ringtone_2", null);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setTones - SIM2 - NULL", Log.getStackTraceString(e));
+                            }
+                        }
+                        else
                             RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, null);
                     }
                     catch (IllegalArgumentException e) {
@@ -1738,8 +1751,32 @@ class ActivateProfileHelper {
                                 //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
                             }
-                            //Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, splits[0]);
-                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, uri);
+
+                            if (PPApplication.deviceIsSamsung && (uri != null)) {
+                                //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
+                                //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
+
+                                Log.e("ActivateProfileHelper.setTones", " notification uri="+uri.toString());
+
+                                try {
+                                    uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones", Log.getStackTraceString(e));
+                                }
+
+                                try {
+                                    Settings.System.putString(context.getContentResolver(), "notification_sound", uri.toString());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones - SIM1", Log.getStackTraceString(e));
+                                }
+                                try {
+                                    Settings.System.putString(context.getContentResolver(), "notification_sound_2", uri.toString());
+                                } catch (Exception e) {
+                                    Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
+                                }
+                            }
+                            else
+                                RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, uri);
                         }
                     }
                     catch (IllegalArgumentException e) {
@@ -1778,8 +1815,25 @@ class ActivateProfileHelper {
                 } else {
                     // selected is None tone
                     try {
-                        //Settings.System.putString(context.getContentResolver(), Settings.System.NOTIFICATION_SOUND, null);
-                        RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, null);
+                        if (PPApplication.deviceIsSamsung) {
+                            //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
+                            //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
+
+                            Log.e("ActivateProfileHelper.setTones", " notification uri=null");
+
+                            try {
+                                Settings.System.putString(context.getContentResolver(), "notification_sound", null);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setTones - SIM1", Log.getStackTraceString(e));
+                            }
+                            try {
+                                Settings.System.putString(context.getContentResolver(), "notification_sound_2", null);
+                            } catch (Exception e) {
+                                Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
+                            }
+                        }
+                        else
+                            RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, null);
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data

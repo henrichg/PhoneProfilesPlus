@@ -785,36 +785,29 @@ Vid aplikacia SetEdit - System table
 // uri musi byt retazec
 Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE, uri);
 
-Ono to nepojde:
-1. S10 neberie tony z /Ringtones. Zjavne dake pravo chyba, ci co. Nechapem, ze preco,
+1. S10, S21 neberie tony z /Ringtones. Zjavne dake pravo chyba, ci co. Nechapem, ze preco,
    ved v RingtonePreferenceX mi ich RingtoneManager da.
+   Mozno rootom by to zapisal aj externy ton pre SIM 2. Ze by som spravil toto?
+   - ak nie je rootnuty, RingtonePreferenceX ponukne len systemove (internal) tony
+   - ak je rootnuty, tak ponukne vsetky
 2. Predpokladam, ze aj tak si to cachuje, takze aj ked nastavim System, nezarucuje to, ze to bude aj pouizvat.
-   Toto ale nemam testnute.
+   Toto ale nemam testnute. Nemam tretiu simku :-(. Tak si jednu Primu kup konecne.
 
-S10
-- ton zvonenia pre kazdu sim zvalst
-- ton oznamenia pre kazdu sim zvlast - predpoladam, ze pre sms/mms. Toto momentalne podporovat nemienim.
+Zvonenia (notifikacie asi podobne, pozriem, testnem):
 
 // pre SIM 1:
-- "ringtone" - rington (content) Ziadny = "null" (Samsung ale mozno aj Pixel)
-- "ringtone_set" - vzdy 1 (Samsung ale mozno aj Pixel)
-
-- "ringtone_CONSTANT_PATH" (Samsung) - cesta ku suboru tonu, neviem na co, ale budis
-- "ringtone_path" (Huawei) - cesta ku suboru tonu, neviem na co, ale budis
+- "ringtone" - rington (Samsung)
+- "notification_sound" - notifikacia (Samsung)
 
 // pre SIM 2:
-- "ringtone_2" (Samsung) - rington (content)
-- "ringtone2" (Huawei)- rington (content)
-- "ringtpne_2_set" (Samsung) - 1 = nastavene, 0 = nenastavene (= ton NONE)
-, "ringtone2_set" (Huawei) - 1 = nastavene, 0 = nenastavene (= ton NONE)
+- "ringtone_2" (Samsung) - rington
+- "notification_sound_2" - notifikacia (Samsung)
 
-- "ringtone_2_CONSTANT_PATH" (Samsung) - cesta ku suboru tonu, neviem na co, ale budis
-- "ringtone2_path" (Huawei) - cesta ku suboru tonu, neviem na co, ale budis
+- "ringtone2" (Huawei)- rington (testni so simkami)
 
 // Xiaomy ????:
 - "ringtone" - file???
 - "ringtone_default" - file???
-- "ringtone_set" - 1 = nastavene, 0 = nenastavene (= ton NONE)
 - "ringtone_sound_slot_1" - file???
 - "ringtone_sound_slot_2" - file???
 
