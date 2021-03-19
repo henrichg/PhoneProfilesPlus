@@ -790,18 +790,24 @@ Settings.System.putString(context.getContentResolver(), Settings.System.RINGTONE
    Mozno rootom by to zapisal aj externy ton pre SIM 2. Ze by som spravil toto?
    - ak nie je rootnuty, RingtonePreferenceX ponukne len systemove (internal) tony
    - ak je rootnuty, tak ponukne vsetky
-2. Predpokladam, ze aj tak si to cachuje, takze aj ked nastavim System, nezarucuje to, ze to bude aj pouizvat.
-   Toto ale nemam testnute. Nemam tretiu simku :-(. Tak si jednu Primu kup konecne.
+   Pre notifikacie nie je mozne vobec menit ton pre SIM 2. Cize tuto len root:
+   - E/ActivateProfileHelper.setTones - SIM2: java.lang.IllegalArgumentException: You cannot keep your settings in the secure settings.
+
+2. Huawei:
+
+Predpokladam, ze aj tak si to cachuje, takze aj ked nastavim System, nezarucuje to, ze to bude aj pouizvat.
+Toto ale nemam testnute. Nemam tretiu simku :-(.
+!!!! Tak si jednu Primu kup konecne !!!!.
 
 Zvonenia (notifikacie asi podobne, pozriem, testnem):
 
 // pre SIM 1:
-- "ringtone" - rington (Samsung)
-- "notification_sound" - notifikacia (Samsung)
+- "ringtone" - rington - standarny parameter, myslim, ze funguje vsade
+- "notification_sound" - notifikacia - standarny parameter, myslim, ze funguje vsade
 
 // pre SIM 2:
-- "ringtone_2" (Samsung) - rington
-- "notification_sound_2" - notifikacia (Samsung)
+- "ringtone_2" (Samsung) - rington - len interne tony, na externe jedine root
+- "notification_sound_2" - notifikacia (Samsung) - iba root
 
 - "ringtone2" (Huawei)- rington (testni so simkami)
 
