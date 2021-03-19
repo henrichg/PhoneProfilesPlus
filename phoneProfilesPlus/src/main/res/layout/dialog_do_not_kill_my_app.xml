@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="false"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding" >
 
     <!--<WebView-->
         <!--android:id="@+id/do_not_kill_my_app_dialog_webView"-->

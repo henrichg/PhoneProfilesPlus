@@ -11,7 +11,6 @@ import android.app.WallpaperManager;
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
-import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -1640,6 +1639,7 @@ class ActivateProfileHelper {
                                 //PPApplication.recordException(e);
                             }
 
+                            /*
                             if (PPApplication.deviceIsSamsung && (uri != null)) {
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
@@ -1710,7 +1710,7 @@ class ActivateProfileHelper {
                                     Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
                                 }
                             }
-                            else
+                            else*/
                                 RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, uri);
                         }
                     }
@@ -1752,7 +1752,7 @@ class ActivateProfileHelper {
                 } else {
                     // selected is None tone
                     try {
-                        if (PPApplication.deviceIsSamsung) {
+                        /*if (PPApplication.deviceIsSamsung) {
                             Log.e("ActivateProfileHelper.setTones", "ringtone Samsung uri=null");
 
                             try {
@@ -1801,7 +1801,7 @@ class ActivateProfileHelper {
                                 Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
                             }
                         }
-                        else
+                        else*/
                             RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, null);
                     }
                     catch (IllegalArgumentException e) {
@@ -1835,7 +1835,7 @@ class ActivateProfileHelper {
                                 //PPApplication.recordException(e);
                             }
 
-                            if (PPApplication.deviceIsSamsung && (uri != null)) {
+                            /*if (PPApplication.deviceIsSamsung && (uri != null)) {
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
@@ -1882,7 +1882,7 @@ class ActivateProfileHelper {
                                     Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
                                 }
                             }
-                            else
+                            else*/
                                 // Xiaomi devices do not has dual sim notifications
                                 RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, uri);
                         }
@@ -1923,7 +1923,7 @@ class ActivateProfileHelper {
                 } else {
                     // selected is None tone
                     try {
-                        if (PPApplication.deviceIsSamsung) {
+                        /*if (PPApplication.deviceIsSamsung) {
                             //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                             //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
@@ -1958,7 +1958,7 @@ class ActivateProfileHelper {
                                 Log.e("ActivateProfileHelper.setTones - SIM2", Log.getStackTraceString(e));
                             }
                         }
-                        else
+                        else*/
                             // Xiaomi devices do not has dual sim notifications
                             RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, null);
                     }

@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="25dp">
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingStart="25dp"
+    android:paddingEnd="25dp"
+    android:paddingBottom="25dp">
 
     <TextView
         android:id="@+id/notification_0_pref_dialog_text"

@@ -4,7 +4,7 @@
     android:id="@+id/dialog_fast_access_duration_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dp" >
+    android:layout_marginTop="@dimen/alert_dialog_top_padding" >
 
     <LinearLayout
         android:id="@+id/fragment_important_info_scroll_view"
