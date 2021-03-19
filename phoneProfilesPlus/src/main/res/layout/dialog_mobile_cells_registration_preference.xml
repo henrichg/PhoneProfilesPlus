@@ -4,7 +4,7 @@
     android:id="@+id/duration_pref_dlg_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/alert_dialog_top_padding">
 
 <LinearLayout
     android:id="@+id/duration_pref_dlg_root"
