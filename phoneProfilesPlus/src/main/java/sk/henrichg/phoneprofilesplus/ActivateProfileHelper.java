@@ -5770,7 +5770,8 @@ class ActivateProfileHelper {
 
     private static void setDefaultSimCard(Context context, int subscriptionType, int simCard)
     {
-        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "xxx");
+        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionType="+subscriptionType);
+        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "simCard="+simCard);
 
         Context appContext = context.getApplicationContext();
 
@@ -5805,7 +5806,7 @@ class ActivateProfileHelper {
                                 break;
                         }
                     }
-//                    PPApplication.logE("ActivateProfileHelper.setDefaultSimCard", "transactionCode=" + transactionCode);
+                    PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "transactionCode=" + transactionCode);
 
                     if (transactionCode != -1) {
 
