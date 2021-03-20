@@ -246,6 +246,7 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.setDefaultSimCard"
 
                                                 //+"|ActivateProfileHelper.setTones"
+                                                //+"|PPApplication.getServicesList"
                                                 +"|[DEFAULT_SIM]"
                                                 ;
 
@@ -2978,14 +2979,14 @@ public class PPApplication extends Application
                 Command command = new Command(0, false, "service list") {
                     @Override
                     public void commandOutput(int id, String line) {
-                        //PPApplication.logE("PPApplication.getServicesList", "line=" + line);
+//                        PPApplication.logE("PPApplication.getServicesList", "line=" + line);
                         Matcher matcher = compile.matcher(line);
                         if (matcher.find()) {
                             synchronized (PPApplication.serviceListMutex) {
                                 //serviceListMutex.serviceList.add(new Pair(matcher.group(1), matcher.group(2)));
                                 serviceListMutex.serviceList.add(Pair.create(matcher.group(1), matcher.group(2)));
-                                //PPApplication.logE("PPApplication.getServicesList", "matcher.group(1)=" + matcher.group(1));
-                                //PPApplication.logE("PPApplication.getServicesList", "matcher.group(2)=" + matcher.group(2));
+//                                PPApplication.logE("PPApplication.getServicesList", "matcher.group(1)=" + matcher.group(1));
+//                                PPApplication.logE("PPApplication.getServicesList", "matcher.group(2)=" + matcher.group(2));
                             }
                         }
                         super.commandOutput(id, line);

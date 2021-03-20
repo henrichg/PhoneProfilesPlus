@@ -5793,6 +5793,17 @@ class ActivateProfileHelper {
                                 defaultSubscriptionId = SubscriptionManager.getDefaultVoiceSubscriptionId();
                                 PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultVoiceSubId");
                                 transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
+                                switch (simCard) {
+                                    case 1: // ask for SIM
+                                        simCard = -1;
+                                        break;
+                                    case 2: // SIM 1
+                                        simCard = 1;
+                                        break;
+                                    case 3: // SIM 2
+                                        simCard = 2;
+                                        break;
+                                }
                                 break;
                             case SUBSCRIPTRION_SMS:
                                 defaultSubscriptionId = SubscriptionManager.getDefaultSmsSubscriptionId();
@@ -5806,9 +5817,10 @@ class ActivateProfileHelper {
                                 break;
                         }
                     }
+                    PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "defaultSubscriptionId=" + defaultSubscriptionId);
                     PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "transactionCode=" + transactionCode);
 
-                    if (transactionCode != -1) {
+                    if ((transactionCode != -1) && (simCard != -1)) {
 
                         SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                         //SubscriptionManager.from(appContext);
