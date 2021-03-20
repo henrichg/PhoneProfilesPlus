@@ -769,6 +769,81 @@ to get current active data sim subscription index.
 
 ---------------------------------
 
+https://android.googlesource.com/platform/frameworks/opt/telephony/+/aa1b0618a847ee1365c1e9810f085214c717a27e/src/java/com/android/internal/telephony/SubscriptionController.java
+
+    public void setDefaultVoiceSubId(int subId) {
+        if (subId == SubscriptionManager.DEFAULT_SUBSCRIPTION_ID) {
+            throw new RuntimeException("setDefaultVoiceSubId called with DEFAULT_SUB_ID");
+        }
+        if (DBG) logdl("[setDefaultVoiceSubId] subId=" + subId);
+------------
+        Settings.Global.putInt(mContext.getContentResolver(),
+                Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION, subId);
+------------
+        broadcastDefaultVoiceSubIdChanged(subId);
+    }
+
+
+    public void setDefaultSmsSubId(int subId) {
+        if (subId == SubscriptionManager.DEFAULT_SUBSCRIPTION_ID) {
+            throw new RuntimeException("setDefaultSmsSubId called with DEFAULT_SUB_ID");
+        }
+        if (DBG) logdl("[setDefaultSmsSubId] subId=" + subId);
+------------
+        Settings.Global.putInt(mContext.getContentResolver(),
+                Settings.Global.MULTI_SIM_SMS_SUBSCRIPTION, subId);
+------------
+        broadcastDefaultSmsSubIdChanged(subId);
+    }
+
+    public void setDefaultDataSubId(int subId) {
+        if (subId == SubscriptionManager.DEFAULT_SUBSCRIPTION_ID) {
+            throw new RuntimeException("setDefaultDataSubId called with DEFAULT_SUB_ID");
+        }
+        if (DBG) logdl("[setDefaultDataSubId] subId=" + subId);
+        int len = sProxyPhones.length;
+        logdl("[setDefaultDataSubId] num phones=" + len);
+        RadioAccessFamily[] rafs = new RadioAccessFamily[len];
+        for (int phoneId = 0; phoneId < len; phoneId++) {
+            PhoneProxy phone = sProxyPhones[phoneId];
+            int raf = phone.getRadioAccessFamily();
+            int id = phone.getSubId();
+            logdl("[setDefaultDataSubId] phoneId=" + phoneId + " subId=" + id + " RAF=" + raf);
+            raf |= RadioAccessFamily.RAF_GSM;
+            if (id == subId) {
+                raf |= RadioAccessFamily.RAF_UMTS;
+            } else {
+                raf &= ~RadioAccessFamily.RAF_UMTS;
+            }
+            logdl("[setDefaultDataSubId] reqRAF=" + raf);
+            // Set the raf to the maximum of the requested and the user's preferred.
+            int networkType = PhoneFactory.calculatePreferredNetworkType(mContext, id);
+            logdl("[setDefaultDataSubId] networkType=" + networkType);
+            raf &= RadioAccessFamily.getRafFromNetworkType(networkType);
+            logdl("[setDefaultDataSubId] newRAF=" + raf);
+            rafs[phoneId] = new RadioAccessFamily(phoneId, raf);
+        }
+        ProxyController.getInstance().setRadioCapability(rafs);
+        // FIXME is this still needed?
+        updateAllDataConnectionTrackers();
+--------------
+        Settings.Global.putInt(mContext.getContentResolver(),
+                Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION, subId);
+--------------
+        broadcastDefaultDataSubIdChanged(subId);
+    }
+
+Hm, hm, na Samsungu taky parameter nie je. Hm hm.
+    /*Sets User Prompt property,  enabed or not */
+    public static void setPromptEnabled(boolean enabled) {
+        int value = (enabled == false) ? 0 : 1;
+        Settings.Global.putInt(sContext.getContentResolver(),
+                Settings.Global.MULTI_SIM_VOICE_PROMPT, value);
+        Rlog.d(LOG_TAG, "setVoicePromptOption to " + enabled);
+    }
+
+---------------------------------
+
 Set ringtone:
 
 S21:
