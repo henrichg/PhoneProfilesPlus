@@ -5794,7 +5794,7 @@ class ActivateProfileHelper {
                                 PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultVoiceSubId");
                                 transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
                                 switch (simCard) {
-                                    case 1: // ask for SIM
+                                    case 1: // ask for SIM - currently not supported
                                         simCard = -1;
                                         break;
                                     case 2: // SIM 1
@@ -5878,7 +5878,7 @@ class ActivateProfileHelper {
                             PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "mSubscriptionManager == null");
                     }
                     else
-                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "transactionCode == -1");
+                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "(transactionCode == -1) || (simCard == -1)");
                 }
             }
         }
