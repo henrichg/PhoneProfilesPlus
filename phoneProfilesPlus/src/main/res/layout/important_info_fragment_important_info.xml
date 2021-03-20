@@ -495,7 +495,7 @@
             android:layout_marginTop="-10dp"
             android:paddingBottom="5dp"
             android:fontFamily="monospace"
-            android:text="@string/important_info_profile_grant_1_howTo_11"
+            android:text="@string/empty_string"
             android:textSize="@dimen/important_info_text_size_monospace"
             android:id="@+id/activity_info_notification_profile_grant_1_howTo_11"
             android:textStyle="bold" />

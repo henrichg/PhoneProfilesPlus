@@ -789,7 +789,6 @@
     <string name="important_info_profile_grant_1_howTo_1">Profile parameters marked with (G1) need special permission for PhoneProfilesPlus. This is done through your PC with installed adb.</string>
     <string name="important_info_profile_grant_1_howTo_2">If you do not have adb installed on your PC:</string>
     <string name="important_info_profile_grant_1_howTo_3">Download SDK Platform Tools from:</string>
-    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
     <string name="important_info_profile_grant_1_howTo_4">Extract zip contents.</string>
     <string name="important_info_profile_grant_1_howTo_5">How to grant WRITE_SECURE_SETTINGS permission:</string>
     <string name="important_info_profile_grant_1_howTo_6">On your device, go into Settings &gt; About &gt; Software Information and click on Build Number 7 times. This will unlock and display Developer Options in Settings.</string>
@@ -1819,6 +1818,7 @@
 
 <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
 <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
+<!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
 
 </resources>
 

@@ -882,7 +882,8 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoText45.setText(spannable);
 
         TextView infoTextADBDownload = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_11);
-        str = getString(R.string.important_info_profile_grant_1_howTo_11);
+        //str = getString(R.string.important_info_profile_grant_1_howTo_11);
+        str = "https://developer.android.com/studio/releases/platform-tools.html";
         spannable = new SpannableString(str);
         spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
