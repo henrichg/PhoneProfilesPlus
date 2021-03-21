@@ -785,7 +785,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="important_info_profile_grant_1_howTo_1">I parametri del profilo contrassegnati con (G1) richiedono una specifica autorizzazione per PhoneProfilesPlus. Questa può essere concessa usando adb installato sul tuo PC.</string>
     <string name="important_info_profile_grant_1_howTo_2">Se non hai installato adb sul tuo PC:</string>
     <string name="important_info_profile_grant_1_howTo_3">Scarica SDK Platform Tools da:</string>
-    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
     <string name="important_info_profile_grant_1_howTo_4">Estrai il contenuto del file zip.</string>
     <string name="important_info_profile_grant_1_howTo_5">Come concedere l\'autorizzazione di WRITE_SECURE_SETTINGS:</string>
     <string name="important_info_profile_grant_1_howTo_6">Sul tuo dispositivo, vai in Impostazioni &gt; Info sul telefono e fai clic 7 volte su Numero Build. Questa procedura sbloccherà e visualizzerà la voce Opzioni Sviluppatore nelle Impostazioni.</string>
@@ -1504,9 +1503,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="acra_email_subject_text">PhoneProfilesPlus - Rapporto Crash</string>
     <string name="acra_email_body_text">PhoneProfilesPlus è crashato. In allegato il rapporto del crash.</string>
     <string name="acra_notification_title">Spiacenti, PhoneProfilesPlus ha crashato</string>
-    <string name="acra_notification_text">Sei pregato di cliccare il pulsante \"Invia\", per inviare il rapporto di crash all\'autore. Grazie mille.</string>
-    <string name="acra_notification_send_button">Invia</string>
-    <string name="acra_notification_discard_button">Scarta</string>
     <string name="notification_channel_crash_report">Rapporto di Crash</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filtro della vista profili</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Cliccalo passare alla vista del filtro dei Profili.</string>
@@ -1540,8 +1536,8 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="profile_preferences_deviceBrightness_manual">Manual brightness</string>
     <string name="profile_preferences_savedProfilePreferences_title">Saved device parameters</string>
     <string name="profile_preferences_savedProfilePreferences_summary">Click here to show saved device parameters.</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead profile icon</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead of profile icon</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignore and do not pause</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Manual profile activation at end</string>
     <string name="critical_github_release_confirm_notification_disable">Critical PhoneProfilesPlus release is required to download it. In it are fixed critical bugs. Are you sure to not show this notification in future?</string>
@@ -1614,6 +1610,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="default_sim_pref_dlg_voice">Default voice SIM</string>
     <string name="default_sim_pref_dlg_sms">Default SMS SIM</string>
     <string name="default_sim_pref_dlg_data">Default data SIM</string>
+    <string name="array_default_sim_pref_ask_for_sim">Ask every time</string>
     <string name="array_default_sim_pref_sim1">SIM 1</string>
     <string name="array_default_sim_pref_sim2">SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
@@ -1621,6 +1618,14 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="default_sim_subscription_voice">Voice</string>
     <string name="default_sim_subscription_sms">SMS</string>
     <string name="default_sim_subscription_data">Data</string>
+    <string name="profile_preferences_deviceDualSIMSupport">Dual SIM support</string>
+    <string name="profile_preferences_deviceOnOff_SIM1">Switch SIM 1 on/off</string>
+    <string name="profile_preferences_deviceOnOff_SIM2">Switch SIM 2 on/off</string>
+    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>
+    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="ringtone_pref_dlg_system_tone">system tone</string>
+    <string name="ringtone_pref_dlg_extenal_tone">external tone</string>
+    <string name="acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>
@@ -1653,4 +1658,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="extender_notification_channel_crash_report">Rapporto di crash</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
+    <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
+    <!--    <string name="acra_notification_send_button">Send</string>-->
+    <!--    <string name="acra_notification_discard_button">Discard</string>-->
 </resources>

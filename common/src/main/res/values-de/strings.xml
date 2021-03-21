@@ -784,7 +784,6 @@
     <string name="important_info_profile_grant_1_howTo_1">Die mit (G1) markierten Profilparameter benötigen eine spezielle Berechtigung für PhoneProfilesPlus. Dies erfolgt über Ihren PC mit installierter ADB (Android Debug Bridge).</string>
     <string name="important_info_profile_grant_1_howTo_2">Wenn Sie ADB (Android Debug Bridge) nicht auf Ihrem PC installiert haben:</string>
     <string name="important_info_profile_grant_1_howTo_3">SDK-Plattform-Werkzeuge herunter von:</string>
-    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
     <string name="important_info_profile_grant_1_howTo_4">Extrahiere Zip-Inhalte.</string>
     <string name="important_info_profile_grant_1_howTo_5">\"WRITE_SECURE_SETTINGS\"-Berechtigung erteilen:</string>
     <string name="important_info_profile_grant_1_howTo_6">Unter Einstellungen &gt; Über das Telefon &gt; Software Informationen, sieben mal auf \"Build Number\" klicken. Dies wird die Entwicklereinstellungen unter Einstellungen aktivieren.</string>
@@ -1503,9 +1502,6 @@
     <string name="acra_email_subject_text">PhoneProfilesPlus - Absturzbericht</string>
     <string name="acra_email_body_text">PhoneProfilesPlus ist abgestürzt. Anbei finden Sie den Absturzbericht.</string>
     <string name="acra_notification_title">Leider ist PhoneProfilesPlus abgestürzt</string>
-    <string name="acra_notification_text">Bitte klicken Sie auf die Schaltfläche „Senden“, um den Absturzbericht an den Autor zu senden. Vielen Dank.</string>
-    <string name="acra_notification_send_button">Senden</string>
-    <string name="acra_notification_discard_button">Verwerfen</string>
     <string name="notification_channel_crash_report">Absturzbericht</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter der Profilansicht</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Hier klicken, um zwischen den Filtern der Profilansicht zu wechseln.</string>
@@ -1610,16 +1606,25 @@
     <string name="array_pref_radioSwitch_connected">Verbunden</string>
     <string name="array_pref_radioSwitch_disconnected">Verbindung getrennt</string>
     <string name="event_preference_sensor_radioSwitch_summary">Dieser Sensor startet ein Ereignis durch das Ein-/Ausschalten von Funkgeräten und durch seinen Status (Verbunden/Getrennt). Parameter: WLAN, Bluetooth, Mobile Daten, GPS, NFC, Flugmodus.</string>
-    <string name="default_sim_pref_dlg_voice">Default voice SIM</string>
-    <string name="default_sim_pref_dlg_sms">Default SMS SIM</string>
-    <string name="default_sim_pref_dlg_data">Default data SIM</string>
+    <string name="default_sim_pref_dlg_voice">Standard-Sprach-SIM</string>
+    <string name="default_sim_pref_dlg_sms">Standard-SMS-SIM</string>
+    <string name="default_sim_pref_dlg_data">Standard-Daten-SIM</string>
+    <string name="array_default_sim_pref_ask_for_sim">Ask every time</string>
     <string name="array_default_sim_pref_sim1">SIM 1</string>
     <string name="array_default_sim_pref_sim2">SIM 2</string>
-    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
-    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>
-    <string name="default_sim_subscription_voice">Voice</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) Standard SIM-Karte</string>
+    <string name="profile_preferences_deviceDefaultSIM_summary">Experimentell. Dies kann möglicherweise nicht auf Ihrem Gerät genutzt werden.</string>
+    <string name="default_sim_subscription_voice">Sprache</string>
     <string name="default_sim_subscription_sms">SMS</string>
-    <string name="default_sim_subscription_data">Data</string>
+    <string name="default_sim_subscription_data">Daten</string>
+    <string name="profile_preferences_deviceDualSIMSupport">Unterstützung für Geräte mit zwei SIM-Karten</string>
+    <string name="profile_preferences_deviceOnOff_SIM1">Switch SIM 1 on/off</string>
+    <string name="profile_preferences_deviceOnOff_SIM2">Switch SIM 2 on/off</string>
+    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>
+    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="ringtone_pref_dlg_system_tone">system tone</string>
+    <string name="ringtone_pref_dlg_extenal_tone">external tone</string>
+    <string name="acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1652,4 +1657,7 @@
     <string name="extender_notification_channel_crash_report">Absturzbericht</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
+    <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
+    <!--    <string name="acra_notification_send_button">Send</string>-->
+    <!--    <string name="acra_notification_discard_button">Discard</string>-->
 </resources>

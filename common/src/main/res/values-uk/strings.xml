@@ -784,7 +784,6 @@
     <string name="important_info_profile_grant_1_howTo_1">Параметри профілю позначені (G1) потребують спеціального дозволу для PhoneProfilesPlus. Їх можна отримати з допомогою ПК із встановленим adb.</string>
     <string name="important_info_profile_grant_1_howTo_2">Якщо на вашому ПК не встановлено adb:</string>
     <string name="important_info_profile_grant_1_howTo_3">Завантажити інструмент платформи SDK із:</string>
-    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
     <string name="important_info_profile_grant_1_howTo_4">Розпакувати zip файл.</string>
     <string name="important_info_profile_grant_1_howTo_5">Як надати дозвіл WRITE_SECURE_SETTINGS:</string>
     <string name="important_info_profile_grant_1_howTo_6">Зайдіть на своєму пристрої в Налаштування&gt; Про телефон &gt; Інформація та ПЗ і 7 разів натисніть на Версію збірки. Це розблокує і відобразить в Налаштуваннях пункт Для розробників.</string>
@@ -1503,9 +1502,6 @@
     <string name="acra_email_subject_text">PhoneProfilesPlus — Аварійний звіт</string>
     <string name="acra_email_body_text">PhoneProfilesPlus був пошкоджений. Прикріплений звіт про аварію.</string>
     <string name="acra_notification_title">На жаль, PhoneProfilesPlus зазнав аварії</string>
-    <string name="acra_notification_text">Будь ласка, натисніть кнопку \"Відправити\", щоб надіслати звіт про аварію автору. Дуже дякуємо.</string>
-    <string name="acra_notification_send_button">Відправити</string>
-    <string name="acra_notification_discard_button">Відхилити</string>
     <string name="notification_channel_crash_report">Звіт про аварію</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Фільтр вигляду Профілів</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Натисніть тут для зміни вигляду фільтру Профілів.</string>
@@ -1611,16 +1607,25 @@
     <string name="array_pref_radioSwitch_connected">З\'єднано</string>
     <string name="array_pref_radioSwitch_disconnected">Від’єднано</string>
     <string name="event_preference_sensor_radioSwitch_summary">Цей датчик призначено для запуску події перемиканням радіомодулів (увімк./вимкн.) та їх станом (з\'єднано/від\'єднано). Параметри: Wi-Fi, Bluetooth, Мобільний інтернет, GPS, NFC, режим польоту.</string>
-    <string name="default_sim_pref_dlg_voice">Default voice SIM</string>
-    <string name="default_sim_pref_dlg_sms">Default SMS SIM</string>
-    <string name="default_sim_pref_dlg_data">Default data SIM</string>
+    <string name="default_sim_pref_dlg_voice">SIM для викликів</string>
+    <string name="default_sim_pref_dlg_sms">SIM для SMS</string>
+    <string name="default_sim_pref_dlg_data">SIM для інтернету</string>
+    <string name="array_default_sim_pref_ask_for_sim">Ask every time</string>
     <string name="array_default_sim_pref_sim1">SIM 1</string>
     <string name="array_default_sim_pref_sim2">SIM 2</string>
-    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
-    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>
-    <string name="default_sim_subscription_voice">Voice</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) SIM за замовчуванням</string>
+    <string name="profile_preferences_deviceDefaultSIM_summary">Експериментально. Може НЕ працювати на Вашому пристрої.</string>
+    <string name="default_sim_subscription_voice">Дзвінки</string>
     <string name="default_sim_subscription_sms">SMS</string>
-    <string name="default_sim_subscription_data">Data</string>
+    <string name="default_sim_subscription_data">Інтернет</string>
+    <string name="profile_preferences_deviceDualSIMSupport">Підтримка двох SIM</string>
+    <string name="profile_preferences_deviceOnOff_SIM1">Switch SIM 1 on/off</string>
+    <string name="profile_preferences_deviceOnOff_SIM2">Switch SIM 2 on/off</string>
+    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>
+    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="ringtone_pref_dlg_system_tone">system tone</string>
+    <string name="ringtone_pref_dlg_extenal_tone">external tone</string>
+    <string name="acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1653,4 +1658,7 @@
     <string name="extender_notification_channel_crash_report">Звіт про аварію</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
+    <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
+    <!--    <string name="acra_notification_send_button">Send</string>-->
+    <!--    <string name="acra_notification_discard_button">Discard</string>-->
 </resources>

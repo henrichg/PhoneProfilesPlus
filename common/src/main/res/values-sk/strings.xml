@@ -784,7 +784,6 @@
     <string name="important_info_profile_grant_1_howTo_1">Môžete udeliť povolenie pre PhoneProfilesPlus potrebné pre parametre profilu označené (G1). Potrebný je počítač s nainštalovaným adb.</string>
     <string name="important_info_profile_grant_1_howTo_2">Ak v počítači nemáte nainštalovaný adb:</string>
     <string name="important_info_profile_grant_1_howTo_3">Stiahnite SDK Platform Tools z:</string>
-    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
     <string name="important_info_profile_grant_1_howTo_4">Rozbaľte zip súbor.</string>
     <string name="important_info_profile_grant_1_howTo_5">Ako udeliť povolenie WRITE_SECURE_SETTINGS:</string>
     <string name="important_info_profile_grant_1_howTo_6">V zariadení, prejdite do ponuky Nastavenia &gt; informácie o telefóne &gt; informácie o softvéri a kliknite na Číslo zostavy 7-krát, a budete mať v Nastaveniach položku Vývojárske možnosti.</string>
@@ -1503,9 +1502,6 @@
     <string name="acra_email_subject_text">PhoneProfilesPlus - Správa o zlyhaní</string>
     <string name="acra_email_body_text">PhoneProfilesPlus zlyhal. Pripojená je správa o zlyhaní.</string>
     <string name="acra_notification_title">Je mi ľúto, PhoneProfilesPlus zlyhal</string>
-    <string name="acra_notification_text">Kliknutím na tlačítko „Odoslať“, odošlete autorovi správu o zlyhaní. Ďakujem veľmi pekne.</string>
-    <string name="acra_notification_send_button">Odoslať</string>
-    <string name="acra_notification_discard_button">Zahodiť</string>
     <string name="notification_channel_crash_report">Správa o zlyhaní</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter zobrazenia Profilov</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Kliknite sem pre prepínanie filtra zobrazenia Profilov.</string>
@@ -1613,6 +1609,7 @@
     <string name="default_sim_pref_dlg_voice">Predvolená SIM pre hlas</string>
     <string name="default_sim_pref_dlg_sms">Predvolená SIM pre SMS</string>
     <string name="default_sim_pref_dlg_data">Predvolená SIM pre dáta</string>
+    <string name="array_default_sim_pref_ask_for_sim">Vždy sa opýtať</string>
     <string name="array_default_sim_pref_sim1">SIM 1</string>
     <string name="array_default_sim_pref_sim2">SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(R) Predvolená SIM karta</string>
@@ -1620,6 +1617,14 @@
     <string name="default_sim_subscription_voice">Hlas</string>
     <string name="default_sim_subscription_sms">SMS</string>
     <string name="default_sim_subscription_data">Dáta</string>
+    <string name="profile_preferences_deviceDualSIMSupport">Podpora dvoch SIM kariet</string>
+    <string name="profile_preferences_deviceOnOff_SIM1">Zapnutie/vypnutie SIM 1</string>
+    <string name="profile_preferences_deviceOnOff_SIM2">Zapnutie/vypnutie SIM 2</string>
+    <string name="profile_preferences_deviceOnOffDualSIM">Zapnutie/vypnutie SIM karty pre zariadenia s dvoma SIM kartami</string>
+    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimentálne. Nemusí fungovať vo vašom zariadení.</string>
+    <string name="ringtone_pref_dlg_system_tone">systémový tón</string>
+    <string name="ringtone_pref_dlg_extenal_tone">externý tón</string>
+    <string name="acra_notification_text">Kliknutím sem, odošlete autorovi správu o zlyhaní. Ďakujem veľmi pekne.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1652,4 +1657,7 @@
     <string name="extender_notification_channel_crash_report">Správa o zlyhaní</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
+    <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
+    <!--    <string name="acra_notification_send_button">Send</string>-->
+    <!--    <string name="acra_notification_discard_button">Discard</string>-->
 </resources>

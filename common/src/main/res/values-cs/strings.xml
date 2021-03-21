@@ -784,7 +784,6 @@
     <string name="important_info_profile_grant_1_howTo_1">Můžete udělit povolení pro PhoneProfilesPlus potřebné pro parametry profilu označené (G1). Potřebný je počítač s nainstalovaným adb.</string>
     <string name="important_info_profile_grant_1_howTo_2">Pokud v počítači nemáte nainstalovaný adb:</string>
     <string name="important_info_profile_grant_1_howTo_3">Stáhnout SDK Platform Tools z:</string>
-    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
     <string name="important_info_profile_grant_1_howTo_4">Rozbalte zip soubor.</string>
     <string name="important_info_profile_grant_1_howTo_5">Jak udělit povolení WRITE_SECURE_SETTINGS:</string>
     <string name="important_info_profile_grant_1_howTo_6">V zařízení, přejděte do nabídky Nastavení &gt; informace o telefonu &gt; informace o softwaru a klepněte na Číslo sestavy 7-krát, a budete mít v Nastaveních položku Vývojářské možnosti.</string>
@@ -1503,9 +1502,6 @@
     <string name="acra_email_subject_text">PhoneProfilesPlus - Zpráva o selhání</string>
     <string name="acra_email_body_text">PhoneProfilesPlus selhal. Připojena je zpráva o selhání.</string>
     <string name="acra_notification_title">Je mi líto, PhoneProfilesPlus selhal</string>
-    <string name="acra_notification_text">Kliknutím na tlačítko \"Odeslat\", odešlete autorovi zprávu o selhání. Děkuji velmi pěkně.</string>
-    <string name="acra_notification_send_button">Odeslat</string>
-    <string name="acra_notification_discard_button">Zahodit</string>
     <string name="notification_channel_crash_report">Zpráva o selhání</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filtr zobrazení Profilů</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Klikněte sem pro přepínání filtru zobrazení Profilů.</string>
@@ -1613,6 +1609,7 @@
     <string name="default_sim_pref_dlg_voice">Výchozí SIM pro hlas</string>
     <string name="default_sim_pref_dlg_sms">Výchozí SIM pro SMS</string>
     <string name="default_sim_pref_dlg_data">Výchozí SIM pro data</string>
+    <string name="array_default_sim_pref_ask_for_sim">Pokaždé se zeptat</string>
     <string name="array_default_sim_pref_sim1">SIM 1</string>
     <string name="array_default_sim_pref_sim2">SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(R) Výchozí SIM karta</string>
@@ -1620,6 +1617,14 @@
     <string name="default_sim_subscription_voice">Hlas</string>
     <string name="default_sim_subscription_sms">SMS</string>
     <string name="default_sim_subscription_data">Data</string>
+    <string name="profile_preferences_deviceDualSIMSupport">Podpora dual SIM</string>
+    <string name="profile_preferences_deviceOnOff_SIM1">Zapnout/vypnout SIM 1</string>
+    <string name="profile_preferences_deviceOnOff_SIM2">Zapnout/vypnout SIM 2</string>
+    <string name="profile_preferences_deviceOnOffDualSIM">Zapnout/vypnout SIM kartu pro duální zařízení SIM</string>
+    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimentální. Nemusí fungovat ve vašem zařízení.</string>
+    <string name="ringtone_pref_dlg_system_tone">systémový tón</string>
+    <string name="ringtone_pref_dlg_extenal_tone">externí tón</string>
+    <string name="acra_notification_text">Kliknutím zde, odešlete autorovi zprávu o selhání. Děkuji velmi pěkně.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1652,4 +1657,7 @@
     <string name="extender_notification_channel_crash_report">Zpráva o selhání</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
+    <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
+    <!--    <string name="acra_notification_send_button">Send</string>-->
+    <!--    <string name="acra_notification_discard_button">Discard</string>-->
 </resources>

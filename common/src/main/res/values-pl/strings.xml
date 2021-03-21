@@ -784,7 +784,6 @@
     <string name="important_info_profile_grant_1_howTo_1">Parametry profilu zaznaczone (G1) wymagają specjalnych uprawnień dla PhoneProfilesPlus. Można to zrobić za pośrednictwem twojego komputera z zainstalowanym adb.</string>
     <string name="important_info_profile_grant_1_howTo_2">Jeśli nie masz adb zainstalowanego na komputerze:</string>
     <string name="important_info_profile_grant_1_howTo_3">Pobierz SDK Platform Tools z:</string>
-    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
     <string name="important_info_profile_grant_1_howTo_4">Rozpakuj archiwum zip.</string>
     <string name="important_info_profile_grant_1_howTo_5">Jak udzielić uprawnienia WRITE_SECURE_SETTINGS:</string>
     <string name="important_info_profile_grant_1_howTo_6">Na twoim urządzeniu, przejdź do Ustawień &gt; O &gt; &gt; Informacjach o Oprogramowaniu i kliknij na numer budowania 7 razy. Odblokuje to i wyświetli Opcji Dewelopera w Ustawieniach.</string>
@@ -1504,9 +1503,6 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="acra_email_subject_text">PhoneProfilesPlus - raport błędu</string>
     <string name="acra_email_body_text">PhoneProfilesPlus uległ awarii. Załączono raport awarii.</string>
     <string name="acra_notification_title">Przepraszamy, PhoneProfilesPlus uległ awarii</string>
-    <string name="acra_notification_text">Kliknij przycisk \"Wyślij\", aby wysłać raport o awarii do autora. Dziękuję bardzo.</string>
-    <string name="acra_notification_send_button">Wyślij</string>
-    <string name="acra_notification_discard_button">Odrzuć</string>
     <string name="notification_channel_crash_report">Raport błędu</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filtr widoku profili</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Kliknij tutaj aby przełączyć filtr widoku Profili.</string>
@@ -1540,8 +1536,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="profile_preferences_deviceBrightness_manual">Jasność ust. ręcznie</string>
     <string name="profile_preferences_savedProfilePreferences_title">Zapisane parametry urządzenia</string>
     <string name="profile_preferences_savedProfilePreferences_summary">Kliknij tutaj, aby wyświetlić zapisane parametry urządzenia.</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead profile icon</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead of profile icon</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignoruj i nie wstrzymuj</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Ręczna aktywacja profilu na końcu</string>
     <string name="critical_github_release_confirm_notification_disable">Do pobrania jest wymagana krytyczna aktualizacja PhoneProfilesPlus. Czy na pewno nie pokazywać tego powiadomienia w przyszłości?</string>
@@ -1611,16 +1607,25 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="array_pref_radioSwitch_connected">Połączono</string>
     <string name="array_pref_radioSwitch_disconnected">Rozłączono</string>
     <string name="event_preference_sensor_radioSwitch_summary">Ten sensor rozpocznie zdarzenie po przełączeniu radia (wł./wył.). Parametry: Wi-Fi, Bluetooth, Dane mobilne, GPS, NFC, Tryb samolotowy.</string>
-    <string name="default_sim_pref_dlg_voice">Default voice SIM</string>
-    <string name="default_sim_pref_dlg_sms">Default SMS SIM</string>
-    <string name="default_sim_pref_dlg_data">Default data SIM</string>
+    <string name="default_sim_pref_dlg_voice">Domyślna karta SIM do rozmów</string>
+    <string name="default_sim_pref_dlg_sms">Domyślna karta SIM do SMS</string>
+    <string name="default_sim_pref_dlg_data">Domyślna karta SIM do poł. danych</string>
+    <string name="array_default_sim_pref_ask_for_sim">Ask every time</string>
     <string name="array_default_sim_pref_sim1">SIM 1</string>
     <string name="array_default_sim_pref_sim2">SIM 2</string>
-    <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
-    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>
-    <string name="default_sim_subscription_voice">Voice</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) Domyślna karta SIM</string>
+    <string name="profile_preferences_deviceDefaultSIM_summary">Eksperymentalne. Może nie działać na Twoim urządzeniu.</string>
+    <string name="default_sim_subscription_voice">Połączenie głosowe</string>
     <string name="default_sim_subscription_sms">SMS</string>
-    <string name="default_sim_subscription_data">Data</string>
+    <string name="default_sim_subscription_data">Dane</string>
+    <string name="profile_preferences_deviceDualSIMSupport">Wsparcie Dual SIM</string>
+    <string name="profile_preferences_deviceOnOff_SIM1">Switch SIM 1 on/off</string>
+    <string name="profile_preferences_deviceOnOff_SIM2">Switch SIM 2 on/off</string>
+    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>
+    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="ringtone_pref_dlg_system_tone">system tone</string>
+    <string name="ringtone_pref_dlg_extenal_tone">external tone</string>
+    <string name="acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1653,4 +1658,7 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="extender_notification_channel_crash_report">Raport błędu</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
+    <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
+    <!--    <string name="acra_notification_send_button">Send</string>-->
+    <!--    <string name="acra_notification_discard_button">Discard</string>-->
 </resources>

@@ -784,7 +784,6 @@
     <string name="important_info_profile_grant_1_howTo_1">Profil paraméterek (G1) jelöléssel külön engedély kell PhoneProfilesPlushoz. Ehhez a számítógépre telepített adb szükséges.</string>
     <string name="important_info_profile_grant_1_howTo_2">Ha nincs a számítógépre telepített adb:</string>
     <string name="important_info_profile_grant_1_howTo_3">Töltse le az SDK eszközöket \"SDK Platform Tools\":</string>
-    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>
     <string name="important_info_profile_grant_1_howTo_4">Csomagolja ki a zip-pelt tartalmat.</string>
     <string name="important_info_profile_grant_1_howTo_5">Hogyan adja meg a WRITE_SECURE_SETTINGS engedélyt:</string>
     <string name="important_info_profile_grant_1_howTo_6">A készüléken, menjen a Beállítások &gt; Névjegy &gt; Szoftver Információ és kattintás build number 7-szer. Ez kinyitja a fejlesztő lehetőségeket a Beállítások menüben.</string>
@@ -1503,9 +1502,6 @@
     <string name="acra_email_subject_text">PhoneProfilesPlus - Crash report</string>
     <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is crash report.</string>
     <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
-    <string name="acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
-    <string name="acra_notification_send_button">Send</string>
-    <string name="acra_notification_discard_button">Discard</string>
     <string name="notification_channel_crash_report">Crash report</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
     <string name="editor_activity_targetHelps_profilesFilterSpinner_description">Click this to switch between filter of Profiles view.</string>
@@ -1539,8 +1535,8 @@
     <string name="profile_preferences_deviceBrightness_manual">Manual brightness</string>
     <string name="profile_preferences_savedProfilePreferences_title">Saved device parameters</string>
     <string name="profile_preferences_savedProfilePreferences_summary">Click here to show saved device parameters.</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead profile icon</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead of profile icon</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignore and do not pause</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Manual profile activation at end</string>
     <string name="critical_github_release_confirm_notification_disable">Critical PhoneProfilesPlus release is required to download it. In it are fixed critical bugs. Are you sure to not show this notification in future?</string>
@@ -1613,6 +1609,7 @@
     <string name="default_sim_pref_dlg_voice">Default voice SIM</string>
     <string name="default_sim_pref_dlg_sms">Default SMS SIM</string>
     <string name="default_sim_pref_dlg_data">Default data SIM</string>
+    <string name="array_default_sim_pref_ask_for_sim">Ask every time</string>
     <string name="array_default_sim_pref_sim1">SIM 1</string>
     <string name="array_default_sim_pref_sim2">SIM 2</string>
     <string name="profile_preferences_deviceDefaultSIM">(R) Default SIM card</string>
@@ -1620,6 +1617,14 @@
     <string name="default_sim_subscription_voice">Voice</string>
     <string name="default_sim_subscription_sms">SMS</string>
     <string name="default_sim_subscription_data">Data</string>
+    <string name="profile_preferences_deviceDualSIMSupport">Dual SIM support</string>
+    <string name="profile_preferences_deviceOnOff_SIM1">Switch SIM 1 on/off</string>
+    <string name="profile_preferences_deviceOnOff_SIM2">Switch SIM 2 on/off</string>
+    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>
+    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>
+    <string name="ringtone_pref_dlg_system_tone">system tone</string>
+    <string name="ringtone_pref_dlg_extenal_tone">external tone</string>
+    <string name="acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>
@@ -1652,4 +1657,7 @@
     <string name="extender_notification_channel_crash_report">Crash report</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
+    <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
+    <!--    <string name="acra_notification_send_button">Send</string>-->
+    <!--    <string name="acra_notification_discard_button">Discard</string>-->
 </resources>
