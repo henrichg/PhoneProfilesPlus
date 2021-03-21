@@ -7,8 +7,18 @@
 
     <RelativeLayout
         android:id="@+id/displayRow"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_above="@id/duration"
+            android:background="@color/display_divider"/>
 
         <LinearLayout
             android:id="@+id/duration"
@@ -16,6 +26,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginStart="5dp"
+            android:layout_alignParentTop="true"
             android:paddingTop="@dimen/controlVPadding"
             android:paddingBottom="@dimen/controlVPadding"
             android:paddingLeft="@dimen/controlHPadding"
@@ -71,36 +82,38 @@
                 tools:ignore="HardcodedText"/>
         </LinearLayout>
 
-        <ImageButton
-            android:layout_centerVertical="true"
-            android:id="@+id/backspace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/clear"
-            android:minWidth="@dimen/touchable"
-            android:minHeight="@dimen/touchable"
-            android:src="@drawable/ic_backspace_light"
-            android:background="?selectableItemBackgroundBorderless"
-            android:contentDescription="@string/backspace_button_tooltip"/>
-
-        <ImageButton
-            android:layout_centerVertical="true"
-            android:id="@+id/clear"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:minWidth="@dimen/touchable"
-            android:minHeight="@dimen/touchable"
-            android:src="@drawable/ic_clear_light"
-            android:background="?selectableItemBackgroundBorderless"
-            android:contentDescription="@string/clear_button_tooltip"/>
+            android:layout_toEndOf="@id/duration">
 
-        <View
-            android:id="@+id/separator"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@id/duration"
-            android:background="?colorControlActivated"/>
+            <ImageButton
+                android:layout_centerVertical="true"
+                android:id="@+id/backspace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@id/clear"
+                android:minWidth="@dimen/touchable"
+                android:minHeight="@dimen/touchable"
+                android:src="@drawable/ic_backspace_light"
+                android:background="?selectableItemBackgroundBorderless"
+                android:contentDescription="@string/backspace_button_tooltip"/>
+
+            <ImageButton
+                android:layout_centerVertical="true"
+                android:id="@+id/clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:minWidth="@dimen/touchable"
+                android:minHeight="@dimen/touchable"
+                android:src="@drawable/ic_clear_light"
+                android:background="?selectableItemBackgroundBorderless"
+                android:contentDescription="@string/clear_button_tooltip"/>
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <LinearLayout

@@ -1003,17 +1003,23 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
-    /*
     static int getThemeDialogDividerColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.dialogDivider, value, true);
         return value.data;
     }
-    */
 
+    /*
     static private int getThemeEditorFilterBackgroundColor(final Context context) {
         final TypedValue value = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.editorFilterBackgroundColor, value, true);
+        return value.data;
+    }
+    */
+
+    static private int getThemeDialogBackgroundColor(final Context context) {
+        final TypedValue value = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.activityBackgroundColor, value, true);
         return value.data;
     }
 
@@ -1030,8 +1036,8 @@ class GlobalGUIRoutines {
             timeDurationPicker.setBackspaceIcon(ContextCompat.getDrawable(activity, R.drawable.ic_backspace));
             timeDurationPicker.setClearIcon(ContextCompat.getDrawable(activity, R.drawable.ic_clear));
         }
-        timeDurationPicker.setDurationDisplayBackgroundColor(getThemeEditorFilterBackgroundColor(activity));
-        //timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(activity));
+        timeDurationPicker.setDurationDisplayBackgroundColor(getThemeDialogBackgroundColor(activity));
+        timeDurationPicker.setSeparatorColor(GlobalGUIRoutines.getThemeDialogDividerColor(activity));
     }
 
     static int getThemeSecondaryTextColor(final Context context) {
