@@ -4,10 +4,10 @@
     <item>
         <shape android:shape="rectangle">
             <padding
-                android:bottom="5dp"
-                android:left="5dp"
-                android:right="5dp"
-                android:top="5dp" />
+                android:bottom="15dp"
+                android:left="15dp"
+                android:right="15dp"
+                android:top="15dp" />
 
             <solid android:color="#00000000" />
         </shape>
