@@ -5936,16 +5936,6 @@ class ActivateProfileHelper {
                 }
             }
         }
-
-        {
-            if (Permissions.checkPhone(context.getApplicationContext())) {
-                PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ask for root enabled and is rooted");
-                if (Build.VERSION.SDK_INT >= 26) {
-                    int defaultSubscriptionId = -1;
-
-                }
-            }
-        }
     }
 
     private static void setSIMOnOff(Context context, boolean enable, int simCard)
