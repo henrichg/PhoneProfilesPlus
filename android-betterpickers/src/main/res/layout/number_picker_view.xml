@@ -9,6 +9,8 @@
             android:id="@+id/number_view_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:gravity="center">
         <com.codetroopers.betterpickers.widget.AutoScrollHorizontalScrollView
                 android:id="@+id/horizontal_scroll_view"
@@ -92,6 +94,8 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="1dip"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_below="@id/number_view_container"
             android:background="@color/default_divider_color_dark"/>
     <LinearLayout
