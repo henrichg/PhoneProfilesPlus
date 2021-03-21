@@ -1619,9 +1619,6 @@
     <string name="acra_email_subject_text">PhoneProfilesPlus - Crash report</string>
     <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is crash report.</string>
     <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
-    <string name="acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
-    <string name="acra_notification_send_button">Send</string>
-    <string name="acra_notification_discard_button">Discard</string>
     <string name="notification_channel_crash_report">Crash report</string>
 
     <string name="editor_activity_targetHelps_profilesFilterSpinner_title">Filter of Profiles view</string>
@@ -1775,6 +1772,8 @@
     <string name="ringtone_pref_dlg_system_tone">system tone</string>
     <string name="ringtone_pref_dlg_extenal_tone">external tone</string>
 
+    <string name="acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -1819,6 +1818,8 @@
 <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
 <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
 <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
+<!--    <string name="acra_notification_send_button">Send</string>-->
+<!--    <string name="acra_notification_discard_button">Discard</string>-->
 
 </resources>
 

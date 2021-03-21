@@ -825,8 +825,8 @@ public class PPApplication extends Application
                 .setResIcon(R.drawable.ic_exclamation_notify)
                 .setResTitle(R.string.acra_notification_title)
                 .setResText(R.string.acra_notification_text)
-                .setResSendButtonText(R.string.acra_notification_send_button)
-                .setResDiscardButtonText(R.string.acra_notification_discard_button)
+                .setResSendButtonIcon(0)
+                .setResDiscardButtonIcon(0)
                 .setSendOnClick(true)
                 .setEnabled(true);
         builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
