@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.PhoneProfilesTheme_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_dayNight">
         <item name="android:popupMenuStyle">@style/PopupMenu_dayNight</item>

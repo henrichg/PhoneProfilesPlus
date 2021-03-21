@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="ActivatorTheme_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_activator_dayNight">
 <!--        <item name="windowFixedWidthMajor">80%</item>-->
 <!--        <item name="windowFixedWidthMinor">80%</item>-->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--<style name="PopupMenu_color" parent="@style/Widget.AppCompat.Light.PopupMenu">-->
         <!--<item name="android:popupBackground">@drawable/popupmenu_background_color</item>-->
