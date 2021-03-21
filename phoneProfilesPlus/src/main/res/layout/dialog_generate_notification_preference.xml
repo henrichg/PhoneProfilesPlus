@@ -3,8 +3,8 @@
     android:id="@+id/generateNotificationPrefDialogRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
+    android:paddingStart="25dp"
+    android:paddingEnd="25dp"
     android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
@@ -12,12 +12,13 @@
         android:id="@+id/generateNotificationPrefDialogGenerate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/generate_notification_pref_dialog_generate_chb"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginStart="-5dp"
+        android:text="@string/generate_notification_pref_dialog_generate_chb"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:text="@string/generate_notification_pref_dialog_icon_type" />
     <RadioGroup
         android:layout_width="match_parent"
@@ -44,6 +45,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/generate_notification_pref_dialog_notification_title" />
     <EditText
         android:id="@+id/generateNotificationPrefDialogNotificationTitle"
@@ -58,6 +60,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/generate_notification_pref_dialog_notification_body" />
     <EditText
         android:id="@+id/generateNotificationPrefDialogNotificationBody"
