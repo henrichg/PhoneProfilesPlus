@@ -833,7 +833,9 @@ https://android.googlesource.com/platform/frameworks/opt/telephony/+/aa1b0618a84
         broadcastDefaultDataSubIdChanged(subId);
     }
 
-Hm, hm, na Samsungu taky parameter nie je. Hm hm.
+Samsung: Taky parameter nie je. Hm hm.
+Huawei, Xiaomi: da do MULTI_SIM_VOICE_CALL_SUBSCRIPTION -1 ak nastavim "No set".
+
     /*Sets User Prompt property,  enabed or not */
     public static void setPromptEnabled(boolean enabled) {
         int value = (enabled == false) ? 0 : 1;
@@ -841,6 +843,15 @@ Hm, hm, na Samsungu taky parameter nie je. Hm hm.
                 Settings.Global.MULTI_SIM_VOICE_PROMPT, value);
         Rlog.d(LOG_TAG, "setVoicePromptOption to " + enabled);
     }
+
+Podobny je aj pre SMS
+       Settings.Global.putInt(sContext.getContentResolver(),
+                Settings.Global.MULTI_SIM_SMS_PROMPT, value);
+
+Ries to teda takto:
+- Nastavuj len Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION na -1
+  Nevolaj prislusnu metodu
+- Pre Samsung to neponukaj. Kym nezistis, ako to nastavovat.
 
 ---------------------------------
 
