@@ -3,6 +3,6 @@
     <style name="ActivatorTheme_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_activator_dayNight">
 <!--        <item name="windowFixedWidthMajor">80%</item>-->
 <!--        <item name="windowFixedWidthMinor">80%</item>-->
-        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowMinWidthMinor">95%</item>
     </style>
 </resources>
