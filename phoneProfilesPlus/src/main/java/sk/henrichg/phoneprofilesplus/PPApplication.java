@@ -1785,7 +1785,11 @@ public class PPApplication extends Application
         handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.showToast");
             try {
-                Toast msg = ToastCompat.makeText(appContext, text, length);
+                //ToastCompat msg = ToastCompat.makeText(appContext, text, length);
+                ToastCompat msg = ToastCompat.makeCustom(appContext,
+                        R.layout.toast_layout, R.drawable.toast_background,
+                        R.id.custom_toast_message, text,
+                        length);
                 //Toast msg = Toast.makeText(appContext, text, length);
                 msg.show();
             } catch (Exception ignored) {

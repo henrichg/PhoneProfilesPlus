@@ -56,5 +56,7 @@
     <color name="map_last_location_marker_stroke">#FF84d2ef</color>
     <color name="map_last_location_marker_fill">#7784d2ef</color>
 
+    <color name="toastBackgroundColor">#FF707070</color>
+    <color name="toastTextColor">#FFFFFFFF</color>
 
 </resources>

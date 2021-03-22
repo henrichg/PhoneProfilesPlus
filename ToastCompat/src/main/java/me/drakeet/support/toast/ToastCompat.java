@@ -6,7 +6,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -71,6 +73,18 @@ public final class ToastCompat extends Toast {
     return makeText(context, context.getResources().getText(resId), duration);
   }
 
+
+  public static ToastCompat makeCustom(Context context, int layoutId, int backgroundId, int textViewId, String textString, int duration) {
+    Toast toast = new Toast(context);
+    View view = LayoutInflater.from(context).inflate(layoutId, null);
+    TextView txtMsg = view.findViewById(textViewId);
+    txtMsg.setText(textString);
+    view.setBackgroundResource(backgroundId);
+    toast.setView(view);
+    toast.setDuration(duration);
+    setContextCompat(toast.getView(), new SafeToastContext(context, toast));
+    return new ToastCompat(context, toast);
+  }
 
   @SuppressWarnings("unused")
   public @NonNull ToastCompat setBadTokenListener(@NonNull BadTokenListener listener) {
