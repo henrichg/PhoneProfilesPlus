@@ -5876,7 +5876,7 @@ class ActivateProfileHelper {
                                                             PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command2=" + command2);
 
                                                             if ((command1 != null) && (!command2.isEmpty())) {
-                                                                Command command = new Command(0, false, command1, command2);
+                                                                Command command = new Command(0, false, command2, command1);
                                                                 try {
                                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                                     PPApplication.commandWait(command, "ActivateProfileHelper.setDefaultSimCard");
