@@ -28,19 +28,21 @@ import android.widget.TextView;
 @SuppressLint("AppCompatCustomView")
 public class ZeroTopPaddingTextView extends TextView {
 
-    private static final float NORMAL_FONT_PADDING_RATIO = 0.328f;
+    //private static final float NORMAL_FONT_PADDING_RATIO = 0.328f;
+    private static final float NORMAL_FONT_PADDING_RATIO = 0.208f;
     // the bold font face has less empty space on the top
     private static final float BOLD_FONT_PADDING_RATIO = 0.208f;
 
-    private static final float NORMAL_FONT_BOTTOM_PADDING_RATIO = 0.25f;
+    //private static final float NORMAL_FONT_BOTTOM_PADDING_RATIO = 0.25f;
+    private static final float NORMAL_FONT_BOTTOM_PADDING_RATIO = 0.208f;
     // the bold font face has less empty space on the top
     private static final float BOLD_FONT_BOTTOM_PADDING_RATIO = 0.208f;
 
     // pre-ICS (Droid Sans) has weird empty space on the bottom
     //private static final float PRE_ICS_BOTTOM_PADDING_RATIO = 0.233f;
 
-    private static final Typeface SAN_SERIF_BOLD = Typeface.create("san-serif", Typeface.BOLD);
-    private static final Typeface SAN_SERIF_CONDENSED_BOLD = Typeface.create("sans-serif-condensed", Typeface.BOLD);
+    //private static final Typeface SAN_SERIF_BOLD = Typeface.create("san-serif", Typeface.BOLD);
+    //private static final Typeface SAN_SERIF_CONDENSED_BOLD = Typeface.create("sans-serif-condensed", Typeface.BOLD);
 
     private int mPaddingRight = 0;
 
@@ -76,22 +78,14 @@ public class ZeroTopPaddingTextView extends TextView {
             paddingRatio = BOLD_FONT_PADDING_RATIO;
             bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;
         }
-        if (getTypeface() != null && getTypeface().equals(SAN_SERIF_BOLD)) {
+        /*if (getTypeface() != null && getTypeface().equals(SAN_SERIF_BOLD)) {
             paddingRatio = BOLD_FONT_PADDING_RATIO;
             bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;
         }
         if (getTypeface() != null && getTypeface().equals(SAN_SERIF_CONDENSED_BOLD)) {
             paddingRatio = BOLD_FONT_PADDING_RATIO;
             bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;
-        }
-        /*
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH &&
-                getText() != null &&
-                (getText().toString().equals(decimalSeparator) ||
-                        getText().toString().equals(timeSeparator))) {
-            bottomPaddingRatio = PRE_ICS_BOTTOM_PADDING_RATIO;
-        }
-        */
+        }*/
         // no need to scale by display density because getTextSize() already returns the font
         // height in px
         setPadding(0, (int) (-paddingRatio * getTextSize()), mPaddingRight,

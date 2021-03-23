@@ -9,17 +9,17 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.core.content.ContextCompat;
+
 import com.codetroopers.betterpickers.R;
 import com.codetroopers.betterpickers.widget.ZeroTopPaddingTextView;
-
-import androidx.core.content.ContextCompat;
 
 public class NumberView extends LinearLayout {
 
     private ZeroTopPaddingTextView mNumber, mDecimal;
     private ZeroTopPaddingTextView mDecimalSeparator;
     private ZeroTopPaddingTextView mMinusLabel;
-    private final Typeface mAndroidClockMonoThin;
+    //private final Typeface mAndroidClockMonoThin;
     private Typeface mOriginalNumberTypeface;
 
     private ColorStateList mTextColor;
@@ -42,8 +42,8 @@ public class NumberView extends LinearLayout {
     public NumberView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        mAndroidClockMonoThin =
-                Typeface.createFromAsset(context.getAssets(), "fonts/AndroidClockMono-Thin.ttf");
+        //mAndroidClockMonoThin =
+        //        Typeface.createFromAsset(context.getAssets(), "fonts/AndroidClockMono-Thin.ttf");
 
         // Init defaults
         mTextColor = ContextCompat .getColorStateList(context, R.color.dialog_text_color_holo_dark);
@@ -96,11 +96,11 @@ public class NumberView extends LinearLayout {
         }
         // Set the lowest time unit with thin font
         if (mNumber != null) {
-            mNumber.setTypeface(mAndroidClockMonoThin);
+            //mNumber.setTypeface(mAndroidClockMonoThin);
             mNumber.updatePadding();
         }
         if (mDecimal != null) {
-            mDecimal.setTypeface(mAndroidClockMonoThin);
+            //mDecimal.setTypeface(mAndroidClockMonoThin);
             mDecimal.updatePadding();
         }
 
@@ -122,7 +122,7 @@ public class NumberView extends LinearLayout {
             if (numbersDigit.equals("")) {
                 // Set to -
                 mNumber.setText("-");
-                mNumber.setTypeface(mAndroidClockMonoThin);
+                //mNumber.setTypeface(mAndroidClockMonoThin);
                 mNumber.setEnabled(false);
                 mNumber.updatePadding();
                 mNumber.setVisibility(View.VISIBLE);
@@ -136,7 +136,7 @@ public class NumberView extends LinearLayout {
             } else {
                 // Set to thin
                 mNumber.setText(numbersDigit);
-                mNumber.setTypeface(mAndroidClockMonoThin);
+                //mNumber.setTypeface(mAndroidClockMonoThin);
                 mNumber.setEnabled(true);
                 mNumber.updatePadding();
                 mNumber.setVisibility(View.VISIBLE);
@@ -148,7 +148,7 @@ public class NumberView extends LinearLayout {
                 mDecimal.setVisibility(View.GONE);
             } else {
                 mDecimal.setText(decimalDigit);
-                mDecimal.setTypeface(mAndroidClockMonoThin);
+                //mDecimal.setTypeface(mAndroidClockMonoThin);
                 mDecimal.setEnabled(true);
                 mDecimal.updatePadding();
                 mDecimal.setVisibility(View.VISIBLE);
