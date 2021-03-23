@@ -19,7 +19,7 @@
                 android:right="4dp"
                 android:top="4dp" />
 
-            <solid android:color="#FF505050" />
+            <solid android:color="@color/profileIconBorderColor" />
 
             <corners android:radius="@dimen/profile_icon_corner_radius" />
         </shape>

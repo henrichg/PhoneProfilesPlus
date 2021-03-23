@@ -10,7 +10,7 @@
                 android:right="1dp"
                 android:top="1dp" />
 
-            <solid android:color="#FF454545" />
+            <solid android:color="@color/cardViewBorderColor" />
 
             <corners android:radius="@dimen/popup_corner_radius" />
         </shape>

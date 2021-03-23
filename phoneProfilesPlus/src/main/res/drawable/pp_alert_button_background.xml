@@ -30,7 +30,7 @@
                 android:right="1dp"
                 android:top="1dp" />
 
-            <solid android:color="#FFAAAAAA" />
+            <solid android:color="@color/alertButtonBorderColor" />
 
             <corners android:radius="@dimen/button_corner_radius" />
         </shape>
