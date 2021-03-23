@@ -237,6 +237,7 @@ public class ActivateProfileListFragment extends Fragment {
         private final boolean applicationActivatorPrefIndicator;
         //private final boolean applicationActivatorHeader;
         private final boolean applicationActivatorGridLayout;
+        private final GridView gridView;
 
         Handler progressBarHandler;
         Runnable progressBarRunnable;
@@ -259,6 +260,7 @@ public class ActivateProfileListFragment extends Fragment {
             applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
             //applicationActivatorHeader = ApplicationPreferences.applicationActivatorHeader(this.dataWrapper.context);
             applicationActivatorGridLayout = ApplicationPreferences.applicationActivatorGridLayout;
+            gridView = fragment.gridView;
         }
 
         @Override
@@ -292,9 +294,12 @@ public class ActivateProfileListFragment extends Fragment {
                     if (profile._showInActivator)
                         ++count;
                 }
-                int modulo = count % 3;
+
+                int numColumns = gridView.getNumColumns();
+
+                int modulo = count % numColumns;
                 if (modulo > 0) {
-                    for (int i = 0; i < 3 - modulo; i++) {
+                    for (int i = 0; i < numColumns - modulo; i++) {
                         Profile profile = DataWrapper.getNonInitializedProfile(
                                 dataWrapper.context.getResources().getString(R.string.profile_name_default),
                                 Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_IGNORED_PROFILE);
