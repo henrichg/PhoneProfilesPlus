@@ -79,7 +79,7 @@
                         android:paddingEnd="10dp"
                         android:paddingTop="6dp"
                         android:paddingBottom="6dp"
-                        android:textSize="16sp"
+                        android:textSize="17sp"
                         android:textColor="?attr/colorAccent"
                         android:background="?attr/buttonBackground"
                         android:maxLines="1"
