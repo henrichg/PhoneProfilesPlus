@@ -742,117 +742,6 @@ Nova funkcia predlzovania duration nech ignoruje:
 - nemanualnu aktivaciu z udalosti, cize PPApplication.STARTUP_SOURCE_SERVICE
 - boot, cize PPApplication.STARTUP_SOURCE_BOOT
 
---------------------------------
-
-setPreferredNetworkType()
-- toto vypada dobre. Tu sa pouizva SubscriptionManager nastavuje sa network typ pre kazdu sim.
-  Ale pre obe rovnaky. Ci zjavne nie je dobre.
-
-setMobileData()
-- tu je to nahovno. Pouziva to command 'svc data'.
-  Ale je tu zapoznamkovany aj kod so SubscriptionManager. Treba to testnut.
-  Rootnuty mam Nexus 5x a Nexus 5. Ale netusim ako na novych Androidoch.
-  Pozri: https://stackoverflow.com/questions/26539445/the-setmobiledataenabled-method-is-no-longer-callable-as-of-android-l-and-later/27198925#27198925
-
-Takze pre oba sprav podporu dual sim. Nech si uzivatel nastavi, pre kroru sim to chce nastavovat.
-
-Ked budem robit mobilne data, musim testovat aj toto:
-PPApplication.serviceBinaryExists(false) v ActivateProfileHelper.setMobileData()
-V Profile.isProfilePreferenceAllowed() to uz je.
-PhoneProfilesService.hasSIMCard() - testuje, ci aspon jedna sim je pichnuta. Uprav na dual SIM.
-
-Toto pouzi na ziskanie default subscription id pre Prefered network type a to pouzi v sucasnej, nie-dual sim verzii:
-After api level 22, you can use the hidden system api android.telephony.SubscriptionManager#getDefaultDataSubId
-via reflection to get current active data sim subscription index.
-After api level 24, there is a public system api android.telephony.SubscriptionManager#getDefaultDataSubscriptionId
-to get current active data sim subscription index.
-
----------------------------------
-
-https://android.googlesource.com/platform/frameworks/opt/telephony/+/aa1b0618a847ee1365c1e9810f085214c717a27e/src/java/com/android/internal/telephony/SubscriptionController.java
-
-    public void setDefaultVoiceSubId(int subId) {
-        if (subId == SubscriptionManager.DEFAULT_SUBSCRIPTION_ID) {
-            throw new RuntimeException("setDefaultVoiceSubId called with DEFAULT_SUB_ID");
-        }
-        if (DBG) logdl("[setDefaultVoiceSubId] subId=" + subId);
-------------
-        Settings.Global.putInt(mContext.getContentResolver(),
-                Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION, subId);
-------------
-        broadcastDefaultVoiceSubIdChanged(subId);
-    }
-
-
-    public void setDefaultSmsSubId(int subId) {
-        if (subId == SubscriptionManager.DEFAULT_SUBSCRIPTION_ID) {
-            throw new RuntimeException("setDefaultSmsSubId called with DEFAULT_SUB_ID");
-        }
-        if (DBG) logdl("[setDefaultSmsSubId] subId=" + subId);
-------------
-        Settings.Global.putInt(mContext.getContentResolver(),
-                Settings.Global.MULTI_SIM_SMS_SUBSCRIPTION, subId);
-------------
-        broadcastDefaultSmsSubIdChanged(subId);
-    }
-
-    public void setDefaultDataSubId(int subId) {
-        if (subId == SubscriptionManager.DEFAULT_SUBSCRIPTION_ID) {
-            throw new RuntimeException("setDefaultDataSubId called with DEFAULT_SUB_ID");
-        }
-        if (DBG) logdl("[setDefaultDataSubId] subId=" + subId);
-        int len = sProxyPhones.length;
-        logdl("[setDefaultDataSubId] num phones=" + len);
-        RadioAccessFamily[] rafs = new RadioAccessFamily[len];
-        for (int phoneId = 0; phoneId < len; phoneId++) {
-            PhoneProxy phone = sProxyPhones[phoneId];
-            int raf = phone.getRadioAccessFamily();
-            int id = phone.getSubId();
-            logdl("[setDefaultDataSubId] phoneId=" + phoneId + " subId=" + id + " RAF=" + raf);
-            raf |= RadioAccessFamily.RAF_GSM;
-            if (id == subId) {
-                raf |= RadioAccessFamily.RAF_UMTS;
-            } else {
-                raf &= ~RadioAccessFamily.RAF_UMTS;
-            }
-            logdl("[setDefaultDataSubId] reqRAF=" + raf);
-            // Set the raf to the maximum of the requested and the user's preferred.
-            int networkType = PhoneFactory.calculatePreferredNetworkType(mContext, id);
-            logdl("[setDefaultDataSubId] networkType=" + networkType);
-            raf &= RadioAccessFamily.getRafFromNetworkType(networkType);
-            logdl("[setDefaultDataSubId] newRAF=" + raf);
-            rafs[phoneId] = new RadioAccessFamily(phoneId, raf);
-        }
-        ProxyController.getInstance().setRadioCapability(rafs);
-        // FIXME is this still needed?
-        updateAllDataConnectionTrackers();
---------------
-        Settings.Global.putInt(mContext.getContentResolver(),
-                Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION, subId);
---------------
-        broadcastDefaultDataSubIdChanged(subId);
-    }
-
-Samsung: Taky parameter nie je. Hm hm.
-Huawei, Xiaomi: da do MULTI_SIM_VOICE_CALL_SUBSCRIPTION -1 ak nastavim "No set".
-
-    /*Sets User Prompt property,  enabed or not */
-    public static void setPromptEnabled(boolean enabled) {
-        int value = (enabled == false) ? 0 : 1;
-        Settings.Global.putInt(sContext.getContentResolver(),
-                Settings.Global.MULTI_SIM_VOICE_PROMPT, value);
-        Rlog.d(LOG_TAG, "setVoicePromptOption to " + enabled);
-    }
-
-Podobny je aj pre SMS
-       Settings.Global.putInt(sContext.getContentResolver(),
-                Settings.Global.MULTI_SIM_SMS_PROMPT, value);
-
-Ries to teda takto:
-- Nastavuj len Settings.Global.MULTI_SIM_VOICE_CALL_SUBSCRIPTION na -1
-  Nevolaj prislusnu metodu
-- Pre Samsung to neponukaj. Kym nezistis, ako to nastavovat.
-
 ---------------------------------
 
 Set ringtone:
@@ -932,60 +821,25 @@ Zvonenia (notifikacie asi podobne, pozriem, testnem):
   vyzaduje root. :-(
 - "notification_sound" - NotificationXilophone.ogg
 
----------------------
+----------------------------------
 
-TELEPHONY_SERVICE = "phone"
-Context.TELEPHONY_SUBSCRIPTION_SERVICE = "telephony_subscription_service"  -- skus na ziskanie ISub.xxx
-Potom uz budem moct zavolat z ISub nahodenie default data, sms, voice. Hadam ano. ;-)
+Pozri zmenu medzi notifikaciou native styl a custom styl. Vznikaju mi chyby typu:
 
-2021-03-15 13:00:45.357 16074-16197/sk.henrichg.phoneprofilesplus E/PPApplication.getServicesList: line=12	isub: [com.android.internal.telephony.ISub]
-2021-03-15 13:00:45.358 16074-16197/sk.henrichg.phoneprofilesplus E/PPApplication.getServicesList: matcher.group(1)=isub
-2021-03-15 13:00:45.358 16074-16197/sk.henrichg.phoneprofilesplus E/PPApplication.getServicesList: matcher.group(2)=com.android.internal.telephony.ISub
+Fatal Exception: android.app.RemoteServiceException: Bad notification(tag=null, id=100) posted from
+package sk.henrichg.phoneprofilesplus, crashing app(uid=10273, pid=7758): Couldn't inflate
+contentViewsjava.lang.ClassCastException: android.app.Notification$DecoratedCustomViewStyle cannot be
+cast to android.app.Notification$MessagingStyle
 
-import com.android.internal.telephony.ISub;
+To by mohlo by tym, ze ak uzivatel zmeni styl je maly sleep medzi clear starej a znovzobrazenim novej
+notifikacie po zavreti PPP Settings?
+Alebo ze by som mal nativny styl pri starte PPP, ked ss ma vygenerovat prazna notifikacia?
 
-    @SystemApi
-    @RequiresPermission(Manifest.permission.MODIFY_PHONE_STATE)
-    public void setDefaultVoiceSubscriptionId(int subscriptionId) {
-        if (VDBG) logd("setDefaultVoiceSubId sub id = " + subscriptionId);
-        try {
-            ISub iSub = TelephonyManager.getSubscriptionService();
-            if (iSub != null) {
-                iSub.setDefaultVoiceSubId(subscriptionId);
-            }
-        } catch (RemoteException ex) {
-            // ignore it
-        }
-    }
+_showProfileNotification()
+- volane z:
+  - showProfileNotification()
+  - showProfileNotificartionWorker()
+     - volane z:
+       - showProfileNotificartion()
+       - forceUpdateGUI()
 
-    public void setDefaultVoiceSubId(int subId) {
-        setDefaultVoiceSubscriptionId(subId);
-    }
-
-    @SystemApi
-    @RequiresPermission(android.Manifest.permission.MODIFY_PHONE_STATE)
-    public void setDefaultSmsSubId(int subscriptionId) {
-        if (VDBG) logd("setDefaultSmsSubId sub id = " + subscriptionId);
-        try {
-            ISub iSub = TelephonyManager.getSubscriptionService();
-            if (iSub != null) {
-                iSub.setDefaultSmsSubId(subscriptionId);
-            }
-        } catch (RemoteException ex) {
-            ex.rethrowFromSystemServer();
-        }
-    }
-
-    @SystemApi
-    @RequiresPermission(android.Manifest.permission.MODIFY_PHONE_STATE)
-    public void setDefaultDataSubId(int subscriptionId) {
-        if (VDBG) logd("setDataSubscription sub id = " + subscriptionId);
-        try {
-            ISub iSub = TelephonyManager.getSubscriptionService();
-            if (iSub != null) {
-                iSub.setDefaultDataSubId(subscriptionId);
-            }
-        } catch (RemoteException ex) {
-            // ignore it
-        }
-    }
+Mal by som spravit, ze sa nema volat pocas updatu v nastaveniach vobec, proste nastavenia potom same updatnu notifikaciu.

@@ -5220,8 +5220,10 @@ public class PhoneProfilesService extends Service
     {
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "xxx");
 
-        if (PPApplication.doNotShowProfileNotification)
-            return;
+        synchronized (PPApplication.applicationPreferencesMutex) {
+            if (PPApplication.doNotShowProfileNotification)
+                return;
+        }
 
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "!PPApplication.doNotShowProfileNotification");
 
@@ -5292,12 +5294,12 @@ public class PhoneProfilesService extends Service
             //notificationNotificationStyle = "1"; //ApplicationPreferences.notificationNotificationStyle;
             synchronized (PPApplication.applicationPreferencesMutex) {
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
+                notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
+                notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
             }
             notificationShowProfileIcon = false; // for small notification at start
-            notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
             notificationUseDecoration = false;
             notificationPrefIndicator = false;
-            notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
             notificationStatusBarStyle = "1";
             notificationTextColor = "0";
             notificationBackgroundColor = "0";
@@ -6241,8 +6243,10 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","before run handler");
 
 //        PPApplication.logE("[APP_START] PhoneProfilesService.showProfileNotification", "PPApplication.doNotShowProfileNotification="+PPApplication.doNotShowProfileNotification);
-        if (PPApplication.doNotShowProfileNotification)
-            return;
+        synchronized (PPApplication.applicationPreferencesMutex) {
+            if (PPApplication.doNotShowProfileNotification)
+                return;
+        }
 
         /* moved into ShowProfileNotificationWorker
         boolean clear = false;

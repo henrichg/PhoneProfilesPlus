@@ -416,7 +416,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         //}
 
         if (PhoneProfilesService.getInstance() != null) {
-            PPApplication.doNotShowProfileNotification = true;
+            synchronized (PPApplication.applicationPreferencesMutex) {
+                PPApplication.doNotShowProfileNotification = true;
+            }
             PhoneProfilesService.getInstance().clearProfileNotification();
         }
 
@@ -429,7 +431,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         handler.postDelayed(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesPrefsActivity.onStop", "PhoneProfilesService.getInstance()="+PhoneProfilesService.getInstance());
             if (PhoneProfilesService.getInstance() != null) {
-                PPApplication.doNotShowProfileNotification = false;
+                synchronized (PPApplication.applicationPreferencesMutex) {
+                    PPApplication.doNotShowProfileNotification = false;
+                }
                 // forServiceStart must be true because of call of clearProfileNotification()
                 PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
             }

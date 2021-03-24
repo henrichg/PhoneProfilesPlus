@@ -26,10 +26,14 @@ public class ShowProfileNotificationWorker extends Worker {
         try {
 //            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "xxxx");
 
+            synchronized (PPApplication.applicationPreferencesMutex) {
+                if (PPApplication.doNotShowProfileNotification)
+                    return Result.success();
+            }
+
             Context appContext = context.getApplicationContext();
 
-            if ((!PPApplication.doNotShowProfileNotification) &&
-                    PhoneProfilesService.getInstance() != null) {
+            if (PhoneProfilesService.getInstance() != null) {
                 try {
                     if (PhoneProfilesService.getInstance() != null) {
 //                        PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "call of _showProfileNotification()");
