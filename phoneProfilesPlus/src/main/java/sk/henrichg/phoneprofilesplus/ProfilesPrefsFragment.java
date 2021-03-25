@@ -1786,7 +1786,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             //_bold = _bold || isBold(Profile.PREF_PROFILE_SOUND_ALARM);
 
-            _permissionGranted = true;
+            //_permissionGranted = true;
 
             boolean isDualSIM = true;
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -1987,6 +1987,94 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 summary = summary + title + ": <b>" + value + "</b>";
             }
+
+            //_permissionGranted = true;
+            boolean isDualSIM = true;
+            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                int phoneCount = telephonyManager.getPhoneCount();
+                if (phoneCount < 2) {
+                    preferenceScreen.setVisible(false);
+                    isDualSIM = false;
+                }
+            }
+            if (isDualSIM) {
+                if (Build.VERSION.SDK_INT >= 26) {
+                    if (telephonyManager != null) {
+                        int phoneCount = telephonyManager.getPhoneCount();
+                        if (phoneCount > 1) {
+                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, R.string.profile_preferences_deviceOnOff_SIM1, false, context);
+                            if (!title.isEmpty()) {
+                                _bold = true;
+                                if (!summary.isEmpty()) summary = summary + " • ";
+
+                                summary = summary + title;
+                            }
+                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, R.string.profile_preferences_deviceOnOff_SIM2, false, context);
+                            if (!title.isEmpty()) {
+                                _bold = true;
+                                if (!summary.isEmpty()) summary = summary + " • ";
+
+                                summary = summary + title;
+                            }
+
+                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, R.string.profile_preferences_deviceDefaultSIM, false, context);
+                            if (!title.isEmpty()) {
+                                _bold = true;
+                                if (!summary.isEmpty()) summary = summary + " • ";
+
+                                summary = summary + title;
+                            }
+
+                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, R.string.profile_preferences_deviceMobileData_21_SIM1, false, context);
+                            if (!title.isEmpty()) {
+                                _bold = true;
+                                if (!summary.isEmpty()) summary = summary + " • ";
+
+                                summary = summary + title;
+                            }
+                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, R.string.profile_preferences_deviceMobileData_21_SIM2, false, context);
+                            if (!title.isEmpty()) {
+                                _bold = true;
+                                if (!summary.isEmpty()) summary = summary + " • ";
+
+                                summary = summary + title;
+                            }
+
+                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, R.string.profile_preferences_deviceNetworkTypeSIM1, false, context);
+                            if (!title.isEmpty()) {
+                                _bold = true;
+                                if (!summary.isEmpty()) summary = summary + " • ";
+
+                                summary = summary + title;
+                            }
+                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, R.string.profile_preferences_deviceNetworkTypeSIM2, false, context);
+                            //PPApplication.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
+                            if (!title.isEmpty()) {
+                                _bold = true;
+                                if (!summary.isEmpty()) summary = summary + " • ";
+
+                                summary = summary + title;
+                            }
+
+                            Profile profile = new Profile();
+                            profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
+                            profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
+                            profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
+                            profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
+                            profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
+                            profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
+                            profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "0"));
+                            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                            Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                            //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
+                            _permissionGranted = permissions.size() == 0;
+
+                        }
+                    }
+                }
+            }
+
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI, R.string.profile_preferences_deviceWiFi, false, context);
 //            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_WIFI - notGrantedG1Permission="+notGrantedG1Permission);
             if (!title.isEmpty()) {
@@ -2116,7 +2204,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 _bold = true;
                 if (!summary.isEmpty()) summary = summary +" • ";
 
-                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                //final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 int phoneType = TelephonyManager.PHONE_TYPE_GSM;
                 if (telephonyManager != null)
                     phoneType = telephonyManager.getPhoneType();
@@ -2164,7 +2252,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
             Permissions.checkProfileRadioPreferences(context, profile, permissions);
             //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
-            _permissionGranted = permissions.size() == 0;
+            _permissionGranted = _permissionGranted &&_accessibilityEnabled && (permissions.size() == 0);
         }
 
         if (key.equals("prf_pref_screenCategoryRoot")) {
