@@ -21,13 +21,6 @@
         app:entryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
-        app:title="@string/profile_preferences_deviceDualSIMSupport"
-        app:key="prf_pref_deviceDualSIMSupportCategoryRoot"
-        app:widgetLayout="@layout/widget_start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsDualSIMSupport" />
-
     <ListPreference
         app:title="@string/profile_preferences_deviceMobileData_21"
         app:summary="@string/array_pref_no_change"
@@ -44,6 +37,30 @@
         app:entries="@array/mobileDataPrefsArray"
         app:entryValues="@array/mobileDataPrefsValues"
         app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_deviceNetworkType"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceNetworkType"
+        app:defaultValue="0"
+        app:entries="@array/networkTypeNotSupportedArray"
+        app:entryValues="@array/networkTypeNotSupportedValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_deviceNetworkTypePrefs"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceNetworkTypePrefs"
+        app:defaultValue="0"
+        app:entries="@array/networkTypePrefsArray"
+        app:entryValues="@array/networkTypePrefsValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <Preference
+        app:title="@string/profile_preferences_deviceDualSIMSupport"
+        app:key="prf_pref_deviceRadiosDualSIMSupportCategoryRoot"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsRadiosDualSIMSupport" />
+
     <Preference
         app:key="prf_pref_deviceWiFiInfo"
         app:title="@string/profile_preferences_deviceWiFi"
@@ -127,22 +144,6 @@
         app:defaultValue="0"
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
-        app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/profile_preferences_deviceNetworkType"
-        app:summary="@string/array_pref_no_change"
-        app:key="prf_pref_deviceNetworkType"
-        app:defaultValue="0"
-        app:entries="@array/networkTypeNotSupportedArray"
-        app:entryValues="@array/networkTypeNotSupportedValues"
-        app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/profile_preferences_deviceNetworkTypePrefs"
-        app:summary="@string/array_pref_no_change"
-        app:key="prf_pref_deviceNetworkTypePrefs"
-        app:defaultValue="0"
-        app:entries="@array/networkTypePrefsArray"
-        app:entryValues="@array/networkTypePrefsValues"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

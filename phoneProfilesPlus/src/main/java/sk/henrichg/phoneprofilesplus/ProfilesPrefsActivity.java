@@ -931,11 +931,21 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("unused")
-    static public class ProfilesPrefsDualSIMSupport extends ProfilesPrefsFragment {
+    static public class ProfilesPrefsRadiosDualSIMSupport extends ProfilesPrefsFragment {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            setPreferencesFromResource(R.xml.profile_prefs_dual_sim_support, rootKey);
+            setPreferencesFromResource(R.xml.profile_prefs_radios_dual_sim_support, rootKey);
+        }
+
+    }
+
+    @SuppressWarnings("unused")
+    static public class ProfilesPrefsSoundsDualSIMSupport extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            setPreferencesFromResource(R.xml.profile_prefs_sounds_dual_sim_support, rootKey);
         }
 
     }

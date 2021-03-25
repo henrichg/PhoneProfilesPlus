@@ -2,7 +2,7 @@
 <androidx.preference.PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:title="@string/profile_preferences_deviceDualSIMSupport"
-    app:key="prf_pref_deviceDualSIMSupportCategory" >
+    app:key="prf_pref_deviceRadiosDualSIMSupportCategory" >
 
     <Preference
         app:key="prf_pref_deviceDefaultSIMCardsInfo"

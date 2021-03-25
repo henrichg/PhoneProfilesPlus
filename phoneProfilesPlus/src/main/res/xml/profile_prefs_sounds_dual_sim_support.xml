@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/profile_preferences_deviceDualSIMSupport"
+    app:key="prf_pref_deviceSoundsDualSIMSupportCategory" >
+
+
+</androidx.preference.PreferenceScreen>

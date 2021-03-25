@@ -79,8 +79,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM_INFO = "prf_pref_deviceNetworkTypeDualSIMInfo";
     private static final String PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM_INFO = "prf_pref_deviceMobileDataDualSIMInfo";
     private static final String PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS_INFO = "prf_pref_deviceDefaultSIMCardsInfo";
-    private static final String PREF_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_deviceDualSIMSupportCategoryRoot";
+    private static final String PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_deviceRadiosDualSIMSupportCategoryRoot";
     private static final String PREF_PROFILE_DEVICE_ONOFF_DUAL_SIM_INFO = "prf_pref_deviceOnOffDualSIMInfo";
+    private static final String PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_soundsDualSIMSupportCategoryRoot";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -308,7 +309,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setCategorySummary("prf_pref_applicationCategoryRoot", context);
         setCategorySummary(PREF_FORCE_STOP_APPLICATIONS_CATEGORY, context);
         setCategorySummary(PREF_LOCK_DEVICE_CATEGORY, context);
-        setCategorySummary(PREF_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
+        setCategorySummary(PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
+        setCategorySummary(PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
 
         setRedTextToPreferences();
 
@@ -2536,7 +2538,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (key.equals(PREF_DUAL_SIM_SUPPORT_CATEGORY_ROOT)) {
+        if (key.equals(PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT)) {
             boolean isDualSIM = true;
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
@@ -2734,6 +2736,28 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 Permissions.checkProfileRadioPreferences(context, profile, permissions);
                 //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
                 _permissionGranted = permissions.size() == 0;
+            }
+        }
+
+        if (key.equals(PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT)) {
+            boolean isDualSIM = true;
+            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                int phoneCount = telephonyManager.getPhoneCount();
+                if (phoneCount < 2) {
+                    preferenceScreen.setVisible(false);
+                    isDualSIM = false;
+                }
+            }
+            if (isDualSIM) {
+                String title;
+                if (Build.VERSION.SDK_INT >= 26) {
+                    if (telephonyManager != null) {
+                        int phoneCount = telephonyManager.getPhoneCount();
+                        if (phoneCount > 1) {
+                        }
+                    }
+                }
             }
         }
 
