@@ -76,7 +76,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_NOTIFICATION_ACCESS_ENABLED = "prf_pref_notificationAccessEnable";
     private static final String PREF_NOTIFICATION_LED_INFO = "prf_pref_notificationLedInfo";
     private static final String PREF_ALWAYS_ON_DISPLAY_INFO = "prf_pref_alwaysOnDisplayInfo";
-    private static final String PREF_DEVICE_RADIOS_DUAL_SIM_SUPPORT_INFO = "prf_pref_deviceRadiosDualSIMSupportInfo";
     private static final String PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_deviceRadiosDualSIMSupportCategoryRoot";
     private static final String PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_soundsDualSIMSupportCategoryRoot";
 
