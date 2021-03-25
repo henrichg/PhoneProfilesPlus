@@ -796,6 +796,85 @@ class GlobalGUIRoutines {
         }.execute();
     }
 
+    static void setProfileSoundsDualSIMPreferenceSummary(final String initSummary,
+                                                  final String ringtoneSIM1Uri, final String ringtoneSIM2Uri, final String notificationSIM1Uri, final String notificationSIM2Uri,
+                                                  final androidx.preference.Preference preference, final Context context) {
+        new AsyncTask<Void, Integer, Void>() {
+
+            private String ringtoneNameSIM1;
+            private String ringtoneNameSIM2;
+            private String notificationNameSIM1;
+            private String notificationNameSIM2;
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                if ((ringtoneSIM1Uri == null) || ringtoneSIM1Uri.isEmpty())
+                    ringtoneNameSIM1 = context.getString(R.string.ringtone_preference_none);
+                else {
+                    String[] splits = ringtoneSIM1Uri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        ringtoneNameSIM1 = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        ringtoneNameSIM1 = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+
+                if ((ringtoneSIM2Uri == null) || ringtoneSIM2Uri.isEmpty())
+                    ringtoneNameSIM2 = context.getString(R.string.ringtone_preference_none);
+                else {
+                    String[] splits = ringtoneSIM2Uri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        ringtoneNameSIM2 = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        ringtoneNameSIM2 = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+
+                if ((notificationSIM1Uri == null) || notificationSIM1Uri.isEmpty())
+                    notificationNameSIM1 = context.getString(R.string.ringtone_preference_none);
+                else {
+                    String[] splits = notificationSIM1Uri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        notificationNameSIM1 = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        notificationNameSIM1 = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+
+                if ((notificationSIM2Uri == null) || notificationSIM2Uri.isEmpty())
+                    notificationNameSIM2 = context.getString(R.string.ringtone_preference_none);
+                else {
+                    String[] splits = notificationSIM2Uri.split("\\|");
+                    Uri uri = Uri.parse(splits[0]);
+                    Ringtone ringtone = RingtoneManager.getRingtone(context, uri);
+                    try {
+                        notificationNameSIM2 = ringtone.getTitle(context);
+                    } catch (Exception e) {
+                        notificationNameSIM2 = context.getString(R.string.ringtone_preference_not_set);
+                    }
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                String summary = TextUtils.replace(initSummary,
+                        new String[]{"<ringtone_name_sim1>", "<ringtone_name_sim2>", "<notification_name_sim1>", "<notification_name_sim2>"},
+                        new String[]{ringtoneNameSIM1, ringtoneNameSIM2, notificationNameSIM1, notificationNameSIM2}).toString();
+                preference.setSummary(GlobalGUIRoutines.fromHtml(summary, false, false, 0, 0));
+            }
+
+        }.execute();
+    }
+
     @SuppressLint("DefaultLocale")
     static String getEndsAtString(int duration) {
         if(duration == 0) {

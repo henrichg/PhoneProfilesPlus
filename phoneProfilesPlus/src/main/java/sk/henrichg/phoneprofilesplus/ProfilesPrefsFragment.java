@@ -2817,63 +2817,67 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
             if (isDualSIM) {
-                String title;
                 if (Build.VERSION.SDK_INT >= 26) {
                     if (telephonyManager != null) {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, false, context);
-//                           Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1 - notGrantedG1Permission="+notGrantedG1Permission);
+                            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, false, context);
                             if (!title.isEmpty()) {
                                 _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                String value = GlobalGUIRoutines.getListPreferenceString(
-                                        preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1)),
-                                        R.array.soundChangeValues, R.array.soundChangeArray, context);
-
-                                summary = summary + title + ": <b>" + value + "</b>";
+                                summary = summary + title + ": <b><ringtone_name_sim1></b>";
                             }
                             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, R.string.profile_preferences_soundRingtoneChangeSIM2, false, context);
-//                           Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
                             if (!title.isEmpty()) {
-                                _bold = true;
                                 if (!summary.isEmpty()) summary = summary + " • ";
-
-                                String value = GlobalGUIRoutines.getListPreferenceString(
-                                        preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2)),
-                                        R.array.soundChangeValues, R.array.soundChangeArray, context);
-
-                                summary = summary + title + ": <b>" + value + "</b>";
+                                _bold = true;
+                                summary = summary + title + ": <b><ringtone_name_sim2></b>";
                             }
                             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, false, context);
-//                           Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1 - notGrantedG1Permission="+notGrantedG1Permission);
                             if (!title.isEmpty()) {
-                                _bold = true;
                                 if (!summary.isEmpty()) summary = summary + " • ";
-
-                                String value = GlobalGUIRoutines.getListPreferenceString(
-                                        preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1)),
-                                        R.array.soundChangeValues, R.array.soundChangeArray, context);
-
-                                summary = summary + title + ": <b>" + value + "</b>";
+                                _bold = true;
+                                summary = summary + title + ": <b><notification_name_sim1></b>";
                             }
                             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, R.string.profile_preferences_soundNotificationChangeSIM2, false, context);
-//                           Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
                             if (!title.isEmpty()) {
-                                _bold = true;
                                 if (!summary.isEmpty()) summary = summary + " • ";
-
-                                String value = GlobalGUIRoutines.getListPreferenceString(
-                                        preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)),
-                                        R.array.soundChangeValues, R.array.soundChangeArray, context);
-
-                                summary = summary + title + ": <b>" + value + "</b>";
+                                _bold = true;
+                                summary = summary + title + ": <b><notification_name_sim2></b>";
                             }
+                            if (_bold) {
+                                GlobalGUIRoutines.setProfileSoundsDualSIMPreferenceSummary(summary,
+                                        preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1,
+                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1)),
+                                        preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2,
+                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2)),
+                                        preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1,
+                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1)),
+                                        preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2,
+                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2)),
+                                        preferenceScreen, context);
+
+                                Profile profile = new Profile();
+                                profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
+                                profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
+                                profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
+                                profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
+                                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                                Permissions.checkProfileRingtones(context, profile, permissions);
+                                _permissionGranted = permissions.size() == 0;
+
+                                //noinspection ConstantConditions
+                                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, false, !_permissionGranted, false);
+                                return;
+                            }
+
+                            Profile profile = new Profile();
+                            profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
+                            profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
+                            profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
+                            profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
+                            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                            Permissions.checkProfileRingtones(context, profile, permissions);
+                            _permissionGranted = permissions.size() == 0;
                         }
                     }
                 }
