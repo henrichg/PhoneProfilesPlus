@@ -1785,6 +1785,74 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + title + ": <b><alarm_name></b>";
             }
             //_bold = _bold || isBold(Profile.PREF_PROFILE_SOUND_ALARM);
+
+            _permissionGranted = true;
+
+            boolean isDualSIM = true;
+            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                int phoneCount = telephonyManager.getPhoneCount();
+                if (phoneCount < 2) {
+                    preferenceScreen.setVisible(false);
+                    isDualSIM = false;
+                }
+            }
+            if (isDualSIM) {
+                if (Build.VERSION.SDK_INT >= 26) {
+                    if (telephonyManager != null) {
+                        int phoneCount = telephonyManager.getPhoneCount();
+                        if (phoneCount > 1) {
+                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, false, context);
+                            if (!title.isEmpty()) {
+                                if (!summary.isEmpty()) summary = summary + " • ";
+                                _bold = true;
+                                summary = summary + title;
+                            }
+                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, R.string.profile_preferences_soundRingtoneChangeSIM2, false, context);
+                            if (!title.isEmpty()) {
+                                if (!summary.isEmpty()) summary = summary + " • ";
+                                _bold = true;
+                                summary = summary + title;
+                            }
+                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, false, context);
+                            if (!title.isEmpty()) {
+                                if (!summary.isEmpty()) summary = summary + " • ";
+                                _bold = true;
+                                summary = summary + title;
+                            }
+                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, R.string.profile_preferences_soundNotificationChangeSIM2, false, context);
+                            if (!title.isEmpty()) {
+                                if (!summary.isEmpty()) summary = summary + " • ";
+                                _bold = true;
+                                summary = summary + title;
+                            }
+                            if (_bold) {
+                                Profile profile = new Profile();
+                                profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
+                                profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
+                                profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
+                                profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
+                                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                                Permissions.checkProfileRingtones(context, profile, permissions);
+                                _permissionGranted = permissions.size() == 0;
+
+                                //noinspection ConstantConditions
+                                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, false, !_permissionGranted, false);
+                            }
+                            else {
+                                Profile profile = new Profile();
+                                profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
+                                profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
+                                profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
+                                profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
+                                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                                Permissions.checkProfileRingtones(context, profile, permissions);
+                                _permissionGranted = permissions.size() == 0;
+                            }
+                        }
+                    }
+                }
+            }
             if (_bold) {
                 GlobalGUIRoutines.setProfileSoundsPreferenceSummary(summary,
                         preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE,
@@ -1801,20 +1869,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, "0"));
                 ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                 Permissions.checkProfileRingtones(context, profile, permissions);
-                _permissionGranted = permissions.size() == 0;
+                _permissionGranted = _permissionGranted && (permissions.size() == 0);
 
                 //noinspection ConstantConditions
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, false, !_permissionGranted, false);
-                return;
             }
-
-            Profile profile = new Profile();
-            profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0"));
-            profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0"));
-            profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, "0"));
-            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-            Permissions.checkProfileRingtones(context, profile, permissions);
-            _permissionGranted = permissions.size() == 0;
+            else {
+                Profile profile = new Profile();
+                profile._soundRingtoneChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0"));
+                profile._soundNotificationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0"));
+                profile._soundAlarmChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, "0"));
+                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                Permissions.checkProfileRingtones(context, profile, permissions);
+                _permissionGranted = _permissionGranted && permissions.size() == 0;
+            }
         }
 
         if (key.equals("prf_pref_touchEffectsCategoryRoot")) {
