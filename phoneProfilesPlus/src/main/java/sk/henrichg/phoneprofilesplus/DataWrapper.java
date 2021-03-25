@@ -237,7 +237,15 @@ public class DataWrapper {
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceMobileDataSIM2")),
                 Profile.defaultValuesString.get("prf_pref_deviceDefaultSIMCards"),
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceOnOffSIM1")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceOnOffSIM2"))
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceOnOffSIM2")),
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundRingtoneChangeSIM1")),
+                Settings.System.DEFAULT_RINGTONE_URI.toString(),
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundRingtoneChangeSIM2")),
+                Settings.System.DEFAULT_RINGTONE_URI.toString(),
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundNotificationChangeSIM1")),
+                Settings.System.DEFAULT_NOTIFICATION_URI.toString(),
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundNotificationChangeSIM2")),
+                Settings.System.DEFAULT_NOTIFICATION_URI.toString()
             );
     }
 

@@ -110,6 +110,14 @@ public class Profile {
     String _deviceDefaultSIMCards;
     int _deviceOnOffSIM1;
     int _deviceOnOffSIM2;
+    int _soundRingtoneChangeSIM1;
+    String _soundRingtoneSIM1;
+    int _soundRingtoneChangeSIM2;
+    String _soundRingtoneSIM2;
+    int _soundNotificationChangeSIM1;
+    String _soundNotificationSIM1;
+    int _soundNotificationChangeSIM2;
+    String _soundNotificationSIM2;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -203,6 +211,14 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS = "prf_pref_deviceDefaultSIMCards";
     static final String PREF_PROFILE_DEVICE_ONOFF_SIM1 = "prf_pref_deviceOnOffSIM1";
     static final String PREF_PROFILE_DEVICE_ONOFF_SIM2 = "prf_pref_deviceOnOffSIM2";
+    static final String PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1 = "prf_pref_soundRingtoneChangeSIM1";
+    static final String PREF_PROFILE_SOUND_RINGTONE_SIM1 = "prf_pref_soundRingtoneSIM1";
+    static final String PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2 = "prf_pref_soundRingtoneChangeSIM2";
+    static final String PREF_PROFILE_SOUND_RINGTONE_SIM2 = "prf_pref_soundRingtoneSIM2";
+    static final String PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1 = "prf_pref_soundNotificationChangeSIM1";
+    static final String PREF_PROFILE_SOUND_NOTIFICATION_SIM1 = "prf_pref_soundNotificationSIM1";
+    static final String PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2 = "prf_pref_soundNotificationChangeSIM2";
+    static final String PREF_PROFILE_SOUND_NOTIFICATION_SIM2 = "prf_pref_soundNotificationSIM2";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -296,6 +312,14 @@ public class Profile {
         defaultValuesString.put("prf_pref_deviceDefaultSIMCards", "0|0|0");
         defaultValuesString.put("prf_pref_deviceOnOffSIM1", "0");
         defaultValuesString.put("prf_pref_deviceOnOffSIM2", "0");
+        defaultValuesString.put("prf_pref_soundRingtoneChangeSIM1", "0");
+        defaultValuesString.put("prf_pref_soundRingtoneSIM1", "");
+        defaultValuesString.put("prf_pref_soundRingtoneChangeSIM2", "0");
+        defaultValuesString.put("prf_pref_soundRingtoneSIM2", "");
+        defaultValuesString.put("prf_pref_soundNotificationChangeSIM1", "0");
+        defaultValuesString.put("prf_pref_soundNotificationSIM1", "");
+        defaultValuesString.put("prf_pref_soundNotificationChangeSIM2", "0");
+        defaultValuesString.put("prf_pref_soundNotificationSIM2", "");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -857,7 +881,15 @@ public class Profile {
                    int deviceMobileDataSIM2,
                    String deviceDefaultSIMCards,
                    int deviceOnOffSIM1,
-                   int deviceOnOffSIM2
+                   int deviceOnOffSIM2,
+                   int soundRingtoneChangeSIM1,
+                   String soundRingtoneSIM1,
+                   int soundRingtoneChangeSIM2,
+                   String soundRingtoneSIM2,
+                   int soundNotificationChangeSIM1,
+                   String soundNotificationSIM1,
+                   int soundNotificationChangeSIM2,
+                   String soundNotificationSIM2
     )
     {
         this._id = id;
@@ -945,6 +977,14 @@ public class Profile {
         this._deviceDefaultSIMCards = deviceDefaultSIMCards;
         this._deviceOnOffSIM1 = deviceOnOffSIM1;
         this._deviceOnOffSIM2 = deviceOnOffSIM2;
+        this._soundRingtoneChangeSIM1 = soundRingtoneChangeSIM1;
+        this._soundRingtoneSIM1 = soundRingtoneSIM1;
+        this._soundRingtoneChangeSIM2 = soundRingtoneChangeSIM2;
+        this._soundRingtoneSIM2 = soundRingtoneSIM2;
+        this._soundNotificationChangeSIM1 = soundNotificationChangeSIM1;
+        this._soundNotificationSIM1 = soundNotificationSIM1;
+        this._soundNotificationChangeSIM2 = soundNotificationChangeSIM2;
+        this._soundNotificationSIM2 = soundNotificationSIM2;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1036,7 +1076,15 @@ public class Profile {
                    int deviceMobileDataSIM2,
                    String deviceDefaultSIMCards,
                    int deviceOnOffSIM1,
-                   int deviceOnOffSIM2
+                   int deviceOnOffSIM2,
+                   int soundRingtoneChangeSIM1,
+                   String soundRingtoneSIM1,
+                   int soundRingtoneChangeSIM2,
+                   String soundRingtoneSIM2,
+                   int soundNotificationChangeSIM1,
+                   String soundNotificationSIM1,
+                   int soundNotificationChangeSIM2,
+                   String soundNotificationSIM2
     )
     {
         this._name = name;
@@ -1123,6 +1171,14 @@ public class Profile {
         this._deviceDefaultSIMCards = deviceDefaultSIMCards;
         this._deviceOnOffSIM1 = deviceOnOffSIM1;
         this._deviceOnOffSIM2 = deviceOnOffSIM2;
+        this._soundRingtoneChangeSIM1 = soundRingtoneChangeSIM1;
+        this._soundRingtoneSIM1 = soundRingtoneSIM1;
+        this._soundRingtoneChangeSIM2 = soundRingtoneChangeSIM2;
+        this._soundRingtoneSIM2 = soundRingtoneSIM2;
+        this._soundNotificationChangeSIM1 = soundNotificationChangeSIM1;
+        this._soundNotificationSIM1 = soundNotificationSIM1;
+        this._soundNotificationChangeSIM2 = soundNotificationChangeSIM2;
+        this._soundNotificationSIM2 = soundNotificationSIM2;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1216,6 +1272,14 @@ public class Profile {
         this._deviceDefaultSIMCards = profile._deviceDefaultSIMCards;
         this._deviceOnOffSIM1 = profile._deviceOnOffSIM1;
         this._deviceOnOffSIM2 = profile._deviceOnOffSIM2;
+        this._soundRingtoneChangeSIM1 = profile._soundRingtoneChangeSIM1;
+        this._soundRingtoneSIM1 = profile._soundRingtoneSIM1;
+        this._soundRingtoneChangeSIM2 = profile._soundRingtoneChangeSIM2;
+        this._soundRingtoneSIM2 = profile._soundRingtoneSIM2;
+        this._soundNotificationChangeSIM1 = profile._soundNotificationChangeSIM1;
+        this._soundNotificationSIM1 = profile._soundNotificationSIM1;
+        this._soundNotificationChangeSIM2 = profile._soundNotificationChangeSIM2;
+        this._soundNotificationSIM2 = profile._soundNotificationSIM2;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1529,6 +1593,22 @@ public class Profile {
                         else if (this._deviceOnOffSIM2 == 2)
                             this._deviceOnOffSIM2 = 1;
                     }
+                }
+                if (withProfile._soundRingtoneChangeSIM1 != 0) {
+                    this._soundRingtoneChangeSIM1 = withProfile._soundRingtoneChangeSIM1;
+                    this._soundRingtoneSIM1 = withProfile._soundRingtoneSIM1;
+                }
+                if (withProfile._soundRingtoneChangeSIM2 != 0) {
+                    this._soundRingtoneChangeSIM2 = withProfile._soundRingtoneChangeSIM2;
+                    this._soundRingtoneSIM2 = withProfile._soundRingtoneSIM2;
+                }
+                if (withProfile._soundNotificationChangeSIM1 != 0) {
+                    this._soundNotificationChangeSIM1 = withProfile._soundNotificationChangeSIM1;
+                    this._soundNotificationSIM1 = withProfile._soundNotificationSIM1;
+                }
+                if (withProfile._soundNotificationChangeSIM2 != 0) {
+                    this._soundNotificationChangeSIM2 = withProfile._soundNotificationChangeSIM2;
+                    this._soundNotificationSIM2 = withProfile._soundNotificationSIM2;
                 }
 
                 if (withProfile._volumeMuteSound)
@@ -1887,6 +1967,46 @@ public class Profile {
             if (this._deviceOnOffSIM2 != withProfile._deviceOnOffSIM2) {
                 //PPApplication.logE("$$$ Profile.compareProfiles","_deviceOnOffSIM2");
                 return false;
+            }
+            if (this._soundRingtoneChangeSIM1 != withProfile._soundRingtoneChangeSIM1) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtoneChangeSIM1");
+                return false;
+            }
+            if (this._soundRingtoneChangeSIM1 != 0) {
+                if (!this._soundRingtoneSIM1.equals(withProfile._soundRingtoneSIM1)) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtoneSIM1");
+                    return false;
+                }
+            }
+            if (this._soundRingtoneChangeSIM2 != withProfile._soundRingtoneChangeSIM2) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtoneChangeSIM2");
+                return false;
+            }
+            if (this._soundRingtoneChangeSIM2 != 0) {
+                if (!this._soundRingtoneSIM2.equals(withProfile._soundRingtoneSIM2)) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtoneSIM2");
+                    return false;
+                }
+            }
+            if (this._soundNotificationChangeSIM1 != withProfile._soundNotificationChangeSIM1) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_soundNotificationChangeSIM1");
+                return false;
+            }
+            if (this._soundNotificationChangeSIM1 != 0) {
+                if (!this._soundNotificationSIM1.equals(withProfile._soundNotificationSIM1)) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundNotificationSIM1");
+                    return false;
+                }
+            }
+            if (this._soundNotificationChangeSIM2 != withProfile._soundNotificationChangeSIM2) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_soundNotificationChangeSIM2");
+                return false;
+            }
+            if (this._soundNotificationChangeSIM2 != 0) {
+                if (!this._soundNotificationSIM2.equals(withProfile._soundNotificationSIM2)) {
+                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundNotificationSIM2");
+                    return false;
+                }
             }
 
             return true;
@@ -3700,7 +3820,15 @@ public class Profile {
                     profile._deviceMobileDataSIM2,
                     profile._deviceDefaultSIMCards,
                     profile._deviceOnOffSIM1,
-                    profile._deviceOnOffSIM2
+                    profile._deviceOnOffSIM2,
+                    profile._soundRingtoneChangeSIM1,
+                    profile._soundRingtoneSIM1,
+                    profile._soundRingtoneChangeSIM2,
+                    profile._soundRingtoneSIM2,
+                    profile._soundNotificationChangeSIM1,
+                    profile._soundNotificationSIM1,
+                    profile._soundNotificationChangeSIM2,
+                    profile._soundNotificationSIM2
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -5417,6 +5545,55 @@ public class Profile {
         }
         //if (checked && (profile == null))
         //    return preferenceAllowed;
+
+        if ((profile != null) ||
+                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1) ||
+                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1) ||
+                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2) ||
+                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)) {
+            if (Build.VERSION.SDK_INT >= 26) {
+                final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    if (preferenceKey.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1) && (phoneCount > 1)) {
+                        if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        }
+                    } else if (preferenceKey.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2) && (phoneCount > 1)) {
+                        if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        }
+                    }
+                    if (preferenceKey.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1) && (phoneCount > 1)) {
+                        if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        }
+                    } else if (preferenceKey.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2) && (phoneCount > 1)) {
+                        if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        }
+                    }
+                } else {
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                }
+
+            } else {
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+            }
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
+        }
+
 
         if (profile == null)
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;

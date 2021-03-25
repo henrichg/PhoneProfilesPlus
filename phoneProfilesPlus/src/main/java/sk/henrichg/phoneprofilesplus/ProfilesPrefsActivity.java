@@ -364,7 +364,15 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._deviceMobileDataSIM2,
                         origProfile._deviceDefaultSIMCards,
                         origProfile._deviceOnOffSIM1,
-                        origProfile._deviceOnOffSIM2
+                        origProfile._deviceOnOffSIM2,
+                        origProfile._soundRingtoneChangeSIM1,
+                        origProfile._soundRingtoneSIM1,
+                        origProfile._soundRingtoneChangeSIM2,
+                        origProfile._soundRingtoneSIM2,
+                        origProfile._soundNotificationChangeSIM1,
+                        origProfile._soundNotificationSIM1,
+                        origProfile._soundNotificationChangeSIM2,
+                        origProfile._soundNotificationSIM2
                 );
                 showSaveMenu = true;
             }
