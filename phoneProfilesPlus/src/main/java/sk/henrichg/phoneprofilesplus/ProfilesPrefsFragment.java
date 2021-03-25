@@ -18,6 +18,7 @@ import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -860,6 +861,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, null, preferences, true, context);
                         preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
                     }
 
                     preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
@@ -872,6 +874,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, null, preferences, true, context);
                         preference.setEnabled(preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
                     }
 
                     preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
@@ -884,6 +887,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, null, preferences, true, context);
                         preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
                     }
 
                     preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
@@ -896,6 +900,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, null, preferences, true, context);
                         preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
                     }
 
                 } else {
@@ -4386,6 +4391,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (Build.VERSION.SDK_INT >= 26) {
             if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1)) {
                 boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
+                Log.e("ProfilePrefsFragment.disableDependedPref", "enabled="+enabled);
                 Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1);
                 if (preference != null)
                     preference.setEnabled(enabled);
