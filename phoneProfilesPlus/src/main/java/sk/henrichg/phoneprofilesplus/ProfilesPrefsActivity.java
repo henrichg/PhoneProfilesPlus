@@ -490,6 +490,21 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, profile._deviceDefaultSIMCards);
             editor.putString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, Integer.toString(profile._deviceOnOffSIM1));
             editor.putString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, Integer.toString(profile._deviceOnOffSIM2));
+
+            editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, Integer.toString(profile._soundRingtoneChangeSIM1));
+            splits = profile._soundRingtoneSIM1.split("\\|");
+            editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, splits[0]);
+            editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, Integer.toString(profile._soundNotificationChangeSIM1));
+            splits = profile._soundNotificationSIM1.split("\\|");
+            editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, splits[0]);
+
+            editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, Integer.toString(profile._soundRingtoneChangeSIM2));
+            splits = profile._soundRingtoneSIM2.split("\\|");
+            editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, splits[0]);
+            editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, Integer.toString(profile._soundNotificationChangeSIM2));
+            splits = profile._soundNotificationSIM2.split("\\|");
+            editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, splits[0]);
+
             editor.apply();
         }
     }
@@ -624,6 +639,47 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "");
             profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, ""));
             profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, ""));
+
+            profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, ""));
+            toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, "");
+            splits = toneString.split("\\|");
+            //Uri soundUri = Uri.parse(splits[0]);
+            /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
+                profile._soundRingtoneSIM1 = splits[0]+"|1";
+            else*/
+            profile._soundRingtoneSIM1 = splits[0];//+"|0";
+            //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundRingtoneSIM1=" + profile._soundRingtoneSIM1);
+
+            profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, ""));
+            toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, "");
+            splits = toneString.split("\\|");
+            //soundUri = Uri.parse(splits[0]);
+            /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
+                profile._soundNotificationSIM1 = splits[0]+"|1";
+            else*/
+            profile._soundNotificationSIM1 = splits[0];//+"|0";
+            //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotificationSIM1=" + profile._soundNotificationSIM1);
+
+            profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, ""));
+            toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, "");
+            splits = toneString.split("\\|");
+            //Uri soundUri = Uri.parse(splits[0]);
+            /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
+                profile._soundRingtoneSIM2 = splits[0]+"|1";
+            else*/
+            profile._soundRingtoneSIM2 = splits[0];//+"|0";
+            //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundRingtoneSIM2=" + profile._soundRingtoneSIM2);
+
+            profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, ""));
+            toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, "");
+            splits = toneString.split("\\|");
+            //soundUri = Uri.parse(splits[0]);
+            /*if (TonesHandler.isPhoneProfilesSilent(soundUri, getApplicationContext()))
+                profile._soundNotificationSIM2 = splits[0]+"|1";
+            else*/
+            profile._soundNotificationSIM2 = splits[0];//+"|0";
+            //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotificationSIM2=" + profile._soundNotificationSIM2);
+
         }
 
         //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");

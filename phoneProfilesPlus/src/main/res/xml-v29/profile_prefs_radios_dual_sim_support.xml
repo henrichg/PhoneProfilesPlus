@@ -5,11 +5,11 @@
     app:key="prf_pref_deviceRadiosDualSIMSupportCategory" >
 
     <Preference
-        app:key="prf_pref_deviceOnOffDualSIMInfo"
-        app:title="@string/profile_preferences_deviceOnOffDualSIM"
-        app:summary="@string/profile_preferences_deviceOnOffDualSIM_summary"
-        app:widgetLayout="@layout/widget_info_preference"
+        app:key="prf_pref_deviceRadiosDualSIMSupportInfo"
+        app:title="@string/profile_preferences_deviceDualSIMSupport_summary"
+        app:summary="@string/empty_string"
         app:layout="@layout/mp_preference_material_widget" />
+
     <ListPreference
         app:title="@string/profile_preferences_deviceOnOff_SIM1"
         app:summary="@string/array_pref_no_change"
@@ -27,12 +27,6 @@
         app:entryValues="@array/onOffSIMValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
-        app:key="prf_pref_deviceDefaultSIMCardsInfo"
-        app:title="@string/profile_preferences_deviceDefaultSIM"
-        app:summary="@string/profile_preferences_deviceDefaultSIM_summary"
-        app:widgetLayout="@layout/widget_info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.DefaultSIMDialogPreferenceX
         app:key="prf_pref_deviceDefaultSIMCards"
         app:defaultValue="0|0|0"
@@ -40,12 +34,6 @@
         app:summary="@string/profile_preferences_deviceDefaultSIM"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
-        app:key="prf_pref_deviceMobileDataDualSIMInfo"
-        app:title="@string/profile_preferences_deviceMobileDataDualSIM"
-        app:summary="@string/profile_preferences_deviceMobileDataDualSIM_summary"
-        app:widgetLayout="@layout/widget_info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceMobileData_21_SIM1"
         app:summary="@string/array_pref_no_change"
@@ -63,12 +51,6 @@
         app:entryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
-        app:key="prf_pref_deviceNetworkTypeDualSIMInfo"
-        app:title="@string/profile_preferences_deviceNetworkTypeDualSIM"
-        app:summary="@string/profile_preferences_deviceNetworkTypeDualSIM_summary"
-        app:widgetLayout="@layout/widget_info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceNetworkTypeSIM1"
         app:summary="@string/array_pref_no_change"

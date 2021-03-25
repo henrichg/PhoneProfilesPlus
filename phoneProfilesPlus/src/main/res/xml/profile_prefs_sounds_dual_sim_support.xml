@@ -4,5 +4,82 @@
     app:title="@string/profile_preferences_deviceDualSIMSupport"
     app:key="prf_pref_deviceSoundsDualSIMSupportCategory" >
 
+    <Preference
+        app:key="prf_pref_soundDualSIMSupportInfo"
+        app:title="@string/profile_preferences_deviceDualSIMSupport_summary"
+        app:summary="@string/empty_string"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <ListPreference
+        app:title="@string/profile_preferences_soundRingtoneChangeSIM1"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_soundRingtoneChangeSIM1"
+        app:defaultValue="0"
+        app:entries="@array/soundChangeArray"
+        app:entryValues="@array/soundChangeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+        app:key="prf_pref_soundRingtoneSIM1"
+        app:summary="@string/ringtone_preference_not_set"
+        app:title="@string/profile_preferences_soundRingtoneSIM1"
+        app:ringtoneType="ringtone"
+        app:showSilent="true"
+        app:showDefault="true"
+        app:dependency="prf_pref_soundRingtoneChangeSIM1"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <ListPreference
+        app:title="@string/profile_preferences_soundRingtoneChangeSIM2"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_soundRingtoneChangeSIM2"
+        app:defaultValue="0"
+        app:entries="@array/soundChangeArray"
+        app:entryValues="@array/soundChangeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+        app:key="prf_pref_soundRingtoneSIM2"
+        app:summary="@string/ringtone_preference_not_set"
+        app:title="@string/profile_preferences_soundRingtoneSIM2"
+        app:ringtoneType="ringtone"
+        app:showSilent="true"
+        app:showDefault="true"
+        app:dependency="prf_pref_soundRingtoneChangeSIM2"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <ListPreference
+        app:title="@string/profile_preferences_soundNotificationChangeSIM1"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_soundNotificationChangeSIM1"
+        app:defaultValue="0"
+        app:entries="@array/soundChangeArray"
+        app:entryValues="@array/soundChangeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+        app:key="prf_pref_soundNotificationSIM1"
+        app:summary="@string/ringtone_preference_not_set"
+        app:title="@string/profile_preferences_soundNotificationSIM1"
+        app:ringtoneType="notification"
+        app:showSilent="true"
+        app:showDefault="true"
+        app:dependency="prf_pref_soundNotificationChangeSIM1"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <ListPreference
+        app:title="@string/profile_preferences_soundNotificationChangeSIM2"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_soundNotificationChangeSIM2"
+        app:defaultValue="0"
+        app:entries="@array/soundChangeArray"
+        app:entryValues="@array/soundChangeValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
+        app:key="prf_pref_soundNotificationSIM2"
+        app:summary="@string/ringtone_preference_not_set"
+        app:title="@string/profile_preferences_soundNotificationSIM2"
+        app:ringtoneType="notification"
+        app:showSilent="true"
+        app:showDefault="true"
+        app:dependency="prf_pref_soundNotificationChangeSIM2"
+        app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>
