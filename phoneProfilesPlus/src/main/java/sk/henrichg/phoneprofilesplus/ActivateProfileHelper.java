@@ -532,6 +532,7 @@ class ActivateProfileHelper {
                                     //if (Build.VERSION.SDK_INT >= 29)
                                     //    CmdWifi.setWifi(isWifiEnabled);
                                     //else
+                                        PPApplication.logE("[WIFI_ENABLED] ActivateProfileHelper.doExecuteForRadios", "isWifiEnabled="+isWifiEnabled);
                                         //noinspection deprecation
                                         wifiManager.setWifiEnabled(isWifiEnabled);
                                         //CmdWifi.setWifiEnabled(isWifiAPEnabled);
@@ -5223,6 +5224,7 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-isWifiEnabled=" + isWifiEnabled);
                                 if (isWifiEnabled) {
                                     //PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.setWifiAP");
+                                    PPApplication.logE("[WIFI_ENABLED] ActivateProfileHelper.setWifiAP", "false");
                                     //noinspection deprecation
                                     wifiManager.setWifiEnabled(false);
                                     PPApplication.sleep(1000);

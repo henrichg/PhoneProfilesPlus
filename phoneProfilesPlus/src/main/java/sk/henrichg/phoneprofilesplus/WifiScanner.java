@@ -143,9 +143,11 @@ class WifiScanner {
                                     //if (Build.VERSION.SDK_INT >= 29)
                                     //    CmdWifi.setWifi(false);
                                     //else
-                                    if (WifiScanWorker.wifi != null)
+                                    if (WifiScanWorker.wifi != null) {
+                                        PPApplication.logE("[WIFI_ENABLED] WifiScanner.doScan", "false (1)");
                                         //noinspection deprecation
                                         WifiScanWorker.wifi.setWifiEnabled(false);
+                                    }
                                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
@@ -283,9 +285,11 @@ class WifiScanner {
                                 //if (Build.VERSION.SDK_INT >= 29)
                                 //    CmdWifi.setWifi(false);
                                 //else
-                                if (WifiScanWorker.wifi != null)
+                                if (WifiScanWorker.wifi != null) {
+                                    PPApplication.logE("[WIFI_ENABLED] WifiScanner.doScan", "false (2)");
                                     //noinspection deprecation
                                     WifiScanWorker.wifi.setWifiEnabled(false);
+                                }
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
@@ -407,6 +411,7 @@ class WifiScanner {
                             //if (Build.VERSION.SDK_INT >= 29)
                             //    CmdWifi.setWifi(true);
                             //else
+                                PPApplication.logE("[WIFI_ENABLED] WifiScanner.enableWifi", "true");
                                 //noinspection deprecation
                                 _wifi.setWifiEnabled(true);
 

@@ -576,9 +576,11 @@ public class WifiScanWorker extends Worker {
                     //if (Build.VERSION.SDK_INT >= 29)
                     //    CmdWifi.setWifi(false);
                     //else
-                    if (wifi != null)
+                    if (wifi != null) {
+                        PPApplication.logE("[WIFI_ENABLED] WifiScanWorker.startScan", "false (1)");
                         //noinspection deprecation
                         wifi.setWifiEnabled(false);
+                    }
                 }
                 unlock();
             }
@@ -595,9 +597,11 @@ public class WifiScanWorker extends Worker {
                 //else {
                     if (wifi == null)
                         wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                    if (wifi != null)
+                    if (wifi != null) {
+                        PPApplication.logE("[WIFI_ENABLED] WifiScanWorker.startScan", "false (2)");
                         //noinspection deprecation
                         wifi.setWifiEnabled(false);
+                    }
                 //}
             }
             unlock();
