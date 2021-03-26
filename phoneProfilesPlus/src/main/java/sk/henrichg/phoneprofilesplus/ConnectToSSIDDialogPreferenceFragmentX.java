@@ -108,6 +108,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                             //if (Build.VERSION.SDK_INT >= 29)
                             //    CmdWifi.setWifi(true);
                             //else
+                                //noinspection deprecation
                                 wifi.setWifiEnabled(true);
 
                             PPApplication.sleep(3000);
@@ -155,6 +156,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                                     //if (Build.VERSION.SDK_INT >= 29)
                                     //    CmdWifi.setWifi(false);
                                     //else
+                                        //noinspection deprecation
                                         wifi.setWifiEnabled(false);
                                 }
                                 //PPApplication.logE("ConnectToSSIDDialogPreferenceFragmentX.onBindDialogView.2", "wifi disabled");

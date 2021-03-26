@@ -489,6 +489,7 @@ public class WifiScanWorker extends Worker {
 
         // initialise the locks
         if ((wifi != null) && (wifiLock == null))
+            //noinspection deprecation
             wifiLock = wifi.createWifiLock(WifiManager.WIFI_MODE_SCAN_ONLY , "WifiScanWifiLock");
 
         try {
@@ -559,7 +560,7 @@ public class WifiScanWorker extends Worker {
 
             boolean startScan = false;
             if (wifi != null) {
-                //TODO from SDK documentation: The ability for apps to trigger scan requests will be removed in a future release. :-/
+                //noinspection deprecation
                 startScan = wifi.startScan();
             }
             /*if (PPApplication.logEnabled()) {
@@ -576,6 +577,7 @@ public class WifiScanWorker extends Worker {
                     //    CmdWifi.setWifi(false);
                     //else
                     if (wifi != null)
+                        //noinspection deprecation
                         wifi.setWifiEnabled(false);
                 }
                 unlock();
@@ -594,6 +596,7 @@ public class WifiScanWorker extends Worker {
                     if (wifi == null)
                         wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                     if (wifi != null)
+                        //noinspection deprecation
                         wifi.setWifiEnabled(false);
                 //}
             }
@@ -683,8 +686,10 @@ public class WifiScanWorker extends Worker {
         }
         //PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","wifi is enabled");
 
+        //noinspection deprecation
         List<WifiConfiguration> _wifiConfigurationList = null;
         if (Permissions.hasPermission(context, Manifest.permission.ACCESS_FINE_LOCATION))
+            //noinspection deprecation
             _wifiConfigurationList = wifi.getConfiguredNetworks();
 
         /*if (wifiEnabled) {
@@ -697,6 +702,7 @@ public class WifiScanWorker extends Worker {
         {
             //PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","_wifiConfigurationList.size()="+_wifiConfigurationList.size());
             wifiConfigurationList.clear();
+            //noinspection deprecation
             for (WifiConfiguration device : _wifiConfigurationList)
             {
                 //PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","device.SSID="+device.SSID);
@@ -928,12 +934,15 @@ public class WifiScanWorker extends Worker {
         }
 
         if (SSID.equals("<unknown ssid>")) {
+            //noinspection deprecation
             List<WifiConfiguration> listOfConfigurations = null;
             if (Permissions.hasPermission(context, Manifest.permission.ACCESS_FINE_LOCATION))
+                //noinspection deprecation
                 listOfConfigurations = wifiManager.getConfiguredNetworks();
 
             if (listOfConfigurations != null) {
                 for (int index = 0; index < listOfConfigurations.size(); index++) {
+                    //noinspection deprecation
                     WifiConfiguration configuration = listOfConfigurations.get(index);
                     if (configuration.networkId == wifiInfo.getNetworkId()) {
                         return configuration.SSID;

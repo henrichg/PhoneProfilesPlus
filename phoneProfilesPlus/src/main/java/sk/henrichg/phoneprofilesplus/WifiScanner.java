@@ -144,6 +144,7 @@ class WifiScanner {
                                     //    CmdWifi.setWifi(false);
                                     //else
                                     if (WifiScanWorker.wifi != null)
+                                        //noinspection deprecation
                                         WifiScanWorker.wifi.setWifiEnabled(false);
                                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiScanner.doScan.1");
                                 } catch (Exception e) {
@@ -283,6 +284,7 @@ class WifiScanner {
                                 //    CmdWifi.setWifi(false);
                                 //else
                                 if (WifiScanWorker.wifi != null)
+                                    //noinspection deprecation
                                     WifiScanWorker.wifi.setWifiEnabled(false);
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
@@ -373,6 +375,7 @@ class WifiScanner {
                 // this must be disabled because scanning not working, when wifi is disabled after disabled WiFi AP
                 // Tested and scanning working ;-)
                 //if (android.os.Build.VERSION.SDK_INT >= 18)
+                    //noinspection deprecation
                     isScanAlwaysAvailable = wifi.isScanAlwaysAvailable();
             }
             //PPApplication.logE("@@@ WifiScanner.enableWifi","isScanAlwaysAvailable="+isScanAlwaysAvailable);
@@ -404,6 +407,7 @@ class WifiScanner {
                             //if (Build.VERSION.SDK_INT >= 29)
                             //    CmdWifi.setWifi(true);
                             //else
+                                //noinspection deprecation
                                 _wifi.setWifiEnabled(true);
 
                             /*if (PPApplication.logEnabled()) {

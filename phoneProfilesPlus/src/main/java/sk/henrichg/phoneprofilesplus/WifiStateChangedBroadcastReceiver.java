@@ -71,13 +71,17 @@ public class WifiStateChangedBroadcastReceiver extends BroadcastReceiver {
                                     if (!PhoneProfilesService.getInstance().connectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
                                         WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
                                         if (wifiManager != null) {
+                                            //noinspection deprecation
                                             List<WifiConfiguration> list = null;
                                             if (Permissions.hasPermission(appContext, Manifest.permission.ACCESS_FINE_LOCATION))
+                                                //noinspection deprecation
                                                 list = wifiManager.getConfiguredNetworks();
                                             if (list != null) {
+                                                //noinspection deprecation
                                                 for (WifiConfiguration i : list) {
                                                     if (i.SSID != null && i.SSID.equals(PhoneProfilesService.getInstance().connectToSSID)) {
                                                         //wifiManager.disconnect();
+                                                        //noinspection deprecation
                                                         wifiManager.enableNetwork(i.networkId, true);
                                                         //wifiManager.reconnect();
                                                         break;

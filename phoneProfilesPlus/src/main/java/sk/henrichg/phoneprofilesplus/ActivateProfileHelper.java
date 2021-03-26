@@ -532,6 +532,7 @@ class ActivateProfileHelper {
                                     //if (Build.VERSION.SDK_INT >= 29)
                                     //    CmdWifi.setWifi(isWifiEnabled);
                                     //else
+                                        //noinspection deprecation
                                         wifiManager.setWifiEnabled(isWifiEnabled);
                                         //CmdWifi.setWifiEnabled(isWifiAPEnabled);
                                 } catch (Exception e) {
@@ -595,11 +596,14 @@ class ActivateProfileHelper {
                                     if (wifiConnected)
                                         wifiInfo = wifiManager.getConnectionInfo();
 
+                                    //noinspection deprecation
                                     List<WifiConfiguration> list = null;
 
                                     if (Permissions.hasPermission(appContext, Manifest.permission.ACCESS_FINE_LOCATION))
+                                        //noinspection deprecation
                                         list = wifiManager.getConfiguredNetworks();
                                     if (list != null) {
+                                        //noinspection deprecation
                                         for (WifiConfiguration i : list) {
                                             if (i.SSID != null && i.SSID.equals(profile._deviceConnectToSSID)) {
                                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID wifiConnected="+wifiConnected);
@@ -610,11 +614,15 @@ class ActivateProfileHelper {
                                                             PhoneProfilesService.getInstance().connectToSSIDStarted = true;
 
                                                         // connected to another SSID
+                                                        //noinspection deprecation
                                                         wifiManager.disconnect();
+                                                        //noinspection deprecation
                                                         wifiManager.enableNetwork(i.networkId, true);
+                                                        //noinspection deprecation
                                                         wifiManager.reconnect();
                                                     }
                                                 } else
+                                                    //noinspection deprecation
                                                     wifiManager.enableNetwork(i.networkId, true);
                                                 break;
                                             }
@@ -710,14 +718,17 @@ class ActivateProfileHelper {
                         break;
                     case 2:
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 2");
+                        //noinspection deprecation
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_SENSORS_ONLY);
                         break;
                     case 3:
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 3");
+                        //noinspection deprecation
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_BATTERY_SAVING);
                         break;
                     case 4:
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode 4");
+                        //noinspection deprecation
                         setLocationMode(appContext, Settings.Secure.LOCATION_MODE_HIGH_ACCURACY);
                         break;
                 }
@@ -5212,6 +5223,7 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-isWifiEnabled=" + isWifiEnabled);
                                 if (isWifiEnabled) {
                                     //PPApplication.logE("#### setWifiEnabled", "from ActivateProfileHelper.setWifiAP");
+                                    //noinspection deprecation
                                     wifiManager.setWifiEnabled(false);
                                     PPApplication.sleep(1000);
                                 }
@@ -5443,6 +5455,7 @@ class ActivateProfileHelper {
 
         // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+            //noinspection deprecation
             Settings.Secure.putInt(appContext.getContentResolver(), Settings.Secure.LOCATION_MODE, mode);
         }
         /*else

@@ -851,56 +851,85 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setEnabled(preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
                     }
 
-                    preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
-                    if (preference != null) {
-                        PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, preferences, true, context);
-                        preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
-                    }
+                    if (PPApplication.deviceIsSamsung ||
+                            (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                            (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
+                        if (preference != null) {
+                            PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, preferences, true, context);
+                            preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                        }
 
-                    preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1);
-                    if (preference != null) {
-                        PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, null, preferences, true, context);
-                        preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
-                        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
-                    }
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1);
+                        if (preference != null) {
+                            PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, null, preferences, true, context);
+                            preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                            disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
+                        }
 
-                    preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
-                    if (preference != null) {
-                        PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, preferences, true, context);
-                        preference.setEnabled(preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
-                    }
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
+                        if (preference != null) {
+                            PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, preferences, true, context);
+                            preference.setEnabled(preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                        }
 
-                    preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2);
-                    if (preference != null) {
-                        PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, null, preferences, true, context);
-                        preference.setEnabled(preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
-                        disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
-                    }
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2);
+                        if (preference != null) {
+                            PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, null, preferences, true, context);
+                            preference.setEnabled(preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                            disableDependedPref(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
+                        }
 
-                    preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
-                    if (preference != null) {
-                        PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, preferences, true, context);
-                        preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
-                    }
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
+                        if (preference != null) {
+                            PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, preferences, true, context);
+                            preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                        }
 
-                    preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1);
-                    if (preference != null) {
-                        PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, null, preferences, true, context);
-                        preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
-                        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
-                    }
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1);
+                        if (preference != null) {
+                            PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, null, preferences, true, context);
+                            preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                            disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
+                        }
 
-                    preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
-                    if (preference != null) {
-                        PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, preferences, true, context);
-                        preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
-                    }
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
+                        if (preference != null) {
+                            PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, preferences, true, context);
+                            preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                        }
 
-                    preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
-                    if (preference != null) {
-                        PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, null, preferences, true, context);
-                        preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
-                        disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
+                        if (preference != null) {
+                            PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, null, preferences, true, context);
+                            preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
+                            disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
+                        }
+                    } else {
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1);
+                        if (preference != null)
+                            preference.setVisible(false);
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1);
+                        if (preference != null)
+                            preference.setVisible(false);
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2);
+                        if (preference != null)
+                            preference.setVisible(false);
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2);
+                        if (preference != null)
+                            preference.setVisible(false);
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
+                        if (preference != null)
+                            preference.setVisible(false);
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1);
+                        if (preference != null)
+                            preference.setVisible(false);
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
+                        if (preference != null)
+                            preference.setVisible(false);
+                        preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
+                        if (preference != null)
+                            preference.setVisible(false);
                     }
 
                 } else {
@@ -1797,59 +1826,57 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     isDualSIM = false;
                 }
             }
-            if (isDualSIM) {
+            if (isDualSIM &&
+                (PPApplication.deviceIsSamsung ||
+                    (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                    (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
                 if (Build.VERSION.SDK_INT >= 26) {
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, false, context);
-                            if (!title.isEmpty()) {
-                                if (!summary.isEmpty()) summary = summary + " • ";
-                                _bold = true;
-                                summary = summary + title;
-                            }
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, R.string.profile_preferences_soundRingtoneChangeSIM2, false, context);
-                            if (!title.isEmpty()) {
-                                if (!summary.isEmpty()) summary = summary + " • ";
-                                _bold = true;
-                                summary = summary + title;
-                            }
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, false, context);
-                            if (!title.isEmpty()) {
-                                if (!summary.isEmpty()) summary = summary + " • ";
-                                _bold = true;
-                                summary = summary + title;
-                            }
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, R.string.profile_preferences_soundNotificationChangeSIM2, false, context);
-                            if (!title.isEmpty()) {
-                                if (!summary.isEmpty()) summary = summary + " • ";
-                                _bold = true;
-                                summary = summary + title;
-                            }
-                            if (_bold) {
-                                Profile profile = new Profile();
-                                profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
-                                profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
-                                profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
-                                profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
-                                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                                Permissions.checkProfileRingtones(context, profile, permissions);
-                                _permissionGranted = permissions.size() == 0;
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, false, context);
+                    if (!title.isEmpty()) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        _bold = true;
+                        summary = summary + title;
+                    }
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, R.string.profile_preferences_soundRingtoneChangeSIM2, false, context);
+                    if (!title.isEmpty()) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        _bold = true;
+                        summary = summary + title;
+                    }
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, false, context);
+                    if (!title.isEmpty()) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        _bold = true;
+                        summary = summary + title;
+                    }
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, R.string.profile_preferences_soundNotificationChangeSIM2, false, context);
+                    if (!title.isEmpty()) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        _bold = true;
+                        summary = summary + title;
+                    }
+                    if (_bold) {
+                        Profile profile = new Profile();
+                        profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
+                        profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
+                        profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
+                        profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
+                        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                        Permissions.checkProfileRingtones(context, profile, permissions);
+                        _permissionGranted = permissions.size() == 0;
 
-                                //noinspection ConstantConditions
-                                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, false, !_permissionGranted, false);
-                            }
-                            else {
-                                Profile profile = new Profile();
-                                profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
-                                profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
-                                profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
-                                profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
-                                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                                Permissions.checkProfileRingtones(context, profile, permissions);
-                                _permissionGranted = permissions.size() == 0;
-                            }
-                        }
+                        //noinspection ConstantConditions
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, false, !_permissionGranted, false);
+                    }
+                    else {
+                        Profile profile = new Profile();
+                        profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
+                        profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
+                        profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
+                        profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
+                        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                        Permissions.checkProfileRingtones(context, profile, permissions);
+                        _permissionGranted = permissions.size() == 0;
                     }
                 }
             }
@@ -2000,78 +2027,73 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             if (isDualSIM) {
                 if (Build.VERSION.SDK_INT >= 26) {
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, R.string.profile_preferences_deviceOnOff_SIM1, false, context);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, R.string.profile_preferences_deviceOnOff_SIM1, false, context);
+                    if (!title.isEmpty()) {
+                        _bold = true;
+                        if (!summary.isEmpty()) summary = summary + " • ";
 
-                                summary = summary + title;
-                            }
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, R.string.profile_preferences_deviceOnOff_SIM2, false, context);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                summary = summary + title;
-                            }
-
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, R.string.profile_preferences_deviceDefaultSIM, false, context);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                summary = summary + title;
-                            }
-
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, R.string.profile_preferences_deviceMobileData_21_SIM1, false, context);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                summary = summary + title;
-                            }
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, R.string.profile_preferences_deviceMobileData_21_SIM2, false, context);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                summary = summary + title;
-                            }
-
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, R.string.profile_preferences_deviceNetworkTypeSIM1, false, context);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                summary = summary + title;
-                            }
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, R.string.profile_preferences_deviceNetworkTypeSIM2, false, context);
-                            //PPApplication.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                summary = summary + title;
-                            }
-
-                            Profile profile = new Profile();
-                            profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
-                            profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
-                            profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
-                            profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
-                            profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
-                            profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
-                            profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "0"));
-                            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                            Permissions.checkProfileRadioPreferences(context, profile, permissions);
-                            //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
-                            _permissionGranted = permissions.size() == 0;
-
-                        }
+                        summary = summary + title;
                     }
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, R.string.profile_preferences_deviceOnOff_SIM2, false, context);
+                    if (!title.isEmpty()) {
+                        _bold = true;
+                        if (!summary.isEmpty()) summary = summary + " • ";
+
+                        summary = summary + title;
+                    }
+
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, R.string.profile_preferences_deviceDefaultSIM, false, context);
+                    if (!title.isEmpty()) {
+                        _bold = true;
+                        if (!summary.isEmpty()) summary = summary + " • ";
+
+                        summary = summary + title;
+                    }
+
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, R.string.profile_preferences_deviceMobileData_21_SIM1, false, context);
+                    if (!title.isEmpty()) {
+                        _bold = true;
+                        if (!summary.isEmpty()) summary = summary + " • ";
+
+                        summary = summary + title;
+                    }
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, R.string.profile_preferences_deviceMobileData_21_SIM2, false, context);
+                    if (!title.isEmpty()) {
+                        _bold = true;
+                        if (!summary.isEmpty()) summary = summary + " • ";
+
+                        summary = summary + title;
+                    }
+
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, R.string.profile_preferences_deviceNetworkTypeSIM1, false, context);
+                    if (!title.isEmpty()) {
+                        _bold = true;
+                        if (!summary.isEmpty()) summary = summary + " • ";
+
+                        summary = summary + title;
+                    }
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, R.string.profile_preferences_deviceNetworkTypeSIM2, false, context);
+                    //PPApplication.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
+                    if (!title.isEmpty()) {
+                        _bold = true;
+                        if (!summary.isEmpty()) summary = summary + " • ";
+
+                        summary = summary + title;
+                    }
+
+                    Profile profile = new Profile();
+                    profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
+                    profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
+                    profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
+                    profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
+                    profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
+                    profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
+                    profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "0"));
+                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                    Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                    //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
+                    _permissionGranted = permissions.size() == 0;
+
                 }
             }
 
@@ -2252,7 +2274,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
             Permissions.checkProfileRadioPreferences(context, profile, permissions);
             //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
-            _permissionGranted = _permissionGranted &&_accessibilityEnabled && (permissions.size() == 0);
+            _permissionGranted = _permissionGranted && (permissions.size() == 0);
         }
 
         if (key.equals("prf_pref_screenCategoryRoot")) {
@@ -2790,173 +2812,168 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceScreen.setVisible(false);
                     isDualSIM = false;
                 }
-            }
-            if (isDualSIM) {
-                String title;
-                if (Build.VERSION.SDK_INT >= 26) {
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, R.string.profile_preferences_deviceOnOff_SIM1, false, context);
+                if (isDualSIM) {
+                    String title;
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, R.string.profile_preferences_deviceOnOff_SIM1, false, context);
 //                           Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_ONOFF_SIM1 - notGrantedG1Permission="+notGrantedG1Permission);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
+                        if (!title.isEmpty()) {
+                            _bold = true;
+                            //if (!summary.isEmpty()) summary = summary + " • ";
 
-                                String value = GlobalGUIRoutines.getListPreferenceString(
-                                        preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1)),
-                                        R.array.onOffSIMValues, R.array.onOffSIMArray, context);
+                            String value = GlobalGUIRoutines.getListPreferenceString(
+                                    preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1)),
+                                    R.array.onOffSIMValues, R.array.onOffSIMArray, context);
 
-                                summary = summary + title + ": <b>" + value + "</b>";
-                            }
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, R.string.profile_preferences_deviceOnOff_SIM2, false, context);
-//                        Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_ONOFF_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                String value = GlobalGUIRoutines.getListPreferenceString(
-                                        preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2)),
-                                        R.array.onOffSIMValues, R.array.onOffSIMArray, context);
-
-                                summary = summary + title + ": <b>" + value + "</b>";
-                            }
-
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, R.string.profile_preferences_deviceDefaultSIM, false, context);
-//                            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS - notGrantedG1Permission="+notGrantedG1Permission);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS,
-                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS));
-
-                                String[] splits = value.split("\\|");
-                                String voiceStr = "";
-                                try {
-                                    String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMVoiceArray);
-                                    int index = Integer.parseInt(splits[0]);
-                                    voiceStr = arrayStrings[index];
-                                } catch (Exception ignored) {
-                                }
-                                String smsStr = "";
-                                try {
-                                    String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMSMSArray);
-                                    int index = Integer.parseInt(splits[1]);
-                                    smsStr = arrayStrings[index];
-                                } catch (Exception ignored) {
-                                }
-                                String dataStr = "";
-                                try {
-                                    String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMDataArray);
-                                    int index = Integer.parseInt(splits[2]);
-                                    dataStr = arrayStrings[index];
-                                } catch (Exception ignored) {
-                                }
-
-                                summary = summary + title + ": <b>" + voiceStr + "; " + smsStr + "; " + dataStr + "</b>";
-                            }
-
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, R.string.profile_preferences_deviceMobileData_21_SIM1, false, context);
-//                            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1 - notGrantedG1Permission="+notGrantedG1Permission);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                String value = GlobalGUIRoutines.getListPreferenceString(
-                                        preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1)),
-                                        R.array.hardwareModeValues, R.array.hardwareModeArray, context);
-
-                                summary = summary + title + ": <b>" + value + "</b>";
-                            }
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, R.string.profile_preferences_deviceMobileData_21_SIM2, false, context);
-//                    Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                String value = GlobalGUIRoutines.getListPreferenceString(
-                                        preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2)),
-                                        R.array.hardwareModeValues, R.array.hardwareModeArray, context);
-
-                                summary = summary + title + ": <b>" + value + "</b>";
-                            }
-
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, R.string.profile_preferences_deviceNetworkTypeSIM1, false, context);
-                            //PPApplication.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1 - notGrantedG1Permission="+notGrantedG1Permission);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                int phoneType;// = TelephonyManager.PHONE_TYPE_GSM;
-                                phoneType = telephonyManager.getPhoneType();
-
-                                int arrayValues = 0;
-                                int arrayStrings = 0;
-                                if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
-                                    arrayStrings = R.array.networkTypeGSMArray;
-                                    arrayValues = R.array.networkTypeGSMValues;
-                                }
-
-                                if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
-                                    arrayStrings = R.array.networkTypeCDMAArray;
-                                    arrayValues = R.array.networkTypeCDMAValues;
-                                }
-
-                                String value = GlobalGUIRoutines.getListPreferenceString(
-                                        preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1)),
-                                        arrayValues, arrayStrings, context);
-
-                                summary = summary + title + ": <b>" + value + "</b>";
-                            }
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, R.string.profile_preferences_deviceNetworkTypeSIM2, false, context);
-                            //PPApplication.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                if (!summary.isEmpty()) summary = summary + " • ";
-
-                                int phoneType; // = TelephonyManager.PHONE_TYPE_GSM;
-                                phoneType = telephonyManager.getPhoneType();
-
-                                int arrayValues = 0;
-                                int arrayStrings = 0;
-                                if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
-                                    arrayStrings = R.array.networkTypeGSMArray;
-                                    arrayValues = R.array.networkTypeGSMValues;
-                                }
-
-                                if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
-                                    arrayStrings = R.array.networkTypeCDMAArray;
-                                    arrayValues = R.array.networkTypeCDMAValues;
-                                }
-
-                                String value = GlobalGUIRoutines.getListPreferenceString(
-                                        preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2)),
-                                        arrayValues, arrayStrings, context);
-
-                                summary = summary + title + ": <b>" + value + "</b>";
-                            }
-
-                            Profile profile = new Profile();
-                            profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
-                            profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
-                            profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
-                            profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
-                            profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
-                            profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
-                            profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "0"));
-                            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                            Permissions.checkProfileRadioPreferences(context, profile, permissions);
-                            //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
-                            _permissionGranted = permissions.size() == 0;
-
+                            summary = summary + title + ": <b>" + value + "</b>";
                         }
+                        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, R.string.profile_preferences_deviceOnOff_SIM2, false, context);
+//                        Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_ONOFF_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
+                        if (!title.isEmpty()) {
+                            _bold = true;
+                            if (!summary.isEmpty()) summary = summary + " • ";
+
+                            String value = GlobalGUIRoutines.getListPreferenceString(
+                                    preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2)),
+                                    R.array.onOffSIMValues, R.array.onOffSIMArray, context);
+
+                            summary = summary + title + ": <b>" + value + "</b>";
+                        }
+
+                        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, R.string.profile_preferences_deviceDefaultSIM, false, context);
+//                            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS - notGrantedG1Permission="+notGrantedG1Permission);
+                        if (!title.isEmpty()) {
+                            _bold = true;
+                            if (!summary.isEmpty()) summary = summary + " • ";
+
+                            String value = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS,
+                                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS));
+
+                            String[] splits = value.split("\\|");
+                            String voiceStr = "";
+                            try {
+                                String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMVoiceArray);
+                                int index = Integer.parseInt(splits[0]);
+                                voiceStr = arrayStrings[index];
+                            } catch (Exception ignored) {
+                            }
+                            String smsStr = "";
+                            try {
+                                String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMSMSArray);
+                                int index = Integer.parseInt(splits[1]);
+                                smsStr = arrayStrings[index];
+                            } catch (Exception ignored) {
+                            }
+                            String dataStr = "";
+                            try {
+                                String[] arrayStrings = context.getResources().getStringArray(R.array.defaultSIMDataArray);
+                                int index = Integer.parseInt(splits[2]);
+                                dataStr = arrayStrings[index];
+                            } catch (Exception ignored) {
+                            }
+
+                            summary = summary + title + ": <b>" + voiceStr + "; " + smsStr + "; " + dataStr + "</b>";
+                        }
+
+                        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, R.string.profile_preferences_deviceMobileData_21_SIM1, false, context);
+//                            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1 - notGrantedG1Permission="+notGrantedG1Permission);
+                        if (!title.isEmpty()) {
+                            _bold = true;
+                            if (!summary.isEmpty()) summary = summary + " • ";
+
+                            String value = GlobalGUIRoutines.getListPreferenceString(
+                                    preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1)),
+                                    R.array.hardwareModeValues, R.array.hardwareModeArray, context);
+
+                            summary = summary + title + ": <b>" + value + "</b>";
+                        }
+                        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, R.string.profile_preferences_deviceMobileData_21_SIM2, false, context);
+//                    Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
+                        if (!title.isEmpty()) {
+                            _bold = true;
+                            if (!summary.isEmpty()) summary = summary + " • ";
+
+                            String value = GlobalGUIRoutines.getListPreferenceString(
+                                    preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2)),
+                                    R.array.hardwareModeValues, R.array.hardwareModeArray, context);
+
+                            summary = summary + title + ": <b>" + value + "</b>";
+                        }
+
+                        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, R.string.profile_preferences_deviceNetworkTypeSIM1, false, context);
+                        //PPApplication.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1 - notGrantedG1Permission="+notGrantedG1Permission);
+                        if (!title.isEmpty()) {
+                            _bold = true;
+                            if (!summary.isEmpty()) summary = summary + " • ";
+
+                            int phoneType;// = TelephonyManager.PHONE_TYPE_GSM;
+                            phoneType = telephonyManager.getPhoneType();
+
+                            int arrayValues = 0;
+                            int arrayStrings = 0;
+                            if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
+                                arrayStrings = R.array.networkTypeGSMArray;
+                                arrayValues = R.array.networkTypeGSMValues;
+                            }
+
+                            if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
+                                arrayStrings = R.array.networkTypeCDMAArray;
+                                arrayValues = R.array.networkTypeCDMAValues;
+                            }
+
+                            String value = GlobalGUIRoutines.getListPreferenceString(
+                                    preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1)),
+                                    arrayValues, arrayStrings, context);
+
+                            summary = summary + title + ": <b>" + value + "</b>";
+                        }
+                        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, R.string.profile_preferences_deviceNetworkTypeSIM2, false, context);
+                        //PPApplication.logE("[DUAL_SIM] ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2 - notGrantedG1Permission="+notGrantedG1Permission);
+                        if (!title.isEmpty()) {
+                            _bold = true;
+                            if (!summary.isEmpty()) summary = summary + " • ";
+
+                            int phoneType; // = TelephonyManager.PHONE_TYPE_GSM;
+                            phoneType = telephonyManager.getPhoneType();
+
+                            int arrayValues = 0;
+                            int arrayStrings = 0;
+                            if (phoneType == TelephonyManager.PHONE_TYPE_GSM) {
+                                arrayStrings = R.array.networkTypeGSMArray;
+                                arrayValues = R.array.networkTypeGSMValues;
+                            }
+
+                            if (phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
+                                arrayStrings = R.array.networkTypeCDMAArray;
+                                arrayValues = R.array.networkTypeCDMAValues;
+                            }
+
+                            String value = GlobalGUIRoutines.getListPreferenceString(
+                                    preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2)),
+                                    arrayValues, arrayStrings, context);
+
+                            summary = summary + title + ": <b>" + value + "</b>";
+                        }
+
+                        Profile profile = new Profile();
+                        profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
+                        profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
+                        profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
+                        profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
+                        profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
+                        profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
+                        profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "0"));
+                        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                        Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                        //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
+                        _permissionGranted = permissions.size() == 0;
+
                     }
                 }
             }
@@ -2974,68 +2991,63 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             if (isDualSIM) {
                 if (Build.VERSION.SDK_INT >= 26) {
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-                            String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, false, context);
-                            if (!title.isEmpty()) {
-                                _bold = true;
-                                summary = summary + title + ": <b><ringtone_name_sim1></b>";
-                            }
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, R.string.profile_preferences_soundRingtoneChangeSIM2, false, context);
-                            if (!title.isEmpty()) {
-                                if (!summary.isEmpty()) summary = summary + " • ";
-                                _bold = true;
-                                summary = summary + title + ": <b><ringtone_name_sim2></b>";
-                            }
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, false, context);
-                            if (!title.isEmpty()) {
-                                if (!summary.isEmpty()) summary = summary + " • ";
-                                _bold = true;
-                                summary = summary + title + ": <b><notification_name_sim1></b>";
-                            }
-                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, R.string.profile_preferences_soundNotificationChangeSIM2, false, context);
-                            if (!title.isEmpty()) {
-                                if (!summary.isEmpty()) summary = summary + " • ";
-                                _bold = true;
-                                summary = summary + title + ": <b><notification_name_sim2></b>";
-                            }
-                            if (_bold) {
-                                GlobalGUIRoutines.setProfileSoundsDualSIMPreferenceSummary(summary,
-                                        preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1)),
-                                        preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2)),
-                                        preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1)),
-                                        preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2,
-                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2)),
-                                        preferenceScreen, context);
-
-                                Profile profile = new Profile();
-                                profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
-                                profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
-                                profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
-                                profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
-                                ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                                Permissions.checkProfileRingtones(context, profile, permissions);
-                                _permissionGranted = permissions.size() == 0;
-
-                                //noinspection ConstantConditions
-                                GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, false, !_permissionGranted, false);
-                                return;
-                            }
-
-                            Profile profile = new Profile();
-                            profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
-                            profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
-                            profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
-                            profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
-                            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                            Permissions.checkProfileRingtones(context, profile, permissions);
-                            _permissionGranted = permissions.size() == 0;
-                        }
+                    String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, false, context);
+                    if (!title.isEmpty()) {
+                        _bold = true;
+                        summary = summary + title + ": <b><ringtone_name_sim1></b>";
                     }
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, R.string.profile_preferences_soundRingtoneChangeSIM2, false, context);
+                    if (!title.isEmpty()) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        _bold = true;
+                        summary = summary + title + ": <b><ringtone_name_sim2></b>";
+                    }
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, false, context);
+                    if (!title.isEmpty()) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        _bold = true;
+                        summary = summary + title + ": <b><notification_name_sim1></b>";
+                    }
+                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, R.string.profile_preferences_soundNotificationChangeSIM2, false, context);
+                    if (!title.isEmpty()) {
+                        if (!summary.isEmpty()) summary = summary + " • ";
+                        _bold = true;
+                        summary = summary + title + ": <b><notification_name_sim2></b>";
+                    }
+                    if (_bold) {
+                        GlobalGUIRoutines.setProfileSoundsDualSIMPreferenceSummary(summary,
+                                preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1,
+                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1)),
+                                preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2,
+                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2)),
+                                preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1,
+                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1)),
+                                preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2,
+                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2)),
+                                preferenceScreen, context);
+
+                        Profile profile = new Profile();
+                        profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
+                        profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
+                        profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
+                        profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
+                        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                        Permissions.checkProfileRingtones(context, profile, permissions);
+                        _permissionGranted = permissions.size() == 0;
+
+                        //noinspection ConstantConditions
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, false, !_permissionGranted, false);
+                        return;
+                    }
+
+                    Profile profile = new Profile();
+                    profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
+                    profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
+                    profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
+                    profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
+                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                    Permissions.checkProfileRingtones(context, profile, permissions);
+                    _permissionGranted = permissions.size() == 0;
                 }
             }
         }
@@ -4094,7 +4106,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        if (Build.VERSION.SDK_INT >= 26) {
+        if ((Build.VERSION.SDK_INT >= 26) &&
+                (PPApplication.deviceIsSamsung ||
+                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
             if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1) ||
                     key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -4548,7 +4563,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 preference.setEnabled(enable && (afterDurationDo.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))));
             }
         }
-        if (Build.VERSION.SDK_INT >= 26) {
+
+        if ((Build.VERSION.SDK_INT >= 26) &&
+                (PPApplication.deviceIsSamsung ||
+                        (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
+                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
             if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1)) {
                 boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
                 Log.e("ProfilePrefsFragment.disableDependedPref", "enabled="+enabled);

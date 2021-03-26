@@ -351,34 +351,46 @@ class ProfilePreferencesIndicator {
                         countItems[countPreferences++] = 1;
                 }
             }
-            // sound for sim 1
-            if ((profile._soundRingtoneChangeSIM1 == 1) ||
-                    (profile._soundNotificationChangeSIM1 == 1)) {
-                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                    if (fillPreferences)
-                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundsChangeSIM1);
-                    if (fillStrings)
-                        strings[countDrawables++] = "snd1";
-                    else
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_sim1;
-                    if (fillPreferences)
-                        countItems[countPreferences++] = 1;
-                }
-            }
-            // sound for sim 2
-            if ((profile._soundRingtoneChangeSIM2 == 1) ||
-                    (profile._soundNotificationChangeSIM2 == 1)) {
-                if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                    if (fillPreferences)
-                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundsChangeSIM2);
-                    if (fillStrings)
-                        strings[countDrawables++] = "snd2";
-                    else
-                        drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_sim2;
-                    if (fillPreferences)
-                        countItems[countPreferences++] = 1;
+
+            if ((Build.VERSION.SDK_INT >= 26) &&
+                    (PPApplication.deviceIsSamsung ||
+                            (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                            (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
+                final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    if (phoneCount > 1) {
+                        // sound for sim 1
+                        if ((profile._soundRingtoneChangeSIM1 == 1) ||
+                                (profile._soundNotificationChangeSIM1 == 1)) {
+                            if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                                if (fillPreferences)
+                                    preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundsChangeSIM1);
+                                if (fillStrings)
+                                    strings[countDrawables++] = "snd1";
+                                else
+                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_sim1;
+                                if (fillPreferences)
+                                    countItems[countPreferences++] = 1;
+                            }
+                        }
+                        // sound for sim 2
+                        if ((profile._soundRingtoneChangeSIM2 == 1) ||
+                                (profile._soundNotificationChangeSIM2 == 1)) {
+                            if ((Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ||
+                                    (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
+                                if (fillPreferences)
+                                    preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundsChangeSIM2);
+                                if (fillStrings)
+                                    strings[countDrawables++] = "snd2";
+                                else
+                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_sim2;
+                                if (fillPreferences)
+                                    countItems[countPreferences++] = 1;
+                            }
+                        }
+                    }
                 }
             }
 

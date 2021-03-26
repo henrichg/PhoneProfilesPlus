@@ -5543,7 +5543,10 @@ public class Profile {
                 preferenceKey.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1) ||
                 preferenceKey.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2) ||
                 preferenceKey.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)) {
-            if (Build.VERSION.SDK_INT >= 26) {
+            if ((Build.VERSION.SDK_INT >= 26) &&
+                    (PPApplication.deviceIsSamsung ||
+                     (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
+                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
