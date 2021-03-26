@@ -1777,6 +1777,8 @@
     <string name="profile_preferences_soundNotificationSIM1">Notification sound for SIM 1</string>
     <string name="profile_preferences_soundNotificationChangeSIM2">Change notification for SIM 2</string>
     <string name="profile_preferences_soundNotificationSIM2">Notification sound for SIM 2</string>
+    <string name="profile_preferences_soundsChangeSIM1">Change sounds for SIM1</string>
+    <string name="profile_preferences_soundsChangeSIM2">Change sounds for SIM2</string>
 
     <string name="profile_preferences_deviceDualSIMSupport_summary">Experimental. It may not work on your device.</string>
 

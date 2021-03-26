@@ -394,7 +394,11 @@ class Permissions {
         try {
             if ((profile._soundRingtoneChange != 0) ||
                     (profile._soundNotificationChange != 0) ||
-                    (profile._soundAlarmChange != 0)) {
+                    (profile._soundAlarmChange != 0) ||
+                    (profile._soundRingtoneChangeSIM1 != 0) ||
+                    (profile._soundRingtoneChangeSIM2 != 0) ||
+                    (profile._soundNotificationChangeSIM1 != 0) ||
+                    (profile._soundNotificationChangeSIM2 != 0)) {
                 boolean grantedSystemSettings = Settings.System.canWrite(context);
                 boolean grantedStorage = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                 if (grantedSystemSettings)
