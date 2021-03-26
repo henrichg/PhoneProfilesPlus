@@ -3,7 +3,6 @@ package me.drakeet.support.toast;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Region;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +59,7 @@ final class SafeToastContext extends ContextWrapper {
 
   private final class WindowManagerWrapper implements WindowManager {
 
-    private static final String TAG = "WindowManagerWrapper";
+    //private static final String TAG = "WindowManagerWrapper";
     private final @NonNull WindowManager base;
 
 
@@ -93,15 +92,15 @@ final class SafeToastContext extends ContextWrapper {
     @Override
     public void addView(View view, ViewGroup.LayoutParams params) {
       try {
-        Log.d(TAG, "WindowManager's addView(view, params) has been hooked.");
+        //Log.d(TAG, "WindowManager's addView(view, params) has been hooked.");
         base.addView(view, params);
       } catch (BadTokenException e) {
-        Log.i(TAG, e.getMessage());
+        //Log.i(TAG, e.getMessage());
         if (badTokenListener != null) {
           badTokenListener.onBadTokenCaught(toast);
         }
       } catch (Throwable throwable) {
-        Log.e(TAG, "[addView]", throwable);
+        //Log.e(TAG, "[addView]", throwable);
       }
     }
 

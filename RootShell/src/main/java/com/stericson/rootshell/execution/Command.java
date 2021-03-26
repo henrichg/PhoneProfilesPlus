@@ -194,7 +194,7 @@ public class Command {
 
             for (String aCommand : command) {
                 /*
-                 * TODO Make withFramework optional for applications
+                 * Make withFramework optional for applications
                  * that do not require access to the fw. -CFR
                  */
                 //export CLASSPATH=/data/user/0/ch.masshardt.emailnotification/files/anbuild.dex ; app_process /system/bin

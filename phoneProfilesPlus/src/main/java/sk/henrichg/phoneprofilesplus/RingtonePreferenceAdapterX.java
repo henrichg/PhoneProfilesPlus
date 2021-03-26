@@ -83,12 +83,12 @@ class RingtonePreferenceAdapterX extends BaseAdapter {
         });
 
         holder.ringtoneLabel.setText(ringtoneTitle);
-        if (ringtone.contains("internal")) {
+        if (ringtone.contains("content://media/internal")) {
             holder.ringtonePath.setVisibility(View.VISIBLE);
             holder.ringtonePath.setText(R.string.ringtone_pref_dlg_system_tone);
         }
         else
-        if (ringtone.contains("external")) {
+        if (ringtone.contains("content://media/external")) {
             holder.ringtonePath.setVisibility(View.VISIBLE);
             holder.ringtonePath.setText(R.string.ringtone_pref_dlg_extenal_tone);
         }

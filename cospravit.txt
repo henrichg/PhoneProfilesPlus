@@ -803,6 +803,8 @@ Zvonenia (notifikacie asi podobne, pozriem, testnem):
 - "notification_sound" - notifikacia - (Samsung)
 - "message" - spravy, ze by SMS? - (Huawei)
 
+- Xiaomi - nema dual sim pre notifikacie, nedavaj do xml
+
 // pre SIM 2:
 - "ringtone_2" - rington - len interne tony, na externe jedine root - (Samsung)
 - "notification_sound_2" - notifikacia - iba root - (Samsung)
@@ -810,16 +812,19 @@ Zvonenia (notifikacie asi podobne, pozriem, testnem):
 - "ringtone2" - rington - (Huawei)
 - "messageSub1" - spravy, ze by SMS? - iba root - (Huawei)
 
-// Len Huawei:
-- "notification_sound" - notifikacie, okrem SMS? - (Huawei)
+- Xiaomi - nema dual sim pre notifikacie, nedavaj do xml
 
-// Xiaomy - file??? - pozri, co vrati RingtoneManager:
-- "ringtone" - MyJazz.ogg - asi nastavi, ze chcem pouzit ten isty ton aj pre SIM2, pozri
-- "ringtone_sound_slot_1" - MyJazz.ogg - nastavil tak aj "ringtone"
-- "ringtone_sound_slot_2" - MyHouse.ogg
+// Len Huawei:
+- "notification_sound" - notifikacie, okrem SMS? - (Huawei, uz je mimo dual sim podskupinu)
+
+// Xiaomy - podporuje aj content://, takze ok
+- "ringtone" - asi nastavi, ze chcem pouzit ten isty ton aj pre SIM2, pozri
+- "ringtone_sound_slot_1" - nastavil tak aj "ringtone"
+- "ringtone_sound_slot_2"
+
 - "ringtone_sound_use_uniform" - "1" - ten isty ton aj pre SIM2, "0" - samostatny ton pre SIM2
   vyzaduje root. :-(
-- "notification_sound" - NotificationXilophone.ogg
+
 
 ----------------------------------
 

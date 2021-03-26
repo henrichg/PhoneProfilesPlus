@@ -50,6 +50,7 @@
         <attr name="ringtoneType" format="string" />
         <attr name="showSilent" format="boolean" />
         <attr name="showDefault" format="boolean" />
+        <attr name="onlyInternal" format="boolean" />
     </declare-styleable>
     <!--
     <declare-styleable name="PPScrimInsetsFrameLayout">

@@ -41,7 +41,6 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -1644,7 +1643,6 @@ class ActivateProfileHelper {
                         if (!splits[0].isEmpty()) {
                             //Uri uri = Uri.parse(splits[0]);
                             Uri uri = getUriOfSavedTone(context, splits[0], RingtoneManager.TYPE_RINGTONE);
-                            //TODO je mozne, ze to Uri z RingtoneManagera je uz grantnute, tak toto nebude treba robit.
                             try {
                                 ContentResolver contentResolver = context.getContentResolver();
                                 context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
@@ -1840,7 +1838,6 @@ class ActivateProfileHelper {
                         if (!splits[0].isEmpty()) {
                             //Uri uri = Uri.parse(splits[0]);
                             Uri uri = getUriOfSavedTone(context, splits[0], RingtoneManager.TYPE_NOTIFICATION);
-                            //TODO je mozne, ze to Uri z RingtoneManagera je uz grantnute, tak toto nebude treba robit.
                             try {
                                 ContentResolver contentResolver = context.getContentResolver();
                                 context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
@@ -1998,7 +1995,6 @@ class ActivateProfileHelper {
                         if (!splits[0].isEmpty()) {
                             //Uri uri = Uri.parse(splits[0]);
                             Uri uri = getUriOfSavedTone(context, splits[0], RingtoneManager.TYPE_ALARM);
-                            //TODO je mozne, ze to Uri z RingtoneManagera je uz grantnute, tak toto nebude treba robit.
                             try {
                                 ContentResolver contentResolver = context.getContentResolver();
                                 context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
@@ -2070,7 +2066,7 @@ class ActivateProfileHelper {
     }
 
     private static Uri getUriOfSavedTone(Context context, String savedTone, int toneType) {
-        Log.e("ActivateProfileHelper.getUriOfSavedTone", "savedTone="+savedTone);
+        //Log.e("ActivateProfileHelper.getUriOfSavedTone", "savedTone="+savedTone);
         Uri toneUri;
         boolean uriFound = false;
         if (savedTone.equals("")) {
@@ -2109,9 +2105,9 @@ class ActivateProfileHelper {
                 }
             }
         }
-        if (toneUri != null)
-            Log.e("ActivateProfileHelper.getUriOfSavedTone", "toneUri="+toneUri.toString());
-        Log.e("ActivateProfileHelper.getUriOfSavedTone", "uriFound="+uriFound);
+        //if (toneUri != null)
+        //    Log.e("ActivateProfileHelper.getUriOfSavedTone", "toneUri="+toneUri.toString());
+        //Log.e("ActivateProfileHelper.getUriOfSavedTone", "uriFound="+uriFound);
         if (uriFound)
             return toneUri;
         else

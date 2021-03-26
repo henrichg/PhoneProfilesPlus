@@ -38,6 +38,7 @@ public class RingtonePreferenceX extends DialogPreference {
     final String ringtoneType;
     private final boolean showSilent;
     private final boolean showDefault;
+    private final boolean onlyInternal;
 
     final Map<String, String> toneList = new LinkedHashMap<>();
     @SuppressWarnings("rawtypes")
@@ -60,6 +61,7 @@ public class RingtonePreferenceX extends DialogPreference {
         ringtoneType = typedArray.getString(R.styleable.PPRingtonePreference_ringtoneType);
         showSilent = typedArray.getBoolean(R.styleable.PPRingtonePreference_showSilent, false);
         showDefault = typedArray.getBoolean(R.styleable.PPRingtonePreference_showDefault, false);
+        onlyInternal = typedArray.getBoolean(R.styleable.PPRingtonePreference_onlyInternal, false);
 
         // set ringtoneUri to default
         ringtoneUri = "";
@@ -201,17 +203,18 @@ public class RingtonePreferenceX extends DialogPreference {
                                 while (cursor.moveToNext()) {
                                     String _uri = cursor.getString(RingtoneManager.URI_COLUMN_INDEX);
                                     String _title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
-                                    /*if (_uri.contains("internal"))
-                                        _title = "[S] " + _title;
-                                    else
-                                        _title = "[E] " + _title;*/
                                     String _id = cursor.getString(RingtoneManager.ID_COLUMN_INDEX);
                                     //Log.e("RingtonePreferenceX.refreshListView", "_uri="+_uri);
                                     //Log.e("RingtonePreferenceX.refreshListView", "_title="+_title);
                                     //Log.e("RingtonePreferenceX.refreshListView", "_id="+_id);
                                     //Log.e("RingtonePreferenceX.refreshListView", "manager.getRingtoneUri()="+manager.getRingtoneUri(cursor.getPosition()));
 
-                                    _toneList.put(_uri + "/" + _id, _title);
+                                    boolean add = true;
+                                    if (onlyInternal && (!_uri.contains("content://media/internal")))
+                                        add = false;
+
+                                    if (add)
+                                        _toneList.put(_uri + "/" + _id, _title);
                                 }
                             } catch (Exception e) {
                                 PPApplication.recordException(e);

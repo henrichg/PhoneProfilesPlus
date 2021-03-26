@@ -18,7 +18,6 @@ import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -1822,10 +1821,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount < 2) {
-                    preferenceScreen.setVisible(false);
+                    //PreferenceScreen preferenceSubScreen = prefMng.findPreference(PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT);
+                    //preferenceSubScreen.setVisible(false);
                     isDualSIM = false;
                 }
             }
+            else
+                isDualSIM = false;
+
             if (isDualSIM &&
                 (PPApplication.deviceIsSamsung ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) ||
@@ -1880,6 +1883,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
             }
+
             if (_bold) {
                 GlobalGUIRoutines.setProfileSoundsPreferenceSummary(summary,
                         preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE,
@@ -2021,10 +2025,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount < 2) {
-                    preferenceScreen.setVisible(false);
+                    //PreferenceScreen preferenceSubScreen = prefMng.findPreference(PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT);
+                    //preferenceSubScreen.setVisible(false);
                     isDualSIM = false;
                 }
             }
+            else
+                isDualSIM = false;
+
             if (isDualSIM) {
                 if (Build.VERSION.SDK_INT >= 26) {
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, R.string.profile_preferences_deviceOnOff_SIM1, false, context);
@@ -2977,6 +2985,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
             }
+            else
+                preferenceScreen.setVisible(false);
         }
 
         if (key.equals(PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT)) {
@@ -2988,43 +2998,56 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceScreen.setVisible(false);
                     isDualSIM = false;
                 }
-            }
-            if (isDualSIM) {
-                if (Build.VERSION.SDK_INT >= 26) {
-                    String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, false, context);
-                    if (!title.isEmpty()) {
-                        _bold = true;
-                        summary = summary + title + ": <b><ringtone_name_sim1></b>";
-                    }
-                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, R.string.profile_preferences_soundRingtoneChangeSIM2, false, context);
-                    if (!title.isEmpty()) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
-                        _bold = true;
-                        summary = summary + title + ": <b><ringtone_name_sim2></b>";
-                    }
-                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, false, context);
-                    if (!title.isEmpty()) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
-                        _bold = true;
-                        summary = summary + title + ": <b><notification_name_sim1></b>";
-                    }
-                    title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, R.string.profile_preferences_soundNotificationChangeSIM2, false, context);
-                    if (!title.isEmpty()) {
-                        if (!summary.isEmpty()) summary = summary + " • ";
-                        _bold = true;
-                        summary = summary + title + ": <b><notification_name_sim2></b>";
-                    }
-                    if (_bold) {
-                        GlobalGUIRoutines.setProfileSoundsDualSIMPreferenceSummary(summary,
-                                preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1,
-                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1)),
-                                preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2,
-                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2)),
-                                preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1,
-                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1)),
-                                preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2,
-                                        Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2)),
-                                preferenceScreen, context);
+                if (isDualSIM) {
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, R.string.profile_preferences_soundRingtoneChangeSIM1, false, context);
+                        if (!title.isEmpty()) {
+                            _bold = true;
+                            summary = summary + title + ": <b><ringtone_name_sim1></b>";
+                        }
+                        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, R.string.profile_preferences_soundRingtoneChangeSIM2, false, context);
+                        if (!title.isEmpty()) {
+                            if (!summary.isEmpty()) summary = summary + " • ";
+                            _bold = true;
+                            summary = summary + title + ": <b><ringtone_name_sim2></b>";
+                        }
+                        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, false, context);
+                        if (!title.isEmpty()) {
+                            if (!summary.isEmpty()) summary = summary + " • ";
+                            _bold = true;
+                            summary = summary + title + ": <b><notification_name_sim1></b>";
+                        }
+                        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, R.string.profile_preferences_soundNotificationChangeSIM2, false, context);
+                        if (!title.isEmpty()) {
+                            if (!summary.isEmpty()) summary = summary + " • ";
+                            _bold = true;
+                            summary = summary + title + ": <b><notification_name_sim2></b>";
+                        }
+                        if (_bold) {
+                            GlobalGUIRoutines.setProfileSoundsDualSIMPreferenceSummary(summary,
+                                    preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1)),
+                                    preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2)),
+                                    preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1)),
+                                    preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2)),
+                                    preferenceScreen, context);
+
+                            Profile profile = new Profile();
+                            profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
+                            profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
+                            profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
+                            profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
+                            ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                            Permissions.checkProfileRingtones(context, profile, permissions);
+                            _permissionGranted = permissions.size() == 0;
+
+                            //noinspection ConstantConditions
+                            GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, false, !_permissionGranted, false);
+                            return;
+                        }
 
                         Profile profile = new Profile();
                         profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
@@ -3034,22 +3057,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                         Permissions.checkProfileRingtones(context, profile, permissions);
                         _permissionGranted = permissions.size() == 0;
-
-                        //noinspection ConstantConditions
-                        GlobalGUIRoutines.setPreferenceTitleStyleX(preferenceScreen, true, _bold, false, !_permissionGranted, false);
-                        return;
                     }
-
-                    Profile profile = new Profile();
-                    profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
-                    profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
-                    profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
-                    profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
-                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                    Permissions.checkProfileRingtones(context, profile, permissions);
-                    _permissionGranted = permissions.size() == 0;
                 }
             }
+            else
+                preferenceScreen.setVisible(false);
         }
 
         /*if (PPApplication.logEnabled()) {
@@ -4570,7 +4582,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))) {
             if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1)) {
                 boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
-                Log.e("ProfilePrefsFragment.disableDependedPref", "enabled="+enabled);
+                //Log.e("ProfilePrefsFragment.disableDependedPref", "enabled="+enabled);
                 Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1);
                 if (preference != null)
                     preference.setEnabled(enabled);

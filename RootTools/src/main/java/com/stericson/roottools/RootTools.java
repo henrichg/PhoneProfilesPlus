@@ -502,7 +502,6 @@ public final class RootTools {
      * @return true if it contains this util
      */
     public static boolean hasUtil(final String util, final String box) {
-        //TODO Convert this to use the new shell.
         return getInternals().hasUtil(util, box);
     }
 
@@ -613,7 +612,6 @@ public final class RootTools {
      * @throws TimeoutException (Could not determine if the process is running)
      */
     public static boolean isProcessRunning(final String processName) {
-        //TODO convert to new shell
         return getInternals().isProcessRunning(processName);
     }
 
@@ -632,7 +630,6 @@ public final class RootTools {
      */
     @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
     public static boolean killProcess(final String processName) {
-        //TODO convert to new shell
         return getInternals().killProcess(processName);
     }
 

@@ -221,7 +221,6 @@ class Installer
         if (mf.exists())
         {
             installed = true;
-            // TODO: pass mode as argument and check it matches
         }
         return installed;
     }
