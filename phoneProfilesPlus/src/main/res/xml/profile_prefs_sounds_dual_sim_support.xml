@@ -25,6 +25,7 @@
         app:ringtoneType="ringtone"
         app:showSilent="true"
         app:showDefault="true"
+        app:simCard="1"
         app:layout="@layout/mp_preference_material_widget" />
 
     <ListPreference
@@ -42,6 +43,7 @@
         app:ringtoneType="ringtone"
         app:showSilent="true"
         app:showDefault="true"
+        app:simCard="1"
         app:layout="@layout/mp_preference_material_widget" />
 
     <ListPreference
@@ -59,6 +61,7 @@
         app:ringtoneType="notification"
         app:showSilent="true"
         app:showDefault="true"
+        app:simCard="2"
         app:layout="@layout/mp_preference_material_widget" />
 
     <ListPreference
@@ -76,6 +79,7 @@
         app:ringtoneType="notification"
         app:showSilent="true"
         app:showDefault="true"
+        app:simCard="2"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>
