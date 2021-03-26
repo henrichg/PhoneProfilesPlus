@@ -38,7 +38,7 @@ public class RingtonePreferenceX extends DialogPreference {
     final String ringtoneType;
     private final boolean showSilent;
     private final boolean showDefault;
-    private final boolean onlyInternal;
+    private final int simCard;
 
     final Map<String, String> toneList = new LinkedHashMap<>();
     @SuppressWarnings("rawtypes")
@@ -61,7 +61,7 @@ public class RingtonePreferenceX extends DialogPreference {
         ringtoneType = typedArray.getString(R.styleable.PPRingtonePreference_ringtoneType);
         showSilent = typedArray.getBoolean(R.styleable.PPRingtonePreference_showSilent, false);
         showDefault = typedArray.getBoolean(R.styleable.PPRingtonePreference_showDefault, false);
-        onlyInternal = typedArray.getBoolean(R.styleable.PPRingtonePreference_onlyInternal, false);
+        simCard = typedArray.getInt(R.styleable.PPRingtonePreference_simCard, 0);
 
         // set ringtoneUri to default
         ringtoneUri = "";
@@ -209,8 +209,10 @@ public class RingtonePreferenceX extends DialogPreference {
                                     //Log.e("RingtonePreferenceX.refreshListView", "_id="+_id);
                                     //Log.e("RingtonePreferenceX.refreshListView", "manager.getRingtoneUri()="+manager.getRingtoneUri(cursor.getPosition()));
 
+                                    // TODO Smasung do not allow external tones for ringtone for SIM 2
+                                    // TODO test root and if rooted allow also external
                                     boolean add = true;
-                                    if (onlyInternal && (!_uri.contains("content://media/internal")))
+                                    if ((ringtoneType.equals("ringtone")) && (simCard == 2) && (!_uri.contains("content://media/internal")))
                                         add = false;
 
                                     if (add)

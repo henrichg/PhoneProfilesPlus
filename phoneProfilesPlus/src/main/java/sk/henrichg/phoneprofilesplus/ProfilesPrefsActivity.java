@@ -1001,8 +1001,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            // TODO tu vyber ktore xml pouzit
-            // TODO sprav zvlast pre Samsung, Huawei, Xiaomi
             setPreferencesFromResource(R.xml.profile_prefs_sounds_dual_sim_support, rootKey);
         }
 

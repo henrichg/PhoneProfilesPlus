@@ -50,7 +50,7 @@
         <attr name="ringtoneType" format="string" />
         <attr name="showSilent" format="boolean" />
         <attr name="showDefault" format="boolean" />
-        <attr name="onlyInternal" format="boolean" />
+        <attr name="simCard" format="integer" />
     </declare-styleable>
     <!--
     <declare-styleable name="PPScrimInsetsFrameLayout">
