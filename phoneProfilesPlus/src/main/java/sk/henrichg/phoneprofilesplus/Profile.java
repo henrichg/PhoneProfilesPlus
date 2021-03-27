@@ -5540,33 +5540,114 @@ public class Profile {
 
         if ((profile != null) ||
                 preferenceKey.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)) {
-            if ((Build.VERSION.SDK_INT >= 26) &&
-                    (PPApplication.deviceIsSamsung ||
+                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2)) {
+            if (Build.VERSION.SDK_INT >= 26) {
+                if (PPApplication.deviceIsSamsung ||
                      (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
-                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
-                final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null) {
-                    int phoneCount = telephonyManager.getPhoneCount();
-                    if (phoneCount > 1) {
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+                    final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                    if (telephonyManager != null) {
+                        int phoneCount = telephonyManager.getPhoneCount();
+                        if (phoneCount > 1) {
+                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
 
-                        if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            }
+                            if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
+                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            }
                         }
-                        if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                        }
+                    } else {
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
-                } else {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                 }
+                else {
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
+                }
+            }
+            else {
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
+            }
 
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
+        }
+
+        if ((profile != null) ||
+                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1) ||
+                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)) {
+            if (Build.VERSION.SDK_INT >= 26) {
+                if ((PPApplication.deviceIsSamsung ||
+                    (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
+                    final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                    if (telephonyManager != null) {
+                        int phoneCount = telephonyManager.getPhoneCount();
+                        if (phoneCount > 1) {
+
+                            if (PPApplication.isRooted(fromUIThread)) {
+                                // device is rooted
+
+                                if (profile != null) {
+                                    // test if grant root is disabled
+                                    if ((profile._soundNotificationChangeSIM1 != 0) ||
+                                        (profile._soundNotificationChangeSIM2 != 0)) {
+                                        if (applicationNeverAskForGrantRoot) {
+                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                            // not needed to test all parameters
+                                            //return preferenceAllowed;
+                                        }
+                                    }
+                                } else if (sharedPreferences != null) {
+                                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                        if (applicationNeverAskForGrantRoot) {
+                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                            // not needed to test all parameters
+                                            return preferenceAllowed;
+                                        }
+                                    }
+                                }
+
+                                if (PPApplication.settingsBinaryExists(fromUIThread))
+                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                                else
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+
+                                if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
+                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                                }
+                                if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
+                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                                }
+
+                            }
+                        }
+                    } else {
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                    }
+                }
+                else
+                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported);
+                }
+                else {
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
+                }
             } else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                 preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
@@ -5578,7 +5659,6 @@ public class Profile {
             //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
             //    return preferenceAllowed;
         }
-
 
         if (profile == null)
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;

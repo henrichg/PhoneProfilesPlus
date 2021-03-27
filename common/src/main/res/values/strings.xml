@@ -1779,6 +1779,8 @@
     <string name="profile_preferences_soundNotificationSIM2">Notification sound for SIM 2</string>
     <string name="profile_preferences_soundsChangeSIM1">Change sounds for SIM1</string>
     <string name="profile_preferences_soundsChangeSIM2">Change sounds for SIM2</string>
+    <string name="preference_not_allowed_reason_not_supported_by_ppp">not supported by PhoneProfilesPlus</string>
+
 
     <string name="profile_preferences_deviceDualSIMSupport_summary">Experimental. It may not work on your device.</string>
 
