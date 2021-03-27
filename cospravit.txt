@@ -827,7 +827,7 @@ Zvonenia (notifikacie asi podobne, pozriem, testnem):
 
 
 ringotne pre sim 1 - bez root na vsetchy troch
-ringtone pre sim 2 - bez root na vsetkych troch - Samsung ma vybumku na interne, externe len s root (toto uz ams, len zobraz info o tom)
+ringtone pre sim 2 - bez root na vsetkych troch - Samsung ma vynimku na interne, externe len s root (toto uz mam, len zobraz info o tom)
 
 Xiaomi - ten speci parameter "ringtone_sound_use_uniform" - pridame pod ringtony a povolime len s root
 
@@ -836,7 +836,6 @@ notification sound pre sim 2 -
   - Samsung iba root, tazkze aj pre sim 1 vyzadovat root
   - Huawei iba root, tazkze aj pre sim 1 vyzadovat root
   - Xiaomi nema dual sim notifikacie
-
 
 Takze ring tony bez root
 Notifikacne tony len s root
