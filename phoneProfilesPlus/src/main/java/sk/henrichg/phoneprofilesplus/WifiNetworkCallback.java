@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
-import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -22,29 +21,31 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     public void onLost(Network network) {
         //record wi-fi disconnect event
         PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
-        doConnection(false);
+        connected = false;
+        doConnection();
     }
 
     @Override
     public void onUnavailable() {
         PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
-        doConnection(connected);
+        doConnection();
     }
 
     @Override
     public void onLosing(Network network, int maxMsToLive) {
         PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
-        doConnection(connected);
+        doConnection();
     }
 
     @Override
     public void onAvailable(Network network) {
         //record wi-fi connect event
         PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
-        doConnection(true);
+        connected = true;
+        doConnection();
     }
 
-    private void doConnection(final boolean _connected) {
+    private void doConnection() {
 //        PPApplication.logE("[TEST BATTERY] WifiNetworkCallback.doConnection", "xxx");
 //        PPApplication.logE("[TEST BATTERY] WifiNetworkCallback.doConnection", "current thread="+Thread.currentThread());
 
@@ -58,8 +59,11 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
         //PPApplication.logE("[TEST BATTERY] WifiNetworkCallback.doConnection", "connected or disconnected");
 
-        if (Build.VERSION.SDK_INT >= 26) {
-            // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
+        PPApplication.startHandlerThreadBroadcast(/*"WifiConnectionBroadcastReceiver.onReceive"*/);
+        final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        handler.postDelayed(() -> {
+//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
+
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;
             try {
@@ -68,13 +72,9 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                if (!PPApplication.isScreenOn)
-                    PPApplication.sleep(5000);
-
-                connected = _connected;
                 _doConnection();
 
-//               PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiNetworkCallback.doConnection");
+//                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiNetworkCallback.doConnection");
 
             } catch (Exception e) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
@@ -87,42 +87,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                     }
                 }
             }
-        }
-        else {
-            PPApplication.startHandlerThreadBroadcast(/*"WifiConnectionBroadcastReceiver.onReceive"*/);
-            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
-
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiNetworkCallback_doConnection");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    if (!PPApplication.isScreenOn)
-                        PPApplication.sleep(5000);
-
-                    connected = _connected;
-                    _doConnection();
-
-//                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiNetworkCallback.doConnection");
-
-                } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
-                        }
-                    }
-                }
-            });
-        }
+        }, 5000);
     }
 
     private void _doConnection() {
