@@ -5621,7 +5621,7 @@ public class Profile {
                                 if (PPApplication.settingsBinaryExists(fromUIThread))
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                                 else
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
 
                                 if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
@@ -5632,6 +5632,15 @@ public class Profile {
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                                 }
 
+                            } else {
+                                if ((profile != null) &&
+                                        ((profile._soundNotificationChangeSIM1 != 0) ||
+                                        (profile._soundNotificationChangeSIM2 != 0))
+                                ) {
+                                    preferenceAllowed.notAllowedRoot = true;
+                                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+                                }
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                             }
                         }
                     } else {
