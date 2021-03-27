@@ -29,14 +29,14 @@ import android.widget.TextView;
 public class ZeroTopPaddingTextView extends TextView {
 
     //private static final float NORMAL_FONT_PADDING_RATIO = 0.328f;
-    private static final float NORMAL_FONT_PADDING_RATIO = 0.208f;
+    private static final float NORMAL_FONT_PADDING_RATIO = 0.0f; //0.208f;
     // the bold font face has less empty space on the top
-    private static final float BOLD_FONT_PADDING_RATIO = 0.208f;
+    private static final float BOLD_FONT_PADDING_RATIO = 0.0f; //0.208f;
 
     //private static final float NORMAL_FONT_BOTTOM_PADDING_RATIO = 0.25f;
-    private static final float NORMAL_FONT_BOTTOM_PADDING_RATIO = 0.208f;
+    private static final float NORMAL_FONT_BOTTOM_PADDING_RATIO = 0.1f; //0.208f;
     // the bold font face has less empty space on the top
-    private static final float BOLD_FONT_BOTTOM_PADDING_RATIO = 0.208f;
+    private static final float BOLD_FONT_BOTTOM_PADDING_RATIO = 0.1f; //0.208f;
 
     // pre-ICS (Droid Sans) has weird empty space on the bottom
     //private static final float PRE_ICS_BOTTOM_PADDING_RATIO = 0.233f;
