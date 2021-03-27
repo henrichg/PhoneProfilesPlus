@@ -22,31 +22,29 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     public void onLost(Network network) {
         //record wi-fi disconnect event
         PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLost", "xxx");
-        connected = false;
-        doConnection();
+        doConnection(false);
     }
 
     @Override
     public void onUnavailable() {
         PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onUnavailable", "xxx");
-        doConnection();
+        doConnection(connected);
     }
 
     @Override
     public void onLosing(Network network, int maxMsToLive) {
         PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onLosing", "xxx");
-        doConnection();
+        doConnection(connected);
     }
 
     @Override
     public void onAvailable(Network network) {
         //record wi-fi connect event
         PPApplication.logE("[IN_LISTENER] ----------- WifiNetworkCallback.onAvailable", "xxx");
-        connected = true;
-        doConnection();
+        doConnection(true);
     }
 
-    private void doConnection() {
+    private void doConnection(final boolean _connected) {
 //        PPApplication.logE("[TEST BATTERY] WifiNetworkCallback.doConnection", "xxx");
 //        PPApplication.logE("[TEST BATTERY] WifiNetworkCallback.doConnection", "current thread="+Thread.currentThread());
 
@@ -70,6 +68,10 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
+                if (!PPApplication.isScreenOn)
+                    PPApplication.sleep(5000);
+
+                connected = _connected;
                 _doConnection();
 
 //               PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiNetworkCallback.doConnection");
@@ -100,6 +102,10 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
+                    if (!PPApplication.isScreenOn)
+                        PPApplication.sleep(5000);
+
+                    connected = _connected;
                     _doConnection();
 
 //                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiNetworkCallback.doConnection");
@@ -120,7 +126,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
     }
 
     private void _doConnection() {
-//        PPApplication.logE("$$$ WifiNetworkCallback._doConnection", "isConnected=" + connected);
+        PPApplication.logE("$$$ WifiNetworkCallback._doConnection", "isConnected=" + connected);
 
         if (PhoneProfilesService.getInstance() != null) {
             if (PhoneProfilesService.getInstance().connectToSSIDStarted) {
