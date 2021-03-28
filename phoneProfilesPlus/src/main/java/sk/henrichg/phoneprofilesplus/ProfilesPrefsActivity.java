@@ -372,7 +372,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._soundNotificationChangeSIM1,
                         origProfile._soundNotificationSIM1,
                         origProfile._soundNotificationChangeSIM2,
-                        origProfile._soundNotificationSIM2
+                        origProfile._soundNotificationSIM2,
+                        origProfile._soundSameRingtoneForBothSIMCards
                 );
                 showSaveMenu = true;
             }
@@ -504,6 +505,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, Integer.toString(profile._soundNotificationChangeSIM2));
             splits = profile._soundNotificationSIM2.split("\\|");
             editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, splits[0]);
+
+            editor.putString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, Integer.toString(profile._soundSameRingtoneForBothSIMCards));
 
             editor.apply();
         }
@@ -679,6 +682,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             else*/
             profile._soundNotificationSIM2 = splits[0];//+"|0";
             //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotificationSIM2=" + profile._soundNotificationSIM2);
+
+            profile._soundSameRingtoneForBothSIMCards = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, ""));
 
         }
 

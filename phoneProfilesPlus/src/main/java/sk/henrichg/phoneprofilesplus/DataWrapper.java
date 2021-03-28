@@ -245,7 +245,8 @@ public class DataWrapper {
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundNotificationChangeSIM1")),
                 Settings.System.DEFAULT_NOTIFICATION_URI.toString(),
                 Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundNotificationChangeSIM2")),
-                Settings.System.DEFAULT_NOTIFICATION_URI.toString()
+                Settings.System.DEFAULT_NOTIFICATION_URI.toString(),
+                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundSameRingtoneForBothSIMCards"))
             );
     }
 

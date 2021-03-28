@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2459;
+    private static final int DATABASE_VERSION = 2460;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -201,6 +201,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_SOUND_NOTIFICATION_SIM1 = "soundNotificationSIM1";
     private static final String KEY_SOUND_NOTIFICATION_CHANGE_SIM2 = "soundNotificationChangeSIM2";
     private static final String KEY_SOUND_NOTIFICATION_SIM2 = "soundNotificationSIM2";
+    private static final String KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS = "soundSameRingtoneForBothSIMCards";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -601,7 +602,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_SOUND_NOTIFICATION_CHANGE_SIM1 + " " + INTEGER_TYPE + ","
                 + KEY_SOUND_NOTIFICATION_SIM1 + " " + TEXT_TYPE + ","
                 + KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + " " + INTEGER_TYPE + ","
-                + KEY_SOUND_NOTIFICATION_SIM2 + " " + TEXT_TYPE
+                + KEY_SOUND_NOTIFICATION_SIM2 + " " + TEXT_TYPE + ","
+                + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + " " + INTEGER_TYPE
                 + ")";
     }
 
@@ -1044,6 +1046,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION_SIM1, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION_CHANGE_SIM2, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION_SIM2, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, KEY_E_NAME, TEXT_TYPE, columns);
@@ -2736,7 +2739,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 0,
                                 "",
                                 0,
-                                ""
+                                "",
+                                0
                         );
 
                         //profile = Profile.getMappedProfile(profile, sharedProfile);
@@ -2828,6 +2832,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values.put(KEY_SOUND_NOTIFICATION_SIM1, profile._soundNotificationSIM1);
                             values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM2, profile._soundNotificationChangeSIM2);
                             values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
+                            values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
 
                             // updating row
                             db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -3293,6 +3298,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_NOTIFICATION_SIM2 + "=\"\"");
         }
 
+        if (oldVersion < 2460)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "=0");
+
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "=0");
+        }
+
     }
 
     @Override
@@ -3459,6 +3471,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_SOUND_NOTIFICATION_SIM1, profile._soundNotificationSIM1);
                 values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM2, profile._soundNotificationChangeSIM2);
                 values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
+                values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
 
                 // Insert Row
                 if (!merged) {
@@ -3588,7 +3601,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_NOTIFICATION_CHANGE_SIM1,
                                 KEY_SOUND_NOTIFICATION_SIM1,
                                 KEY_SOUND_NOTIFICATION_CHANGE_SIM2,
-                                KEY_SOUND_NOTIFICATION_SIM2
+                                KEY_SOUND_NOTIFICATION_SIM2,
+                                KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3690,7 +3704,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM1)),
                                 cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM1)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM2)),
-                                cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2))
+                                cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS))
                         );
                     }
 
@@ -3812,7 +3827,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_SOUND_NOTIFICATION_CHANGE_SIM1 + "," +
                         KEY_SOUND_NOTIFICATION_SIM1 + "," +
                         KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + "," +
-                        KEY_SOUND_NOTIFICATION_SIM2 +
+                        KEY_SOUND_NOTIFICATION_SIM2 + "," +
+                        KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -3918,6 +3934,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._soundNotificationSIM1 = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM1));
                         profile._soundNotificationChangeSIM2 = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM2));
                         profile._soundNotificationSIM2 = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2));
+                        profile._soundSameRingtoneForBothSIMCards = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -4041,6 +4058,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_SOUND_NOTIFICATION_SIM1, profile._soundNotificationSIM1);
                 values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM2, profile._soundNotificationChangeSIM2);
                 values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
+                values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -4419,7 +4437,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_NOTIFICATION_CHANGE_SIM1,
                                 KEY_SOUND_NOTIFICATION_SIM1,
                                 KEY_SOUND_NOTIFICATION_CHANGE_SIM2,
-                                KEY_SOUND_NOTIFICATION_SIM2
+                                KEY_SOUND_NOTIFICATION_SIM2,
+                                KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -4523,7 +4542,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM1)),
                                 cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM1)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM2)),
-                                cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2))
+                                cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS))
                         );
                     }
 
@@ -10846,7 +10866,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_SOUND_RINGTONE_CHANGE_SIM1 + "," +
                         KEY_SOUND_RINGTONE_CHANGE_SIM2 + "," +
                         KEY_SOUND_NOTIFICATION_CHANGE_SIM1 + "," +
-                        KEY_SOUND_NOTIFICATION_CHANGE_SIM2 +
+                        KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + "," +
+                        KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS +
                         " FROM " + TABLE_PROFILES;
                 final String selectEventsQuery = "SELECT " + KEY_E_ID + "," +
                         KEY_E_WIFI_ENABLED + "," +
@@ -11273,6 +11294,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
                                     values.clear();
                                     values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM2, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
+                            }
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, null, null, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, 0);
                                     db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
                                 }

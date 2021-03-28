@@ -392,6 +392,18 @@ class ProfilePreferencesIndicator {
                         }
                     }
                 }
+                if (profile._soundSameRingtoneForBothSIMCards == 1) {
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards);
+                        if (fillStrings)
+                            strings[countDrawables++] = "srbs";
+                        else
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_sound;
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                }
             }
 
             // sound on touch

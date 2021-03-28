@@ -118,6 +118,7 @@ public class Profile {
     String _soundNotificationSIM1;
     int _soundNotificationChangeSIM2;
     String _soundNotificationSIM2;
+    int _soundSameRingtoneForBothSIMCards;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -890,7 +891,8 @@ public class Profile {
                    int soundNotificationChangeSIM1,
                    String soundNotificationSIM1,
                    int soundNotificationChangeSIM2,
-                   String soundNotificationSIM2
+                   String soundNotificationSIM2,
+                   int soundSameRingtoneForBothSIMCards
     )
     {
         this._id = id;
@@ -986,6 +988,7 @@ public class Profile {
         this._soundNotificationSIM1 = soundNotificationSIM1;
         this._soundNotificationChangeSIM2 = soundNotificationChangeSIM2;
         this._soundNotificationSIM2 = soundNotificationSIM2;
+        this._soundSameRingtoneForBothSIMCards = soundSameRingtoneForBothSIMCards;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1085,7 +1088,8 @@ public class Profile {
                    int soundNotificationChangeSIM1,
                    String soundNotificationSIM1,
                    int soundNotificationChangeSIM2,
-                   String soundNotificationSIM2
+                   String soundNotificationSIM2,
+                   int soundSameRingtoneForBothSIMCards
     )
     {
         this._name = name;
@@ -1180,6 +1184,7 @@ public class Profile {
         this._soundNotificationSIM1 = soundNotificationSIM1;
         this._soundNotificationChangeSIM2 = soundNotificationChangeSIM2;
         this._soundNotificationSIM2 = soundNotificationSIM2;
+        this._soundSameRingtoneForBothSIMCards = soundSameRingtoneForBothSIMCards;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1281,6 +1286,7 @@ public class Profile {
         this._soundNotificationSIM1 = profile._soundNotificationSIM1;
         this._soundNotificationChangeSIM2 = profile._soundNotificationChangeSIM2;
         this._soundNotificationSIM2 = profile._soundNotificationSIM2;
+        this._soundSameRingtoneForBothSIMCards = profile._soundSameRingtoneForBothSIMCards;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1611,6 +1617,9 @@ public class Profile {
                     this._soundNotificationChangeSIM2 = withProfile._soundNotificationChangeSIM2;
                     this._soundNotificationSIM2 = withProfile._soundNotificationSIM2;
                 }
+                if (withProfile._soundSameRingtoneForBothSIMCards != 0)
+                    this._soundSameRingtoneForBothSIMCards = withProfile._soundSameRingtoneForBothSIMCards;
+
 
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
@@ -2009,7 +2018,10 @@ public class Profile {
                     return false;
                 }
             }
-
+            if (this._soundSameRingtoneForBothSIMCards != withProfile._soundSameRingtoneForBothSIMCards) {
+                //PPApplication.logE("$$$ Profile.compareProfiles","_soundSameRingtoneForBothSIMCards");
+                return false;
+            }
             return true;
         }
         return false;
@@ -3829,7 +3841,8 @@ public class Profile {
                     profile._soundNotificationChangeSIM1,
                     profile._soundNotificationSIM1,
                     profile._soundNotificationChangeSIM2,
-                    profile._soundNotificationSIM2
+                    profile._soundNotificationSIM2,
+                    profile._soundSameRingtoneForBothSIMCards
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -5657,6 +5670,83 @@ public class Profile {
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                     preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
+                }
+            } else {
+                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+            }
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
+        }
+
+        if ((profile != null) ||
+                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)) {
+            if (Build.VERSION.SDK_INT >= 26) {
+                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                    final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                    if (telephonyManager != null) {
+                        int phoneCount = telephonyManager.getPhoneCount();
+                        if (phoneCount > 1) {
+
+                            if (PPApplication.isRooted(fromUIThread)) {
+                                // device is rooted
+
+                                if (profile != null) {
+                                    // test if grant root is disabled
+                                    if ((profile._soundSameRingtoneForBothSIMCards != 0)) {
+                                        if (applicationNeverAskForGrantRoot) {
+                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                            // not needed to test all parameters
+                                            //return preferenceAllowed;
+                                        }
+                                    }
+                                } else if (sharedPreferences != null) {
+                                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                        if (applicationNeverAskForGrantRoot) {
+                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                            // not needed to test all parameters
+                                            return preferenceAllowed;
+                                        }
+                                    }
+                                }
+
+                                if (PPApplication.settingsBinaryExists(fromUIThread))
+                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
+                                else
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
+
+                                if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
+                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                                }
+                                if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
+                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                                }
+
+                            } else {
+                                if ((profile != null) &&
+                                        (profile._soundSameRingtoneForBothSIMCards != 0)
+                                ) {
+                                    preferenceAllowed.notAllowedRoot = true;
+                                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+                                }
+                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                            }
+                        }
+                    } else {
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                    }
+                } else {
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported);
                 }
             } else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;

@@ -1854,6 +1854,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         _bold = true;
                         summary = summary + title;
                     }
+
+                    if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, R.string.profile_preferences_soundSameRingtoneForBothSIMCards, false, context);
+                        if (!title.isEmpty()) {
+                            if (!summary.isEmpty()) summary = summary + " • ";
+                            _bold = true;
+                            summary = summary + title;
+                        }
+                    }
+
                     title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, R.string.profile_preferences_soundNotificationChangeSIM1, false, context);
                     if (!title.isEmpty()) {
                         if (!summary.isEmpty()) summary = summary + " • ";
@@ -4173,6 +4183,41 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
             }
+
+            if (key.equals(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)) {
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    if (phoneCount > 1) {
+                        PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                        if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                            Preference preference = prefMng.findPreference(key);
+                            if (preference != null) {
+                                boolean errorColor = false;
+                                if (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
+                                    preference.setEnabled(false);
+                                else
+                                    errorColor = !value.toString().equals("0");
+                                if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                                    preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                            ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
+                            }
+                        } else {
+                            String sValue = value.toString();
+                            ListPreference listPreference = prefMng.findPreference(key);
+                            if (listPreference != null) {
+                                int index = listPreference.findIndexOfValue(sValue);
+                                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                                listPreference.setSummary(summary);
+
+                                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
+                            }
+                        }
+                    }
+                }
+            }
+
             if (key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1) ||
                     key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)) {
                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
