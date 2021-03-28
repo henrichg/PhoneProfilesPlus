@@ -1780,7 +1780,9 @@
     <string name="profile_preferences_soundsChangeSIM1">Change sounds for SIM1</string>
     <string name="profile_preferences_soundsChangeSIM2">Change sounds for SIM2</string>
     <string name="preference_not_allowed_reason_not_supported_by_ppp">not supported by PhoneProfilesPlus</string>
-
+    <string name="profile_preferences_soundSameRingtoneForBothSIMCards">Use the same ringtone for both SIM cards</string>
+    <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Use the same</string>
+    <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Separate</string>
 
     <string name="profile_preferences_deviceDualSIMSupport_summary">Experimental. It may not work on your device.</string>
 

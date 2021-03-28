@@ -1324,5 +1324,15 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="soundSameRingtoneForBothSIMCardsArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_soundSomeRingroneForBothSIMCards_useSame</item>
+        <item>@string/array_pref_soundSomeRingroneForBothSIMCards_separate</item>
+    </string-array>
+    <string-array name="soundSameRingtoneForBothSIMCardsValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
 </resources>

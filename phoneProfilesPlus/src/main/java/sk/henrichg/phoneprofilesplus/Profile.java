@@ -219,6 +219,7 @@ public class Profile {
     static final String PREF_PROFILE_SOUND_NOTIFICATION_SIM1 = "prf_pref_soundNotificationSIM1";
     static final String PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2 = "prf_pref_soundNotificationChangeSIM2";
     static final String PREF_PROFILE_SOUND_NOTIFICATION_SIM2 = "prf_pref_soundNotificationSIM2";
+    static final String PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS = "prf_pref_soundSameRingtoneForBothSIMCards";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {

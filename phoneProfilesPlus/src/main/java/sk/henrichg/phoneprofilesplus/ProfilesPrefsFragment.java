@@ -1039,6 +1039,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        if (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
+            preference = findPreference(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
+            if (preference != null) {
+                preference.setVisible(false);
+            }
+        }
+
+
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
 
