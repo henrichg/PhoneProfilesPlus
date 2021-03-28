@@ -12,10 +12,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent != null)
-            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
-        else
-            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
+//        if (intent != null)
+//            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
+//        else
+//            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "ScreenOnOffBroadcastReceiver.onReceive", "ScreenOnOffBroadcastReceiver_onReceive");
 
@@ -54,7 +54,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                 //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "start of handler post");
                 //}
 
-                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action="+action);
+//                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "action="+action);
 
                 switch (action) {
                     case Intent.ACTION_SCREEN_ON: {

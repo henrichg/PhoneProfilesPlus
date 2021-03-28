@@ -69,7 +69,7 @@ final class WifiApManager {
                             //if (Build.VERSION.SDK_INT >= 29)
                             //    CmdWifi.setWifi(false);
                             //else
-                            PPApplication.logE("[WIFI_ENABLED] WifiApManager.setWifiApState", "false");
+//                            PPApplication.logE("[WIFI_ENABLED] WifiApManager.setWifiApState", "false");
                             //noinspection deprecation
                             mWifiManager.setWifiEnabled(false);
                         }
@@ -168,7 +168,7 @@ final class WifiApManager {
                     //if (Build.VERSION.SDK_INT >= 29)
                     //    CmdWifi.setWifi(false);
                     //else
-                        PPApplication.logE("[WIFI_ENABLED] WifiApManager.startTethering", "false");
+//                        PPApplication.logE("[WIFI_ENABLED] WifiApManager.startTethering", "false");
                         //noinspection deprecation
                         mWifiManager.setWifiEnabled(false);
                 }

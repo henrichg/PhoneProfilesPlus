@@ -108,7 +108,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                             //if (Build.VERSION.SDK_INT >= 29)
                             //    CmdWifi.setWifi(true);
                             //else
-                                PPApplication.logE("[WIFI_ENABLED] ConnectToSSIDDialogPreferenceFragmentX.refreshListView", "true");
+//                                PPApplication.logE("[WIFI_ENABLED] ConnectToSSIDDialogPreferenceFragmentX.refreshListView", "true");
                                 //noinspection deprecation
                                 wifi.setWifiEnabled(true);
 
@@ -157,7 +157,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                                     //if (Build.VERSION.SDK_INT >= 29)
                                     //    CmdWifi.setWifi(false);
                                     //else
-                                        PPApplication.logE("[WIFI_ENABLED] ConnectToSSIDDialogPreferenceFragmentX.refreshListView", "false");
+//                                        PPApplication.logE("[WIFI_ENABLED] ConnectToSSIDDialogPreferenceFragmentX.refreshListView", "false");
                                         //noinspection deprecation
                                         wifi.setWifiEnabled(false);
                                 }

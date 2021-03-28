@@ -144,7 +144,7 @@ class WifiScanner {
                                     //    CmdWifi.setWifi(false);
                                     //else
                                     if (WifiScanWorker.wifi != null) {
-                                        PPApplication.logE("[WIFI_ENABLED] WifiScanner.doScan", "false (1)");
+//                                        PPApplication.logE("[WIFI_ENABLED] WifiScanner.doScan", "false (1)");
                                         //noinspection deprecation
                                         WifiScanWorker.wifi.setWifiEnabled(false);
                                     }
@@ -286,7 +286,7 @@ class WifiScanner {
                                 //    CmdWifi.setWifi(false);
                                 //else
                                 if (WifiScanWorker.wifi != null) {
-                                    PPApplication.logE("[WIFI_ENABLED] WifiScanner.doScan", "false (2)");
+//                                    PPApplication.logE("[WIFI_ENABLED] WifiScanner.doScan", "false (2)");
                                     //noinspection deprecation
                                     WifiScanWorker.wifi.setWifiEnabled(false);
                                 }
@@ -411,7 +411,7 @@ class WifiScanner {
                             //if (Build.VERSION.SDK_INT >= 29)
                             //    CmdWifi.setWifi(true);
                             //else
-                                PPApplication.logE("[WIFI_ENABLED] WifiScanner.enableWifi", "true");
+//                                PPApplication.logE("[WIFI_ENABLED] WifiScanner.enableWifi", "true");
                                 //noinspection deprecation
                                 _wifi.setWifiEnabled(true);
 

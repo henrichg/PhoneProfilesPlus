@@ -248,12 +248,6 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.setTones"
                                                 //+"|PPApplication.getServicesList"
                                                 //+"|[DEFAULT_SIM]"
-
-                                                +"|WifiStateChangedBroadcastReceiver"
-                                                +"|WifiNetworkCallback"
-                                                +"|ScreenOnOffBroadcastReceiver"
-                                                +"|[WIFI_ENABLED]"
-
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

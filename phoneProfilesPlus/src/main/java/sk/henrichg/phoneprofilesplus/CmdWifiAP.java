@@ -35,7 +35,7 @@ public class CmdWifiAP {
                     boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
                     //PPApplication.logE("CmdWifiAP.setWifiAP", "isWifiEnabled="+isWifiEnabled);
                     if (isWifiEnabled) {
-                        PPApplication.logE("[WIFI_ENABLED] CmdWifiAP.setWifiAP", "false");
+//                        PPApplication.logE("[WIFI_ENABLED] CmdWifiAP.setWifiAP", "false");
                         wifiAdapter.setWifiEnabled(packageName, false);
                     }
                 }
