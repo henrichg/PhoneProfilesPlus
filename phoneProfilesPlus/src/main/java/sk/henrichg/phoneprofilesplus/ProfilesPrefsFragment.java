@@ -3041,6 +3041,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             _bold = true;
                             summary = summary + title + ": <b><notification_name_sim2></b>";
                         }
+
+                        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, R.string.profile_preferences_soundSameRingtoneForBothSIMCards, false, context);
+                            if (!title.isEmpty()) {
+                                if (!summary.isEmpty()) summary = summary + " • ";
+                                _bold = true;
+
+                                String value = GlobalGUIRoutines.getListPreferenceString(
+                                        preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
+                                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
+                                        R.array.soundSameRingtoneForBothSIMCardsValues, R.array.soundSameRingtoneForBothSIMCardsArray, context);
+
+                                summary = summary + title + ": <b>" + value + "</b>";
+                            }
+                        }
+
                         if (_bold) {
                             GlobalGUIRoutines.setProfileSoundsDualSIMPreferenceSummary(summary,
                                     preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1,
@@ -4398,6 +4414,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2);
         setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
         setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
+        setSummary(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {

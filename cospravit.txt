@@ -841,24 +841,3 @@ Takze ring tony bez root
 Notifikacne tony len s root
 
 ----------------------------------
-
-Pozri zmenu medzi notifikaciou native styl a custom styl. Vznikaju mi chyby typu:
-
-Fatal Exception: android.app.RemoteServiceException: Bad notification(tag=null, id=100) posted from
-package sk.henrichg.phoneprofilesplus, crashing app(uid=10273, pid=7758): Couldn't inflate
-contentViewsjava.lang.ClassCastException: android.app.Notification$DecoratedCustomViewStyle cannot be
-cast to android.app.Notification$MessagingStyle
-
-To by mohlo by tym, ze ak uzivatel zmeni styl je maly sleep medzi clear starej a znovzobrazenim novej
-notifikacie po zavreti PPP Settings?
-Alebo ze by som mal nativny styl pri starte PPP, ked ss ma vygenerovat prazna notifikacia?
-
-_showProfileNotification()
-- volane z:
-  - showProfileNotification()
-  - showProfileNotificartionWorker()
-     - volane z:
-       - showProfileNotificartion()
-       - forceUpdateGUI()
-
-Mal by som spravit, ze sa nema volat pocas updatu v nastaveniach vobec, proste nastavenia potom same updatnu notifikaciu.
