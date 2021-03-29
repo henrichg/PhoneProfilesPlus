@@ -5172,7 +5172,7 @@ public class PhoneProfilesService extends Service
         //PPApplication.showProfileNotification(true, false/*, false*/);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
         //PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesService.onConfigurationChanged");
-        PPApplication.updateGUI(1/*getApplicationContext(), true, true*/);
+        PPApplication.updateGUI(1, getApplicationContext()/*, true, true*/);
     }
 
     //------------------------
@@ -6218,6 +6218,68 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    static void drawProfileNotification(int delay, Context context) {
+        final Context appContext = context.getApplicationContext();
+
+        PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
+        final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
+        handler.postDelayed(() -> {
+//            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.drawProfileNotification");
+
+            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = null;
+            try {
+                if (powerManager != null) {
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActionForExternalApplicationActivity_ACTION_ENABLE_RUN_FOR_EVENT");
+                    wakeLock.acquire(10 * 60 * 1000);
+                }
+
+                boolean doNotShowProfileNotification;
+                synchronized (PPApplication.applicationPreferencesMutex) {
+                    doNotShowProfileNotification = PPApplication.doNotShowProfileNotification;
+                }
+
+                if (!doNotShowProfileNotification) {
+                    if (PhoneProfilesService.getInstance() != null) {
+                        if (PhoneProfilesService.getInstance() != null) {
+                            PPApplication.logE("PhoneProfilesService.drawProfileNotification", "call of _showProfileNotification()");
+
+                            boolean clear = false;
+                            if (Build.MANUFACTURER.equals("HMD Global"))
+                                // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
+                                clear = true;
+                            if (PPApplication.deviceIsLG && (!Build.MODEL.contains("Nexus")) && (Build.VERSION.SDK_INT == 28))
+                                // clear it for redraw icon in "Glance view" for LG with Android 9
+                                clear = true;
+                            if (clear) {
+                                // next show will be with startForeground()
+                                PhoneProfilesService.getInstance().clearProfileNotification(/*getApplicationContext(), true*/);
+                                PPApplication.sleep(100);
+                            }
+
+                            if (PhoneProfilesService.getInstance() != null) {
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                                PhoneProfilesService.getInstance()._showProfileNotification(/*profile,*/ dataWrapper, false/*, clear*/);
+                            }
+                        }
+                    }
+                }
+
+//                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneProfilesService.drawProfileNotification");
+            } catch (Exception e) {
+//                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.drawProfileNotification", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+            } finally {
+                if ((wakeLock != null) && wakeLock.isHeld()) {
+                    try {
+                        wakeLock.release();
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+        }, delay);
+    }
+
     void showProfileNotification(boolean drawEmpty, boolean drawActivatedProfle, boolean drawImmediatelly) {
         //if (Build.VERSION.SDK_INT >= 26) {
             //if (DebugVersion.enabled)
@@ -6248,20 +6310,6 @@ public class PhoneProfilesService extends Service
             if (PPApplication.doNotShowProfileNotification)
                 return;
         }
-
-        /* moved into ShowProfileNotificationWorker
-        boolean clear = false;
-        if (Build.MANUFACTURER.equals("HMD Global"))
-            // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
-            clear = true;
-        if (PPApplication.deviceIsLG && (!Build.MODEL.contains("Nexus")) && (Build.VERSION.SDK_INT == 28))
-            // clear it for redraw icon in "Glance view" for LG with Android 9
-            clear = true;
-        if (clear) {
-            // next show will be with startForeground()
-            clearProfileNotification();
-        }
-        */
 
         /*
         long now = SystemClock.elapsedRealtime();
@@ -6306,6 +6354,7 @@ public class PhoneProfilesService extends Service
             return;
 
         // KEEP IT AS WORK !!!
+/*
         OneTimeWorkRequest worker;
         if (drawImmediatelly)
             worker =
@@ -6343,6 +6392,14 @@ public class PhoneProfilesService extends Service
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
+ */
+
+        int delay;
+        if (drawImmediatelly)
+            delay = 200;
+        else
+            delay = 1000;
+        drawProfileNotification(delay, getApplicationContext());
 
         //PPApplication.lastRefreshOfProfileNotification = SystemClock.elapsedRealtime();
     }

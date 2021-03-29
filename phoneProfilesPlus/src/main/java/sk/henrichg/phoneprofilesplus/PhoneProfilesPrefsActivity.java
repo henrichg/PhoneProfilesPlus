@@ -440,7 +440,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }, 1000);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
         //PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsActivity.onStop");
-        PPApplication.updateGUI(0/*getApplicationContext(), true, true*/);
+        PPApplication.updateGUI(0, getApplicationContext()/*, true, true*/);
 
         if (Permissions.grantRootChanged) {
             //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "grant root changed");

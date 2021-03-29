@@ -1066,7 +1066,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from ProfilesPrefsFragment.onResume");
             //PPApplication.logE("###### PPApplication.updateGUI", "from=ProfilePrefsFragment.onResume");
-            PPApplication.updateGUI(0/*context.getApplicationContext(), true, true*/);
+            PPApplication.updateGUI(0, getActivity()/*, true, true*/);
         }
     }
 

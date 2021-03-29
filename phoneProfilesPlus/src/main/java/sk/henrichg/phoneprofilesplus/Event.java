@@ -1615,11 +1615,11 @@ class Event {
                         //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
                         //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
                         //PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
-                        PPApplication.updateGUI(1/*dataWrapper.context, true, false*/);
+                        PPApplication.updateGUI(1, dataWrapper.context/*, true, false*/);
                     }
                 }
                 else {
-                    PPApplication.updateGUI(1/*dataWrapper.context, true, false*/);
+                    PPApplication.updateGUI(1, dataWrapper.context/*, true, false*/);
                 }
             } else {
                 if (PPApplication.applicationFullyStarted ||
@@ -1641,7 +1641,7 @@ class Event {
                         dataWrapper.addProfileToFIFO(profileId, _id);
                     }
                 } else {
-                    PPApplication.updateGUI(1/*dataWrapper.context, true, false*/);
+                    PPApplication.updateGUI(1, dataWrapper.context/*, true, false*/);
                 }
             }
         }
@@ -1912,7 +1912,7 @@ class Event {
             //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.doActivateEndProfile");
             //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
             //PPApplication.logE("###### PPApplication.updateGUI", "from=Event.doActivateEndProfile");
-            PPApplication.updateGUI(1/*dataWrapper.context, true, false*/);
+            PPApplication.updateGUI(1, dataWrapper.context/*, true, false*/);
         }
 
     }

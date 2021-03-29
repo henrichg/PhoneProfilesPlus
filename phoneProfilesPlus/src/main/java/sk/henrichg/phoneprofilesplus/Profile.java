@@ -322,6 +322,7 @@ public class Profile {
         defaultValuesString.put("prf_pref_soundNotificationSIM1", "");
         defaultValuesString.put("prf_pref_soundNotificationChangeSIM2", "0");
         defaultValuesString.put("prf_pref_soundNotificationSIM2", "");
+        defaultValuesString.put("prf_pref_soundSameRingtoneForBothSIMCards", "0");
     }
 
     static final int RINGERMODE_RING = 1;

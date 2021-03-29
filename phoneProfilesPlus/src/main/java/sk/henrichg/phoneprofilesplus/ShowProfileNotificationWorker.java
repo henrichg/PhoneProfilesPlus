@@ -1,15 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+@SuppressWarnings("unused")
 public class ShowProfileNotificationWorker extends Worker {
 
-    final Context context;
+//    final Context context;
 
     static final String WORK_TAG = "showProfileNotificationWork";
 
@@ -17,13 +17,13 @@ public class ShowProfileNotificationWorker extends Worker {
             @NonNull Context context,
             @NonNull WorkerParameters params) {
         super(context, params);
-        this.context = context;
+        //this.context = context;
     }
 
     @NonNull
     @Override
     public Result doWork() {
-        try {
+/*        try {
 //            PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "xxxx");
 
             synchronized (PPApplication.applicationPreferencesMutex) {
@@ -48,13 +48,13 @@ public class ShowProfileNotificationWorker extends Worker {
                             clear = true;
                         if (clear) {
                             // next show will be with startForeground()
-                            PhoneProfilesService.getInstance().clearProfileNotification(/*getApplicationContext(), true*/);
+                            PhoneProfilesService.getInstance().clearProfileNotification();
                             PPApplication.sleep(100);
                         }
 
                         if (PhoneProfilesService.getInstance() != null) {
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-                            PhoneProfilesService.getInstance()._showProfileNotification(/*profile,*/ dataWrapper, false/*, clear*/);
+                            PhoneProfilesService.getInstance()._showProfileNotification(dataWrapper, false);
                         }
                     }
                 } catch (Exception e) {
@@ -66,6 +66,8 @@ public class ShowProfileNotificationWorker extends Worker {
         } catch (Exception e) {
             PPApplication.recordException(e);
             return Result.failure();
-        }
+        }*/
+
+        return Result.success();
     }
 }
