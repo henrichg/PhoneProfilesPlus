@@ -2531,6 +2531,8 @@ class ActivateProfileHelper {
                     }
                 }
             }
+
+            // TODO sem pridaj ten rozdelovac ringtonov pre Xiaomi
         }
 
         return noError;
