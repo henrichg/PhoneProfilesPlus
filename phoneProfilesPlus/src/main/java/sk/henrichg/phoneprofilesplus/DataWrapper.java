@@ -1768,11 +1768,11 @@ public class DataWrapper {
             //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper._activateProfile (2)");
             PPApplication.updateGUI(1, context/*, true, forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT)*/);
 
-            //if (mappedProfile != null) {
-//            PPApplication.logE("[APP_START] DataWrapper._activateProfile", "call execute");
-            //PPApplication.logE("$$$ DataWrapper._activateProfile","execute activation");
-            ActivateProfileHelper.execute(context, _profile);
-            //}
+            if (_profile != null) {
+//                PPApplication.logE("[APP_START] DataWrapper._activateProfile", "call execute");
+                //PPApplication.logE("$$$ DataWrapper._activateProfile","execute activation");
+                ActivateProfileHelper.execute(context, _profile);
+            }
 
             if (/*(mappedProfile != null) &&*/ (!merged)) {
                 //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "add log");

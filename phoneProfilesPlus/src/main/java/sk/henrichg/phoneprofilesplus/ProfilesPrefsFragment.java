@@ -2327,7 +2327,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 int iValue = Profile.getDeviceBrightnessValue(value);
 
                 boolean adaptiveAllowed = /*(android.os.Build.VERSION.SDK_INT <= 21) ||*/
-                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, true, context).allowed
+                        (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, preferences, true, context).allowed
                                 == PreferenceAllowed.PREFERENCE_ALLOWED);
 
                 String summaryString;

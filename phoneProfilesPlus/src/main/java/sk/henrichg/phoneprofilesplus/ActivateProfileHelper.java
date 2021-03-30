@@ -102,7 +102,7 @@ class ActivateProfileHelper {
     static final String EXTRA_PROFILE_NAME = "profile_name";
 
     @SuppressLint("MissingPermission")
-    private static void doExecuteForRadios(Context context, Profile profile)
+    private static void doExecuteForRadios(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences)
     {
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "profile=" + profile);
@@ -125,7 +125,7 @@ class ActivateProfileHelper {
                 if (phoneCount > 1) {
 
                     if (profile._deviceOnOffSIM1 != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1");
                             //boolean _isSIM1On = isSIMOn(appContext, 1);
                             //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isSIM1On="+_isSIM1On);
@@ -152,7 +152,7 @@ class ActivateProfileHelper {
                         //    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM1 NOT ALLOWED");
                     }
                     if (profile._deviceOnOffSIM2 != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceOnOffSIM2");
                             //boolean _isSIM2On = isSIMOn(appContext, 2);
                             //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isSIM2On="+_isSIM2On);
@@ -186,7 +186,7 @@ class ActivateProfileHelper {
         // change default SIM
         if (Build.VERSION.SDK_INT >= 26) {
             if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.doExecuteForRadios", "profile._deviceDefaultSIMCards="+profile._deviceDefaultSIMCards);
                     String[] splits = profile._deviceDefaultSIMCards.split("\\|");
                     try {
@@ -223,7 +223,7 @@ class ActivateProfileHelper {
         // setup network type
         // in array.xml, networkTypeGSMValues are 100+ values
         if (profile._deviceNetworkType >= 100) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                 // in array.xml, networkTypeGSMValues are 100+ values
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
@@ -237,7 +237,7 @@ class ActivateProfileHelper {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount > 1) {
                     if (profile._deviceNetworkTypeSIM1 >= 100) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                             // in array.xml, networkTypeGSMValues are 100+ values
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
@@ -246,7 +246,7 @@ class ActivateProfileHelper {
                         }
                     }
                     if (profile._deviceNetworkTypeSIM2 >= 100) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNetworkType");
                             // in array.xml, networkTypeGSMValues are 100+ values
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setPreferredNetworkType()");
@@ -260,7 +260,7 @@ class ActivateProfileHelper {
 
         // setup mobile data
         if (profile._deviceMobileData != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileData");
                 boolean _isMobileData = isMobileData(appContext, 0);
                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
@@ -302,7 +302,7 @@ class ActivateProfileHelper {
                 if (phoneCount > 1) {
 
                     if (profile._deviceMobileDataSIM1 != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1");
                             boolean _isMobileData = isMobileData(appContext, 1);
                             //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
@@ -338,7 +338,7 @@ class ActivateProfileHelper {
                         //    PPApplication.logE("ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1 NOT ALLOWED");
                     }
                     if (profile._deviceMobileDataSIM2 != 0) {
-                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2");
                             boolean _isMobileData = isMobileData(appContext, 2);
                             //PPApplication.logE("ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
@@ -381,7 +381,7 @@ class ActivateProfileHelper {
         // setup WiFi AP
         boolean canChangeWifi = true;
         if (profile._deviceWiFiAP != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP");
                 if (Build.VERSION.SDK_INT < 28) {
                     WifiApManager wifiApManager = null;
@@ -480,7 +480,7 @@ class ActivateProfileHelper {
         if (canChangeWifi) {
             // setup Wi-Fi
             if (profile._deviceWiFi != 0) {
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 //                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi");
                     boolean isWifiAPEnabled;
                     if (Build.VERSION.SDK_INT < 28)
@@ -549,7 +549,7 @@ class ActivateProfileHelper {
             }
 
             // connect to SSID
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceConnectToSSID");
                     if (Permissions.checkLocation(appContext)) {
@@ -648,7 +648,7 @@ class ActivateProfileHelper {
 
         // setup bluetooth
         if (profile._deviceBluetooth != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceBluetooth");
                 BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter(); //BluetoothScanWorker.getBluetoothAdapter(context);
                 if (bluetoothAdapter != null) {
@@ -708,7 +708,7 @@ class ActivateProfileHelper {
 
         // setup location mode
         if (profile._deviceLocationMode != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceLocationMode");
 
                 switch (profile._deviceLocationMode) {
@@ -737,7 +737,7 @@ class ActivateProfileHelper {
 
         // setup GPS
         if (profile._deviceGPS != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_GPS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceGPS");
                 //String provider = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
@@ -778,7 +778,7 @@ class ActivateProfileHelper {
 
         // setup NFC
         if (profile._deviceNFC != 0) {
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NFC, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceNFC");
                 NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(appContext);
                 if (nfcAdapter != null) {
@@ -802,7 +802,7 @@ class ActivateProfileHelper {
 
     }
 
-    private static void executeForRadios(final Profile profile, Context context)
+    private static void executeForRadios(final Profile profile, Context context, SharedPreferences executedProfileSharedPreferences)
     {
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "profile=" + profile);
@@ -830,7 +830,7 @@ class ActivateProfileHelper {
                 boolean _isAirplaneMode = false;
                 boolean _setAirplaneMode = false;
                 if (profile._deviceAirplaneMode != 0) {
-                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                         _isAirplaneMode = isAirplaneMode(appContext);
                         switch (profile._deviceAirplaneMode) {
                             case 1:
@@ -863,7 +863,7 @@ class ActivateProfileHelper {
                     //PPApplication.logE("ActivateProfileHelper.executeForRadios", "after sleep");
                 }
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "doExecuteForRadios()");
-                doExecuteForRadios(appContext, profile);
+                doExecuteForRadios(appContext, profile, executedProfileSharedPreferences);
 
                 /*if (_setAirplaneMode && (!_isAirplaneMode)) {
                     // 200 milliseconds is in doExecuteForRadios
@@ -1543,7 +1543,7 @@ class ActivateProfileHelper {
     }
     */
 
-    private static void setVibrateWhenRinging(Context context, Profile profile, int value) {
+    private static void setVibrateWhenRinging(Context context, Profile profile, int value, SharedPreferences executedProfileSharedPreferences) {
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "profile=" + profile);
 //            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "value=" + value);
@@ -1563,7 +1563,7 @@ class ActivateProfileHelper {
 
         if (lValue != -1) {
             Context appContext = context.getApplicationContext();
-            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, null, false, appContext).allowed
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, executedProfileSharedPreferences, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkVibrateWhenRinging(appContext)) {
                     /*if (android.os.Build.VERSION.SDK_INT < 23) {    // Not working in Android M (exception)
@@ -1632,7 +1632,7 @@ class ActivateProfileHelper {
         }
     }
 
-    private static boolean setTones(Context context, Profile profile) {
+    private static boolean setTones(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences) {
         boolean noError = true;
         Context appContext = context.getApplicationContext();
         if (Permissions.checkProfileRingtones(appContext, profile, null)) {
@@ -2060,6 +2060,22 @@ class ActivateProfileHelper {
                     }
                 }
             }
+
+            // TODO dual sim support
+            if (profile._soundRingtoneChangeSIM1 == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+
+                }
+            }
+            if (profile._soundRingtoneChangeSIM2 == 1) {
+
+            }
+            if (profile._soundNotificationChangeSIM1 == 1) {
+
+            }
+            if (profile._soundNotificationChangeSIM2 == 1) {
+
+            }
         }
 
         return noError;
@@ -2114,7 +2130,7 @@ class ActivateProfileHelper {
             return null;
     }
 
-    static void executeForVolumes(final Profile profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context) {
+    static void executeForVolumes(final Profile profile, final int linkUnlinkVolumes, final boolean forProfileActivation, Context context, SharedPreferences executedProfileSharedPreferences) {
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "profile=" + profile);
 //            if (profile != null)
@@ -2147,7 +2163,7 @@ class ActivateProfileHelper {
 
                 if (profile != null) {
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 1");
-                    boolean noErrorSetTone = setTones(appContext, profile);
+                    boolean noErrorSetTone = setTones(appContext, profile, executedProfileSharedPreferences);
 
                     final AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
 
@@ -2173,7 +2189,7 @@ class ActivateProfileHelper {
                             //int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setRingerMode()");
-                            setRingerMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation);
+                            setRingerMode(appContext, profile, audioManager, /*systemZenMode,*/ forProfileActivation, executedProfileSharedPreferences);
 
                             // get actual system zen mode (may be changed in setRingerMode())
                             int systemZenMode = getSystemZenMode(appContext/*, -1*/);
@@ -2265,7 +2281,7 @@ class ActivateProfileHelper {
 
                     if (noErrorSetTone) {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 2");
-                        setTones(appContext, profile);
+                        setTones(appContext, profile, executedProfileSharedPreferences);
                     }
 
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "end");
@@ -2284,7 +2300,7 @@ class ActivateProfileHelper {
         });
     }
 
-    private static void setNotificationLed(Context context, final int value) {
+    private static void setNotificationLed(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadProfileActivation();
         final Handler handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
@@ -2299,7 +2315,7 @@ class ActivateProfileHelper {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, null, false, appContext).allowed
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_NOTIFICATION_LED, null, executedProfileSharedPreferences, false, appContext).allowed
                         == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     //if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
                     //    Settings.System.putInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, value);
@@ -2341,7 +2357,7 @@ class ActivateProfileHelper {
         });
     }
 
-    private static void setHeadsUpNotifications(Context context, final int value) {
+    private static void setHeadsUpNotifications(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadProfileActivation();
         final Handler handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
@@ -2356,7 +2372,7 @@ class ActivateProfileHelper {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, null, false, appContext).allowed
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
                         == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     //if (android.os.Build.VERSION.SDK_INT >= 21) {
                         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -2396,7 +2412,7 @@ class ActivateProfileHelper {
         });
     }
 
-    private static void setAlwaysOnDisplay(Context context, final int value) {
+    private static void setAlwaysOnDisplay(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadProfileActivation();
         final Handler handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
@@ -2411,7 +2427,7 @@ class ActivateProfileHelper {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, null, false, appContext).allowed
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, null, executedProfileSharedPreferences, false, appContext).allowed
                         == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     /* not working (private secure settings) :-/
                     if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -2665,7 +2681,8 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void setRingerMode(Context context, Profile profile, AudioManager audioManager, /*int systemZenMode,*/ boolean forProfileActivation)
+    private static void setRingerMode(Context context, Profile profile, AudioManager audioManager,
+            /*int systemZenMode,*/ boolean forProfileActivation, SharedPreferences executedProfileSharedPreferences)
     {
         //PPApplication.logE("@@@ ActivateProfileHelper.setRingerMode", "audioM.ringerMode=" + audioManager.getRingerMode());
 
@@ -2719,7 +2736,7 @@ class ActivateProfileHelper {
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_NORMAL);
 
-                    setVibrateWhenRinging(appContext, profile, -1);
+                    setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_RING_AND_VIBRATE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=RING & VIBRATE");
@@ -2736,7 +2753,7 @@ class ActivateProfileHelper {
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_NORMAL);
 
-                    setVibrateWhenRinging(appContext, null, 1);
+                    setVibrateWhenRinging(appContext, null, 1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_VIBRATE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=VIBRATE");
@@ -2753,7 +2770,7 @@ class ActivateProfileHelper {
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                     //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
 
-                    setVibrateWhenRinging(appContext, null, 1);
+                    setVibrateWhenRinging(appContext, null, 1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_SILENT:
 
@@ -2780,7 +2797,7 @@ class ActivateProfileHelper {
                         InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALARMS);
                     }
 
-                    setVibrateWhenRinging(appContext, profile, -1);
+                    setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_ZENMODE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=ZEN MODE");
@@ -2799,7 +2816,7 @@ class ActivateProfileHelper {
 
                             //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, /*AudioManager.RINGER_MODE_NORMAL*/profile._ringerModeForZenMode);
 
-                            setVibrateWhenRinging(appContext, profile, -1);
+                            setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_PRIORITY:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY");
@@ -2816,7 +2833,7 @@ class ActivateProfileHelper {
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             //setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, profile._ringerModeForZenMode);
 
-                            setVibrateWhenRinging(appContext, profile, -1);
+                            setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_NONE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=NONE");
@@ -2848,7 +2865,7 @@ class ActivateProfileHelper {
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
 
-                            setVibrateWhenRinging(appContext, null, 1);
+                            setVibrateWhenRinging(appContext, null, 1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_PRIORITY_AND_VIBRATE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY & VIBRATE");
@@ -2900,7 +2917,7 @@ class ActivateProfileHelper {
                             //setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
                             //setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
 
-                            setVibrateWhenRinging(appContext, null, 1);
+                            setVibrateWhenRinging(appContext, null, 1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_ALARMS:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALARMS");
@@ -3325,7 +3342,7 @@ class ActivateProfileHelper {
         //}
     }
 
-    static void executeForInteractivePreferences(final Profile profile, final Context context) {
+    static void executeForInteractivePreferences(final Profile profile, final Context context, SharedPreferences executedProfileSharedPreferences) {
         if (profile == null)
             return;
 
@@ -3342,7 +3359,7 @@ class ActivateProfileHelper {
 
         //PowerManager pm = (PowerManager) context.getSystemService(POWER_SERVICE);
         KeyguardManager myKM = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
-        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             if (profile._deviceMobileDataPrefs == 1)
             {
@@ -3418,7 +3435,7 @@ class ActivateProfileHelper {
             }
         }
 
-        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, null, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
+        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, null, executedProfileSharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
         {
             if (profile._deviceNetworkTypePrefs == 1)
             {
@@ -3504,6 +3521,9 @@ class ActivateProfileHelper {
 
         final Context appContext = context.getApplicationContext();
 
+        SharedPreferences executedProfileSharedPreferences = appContext.getSharedPreferences("temp_activateProfileHelper_execute", Context.MODE_PRIVATE);
+        profile.saveProfileToSharedPreferences(executedProfileSharedPreferences);
+
         // unlink ring and notifications - it is @Hide :-(
         //Settings.System.putInt(appContext.getContentResolver(), Settings.System.NOTIFICATIONS_USE_RING_VOLUME, 0);
 
@@ -3511,7 +3531,8 @@ class ActivateProfileHelper {
 
         // setup volume
         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForVolumes()");
-        ActivateProfileHelper.executeForVolumes(profile, PhoneCallBroadcastReceiver.LINKMODE_NONE,true, appContext);
+        ActivateProfileHelper.executeForVolumes(profile, PhoneCallBroadcastReceiver.LINKMODE_NONE,
+                true, appContext, executedProfileSharedPreferences);
 
         // set vibration on touch
         if (Permissions.checkProfileVibrationOnTouch(appContext, profile, null)) {
@@ -3562,7 +3583,7 @@ class ActivateProfileHelper {
 
         //// setup radio preferences
         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForRadios()");
-        ActivateProfileHelper.executeForRadios(profile, appContext);
+        ActivateProfileHelper.executeForRadios(profile, appContext, executedProfileSharedPreferences);
 
         // setup auto-sync
         try {
@@ -3688,7 +3709,7 @@ class ActivateProfileHelper {
                                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                         if (profile.getDeviceBrightnessChangeLevel()) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set brightness 1");
-                            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, true, appContext).allowed
+                            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, executedProfileSharedPreferences, true, appContext).allowed
                                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                                 Settings.System.putInt(appContext.getContentResolver(),
@@ -3811,11 +3832,11 @@ class ActivateProfileHelper {
             switch (profile._notificationLed) {
                 case 1:
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_notificationLed 1");
-                    setNotificationLed(appContext, 1);
+                    setNotificationLed(appContext, 1, executedProfileSharedPreferences);
                     break;
                 case 2:
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_notificationLed 2");
-                    setNotificationLed(appContext, 0);
+                    setNotificationLed(appContext, 0, executedProfileSharedPreferences);
                     break;
             }
             //}
@@ -3830,7 +3851,7 @@ class ActivateProfileHelper {
         }
 
         // set power save mode
-        ActivateProfileHelper.setPowerSaveMode(profile, appContext);
+        ActivateProfileHelper.setPowerSaveMode(profile, appContext, executedProfileSharedPreferences);
 
         if (Permissions.checkProfileLockDevice(appContext, profile, null)) {
             if (profile._lockDevice != 0) {
@@ -3920,18 +3941,18 @@ class ActivateProfileHelper {
             switch (profile._headsUpNotifications) {
                 case 1:
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_headsUpNotifications 1");
-                    setHeadsUpNotifications(appContext, 1);
+                    setHeadsUpNotifications(appContext, 1, executedProfileSharedPreferences);
                     break;
                 case 2:
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_headsUpNotifications 2");
-                    setHeadsUpNotifications(appContext, 0);
+                    setHeadsUpNotifications(appContext, 0, executedProfileSharedPreferences);
                     break;
             }
         }
 
         // set screen dark mode
         if (profile._screenDarkMode != 0) {
-            setScreenDarkMode(context, profile._screenDarkMode);
+            setScreenDarkMode(context, profile._screenDarkMode, executedProfileSharedPreferences);
         }
 
         if (android.os.Build.VERSION.SDK_INT >= 26) {
@@ -3940,11 +3961,11 @@ class ActivateProfileHelper {
                 switch (profile._alwaysOnDisplay) {
                     case 1:
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_alwaysOnDisplay 1");
-                        setAlwaysOnDisplay(appContext, 1);
+                        setAlwaysOnDisplay(appContext, 1, executedProfileSharedPreferences);
                         break;
                     case 2:
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_alwaysOnDisplay 2");
-                        setAlwaysOnDisplay(appContext, 0);
+                        setAlwaysOnDisplay(appContext, 0, executedProfileSharedPreferences);
                         break;
                 }
             }
@@ -4116,7 +4137,7 @@ class ActivateProfileHelper {
         }
         else {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForInteractivePreferences()");
-            executeForInteractivePreferences(profile, appContext);
+            executeForInteractivePreferences(profile, appContext, executedProfileSharedPreferences);
         }
     }
 
@@ -5480,7 +5501,7 @@ class ActivateProfileHelper {
         }*/
     }
 
-    private static void setPowerSaveMode(final Profile profile, Context context) {
+    private static void setPowerSaveMode(final Profile profile, Context context, SharedPreferences executedProfileSharedPreferences) {
         if (profile._devicePowerSaveMode != 0) {
             final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadProfileActivation();
@@ -5488,7 +5509,7 @@ class ActivateProfileHelper {
             handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setPowerSaveMode");
 
-                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, null, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -5668,9 +5689,9 @@ class ActivateProfileHelper {
         });
     }
 
-    private static void setScreenDarkMode(Context appContext, final int value) {
+    private static void setScreenDarkMode(Context appContext, final int value, SharedPreferences executedProfileSharedPreferences) {
         //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "xxx");
-        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, null, false, appContext).allowed
+        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SCREEN_DARK_MODE, null, executedProfileSharedPreferences, false, appContext).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (Build.VERSION.SDK_INT >= 29) {
                 //PPApplication.logE("ActivateProfileHelper.setScreenDarkMode", "allowed");

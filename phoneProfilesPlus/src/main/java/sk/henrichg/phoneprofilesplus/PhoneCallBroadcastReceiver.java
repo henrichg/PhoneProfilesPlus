@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -118,7 +119,9 @@ public class PhoneCallBroadcastReceiver extends PhoneCallReceiver {
 //                        PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile=" + profile);
                         if (profile != null) {
 //                            PPApplication.logE("PhoneCallBroadcastReceiver.setLinkUnlinkNotificationVolume", "profile._name=" + profile._name);
-                            ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context);
+                            SharedPreferences sharedPreferences = context.getSharedPreferences("temp_phoneCallBroadcastReceiver", Context.MODE_PRIVATE);
+                            profile.saveProfileToSharedPreferences(sharedPreferences);
+                            ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context, sharedPreferences);
                             return true;
                         }
                         //dataWrapper.invalidateDataWrapper();

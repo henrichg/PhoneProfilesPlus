@@ -218,8 +218,11 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             }
 
                             Profile profile = DatabaseHandler.getInstance(appContext).getProfile(profileId, false);
-                            if (profile != null)
-                                ActivateProfileHelper.executeForInteractivePreferences(profile, appContext);
+                            if (profile != null) {
+                                SharedPreferences sharedPreferences = context.getSharedPreferences("temp_pppExtenderBroadcastReceiver", Context.MODE_PRIVATE);
+                                profile.saveProfileToSharedPreferences(sharedPreferences);
+                                ActivateProfileHelper.executeForInteractivePreferences(profile, appContext, sharedPreferences);
+                            }
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FORCE_STOP_APPLICATIONS_END");
                         } catch (Exception e) {

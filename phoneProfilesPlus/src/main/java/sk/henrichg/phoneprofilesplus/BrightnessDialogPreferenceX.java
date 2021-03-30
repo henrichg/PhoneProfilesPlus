@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -60,8 +61,9 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
 
         //_sharedProfile = Profile.getProfileFromSharedPreferences(_context, PPApplication.SHARED_PROFILE_PREFS_NAME);
 
+        SharedPreferences sharedPreferences = getSharedPreferences();
         adaptiveAllowed = /*(android.os.Build.VERSION.SDK_INT <= 21) ||*/
-                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, true, _context.getApplicationContext()).allowed
+                (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, sharedPreferences, true, _context.getApplicationContext()).allowed
                         == PreferenceAllowed.PREFERENCE_ALLOWED);
 
         /*if (Build.VERSION.SDK_INT >= 28) {

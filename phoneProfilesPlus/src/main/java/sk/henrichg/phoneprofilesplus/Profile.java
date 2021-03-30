@@ -3979,6 +3979,114 @@ public class Profile {
             return null;
     }
 
+    void saveProfileToSharedPreferences(SharedPreferences preferences) {
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString(Profile.PREF_PROFILE_NAME, this._name);
+        editor.putString(Profile.PREF_PROFILE_ICON, this._icon);
+        editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, this._showInActivator);
+        editor.putString(Profile.PREF_PROFILE_DURATION, Integer.toString(this._duration));
+        editor.putString(Profile.PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(this._afterDurationDo));
+        editor.putBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, this._askForDuration);
+        editor.putString(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND, this._durationNotificationSound);
+        editor.putBoolean(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, this._durationNotificationVibrate);
+        editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, this._hideStatusBarIcon);
+        editor.putString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, Integer.toString(this._volumeRingerMode));
+        editor.putString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, Integer.toString(this._volumeZenMode));
+        editor.putString(Profile.PREF_PROFILE_VOLUME_RINGTONE, this._volumeRingtone);
+        editor.putString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, this._volumeNotification);
+        editor.putString(Profile.PREF_PROFILE_VOLUME_MEDIA, this._volumeMedia);
+        editor.putString(Profile.PREF_PROFILE_VOLUME_ALARM, this._volumeAlarm);
+        editor.putString(Profile.PREF_PROFILE_VOLUME_SYSTEM, this._volumeSystem);
+        editor.putString(Profile.PREF_PROFILE_VOLUME_VOICE, this._volumeVoice);
+        editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, Integer.toString(this._soundRingtoneChange));
+        String[] splits = this._soundRingtone.split("\\|");
+        editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE, splits[0]);
+        editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, Integer.toString(this._soundNotificationChange));
+        splits = this._soundNotification.split("\\|");
+        editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, splits[0]);
+        editor.putString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, Integer.toString(this._soundAlarmChange));
+        splits = this._soundAlarm.split("\\|");
+        editor.putString(Profile.PREF_PROFILE_SOUND_ALARM, splits[0]);
+        editor.putString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, Integer.toString(this._deviceAirplaneMode));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_WIFI, Integer.toString(this._deviceWiFi));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, Integer.toString(this._deviceBluetooth));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, Integer.toString(this._deviceScreenTimeout));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, this._deviceBrightness);
+        editor.putString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, Integer.toString(this._deviceWallpaperChange));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_WALLPAPER, this._deviceWallpaper);
+        editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, Integer.toString(this._deviceMobileData));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, Integer.toString(this._deviceMobileDataPrefs));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_GPS, Integer.toString(this._deviceGPS));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, Integer.toString(this._deviceRunApplicationChange));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, this._deviceRunApplicationPackageName);
+        editor.putString(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, Integer.toString(this._deviceAutoSync));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, Integer.toString(this._deviceAutoRotate));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, Integer.toString(this._deviceLocationServicePrefs));
+        editor.putString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, Integer.toString(this._volumeSpeakerPhone));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_NFC, Integer.toString(this._deviceNFC));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_KEYGUARD, Integer.toString(this._deviceKeyguard));
+        editor.putString(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, Integer.toString(this._vibrationOnTouch));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, Integer.toString(this._deviceWiFiAP));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, Integer.toString(this._devicePowerSaveMode));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, Integer.toString(this._deviceNetworkType));
+        editor.putString(Profile.PREF_PROFILE_NOTIFICATION_LED, Integer.toString(this._notificationLed));
+        editor.putString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, Integer.toString(this._vibrateWhenRinging));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR, Integer.toString(this._deviceWallpaperFor));
+        editor.putString(Profile.PREF_PROFILE_LOCK_DEVICE, Integer.toString(this._lockDevice));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, this._deviceConnectToSSID);
+        editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, Integer.toString(this._applicationDisableWifiScanning));
+        editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, Integer.toString(this._applicationDisableBluetoothScanning));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, Integer.toString(this._deviceWiFiAPPrefs));
+        editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, Integer.toString(this._applicationDisableLocationScanning));
+        editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, Integer.toString(this._applicationDisableMobileCellScanning));
+        editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, Integer.toString(this._applicationDisableOrientationScanning));
+        editor.putString(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, Integer.toString(this._headsUpNotifications));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, Integer.toString(this._deviceForceStopApplicationChange));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, this._deviceForceStopApplicationPackageName);
+        editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, Integer.toString(this._deviceNetworkTypePrefs));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, Integer.toString(this._deviceCloseAllApplications));
+        editor.putString(Profile.PREF_PROFILE_SCREEN_DARK_MODE, Integer.toString(this._screenDarkMode));
+        editor.putString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, Integer.toString(this._dtmfToneWhenDialing));
+        editor.putString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, Integer.toString(this._soundOnTouch));
+        editor.putString(Profile.PREF_PROFILE_VOLUME_DTMF, this._volumeDTMF);
+        editor.putString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, this._volumeAccessibility);
+        editor.putString(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, this._volumeBluetoothSCO);
+        editor.putString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, Long.toString(this._afterDurationProfile));
+        editor.putString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, Integer.toString(this._alwaysOnDisplay));
+        editor.putString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, Integer.toString(this._screenOnPermanent));
+        editor.putBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, this._volumeMuteSound);
+        editor.putString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, Integer.toString(this._deviceLocationMode));
+        editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, Integer.toString(this._applicationDisableNotificationScanning));
+        editor.putString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, this._generateNotification);
+        editor.putString(Profile.PREF_PROFILE_CAMERA_FLASH, Integer.toString(this._cameraFlash));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, Integer.toString(this._deviceNetworkTypeSIM1));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, Integer.toString(this._deviceNetworkTypeSIM2));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, Integer.toString(this._deviceMobileDataSIM1));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, Integer.toString(this._deviceMobileDataSIM2));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, this._deviceDefaultSIMCards);
+        editor.putString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, Integer.toString(this._deviceOnOffSIM1));
+        editor.putString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, Integer.toString(this._deviceOnOffSIM2));
+
+        editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, Integer.toString(this._soundRingtoneChangeSIM1));
+        splits = this._soundRingtoneSIM1.split("\\|");
+        editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, splits[0]);
+        editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, Integer.toString(this._soundNotificationChangeSIM1));
+        splits = this._soundNotificationSIM1.split("\\|");
+        editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, splits[0]);
+
+        editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, Integer.toString(this._soundRingtoneChangeSIM2));
+        splits = this._soundRingtoneSIM2.split("\\|");
+        editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, splits[0]);
+        editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, Integer.toString(this._soundNotificationChangeSIM2));
+        splits = this._soundNotificationSIM2.split("\\|");
+        editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, splits[0]);
+
+        editor.putString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, Integer.toString(this._soundSameRingtoneForBothSIMCards));
+
+        editor.apply();
+    }
+
     static PreferenceAllowed isProfilePreferenceAllowed(String preferenceKey, Profile profile,
                                                         SharedPreferences sharedPreferences,
                                                         boolean fromUIThread, Context context)
@@ -3987,6 +4095,12 @@ public class Profile {
 //            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "profile != null - START");
 
         Context appContext = context.getApplicationContext();
+
+        if ((profile != null) && (!preferenceKey.equals("-")) && (sharedPreferences == null)) {
+            sharedPreferences = context.getApplicationContext().getSharedPreferences("temp_isProfilePreferenceAllowed", Context.MODE_PRIVATE);
+            profile.saveProfileToSharedPreferences(sharedPreferences);
+            profile = null;
+        }
 
         PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
 
@@ -5178,10 +5292,21 @@ public class Profile {
 
         if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE))
         {
-            //if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context.getApplicationContext()))
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            //else
-            //    preferenceAllowed.notAllowedReason = PPApplication.PREFERENCE_NOT_ALLOWED_NO_EXTENDER_INSTALLED;
+
+            //checked = true;
+            if (profile == null)
+                return preferenceAllowed;
+            //noinspection ConstantConditions
+            //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
+            //    return preferenceAllowed;
+        }
+        //if (checked && (profile == null))
+        //    return preferenceAllowed;
+
+        if (preferenceKey.equals(Profile.PREF_PROFILE_LOCK_DEVICE))
+        {
+            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
 
             //checked = true;
             if (profile == null)
