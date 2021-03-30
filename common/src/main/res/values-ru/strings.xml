@@ -1591,13 +1591,9 @@
     <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">Радиус скругления (виджет)</string>
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Тип мобильной сети для SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Тип мобильной сети для SIM 2</string>
-    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Тип мобильной сети для устройств с 2 SIM-картами</string>
-    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Эта функция - экспериментальная и может не работать на вашем устройстве.</string>
     <string name="profile_preferences_category_led_accessories">LED-аксессуары</string>
     <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Мобильный интернет для SIM 1</string>
     <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Мобильный интернет для SIM 2</string>
-    <string name="profile_preferences_deviceMobileDataDualSIM">(R) Мобильный интернет для устройств с 2 SIM-картами</string>
-    <string name="profile_preferences_deviceMobileDataDualSIM_summary">Эта функция - экспериментальная и может не работать на вашем устройстве.</string>
     <string name="event_preferences_radioSwitch_mobileData_SIM1">Мобильный интернет для SIM 1</string>
     <string name="event_preferences_radioSwitch_mobileData_SIM2">Мобильный интернет для SIM 2</string>
     <string name="event_preferences_radioSwitch_mobileData_dualSIM">Мобильный интернет для устройств с 2 SIM-картами</string>
@@ -1612,19 +1608,31 @@
     <string name="array_default_sim_pref_ask_for_sim">Всегда спрашивать</string>
     <string name="array_default_sim_pref_sim1">SIM 1</string>
     <string name="array_default_sim_pref_sim2">SIM 2</string>
-    <string name="profile_preferences_deviceDefaultSIM">(R) SIM-карта по умолчанию</string>
-    <string name="profile_preferences_deviceDefaultSIM_summary">Эта функция - экспериментальная и может не работать на вашем устройстве.</string>
     <string name="default_sim_subscription_voice">Звонки</string>
     <string name="default_sim_subscription_sms">SMS</string>
     <string name="default_sim_subscription_data">Интернет</string>
     <string name="profile_preferences_deviceDualSIMSupport">Поддержка двух SIM-карт</string>
+    <string name="profile_preferences_deviceDefaultSIM">(R) SIM-карта по умолчанию</string>
     <string name="profile_preferences_deviceOnOff_SIM1">Вкл./выкл. SIM 1</string>
     <string name="profile_preferences_deviceOnOff_SIM2">Вкл./выкл. SIM 2</string>
-    <string name="profile_preferences_deviceOnOffDualSIM">Вкл./выкл. SIM-карт для устройств с 2 SIM-картами</string>
-    <string name="profile_preferences_deviceOnOffDualSIM_summary">Эта функция - экспериментальная и может не работать на вашем устройстве.</string>
     <string name="ringtone_pref_dlg_system_tone">системная мелодия</string>
     <string name="ringtone_pref_dlg_extenal_tone">внешняя мелодия</string>
     <string name="acra_notification_text">Нажмите, пожалуйста, сюда, чтобы отправить автору отчёт об ошибке. Большое спасибо.</string>
+    <string name="profile_preferences_soundRingtoneChangeSIM1">Change ringtone for SIM 1</string>
+    <string name="profile_preferences_soundRingtoneSIM1">Ringtone sound for SIM 1</string>
+    <string name="profile_preferences_soundRingtoneChangeSIM2">Change ringtone for SIM 2</string>
+    <string name="profile_preferences_soundRingtoneSIM2">Ringtone sound for SIM 2</string>
+    <string name="profile_preferences_soundNotificationChangeSIM1">Change notification for SIM 1</string>
+    <string name="profile_preferences_soundNotificationSIM1">Notification sound for SIM 1</string>
+    <string name="profile_preferences_soundNotificationChangeSIM2">Change notification for SIM 2</string>
+    <string name="profile_preferences_soundNotificationSIM2">Notification sound for SIM 2</string>
+    <string name="profile_preferences_soundsChangeSIM1">Change sounds for SIM1</string>
+    <string name="profile_preferences_soundsChangeSIM2">Change sounds for SIM2</string>
+    <string name="preference_not_allowed_reason_not_supported_by_ppp">not supported by PhoneProfilesPlus</string>
+    <string name="profile_preferences_soundSameRingtoneForBothSIMCards">Use the same ringtone for both SIM cards</string>
+    <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Use the same</string>
+    <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Separate</string>
+    <string name="profile_preferences_deviceDualSIMSupport_summary">Experimental. It may not work on your device.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1660,4 +1668,11 @@
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
     <!--    <string name="acra_notification_send_button">Send</string>-->
     <!--    <string name="acra_notification_discard_button">Discard</string>-->
+    <!--    <string name="profile_preferences_deviceNetworkTypeDualSIM">(R) Mobile network type for dual SIM devices</string>-->
+    <!--    <string name="profile_preferences_deviceNetworkTypeDualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="profile_preferences_deviceMobileDataDualSIM">(R) Mobile data for dual SIM devices</string>-->
+    <!--    <string name="profile_preferences_deviceMobileDataDualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>-->
+    <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
 </resources>
