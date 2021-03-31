@@ -112,6 +112,7 @@ class Permissions {
     static final String EXTRA_GRANT_ALSO_CONTACTS = "grant_also_contacts";
     //static final String EXTRA_FORCE_START_SCANNER = "force_start_scanner";
     static final String EXTRA_FROM_NOTIFICATION = "from_notification";
+    static final String EXTRA_GRANT_ALSO_BACKGROUND_LOCATION = "grant_also_background_location";
 
     //static Activity profileActivationActivity = null;
     //static WallpaperViewPreference wallpaperViewPreference = null;
@@ -262,6 +263,7 @@ class Permissions {
             checkProfileAlwaysOnDisplay(context, profile, permissions);
             checkProfileScreenOnPermanent(context, profile, permissions);
             checkProfileCameraFlash(context, profile, permissions);
+            //checkProfileBackgroundLocation(context, profile, permissions);
 
             return permissions;
         //}
@@ -683,11 +685,20 @@ class Permissions {
                 if (!grantedLocation) {
                     permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                    //if (Build.VERSION.SDK_INT >= 29)
-                    //    permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                 }
             }
         } catch (Exception ignored) {}
+    }
+
+    static void checkProfileBackgroundLocation(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        boolean grantedLocation = true;
+        if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))
+            grantedLocation = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        if (permissions != null) {
+            if (!grantedLocation) {
+                permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+            }
+        }
     }
 
     static boolean checkPhone(Context context) {
@@ -964,6 +975,7 @@ class Permissions {
             checkEventSMSContacts(context, event, preferences, permissions, sensorType);
             checkEventLocation(context, event, preferences, permissions, sensorType);
             checkEventBluetoothForEMUI(context, event, preferences, permissions, sensorType);
+            //checkEventBackgroundLocation(context, event, preferences, permissions, sensorType);
 
             return permissions;
         //}
@@ -1141,15 +1153,9 @@ class Permissions {
     static boolean checkLocation(Context context) {
         try {
             //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            /*if (Build.VERSION.SDK_INT >= 29)
-                return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED)
-                        ;
-            else*/
-                return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-                        ;
+            return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
+                    (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                    ;
             //} else
             //    return hasPermission(context, permission.ACCESS_COARSE_LOCATION) &&
             //            hasPermission(context, permission.ACCESS_FINE_LOCATION);
@@ -1175,7 +1181,6 @@ class Permissions {
                             (event._eventPreferencesTime._timeType != EventPreferencesTime.TIME_TYPE_EXACT))) {
                     boolean grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-                    //boolean grantedAccessBackgroundLocation = (Build.VERSION.SDK_INT < 29) || (ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED);
                     if (permissions != null) {
                         if (event._eventPreferencesWifi._enabled &&
                                 ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
@@ -1186,8 +1191,6 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                //if (!grantedAccessBackgroundLocation)
-                                //    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                         if (event._eventPreferencesBluetooth._enabled &&
@@ -1199,8 +1202,6 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                //if (!grantedAccessBackgroundLocation)
-                                //    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                         if (event._eventPreferencesMobileCells._enabled) {
@@ -1210,8 +1211,6 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                //if (!grantedAccessBackgroundLocation)
-                                //    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                         if (event._eventPreferencesTime._enabled &&
@@ -1222,8 +1221,6 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                //if (!grantedAccessBackgroundLocation)
-                                //    permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                         if (event._eventPreferencesLocation._enabled) {
@@ -1233,8 +1230,6 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                //if (!grantedAccessBackgroundLocation)
-                                //    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                     }
@@ -1254,7 +1249,6 @@ class Permissions {
                         (Integer.parseInt(preferences.getString(EventPreferencesTime.PREF_EVENT_TIME_TYPE, "0")) != EventPreferencesTime.TIME_TYPE_EXACT))) {
                 boolean grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                 boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-                //boolean grantedAccessBackgroundLocation = (Build.VERSION.SDK_INT < 29) || (ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED);
                 if (permissions != null) {
                     if (preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false) &&
                             ((Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "0")) == EventPreferencesWifi.CTYPE_NEARBY) ||
@@ -1265,8 +1259,6 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                            //if (!grantedAccessBackgroundLocation)
-                            //    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                         }
                     }
                     if (preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
@@ -1278,8 +1270,6 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                            //if (!grantedAccessBackgroundLocation)
-                            //    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                         }
                     }
                     if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
@@ -1289,8 +1279,6 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                            //if (!grantedAccessBackgroundLocation)
-                            //    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                         }
                     }
                     if (preferences.getBoolean(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, false) &&
@@ -1301,8 +1289,6 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                            //if (!grantedAccessBackgroundLocation)
-                            //    permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                         }
                     }
                     if (preferences.getBoolean(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false)) {
@@ -1312,8 +1298,125 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                            //if (!grantedAccessBackgroundLocation)
-                            //    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    static private void checkEventBackgroundLocation(Context context, Event event, SharedPreferences preferences, ArrayList<PermissionType>  permissions, String sensorType) {
+        if ((event == null) && (preferences == null)) return; // true;
+
+        if (event != null) {
+            try {
+                if ((event._eventPreferencesWifi._enabled &&
+                        ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                                (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY))) ||
+                        (event._eventPreferencesBluetooth._enabled &&
+                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) ||
+                        (event._eventPreferencesLocation._enabled) ||
+                        (event._eventPreferencesMobileCells._enabled) ||
+                        (event._eventPreferencesTime._enabled &&
+                                (event._eventPreferencesTime._timeType != EventPreferencesTime.TIME_TYPE_EXACT))) {
+                    boolean grantedAccessBackgroundLocation = (Build.VERSION.SDK_INT < 29) || (ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED);
+                    if (permissions != null) {
+                        if (event._eventPreferencesWifi._enabled &&
+                                ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
+                                        (event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NOT_NEARBY))) {
+                            //noinspection DuplicateExpressions
+                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_WIFI_SCANNER)) {
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
+                        }
+                        if (event._eventPreferencesBluetooth._enabled &&
+                                ((event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                                        (event._eventPreferencesBluetooth._connectionType == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
+                            //noinspection DuplicateExpressions
+                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
+                        }
+                        if (event._eventPreferencesMobileCells._enabled) {
+                            //noinspection DuplicateExpressions
+                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_STATE)) {
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
+                        }
+                        if (event._eventPreferencesTime._enabled &&
+                                (event._eventPreferencesTime._timeType != EventPreferencesTime.TIME_TYPE_EXACT)) {
+                            //noinspection DuplicateExpressions
+                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_TIME)) {
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
+                        }
+                        if (event._eventPreferencesLocation._enabled) {
+                            //noinspection DuplicateExpressions
+                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER)) {
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
+                        }
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        } else {
+            if ((preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false) &&
+                    ((Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "0")) == EventPreferencesWifi.CTYPE_NEARBY) ||
+                            (Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "0")) == EventPreferencesWifi.CTYPE_NOT_NEARBY))) ||
+                    (preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
+                            ((Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "0")) == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                                    (Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "0")) == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) ||
+                    (preferences.getBoolean(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false)) ||
+                    (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) ||
+                    (preferences.getBoolean(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, false) &&
+                            (Integer.parseInt(preferences.getString(EventPreferencesTime.PREF_EVENT_TIME_TYPE, "0")) != EventPreferencesTime.TIME_TYPE_EXACT))) {
+                boolean grantedAccessBackgroundLocation = (Build.VERSION.SDK_INT < 29) || (ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED);
+                if (permissions != null) {
+                    if (preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false) &&
+                            ((Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "0")) == EventPreferencesWifi.CTYPE_NEARBY) ||
+                                    (Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "0")) == EventPreferencesWifi.CTYPE_NOT_NEARBY))) {
+                        //noinspection DuplicateExpressions
+                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_WIFI_SCANNER)) {
+                            if (!grantedAccessBackgroundLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                        }
+                    }
+                    if (preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
+                            ((Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "0")) == EventPreferencesBluetooth.CTYPE_NEARBY) ||
+                                    (Integer.parseInt(preferences.getString(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_CONNECTION_TYPE, "0")) == EventPreferencesBluetooth.CTYPE_NOT_NEARBY))) {
+                        //noinspection DuplicateExpressions
+                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_BLUETOOTH_SCANNER)) {
+                            if (!grantedAccessBackgroundLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                        }
+                    }
+                    if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
+                        //noinspection DuplicateExpressions
+                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_STATE)) {
+                            if (!grantedAccessBackgroundLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                        }
+                    }
+                    if (preferences.getBoolean(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, false) &&
+                            (Integer.parseInt(preferences.getString(EventPreferencesTime.PREF_EVENT_TIME_TYPE, "0")) != EventPreferencesTime.TIME_TYPE_EXACT)) {
+                        //noinspection DuplicateExpressions
+                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_TIME)) {
+                            if (!grantedAccessBackgroundLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                        }
+                    }
+                    if (preferences.getBoolean(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false)) {
+                        //noinspection DuplicateExpressions
+                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER)) {
+                            if (!grantedAccessBackgroundLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                         }
                     }
                 }
@@ -1541,6 +1644,15 @@ class Permissions {
                     intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR);
                     intent.putExtra(EXTRA_INTERACTIVE, false);
                     intent.putExtra(EXTRA_ACTIVATE_PROFILE, false);
+
+                    for (PermissionType permissionType : permissions) {
+                        if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
+                                permissionType.permission.equals(permission.ACCESS_FINE_LOCATION)) {
+                            intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+                            break;
+                        }
+                    }
+
                     //if (fromPreferences && (!onlyNotification))
                         ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_PROFILE);
                     //else
@@ -1780,6 +1892,15 @@ class Permissions {
                     //else
                         intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+
+                    for (PermissionType permissionType : permissions) {
+                        if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
+                                permissionType.permission.equals(permission.ACCESS_FINE_LOCATION)) {
+                            intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+                            break;
+                        }
+                    }
+
                     //if (fromPreferences && (!onlyNotification))
                         ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EVENT);
                     //else
@@ -1804,8 +1925,6 @@ class Permissions {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                    //if (Build.VERSION.SDK_INT >= 29)
-                    //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1840,8 +1959,6 @@ class Permissions {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                    //if (Build.VERSION.SDK_INT >= 29)
-                    //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1963,8 +2080,8 @@ class Permissions {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                    //if (Build.VERSION.SDK_INT >= 29)
-                    //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
+                    if (Build.VERSION.SDK_INT >= 29)
+                        permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1999,8 +2116,6 @@ class Permissions {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
                 permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                 permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                //if (Build.VERSION.SDK_INT >= 29)
-                //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2034,8 +2149,6 @@ class Permissions {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                    //if (Build.VERSION.SDK_INT >= 29)
-                    //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
                     if (Build.VERSION.SDK_INT >= 26)
                         permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.READ_PHONE_STATE));
 
@@ -2071,8 +2184,6 @@ class Permissions {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                    //if (Build.VERSION.SDK_INT >= 29)
-                    //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2134,8 +2245,6 @@ class Permissions {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                    //if (Build.VERSION.SDK_INT >= 29)
-                    //    permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
