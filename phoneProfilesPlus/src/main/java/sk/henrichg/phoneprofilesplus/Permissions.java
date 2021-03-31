@@ -1934,6 +1934,7 @@ class Permissions {
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     //intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
+                    intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
                     //wifiSSIDPreference = preference;
                     //bluetoothNamePreference = null;
@@ -1968,6 +1969,7 @@ class Permissions {
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
                     //intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
+                    intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
                     //bluetoothNamePreference = preference;
                     //wifiSSIDPreference = null;
@@ -2124,6 +2126,7 @@ class Permissions {
                 intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                 //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                 intent.putExtra(EXTRA_FORCE_GRANT, true);
+                intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
                 activity.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY);
                 //bluetoothNamePreference = null;
                 //wifiSSIDPreference = null;
@@ -2159,6 +2162,7 @@ class Permissions {
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
+                    intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
                     //wifiSSIDPreference = null;
                     //bluetoothNamePreference = null;
@@ -2192,6 +2196,7 @@ class Permissions {
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
+                    intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG);
                     //wifiSSIDPreference = null;
                     //bluetoothNamePreference = null;
@@ -2253,6 +2258,7 @@ class Permissions {
                     intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                     intent.putExtra(EXTRA_FORCE_GRANT, true);
+                    intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
                     ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CONNECT_TO_SSID_DIALOG);
                     //contactsMultiSelectDialogPreference = preference;
                     //contactGroupsMultiSelectDialogPreference = null;
