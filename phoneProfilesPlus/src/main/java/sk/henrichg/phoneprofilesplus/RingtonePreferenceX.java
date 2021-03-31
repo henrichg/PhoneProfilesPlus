@@ -215,7 +215,8 @@ public class RingtonePreferenceX extends DialogPreference {
                                     if (PPApplication.deviceIsSamsung &&
                                           (ApplicationPreferences.applicationNeverAskForGrantRoot ||
                                                   (!PPApplication.isRooted(true)) ||
-                                                  (!PPApplication.settingsBinaryExists(false)))
+                                                  (!PPApplication.settingsBinaryExists(false))
+                                          )
                                     ) {
                                         if ((ringtoneType.equals("ringtone")) && (simCard == 2) && (!_uri.contains("content://media/internal")))
                                             add = false;

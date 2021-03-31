@@ -35,6 +35,7 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.config.IConfigurationProvider;
 import org.osmdroid.events.MapEventsReceiver;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -109,10 +110,11 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        org.osmdroid.config.Configuration.getInstance().load(getApplicationContext(),
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
-        org.osmdroid.config.Configuration.getInstance().setOsmdroidTileCache(getApplicationContext().getExternalFilesDir(null));
-        org.osmdroid.config.Configuration.getInstance().setOsmdroidBasePath(getApplicationContext().getExternalFilesDir(null));
+        IConfigurationProvider osmDroidCobfigurationProvider = org.osmdroid.config.Configuration.getInstance();
+        osmDroidCobfigurationProvider.load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
+        osmDroidCobfigurationProvider.setUserAgentValue(BuildConfig.APPLICATION_ID);
+        osmDroidCobfigurationProvider.setOsmdroidTileCache(getApplicationContext().getExternalFilesDir(null));
+        osmDroidCobfigurationProvider.setOsmdroidBasePath(getApplicationContext().getExternalFilesDir(null));
 
         setContentView(R.layout.activity_location_geofence_editor_osm);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
