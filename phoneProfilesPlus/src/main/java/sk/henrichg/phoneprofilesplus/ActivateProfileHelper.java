@@ -2312,7 +2312,6 @@ class ActivateProfileHelper {
                 }
             }
 
-            // TODO sem pridaj ten rozdelovac ringtonov pre Xiaomi
             if (profile._soundSameRingtoneForBothSIMCards != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     try {
