@@ -2004,7 +2004,27 @@ class ActivateProfileHelper {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                     } catch (Exception ignored) {}
 
-                                    Settings.System.putString(context.getContentResolver(), "ringtone_2", uri.toString());
+
+                                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1;
+                                            Command command;
+                                            command1 = "settings put system ringtone_2" + " " + uri.toString();
+                                            command = new Command(0, false, command1);
+                                            try {
+                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                            } catch (Exception e) {
+                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                //PPApplication.recordException(e);
+                                            }
+                                        }
+                                    }
+                                    else
+                                        Settings.System.putString(context.getContentResolver(), "ringtone_2", uri.toString());
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
                                     Log.e("ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=" + uri.toString());
 
@@ -2065,7 +2085,26 @@ class ActivateProfileHelper {
                             if (PPApplication.deviceIsSamsung) {
                                 Log.e("ActivateProfileHelper.setTones", "ringtone SIM2 Samsung uri=null");
 
-                                Settings.System.putString(context.getContentResolver(), "ringtone_2", null);
+                                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                    synchronized (PPApplication.rootMutex) {
+                                        String command1;
+                                        Command command;
+                                        command1 = "settings put system ringtone_2" + " \"\"";
+                                        command = new Command(0, false, command1);
+                                        try {
+                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                        } catch (Exception e) {
+                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                            //PPApplication.recordException(e);
+                                        }
+                                    }
+                                }
+                                else
+                                    Settings.System.putString(context.getContentResolver(), "ringtone_2", null);
                             }
                             else
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
@@ -2122,7 +2161,24 @@ class ActivateProfileHelper {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                     } catch (Exception ignored) {}
 
-                                    Settings.System.putString(context.getContentResolver(), "notification_sound", uri.toString());
+                                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1;
+                                            Command command;
+                                            command1 = "settings put system notification_sound" + " " + uri.toString();
+                                            command = new Command(0, false, command1);
+                                            try {
+                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                            } catch (Exception e) {
+                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                //PPApplication.recordException(e);
+                                            }
+                                        }
+                                    }
                                 }
                                 else
                                 if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
@@ -2132,7 +2188,24 @@ class ActivateProfileHelper {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                     } catch (Exception ignored) {}
 
-                                    Settings.System.putString(context.getContentResolver(), "message", uri.toString());
+                                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1;
+                                            Command command;
+                                            command1 = "settings put system message" + " " + uri.toString();
+                                            command = new Command(0, false, command1);
+                                            try {
+                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                            } catch (Exception e) {
+                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                //PPApplication.recordException(e);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -2178,7 +2251,24 @@ class ActivateProfileHelper {
 
                                 Log.e("ActivateProfileHelper.setTones", " notification SIM1 Samsung uri=null");
 
-                                Settings.System.putString(context.getContentResolver(), "notification_sound", null);
+                                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                    synchronized (PPApplication.rootMutex) {
+                                        String command1;
+                                        Command command;
+                                        command1 = "settings put system notification_sound" + " \"\"";
+                                        command = new Command(0, false, command1);
+                                        try {
+                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                        } catch (Exception e) {
+                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                            //PPApplication.recordException(e);
+                                        }
+                                    }
+                                }
                             }
                             else
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
@@ -2187,7 +2277,24 @@ class ActivateProfileHelper {
                                 // notifikacie ine ako sms - zvlastna katergoria v Huawei
                                 //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
-                                Settings.System.putString(context.getContentResolver(), "message", null);
+                                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                    synchronized (PPApplication.rootMutex) {
+                                        String command1;
+                                        Command command;
+                                        command1 = "settings put system message" + " \"\"";
+                                        command = new Command(0, false, command1);
+                                        try {
+                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                        } catch (Exception e) {
+                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                            //PPApplication.recordException(e);
+                                        }
+                                    }
+                                }
                             }
                         }
                         catch (IllegalArgumentException e) {
@@ -2232,7 +2339,24 @@ class ActivateProfileHelper {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                     } catch (Exception ignored) {}
 
-                                    Settings.System.putString(context.getContentResolver(), "notification_sound_2", uri.toString());
+                                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1;
+                                            Command command;
+                                            command1 = "settings put system notification_sound_2" + " " + uri.toString();
+                                            command = new Command(0, false, command1);
+                                            try {
+                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                            } catch (Exception e) {
+                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                //PPApplication.recordException(e);
+                                            }
+                                        }
+                                    }
                                 }
                                 else
                                 if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
@@ -2242,7 +2366,24 @@ class ActivateProfileHelper {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                     } catch (Exception ignored) {}
 
-                                    Settings.System.putString(context.getContentResolver(), "messageSub1", uri.toString());
+                                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                        synchronized (PPApplication.rootMutex) {
+                                            String command1;
+                                            Command command;
+                                            command1 = "settings put system messageSub1" + " " + uri.toString();
+                                            command = new Command(0, false, command1);
+                                            try {
+                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                            } catch (Exception e) {
+                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                                //PPApplication.recordException(e);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -2288,7 +2429,24 @@ class ActivateProfileHelper {
 
                                 Log.e("ActivateProfileHelper.setTones", " notification SIM2 Samsung uri=null");
 
-                                Settings.System.putString(context.getContentResolver(), "notification_sound_2", null);
+                                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                    synchronized (PPApplication.rootMutex) {
+                                        String command1;
+                                        Command command;
+                                        command1 = "settings put system notification_sound_2" + " \"\"";
+                                        command = new Command(0, false, command1);
+                                        try {
+                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                        } catch (Exception e) {
+                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                            //PPApplication.recordException(e);
+                                        }
+                                    }
+                                }
                             }
                             else
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
@@ -2297,7 +2455,24 @@ class ActivateProfileHelper {
                                 // notifikacie ine ako sms - zvlastna katergoria v Huawei
                                 //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
 
-                                Settings.System.putString(context.getContentResolver(), "messageSub1", null);
+                                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                    synchronized (PPApplication.rootMutex) {
+                                        String command1;
+                                        Command command;
+                                        command1 = "settings put system messageSub1" + " \"\"";
+                                        command = new Command(0, false, command1);
+                                        try {
+                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                        } catch (Exception e) {
+                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                            //PPApplication.recordException(e);
+                                        }
+                                    }
+                                }
                             }
                         }
                         catch (IllegalArgumentException e) {
@@ -2321,7 +2496,24 @@ class ActivateProfileHelper {
                         if (profile._soundSameRingtoneForBothSIMCards == 2)
                             value = "0";
 
-                        Settings.System.putString(context.getContentResolver(), "ringtone_sound_use_uniform", value);
+                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                            synchronized (PPApplication.rootMutex) {
+                                String command1;
+                                Command command;
+                                command1 = "settings put system ringtone_sound_use_uniform" + " " + value;
+                                command = new Command(0, false, command1);
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                    //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                } catch (Exception e) {
+                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                    //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                    //PPApplication.recordException(e);
+                                }
+                            }
+                        }
                     }
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
