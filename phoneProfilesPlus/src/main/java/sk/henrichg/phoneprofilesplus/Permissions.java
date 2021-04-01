@@ -1176,7 +1176,9 @@ class Permissions {
                             (event._eventPreferencesTime._timeType != EventPreferencesTime.TIME_TYPE_EXACT))) {
                     boolean grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-                    boolean grantedAccessBackgroundLocation = (Build.VERSION.SDK_INT >= 29) && (ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED);
+                    boolean grantedAccessBackgroundLocation = true;
+                    if (Build.VERSION.SDK_INT >= 29)
+                        grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (event._eventPreferencesWifi._enabled &&
                                 ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
@@ -1255,7 +1257,9 @@ class Permissions {
                         (Integer.parseInt(preferences.getString(EventPreferencesTime.PREF_EVENT_TIME_TYPE, "0")) != EventPreferencesTime.TIME_TYPE_EXACT))) {
                 boolean grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                 boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-                boolean grantedAccessBackgroundLocation = (Build.VERSION.SDK_INT >= 29) && (ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED);
+                boolean grantedAccessBackgroundLocation = true;
+                if (Build.VERSION.SDK_INT >= 29)
+                    grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
                 if (permissions != null) {
                     if (preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false) &&
                             ((Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "0")) == EventPreferencesWifi.CTYPE_NEARBY) ||
@@ -1543,12 +1547,14 @@ class Permissions {
                     intent.putExtra(EXTRA_INTERACTIVE, false);
                     intent.putExtra(EXTRA_ACTIVATE_PROFILE, false);
 
-                    for (PermissionType permissionType : permissions) {
-                        if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
-                                permissionType.permission.equals(permission.ACCESS_FINE_LOCATION) ||
-                                permissionType.permission.equals(permission.ACCESS_BACKGROUND_LOCATION)) {
-                            intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
-                            break;
+                    if (Build.VERSION.SDK_INT >= 29) {
+                        for (PermissionType permissionType : permissions) {
+                            if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
+                                    permissionType.permission.equals(permission.ACCESS_FINE_LOCATION) ||
+                                    permissionType.permission.equals(permission.ACCESS_BACKGROUND_LOCATION)) {
+                                intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+                                break;
+                            }
                         }
                     }
 
@@ -1792,12 +1798,14 @@ class Permissions {
                         intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                     intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
 
-                    for (PermissionType permissionType : permissions) {
-                        if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
-                                permissionType.permission.equals(permission.ACCESS_FINE_LOCATION) ||
-                                permissionType.permission.equals(permission.ACCESS_BACKGROUND_LOCATION)) {
-                            intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
-                            break;
+                    if (Build.VERSION.SDK_INT >= 29) {
+                        for (PermissionType permissionType : permissions) {
+                            if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
+                                    permissionType.permission.equals(permission.ACCESS_FINE_LOCATION) ||
+                                    permissionType.permission.equals(permission.ACCESS_BACKGROUND_LOCATION)) {
+                                intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+                                break;
+                            }
                         }
                     }
 
