@@ -840,4 +840,7 @@ notification sound pre sim 2 -
 Takze ring tony bez root
 Notifikacne tony len s root
 
+SIM 1 -> Polaris
+SIM 2 -> Atomic Bell
+
 ----------------------------------
