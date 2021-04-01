@@ -685,6 +685,8 @@ class Permissions {
                 if (!grantedLocation) {
                     permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                    if (Build.VERSION.SDK_INT >= 29)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                 }
             }
         } catch (Exception ignored) {}
@@ -1152,13 +1154,15 @@ class Permissions {
 
     static boolean checkLocation(Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
-                    (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-                    ;
-            //} else
-            //    return hasPermission(context, permission.ACCESS_COARSE_LOCATION) &&
-            //            hasPermission(context, permission.ACCESS_FINE_LOCATION);
+            if (Build.VERSION.SDK_INT >= 29)
+                return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
+                        (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
+                        (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                        ;
+            else
+                return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
+                        (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                        ;
         } catch (Exception e) {
             return false;
         }
@@ -1181,6 +1185,7 @@ class Permissions {
                             (event._eventPreferencesTime._timeType != EventPreferencesTime.TIME_TYPE_EXACT))) {
                     boolean grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                    boolean grantedAccessBackgroundLocation = (Build.VERSION.SDK_INT >= 29) && (ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED);
                     if (permissions != null) {
                         if (event._eventPreferencesWifi._enabled &&
                                 ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
@@ -1191,6 +1196,8 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                         if (event._eventPreferencesBluetooth._enabled &&
@@ -1202,6 +1209,8 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                         if (event._eventPreferencesMobileCells._enabled) {
@@ -1211,6 +1220,8 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                         if (event._eventPreferencesTime._enabled &&
@@ -1221,6 +1232,8 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                         if (event._eventPreferencesLocation._enabled) {
@@ -1230,6 +1243,8 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
                     }
@@ -1249,6 +1264,7 @@ class Permissions {
                         (Integer.parseInt(preferences.getString(EventPreferencesTime.PREF_EVENT_TIME_TYPE, "0")) != EventPreferencesTime.TIME_TYPE_EXACT))) {
                 boolean grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                 boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                boolean grantedAccessBackgroundLocation = (Build.VERSION.SDK_INT >= 29) && (ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED);
                 if (permissions != null) {
                     if (preferences.getBoolean(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, false) &&
                             ((Integer.parseInt(preferences.getString(EventPreferencesWifi.PREF_EVENT_WIFI_CONNECTION_TYPE, "0")) == EventPreferencesWifi.CTYPE_NEARBY) ||
@@ -1259,6 +1275,8 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                            if (!grantedAccessBackgroundLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                         }
                     }
                     if (preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
@@ -1270,6 +1288,8 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                            if (!grantedAccessBackgroundLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                         }
                     }
                     if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
@@ -1279,6 +1299,8 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                            if (!grantedAccessBackgroundLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                         }
                     }
                     if (preferences.getBoolean(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, false) &&
@@ -1289,6 +1311,8 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                            if (!grantedAccessBackgroundLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                         }
                     }
                     if (preferences.getBoolean(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false)) {
@@ -1298,6 +1322,8 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
+                            if (!grantedAccessBackgroundLocation)
+                                permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                         }
                     }
                 }
@@ -1647,7 +1673,8 @@ class Permissions {
 
                     for (PermissionType permissionType : permissions) {
                         if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
-                                permissionType.permission.equals(permission.ACCESS_FINE_LOCATION)) {
+                                permissionType.permission.equals(permission.ACCESS_FINE_LOCATION) ||
+                                permissionType.permission.equals(permission.ACCESS_BACKGROUND_LOCATION)) {
                             intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
                             break;
                         }
@@ -1895,7 +1922,8 @@ class Permissions {
 
                     for (PermissionType permissionType : permissions) {
                         if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
-                                permissionType.permission.equals(permission.ACCESS_FINE_LOCATION)) {
+                                permissionType.permission.equals(permission.ACCESS_FINE_LOCATION) ||
+                                permissionType.permission.equals(permission.ACCESS_BACKGROUND_LOCATION)) {
                             intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
                             break;
                         }
@@ -1925,6 +1953,8 @@ class Permissions {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                    if (Build.VERSION.SDK_INT >= 29)
+                        permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -1960,6 +1990,8 @@ class Permissions {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                    if (Build.VERSION.SDK_INT >= 29)
+                        permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2118,6 +2150,8 @@ class Permissions {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
                 permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                 permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                if (Build.VERSION.SDK_INT >= 29)
+                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2152,6 +2186,8 @@ class Permissions {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                    if (Build.VERSION.SDK_INT >= 29)
+                        permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
                     if (Build.VERSION.SDK_INT >= 26)
                         permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.READ_PHONE_STATE));
 
@@ -2188,6 +2224,8 @@ class Permissions {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                    if (Build.VERSION.SDK_INT >= 29)
+                        permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2250,6 +2288,8 @@ class Permissions {
                     ArrayList<PermissionType> permissions = new ArrayList<>();
                     permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                     permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                    if (Build.VERSION.SDK_INT >= 29)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                     Intent intent = new Intent(context, GrantPermissionActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -119,7 +119,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         activateProfile = intent.getBooleanExtra(Permissions.EXTRA_ACTIVATE_PROFILE, true)/* && (profile_id != Profile.SHARED_PROFILE_ID)*/;
         grantAlsoContacts = intent.getBooleanExtra(Permissions.EXTRA_GRANT_ALSO_CONTACTS, true);
         //forceStartScanner = intent.getBooleanExtra(Permissions.EXTRA_FORCE_START_SCANNER, false);
-        grantAlsoBackgroundLocation = intent.getBooleanExtra(Permissions.EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+        grantAlsoBackgroundLocation = intent.getBooleanExtra(Permissions.EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, false);
 
         fromNotification = intent.getBooleanExtra(Permissions.EXTRA_FROM_NOTIFICATION, false);
 
@@ -284,6 +284,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         showRequestReadContacts = false;
         showRequestAccessCoarseLocation = false;
         showRequestAccessFineLocation = false;
+        showRequestAccessBackgroundLocation = false;
         showRequestCamera = false;
 
         if (permissions != null) {
@@ -330,12 +331,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     showRequestAccessCoarseLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
                     whyPermissionType[12][permissionType.type] = true;
                 }
-//                if (Build.VERSION.SDK_INT >= 29) {
-//                    if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
-//                        showRequestAccessBackgroundLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
-//                        whyPermissionType[14][permissionType.type] = true;
-//                    }
-//                }
+                if (Build.VERSION.SDK_INT >= 29) {
+                    if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
+                        showRequestAccessBackgroundLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+                        whyPermissionType[14][permissionType.type] = true;
+                    }
+                }
                 if (permissionType.permission.equals(Manifest.permission.CAMERA)) {
                     showRequestCamera = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
                     whyPermissionType[15][permissionType.type] = true;
@@ -480,7 +481,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
-            if (showRequestAccessCoarseLocation || showRequestAccessFineLocation/* || showRequestAccessBackgroundLocation*/) {
+            if (showRequestAccessCoarseLocation || showRequestAccessFineLocation || showRequestAccessBackgroundLocation) {
                 whyString = whyString + "<li>";
                 whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_location) + "</b>";
                 boolean[] permissionTypes = new boolean[100];
@@ -1327,11 +1328,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         if (permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)) {
                             granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
                         }
-//                        if (Build.VERSION.SDK_INT >= 29) {
-//                            if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
-//                                granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
-//                            }
-//                        }
+                        if (Build.VERSION.SDK_INT >= 29) {
+                            if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
+                                granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+                            }
+                        }
                     }
                 }
                 if (granted)
@@ -1655,8 +1656,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 for (Permissions.PermissionType permissionType : permissions) {
 
                     if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION) ||
-                        permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) /*||
-                        ((Build.VERSION.SDK_INT >= 29) && permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION))*/
+                        permissionType.permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION) ||
+                        ((Build.VERSION.SDK_INT >= 29) && permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION))
                     ) {
                         //PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart all scanners");
                         // for screenOn=true -> used only for geofence scanner - start scan with GPS On
