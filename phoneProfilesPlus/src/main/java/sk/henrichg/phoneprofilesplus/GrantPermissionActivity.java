@@ -407,6 +407,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = context.getString(R.string.permissions_for_export_app_data_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG)
                 showRequestString = context.getString(R.string.permissions_for_connect_to_ssid_dialog_text1) + "<br><br>";
+            else if (grantType == Permissions.GRANT_TYPE_BACKGROUND_LOCATION)
+                showRequestString = context.getString(R.string.permissions_for_background_location_text1) + "<br><br>";
             else
             if (grantType == Permissions.GRANT_TYPE_EVENT){
                     /*if (mergedNotification) {
@@ -493,6 +495,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
+            if (showRequestAccessBackgroundLocation) {
+                whyString = whyString + "<li>";
+                whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_background_location) + "</b>";
+                String whyPermissionString = getWhyPermissionString(whyPermissionType[14]);
+                //if (whyPermissionString != null)
+                    whyString = whyString + whyPermissionString;
+                whyString = whyString + "</li>";
+            }
             /*if (showRequestAccessNotificationPolicy) {
                 whyString = whyString + "<li>";
                 whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_access_notification_policy) + "</b>";
@@ -557,6 +567,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_export_app_data_text2);
             else if (grantType == Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_connect_to_ssid_dialog_text2);
+            else if (grantType == Permissions.GRANT_TYPE_BACKGROUND_LOCATION)
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_background_location_text2);
             else
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
 
@@ -769,6 +781,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_PROFILE_CAMERA_FLASH:
                         s = getString(R.string.permission_why_profile_camera_flash);
                         break;
+                    case Permissions.GRANT_TYPE_BACKGROUND_LOCATION:
+                        s = getString(R.string.permission_why_profile_background_location);
+                        break;
                 }
             }
         }
@@ -956,6 +971,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+//        PPApplication.logE("GrantPermissionActivity.onRequestPermissionsResult", "requestCode=" + requestCode);
+
         //noinspection SwitchStatementWithTooFewBranches
         switch (requestCode) {
             case PERMISSIONS_REQUEST_CODE: {
@@ -964,6 +982,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
                 boolean allGranted = true;
                 for (int grantResult : grantResults) {
+//                    PPApplication.logE("GrantPermissionActivity.onRequestPermissionsResult", "grantResult=" + grantResult);
                     if (grantResult == PackageManager.PERMISSION_DENIED) {
                         allGranted = false;
                         //forceGrant = false;
@@ -1466,12 +1485,16 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     (!permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) &&
                     (!permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) &&
                     (!permList.contains(permissionType.permission))) {
+//                    PPApplication.logE("GrantPermissionActivity.requestPermissions", "permissionType.permission=" + permissionType.permission);
+
                     //if (ContextCompat.checkSelfPermission(getApplicationContext(), permissionType.permission) != PackageManager.PERMISSION_GRANTED)
                         permList.add(permissionType.permission);
                 }
             }
 
-            //PPApplication.logE("GrantPermissionActivity.requestPermissions", "permList.size=" + permList.size());
+//            PPApplication.logE("GrantPermissionActivity.requestPermissions", "permList.size=" + permList.size());
+//            PPApplication.logE("GrantPermissionActivity.requestPermissions", "withRationale=" + withRationale);
+//            PPApplication.logE("GrantPermissionActivity.requestPermissions", "rationaleAlreadyShown=" + rationaleAlreadyShown);
             if (permList.size() > 0) {
                 if (!withRationale && rationaleAlreadyShown) {
                     Permissions.saveAllPermissions(getApplicationContext(), false);
@@ -1488,7 +1511,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 }
                 else {
                     String[] permArray = new String[permList.size()];
-                    for (int i = 0; i < permList.size(); i++) permArray[i] = permList.get(i);
+                    for (int i = 0; i < permList.size(); i++) {
+                        permArray[i] = permList.get(i);
+//                        PPApplication.logE("GrantPermissionActivity.requestPermissions", "permList.get(i)=" + permList.get(i));
+                    }
 
                     ActivityCompat.requestPermissions(this, permArray, PERMISSIONS_REQUEST_CODE);
                 }
@@ -1541,6 +1567,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
     @SuppressLint("StaticFieldLeak")
     private void finishGrant() {
         final Context context = getApplicationContext();
+
+        if ((Build.VERSION.SDK_INT >= 30) && (grantAlsoBackgroundLocation)) {
+            Permissions.grantBackgroundLocation(context, this);
+        }
 
         PPApplication.registerContentObservers(context);
         PPApplication.registerCallbacks(context);
@@ -1720,6 +1750,17 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }*/
         else
         if (grantType == Permissions.GRANT_TYPE_CONNECT_TO_SSID_DIALOG) {
+            setResult(Activity.RESULT_OK);
+            finish();
+            /*if (Permissions.contactsMultiSelectDialogPreference != null)
+                Permissions.contactsMultiSelectDialogPreference.refreshListView(true);*/
+            /*if (Permissions.contactGroupsMultiSelectDialogPreference != null)
+                Permissions.contactGroupsMultiSelectDialogPreference.refreshListView(true);*/
+            //dataWrapper.restartEvents(false, true/*, false*/, false);
+            //dataWrapper.restartEventsWithDelay(5, false, /*false,*/ DataWrapper.ALTYPE_UNDEFINED);
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_BACKGROUND_LOCATION) {
             setResult(Activity.RESULT_OK);
             finish();
             /*if (Permissions.contactsMultiSelectDialogPreference != null)

@@ -90,9 +90,9 @@ public class DefaultSIMDialogPreferenceX extends DialogPreference {
 
     String getSValue() {
         //int _value = value + minimumValue;
-        PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceX.getSValue", "voiceValue="+voiceValue);
-        PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceX.getSValue", "smsValue="+smsValue);
-        PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceX.getSValue", "dataValue="+dataValue);
+//        PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceX.getSValue", "voiceValue="+voiceValue);
+//        PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceX.getSValue", "smsValue="+smsValue);
+//        PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceX.getSValue", "dataValue="+dataValue);
         return voiceValue + "|" + smsValue + "|" + dataValue;
     }
 

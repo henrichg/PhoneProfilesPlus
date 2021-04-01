@@ -6242,7 +6242,7 @@ public class PhoneProfilesService extends Service
                 if (!doNotShowProfileNotification) {
                     if (PhoneProfilesService.getInstance() != null) {
                         if (PhoneProfilesService.getInstance() != null) {
-                            PPApplication.logE("PhoneProfilesService.drawProfileNotification", "call of _showProfileNotification()");
+//                            PPApplication.logE("PhoneProfilesService.drawProfileNotification", "call of _showProfileNotification()");
 
                             boolean clear = false;
                             if (Build.MANUFACTURER.equals("HMD Global"))

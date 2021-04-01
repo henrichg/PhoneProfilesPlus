@@ -1751,7 +1751,7 @@ public class PPApplication extends Application
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-                    PPApplication.logE("PPApplication.updateGUI", "call of forceUpdateGUI");
+//                    PPApplication.logE("PPApplication.updateGUI", "call of forceUpdateGUI");
                     PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
 
 //                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.updateGUI");
