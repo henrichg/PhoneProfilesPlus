@@ -1633,6 +1633,12 @@
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Použít tentýž</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Oddělovat</string>
     <string name="profile_preferences_deviceDualSIMSupport_summary">Experimentální. Nemusí fungovat ve vašem zařízení.</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Typ povolení Poloha</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus běží na pozadí. Kvůli tomu, pokud povolíte právo Poloha, vyžadován je typ \"Povolit vždy\".</string>
+    <string name="permission_why_profile_background_location">pro získání polohy na pozadí</string>
+    <string name="permissions_for_background_location_text1">Poloha z pozadí je vyžadována.</string>
+    <string name="permissions_for_background_location_text2">Prosím, povolte je v následujícím dialogovém okně. PhoneProfilesPlus běží na pozadí a kvůli tomu je toto povolení vyžadováno.</string>
+    <string name="permission_group_name_background_location">Poloha z pozadí</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

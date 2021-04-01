@@ -1633,6 +1633,12 @@
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Use the same</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Separate</string>
     <string name="profile_preferences_deviceDualSIMSupport_summary">Experimental. It may not work on your device.</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Konum izni çeşidi</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus arka planda çalışıyor. Bu sebeple, Konum izni verirseniz, \"Her zaman\" tercihini seçmeniz gerekir.</string>
+    <string name="permission_why_profile_background_location">arka plandan konumu almak için</string>
+    <string name="permissions_for_background_location_text1">Arkaplan konumu lazım.</string>
+    <string name="permissions_for_background_location_text2">Please grant them in next dialog. PhoneProfilesPlus is running in background and for this reason is this permission required.</string>
+    <string name="permission_group_name_background_location">Background location</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

@@ -371,20 +371,20 @@
     <string name="permissions_for_profile_text1">Aktivácia profilu</string>
     <string name="permissions_for_profile_text1m">Niektoré profily</string>
     <string name="permissions_for_profile_text2">vyžaduje nasledujúce povolenia:</string>
-    <string name="permissions_for_profile_text3">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa aktivuje profil.</string>
+    <string name="permissions_for_profile_text3">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom sa aktivuje profil.</string>
     <string name="permissions_for_profile_text_notification">Vyžaduje sa udelenie povolení</string>
     <string name="permissions_for_profile_big_text_notification">vyžaduje udelenie niektorých povolení.</string>
     <string name="permissions_notification_text">Vyžaduje sa udelenie povolení</string>
     <string name="toast_permissions_granted">Povolenia sú už udelené</string>
     <string name="toast_permissions_not_granted">Povolenia nie sú udelené</string>
     <string name="permissions_for_wallpaper_text1">Zmena tapety vyžaduje niektoré povolenia.</string>
-    <string name="permissions_for_wallpaper_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom si môžete vybrať tapetu z galérie.</string>
+    <string name="permissions_for_wallpaper_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom si môžete vybrať tapetu z galérie.</string>
     <string name="permissions_for_custom_profile_icon_text1">Výber vlastnej ikony profilu vyžaduje niektoré povolenia.</string>
-    <string name="permissions_for_custom_profile_icon_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom si môžete vybrať ikonu z galérie.</string>
+    <string name="permissions_for_custom_profile_icon_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom si môžete vybrať ikonu z galérie.</string>
     <string name="permissions_for_export_app_data_text1">Zálohovanie nastavenia aplikácie vyžaduje niektoré povolenia.</string>
-    <string name="permissions_for_export_app_data_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Nastavenia potom budú zálohované.</string>
+    <string name="permissions_for_export_app_data_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Nastavenia potom budú zálohované.</string>
     <string name="permissions_for_import_app_data_text1">Obnovenie nastavení aplikácie vyžaduje niektoré povolenia.</string>
-    <string name="permissions_for_import_app_data_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Nastavenia sa potom obnovia.</string>
+    <string name="permissions_for_import_app_data_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Nastavenia sa potom obnovia.</string>
     <string name="permissions_write_settings_not_allowed_confirm">Nepovolili ste \"Úprava nastavení systému\". Nabudúce sa už nepýtať?</string>
     <string name="phone_profiles_pref_category_permissions">Povolenia</string>
     <string name="phone_profiles_pref_writeSystemSettingPermissions">Úprava nastavení systému</string>
@@ -393,18 +393,18 @@
     <string name="phone_profiles_pref_applicationPermissions_summary">Prosím udeľte povolenia v časti \"Povolenia\".</string>
     <string name="permissions_for_event_text1">Udalosť</string>
     <string name="permissions_for_event_text2">vyžaduje nasledujúce povolenia:</string>
-    <string name="permissions_for_event_text3">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa reštartujú udalosti.</string>
+    <string name="permissions_for_event_text3">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom sa reštartujú udalosti.</string>
     <string name="permissions_for_event_text_notification">Vyžaduje sa povolenie</string>
     <string name="permissions_for_event_big_text_notification">vyžaduje udelenie niektorých povolení.</string>
     <string name="permission_group_name_calendar">Kalendár</string>
     <string name="permission_group_name_contacts">Kontakty</string>
     <string name="permission_group_name_location">Poloha</string>
     <string name="permissions_for_wifi_bt_scan_dialog_text1">Wi-Fi/Bluetooth skenovanie vyžaduje niektoré povolenia.</string>
-    <string name="permissions_for_wifi_bt_scan_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa znova vykoná skenovanie.</string>
+    <string name="permissions_for_wifi_bt_scan_dialog_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom sa znova vykoná skenovanie.</string>
     <string name="permissions_for_calendar_dialog_text1">Prístup k zozname kalendárov vyžaduje niektoré povolenia.</string>
-    <string name="permissions_for_calendar_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa zobrazí zoznam kalendárov.</string>
+    <string name="permissions_for_calendar_dialog_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom sa zobrazí zoznam kalendárov.</string>
     <string name="permissions_for_contacts_dialog_text1">Prístup k zozname kontaktov vyžaduje niektoré povolenia.</string>
-    <string name="permissions_for_contacts_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa zobrazí zoznam kontaktov.</string>
+    <string name="permissions_for_contacts_dialog_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom sa zobrazí zoznam kontaktov.</string>
     <string name="phone_profiles_pref_applicationEventWifiScanInPowerSaveMode">Wi-Fi skenovanie v režime Šetrič batérie</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanInPowerSaveMode">Bluetooth skenovanie v režime Šetrič batérie</string>
     <string name="array_pref_scanInPowerSaveMode_1xInterval">1x interval</string>
@@ -462,7 +462,7 @@
     <string name="event_preferences_locations_cant_delete_location_text">Nie je možné vymazať, poloha je použitá v nejakou udalosťou.</string>
     <string name="location_editor_title">Editor polohy</string>
     <string name="permissions_for_location_geofence_editor_activity_text1">Poloha vyžaduje nejaké povolenia.</string>
-    <string name="permissions_for_location_geofence_editor_activity_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom zisťovanie zmeny polohy bude fungovať.</string>
+    <string name="permissions_for_location_geofence_editor_activity_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom zisťovanie zmeny polohy bude fungovať.</string>
     <string name="event_preferences_location_new_location_name">Poloha</string>
     <string name="event_preferences_location_no_address_found">Nenašla sa adresa</string>
     <string name="event_preferences_location_radius">Polomer:</string>
@@ -489,7 +489,7 @@
     <string name="altype_startedLogging">Záznam spustený</string>
     <string name="event_pref_dialog_help">(*) Profil sa nenašiel</string>
     <string name="permissions_for_brightness_dialog_text1">Nastavenie jasu vyžaduje niektoré povolenia.</string>
-    <string name="permissions_for_brightness_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách.</string>
+    <string name="permissions_for_brightness_dialog_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne.</string>
     <string name="event_preferences_category_sensors">Parametre senzorov</string>
     <string name="altype_eventEndDelay">koniec udalosti s pozdržaním</string>
     <string name="info_notification_event_states_running_delay">Beží s pozdržaním: udalosť je spustená, ale parametre už nie sú splnené. Udalosť čaká v pozdržaní.</string>
@@ -530,7 +530,7 @@
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Nastav parametre skenovania orientácie v nastaveniach aplikácie.</string>
     <string name="profile_preferences_vibrateWhenRinging">Vibrovať pri zvonení</string>
     <string name="permissions_for_play_ringtone_notification_text1">Máte nastavený tón zvonenia/notifikácie z SD karty. Tón nebude prehratý, pretože to vyžaduje niektoré povolenia.</string>
-    <string name="permissions_for_play_ringtone_notification_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom tón bude prehrávaný.</string>
+    <string name="permissions_for_play_ringtone_notification_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom tón bude prehrávaný.</string>
     <string name="permissions_for_play_ringtone_notification_big_text_notification">Prehrávanie nastaveného tónu zvonenia/notifikácie vyžaduje udelenie niektorých povolení.</string>
     <string name="important_info_profile_interactive">Niektoré parametre profilu sú interaktívne. Tieto parametre zobrazujú obrazovku nastavenia systému. Tieto parametre sú označené \"(I)\".</string>
     <string name="important_info_orange_text">Poznámka: oranžový text v týchto informáciach je klikateľný. Kliknutím na tento text otvára príslušné obrazovky nastavení.</string>
@@ -1335,7 +1335,7 @@
     <string name="event_preferences_red_texts_in_header">Niektoré udalosti majú chyby vo svojich parametroch. Tieto udalosti sú označené červenou farbou. Prosím opravte ich.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">pre pripojenie ku SSID</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">Pripojenie ku SSID vyžaduje nejaké povolenia.</string>
-    <string name="permissions_for_connect_to_ssid_dialog_text2">Prosím, povoľte ich v nasledujúcich dialógových oknách. Potom sa zobrazí zoznam SSID.</string>
+    <string name="permissions_for_connect_to_ssid_dialog_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom sa zobrazí zoznam SSID.</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Skryť hlavičku alebo spodnú lištu</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Povolí schovávanie hlavičky alebo spodnej lišty počas posúvania zoznamu</string>
     <string name="preferences_durationInfo_summary">Parametre označené symbolom [M] sa používajú iba vtedy, keď je tento profil aktivovaný manuálne. Aktivácia z udalosti tieto parametre ignoruje.</string>
@@ -1633,6 +1633,12 @@
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Použiť ten istý</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Oddeľovať</string>
     <string name="profile_preferences_deviceDualSIMSupport_summary">Experimentálne. Nemusí fungovať vo vašom zariadení.</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Typ povolenia Poloha</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus beží na pozadí. Kvôli tomu, ak povolíte právo Poloha, vyžadovaný je typ \"Povoliť vždy\".</string>
+    <string name="permission_why_profile_background_location">pre získanie polohy na pozadí</string>
+    <string name="permissions_for_background_location_text1">Poloha z pozadia je vyžadovaná.</string>
+    <string name="permissions_for_background_location_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. PhoneProfilesPlus beží na pozadí a kvôli tomu je toto povolenie vyžadované.</string>
+    <string name="permission_group_name_background_location">Poloha z pozadia</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

@@ -1636,6 +1636,12 @@
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Use the same</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Separate</string>
     <string name="profile_preferences_deviceDualSIMSupport_summary">Experimental. It may not work on your device.</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Location permission type</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus is running in background. For this reason, if you grant Location permission, required is type \"All the time\".</string>
+    <string name="permission_why_profile_background_location">for get location from background</string>
+    <string name="permissions_for_background_location_text1">Background location is required.</string>
+    <string name="permissions_for_background_location_text2">Please grant them in next dialog. PhoneProfilesPlus is running in background and for this reason is this permission required.</string>
+    <string name="permission_group_name_background_location">Background location</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

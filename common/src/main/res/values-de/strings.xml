@@ -78,7 +78,7 @@
     <string name="array_pref_screenTimeoutArray_10minutes">10 Minuten</string>
     <string name="phone_profiles_pref_applicationStartOnBoot">Beim Hochfahren starten</string>
     <string name="profile_preferences_device_not_allowed">Nicht erlaubt</string>
-    <string name="menu_export">Backup Einstellungen</string>
+    <string name="menu_export">Sicherungseinstellungen</string>
     <string name="menu_import">Einstellungen wiederherstellen</string>
     <string name="toast_export_ok">Einstellungen exportiert</string>
     <string name="toast_import_ok">Einstellungen wiederhergestellt</string>
@@ -1617,7 +1617,7 @@
     <string name="profile_preferences_deviceOnOff_SIM2">Zu SIM 2 wechseln (Ein/Aus)</string>
     <string name="ringtone_pref_dlg_system_tone">Systemtöne</string>
     <string name="ringtone_pref_dlg_extenal_tone">Externe Töne</string>
-    <string name="acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
+    <string name="acra_notification_text">Bitte klicken Sie hier, um den Absturzbericht an den Autor zu senden. Vielen Dank.</string>
     <string name="profile_preferences_soundRingtoneChangeSIM1">Klingelton für SIM 1 ändern</string>
     <string name="profile_preferences_soundRingtoneSIM1">Klingelton für SIM 1</string>
     <string name="profile_preferences_soundRingtoneChangeSIM2">Klingelton für SIM 2 ändern</string>
@@ -1631,8 +1631,14 @@
     <string name="preference_not_allowed_reason_not_supported_by_ppp">wird nicht von PhoneProfilesPlus unterstützt</string>
     <string name="profile_preferences_soundSameRingtoneForBothSIMCards">Identischen Klingelton für beide SIM-Karten verwenden</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Identischen verwenden</string>
-    <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Separate</string>
-    <string name="profile_preferences_deviceDualSIMSupport_summary">Experimental. It may not work on your device.</string>
+    <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Unterschiedliche</string>
+    <string name="profile_preferences_deviceDualSIMSupport_summary">Experimentell. Dies funktioniert möglicherweise nicht auf Ihrem Gerät.</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Location permission type</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus is running in background. For this reason, if you grant Location permission, required is type \"All the time\".</string>
+    <string name="permission_why_profile_background_location">for get location from background</string>
+    <string name="permissions_for_background_location_text1">Background location is required.</string>
+    <string name="permissions_for_background_location_text2">Please grant them in next dialog. PhoneProfilesPlus is running in background and for this reason is this permission required.</string>
+    <string name="permission_group_name_background_location">Background location</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

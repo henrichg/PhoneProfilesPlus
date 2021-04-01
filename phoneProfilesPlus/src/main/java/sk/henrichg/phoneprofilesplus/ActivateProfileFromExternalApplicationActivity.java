@@ -22,7 +22,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-        //Log.e("ActivateProfileFromExternalApplicationActivity.onCreate", "xxx");
+//        PPApplication.logE("ActivateProfileFromExternalApplicationActivity.onCreate", "xxx");
 
         Intent intent = getIntent();
         profileName = intent.getStringExtra(ActivateProfileFromExternalApplicationActivity.EXTRA_PROFILE_NAME);
@@ -54,7 +54,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
 
         boolean serviceStarted = PhoneProfilesService.isServiceRunning(getApplicationContext(), PhoneProfilesService.class, false);
         if (!serviceStarted) {
-            //Log.e("ActivateProfileFromExternalApplicationActivity.onStart", "application not started");
+//            PPApplication.logE("ActivateProfileFromExternalApplicationActivity.onStart", "application not started");
 
             PPApplication.setApplicationStarted(getApplicationContext(), true);
             Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
@@ -78,7 +78,7 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             return;
         }
 
-        //Log.e("ActivateProfileFromExternalApplicationActivity.onStart", "application started");
+//        PPApplication.logE("ActivateProfileFromExternalApplicationActivity.onStart", "application started");
 
         PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION,
                 null, profileName, null, 0, "");
@@ -87,11 +87,11 @@ public class ActivateProfileFromExternalApplicationActivity extends AppCompatAct
             Profile profile = dataWrapper.getProfileById(profile_id, false, false, false);
             if (profile != null) {
 
-                //Log.e("ActivateProfileFromExternalApplicationActivity.onCreate", "profile=" + profile._name);
+//                PPApplication.logE("ActivateProfileFromExternalApplicationActivity.onCreate", "profile=" + profile._name);
                 //if (Permissions.grantProfilePermissions(getApplicationContext(), profile, false, true,
                 //        /*false, false, 0,*/ PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, true, false)) {
                 if (!PhoneProfilesService.displayPreferencesErrorNotification(profile, null, getApplicationContext())) {
-                    //PPApplication.logE("&&&&&&& ActivateProfileFromExternalApplicationActivity.onStart", "called is DataWrapper.activateProfileFromMainThread");
+//                    PPApplication.logE("&&&&&&& ActivateProfileFromExternalApplicationActivity.onStart", "called is DataWrapper.activateProfileFromMainThread");
                     dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this, false);
                 } else
                     dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_EXTERNAL_APP, false, this);
