@@ -4175,6 +4175,33 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
                                             ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
+
+                                if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1)) {
+                                    preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1);
+                                    if (preference != null) {
+                                        if (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
+                                            preference.setEnabled(false);
+                                        else
+                                            errorColor = !value.toString().equals("0");
+                                        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                                            preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                                    ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                                        GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
+                                    }
+                                }
+                                if (key.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2)) {
+                                    preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2);
+                                    if (preference != null) {
+                                        if (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
+                                            preference.setEnabled(false);
+                                        else
+                                            errorColor = !value.toString().equals("0");
+                                        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                                            preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                                    ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                                        GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
+                                    }
+                                }
                             }
                         } else {
                             String sValue = value.toString();
@@ -4253,6 +4280,34 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
                                             ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
+
+                                if (key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1)) {
+                                    preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1);
+                                    if (preference != null) {
+                                        if (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
+                                            preference.setEnabled(false);
+                                        else
+                                            errorColor = !value.toString().equals("0");
+                                        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                                            preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                                    ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                                        GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
+                                    }
+                                }
+                                if (key.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)) {
+                                    preference = prefMng.findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
+                                    if (preference != null) {
+                                        if (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
+                                            preference.setEnabled(false);
+                                        else
+                                            errorColor = !value.toString().equals("0");
+                                        if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                                            preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                                    ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                                        GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
+                                    }
+                                }
+
                             }
                         } else {
                             String sValue = value.toString();
