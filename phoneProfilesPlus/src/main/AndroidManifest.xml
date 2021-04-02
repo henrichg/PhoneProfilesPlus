@@ -115,10 +115,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:resizeableActivity="true"
-        android:largeHeap="true"
         android:allowBackup="false"
         android:persistent="true"
         tools:ignore="UnusedAttribute" >
+
+<!--        android:largeHeap="true"-->
 
         <!-- keep application persistent
         android:persistent="true"  -->

@@ -727,7 +727,7 @@ public class MainWorker extends Worker {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart_1");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -815,7 +815,7 @@ public class MainWorker extends Worker {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart_2");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
