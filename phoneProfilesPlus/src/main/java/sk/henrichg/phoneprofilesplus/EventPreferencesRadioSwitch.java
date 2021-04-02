@@ -229,13 +229,62 @@ class EventPreferencesRadioSwitch extends EventPreferences {
             key.equals(PREF_EVENT_RADIO_SWITCH_NFC) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
-            if (listPreference != null) {
-                int index = listPreference.findIndexOfValue(value);
-                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                listPreference.setSummary(summary);
+            boolean hasHardware = true;
+            if (key.equals(PREF_EVENT_RADIO_SWITCH_WIFI) && (!PPApplication.HAS_FEATURE_WIFI)) {
+                Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
+                if (preference != null) {
+                    PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                    preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                }
+                hasHardware = false;
+            }
+            if (key.equals(PREF_EVENT_RADIO_SWITCH_BLUETOOTH) && (!PPApplication.HAS_FEATURE_BLUETOOTH)) {
+                Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_BLUETOOTH);
+                if (preference != null) {
+                    PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                    preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                }
+                hasHardware = false;
+            }
+            if (key.equals(PREF_EVENT_RADIO_SWITCH_GPS) && (!PPApplication.HAS_FEATURE_LOCATION_GPS)) {
+                Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
+                if (preference != null) {
+                    PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                    preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                }
+                hasHardware = false;
+            }
+            if (key.equals(PREF_EVENT_RADIO_SWITCH_NFC) && (!PPApplication.HAS_FEATURE_NFC)) {
+                Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_NFC);
+                if (preference != null) {
+                    PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                    preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                }
+                hasHardware = false;
+            }
+            if (hasHardware) {
+                ListPreference listPreference = prefMng.findPreference(key);
+                if (listPreference != null) {
+                    int index = listPreference.findIndexOfValue(value);
+                    CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                    listPreference.setSummary(summary);
+                }
             }
         }
+        boolean hasFeature = false;
+        boolean hasSIMCard = false;
         if (Build.VERSION.SDK_INT >= 26) {
             if (key.equals(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1) ||
                     key.equals(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2))
@@ -244,12 +293,51 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
+                        hasFeature = true;
+                        hasSIMCard = PhoneProfilesService.hasSIMCard(context, 1, false) &&
+                                     PhoneProfilesService.hasSIMCard(context, 2, false);
                         ListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
                             int index = listPreference.findIndexOfValue(value);
                             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                             listPreference.setSummary(summary);
                         }
+                    }
+                }
+                if (!hasFeature) {
+                    Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1);
+                    if (preference != null) {
+                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    }
+                    preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2);
+                    if (preference != null) {
+                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    }
+                }
+                else if (!hasSIMCard) {
+                    Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1);
+                    if (preference != null) {
+                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    }
+                    preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2);
+                    if (preference != null) {
+                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     }
                 }
             }
@@ -262,11 +350,15 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         boolean enabled = preferences.getBoolean(PREF_EVENT_RADIO_SWITCH_ENABLED, false);
         ListPreference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
         if (preference != null) {
+            if (!PPApplication.HAS_FEATURE_WIFI)
+                enabled = false;
             int index = preference.findIndexOfValue(preference.getValue());
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_BLUETOOTH);
         if (preference != null) {
+            if (!PPApplication.HAS_FEATURE_BLUETOOTH)
+                enabled = false;
             int index = preference.findIndexOfValue(preference.getValue());
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, true, !isRunnable, false);
         }
@@ -282,11 +374,15 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (phoneCount > 1) {
                     preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1);
                     if (preference != null) {
+                        if (!(hasFeature && hasSIMCard))
+                            enabled = false;
                         int index = preference.findIndexOfValue(preference.getValue());
                         GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, true, !isRunnable, false);
                     }
                     preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2);
                     if (preference != null) {
+                        if (!(hasFeature && hasSIMCard))
+                            enabled = false;
                         int index = preference.findIndexOfValue(preference.getValue());
                         GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, true, !isRunnable, false);
                     }
@@ -295,11 +391,15 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         }
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
         if (preference != null) {
+            if (!PPApplication.HAS_FEATURE_LOCATION_GPS)
+                enabled = false;
             int index = preference.findIndexOfValue(preference.getValue());
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, true, !isRunnable, false);
         }
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_NFC);
         if (preference != null) {
+            if (!PPApplication.HAS_FEATURE_NFC)
+                enabled = false;
             int index = preference.findIndexOfValue(preference.getValue());
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, true, !isRunnable, false);
         }
@@ -430,10 +530,10 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
         Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_WIFI);
         if (preference != null)
-            preference.setEnabled(enabled);
+            preference.setEnabled(enabled && PPApplication.HAS_FEATURE_WIFI);
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_BLUETOOTH);
         if (preference != null)
-            preference.setEnabled(enabled);
+            preference.setEnabled(enabled && PPApplication.HAS_FEATURE_BLUETOOTH);
 
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
         if (preference != null)
@@ -447,10 +547,18 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     showPreferences = true;
                     preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1);
                     if (preference != null)
-                        preference.setEnabled(enabled);
+                        preference.setEnabled(enabled && PhoneProfilesService.hasSIMCard(context, 1, false));
                     preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2);
                     if (preference != null)
-                        preference.setEnabled(enabled);
+                        preference.setEnabled(enabled && PhoneProfilesService.hasSIMCard(context, 1, false));
+                }
+                else {
+                    preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1);
+                    if (preference != null)
+                        preference.setEnabled(false);
+                    preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2);
+                    if (preference != null)
+                        preference.setEnabled(false);
                 }
             }
             if (!showPreferences) {
@@ -468,10 +576,10 @@ class EventPreferencesRadioSwitch extends EventPreferences {
 
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
         if (preference != null)
-            preference.setEnabled(enabled);
+            preference.setEnabled(enabled && PPApplication.HAS_FEATURE_LOCATION_GPS);
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_NFC);
         if (preference != null)
-            preference.setEnabled(enabled);
+            preference.setEnabled(enabled && PPApplication.HAS_FEATURE_NFC);
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE);
         if (preference != null)
             preference.setEnabled(enabled);
