@@ -4831,7 +4831,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 //                }
 
                 // not enabled G1 preferences
-                Preference preference = prefMng.findPreference(PRF_GRANT_G1_PREFERENCES);
+/*                Preference preference = prefMng.findPreference(PRF_GRANT_G1_PREFERENCES);
                 if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 //                    if (profile._name.equals("Low battery"))
 //                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference="+preference);
@@ -4849,12 +4849,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preferenceCategory.removePreference(preference);
                     }
                 }
-                else {
+                else {*/
                     if (!preferenceAllowed.notAllowedG1) {
 //                        if (profile._name.equals("Low battery")) {
 //                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 permission granted");
 //                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference=" + preference);
 //                        }
+                        Preference preference = prefMng.findPreference(PRF_GRANT_G1_PREFERENCES);
                         if (preference != null) {
                             PreferenceScreen preferenceCategory = findPreference(rootScreen);
 //                            if (profile._name.equals("Low battery"))
@@ -4868,6 +4869,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) {
 //                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 permission not granted");
 //                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference="+preference);
+                        Preference preference = prefMng.findPreference(PRF_GRANT_G1_PREFERENCES);
                         if (preference == null) {
                             PreferenceScreen preferenceCategory = findPreference(rootScreen);
 //                            if (profile._name.equals("Low battery"))
@@ -4912,7 +4914,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     //if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (!preferenceAllowed.notAllowedRoot) {
 //                    PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "root granted");
-                        preference = prefMng.findPreference(PRF_GRANT_ROOT);
+                        Preference preference = prefMng.findPreference(PRF_GRANT_ROOT);
                         if (preference != null) {
                             PreferenceScreen preferenceCategory = findPreference(rootScreen);
                             if (preferenceCategory != null)
@@ -4923,7 +4925,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         //if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED)) {
                         if (!ApplicationPreferences.applicationNeverAskForGrantRoot) {
 //                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "grant root enabled");
-                            preference = prefMng.findPreference(PRF_GRANT_ROOT);
+                            Preference preference = prefMng.findPreference(PRF_GRANT_ROOT);
                             if (preference == null) {
                                 PreferenceScreen preferenceCategory = findPreference(rootScreen);
                                 if (preferenceCategory != null) {
@@ -4954,12 +4956,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             }
                         }
                     }
-                }
+                //}
 
                 // not some permissions
                 if (Permissions.checkProfilePermissions(context, profile).size() == 0) {
 //                        PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "profile permisions=all granted");
-                    preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                    Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = prefMng.findPreference(rootScreen);
                         if (preferenceCategory != null)
@@ -4968,7 +4970,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 } else {
 //                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "app. permissions not granted");
                     //PPApplication.logE("ProfilesPrefsFragment.setRedTextToPreferences", "profile._id="+profile._id);
-                    preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
+                    Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
                     if (preference == null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
                         if (preferenceCategory != null) {
@@ -5007,7 +5009,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 // not enabled notification access
                 if (/*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context)) {
-                    preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_ENABLED);
+                    Preference preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_ENABLED);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
                         if (preferenceCategory != null)
@@ -5015,7 +5017,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 } else {
 //                    PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "notification access not granted");
-                    preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_ENABLED);
+                    Preference preference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS_ENABLED);
                     if (preference == null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
                         if (preferenceCategory != null) {
@@ -5059,7 +5061,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 // not enabled accessibility service
                 int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context.getApplicationContext());
-                preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
+                Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                 if (accessibilityEnabled == 1) {
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
