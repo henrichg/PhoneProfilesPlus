@@ -206,7 +206,6 @@ public class EditorEventListFragment extends Fragment
             showTargetHelps();
     }
 
-    @SuppressWarnings("ConstantConditions")
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
@@ -226,6 +225,7 @@ public class EditorEventListFragment extends Fragment
         activatedProfileHeader = view.findViewById(R.id.activated_profile_header);
         bottomToolbar = view.findViewById(R.id.editor_list_bottom_bar);
 
+        //noinspection ConstantConditions
         if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
             /*if (activatedProfileHeader != null) {
                 Handler handler = new Handler(getActivity().getMainLooper());

@@ -173,7 +173,6 @@ public class EditorProfileListFragment extends Fragment
             showTargetHelps();
     }
 
-    @SuppressWarnings("ConstantConditions")
     @SuppressLint("InflateParams")
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
@@ -193,6 +192,7 @@ public class EditorProfileListFragment extends Fragment
         activatedProfileHeader = view.findViewById(R.id.activated_profile_header);
         bottomToolbar = view.findViewById(R.id.editor_list_bottom_bar);
 
+        //noinspection ConstantConditions
         if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
             /*if (activatedProfileHeader != null) {
                 Handler handler = new Handler(getActivity().getMainLooper());
