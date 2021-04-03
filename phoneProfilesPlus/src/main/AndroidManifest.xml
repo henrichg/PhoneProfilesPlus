@@ -43,7 +43,6 @@
     <uses-permission android:name="android.permission.NFC"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- <uses-permission android:name="android.permission.USE_SIP"/> -->
-    <uses-permission android:name="com.android.vending.BILLING"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.INTERNET" />
