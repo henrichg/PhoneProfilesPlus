@@ -4754,10 +4754,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }*/
         // test only root or G1 parameters, because key is not set but profile is
         PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, true, context);
-//        if ((profile != null) && (profile._name.equals("Low battery")))
-//            Log.e("ProfilesPrefsFragment.isRedTextNotificationRequired", "preferenceAllowed.notAllowedRoot="+preferenceAllowed.notAllowedRoot);
-//        if ((profile != null) && (profile._name.equals("Low battery")))
-//            Log.e("ProfilesPrefsFragment.isRedTextNotificationRequired", "preferenceAllowed.notAllowedG1="+preferenceAllowed.notAllowedG1);
+//        if ((profile != null) && (profile._name.equals("Low battery"))) {
+//            PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.isRedTextNotificationRequired", "preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
+//            PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.isRedTextNotificationRequired", "preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
+//        }
         boolean grantedRoot = true;
         //if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
         if (preferenceAllowed.notAllowedRoot) {
@@ -4771,14 +4771,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
                 grantedG1Permission = false;
         }
-//        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.isRedTextNotificationRequired", "------- grantedRoot="+grantedRoot);
-//        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.isRedTextNotificationRequired", "------- grantedG1Permission="+grantedG1Permission);
+//        if ((profile != null) && (profile._name.equals("Low battery"))) {
+//            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.isRedTextNotificationRequired", "------- grantedRoot=" + grantedRoot);
+//            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.isRedTextNotificationRequired", "------- grantedG1Permission=" + grantedG1Permission);
+//        }
 
         boolean enabledNotificationAccess = /*(profile._volumeRingerMode == 0) ||*/ ActivateProfileHelper.canChangeZenMode(context);
         boolean accessibilityNotRequired = true;
         if ((profile != null) && ((profile._lockDevice == 3) || (profile._deviceForceStopApplicationChange != 0)))
             accessibilityNotRequired = false;
         boolean accessibilityEnabled = accessibilityNotRequired || (profile.isAccessibilityServiceEnabled(context.getApplicationContext()) == 1);
+
+//        if ((profile != null) && (profile._name.equals("Low battery"))) {
+//            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.isRedTextNotificationRequired", "------- preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//        }
 
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
             return (!grantedAllPermissions) || (!enabledNotificationAccess) || (!accessibilityEnabled);
@@ -4817,18 +4823,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 // test only root or G1 parameters, because key is not set but profile is
                 PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed("-", profile, null, true, context);
-//                PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "profile="+ profile._name);
-//                PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "preferenceAllowed.allowed="+ ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//                PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "preferenceAllowed.notAllowedG1="+preferenceAllowed.notAllowedG1);
-//                PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "preferenceAllowed.notAllowedRoot="+preferenceAllowed.notAllowedRoot);
+//                if (profile._name.equals("Low battery")) {
+//                    PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "profile=" + profile._name);
+//                    PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                    PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "preferenceAllowed.notAllowedG1=" + preferenceAllowed.notAllowedG1);
+//                    PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "preferenceAllowed.notAllowedRoot=" + preferenceAllowed.notAllowedRoot);
+//                }
 
                 // not enabled G1 preferences
                 Preference preference = prefMng.findPreference(PRF_GRANT_G1_PREFERENCES);
                 if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-//                    PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference="+preference);
+//                    if (profile._name.equals("Low battery"))
+//                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference="+preference);
                     if (preference != null) {
                         PreferenceScreen preferenceCategory = findPreference(rootScreen);
-//                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preferenceCategory="+preferenceCategory);
+//                        if (profile._name.equals("Low battery"))
+//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preferenceCategory="+preferenceCategory);
                         if (preferenceCategory != null)
                             preferenceCategory.removePreference(preference);
                     }
@@ -4841,22 +4851,27 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 else {
                     if (!preferenceAllowed.notAllowedG1) {
-//                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 permission granted");
-//                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference="+preference);
+//                        if (profile._name.equals("Low battery")) {
+//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 permission granted");
+//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference=" + preference);
+//                        }
                         if (preference != null) {
                             PreferenceScreen preferenceCategory = findPreference(rootScreen);
-//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preferenceCategory="+preferenceCategory);
+//                            if (profile._name.equals("Low battery"))
+//                                PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preferenceCategory="+preferenceCategory);
                             if (preferenceCategory != null)
                                 preferenceCategory.removePreference(preference);
                         }
                     } else {
-                        //PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 permission not allowed");
+//                        if (profile._name.equals("Low battery"))
+//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 permission not allowed");
                         //if (preferenceAllowed.notAllowedReason == PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION) {
 //                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 permission not granted");
 //                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference="+preference);
                         if (preference == null) {
                             PreferenceScreen preferenceCategory = findPreference(rootScreen);
-//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preferenceCategory="+preferenceCategory);
+//                            if (profile._name.equals("Low battery"))
+//                                PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preferenceCategory="+preferenceCategory);
                             if (preferenceCategory != null) {
                                 preference = new Preference(context);
                                 preference.setKey(PRF_GRANT_G1_PREFERENCES);
@@ -4865,12 +4880,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference.setLayoutResource(R.layout.mp_preference_material_widget);
                                 preference.setOrder(-100);
                                 preferenceCategory.addPreference(preference);
-//                                PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 preference added");
+//                                if (profile._name.equals("Low battery"))
+//                                    PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "G1 preference added");
                             }
                         }
-//                        PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference="+preference);
+//                        if (profile._name.equals("Low battery"))
+//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "preference="+preference);
                         if (preference != null) {
-//                            PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "set summary for G1 preference");
+//                            if (profile._name.equals("Low battery"))
+//                                PPApplication.logE("[G1_TEST] ProfilePrefsFragment.setRedTextToPreferences", "set summary for G1 preference");
                             String _title = order + ". " + getString(R.string.preferences_grantG1Preferences_title);
                             ++order;
                             Spannable title = new SpannableString(_title);
