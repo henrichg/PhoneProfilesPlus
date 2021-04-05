@@ -1483,7 +1483,8 @@ class Event {
 //                }
 //            }
 
-            if (!_ignoreManualActivation)
+            // if application is restarted by system, ignore manual profile activation
+            if (!_ignoreManualActivation || (!PPApplication.applicationFullyStartedNormalServiceStart))
                 // event is not forceRun
                 return;
             if (_blocked)
@@ -1527,7 +1528,8 @@ class Event {
             }
         }
 
-        if (_ignoreManualActivation)
+        // if application is restarted by system, ignore manual profile activation
+        if (_ignoreManualActivation && PPApplication.applicationFullyStartedNormalServiceStart)
             setForceRunEventRunning(dataWrapper.context, true);
 
         EventTimeline eventTimeline;
@@ -1600,7 +1602,7 @@ class Event {
         if (this._fkProfileStart != Profile.PROFILE_NO_ACTIVATE) {
             if (mergedProfile == null) {
                 if (PPApplication.applicationFullyStarted ||
-                    PPApplication.applicationFullyStartedShowToast || // true = it is not restart by system
+                    PPApplication.applicationFullyStartedNormalServiceStart || // true = it is not restart by system
                     (!this._ignoreManualActivation) ||
                     (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
                     long activatedProfileId = 0;
@@ -1623,7 +1625,7 @@ class Event {
                 }
             } else {
                 if (PPApplication.applicationFullyStarted ||
-                    PPApplication.applicationFullyStartedShowToast || // true = it is not restart by system
+                    PPApplication.applicationFullyStartedNormalServiceStart || // true = it is not restart by system
                     (!this._ignoreManualActivation) ||
                     (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
                     mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper/*, true*/);
@@ -1684,7 +1686,7 @@ class Event {
 
         boolean profileActivated = false;
         if (PPApplication.applicationFullyStarted ||
-            PPApplication.applicationFullyStartedShowToast || // true = it is not restart by system
+            PPApplication.applicationFullyStartedNormalServiceStart || // true = it is not restart by system
             (!this._ignoreManualActivation) ||
             (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
             if (activateReturnProfile/* && canActivateReturnProfile()*/) {
@@ -2024,7 +2026,8 @@ class Event {
             for (EventTimeline _eventTimeline : eventTimelineList)
             {
                 Event event = dataWrapper.getEventById(_eventTimeline._fkEvent);
-                if ((event != null) && (event._ignoreManualActivation))
+                // if application is restarted by system, ignore manual profile activation
+                if ((event != null) && event._ignoreManualActivation && PPApplication.applicationFullyStartedNormalServiceStart)
                 {
                     forceRunRunning = true;
                     break;
@@ -2318,7 +2321,8 @@ class Event {
             //PPApplication.logE("Event.setDelayStartAlarm","event_id="+this._id+" events blocked");
 
 
-            if (!_ignoreManualActivation)
+            // if application is restarted by system, ignore manual profile activation
+            if ((!_ignoreManualActivation) || (!PPApplication.applicationFullyStartedNormalServiceStart))
                 // event is not forceRun
                 return;
             if (_blocked)
@@ -2561,8 +2565,8 @@ class Event {
             // blocked by manual profile activation
             //PPApplication.logE("Event.setDelayEndAlarm","event_id="+this._id+" events blocked");
 
-
-            if (!_ignoreManualActivation)
+            // if application is restarted by system, ignore manual profile activation
+            if ((!_ignoreManualActivation) || (!PPApplication.applicationFullyStartedNormalServiceStart))
                 // event is not forceRun
                 return;
             if (_blocked)
