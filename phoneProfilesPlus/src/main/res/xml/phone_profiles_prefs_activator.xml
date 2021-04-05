@@ -32,5 +32,14 @@
         app:title="@string/phone_profiles_pref_applicationGridLayout"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:key="applicationActivatorNumColums"
+        app:title="@string/phone_profiles_pref_applicationActivatorNumColumns"
+        app:summary="@string/array_pref_activatorNumColumns_3"
+        app:defaultValue="3"
+        app:entries="@array/activatorNumColumnsArray"
+        app:entryValues="@array/activatorNumColumnsValues"
+        app:dependency="applicationActivatorGridLayout"
+        app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

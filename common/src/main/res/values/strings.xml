@@ -1796,6 +1796,11 @@
 
     <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Not configured any parameter</string>
 
+    <string name="phone_profiles_pref_applicationActivatorNumColumns">Number of columns</string>
+    <string name="array_pref_activatorNumColumns_3">3 columns</string>
+    <string name="array_pref_activatorNumColumns_4">4 columns</string>
+    <string name="array_pref_activatorNumColumns_5">5 columns</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

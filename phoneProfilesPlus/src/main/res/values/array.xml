@@ -1334,5 +1334,15 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="activatorNumColumnsArray">
+        <item>@string/array_pref_activatorNumColumns_3</item>
+        <item>@string/array_pref_activatorNumColumns_4</item>
+        <item>@string/array_pref_activatorNumColumns_5</item>
+    </string-array>
+    <string-array name="activatorNumColumnsValues">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 
 </resources>
