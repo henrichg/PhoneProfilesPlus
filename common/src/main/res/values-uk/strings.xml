@@ -1641,6 +1641,10 @@
     <string name="permissions_for_background_location_text2">Надайте дозвіл у наступному діалоговому вікні. PhoneProfilesPlus працює у фоновому режимі і потребує цей дозвіл.</string>
     <string name="permission_group_name_background_location">Місце розташування у фоновому режимі</string>
     <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Not configured any parameter</string>
+    <string name="phone_profiles_pref_applicationActivatorNumColumns">Number of columns</string>
+    <string name="array_pref_activatorNumColumns_3">3 columns</string>
+    <string name="array_pref_activatorNumColumns_4">4 columns</string>
+    <string name="array_pref_activatorNumColumns_5">5 columns</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

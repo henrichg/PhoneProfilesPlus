@@ -1640,6 +1640,10 @@
     <string name="permissions_for_background_location_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. PhoneProfilesPlus beží na pozadí a kvôli tomu je toto povolenie vyžadované.</string>
     <string name="permission_group_name_background_location">Poloha z pozadia</string>
     <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Nie je nakonfigurovaný žiadny parameter</string>
+    <string name="phone_profiles_pref_applicationActivatorNumColumns">Počet stĺpcov</string>
+    <string name="array_pref_activatorNumColumns_3">3 stĺpce</string>
+    <string name="array_pref_activatorNumColumns_4">4 stĺpce</string>
+    <string name="array_pref_activatorNumColumns_5">5 stĺpcov</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

@@ -1640,6 +1640,10 @@
     <string name="permissions_for_background_location_text2">请在下一个对话框中授予他们。PhoneProfilesPlus正在后台运行，为此需要此权限。</string>
     <string name="permission_group_name_background_location">后台定位</string>
     <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Not configured any parameter</string>
+    <string name="phone_profiles_pref_applicationActivatorNumColumns">Number of columns</string>
+    <string name="array_pref_activatorNumColumns_3">3 columns</string>
+    <string name="array_pref_activatorNumColumns_4">4 columns</string>
+    <string name="array_pref_activatorNumColumns_5">5 columns</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
