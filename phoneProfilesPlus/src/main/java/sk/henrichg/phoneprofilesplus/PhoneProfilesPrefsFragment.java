@@ -3132,6 +3132,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_applicationClose);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_applicationGridLayout);
+            if (!summary.isEmpty()) summary = summary + " • ";
+            summary = summary + getString(R.string.phone_profiles_pref_applicationActivatorNumColumns);
         }
         if (key.equals("categoryEditorRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationPrefIndicator);
