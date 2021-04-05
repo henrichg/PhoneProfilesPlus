@@ -1997,6 +1997,7 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius(context);
             ApplicationPreferences.applicationWidgetListRoundedCornersRadius(context);
             ApplicationPreferences.applicationWidgetIconRoundedCornersRadius(context);
+            ApplicationPreferences.applicationActivatorNumColums(context);
         }
     }
 

@@ -200,6 +200,7 @@ class ApplicationPreferences {
     static int applicationWidgetOneRowRoundedCornersRadius;
     static int applicationWidgetListRoundedCornersRadius;
     static int applicationWidgetIconRoundedCornersRadius;
+    static String applicationActivatorNumColums;
 
     static boolean prefActivatorActivityStartTargetHelps;
     static boolean prefActivatorFragmentStartTargetHelps;
@@ -392,6 +393,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS = "applicationWidgetOneRowRoundedCornersRadius";
     static final String PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS = "applicationWidgetListRoundedCornersRadius";
     static final String PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS = "applicationWidgetIconRoundedCornersRadius";
+    static final String PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS = "applicationActivatorNumColums";
 
     @CheckResult
     static SharedPreferences getSharedPreferences(Context context) {
@@ -1126,6 +1128,10 @@ class ApplicationPreferences {
 
     static void applicationWidgetIconRoundedCornersRadius(Context context) {
         applicationWidgetIconRoundedCornersRadius = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, "5"));
+    }
+
+    static void applicationActivatorNumColums(Context context) {
+        applicationActivatorNumColums = getSharedPreferences(context).getString(PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS, "3");
     }
 
     static void loadStartTargetHelps(Context context) {

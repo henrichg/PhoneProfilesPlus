@@ -123,7 +123,11 @@ public class ActivateProfileListFragment extends Fragment {
             listView = view.findViewById(R.id.act_prof_profiles_list);
         else {
             gridView = view.findViewById(R.id.act_prof_profiles_grid);
-            gridView.setNumColumns(4);
+            try {
+                gridView.setNumColumns(Integer.parseInt(ApplicationPreferences.applicationActivatorNumColums));
+            } catch (Exception e) {
+                gridView.setNumColumns(3);
+            }
             //gridViewDivider = view.findViewById(R.id.act_prof_profiles_grid_divider);
         }
         textViewNoData = view.findViewById(R.id.act_prof_list_empty);
