@@ -1633,12 +1633,13 @@
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Utiliser la même chose</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Séparer</string>
     <string name="profile_preferences_deviceDualSIMSupport_summary">Expérimental. Il se peut que cela ne fonctionne pas sur votre appareil.</string>
-    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Location permission type</string>
-    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus is running in background. For this reason, if you grant Location permission, required is type \"All the time\".</string>
-    <string name="permission_why_profile_background_location">for get location from background</string>
-    <string name="permissions_for_background_location_text1">Background location is required.</string>
-    <string name="permissions_for_background_location_text2">Please grant them in next dialog. PhoneProfilesPlus is running in background and for this reason is this permission required.</string>
-    <string name="permission_group_name_background_location">Background location</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Type d\'autorisation de localisation</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus est en cours d\'exécution en arrière-plan. Pour cette raison, si vous accordez l\'autorisation de localisation, le type requis est \"Tout le temps\".</string>
+    <string name="permission_why_profile_background_location">pour obtenir la localisation en arrière-plan</string>
+    <string name="permissions_for_background_location_text1">Localisation en arrière plan est nécessaire.</string>
+    <string name="permissions_for_background_location_text2">Veuillez les autoriser dans la boîte de dialogue suivante. PhoneProfilesPlus fonctionne en arrière-plan et c\'est pour cette raison que cette autorisation est requise.</string>
+    <string name="permission_group_name_background_location">Localisation en arrière-plan</string>
+    <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Not configured any parameter</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

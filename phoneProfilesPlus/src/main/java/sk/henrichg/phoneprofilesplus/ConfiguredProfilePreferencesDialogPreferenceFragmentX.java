@@ -116,7 +116,7 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
                         ConfiguredProfilePreferencesData configuredPreferences = new ConfiguredProfilePreferencesData(
                                 0,
                                 0,
-                                getString(R.string.profile_preferences_savedProfilePreferences_notConfiguredAnyPreference),
+                                getString(R.string.profile_preferences_savedProfilePreferences_notConfiguredAnyParameter),
                                ""
                         );
                         _preferencesList.add(configuredPreferences);

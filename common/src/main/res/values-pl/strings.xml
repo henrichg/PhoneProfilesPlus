@@ -1634,12 +1634,13 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Użyj tego samego</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Różne</string>
     <string name="profile_preferences_deviceDualSIMSupport_summary">Eksperymentalne. Może nie działać na Twoim urządzeniu.</string>
-    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Location permission type</string>
-    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus is running in background. For this reason, if you grant Location permission, required is type \"All the time\".</string>
-    <string name="permission_why_profile_background_location">for get location from background</string>
-    <string name="permissions_for_background_location_text1">Background location is required.</string>
-    <string name="permissions_for_background_location_text2">Please grant them in next dialog. PhoneProfilesPlus is running in background and for this reason is this permission required.</string>
-    <string name="permission_group_name_background_location">Background location</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Typ uprawnień lokalizacji</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus działa w tle. Z tego powodu, jeśli przyznasz dostęp do lokalizacji, wymagany jest typ \"Cały czas\".</string>
+    <string name="permission_why_profile_background_location">aby uzyskać lokalizację w tle</string>
+    <string name="permissions_for_background_location_text1">Wymagany jest dostęp do lokalizacji w tle.</string>
+    <string name="permissions_for_background_location_text2">Proszę przyznać go w następnym oknie dialogowym. PhoneProfilesPlus jest uruchomiony w tle i z tego powodu jest wymagane to uprawnienie.</string>
+    <string name="permission_group_name_background_location">Lokalizacja w tle</string>
+    <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Not configured any parameter</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

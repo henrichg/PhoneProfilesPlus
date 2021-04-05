@@ -489,7 +489,7 @@
     <string name="altype_startedLogging">Логирование запущено</string>
     <string name="event_pref_dialog_help">(*) Профиль не найден</string>
     <string name="permissions_for_brightness_dialog_text1">Выбор яркости требует дополнительных разрешений.</string>
-    <string name="permissions_for_brightness_dialog_text2">Добавьте разрешения в следующих диалогах.</string>
+    <string name="permissions_for_brightness_dialog_text2">Предоставьте их, пожалуйста, в следующем диалоговом окне.</string>
     <string name="event_preferences_category_sensors">Параметры датчиков</string>
     <string name="altype_eventEndDelay">окончание события с задержкой</string>
     <string name="info_notification_event_states_running_delay">Запущено с задержкой: событие запущено, но параметры не соответствуют условиям. Событие в состоянии ожидания.</string>
@@ -1633,12 +1633,13 @@
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Использовать одну и ту же</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Разделить</string>
     <string name="profile_preferences_deviceDualSIMSupport_summary">Эта функция - экспериментальная и может не работать на вашем устройстве.</string>
-    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Location permission type</string>
-    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus is running in background. For this reason, if you grant Location permission, required is type \"All the time\".</string>
-    <string name="permission_why_profile_background_location">for get location from background</string>
-    <string name="permissions_for_background_location_text1">Background location is required.</string>
-    <string name="permissions_for_background_location_text2">Please grant them in next dialog. PhoneProfilesPlus is running in background and for this reason is this permission required.</string>
-    <string name="permission_group_name_background_location">Background location</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Тип разрешения \"Местоположение\"</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">Так как PhoneProfilesPlus работает в фоновом режиме, при предоставлении разрешения \"Местоположения\" нужно выбрать \"Разрешено всегда\".</string>
+    <string name="permission_why_profile_background_location">для определения местоположения в фоновом режиме</string>
+    <string name="permissions_for_background_location_text1">Требуется разрешение на определение местоположения в фоновом режиме.</string>
+    <string name="permissions_for_background_location_text2">Предоставьте его, пожалуйста, в следующем диалоговом окне. Это разрешение требуется из-за того, что PhoneProfilesPlus работает в фоновом режиме.</string>
+    <string name="permission_group_name_background_location">Определение местоположения в фоновом режиме</string>
+    <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Not configured any parameter</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

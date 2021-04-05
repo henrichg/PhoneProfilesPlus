@@ -1633,12 +1633,13 @@
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Usar el mismo</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Separar</string>
     <string name="profile_preferences_deviceDualSIMSupport_summary">Experimental. Puede que no funcione en tu dispositivo.</string>
-    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Location permission type</string>
-    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus is running in background. For this reason, if you grant Location permission, required is type \"All the time\".</string>
-    <string name="permission_why_profile_background_location">for get location from background</string>
-    <string name="permissions_for_background_location_text1">Background location is required.</string>
-    <string name="permissions_for_background_location_text2">Please grant them in next dialog. PhoneProfilesPlus is running in background and for this reason is this permission required.</string>
-    <string name="permission_group_name_background_location">Background location</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Tipo de permiso de ubicación</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus se está ejecutando en segundo plano. Por esta razón, si concedes el permiso de ubicación, es necesario que sea \"todo el tiempo\".</string>
+    <string name="permission_why_profile_background_location">para obtener la ubicación en segundo plano</string>
+    <string name="permissions_for_background_location_text1">Se requiere ubicación en segundo plano.</string>
+    <string name="permissions_for_background_location_text2">Por favor, concédelo en el siguiente diálogo. PhoneProfilesPlus se está ejecutando en segundo plano y por esta razón es necesario este permiso.</string>
+    <string name="permission_group_name_background_location">Ubicación en segundo plano</string>
+    <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Not configured any parameter</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>

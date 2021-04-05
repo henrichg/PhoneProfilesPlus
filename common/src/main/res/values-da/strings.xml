@@ -1639,6 +1639,7 @@
     <string name="permissions_for_background_location_text1">Background location is required.</string>
     <string name="permissions_for_background_location_text2">Please grant them in next dialog. PhoneProfilesPlus is running in background and for this reason is this permission required.</string>
     <string name="permission_group_name_background_location">Background location</string>
+    <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Not configured any parameter</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
