@@ -266,7 +266,7 @@ public class PhoneProfilesService extends Service
         //serviceRunning = false;
         //runningInForeground = false;
         PPApplication.applicationFullyStarted = false;
-        PPApplication.applicationFullyStartedNormalServiceStart = false;
+        PPApplication.normalServiceStart = false;
         //ApplicationPreferences.forceNotUseAlarmClock = false;
 
         final Context appContext = getApplicationContext();
@@ -493,7 +493,7 @@ public class PhoneProfilesService extends Service
         //serviceRunning = false;
         //runningInForeground = false;
         PPApplication.applicationFullyStarted = false;
-        PPApplication.applicationFullyStartedNormalServiceStart = false;
+        PPApplication.normalServiceStart = false;
 
         // cancel works
         //PPApplication.cancelAllWorks(appContext);
@@ -4684,7 +4684,7 @@ public class PhoneProfilesService extends Service
         boolean isServiceRunning = isServiceRunning(appContext, PhoneProfilesService.class, true);
         showProfileNotification(!isServiceRunning, true, true);
 
-        PPApplication.applicationFullyStartedNormalServiceStart = (intent != null);
+        PPApplication.normalServiceStart = (intent != null);
 
         if (!serviceHasFirstStart) {
             if (intent != null) {

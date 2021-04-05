@@ -1784,7 +1784,7 @@ public class DataWrapper {
             //if (mappedProfile != null)
             //{
             if (ApplicationPreferences.notificationsToast && (!PPApplication.lockRefresh) &&
-                    (PPApplication.applicationFullyStarted || PPApplication.applicationFullyStartedNormalServiceStart)) {
+                    (PPApplication.applicationFullyStarted && PPApplication.normalServiceStart)) {
                 // toast notification
                 if (PPApplication.toastHandler != null) {
                     final Profile __profile = _profile;
