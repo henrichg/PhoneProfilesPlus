@@ -112,6 +112,15 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
                             idDrawable += indicators.countItems[i];
                         }
                     }
+                    if (_preferencesList.size() == 0) {
+                        ConfiguredProfilePreferencesData configuredPreferences = new ConfiguredProfilePreferencesData(
+                                0,
+                                0,
+                                getString(R.string.profile_preferences_savedProfilePreferences_notConfiguredAnyPreference),
+                               ""
+                        );
+                        _preferencesList.add(configuredPreferences);
+                    }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }

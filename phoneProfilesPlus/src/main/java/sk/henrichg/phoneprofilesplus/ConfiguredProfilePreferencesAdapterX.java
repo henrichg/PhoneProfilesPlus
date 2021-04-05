@@ -64,7 +64,13 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
-        holder.preferenceIcon.setImageResource(configuredPreferences.preferenceIcon);
+        if (configuredPreferences.preferenceIcon == 0) {
+            holder.preferenceIcon.setVisibility(View.GONE);
+        }
+        else {
+            holder.preferenceIcon.setImageResource(configuredPreferences.preferenceIcon);
+            holder.preferenceIcon.setVisibility(View.VISIBLE);
+        }
         if (configuredPreferences.preferenceIcon2 == 0) {
             holder.preferenceIcon2.setVisibility(View.GONE);
         }
