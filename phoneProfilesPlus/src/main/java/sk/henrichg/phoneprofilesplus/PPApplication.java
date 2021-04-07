@@ -234,7 +234,7 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
 
                                                 //+"|ActivateProfileHelper.setMobileData"
-                                                //+"|[DUAL_SIM]"
+                                                +"|[DUAL_SIM]"
                                                 //+"|WifiNetworkCallback"
                                                 //+"|MobileDataNetworkCallback"
                                                 //+"|EventPreferencesRadioSwitch.doHandleEvent"
@@ -244,7 +244,7 @@ public class PPApplication extends Application
 
                                                 //+"|ActivateProfileHelper.setTones"
                                                 //+"|PPApplication.getServicesList"
-                                                //+"|[DEFAULT_SIM]"
+                                                +"|[DEFAULT_SIM]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -3045,6 +3045,7 @@ public class PPApplication extends Application
                             try {
                                 field.setAccessible(true);
                                 code = field.getInt(field);
+                                //PPApplication.logE("[DUAL_SIM] PPApplication.getTransactionCode", "name="+name+",  code="+code);
                                 break;
                             } catch (Exception e) {
                                 //Log.e("PPApplication.getTransactionCode", Log.getStackTraceString(e));
