@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.ServiceManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
-import android.telephony.TelephonyManager;
 
 import com.android.internal.telephony.ITelephony;
 
@@ -78,13 +77,16 @@ public class CmdMobileData {
                             }
                         }
                         if (!ok) {
-                            int dataState = adapter.getDataState();
-                            enabled = dataState == TelephonyManager.DATA_CONNECTED;
+                            //int dataState = adapter.getDataState();
+                            //enabled = dataState == TelephonyManager.DATA_CONNECTED;
+                            enabled = adapter.getDataEnabled(0);
                         }
                     }
                     else {
-                        int dataState = adapter.getDataState();
-                        enabled = dataState == TelephonyManager.DATA_CONNECTED;
+                        //int dataState = adapter.getDataState();
+                        //enabled = dataState == TelephonyManager.DATA_CONNECTED;
+                        enabled = adapter.getDataEnabled(0);
+                        PPApplication.logE("[DUAL_SIM] CmdMobileData.isEnabled", "enabled=" + enabled);
                     }
                 }
             }
