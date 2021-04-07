@@ -86,7 +86,7 @@ public class CmdMobileData {
                         //int dataState = adapter.getDataState();
                         //enabled = dataState == TelephonyManager.DATA_CONNECTED;
                         enabled = adapter.getDataEnabled(0);
-                        PPApplication.logE("[DUAL_SIM] CmdMobileData.isEnabled", "enabled=" + enabled);
+//                        PPApplication.logE("[DUAL_SIM] CmdMobileData.isEnabled", "enabled=" + enabled);
                     }
                 }
             }

@@ -311,33 +311,33 @@ class ActivateProfileHelper {
 
                     if (profile._deviceMobileDataSIM1 != 0) {
                         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1");
+//                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1");
                             boolean _isMobileData = isMobileData(appContext, 1);
-                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
+//                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
                             boolean _setMobileData = false;
                             switch (profile._deviceMobileDataSIM1) {
                                 case 1:
-                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1 1");
+//                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1 1");
                                     if (!_isMobileData) {
                                         _isMobileData = true;
                                         _setMobileData = true;
                                     }
                                     break;
                                 case 2:
-                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1 2");
+//                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1 2");
                                     if (_isMobileData) {
                                         _isMobileData = false;
                                         _setMobileData = true;
                                     }
                                     break;
                                 case 3:
-                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1 3");
+//                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM1 3");
                                     _isMobileData = !_isMobileData;
                                     _setMobileData = true;
                                     break;
                             }
                             if (_setMobileData) {
-                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
+//                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
                                 setMobileData(appContext, _isMobileData, 1);
                                 PPApplication.sleep(200);
                             }
@@ -347,33 +347,33 @@ class ActivateProfileHelper {
                     }
                     if (profile._deviceMobileDataSIM2 != 0) {
                         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2");
+//                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2");
                             boolean _isMobileData = isMobileData(appContext, 2);
-                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
+//                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios","_isMobileData="+_isMobileData);
                             boolean _setMobileData = false;
                             switch (profile._deviceMobileDataSIM2) {
                                 case 1:
-                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2 1");
+//                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2 1");
                                     if (!_isMobileData) {
                                         _isMobileData = true;
                                         _setMobileData = true;
                                     }
                                     break;
                                 case 2:
-                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2 2");
+//                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2 2");
                                     if (_isMobileData) {
                                         _isMobileData = false;
                                         _setMobileData = true;
                                     }
                                     break;
                                 case 3:
-                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2 3");
+//                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "_deviceMobileDataSIM2 3");
                                     _isMobileData = !_isMobileData;
                                     _setMobileData = true;
                                     break;
                             }
                             if (_setMobileData) {
-                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
+//                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.doExecuteForRadios", "setMobileData()");
                                 setMobileData(appContext, _isMobileData, 2);
                                 PPApplication.sleep(200);
                             }
@@ -5358,8 +5358,8 @@ class ActivateProfileHelper {
 
     private static void setMobileData(Context context, boolean enable, int simCard)
     {
-        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "simCard="+simCard);
-        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "enable="+enable);
+//        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "simCard="+simCard);
+//        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "enable="+enable);
 
         Context appContext = context.getApplicationContext();
 
@@ -5368,7 +5368,7 @@ class ActivateProfileHelper {
             PhoneProfilesService.hasSIMCard(appContext, simCard, true))
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
-                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
+//                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "ask for root enabled and is rooted");
                 if ((Build.VERSION.SDK_INT < 26) || (simCard == 0)) {
                     synchronized (PPApplication.rootMutex) {
                         String command1 = "svc data " + (enable ? "enable" : "disable");
@@ -5398,42 +5398,42 @@ class ActivateProfileHelper {
                     int state = enable ? 1 : 0;
 
                     if (transactionCode != -1) {
-                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "transactionCode=" + transactionCode);
+//                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "transactionCode=" + transactionCode);
 
                         SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                         //SubscriptionManager.from(appContext);
                         if (mSubscriptionManager != null) {
-                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "mSubscriptionManager != null");
+//                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "mSubscriptionManager != null");
                             List<SubscriptionInfo> subscriptionList = null;
                             try {
                                 // Loop through the subscription list i.e. SIM list.
                                 subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionList=" + subscriptionList);
+//                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionList=" + subscriptionList);
                             } catch (SecurityException e) {
                                 PPApplication.recordException(e);
                             }
                             if (subscriptionList != null) {
-                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionList.size()=" + subscriptionList.size());
+//                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionList.size()=" + subscriptionList.size());
                                 for (int i = 0; i < subscriptionList.size(); i++) {
                                     // Get the active subscription ID for a given SIM card.
                                     SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionInfo=" + subscriptionInfo);
+//                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionInfo=" + subscriptionInfo);
                                     if (subscriptionInfo != null) {
                                         int slotIndex = subscriptionInfo.getSimSlotIndex();
                                         if (simCard == (slotIndex+1)) {
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionId=" + subscriptionId);
+//                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionId=" + subscriptionId);
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, state);
-                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "command1=" + command1);
+//                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "command1=" + command1);
                                                 if (command1 != null) {
-                                                    Command command = new Command(0, false, command1) {
+                                                    Command command = new Command(0, false, command1)/* {
                                                         @Override
                                                         public void commandOutput(int id, String line) {
                                                             PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "command output -> line=" + line);
                                                             super.commandOutput(id, line);
                                                         }
-                                                    };
+                                                    }*/;
                                                     try {
                                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                         PPApplication.commandWait(command, "ActivateProfileHelper.setMobileData");
@@ -5446,18 +5446,18 @@ class ActivateProfileHelper {
                                             }
                                         }
                                     }
-                                    else
-                                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionInfo == null");
+//                                    else
+//                                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionInfo == null");
                                 }
                             }
-                            else
-                               PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionList == null");
+//                            else
+//                               PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "subscriptionList == null");
                         }
-                        else
-                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "mSubscriptionManager == null");
+//                        else
+//                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "mSubscriptionManager == null");
                     }
-                    else
-                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "transactionCode == -1");
+//                    else
+//                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "transactionCode == -1");
                 }
             }
          }
@@ -5565,12 +5565,16 @@ class ActivateProfileHelper {
 
     private static void setPreferredNetworkType(Context context, int networkType, int simCard)
     {
+//        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "simCard="+simCard);
+//        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "networkType="+networkType);
+
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
             PPApplication.isRooted(false) &&
             PPApplication.serviceBinaryExists(false) &&
             PhoneProfilesService.hasSIMCard(context, simCard, true))
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
+//                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "ask for root enabled and is rooted");
                 try {
                     // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
                     Object serviceManager = PPApplication.getServiceManager("phone");
@@ -5580,33 +5584,47 @@ class ActivateProfileHelper {
                     }
 
                     if (transactionCode != -1) {
+//                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "transactionCode=" + transactionCode);
+
                         // Android 5.1?
                         //if (Build.VERSION.SDK_INT >= 22) {
                         Context appContext = context.getApplicationContext();
                         SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                         //SubscriptionManager.from(context);
                         if (mSubscriptionManager != null) {
+//                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "mSubscriptionManager != null");
                             List<SubscriptionInfo> subscriptionList = null;
                             try {
                                 // Loop through the subscription list i.e. SIM list.
                                 subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+//                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionList=" + subscriptionList);
                             } catch (SecurityException e) {
                                 PPApplication.recordException(e);
                             }
                             if (subscriptionList != null) {
+//                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionList.size()=" + subscriptionList.size());
                                 for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
                                     // Get the active subscription ID for a given SIM card.
                                     SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+//                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionInfo=" + subscriptionInfo);
                                     if (subscriptionInfo != null) {
                                         int slotIndex = subscriptionInfo.getSimSlotIndex();
                                         if ((Build.VERSION.SDK_INT < 26) || (simCard == 0) || (simCard == (slotIndex+1))) {
                                             // dual sim is supported by TelephonyManager from API 26
 
                                             int subscriptionId = subscriptionInfo.getSubscriptionId();
+//                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionId=" + subscriptionId);
                                             synchronized (PPApplication.rootMutex) {
                                                 String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, networkType);
+//                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "command1=" + command1);
                                                 if (command1 != null) {
-                                                    Command command = new Command(0, false, command1);
+                                                    Command command = new Command(0, false, command1)/* {
+                                                        @Override
+                                                        public void commandOutput(int id, String line) {
+                                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "command output -> line=" + line);
+                                                            super.commandOutput(id, line);
+                                                        }
+                                                    }*/;
                                                     try {
                                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                         PPApplication.commandWait(command, "ActivateProfileHelper.setPreferredNetworkType");
@@ -5619,26 +5637,18 @@ class ActivateProfileHelper {
                                             }
                                         }
                                     }
+//                                    else
+//                                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionInfo == null");
                                 }
                             }
+//                            else
+//                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "subscriptionList == null");
                         }
-                    /*} else {
-                        synchronized (PPApplication.rootMutex) {
-                            String command1 = PPApplication.getServiceCommand("phone", transactionCode, networkType);
-                            if (command1 != null) {
-                                Command command = new Command(0, false, command1);
-                                try {
-                                    roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    PPApplication.commandWait(command);
-                                } catch (Exception e) {
-                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                    //Log.e("ActivateProfileHelper.setPreferredNetworkType", Log.getStackTraceString(e));
-                                    //PPApplication.recordException(e);
-                                }
-                            }
-                        }
-                    }*/
+//                        else
+//                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "mSubscriptionManager == null");
                     }
+//                    else
+//                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "transactionCode == -1");
                 } catch (Exception ee) {
                     PPApplication.recordException(ee);
                 }
@@ -6267,8 +6277,8 @@ class ActivateProfileHelper {
 
     private static void setDefaultSimCard(Context context, int subscriptionType, int simCard)
     {
-        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionType="+subscriptionType);
-        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "simCard="+simCard);
+//        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionType="+subscriptionType);
+//        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "simCard="+simCard);
 
         Context appContext = context.getApplicationContext();
 
@@ -6285,7 +6295,7 @@ class ActivateProfileHelper {
                         simCard = 2;
                         break;
                 }
-                PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "new simCard="+simCard);
+//                PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "new simCard="+simCard);
                 break;
             case SUBSCRIPTRION_SMS:
             case SUBSCRIPTRION_DATA:
@@ -6296,7 +6306,7 @@ class ActivateProfileHelper {
                 PPApplication.isRooted(false)) {
 
             if (Permissions.checkPhone(context.getApplicationContext())) {
-                PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ask for root enabled and is rooted");
+//                PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "ask for root enabled and is rooted");
                 if (Build.VERSION.SDK_INT >= 26) {
 //                    if (simCard != -1) {
                         if ((simCard == -1) || (PhoneProfilesService.hasSIMCard(appContext, simCard, false))) {
@@ -6308,44 +6318,44 @@ class ActivateProfileHelper {
                                 switch (subscriptionType) {
                                     case SUBSCRIPTRION_VOICE:
                                         defaultSubscriptionId = SubscriptionManager.getDefaultVoiceSubscriptionId();
-                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultVoiceSubId");
+//                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultVoiceSubId");
                                         transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
                                         break;
                                     case SUBSCRIPTRION_SMS:
                                         defaultSubscriptionId = SubscriptionManager.getDefaultSmsSubscriptionId();
-                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultSmsSubId");
+//                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultSmsSubId");
                                         transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
                                         break;
                                     case SUBSCRIPTRION_DATA:
                                         defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
-                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultDataSubId");
+//                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultDataSubId");
                                         transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultDataSubId");
                                         break;
                                 }
                             }
-                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "defaultSubscriptionId=" + defaultSubscriptionId);
-                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "transactionCode=" + transactionCode);
+//                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "defaultSubscriptionId=" + defaultSubscriptionId);
+//                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "transactionCode=" + transactionCode);
 
                             if (transactionCode != -1) {
 
                                 SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                                 //SubscriptionManager.from(appContext);
                                 if (mSubscriptionManager != null) {
-                                    PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "mSubscriptionManager != null");
+//                                    PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "mSubscriptionManager != null");
                                     List<SubscriptionInfo> subscriptionList = null;
                                     try {
                                         // Loop through the subscription list i.e. SIM list.
                                         subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionList=" + subscriptionList);
+//                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionList=" + subscriptionList);
                                     } catch (SecurityException e) {
                                         PPApplication.recordException(e);
                                     }
                                     if (subscriptionList != null) {
-                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionList.size()=" + subscriptionList.size());
+//                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionList.size()=" + subscriptionList.size());
                                         for (int i = 0; i < subscriptionList.size(); i++) {
                                             // Get the active subscription ID for a given SIM card.
                                             SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionInfo=" + subscriptionInfo);
+//                                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionInfo=" + subscriptionInfo);
                                             if (subscriptionInfo != null) {
                                                 int slotIndex = subscriptionInfo.getSimSlotIndex();
                                                 if ((simCard == -1) || (simCard == (slotIndex+1))) {
@@ -6353,14 +6363,14 @@ class ActivateProfileHelper {
                                                     if ((simCard == -1) || (subscriptionId != defaultSubscriptionId)) {
                                                         // do not call subscription change, when is aleredy set, this cause FC
 
-                                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionId=" + subscriptionId);
+//                                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionId=" + subscriptionId);
                                                         synchronized (PPApplication.rootMutex) {
                                                             String command1;
                                                             if (simCard == -1)
                                                                 command1 = PPApplication.getServiceCommand("isub", transactionCode, 0);
                                                             else
                                                                 command1 = PPApplication.getServiceCommand("isub", transactionCode, subscriptionId);
-                                                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command1=" + command1);
+//                                                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command1=" + command1);
 
                                                             String command2 = "";
                                                             switch (subscriptionType) {
@@ -6377,7 +6387,7 @@ class ActivateProfileHelper {
                                                                     command2 = "settings put global " + Settings.Global.MULTI_SIM_DATA_CALL_SUBSCRIPTION + " " + subscriptionId;
                                                                     break;
                                                             }
-                                                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command2=" + command2);
+//                                                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "command2=" + command2);
 
                                                             if ((command1 != null) && (!command2.isEmpty())) {
                                                                 Command command = new Command(0, false, command2, command1);
@@ -6394,21 +6404,21 @@ class ActivateProfileHelper {
                                                     }
                                                 }
                                             }
-                                            else
-                                                PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionInfo == null");
+//                                            else
+//                                                PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionInfo == null");
 
                                             if (simCard == -1)
                                                 break;
                                         }
                                     }
-                                    else
-                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionList == null");
+//                                    else
+//                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "subscriptionList == null");
                                 }
-                                else
-                                    PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "mSubscriptionManager == null");
+//                                else
+//                                    PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "mSubscriptionManager == null");
                             }
-                            else
-                                PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "(transactionCode == -1) || (simCard == -1)");
+//                            else
+//                                PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "(transactionCode == -1) || (simCard == -1)");
                         }
 //                    }
 /*                    else {
@@ -6448,8 +6458,8 @@ class ActivateProfileHelper {
 
     private static void setSIMOnOff(Context context, boolean enable, int simCard)
     {
-        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "simCard="+simCard);
-        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "enable="+enable);
+//        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "simCard="+simCard);
+//        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "enable="+enable);
 
         Context appContext = context.getApplicationContext();
 
@@ -6458,7 +6468,7 @@ class ActivateProfileHelper {
                 PhoneProfilesService.hasSIMCard(appContext, simCard, true))
         {
             if (Permissions.checkPhone(context.getApplicationContext())) {
-                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "ask for root enabled and is rooted");
+//                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "ask for root enabled and is rooted");
                 // Get the value of the "TRANSACTION_setDataEnabled" field.
                 Object serviceManager = PPApplication.getServiceManager("isub");
                 //Object serviceManager = PPApplication.getServiceManager("phone");
@@ -6471,67 +6481,67 @@ class ActivateProfileHelper {
                 int state = enable ? 1 : 0;
 
                 if (transactionCode != -1) {
-                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "transactionCode=" + transactionCode);
+//                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "transactionCode=" + transactionCode);
 
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(appContext);
                     if (mSubscriptionManager != null) {
-                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "mSubscriptionManager != null");
+//                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "mSubscriptionManager != null");
                         List<SubscriptionInfo> subscriptionList = null;
                         try {
                             // Loop through the subscription list i.e. SIM list.
                             subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionList=" + subscriptionList);
+//                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionList=" + subscriptionList);
                         } catch (SecurityException e) {
                             PPApplication.recordException(e);
                         }
                         if (subscriptionList != null) {
-                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionList.size()=" + subscriptionList.size());
+//                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionList.size()=" + subscriptionList.size());
                             for (int i = 0; i < subscriptionList.size(); i++) {
                                 // Get the active subscription ID for a given SIM card.
                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionInfo=" + subscriptionInfo);
+//                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionInfo=" + subscriptionInfo);
                                 if (subscriptionInfo != null) {
                                     int slotIndex = subscriptionInfo.getSimSlotIndex();
                                     if (simCard == (slotIndex+1)) {
                                         int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionId=" + subscriptionId);
+//                                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionId=" + subscriptionId);
                                         synchronized (PPApplication.rootMutex) {
                                             String command1 = PPApplication.getServiceCommand("isub", transactionCode, subscriptionId, state);
                                             //String command1 = PPApplication.getServiceCommand("phone", transactionCode, slotIndex, state);
-                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
+//                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command1=" + command1);
                                             if (command1 != null) {
-                                                Command command = new Command(0, false, command1) {
+                                                Command command = new Command(0, false, command1)/* {
                                                     @Override
                                                     public void commandOutput(int id, String line) {
                                                         PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "command output -> line=" + line);
                                                         super.commandOutput(id, line);
                                                     }
-                                                };
+                                                }*/;
                                                 try {
                                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                     PPApplication.commandWait(command, "ActivateProfileHelper.setSIMOnOff");
                                                 } catch (Exception e) {
                                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                    Log.e("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
+//                                                    Log.e("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", Log.getStackTraceString(e));
                                                     //PPApplication.recordException(e);
                                                 }
                                             }
                                         }
                                     }
                                 }
-                                else
-                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionInfo == null");
+//                                else
+//                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionInfo == null");
                             }
                         }
-                        else
-                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionList == null");
+//                        else
+//                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "subscriptionList == null");
                     }
-                    else
-                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "mSubscriptionManager == null");
+//                    else
+//                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "mSubscriptionManager == null");
                 }
-                else
-                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "transactionCode == -1");
+//                else
+//                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "transactionCode == -1");
             }
         }
     }
