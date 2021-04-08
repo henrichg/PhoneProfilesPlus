@@ -1873,7 +1873,7 @@ class ActivateProfileHelper {
                                     ContentResolver contentResolver = context.getContentResolver();
                                     context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    //PPApplication.logE("ActivateProfileHelper.setTones", "ring tone granted");
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ring tone granted");
                                 } catch (Exception e) {
                                     // java.lang.SecurityException: UID 10157 does not have permission to
                                     // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
@@ -1886,15 +1886,17 @@ class ActivateProfileHelper {
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
-                                    Log.e("ActivateProfileHelper.setTones", "ringtone SIM1 Samsung uri=" + uri.toString());
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Samsung uri=" + uri.toString());
 
                                     try {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                     } catch (Exception ignored) {}
 
-                                    Settings.System.putString(context.getContentResolver(), "ringtone", uri.toString());
+                                    // for support of external ringtones
+                                    RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, uri);
+
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
-                                    Log.e("ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=" + uri.toString());
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=" + uri.toString());
 
                                     try {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -1902,7 +1904,7 @@ class ActivateProfileHelper {
 
                                     Settings.System.putString(context.getContentResolver(), "ringtone", uri.toString());
                                 } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI) && (uri != null)) {
-                                    Log.e("ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=" + uri.toString());
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=" + uri.toString());
 
                                     try {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -1951,19 +1953,19 @@ class ActivateProfileHelper {
                         // selected is None tone
                         try {
                             if (PPApplication.deviceIsSamsung) {
-                                Log.e("ActivateProfileHelper.setTones", "ringtone SIM1 Samsung uri=null");
+                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Samsung uri=null");
 
-                                Settings.System.putString(context.getContentResolver(), "ringtone", null);
+                                RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, null);
                             }
                             else
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
-                                Log.e("ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=null");
+                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=null");
 
                                 Settings.System.putString(context.getContentResolver(), "ringtone", null);
                             }
                             else
                             if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
-                                Log.e("ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=null");
+                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Xiaomi uri=null");
 
                                 Settings.System.putString(context.getContentResolver(), "ringtone_sound_slot_1", null);
                             }
@@ -1991,7 +1993,7 @@ class ActivateProfileHelper {
                                     ContentResolver contentResolver = context.getContentResolver();
                                     context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    //PPApplication.logE("ActivateProfileHelper.setTones", "ring tone granted");
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ring tone granted");
                                 } catch (Exception e) {
                                     // java.lang.SecurityException: UID 10157 does not have permission to
                                     // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
@@ -2004,35 +2006,15 @@ class ActivateProfileHelper {
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
-                                    Log.e("ActivateProfileHelper.setTones", "ringtone SIM2 Samsung uri=" + uri.toString());
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Samsung uri=" + uri.toString());
 
                                     try {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                     } catch (Exception ignored) {}
 
-
-                                    if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
-                                        synchronized (PPApplication.rootMutex) {
-                                            String command1;
-                                            Command command;
-                                            command1 = "settings put system ringtone_2" + " " + uri.toString();
-                                            command = new Command(0, false, command1);
-                                            try {
-                                                RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
-                                            } catch (Exception e) {
-                                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                                //PPApplication.recordException(e);
-                                            }
-                                        }
-                                    }
-                                    else
-                                        Settings.System.putString(context.getContentResolver(), "ringtone_2", uri.toString());
+                                    Settings.System.putString(context.getContentResolver(), "ringtone_2", uri.toString());
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
-                                    Log.e("ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=" + uri.toString());
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=" + uri.toString());
 
                                     try {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -2040,7 +2022,7 @@ class ActivateProfileHelper {
 
                                     Settings.System.putString(context.getContentResolver(), "ringtone2", uri.toString());
                                 } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI) && (uri != null)) {
-                                    Log.e("ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=" + uri.toString());
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=" + uri.toString());
 
                                     try {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -2089,38 +2071,19 @@ class ActivateProfileHelper {
                         // selected is None tone
                         try {
                             if (PPApplication.deviceIsSamsung) {
-                                Log.e("ActivateProfileHelper.setTones", "ringtone SIM2 Samsung uri=null");
+                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Samsung uri=null");
 
-                                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
-                                    synchronized (PPApplication.rootMutex) {
-                                        String command1;
-                                        Command command;
-                                        command1 = "settings put system ringtone_2" + " \"\"";
-                                        command = new Command(0, false, command1);
-                                        try {
-                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
-                                        } catch (Exception e) {
-                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                            //PPApplication.recordException(e);
-                                        }
-                                    }
-                                }
-                                else
-                                    Settings.System.putString(context.getContentResolver(), "ringtone_2", null);
+                                Settings.System.putString(context.getContentResolver(), "ringtone_2", null);
                             }
                             else
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
-                                Log.e("ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=null");
+                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Huawei uri=null");
 
                                 Settings.System.putString(context.getContentResolver(), "ringtone2", null);
                             }
                             else
                             if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
-                                Log.e("ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=null");
+                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM2 Xiaomi uri=null");
 
                                 Settings.System.putString(context.getContentResolver(), "ringtone_sound_slot_2", null);
                             }

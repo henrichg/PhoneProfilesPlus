@@ -234,7 +234,7 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
 
                                                 //+"|ActivateProfileHelper.setMobileData"
-                                                //+"|[DUAL_SIM]"
+                                                +"|[DUAL_SIM]"
                                                 //+"|WifiNetworkCallback"
                                                 //+"|MobileDataNetworkCallback"
                                                 //+"|EventPreferencesRadioSwitch.doHandleEvent"
