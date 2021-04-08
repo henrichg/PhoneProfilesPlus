@@ -2128,6 +2128,8 @@ class ActivateProfileHelper {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                     } catch (Exception ignored) {}
 
+                                    //Settings.System.putString(context.getContentResolver(), "notification_sound", uri.toString());
+
                                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                             (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                                         synchronized (PPApplication.rootMutex) {
@@ -2218,6 +2220,8 @@ class ActivateProfileHelper {
 
                                 PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", " notification SIM1 Samsung uri=null");
 
+                                //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
+
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                         (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                                     synchronized (PPApplication.rootMutex) {
@@ -2305,6 +2309,8 @@ class ActivateProfileHelper {
                                     try {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                     } catch (Exception ignored) {}
+
+                                    //Settings.System.putString(context.getContentResolver(), "notification_sound_2", uri.toString());
 
                                     if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                             (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
@@ -2395,6 +2401,8 @@ class ActivateProfileHelper {
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
                                 PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", " notification SIM2 Samsung uri=null");
+
+                                //Settings.System.putString(context.getContentResolver(), "notification_sound_2", null);
 
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                         (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
