@@ -209,10 +209,12 @@ public class RingtonePreferenceX extends DialogPreference {
                                     //Log.e("RingtonePreferenceX.refreshListView", "_id="+_id);
                                     //Log.e("RingtonePreferenceX.refreshListView", "manager.getRingtoneUri()="+manager.getRingtoneUri(cursor.getPosition()));
 
-                                    // for Samsung do not allow external tones for ringtone and SIM 2
+                                    // for Samsung do not allow external tones
                                     boolean add = true;
                                     if (PPApplication.deviceIsSamsung) {
-                                        if ((ringtoneType.equals("ringtone")) && (simCard == 2) && (!_uri.contains("content://media/internal")))
+                                        if (ringtoneType.equals("ringtone") && (simCard != 0) && (!_uri.contains("content://media/internal")))
+                                            add = false;
+                                        if (ringtoneType.equals("notification") && (simCard != 0) && (!_uri.contains("content://media/internal")))
                                             add = false;
                                     }
 

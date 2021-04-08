@@ -42,7 +42,6 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -1892,8 +1891,7 @@ class ActivateProfileHelper {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
                                     } catch (Exception ignored) {}
 
-                                    // for support of external ringtones
-                                    RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, uri);
+                                    Settings.System.putString(context.getContentResolver(), "ringtone", uri.toString());
 
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
                                     PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Huawei uri=" + uri.toString());
@@ -1955,7 +1953,7 @@ class ActivateProfileHelper {
                             if (PPApplication.deviceIsSamsung) {
                                 PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "ringtone SIM1 Samsung uri=null");
 
-                                RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, null);
+                                Settings.System.putString(context.getContentResolver(), "ringtone", null);
                             }
                             else
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
@@ -2111,7 +2109,7 @@ class ActivateProfileHelper {
                                     ContentResolver contentResolver = context.getContentResolver();
                                     context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    //PPApplication.logE("ActivateProfileHelper.setTones", "notification tone granted");
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification tone granted");
                                 } catch (Exception e) {
                                     // java.lang.SecurityException: UID 10157 does not have permission to
                                     // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
@@ -2124,7 +2122,7 @@ class ActivateProfileHelper {
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
-                                    Log.e("ActivateProfileHelper.setTones", " notification SIM1 Samsung uri="+uri.toString());
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", " notification SIM1 Samsung uri="+uri.toString());
 
                                     try {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -2139,8 +2137,8 @@ class ActivateProfileHelper {
                                             command = new Command(0, false, command1);
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                                PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM 1 with root");
                                             } catch (Exception e) {
                                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                                 //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
@@ -2151,7 +2149,7 @@ class ActivateProfileHelper {
                                 }
                                 else
                                 if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
-                                    Log.e("ActivateProfileHelper.setTones", "notification SIM1 Huawei uri="+uri.toString());
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM1 Huawei uri="+uri.toString());
 
                                     try {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -2166,8 +2164,8 @@ class ActivateProfileHelper {
                                             command = new Command(0, false, command1);
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                                PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM 1 with root");
                                             } catch (Exception e) {
                                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                                 //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
@@ -2218,7 +2216,7 @@ class ActivateProfileHelper {
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
-                                Log.e("ActivateProfileHelper.setTones", " notification SIM1 Samsung uri=null");
+                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", " notification SIM1 Samsung uri=null");
 
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                         (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
@@ -2229,8 +2227,8 @@ class ActivateProfileHelper {
                                         command = new Command(0, false, command1);
                                         try {
                                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                            PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM1 with root");
                                         } catch (Exception e) {
                                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                             //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
@@ -2241,7 +2239,7 @@ class ActivateProfileHelper {
                             }
                             else
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
-                                Log.e("ActivateProfileHelper.setTones", "notification SIM2 Huawei uri=null");
+                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM1 Huawei uri=null");
 
                                 // notifikacie ine ako sms - zvlastna katergoria v Huawei
                                 //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
@@ -2255,8 +2253,8 @@ class ActivateProfileHelper {
                                         command = new Command(0, false, command1);
                                         try {
                                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                            PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM1 with root");
                                         } catch (Exception e) {
                                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                             //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
@@ -2289,7 +2287,7 @@ class ActivateProfileHelper {
                                     ContentResolver contentResolver = context.getContentResolver();
                                     context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                     contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                    //PPApplication.logE("ActivateProfileHelper.setTones", "notification tone granted");
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification tone granted");
                                 } catch (Exception e) {
                                     // java.lang.SecurityException: UID 10157 does not have permission to
                                     // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
@@ -2302,7 +2300,7 @@ class ActivateProfileHelper {
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                     //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
-                                    Log.e("ActivateProfileHelper.setTones", " notification SIM2 Samsung uri="+uri.toString());
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", " notification SIM2 Samsung uri="+uri.toString());
 
                                     try {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -2317,8 +2315,8 @@ class ActivateProfileHelper {
                                             command = new Command(0, false, command1);
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                                PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM 2 with root");
                                             } catch (Exception e) {
                                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                                 //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
@@ -2329,7 +2327,7 @@ class ActivateProfileHelper {
                                 }
                                 else
                                 if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI) && (uri != null)) {
-                                    Log.e("ActivateProfileHelper.setTones", "notification SIM2 Huawei uri="+uri.toString());
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri="+uri.toString());
 
                                     try {
                                         uri = ContentProvider.maybeAddUserId(uri, context.getUserId());
@@ -2344,8 +2342,8 @@ class ActivateProfileHelper {
                                             command = new Command(0, false, command1);
                                             try {
                                                 RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                                PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                                PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM2 with root");
                                             } catch (Exception e) {
                                                 // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                                 //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
@@ -2396,7 +2394,7 @@ class ActivateProfileHelper {
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_set", "1");
                                 //Settings.System.putString(context.getContentResolver(), "ringtone_2_set", "1");
 
-                                Log.e("ActivateProfileHelper.setTones", " notification SIM2 Samsung uri=null");
+                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", " notification SIM2 Samsung uri=null");
 
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                         (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
@@ -2407,8 +2405,8 @@ class ActivateProfileHelper {
                                         command = new Command(0, false, command1);
                                         try {
                                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                            PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification fro SIM2 with root");
                                         } catch (Exception e) {
                                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                             //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
@@ -2419,10 +2417,7 @@ class ActivateProfileHelper {
                             }
                             else
                             if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
-                                Log.e("ActivateProfileHelper.setTones", "notification SIM2 Huawei uri=null");
-
-                                // notifikacie ine ako sms - zvlastna katergoria v Huawei
-                                //Settings.System.putString(context.getContentResolver(), "notification_sound", null);
+                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification SIM2 Huawei uri=null");
 
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                         (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
@@ -2433,8 +2428,8 @@ class ActivateProfileHelper {
                                         command = new Command(0, false, command1);
                                         try {
                                             RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                            PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "notification for SIM2 with root");
                                         } catch (Exception e) {
                                             // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                             //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
@@ -2474,8 +2469,8 @@ class ActivateProfileHelper {
                                 command = new Command(0, false, command1);
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                    //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                    PPApplication.commandWait(command, "ActivateProfileHelper.setTones");
+                                    PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setTones", "same ringtone fro bth sim cards with root");
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
