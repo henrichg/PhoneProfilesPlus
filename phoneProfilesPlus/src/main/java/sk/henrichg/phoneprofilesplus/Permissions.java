@@ -151,7 +151,8 @@ class Permissions {
     private static final String PREF_PHONE_PERMISSION = "phonePermission";
     private static final String PREF_SENSORS_PERMISSION = "sensorsPermission";
     private static final String PREF_SMS_PERMISSION = "smsPermission";
-    private static final String PREF_STORAGE_PERMISSION = "storagePermission";
+    private static final String PREF_READ_STORAGE_PERMISSION = "readStoragePermission";
+    private static final String PREF_WRITE_STORAGE_PERMISSION = "writeStoragePermission";
     //private static final String PREF_CALL_LOGS_PERMISSION = "callLogsPermission";
 
     static boolean grantRootChanged = false;
@@ -606,11 +607,21 @@ class Permissions {
         }
     }
 
-    static boolean checkStorage(Context context) {
+    static boolean checkReadStorage(Context context) {
         try {
             //if (android.os.Build.VERSION.SDK_INT >= 23)
-                return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+                return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+            //else
+            //    return hasPermission(context, permission.READ_EXTERNAL_STORAGE);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    static boolean checkWriteStorage(Context context) {
+        try {
+            //if (android.os.Build.VERSION.SDK_INT >= 23)
+            return (ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
             //else
             //    return hasPermission(context, permission.READ_EXTERNAL_STORAGE);
         } catch (Exception e) {
@@ -2519,7 +2530,8 @@ class Permissions {
         editor.putBoolean(PREF_PHONE_PERMISSION, Permissions.checkPhone(context));
         editor.putBoolean(PREF_SENSORS_PERMISSION, Permissions.checkSensors(context));
         editor.putBoolean(PREF_SMS_PERMISSION, Permissions.checkSMS(context));
-        editor.putBoolean(PREF_STORAGE_PERMISSION, Permissions.checkStorage(context));
+        editor.putBoolean(PREF_READ_STORAGE_PERMISSION, Permissions.checkReadStorage(context));
+        editor.putBoolean(PREF_WRITE_STORAGE_PERMISSION, Permissions.checkWriteStorage(context));
 
         editor.putBoolean(PREF_PERMISSIONS_CHANGED, permissionsChanged);
 
@@ -2589,9 +2601,14 @@ class Permissions {
     }
     */
 
-    static boolean getStoragePermission(Context context) {
+    static boolean getReadStoragePermission(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
-        return preferences.getBoolean(PREF_STORAGE_PERMISSION, false);
+        return preferences.getBoolean(PREF_READ_STORAGE_PERMISSION, false);
+    }
+
+    static boolean getWriteStoragePermission(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
+        return preferences.getBoolean(PREF_WRITE_STORAGE_PERMISSION, false);
     }
 
     static boolean getCameraPermission(Context context) {

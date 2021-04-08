@@ -1757,8 +1757,15 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             finishActivity = permissionsChanged && (!phonePermission);
                         }
                         if (!permissionsChanged) {
-                            boolean storagePermission = Permissions.checkStorage(context);
-                            permissionsChanged = Permissions.getStoragePermission(context) != storagePermission;
+                            boolean storagePermission = Permissions.checkReadStorage(context);
+                            permissionsChanged = Permissions.getReadStoragePermission(context) != storagePermission;
+                            //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "storagePermission=" + permissionsChanged);
+                            // finish Editor when permission is disabled
+                            finishActivity = permissionsChanged && (!storagePermission);
+                        }
+                        if (!permissionsChanged) {
+                            boolean storagePermission = Permissions.checkWriteStorage(context);
+                            permissionsChanged = Permissions.getWriteStoragePermission(context) != storagePermission;
                             //PPApplication.logE("PhoneProfilesPrefsFragment.doOnActivityResult", "storagePermission=" + permissionsChanged);
                             // finish Editor when permission is disabled
                             finishActivity = permissionsChanged && (!storagePermission);
