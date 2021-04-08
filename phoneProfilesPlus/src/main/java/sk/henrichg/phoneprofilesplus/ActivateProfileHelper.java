@@ -5348,7 +5348,9 @@ class ActivateProfileHelper {
                             //Log.e("ActivateProfileHelper.setMobileData", Log.getStackTraceString(e));
                         }
                     }
-                } else {
+                } /*else {
+                    // dual sim temporary removed, Samsung, Xiaomi, Huawei do not have option for this in Settings
+
                     // dual sim is supported by TelephonyManager from API 26
 
                     // Get the value of the "TRANSACTION_setDataEnabled" field.
@@ -5393,13 +5395,14 @@ class ActivateProfileHelper {
                                                 String command1 = PPApplication.getServiceCommand("phone", transactionCode, subscriptionId, state);
 //                                                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "command1=" + command1);
                                                 if (command1 != null) {
-                                                    Command command = new Command(0, false, command1)/* {
-                                                        @Override
-                                                        public void commandOutput(int id, String line) {
-                                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "command output -> line=" + line);
-                                                            super.commandOutput(id, line);
-                                                        }
-                                                    }*/;
+                                                    Command command = new Command(0, false, command1);
+//                                                    {
+//                                                        @Override
+//                                                        public void commandOutput(int id, String line) {
+//                                                            PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "command output -> line=" + line);
+//                                                            super.commandOutput(id, line);
+//                                                        }
+//                                                    };
                                                     try {
                                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                                         PPApplication.commandWait(command, "ActivateProfileHelper.setMobileData");
@@ -5424,7 +5427,7 @@ class ActivateProfileHelper {
                     }
 //                    else
 //                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setMobileData", "transactionCode == -1");
-                }
+                }*/
             }
          }
     }

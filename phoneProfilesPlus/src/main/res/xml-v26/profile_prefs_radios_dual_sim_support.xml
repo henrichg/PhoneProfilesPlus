@@ -34,6 +34,7 @@
         app:summary="@string/profile_preferences_deviceDefaultSIM"
         app:layout="@layout/mp_preference_material_widget" />
 
+<!--
     <ListPreference
         app:title="@string/profile_preferences_deviceMobileData_21_SIM1"
         app:summary="@string/array_pref_no_change"
@@ -50,6 +51,7 @@
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
+-->
 
     <ListPreference
         app:title="@string/profile_preferences_deviceNetworkTypeSIM1"
