@@ -1486,7 +1486,7 @@ class PreferenceAllowed {
 
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
-        if (Build.VERSION.SDK_INT >= 26) {
+        if (Build.VERSION.SDK_INT >= 29) {
             if (PPApplication.isRooted(fromUIThread)) {
                 // device is rooted
 

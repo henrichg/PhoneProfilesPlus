@@ -10,6 +10,23 @@
         app:summary="@string/empty_string"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <ListPreference
+        app:title="@string/profile_preferences_deviceOnOff_SIM1"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceOnOffSIM1"
+        app:defaultValue="0"
+        app:entries="@array/onOffSIMArray"
+        app:entryValues="@array/onOffSIMValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_deviceOnOff_SIM2"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceOnOffSIM2"
+        app:defaultValue="0"
+        app:entries="@array/onOffSIMArray"
+        app:entryValues="@array/onOffSIMValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <sk.henrichg.phoneprofilesplus.DefaultSIMDialogPreferenceX
         app:key="prf_pref_deviceDefaultSIMCards"
         app:defaultValue="0|0|0"
