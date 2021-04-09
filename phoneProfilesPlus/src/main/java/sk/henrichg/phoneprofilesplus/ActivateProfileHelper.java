@@ -3397,7 +3397,7 @@ class ActivateProfileHelper {
                         //PPApplication.logE("PPApplication.startHandlerThreadWallpaper", "width="+width);
 
                         // for lock screen no double width
-                        if ((Build.VERSION.SDK_INT < 24) || (profile._deviceWallpaperFor != 2))
+                        if (/*(Build.VERSION.SDK_INT < 24) ||*/ (profile._deviceWallpaperFor != 2))
                             width = width << 1; // best wallpaper width is twice screen width
                         //PPApplication.logE("PPApplication.startHandlerThreadWallpaper", "width (2)="+width);
 
@@ -4442,11 +4442,11 @@ class ActivateProfileHelper {
 
             String nTitle = profile.getGenerateNotificationTitle();
             String nText = profile.getGenerateNotificationBody();
-            if (android.os.Build.VERSION.SDK_INT < 24) {
-                nTitle = appContext.getString(R.string.ppp_app_name);
-                nText = profile.getGenerateNotificationTitle() + ": " +
-                        profile.getGenerateNotificationBody();
-            }
+//            if (android.os.Build.VERSION.SDK_INT < 24) {
+//                nTitle = appContext.getString(R.string.ppp_app_name);
+//                nText = profile.getGenerateNotificationTitle() + ": " +
+//                        profile.getGenerateNotificationBody();
+//            }
             nTitle = nTitle + " (" + profile._name + ")";
             mBuilder = new NotificationCompat.Builder(appContext, PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL)
                     .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
@@ -4565,12 +4565,14 @@ class ActivateProfileHelper {
     private static void showNotificationForInteractiveParameters(Context context, String title, String text, Intent intent, int notificationId, String notificationTag) {
         Context appContext = context.getApplicationContext();
 
+        //noinspection UnnecessaryLocalVariable
         String nTitle = title;
+        //noinspection UnnecessaryLocalVariable
         String nText = text;
-        if (android.os.Build.VERSION.SDK_INT < 24) {
-            nTitle = appContext.getString(R.string.ppp_app_name);
-            nText = title+": "+text;
-        }
+//        if (android.os.Build.VERSION.SDK_INT < 24) {
+//            nTitle = appContext.getString(R.string.ppp_app_name);
+//            nText = title+": "+text;
+//        }
         PPApplication.createInformationNotificationChannel(appContext);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
@@ -6678,12 +6680,13 @@ class ActivateProfileHelper {
                 break;
         }
 
+        //noinspection UnnecessaryLocalVariable
         String nTitle = title;
         String nText = text;
-        if (android.os.Build.VERSION.SDK_INT < 24) {
-            nTitle = appContext.getString(R.string.ppp_app_name);
-            nText = title+": "+text;
-        }
+//        if (android.os.Build.VERSION.SDK_INT < 24) {
+//            nTitle = appContext.getString(R.string.ppp_app_name);
+//            nText = title+": "+text;
+//        }
         PPApplication.createInformationNotificationChannel(appContext);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))

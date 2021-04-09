@@ -176,11 +176,11 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
 
         String nTitle = appContext.getString(R.string.menu_check_github_releases);
         String nText = appContext.getString(R.string.check_github_releases_notification);
-        if (android.os.Build.VERSION.SDK_INT < 24) {
-            nTitle = appContext.getString(R.string.ppp_app_name);
-            nText = appContext.getString(R.string.menu_check_github_releases) + ": " +
-                    appContext.getString(R.string.check_github_releases_notification);
-        }
+//        if (android.os.Build.VERSION.SDK_INT < 24) {
+//            nTitle = appContext.getString(R.string.ppp_app_name);
+//            nText = appContext.getString(R.string.menu_check_github_releases) + ": " +
+//                    appContext.getString(R.string.check_github_releases_notification);
+//        }
         mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_CHANNEL)
                 .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
                 .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon

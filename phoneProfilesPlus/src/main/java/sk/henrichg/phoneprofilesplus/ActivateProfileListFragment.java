@@ -314,6 +314,7 @@ public class ActivateProfileListFragment extends Fragment {
                 }
             }
 
+            //noinspection Java8ListSort
             Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
 
             dataWrapper.getEventTimelineList(true);

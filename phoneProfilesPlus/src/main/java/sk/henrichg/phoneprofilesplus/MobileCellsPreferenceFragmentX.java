@@ -597,8 +597,10 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     }
 
                     if (_sortCellsBy == 0)
+                        //noinspection Java8ListSort
                         Collections.sort(_cellsList, new SortByNameList());
                     else
+                        //noinspection Java8ListSort
                         Collections.sort(_cellsList, new SortByConnectionList());
 
 

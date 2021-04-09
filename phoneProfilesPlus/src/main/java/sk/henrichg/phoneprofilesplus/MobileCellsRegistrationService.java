@@ -191,9 +191,9 @@ public class MobileCellsRegistrationService extends Service {
             long iValue = millisUntilFinished / 1000;
             time = time + ": " + GlobalGUIRoutines.getDurationString((int) iValue);
             text = text + "; " + time;
-            if (android.os.Build.VERSION.SDK_INT < 24) {
-                text = text + " (" + getString(R.string.ppp_app_name) + ")";
-            }
+//            if (android.os.Build.VERSION.SDK_INT < 24) {
+//                text = text + " (" + getString(R.string.ppp_app_name) + ")";
+//            }
         }
         else {
             text = getString(R.string.mobile_cells_registration_pref_dlg_status_stopped);
@@ -259,9 +259,9 @@ public class MobileCellsRegistrationService extends Service {
         long iValue = DatabaseHandler.getInstance(getApplicationContext()).getNewMobileCellsCount();
         newCount = newCount + " " + iValue;
         text = text + "; " + newCount;
-        if (android.os.Build.VERSION.SDK_INT < 24) {
-            text = text+" ("+getString(R.string.ppp_app_name)+")";
-        }
+//        if (android.os.Build.VERSION.SDK_INT < 24) {
+//            text = text+" ("+getString(R.string.ppp_app_name)+")";
+//        }
 
         PPApplication.createMobileCellsRegistrationNotificationChannel(this);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this, PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)

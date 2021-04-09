@@ -141,6 +141,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
+            //noinspection Java8ListSort
             Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
 
             // add restart events

@@ -362,12 +362,14 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
     */
 
     private void showNotification(String title, String text) {
+        //noinspection UnnecessaryLocalVariable
         String nTitle = title;
+        //noinspection UnnecessaryLocalVariable
         String nText = text;
-        if (android.os.Build.VERSION.SDK_INT < 24) {
-            nTitle = getString(R.string.ppp_app_name);
-            nText = title+": "+text;
-        }
+//        if (android.os.Build.VERSION.SDK_INT < 24) {
+//            nTitle = getString(R.string.ppp_app_name);
+//            nText = title+": "+text;
+//        }
         PPApplication.createExclamationNotificationChannel(getApplicationContext());
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(this, R.color.notificationDecorationColor))

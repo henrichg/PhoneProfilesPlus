@@ -5334,7 +5334,7 @@ public class PhoneProfilesService extends Service
 
             synchronized (PPApplication.applicationPreferencesMutex) {
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
-                notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon || (Build.VERSION.SDK_INT < 24);
+                notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon /*|| (Build.VERSION.SDK_INT < 24)*/;
                 //notificationShowProfileIcon = true;
                 notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
                 //notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
@@ -7745,14 +7745,14 @@ public class PhoneProfilesService extends Service
                     "\"" + profile._name + "\" " +
                     context.getString(R.string.preferences_red_texts_text_2) + " " +
                     context.getString(R.string.preferences_red_texts_text_click);
-            if (android.os.Build.VERSION.SDK_INT < 24) {
-                nTitle = context.getString(R.string.ppp_app_name);
-                nText = context.getString(R.string.profile_preferences_red_texts_title) + ": " +
-                        context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
-                        "\"" + profile._name + "\" " +
-                        context.getString(R.string.preferences_red_texts_text_2) + " " +
-                        context.getString(R.string.preferences_red_texts_text_click);
-            }
+//            if (android.os.Build.VERSION.SDK_INT < 24) {
+//                nTitle = context.getString(R.string.ppp_app_name);
+//                nText = context.getString(R.string.profile_preferences_red_texts_title) + ": " +
+//                        context.getString(R.string.profile_preferences_red_texts_text_1) + " " +
+//                        "\"" + profile._name + "\" " +
+//                        context.getString(R.string.preferences_red_texts_text_2) + " " +
+//                        context.getString(R.string.preferences_red_texts_text_click);
+//            }
 
             intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
             notificationID = PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id;
@@ -7765,14 +7765,14 @@ public class PhoneProfilesService extends Service
                     "\"" + event._name + "\" " +
                     context.getString(R.string.preferences_red_texts_text_2) + " " +
                     context.getString(R.string.preferences_red_texts_text_click);
-            if (android.os.Build.VERSION.SDK_INT < 24) {
-                nTitle = context.getString(R.string.ppp_app_name);
-                nText = context.getString(R.string.event_preferences_red_texts_title) + ": " +
-                        context.getString(R.string.event_preferences_red_texts_text_1) + " " +
-                        "\"" + event._name + "\" " +
-                        context.getString(R.string.preferences_red_texts_text_2) + " " +
-                        context.getString(R.string.preferences_red_texts_text_click);
-            }
+//            if (android.os.Build.VERSION.SDK_INT < 24) {
+//                nTitle = context.getString(R.string.ppp_app_name);
+//                nText = context.getString(R.string.event_preferences_red_texts_title) + ": " +
+//                        context.getString(R.string.event_preferences_red_texts_text_1) + " " +
+//                        "\"" + event._name + "\" " +
+//                        context.getString(R.string.preferences_red_texts_text_2) + " " +
+//                        context.getString(R.string.preferences_red_texts_text_click);
+//            }
 
             intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
             notificationID = PPApplication.EVENT_ID_NOTIFICATION_ID + (int) event._id;

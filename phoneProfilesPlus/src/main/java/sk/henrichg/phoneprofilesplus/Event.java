@@ -3149,10 +3149,10 @@ class Event {
                 String nText = context.getString(R.string.start_event_notification_text1);
                 nText = nText + ": " + _name;
                 nText = nText + ". " + context.getString(R.string.start_event_notification_text2);
-                if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = context.getString(R.string.ppp_app_name);
-                    nText = context.getString(R.string.start_event_notification_title) + ": " + nText;
-                }
+//                if (android.os.Build.VERSION.SDK_INT < 24) {
+//                    nTitle = context.getString(R.string.ppp_app_name);
+//                    nText = context.getString(R.string.start_event_notification_title) + ": " + nText;
+//                }
                 PPApplication.createNotifyEventStartNotificationChannel(context);
                 mBuilder = new NotificationCompat.Builder(context, PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL)
                         .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))

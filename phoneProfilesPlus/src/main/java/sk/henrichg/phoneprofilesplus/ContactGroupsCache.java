@@ -315,6 +315,7 @@ class ContactGroupsCache {
 //                PPApplication.logE("ContactGroupsCache.getContactGroupListX", "_contactGroupList.size()="+_contactGroupList.size());
 //                PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(6)");
 
+                //noinspection Java8ListSort
                 Collections.sort(_contactGroupList, new ContactGroupsCache.ContactGroupsComparator());
 
                 cached = true;

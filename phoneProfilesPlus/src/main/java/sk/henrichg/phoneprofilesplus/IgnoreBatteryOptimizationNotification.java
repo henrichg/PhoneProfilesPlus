@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
@@ -134,12 +133,14 @@ class IgnoreBatteryOptimizationNotification {
 
     @SuppressLint("BatteryLife")
     static private void showNotification(Context context, String title, String text) {
+        //noinspection UnnecessaryLocalVariable
         String nTitle = title;
+        //noinspection UnnecessaryLocalVariable
         String nText = text;
-        if (Build.VERSION.SDK_INT < 24) {
-            nTitle = context.getString(R.string.ppp_app_name);
-            nText = title+": "+text;
-        }
+//        if (Build.VERSION.SDK_INT < 24) {
+//            nTitle = context.getString(R.string.ppp_app_name);
+//            nText = title+": "+text;
+//        }
         PPApplication.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))

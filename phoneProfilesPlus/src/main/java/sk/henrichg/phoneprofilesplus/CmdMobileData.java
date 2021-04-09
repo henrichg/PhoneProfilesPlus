@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.ServiceManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
@@ -38,13 +37,13 @@ public class CmdMobileData {
                 boolean ok = false;
                 ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
                 if (adapter != null) {
-                    if ((Build.VERSION.SDK_INT > 23) && (simCard > 0)) {
+                    if (/*(Build.VERSION.SDK_INT > 23) &&*/ (simCard > 0)) {
                         SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                         //SubscriptionManager.from(context);
                         if (mSubscriptionManager != null) {
-                            int defaultDataId = 0;
+                            int defaultDataId;// = 0;
                             //noinspection ConstantConditions
-                            if (Build.VERSION.SDK_INT > 23)
+//                            if (Build.VERSION.SDK_INT > 23)
                                 defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
 //                            PPApplication.logE("CmdMobileData.isEnabled", "defaultDataId=" + defaultDataId);
 

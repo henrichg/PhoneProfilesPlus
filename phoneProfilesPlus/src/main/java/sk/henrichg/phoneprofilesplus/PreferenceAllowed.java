@@ -682,7 +682,7 @@ class PreferenceAllowed {
 
         String preferenceKey = Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING;
 
-        if ((android.os.Build.VERSION.SDK_INT == 23) ||
+        if (//(android.os.Build.VERSION.SDK_INT == 23) ||
                 (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
             if (PPApplication.isRooted(fromUIThread)) {
                 // device is rooted

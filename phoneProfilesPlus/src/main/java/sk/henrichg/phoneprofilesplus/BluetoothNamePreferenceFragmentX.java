@@ -418,6 +418,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                     }
                 }
 
+                //noinspection Java8ListSort
                 Collections.sort(_bluetoothList, new SortList());
 
                 //if (android.os.Build.VERSION.SDK_INT >= 18) {

@@ -89,7 +89,6 @@
             app:entryValues="@array/notificationNotificationStyleValues"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <!--
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationLayoutType"
             app:summary="@string/phone_profiles_pref_notificationLayoutType_expandable"
@@ -98,8 +97,6 @@
             app:entries="@array/notificationLayoutTypeArray"
             app:entryValues="@array/notificationLayoutTypeValues"
             app:layout="@layout/mp_preference_material_widget" />
-        -->
-
         <SwitchPreferenceCompat
             app:key="notificationPrefIndicator"
             app:title="@string/phone_profiles_pref_notificationPrefIndicator"
@@ -134,18 +131,23 @@
             app:entries="@array/notificationTextColorArray"
             app:entryValues="@array/notificationTextColorValues"
             app:layout="@layout/mp_preference_material_widget" />
-        <!--
         <SwitchPreferenceCompat
             app:key="notificationUseDecoration"
             app:title="@string/phone_profiles_pref_notificationUseDecoration"
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
+
+        <SwitchPreferenceCompat
+            app:key="notificationShowProfileIcon"
+            app:title="@string/phone_profiles_pref_notificationShowProfileIcon"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
+
         <SwitchPreferenceCompat
             app:key="notificationShowButtonExit"
             app:title="@string/phone_profiles_pref_notificationShowButtonExit"
             app:defaultValue="false"
             app:layout="@layout/mp_preference_material_widget" />
-        -->
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

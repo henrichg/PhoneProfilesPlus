@@ -1373,21 +1373,27 @@ public class EditorEventListFragment extends Fragment
         switch (orderType)
         {
             case ORDER_TYPE_EVENT_NAME:
+                //noinspection Java8ListSort
                 Collections.sort(eventList, new EventNameComparator());
                 break;
             case ORDER_TYPE_START_ORDER:
+                //noinspection Java8ListSort
                 Collections.sort(eventList, new StartOrderComparator());
                 break;
             case ORDER_TYPE_START_PROFILE_NAME:
+                //noinspection Java8ListSort
                 Collections.sort(eventList, new StartProfileNameComparator());
                 break;
             case ORDER_TYPE_END_PROFILE_NAME:
+                //noinspection Java8ListSort
                 Collections.sort(eventList, new EndProfileNameComparator());
                 break;
             case ORDER_TYPE_PRIORITY:
                 if (ApplicationPreferences.applicationEventUsePriority)
+                    //noinspection Java8ListSort
                     Collections.sort(eventList, new PriorityComparator());
                 else
+                    //noinspection Java8ListSort
                     Collections.sort(eventList, new StartOrderComparator());
                 break;
         }

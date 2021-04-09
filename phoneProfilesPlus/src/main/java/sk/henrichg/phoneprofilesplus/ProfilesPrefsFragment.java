@@ -362,7 +362,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     ringerModePreference.setEntries(entries);
                 }*/
 
-                boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                 @SuppressLint("InlinedApi")
                 final boolean showDoNotDisturbPermission =
                         /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
@@ -477,7 +477,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_zenModePreference != null) {
                     _zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode1);
 
-                    boolean a60 = (Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                    boolean a60 = /*(Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                     @SuppressLint("InlinedApi")
                     boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                             GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
@@ -524,7 +524,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceCategory.removePreference(preference);
             }
         }
-        if ((android.os.Build.VERSION.SDK_INT == 23) || (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
+        if (/*(android.os.Build.VERSION.SDK_INT == 23) ||*/ (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
             ListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (preference != null)
             {
@@ -534,14 +534,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
             }
         }
-        if (android.os.Build.VERSION.SDK_INT < 24) {
-            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
-            if (preference != null) {
-                PreferenceScreen preferenceCategory = findPreference("prf_pref_othersCategory");
-                if (preferenceCategory != null)
-                    preferenceCategory.removePreference(preference);
-            }
-        }
+//        if (android.os.Build.VERSION.SDK_INT < 24) {
+//            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
+//            if (preference != null) {
+//                PreferenceScreen preferenceCategory = findPreference("prf_pref_othersCategory");
+//                if (preferenceCategory != null)
+//                    preferenceCategory.removePreference(preference);
+//            }
+//        }
         /*if (android.os.Build.VERSION.SDK_INT >= 26) {
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
             if (preference != null)
@@ -1439,7 +1439,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         default:
                             if (!value.equals(defaultValue)) {
                                 if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
-                                        ((Build.VERSION.SDK_INT == 23) || (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)))
+                                        (/*(Build.VERSION.SDK_INT == 23) ||*/ (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)))
                                     title = "(R) " + getString(R.string.profile_preferences_vibrateWhenRinging);
                                 else if (key.equals(Profile.PREF_PROFILE_DURATION))
                                     title = context.getString(R.string.profile_preferences_duration);
@@ -1578,7 +1578,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + title + ": <b>" + value + "</b>";
             }
             if (_bold) {
-                boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                 @SuppressLint("InlinedApi")
                 boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                         GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
@@ -3214,7 +3214,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     listPreference.setEnabled(false);
                     listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                             ": "+getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
-                    boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                    boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                     @SuppressLint("InlinedApi")
                     boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                             GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
@@ -3250,7 +3250,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         iRingerMode = Integer.parseInt(sRingerMode);
 
                     if (iRingerMode == 5) {
-                        boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                        boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                         @SuppressLint("InlinedApi")
                         boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                                 GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
@@ -5045,7 +5045,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference != null) {
                         String _title = order + ". ";
                         String _summary;
-                        boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                        boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                         final boolean showDoNotDisturbPermission =
                                 /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                                         GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());

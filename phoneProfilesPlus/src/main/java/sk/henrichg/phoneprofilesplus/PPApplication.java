@@ -4198,11 +4198,11 @@ public class PPApplication extends Application
 //                else
 //                    appLocale = new Locale(langSplit[0], langSplit[1]);
 //            } else {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        //if (Build.VERSION.SDK_INT >= 24) {
             appLocale = Resources.getSystem().getConfiguration().getLocales().get(0);
-        } else {
-            appLocale = Resources.getSystem().getConfiguration().locale;
-        }
+        //} else {
+        //    appLocale = Resources.getSystem().getConfiguration().locale;
+        //}
 //            }
         // get collator for application locale
         return Collator.getInstance(appLocale);

@@ -1973,6 +1973,7 @@ class EventsHandler {
             }
         }
 
+        //noinspection Java8ListSort
         Collections.sort(eventList, new PriorityComparator());
     }
 

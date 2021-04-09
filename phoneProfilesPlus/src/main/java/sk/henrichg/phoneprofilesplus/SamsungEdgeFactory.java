@@ -243,6 +243,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             }
         }
 
+        //noinspection Java8ListSort
         Collections.sort(newProfileList, new ProfileComparator());
 
         if (Event.getGlobalEventsRunning()) {

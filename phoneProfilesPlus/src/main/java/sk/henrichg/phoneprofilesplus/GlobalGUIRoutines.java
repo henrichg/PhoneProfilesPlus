@@ -584,19 +584,19 @@ class GlobalGUIRoutines {
     static Spanned fromHtml(String source, boolean forBullets, boolean forNumbers, int numberFrom, int sp) {
         Spanned htmlSpanned;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        //if (Build.VERSION.SDK_INT >= 24) {
             if (forNumbers)
                 htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
             else {
                 htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT);
                 //htmlSpanned = Html.fromHtml(source, Html.FROM_HTML_MODE_COMPACT, null, new LiTagHandler());
             }
-        } else {
-            if (forBullets || forNumbers)
-                htmlSpanned = Html.fromHtml(source, null, new LiTagHandler());
-            else
-                htmlSpanned = Html.fromHtml(source);
-        }
+        //} else {
+        //    if (forBullets || forNumbers)
+        //        htmlSpanned = Html.fromHtml(source, null, new LiTagHandler());
+        //    else
+        //        htmlSpanned = Html.fromHtml(source);
+        //}
 
         if (forBullets)
             return addBullets(htmlSpanned);

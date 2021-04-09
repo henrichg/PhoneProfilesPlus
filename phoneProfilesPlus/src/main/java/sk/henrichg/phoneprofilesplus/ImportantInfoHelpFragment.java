@@ -574,7 +574,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             //TextView infoText13 = view.findViewById(R.id.activity_info_notification_profile_zenMode_news);
             //infoText13.setVisibility(View.GONE);
 
-            boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+            boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
             if (/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
                     GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 TextView infoText14 = view.findViewById(R.id.activity_info_notification_profile_zenMode);

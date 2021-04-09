@@ -1107,6 +1107,7 @@ public class EditorProfileListFragment extends Fragment
                     return 0;
             }
         }
+        //noinspection Java8ListSort
         Collections.sort(profileList, new AlphabeticallyComparator());
     }
 
@@ -1120,6 +1121,7 @@ public class EditorProfileListFragment extends Fragment
                 return res;
             }
         }
+        //noinspection Java8ListSort
         Collections.sort(profileList, new ByPOrderComparator());
     }
 

@@ -156,6 +156,7 @@ class ContactsCache {
                     rawCursor.close();
                 }
 
+                //noinspection Java8ListSort
                 Collections.sort(_contactList, new ContactsComparator());
 
                 cached = true;

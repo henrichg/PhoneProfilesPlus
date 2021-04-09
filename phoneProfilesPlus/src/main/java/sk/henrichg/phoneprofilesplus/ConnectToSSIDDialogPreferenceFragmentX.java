@@ -178,6 +178,7 @@ public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFrag
                             }
                         //}
 
+                        //noinspection Java8ListSort
                         Collections.sort(_SSIDList, new SortList());
 
                         //if (preference.disableSharedProfile == 0)

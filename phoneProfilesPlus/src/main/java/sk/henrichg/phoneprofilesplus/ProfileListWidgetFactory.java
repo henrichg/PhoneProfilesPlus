@@ -311,6 +311,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 profile._porder = -1;
             }
         }
+        //noinspection Java8ListSort
         Collections.sort(newProfileList, new ProfileComparator());
 
         if ((!applicationWidgetListHeader) &&

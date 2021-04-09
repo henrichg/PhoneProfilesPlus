@@ -61,6 +61,7 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
                 preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
                 synchronized (preference.dataWrapper.profileList) {
+                    //noinspection Java8ListSort
                     Collections.sort(preference.dataWrapper.profileList, new AlphabeticallyComparator());
                 }
 

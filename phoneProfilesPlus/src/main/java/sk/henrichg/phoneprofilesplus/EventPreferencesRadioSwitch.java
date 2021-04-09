@@ -785,7 +785,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 //SubscriptionManager.from(context);
                                 if (mSubscriptionManager != null) {
                                     //noinspection ConstantConditions
-                                    if (Build.VERSION.SDK_INT > 23) {
+                                    //if (Build.VERSION.SDK_INT > 23) {
                                         int defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
 
                                         List<SubscriptionInfo> subscriptionList = null;
@@ -811,7 +811,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                                 }
                                             }
                                         }
-                                    }
+                                    //}
                                 }
 
                                 if (defaultIsSIM1) {
@@ -870,7 +870,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 //SubscriptionManager.from(context);
                                 if (mSubscriptionManager != null) {
                                     //noinspection ConstantConditions
-                                    if (Build.VERSION.SDK_INT > 23) {
+                                    //if (Build.VERSION.SDK_INT > 23) {
                                         int defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
 
                                         List<SubscriptionInfo> subscriptionList = null;
@@ -896,7 +896,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                                 }
                                             }
                                         }
-                                    }
+                                    //}
                                 }
 
                                 if (defaultIsSIM2) {

@@ -1342,21 +1342,21 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             */
         //}
-        if (Build.VERSION.SDK_INT < 24) {
-            PreferenceCategory preferenceCategory = findPreference("categoryNotificationsStatusBar");
-            preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
-            if ((preferenceCategory != null) && (preference != null))
-                preferenceCategory.removePreference(preference);
-            preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
-            if ((preferenceCategory != null) && (preference != null))
-                preferenceCategory.removePreference(preference);
-            preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
-            if ((preferenceCategory != null) && (preference != null))
-                preferenceCategory.removePreference(preference);
-            preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
-            if ((preferenceCategory != null) && (preference != null))
-                preferenceCategory.removePreference(preference);
-        }
+//        if (Build.VERSION.SDK_INT < 24) {
+//            PreferenceCategory preferenceCategory = findPreference("categoryNotificationsStatusBar");
+//            preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
+//            if ((preferenceCategory != null) && (preference != null))
+//                preferenceCategory.removePreference(preference);
+//            preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
+//            if ((preferenceCategory != null) && (preference != null))
+//                preferenceCategory.removePreference(preference);
+//            preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
+//            if ((preferenceCategory != null) && (preference != null))
+//                preferenceCategory.removePreference(preference);
+//            preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
+//            if ((preferenceCategory != null) && (preference != null))
+//                preferenceCategory.removePreference(preference);
+//        }
         preference = findPreference("applicationUnlinkRingerNotificationVolumesImportantInfo");
         if (preference != null) {
             preference.setOnPreferenceClickListener(preference115 -> {

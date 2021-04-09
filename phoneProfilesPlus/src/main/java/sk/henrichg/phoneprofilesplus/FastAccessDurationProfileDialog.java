@@ -77,6 +77,7 @@ class FastAccessDurationProfileDialog
             protected Void doInBackground(Void... params) {
                 dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
                 synchronized (dataWrapper.profileList) {
+                    //noinspection Java8ListSort
                     Collections.sort(dataWrapper.profileList, new AlphabeticallyComparator());
                 }
 

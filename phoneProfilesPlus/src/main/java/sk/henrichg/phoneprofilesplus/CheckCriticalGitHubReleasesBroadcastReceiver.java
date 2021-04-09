@@ -284,20 +284,20 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             if (critical) {
                 nTitle = appContext.getString(R.string.critical_github_release);
                 nText = appContext.getString(R.string.critical_github_release_notification);
-                if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = appContext.getString(R.string.ppp_app_name);
-                    nText = appContext.getString(R.string.critical_github_release) + ": " +
-                            appContext.getString(R.string.critical_github_release_notification);
-                }
+//                if (android.os.Build.VERSION.SDK_INT < 24) {
+//                    nTitle = appContext.getString(R.string.ppp_app_name);
+//                    nText = appContext.getString(R.string.critical_github_release) + ": " +
+//                            appContext.getString(R.string.critical_github_release_notification);
+//                }
             }
             else {
                 nTitle = appContext.getString(R.string.normal_github_release);
                 nText = appContext.getString(R.string.normal_github_release_notification);
-                if (android.os.Build.VERSION.SDK_INT < 24) {
-                    nTitle = appContext.getString(R.string.ppp_app_name);
-                    nText = appContext.getString(R.string.normal_github_release) + ": " +
-                            appContext.getString(R.string.normal_github_release_notification);
-                }
+//                if (android.os.Build.VERSION.SDK_INT < 24) {
+//                    nTitle = appContext.getString(R.string.ppp_app_name);
+//                    nText = appContext.getString(R.string.normal_github_release) + ": " +
+//                            appContext.getString(R.string.normal_github_release_notification);
+//                }
             }
             mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_CHANNEL)
                     .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))

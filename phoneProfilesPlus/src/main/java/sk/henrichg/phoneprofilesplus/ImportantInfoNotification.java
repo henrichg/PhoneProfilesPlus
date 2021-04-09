@@ -167,12 +167,14 @@ class ImportantInfoNotification {
     static private void showNotification(Context context,
                                          @SuppressWarnings("SameParameterValue") boolean firstInstallation,
                                          String title, String text) {
+        //noinspection UnnecessaryLocalVariable
         String nTitle = title;
+        //noinspection UnnecessaryLocalVariable
         String nText = text;
-        if (android.os.Build.VERSION.SDK_INT < 24) {
-            nTitle = context.getString(R.string.ppp_app_name);
-            nText = title+": "+text;
-        }
+//        if (android.os.Build.VERSION.SDK_INT < 24) {
+//            nTitle = context.getString(R.string.ppp_app_name);
+//            nText = title+": "+text;
+//        }
         PPApplication.createExclamationNotificationChannel(context);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))

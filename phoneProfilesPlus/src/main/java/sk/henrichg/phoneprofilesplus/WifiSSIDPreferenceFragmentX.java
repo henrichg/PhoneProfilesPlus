@@ -392,6 +392,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                     }
                 }
 
+                //noinspection Java8ListSort
                 Collections.sort(_SSIDList, new SortList());
 
                 _SSIDList.add(0, new WifiSSIDData(EventPreferencesWifi.CONFIGURED_SSIDS_VALUE, /*"",*/ false, false, false));

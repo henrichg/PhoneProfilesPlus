@@ -266,6 +266,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
                     }
                 }
 
+                //noinspection Java8ListSort
                 Collections.sort(_nfcTagList, new SortList());
 
                 // move checked on top

@@ -183,7 +183,9 @@ class ApplicationsCache {
                 return;
         }
 
+        //noinspection Java8ListSort
         Collections.sort(applicationsList, new SortList());
+        //noinspection Java8ListSort
         Collections.sort(applicationsNoShortcutsList, new SortList());
 
         cached = true;
