@@ -44,6 +44,9 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.telephony.PhoneStateListener;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -882,16 +885,35 @@ public class PhoneProfilesService extends Service
                     PPApplication.interruptionFilterChangedReceiver = null;
                 }
             }
-            if (PPApplication.phoneCallBroadcastReceiver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers->UNREGISTER phone call", "PhoneProfilesService_registerAllTheTimeRequiredSystemReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "UNREGISTER phone call");
+
+            if (PPApplication.phoneStateListenerSIM1 != null) {
                 try {
-                    appContext.unregisterReceiver(PPApplication.phoneCallBroadcastReceiver);
-                    PPApplication.phoneCallBroadcastReceiver = null;
-                } catch (Exception e) {
-                    PPApplication.phoneCallBroadcastReceiver = null;
+                    if (PPApplication.telephonyManagerSIM1 != null)
+                        PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneStateListenerSIM1, PhoneStateListener.LISTEN_NONE);
+                    PPApplication.phoneStateListenerSIM1 = null;
+                    PPApplication.telephonyManagerSIM1 = null;
+                } catch (Exception ignored) {
                 }
             }
+            if (PPApplication.phoneStateListenerSIM2 != null) {
+                try {
+                    if (PPApplication.telephonyManagerSIM2 != null)
+                        PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneStateListenerSIM2, PhoneStateListener.LISTEN_NONE);
+                    PPApplication.phoneStateListenerSIM2 = null;
+                    PPApplication.telephonyManagerSIM2 = null;
+                } catch (Exception ignored) {
+                }
+            }
+            if (PPApplication.phoneStateListenerDefaul != null) {
+                try {
+                    if (PPApplication.telephonyManagerDefault != null)
+                        PPApplication.telephonyManagerDefault.listen(PPApplication.phoneStateListenerDefaul, PhoneStateListener.LISTEN_NONE);
+                    PPApplication.phoneStateListenerDefaul = null;
+                    PPApplication.telephonyManagerDefault = null;
+                } catch (Exception ignored) {
+                }
+            }
+
             if (PPApplication.ringerModeChangeReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers->UNREGISTER ringer mode change", "PhoneProfilesService_registerAllTheTimeRequiredSystemReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "UNREGISTER ringer mode change");
@@ -1017,13 +1039,60 @@ public class PhoneProfilesService extends Service
             }
 
             // required for unlink ring and notification volume
-            if (PPApplication.phoneCallBroadcastReceiver == null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers->REGISTER phone call", "PhoneProfilesService_registerAllTheTimeRequiredSystemReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "REGISTER phone call");
-                PPApplication.phoneCallBroadcastReceiver = new PhoneCallBroadcastReceiver();
-                IntentFilter intentFilter6 = new IntentFilter();
-                intentFilter6.addAction(TelephonyManager.ACTION_PHONE_STATE_CHANGED);
-                appContext.registerReceiver(PPApplication.phoneCallBroadcastReceiver, intentFilter6);
+            PPApplication.telephonyManagerDefault = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+            if (PPApplication.telephonyManagerDefault != null) {
+                int simCount = PPApplication.telephonyManagerDefault.getSimCount();
+                if (simCount > 1) {
+                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                    //SubscriptionManager.from(appContext);
+                    if (mSubscriptionManager != null) {
+                        PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "mSubscriptionManager != null");
+                        List<SubscriptionInfo> subscriptionList = null;
+                        try {
+                            // Loop through the subscription list i.e. SIM list.
+                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionList=" + subscriptionList);
+                        } catch (SecurityException e) {
+                            //PPApplication.recordException(e);
+                        }
+                        if (subscriptionList != null) {
+                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionList.size()=" + subscriptionList.size());
+                            for (int i = 0; i < subscriptionList.size(); i++) {
+                                // Get the active subscription ID for a given SIM card.
+                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionInfo=" + subscriptionInfo);
+                                if (subscriptionInfo != null) {
+                                    int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                    if (i == 0) {
+                                        if (PPApplication.telephonyManagerSIM1 == null) {
+                                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionId=" + subscriptionId);
+                                            //noinspection ConstantConditions
+                                            PPApplication.telephonyManagerSIM1 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
+                                            PPApplication.phoneStateListenerSIM1 = new PPPhoneStateListener(subscriptionInfo, getBaseContext());
+                                            PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneStateListenerSIM1, PhoneStateListener.LISTEN_CALL_STATE);
+                                        }
+                                    }
+                                    if (i == 1) {
+                                        if (PPApplication.telephonyManagerSIM2 == null) {
+                                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionId=" + subscriptionId);
+                                            //noinspection ConstantConditions
+                                            PPApplication.telephonyManagerSIM2 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
+                                            PPApplication.phoneStateListenerSIM2 = new PPPhoneStateListener(subscriptionInfo, getBaseContext());
+                                            PPApplication.telephonyManagerSIM2.listen(PPApplication.phoneStateListenerSIM2, PhoneStateListener.LISTEN_CALL_STATE);
+                                        }
+                                    }
+                                } else
+                                    PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionInfo == null");
+                            }
+                        } else
+                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionList == null");
+                    } else
+                        PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "mSubscriptionManager == null");
+                }
+                else {
+                    PPApplication.phoneStateListenerDefaul = new PPPhoneStateListener(null, getBaseContext());
+                    PPApplication.telephonyManagerDefault.listen(PPApplication.phoneStateListenerDefaul, PhoneStateListener.LISTEN_CALL_STATE);
+                }
             }
 
             // required for unlink ring and notification volume

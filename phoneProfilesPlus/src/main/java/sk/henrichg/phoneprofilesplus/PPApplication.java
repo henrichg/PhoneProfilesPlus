@@ -123,7 +123,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
@@ -249,6 +249,9 @@ public class PPApplication extends Application
                                                 //+"|PPApplication.getServicesList"
                                                 //+"|[DEFAULT_SIM]"
                                                 //+"|[ROOT]"
+
+                                                +"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
+                                                +"|PPPhoneStateListener"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -672,7 +675,15 @@ public class PPApplication extends Application
     static ShutdownBroadcastReceiver shutdownBroadcastReceiver = null;
     static ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
     static InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
-    static PhoneCallBroadcastReceiver phoneCallBroadcastReceiver = null;
+
+    static PPPhoneStateListener phoneStateListenerSIM1 = null;
+    static PPPhoneStateListener phoneStateListenerSIM2 = null;
+    static PPPhoneStateListener phoneStateListenerDefaul = null;
+    static TelephonyManager telephonyManagerSIM1 = null;
+    static TelephonyManager telephonyManagerSIM2 = null;
+    static TelephonyManager telephonyManagerDefault = null;
+
+
     static RingerModeChangeReceiver ringerModeChangeReceiver = null;
     static WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
     static NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;

@@ -1302,7 +1302,7 @@ class EventsHandler {
             if (telephony != null) {
                 int callState = telephony.getCallState();
                 //if (doUnlink) {
-                //if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK) {
+                //if (linkUnlink == PPPhoneStateListener.LINKMODE_UNLINK) {
                 inRinging = (callState == TelephonyManager.CALL_STATE_RINGING);
             }
             //PPApplication.logE("EventsHandler.doEndHandler", "inRinging="+inRinging);
@@ -1354,7 +1354,7 @@ class EventsHandler {
             if (telephony != null) {
                 int callState = telephony.getCallState();
                 //if (doUnlink) {
-                //if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK) {
+                //if (linkUnlink == PPPhoneStateListener.LINKMODE_UNLINK) {
                 inCall = (callState == TelephonyManager.CALL_STATE_RINGING) || (callState == TelephonyManager.CALL_STATE_OFFHOOK);
             }
             if (!inCall)

@@ -1202,7 +1202,7 @@ class ActivateProfileHelper {
                             //PPApplication.logE("ActivateProfileHelper.setVolumes", "linkUnlink=" + linkUnlink);
 
                             //int callState = telephony.getCallState();
-                            if ((linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_UNLINK)/* ||
+                            if ((linkUnlink == PPPhoneStateListener.LINKMODE_UNLINK)/* ||
                             (callState == TelephonyManager.CALL_STATE_RINGING)*/) {
                                 // for separating ringing and notification
                                 // in ringing state ringer volumes must by set
@@ -1226,7 +1226,7 @@ class ActivateProfileHelper {
                                     }
                                 }
                                 volumesSet = true;
-                            } else if (linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_LINK) {
+                            } else if (linkUnlink == PPPhoneStateListener.LINKMODE_LINK) {
                                 // for separating ringing and notification
                                 // in not ringing state ringer and notification volume must by change
                                 int volume = ApplicationPreferences.prefRingerVolume;
@@ -1256,7 +1256,7 @@ class ActivateProfileHelper {
                                 }
                                 //correctVolume0(audioManager);
                                 volumesSet = true;
-                            } else if ((linkUnlink == PhoneCallBroadcastReceiver.LINKMODE_NONE)/* ||
+                            } else if ((linkUnlink == PPPhoneStateListener.LINKMODE_NONE)/* ||
                                     (callState == TelephonyManager.CALL_STATE_IDLE)*/) {
                                 int volume = ApplicationPreferences.prefRingerVolume;
 //                                PPApplication.logE("ActivateProfileHelper.setVolumes", "doUnlink-NOT RINGING-none  ringer volume=" + volume);
@@ -2574,7 +2574,7 @@ class ActivateProfileHelper {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                int linkUnlink = PhoneCallBroadcastReceiver.LINKMODE_NONE;
+                int linkUnlink = PPPhoneStateListener.LINKMODE_NONE;
                 if (ActivateProfileHelper.getMergedRingNotificationVolumes() &&
                         ApplicationPreferences.applicationUnlinkRingerNotificationVolumes) {
                     if (Permissions.checkPhone(appContext))
@@ -2682,7 +2682,6 @@ class ActivateProfileHelper {
                                 if (audioManager.getMode() != AudioManager.MODE_IN_CALL) {
                                     //if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
                                     PPApplication.logE("ActivateProfileHelper.executeForVolumes", "xxx - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
-                                    //PPApplication.logE("PhoneCallBroadcastReceiver.callAnswered", "xxx - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
                                     PPApplication.sleep(500);
                                 }
                                 else
@@ -2694,7 +2693,6 @@ class ActivateProfileHelper {
 
                             PPApplication.sleep(500);
                             audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
-                            //PhoneCallBroadcastReceiver.speakerphoneSelected = true;
                             PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ACTIVATED SPEAKERPHONE");
                         }
                     }
@@ -3952,7 +3950,7 @@ class ActivateProfileHelper {
 
         // setup volume
         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForVolumes()");
-        ActivateProfileHelper.executeForVolumes(profile, PhoneCallBroadcastReceiver.LINKMODE_NONE,
+        ActivateProfileHelper.executeForVolumes(profile, PPPhoneStateListener.LINKMODE_NONE,
                 true, appContext, executedProfileSharedPreferences);
 
         // set vibration on touch
