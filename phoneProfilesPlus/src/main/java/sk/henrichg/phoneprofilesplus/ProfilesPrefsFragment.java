@@ -841,12 +841,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference = findPreference(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1);
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, null, preferences, true, context);
+                        preference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM1));
                         preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
                     }
 
                     preference = findPreference(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2);
                     if (preference != null) {
                         PreferenceAllowed preferenceAllowedSIM2 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, null, preferences, true, context);
+                        preference.setTitle("(R) "+ getString(R.string.profile_preferences_deviceOnOff_SIM2));
                         preference.setEnabled(preferenceAllowedSIM2.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
                     }
 
@@ -882,12 +884,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
                         if (preference != null) {
                             PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, null, preferences, true, context);
+                            preference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM1));
                             preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
                         }
 
                         preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1);
                         if (preference != null) {
                             PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, null, preferences, true, context);
+                            preference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM1));
                             preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
                             disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1);
                         }
@@ -895,12 +899,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
                         if (preference != null) {
                             PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, null, preferences, true, context);
+                            preference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationChangeSIM2));
                             preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
                         }
 
                         preference = findPreference(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
                         if (preference != null) {
                             PreferenceAllowed preferenceAllowedSIM1 = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, null, preferences, true, context);
+                            preference.setTitle("(R) "+getString(R.string.profile_preferences_soundNotificationSIM2));
                             preference.setEnabled(preferenceAllowedSIM1.allowed == PreferenceAllowed.PREFERENCE_ALLOWED);
                             disableDependedPref(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
                         }
@@ -1043,6 +1049,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = findPreference(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
             if (preference != null) {
                 preference.setVisible(false);
+            }
+        }
+        else {
+            preference = findPreference(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
+            if (preference != null) {
+                preference.setTitle("(R) "+getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards));
             }
         }
 
