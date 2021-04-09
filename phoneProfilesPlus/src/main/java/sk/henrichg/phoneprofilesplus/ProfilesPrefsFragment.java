@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -39,6 +41,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 //import me.drakeet.support.toast.ToastCompat;
 
 @SuppressWarnings("WeakerAccess")
@@ -5320,7 +5323,44 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private void fillDeviceNetworkTypePreference(String key, Context context) {
         ListPreference networkTypePreference = prefMng.findPreference(key);
         if (networkTypePreference != null) {
-            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+
+            if (!key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
+                int subscriptionId = -1;
+
+                SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                //SubscriptionManager.from(context);
+                if (mSubscriptionManager != null) {
+                    List<SubscriptionInfo> subscriptionList = null;
+                    try {
+                        // Loop through the subscription list i.e. SIM list.
+                        subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                    } catch (SecurityException e) {
+                        PPApplication.recordException(e);
+                    }
+                    if (subscriptionList != null) {
+                        for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                            // Get the active subscription ID for a given SIM card.
+                            SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                            if (subscriptionInfo != null) {
+                                int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                if ((slotIndex == 0) && key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1))
+                                    subscriptionId = subscriptionInfo.getSubscriptionId();
+                                if ((slotIndex == 1) && key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2))
+                                    subscriptionId = subscriptionInfo.getSubscriptionId();
+                            }
+                        }
+                    }
+                }
+
+                if (subscriptionId != -1) {
+                    if (key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1))
+                        telephonyManager = telephonyManager.createForSubscriptionId(subscriptionId);
+                    else
+                        telephonyManager = telephonyManager.createForSubscriptionId(subscriptionId);
+                }
+            }
+
             int phoneType = TelephonyManager.PHONE_TYPE_GSM;
             if (telephonyManager != null)
                 phoneType = telephonyManager.getPhoneType();
