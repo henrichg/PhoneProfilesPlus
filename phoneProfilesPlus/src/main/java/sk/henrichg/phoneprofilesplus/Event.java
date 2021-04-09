@@ -2933,7 +2933,12 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED)) {
-                        if (PhoneProfilesService.hasSIMCard(appContext, 0, true))
+                        boolean simExists;
+                        synchronized (PPApplication.simCardsMutext) {
+                            simExists = PPApplication.simCardsMutext.simCardsDetected &&
+                                    PPApplication.simCardsMutext.sim0Exists;
+                        }
+                        if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (!Permissions.checkPhone(appContext)) {
@@ -2977,7 +2982,12 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesSMS.PREF_EVENT_SMS_ENABLED)) {
-                        if (PhoneProfilesService.hasSIMCard(appContext, 0, true))
+                        boolean simExists;
+                        synchronized (PPApplication.simCardsMutext) {
+                            simExists = PPApplication.simCardsMutext.simCardsDetected &&
+                                    PPApplication.simCardsMutext.sim0Exists;
+                        }
+                        if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (!Permissions.checkPhone(appContext)) {
@@ -3009,7 +3019,12 @@ class Event {
                 TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (preferenceKey.equals(EventPreferencesCall.PREF_EVENT_CALL_ENABLED)) {
-                        if (PhoneProfilesService.hasSIMCard(appContext, 0, true))
+                        boolean simExists;
+                        synchronized (PPApplication.simCardsMutext) {
+                            simExists = PPApplication.simCardsMutext.simCardsDetected &&
+                                    PPApplication.simCardsMutext.sim0Exists;
+                        }
+                        if (simExists)
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
                         else {
                             if (!Permissions.checkPhone(appContext)) {

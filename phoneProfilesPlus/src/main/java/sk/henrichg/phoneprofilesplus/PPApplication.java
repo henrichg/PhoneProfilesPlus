@@ -21,6 +21,9 @@ import android.os.HandlerThread;
 import android.os.PowerManager;
 import android.os.Process;
 import android.provider.Settings;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -234,7 +237,7 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
 
                                                 //+"|ActivateProfileHelper.setMobileData"
-                                                +"|[DUAL_SIM]"
+                                                //+"|[DUAL_SIM]"
                                                 //+"|WifiNetworkCallback"
                                                 //+"|MobileDataNetworkCallback"
                                                 //+"|EventPreferencesRadioSwitch.doHandleEvent"
@@ -245,6 +248,8 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.setTones"
                                                 //+"|PPApplication.getServicesList"
                                                 //+"|[DEFAULT_SIM]"
+
+                                                +"|[ROOT]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -346,6 +351,7 @@ public class PPApplication extends Application
     static final ContactsCacheMutex contactsCacheMutex = new ContactsCacheMutex();
     static final PhoneProfilesServiceMutex phoneProfilesServiceMutex = new PhoneProfilesServiceMutex();
     static final RootMutex rootMutex = new RootMutex();
+    static final SIMCardsMutex simCardsMutext = new SIMCardsMutex();
     private static final ServiceListMutex serviceListMutex = new ServiceListMutex();
     //static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     //static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
@@ -1063,7 +1069,12 @@ public class PPApplication extends Application
         JobManager.create(this).addJobCreator(new PPJobsCreator());
         */
 
-        PPApplication.initRoot();
+        initRoot();
+        initSIMCards();
+        simCardsMutext.sim0Exists = PPApplication.hasSIMCard(getApplicationContext(), 0);
+        simCardsMutext.sim1Exists = PPApplication.hasSIMCard(getApplicationContext(), 1);
+        simCardsMutext.sim2Exists = PPApplication.hasSIMCard(getApplicationContext(), 2);
+        simCardsMutext.simCardsDetected = true;
 
         /*
         try {
@@ -2776,6 +2787,7 @@ public class PPApplication extends Application
             return false;
 
         synchronized (PPApplication.rootMutex) {
+            PPApplication.logE("[ROOT] PPApplication.isRooted", "start check");
             return _isRooted();
         }
     }
@@ -2790,7 +2802,7 @@ public class PPApplication extends Application
         if (isRooted(false)) {
             synchronized (PPApplication.rootMutex) {
                 try {
-                    //PPApplication.logE("PPApplication.isRootGranted", "start isAccessGiven");
+                    PPApplication.logE("[ROOT] PPApplication.isRootGranted", "start isAccessGiven");
                     //noinspection StatementWithEmptyBody
                     if (RootTools.isAccessGiven()) {
                         // root is granted
@@ -2828,7 +2840,7 @@ public class PPApplication extends Application
 
         synchronized (PPApplication.rootMutex) {
             if (!rootMutex.settingsBinaryChecked) {
-                //PPApplication.logE("PPApplication.settingsBinaryExists", "start");
+                PPApplication.logE("[ROOT] PPApplication.settingsBinaryExists", "start check");
                 rootMutex.settingsBinaryExists = RootToolsSmall.hasSettingBin();
                 rootMutex.settingsBinaryChecked = true;
             }
@@ -2849,7 +2861,7 @@ public class PPApplication extends Application
 
         synchronized (PPApplication.rootMutex) {
             if (!rootMutex.serviceBinaryChecked) {
-                //PPApplication.logE("PPApplication.serviceBinaryExists", "start");
+                PPApplication.logE("[ROOT] PPApplication.serviceBinaryExists", "start check");
                 rootMutex.serviceBinaryExists = RootToolsSmall.hasServiceBin();
                 rootMutex.serviceBinaryChecked = true;
             }
@@ -3117,6 +3129,71 @@ public class PPApplication extends Application
     }
 
     //------------------------------------------------------------
+
+    // dual SIM --------------------------------------------
+    static synchronized void initSIMCards() {
+        synchronized (PPApplication.simCardsMutext) {
+            simCardsMutext.simCardsDetected = false;
+            simCardsMutext.sim0Exists = false;
+            simCardsMutext.sim1Exists = false;
+            simCardsMutext.sim2Exists = false;
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private static boolean hasSIMCard(Context appContext, int simCard/*, boolean testSim0*/) {
+        TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManager != null) {
+            if ((Build.VERSION.SDK_INT < 26) || ((simCard == 0)/* && (!testSim0)*/)) {
+                // sim card is ready
+                return telephonyManager.getSimState() == TelephonyManager.SIM_STATE_READY;
+            } else {
+                boolean hasSIM = false;
+                if (Permissions.checkPhone(appContext)) {
+                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                    //SubscriptionManager.from(context);
+                    if (mSubscriptionManager != null) {
+                        List<SubscriptionInfo> subscriptionList = null;
+                        try {
+                            // Loop through the subscription list i.e. SIM list.
+                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                        } catch (SecurityException e) {
+                            PPApplication.recordException(e);
+                        }
+                        if (subscriptionList != null) {
+                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                                // Get the active subscription ID for a given SIM card.
+                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                if (subscriptionInfo != null) {
+                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                    /*if (simCard == 0) {
+                                        if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                            // sim card is ready
+                                            hasSIM = true;
+                                            break;
+                                        }
+                                    }
+                                    else {*/
+                                        if (simCard == (slotIndex+1)) {
+                                            if (telephonyManager.getSimState(slotIndex) == TelephonyManager.SIM_STATE_READY) {
+                                                // sim card is ready
+                                                hasSIM = true;
+                                                break;
+                                            }
+                                        }
+                                    //}
+                                }
+                            }
+                        }
+                    }
+                }
+                return hasSIM;
+            }
+        }
+        return false;
+    }
+
+    //------------------------------------------------------
 
     // scanners ------------------------------------------
 

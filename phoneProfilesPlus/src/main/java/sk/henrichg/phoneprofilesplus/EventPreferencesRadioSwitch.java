@@ -294,8 +294,13 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
                         hasFeature = true;
-                        hasSIMCard = PhoneProfilesService.hasSIMCard(context, 1, false) &&
-                                     PhoneProfilesService.hasSIMCard(context, 2, false);
+                        boolean simExists;
+                        synchronized (PPApplication.simCardsMutext) {
+                            simExists = PPApplication.simCardsMutext.simCardsDetected;
+                            simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
+                            simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+                        }
+                        hasSIMCard = simExists;
                         ListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
                             int index = listPreference.findIndexOfValue(value);
@@ -544,13 +549,22 @@ class EventPreferencesRadioSwitch extends EventPreferences {
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
                 if (phoneCount > 1) {
+                    boolean sim1Exists;
+                    boolean sim2Exists;
+                    synchronized (PPApplication.simCardsMutext) {
+                        sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        sim2Exists = sim1Exists;
+                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                    }
+
                     showPreferences = true;
                     preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1);
                     if (preference != null)
-                        preference.setEnabled(enabled && PhoneProfilesService.hasSIMCard(context, 1, false));
+                        preference.setEnabled(enabled && sim1Exists);
                     preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2);
                     if (preference != null)
-                        preference.setEnabled(enabled && PhoneProfilesService.hasSIMCard(context, 1, false));
+                        preference.setEnabled(enabled && sim2Exists);
                 }
                 else {
                     preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1);

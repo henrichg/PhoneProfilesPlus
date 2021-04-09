@@ -262,20 +262,31 @@ class PreferenceAllowed {
 
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
+                    boolean sim0Exists;
+                    boolean sim1Exists;
+                    boolean sim2Exists;
+                    synchronized (PPApplication.simCardsMutext) {
+                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        sim1Exists = sim0Exists;
+                        sim2Exists = sim0Exists;
+                        sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
+                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                    }
                     if (Build.VERSION.SDK_INT >= 26) {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
+                            if (!sim1Exists) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
+                            if (!sim2Exists) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
                         }
                     }
-                    if (!PhoneProfilesService.hasSIMCard(appContext, 0, true)) {
+                    if (!sim0Exists) {
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                     }
@@ -912,19 +923,30 @@ class PreferenceAllowed {
                             preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
                         }
 
+                        boolean sim0Exists;
+                        boolean sim1Exists;
+                        boolean sim2Exists;
+                        synchronized (PPApplication.simCardsMutext) {
+                            sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                            sim1Exists = sim0Exists;
+                            sim2Exists = sim0Exists;
+                            sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
+                            sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                            sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                        }
                         if (Build.VERSION.SDK_INT >= 26) {
                             if (phoneCount > 1) {
-                                if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
+                                if (!sim1Exists) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                                 }
-                                if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
+                                if (!sim2Exists) {
                                     preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                                 }
                             }
                         }
-                        if (!PhoneProfilesService.hasSIMCard(appContext, 0, true)) {
+                        if (!sim0Exists) {
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
@@ -1446,12 +1468,23 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
 
-                    if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
+                    boolean sim0Exists;
+                    boolean sim1Exists;
+                    boolean sim2Exists;
+                    synchronized (PPApplication.simCardsMutext) {
+                        sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        sim1Exists = sim0Exists;
+                        sim2Exists = sim0Exists;
+                        //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
+                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                    }
+                    if (!sim1Exists) {
 //                                PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "not has sim 1");
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                     }
-                    if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
+                    if (!sim2Exists) {
 //                                PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "not has sim 2");
                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
@@ -1534,11 +1567,22 @@ class PreferenceAllowed {
                 if (telephonyManager != null) {
                     int phoneCount = telephonyManager.getPhoneCount();
                     if (phoneCount > 1) {
-                        if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
+                        boolean sim0Exists;
+                        boolean sim1Exists;
+                        boolean sim2Exists;
+                        synchronized (PPApplication.simCardsMutext) {
+                            sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                            sim1Exists = sim0Exists;
+                            sim2Exists = sim0Exists;
+                            //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
+                            sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                            sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                        }
+                        if (!sim1Exists) {
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
-                        if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
+                        if (!sim2Exists) {
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
@@ -1586,11 +1630,22 @@ class PreferenceAllowed {
                         else
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
 
-                        if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
+                        boolean sim0Exists;
+                        boolean sim1Exists;
+                        boolean sim2Exists;
+                        synchronized (PPApplication.simCardsMutext) {
+                            sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                            sim1Exists = sim0Exists;
+                            sim2Exists = sim0Exists;
+                            //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
+                            sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                            sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                        }
+                        if (!sim1Exists) {
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
-                        if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
+                        if (!sim2Exists) {
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
@@ -1666,11 +1721,22 @@ class PreferenceAllowed {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                             }
 
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
+                            boolean sim0Exists;
+                            boolean sim1Exists;
+                            boolean sim2Exists;
+                            synchronized (PPApplication.simCardsMutext) {
+                                sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                                sim1Exists = sim0Exists;
+                                sim2Exists = sim0Exists;
+                                //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
+                                sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                                sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                            }
+                            if (!sim1Exists) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
+                            if (!sim2Exists) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
@@ -1762,11 +1828,22 @@ class PreferenceAllowed {
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                             }
 
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
+                            boolean sim0Exists;
+                            boolean sim1Exists;
+                            boolean sim2Exists;
+                            synchronized (PPApplication.simCardsMutext) {
+                                sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
+                                sim1Exists = sim0Exists;
+                                sim2Exists = sim0Exists;
+                                //sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
+                                sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                                sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                            }
+                            if (!sim1Exists) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
+                            if (!sim2Exists) {
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
