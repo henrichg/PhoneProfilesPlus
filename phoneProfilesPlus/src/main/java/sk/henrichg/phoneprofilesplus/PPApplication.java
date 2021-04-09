@@ -248,8 +248,7 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.setTones"
                                                 //+"|PPApplication.getServicesList"
                                                 //+"|[DEFAULT_SIM]"
-
-                                                +"|[ROOT]"
+                                                //+"|[ROOT]"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -2788,7 +2787,7 @@ public class PPApplication extends Application
             return false;
 
         synchronized (PPApplication.rootMutex) {
-            PPApplication.logE("[ROOT] PPApplication.isRooted", "start check");
+//            PPApplication.logE("[ROOT] PPApplication.isRooted", "start check");
             return _isRooted();
         }
     }
@@ -2803,7 +2802,7 @@ public class PPApplication extends Application
         if (isRooted(false)) {
             synchronized (PPApplication.rootMutex) {
                 try {
-                    PPApplication.logE("[ROOT] PPApplication.isRootGranted", "start isAccessGiven");
+//                    PPApplication.logE("[ROOT] PPApplication.isRootGranted", "start isAccessGiven");
                     //noinspection StatementWithEmptyBody
                     if (RootTools.isAccessGiven()) {
                         // root is granted
@@ -2841,7 +2840,7 @@ public class PPApplication extends Application
 
         synchronized (PPApplication.rootMutex) {
             if (!rootMutex.settingsBinaryChecked) {
-                PPApplication.logE("[ROOT] PPApplication.settingsBinaryExists", "start check");
+//                PPApplication.logE("[ROOT] PPApplication.settingsBinaryExists", "start check");
                 rootMutex.settingsBinaryExists = RootToolsSmall.hasSettingBin();
                 rootMutex.settingsBinaryChecked = true;
             }
@@ -2862,7 +2861,7 @@ public class PPApplication extends Application
 
         synchronized (PPApplication.rootMutex) {
             if (!rootMutex.serviceBinaryChecked) {
-                PPApplication.logE("[ROOT] PPApplication.serviceBinaryExists", "start check");
+//                PPApplication.logE("[ROOT] PPApplication.serviceBinaryExists", "start check");
                 rootMutex.serviceBinaryExists = RootToolsSmall.hasServiceBin();
                 rootMutex.serviceBinaryChecked = true;
             }
@@ -3077,9 +3076,9 @@ public class PPApplication extends Application
                         PPApplication.rootMutex.serviceManagerWifi = getServiceManager("wifi");
                         PPApplication.rootMutex.serviceManagerIsub = getServiceManager("isub");
 
-                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "serviceManagerPhone=" + PPApplication.rootMutex.serviceManagerPhone);
-                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "serviceManagerWifi=" + PPApplication.rootMutex.serviceManagerWifi);
-                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "serviceManagerIsub=" + PPApplication.rootMutex.serviceManagerIsub);
+//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "serviceManagerPhone=" + PPApplication.rootMutex.serviceManagerPhone);
+//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "serviceManagerWifi=" + PPApplication.rootMutex.serviceManagerWifi);
+//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "serviceManagerIsub=" + PPApplication.rootMutex.serviceManagerIsub);
 
                         PPApplication.rootMutex.transactionCode_setUserDataEnabled = -1;
                         PPApplication.rootMutex.transactionCode_setDataEnabled = -1;
@@ -3089,14 +3088,14 @@ public class PPApplication extends Application
                             else
                                 PPApplication.rootMutex.transactionCode_setDataEnabled = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setDataEnabled");
                         }
-                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setUserDataEnabled=" + PPApplication.rootMutex.transactionCode_setUserDataEnabled);
-                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDataEnabled=" + PPApplication.rootMutex.transactionCode_setDataEnabled);
+//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setUserDataEnabled=" + PPApplication.rootMutex.transactionCode_setUserDataEnabled);
+//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDataEnabled=" + PPApplication.rootMutex.transactionCode_setDataEnabled);
 
                         PPApplication.rootMutex.transactionCode_setPreferredNetworkType = -1;
                         if (PPApplication.rootMutex.serviceManagerPhone != null) {
                             PPApplication.rootMutex.transactionCode_setPreferredNetworkType = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerPhone), "setPreferredNetworkType");
                         }
-                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setPreferredNetworkType=" + PPApplication.rootMutex.transactionCode_setPreferredNetworkType);
+//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setPreferredNetworkType=" + PPApplication.rootMutex.transactionCode_setPreferredNetworkType);
 
                         PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId = -1;
                         PPApplication.rootMutex.transactionCode_setDefaultSmsSubId = -1;
@@ -3106,21 +3105,21 @@ public class PPApplication extends Application
                             PPApplication.rootMutex.transactionCode_setDefaultSmsSubId = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultSmsSubId");
                             PPApplication.rootMutex.transactionCode_setDefaultDataSubId = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setDefaultDataSubId");
                         }
-                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDefaultVoiceSubId=" + PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId);
-                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDefaultSmsSubId=" + PPApplication.rootMutex.transactionCode_setDefaultSmsSubId);
-                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDefaultDataSubId=" + PPApplication.rootMutex.transactionCode_setDefaultDataSubId);
+//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDefaultVoiceSubId=" + PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId);
+//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDefaultSmsSubId=" + PPApplication.rootMutex.transactionCode_setDefaultSmsSubId);
+//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setDefaultDataSubId=" + PPApplication.rootMutex.transactionCode_setDefaultDataSubId);
 
                         PPApplication.rootMutex.transactionCode_setSubscriptionEnabled = -1;
                         if (PPApplication.rootMutex.serviceManagerIsub != null) {
                             PPApplication.rootMutex.transactionCode_setSubscriptionEnabled = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerIsub), "setSubscriptionEnabled");
                         }
-                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setSubscriptionEnabled=" + PPApplication.rootMutex.transactionCode_setSubscriptionEnabled);
+//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setSubscriptionEnabled=" + PPApplication.rootMutex.transactionCode_setSubscriptionEnabled);
 
                         PPApplication.rootMutex.transactionCode_setWifiApEnabled = -1;
                         if (PPApplication.rootMutex.serviceManagerWifi != null) {
                             PPApplication.rootMutex.transactionCode_setWifiApEnabled = PPApplication.getTransactionCode(String.valueOf(PPApplication.rootMutex.serviceManagerWifi), "setWifiApEnabled");
                         }
-                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setWifiApEnabled=" + PPApplication.rootMutex.transactionCode_setWifiApEnabled);
+//                        PPApplication.logE("[ROOT] PPApplication.getServicesList", "transactionCode_setWifiApEnabled=" + PPApplication.rootMutex.transactionCode_setWifiApEnabled);
                     }
 
                 } catch (Exception e) {
