@@ -46,15 +46,20 @@ public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmen
         int transactionCodeVoice = -1;
         int transactionCodeSMS = -1;
         int transactionCodeData = -1;
-        Object serviceManager = PPApplication.getServiceManager("isub");
+        Object serviceManager;
+        synchronized (PPApplication.rootMutex) {
+            serviceManager = PPApplication.rootMutex.serviceManagerIsub;
+        }
         if (serviceManager != null) {
             // support for only data devices
-            transactionCodeVoice = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
-            transactionCodeSMS = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
-            transactionCodeData = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultDataSubId");
+            synchronized (PPApplication.rootMutex) {
+                transactionCodeVoice = PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId;
+                transactionCodeSMS = PPApplication.rootMutex.transactionCode_setDefaultSmsSubId;
+                transactionCodeData = PPApplication.rootMutex.transactionCode_setDefaultDataSubId;
 //            PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragmentX.onBindDialogView", "transactionCodeVoice="+transactionCodeVoice);
 //            PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragmentX.onBindDialogView", "transactionCodeSMS="+transactionCodeSMS);
 //            PPApplication.logE("[DEFAULT_SIM] DefaultSIMDialogPreferenceFragmentX.onBindDialogView", "transactionCodeData="+transactionCodeData);
+            }
         }
 
         if (transactionCodeVoice != -1) {

@@ -952,6 +952,17 @@ public class PhoneProfilesService extends Service
                     PPApplication.checkOnlineStatusBroadcastReceiver = null;
                 }
             }
+            if (PPApplication.simStateChangedBroadcastReceiver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers->UNREGISTER", "PhoneProfilesService_registerAllTheTimeRequiredSystemReceivers");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "UNREGISTER simStateChangedBroadcastReceiver");
+                try {
+                    appContext.unregisterReceiver(PPApplication.simStateChangedBroadcastReceiver);
+                    PPApplication.simStateChangedBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.simStateChangedBroadcastReceiver = null;
+                }
+            }
+
         }
         if (register) {
             if (PPApplication.timeChangedReceiver == null) {
@@ -1082,6 +1093,17 @@ public class PhoneProfilesService extends Service
                 intentFilter10.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
                 appContext.registerReceiver(PPApplication.checkOnlineStatusBroadcastReceiver, intentFilter10);
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER checkOnlineStatusBroadcastReceiver");
+            }
+
+            if (PPApplication.simStateChangedBroadcastReceiver == null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers->REGISTER", "PhoneProfilesService_registerAllTheTimeRequiredSystemReceivers");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "REGISTER simStateChangedBroadcastReceiver");
+                PPApplication.simStateChangedBroadcastReceiver = new SimStateChangedBroadcastReceiver();
+                IntentFilter intentFilter10 = new IntentFilter();
+                //noinspection deprecation
+                intentFilter10.addAction("android.intent.action.SIM_STATE_CHANGED");
+                appContext.registerReceiver(PPApplication.simStateChangedBroadcastReceiver, intentFilter10);
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER simStateChangedBroadcastReceiver");
             }
         }
     }

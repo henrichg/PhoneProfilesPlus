@@ -5499,40 +5499,26 @@ class ActivateProfileHelper {
                 case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA:
                 case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
                 case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
-                    Object serviceManager = PPApplication.getServiceManager("phone");
-                    if (serviceManager != null) {
-                        if (Build.VERSION.SDK_INT >= 28)
-                            transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setUserDataEnabled");
-                        else
-                            transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDataEnabled");
-                    }
+                    if (Build.VERSION.SDK_INT >= 28)
+                        transactionCode = PPApplication.rootMutex.transactionCode_setUserDataEnabled;
+                    else
+                        transactionCode = PPApplication.rootMutex.transactionCode_setDataEnabled;
                     break;
                 case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE:
                 case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1:
                 case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2:
-                    serviceManager = PPApplication.getServiceManager("phone");
-                    if (serviceManager != null)
-                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setPreferredNetworkType");
+                    transactionCode = PPApplication.rootMutex.transactionCode_setPreferredNetworkType;
                     break;
                 case Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS:
-                    serviceManager = PPApplication.getServiceManager("isub");
-                    if (serviceManager != null) {
-                        // support for only data devices
-                        int transactionCodeVoice = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
-                        int transactionCodeSMS = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
-                        int transactionCodeData = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultDataSubId");
-                        if ((transactionCodeVoice != -1) || (transactionCodeSMS != -1) || (transactionCodeData != -1))
-                            transactionCode = 1;
-                    }
+                    int transactionCodeVoice = PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId;
+                    int transactionCodeSMS = PPApplication.rootMutex.transactionCode_setDefaultSmsSubId;
+                    int transactionCodeData = PPApplication.rootMutex.transactionCode_setDefaultDataSubId;
+                    if ((transactionCodeVoice != -1) || (transactionCodeSMS != -1) || (transactionCodeData != -1))
+                        transactionCode = 1;
                     break;
                 case Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1:
                 case Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2:
-                    //serviceManager = PPApplication.getServiceManager("phone");
-                    //if (serviceManager != null)
-                    //    transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setSimPowerStateForSlot");
-                    serviceManager = PPApplication.getServiceManager("isub");
-                    if (serviceManager != null)
-                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setSubscriptionEnabled");
+                    transactionCode = PPApplication.rootMutex.transactionCode_setSubscriptionEnabled;
                     break;
             }
 
@@ -5567,12 +5553,7 @@ class ActivateProfileHelper {
 //                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "ask for root enabled and is rooted");
                 try {
                     // Get the value of the "TRANSACTION_setPreferredNetworkType" field.
-                    Object serviceManager = PPApplication.getServiceManager("phone");
-                    int transactionCode = -1;
-                    if (serviceManager != null) {
-                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setPreferredNetworkType");
-                    }
-
+                    int transactionCode = PPApplication.rootMutex.transactionCode_setPreferredNetworkType;
                     if (transactionCode != -1) {
 //                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setPreferredNetworkType", "transactionCode=" + transactionCode);
 
@@ -5649,14 +5630,10 @@ class ActivateProfileHelper {
     static boolean wifiServiceExists(/*Context context, */
             @SuppressWarnings("SameParameterValue") String preference) {
         try {
-            Object serviceManager = PPApplication.getServiceManager("wifi");
-            if (serviceManager != null) {
-                int transactionCode = -1;
-                if (preference.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
-                    transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setWifiApEnabled");
-                return transactionCode != -1;
-            }
-            return false;
+            int transactionCode = -1;
+            if (preference.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
+                transactionCode = PPApplication.rootMutex.transactionCode_setWifiApEnabled;
+            return transactionCode != -1;
         } catch(Exception e) {
             //Log.e("ActivateProfileHelper.wifiServiceExists",Log.getStackTraceString(e));
             PPApplication.recordException(e);
@@ -5686,11 +5663,7 @@ class ActivateProfileHelper {
                     (PPApplication.isRooted(false) && PPApplication.serviceBinaryExists(false))) {
                 //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-rooted");
                 try {
-                    Object serviceManager = PPApplication.getServiceManager("wifi");
-                    int transactionCode = -1;
-                    if (serviceManager != null) {
-                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setWifiApEnabled");
-                    }
+                    int transactionCode = PPApplication.rootMutex.transactionCode_setWifiApEnabled;
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-serviceManager=" + serviceManager);
                         PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-transactionCode=" + transactionCode);
@@ -6312,26 +6285,23 @@ class ActivateProfileHelper {
                         if ((simCard == -1) || simExists) {
                             int defaultSubscriptionId = -1;
                             // Get the value of the "TRANSACTION_setDefaultSimCard" field.
-                            Object serviceManager = PPApplication.getServiceManager("isub");
                             int transactionCode = -1;
-                            if (serviceManager != null) {
-                                switch (subscriptionType) {
-                                    case SUBSCRIPTRION_VOICE:
-                                        defaultSubscriptionId = SubscriptionManager.getDefaultVoiceSubscriptionId();
+                            switch (subscriptionType) {
+                                case SUBSCRIPTRION_VOICE:
+                                    defaultSubscriptionId = SubscriptionManager.getDefaultVoiceSubscriptionId();
 //                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultVoiceSubId");
-                                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultVoiceSubId");
-                                        break;
-                                    case SUBSCRIPTRION_SMS:
-                                        defaultSubscriptionId = SubscriptionManager.getDefaultSmsSubscriptionId();
+                                    transactionCode = PPApplication.rootMutex.transactionCode_setDefaultVoiceSubId;
+                                    break;
+                                case SUBSCRIPTRION_SMS:
+                                    defaultSubscriptionId = SubscriptionManager.getDefaultSmsSubscriptionId();
 //                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultSmsSubId");
-                                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultSmsSubId");
-                                        break;
-                                    case SUBSCRIPTRION_DATA:
-                                        defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
+                                    transactionCode = PPApplication.rootMutex.transactionCode_setDefaultSmsSubId;
+                                    break;
+                                case SUBSCRIPTRION_DATA:
+                                    defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
 //                                        PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "getTransactionCode for setDefaultDataSubId");
-                                        transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setDefaultDataSubId");
-                                        break;
-                                }
+                                    transactionCode = PPApplication.rootMutex.transactionCode_setDefaultDataSubId;
+                                    break;
                             }
 //                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "defaultSubscriptionId=" + defaultSubscriptionId);
 //                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.setDefaultSimCard", "transactionCode=" + transactionCode);
@@ -6481,13 +6451,8 @@ class ActivateProfileHelper {
             if (Permissions.checkPhone(context.getApplicationContext())) {
 //                PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.setSIMOnOff", "ask for root enabled and is rooted");
                 // Get the value of the "TRANSACTION_setDataEnabled" field.
-                Object serviceManager = PPApplication.getServiceManager("isub");
-                //Object serviceManager = PPApplication.getServiceManager("phone");
-                int transactionCode = -1;
-                if (serviceManager != null) {
-                    transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setSubscriptionEnabled");
+                int transactionCode = PPApplication.rootMutex.transactionCode_setSubscriptionEnabled;
                     //transactionCode = PPApplication.getTransactionCode(String.valueOf(serviceManager), "setSimPowerStateForSlot");
-                }
 
                 int state = enable ? 1 : 0;
 
