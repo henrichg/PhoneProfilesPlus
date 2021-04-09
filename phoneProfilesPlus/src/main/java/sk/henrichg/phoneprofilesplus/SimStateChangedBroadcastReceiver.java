@@ -39,7 +39,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
             return;
 
         final Context appContext = context.getApplicationContext();
-        final Intent _intent = intent;
+        //final Intent _intent = intent;
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
