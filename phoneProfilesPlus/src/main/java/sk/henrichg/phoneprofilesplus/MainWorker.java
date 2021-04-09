@@ -172,7 +172,7 @@ public class MainWorker extends Worker {
 
                         //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
                         //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-                        //PhoneStateScanner.setShowEnableLocationNotification(appContext, true);
+                        //MobileCellsScanner.setShowEnableLocationNotification(appContext, true);
                         //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
                         boolean restartService = false;
@@ -508,9 +508,9 @@ public class MainWorker extends Worker {
                         PPApplication.loadApplicationPreferences(appContext);
                         PPApplication.loadProfileActivationData(appContext);
 
-                        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "PhoneStateScanner.enabledAutoRegistration=" + PhoneStateScanner.enabledAutoRegistration);
-                        if (PhoneStateScanner.enabledAutoRegistration) {
-                            PhoneStateScanner.stopAutoRegistration(appContext, true);
+                        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "MobileCellsScanner.enabledAutoRegistration=" + MobileCellsScanner.enabledAutoRegistration);
+                        if (MobileCellsScanner.enabledAutoRegistration) {
+                            MobileCellsScanner.stopAutoRegistration(appContext, true);
                             PPApplication.logE("PhoneProfilesService.afterPackageReplaced.doWork", "start of wait for end of autoregistration");
                             int count = 0;
                             while (MobileCellsRegistrationService.serviceStarted && (count < 50)) {

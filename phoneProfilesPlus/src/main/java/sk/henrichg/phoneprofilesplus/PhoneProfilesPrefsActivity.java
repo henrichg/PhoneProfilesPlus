@@ -618,7 +618,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                     }
                     PhoneProfilesService.getInstance().resetListeningOrientationSensors(powerSaveMode, true);
                     if (PhoneProfilesService.isPhoneStateScannerStarted())
-                        PhoneProfilesService.phoneStateScanner.resetListening(powerSaveMode, true);
+                        PhoneProfilesService.mobileCellsScanner.resetListening(powerSaveMode, true);
                     */
         //}
     }

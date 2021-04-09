@@ -727,7 +727,7 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER not used mobile cells notification delete");
                 PPApplication.notUsedMobileCellsNotificationDeletedReceiver = new NotUsedMobileCellsNotificationDeletedReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
+                intentFilter5.addAction(MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
                 appContext.registerReceiver(PPApplication.notUsedMobileCellsNotificationDeletedReceiver, intentFilter5);
             }
 
@@ -801,7 +801,7 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER notUsedMobileCellsNotificationDisableReceiver");
                 PPApplication.notUsedMobileCellsNotificationDisableReceiver = new NotUsedMobileCellsNotificationDisableReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
-                intentFilter5.addAction(PhoneStateScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION);
+                intentFilter5.addAction(MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION);
                 appContext.registerReceiver(PPApplication.notUsedMobileCellsNotificationDisableReceiver, intentFilter5);
             }
             if (PPApplication.lockDeviceAfterScreenOffBroadcastReceiver == null) {
@@ -3399,7 +3399,7 @@ public class PhoneProfilesService extends Service
             }
             if (start) {
                 //PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "START");
-                //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || PhoneStateScanner.forceStart) {
+                //if (ApplicationPreferences.applicationEventMobileCellEnableScanning || MobileCellsScanner.forceStart) {
                 if (ApplicationPreferences.applicationEventMobileCellEnableScanning ||
                         MobileCellsPreferenceX.forceStart || MobileCellsRegistrationService.forceStart) {
                     boolean eventAllowed = false;
@@ -3419,7 +3419,7 @@ public class PhoneProfilesService extends Service
                     if (eventAllowed) {
                         /*if (PPApplication.logEnabled()) {
                             //PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "scanning enabled=" + applicationEventMobileCellEnableScanning);
-                            PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "PhoneStateScanner.forceStart=" + PhoneStateScanner.forceStart);
+                            PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "MobileCellsScanner.forceStart=" + MobileCellsScanner.forceStart);
                         }*/
                         if (!isPhoneStateScannerStarted()) {
                             //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startPhoneStateScanner->START", "PhoneProfilesService_startPhoneStateScanner");
@@ -3427,7 +3427,7 @@ public class PhoneProfilesService extends Service
                             //PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "START 1");
                         } else {
                             if (rescan) {
-                                PPApplication.phoneStateScanner.rescanMobileCells();
+                                PPApplication.mobileCellsScanner.rescanMobileCells();
                                 //PPApplication.logE("[RJS] PhoneProfilesService.startPhoneStateScanner", "RESCAN");
                             }
                         }
@@ -4116,7 +4116,7 @@ public class PhoneProfilesService extends Service
                 //    MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, true);
                 //}
                 //else
-                    PhoneStateScanner.startAutoRegistration(appContext, true);
+                    MobileCellsScanner.startAutoRegistration(appContext, true);
 
                 BluetoothConnectionBroadcastReceiver.clearConnectedDevices(appContext, true);
                 BluetoothConnectionBroadcastReceiver.saveConnectedDevices(appContext);
@@ -4342,7 +4342,7 @@ public class PhoneProfilesService extends Service
 
         //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
         //WifiBluetoothScanner.setShowEnableLocationNotification(appContext, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-        //PhoneStateScanner.setShowEnableLocationNotification(appContext, true);
+        //MobileCellsScanner.setShowEnableLocationNotification(appContext, true);
         //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
         PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "----- oldVersionCode=" + oldVersionCode);
@@ -4657,9 +4657,9 @@ public class PhoneProfilesService extends Service
 //            PPApplication.logE("[BLOCK_ACTIONS] PhoneProfilesService.doForPackageReplaced", "true");
             PPApplication.setBlockProfileEventActions(true);
 
-            PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "PhoneStateScanner.enabledAutoRegistration=" + PhoneStateScanner.enabledAutoRegistration);
-            if (PhoneStateScanner.enabledAutoRegistration) {
-                PhoneStateScanner.stopAutoRegistration(appContext, true);
+            PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "MobileCellsScanner.enabledAutoRegistration=" + MobileCellsScanner.enabledAutoRegistration);
+            if (MobileCellsScanner.enabledAutoRegistration) {
+                MobileCellsScanner.stopAutoRegistration(appContext, true);
                 PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "start of wait for end of autoregistration");
                 int count = 0;
                 while (MobileCellsRegistrationService.serviceStarted && (count < 50)) {
@@ -4865,8 +4865,8 @@ public class PhoneProfilesService extends Service
                         }
 
                         if (ApplicationPreferences.applicationEventMobileCellEnableScanning) {
-                            if (PPApplication.phoneStateScanner != null)
-                                PPApplication.phoneStateScanner.rescanMobileCells();
+                            if (PPApplication.mobileCellsScanner != null)
+                                PPApplication.mobileCellsScanner.rescanMobileCells();
                         }
                         if (ApplicationPreferences.applicationEventOrientationEnableScanning) {
                             if (PPApplication.orientationScanner != null) {
@@ -4952,7 +4952,7 @@ public class PhoneProfilesService extends Service
                                 break;*/
                             /*case PPApplication.SCANNER_START_PHONE_STATE_SCANNER:
                                 PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_START_PHONE_STATE_SCANNER");
-                                PhoneStateScanner.forceStart = false;
+                                MobileCellsScanner.forceStart = false;
                                 startPhoneStateScanner(true, true, true, false, false);
                                 break;*/
                             /*case PPApplication.SCANNER_STOP_PHONE_STATE_SCANNER:
@@ -5017,13 +5017,13 @@ public class PhoneProfilesService extends Service
                                 break;
                             case PPApplication.SCANNER_RESTART_PHONE_STATE_SCANNER:
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_RESTART_PHONE_STATE_SCANNER");
-                                //PhoneStateScanner.forceStart = false;
+                                //MobileCellsScanner.forceStart = false;
                                 startPhoneStateScanner(true, true, dataWrapper, false, true);
                                 AvoidRescheduleReceiverWorker.enqueueWork();
                                 break;
                             case PPApplication.SCANNER_FORCE_START_PHONE_STATE_SCANNER:
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_FORCE_START_PHONE_STATE_SCANNER");
-                                //PhoneStateScanner.forceStart = true;
+                                //MobileCellsScanner.forceStart = true;
                                 startPhoneStateScanner(true, false, dataWrapper, true, false);
                                 AvoidRescheduleReceiverWorker.enqueueWork();
                                 break;
@@ -5041,7 +5041,7 @@ public class PhoneProfilesService extends Service
                                 break;
                             case PPApplication.SCANNER_FORCE_START_ORIENTATION_SCANNER:
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_FORCE_START_ORIENTATION_SCANNER");
-                                //PhoneStateScanner.forceStart = true;
+                                //MobileCellsScanner.forceStart = true;
                                 startOrientationScanner(true, false, dataWrapper, true);
                                 AvoidRescheduleReceiverWorker.enqueueWork();
                                 break;
@@ -5108,7 +5108,7 @@ public class PhoneProfilesService extends Service
                                     //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "mobile cells - canRestart="+canRestart);
                                     if ((!fromBatteryChange) || canRestart) {
                                         //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "mobile cells - restart");
-                                        //PhoneStateScanner.forceStart = false;
+                                        //MobileCellsScanner.forceStart = false;
                                         startPhoneStateScanner(true, true, dataWrapper, false, true);
                                     }
                                 }
@@ -6617,34 +6617,34 @@ public class PhoneProfilesService extends Service
     // Phone state ----------------------------------------------------------------
 
     private void startPhoneStateScanner() {
-        /*if (PPApplication.phoneStateScanner != null) {
-            PPApplication.phoneStateScanner.disconnect();
-            PPApplication.phoneStateScanner = null;
+        /*if (PPApplication.mobileCellsScanner != null) {
+            PPApplication.mobileCellsScanner.disconnect();
+            PPApplication.mobileCellsScanner = null;
         }*/
 
-        if (PPApplication.phoneStateScanner == null) {
-            PPApplication.phoneStateScanner = new PhoneStateScanner(getApplicationContext());
-            PPApplication.phoneStateScanner.connect();
+        if (PPApplication.mobileCellsScanner == null) {
+            PPApplication.mobileCellsScanner = new MobileCellsScanner(getApplicationContext());
+            PPApplication.mobileCellsScanner.connect();
         }
         else {
-            PPApplication.phoneStateScanner.rescanMobileCells();
+            PPApplication.mobileCellsScanner.rescanMobileCells();
         }
     }
 
     private void stopPhoneStateScanner() {
-        if (PPApplication.phoneStateScanner != null) {
-            PPApplication.phoneStateScanner.disconnect();
-            PPApplication.phoneStateScanner = null;
+        if (PPApplication.mobileCellsScanner != null) {
+            PPApplication.mobileCellsScanner.disconnect();
+            PPApplication.mobileCellsScanner = null;
         }
     }
 
     boolean isPhoneStateScannerStarted() {
-        return (PPApplication.phoneStateScanner != null);
+        return (PPApplication.mobileCellsScanner != null);
     }
 
 
-    PhoneStateScanner getPhoneStateScanner() {
-        return PPApplication.phoneStateScanner;
+    MobileCellsScanner getPhoneStateScanner() {
+        return PPApplication.mobileCellsScanner;
     }
 
     //--------------------------------------------------------------------------

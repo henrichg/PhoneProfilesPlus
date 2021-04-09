@@ -1741,7 +1741,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                    }
 //                    PhoneProfilesService.getInstance().resetListeningOrientationSensors(powerSaveMode, true);
 //                    if (PhoneProfilesService.isPhoneStateScannerStarted())
-//                        PhoneProfilesService.phoneStateScanner.resetListening(powerSaveMode, true);
+//                        PhoneProfilesService.mobileCellsScanner.resetListening(powerSaveMode, true);
 //
 //                }
 
@@ -2450,7 +2450,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                         //WifiBluetoothScanner.setShowEnableLocationNotification(_dataWrapper.context, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
                         //WifiBluetoothScanner.setShowEnableLocationNotification(_dataWrapper.context, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-                        //PhoneStateScanner.setShowEnableLocationNotification(_dataWrapper.context, true);
+                        //MobileCellsScanner.setShowEnableLocationNotification(_dataWrapper.context, true);
                     }
 
                     if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError/* || sharedProfileError*/)))

@@ -502,8 +502,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                         }
                     }
 
-                    /*if (PhoneStateScanner.isValidCellId(PhoneStateScanner.registeredCell))
-                        PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", " **** registeredCell="+PhoneStateScanner.registeredCell);
+                    /*if (MobileCellsScanner.isValidCellId(MobileCellsScanner.registeredCell))
+                        PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", " **** registeredCell="+MobileCellsScanner.registeredCell);
                     else
                         PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "**** registeredCell=NOT valid");*/
 
@@ -519,7 +519,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                         // add registered cell
                         //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "search registered cell from scanner");
                         for (MobileCellsData cell : _cellsList) {
-                            if (cell.cellId == PhoneStateScanner.registeredCell) {
+                            if (cell.cellId == MobileCellsScanner.registeredCell) {
                                 cell.connected = true;
                                 _registeredCellData = cell;
                                 _registeredCellInTable = true;
@@ -527,13 +527,13 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                 break;
                             }
                         }
-                        if (!_registeredCellInTable && PhoneStateScanner.isValidCellId(PhoneStateScanner.registeredCell)) {
+                        if (!_registeredCellInTable && MobileCellsScanner.isValidCellId(MobileCellsScanner.registeredCell)) {
                             //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - not found - add it to list");
-                            _registeredCellData = new MobileCellsData(PhoneStateScanner.registeredCell,
+                            _registeredCellData = new MobileCellsData(MobileCellsScanner.registeredCell,
                                     _cellName, true, true,
-                                    PhoneStateScanner.lastConnectedTime,
-                                    PhoneStateScanner.lastRunningEventsNotOutside,
-                                    PhoneStateScanner.lastPausedEventsOutside,
+                                    MobileCellsScanner.lastConnectedTime,
+                                    MobileCellsScanner.lastRunningEventsNotOutside,
+                                    MobileCellsScanner.lastPausedEventsOutside,
                                     false);
                             _cellsList.add(_registeredCellData);
                         }
@@ -591,7 +591,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     db.saveMobileCellsList(_cellsList, true, false);
 
                     // rename cell added by "plus" icon
-                    if (PhoneStateScanner.isValidCellId(renameCellId)) {
+                    if (MobileCellsScanner.isValidCellId(renameCellId)) {
                         String val = String.valueOf(renameCellId);
                         db.renameMobileCellsList(_cellsList, _cellName, false, val);
                     }

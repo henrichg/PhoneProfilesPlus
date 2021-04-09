@@ -114,7 +114,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                             String currentCells = db.getEventMobileCellsCells(_eventId);
                             if (!currentCells.isEmpty()) {
                                 //PPApplication.logE("NotUsedMobileCellsDetectedActivity.onClick", "save cellId to event="+event._name);
-                                String newCells = PhoneStateScanner.addCellId(currentCells, _mobileCellId);
+                                String newCells = MobileCellsScanner.addCellId(currentCells, _mobileCellId);
                                 db.updateMobileCellsCells(_eventId, newCells);
 
                                 // broadcast for event preferences
@@ -138,7 +138,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                             String currentCells = db.getEventMobileCellsCells(_eventId);
                             if (!currentCells.isEmpty()) {
                                 //PPApplication.logE("NotUsedMobileCellsDetectedActivity.onClick", "save cellId to event="+event._name);
-                                String newCells = PhoneStateScanner.addCellId(currentCells, _mobileCellId);
+                                String newCells = MobileCellsScanner.addCellId(currentCells, _mobileCellId);
                                 db.updateMobileCellsCells(_eventId, newCells);
 
                                 // broadcast for event preferences
@@ -156,7 +156,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                     }
 
                     //PPApplication.logE("[TEST BATTERY] NotUsedMobileCellsDetectedActivity.onStart()", "xxx");
-                    PhoneStateScanner.handleEvents(/*appContext*/);
+                    MobileCellsScanner.handleEvents(/*appContext*/);
                     // must be higher then delay in handleEvents
                     PPApplication.updateGUI(10, getApplicationContext());
 

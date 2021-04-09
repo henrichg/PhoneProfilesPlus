@@ -173,7 +173,7 @@ public class PPApplication extends Application
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
-                                                //+"|%%%%% PhoneStateScanner.doAutoRegistration"
+                                                //+"|%%%%% MobileCellsScanner.doAutoRegistration"
                                                 //+"|CmdWifiAP.isEnabled"
                                                 //+"|CmdWifiAP.setWifiAP"
                                                 //+"|WifiApManager.setWifiApState"
@@ -742,7 +742,7 @@ public class PPApplication extends Application
     static OrientationScanner orientationScanner = null;
     static boolean mStartedOrientationSensors = false;
     static GeofencesScanner geofencesScanner = null;
-    static PhoneStateScanner phoneStateScanner = null;
+    static MobileCellsScanner mobileCellsScanner = null;
     static TwilightScanner twilightScanner = null;
 
     static boolean notificationScannerRunning = false;
@@ -3946,7 +3946,7 @@ public class PPApplication extends Application
 
             //WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
             //WifiBluetoothScanner.setShowEnableLocationNotification(context.getApplicationContext(), true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-            //PhoneStateScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
+            //MobileCellsScanner.setShowEnableLocationNotification(context.getApplicationContext(), true);
             //ActivateProfileHelper.setScreenUnlocked(context, true);
 
             if (!shutdown) {

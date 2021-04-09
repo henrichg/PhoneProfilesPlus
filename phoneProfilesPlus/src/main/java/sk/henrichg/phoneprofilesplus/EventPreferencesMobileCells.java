@@ -327,8 +327,8 @@ class EventPreferencesMobileCells extends EventPreferences {
                     } else {
                         synchronized (PPApplication.phoneStateScannerMutex) {
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
-                                if (PhoneStateScanner.isValidCellId(PhoneStateScanner.registeredCell)) {
-                                    String registeredCell = Integer.toString(PhoneStateScanner.registeredCell);
+                                if (MobileCellsScanner.isValidCellId(MobileCellsScanner.registeredCell)) {
+                                    String registeredCell = Integer.toString(MobileCellsScanner.registeredCell);
                                     String[] splits = _cells.split("\\|");
                                     if (_whenOutside) {
                                         // all mobile cells must not be registered
