@@ -2868,10 +2868,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_notificationStatusBarStyle);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationNotificationStyle);
-            if (Build.VERSION.SDK_INT >= 24) {
+            //if (Build.VERSION.SDK_INT >= 24) {
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_notificationShowProfileIcon);
-            }
+            //}
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationLayoutType);
             if (!summary.isEmpty()) summary = summary + " • ";
@@ -2880,10 +2880,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_notificationBackgroundColor);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationTextColor);
-            if (Build.VERSION.SDK_INT >= 24) {
+            //if (Build.VERSION.SDK_INT >= 24) {
                 if (!summary.isEmpty()) summary = summary + " • ";
                 summary = summary + getString(R.string.phone_profiles_pref_notificationUseDecoration);
-            }
+            //}
         }
         if (key.equals("profileActivationCategoryRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_applicationEventBackgroundProfile);

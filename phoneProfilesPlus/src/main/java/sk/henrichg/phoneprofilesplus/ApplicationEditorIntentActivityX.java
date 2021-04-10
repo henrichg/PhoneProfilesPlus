@@ -1060,7 +1060,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
                             break;
                         case "FLAG_ACTIVITY_LAUNCH_ADJACENT":
-                            if (Build.VERSION.SDK_INT >= 24)
+                            //if (Build.VERSION.SDK_INT >= 24)
                                 intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT);
                             break;
                         case "FLAG_ACTIVITY_MATCH_EXTERNAL":

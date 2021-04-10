@@ -3404,7 +3404,7 @@ class ActivateProfileHelper {
                             // set wallpaper
                             WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
                             try {
-                                if (Build.VERSION.SDK_INT >= 24) {
+                                //if (Build.VERSION.SDK_INT >= 24) {
                                     int flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
                                     Rect visibleCropHint = null;
                                     if (profile._deviceWallpaperFor == 1)
@@ -3421,8 +3421,8 @@ class ActivateProfileHelper {
                                     }
                                     //noinspection WrongConstant
                                     wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
-                                } else
-                                    wallpaperManager.setBitmap(decodedSampleBitmap);
+                                //} else
+                                //    wallpaperManager.setBitmap(decodedSampleBitmap);
                             } catch (IOException e) {
                                 PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
                                         profile._name, profile._icon, 0, "");

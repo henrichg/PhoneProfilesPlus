@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -18,8 +17,6 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
-import android.provider.MediaStore;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.exifinterface.media.ExifInterface;
@@ -161,7 +158,7 @@ class BitmapManipulator {
 
     private static int getBitmapUriOrientation(Context context, Uri photoUri) {
         try {
-            if (Build.VERSION.SDK_INT >= 24) {
+            //if (Build.VERSION.SDK_INT >= 24) {
                 InputStream inputStream;
                 inputStream = context.getContentResolver().openInputStream(photoUri);
                 if (inputStream != null) {
@@ -182,25 +179,25 @@ class BitmapManipulator {
                 }
                 else
                     return -1;
-            }
-            else {
-                Cursor cursor = context.getContentResolver().query(photoUri,
-                        new String[]{MediaStore.Images.ImageColumns.ORIENTATION}, null, null, null);
-                if (cursor != null) {
-                    if (cursor.getCount() != 1) {
-                        cursor.close();
-                        return -1;
-                    }
-
-                    cursor.moveToFirst();
-
-                    int orientation = cursor.getInt(0);
-
-                    cursor.close();
-                    return orientation;
-                } else
-                    return -1;
-            }
+//            }
+//            else {
+//                Cursor cursor = context.getContentResolver().query(photoUri,
+//                        new String[]{MediaStore.Images.ImageColumns.ORIENTATION}, null, null, null);
+//                if (cursor != null) {
+//                    if (cursor.getCount() != 1) {
+//                        cursor.close();
+//                        return -1;
+//                    }
+//
+//                    cursor.moveToFirst();
+//
+//                    int orientation = cursor.getInt(0);
+//
+//                    cursor.close();
+//                    return orientation;
+//                } else
+//                    return -1;
+//            }
         } catch (Exception e) {
             return -1;
         }
