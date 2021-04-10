@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.telephony.TelephonyManager;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -174,7 +173,7 @@ class EventsHandler {
                 oldSystemRingerVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
             }
             try {
-                Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
+x                Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
                 if (uri != null)
                     oldRingtone = uri.toString();
                 else
@@ -1321,6 +1320,7 @@ class EventsHandler {
                             }
                         }
                     }
+                    int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
                     if (simulateRingingCall) {
                         /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
                         serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
@@ -1343,6 +1343,7 @@ class EventsHandler {
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_CALL_FROM_SIM_SLOT, simSlot);
                         PPApplication.runCommand(context, commandIntent);
                     }
                 } catch (Exception e) {
@@ -1358,11 +1359,11 @@ class EventsHandler {
                 inCall = (callState == TelephonyManager.CALL_STATE_RINGING) || (callState == TelephonyManager.CALL_STATE_OFFHOOK);
             }
             if (!inCall)
-                setEventCallParameters(EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED, "", 0);
+                setEventCallParameters(EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED, "", 0, 0);
         }
         else
         if (sensorType.equals(SENSOR_TYPE_PHONE_CALL_EVENT_END)) {
-            setEventCallParameters(EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED, "", 0);
+            setEventCallParameters(EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED, "", 0, 0);
         }
 
         /*else
@@ -1933,10 +1934,11 @@ class EventsHandler {
         eventAlarmClockPackageName = alarmPackageName;
     }
 
-    void setEventCallParameters(int callEventType, String phoneNumber, long eventTime) {
+    void setEventCallParameters(int callEventType, String phoneNumber, long eventTime, int simSlot) {
         EventPreferencesCall.setEventCallEventType(context, callEventType);
         EventPreferencesCall.setEventCallEventTime(context, eventTime);
         EventPreferencesCall.setEventCallPhoneNumber(context, phoneNumber);
+        EventPreferencesCall.setEventCallSIMSlot(context, simSlot);
     }
 
     void setEventDeviceBootParameters(long date) {

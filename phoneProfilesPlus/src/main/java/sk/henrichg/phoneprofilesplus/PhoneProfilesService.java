@@ -145,6 +145,7 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE = "start_for_external_app_data_value";
     static final String EXTRA_RESCAN_SCANNERS = "rescan_scanners";
     //static final String EXTRA_SHOW_TOAST = "show_toast";
+    static final String EXTRA_CALL_FROM_SIM_SLOT = "call_from sim_slot";
 
     static final int START_FOR_EXTERNAL_APP_PROFILE = 1;
     static final int START_FOR_EXTERNAL_APP_EVENT = 2;
@@ -4115,6 +4116,7 @@ public class PhoneProfilesService extends Service
                 EventPreferencesCall.setEventCallEventType(appContext, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 EventPreferencesCall.setEventCallEventTime(appContext, 0);
                 EventPreferencesCall.setEventCallPhoneNumber(appContext, "");
+                EventPreferencesCall.setEventCallSIMSlot(appContext, 0);
 
                 //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "5");
 
@@ -7013,7 +7015,7 @@ public class PhoneProfilesService extends Service
             String phoneNumber = "";
             if (PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_3_0))
                 phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
-
+x
             // get ringtone from contact
             boolean phoneNumberFound = false;
             try {

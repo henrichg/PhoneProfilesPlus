@@ -29,6 +29,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
     private static final String EXTRA_CALL_EVENT_TYPE = PPApplication.PACKAGE_NAME_EXTENDER + ".call_event_type";
     private static final String EXTRA_PHONE_NUMBER = PPApplication.PACKAGE_NAME_EXTENDER + ".phone_number";
     private static final String EXTRA_EVENT_TIME = PPApplication.PACKAGE_NAME_EXTENDER + ".event_time";
+    private static final String EXTRA_SIM_SLOT = PPApplication.PACKAGE_NAME_EXTENDER + ".sim_slot";
 
     private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
 
@@ -288,6 +289,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 final int callEventType = intent.getIntExtra(EXTRA_CALL_EVENT_TYPE, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 final String phoneNumber = intent.getStringExtra(EXTRA_PHONE_NUMBER);
                 final long eventTime = intent.getLongExtra(EXTRA_EVENT_TIME, 0);
+                final int slotIndex = intent.getIntExtra(EXTRA_SIM_SLOT, 0);
 
                 /*if (PPApplication.logEnabled()) {
                     //PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "servicePhoneEvent="+servicePhoneEvent);
@@ -313,7 +315,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             //if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_CALL, false) > 0) {
 //                                    PPApplication.logE("[EVENTS_HANDLER_CALL] PPPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_PHONE_CALL");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime);
+                                eventsHandler.setEventCallParameters(/*servicePhoneEvent, */callEventType, phoneNumber, eventTime, slotIndex);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_CALL);
                             //}
 

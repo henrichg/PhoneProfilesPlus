@@ -25,6 +25,7 @@ class ApplicationPreferences {
     static int prefEventCallEventType;
     static long prefEventCallEventTime;
     static String prefEventCallPhoneNumber;
+    static int prefEventCallFromSIMSlot;
     static boolean prefWiredHeadsetConnected;
     static boolean prefWiredHeadsetMicrophone;
     static boolean prefBluetoothHeadsetConnected;

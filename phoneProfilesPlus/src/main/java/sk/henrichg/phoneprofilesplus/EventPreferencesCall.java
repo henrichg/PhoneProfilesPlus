@@ -23,9 +23,11 @@ class EventPreferencesCall extends EventPreferences {
     String _contacts;
     String _contactGroups;
     int _contactListType;
-    long _startTime;
     boolean _permanentRun;
     int _duration;
+
+    long _startTime;
+    int _fromSIMSlot;
 
     static final String PREF_EVENT_CALL_ENABLED = "eventCallEnabled";
     private static final String PREF_EVENT_CALL_EVENT = "eventCallEvent";
@@ -66,6 +68,7 @@ class EventPreferencesCall extends EventPreferences {
     private static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
     private static final String PREF_EVENT_CALL_PHONE_NUMBER = "eventCallPhoneNumber";
     private static final String PREF_EVENT_CALL_EVENT_TIME = "eventCallEventTime";
+    private static final String PREF_EVENT_CALL_SIM_SLOT = "eventCallSIMSlot";
 
     EventPreferencesCall(Event event,
                          boolean enabled,
@@ -683,6 +686,7 @@ class EventPreferencesCall extends EventPreferences {
                 int callEventType = ApplicationPreferences.prefEventCallEventType;
                 long callTime = ApplicationPreferences.prefEventCallEventTime;
                 String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
+                int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("EventPreferencesCall.saveStartTime", "callEventType=" + callEventType);
                     PPApplication.logE("EventPreferencesCall.saveStartTime", "callTime=" + callTime);
@@ -695,10 +699,14 @@ class EventPreferencesCall extends EventPreferences {
 
                     boolean phoneNumberFound = isPhoneNumberConfigured(phoneNumber/*, dataWrapper*/);
 
-                    if (phoneNumberFound)
+                    if (phoneNumberFound) {
                         this._startTime = callTime; // + (10 * 1000);
-                    else
+                        this._fromSIMSlot = simSlot;
+                    }
+                    else {
                         this._startTime = 0;
+                        this._fromSIMSlot = 0;
+                    }
                     //PPApplication.logE("EventPreferencesCall.saveStartTime", "_startTime=" + _startTime);
 
                     DatabaseHandler.getInstance(dataWrapper.context).updateCallStartTime(_event);
@@ -769,6 +777,21 @@ class EventPreferencesCall extends EventPreferences {
             ApplicationPreferences.prefEventCallPhoneNumber = phoneNumber;
         }
     }
+    static void getEventCallSIMSlot(Context context) {
+        synchronized (PPApplication.eventCallSensorMutex) {
+            ApplicationPreferences.prefEventCallFromSIMSlot = ApplicationPreferences.
+                    getSharedPreferences(context).getInt(EventPreferencesCall.PREF_EVENT_CALL_SIM_SLOT, 0);
+            //return ApplicationPreferences.prefEventCallPhoneNumber;
+        }
+    }
+    static void setEventCallSIMSlot(Context context, int simSlot) {
+        synchronized (PPApplication.eventCallSensorMutex) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+            editor.putInt(EventPreferencesCall.PREF_EVENT_CALL_SIM_SLOT, simSlot);
+            editor.apply();
+            ApplicationPreferences.prefEventCallFromSIMSlot = simSlot;
+        }
+    }
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
@@ -779,6 +802,7 @@ class EventPreferencesCall extends EventPreferences {
                   this is not required, is only for simulating ringing -> Permissions.checkEventPhoneBroadcast(context, event, null)*/) {
                 int callEventType = ApplicationPreferences.prefEventCallEventType;
                 String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
+                int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
 
 //                if (PPApplication.logEnabled()) {
 //                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "callEventType=" + callEventType);
@@ -796,6 +820,7 @@ class EventPreferencesCall extends EventPreferences {
                     //PPApplication.logE("EventPreferencesCall.doHandleEvent", "phoneNumberFound=" + phoneNumberFound);
 
                     if (phoneNumberFound) {
+                        _fromSIMSlot = simSlot;
                         if (_callEvent == EventPreferencesCall.CALL_EVENT_RINGING) {
                             //noinspection StatementWithEmptyBody
                             if ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_RINGING) ||
@@ -879,6 +904,7 @@ class EventPreferencesCall extends EventPreferences {
                     if (!eventsHandler.callPassed) {
                         //PPApplication.logE("EventPreferencesCall.doHandleEvent", "startTime=0");
                         _startTime = 0;
+                        _fromSIMSlot = 0;
                         DatabaseHandler.getInstance(eventsHandler.context).updateCallStartTime(_event);
                     }
                 } else {
@@ -926,6 +952,7 @@ class EventPreferencesCall extends EventPreferences {
                         if (!eventsHandler.callPassed) {
                             //PPApplication.logE("EventPreferencesCall.doHandleEvent", "startTime=0");
                             _startTime = 0;
+                            _fromSIMSlot = 0;
                             DatabaseHandler.getInstance(eventsHandler.context).updateCallStartTime(_event);
                         }
                     }

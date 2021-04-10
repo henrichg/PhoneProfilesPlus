@@ -158,6 +158,10 @@ public class PPPhoneStateListener extends PhoneStateListener {
         handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPhoneStateListener.doCall");
 
+//            int simSlot = 0;
+//            if (subscriptionInfo != null)
+//                simSlot = subscriptionInfo.getSimSlotIndex()+1;
+
             switch (phoneEvent) {
                 case SERVICE_PHONE_EVENT_START:
                     callStarted(incoming, /*number, eventTime,*/ appContext);

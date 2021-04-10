@@ -1844,6 +1844,7 @@ public class PPApplication extends Application
         EventPreferencesCall.getEventCallEventType(context);
         EventPreferencesCall.getEventCallEventTime(context);
         EventPreferencesCall.getEventCallPhoneNumber(context);
+        EventPreferencesCall.getEventCallSIMSlot(context);
         HeadsetConnectionBroadcastReceiver.getEventHeadsetParameters(context);
         WifiScanner.getForceOneWifiScan(context);
         BluetoothScanner.getForceOneBluetoothScan(context);
