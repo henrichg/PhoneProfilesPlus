@@ -192,34 +192,40 @@ class EventsHandler {
                     if (phoneCount > 1) {
                         if (PPApplication.deviceIsSamsung) {
                             String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
-                            if (_uri == null)
-                                _uri = "";
-                            oldRingtoneSIM1 = _uri;
+                            if (_uri != null)
+                                oldRingtoneSIM1 = _uri;
+                            else
+                                oldRingtoneSIM1 = oldRingtone;
                             _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_2");
-                            if (_uri == null)
-                                _uri = "";
-                            oldRingtoneSIM2 = _uri;
+                            if (_uri != null)
+                                oldRingtoneSIM2 = _uri;
+                            else
+                                oldRingtoneSIM2 = oldRingtone;
                         } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
                             String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
-                            if (_uri == null)
-                                _uri = "";
-                            oldRingtoneSIM1 = _uri;
+                            if (_uri != null)
+                                oldRingtoneSIM1 = _uri;
+                            else
+                                oldRingtoneSIM1 = oldRingtone;
                             _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone2");
-                            if (_uri == null)
-                                _uri = "";
-                            oldRingtoneSIM2 = _uri;
+                            if (_uri != null)
+                                oldRingtoneSIM2 = _uri;
+                            else
+                                oldRingtoneSIM2 = oldRingtone;
                         } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
                             String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_1");
-                            if (_uri == null)
-                                _uri = "";
-                            oldRingtoneSIM1 = _uri;
+                            if (_uri != null)
+                                oldRingtoneSIM1 = _uri;
+                            else
+                                oldRingtoneSIM1 = oldRingtone;
 
                             int useUniform = Settings.System.getInt(appContext.getContentResolver(), "ringtone_sound_use_uniform", 1);
                             if (useUniform == 0) {
                                 _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_2");
-                                if (_uri == null)
-                                    _uri = "";
-                                oldRingtoneSIM2 = _uri;
+                                if (_uri != null)
+                                    oldRingtoneSIM2 = _uri;
+                                else
+                                    oldRingtoneSIM2 = oldRingtone;
                             }
                             else
                                 oldRingtoneSIM2 = oldRingtoneSIM1;

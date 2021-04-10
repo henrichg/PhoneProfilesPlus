@@ -7077,43 +7077,37 @@ public class PhoneProfilesService extends Service
                                 if (PPApplication.deviceIsSamsung) {
                                     if (fromSIMSlot == 1) {
                                         String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
-                                        if (_uri == null)
-                                            _uri = "";
-                                        newRingtone = _uri;
+                                        if (_uri != null)
+                                            newRingtone = _uri;
                                     }
                                     if (fromSIMSlot == 2) {
                                         String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_2");
-                                        if (_uri == null)
-                                            _uri = "";
-                                        newRingtone = _uri;
+                                        if (_uri != null)
+                                            newRingtone = _uri;
                                     }
                                 } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
                                     if (fromSIMSlot == 1) {
                                         String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
-                                        if (_uri == null)
-                                            _uri = "";
-                                        newRingtone = _uri;
+                                        if (_uri != null)
+                                            newRingtone = _uri;
                                     }
                                     if (fromSIMSlot == 2) {
                                         String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone2");
-                                        if (_uri == null)
-                                            _uri = "";
-                                        newRingtone = _uri;
+                                        if (_uri != null)
+                                            newRingtone = _uri;
                                     }
                                 } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
                                     int useUniform = Settings.System.getInt(appContext.getContentResolver(), "ringtone_sound_use_uniform", 1);
 
                                     if ((fromSIMSlot == 1) || (useUniform == 1)) {
                                         String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_1");
-                                        if (_uri == null)
-                                            _uri = "";
-                                        newRingtone = _uri;
+                                        if (_uri != null)
+                                            newRingtone = _uri;
                                     }
                                     if ((fromSIMSlot == 2) || (useUniform == 0)) {
                                         String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_2");
-                                        if (_uri == null)
-                                            _uri = "";
-                                        newRingtone = _uri;
+                                        if (_uri != null)
+                                            newRingtone = _uri;
                                     }
                                 }
                             }
