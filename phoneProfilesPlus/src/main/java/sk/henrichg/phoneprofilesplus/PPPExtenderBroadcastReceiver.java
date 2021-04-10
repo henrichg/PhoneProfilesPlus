@@ -250,42 +250,41 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
                 int _simSlot = 0;
 
-                SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                //SubscriptionManager.from(context);
-                if (mSubscriptionManager != null) {
-                    PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "mSubscriptionManager != null");
-                    List<SubscriptionInfo> subscriptionList = null;
-                    try {
-                        // Loop through the subscription list i.e. SIM list.
-                        subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                        PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionList=" + subscriptionList);
-                    } catch (SecurityException e) {
-                        PPApplication.recordException(e);
-                    }
-                    if (subscriptionList != null) {
-                        PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionList.size()=" + subscriptionList.size());
-                        for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
-                            // Get the active subscription ID for a given SIM card.
-                            SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                            PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionInfo=" + subscriptionInfo);
-                            if (subscriptionInfo != null) {
-                                int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                int _subscriptionId = subscriptionInfo.getSubscriptionId();
-                                PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionId=" + subscriptionId);
-                                if (subscriptionId == _subscriptionId) {
-                                    _simSlot = slotIndex + 1;
-                                    break;
-                                }
-                            }
-                            else
-                                PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionInfo == null");
+                if (subscriptionId != -1) {
+                    SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                    //SubscriptionManager.from(context);
+                    if (mSubscriptionManager != null) {
+                        PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "mSubscriptionManager != null");
+                        List<SubscriptionInfo> subscriptionList = null;
+                        try {
+                            // Loop through the subscription list i.e. SIM list.
+                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                            PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionList=" + subscriptionList);
+                        } catch (SecurityException e) {
+                            PPApplication.recordException(e);
                         }
-                    }
-                    else
-                        PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionList == null");
+                        if (subscriptionList != null) {
+                            PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionList.size()=" + subscriptionList.size());
+                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                                // Get the active subscription ID for a given SIM card.
+                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionInfo=" + subscriptionInfo);
+                                if (subscriptionInfo != null) {
+                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                    int _subscriptionId = subscriptionInfo.getSubscriptionId();
+                                    PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionId=" + subscriptionId);
+                                    if (subscriptionId == _subscriptionId) {
+                                        _simSlot = slotIndex + 1;
+                                        break;
+                                    }
+                                } else
+                                    PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionInfo == null");
+                            }
+                        } else
+                            PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionList == null");
+                    } else
+                        PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "mSubscriptionManager == null");
                 }
-                else
-                    PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "mSubscriptionManager == null");
 
                 final int simSlot = _simSlot;
 
