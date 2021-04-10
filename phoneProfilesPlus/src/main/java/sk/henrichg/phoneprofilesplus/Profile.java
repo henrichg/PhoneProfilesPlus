@@ -1290,26 +1290,26 @@ public class Profile {
 
     void mergeProfiles(long withProfileId, DataWrapper dataWrapper/*, boolean setDuration*/)
     {
-        //PPApplication.logE("$$$ Profile.mergeProfiles","_id="+_id);
-        //PPApplication.logE("$$$ Profile.mergeProfiles","withProfileId="+withProfileId);
+        //PPApplication.logE("$$$ mergeProfiles","_id="+_id);
+        //PPApplication.logE("$$$ mergeProfiles","withProfileId="+withProfileId);
 
         Profile withProfile = dataWrapper.getProfileById(withProfileId, false, false, false);
 
         /*
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** START");
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** this.profileName=" + _name);
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** this.profileId=" + _id);
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeRingerMode=" + _volumeRingerMode);
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeZenMode=" + _volumeZenMode);
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeRingtone=" + _volumeRingtone);
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeNotification=" + _volumeNotification);
+        PPApplication.logE("$$$ mergeProfiles", "**** START");
+        PPApplication.logE("$$$ mergeProfiles", "**** this.profileName=" + _name);
+        PPApplication.logE("$$$ mergeProfiles", "**** this.profileId=" + _id);
+        PPApplication.logE("$$$ mergeProfiles", "**** this._volumeRingerMode=" + _volumeRingerMode);
+        PPApplication.logE("$$$ mergeProfiles", "**** this._volumeZenMode=" + _volumeZenMode);
+        PPApplication.logE("$$$ mergeProfiles", "**** this._volumeRingtone=" + _volumeRingtone);
+        PPApplication.logE("$$$ mergeProfiles", "**** this._volumeNotification=" + _volumeNotification);
 
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** withProfile.profileName=" + withProfile._name);
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** withProfile.profileId=" + withProfile._id);
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** withProfile._volumeRingerMode=" + withProfile._volumeRingerMode);
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** withProfile._volumeZenMode=" + withProfile._volumeZenMode);
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** withProfile._volumeRingtone=" + withProfile._volumeRingtone);
-        PPApplication.logE("$$$ Profile.mergeProfiles", "**** withProfile._volumeNotification=" + withProfile._volumeNotification);
+        PPApplication.logE("$$$ mergeProfiles", "**** withProfile.profileName=" + withProfile._name);
+        PPApplication.logE("$$$ mergeProfiles", "**** withProfile.profileId=" + withProfile._id);
+        PPApplication.logE("$$$ mergeProfiles", "**** withProfile._volumeRingerMode=" + withProfile._volumeRingerMode);
+        PPApplication.logE("$$$ mergeProfiles", "**** withProfile._volumeZenMode=" + withProfile._volumeZenMode);
+        PPApplication.logE("$$$ mergeProfiles", "**** withProfile._volumeRingtone=" + withProfile._volumeRingtone);
+        PPApplication.logE("$$$ mergeProfiles", "**** withProfile._volumeNotification=" + withProfile._volumeNotification);
         */
 
         if (withProfile != null) {
@@ -1631,13 +1631,13 @@ public class Profile {
                                     profileIcon, 0);*/
 
             /*
-            PPApplication.logE("$$$ Profile.mergeProfiles", "**** END");
-            PPApplication.logE("$$$ Profile.mergeProfiles", "**** this.profileName=" + _name);
-            PPApplication.logE("$$$ Profile.mergeProfiles", "**** this.profileId=" + _id);
-            PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeRingerMode=" + _volumeRingerMode);
-            PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeZenMode=" + _volumeZenMode);
-            PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeRingtone=" + _volumeRingtone);
-            PPApplication.logE("$$$ Profile.mergeProfiles", "**** this._volumeNotification=" + _volumeNotification);
+            PPApplication.logE("$$$ mergeProfiles", "**** END");
+            PPApplication.logE("$$$ mergeProfiles", "**** this.profileName=" + _name);
+            PPApplication.logE("$$$ mergeProfiles", "**** this.profileId=" + _id);
+            PPApplication.logE("$$$ mergeProfiles", "**** this._volumeRingerMode=" + _volumeRingerMode);
+            PPApplication.logE("$$$ mergeProfiles", "**** this._volumeZenMode=" + _volumeZenMode);
+            PPApplication.logE("$$$ mergeProfiles", "**** this._volumeRingtone=" + _volumeRingtone);
+            PPApplication.logE("$$$ mergeProfiles", "**** this._volumeNotification=" + _volumeNotification);
             */
         }
     }
@@ -1645,376 +1645,376 @@ public class Profile {
     @SuppressWarnings("RedundantIfStatement")
     boolean compareProfile(Profile withProfile)
     {
-        //PPApplication.logE("$$$ Profile.compareProfiles","name="+_name);
+        //PPApplication.logE("$$$ compareProfiles","name="+_name);
 
         if (withProfile != null) {
-            //PPApplication.logE("$$$ Profile.compareProfiles","withProfile="+withProfile._name);
+            //PPApplication.logE("$$$ compareProfiles","withProfile="+withProfile._name);
 
             if (this._id != withProfile._id) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_id");
+                //PPApplication.logE("$$$ compareProfiles","_id");
                 return false;
             }
 
             if (this._afterDurationDo == AFTER_DURATION_DO_SPECIFIC_PROFILE) {
                 if (this._duration > 0) {
                     if (this._afterDurationDo != withProfile._afterDurationDo) {
-                        //PPApplication.logE("$$$ Profile.compareProfiles","_afterDurationDo");
+                        //PPApplication.logE("$$$ compareProfiles","_afterDurationDo");
                         return false;
                     }
                 }
             }
 
             if (this._volumeRingerMode != withProfile._volumeRingerMode) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeRingerMode");
+                //PPApplication.logE("$$$ compareProfiles","_volumeRingerMode");
                 return false;
             }
             if (this._volumeZenMode != withProfile._volumeZenMode) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeZenMode");
+                //PPApplication.logE("$$$ compareProfiles","_volumeZenMode");
                 return false;
             }
             if ((this._volumeRingerMode == 1) || (this._volumeRingerMode == 4)) {
                 if (this._vibrateWhenRinging != withProfile._vibrateWhenRinging) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_vibrateWhenRinging 1");
+                    //PPApplication.logE("$$$ compareProfiles","_vibrateWhenRinging 1");
                     return false;
                 }
             }
             if ((this._volumeRingerMode == 5) && ((this._volumeZenMode == 1) || (this._volumeZenMode == 2))){
                 if (this._vibrateWhenRinging != withProfile._vibrateWhenRinging) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_vibrateWhenRinging 2");
+                    //PPApplication.logE("$$$ compareProfiles","_vibrateWhenRinging 2");
                     return false;
                 }
             }
             if (!this._volumeRingtone.equals(withProfile._volumeRingtone)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeRingtone");
+                //PPApplication.logE("$$$ compareProfiles","_volumeRingtone");
                 return false;
             }
             if (!this._volumeNotification.equals(withProfile._volumeNotification)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeNotification");
+                //PPApplication.logE("$$$ compareProfiles","_volumeNotification");
                 return false;
             }
             if (!this._volumeMedia.equals(withProfile._volumeMedia)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeMedia");
+                //PPApplication.logE("$$$ compareProfiles","_volumeMedia");
                 return false;
             }
             if (!this._volumeAlarm.equals(withProfile._volumeAlarm)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeAlarm");
+                //PPApplication.logE("$$$ compareProfiles","_volumeAlarm");
                 return false;
             }
             if (!this._volumeSystem.equals(withProfile._volumeSystem)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeSystem");
+                //PPApplication.logE("$$$ compareProfiles","_volumeSystem");
                 return false;
             }
             if (!this._volumeVoice.equals(withProfile._volumeVoice)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","this._volumeVoice="+this._volumeVoice);
-                //PPApplication.logE("$$$ Profile.compareProfiles","withProfile._volumeVoice="+withProfile._volumeVoice);
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeVoice");
+                //PPApplication.logE("$$$ compareProfiles","this._volumeVoice="+this._volumeVoice);
+                //PPApplication.logE("$$$ compareProfiles","withProfile._volumeVoice="+withProfile._volumeVoice);
+                //PPApplication.logE("$$$ compareProfiles","_volumeVoice");
                 return false;
             }
             if (this._soundRingtoneChange != withProfile._soundRingtoneChange) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtoneChange");
+                //PPApplication.logE("$$$ compareProfiles","_soundRingtoneChange");
                 return false;
             }
             if (this._soundRingtoneChange != 0) {
                 if (!this._soundRingtone.equals(withProfile._soundRingtone)) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtone");
+                    //PPApplication.logE("$$$ compareProfiles","_soundRingtone");
                     return false;
                 }
             }
             if (this._soundNotificationChange != withProfile._soundNotificationChange) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_soundNotificationChange");
+                //PPApplication.logE("$$$ compareProfiles","_soundNotificationChange");
                 return false;
             }
             if (this._soundNotificationChange != 0) {
                 if (!this._soundNotification.equals(withProfile._soundNotification)) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundNotification");
+                    //PPApplication.logE("$$$ compareProfiles","_soundNotification");
                     return false;
                 }
             }
             if (this._soundAlarmChange != withProfile._soundAlarmChange) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_soundAlarmChange");
+                //PPApplication.logE("$$$ compareProfiles","_soundAlarmChange");
                 return false;
             }
             if (this._soundAlarmChange != 0) {
                 if (!this._soundAlarm.equals(withProfile._soundAlarm)) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundAlarm");
+                    //PPApplication.logE("$$$ compareProfiles","_soundAlarm");
                     return false;
                 }
             }
             if (this._deviceAirplaneMode != withProfile._deviceAirplaneMode) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceAirplaneMode");
+                //PPApplication.logE("$$$ compareProfiles","_deviceAirplaneMode");
                 return false;
             }
             if (this._deviceMobileData != withProfile._deviceMobileData) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceMobileData");
+                //PPApplication.logE("$$$ compareProfiles","_deviceMobileData");
                 return false;
             }
             if (this._deviceMobileDataPrefs != withProfile._deviceMobileDataPrefs) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceMobileDataPrefs");
+                //PPApplication.logE("$$$ compareProfiles","_deviceMobileDataPrefs");
                 return false;
             }
             if (this._deviceWiFi != withProfile._deviceWiFi) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceWiFi");
+                //PPApplication.logE("$$$ compareProfiles","_deviceWiFi");
                 return false;
             }
             if (this._deviceBluetooth != withProfile._deviceBluetooth) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceBluetooth");
+                //PPApplication.logE("$$$ compareProfiles","_deviceBluetooth");
                 return false;
             }
             if (this._deviceGPS != withProfile._deviceGPS) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceGPS");
+                //PPApplication.logE("$$$ compareProfiles","_deviceGPS");
                 return false;
             }
             if (this._deviceLocationServicePrefs != withProfile._deviceLocationServicePrefs) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceLocationServicePrefs");
+                //PPApplication.logE("$$$ compareProfiles","_deviceLocationServicePrefs");
                 return false;
             }
             if (this._deviceScreenTimeout != withProfile._deviceScreenTimeout) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceScreenTimeout");
+                //PPApplication.logE("$$$ compareProfiles","_deviceScreenTimeout");
                 return false;
             }
             if (!this._deviceBrightness.equals(withProfile._deviceBrightness)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceBrightness");
+                //PPApplication.logE("$$$ compareProfiles","_deviceBrightness");
                 return false;
             }
             if (this._deviceWallpaperChange != withProfile._deviceWallpaperChange) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceWallpaperChange");
+                //PPApplication.logE("$$$ compareProfiles","_deviceWallpaperChange");
                 return false;
             }
             if (this._deviceWallpaperChange != 0) {
                 if (!this._deviceWallpaper.equals(withProfile._deviceWallpaper)) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_deviceWallpaper");
+                    //PPApplication.logE("$$$ compareProfiles","_deviceWallpaper");
                     return false;
                 }
                 if (this._deviceWallpaperFor != withProfile._deviceWallpaperFor) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_deviceWallpaperFor");
+                    //PPApplication.logE("$$$ compareProfiles","_deviceWallpaperFor");
                     return false;
                 }
             }
             if (this._deviceRunApplicationChange != withProfile._deviceRunApplicationChange) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceRunApplicationChange");
+                //PPApplication.logE("$$$ compareProfiles","_deviceRunApplicationChange");
                 return false;
             }
             if (this._deviceRunApplicationChange != 0) {
                 if (!this._deviceRunApplicationPackageName.equals(withProfile._deviceRunApplicationPackageName)) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_deviceRunApplicationPackageName");
+                    //PPApplication.logE("$$$ compareProfiles","_deviceRunApplicationPackageName");
                     return false;
                 }
             }
             if (this._deviceAutoSync != withProfile._deviceAutoSync) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceAutoSync");
+                //PPApplication.logE("$$$ compareProfiles","_deviceAutoSync");
                 return false;
             }
             if (this._deviceAutoRotate != withProfile._deviceAutoRotate) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceAutoRotate");
+                //PPApplication.logE("$$$ compareProfiles","_deviceAutoRotate");
                 return false;
             }
             if (this._volumeSpeakerPhone != withProfile._volumeSpeakerPhone) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeSpeakerPhone");
+                //PPApplication.logE("$$$ compareProfiles","_volumeSpeakerPhone");
                 return false;
             }
             if (this._deviceNFC != withProfile._deviceNFC) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceNFC");
+                //PPApplication.logE("$$$ compareProfiles","_deviceNFC");
                 return false;
             }
             if (this._deviceKeyguard != withProfile._deviceKeyguard) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceKeyguard");
+                //PPApplication.logE("$$$ compareProfiles","_deviceKeyguard");
                 return false;
             }
             if (this._vibrationOnTouch != withProfile._vibrationOnTouch) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_vibrationOnTouch");
+                //PPApplication.logE("$$$ compareProfiles","_vibrationOnTouch");
                 return false;
             }
             if (this._deviceWiFiAP != withProfile._deviceWiFiAP) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceWiFiAP");
+                //PPApplication.logE("$$$ compareProfiles","_deviceWiFiAP");
                 return false;
             }
             if (this._devicePowerSaveMode != withProfile._devicePowerSaveMode) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_devicePowerSaveMode");
+                //PPApplication.logE("$$$ compareProfiles","_devicePowerSaveMode");
                 return false;
             }
             if (this._deviceNetworkType != withProfile._deviceNetworkType) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceNetworkType");
+                //PPApplication.logE("$$$ compareProfiles","_deviceNetworkType");
                 return false;
             }
             if (this._notificationLed != withProfile._notificationLed) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_notificationLed");
+                //PPApplication.logE("$$$ compareProfiles","_notificationLed");
                 return false;
             }
             if (this._lockDevice != withProfile._lockDevice) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_lockDevice");
+                //PPApplication.logE("$$$ compareProfiles","_lockDevice");
                 return false;
             }
             if (!this._deviceConnectToSSID.equals(withProfile._deviceConnectToSSID)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceConnectToSSID");
+                //PPApplication.logE("$$$ compareProfiles","_deviceConnectToSSID");
                 return false;
             }
             if (this._applicationDisableWifiScanning != withProfile._applicationDisableWifiScanning) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableWifiScanning");
+                //PPApplication.logE("$$$ compareProfiles","_applicationDisableWifiScanning");
                 return false;
             }
             if (this._applicationDisableBluetoothScanning != withProfile._applicationDisableBluetoothScanning) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableBluetoothScanning");
+                //PPApplication.logE("$$$ compareProfiles","_applicationDisableBluetoothScanning");
                 return false;
             }
             if (this._deviceWiFiAPPrefs != withProfile._deviceWiFiAPPrefs) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceWiFiAPPrefs");
+                //PPApplication.logE("$$$ compareProfiles","_deviceWiFiAPPrefs");
                 return false;
             }
             if (this._applicationDisableLocationScanning != withProfile._applicationDisableLocationScanning) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableLocationScanning");
+                //PPApplication.logE("$$$ compareProfiles","_applicationDisableLocationScanning");
                 return false;
             }
             if (this._applicationDisableMobileCellScanning != withProfile._applicationDisableMobileCellScanning) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableMobileCellScanning");
+                //PPApplication.logE("$$$ compareProfiles","_applicationDisableMobileCellScanning");
                 return false;
             }
             if (this._applicationDisableOrientationScanning != withProfile._applicationDisableOrientationScanning) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableOrientationScanning");
+                //PPApplication.logE("$$$ compareProfiles","_applicationDisableOrientationScanning");
                 return false;
             }
             if (this._headsUpNotifications != withProfile._headsUpNotifications) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_headsUpNotifications");
+                //PPApplication.logE("$$$ compareProfiles","_headsUpNotifications");
                 return false;
             }
             if (this._deviceForceStopApplicationChange != withProfile._deviceForceStopApplicationChange) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceForceStopApplicationChange");
+                //PPApplication.logE("$$$ compareProfiles","_deviceForceStopApplicationChange");
                 return false;
             }
             if (this._deviceForceStopApplicationChange != 0) {
                 if (!this._deviceForceStopApplicationPackageName.equals(withProfile._deviceForceStopApplicationPackageName)) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_deviceForceStopApplicationPackageName");
+                    //PPApplication.logE("$$$ compareProfiles","_deviceForceStopApplicationPackageName");
                     return false;
                 }
             }
             if (this._deviceNetworkTypePrefs != withProfile._deviceNetworkTypePrefs) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceNetworkTypePrefs");
+                //PPApplication.logE("$$$ compareProfiles","_deviceNetworkTypePrefs");
                 return false;
             }
             if (this._deviceCloseAllApplications != withProfile._deviceCloseAllApplications) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceCloseAllApplications");
+                //PPApplication.logE("$$$ compareProfiles","_deviceCloseAllApplications");
                 return false;
             }
             if (this._screenDarkMode != withProfile._screenDarkMode) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_screenDarkMode");
+                //PPApplication.logE("$$$ compareProfiles","_screenDarkMode");
                 return false;
             }
             if (this._dtmfToneWhenDialing != withProfile._dtmfToneWhenDialing) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_dtmfToneWhenDialing");
+                //PPApplication.logE("$$$ compareProfiles","_dtmfToneWhenDialing");
                 return false;
             }
             if (this._soundOnTouch != withProfile._soundOnTouch) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_soundOnTouch");
+                //PPApplication.logE("$$$ compareProfiles","_soundOnTouch");
                 return false;
             }
             if (!this._volumeDTMF.equals(withProfile._volumeDTMF)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeDTMF");
+                //PPApplication.logE("$$$ compareProfiles","_volumeDTMF");
                 return false;
             }
             if (!this._volumeAccessibility.equals(withProfile._volumeAccessibility)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeAccessibility");
+                //PPApplication.logE("$$$ compareProfiles","_volumeAccessibility");
                 return false;
             }
             if (!this._volumeBluetoothSCO.equals(withProfile._volumeBluetoothSCO)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeBluetoothSCO");
+                //PPApplication.logE("$$$ compareProfiles","_volumeBluetoothSCO");
                 return false;
             }
             if (this._alwaysOnDisplay != withProfile._alwaysOnDisplay) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_alwaysOnDisplay");
+                //PPApplication.logE("$$$ compareProfiles","_alwaysOnDisplay");
                 return false;
             }
             if (this._screenOnPermanent != withProfile._screenOnPermanent) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_screenOnPermanent");
+                //PPApplication.logE("$$$ compareProfiles","_screenOnPermanent");
                 return false;
             }
             if (this._volumeMuteSound != withProfile._volumeMuteSound) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_volumeMuteSound");
+                //PPApplication.logE("$$$ compareProfiles","_volumeMuteSound");
                 return false;
             }
             if (this._deviceLocationMode != withProfile._deviceLocationMode) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceLocationMode");
+                //PPApplication.logE("$$$ compareProfiles","_deviceLocationMode");
                 return false;
             }
             if (this._applicationDisableNotificationScanning != withProfile._applicationDisableNotificationScanning) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableNotificationScanning");
+                //PPApplication.logE("$$$ compareProfiles","_applicationDisableNotificationScanning");
                 return false;
             }
             if (!this._generateNotification.equals(withProfile._generateNotification)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_applicationDisableNotificationScanning");
+                //PPApplication.logE("$$$ compareProfiles","_applicationDisableNotificationScanning");
                 return false;
             }
             if (this._cameraFlash != withProfile._cameraFlash) {
                 return false;
             }
             if (this._deviceNetworkTypeSIM1 != withProfile._deviceNetworkTypeSIM1) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceNetworkTypeSIM1");
+                //PPApplication.logE("$$$ compareProfiles","_deviceNetworkTypeSIM1");
                 return false;
             }
             if (this._deviceNetworkTypeSIM2 != withProfile._deviceNetworkTypeSIM2) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceNetworkTypeSIM2");
+                //PPApplication.logE("$$$ compareProfiles","_deviceNetworkTypeSIM2");
                 return false;
             }
             if (this._deviceMobileDataSIM1 != withProfile._deviceMobileDataSIM1) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceMobileDataSIM1");
+                //PPApplication.logE("$$$ compareProfiles","_deviceMobileDataSIM1");
                 return false;
             }
             if (this._deviceMobileDataSIM2 != withProfile._deviceMobileDataSIM2) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceMobileDataSIM2");
+                //PPApplication.logE("$$$ compareProfiles","_deviceMobileDataSIM2");
                 return false;
             }
             if (!this._deviceDefaultSIMCards.equals(withProfile._deviceDefaultSIMCards)) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceDefaultSIMCards");
+                //PPApplication.logE("$$$ compareProfiles","_deviceDefaultSIMCards");
                 return false;
             }
             if (this._deviceOnOffSIM1 != withProfile._deviceOnOffSIM1) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceOnOffSIM1");
+                //PPApplication.logE("$$$ compareProfiles","_deviceOnOffSIM1");
                 return false;
             }
             if (this._deviceOnOffSIM2 != withProfile._deviceOnOffSIM2) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_deviceOnOffSIM2");
+                //PPApplication.logE("$$$ compareProfiles","_deviceOnOffSIM2");
                 return false;
             }
             if (this._soundRingtoneChangeSIM1 != withProfile._soundRingtoneChangeSIM1) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtoneChangeSIM1");
+                //PPApplication.logE("$$$ compareProfiles","_soundRingtoneChangeSIM1");
                 return false;
             }
             if (this._soundRingtoneChangeSIM1 != 0) {
                 if (!this._soundRingtoneSIM1.equals(withProfile._soundRingtoneSIM1)) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtoneSIM1");
+                    //PPApplication.logE("$$$ compareProfiles","_soundRingtoneSIM1");
                     return false;
                 }
             }
             if (this._soundRingtoneChangeSIM2 != withProfile._soundRingtoneChangeSIM2) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtoneChangeSIM2");
+                //PPApplication.logE("$$$ compareProfiles","_soundRingtoneChangeSIM2");
                 return false;
             }
             if (this._soundRingtoneChangeSIM2 != 0) {
                 if (!this._soundRingtoneSIM2.equals(withProfile._soundRingtoneSIM2)) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundRingtoneSIM2");
+                    //PPApplication.logE("$$$ compareProfiles","_soundRingtoneSIM2");
                     return false;
                 }
             }
             if (this._soundNotificationChangeSIM1 != withProfile._soundNotificationChangeSIM1) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_soundNotificationChangeSIM1");
+                //PPApplication.logE("$$$ compareProfiles","_soundNotificationChangeSIM1");
                 return false;
             }
             if (this._soundNotificationChangeSIM1 != 0) {
                 if (!this._soundNotificationSIM1.equals(withProfile._soundNotificationSIM1)) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundNotificationSIM1");
+                    //PPApplication.logE("$$$ compareProfiles","_soundNotificationSIM1");
                     return false;
                 }
             }
             if (this._soundNotificationChangeSIM2 != withProfile._soundNotificationChangeSIM2) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_soundNotificationChangeSIM2");
+                //PPApplication.logE("$$$ compareProfiles","_soundNotificationChangeSIM2");
                 return false;
             }
             if (this._soundNotificationChangeSIM2 != 0) {
                 if (!this._soundNotificationSIM2.equals(withProfile._soundNotificationSIM2)) {
-                    //PPApplication.logE("$$$ Profile.compareProfiles","_soundNotificationSIM2");
+                    //PPApplication.logE("$$$ compareProfiles","_soundNotificationSIM2");
                     return false;
                 }
             }
             if (this._soundSameRingtoneForBothSIMCards != withProfile._soundSameRingtoneForBothSIMCards) {
-                //PPApplication.logE("$$$ Profile.compareProfiles","_soundSameRingtoneForBothSIMCards");
+                //PPApplication.logE("$$$ compareProfiles","_soundSameRingtoneForBothSIMCards");
                 return false;
             }
             return true;
@@ -2676,8 +2676,8 @@ public class Profile {
         int percentage = BrightnessLookup.lookup(_settingsValue, true);
 
         /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("Profile.getBrightnessPercentage_A9", "settingsValue=" + settingsValue);
-            PPApplication.logE("Profile.getBrightnessPercentage_A9", "percentage=" + percentage);
+            PPApplication.logE("getBrightnessPercentage_A9", "settingsValue=" + settingsValue);
+            PPApplication.logE("getBrightnessPercentage_A9", "percentage=" + percentage);
         }*/
 
         return percentage;
@@ -2692,7 +2692,7 @@ public class Profile {
         float systemValue = convertGammaToLinear(value, minValue, maxValue);
         if (PPApplication.romIsOnePlus)
             systemValue = systemValue * 4; // convert from 256 to 1024
-        PPApplication.logE("Profile.getBrightnessValue_A9", "float systemValue="+systemValue);
+        PPApplication.logE("getBrightnessValue_A9", "float systemValue="+systemValue);
 
         int maximumValue = 255;
         if (PPApplication.romIsOnePlus)
@@ -2708,8 +2708,8 @@ public class Profile {
             systemValue = systemValue * 16; // convert from 256 to 4096
 
         /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("Profile.getBrightnessValue_A9", "percentage=" + percentage);
-            PPApplication.logE("Profile.getBrightnessValue_A9", "systemValue=" + systemValue);
+            PPApplication.logE("getBrightnessValue_A9", "percentage=" + percentage);
+            PPApplication.logE("getBrightnessValue_A9", "systemValue=" + systemValue);
         }*/
 
         return Math.round(systemValue);
@@ -2722,8 +2722,8 @@ public class Profile {
         int maximumValue;// = getMaximumScreenBrightnessSetting();
         int minimumValue;// = getMinimumScreenBrightnessSetting();
 
-        //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "maximumValue="+getMaximumScreenBrightnessSetting(context.getApplicationContext()));
-        //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "minimumValue="+getMinimumScreenBrightnessSetting(context.getApplicationContext()));
+        //PPApplication.logE("convertPercentsToBrightnessManualValue", "maximumValue="+getMaximumScreenBrightnessSetting(context.getApplicationContext()));
+        //PPApplication.logE("convertPercentsToBrightnessManualValue", "minimumValue="+getMinimumScreenBrightnessSetting(context.getApplicationContext()));
 
         //if (maximumValue-minimumValue > 255) {
             minimumValue = 0;
@@ -2746,21 +2746,21 @@ public class Profile {
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
                 defaultValue = 2048;
             if ((Build.VERSION.SDK_INT > 28)  && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
-                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
+                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and Nexus");
+                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and Nexus");
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
-                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
+                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
             /*else {
-                PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 NOT called");
+                PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 NOT called");
             }*/
             value = Settings.System.getInt(context.getContentResolver(),
                     Settings.System.SCREEN_BRIGHTNESS, defaultValue);
@@ -2769,32 +2769,32 @@ public class Profile {
             /*if (PPApplication.logEnabled()) {
                 try {
                     int oldValue = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
-                    PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "oldValue=" + oldValue);
+                    PPApplication.logE("convertPercentsToBrightnessManualValue", "oldValue=" + oldValue);
                 } catch (Settings.SettingNotFoundException e) {
                     e.printStackTrace();
                 }
             }*/
             if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
-                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
+                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and Nexus");
+                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and Nexus");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
-                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
+                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
             else {
-                //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 NOT called");
+                //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 NOT called");
                 value = Math.round((float) (maximumValue - minimumValue) / 100 * percentage) + minimumValue;
             }
         }
 
-        //PPApplication.logE("Profile.convertPercentsToBrightnessManualValue", "value="+value);
+        //PPApplication.logE("convertPercentsToBrightnessManualValue", "value="+value);
         return value;
     }
 
@@ -2815,21 +2815,21 @@ public class Profile {
         else {
             boolean exponentialLevel = false;
             if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
-                //PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT > 28");
+                //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT > 28");
                 exponentialLevel = true;
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                //PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and Nexus");
+                //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and Nexus");
                 exponentialLevel = true;
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)/* && (!PPApplication.romIsOnePlus)*/) {
-                //PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and !Samsung and !LG");
+                //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT == 28 and !Samsung and !LG");
                 exponentialLevel = true;
             }
             /*else {
-                PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=false");
+                PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=false");
             }*/
 
             if (!exponentialLevel)
@@ -2838,8 +2838,8 @@ public class Profile {
 //                int maximumValue;// = getMaximumScreenBrightnessSetting();
 //                int minimumValue;// = getMinimumScreenBrightnessSetting();
 
-                //PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "maximumValue="+getMaximumScreenBrightnessSetting(context.getApplicationContext()));
-                //PPApplication.logE("Profile.convertPercentsToBrightnessAdaptiveValue", "minimumValue="+getMinimumScreenBrightnessSetting(context.getApplicationContext()));
+                //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "maximumValue="+getMaximumScreenBrightnessSetting(context.getApplicationContext()));
+                //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "minimumValue="+getMinimumScreenBrightnessSetting(context.getApplicationContext()));
 
                 //if (maximumValue-minimumValue > 255) {
 //                minimumValue = 0;
@@ -2875,21 +2875,21 @@ public class Profile {
             percentage = value; // keep BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET
         else {
             if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
-                //PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT > 28");
+                //PPApplication.logE("convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT > 28");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && Build.MODEL.contains("Nexus")) {// Nexus may be LG, Samsung, Huawei, ...
-                //PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and Nexus");
+                //PPApplication.logE("convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and Nexus");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
             else
             if ((Build.VERSION.SDK_INT == 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsLG)) {
-                //PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and !Samsung and !LG");
+                //PPApplication.logE("convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT == 28 and !Samsung and !LG");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
             else {
-                //PPApplication.logE("Profile.convertBrightnessToPercents", "getBrightnessPercentage_A9 NOT called");
+                //PPApplication.logE("convertBrightnessToPercents", "getBrightnessPercentage_A9 NOT called");
                 //if (maximumValue-minimumValue > 255) {
                 //int minimumValue = 0;
                 int maximumValue = 255;
@@ -3068,7 +3068,7 @@ public class Profile {
 
             int height = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
             int width = GlobalGUIRoutines.dpToPx(GlobalGUIRoutines.ICON_SIZE_DP);
-            //Log.d("---- Profile.generateIconBitmap","resampleBitmapUri");
+            //Log.d("---- generateIconBitmap","resampleBitmapUri");
             _iconBitmap = BitmapManipulator.resampleBitmapUri(getIconIdentifier(), width, height, true, false, context);
 
             if (_iconBitmap == null)
@@ -3088,7 +3088,7 @@ public class Profile {
             }
             else
             if (monochrome) {
-                //PPApplication.logE("Profile.generateIconBitmap", "monochromeValue="+monochromeValue);
+                //PPApplication.logE("generateIconBitmap", "monochromeValue="+monochromeValue);
                 float monoValue = 255f;
                 if (monochromeValue == 0x00) monoValue = -255f;
                 if (monochromeValue == 0x40) monoValue = -128f;
@@ -3189,7 +3189,7 @@ public class Profile {
                 durationString = "[ " + context.getString(R.string.profile_event_name_ask_for_duration) + " ]";
         }
         else
-        if ((_duration > 0) && (_afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING)) {
+        if ((_duration > 0) && (_afterDurationDo != AFTER_DURATION_DO_NOTHING)) {
             boolean showEndTime = false;
             if (_checked) {
                 long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
@@ -3301,9 +3301,9 @@ public class Profile {
         Profile profile = new Profile();
 
         //if (prefsName.equals(PPApplication.SHARED_PROFILE_PREFS_NAME)) {
-        //    profile._id = Profile.SHARED_PROFILE_ID;
+        //    profile._id = SHARED_PROFILE_ID;
         //    profile._name = context.getResources().getString(R.string.default_profile_name);
-        //    profile._icon = Profile.PROFILE_ICON_DEFAULT+"1|0|0";
+        //    profile._icon = PROFILE_ICON_DEFAULT+"1|0|0";
         //    profile._checked = false;
         //}
         //else {
@@ -3339,7 +3339,7 @@ public class Profile {
         profile._deviceWiFi = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WIFI, "2")); // OFF
         profile._deviceBluetooth = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_BLUETOOTH, "2")); //OFF
         profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "2")); // 30 seconds
-        profile._deviceBrightness = preferences.getString(PREF_PROFILE_DEVICE_BRIGHTNESS, Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|0|1|0");  // automatic on
+        profile._deviceBrightness = preferences.getString(PREF_PROFILE_DEVICE_BRIGHTNESS, BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|0|1|0");  // automatic on
         profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
         profile._deviceWallpaper = preferences.getString(PREF_PROFILE_DEVICE_WALLPAPER, "-");
         profile._deviceMobileData = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_MOBILE_DATA, "1")); //ON
@@ -3361,7 +3361,7 @@ public class Profile {
         profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
         profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0"));
         profile._lockDevice = Integer.parseInt(preferences.getString(PREF_PROFILE_LOCK_DEVICE, "0"));
-        profile._deviceConnectToSSID = preferences.getString(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
+        profile._deviceConnectToSSID = preferences.getString(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, CONNECTTOSSID_JUSTANY);
         profile._applicationDisableWifiScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, "0"));
         profile._applicationDisableBluetoothScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, "0"));
         profile._deviceWiFiAPPrefs = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WIFI_AP_PREFS, "0"));
@@ -3976,107 +3976,107 @@ public class Profile {
     void saveProfileToSharedPreferences(SharedPreferences preferences) {
         SharedPreferences.Editor editor = preferences.edit();
 
-        editor.putString(Profile.PREF_PROFILE_NAME, this._name);
-        editor.putString(Profile.PREF_PROFILE_ICON, this._icon);
-        editor.putBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, this._showInActivator);
-        editor.putString(Profile.PREF_PROFILE_DURATION, Integer.toString(this._duration));
-        editor.putString(Profile.PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(this._afterDurationDo));
-        editor.putBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, this._askForDuration);
-        editor.putString(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND, this._durationNotificationSound);
-        editor.putBoolean(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, this._durationNotificationVibrate);
-        editor.putBoolean(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON, this._hideStatusBarIcon);
-        editor.putString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, Integer.toString(this._volumeRingerMode));
-        editor.putString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, Integer.toString(this._volumeZenMode));
-        editor.putString(Profile.PREF_PROFILE_VOLUME_RINGTONE, this._volumeRingtone);
-        editor.putString(Profile.PREF_PROFILE_VOLUME_NOTIFICATION, this._volumeNotification);
-        editor.putString(Profile.PREF_PROFILE_VOLUME_MEDIA, this._volumeMedia);
-        editor.putString(Profile.PREF_PROFILE_VOLUME_ALARM, this._volumeAlarm);
-        editor.putString(Profile.PREF_PROFILE_VOLUME_SYSTEM, this._volumeSystem);
-        editor.putString(Profile.PREF_PROFILE_VOLUME_VOICE, this._volumeVoice);
-        editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE, Integer.toString(this._soundRingtoneChange));
+        editor.putString(PREF_PROFILE_NAME, this._name);
+        editor.putString(PREF_PROFILE_ICON, this._icon);
+        editor.putBoolean(PREF_PROFILE_SHOW_IN_ACTIVATOR, this._showInActivator);
+        editor.putString(PREF_PROFILE_DURATION, Integer.toString(this._duration));
+        editor.putString(PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(this._afterDurationDo));
+        editor.putBoolean(PREF_PROFILE_ASK_FOR_DURATION, this._askForDuration);
+        editor.putString(PREF_PROFILE_DURATION_NOTIFICATION_SOUND, this._durationNotificationSound);
+        editor.putBoolean(PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, this._durationNotificationVibrate);
+        editor.putBoolean(PREF_PROFILE_HIDE_STATUS_BAR_ICON, this._hideStatusBarIcon);
+        editor.putString(PREF_PROFILE_VOLUME_RINGER_MODE, Integer.toString(this._volumeRingerMode));
+        editor.putString(PREF_PROFILE_VOLUME_ZEN_MODE, Integer.toString(this._volumeZenMode));
+        editor.putString(PREF_PROFILE_VOLUME_RINGTONE, this._volumeRingtone);
+        editor.putString(PREF_PROFILE_VOLUME_NOTIFICATION, this._volumeNotification);
+        editor.putString(PREF_PROFILE_VOLUME_MEDIA, this._volumeMedia);
+        editor.putString(PREF_PROFILE_VOLUME_ALARM, this._volumeAlarm);
+        editor.putString(PREF_PROFILE_VOLUME_SYSTEM, this._volumeSystem);
+        editor.putString(PREF_PROFILE_VOLUME_VOICE, this._volumeVoice);
+        editor.putString(PREF_PROFILE_SOUND_RINGTONE_CHANGE, Integer.toString(this._soundRingtoneChange));
         String[] splits = this._soundRingtone.split("\\|");
-        editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE, splits[0]);
-        editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, Integer.toString(this._soundNotificationChange));
+        editor.putString(PREF_PROFILE_SOUND_RINGTONE, splits[0]);
+        editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, Integer.toString(this._soundNotificationChange));
         splits = this._soundNotification.split("\\|");
-        editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION, splits[0]);
-        editor.putString(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE, Integer.toString(this._soundAlarmChange));
+        editor.putString(PREF_PROFILE_SOUND_NOTIFICATION, splits[0]);
+        editor.putString(PREF_PROFILE_SOUND_ALARM_CHANGE, Integer.toString(this._soundAlarmChange));
         splits = this._soundAlarm.split("\\|");
-        editor.putString(Profile.PREF_PROFILE_SOUND_ALARM, splits[0]);
-        editor.putString(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE, Integer.toString(this._deviceAirplaneMode));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_WIFI, Integer.toString(this._deviceWiFi));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_BLUETOOTH, Integer.toString(this._deviceBluetooth));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, Integer.toString(this._deviceScreenTimeout));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, this._deviceBrightness);
-        editor.putString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, Integer.toString(this._deviceWallpaperChange));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_WALLPAPER, this._deviceWallpaper);
-        editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, Integer.toString(this._deviceMobileData));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, Integer.toString(this._deviceMobileDataPrefs));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_GPS, Integer.toString(this._deviceGPS));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, Integer.toString(this._deviceRunApplicationChange));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, this._deviceRunApplicationPackageName);
-        editor.putString(Profile.PREF_PROFILE_DEVICE_AUTOSYNC, Integer.toString(this._deviceAutoSync));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_AUTOROTATE, Integer.toString(this._deviceAutoRotate));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, Integer.toString(this._deviceLocationServicePrefs));
-        editor.putString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, Integer.toString(this._volumeSpeakerPhone));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_NFC, Integer.toString(this._deviceNFC));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_KEYGUARD, Integer.toString(this._deviceKeyguard));
-        editor.putString(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, Integer.toString(this._vibrationOnTouch));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_WIFI_AP, Integer.toString(this._deviceWiFiAP));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, Integer.toString(this._devicePowerSaveMode));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, Integer.toString(this._deviceNetworkType));
-        editor.putString(Profile.PREF_PROFILE_NOTIFICATION_LED, Integer.toString(this._notificationLed));
-        editor.putString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, Integer.toString(this._vibrateWhenRinging));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR, Integer.toString(this._deviceWallpaperFor));
-        editor.putString(Profile.PREF_PROFILE_LOCK_DEVICE, Integer.toString(this._lockDevice));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, this._deviceConnectToSSID);
-        editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, Integer.toString(this._applicationDisableWifiScanning));
-        editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, Integer.toString(this._applicationDisableBluetoothScanning));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, Integer.toString(this._deviceWiFiAPPrefs));
-        editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, Integer.toString(this._applicationDisableLocationScanning));
-        editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, Integer.toString(this._applicationDisableMobileCellScanning));
-        editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, Integer.toString(this._applicationDisableOrientationScanning));
-        editor.putString(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS, Integer.toString(this._headsUpNotifications));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, Integer.toString(this._deviceForceStopApplicationChange));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, this._deviceForceStopApplicationPackageName);
-        editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, Integer.toString(this._deviceNetworkTypePrefs));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, Integer.toString(this._deviceCloseAllApplications));
-        editor.putString(Profile.PREF_PROFILE_SCREEN_DARK_MODE, Integer.toString(this._screenDarkMode));
-        editor.putString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, Integer.toString(this._dtmfToneWhenDialing));
-        editor.putString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, Integer.toString(this._soundOnTouch));
-        editor.putString(Profile.PREF_PROFILE_VOLUME_DTMF, this._volumeDTMF);
-        editor.putString(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY, this._volumeAccessibility);
-        editor.putString(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO, this._volumeBluetoothSCO);
-        editor.putString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, Long.toString(this._afterDurationProfile));
-        editor.putString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, Integer.toString(this._alwaysOnDisplay));
-        editor.putString(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT, Integer.toString(this._screenOnPermanent));
-        editor.putBoolean(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND, this._volumeMuteSound);
-        editor.putString(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE, Integer.toString(this._deviceLocationMode));
-        editor.putString(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, Integer.toString(this._applicationDisableNotificationScanning));
-        editor.putString(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, this._generateNotification);
-        editor.putString(Profile.PREF_PROFILE_CAMERA_FLASH, Integer.toString(this._cameraFlash));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, Integer.toString(this._deviceNetworkTypeSIM1));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, Integer.toString(this._deviceNetworkTypeSIM2));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, Integer.toString(this._deviceMobileDataSIM1));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, Integer.toString(this._deviceMobileDataSIM2));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, this._deviceDefaultSIMCards);
-        editor.putString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, Integer.toString(this._deviceOnOffSIM1));
-        editor.putString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, Integer.toString(this._deviceOnOffSIM2));
+        editor.putString(PREF_PROFILE_SOUND_ALARM, splits[0]);
+        editor.putString(PREF_PROFILE_DEVICE_AIRPLANE_MODE, Integer.toString(this._deviceAirplaneMode));
+        editor.putString(PREF_PROFILE_DEVICE_WIFI, Integer.toString(this._deviceWiFi));
+        editor.putString(PREF_PROFILE_DEVICE_BLUETOOTH, Integer.toString(this._deviceBluetooth));
+        editor.putString(PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, Integer.toString(this._deviceScreenTimeout));
+        editor.putString(PREF_PROFILE_DEVICE_BRIGHTNESS, this._deviceBrightness);
+        editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, Integer.toString(this._deviceWallpaperChange));
+        editor.putString(PREF_PROFILE_DEVICE_WALLPAPER, this._deviceWallpaper);
+        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA, Integer.toString(this._deviceMobileData));
+        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, Integer.toString(this._deviceMobileDataPrefs));
+        editor.putString(PREF_PROFILE_DEVICE_GPS, Integer.toString(this._deviceGPS));
+        editor.putString(PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, Integer.toString(this._deviceRunApplicationChange));
+        editor.putString(PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, this._deviceRunApplicationPackageName);
+        editor.putString(PREF_PROFILE_DEVICE_AUTOSYNC, Integer.toString(this._deviceAutoSync));
+        editor.putString(PREF_PROFILE_DEVICE_AUTOROTATE, Integer.toString(this._deviceAutoRotate));
+        editor.putString(PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, Integer.toString(this._deviceLocationServicePrefs));
+        editor.putString(PREF_PROFILE_VOLUME_SPEAKER_PHONE, Integer.toString(this._volumeSpeakerPhone));
+        editor.putString(PREF_PROFILE_DEVICE_NFC, Integer.toString(this._deviceNFC));
+        editor.putString(PREF_PROFILE_DEVICE_KEYGUARD, Integer.toString(this._deviceKeyguard));
+        editor.putString(PREF_PROFILE_VIBRATION_ON_TOUCH, Integer.toString(this._vibrationOnTouch));
+        editor.putString(PREF_PROFILE_DEVICE_WIFI_AP, Integer.toString(this._deviceWiFiAP));
+        editor.putString(PREF_PROFILE_DEVICE_POWER_SAVE_MODE, Integer.toString(this._devicePowerSaveMode));
+        editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE, Integer.toString(this._deviceNetworkType));
+        editor.putString(PREF_PROFILE_NOTIFICATION_LED, Integer.toString(this._notificationLed));
+        editor.putString(PREF_PROFILE_VIBRATE_WHEN_RINGING, Integer.toString(this._vibrateWhenRinging));
+        editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_FOR, Integer.toString(this._deviceWallpaperFor));
+        editor.putString(PREF_PROFILE_LOCK_DEVICE, Integer.toString(this._lockDevice));
+        editor.putString(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, this._deviceConnectToSSID);
+        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, Integer.toString(this._applicationDisableWifiScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, Integer.toString(this._applicationDisableBluetoothScanning));
+        editor.putString(PREF_PROFILE_DEVICE_WIFI_AP_PREFS, Integer.toString(this._deviceWiFiAPPrefs));
+        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, Integer.toString(this._applicationDisableLocationScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, Integer.toString(this._applicationDisableMobileCellScanning));
+        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, Integer.toString(this._applicationDisableOrientationScanning));
+        editor.putString(PREF_PROFILE_HEADS_UP_NOTIFICATIONS, Integer.toString(this._headsUpNotifications));
+        editor.putString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, Integer.toString(this._deviceForceStopApplicationChange));
+        editor.putString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, this._deviceForceStopApplicationPackageName);
+        editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, Integer.toString(this._deviceNetworkTypePrefs));
+        editor.putString(PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, Integer.toString(this._deviceCloseAllApplications));
+        editor.putString(PREF_PROFILE_SCREEN_DARK_MODE, Integer.toString(this._screenDarkMode));
+        editor.putString(PREF_PROFILE_DTMF_TONE_WHEN_DIALING, Integer.toString(this._dtmfToneWhenDialing));
+        editor.putString(PREF_PROFILE_SOUND_ON_TOUCH, Integer.toString(this._soundOnTouch));
+        editor.putString(PREF_PROFILE_VOLUME_DTMF, this._volumeDTMF);
+        editor.putString(PREF_PROFILE_VOLUME_ACCESSIBILITY, this._volumeAccessibility);
+        editor.putString(PREF_PROFILE_VOLUME_BLUETOOTH_SCO, this._volumeBluetoothSCO);
+        editor.putString(PREF_PROFILE_AFTER_DURATION_PROFILE, Long.toString(this._afterDurationProfile));
+        editor.putString(PREF_PROFILE_ALWAYS_ON_DISPLAY, Integer.toString(this._alwaysOnDisplay));
+        editor.putString(PREF_PROFILE_SCREEN_ON_PERMANENT, Integer.toString(this._screenOnPermanent));
+        editor.putBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, this._volumeMuteSound);
+        editor.putString(PREF_PROFILE_DEVICE_LOCATION_MODE, Integer.toString(this._deviceLocationMode));
+        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, Integer.toString(this._applicationDisableNotificationScanning));
+        editor.putString(PREF_PROFILE_GENERATE_NOTIFICATION, this._generateNotification);
+        editor.putString(PREF_PROFILE_CAMERA_FLASH, Integer.toString(this._cameraFlash));
+        editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, Integer.toString(this._deviceNetworkTypeSIM1));
+        editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, Integer.toString(this._deviceNetworkTypeSIM2));
+        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, Integer.toString(this._deviceMobileDataSIM1));
+        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, Integer.toString(this._deviceMobileDataSIM2));
+        editor.putString(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, this._deviceDefaultSIMCards);
+        editor.putString(PREF_PROFILE_DEVICE_ONOFF_SIM1, Integer.toString(this._deviceOnOffSIM1));
+        editor.putString(PREF_PROFILE_DEVICE_ONOFF_SIM2, Integer.toString(this._deviceOnOffSIM2));
 
-        editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, Integer.toString(this._soundRingtoneChangeSIM1));
+        editor.putString(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, Integer.toString(this._soundRingtoneChangeSIM1));
         splits = this._soundRingtoneSIM1.split("\\|");
-        editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, splits[0]);
-        editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, Integer.toString(this._soundNotificationChangeSIM1));
+        editor.putString(PREF_PROFILE_SOUND_RINGTONE_SIM1, splits[0]);
+        editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, Integer.toString(this._soundNotificationChangeSIM1));
         splits = this._soundNotificationSIM1.split("\\|");
-        editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, splits[0]);
+        editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_SIM1, splits[0]);
 
-        editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, Integer.toString(this._soundRingtoneChangeSIM2));
+        editor.putString(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, Integer.toString(this._soundRingtoneChangeSIM2));
         splits = this._soundRingtoneSIM2.split("\\|");
-        editor.putString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, splits[0]);
-        editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, Integer.toString(this._soundNotificationChangeSIM2));
+        editor.putString(PREF_PROFILE_SOUND_RINGTONE_SIM2, splits[0]);
+        editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, Integer.toString(this._soundNotificationChangeSIM2));
         splits = this._soundNotificationSIM2.split("\\|");
-        editor.putString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, splits[0]);
+        editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_SIM2, splits[0]);
 
-        editor.putString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, Integer.toString(this._soundSameRingtoneForBothSIMCards));
+        editor.putString(PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, Integer.toString(this._soundSameRingtoneForBothSIMCards));
 
         editor.apply();
     }
@@ -4085,7 +4085,7 @@ public class Profile {
                                                            SharedPreferences sharedPreferences,
                                                            boolean fromUIThread, Context context) {
 //        if (profile != null)
-//            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "profile != null - START");
+//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "profile != null - START");
 
         if ((profile != null) && (!preferenceKey.equals("-")) && (sharedPreferences == null)) {
             sharedPreferences = context.getApplicationContext().getSharedPreferences("temp_isProfilePreferenceAllowed", Context.MODE_PRIVATE);
@@ -4102,111 +4102,111 @@ public class Profile {
         if (profile == null) {
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
             switch (preferenceKey) {
-                case Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE:
+                case PREF_PROFILE_DEVICE_AIRPLANE_MODE:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_WIFI:
+                case PREF_PROFILE_DEVICE_WIFI:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_BLUETOOTH:
+                case PREF_PROFILE_DEVICE_BLUETOOTH:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_BLUETOOTH(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA:
-                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
-                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
+                case PREF_PROFILE_DEVICE_MOBILE_DATA:
+                case PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1:
+                case PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS:
+                case PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_GPS:
+                case PREF_PROFILE_DEVICE_GPS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_LOCATION_MODE:
+                case PREF_PROFILE_DEVICE_LOCATION_MODE:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE(preferenceAllowed, null, context);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_NFC:
+                case PREF_PROFILE_DEVICE_NFC:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_WIFI_AP:
+                case PREF_PROFILE_DEVICE_WIFI_AP:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING:
+                case PREF_PROFILE_VIBRATE_WHEN_RINGING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, null, sharedPreferences, fromUIThread);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS:
+                case PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS:
                     // !!! test this only for preference key !!!
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS(preferenceAllowed, sharedPreferences, fromUIThread);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE:
+                case PREF_PROFILE_DEVICE_POWER_SAVE_MODE:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE:
-                case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1:
-                case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2:
+                case PREF_PROFILE_DEVICE_NETWORK_TYPE:
+                case PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1:
+                case PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_NOTIFICATION_LED:
+                case PREF_PROFILE_NOTIFICATION_LED:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_KEYGUARD:
+                case PREF_PROFILE_DEVICE_KEYGUARD:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_KEYGUARD(preferenceAllowed, context);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID:
+                case PREF_PROFILE_DEVICE_CONNECT_TO_SSID:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_CONNECT_TO_SSID(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING:
+                case PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING:
+                case PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS:
+                case PREF_PROFILE_DEVICE_WIFI_AP_PREFS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP_PREFS(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING:
+                case PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING:
+                case PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS:
+                case PREF_PROFILE_HEADS_UP_NOTIFICATIONS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_HEADS_UP_NOTIFICATIONS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS:
+                case PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY:
+                case PREF_PROFILE_VOLUME_ACCESSIBILITY:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_ACCESSIBILITY(preferenceAllowed, context);
                     break;
-                case Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY:
+                case PREF_PROFILE_ALWAYS_ON_DISPLAY:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_SCREEN_DARK_MODE:
+                case PREF_PROFILE_SCREEN_DARK_MODE:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE:
+                case PREF_PROFILE_VOLUME_SPEAKER_PHONE:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_SPEAKER_PHONE(preferenceAllowed, context);
                     break;
-                case Profile.PREF_PROFILE_CAMERA_FLASH:
+                case PREF_PROFILE_CAMERA_FLASH:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(preferenceAllowed);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS:
+                case PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1:
-                case Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2:
+                case PREF_PROFILE_DEVICE_ONOFF_SIM1:
+                case PREF_PROFILE_DEVICE_ONOFF_SIM2:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1:
-                case Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2:
+                case PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1:
+                case PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM(preferenceAllowed, null, context);
                     break;
-                case Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1:
-                case Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2:
+                case PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1:
+                case PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, preferenceKey, null, sharedPreferences, fromUIThread, context);
                     break;
-                case Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS:
+                case PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
                 default:
@@ -4221,37 +4221,37 @@ public class Profile {
 
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_BLUETOOTH(preferenceAllowed);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS(preferenceAllowed);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_GPS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE(preferenceAllowed, profile, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_LOCATION_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NFC] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI_AP] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, profile, sharedPreferences, fromUIThread);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_NOTIFICATION_LED] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_KEYGUARD(preferenceAllowed, context);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_CONNECT_TO_SSID(preferenceAllowed);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING(preferenceAllowed);
@@ -4261,32 +4261,32 @@ public class Profile {
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING(preferenceAllowed);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_HEADS_UP_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_HEADS_UP_NOTIFICATIONS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_HEADS_UP_NOTIFICATIONS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS(preferenceAllowed);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_ACCESSIBILITY(preferenceAllowed, context);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_ALWAYS_ON_DISPLAY] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SCREEN_DARK_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VOLUME_SPEAKER_PHONE(preferenceAllowed, context);
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_CAMERA_FLASH(preferenceAllowed);
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_ONOFF_SIM] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM(preferenceAllowed, profile, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM(preferenceAllowed, "-", profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
 
             if (preferenceAllowed.notAllowedG1 || preferenceAllowed.notAllowedRoot)
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
@@ -4300,7 +4300,7 @@ public class Profile {
                                                         boolean fromUIThread, Context context)
     {
 //        if (profile != null)
-//            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "profile != null - START");
+//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "profile != null - START");
 
         Context appContext = context.getApplicationContext();
 
@@ -4318,7 +4318,7 @@ public class Profile {
 
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE)) {
+        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_DEVICE_AIRPLANE_MODE)) {
             if (PPApplication.isRooted(fromUIThread)) {
                 // device is rooted
 
@@ -4355,7 +4355,7 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
                     preferenceAllowed.notAllowedRoot = true;
-                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceAirplaneMode");
+                    //Log.e("isProfilePreferenceAllowed", "_deviceAirplaneMode");
                 }
             }
 
@@ -4363,7 +4363,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI))
+        if (preferenceKey.equals(PREF_PROFILE_DEVICE_WIFI))
         {
             if (PPApplication.HAS_FEATURE_WIFI)
                 // device has Wifi
@@ -4375,7 +4375,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH))
+        if (preferenceKey.equals(PREF_PROFILE_DEVICE_BLUETOOTH))
         {
             if (PPApplication.HAS_FEATURE_BLUETOOTH)
                 // device has bluetooth
@@ -4388,9 +4388,9 @@ public class Profile {
         }
 
         if ((profile != null) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2))
+                preferenceKey.equals(PREF_PROFILE_DEVICE_MOBILE_DATA) ||
+                preferenceKey.equals(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1) ||
+                preferenceKey.equals(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2))
         {
             boolean mobileDataSupported = false;
             if (!PPApplication.HAS_FEATURE_TELEPHONY) {
@@ -4416,7 +4416,7 @@ public class Profile {
 //                                    if (ntkInfo != null) {
 //                                        if (ntkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
 //                                            mobileDataSupported = true;
-//                                            PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "mobileDataSupported=true");
+//                                            PPApplication.logE("[DUAL_SIM] isProfilePreferenceAllowed", "mobileDataSupported=true");
 //                                            break;
 //                                        }
 //                                    }
@@ -4445,7 +4445,7 @@ public class Profile {
                 mobileDataSupported = true;
             if (mobileDataSupported)
             {
-                //Log.d("Profile.isProfilePreferenceAllowed", "mobile data supported");
+                //Log.d("isProfilePreferenceAllowed", "mobile data supported");
                 // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
                 // not working :-/
                 if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE)) {
@@ -4496,7 +4496,7 @@ public class Profile {
                         }
                     }
 
-                    if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
+                    if (ActivateProfileHelper.telephonyServiceExists(PREF_PROFILE_DEVICE_MOBILE_DATA)) {
                         if (PPApplication.serviceBinaryExists(fromUIThread)) {
                             if (profile != null) {
                                 if ((profile._deviceMobileData != 0) ||
@@ -4544,7 +4544,7 @@ public class Profile {
                         if ((profile != null) &&
                                 (profile._deviceMobileData != 0)) {
                             preferenceAllowed.notAllowedRoot = true;
-                            //Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
+                            //Log.e("isProfilePreferenceAllowed", "_deviceMobileData");
                         }
                     }
                     else {
@@ -4553,13 +4553,13 @@ public class Profile {
                                         (profile._deviceMobileDataSIM1 != 0) ||
                                         (profile._deviceMobileDataSIM2 != 0))) {
                             preferenceAllowed.notAllowedRoot = true;
-                            //Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
+                            //Log.e("isProfilePreferenceAllowed", "_deviceMobileData");
                         }
                     }
                 }
             }
             else {
-                //Log.d("Profile.isProfilePreferenceAllowed", "mobile data not supported");
+                //Log.d("isProfilePreferenceAllowed", "mobile data not supported");
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
 
@@ -4567,7 +4567,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
+        if (preferenceKey.equals(PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
         {
             if (PPApplication.HAS_FEATURE_TELEPHONY)
             {
@@ -4580,7 +4580,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_GPS))
+        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_DEVICE_GPS))
         {
             if (PPApplication.HAS_FEATURE_LOCATION_GPS)
             {
@@ -4639,11 +4639,11 @@ public class Profile {
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
 //                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceGPS=" + profile._deviceGPS);
+//                        PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "- profile._deviceGPS=" + profile._deviceGPS);
                     if ((profile != null) && (profile._deviceGPS != 0)) {
                         //return preferenceAllowed;
 //                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceGPS");
+//                            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "_deviceGPS");
                         //preferenceAllowed.notAllowedRoot = true;
                         preferenceAllowed.notAllowedG1 = true;
                     }
@@ -4653,14 +4653,14 @@ public class Profile {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
 
 //            if ((profile != null) && (profile._name.equals("Low battery"))) {
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [IN PREF_PROFILE_DEVICE_GPS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [IN PREF_PROFILE_DEVICE_GPS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
 //            }
 
             if (profile == null)
                 return preferenceAllowed;
         }
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE))
+        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_DEVICE_LOCATION_MODE))
         {
             // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -4707,11 +4707,11 @@ public class Profile {
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
 //                if (profile != null)
-//                    PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceLocationMode=" + profile._deviceLocationMode);
+//                    PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "- profile._deviceLocationMode=" + profile._deviceLocationMode);
                 if ((profile != null) && (profile._deviceLocationMode != 0)) {
                     //return preferenceAllowed;
 //                    if (profile._name.equals("Low battery"))
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceLocationMode");
+//                        PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "_deviceLocationMode");
                     //preferenceAllowed.notAllowedRoot = true;
                     preferenceAllowed.notAllowedG1 = true;
                 }
@@ -4721,7 +4721,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NFC))
+        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_DEVICE_NFC))
         {
             if (PPApplication.HAS_FEATURE_NFC)
             {
@@ -4770,11 +4770,11 @@ public class Profile {
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
 //                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._deviceNFC=" + profile._deviceNFC);
+//                        PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "- profile._deviceNFC=" + profile._deviceNFC);
                     if ((profile != null) && (profile._deviceNFC != 0)) {
                         //return preferenceAllowed;
 //                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_deviceNFC");
+//                            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "_deviceNFC");
                         //preferenceAllowed.notAllowedRoot = true;
                         preferenceAllowed.notAllowedG1 = true;
                     }
@@ -4787,7 +4787,7 @@ public class Profile {
             }
 
 //            if ((profile != null) && (profile._name.equals("Low battery"))) {
-//                PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [IN PREF_PROFILE_DEVICE_NFC] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [IN PREF_PROFILE_DEVICE_NFC] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
 //            }
 
             if (profile == null)
@@ -4795,10 +4795,10 @@ public class Profile {
         }
 
 //        if ((profile != null) && (profile._name.equals("Low battery"))) {
-//            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [PREF_PROFILE_DEVICE_WIFI_AP] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [PREF_PROFILE_DEVICE_WIFI_AP] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
 //        }
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP))
+        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_DEVICE_WIFI_AP))
         {
             if (Build.VERSION.SDK_INT < 30) {
                 if (PPApplication.HAS_FEATURE_WIFI) {
@@ -4847,7 +4847,7 @@ public class Profile {
                                 }
                             }
 
-                            if (ActivateProfileHelper.wifiServiceExists(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
+                            if (ActivateProfileHelper.wifiServiceExists(PREF_PROFILE_DEVICE_WIFI_AP)) {
                                 if (PPApplication.serviceBinaryExists(fromUIThread)) {
                                     if (profile != null) {
                                         if (profile._deviceWiFiAP != 0)
@@ -4865,7 +4865,7 @@ public class Profile {
                         } else {
                             if ((profile != null) && (profile._deviceWiFiAP != 0)) {
                                 preferenceAllowed.notAllowedRoot = true;
-                                //Log.e("Profile.isProfilePreferenceAllowed", "_deviceWiFiAP");
+                                //Log.e("isProfilePreferenceAllowed", "_deviceWiFiAP");
                             }
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                         }
@@ -4887,8 +4887,8 @@ public class Profile {
             }
 
 //            if (PPApplication.logEnabled()) {
-//                PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.allowed=" + preferenceAllowed.allowed);
-//                PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.notAllowedReason=" + preferenceAllowed.notAllowedReason);
+//                PPApplication.logE("$$$ WifiAP", "isProfilePreferenceAllowed-preferenceAllowed.allowed=" + preferenceAllowed.allowed);
+//                PPApplication.logE("$$$ WifiAP", "isProfilePreferenceAllowed-preferenceAllowed.notAllowedReason=" + preferenceAllowed.notAllowedReason);
 //            }
 
             if (profile == null)
@@ -4896,10 +4896,10 @@ public class Profile {
         }
 
 //        if ((profile != null) && (profile._name.equals("Low battery"))) {
-//            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [PREF_PROFILE_VIBRATE_WHEN_RINGING] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [PREF_PROFILE_VIBRATE_WHEN_RINGING] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
 //        }
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
+        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_VIBRATE_WHEN_RINGING))
         {
             if (android.os.Build.VERSION.SDK_INT == 23 ||
                     (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
@@ -4941,7 +4941,7 @@ public class Profile {
                 else {
                     if ((profile != null) && (profile._vibrateWhenRinging != 0)) {
                         preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("Profile.isProfilePreferenceAllowed", "_vibrateWhenRinging");
+                        //Log.e("isProfilePreferenceAllowed", "_vibrateWhenRinging");
                     }
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
@@ -4960,18 +4960,18 @@ public class Profile {
         }
 
 //        if ((profile != null) && (profile._name.equals("Low battery"))) {
-//            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- [PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
 //        }
 
         // !!! test this only for preference key !!!
-        if ((profile == null) && preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
+        if ((profile == null) && preferenceKey.equals(PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
         {
             if (PPApplication.isRooted(fromUIThread)) {
                 // device is rooted
 
                 if (sharedPreferences != null) {
-                    String value = sharedPreferences.getString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS));
-                    if (Profile.getDeviceBrightnessChange(value) && Profile.getDeviceBrightnessAutomatic(value)) {
+                    String value = sharedPreferences.getString(PREF_PROFILE_DEVICE_BRIGHTNESS, defaultValuesString.get(PREF_PROFILE_DEVICE_BRIGHTNESS));
+                    if (getDeviceBrightnessChange(value) && getDeviceBrightnessAutomatic(value)) {
                         if (applicationNeverAskForGrantRoot) {
                             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
@@ -4993,7 +4993,7 @@ public class Profile {
             return preferenceAllowed;
         }
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
+        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
         {
             if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
                 if (profile != null) {
@@ -5042,10 +5042,10 @@ public class Profile {
             else {
                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
 //                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._devicePowerSaveMode=" + profile._devicePowerSaveMode);
+//                        PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "- profile._devicePowerSaveMode=" + profile._devicePowerSaveMode);
                 if ((profile != null) && (profile._devicePowerSaveMode != 0)) {
 //                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_devicePowerSaveMode");
+//                            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "_devicePowerSaveMode");
                     //preferenceAllowed.notAllowedRoot = true;
                     preferenceAllowed.notAllowedG1 = true;
                 }
@@ -5056,9 +5056,9 @@ public class Profile {
         }
 
         if ((profile != null) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2))
+                preferenceKey.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
+                preferenceKey.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) ||
+                preferenceKey.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2))
         {
             if (PPApplication.HAS_FEATURE_TELEPHONY)
             {
@@ -5067,7 +5067,7 @@ public class Profile {
                     int phoneCount = 1;
                     if (Build.VERSION.SDK_INT >= 26)
                         phoneCount = telephonyManager.getPhoneCount();
-//                    PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
+//                    PPApplication.logE("[DUAL_SIM] isProfilePreferenceAllowed", "phoneCount="+phoneCount);
 
                     final int phoneType = telephonyManager.getPhoneType();
                     if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
@@ -5108,7 +5108,7 @@ public class Profile {
                                 }
                             }
 
-                            if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
+                            if (ActivateProfileHelper.telephonyServiceExists(PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
                                 if (PPApplication.serviceBinaryExists(fromUIThread)) {
                                     if (profile == null)
                                         preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -5153,7 +5153,7 @@ public class Profile {
                                         (profile._deviceNetworkType != 0)
                                 ) {
                                     preferenceAllowed.notAllowedRoot = true;
-                                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+                                    //Log.e("isProfilePreferenceAllowed", "_deviceNetworkType");
                                 }
                             }
                             else {
@@ -5163,7 +5163,7 @@ public class Profile {
                                                 (profile._deviceNetworkTypeSIM2 != 0))
                                 ) {
                                     preferenceAllowed.notAllowedRoot = true;
-                                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+                                    //Log.e("isProfilePreferenceAllowed", "_deviceNetworkType");
                                 }
                             }
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
@@ -5185,7 +5185,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_NOTIFICATION_LED))
+        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_NOTIFICATION_LED))
         {
             int value = Settings.System.getInt(appContext.getContentResolver(), "notification_light_pulse", -10);
             if (value != -10) {
@@ -5232,7 +5232,7 @@ public class Profile {
                 else {
                     if ((profile != null) && (profile._notificationLed != 0)) {
                         preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("Profile.isProfilePreferenceAllowed", "_notificationLed");
+                        //Log.e("isProfilePreferenceAllowed", "_notificationLed");
                     }
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
@@ -5246,7 +5246,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_KEYGUARD))
+        if (preferenceKey.equals(PREF_PROFILE_DEVICE_KEYGUARD))
         {
             boolean secureKeyguard;
             KeyguardManager keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
@@ -5263,7 +5263,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
+        if (preferenceKey.equals(PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
         {
             if (PPApplication.HAS_FEATURE_WIFI)
                 // device has Wifi
@@ -5275,7 +5275,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING))
+        if (preferenceKey.equals(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING))
         {
             if (PPApplication.HAS_FEATURE_WIFI)
                 // device has Wifi
@@ -5287,7 +5287,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING))
+        if (preferenceKey.equals(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING))
         {
             if (PPApplication.HAS_FEATURE_BLUETOOTH)
                 // device has bluetooth
@@ -5299,7 +5299,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS))
+        if (preferenceKey.equals(PREF_PROFILE_DEVICE_WIFI_AP_PREFS))
         {
             if (PPApplication.HAS_FEATURE_WIFI)
             {
@@ -5312,7 +5312,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING))
+        if (preferenceKey.equals(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING))
         {
             if (PPApplication.HAS_FEATURE_TELEPHONY)
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -5323,7 +5323,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING))
+        if (preferenceKey.equals(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING))
         {
             if (PPApplication.sensorManager != null) {
                 boolean hasAccelerometer = PPApplication.accelerometerSensor != null;
@@ -5343,7 +5343,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS))
+        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_HEADS_UP_NOTIFICATIONS))
         {
             int value = Settings.Global.getInt(appContext.getContentResolver(), "heads_up_notifications_enabled", -10);
             if (value != -10) {
@@ -5394,11 +5394,11 @@ public class Profile {
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
 //                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._headsUpNotifications=" + profile._headsUpNotifications);
+//                        PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "- profile._headsUpNotifications=" + profile._headsUpNotifications);
                     if ((profile != null) && (profile._headsUpNotifications != 0)) {
                         //return preferenceAllowed;
 //                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_headsUpNotifications");
+//                            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "_headsUpNotifications");
                         //preferenceAllowed.notAllowedRoot = true;
                         preferenceAllowed.notAllowedG1 = true;
                     }
@@ -5414,7 +5414,7 @@ public class Profile {
         }
 
 //
-//        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
+//        if (preferenceKey.equals(PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
 //        {
 //            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
 //
@@ -5423,7 +5423,7 @@ public class Profile {
 //        }
 //
 //
-//        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE))
+//        if (preferenceKey.equals(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE))
 //        {
 //            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
 //
@@ -5432,7 +5432,7 @@ public class Profile {
 //        }
 //
 //
-//        if (preferenceKey.equals(Profile.PREF_PROFILE_LOCK_DEVICE))
+//        if (preferenceKey.equals(PREF_PROFILE_LOCK_DEVICE))
 //        {
 //            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
 //
@@ -5441,7 +5441,7 @@ public class Profile {
 //        }
 //
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS))
+        if (preferenceKey.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS))
         {
             if (PPApplication.HAS_FEATURE_TELEPHONY)
             {
@@ -5454,7 +5454,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY))
+        if (preferenceKey.equals(PREF_PROFILE_VOLUME_ACCESSIBILITY))
         {
             if (android.os.Build.VERSION.SDK_INT >= 26) {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -5468,7 +5468,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY))
+        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_ALWAYS_ON_DISPLAY))
         {
             if (android.os.Build.VERSION.SDK_INT >= 26) {
                 if (PPApplication.isRooted(fromUIThread)) {
@@ -5507,7 +5507,7 @@ public class Profile {
                 else {
                     if ((profile != null) && (profile._alwaysOnDisplay != 0)) {
                         preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("Profile.isProfilePreferenceAllowed", "_alwaysOnDisplay");
+                        //Log.e("isProfilePreferenceAllowed", "_alwaysOnDisplay");
                     }
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
@@ -5521,7 +5521,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if ((profile != null) || preferenceKey.equals(Profile.PREF_PROFILE_SCREEN_DARK_MODE))
+        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_SCREEN_DARK_MODE))
         {
             if (android.os.Build.VERSION.SDK_INT >= 29) {
                 if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
@@ -5571,11 +5571,11 @@ public class Profile {
                 else {
                     preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
 //                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "- profile._screenDarkMode=" + profile._screenDarkMode);
+//                        PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "- profile._screenDarkMode=" + profile._screenDarkMode);
                     if ((profile != null) && (profile._screenDarkMode != 0)) {
                         //return preferenceAllowed;
 //                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "_screenDarkMode");
+//                            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "_screenDarkMode");
                         preferenceAllowed.notAllowedG1 = true;
                     }
                 }
@@ -5589,7 +5589,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE))
+        if (preferenceKey.equals(PREF_PROFILE_VOLUME_SPEAKER_PHONE))
         {
             if (Build.VERSION.SDK_INT < 29) {
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -5604,7 +5604,7 @@ public class Profile {
                 return preferenceAllowed;
         }
 
-        if (preferenceKey.equals(Profile.PREF_PROFILE_CAMERA_FLASH))
+        if (preferenceKey.equals(PREF_PROFILE_CAMERA_FLASH))
         {
             if (PPApplication.HAS_FEATURE_CAMERA_FLASH)
             {
@@ -5618,14 +5618,14 @@ public class Profile {
         }
 
         if ((profile != null) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS))
+                preferenceKey.equals(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS))
         {
             if (Build.VERSION.SDK_INT >= 26) {
                 //if (PPApplication.HAS_FEATURE_TELEPHONY) {
                     final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
                         int phoneCount = telephonyManager.getPhoneCount();
-//                        PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
+//                        PPApplication.logE("[DUAL_SIM] isProfilePreferenceAllowed", "phoneCount="+phoneCount);
 
                         if (PPApplication.isRooted(fromUIThread)) {
                             // device is rooted
@@ -5648,7 +5648,7 @@ public class Profile {
                                 }
                             }
 
-                            if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS) && (phoneCount > 1)) {
+                            if (ActivateProfileHelper.telephonyServiceExists(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS) && (phoneCount > 1)) {
                                 if (PPApplication.serviceBinaryExists(fromUIThread)) {
                                     if (profile != null) {
                                         if (!profile._deviceDefaultSIMCards.equals("0|0|0"))
@@ -5665,12 +5665,12 @@ public class Profile {
                             }
 
                             if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
-//                                PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "not has sim 1");
+//                                PPApplication.logE("[DUAL_SIM] isProfilePreferenceAllowed", "not has sim 1");
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
                             if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
-//                                PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "not has sim 2");
+//                                PPApplication.logE("[DUAL_SIM] isProfilePreferenceAllowed", "not has sim 2");
                                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                             }
@@ -5680,7 +5680,7 @@ public class Profile {
                                     (!profile._deviceDefaultSIMCards.equals("0|0|0"))
                             ) {
                                 preferenceAllowed.notAllowedRoot = true;
-                                //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+                                //Log.e("isProfilePreferenceAllowed", "_deviceNetworkType");
                             }
                             preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                         }
@@ -5697,8 +5697,8 @@ public class Profile {
         }
 
         if ((profile != null) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2)) {
+                preferenceKey.equals(PREF_PROFILE_DEVICE_ONOFF_SIM1) ||
+                preferenceKey.equals(PREF_PROFILE_DEVICE_ONOFF_SIM2)) {
             if (Build.VERSION.SDK_INT >= 26) {
                 if (PPApplication.isRooted(fromUIThread)) {
                     // device is rooted
@@ -5723,7 +5723,7 @@ public class Profile {
                         }
                     }
 
-                    if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1)) {
+                    if (ActivateProfileHelper.telephonyServiceExists(PREF_PROFILE_DEVICE_ONOFF_SIM1)) {
                         if (PPApplication.serviceBinaryExists(fromUIThread)) {
                             if (profile != null) {
                                 if ((profile._deviceOnOffSIM1 != 0) ||
@@ -5763,7 +5763,7 @@ public class Profile {
                             ((profile._deviceOnOffSIM1 != 0) ||
                              (profile._deviceOnOffSIM2 != 0))) {
                         preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("Profile.isProfilePreferenceAllowed", "_deviceOnOffSIM");
+                        //Log.e("isProfilePreferenceAllowed", "_deviceOnOffSIM");
                     }
                 }
             } else {
@@ -5776,8 +5776,8 @@ public class Profile {
         }
 
         if ((profile != null) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2)) {
+                preferenceKey.equals(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1) ||
+                preferenceKey.equals(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2)) {
             if (Build.VERSION.SDK_INT >= 26) {
                 if (PPApplication.deviceIsSamsung ||
                      (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
@@ -5823,8 +5823,8 @@ public class Profile {
         }
 
         if ((profile != null) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)) {
+                preferenceKey.equals(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1) ||
+                preferenceKey.equals(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)) {
             if (Build.VERSION.SDK_INT >= 26) {
                 if ((PPApplication.deviceIsSamsung ||
                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
@@ -5883,7 +5883,7 @@ public class Profile {
                                         (profile._soundNotificationChangeSIM2 != 0))
                                 ) {
                                     preferenceAllowed.notAllowedRoot = true;
-                                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+                                    //Log.e("isProfilePreferenceAllowed", "_deviceNetworkType");
                                 }
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                             }
@@ -5912,7 +5912,7 @@ public class Profile {
         }
 
         if ((profile != null) ||
-                preferenceKey.equals(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)) {
+                preferenceKey.equals(PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)) {
             if (Build.VERSION.SDK_INT >= 26) {
                 if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
                     final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -5967,7 +5967,7 @@ public class Profile {
                                         (profile._soundSameRingtoneForBothSIMCards != 0)
                                 ) {
                                     preferenceAllowed.notAllowedRoot = true;
-                                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+                                    //Log.e("isProfilePreferenceAllowed", "_deviceNetworkType");
                                 }
                                 preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                             }
@@ -5993,11 +5993,11 @@ public class Profile {
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
 
 //        if ((profile != null) && (profile._name.equals("Low battery"))) {
-//            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "------- preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
 //        }
 
 //        if (profile != null)
-//            PPApplication.logE("[G1_TEST] Profile.isProfilePreferenceAllowed", "profile != null - END");
+//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "profile != null - END");
 
         return preferenceAllowed;
     }

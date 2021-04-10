@@ -348,17 +348,16 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     public void finish() {
         //PPApplication.logE("PhoneProfilesPrefsActivity.finish", "xxx");
 
+        Intent returnIntent = new Intent();
         if (activityStarted) {
             //doPreferenceChanges();
 
             // for startActivityForResult
-            Intent returnIntent = new Intent();
             returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);
             Permissions.grantRootChanged = false;
             setResult(RESULT_OK, returnIntent);
         }
         else {
-            Intent returnIntent = new Intent();
             Permissions.grantRootChanged = false;
             setResult(RESULT_CANCELED, returnIntent);
         }
