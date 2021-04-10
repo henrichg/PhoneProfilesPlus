@@ -35,6 +35,7 @@ class EventsHandler {
 
     private String eventSMSPhoneNumber;
     private long eventSMSDate;
+    private int eventSMSFromSIMSlot;
     //private String eventNotificationPostedRemoved;
     private String eventNFCTagName;
     private long eventNFCDate;
@@ -406,7 +407,7 @@ class EventsHandler {
                         if (_event.getStatus() != Event.ESTATUS_STOP) {
                             if (_event._eventPreferencesSMS._enabled) {
                                 //PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
-                                _event._eventPreferencesSMS.saveStartTime(dataWrapper, eventSMSPhoneNumber, eventSMSDate);
+                                _event._eventPreferencesSMS.saveStartTime(dataWrapper, eventSMSPhoneNumber, eventSMSDate, eventSMSFromSIMSlot);
                             }
                         }
                     }
@@ -1973,9 +1974,10 @@ class EventsHandler {
 //--------
 
 
-    void setEventSMSParameters(String phoneNumber, long date) {
+    void setEventSMSParameters(String phoneNumber, long date, int simSlot) {
         eventSMSPhoneNumber = phoneNumber;
         eventSMSDate = date;
+        eventSMSFromSIMSlot = simSlot;
     }
 
     /*
@@ -1998,7 +2000,7 @@ class EventsHandler {
         EventPreferencesCall.setEventCallEventType(context, callEventType);
         EventPreferencesCall.setEventCallEventTime(context, eventTime);
         EventPreferencesCall.setEventCallPhoneNumber(context, phoneNumber);
-        EventPreferencesCall.setEventCallSIMSlot(context, simSlot);
+        EventPreferencesCall.setEventCallFromSIMSlot(context, simSlot);
     }
 
     void setEventDeviceBootParameters(long date) {

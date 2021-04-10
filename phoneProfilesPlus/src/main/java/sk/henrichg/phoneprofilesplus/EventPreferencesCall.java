@@ -68,7 +68,7 @@ class EventPreferencesCall extends EventPreferences {
     private static final String PREF_EVENT_CALL_EVENT_TYPE = "eventCallEventType";
     private static final String PREF_EVENT_CALL_PHONE_NUMBER = "eventCallPhoneNumber";
     private static final String PREF_EVENT_CALL_EVENT_TIME = "eventCallEventTime";
-    private static final String PREF_EVENT_CALL_SIM_SLOT = "eventCallSIMSlot";
+    private static final String PREF_EVENT_CALL_FROM_SIM_SLOT = "eventCallSIMSlot";
 
     EventPreferencesCall(Event event,
                          boolean enabled,
@@ -780,14 +780,14 @@ class EventPreferencesCall extends EventPreferences {
     static void getEventCallSIMSlot(Context context) {
         synchronized (PPApplication.eventCallSensorMutex) {
             ApplicationPreferences.prefEventCallFromSIMSlot = ApplicationPreferences.
-                    getSharedPreferences(context).getInt(EventPreferencesCall.PREF_EVENT_CALL_SIM_SLOT, 0);
+                    getSharedPreferences(context).getInt(EventPreferencesCall.PREF_EVENT_CALL_FROM_SIM_SLOT, 0);
             //return ApplicationPreferences.prefEventCallPhoneNumber;
         }
     }
-    static void setEventCallSIMSlot(Context context, int simSlot) {
+    static void setEventCallFromSIMSlot(Context context, int simSlot) {
         synchronized (PPApplication.eventCallSensorMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putInt(EventPreferencesCall.PREF_EVENT_CALL_SIM_SLOT, simSlot);
+            editor.putInt(EventPreferencesCall.PREF_EVENT_CALL_FROM_SIM_SLOT, simSlot);
             editor.apply();
             ApplicationPreferences.prefEventCallFromSIMSlot = simSlot;
         }

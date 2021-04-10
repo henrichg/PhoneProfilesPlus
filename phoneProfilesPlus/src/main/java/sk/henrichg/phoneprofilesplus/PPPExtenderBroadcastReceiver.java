@@ -12,6 +12,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
@@ -24,6 +26,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
     private static final String EXTRA_ORIGIN = PPApplication.PACKAGE_NAME_EXTENDER + ".origin";
     private static final String EXTRA_TIME = PPApplication.PACKAGE_NAME_EXTENDER + ".time";
+    private static final String EXTRA_SUBSCRIPTION_ID = PPApplication.PACKAGE_NAME_EXTENDER + ".subscription_id";
 
     //private static final String EXTRA_SERVICE_PHONE_EVENT = PPApplication.PACKAGE_NAME_EXTENDER + ".service_phone_event";
     private static final String EXTRA_CALL_EVENT_TYPE = PPApplication.PACKAGE_NAME_EXTENDER + ".call_event_type";
@@ -243,9 +246,53 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
             case PPApplication.ACTION_SMS_MMS_RECEIVED:
                 final String origin = intent.getStringExtra(EXTRA_ORIGIN);
                 final long time = intent.getLongExtra(EXTRA_TIME, 0);
+                final int subscriptionId = intent.getIntExtra(EXTRA_SUBSCRIPTION_ID, -1);
+
+                int _simSlot = 0;
+
+                SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                //SubscriptionManager.from(context);
+                if (mSubscriptionManager != null) {
+                    PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "mSubscriptionManager != null");
+                    List<SubscriptionInfo> subscriptionList = null;
+                    try {
+                        // Loop through the subscription list i.e. SIM list.
+                        subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                        PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionList=" + subscriptionList);
+                    } catch (SecurityException e) {
+                        PPApplication.recordException(e);
+                    }
+                    if (subscriptionList != null) {
+                        PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionList.size()=" + subscriptionList.size());
+                        for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                            // Get the active subscription ID for a given SIM card.
+                            SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                            PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionInfo=" + subscriptionInfo);
+                            if (subscriptionInfo != null) {
+                                int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                int _subscriptionId = subscriptionInfo.getSubscriptionId();
+                                PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionId=" + subscriptionId);
+                                if (subscriptionId == _subscriptionId) {
+                                    _simSlot = slotIndex + 1;
+                                    break;
+                                }
+                            }
+                            else
+                                PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionInfo == null");
+                        }
+                    }
+                    else
+                        PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionList == null");
+                }
+                else
+                    PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "mSubscriptionManager == null");
+
+                final int simSlot = _simSlot;
+
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "origin=" + origin);
                     PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "time=" + time);
+                    PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "simSlot=" + simSlot);
                 }*/
 
                 if (Event.getGlobalEventsRunning()) {
@@ -265,7 +312,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             //if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SMS, false) > 0) {
 //                                    PPApplication.logE("[EVENTS_HANDLER_CALL] PPPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_SMS");
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                                eventsHandler.setEventSMSParameters(origin, time);
+                                eventsHandler.setEventSMSParameters(origin, time, simSlot);
                                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SMS);
                             //}
 

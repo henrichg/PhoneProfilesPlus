@@ -4121,7 +4121,7 @@ public class PhoneProfilesService extends Service
                 EventPreferencesCall.setEventCallEventType(appContext, EventPreferencesCall.PHONE_CALL_EVENT_UNDEFINED);
                 EventPreferencesCall.setEventCallEventTime(appContext, 0);
                 EventPreferencesCall.setEventCallPhoneNumber(appContext, "");
-                EventPreferencesCall.setEventCallSIMSlot(appContext, 0);
+                EventPreferencesCall.setEventCallFromSIMSlot(appContext, 0);
 
                 //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "5");
 

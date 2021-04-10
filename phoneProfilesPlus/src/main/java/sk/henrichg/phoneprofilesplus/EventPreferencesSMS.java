@@ -486,7 +486,7 @@ class EventPreferencesSMS extends EventPreferences {
         }
     }
 
-    void saveStartTime(DataWrapper dataWrapper, String phoneNumber, long startTime) {
+    void saveStartTime(DataWrapper dataWrapper, String phoneNumber, long startTime, int fromSIMSlot) {
         if (this._startTime == 0) {
             // alarm for end is not set
 
