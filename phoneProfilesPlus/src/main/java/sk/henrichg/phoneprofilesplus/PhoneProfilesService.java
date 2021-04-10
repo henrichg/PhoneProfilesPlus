@@ -119,6 +119,8 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_OLD_SYSTEM_RINGER_MODE = "old_system_ringer_mode";
     static final String EXTRA_OLD_ZEN_MODE = "old_zen_mode";
     static final String EXTRA_OLD_RINGTONE = "old_ringtone";
+    static final String EXTRA_OLD_RINGTONE_SIM1 = "old_ringtone_sim1";
+    static final String EXTRA_OLD_RINGTONE_SIM2 = "old_ringtone_sim2";
     //static final String EXTRA_SIMULATE_NOTIFICATION_TONE = "simulate_notification_tone";
     //static final String EXTRA_OLD_NOTIFICATION_TONE = "old_notification_tone";
     static final String EXTRA_OLD_SYSTEM_RINGER_VOLUME = "old_system_ringer_volume";
@@ -7006,7 +7008,29 @@ public class PhoneProfilesService extends Service
             int oldRingerMode = intent.getIntExtra(EXTRA_OLD_RINGER_MODE, 0);
             //int oldSystemRingerMode = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
             int oldZenMode = intent.getIntExtra(EXTRA_OLD_ZEN_MODE, 0);
+
+            int fromSIMSlot = intent.getIntExtra(EXTRA_CALL_FROM_SIM_SLOT, 0);
+
             String oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE);
+            Context appContext = context.getApplicationContext();
+            final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                int phoneCount = telephonyManager.getPhoneCount();
+                if (phoneCount > 1) {
+                    switch (fromSIMSlot) {
+                        case 0:
+                            oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE);
+                            break;
+                        case 1:
+                            oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE_SIM1);
+                            break;
+                        case 2:
+                            oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE_SIM2);
+                            break;
+                    }
+                }
+            }
+
             //int oldSystemRingerVolume = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_VOLUME, -1);
             int newRingerMode = ApplicationPreferences.prefRingerMode;
             int newZenMode = ApplicationPreferences.prefZenMode;
@@ -7015,7 +7039,7 @@ public class PhoneProfilesService extends Service
             String phoneNumber = "";
             if (PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_3_0))
                 phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
-x
+
             // get ringtone from contact
             boolean phoneNumberFound = false;
             try {
@@ -7045,6 +7069,57 @@ x
                     else
                         newRingtone = "";
                     //PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings="+newRingtone);
+
+                    if (fromSIMSlot > 0) {
+                        if (telephonyManager != null) {
+                            int phoneCount = telephonyManager.getPhoneCount();
+                            if (phoneCount > 1) {
+                                if (PPApplication.deviceIsSamsung) {
+                                    if (fromSIMSlot == 1) {
+                                        String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
+                                        if (_uri == null)
+                                            _uri = "";
+                                        newRingtone = _uri;
+                                    }
+                                    if (fromSIMSlot == 2) {
+                                        String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_2");
+                                        if (_uri == null)
+                                            _uri = "";
+                                        newRingtone = _uri;
+                                    }
+                                } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
+                                    if (fromSIMSlot == 1) {
+                                        String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
+                                        if (_uri == null)
+                                            _uri = "";
+                                        newRingtone = _uri;
+                                    }
+                                    if (fromSIMSlot == 2) {
+                                        String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone2");
+                                        if (_uri == null)
+                                            _uri = "";
+                                        newRingtone = _uri;
+                                    }
+                                } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
+                                    int useUniform = Settings.System.getInt(appContext.getContentResolver(), "ringtone_sound_use_uniform", 1);
+
+                                    if ((fromSIMSlot == 1) || (useUniform == 1)) {
+                                        String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_1");
+                                        if (_uri == null)
+                                            _uri = "";
+                                        newRingtone = _uri;
+                                    }
+                                    if ((fromSIMSlot == 2) || (useUniform == 0)) {
+                                        String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_2");
+                                        if (_uri == null)
+                                            _uri = "";
+                                        newRingtone = _uri;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                 } catch (SecurityException e) {
                     Permissions.grantPlayRingtoneNotificationPermissions(context, false);
                     newRingtone = "";
