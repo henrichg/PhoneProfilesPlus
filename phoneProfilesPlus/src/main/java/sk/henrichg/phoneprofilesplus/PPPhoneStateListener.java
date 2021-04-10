@@ -51,11 +51,11 @@ public class PPPhoneStateListener extends PhoneStateListener {
 
             switch (state) {
                 case TelephonyManager.CALL_STATE_RINGING:
-                    PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "state=CALL_STATE_RINGING");
-                    if (subscriptionInfo != null)
-                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=" + subscriptionInfo.getSimSlotIndex());
-                    else
-                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=0");
+//                    PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "state=CALL_STATE_RINGING");
+//                    if (subscriptionInfo != null)
+//                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=" + subscriptionInfo.getSimSlotIndex());
+//                    else
+//                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=0");
 
                     //PPPEApplication.logE("PPPhoneStateListener.PhoneCallStartEndDetector", "incomingNumber="+incomingNumber);
                     inCall = false;
@@ -63,11 +63,11 @@ public class PPPhoneStateListener extends PhoneStateListener {
                     onIncomingCallStarted(/*incomingNumber, eventTime*/);
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK:
-                    PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "state=CALL_STATE_OFFHOOK");
-                    if (subscriptionInfo != null)
-                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=" + subscriptionInfo.getSimSlotIndex());
-                    else
-                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=0");
+//                    PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "state=CALL_STATE_OFFHOOK");
+//                    if (subscriptionInfo != null)
+//                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=" + subscriptionInfo.getSimSlotIndex());
+//                    else
+//                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=0");
                     //Transition of ringing->off hook are pickups of incoming calls.  Nothing down on them
                     if(lastState != TelephonyManager.CALL_STATE_RINGING){
                         inCall = true;
@@ -82,11 +82,11 @@ public class PPPhoneStateListener extends PhoneStateListener {
                     }
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
-                    PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "state=CALL_STATE_IDLE");
-                    if (subscriptionInfo != null)
-                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=" + subscriptionInfo.getSimSlotIndex());
-                    else
-                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=0");
+//                    PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "state=CALL_STATE_IDLE");
+//                    if (subscriptionInfo != null)
+//                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=" + subscriptionInfo.getSimSlotIndex());
+//                    else
+//                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=0");
                     //Went to idle-  this is the end of a call.  What type depends on previous state(s)
                     if(!inCall){
                         //Ring but no pickup-  a miss

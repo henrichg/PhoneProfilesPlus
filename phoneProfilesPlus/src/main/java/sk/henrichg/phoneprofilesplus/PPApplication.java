@@ -220,7 +220,7 @@ public class PPApplication extends Application
 
                                                 //+"|ContactsContentObserver.onChange"
                                                 //+"|ContactsContentObserverWorker.doWork"
-                                                +"|ContactsCache.getContactList"
+                                                //+"|ContactsCache.getContactList"
                                                 //+"|ContactGroupsCache.getContactGroupListX"
 
                                                 //+"|LocationGeofenceEditorActivityOSM"
@@ -253,6 +253,7 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
                                                 //+"|PPPhoneStateListener"
                                                 +"|PPPExtenderBroadcastReceiver"
+                                                +"|PhoneProfilesService.doSimulatingRingingCall"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
