@@ -86,6 +86,8 @@ class ContactsMultiSelectDialogPreferenceViewHolderX extends RecyclerView.ViewHo
                 accountType = context.getString(R.string.contact_account_type_google_account);
             if (contact.accountType.equals("vnd.sec.contact.sim"))
                 accountType = context.getString(R.string.contact_account_type_sim_card);
+            if (contact.accountType.equals("vnd.sec.contact.sim2"))
+                accountType = context.getString(R.string.contact_account_type_sim_card);
             if (contact.accountType.equals("vnd.sec.contact.phone"))
                 accountType = context.getString(R.string.contact_account_type_phone_application);
             if (contact.accountType.equals("org.thoughtcrime.securesms"))

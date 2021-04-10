@@ -220,7 +220,7 @@ public class PPApplication extends Application
 
                                                 //+"|ContactsContentObserver.onChange"
                                                 //+"|ContactsContentObserverWorker.doWork"
-                                                //+"|ContactsCache.getContactList"
+                                                +"|ContactsCache.getContactList"
                                                 //+"|ContactGroupsCache.getContactGroupListX"
 
                                                 //+"|LocationGeofenceEditorActivityOSM"
@@ -250,8 +250,9 @@ public class PPApplication extends Application
                                                 //+"|[DEFAULT_SIM]"
                                                 //+"|[ROOT]"
 
-                                                +"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
-                                                +"|PPPhoneStateListener"
+                                                //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
+                                                //+"|PPPhoneStateListener"
+                                                +"|PPPExtenderBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

@@ -36,7 +36,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] PPPExtenderBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] PPPExtenderBroadcastReceiver.onReceive", "xxx");
 
         final Context appContext = context.getApplicationContext();
 
@@ -49,7 +49,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         if ((intent == null) || (intent.getAction() == null))
             return;
 
-        //PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "action="+intent.getAction());
+        PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "action="+intent.getAction());
 
         switch (intent.getAction()) {
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
@@ -291,12 +291,13 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 final long eventTime = intent.getLongExtra(EXTRA_EVENT_TIME, 0);
                 final int slotIndex = intent.getIntExtra(EXTRA_SIM_SLOT, 0);
 
-                /*if (PPApplication.logEnabled()) {
+                if (PPApplication.logEnabled()) {
                     //PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "servicePhoneEvent="+servicePhoneEvent);
                     PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "callEventType=" + callEventType);
                     PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "phoneNumber=" + phoneNumber);
                     PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "eventTime=" + eventTime);
-                }*/
+                    PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "slotIndex=" + slotIndex);
+                }
 
                 if (Event.getGlobalEventsRunning()) {
                     PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_CALL_RECEIVED"*/);

@@ -100,6 +100,8 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
                 // Display ContactGroup data
                 textViewDisplayName.setText(contactGroup.name + " (" + contactGroup.count + ")");
 
+//                PPApplication.logE("ContactGroupsMultiSelectPreferenceAdapterX.getView", "contactGroup.accountType="+contactGroup.accountType);
+
                 boolean found = false;
                 PackageManager packageManager = context.getPackageManager();
                 try {
@@ -109,13 +111,15 @@ class ContactGroupsMultiSelectPreferenceAdapterX extends BaseAdapter
                         found = true;
                     }
                 } catch (Exception ignored) {}
-//                Log.e("ContactGroupsMultiSelectPreferenceAdapterX.getView", "found="+found);
+//                PPApplication.logE("ContactGroupsMultiSelectPreferenceAdapterX.getView", "found="+found);
                 if (!found) {
                     if (contactGroup.accountType.equals("com.osp.app.signin"))
                         contactGroup.accountType = context.getString(R.string.contact_account_type_samsung_account);
                     if (contactGroup.accountType.equals("com.google"))
                         contactGroup.accountType = context.getString(R.string.contact_account_type_google_account);
                     if (contactGroup.accountType.equals("vnd.sec.contact.sim"))
+                        contactGroup.accountType = context.getString(R.string.contact_account_type_sim_card);
+                    if (contactGroup.accountType.equals("vnd.sec.contact.sim2"))
                         contactGroup.accountType = context.getString(R.string.contact_account_type_sim_card);
                     if (contactGroup.accountType.equals("vnd.sec.contact.phone"))
                         contactGroup.accountType = context.getString(R.string.contact_account_type_phone_application);
