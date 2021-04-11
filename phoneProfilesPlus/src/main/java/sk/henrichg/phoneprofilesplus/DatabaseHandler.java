@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2462;
+    private static final int DATABASE_VERSION = 2463;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -366,7 +366,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2 = "radioSwitchMobileDataSIM2";
     private static final String KEY_E_CALL_FROM_SIM_SLOT = "callFromSIMSlot";
     private static final String KEY_E_CALL_FOR_SIM_CARD = "callForSIMCard";
-
+    private static final String KEY_E_SMS_FROM_SIM_SLOT = "smsFromSIMSlot";
+    private static final String KEY_E_SMS_FOR_SIM_CARD = "smsForSIMCard";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -777,7 +778,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1 + " " + INTEGER_TYPE + ","
                 + KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2 + " " + INTEGER_TYPE + ","
                 + KEY_E_CALL_FROM_SIM_SLOT + " " + INTEGER_TYPE + ","
-                + KEY_E_CALL_FOR_SIM_CARD + " " + INTEGER_TYPE
+                + KEY_E_CALL_FOR_SIM_CARD + " " + INTEGER_TYPE + ","
+                + KEY_E_SMS_FROM_SIM_SLOT + " " + INTEGER_TYPE + ","
+                + KEY_E_SMS_FOR_SIM_CARD + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1211,6 +1214,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALL_FROM_SIM_SLOT, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALL_FOR_SIM_CARD, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_FROM_SIM_SLOT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SMS_FOR_SIM_CARD, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -3320,6 +3325,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion < 2462)
         {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_FOR_SIM_CARD + "=0");
+        }
+
+        if (oldVersion < 2463)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_FROM_SIM_SLOT + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_FOR_SIM_CARD + "=0");
         }
 
     }
@@ -6023,7 +6034,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_SMS_CONTACT_GROUPS,
                         KEY_E_SMS_DURATION,
                         KEY_E_SMS_PERMANENT_RUN,
-                        KEY_E_SMS_SENSOR_PASSED
+                        KEY_E_SMS_SENSOR_PASSED,
+                        KEY_E_SMS_FROM_SIM_SLOT,
+                        KEY_E_SMS_FOR_SIM_CARD
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -6039,12 +6052,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 //eventPreferences._smsEvent = cursor.getInt(cursor.getColumnIndex(KEY_E_SMS_EVENT));
                 eventPreferences._contacts = cursor.getString(cursor.getColumnIndex(KEY_E_SMS_CONTACTS));
                 eventPreferences._contactListType = cursor.getInt(cursor.getColumnIndex(KEY_E_SMS_CONTACT_LIST_TYPE));
-                eventPreferences._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_SMS_START_TIME));
                 //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
                 //    PPApplication.logE("[SMS sensor] DatabaseHandler.getEventPreferencesSMS", "startTime="+eventPreferences._startTime);
                 eventPreferences._contactGroups = cursor.getString(cursor.getColumnIndex(KEY_E_SMS_CONTACT_GROUPS));
                 eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_SMS_DURATION));
                 eventPreferences._permanentRun = (cursor.getInt(cursor.getColumnIndex(KEY_E_SMS_PERMANENT_RUN)) == 1);
+                eventPreferences._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_SMS_START_TIME));
+                eventPreferences._fromSIMSlot = cursor.getInt(cursor.getColumnIndex(KEY_E_SMS_FROM_SIM_SLOT));
+                eventPreferences._forSIMCard = cursor.getInt(cursor.getColumnIndex(KEY_E_SMS_FOR_SIM_CARD));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_SMS_SENSOR_PASSED)));
             }
             cursor.close();
@@ -6527,10 +6542,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //values.put(KEY_E_SMS_EVENT, eventPreferences._smsEvent);
         values.put(KEY_E_SMS_CONTACTS, eventPreferences._contacts);
         values.put(KEY_E_SMS_CONTACT_LIST_TYPE, eventPreferences._contactListType);
-        values.put(KEY_E_SMS_START_TIME, eventPreferences._startTime);
         values.put(KEY_E_SMS_CONTACT_GROUPS, eventPreferences._contactGroups);
         values.put(KEY_E_SMS_DURATION, eventPreferences._duration);
         values.put(KEY_E_SMS_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
+        values.put(KEY_E_SMS_START_TIME, eventPreferences._startTime);
+        values.put(KEY_E_SMS_FROM_SIM_SLOT, eventPreferences._fromSIMSlot);
+        values.put(KEY_E_SMS_FOR_SIM_CARD, eventPreferences._forSIMCard);
+
         values.put(KEY_E_SMS_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
@@ -7738,6 +7756,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 ContentValues values = new ContentValues();
                 values.put(KEY_E_SMS_START_TIME, event._eventPreferencesSMS._startTime);
+                values.put(KEY_E_SMS_FROM_SIM_SLOT, event._eventPreferencesSMS._fromSIMSlot);
 
                 db.beginTransaction();
 
@@ -7777,7 +7796,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 Cursor cursor = db.query(TABLE_EVENTS,
                         new String[]{
-                                KEY_E_SMS_START_TIME
+                                KEY_E_SMS_START_TIME,
+                                KEY_E_SMS_FROM_SIM_SLOT
                         },
                         KEY_E_ID + "=?",
                         new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -7786,6 +7806,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     if (cursor.getCount() > 0) {
                         event._eventPreferencesSMS._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_SMS_START_TIME));
+                        event._eventPreferencesSMS._fromSIMSlot = cursor.getInt(cursor.getColumnIndex(KEY_E_SMS_FROM_SIM_SLOT));
                         //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
                         //    PPApplication.logE("[SMS sensor] DatabaseHandler.getSMSStartTime", "startTime="+event._eventPreferencesSMS._startTime);
                     }

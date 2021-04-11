@@ -253,10 +253,11 @@ public class PPApplication extends Application
 
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
                                                 //+"|PPPhoneStateListener"
-                                                //+"|PPPExtenderBroadcastReceiver"
+                                                +"|PPPExtenderBroadcastReceiver"
                                                 //+"|PhoneProfilesService.doSimulatingRingingCall"
 
                                                 +"|EventPreferencesCall.doHandleEvent"
+                                                +"|EventPreferencesSMS"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

@@ -1345,11 +1345,21 @@
         <item>5</item>
     </string-array>
     <string-array name="eventCallForSimCardArray">
-        <item>@string/event_preferences_call_forSimCard_bothCards</item>
-        <item>@string/event_preferences_call_forSimCard_SIM1</item>
-        <item>@string/event_preferences_call_forSimCard_SIM2</item>
+        <item>@string/event_preferences_forSimCard_bothCards</item>
+        <item>@string/event_preferences_forSimCard_SIM1</item>
+        <item>@string/event_preferences_forSimCard_SIM2</item>
     </string-array>
     <string-array name="eventCallForSimCardValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="eventSMSForSimCardArray">
+        <item>@string/event_preferences_forSimCard_bothCards</item>
+        <item>@string/event_preferences_forSimCard_SIM1</item>
+        <item>@string/event_preferences_forSimCard_SIM2</item>
+    </string-array>
+    <string-array name="eventSMSForSimCardValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>

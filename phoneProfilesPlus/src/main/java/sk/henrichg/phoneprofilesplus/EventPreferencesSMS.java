@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Build;
 import android.telephony.PhoneNumberUtils;
+import android.telephony.TelephonyManager;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -23,9 +25,12 @@ class EventPreferencesSMS extends EventPreferences {
     String _contacts;
     String _contactGroups;
     int _contactListType;
-    long _startTime;
     boolean _permanentRun;
     int _duration;
+    int _forSIMCard;
+
+    long _startTime;
+    int _fromSIMSlot;
 
     static final String PREF_EVENT_SMS_ENABLED = "eventSMSEnabled";
     //static final String PREF_EVENT_SMS_EVENT = "eventSMSEvent";
@@ -37,6 +42,7 @@ class EventPreferencesSMS extends EventPreferences {
     static final String PREF_EVENT_SMS_INSTALL_EXTENDER = "eventSMSInstallExtender";
     static final String PREF_EVENT_SMS_ACCESSIBILITY_SETTINGS = "eventSMSAccessibilitySettings";
     static final String PREF_EVENT_SMS_LAUNCH_EXTENDER = "eventSMSLaunchExtender";
+    private static final String PREF_EVENT_SMS_FOR_SIM_CARD = "eventSMSForSimCard";
 
     static final String PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM = "eventSMSEnabledEnabledNoCheckSim";
 
@@ -57,7 +63,8 @@ class EventPreferencesSMS extends EventPreferences {
                                     String contactGroups,
                                     int contactListType,
                                     boolean permanentRun,
-                                    int duration)
+                                    int duration,
+                                    int forSIMCard)
     {
         super(event, enabled);
 
@@ -67,8 +74,11 @@ class EventPreferencesSMS extends EventPreferences {
         this._contactListType = contactListType;
         this._permanentRun = permanentRun;
         this._duration = duration;
+        this._forSIMCard = forSIMCard;
 
         this._startTime = 0;
+        this._fromSIMSlot = 0;
+
         //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
         //    PPApplication.logE("EventPreferencesSMS.EventPreferencesSMS", "startTime="+this._startTime);
     }
@@ -82,9 +92,12 @@ class EventPreferencesSMS extends EventPreferences {
         this._contactListType = fromEvent._eventPreferencesSMS._contactListType;
         this._permanentRun = fromEvent._eventPreferencesSMS._permanentRun;
         this._duration = fromEvent._eventPreferencesSMS._duration;
+        this._forSIMCard = fromEvent._eventPreferencesSMS._forSIMCard;
         this.setSensorPassed(fromEvent._eventPreferencesSMS.getSensorPassed());
 
         this._startTime = 0;
+        this._fromSIMSlot = 0;
+
         //PPApplication.logE("EventPreferencesSMS.copyPreferences", "startTime="+this._startTime);
     }
 
@@ -98,6 +111,7 @@ class EventPreferencesSMS extends EventPreferences {
         editor.putString(PREF_EVENT_SMS_CONTACT_LIST_TYPE, String.valueOf(this._contactListType));
         editor.putBoolean(PREF_EVENT_SMS_PERMANENT_RUN, this._permanentRun);
         editor.putString(PREF_EVENT_SMS_DURATION, String.valueOf(this._duration));
+        editor.putString(PREF_EVENT_SMS_FOR_SIM_CARD, String.valueOf(this._forSIMCard));
         editor.apply();
     }
 
@@ -110,6 +124,7 @@ class EventPreferencesSMS extends EventPreferences {
         this._contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_SMS_CONTACT_LIST_TYPE, "0"));
         this._permanentRun = preferences.getBoolean(PREF_EVENT_SMS_PERMANENT_RUN, false);
         this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_SMS_DURATION, "5"));
+        this._forSIMCard = Integer.parseInt(preferences.getString(PREF_EVENT_SMS_FOR_SIM_CARD, "0"));
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
@@ -151,11 +166,36 @@ class EventPreferencesSMS extends EventPreferences {
 
                     descr = descr + context.getString(R.string.pref_event_sms_contactListType);
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventSMSContactListTypeArray);
-                    descr = descr + ": <b>" + contactListTypes[this._contactListType] + "</b> • ";
+                    descr = descr + ": <b>" + contactListTypes[this._contactListType] + "</b>";
+
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        boolean hasSIMCard = false;
+                        if (Build.VERSION.SDK_INT >= 26) {
+                            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                            if (telephonyManager != null) {
+                                int phoneCount = telephonyManager.getPhoneCount();
+                                if (phoneCount > 1) {
+                                    boolean simExists;
+                                    synchronized (PPApplication.simCardsMutext) {
+                                        simExists = PPApplication.simCardsMutext.simCardsDetected;
+                                        simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
+                                        simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+                                    }
+                                    hasSIMCard = simExists;
+                                }
+                            }
+                        }
+                        if (hasSIMCard) {
+                            descr = descr + " • " + context.getString(R.string.event_preferences_sms_forSimCard);
+                            String[] forSimCard = context.getResources().getStringArray(R.array.eventSMSForSimCardArray);
+                            descr = descr + ": <b>" + forSimCard[this._forSIMCard] + "</b>";
+                        }
+                    }
+
                     if (this._permanentRun)
-                        descr = descr + "<b>" + context.getString(R.string.pref_event_permanentRun) + "</b>";
+                        descr = descr + " • <b>" + context.getString(R.string.pref_event_permanentRun) + "</b>";
                     else
-                        descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
+                        descr = descr + " • " + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
                 }
             }
             else {
@@ -207,6 +247,54 @@ class EventPreferencesSMS extends EventPreferences {
             }
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false);
         }
+
+        boolean hasFeature = false;
+        boolean hasSIMCard = false;
+        if (Build.VERSION.SDK_INT >= 26) {
+            if (key.equals(PREF_EVENT_SMS_FOR_SIM_CARD)) {
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    if (phoneCount > 1) {
+                        hasFeature = true;
+                        boolean simExists;
+                        synchronized (PPApplication.simCardsMutext) {
+                            simExists = PPApplication.simCardsMutext.simCardsDetected;
+                            simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
+                            simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+                        }
+                        hasSIMCard = simExists;
+                        ListPreference listPreference = prefMng.findPreference(key);
+                        if (listPreference != null) {
+                            int index = listPreference.findIndexOfValue(value);
+                            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                            listPreference.setSummary(summary);
+                        }
+                    }
+                }
+                if (!hasFeature) {
+                    Preference preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
+                    if (preference != null) {
+                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    }
+                }
+                else if (!hasSIMCard) {
+                    Preference preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
+                    if (preference != null) {
+                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    }
+                }
+            }
+        }
+
         if (key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -276,7 +364,8 @@ class EventPreferencesSMS extends EventPreferences {
             key.equals(PREF_EVENT_SMS_CONTACTS) ||
             key.equals(PREF_EVENT_SMS_CONTACT_GROUPS) ||
             key.equals(PREF_EVENT_SMS_DURATION) ||
-            key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER))
+            key.equals(PREF_EVENT_SMS_INSTALL_EXTENDER) ||
+            key.equals(PREF_EVENT_SMS_FOR_SIM_CARD))
         {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
@@ -292,13 +381,14 @@ class EventPreferencesSMS extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_SMS_PERMANENT_RUN, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_DURATION, preferences, context);
         setSummary(prefMng, PREF_EVENT_SMS_INSTALL_EXTENDER, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SMS_FOR_SIM_CARD, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_SMS_ENABLED_NO_CHECK_SIM, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesSMS tmp = new EventPreferencesSMS(this._event, this._enabled, this._contacts, this._contactGroups, this._contactListType,
-                                                                this._permanentRun, this._duration);
+                                                                this._permanentRun, this._duration, this._forSIMCard);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -361,6 +451,52 @@ class EventPreferencesSMS extends EventPreferences {
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !accessibilityEnabled, false);
 
         setCategorySummary(prefMng, preferences, context);
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            boolean showPreferences = false;
+            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                int phoneCount = telephonyManager.getPhoneCount();
+                if (phoneCount > 1) {
+                    boolean sim1Exists;
+                    boolean sim2Exists;
+                    synchronized (PPApplication.simCardsMutext) {
+                        sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        sim2Exists = sim1Exists;
+                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                    }
+                    PPApplication.logE("EventPreferencesSMS.checkPreferences", "sim1Exists="+sim1Exists);
+                    PPApplication.logE("EventPreferencesSMS.checkPreferences", "sim2Exists="+sim2Exists);
+                    PPApplication.logE("EventPreferencesSMS.checkPreferences", "enabled="+enabled);
+
+                    showPreferences = true;
+                    preference = prefMng.findPreference("eventSMSDualSIMInfo");
+                    if (preference != null)
+                        preference.setEnabled(enabled && sim1Exists && sim2Exists);
+                    preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
+                    if (preference != null)
+                        preference.setEnabled(enabled && sim1Exists && sim2Exists);
+                }
+                else {
+                    preference = prefMng.findPreference("eventSMSDualSIMInfo");
+                    if (preference != null)
+                        preference.setEnabled(false);
+                    preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
+                    if (preference != null)
+                        preference.setEnabled(false);
+                }
+            }
+            if (!showPreferences) {
+                preference = prefMng.findPreference("eventSMSDualSIMInfo");
+                if (preference != null)
+                    preference.setVisible(false);
+                preference = prefMng.findPreference(PREF_EVENT_SMS_FOR_SIM_CARD);
+                if (preference != null)
+                    preference.setVisible(false);
+            }
+        }
+
     }
 
     private long computeAlarm()
@@ -497,35 +633,35 @@ class EventPreferencesSMS extends EventPreferences {
                     // find phone number in groups
                     String[] splits = this._contactGroups.split("\\|");
                     for (String split : splits) {
-                        /*String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
-                        String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
-                                + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
-                                + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
-                        String[] selectionArgs = new String[]{split};
-                        Cursor mCursor = dataWrapper.context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
-                        if (mCursor != null) {
-                            while (mCursor.moveToNext()) {
-                                String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-                                String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
-                                String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " +
-                                        ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER + "=1";
-                                String[] selection2Args = new String[]{contactId};
-                                Cursor phones = dataWrapper.context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                                if (phones != null) {
-                                    while (phones.moveToNext()) {
-                                        String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                            phoneNumberFound = true;
-                                            break;
-                                        }
+                    /*String[] projection = new String[]{ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID};
+                    String selection = ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID + "=? AND "
+                            + ContactsContract.CommonDataKinds.GroupMembership.MIMETYPE + "='"
+                            + ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE + "'";
+                    String[] selectionArgs = new String[]{split};
+                    Cursor mCursor = dataWrapper.context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
+                    if (mCursor != null) {
+                        while (mCursor.moveToNext()) {
+                            String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+                            String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
+                            String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " +
+                                    ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER + "=1";
+                            String[] selection2Args = new String[]{contactId};
+                            Cursor phones = dataWrapper.context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                            if (phones != null) {
+                                while (phones.moveToNext()) {
+                                    String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                    if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                        phoneNumberFound = true;
+                                        break;
                                     }
-                                    phones.close();
                                 }
-                                if (phoneNumberFound)
-                                    break;
+                                phones.close();
                             }
-                            mCursor.close();
-                        }*/
+                            if (phoneNumberFound)
+                                break;
+                        }
+                        mCursor.close();
+                    }*/
 
                         if (!split.isEmpty()) {
                             ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
@@ -564,32 +700,32 @@ class EventPreferencesSMS extends EventPreferences {
                         for (String split : splits) {
                             String[] splits2 = split.split("#");
 
-                            /*// get phone number from contacts
-                            String[] projection = new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.HAS_PHONE_NUMBER};
-                            String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1' and " + ContactsContract.Contacts._ID + "=?";
-                            String[] selectionArgs = new String[]{splits2[0]};
-                            Cursor mCursor = dataWrapper.context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, selectionArgs, null);
-                            if (mCursor != null) {
-                                while (mCursor.moveToNext()) {
-                                    String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.NUMBER};
-                                    String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " + ContactsContract.CommonDataKinds.Phone._ID + "=?";
-                                    String[] selection2Args = new String[]{splits2[0], splits2[1]};
-                                    Cursor phones = dataWrapper.context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
-                                    if (phones != null) {
-                                        while (phones.moveToNext()) {
-                                            String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                            if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
-                                                phoneNumberFound = true;
-                                                break;
-                                            }
+                        /*// get phone number from contacts
+                        String[] projection = new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.HAS_PHONE_NUMBER};
+                        String selection = ContactsContract.Contacts.HAS_PHONE_NUMBER + "='1' and " + ContactsContract.Contacts._ID + "=?";
+                        String[] selectionArgs = new String[]{splits2[0]};
+                        Cursor mCursor = dataWrapper.context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, selection, selectionArgs, null);
+                        if (mCursor != null) {
+                            while (mCursor.moveToNext()) {
+                                String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone._ID, ContactsContract.CommonDataKinds.Phone.NUMBER};
+                                String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " + ContactsContract.CommonDataKinds.Phone._ID + "=?";
+                                String[] selection2Args = new String[]{splits2[0], splits2[1]};
+                                Cursor phones = dataWrapper.context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
+                                if (phones != null) {
+                                    while (phones.moveToNext()) {
+                                        String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                        if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
+                                            phoneNumberFound = true;
+                                            break;
                                         }
-                                        phones.close();
                                     }
-                                    if (phoneNumberFound)
-                                        break;
+                                    phones.close();
                                 }
-                                mCursor.close();
-                            }*/
+                                if (phoneNumberFound)
+                                    break;
+                            }
+                            mCursor.close();
+                        }*/
 
                             if ((!split.isEmpty()) && (!splits2[0].isEmpty()) && (!splits2[1].isEmpty())) {
                                 ContactsCache contactsCache = PhoneProfilesService.getContactsCache();
@@ -621,13 +757,18 @@ class EventPreferencesSMS extends EventPreferences {
 
                     if (this._contactListType == EventPreferencesCall.CONTACT_LIST_TYPE_BLACK_LIST)
                         phoneNumberFound = !phoneNumberFound;
+
                 } else
                     phoneNumberFound = true;
 
-                if (phoneNumberFound)
+                if (phoneNumberFound) {
                     this._startTime = startTime;// + (10 * 1000);
-                else
+                    this._fromSIMSlot = fromSIMSlot;
+                }
+                else {
                     this._startTime = 0;
+                    this._fromSIMSlot = 0;
+                }
                 //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
                 //    PPApplication.logE("EventPreferencesSMS.saveStartTime", "startTime="+_startTime);
 
@@ -639,6 +780,7 @@ class EventPreferencesSMS extends EventPreferences {
                 }
             } else {
                 this._startTime = 0;
+                this._fromSIMSlot = 0;
                 //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
                 //    PPApplication.logE("EventPreferencesSMS.saveStartTime", "startTime="+_startTime);
                 DatabaseHandler.getInstance(dataWrapper.context).updateSMSStartTime(_event);
@@ -656,45 +798,51 @@ class EventPreferencesSMS extends EventPreferences {
                 // compute start time
 
                 if (_startTime > 0) {
-                    //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime > 0");
+                    PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime > 0");
+                    PPApplication.logE("EventPreferencesSMS.doHandleEvent", "_fromSIMSlot="+_fromSIMSlot);
 
-                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                    long startTime = _startTime - gmtOffset;
+                    if ((Build.VERSION.SDK_INT < 26) || (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
 
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String alarmTimeS = sdf.format(startTime);
-                        PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime=" + alarmTimeS);
-                    }*/
+                        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                        long startTime = _startTime - gmtOffset;
 
-                    // compute end datetime
-                    long endAlarmTime = computeAlarm();
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String alarmTimeS = sdf.format(endAlarmTime);
-                        PPApplication.logE("EventPreferencesSMS.doHandleEvent", "endAlarmTime=" + alarmTimeS);
-                    }*/
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String alarmTimeS = sdf.format(startTime);
+                            PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime=" + alarmTimeS);
+                        }*/
 
-                    Calendar now = Calendar.getInstance();
-                    long nowAlarmTime = now.getTimeInMillis();
-                    /*if (PPApplication.logEnabled()) {
-                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                        String alarmTimeS = sdf.format(nowAlarmTime);
-                        PPApplication.logE("EventPreferencesSMS.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
-                    }*/
+                        // compute end datetime
+                        long endAlarmTime = computeAlarm();
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String alarmTimeS = sdf.format(endAlarmTime);
+                            PPApplication.logE("EventPreferencesSMS.doHandleEvent", "endAlarmTime=" + alarmTimeS);
+                        }*/
 
-                    if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_SMS))
-                        eventsHandler.smsPassed = true;
-                    else if (!_permanentRun) {
-                        //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "sensorType=" + sensorType);
-                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_SMS_EVENT_END))
-                            eventsHandler.smsPassed = false;
-                        else
-                            eventsHandler.smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
-                        //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "smsPassed=" + smsPassed);
-                    } else {
-                        eventsHandler.smsPassed = nowAlarmTime >= startTime;
+                        Calendar now = Calendar.getInstance();
+                        long nowAlarmTime = now.getTimeInMillis();
+                        /*if (PPApplication.logEnabled()) {
+                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                            String alarmTimeS = sdf.format(nowAlarmTime);
+                            PPApplication.logE("EventPreferencesSMS.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
+                        }*/
+
+                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_SMS))
+                            eventsHandler.smsPassed = true;
+                        else if (!_permanentRun) {
+                            //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "sensorType=" + sensorType);
+                            if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_SMS_EVENT_END))
+                                eventsHandler.smsPassed = false;
+                            else
+                                eventsHandler.smsPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                            //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "smsPassed=" + smsPassed);
+                        } else {
+                            eventsHandler.smsPassed = nowAlarmTime >= startTime;
+                        }
                     }
+                    else
+                        eventsHandler.smsPassed = false;
                 } else {
                     //PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime == 0");
                     eventsHandler.smsPassed = false;
@@ -702,6 +850,7 @@ class EventPreferencesSMS extends EventPreferences {
 
                 if (!eventsHandler.smsPassed) {
                     _startTime = 0;
+                    _fromSIMSlot = 0;
                     //if ((event != null) && (event._name != null) && (event._name.equals("SMS event")))
                     //    PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime="+event._eventPreferencesSMS._startTime);
                     DatabaseHandler.getInstance(eventsHandler.context).updateSMSStartTime(_event);

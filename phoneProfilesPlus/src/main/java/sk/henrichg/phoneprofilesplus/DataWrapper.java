@@ -3050,6 +3050,7 @@ public class DataWrapper {
     private void clearSensorsStartTime(Event _event, boolean force) {
         if (force || _event._eventPreferencesSMS._permanentRun) {
             _event._eventPreferencesSMS._startTime = 0;
+            _event._eventPreferencesSMS._fromSIMSlot = 0;
             //if ((_event != null) && (_event._name != null) && (_event._name.equals("SMS event")))
             //    PPApplication.logE("[SMS sensor] DataWrapper.clearSensorsStartTime", "startTime="+_event._eventPreferencesSMS._startTime);
             DatabaseHandler.getInstance(context.getApplicationContext()).updateSMSStartTime(_event);

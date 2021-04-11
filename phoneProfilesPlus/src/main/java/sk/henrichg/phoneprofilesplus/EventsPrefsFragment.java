@@ -1122,6 +1122,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (getActivity() == null)
             return;
 
+        event.checkPreferences(prefMng, getActivity());
         event.setSummary(prefMng, key, sharedPreferences, getActivity());
 
         setRedTextToPreferences();

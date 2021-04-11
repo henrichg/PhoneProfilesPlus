@@ -349,7 +349,7 @@ class Event {
 
     private void createEventPreferencesSMS()
     {
-        this._eventPreferencesSMS = new EventPreferencesSMS(this, false, "", "", 0, false, 5);
+        this._eventPreferencesSMS = new EventPreferencesSMS(this, false, "", "", 0, false, 5, 0);
     }
 
     private void createEventPreferencesNotification()

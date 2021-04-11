@@ -247,6 +247,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 final String origin = intent.getStringExtra(EXTRA_ORIGIN);
                 final long time = intent.getLongExtra(EXTRA_TIME, 0);
                 final int subscriptionId = intent.getIntExtra(EXTRA_SUBSCRIPTION_ID, -1);
+                PPApplication.logE("[DUAL_SIM] PPPExtenderBroadcastReceiver.onReceive", "subscriptionId="+subscriptionId);
 
                 int _simSlot = 0;
 
