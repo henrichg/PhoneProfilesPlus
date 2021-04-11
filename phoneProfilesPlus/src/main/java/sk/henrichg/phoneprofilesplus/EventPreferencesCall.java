@@ -935,10 +935,10 @@ class EventPreferencesCall extends EventPreferences {
                 String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
                 int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
 
-//                if (PPApplication.logEnabled()) {
-//                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "callEventType=" + callEventType);
-//                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "phoneNumber=" + phoneNumber);
-//                }
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "callEventType=" + callEventType);
+                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "phoneNumber=" + phoneNumber);
+                }
 
                 boolean phoneNumberFound = false;
 
@@ -948,10 +948,12 @@ class EventPreferencesCall extends EventPreferences {
                     else
                         phoneNumberFound = isPhoneNumberConfigured(phoneNumber/*, this*/);
 
-                    //PPApplication.logE("EventPreferencesCall.doHandleEvent", "phoneNumberFound=" + phoneNumberFound);
+                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "phoneNumberFound=" + phoneNumberFound);
 
                     if (phoneNumberFound) {
                         _fromSIMSlot = simSlot;
+                        PPApplication.logE("EventPreferencesCall.doHandleEvent", "_fromSIMSlot=" + _fromSIMSlot);
+
                         if ((Build.VERSION.SDK_INT < 26) || (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
                             if (_callEvent == EventPreferencesCall.CALL_EVENT_RINGING) {
                                 //noinspection StatementWithEmptyBody
@@ -1033,7 +1035,7 @@ class EventPreferencesCall extends EventPreferences {
                     } else
                         eventsHandler.callPassed = false;
 
-                    //PPApplication.logE("EventPreferencesCall.doHandleEvent", "callPassed=" + callPassed);
+                    PPApplication.logE("EventPreferencesCall.doHandleEvent", "eventsHandler.callPassed=" + eventsHandler.callPassed);
 
                     if (!eventsHandler.callPassed) {
                         //PPApplication.logE("EventPreferencesCall.doHandleEvent", "startTime=0");
