@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2461;
+    private static final int DATABASE_VERSION = 2462;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -365,6 +365,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1 = "radioSwitchMobileDataSIM1";
     private static final String KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2 = "radioSwitchMobileDataSIM2";
     private static final String KEY_E_CALL_FROM_SIM_SLOT = "callFromSIMSlot";
+    private static final String KEY_E_CALL_FOR_SIM_CARD = "callForSIMCard";
+
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -774,7 +776,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_ACCESSORY_TYPE + " " + TEXT_TYPE + ","
                 + KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1 + " " + INTEGER_TYPE + ","
                 + KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2 + " " + INTEGER_TYPE + ","
-                + KEY_E_CALL_FROM_SIM_SLOT + " " + INTEGER_TYPE
+                + KEY_E_CALL_FROM_SIM_SLOT + " " + INTEGER_TYPE + ","
+                + KEY_E_CALL_FOR_SIM_CARD + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1207,6 +1210,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALL_FROM_SIM_SLOT, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_CALL_FOR_SIM_CARD, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -3311,6 +3315,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion < 2461)
         {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_FROM_SIM_SLOT + "=0");
+        }
+
+        if (oldVersion < 2462)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_FOR_SIM_CARD + "=0");
         }
 
     }
@@ -5821,7 +5830,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_CALL_PERMANENT_RUN,
                         KEY_E_CALL_START_TIME,
                         KEY_E_CALL_SENSOR_PASSED,
-                        KEY_E_CALL_FROM_SIM_SLOT
+                        KEY_E_CALL_FROM_SIM_SLOT,
+                        KEY_E_CALL_FOR_SIM_CARD
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -5842,6 +5852,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_CALL_DURATION));
                 eventPreferences._permanentRun = (cursor.getInt(cursor.getColumnIndex(KEY_E_CALL_PERMANENT_RUN)) == 1);
                 eventPreferences._fromSIMSlot = cursor.getInt(cursor.getColumnIndex(KEY_E_CALL_FROM_SIM_SLOT));
+                eventPreferences._forSIMCard = cursor.getInt(cursor.getColumnIndex(KEY_E_CALL_FOR_SIM_CARD));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_CALL_SENSOR_PASSED)));
             }
             cursor.close();
@@ -6413,6 +6424,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_CALL_PERMANENT_RUN, (eventPreferences._permanentRun) ? 1 : 0);
         values.put(KEY_E_CALL_SENSOR_PASSED, eventPreferences.getSensorPassed());
         values.put(KEY_E_CALL_FROM_SIM_SLOT, eventPreferences._fromSIMSlot);
+        values.put(KEY_E_CALL_FOR_SIM_CARD, eventPreferences._forSIMCard);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",

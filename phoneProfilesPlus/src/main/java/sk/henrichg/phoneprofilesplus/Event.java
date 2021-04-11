@@ -319,7 +319,7 @@ class Event {
 
     private void createEventPreferencesCall()
     {
-        this._eventPreferencesCall = new EventPreferencesCall(this, false, 0, "", "", 0, false, 5);
+        this._eventPreferencesCall = new EventPreferencesCall(this, false, 0, "", "", 0, false, 5, 0);
     }
 
     private void createEventPreferencesAccessories()

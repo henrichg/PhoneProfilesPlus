@@ -155,26 +155,38 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     _addBullet = true;
                 }
                 if (Build.VERSION.SDK_INT >= 26) {
-                    final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-                            if (this._mobileDataSIM1 != 0) {
-                                if (_addBullet)
-                                    descr = descr + " • ";
-                                descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData_SIM1) + ": ";
-                                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
-                                descr = descr + "<b>" + fields[this._mobileDataSIM1] + "</b>";
-                                _addBullet = true;
+                    boolean hasSIMCard = false;
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                        if (telephonyManager != null) {
+                            int phoneCount = telephonyManager.getPhoneCount();
+                            if (phoneCount > 1) {
+                                boolean simExists;
+                                synchronized (PPApplication.simCardsMutext) {
+                                    simExists = PPApplication.simCardsMutext.simCardsDetected;
+                                    simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
+                                    simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+                                }
+                                hasSIMCard = simExists;
                             }
-                            if (this._mobileDataSIM2 != 0) {
-                                if (_addBullet)
-                                    descr = descr + " • ";
-                                descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData_SIM2) + ": ";
-                                String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
-                                descr = descr + "<b>" + fields[this._mobileDataSIM2] + "</b>";
-                                _addBullet = true;
-                            }
+                        }
+                    }
+                    if (hasSIMCard) {
+                        if (this._mobileDataSIM1 != 0) {
+                            if (_addBullet)
+                                descr = descr + " • ";
+                            descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData_SIM1) + ": ";
+                            String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
+                            descr = descr + "<b>" + fields[this._mobileDataSIM1] + "</b>";
+                            _addBullet = true;
+                        }
+                        if (this._mobileDataSIM2 != 0) {
+                            if (_addBullet)
+                                descr = descr + " • ";
+                            descr = descr + context.getString(R.string.event_preferences_radioSwitch_mobileData_SIM2) + ": ";
+                            String[] fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
+                            descr = descr + "<b>" + fields[this._mobileDataSIM2] + "</b>";
+                            _addBullet = true;
                         }
                     }
                 }
@@ -561,10 +573,10 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     showPreferences = true;
                     preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1);
                     if (preference != null)
-                        preference.setEnabled(enabled && sim1Exists);
+                        preference.setEnabled(enabled && sim1Exists && sim2Exists);
                     preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2);
                     if (preference != null)
-                        preference.setEnabled(enabled && sim2Exists);
+                        preference.setEnabled(enabled && sim1Exists && sim2Exists);
                 }
                 else {
                     preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1);

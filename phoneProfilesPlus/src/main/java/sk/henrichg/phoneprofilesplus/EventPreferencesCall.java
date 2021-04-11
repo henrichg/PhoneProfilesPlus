@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Build;
 import android.telephony.PhoneNumberUtils;
+import android.telephony.TelephonyManager;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -25,6 +27,7 @@ class EventPreferencesCall extends EventPreferences {
     int _contactListType;
     boolean _permanentRun;
     int _duration;
+    int _forSIMCard;
 
     long _startTime;
     int _fromSIMSlot;
@@ -39,6 +42,7 @@ class EventPreferencesCall extends EventPreferences {
     static final String PREF_EVENT_CALL_INSTALL_EXTENDER = "eventCallInstallExtender";
     static final String PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS = "eventCallAccessibilitySettings";
     static final String PREF_EVENT_CALL_LAUNCH_EXTENDER = "eventCallLaunchExtender";
+    private static final String PREF_EVENT_CALL_FOR_SIM_CARD = "eventCallForSimCard";
 
     static final String PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM = "eventCallEnabledEnabledNoCheckSim";
 
@@ -77,7 +81,8 @@ class EventPreferencesCall extends EventPreferences {
                          String contactGroups,
                          int contactListType,
                          boolean permanentRun,
-                         int duration) {
+                         int duration,
+                         int forSIMCard) {
         super(event, enabled);
 
         this._callEvent = callEvent;
@@ -86,8 +91,10 @@ class EventPreferencesCall extends EventPreferences {
         this._contactListType = contactListType;
         this._permanentRun = permanentRun;
         this._duration = duration;
+        this._forSIMCard = forSIMCard;
 
         this._startTime = 0;
+        this._fromSIMSlot = 0;
     }
 
     void copyPreferences(Event fromEvent) {
@@ -98,9 +105,11 @@ class EventPreferencesCall extends EventPreferences {
         this._contactListType = fromEvent._eventPreferencesCall._contactListType;
         this._permanentRun = fromEvent._eventPreferencesCall._permanentRun;
         this._duration = fromEvent._eventPreferencesCall._duration;
+        this._forSIMCard = fromEvent._eventPreferencesCall._forSIMCard;
         this.setSensorPassed(fromEvent._eventPreferencesCall.getSensorPassed());
 
         this._startTime = 0;
+        this._fromSIMSlot = 0;
     }
 
     void loadSharedPreferences(SharedPreferences preferences) {
@@ -112,6 +121,7 @@ class EventPreferencesCall extends EventPreferences {
         editor.putString(PREF_EVENT_CALL_CONTACT_LIST_TYPE, String.valueOf(this._contactListType));
         editor.putBoolean(PREF_EVENT_CALL_PERMANENT_RUN, this._permanentRun);
         editor.putString(PREF_EVENT_CALL_DURATION, String.valueOf(this._duration));
+        editor.putString(PREF_EVENT_CALL_FOR_SIM_CARD, String.valueOf(this._forSIMCard));
         editor.apply();
     }
 
@@ -123,6 +133,7 @@ class EventPreferencesCall extends EventPreferences {
         this._contactListType = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_CONTACT_LIST_TYPE, "0"));
         this._permanentRun = preferences.getBoolean(PREF_EVENT_CALL_PERMANENT_RUN, false);
         this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_DURATION, "5"));
+        this._forSIMCard = Integer.parseInt(preferences.getString(PREF_EVENT_CALL_FOR_SIM_CARD, "0"));
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context) {
@@ -165,6 +176,30 @@ class EventPreferencesCall extends EventPreferences {
                     String[] contactListTypes = context.getResources().getStringArray(R.array.eventCallContactListTypeArray);
                     descr = descr + ": <b>" + contactListTypes[this._contactListType] + "</b>";
 
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        boolean hasSIMCard = false;
+                        if (Build.VERSION.SDK_INT >= 26) {
+                            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                            if (telephonyManager != null) {
+                                int phoneCount = telephonyManager.getPhoneCount();
+                                if (phoneCount > 1) {
+                                    boolean simExists;
+                                    synchronized (PPApplication.simCardsMutext) {
+                                        simExists = PPApplication.simCardsMutext.simCardsDetected;
+                                        simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
+                                        simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+                                    }
+                                    hasSIMCard = simExists;
+                                }
+                            }
+                        }
+                        if (hasSIMCard) {
+                            descr = descr + " • " + context.getString(R.string.event_preferences_call_forSimCard);
+                            String[] forSimCard = context.getResources().getStringArray(R.array.eventCallForSimCardArray);
+                            descr = descr + ": <b>" + forSimCard[this._forSIMCard] + "</b>";
+                        }
+                    }
+
                     if ((this._callEvent == CALL_EVENT_MISSED_CALL) ||
                             (this._callEvent == CALL_EVENT_INCOMING_CALL_ENDED) ||
                             (this._callEvent == CALL_EVENT_OUTGOING_CALL_ENDED)) {
@@ -194,7 +229,8 @@ class EventPreferencesCall extends EventPreferences {
             }
         }
 
-        if (key.equals(PREF_EVENT_CALL_EVENT) || key.equals(PREF_EVENT_CALL_CONTACT_LIST_TYPE)) {
+        if (key.equals(PREF_EVENT_CALL_EVENT) ||
+                key.equals(PREF_EVENT_CALL_CONTACT_LIST_TYPE)) {
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(value);
@@ -249,6 +285,54 @@ class EventPreferencesCall extends EventPreferences {
             }
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false);
         }
+
+        boolean hasFeature = false;
+        boolean hasSIMCard = false;
+        if (Build.VERSION.SDK_INT >= 26) {
+            if (key.equals(PREF_EVENT_CALL_FOR_SIM_CARD)) {
+                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+                    if (phoneCount > 1) {
+                        hasFeature = true;
+                        boolean simExists;
+                        synchronized (PPApplication.simCardsMutext) {
+                            simExists = PPApplication.simCardsMutext.simCardsDetected;
+                            simExists = simExists && PPApplication.simCardsMutext.sim1Exists;
+                            simExists = simExists && PPApplication.simCardsMutext.sim2Exists;
+                        }
+                        hasSIMCard = simExists;
+                        ListPreference listPreference = prefMng.findPreference(key);
+                        if (listPreference != null) {
+                            int index = listPreference.findIndexOfValue(value);
+                            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                            listPreference.setSummary(summary);
+                        }
+                    }
+                }
+                if (!hasFeature) {
+                    Preference preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
+                    if (preference != null) {
+                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    }
+                }
+                else if (!hasSIMCard) {
+                    Preference preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
+                    if (preference != null) {
+                        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
+                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                        preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    }
+                }
+            }
+        }
+
         if (key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -289,6 +373,9 @@ class EventPreferencesCall extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_CALL_CONTACT_LIST_TYPE);
         if (preference != null)
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !isRunnable, false);
+        preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
+        if (preference != null)
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, false, !isRunnable, false);
         boolean isAccessibilityEnabled = event._eventPreferencesCall.isAccessibilityServiceEnabled(context) == 1;
         preference = prefMng.findPreference(PREF_EVENT_CALL_ACCESSIBILITY_SETTINGS);
         if (preference != null) {
@@ -317,7 +404,8 @@ class EventPreferencesCall extends EventPreferences {
                 key.equals(PREF_EVENT_CALL_CONTACTS) ||
                 key.equals(PREF_EVENT_CALL_CONTACT_GROUPS) ||
                 key.equals(PREF_EVENT_CALL_DURATION) ||
-                key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER)) {
+                key.equals(PREF_EVENT_CALL_INSTALL_EXTENDER) ||
+                key.equals(PREF_EVENT_CALL_FOR_SIM_CARD)) {
             setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
     }
@@ -332,13 +420,14 @@ class EventPreferencesCall extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_CALL_DURATION, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_INSTALL_EXTENDER, preferences, context);
         setSummary(prefMng, PREF_EVENT_CALL_INSTALL_EXTENDER, preferences, context);
+        setSummary(prefMng, PREF_EVENT_CALL_FOR_SIM_CARD, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_CALL_ENABLED_NO_CHECK_SIM, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesCall tmp = new EventPreferencesCall(this._event, this._enabled, this._callEvent, this._contacts, this._contactGroups,
-                    this._contactListType, this._permanentRun, this._duration);
+                    this._contactListType, this._permanentRun, this._duration, this._forSIMCard);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -399,6 +488,48 @@ class EventPreferencesCall extends EventPreferences {
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, false, true, !accessibilityEnabled, false);
 
         setCategorySummary(prefMng, preferences, context);
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            boolean showPreferences = false;
+            final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                int phoneCount = telephonyManager.getPhoneCount();
+                if (phoneCount > 1) {
+                    boolean sim1Exists;
+                    boolean sim2Exists;
+                    synchronized (PPApplication.simCardsMutext) {
+                        sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
+                        sim2Exists = sim1Exists;
+                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                    }
+
+                    showPreferences = true;
+                    preference = prefMng.findPreference("eventCallDualSIMInfo");
+                    if (preference != null)
+                        preference.setEnabled(enabled && sim1Exists && sim2Exists);
+                    preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
+                    if (preference != null)
+                        preference.setEnabled(enabled && sim1Exists && sim2Exists);
+                }
+                else {
+                    preference = prefMng.findPreference("eventCallDualSIMInfo");
+                    if (preference != null)
+                        preference.setEnabled(false);
+                    preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
+                    if (preference != null)
+                        preference.setEnabled(false);
+                }
+            }
+            if (!showPreferences) {
+                preference = prefMng.findPreference("eventCallDualSIMInfo");
+                if (preference != null)
+                    preference.setVisible(false);
+                preference = prefMng.findPreference(PREF_EVENT_CALL_FOR_SIM_CARD);
+                if (preference != null)
+                    preference.setVisible(false);
+            }
+        }
     }
 
     private long computeAlarm() {
