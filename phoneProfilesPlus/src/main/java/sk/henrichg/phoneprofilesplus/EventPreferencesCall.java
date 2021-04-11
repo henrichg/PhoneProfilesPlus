@@ -952,32 +952,32 @@ class EventPreferencesCall extends EventPreferences {
 
                     if (phoneNumberFound) {
                         _fromSIMSlot = simSlot;
-                        if (_callEvent == EventPreferencesCall.CALL_EVENT_RINGING) {
-                            //noinspection StatementWithEmptyBody
-                            if ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_RINGING) ||
-                                    ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED)))
-                                ;//eventStart = eventStart && true;
-                            else
-                                eventsHandler.callPassed = false;
-                        } else if (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED) {
-                            //noinspection StatementWithEmptyBody
-                            if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED)
-                                ;//eventStart = eventStart && true;
-                            else
-                                eventsHandler.callPassed = false;
-                        } else if (_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED) {
-                            //noinspection StatementWithEmptyBody
-                            if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ANSWERED)
-                                ;//eventStart = eventStart && true;
-                            else
-                                eventsHandler.callPassed = false;
-                        } else
-                        if ((_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
-                                (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                                (_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)) {
-                            if (_startTime > 0) {
-                                int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                                long startTime = _startTime - gmtOffset;
+                        if ((Build.VERSION.SDK_INT < 26) || (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
+                            if (_callEvent == EventPreferencesCall.CALL_EVENT_RINGING) {
+                                //noinspection StatementWithEmptyBody
+                                if ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_RINGING) ||
+                                        ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED)))
+                                    ;//eventStart = eventStart && true;
+                                else
+                                    eventsHandler.callPassed = false;
+                            } else if (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ANSWERED) {
+                                //noinspection StatementWithEmptyBody
+                                if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ANSWERED)
+                                    ;//eventStart = eventStart && true;
+                                else
+                                    eventsHandler.callPassed = false;
+                            } else if (_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_STARTED) {
+                                //noinspection StatementWithEmptyBody
+                                if (callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ANSWERED)
+                                    ;//eventStart = eventStart && true;
+                                else
+                                    eventsHandler.callPassed = false;
+                            } else if ((_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL) ||
+                                    (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                                    (_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                                if (_startTime > 0) {
+                                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                                    long startTime = _startTime - gmtOffset;
 
                                 /*if (PPApplication.logEnabled()) {
                                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
@@ -985,41 +985,44 @@ class EventPreferencesCall extends EventPreferences {
                                     PPApplication.logE("EventPreferencesCall.doHandleEvent", "startTime=" + alarmTimeS);
                                 }*/
 
-                                // compute end datetime
-                                long endAlarmTime = computeAlarm();
+                                    // compute end datetime
+                                    long endAlarmTime = computeAlarm();
                                 /*if (PPApplication.logEnabled()) {
                                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                                     String alarmTimeS = sdf.format(endAlarmTime);
                                     PPApplication.logE("EventPreferencesCall.doHandleEvent", "endAlarmTime=" + alarmTimeS);
                                 }*/
 
-                                Calendar now = Calendar.getInstance();
-                                long nowAlarmTime = now.getTimeInMillis();
+                                    Calendar now = Calendar.getInstance();
+                                    long nowAlarmTime = now.getTimeInMillis();
                                 /*if (PPApplication.logEnabled()) {
                                     SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
                                     String alarmTimeS = sdf.format(nowAlarmTime);
                                     PPApplication.logE("EventPreferencesCall.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
                                 }*/
 
-                                if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
-                                    //noinspection StatementWithEmptyBody
-                                    if (((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL) && (_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) ||
-                                            ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED) && (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED)) ||
-                                            ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ENDED) && (_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)))
-                                        ;//eventStart = eventStart && true;
-                                    else
-                                        eventsHandler.callPassed = false;
-                                } else if (!_permanentRun) {
-                                    if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END))
-                                        eventsHandler.callPassed = false;
-                                    else
-                                        eventsHandler.callPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
-                                } else {
-                                    eventsHandler.callPassed = nowAlarmTime >= startTime;
-                                }
-                            } else
-                                eventsHandler.callPassed = false;
+                                    if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL)) {
+                                        //noinspection StatementWithEmptyBody
+                                        if (((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_MISSED_CALL) && (_callEvent == EventPreferencesCall.CALL_EVENT_MISSED_CALL)) ||
+                                                ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_INCOMING_CALL_ENDED) && (_callEvent == EventPreferencesCall.CALL_EVENT_INCOMING_CALL_ENDED)) ||
+                                                ((callEventType == EventPreferencesCall.PHONE_CALL_EVENT_OUTGOING_CALL_ENDED) && (_callEvent == EventPreferencesCall.CALL_EVENT_OUTGOING_CALL_ENDED)))
+                                            ;//eventStart = eventStart && true;
+                                        else
+                                            eventsHandler.callPassed = false;
+                                    } else if (!_permanentRun) {
+                                        if (eventsHandler.sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_CALL_EVENT_END))
+                                            eventsHandler.callPassed = false;
+                                        else
+                                            eventsHandler.callPassed = ((nowAlarmTime >= startTime) && (nowAlarmTime < endAlarmTime));
+                                    } else {
+                                        eventsHandler.callPassed = nowAlarmTime >= startTime;
+                                    }
+                                } else
+                                    eventsHandler.callPassed = false;
+                            }
                         }
+                        else
+                            eventsHandler.callPassed = false;
 
                         //if ((callEventType == PPPhoneStateListener.CALL_EVENT_INCOMING_CALL_ENDED) ||
                         //        (callEventType == PPPhoneStateListener.CALL_EVENT_OUTGOING_CALL_ENDED)) {
