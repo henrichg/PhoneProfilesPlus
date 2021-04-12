@@ -496,7 +496,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
                     if (forRescan) {
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
-                            PhoneProfilesService.getInstance().getMobileCellsScanner().getRegisteredCell();
+                            PhoneProfilesService.getInstance().getMobileCellsScanner().registerCell();
 
                             //PPApplication.sleep(200);
                         }
@@ -518,8 +518,13 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
                         // add registered cell
                         //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "search registered cell from scanner");
+
+                        MobileCellsScanner scanner = PhoneProfilesService.getInstance().getMobileCellsScanner();
+
+                        int registeredCell = scanner.getRegisteredCell(0);
+                        long lastConnectedTime = scanner.getLastConnectedTime(0);
                         for (MobileCellsData cell : _cellsList) {
-                            if (cell.cellId == MobileCellsScanner.registeredCell) {
+                            if (cell.cellId == registeredCell) {
                                 cell.connected = true;
                                 _registeredCellData = cell;
                                 _registeredCellInTable = true;
@@ -527,16 +532,67 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                                 break;
                             }
                         }
-                        if (!_registeredCellInTable && MobileCellsScanner.isValidCellId(MobileCellsScanner.registeredCell)) {
+                        if (!_registeredCellInTable && MobileCellsScanner.isValidCellId(registeredCell)) {
                             //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - not found - add it to list");
-                            _registeredCellData = new MobileCellsData(MobileCellsScanner.registeredCell,
-                                    _cellName, true, true,
-                                    MobileCellsScanner.lastConnectedTime,
-                                    MobileCellsScanner.lastRunningEventsNotOutside,
-                                    MobileCellsScanner.lastPausedEventsOutside,
-                                    false);
-                            _cellsList.add(_registeredCellData);
+                            synchronized (PPApplication.mobileCellsScannerMutex) {
+                                _registeredCellData = new MobileCellsData(registeredCell,
+                                        _cellName, true, true,
+                                        lastConnectedTime,
+                                        MobileCellsScanner.lastRunningEventsNotOutside,
+                                        MobileCellsScanner.lastPausedEventsOutside,
+                                        false);
+                                _cellsList.add(_registeredCellData);
+                            }
                         }
+
+                        registeredCell = scanner.getRegisteredCell(1);
+                        lastConnectedTime = scanner.getLastConnectedTime(1);
+                        for (MobileCellsData cell : _cellsList) {
+                            if (cell.cellId == registeredCell) {
+                                cell.connected = true;
+                                _registeredCellData = cell;
+                                _registeredCellInTable = true;
+                                //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - found");
+                                break;
+                            }
+                        }
+                        if (!_registeredCellInTable && MobileCellsScanner.isValidCellId(registeredCell)) {
+                            //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - not found - add it to list");
+                            synchronized (PPApplication.mobileCellsScannerMutex) {
+                                _registeredCellData = new MobileCellsData(registeredCell,
+                                        _cellName, true, true,
+                                        lastConnectedTime,
+                                        MobileCellsScanner.lastRunningEventsNotOutside,
+                                        MobileCellsScanner.lastPausedEventsOutside,
+                                        false);
+                                _cellsList.add(_registeredCellData);
+                            }
+                        }
+
+                        registeredCell = scanner.getRegisteredCell(2);
+                        lastConnectedTime = scanner.getLastConnectedTime(2);
+                        for (MobileCellsData cell : _cellsList) {
+                            if (cell.cellId == registeredCell) {
+                                cell.connected = true;
+                                _registeredCellData = cell;
+                                _registeredCellInTable = true;
+                                //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - found");
+                                break;
+                            }
+                        }
+                        if (!_registeredCellInTable && MobileCellsScanner.isValidCellId(registeredCell)) {
+                            //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - not found - add it to list");
+                            synchronized (PPApplication.mobileCellsScannerMutex) {
+                                _registeredCellData = new MobileCellsData(registeredCell,
+                                        _cellName, true, true,
+                                        lastConnectedTime,
+                                        MobileCellsScanner.lastRunningEventsNotOutside,
+                                        MobileCellsScanner.lastPausedEventsOutside,
+                                        false);
+                                _cellsList.add(_registeredCellData);
+                            }
+                        }
+
                         /*if (!_registeredCellInTable) {
                             PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - NOT added into list");
                         }

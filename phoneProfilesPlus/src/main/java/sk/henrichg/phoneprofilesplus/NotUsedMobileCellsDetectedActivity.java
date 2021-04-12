@@ -156,7 +156,10 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                     }
 
                     //PPApplication.logE("[TEST BATTERY] NotUsedMobileCellsDetectedActivity.onStart()", "xxx");
-                    MobileCellsScanner.handleEvents(/*appContext*/);
+
+                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
+                        PhoneProfilesService.getInstance().getMobileCellsScanner().handleEvents(/*appContext*/);
+                    }
                     // must be higher then delay in handleEvents
                     PPApplication.updateGUI(10, getApplicationContext());
 

@@ -1157,7 +1157,7 @@ public class PhoneProfilesService extends Service
 //                                PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionInfo=" + subscriptionInfo);
                                 if (subscriptionInfo != null) {
                                     int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                    if (i == 0) {
+                                    if (subscriptionInfo.getSimSlotIndex() == 0) {
                                         if (PPApplication.telephonyManagerSIM1 == null) {
 //                                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionId=" + subscriptionId);
                                             //noinspection ConstantConditions
@@ -1166,7 +1166,7 @@ public class PhoneProfilesService extends Service
                                             PPApplication.telephonyManagerSIM1.listen(PPApplication.phoneCallsListenerSIM1, PhoneStateListener.LISTEN_CALL_STATE);
                                         }
                                     }
-                                    if (i == 1) {
+                                    if ((subscriptionInfo.getSimSlotIndex() == 1)) {
                                         if (PPApplication.telephonyManagerSIM2 == null) {
 //                                            PPApplication.logE("PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "subscriptionId=" + subscriptionId);
                                             //noinspection ConstantConditions

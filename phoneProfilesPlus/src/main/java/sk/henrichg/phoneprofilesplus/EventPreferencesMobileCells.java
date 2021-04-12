@@ -327,14 +327,18 @@ class EventPreferencesMobileCells extends EventPreferences {
                     } else {
                         synchronized (PPApplication.mobileCellsScannerMutex) {
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
-                                if (MobileCellsScanner.isValidCellId(MobileCellsScanner.registeredCell)) {
-                                    String registeredCell = Integer.toString(MobileCellsScanner.registeredCell);
+
+                                MobileCellsScanner scanner = PhoneProfilesService.getInstance().getMobileCellsScanner();
+
+                                int registeredCell = scanner.getRegisteredCell(0);
+                                if (MobileCellsScanner.isValidCellId(registeredCell)) {
+                                    String sRegisteredCell = Integer.toString(registeredCell);
                                     String[] splits = _cells.split("\\|");
                                     if (_whenOutside) {
                                         // all mobile cells must not be registered
                                         eventsHandler.mobileCellPassed = true;
                                         for (String cell : splits) {
-                                            if (cell.equals(registeredCell)) {
+                                            if (cell.equals(sRegisteredCell)) {
                                                 // one of cells in configuration is registered
                                                 eventsHandler.mobileCellPassed = false;
                                                 break;
@@ -345,7 +349,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                                         // one mobile cell must be registered
                                         eventsHandler.mobileCellPassed = false;
                                         for (String cell : splits) {
-                                            if (cell.equals(registeredCell)) {
+                                            if (cell.equals(sRegisteredCell)) {
                                                 // one of cells in configuration is registered
                                                 eventsHandler.mobileCellPassed = true;
                                                 break;
@@ -354,6 +358,68 @@ class EventPreferencesMobileCells extends EventPreferences {
                                     }
                                 } else
                                     eventsHandler.notAllowedMobileCell = true;
+
+                                if ((!eventsHandler.notAllowedMobileCell) && (!eventsHandler.mobileCellPassed)) {
+                                    registeredCell = scanner.getRegisteredCell(1);
+                                    if (MobileCellsScanner.isValidCellId(registeredCell)) {
+                                        String sRegisteredCell = Integer.toString(registeredCell);
+                                        String[] splits = _cells.split("\\|");
+                                        if (_whenOutside) {
+                                            // all mobile cells must not be registered
+                                            eventsHandler.mobileCellPassed = true;
+                                            for (String cell : splits) {
+                                                if (cell.equals(sRegisteredCell)) {
+                                                    // one of cells in configuration is registered
+                                                    eventsHandler.mobileCellPassed = false;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            // one mobile cell must be registered
+                                            eventsHandler.mobileCellPassed = false;
+                                            for (String cell : splits) {
+                                                if (cell.equals(sRegisteredCell)) {
+                                                    // one of cells in configuration is registered
+                                                    eventsHandler.mobileCellPassed = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    } else
+                                        eventsHandler.notAllowedMobileCell = true;
+                                }
+
+                                if ((!eventsHandler.notAllowedMobileCell) && (!eventsHandler.mobileCellPassed)) {
+                                    registeredCell = scanner.getRegisteredCell(2);
+                                    if (MobileCellsScanner.isValidCellId(registeredCell)) {
+                                        String sRegisteredCell = Integer.toString(registeredCell);
+                                        String[] splits = _cells.split("\\|");
+                                        if (_whenOutside) {
+                                            // all mobile cells must not be registered
+                                            eventsHandler.mobileCellPassed = true;
+                                            for (String cell : splits) {
+                                                if (cell.equals(sRegisteredCell)) {
+                                                    // one of cells in configuration is registered
+                                                    eventsHandler.mobileCellPassed = false;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            // one mobile cell must be registered
+                                            eventsHandler.mobileCellPassed = false;
+                                            for (String cell : splits) {
+                                                if (cell.equals(sRegisteredCell)) {
+                                                    // one of cells in configuration is registered
+                                                    eventsHandler.mobileCellPassed = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    } else
+                                        eventsHandler.notAllowedMobileCell = true;
+                                }
 
                             } else
                                 eventsHandler.notAllowedMobileCell = true;
