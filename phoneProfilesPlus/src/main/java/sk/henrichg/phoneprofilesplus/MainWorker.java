@@ -17,7 +17,7 @@ public class MainWorker extends Worker {
 
     static final String APPLICATION_FULLY_STARTED_WORK_TAG = "applicationFullyStartedWork";
 
-    static final String LOCATION_SCANNER_SWITCH_GPS_TAG_WORK = "geofenceScannerSwitchGPSWork"; // !!! do not change, this is work !!!
+    static final String LOCATION_SCANNER_SWITCH_GPS_TAG_WORK = "locationScannerSwitchGPSWork";
     static final String LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK = "lockDeviceFinishActivityWork";
     static final String LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK = "lockDeviceAfterScreenOffWork";
     static final String EVENT_DELAY_START_TAG_WORK = "eventDelayStartWork";
