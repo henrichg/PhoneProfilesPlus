@@ -9,7 +9,7 @@ import android.telephony.PhoneStateListener;
 import android.telephony.SubscriptionInfo;
 import android.telephony.TelephonyManager;
 
-public class PPPhoneStateListener extends PhoneStateListener {
+public class PhoneCallsListener extends PhoneStateListener {
 
     final SubscriptionInfo subscriptionInfo;
 
@@ -36,7 +36,7 @@ public class PPPhoneStateListener extends PhoneStateListener {
     static final int LINKMODE_UNLINK = 2;
 
 
-    PPPhoneStateListener(SubscriptionInfo subscriptionInfo, Context context) {
+    PhoneCallsListener(SubscriptionInfo subscriptionInfo, Context context) {
         this.subscriptionInfo = subscriptionInfo;
         this.savedContext = context.getApplicationContext();
     }
@@ -51,23 +51,23 @@ public class PPPhoneStateListener extends PhoneStateListener {
 
             switch (state) {
                 case TelephonyManager.CALL_STATE_RINGING:
-//                    PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "state=CALL_STATE_RINGING");
+//                    PPApplication.logE("PhoneCallsListener.onCallStateChanged", "state=CALL_STATE_RINGING");
 //                    if (subscriptionInfo != null)
-//                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=" + subscriptionInfo.getSimSlotIndex());
+//                        PPApplication.logE("PhoneCallsListener.onCallStateChanged", "simSlot=" + subscriptionInfo.getSimSlotIndex());
 //                    else
-//                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=0");
+//                        PPApplication.logE("PhoneCallsListener.onCallStateChanged", "simSlot=0");
 
-                    //PPPEApplication.logE("PPPhoneStateListener.PhoneCallStartEndDetector", "incomingNumber="+incomingNumber);
+                    //PPPEApplication.logE("PhoneCallsListener.PhoneCallStartEndDetector", "incomingNumber="+incomingNumber);
                     inCall = false;
                     isIncoming = true;
                     onIncomingCallStarted(/*incomingNumber, eventTime*/);
                     break;
                 case TelephonyManager.CALL_STATE_OFFHOOK:
-//                    PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "state=CALL_STATE_OFFHOOK");
+//                    PPApplication.logE("PhoneCallsListener.onCallStateChanged", "state=CALL_STATE_OFFHOOK");
 //                    if (subscriptionInfo != null)
-//                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=" + subscriptionInfo.getSimSlotIndex());
+//                        PPApplication.logE("PhoneCallsListener.onCallStateChanged", "simSlot=" + subscriptionInfo.getSimSlotIndex());
 //                    else
-//                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=0");
+//                        PPApplication.logE("PhoneCallsListener.onCallStateChanged", "simSlot=0");
                     //Transition of ringing->off hook are pickups of incoming calls.  Nothing down on them
                     if(lastState != TelephonyManager.CALL_STATE_RINGING){
                         inCall = true;
@@ -82,11 +82,11 @@ public class PPPhoneStateListener extends PhoneStateListener {
                     }
                     break;
                 case TelephonyManager.CALL_STATE_IDLE:
-//                    PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "state=CALL_STATE_IDLE");
+//                    PPApplication.logE("PhoneCallsListener.onCallStateChanged", "state=CALL_STATE_IDLE");
 //                    if (subscriptionInfo != null)
-//                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=" + subscriptionInfo.getSimSlotIndex());
+//                        PPApplication.logE("PhoneCallsListener.onCallStateChanged", "simSlot=" + subscriptionInfo.getSimSlotIndex());
 //                    else
-//                        PPApplication.logE("PPPhoneStateListener.onCallStateChanged", "simSlot=0");
+//                        PPApplication.logE("PhoneCallsListener.onCallStateChanged", "simSlot=0");
                     //Went to idle-  this is the end of a call.  What type depends on previous state(s)
                     if(!inCall){
                         //Ring but no pickup-  a miss
@@ -110,7 +110,7 @@ public class PPPhoneStateListener extends PhoneStateListener {
 
     protected void onIncomingCallStarted(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PPPhoneStateListener.onIncomingCallStarted", "xxx");
+//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallStarted", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_START, true, false/*, number, eventTime*/);
     }
 
@@ -121,31 +121,31 @@ public class PPPhoneStateListener extends PhoneStateListener {
 
     protected void onIncomingCallAnswered(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PPPhoneStateListener.onIncomingCallAnswered", "xxx");
+//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallAnswered", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, true, false/*, number, eventTime*/);
     }
 
     protected void onOutgoingCallAnswered(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PPPhoneStateListener.onOutgoingCallAnswered", "xxx");
+//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallAnswered", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_ANSWER, false, false/*, number, eventTime*/);
     }
 
     protected void onIncomingCallEnded(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PPPhoneStateListener.onIncomingCallEnded", "xxx");
+//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onIncomingCallEnded", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_END, true, false/*, number, eventTime*/);
     }
 
     protected void onOutgoingCallEnded(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PPPhoneStateListener.onOutgoingCallEnded", "xxx");
+//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onOutgoingCallEnded", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_END, false, false/*, number, eventTime*/);
     }
 
     protected void onMissedCall(/*String number, Date eventTime*/)
     {
-//        PPApplication.logE("[IN_LISTENER] PPPhoneStateListener.onMissedCall", "xxx");
+//        PPApplication.logE("[IN_LISTENER] PhoneCallsListener.onMissedCall", "xxx");
         doCall(savedContext, SERVICE_PHONE_EVENT_END, true, true/*, number, eventTime*/);
     }
 
@@ -153,10 +153,10 @@ public class PPPhoneStateListener extends PhoneStateListener {
                         final boolean incoming, final boolean missed/*,
                             final String number, final Date eventTime*/) {
         final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadBroadcast(/*"PPPhoneStateListener.doCall"*/);
+        PPApplication.startHandlerThreadBroadcast(/*"PhoneCallsListener.doCall"*/);
         final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
         handler.post(() -> {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPhoneStateListener.doCall");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
 
 //            int simSlot = 0;
 //            if (subscriptionInfo != null)
@@ -174,27 +174,27 @@ public class PPPhoneStateListener extends PhoneStateListener {
                     break;
             }
 
-            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPhoneStateListener.doCall");
+            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallsListener.doCall");
         });
     }
 
     @SuppressWarnings("UnusedReturnValue")
     private static boolean setLinkUnlinkNotificationVolume(final int linkMode, final Context context) {
         synchronized (PPApplication.notUnlinkVolumesMutex) {
-//            PPApplication.logE("PPPhoneStateListener.setLinkUnlinkNotificationVolume", "RingerModeChangeReceiver.notUnlinkVolumes=" + RingerModeChangeReceiver.notUnlinkVolumes);
+//            PPApplication.logE("PhoneCallsListener.setLinkUnlinkNotificationVolume", "RingerModeChangeReceiver.notUnlinkVolumes=" + RingerModeChangeReceiver.notUnlinkVolumes);
             if (!RingerModeChangeReceiver.notUnlinkVolumes) {
                 boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
-//                PPApplication.logE("PPPhoneStateListener.setLinkUnlinkNotificationVolume", "unlinkEnabled=" + unlinkEnabled);
+//                PPApplication.logE("PhoneCallsListener.setLinkUnlinkNotificationVolume", "unlinkEnabled=" + unlinkEnabled);
                 if (unlinkEnabled) {
                     int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
                     boolean audibleSystemRingerMode = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, context*/);
-//                    PPApplication.logE("PPPhoneStateListener.setLinkUnlinkNotificationVolume", "audibleSystemRingerMode=" + audibleSystemRingerMode);
+//                    PPApplication.logE("PhoneCallsListener.setLinkUnlinkNotificationVolume", "audibleSystemRingerMode=" + audibleSystemRingerMode);
                     if (audibleSystemRingerMode) {
                         //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
                         final Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
-//                        PPApplication.logE("PPPhoneStateListener.setLinkUnlinkNotificationVolume", "profile=" + profile);
+//                        PPApplication.logE("PhoneCallsListener.setLinkUnlinkNotificationVolume", "profile=" + profile);
                         if (profile != null) {
-//                            PPApplication.logE("PPPhoneStateListener.setLinkUnlinkNotificationVolume", "profile._name=" + profile._name);
+//                            PPApplication.logE("PhoneCallsListener.setLinkUnlinkNotificationVolume", "profile._name=" + profile._name);
                             SharedPreferences sharedPreferences = context.getSharedPreferences("temp_phoneCallBroadcastReceiver", Context.MODE_PRIVATE);
                             profile.saveProfileToSharedPreferences(sharedPreferences);
                             ActivateProfileHelper.executeForVolumes(profile, linkMode, false, context, sharedPreferences);
@@ -212,17 +212,17 @@ public class PPPhoneStateListener extends PhoneStateListener {
     private static void setVolumesByProfile(Context context) {
         if (!RingerModeChangeReceiver.notUnlinkVolumes) {
             boolean unlinkEnabled = ActivateProfileHelper.getMergedRingNotificationVolumes() && ApplicationPreferences.applicationUnlinkRingerNotificationVolumes;
-            //PPApplication.logE("PPPhoneStateListener.setVolumesByProfile", "unlinkEnabled="+unlinkEnabled);
+            //PPApplication.logE("PhoneCallsListener.setVolumesByProfile", "unlinkEnabled="+unlinkEnabled);
             if (!unlinkEnabled) {
                 int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
                 boolean audibleSystemRingerMode = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode);
-                //PPApplication.logE("PPPhoneStateListener.setVolumesByProfile", "audibleSystemRingerMode="+audibleSystemRingerMode);
+                //PPApplication.logE("PhoneCallsListener.setVolumesByProfile", "audibleSystemRingerMode="+audibleSystemRingerMode);
                 if (audibleSystemRingerMode) {
                     //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
                     final Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
-                    //PPApplication.logE("PPPhoneStateListener.setVolumesByProfile", "profile="+profile);
+                    //PPApplication.logE("PhoneCallsListener.setVolumesByProfile", "profile="+profile);
                     if (profile != null) {
-                        //PPApplication.logE("PPPhoneStateListener.setVolumesByProfile", "profile._name="+profile._name);
+                        //PPApplication.logE("PhoneCallsListener.setVolumesByProfile", "profile._name="+profile._name);
                         ActivateProfileHelper.executeForVolumes(profile, LINKMODE_NONE, false, context);
                     }
                     //dataWrapper.invalidateDataWrapper();
@@ -237,8 +237,8 @@ public class PPPhoneStateListener extends PhoneStateListener {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-//        PPApplication.logE("PPPhoneStateListener.callStarted", "incoming="+incoming);
-        //PPApplication.logE("PPPhoneStateListener.callStarted", "phoneNumber="+phoneNumber);
+//        PPApplication.logE("PhoneCallsListener.callStarted", "incoming="+incoming);
+        //PPApplication.logE("PhoneCallsListener.callStarted", "phoneNumber="+phoneNumber);
 
         speakerphoneSelected = false;
 
@@ -250,14 +250,14 @@ public class PPPhoneStateListener extends PhoneStateListener {
         if (profile != null) {
             if (profile._volumeSpeakerPhone != 0) {
                 savedSpeakerphone = false; //audioManager.isSpeakerphoneOn();
-                PPApplication.logE("PPPhoneStateListener.callStarted", "savedSpeakerphone="+savedSpeakerphone);
-                PPApplication.logE("PPPhoneStateListener.callStarted", "profile._volumeSpeakerPhone="+profile._volumeSpeakerPhone);
+                PPApplication.logE("PhoneCallsListener.callStarted", "savedSpeakerphone="+savedSpeakerphone);
+                PPApplication.logE("PhoneCallsListener.callStarted", "profile._volumeSpeakerPhone="+profile._volumeSpeakerPhone);
                 boolean changeSpeakerphone = false;
                 if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
                     changeSpeakerphone = true;
                 if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
                     changeSpeakerphone = true;
-                PPApplication.logE("PPPhoneStateListener.callStarted", "changeSpeakerphone="+changeSpeakerphone);
+                PPApplication.logE("PhoneCallsListener.callStarted", "changeSpeakerphone="+changeSpeakerphone);
                 if (changeSpeakerphone) {
                     /// activate SpeakerPhone
 
@@ -269,21 +269,21 @@ public class PPPhoneStateListener extends PhoneStateListener {
                     do {
                         if (audioManager.getMode() != AudioManager.MODE_IN_CALL) {
                             //if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
-                            PPApplication.logE("PPPhoneStateListener.callStarted", "xxx - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
-                            //PPApplication.logE("PPPhoneStateListener.callStarted", "xxx - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
+                            PPApplication.logE("PhoneCallsListener.callStarted", "xxx - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
+                            //PPApplication.logE("PhoneCallsListener.callStarted", "xxx - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
                             PPApplication.sleep(500);
                         }
                         else
                             break;
-                        PPApplication.logE("PPPhoneStateListener.callStarted", "SystemClock.uptimeMillis() - start="+(SystemClock.uptimeMillis() - start));
+                        PPApplication.logE("PhoneCallsListener.callStarted", "SystemClock.uptimeMillis() - start="+(SystemClock.uptimeMillis() - start));
                     } while (SystemClock.uptimeMillis() - start < (5 * 1000));
-                    PPApplication.logE("PPPhoneStateListener.callStarted", "yyy - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
-                    //PPApplication.logE("PPPhoneStateListener.callStarted", "yyy - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
+                    PPApplication.logE("PhoneCallsListener.callStarted", "yyy - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
+                    //PPApplication.logE("PhoneCallsListener.callStarted", "yyy - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
 
                     PPApplication.sleep(500);
                     audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
                     speakerphoneSelected = true;
-                    PPApplication.logE("PPPhoneStateListener.callStarted", "ACTIVATED SPEAKERPHONE");
+                    PPApplication.logE("PhoneCallsListener.callStarted", "ACTIVATED SPEAKERPHONE");
                 }
             }
         }
@@ -301,7 +301,7 @@ public class PPPhoneStateListener extends PhoneStateListener {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-//        PPApplication.logE("PPPhoneStateListener.callAnswered", "incoming="+incoming);
+//        PPApplication.logE("PhoneCallsListener.callAnswered", "incoming="+incoming);
 
         if (PhoneProfilesService.getInstance() != null)
             PhoneProfilesService.getInstance().stopSimulatingRingingCall(true);
@@ -311,19 +311,19 @@ public class PPPhoneStateListener extends PhoneStateListener {
         do {
             if (audioManager.getMode() != AudioManager.MODE_IN_CALL) {
                 //if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
-//                PPApplication.logE("PPPhoneStateListener.callAnswered", "xxx - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
-                //PPApplication.logE("PPPhoneStateListener.callAnswered", "xxx - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
+//                PPApplication.logE("PhoneCallsListener.callAnswered", "xxx - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
+                //PPApplication.logE("PhoneCallsListener.callAnswered", "xxx - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
                 PPApplication.sleep(500);
             }
             else
                 break;
-//            PPApplication.logE("PPPhoneStateListener.callAnswered", "SystemClock.uptimeMillis() - start="+(SystemClock.uptimeMillis() - start));
+//            PPApplication.logE("PhoneCallsListener.callAnswered", "SystemClock.uptimeMillis() - start="+(SystemClock.uptimeMillis() - start));
         } while (SystemClock.uptimeMillis() - start < (5 * 1000));
-//        PPApplication.logE("PPPhoneStateListener.callAnswered", "yyy - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
-        //PPApplication.logE("PPPhoneStateListener.callAnswered", "yyy - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
+//        PPApplication.logE("PhoneCallsListener.callAnswered", "yyy - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
+        //PPApplication.logE("PhoneCallsListener.callAnswered", "yyy - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
 
         // audio mode is set to MODE_IN_CALL by system
-//        PPApplication.logE("PPPhoneStateListener.callAnswered", "audio mode="+audioManager.getMode());
+//        PPApplication.logE("PhoneCallsListener.callAnswered", "audio mode="+audioManager.getMode());
 
         //DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
         Profile profile = DatabaseHandler.getInstance(context).getActivatedProfile();
@@ -332,20 +332,20 @@ public class PPPhoneStateListener extends PhoneStateListener {
         if (profile != null) {
             if (profile._volumeSpeakerPhone != 0) {
                 savedSpeakerphone = audioManager.isSpeakerphoneOn();
-//                PPApplication.logE("PPPhoneStateListener.callAnswered", "savedSpeakerphone="+savedSpeakerphone);
-//                PPApplication.logE("PPPhoneStateListener.callAnswered", "profile._volumeSpeakerPhone="+profile._volumeSpeakerPhone);
+//                PPApplication.logE("PhoneCallsListener.callAnswered", "savedSpeakerphone="+savedSpeakerphone);
+//                PPApplication.logE("PhoneCallsListener.callAnswered", "profile._volumeSpeakerPhone="+profile._volumeSpeakerPhone);
                 boolean changeSpeakerphone = false;
                 if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
                     changeSpeakerphone = true;
                 if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
                     changeSpeakerphone = true;
-//                PPApplication.logE("PPPhoneStateListener.callAnswered", "changeSpeakerphone="+changeSpeakerphone);
+//                PPApplication.logE("PhoneCallsListener.callAnswered", "changeSpeakerphone="+changeSpeakerphone);
                 if (changeSpeakerphone) {
                     /// activate SpeakerPhone
                     // not working in EMUI :-/
                     //audioManager.setMode(AudioManager.MODE_IN_CALL);
-//                    PPApplication.logE("PPPhoneStateListener.callAnswered", "audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
-                    //PPApplication.logE("PPPhoneStateListener.callAnswered", "audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
+//                    PPApplication.logE("PhoneCallsListener.callAnswered", "audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
+                    //PPApplication.logE("PhoneCallsListener.callAnswered", "audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
                     PPApplication.sleep(500);
 
                     audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
@@ -367,7 +367,7 @@ public class PPPhoneStateListener extends PhoneStateListener {
 //                    }
 
                     speakerphoneSelected = true;
-//                    PPApplication.logE("PPPhoneStateListener.callAnswered", "ACTIVATED SPEAKERPHONE");
+//                    PPApplication.logE("PhoneCallsListener.callAnswered", "ACTIVATED SPEAKERPHONE");
                 }
             }
         }
@@ -383,10 +383,10 @@ public class PPPhoneStateListener extends PhoneStateListener {
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
 //        if (PPApplication.logEnabled()) {
-//            PPApplication.logE("PPPhoneStateListener.callEnded", "incoming=" + incoming);
-//            PPApplication.logE("PPPhoneStateListener.callEnded", "missed=" + missed);
-//            PPApplication.logE("PPPhoneStateListener.callEnded", "speakerphoneSelected=" + speakerphoneSelected);
-//            PPApplication.logE("PPPhoneStateListener.callEnded", "savedSpeakerphone=" + savedSpeakerphone);
+//            PPApplication.logE("PhoneCallsListener.callEnded", "incoming=" + incoming);
+//            PPApplication.logE("PhoneCallsListener.callEnded", "missed=" + missed);
+//            PPApplication.logE("PhoneCallsListener.callEnded", "speakerphoneSelected=" + speakerphoneSelected);
+//            PPApplication.logE("PhoneCallsListener.callEnded", "savedSpeakerphone=" + savedSpeakerphone);
 //        }
 
         if (PhoneProfilesService.getInstance() != null)

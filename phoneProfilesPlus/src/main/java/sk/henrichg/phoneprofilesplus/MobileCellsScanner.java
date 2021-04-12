@@ -375,7 +375,7 @@ class MobileCellsScanner extends PhoneStateListener {
 //        PPApplication.logE("[IN_LISTENER] MobileCellsScanner.onCellInfoChanged", "xxx");
 
         //PPApplication.logE("MobileCellsScanner.onCellInfoChanged", "telephonyManager="+telephonyManager);
-        //CallsCounter.logCounter(context, "MobileCellsScanner.onCellInfoChanged", "PhoneStateScanner_onCellInfoChanged");
+        //CallsCounter.logCounter(context, "MobileCellsScanner.onCellInfoChanged", "MobileCellsScanner_onCellInfoChanged");
 
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellInfoChanged"*/);
@@ -387,7 +387,7 @@ class MobileCellsScanner extends PhoneStateListener {
             PowerManager.WakeLock wakeLock = null;
             try {
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onCellInfoChanged");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileCellsScanner_onCellInfoChanged");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -421,7 +421,7 @@ class MobileCellsScanner extends PhoneStateListener {
 //        PPApplication.logE("[IN_LISTENER] MobileCellsScanner.onServiceStateChanged", "xxx");
 
         //PPApplication.logE("MobileCellsScanner.onServiceStateChanged", "telephonyManager=" + telephonyManager);
-        //CallsCounter.logCounter(context, "MobileCellsScanner.onServiceStateChanged", "PhoneStateScanner_onServiceStateChanged");
+        //CallsCounter.logCounter(context, "MobileCellsScanner.onServiceStateChanged", "MobileCellsScanner_onServiceStateChanged");
 
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onServiceStateChanged"*/);
@@ -433,7 +433,7 @@ class MobileCellsScanner extends PhoneStateListener {
             PowerManager.WakeLock wakeLock = null;
             try {
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onServiceStateChanged");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileCellsScanner_onServiceStateChanged");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -547,7 +547,7 @@ class MobileCellsScanner extends PhoneStateListener {
 //        PPApplication.logE("[IN_LISTENER] MobileCellsScanner.onCellLocationChanged", "xxx");
 
         //PPApplication.logE("MobileCellsScanner.onCellLocationChanged", "telephonyManager="+telephonyManager);
-        //CallsCounter.logCounter(context, "MobileCellsScanner.onCellLocationChanged", "PhoneStateScanner_onCellLocationChanged");
+        //CallsCounter.logCounter(context, "MobileCellsScanner.onCellLocationChanged", "MobileCellsScanner_onCellLocationChanged");
 
         final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"MobileCellsScanner.onCellLocationChanged"*/);
@@ -559,7 +559,7 @@ class MobileCellsScanner extends PhoneStateListener {
             PowerManager.WakeLock wakeLock = null;
             try {
                 if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_onCellLocationChanged");
+                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileCellsScanner_onCellLocationChanged");
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
@@ -628,7 +628,7 @@ class MobileCellsScanner extends PhoneStateListener {
                 PowerManager.WakeLock wakeLock = null;
                 try {
                     if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_rescanMobileCells");
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileCellsScanner_rescanMobileCells");
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
@@ -670,13 +670,13 @@ class MobileCellsScanner extends PhoneStateListener {
                 PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MobileCellsScanner.handleEvents");
 
                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PHONE_STATE);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_MOBILE_CELLS);
 
                 PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=MobileCellsScanner.handleEvents");
             //}*/
 
             Data workData = new Data.Builder()
-                    .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_PHONE_STATE)
+                    .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_MOBILE_CELLS)
                     .build();
 
             OneTimeWorkRequest worker =
@@ -749,7 +749,7 @@ class MobileCellsScanner extends PhoneStateListener {
         PowerManager.WakeLock wakeLock = null;
         try {
             if (powerManager != null) {
-                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneStateScanner_doAutoRegistration");
+                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileCellsScanner_doAutoRegistration");
                 wakeLock.acquire(10 * 60 * 1000);
             }*/
 

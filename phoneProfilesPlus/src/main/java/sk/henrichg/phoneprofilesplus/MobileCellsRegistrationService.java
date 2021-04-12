@@ -69,7 +69,7 @@ public class MobileCellsRegistrationService extends Service {
         if (remainingDuration > 0) {
             serviceStarted = true;
 
-            PPApplication.forceStartPhoneStateScanner(this);
+            PPApplication.forceStartMobileCellsScanner(this);
             forceStart = true;
 
             //MobileCellsScanner.autoRegistrationService = this;
@@ -154,7 +154,7 @@ public class MobileCellsRegistrationService extends Service {
             //MobileCellsScanner.autoRegistrationService = null;
 
             forceStart = false;
-            PPApplication.restartPhoneStateScanner(this);
+            PPApplication.restartMobileCellsScanner(this);
 
             showResultNotification();
 

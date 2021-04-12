@@ -1026,8 +1026,8 @@ class EventPreferencesCall extends EventPreferences {
                         else
                             eventsHandler.callPassed = false;
 
-                        //if ((callEventType == PPPhoneStateListener.CALL_EVENT_INCOMING_CALL_ENDED) ||
-                        //        (callEventType == PPPhoneStateListener.CALL_EVENT_OUTGOING_CALL_ENDED)) {
+                        //if ((callEventType == PhoneCallsListener.CALL_EVENT_INCOMING_CALL_ENDED) ||
+                        //        (callEventType == PhoneCallsListener.CALL_EVENT_OUTGOING_CALL_ENDED)) {
                         //    //callPassed = true;
                         //    //eventStart = eventStart && false;
                         //    callPassed = false;

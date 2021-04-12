@@ -1,4 +1,4 @@
 package sk.henrichg.phoneprofilesplus;
 
-class PhoneStateScannerMutex {
+class MobileCellsScannerMutex {
 }

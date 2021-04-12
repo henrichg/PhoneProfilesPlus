@@ -492,41 +492,6 @@ Vysledok je, ze pocas delay je stale RUNNING az po delay je PAUSE.
 
 -----------------
 
-Spustenie autoregistracie po starte PPP:
-
-PhoneStateScanner.startAutoRegistration(true) - nastartuje registraciu pri connect skenera, aj nastartuje servis
-PhoneStateScanner.startAutoRegistration(false) - zisti stav registracie, aj nastartuje servis
-- volane z MobileCellsRegistrationService.startAutoRegistration(false) (s false)
-- volane z PhoneStateScanner.connect() (s true)
-Cize autoregistracia by sa mala pri starte skenera spustit sam od seba.
-
-PhoneStateScanner.stopAutoRegistration() - zastavi registracny servis, vymaze zoznam udalosti, zastavi samotnu registraciu
-- volane na package replaced - vzdy, je jedno ci sa zmenila verzia package
-- volane z PhoneStateScanner.disconnect()
-
-Registracny servis len zastavuje samotnu registraciu na stop button alebo ak uz vyprsal cas registracie.
-
-Cize vlastne vsetko je to o skeneri. Ten vsak zastavuje registraciu natrvalo, ak sa ukoncuje.
-Ukoncovat sa moze z roznych dovodov. Cize by nemal na disconnect zastavovat samotnu registraciu.
-Lebo po jeho starte sa musi znova spustit. A samozrejme nesmie mazat aj zoznam udalosti.
-
-!!! Zasadny problem je s PhonePstateScanner.autoRegistrationEventList. Toto je len v pamati, nie je to v shared preferences.
-Treba kuknut, co sa sem dava a ako to citat a zapisat do shared preferences. Aby na start registracie sa to nacitalo.
-1. Je to pole event_id. To by nemal byt problem dat do shared preferences. Kukni na to.
-2. Citanie dorob do MobileCellsRegistrationService.getMobileCellsAutoRegistration().
-3. Zapis dorob do MobileCellsRegistrationServicesetMobileCellsAutoRegistration().
-
-TOTO BY SI MAL VYHODIT! AUTOREGISTRACIA MUSI NASTARTOVAT, AK BOLA SPUSTENA PREDTYM
-PhoneProfilesService.doFirstStart()
-- MobileCellsRegistrationService.setMobileCellsAutoRegistration(appContext, _startOnBoot || _startOnPackageReplace);
-Len tu chyba spustenie
-
-!!! Este sa pozri, kedy vlastne skener mobilnych buniek nastartuje, lebo je celkom mozne,
-ze nenastartuje, lebo nie su podmienky, pritom registracny servis ma vynimku, od spustenia.
-Moze sa spustit hocikedy, dokonca aj ked neulozis udalost.
-
---------
-
 Aktivacia profilu vyvola onUpdate, je jedno ci je to z 4x1 alebo 4x4 widgetu.
 
 Uz vem preco:

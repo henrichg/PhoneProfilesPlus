@@ -70,9 +70,9 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                         }
                         /*if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                             // rescan mobile cells
-                            synchronized (PPApplication.phoneStateScannerMutex) {
-                                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
-                                    PhoneProfilesService.getInstance().getPhoneStateScanner().rescanMobileCells();
+                            synchronized (PPApplication.MOBILE_CELLS_SCANNER_MUTEX) {
+                                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
+                                    PhoneProfilesService.getInstance().getMobileCellsScanner().rescanMobileCells();
                                 }
                             }
                         }*/

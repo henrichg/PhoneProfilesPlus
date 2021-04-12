@@ -84,7 +84,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         LocalBroadcastManager.getInstance(prefContext).registerReceiver(refreshListViewBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView"));
 
-        PPApplication.forceStartPhoneStateScanner(prefContext);
+        PPApplication.forceStartMobileCellsScanner(prefContext);
         MobileCellsPreferenceX.forceStart = true;
 
         cellFilter = view.findViewById(R.id.mobile_cells_pref_dlg_cells_filter_name);
@@ -371,7 +371,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         }
 
         MobileCellsPreferenceX.forceStart = false;
-        PPApplication.restartPhoneStateScanner(prefContext);
+        PPApplication.restartMobileCellsScanner(prefContext);
 
         preference.fragment = null;
     }
@@ -492,11 +492,11 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
             @Override
             protected Void doInBackground(Void... params) {
-                synchronized (PPApplication.phoneStateScannerMutex) {
+                synchronized (PPApplication.MOBILE_CELLS_SCANNER_MUTEX) {
 
                     if (forRescan) {
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
-                            PhoneProfilesService.getInstance().getPhoneStateScanner().getRegisteredCell();
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
+                            PhoneProfilesService.getInstance().getMobileCellsScanner().getRegisteredCell();
 
                             //PPApplication.sleep(200);
                         }
@@ -515,7 +515,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     _registeredCellInTable = false;
                     _registeredCellInValue = false;
 
-                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isPhoneStateScannerStarted()) {
+                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
                         // add registered cell
                         //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "search registered cell from scanner");
                         for (MobileCellsData cell : _cellsList) {

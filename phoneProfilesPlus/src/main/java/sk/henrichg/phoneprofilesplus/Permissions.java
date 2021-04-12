@@ -1219,7 +1219,7 @@ class Permissions {
                         }
                         if (event._eventPreferencesMobileCells._enabled) {
                             //noinspection DuplicateExpressions
-                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_STATE)) {
+                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                                 if (!grantedAccessFineLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
@@ -1300,7 +1300,7 @@ class Permissions {
                     }
                     if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
                         //noinspection DuplicateExpressions
-                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_STATE)) {
+                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                             if (!grantedAccessFineLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
@@ -1393,7 +1393,7 @@ class Permissions {
                         if (Build.VERSION.SDK_INT >= 26) {
                             if (event._eventPreferencesMobileCells._enabled) {
                                 //noinspection DuplicateExpressions
-                                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_STATE)) {
+                                if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                                     if (!grantedPhoneState)
                                         permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.READ_PHONE_STATE));
                                 }
@@ -1441,7 +1441,7 @@ class Permissions {
                     if (Build.VERSION.SDK_INT >= 26) {
                         if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
                             //noinspection DuplicateExpressions
-                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_PHONE_STATE)) {
+                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_MOBILE_CELLS)) {
                                 if (!grantedPhoneState)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.READ_PHONE_STATE));
                             }

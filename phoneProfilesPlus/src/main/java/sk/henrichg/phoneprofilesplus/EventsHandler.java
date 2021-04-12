@@ -114,7 +114,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_GEOFENCES_SCANNER = "geofenceScanner";
     static final String SENSOR_TYPE_LOCATION_MODE = "locationMode";
     static final String SENSOR_TYPE_DEVICE_ORIENTATION = "deviceOrientation";
-    static final String SENSOR_TYPE_PHONE_STATE = "phoneState";
+    static final String SENSOR_TYPE_MOBILE_CELLS = "mobileCells";
     static final String SENSOR_TYPE_NFC_EVENT_END = "nfcEventEnd";
     static final String SENSOR_TYPE_WIFI_SCANNER = "wifiScanner";
     static final String SENSOR_TYPE_BLUETOOTH_SCANNER = "bluetoothScanner";
@@ -1196,7 +1196,7 @@ class EventsHandler {
                 return DatabaseHandler.ETYPE_LOCATION;
             case SENSOR_TYPE_DEVICE_ORIENTATION:
                 return DatabaseHandler.ETYPE_ORIENTATION;
-            case SENSOR_TYPE_PHONE_STATE:
+            case SENSOR_TYPE_MOBILE_CELLS:
                 return DatabaseHandler.ETYPE_MOBILE_CELLS;
             case SENSOR_TYPE_NFC_TAG:
             case SENSOR_TYPE_NFC_EVENT_END:
@@ -1307,7 +1307,7 @@ class EventsHandler {
                         //eventType = DatabaseHandler.ETYPE_ORIENTATION;
                         sensorEnabled = _event._eventPreferencesOrientation._enabled;
                         break;
-                    case SENSOR_TYPE_PHONE_STATE:
+                    case SENSOR_TYPE_MOBILE_CELLS:
                         //eventType = DatabaseHandler.ETYPE_MOBILE_CELLS;
                         sensorEnabled = _event._eventPreferencesMobileCells._enabled;
                         break;
@@ -1360,7 +1360,7 @@ class EventsHandler {
             if (telephony != null) {
                 int callState = telephony.getCallState();
                 //if (doUnlink) {
-                //if (linkUnlink == PPPhoneStateListener.LINKMODE_UNLINK) {
+                //if (linkUnlink == PhoneCallsListener.LINKMODE_UNLINK) {
                 inRinging = (callState == TelephonyManager.CALL_STATE_RINGING);
             }
             //PPApplication.logE("EventsHandler.doEndHandler", "inRinging="+inRinging);
@@ -1416,7 +1416,7 @@ class EventsHandler {
             if (telephony != null) {
                 int callState = telephony.getCallState();
                 //if (doUnlink) {
-                //if (linkUnlink == PPPhoneStateListener.LINKMODE_UNLINK) {
+                //if (linkUnlink == PhoneCallsListener.LINKMODE_UNLINK) {
                 inCall = (callState == TelephonyManager.CALL_STATE_RINGING) || (callState == TelephonyManager.CALL_STATE_OFFHOOK);
             }
             if (!inCall)

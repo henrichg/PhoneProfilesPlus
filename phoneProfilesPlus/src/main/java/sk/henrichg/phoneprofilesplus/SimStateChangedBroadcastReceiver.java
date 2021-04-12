@@ -75,9 +75,9 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
 //                Log.e("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim2Exists="+PPApplication.simCardsMutext.sim2Exists);
 //                Log.e("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.simCardsDetected="+PPApplication.simCardsMutext.simCardsDetected);
 
-                PhoneProfilesService.registerPhoneStateListener(false, appContext);
+                PhoneProfilesService.registerPhoneCallsListener(false, appContext);
                 PPApplication.sleep(1000);
-                PhoneProfilesService.registerPhoneStateListener(true, appContext);
+                PhoneProfilesService.registerPhoneCallsListener(true, appContext);
 
             } catch (Exception e) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));

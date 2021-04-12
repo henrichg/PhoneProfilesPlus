@@ -534,7 +534,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (permissionsChanged ||
                 mobileCellScannerEnabled != ApplicationPreferences.applicationEventMobileCellEnableScanning) {
             //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart phone state scanner");
-            PPApplication.restartPhoneStateScanner(appContext);
+            PPApplication.restartMobileCellsScanner(appContext);
         }
 
         if (permissionsChanged) {
@@ -616,7 +616,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                         PhoneProfilesService.getGeofencesScanner().resetLocationUpdates(powerSaveMode, true);
                     }
                     PhoneProfilesService.getInstance().resetListeningOrientationSensors(powerSaveMode, true);
-                    if (PhoneProfilesService.isPhoneStateScannerStarted())
+                    if (PhoneProfilesService.isMobileCellsScannerStarted())
                         PhoneProfilesService.mobileCellsScanner.resetListening(powerSaveMode, true);
                     */
         //}

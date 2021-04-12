@@ -252,7 +252,7 @@ public class PPApplication extends Application
                                                 //+"|[ROOT]"
 
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
-                                                //+"|PPPhoneStateListener"
+                                                //+"|PhoneCallsListener"
                                                 +"|PPPExtenderBroadcastReceiver"
                                                 //+"|PhoneProfilesService.doSimulatingRingingCall"
 
@@ -373,7 +373,7 @@ public class PPApplication extends Application
     static final BluetoothCLScanMutex bluetoothCLScanMutex = new BluetoothCLScanMutex();
     static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
     static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
-    static final PhoneStateScannerMutex phoneStateScannerMutex = new PhoneStateScannerMutex();
+    static final MobileCellsScannerMutex MOBILE_CELLS_SCANNER_MUTEX = new MobileCellsScannerMutex();
     static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
     static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
     static final NotUnlinkVolumesMutex notUnlinkVolumesMutex = new NotUnlinkVolumesMutex();
@@ -561,10 +561,10 @@ public class PPApplication extends Application
     static final int SCANNER_FORCE_START_ORIENTATION_SCANNER = 5;
     static final int SCANNER_RESTART_ORIENTATION_SCANNER = 6;
 
-    //static final int SCANNER_START_PHONE_STATE_SCANNER = 7;
-    //static final int SCANNER_STOP_PHONE_STATE_SCANNER = 8;
-    static final int SCANNER_FORCE_START_PHONE_STATE_SCANNER = 9;
-    static final int SCANNER_RESTART_PHONE_STATE_SCANNER = 10;
+    //static final int SCANNER_START_MOBILE_CELLS_SCANNER = 7;
+    //static final int SCANNER_STOP_MOBILE_CELLS_SCANNER = 8;
+    static final int SCANNER_FORCE_START_MOBILE_CELLS_SCANNER = 9;
+    static final int SCANNER_RESTART_MOBILE_CELLS_SCANNER = 10;
 
     static final int SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER = 11;
     static final int SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER = 12;
@@ -682,9 +682,9 @@ public class PPApplication extends Application
     static ScreenOnOffBroadcastReceiver screenOnOffReceiver = null;
     static InterruptionFilterChangedBroadcastReceiver interruptionFilterChangedReceiver = null;
 
-    static PPPhoneStateListener phoneStateListenerSIM1 = null;
-    static PPPhoneStateListener phoneStateListenerSIM2 = null;
-    static PPPhoneStateListener phoneStateListenerDefaul = null;
+    static PhoneCallsListener phoneCallsListenerSIM1 = null;
+    static PhoneCallsListener phoneCallsListenerSIM2 = null;
+    static PhoneCallsListener phoneCallsListenerDefaul = null;
     static TelephonyManager telephonyManagerSIM1 = null;
     static TelephonyManager telephonyManagerSIM2 = null;
     static TelephonyManager telephonyManagerDefault = null;
@@ -3535,37 +3535,37 @@ public class PPApplication extends Application
         }
     }
 
-    public static void forceStartPhoneStateScanner(Context context/*, boolean forScreenOn*/) {
+    public static void forceStartMobileCellsScanner(Context context/*, boolean forScreenOn*/) {
         try {
-            //PPApplication.logE("[RJS] PhoneProfilesService.forceStartPhoneStateScanner", "xxx");
+            //PPApplication.logE("[RJS] PhoneProfilesService.forceStartMobileCellsScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_PHONE_STATE_SCANNER);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_MOBILE_CELLS_SCANNER);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_PHONE_STATE_SCANNER);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_FORCE_START_MOBILE_CELLS_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
     }
 
-    public static void restartPhoneStateScanner(Context context/*, boolean forScreenOn*/) {
+    public static void restartMobileCellsScanner(Context context/*, boolean forScreenOn*/) {
         try {
-            //PPApplication.logE("[RJS] PPApplication.restartPhoneStateScanner", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.restartMobileCellsScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PHONE_STATE_SCANNER);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_MOBILE_CELLS_SCANNER);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PHONE_STATE_SCANNER);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_MOBILE_CELLS_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
             PPApplication.recordException(e);
