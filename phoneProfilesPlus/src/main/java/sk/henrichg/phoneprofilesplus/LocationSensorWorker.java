@@ -36,7 +36,7 @@ public class LocationSensorWorker extends Worker {
 
             if (Event.getGlobalEventsRunning()) {
                 EventsHandler eventsHandler = new EventsHandler(context);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_SCANNER);
             }
 
             enqueueWork(false, context);

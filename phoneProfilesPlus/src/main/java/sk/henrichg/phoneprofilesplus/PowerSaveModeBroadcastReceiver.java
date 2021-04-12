@@ -46,7 +46,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         if (restart) {
             //PPApplication.logE("[XXX] PowerSaveModeBroadcastReceiver.onReceive", "restartAllScanners");
             //PPApplication.logE("[RJS] PowerSaveModeBroadcastReceiver.onReceive", "restart all scanners");
-            // for screenOn=true -> used only for geofence scanner - start scan with GPS On
+            // for screenOn=true -> used only for Location scanner - start scan with GPS On
             PPApplication.restartAllScanners(appContext, true);
         }
 

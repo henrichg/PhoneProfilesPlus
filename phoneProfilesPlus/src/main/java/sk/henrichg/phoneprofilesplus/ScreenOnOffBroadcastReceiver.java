@@ -99,7 +99,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             restart = true;
                         if (restart) {
                             //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_ON");
-                            // for screenOn=true -> used only for geofence scanner - start scan with GPS On
+                            // for screenOn=true -> used only for Location scanner - start scan with GPS On
                             //PPApplication.setBlockProfileEventActions(true);
                             PPApplication.restartAllScanners(appContext, false);
                         }
@@ -160,7 +160,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 ApplicationPreferences.applicationEventOrientationScanOnlyWhenScreenIsOn)
                             restart = true;
                         if (restart) {
-                            // for screenOn=false -> used only for geofence scanner - use last usage of GPS for scan
+                            // for screenOn=false -> used only for Location scanner - use last usage of GPS for scan
                             //PPApplication.setBlockProfileEventActions(true);
                             PPApplication.restartAllScanners(appContext, false);
                         }

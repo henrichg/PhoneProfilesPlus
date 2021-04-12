@@ -282,7 +282,7 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
                         //updateGUIWithGeofence(0);
                             /*if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
                                 // stop location updates
-                                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isLocationScannerStarted())
                                     PhoneProfilesService.getGeofencesScanner().disconnect();
                             }*/
                     } else {

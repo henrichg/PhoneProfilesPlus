@@ -339,9 +339,9 @@ public class LocationGeofenceEditorActivityOSM extends AppCompatActivity {
                     DatabaseHandler.getInstance(getApplicationContext()).updateGeofence(geofence);
                 } else {
                     DatabaseHandler.getInstance(getApplicationContext()).addGeofence(geofence);
-                    /*synchronized (PPApplication.geofenceScannerMutex) {
+                    /*synchronized (PPApplication.locationScannerMutex) {
                         // start location updates
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isGeofenceScannerStarted())
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isLocationScannerStarted())
                             PhoneProfilesService.getGeofencesScanner().connectForResolve();
                     }*/
                 }

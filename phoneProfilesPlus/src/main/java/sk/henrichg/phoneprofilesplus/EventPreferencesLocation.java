@@ -243,7 +243,7 @@ class EventPreferencesLocation extends EventPreferences {
                 boolean enabled = (preferences != null) && preferences.getBoolean(PREF_EVENT_LOCATION_ENABLED, false);
                 boolean permissionGranted = true;
                 if (enabled)
-                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER).size() == 0;
+                    permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_LOCATION_SCANNER).size() == 0;
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted), false);
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
@@ -336,12 +336,12 @@ class EventPreferencesLocation extends EventPreferences {
                             eventsHandler.notAllowedLocation = true;
                         }
                     } else {
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
                             boolean transitionsUpdated = false;
-                            synchronized (PPApplication.geofenceScannerMutex) {
-                                GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                            synchronized (PPApplication.locationScannerMutex) {
+                                LocationScanner scanner = PhoneProfilesService.getInstance().getLocationScanner();
                                 if (scanner != null)
-                                    transitionsUpdated = GeofencesScanner.mTransitionsUpdated;
+                                    transitionsUpdated = LocationScanner.mTransitionsUpdated;
                             }
                             //PPApplication.logE("-------- EventPreferencesLocation.doHandleEvent", "transitionsUpdated=" + transitionsUpdated);
                             if (transitionsUpdated) {

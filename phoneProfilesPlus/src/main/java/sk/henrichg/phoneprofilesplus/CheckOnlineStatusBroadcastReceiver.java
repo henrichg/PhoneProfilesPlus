@@ -40,7 +40,7 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                GeofencesScanner.onlineStatusChanged(context.getApplicationContext());
+                LocationScanner.onlineStatusChanged(context.getApplicationContext());
 
             } catch (Exception e) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));

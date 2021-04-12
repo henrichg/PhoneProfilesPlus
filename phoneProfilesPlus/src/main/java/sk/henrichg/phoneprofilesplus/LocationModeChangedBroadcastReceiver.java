@@ -49,17 +49,17 @@ public class LocationModeChangedBroadcastReceiver extends BroadcastReceiver {
                         //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=LocationModeChangedBroadcastReceiver.onReceive");
                     }
 
-                    /*if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted()) {
+                    /*if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
                         PhoneProfilesService.getInstance().getGeofencesScanner().clearAllEventGeofences();
                         //PPApplication.logE("LocationModeChangedBroadcastReceiver.onReceive", "updateTransitionsByLastKnownLocation");
                     }*/
 
-                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
-                        PhoneProfilesService.getInstance().getGeofencesScanner().updateTransitionsByLastKnownLocation();
+                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted())
+                        PhoneProfilesService.getInstance().getLocationScanner().updateTransitionsByLastKnownLocation();
 
                     PPApplication.sleep(10000);
 
-//                        PPApplication.logE("[EVENTS_HANDLER_CALL] GeofenceScanner.LocationCallback", "sensorType=SENSOR_TYPE_LOCATION_MODE");
+//                        PPApplication.logE("[EVENTS_HANDLER_CALL] LocationScanner.LocationCallback", "sensorType=SENSOR_TYPE_LOCATION_MODE");
                     EventsHandler eventsHandler = new EventsHandler(appContext);
                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_MODE);
 

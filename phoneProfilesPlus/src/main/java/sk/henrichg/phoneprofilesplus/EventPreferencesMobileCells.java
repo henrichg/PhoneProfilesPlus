@@ -325,7 +325,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                             // not allowed for screen Off
                             eventsHandler.notAllowedMobileCell = true;
                     } else {
-                        synchronized (PPApplication.MOBILE_CELLS_SCANNER_MUTEX) {
+                        synchronized (PPApplication.mobileCellsScannerMutex) {
                             if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
                                 if (MobileCellsScanner.isValidCellId(MobileCellsScanner.registeredCell)) {
                                     String registeredCell = Integer.toString(MobileCellsScanner.registeredCell);

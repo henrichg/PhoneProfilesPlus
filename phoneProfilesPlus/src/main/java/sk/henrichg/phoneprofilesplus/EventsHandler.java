@@ -111,7 +111,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_WIFI_CONNECTION = "wifiConnection";
     static final String SENSOR_TYPE_WIFI_STATE = "wifiState";
     static final String SENSOR_TYPE_POWER_SAVE_MODE = "powerSaveMode";
-    static final String SENSOR_TYPE_GEOFENCES_SCANNER = "geofenceScanner";
+    static final String SENSOR_TYPE_LOCATION_SCANNER = "locationScanner";
     static final String SENSOR_TYPE_LOCATION_MODE = "locationMode";
     static final String SENSOR_TYPE_DEVICE_ORIENTATION = "deviceOrientation";
     static final String SENSOR_TYPE_MOBILE_CELLS = "mobileCells";
@@ -1191,7 +1191,7 @@ class EventsHandler {
             case SENSOR_TYPE_WIFI_SCANNER:
             case SENSOR_TYPE_WIFI_STATE:
                 return DatabaseHandler.ETYPE_WIFI_NEARBY;
-            case SENSOR_TYPE_GEOFENCES_SCANNER:
+            case SENSOR_TYPE_LOCATION_SCANNER:
             case SENSOR_TYPE_LOCATION_MODE:
                 return DatabaseHandler.ETYPE_LOCATION;
             case SENSOR_TYPE_DEVICE_ORIENTATION:
@@ -1298,7 +1298,7 @@ class EventsHandler {
                                 ((_event._eventPreferencesWifi._connectionType == 1) ||
                                         (_event._eventPreferencesWifi._connectionType == 3));
                         break;
-                    case SENSOR_TYPE_GEOFENCES_SCANNER:
+                    case SENSOR_TYPE_LOCATION_SCANNER:
                     case SENSOR_TYPE_LOCATION_MODE:
                         //eventType = DatabaseHandler.ETYPE_LOCATION;
                         sensorEnabled = _event._eventPreferencesLocation._enabled;

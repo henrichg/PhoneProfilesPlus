@@ -335,7 +335,7 @@ uzivatel moze zadat interval, ale len v device Settings.
 HOTOVO
 
 Tento sa pouziva na prepinanie GPS on/off:
-- GeofencesScannerSwitchGPSBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock, uzivatel nemoze
+- LocationScannerSwitchGPSBroadcastReceiver -> cas od now() + delay, pouziva aj AlarmClock, uzivatel nemoze
 zadat interval, je natvrdo 1 alebo 30 minut, podla toho, ci sa ma pouizvat GPS. Toto je kandidat na WorkManagera.
 HOTOVO
 

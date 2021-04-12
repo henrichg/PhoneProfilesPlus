@@ -1736,8 +1736,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                if (PhoneProfilesService.getInstance() != null) {
 //
 //                    boolean powerSaveMode = PPApplication.isPowerSaveMode;
-//                    if ((PhoneProfilesService.isGeofenceScannerStarted())) {
-//                        PhoneProfilesService.getGeofencesScanner().resetLocationUpdates(powerSaveMode, true);
+//                    if ((PhoneProfilesService.isLocationScannerStarted())) {
+//                        PhoneProfilesService.getLocationScanner().resetLocationUpdates(powerSaveMode, true);
 //                    }
 //                    PhoneProfilesService.getInstance().resetListeningOrientationSensors(powerSaveMode, true);
 //                    if (PhoneProfilesService.isMobileCellsScannerStarted())

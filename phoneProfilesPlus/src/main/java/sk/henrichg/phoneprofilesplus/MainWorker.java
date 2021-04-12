@@ -17,7 +17,7 @@ public class MainWorker extends Worker {
 
     static final String APPLICATION_FULLY_STARTED_WORK_TAG = "applicationFullyStartedWork";
 
-    static final String GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK = "geofenceScannerSwitchGPSWork";
+    static final String LOCATION_SCANNER_SWITCH_GPS_TAG_WORK = "geofenceScannerSwitchGPSWork"; // !!! do not change, this is work !!!
     static final String LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK = "lockDeviceFinishActivityWork";
     static final String LOCK_DEVICE_AFTER_SCREEN_OFF_TAG_WORK = "lockDeviceAfterScreenOffWork";
     static final String EVENT_DELAY_START_TAG_WORK = "eventDelayStartWork";
@@ -104,9 +104,9 @@ public class MainWorker extends Worker {
                             //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DelayedWorksWorker.doWork (DELAYED_WORK_HANDLE_EVENTS)");
                         }
                         break;
-                    case GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK:
+                    case LOCATION_SCANNER_SWITCH_GPS_TAG_WORK:
 //                        PPApplication.logE("[IN_WORKER]  MainWorker.doWork", "tag=" + tag);
-                        GeofencesScannerSwitchGPSBroadcastReceiver.doWork(appContext);
+                        LocationScannerSwitchGPSBroadcastReceiver.doWork(appContext);
                         break;
                     case LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK:
                         LockDeviceActivityFinishBroadcastReceiver.doWork();

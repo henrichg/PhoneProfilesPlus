@@ -56,9 +56,9 @@ public class GeofenceScanWorker extends Worker {
 
             if (Event.getGlobalEventsRunning()) {
                 boolean geofenceScannerUpdatesStarted = false;
-                synchronized (PPApplication.geofenceScannerMutex) {
+                synchronized (PPApplication.locationScannerMutex) {
                     if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().getGeofencesScanner() != null)) {
-                        GeofencesScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
+                        LocationScanner scanner = PhoneProfilesService.getInstance().getGeofencesScanner();
                         if (scanner.mUpdatesStarted) {
                             //PPApplication.logE("GeofenceScanWorker.doWork", "location updates started - save to DB");
 
@@ -76,9 +76,9 @@ public class GeofenceScanWorker extends Worker {
                     // start events handler
                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=GeofenceScanWorker.doWork");
 
-//                    PPApplication.logE("[EVENTS_HANDLER_CALL] GeofenceScanWorker.doWork", "sensorType=SENSOR_TYPE_GEOFENCES_SCANNER");
+//                    PPApplication.logE("[EVENTS_HANDLER_CALL] GeofenceScanWorker.doWork", "sensorType=SENSOR_TYPE_LOCATION_SCANNER");
                     EventsHandler eventsHandler = new EventsHandler(context);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_GEOFENCES_SCANNER);
+                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_LOCATION_SCANNER);
 
                     //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=GeofenceScanWorker.doWork");
                 }
@@ -153,9 +153,9 @@ public class GeofenceScanWorker extends Worker {
                     //PPApplication.logE("GeofenceScanWorker._scheduleWork", "---------------------------------------- START");
 
                     int interval;
-                    synchronized (PPApplication.geofenceScannerMutex) {
+                    synchronized (PPApplication.locationScannerMutex) {
                         //if (PPApplication.logEnabled()) {
-                        //    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted())
+                        //    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted())
                         //        PPApplication.logE("GeofenceScanWorker._scheduleWork", "mUpdatesStarted=" + PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted);
                         //    else {
                         //        PPApplication.logE("GeofenceScanWorker._scheduleWork", "scanner is not started");
@@ -163,10 +163,10 @@ public class GeofenceScanWorker extends Worker {
                         //    }
                         //}
 
-                        // look at GeofenceScanner:UPDATE_INTERVAL_IN_MILLISECONDS
+                        // look at LocationScanner:UPDATE_INTERVAL_IN_MILLISECONDS
                         //int updateDuration = 30;
 
-                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isGeofenceScannerStarted() &&
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted() &&
                                 PhoneProfilesService.getInstance().getGeofencesScanner().mUpdatesStarted) {
                             interval = ApplicationPreferences.applicationEventLocationUpdateInterval * 60;
                             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;

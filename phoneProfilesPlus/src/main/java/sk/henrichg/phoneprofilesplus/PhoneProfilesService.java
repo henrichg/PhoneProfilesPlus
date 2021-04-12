@@ -95,7 +95,7 @@ public class PhoneProfilesService extends Service
     static final String ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".RunApplicationWithDelayBroadcastReceiver";
     static final String ACTION_MISSED_CALL_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".MissedCallEventEndBroadcastReceiver";
     static final String ACTION_START_EVENT_NOTIFICATION_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".StartEventNotificationBroadcastReceiver";
-    static final String ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".GeofencesScannerSwitchGPSBroadcastReceiver";
+    static final String ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".LocationScannerSwitchGPSBroadcastReceiver";
     static final String ACTION_LOCK_DEVICE_ACTIVITY_FINISH_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".LockDeviceActivityFinishBroadcastReceiver";
     static final String ACTION_ALARM_CLOCK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AlarmClockBroadcastReceiver";
     static final String ACTION_ALARM_CLOCK_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".AlarmClockEventEndBroadcastReceiver";
@@ -3113,26 +3113,26 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void registerGeofencesScannerReceiver(boolean register, DataWrapper dataWrapper) {
+    private void registerLocationScannerReceiver(boolean register, DataWrapper dataWrapper) {
         Context appContext = getApplicationContext();
-        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerGeofencesScannerReceiver", "PhoneProfilesService_registerGeofencesScannerReceiver");
-        //PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "xxx");
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerLocationScannerReceiver", "PhoneProfilesService_registerLocationScannerReceiver");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerLocationScannerReceiver", "xxx");
         if (!register) {
-            if (PPApplication.geofencesScannerSwitchGPSBroadcastReceiver != null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerGeofencesScannerReceiver->UNREGISTER", "PhoneProfilesService_registerGeofencesScannerReceiver");
+            if (PPApplication.locationScannerSwitchGPSBroadcastReceiver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerLocationScannerReceiver->UNREGISTER", "PhoneProfilesService_registerLocationScannerReceiver");
                 try {
-                    appContext.unregisterReceiver(PPApplication.geofencesScannerSwitchGPSBroadcastReceiver);
-                    PPApplication.geofencesScannerSwitchGPSBroadcastReceiver = null;
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "UNREGISTER");
+                    appContext.unregisterReceiver(PPApplication.locationScannerSwitchGPSBroadcastReceiver);
+                    PPApplication.locationScannerSwitchGPSBroadcastReceiver = null;
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerLocationScannerReceiver", "UNREGISTER");
                 } catch (Exception e) {
-                    PPApplication.geofencesScannerSwitchGPSBroadcastReceiver = null;
+                    PPApplication.locationScannerSwitchGPSBroadcastReceiver = null;
                 }
             }
             //else
-            //    PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "not registered");
+            //    PPApplication.logE("[RJS] PhoneProfilesService.registerLocationScannerReceiver", "not registered");
         }
         if (register) {
-            //PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "REGISTER");
+            //PPApplication.logE("[RJS] PhoneProfilesService.registerLocationScannerReceiver", "REGISTER");
             if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                 boolean allowed = false;
                 if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)) {
@@ -3144,20 +3144,20 @@ public class PhoneProfilesService extends Service
                                 PreferenceAllowed.PREFERENCE_ALLOWED;
                 }
                 if (allowed) {
-                    //PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "eventCount="+eventCount);
-                    if (PPApplication.geofencesScannerSwitchGPSBroadcastReceiver == null) {
-                        //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerGeofencesScannerReceiver->REGISTER", "PhoneProfilesService_registerGeofencesScannerReceiver");
-                        PPApplication.geofencesScannerSwitchGPSBroadcastReceiver = new GeofencesScannerSwitchGPSBroadcastReceiver();
-                        IntentFilter intentFilter4 = new IntentFilter(PhoneProfilesService.ACTION_GEOFENCES_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
-                        appContext.registerReceiver(PPApplication.geofencesScannerSwitchGPSBroadcastReceiver, intentFilter4);
-                        //PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "REGISTER geofencesScannerSwitchGPSBroadcastReceiver");
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerLocationScannerReceiver", "eventCount="+eventCount);
+                    if (PPApplication.locationScannerSwitchGPSBroadcastReceiver == null) {
+                        //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerLocationScannerReceiver->REGISTER", "PhoneProfilesService_registerLocationScannerReceiver");
+                        PPApplication.locationScannerSwitchGPSBroadcastReceiver = new LocationScannerSwitchGPSBroadcastReceiver();
+                        IntentFilter intentFilter4 = new IntentFilter(PhoneProfilesService.ACTION_LOCATION_SCANNER_SWITCH_GPS_BROADCAST_RECEIVER);
+                        appContext.registerReceiver(PPApplication.locationScannerSwitchGPSBroadcastReceiver, intentFilter4);
+                        //PPApplication.logE("[RJS] PhoneProfilesService.registerLocationScannerReceiver", "REGISTER locationScannerSwitchGPSBroadcastReceiver");
                     }
                     //else
-                    //    PPApplication.logE("[RJS] PhoneProfilesService.registerGeofencesScannerReceiver", "registered");
+                    //    PPApplication.logE("[RJS] PhoneProfilesService.registerLocationScannerReceiver", "registered");
                 } else
-                    registerGeofencesScannerReceiver(false, dataWrapper);
+                    registerLocationScannerReceiver(false, dataWrapper);
             } else
-                registerGeofencesScannerReceiver(false, dataWrapper);
+                registerLocationScannerReceiver(false, dataWrapper);
         }
     }
 
@@ -3367,8 +3367,8 @@ public class PhoneProfilesService extends Service
                 if (GeofenceScanWorker.isWorkScheduled(false) || GeofenceScanWorker.isWorkScheduled(true)) {
                     GeofenceScanWorker.cancelWork(true);
                 }
-                synchronized (PPApplication.geofenceScannerMutex) {
-                    if (isGeofenceScannerStarted()) {
+                synchronized (PPApplication.locationScannerMutex) {
+                    if (isLocationScannerStarted()) {
                         //PPApplication.logE("[RJS] PhoneProfilesService.scheduleGeofenceWorker", "updateTransitionsByLastKnownLocation");
                         getGeofencesScanner().updateTransitionsByLastKnownLocation();
                     }
@@ -3424,22 +3424,22 @@ public class PhoneProfilesService extends Service
         //    cancelSearchCalendarEventsWorker(appContext, handler);
     }
 
-    private void startGeofenceScanner(boolean start, @SuppressWarnings("SameParameterValue") boolean stop, DataWrapper dataWrapper, boolean forScreenOn) {
-        synchronized (PPApplication.geofenceScannerMutex) {
+    private void startLocationScanner(boolean start, @SuppressWarnings("SameParameterValue") boolean stop, DataWrapper dataWrapper, boolean forScreenOn) {
+        synchronized (PPApplication.locationScannerMutex) {
             Context appContext = getApplicationContext();
-            //CallsCounter.logCounter(appContext, "PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService_startGeofenceScanner");
-            //PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "xxx");
+            //CallsCounter.logCounter(appContext, "PhoneProfilesService.startLocationScanner", "PhoneProfilesService_startLocationScanner");
+            //PPApplication.logE("[RJS] PhoneProfilesService.startLocationScanner", "xxx");
             if (stop) {
-                if (isGeofenceScannerStarted()) {
-                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->STOP", "PhoneProfilesService_startGeofenceScanner");
-                    stopGeofenceScanner();
-                    //PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "STOP");
+                if (isLocationScannerStarted()) {
+                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startLocationScanner->STOP", "PhoneProfilesService_startLocationScanner");
+                    stopLocationScanner();
+                    //PPApplication.logE("[RJS] PhoneProfilesService.startLocationScanner", "STOP");
                 }
                 //else
-                //    PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "not started");
+                //    PPApplication.logE("[RJS] PhoneProfilesService.startLocationScanner", "not started");
             }
             if (start) {
-                //PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "START");
+                //PPApplication.logE("[RJS] PhoneProfilesService.startLocationScanner", "START");
                 if (ApplicationPreferences.applicationEventLocationEnableScanning) {
                     boolean eventAllowed = false;
                     boolean applicationEventLocationScanOnlyWhenScreenIsOn = ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn;
@@ -3452,23 +3452,23 @@ public class PhoneProfilesService extends Service
                                     PreferenceAllowed.PREFERENCE_ALLOWED;
                     }
                     if (eventAllowed) {
-                        if (!isGeofenceScannerStarted()) {
-                            //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startGeofenceScanner->START", "PhoneProfilesService_startGeofenceScanner");
-                            startGeofenceScanner(forScreenOn && PPApplication.isScreenOn &&
+                        if (!isLocationScannerStarted()) {
+                            //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.startLocationScanner->START", "PhoneProfilesService_startLocationScanner");
+                            startLocationScanner(forScreenOn && PPApplication.isScreenOn &&
                                     applicationEventLocationScanOnlyWhenScreenIsOn);
-                            //PPApplication.logE("[RJS] PhoneProfilesService.startGeofenceScanner", "START");
+                            //PPApplication.logE("[RJS] PhoneProfilesService.startLocationScanner", "START");
                         }
                     } else
-                        startGeofenceScanner(false, true, dataWrapper, forScreenOn);
+                        startLocationScanner(false, true, dataWrapper, forScreenOn);
                 } else
-                    startGeofenceScanner(false, true, dataWrapper, forScreenOn);
+                    startLocationScanner(false, true, dataWrapper, forScreenOn);
             }
         }
     }
 
     private void startMobileCellsScanner(boolean start, boolean stop, DataWrapper dataWrapper, boolean forceStart,
                                          boolean rescan) {
-        synchronized (PPApplication.MOBILE_CELLS_SCANNER_MUTEX) {
+        synchronized (PPApplication.mobileCellsScannerMutex) {
             Context appContext = getApplicationContext();
             //CallsCounter.logCounter(appContext, "PhoneProfilesService.startMobileCellsScanner", "PhoneProfilesService_startMobileCellsScanner");
             //PPApplication.logE("[RJS] PhoneProfilesService.startMobileCellsScanner", "xxx");
@@ -3762,8 +3762,8 @@ public class PhoneProfilesService extends Service
         // register receiver for call event
         registerReceiverForCallSensor(true, dataWrapper);
 
-        // register receiver for geofences scanner
-        registerGeofencesScannerReceiver(true, dataWrapper);
+        // register receiver for Location scanner
+        registerLocationScannerReceiver(true, dataWrapper);
 
         // required for orientation event
         //registerReceiverForOrientationSensor(true, dataWrapper);
@@ -3772,7 +3772,7 @@ public class PhoneProfilesService extends Service
         WifiScanWorker.initialize(appContext, !fromCommand);
         BluetoothScanWorker.initialize(appContext, !fromCommand);
 
-        startGeofenceScanner(true, true, dataWrapper, false);
+        startLocationScanner(true, true, dataWrapper, false);
         startMobileCellsScanner(true, true, dataWrapper, false, false);
         startOrientationScanner(true, true, dataWrapper, false);
         startTwilightScanner(true, true, dataWrapper);
@@ -3816,7 +3816,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForTimeSensor(false, null);
         registerReceiverForNFCSensor(false, null);
         registerReceiverForCallSensor(false, null);
-        registerGeofencesScannerReceiver(false, null);
+        registerLocationScannerReceiver(false, null);
         registerReceiverForNotificationSensor(false, null);
         //registerReceiverForOrientationSensor(false, null);
 
@@ -3826,7 +3826,7 @@ public class PhoneProfilesService extends Service
         //SMSBroadcastReceiver.unregisterSMSContentObserver(appContext);
         //SMSBroadcastReceiver.unregisterMMSContentObserver(appContext);
 
-        startGeofenceScanner(false, true, null, false);
+        startLocationScanner(false, true, null, false);
         startMobileCellsScanner(false, true, null, false, false);
         startOrientationScanner(false, true, null, false);
         startTwilightScanner(false, true, null);
@@ -3873,7 +3873,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForTimeSensor(true, dataWrapper);
         registerReceiverForNFCSensor(true, dataWrapper);
         registerReceiverForCallSensor(true, dataWrapper);
-        registerGeofencesScannerReceiver(true, dataWrapper);
+        registerLocationScannerReceiver(true, dataWrapper);
         //registerReceiverForOrientationSensor(true, dataWrapper);
         registerReceiverForNotificationSensor(true,dataWrapper);
 
@@ -3882,7 +3882,7 @@ public class PhoneProfilesService extends Service
         scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
         scheduleSearchCalendarEventsWorker(/*true,*/ dataWrapper /*, true*/);
 
-        startGeofenceScanner(true, true, dataWrapper, false);
+        startLocationScanner(true, true, dataWrapper, false);
         //scheduleGeofenceWorker(/*true,*/  dataWrapper /*false,*/ /*, true*/);
 
         startMobileCellsScanner(true, true, dataWrapper, false, false);
@@ -4186,7 +4186,7 @@ public class PhoneProfilesService extends Service
 
                 //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "9");
 
-                GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(appContext);
+                LocationScannerSwitchGPSBroadcastReceiver.removeAlarm(appContext);
                 LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
 
                 //PPNotificationListenerService.clearNotifiedPackages(appContext);
@@ -4880,19 +4880,19 @@ public class PhoneProfilesService extends Service
                     else
                     if (intent.getBooleanExtra(EXTRA_START_LOCATION_UPDATES, false)) {
                         PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_START_LOCATION_UPDATES");
-                        //synchronized (PPApplication.geofenceScannerMutex) {
-                            if (PhoneProfilesService.getGeofencesScanner() != null) {
-                                GeofencesScanner.useGPS = true;
-                                PhoneProfilesService.getGeofencesScanner().startLocationUpdates();
+                        //synchronized (PPApplication.locationScannerMutex) {
+                            if (PhoneProfilesService.getLocationScanner() != null) {
+                                LocationScanner.useGPS = true;
+                                PhoneProfilesService.getLocationScanner().startLocationUpdates();
                             }
                         //}
                     }
                     else
                     if (intent.getBooleanExtra(EXTRA_STOP_LOCATION_UPDATES, false)) {
                         PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_STOP_LOCATION_UPDATES");
-                        //synchronized (PPApplication.geofenceScannerMutex) {
-                        if (PhoneProfilesService.getGeofencesScanner() != null)
-                            PhoneProfilesService.getGeofencesScanner().stopLocationUpdates();
+                        //synchronized (PPApplication.locationScannerMutex) {
+                        if (PhoneProfilesService.getLocationScanner() != null)
+                            PhoneProfilesService.getLocationScanner().stopLocationUpdates();
                         //}
                     }
                     */
@@ -4933,8 +4933,8 @@ public class PhoneProfilesService extends Service
                     if (intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
                         if (ApplicationPreferences.applicationEventLocationEnableScanning) {
-                            if (PPApplication.geofencesScanner != null)
-                                PPApplication.geofencesScanner.updateTransitionsByLastKnownLocation();
+                            if (PPApplication.locationScanner != null)
+                                PPApplication.locationScanner.updateTransitionsByLastKnownLocation();
                         }
 
                         DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
@@ -5019,14 +5019,14 @@ public class PhoneProfilesService extends Service
                         dataWrapper.fillEventList();
                         //dataWrapper.fillProfileList(false, false);
                         switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
-                            /*case PPApplication.SCANNER_START_GEOFENCE_SCANNER:
-                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_START_GEOFENCE_SCANNER");
-                                startGeofenceScanner(true, true, true, false);
+                            /*case PPApplication.SCANNER_START_LOCATION_SCANNER:
+                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_START_LOCATION_SCANNER");
+                                startLocationScanner(true, true, true, false);
                                 scheduleGeofenceWorker(true, true, false);
                                 break;*/
-                            /*case PPApplication.SCANNER_STOP_GEOFENCE_SCANNER:
-                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_STOP_GEOFENCE_SCANNER");
-                                startGeofenceScanner(false, true, false, false);
+                            /*case PPApplication.SCANNER_STOP_LOCATION_SCANNER:
+                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_STOP_LOCATION_SCANNER");
+                                startLocationScanner(false, true, false, false);
                                 scheduleGeofenceWorker(false, false, false);
                                 break;*/
                             /*case PPApplication.SCANNER_START_ORIENTATION_SCANNER:
@@ -5114,10 +5114,10 @@ public class PhoneProfilesService extends Service
                                 startMobileCellsScanner(true, false, dataWrapper, true, false);
                                 AvoidRescheduleReceiverWorker.enqueueWork();
                                 break;
-                            case PPApplication.SCANNER_RESTART_GEOFENCE_SCANNER:
-//                                    PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_RESTART_GEOFENCE_SCANNER");
+                            case PPApplication.SCANNER_RESTART_LOCATION_SCANNER:
+//                                    PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_RESTART_LOCATION_SCANNER");
                                 registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
-                                startGeofenceScanner(true, true, dataWrapper, true);
+                                startLocationScanner(true, true, dataWrapper, true);
                                 //scheduleGeofenceWorker(/*true,*/ dataWrapper /*forScreenOn,*/ /*, true*/);
                                 AvoidRescheduleReceiverWorker.enqueueWork();
                                 break;
@@ -5205,7 +5205,7 @@ public class PhoneProfilesService extends Service
                                     boolean canRestart = (!ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
                                     if ((!fromBatteryChange) || canRestart) {
                                         registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
-                                        startGeofenceScanner(true, true, dataWrapper, true);
+                                        startLocationScanner(true, true, dataWrapper, true);
                                         //scheduleGeofenceWorker(/*true,*/ dataWrapper /*forScreenOn,*/ /*, true*/);
                                     }
                                 }
@@ -6661,42 +6661,42 @@ public class PhoneProfilesService extends Service
         return wifiSleepPolicy == Settings.Global.WIFI_SLEEP_POLICY_NEVER;
     }
 
-    private void startGeofenceScanner(boolean resetUseGPS) {
-        //PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "xxx");
-        /*if (PPApplication.geofencesScanner != null) {
-            PPApplication.geofencesScanner.disconnect();
-            PPApplication.geofencesScanner = null;
+    private void startLocationScanner(boolean resetUseGPS) {
+        //PPApplication.logE("PhoneProfilesService.startLocationScanner", "xxx");
+        /*if (PPApplication.locationScanner != null) {
+            PPApplication.locationScanner.disconnect();
+            PPApplication.locationScanner = null;
         }*/
 
-        if (PPApplication.geofencesScanner == null) {
-            PPApplication.geofencesScanner = new GeofencesScanner(getApplicationContext());
-            //PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "geofencesScanner="+geofencesScanner);
+        if (PPApplication.locationScanner == null) {
+            PPApplication.locationScanner = new LocationScanner(getApplicationContext());
+            //PPApplication.logE("PhoneProfilesService.startLocationScanner", "locationScanner="+locationScanner);
             /*if (instance != null) {
-                PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "instance==this? " + (instance == this));
-                PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService.isGeofenceScannerStarted()=" + PhoneProfilesService.getInstance().isGeofenceScannerStarted());
-                PPApplication.logE("PhoneProfilesService.startGeofenceScanner", "PhoneProfilesService.getGeofencesScanner()=" + PhoneProfilesService.getInstance().getGeofencesScanner());
+                PPApplication.logE("PhoneProfilesService.startLocationScanner", "instance==this? " + (instance == this));
+                PPApplication.logE("PhoneProfilesService.startLocationScanner", "PhoneProfilesService.isLocationScannerStarted()=" + PhoneProfilesService.getInstance().isLocationScannerStarted());
+                PPApplication.logE("PhoneProfilesService.startLocationScanner", "PhoneProfilesService.getLocationScanner()=" + PhoneProfilesService.getInstance().getGeofencesScanner());
             }*/
-            PPApplication.geofencesScanner.connect(resetUseGPS);
+            PPApplication.locationScanner.connect(resetUseGPS);
         }
         else {
-            PPApplication.geofencesScanner.updateTransitionsByLastKnownLocation();
+            PPApplication.locationScanner.updateTransitionsByLastKnownLocation();
         }
     }
 
-    private void stopGeofenceScanner() {
-        //PPApplication.logE("PhoneProfilesService.stopGeofenceScanner", "xxx");
-        if (PPApplication.geofencesScanner != null) {
-            PPApplication.geofencesScanner.disconnect();
-            PPApplication.geofencesScanner = null;
+    private void stopLocationScanner() {
+        //PPApplication.logE("PhoneProfilesService.stopLocationScanner", "xxx");
+        if (PPApplication.locationScanner != null) {
+            PPApplication.locationScanner.disconnect();
+            PPApplication.locationScanner = null;
         }
     }
 
-    boolean isGeofenceScannerStarted() {
-        return (PPApplication.geofencesScanner != null);
+    boolean isLocationScannerStarted() {
+        return (PPApplication.locationScanner != null);
     }
 
-    GeofencesScanner getGeofencesScanner() {
-        return PPApplication.geofencesScanner;
+    LocationScanner getLocationScanner() {
+        return PPApplication.locationScanner;
     }
 
     //--------------------------------------------------------------------------

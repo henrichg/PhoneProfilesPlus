@@ -109,7 +109,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
                     if (restart) {
                         //PPApplication.logE("[****] BatteryChargingChangedBroadcastReceiver.onReceive", "restartAllScanners");
                         //PPApplication.logE("[RJS] BatteryChargingChangedBroadcastReceiver.onReceive", "restart all scanners");
-                        // for screenOn=true -> used only for geofence scanner - start scan with GPS On
+                        // for screenOn=true -> used only for Location scanner - start scan with GPS On
                         PPApplication.restartAllScanners(appContext, true);
                     }
                 }

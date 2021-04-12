@@ -227,9 +227,9 @@ public class PPApplication extends Application
                                                 //+"|LocationGeofenceEditorActivityOSM"
                                                 //+"|TimeChangedReceiver"
                                                 //+"|MainWorker.doWork"
-                                                //+"|GeofencesScannerSwitchGPSBroadcastReceiver.onReceive"
-                                                //+"|GeofencesScannerSwitchGPSBroadcastReceiver.doWork"
-                                                //+"|GeofenceScanner"
+                                                //+"|LocationScannerSwitchGPSBroadcastReceiver.onReceive"
+                                                //+"|LocationScannerSwitchGPSBroadcastReceiver.doWork"
+                                                //+"|LocationScanner"
                                                 //+"|LocationSensorWorker"
 
                                                 //+"|CheckCriticalGitHubReleasesBroadcastReceiver"
@@ -353,7 +353,7 @@ public class PPApplication extends Application
     static final GlobalEventsRunStopMutex globalEventsRunStopMutex = new GlobalEventsRunStopMutex();
     static final EventsRunMutex eventsRunMutex = new EventsRunMutex();
     static final EventCallSensorMutex eventCallSensorMutex = new EventCallSensorMutex();
-    static final EventAccessoriesSensorMutex EVENT_ACCESSORIES_SENSOR_MUTEX = new EventAccessoriesSensorMutex();
+    static final EventAccessoriesSensorMutex eventAccessoriesSensorMutex = new EventAccessoriesSensorMutex();
     static final EventWifiSensorMutex eventWifiSensorMutex = new EventWifiSensorMutex();
     static final EventBluetoothSensorMutex eventBluetoothSensorMutex = new EventBluetoothSensorMutex();
     static final ContactsCacheMutex contactsCacheMutex = new ContactsCacheMutex();
@@ -363,8 +363,8 @@ public class PPApplication extends Application
     static final ServiceListMutex serviceListMutex = new ServiceListMutex();
     //static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
     //static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
-    static final GeofenceScannerLastLocationMutex geofenceScannerLastLocationMutex = new GeofenceScannerLastLocationMutex();
-    static final GeofenceScannerMutex geofenceScannerMutex = new GeofenceScannerMutex();
+    static final LocationScannerLastLocationMutex locationScannerLastLocationMutex = new LocationScannerLastLocationMutex();
+    static final LocationScannerMutex locationScannerMutex = new LocationScannerMutex();
     static final WifiScannerMutex wifiScannerMutex = new WifiScannerMutex();
     static final WifiScanResultsMutex wifiScanResultsMutex = new WifiScanResultsMutex();
     static final BluetoothConnectionChangeStateMutex bluetoothConnectionChangeStateMutex = new BluetoothConnectionChangeStateMutex();
@@ -373,7 +373,7 @@ public class PPApplication extends Application
     static final BluetoothCLScanMutex bluetoothCLScanMutex = new BluetoothCLScanMutex();
     static final BluetoothLEScanMutex bluetoothLEScanMutex = new BluetoothLEScanMutex();
     static final EventsHandlerMutex eventsHandlerMutex = new EventsHandlerMutex();
-    static final MobileCellsScannerMutex MOBILE_CELLS_SCANNER_MUTEX = new MobileCellsScannerMutex();
+    static final MobileCellsScannerMutex mobileCellsScannerMutex = new MobileCellsScannerMutex();
     static final OrientationScannerMutex orientationScannerMutex = new OrientationScannerMutex();
     static final TwilightScannerMutex twilightScannerMutex = new TwilightScannerMutex();
     static final NotUnlinkVolumesMutex notUnlinkVolumesMutex = new NotUnlinkVolumesMutex();
@@ -458,8 +458,8 @@ public class PPApplication extends Application
     //static final String LOCATION_SETTINGS_FOR_WIFI_SCANNING_NOTIFICATION_TAG = PACKAGE_NAME+"_LOCATION_SETTINGS_FOR_WIFI_SCANNING_NOTIFICATION";
     //static final int LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_ID = 106;
     //static final String LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION_TAG = PACKAGE_NAME+"_LOCATION_SETTINGS_FOR_BLUETOOTH_SCANNING_NOTIFICATION";
-    //static final int GEOFENCE_SCANNER_ERROR_NOTIFICATION_ID = 107;
-    //static final String GEOFENCE_SCANNER_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_GEOFENCE_SCANNER_ERROR_NOTIFICATION";
+    //static final int LOCATION_SCANNER_ERROR_NOTIFICATION_ID = 107;
+    //static final String LOCATION_SCANNER_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_LOCATION_SCANNER_ERROR_NOTIFICATION";
     static final int GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_ID = 108;
     static final String GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION_TAG = PACKAGE_NAME+"_GRANT_PLAY_RINGTONE_NOTIFICATION_PERMISSIONS_NOTIFICATION";
     static final int MOBILE_CELLS_REGISTRATION_SERVICE_NOTIFICATION_ID = 109;
@@ -552,9 +552,9 @@ public class PPApplication extends Application
     static final String AVOID_RESCHEDULE_RECEIVER_WORK_TAG = "avoidRescheduleReceiverWorker";
 
     // scanner start/stop types
-    //static final int SCANNER_START_GEOFENCE_SCANNER = 1;
-    //static final int SCANNER_STOP_GEOFENCE_SCANNER = 2;
-    static final int SCANNER_RESTART_GEOFENCE_SCANNER = 3;
+    //static final int SCANNER_START_LOCATION_SCANNER = 1;
+    //static final int SCANNER_STOP_LOCATION_SCANNER = 2;
+    static final int SCANNER_RESTART_LOCATION_SCANNER = 3;
 
     //static final int SCANNER_START_ORIENTATION_SCANNER = 4;
     //static final int SCANNER_STOP_ORIENTATION_SCANNER = 5;
@@ -734,7 +734,7 @@ public class PPApplication extends Application
     static RunApplicationWithDelayBroadcastReceiver runApplicationWithDelayBroadcastReceiver = null;
     static MissedCallEventEndBroadcastReceiver missedCallEventEndBroadcastReceiver = null;
     static StartEventNotificationBroadcastReceiver startEventNotificationBroadcastReceiver = null;
-    static GeofencesScannerSwitchGPSBroadcastReceiver geofencesScannerSwitchGPSBroadcastReceiver = null;
+    static LocationScannerSwitchGPSBroadcastReceiver locationScannerSwitchGPSBroadcastReceiver = null;
     static LockDeviceActivityFinishBroadcastReceiver lockDeviceActivityFinishBroadcastReceiver = null;
     static AlarmClockBroadcastReceiver alarmClockBroadcastReceiver = null;
     static AlarmClockEventEndBroadcastReceiver alarmClockEventEndBroadcastReceiver = null;
@@ -758,7 +758,7 @@ public class PPApplication extends Application
 
     static OrientationScanner orientationScanner = null;
     static boolean mStartedOrientationSensors = false;
-    static GeofencesScanner geofencesScanner = null;
+    static LocationScanner locationScanner = null;
     static MobileCellsScanner mobileCellsScanner = null;
     static TwilightScanner twilightScanner = null;
 
@@ -944,7 +944,7 @@ public class PPApplication extends Application
         lightSensor = getLightSensor(getApplicationContext());
 
 //        if (lastLocation == null) {
-//            //PPApplication.logE("##### GeofenceScanner", "lastLocation update");
+//            //PPApplication.logE("##### LocationScanner", "lastLocation update");
 //            lastLocation = new Location("GL");
 //        }
 
@@ -1250,7 +1250,7 @@ public class PPApplication extends Application
         cancelWork(RestartEventsWithDelayWorker.WORK_TAG, false);
         cancelWork(GeofenceScanWorker.WORK_TAG, false);
         cancelWork(GeofenceScanWorker.WORK_TAG_SHORT, false);
-        cancelWork(MainWorker.GEOFENCE_SCANNER_SWITCH_GPS_TAG_WORK, false);
+        cancelWork(MainWorker.LOCATION_SCANNER_SWITCH_GPS_TAG_WORK, false);
         //cancelWork(LocationGeofenceEditorActivity.FETCH_ADDRESS_WORK_TAG, false);
         cancelWork(LocationGeofenceEditorActivityOSM.FETCH_ADDRESS_WORK_TAG_OSM, false);
         if (atStart)
@@ -3478,19 +3478,19 @@ public class PPApplication extends Application
         }
     }
 
-    public static void restartGeofenceScanner(Context context/*, boolean forScreenOn*/) {
+    public static void restartLocationScanner(Context context/*, boolean forScreenOn*/) {
         try {
-            //PPApplication.logE("[RJS] PPApplication.restartGeofenceScanner", "xxx");
+            //PPApplication.logE("[RJS] PPApplication.restartLocationScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_GEOFENCE_SCANNER);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_LOCATION_SCANNER);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_GEOFENCE_SCANNER);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_LOCATION_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -3950,7 +3950,7 @@ public class PPApplication extends Application
                 }
             }
 
-            GeofencesScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
+            LocationScannerSwitchGPSBroadcastReceiver.removeAlarm(context);
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(context);
 
             PPApplication.logE("PPApplication._exitApp", "stop service");

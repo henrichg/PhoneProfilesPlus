@@ -1709,7 +1709,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         else
         if (grantType == Permissions.GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY) {
             //PPApplication.logE("[RJS] GrantPermissionActivity.finishGrant", "restart geofence scanner");
-            PPApplication.restartGeofenceScanner(context);
+            PPApplication.restartLocationScanner(context);
 
             setResult(Activity.RESULT_OK);
             finish();

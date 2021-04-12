@@ -492,7 +492,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
             @Override
             protected Void doInBackground(Void... params) {
-                synchronized (PPApplication.MOBILE_CELLS_SCANNER_MUTEX) {
+                synchronized (PPApplication.mobileCellsScannerMutex) {
 
                     if (forRescan) {
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {

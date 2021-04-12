@@ -4319,7 +4319,7 @@ class ActivateProfileHelper {
             ApplicationPreferences.applicationEventLocationEnableScanning(appContext);
             ApplicationPreferences.applicationEventLocationDisabledScannigByProfile(appContext);
             //PPApplication.logE("[RJS] ActivateProfileHelper.execute", "_applicationDisableLocationScanning");
-            PPApplication.restartGeofenceScanner(appContext);
+            PPApplication.restartLocationScanner(appContext);
         }
         if (profile._applicationDisableMobileCellScanning != 0) {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableMobileCellScanning");

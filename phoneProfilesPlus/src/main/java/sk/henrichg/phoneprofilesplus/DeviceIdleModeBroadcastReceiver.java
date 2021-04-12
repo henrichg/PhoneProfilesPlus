@@ -70,7 +70,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                         }
                         /*if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
                             // rescan mobile cells
-                            synchronized (PPApplication.MOBILE_CELLS_SCANNER_MUTEX) {
+                            synchronized (PPApplication.mobileCellsScannerMutex) {
                                 if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
                                     PhoneProfilesService.getInstance().getMobileCellsScanner().rescanMobileCells();
                                 }
