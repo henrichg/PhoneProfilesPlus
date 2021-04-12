@@ -1801,13 +1801,13 @@
     <string name="array_pref_activatorNumColumns_4">4 columns</string>
     <string name="array_pref_activatorNumColumns_5">5 columns</string>
 
-    <string name="event_preferences_call_forSimCard">For SIM Card</string>
+    <string name="event_preferences_call_forSimCard">For SIM card</string>
     <string name="event_preferences_call_dualSIM_summary">Experimental. It may not work on your device.</string>
     <string name="event_preferences_forSimCard_bothCards">For both cards</string>
     <string name="event_preferences_forSimCard_SIM1">For SIM 1</string>
     <string name="event_preferences_forSimCard_SIM2">For SIM 2</string>
 
-    <string name="event_preferences_sms_forSimCard">For SIM Card</string>
+    <string name="event_preferences_sms_forSimCard">For SIM card</string>
     <string name="event_preferences_sms_dualSIM_summary">Experimental. It may not work on your device.\nThis parameter is only for SMS.</string>
 
     <!-- **************************************************************************************** -->
