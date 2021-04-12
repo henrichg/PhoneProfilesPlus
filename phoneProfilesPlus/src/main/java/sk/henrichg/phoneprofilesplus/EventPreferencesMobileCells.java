@@ -331,6 +331,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                                 MobileCellsScanner scanner = PhoneProfilesService.getInstance().getMobileCellsScanner();
 
                                 boolean checked = false;
+
                                 int registeredCell = scanner.getRegisteredCell(0);
                                 if (MobileCellsScanner.isValidCellId(registeredCell)) {
                                     String sRegisteredCell = Integer.toString(registeredCell);
@@ -360,6 +361,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                                     checked = true;
                                 }
 
+                                /*
                                 if ((!checked) || (!eventsHandler.mobileCellPassed)) {
                                     registeredCell = scanner.getRegisteredCell(1);
                                     if (MobileCellsScanner.isValidCellId(registeredCell)) {
@@ -420,10 +422,10 @@ class EventPreferencesMobileCells extends EventPreferences {
                                         }
                                         checked = true;
                                     }
+                                }*/
 
-                                    if (!checked)
-                                        eventsHandler.notAllowedMobileCell = true;
-                                }
+                                if (!checked)
+                                    eventsHandler.notAllowedMobileCell = true;
 
                             } else
                                 eventsHandler.notAllowedMobileCell = true;
