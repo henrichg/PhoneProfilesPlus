@@ -361,7 +361,6 @@ class EventPreferencesMobileCells extends EventPreferences {
                                     checked = true;
                                 }
 
-                                /*
                                 if ((!checked) || (!eventsHandler.mobileCellPassed)) {
                                     registeredCell = scanner.getRegisteredCell(1);
                                     if (MobileCellsScanner.isValidCellId(registeredCell)) {
@@ -422,7 +421,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                                         }
                                         checked = true;
                                     }
-                                }*/
+                                }
 
                                 if (!checked)
                                     eventsHandler.notAllowedMobileCell = true;
