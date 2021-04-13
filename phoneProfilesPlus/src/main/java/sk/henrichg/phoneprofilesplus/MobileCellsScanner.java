@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.telephony.PhoneStateListener;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
@@ -55,7 +56,7 @@ class MobileCellsScanner {
         telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManagerDefault != null) {
             int simCount = telephonyManagerDefault.getSimCount();
-            if (simCount > 1) {
+            if ((Build.VERSION.SDK_INT >= 26) && (simCount > 1)) {
                 SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                 //SubscriptionManager.from(appContext);
                 if (mSubscriptionManager != null) {
@@ -129,7 +130,7 @@ class MobileCellsScanner {
                 PPApplication.HAS_FEATURE_TELEPHONY &&
                 Permissions.checkLocation(context.getApplicationContext())) {
             int simCount = telephonyManagerDefault.getSimCount();
-            if (simCount > 1) {
+            if ((Build.VERSION.SDK_INT >= 26) && (simCount > 1)) {
                 if ((telephonyManagerSIM1 != null) && (mobileCellsListenerSIM1 != null)) {
                     PPApplication.logE("MobileCellsScanner.connect", "listed SIM 1");
                     telephonyManagerSIM1.listen(mobileCellsListenerSIM1,
