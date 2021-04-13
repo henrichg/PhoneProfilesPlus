@@ -466,9 +466,9 @@ class EventPreferencesSMS extends EventPreferences {
                         sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
                         sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
                     }
-                    PPApplication.logE("EventPreferencesSMS.checkPreferences", "sim1Exists="+sim1Exists);
-                    PPApplication.logE("EventPreferencesSMS.checkPreferences", "sim2Exists="+sim2Exists);
-                    PPApplication.logE("EventPreferencesSMS.checkPreferences", "enabled="+enabled);
+//                    PPApplication.logE("EventPreferencesSMS.checkPreferences", "sim1Exists="+sim1Exists);
+//                    PPApplication.logE("EventPreferencesSMS.checkPreferences", "sim2Exists="+sim2Exists);
+//                    PPApplication.logE("EventPreferencesSMS.checkPreferences", "enabled="+enabled);
 
                     showPreferences = true;
                     preference = prefMng.findPreference("eventSMSDualSIMInfo");
@@ -798,8 +798,8 @@ class EventPreferencesSMS extends EventPreferences {
                 // compute start time
 
                 if (_startTime > 0) {
-                    PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime > 0");
-                    PPApplication.logE("EventPreferencesSMS.doHandleEvent", "_fromSIMSlot="+_fromSIMSlot);
+//                    PPApplication.logE("EventPreferencesSMS.doHandleEvent", "startTime > 0");
+//                    PPApplication.logE("EventPreferencesSMS.doHandleEvent", "_fromSIMSlot="+_fromSIMSlot);
 
                     if ((Build.VERSION.SDK_INT < 26) || (_forSIMCard == 0) || (_forSIMCard == _fromSIMSlot)) {
 

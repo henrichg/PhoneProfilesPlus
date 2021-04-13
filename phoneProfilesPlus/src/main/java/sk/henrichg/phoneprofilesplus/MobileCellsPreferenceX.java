@@ -26,9 +26,15 @@ public class MobileCellsPreferenceX extends DialogPreference {
     List<MobileCellsData> cellsList;
     List<MobileCellsData> filteredCellsList;
 
-    MobileCellsData registeredCellData;
-    boolean registeredCellInTable;
-    boolean registeredCellInValue;
+    MobileCellsData registeredCellDataSIM1;
+    boolean registeredCellInTableSIM1;
+    boolean registeredCellInValueSIM1;
+    MobileCellsData registeredCellDataSIM2;
+    boolean registeredCellInTableSIM2;
+    boolean registeredCellInValueSIM2;
+    MobileCellsData registeredCellDataDefault;
+    boolean registeredCellInTableDefault;
+    boolean registeredCellInValueDefault;
 
     private final Context context;
 
