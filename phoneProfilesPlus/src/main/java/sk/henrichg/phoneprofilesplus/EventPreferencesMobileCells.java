@@ -501,7 +501,8 @@ class EventPreferencesMobileCells extends EventPreferences {
                                         }
                                     }
 
-                                    if (((_forSIMCard == 0) && (!eventsHandler.mobileCellPassed)) || (_forSIMCard == 2)) {
+                                    if (((_forSIMCard == 0) && ((!cellIsValid) || (!eventsHandler.mobileCellPassed))) ||
+                                            (_forSIMCard == 2)) {
                                         int registeredCell = scanner.getRegisteredCell(2);
 //                                        PPApplication.logE("EventPreferencesMobileCells.doHandleEvent", "SIM 2 registeredCell="+registeredCell);
                                         if (MobileCellsScanner.isValidCellId(registeredCell)) {
