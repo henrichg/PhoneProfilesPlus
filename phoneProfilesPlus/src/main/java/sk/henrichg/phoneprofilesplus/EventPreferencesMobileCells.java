@@ -431,7 +431,7 @@ class EventPreferencesMobileCells extends EventPreferences {
 
     void doHandleEvent(EventsHandler eventsHandler, boolean forRestartEvents) {
         if (_enabled) {
-            PPApplication.logE("EventPreferencesMobileCells.doHandleEvent", "xxxxxxxx");
+//            PPApplication.logE("EventPreferencesMobileCells.doHandleEvent", "xxxxxxxx");
 
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -472,7 +472,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                                 if ((Build.VERSION.SDK_INT >= 26) && (simCount > 1)) {
                                     if ((_forSIMCard == 0) || (_forSIMCard == 1)) {
                                         int registeredCell = scanner.getRegisteredCell(1);
-                                        PPApplication.logE("EventPreferencesMobileCells.doHandleEvent", "SIM 1 registeredCell="+registeredCell);
+//                                        PPApplication.logE("EventPreferencesMobileCells.doHandleEvent", "SIM 1 registeredCell="+registeredCell);
                                         if (MobileCellsScanner.isValidCellId(registeredCell)) {
                                             String sRegisteredCell = Integer.toString(registeredCell);
                                             String[] splits = _cells.split("\\|");
@@ -503,7 +503,7 @@ class EventPreferencesMobileCells extends EventPreferences {
 
                                     if (((_forSIMCard == 0) && (!eventsHandler.mobileCellPassed)) || (_forSIMCard == 2)) {
                                         int registeredCell = scanner.getRegisteredCell(2);
-                                        PPApplication.logE("EventPreferencesMobileCells.doHandleEvent", "SIM 2 registeredCell="+registeredCell);
+//                                        PPApplication.logE("EventPreferencesMobileCells.doHandleEvent", "SIM 2 registeredCell="+registeredCell);
                                         if (MobileCellsScanner.isValidCellId(registeredCell)) {
                                             String sRegisteredCell = Integer.toString(registeredCell);
                                             String[] splits = _cells.split("\\|");

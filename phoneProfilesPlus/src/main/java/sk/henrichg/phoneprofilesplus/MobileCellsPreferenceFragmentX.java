@@ -580,9 +580,9 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                 synchronized (PPApplication.mobileCellsScannerMutex) {
 
                     if (forRescan) {
-                        PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", " **** forRescan");
+//                        PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", " **** forRescan");
                         if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
-                            PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", " **** registerCell");
+//                            PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", " **** registerCell");
                             PhoneProfilesService.getInstance().getMobileCellsScanner().registerCell();
 
                             //PPApplication.sleep(200);
