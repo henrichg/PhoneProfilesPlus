@@ -65,7 +65,7 @@ class MobileCellsListener extends PhoneStateListener {
         // SlimKat in Galaxy Nexus - returns null :-/
         // Honor 7 - returns empty list (not null), Dual SIM?
 
-        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "cellInfo="+cellInfo);
+//        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "cellInfo="+cellInfo);
 
         if (cellInfo!=null) {
 
@@ -76,14 +76,14 @@ class MobileCellsListener extends PhoneStateListener {
                 boolean anyRegistered = false;
 
                 for (CellInfo _cellInfo : cellInfo) {
-                    PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "registered="+_cellInfo.isRegistered());
+//                    PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "registered="+_cellInfo.isRegistered());
 
                     boolean isRegistered = false;
 
                     if (_cellInfo instanceof CellInfoGsm) {
 //                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "gsm info="+_cellInfo);
                         CellIdentityGsm identityGsm = ((CellInfoGsm) _cellInfo).getCellIdentity();
-                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "gsm cid="+identityGsm.getCid());
+//                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "gsm cid="+identityGsm.getCid());
                         if (MobileCellsScanner.isValidCellId(identityGsm.getCid())) {
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityGsm.getCid();
@@ -95,7 +95,7 @@ class MobileCellsListener extends PhoneStateListener {
                     } else if (_cellInfo instanceof CellInfoLte) {
 //                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "lte info="+_cellInfo);
                         CellIdentityLte identityLte = ((CellInfoLte) _cellInfo).getCellIdentity();
-                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "lte cid="+identityLte.getCi());
+//                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "lte cid="+identityLte.getCi());
                         if (MobileCellsScanner.isValidCellId(identityLte.getCi())) {
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityLte.getCi();
@@ -107,7 +107,7 @@ class MobileCellsListener extends PhoneStateListener {
                     } else if (_cellInfo instanceof CellInfoWcdma) {
 //                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "wcdma info="+_cellInfo);
                         CellIdentityWcdma identityWcdma = ((CellInfoWcdma) _cellInfo).getCellIdentity();
-                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "wcdma cid=" + identityWcdma.getCid());
+//                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "wcdma cid=" + identityWcdma.getCid());
                         if (MobileCellsScanner.isValidCellId(identityWcdma.getCid())) {
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityWcdma.getCid();
@@ -119,7 +119,7 @@ class MobileCellsListener extends PhoneStateListener {
                     } else if (_cellInfo instanceof CellInfoCdma) {
 //                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "cdma info="+_cellInfo);
                         CellIdentityCdma identityCdma = ((CellInfoCdma) _cellInfo).getCellIdentity();
-                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "wcdma cid="+identityCdma.getBasestationId());
+//                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "wcdma cid="+identityCdma.getBasestationId());
                         if (MobileCellsScanner.isValidCellId(identityCdma.getBasestationId())) {
                             if (_cellInfo.isRegistered()) {
                                 registeredCell = identityCdma.getBasestationId();
@@ -129,9 +129,9 @@ class MobileCellsListener extends PhoneStateListener {
                             }
                         }
                     }
-                    else {
-                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "unknown info="+_cellInfo.toString());
-                    }
+//                    else {
+//                        PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "unknown info="+_cellInfo.toString());
+//                    }
 
                     if (isRegistered) {
                         anyRegistered = true;
@@ -146,7 +146,7 @@ class MobileCellsListener extends PhoneStateListener {
                 }
 
                 if (!anyRegistered) {
-                    PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "empty cellInfo");
+//                    PPApplication.logE("MobileCellsListener.getAllCellInfo."+simSlot, "empty cellInfo");
                     registeredCell = Integer.MAX_VALUE;
                     doAutoRegistration(registeredCell);
                 }
@@ -155,8 +155,8 @@ class MobileCellsListener extends PhoneStateListener {
             }
 
         }
-        else
-            PPApplication.logE("MobileCellsListener.getAllCellInfo", "cell info is null");
+//        else
+//            PPApplication.logE("MobileCellsListener.getAllCellInfo", "cell info is null");
     }
 
     @SuppressLint("MissingPermission")
@@ -165,7 +165,7 @@ class MobileCellsListener extends PhoneStateListener {
             List<CellInfo> cellInfo = null;
             if (Permissions.checkLocation(context.getApplicationContext()))
                 cellInfo = telephonyManager.getAllCellInfo();
-            PPApplication.logE("MobileCellsListener.getAllCellInfo.2."+simSlot, "cellInfo="+cellInfo);
+//            PPApplication.logE("MobileCellsListener.getAllCellInfo.2."+simSlot, "cellInfo="+cellInfo);
             getAllCellInfo(cellInfo);
         }
     }
