@@ -593,8 +593,11 @@ class MobileCellsListener extends PhoneStateListener {
                         PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "cellId is NOT saved, save it");
 
                         List<MobileCellsData> localCellsList = new ArrayList<>();
-                        localCellsList.add(new MobileCellsData(_registeredCell, MobileCellsScanner.cellsNameForAutoRegistration, true, false,
-                                Calendar.getInstance().getTimeInMillis(), MobileCellsScanner.lastRunningEventsNotOutside, MobileCellsScanner.lastPausedEventsOutside, false));
+                        localCellsList.add(new MobileCellsData(_registeredCell,
+                                MobileCellsScanner.cellsNameForAutoRegistration, true, false,
+                                Calendar.getInstance().getTimeInMillis(),
+                                MobileCellsScanner.lastRunningEventsNotOutside,
+                                MobileCellsScanner.lastPausedEventsOutside, false));
                         db.saveMobileCellsList(localCellsList, true, true);
 
                         synchronized (MobileCellsScanner.autoRegistrationEventList) {
@@ -639,7 +642,9 @@ class MobileCellsListener extends PhoneStateListener {
                             // add new cell
                             List<MobileCellsData> localCellsList = new ArrayList<>();
                             localCellsList.add(new MobileCellsData(_registeredCell, "", true, false,
-                                    Calendar.getInstance().getTimeInMillis(), MobileCellsScanner.lastRunningEventsNotOutside, MobileCellsScanner.lastPausedEventsOutside, false));
+                                    Calendar.getInstance().getTimeInMillis(),
+                                    MobileCellsScanner.lastRunningEventsNotOutside,
+                                    MobileCellsScanner.lastPausedEventsOutside, false));
                             db.saveMobileCellsList(localCellsList, true, false);
                             showNotification = true;
                         }
