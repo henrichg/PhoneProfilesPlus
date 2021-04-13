@@ -360,7 +360,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
         TelephonyManager telephonyManager = (TelephonyManager)prefContext.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManager != null) {
-            if ((Build.VERSION.SDK_INT >= 26) && (telephonyManager.getSimCount() > 1)) {
+            if ((Build.VERSION.SDK_INT >= 26) && (telephonyManager.getPhoneCount() > 1)) {
                 RelativeLayout connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_simDefault);
                 connectedCellRelLa.setVisibility(View.GONE);
             }
@@ -516,7 +516,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                 TelephonyManager telephonyManager = (TelephonyManager)prefContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     if (Build.VERSION.SDK_INT >= 26)
-                        simCount = telephonyManager.getSimCount();
+                        simCount = telephonyManager.getPhoneCount();
                     else
                         simCount = 1;
                 }

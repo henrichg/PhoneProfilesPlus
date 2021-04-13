@@ -55,7 +55,7 @@ class MobileCellsScanner {
 
         telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
         if (telephonyManagerDefault != null) {
-            int simCount = telephonyManagerDefault.getSimCount();
+            int simCount = telephonyManagerDefault.getPhoneCount();
             if ((Build.VERSION.SDK_INT >= 26) && (simCount > 1)) {
                 SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                 //SubscriptionManager.from(appContext);
@@ -129,7 +129,7 @@ class MobileCellsScanner {
         if ((telephonyManagerDefault != null) &&
                 PPApplication.HAS_FEATURE_TELEPHONY &&
                 Permissions.checkLocation(context.getApplicationContext())) {
-            int simCount = telephonyManagerDefault.getSimCount();
+            int simCount = telephonyManagerDefault.getPhoneCount();
             if ((Build.VERSION.SDK_INT >= 26) && (simCount > 1)) {
                 if ((telephonyManagerSIM1 != null) && (mobileCellsListenerSIM1 != null)) {
                     PPApplication.logE("MobileCellsScanner.connect", "listed SIM 1");

@@ -1135,7 +1135,7 @@ public class PhoneProfilesService extends Service
         else {
             PPApplication.telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
             if (PPApplication.telephonyManagerDefault != null) {
-                int simCount = PPApplication.telephonyManagerDefault.getSimCount();
+                int simCount = PPApplication.telephonyManagerDefault.getPhoneCount();
                 if (simCount > 1) {
                     SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                     //SubscriptionManager.from(appContext);
