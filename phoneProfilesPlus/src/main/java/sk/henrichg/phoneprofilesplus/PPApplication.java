@@ -262,6 +262,7 @@ public class PPApplication extends Application
                                                 +"|MobileCellsScanner"
                                                 +"|MobileCellsListener"
                                                 +"|MobileCellsPreferenceFragmentX"
+                                                +"|EventPreferencesMobileCells"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

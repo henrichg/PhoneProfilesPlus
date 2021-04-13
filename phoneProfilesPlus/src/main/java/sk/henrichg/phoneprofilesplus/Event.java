@@ -374,7 +374,7 @@ class Event {
 
     private void createEventPreferencesMobileCells()
     {
-        this._eventPreferencesMobileCells = new EventPreferencesMobileCells(this, false, "", false);
+        this._eventPreferencesMobileCells = new EventPreferencesMobileCells(this, false, "", false, 0);
     }
 
     private void createEventPreferencesNFC()

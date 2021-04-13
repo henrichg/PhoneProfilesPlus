@@ -1812,6 +1812,8 @@
 
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Connected cell (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Connected cell (SIM 2):</string>
+    <string name="event_preferences_mobile_cells_forSimCard">For SIM card</string>
+    <string name="event_preferences_mobile_cells_dualSIM_summary">Experimental. It may not work on your device.</string>
 
     <!-- **************************************************************************************** -->
 

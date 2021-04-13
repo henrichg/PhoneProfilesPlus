@@ -519,14 +519,14 @@ class MobileCellsListener extends PhoneStateListener {
             return;
 
         synchronized (PPApplication.mobileCellsScannerMutex) {
-            if (PPApplication.logEnabled()) {
-                PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "enabledAutoRegistration=" + MobileCellsScanner.enabledAutoRegistration);
-                PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "cellsNameForAutoRegistration=" + MobileCellsScanner.cellsNameForAutoRegistration);
-                if (MobileCellsScanner.isValidCellId(_registeredCell))
-                    PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "cellIdToRegister=" + _registeredCell);
-                else
-                    PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "cellIdToRegister=NOT valid");
-            }
+//            if (PPApplication.logEnabled()) {
+//                PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "enabledAutoRegistration=" + MobileCellsScanner.enabledAutoRegistration);
+//                PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "cellsNameForAutoRegistration=" + MobileCellsScanner.cellsNameForAutoRegistration);
+//                if (MobileCellsScanner.isValidCellId(_registeredCell))
+//                    PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "cellIdToRegister=" + _registeredCell);
+//                else
+//                    PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "cellIdToRegister=NOT valid");
+//            }
 
             /*PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;
@@ -539,7 +539,7 @@ class MobileCellsListener extends PhoneStateListener {
             DatabaseHandler db = DatabaseHandler.getInstance(context);
 
             boolean notUsedMobileCellsNotificationEnabled = scanner.isNotUsedCellsNotificationEnabled();
-            PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "notUsedMobileCellsNotificationEnabled="+notUsedMobileCellsNotificationEnabled);
+//            PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "notUsedMobileCellsNotificationEnabled="+notUsedMobileCellsNotificationEnabled);
 
             MobileCellsScanner.lastRunningEventsNotOutside = "";
             MobileCellsScanner.lastPausedEventsOutside = "";
@@ -561,8 +561,8 @@ class MobileCellsListener extends PhoneStateListener {
                         MobileCellsScanner.lastRunningEventsNotOutside = MobileCellsScanner.lastRunningEventsNotOutside + _event.eventId;
                     }
                 }
-                PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "lastRunningEventsNotOutside=" + MobileCellsScanner.lastRunningEventsNotOutside);
-                PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "lastPausedEventsOutside=" + MobileCellsScanner.lastPausedEventsOutside);
+//                PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "lastRunningEventsNotOutside=" + MobileCellsScanner.lastRunningEventsNotOutside);
+//                PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "lastPausedEventsOutside=" + MobileCellsScanner.lastPausedEventsOutside);
 
                 /*
                 db.loadMobileCellsSensorRunningPausedEvents(runningEventList, false);
@@ -580,17 +580,17 @@ class MobileCellsListener extends PhoneStateListener {
                     lastPausedEventsOutside = lastPausedEventsOutside + pausedEvent.eventId;
                 }
                 */
-                PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "lastPausedEventsOutside=" + MobileCellsScanner.lastPausedEventsOutside);
+//                PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "lastPausedEventsOutside=" + MobileCellsScanner.lastPausedEventsOutside);
             }
 
             if (MobileCellsScanner.enabledAutoRegistration) {
-                PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "by user enabled autoregistration");
+//                PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "by user enabled autoregistration");
 
                 if (MobileCellsScanner.isValidCellId(_registeredCell)) {
-                    PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "cellId is valid");
+//                    PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "cellId is valid");
 
                     if (!db.isMobileCellSaved(_registeredCell)) {
-                        PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "cellId is NOT saved, save it");
+//                        PPApplication.logE("MobileCellsListener.doAutoRegistration."+simSlot, "cellId is NOT saved, save it");
 
                         List<MobileCellsData> localCellsList = new ArrayList<>();
                         localCellsList.add(new MobileCellsData(_registeredCell,
@@ -627,7 +627,7 @@ class MobileCellsListener extends PhoneStateListener {
 //                else
 //                    PPApplication.logE("MobileCellsListener.doAutoRegistration", "cellId is NOT valid");
             } else if (notUsedMobileCellsNotificationEnabled) {
-                PPApplication.logE("MobileCellsScanner.doAutoRegistration."+simSlot, "not used mobile cell detection");
+//                PPApplication.logE("MobileCellsScanner.doAutoRegistration."+simSlot, "not used mobile cell detection");
 
                 //boolean showRunningNotification = false;
                 //boolean showPausedNotification = false;
@@ -637,7 +637,7 @@ class MobileCellsListener extends PhoneStateListener {
                     if (MobileCellsScanner.isValidCellId(_registeredCell)) {
 
                         if (!db.isMobileCellSaved(_registeredCell)) {
-                            PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "cellId is NOT saved, save it");
+//                            PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "cellId is NOT saved, save it");
 
                             // add new cell
                             List<MobileCellsData> localCellsList = new ArrayList<>();
@@ -650,18 +650,18 @@ class MobileCellsListener extends PhoneStateListener {
                         }
 
                         if (!showNotification) {
-                            if (PPApplication.logEnabled()) {
-                                PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "cellId is saved");
-                                PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "mobileCellsEventList=" + mobileCellsEventList);
-                            }
+//                            if (PPApplication.logEnabled()) {
+//                                PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "cellId is saved");
+//                                PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "mobileCellsEventList=" + mobileCellsEventList);
+//                            }
 
                             // it is not new cell
                             // test if registered cell is configured in running events
 
                             List<MobileCellsData> _cellsList = new ArrayList<>();
                             db.addMobileCellsToList(_cellsList, _registeredCell);
-                            if (!_cellsList.isEmpty())
-                                PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "_cellsList.get(0).doNotDetect="+_cellsList.get(0).doNotDetect);
+//                            if (!_cellsList.isEmpty())
+//                                PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "_cellsList.get(0).doNotDetect="+_cellsList.get(0).doNotDetect);
 
                             if ((!_cellsList.isEmpty()) && (!_cellsList.get(0).doNotDetect)) {
                                 boolean found = false;
@@ -669,10 +669,10 @@ class MobileCellsListener extends PhoneStateListener {
                                     //String configuredCells = db.getEventMobileCellsCells(eventId);
                                     String configuredCells = notUsedMobileCells.cells;
                                     if (!configuredCells.isEmpty()) {
-                                        if (PPApplication.logEnabled()) {
-                                            PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "configuredCells=" + configuredCells);
-                                            PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "_registeredCell=" + _registeredCell);
-                                        }
+//                                        if (PPApplication.logEnabled()) {
+//                                            PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "configuredCells=" + configuredCells);
+//                                            PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "_registeredCell=" + _registeredCell);
+//                                        }
                                         if (configuredCells.contains("|" + _registeredCell + "|")) {
                                             // cell is between others
                                             found = true;
@@ -874,7 +874,7 @@ class MobileCellsListener extends PhoneStateListener {
                         }
                     }
 
-                    PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "isShown="+isShown);
+//                    PPApplication.logE("%%%%% MobileCellsListener.doAutoRegistration."+simSlot, "isShown="+isShown);
 
                     if (!isShown) {
                         NotificationCompat.Builder mBuilder;
