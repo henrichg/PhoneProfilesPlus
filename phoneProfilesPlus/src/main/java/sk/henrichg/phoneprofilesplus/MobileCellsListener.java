@@ -163,9 +163,10 @@ class MobileCellsListener extends PhoneStateListener {
     private void getAllCellInfo() {
         if (telephonyManager != null) {
             List<CellInfo> cellInfo = null;
-            if (Permissions.checkLocation(context.getApplicationContext()))
+            if (Permissions.checkLocation(context.getApplicationContext())) {
                 cellInfo = telephonyManager.getAllCellInfo();
-//            PPApplication.logE("MobileCellsListener.getAllCellInfo.2."+simSlot, "cellInfo="+cellInfo);
+//                PPApplication.logE("MobileCellsListener.getAllCellInfo.2."+simSlot, "cellInfo="+cellInfo);
+            }
             getAllCellInfo(cellInfo);
         }
     }

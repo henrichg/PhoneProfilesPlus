@@ -5067,6 +5067,10 @@ public class PhoneProfilesService extends Service
                                 //registerWifiStateChangedBroadcastReceiver(true, false, true);
                                 registerWifiAPStateChangeBroadcastReceiver(true, dataWrapper, true);
                                 registerWifiScannerReceiver(true, dataWrapper, true);
+
+//                                if (WifiSSIDPreferenceX.forceRegister) {
+//                                }
+
                                 break;
                             case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
@@ -5079,6 +5083,10 @@ public class PhoneProfilesService extends Service
                                 //registerBluetoothConnectionBroadcastReceiver(true, false, false, true);
                                 registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, true);
                                 registerBluetoothScannerReceivers(true, dataWrapper, true);
+
+//                                if (BluetoothNamePreferenceX.forceRegister) {
+//                                }
+
                                 break;
                             case PPApplication.SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER:
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER");
@@ -5113,6 +5121,12 @@ public class PhoneProfilesService extends Service
                                 //MobileCellsScanner.forceStart = true;
                                 startMobileCellsScanner(true, false, dataWrapper, true, false);
                                 AvoidRescheduleReceiverWorker.enqueueWork();
+
+                                if (MobileCellsPreferenceX.forceStart) {
+                                    Intent refreshIntent = new Intent(PPApplication.PACKAGE_NAME + ".MobileCellsPreference_refreshListView");
+                                    LocalBroadcastManager.getInstance(appContext).sendBroadcast(refreshIntent);
+                                }
+
                                 break;
                             case PPApplication.SCANNER_RESTART_LOCATION_SCANNER:
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_RESTART_LOCATION_SCANNER");
@@ -5131,6 +5145,10 @@ public class PhoneProfilesService extends Service
                                 //MobileCellsScanner.forceStart = true;
                                 startOrientationScanner(true, false, dataWrapper, true);
                                 AvoidRescheduleReceiverWorker.enqueueWork();
+
+//                                if (EventsPrefsFragment.forceStart) {
+//                                }
+
                                 break;
                             case PPApplication.SCANNER_RESTART_TWILIGHT_SCANNER:
                                 //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "SCANNER_RESTART_TWILIGHT_SCANNER");
@@ -6710,6 +6728,7 @@ public class PhoneProfilesService extends Service
         }*/
 
         if (PPApplication.mobileCellsScanner == null) {
+//            Log.e("PhoneProfilesService.startMobileCellsScanner", "START");
             PPApplication.mobileCellsScanner = new MobileCellsScanner(getApplicationContext());
             PPApplication.mobileCellsScanner.connect();
         }
@@ -6720,6 +6739,7 @@ public class PhoneProfilesService extends Service
 
     private void stopMobileCellsScanner() {
         if (PPApplication.mobileCellsScanner != null) {
+//            Log.e("PhoneProfilesService.stopMobileCellsScanner", "STOP");
             PPApplication.mobileCellsScanner.disconnect();
             PPApplication.mobileCellsScanner = null;
         }
