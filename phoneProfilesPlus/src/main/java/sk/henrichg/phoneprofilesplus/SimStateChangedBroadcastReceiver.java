@@ -79,6 +79,9 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.sleep(1000);
                 PhoneProfilesService.registerPhoneCallsListener(true, appContext);
 
+                PPApplication.restartMobileCellsScanner(appContext);
+
+
             } catch (Exception e) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                 PPApplication.recordException(e);
