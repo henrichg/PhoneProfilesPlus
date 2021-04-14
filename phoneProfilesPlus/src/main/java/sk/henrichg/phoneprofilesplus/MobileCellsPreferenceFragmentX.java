@@ -358,19 +358,35 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             }
         });
 
-        TelephonyManager telephonyManager = (TelephonyManager)prefContext.getSystemService(Context.TELEPHONY_SERVICE);
-        if (telephonyManager != null) {
-            if ((Build.VERSION.SDK_INT >= 26) && (telephonyManager.getPhoneCount() > 1)) {
-                RelativeLayout connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_simDefault);
+        boolean sim1Exists;
+        boolean sim2Exists;
+        synchronized (PPApplication.simCardsMutext) {
+            sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
+            sim2Exists = sim1Exists;
+            sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+            sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+        }
+
+        RelativeLayout connectedCellRelLa;
+        if (Build.VERSION.SDK_INT >= 26) {
+            if (!sim1Exists) {
+                connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_sim1);
                 connectedCellRelLa.setVisibility(View.GONE);
             }
-            else {
-                RelativeLayout connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_sim1);
-                connectedCellRelLa.setVisibility(View.GONE);
-
+            if (!sim2Exists) {
                 connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_sim2);
                 connectedCellRelLa.setVisibility(View.GONE);
             }
+
+            connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_simDefault);
+            connectedCellRelLa.setVisibility(View.GONE);
+        }
+        else {
+            connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_sim1);
+            connectedCellRelLa.setVisibility(View.GONE);
+
+            connectedCellRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_reLa1_sim2);
+            connectedCellRelLa.setVisibility(View.GONE);
         }
 
         locationSystemSettingsRelLa = view.findViewById(R.id.mobile_cells_pref_dlg_locationSystemSettingsRelLa);
@@ -507,18 +523,18 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             boolean _registeredCellInTableDefault;
             boolean _registeredCellInValueDefault;
 
-            int simCount = 1;
+            boolean sim1Exists;
+            boolean sim2Exists;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
 
-                TelephonyManager telephonyManager = (TelephonyManager)prefContext.getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null) {
-                    if (Build.VERSION.SDK_INT >= 26)
-                        simCount = telephonyManager.getPhoneCount();
-                    else
-                        simCount = 1;
+                synchronized (PPApplication.simCardsMutext) {
+                    sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
+                    sim2Exists = sim1Exists;
+                    sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                    sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
                 }
 
                 _cellName = cellName.getText().toString();
@@ -528,32 +544,36 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                 _value = preference.value;
                 _sortCellsBy = preference.sortCellsBy;
 
-                if (simCount > 1) {
-                    if (preference.registeredCellDataSIM1 != null) {
-                        _registeredCellDataSIM1 = new MobileCellsData(preference.registeredCellDataSIM1.cellId,
-                                preference.registeredCellDataSIM1.name,
-                                preference.registeredCellDataSIM1.connected,
-                                preference.registeredCellDataSIM1._new,
-                                preference.registeredCellDataSIM1.lastConnectedTime,
-                                preference.registeredCellDataSIM1.lastRunningEvents,
-                                preference.registeredCellDataSIM1.lastPausedEvents,
-                                preference.registeredCellDataSIM1.doNotDetect);
+                if (Build.VERSION.SDK_INT >= 26) {
+                    if (sim1Exists) {
+                        if (preference.registeredCellDataSIM1 != null) {
+                            _registeredCellDataSIM1 = new MobileCellsData(preference.registeredCellDataSIM1.cellId,
+                                    preference.registeredCellDataSIM1.name,
+                                    preference.registeredCellDataSIM1.connected,
+                                    preference.registeredCellDataSIM1._new,
+                                    preference.registeredCellDataSIM1.lastConnectedTime,
+                                    preference.registeredCellDataSIM1.lastRunningEvents,
+                                    preference.registeredCellDataSIM1.lastPausedEvents,
+                                    preference.registeredCellDataSIM1.doNotDetect);
+                        }
+                        _registeredCellInTableSIM1 = preference.registeredCellInTableSIM1;
+                        _registeredCellInValueSIM1 = preference.registeredCellInValueSIM1;
                     }
-                    _registeredCellInTableSIM1 = preference.registeredCellInTableSIM1;
-                    _registeredCellInValueSIM1 = preference.registeredCellInValueSIM1;
 
-                    if (preference.registeredCellDataSIM2 != null) {
-                        _registeredCellDataSIM2 = new MobileCellsData(preference.registeredCellDataSIM2.cellId,
-                                preference.registeredCellDataSIM2.name,
-                                preference.registeredCellDataSIM2.connected,
-                                preference.registeredCellDataSIM2._new,
-                                preference.registeredCellDataSIM2.lastConnectedTime,
-                                preference.registeredCellDataSIM2.lastRunningEvents,
-                                preference.registeredCellDataSIM2.lastPausedEvents,
-                                preference.registeredCellDataSIM2.doNotDetect);
+                    if (sim2Exists) {
+                        if (preference.registeredCellDataSIM2 != null) {
+                            _registeredCellDataSIM2 = new MobileCellsData(preference.registeredCellDataSIM2.cellId,
+                                    preference.registeredCellDataSIM2.name,
+                                    preference.registeredCellDataSIM2.connected,
+                                    preference.registeredCellDataSIM2._new,
+                                    preference.registeredCellDataSIM2.lastConnectedTime,
+                                    preference.registeredCellDataSIM2.lastRunningEvents,
+                                    preference.registeredCellDataSIM2.lastPausedEvents,
+                                    preference.registeredCellDataSIM2.doNotDetect);
+                        }
+                        _registeredCellInTableSIM2 = preference.registeredCellInTableSIM2;
+                        _registeredCellInValueSIM2 = preference.registeredCellInValueSIM2;
                     }
-                    _registeredCellInTableSIM2 = preference.registeredCellInTableSIM2;
-                    _registeredCellInValueSIM2 = preference.registeredCellInValueSIM2;
                 }
                 else {
                     if (preference.registeredCellDataDefault != null) {
@@ -614,52 +634,55 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
                         MobileCellsScanner scanner = PhoneProfilesService.getInstance().getMobileCellsScanner();
 
-                        if (simCount > 1) {
-                            int registeredCell = scanner.getRegisteredCell(1);
-                            long lastConnectedTime = scanner.getLastConnectedTime(1);
-                            for (MobileCellsData cell : _cellsList) {
-                                if (cell.cellId == registeredCell) {
-                                    cell.connected = true;
-                                    _registeredCellDataSIM1 = cell;
-                                    _registeredCellInTableSIM1 = true;
-                                    //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - found");
-                                    break;
+                        if (Build.VERSION.SDK_INT >= 26) {
+                            if (sim1Exists) {
+                                int registeredCell = scanner.getRegisteredCell(1);
+                                long lastConnectedTime = scanner.getLastConnectedTime(1);
+                                for (MobileCellsData cell : _cellsList) {
+                                    if (cell.cellId == registeredCell) {
+                                        cell.connected = true;
+                                        _registeredCellDataSIM1 = cell;
+                                        _registeredCellInTableSIM1 = true;
+                                        //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - found");
+                                        break;
+                                    }
+                                }
+                                if (!_registeredCellInTableSIM1 && MobileCellsScanner.isValidCellId(registeredCell)) {
+                                    //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - not found - add it to list");
+                                    synchronized (PPApplication.mobileCellsScannerMutex) {
+                                        _registeredCellDataSIM1 = new MobileCellsData(registeredCell,
+                                                _cellName, true, true,
+                                                lastConnectedTime,
+                                                MobileCellsScanner.lastRunningEventsNotOutside,
+                                                MobileCellsScanner.lastPausedEventsOutside,
+                                                false);
+                                        _cellsList.add(_registeredCellDataSIM1);
+                                    }
                                 }
                             }
-                            if (!_registeredCellInTableSIM1 && MobileCellsScanner.isValidCellId(registeredCell)) {
-                                //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - not found - add it to list");
-                                synchronized (PPApplication.mobileCellsScannerMutex) {
-                                    _registeredCellDataSIM1 = new MobileCellsData(registeredCell,
-                                            _cellName, true, true,
-                                            lastConnectedTime,
-                                            MobileCellsScanner.lastRunningEventsNotOutside,
-                                            MobileCellsScanner.lastPausedEventsOutside,
-                                            false);
-                                    _cellsList.add(_registeredCellDataSIM1);
+                            if (sim2Exists) {
+                                int registeredCell = scanner.getRegisteredCell(2);
+                                long lastConnectedTime = scanner.getLastConnectedTime(2);
+                                for (MobileCellsData cell : _cellsList) {
+                                    if (cell.cellId == registeredCell) {
+                                        cell.connected = true;
+                                        _registeredCellDataSIM2 = cell;
+                                        _registeredCellInTableSIM2 = true;
+                                        //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - found");
+                                        break;
+                                    }
                                 }
-                            }
-
-                            registeredCell = scanner.getRegisteredCell(2);
-                            lastConnectedTime = scanner.getLastConnectedTime(2);
-                            for (MobileCellsData cell : _cellsList) {
-                                if (cell.cellId == registeredCell) {
-                                    cell.connected = true;
-                                    _registeredCellDataSIM2 = cell;
-                                    _registeredCellInTableSIM2 = true;
-                                    //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - found");
-                                    break;
-                                }
-                            }
-                            if (!_registeredCellInTableSIM2 && MobileCellsScanner.isValidCellId(registeredCell)) {
-                                //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - not found - add it to list");
-                                synchronized (PPApplication.mobileCellsScannerMutex) {
-                                    _registeredCellDataSIM2 = new MobileCellsData(registeredCell,
-                                            _cellName, true, true,
-                                            lastConnectedTime,
-                                            MobileCellsScanner.lastRunningEventsNotOutside,
-                                            MobileCellsScanner.lastPausedEventsOutside,
-                                            false);
-                                    _cellsList.add(_registeredCellDataSIM2);
+                                if (!_registeredCellInTableSIM2 && MobileCellsScanner.isValidCellId(registeredCell)) {
+                                    //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add registered cell from scanner - not found - add it to list");
+                                    synchronized (PPApplication.mobileCellsScannerMutex) {
+                                        _registeredCellDataSIM2 = new MobileCellsData(registeredCell,
+                                                _cellName, true, true,
+                                                lastConnectedTime,
+                                                MobileCellsScanner.lastRunningEventsNotOutside,
+                                                MobileCellsScanner.lastPausedEventsOutside,
+                                                false);
+                                        _cellsList.add(_registeredCellDataSIM2);
+                                    }
                                 }
                             }
                         }
@@ -727,18 +750,22 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                             }
                         }
 
-                        if (simCount > 1) {
-                            if (_registeredCellDataSIM1 != null) {
-                                //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - registeredCellData.cellId="+registeredCellData.cellId);
-                                //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - cell="+cell);
-                                if (Integer.parseInt(cell) == _registeredCellDataSIM1.cellId)
-                                    _registeredCellInValueSIM1 = true;
+                        if (Build.VERSION.SDK_INT >= 26) {
+                            if (sim1Exists) {
+                                if (_registeredCellDataSIM1 != null) {
+                                    //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - registeredCellData.cellId="+registeredCellData.cellId);
+                                    //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - cell="+cell);
+                                    if (Integer.parseInt(cell) == _registeredCellDataSIM1.cellId)
+                                        _registeredCellInValueSIM1 = true;
+                                }
                             }
-                            if (_registeredCellDataSIM2 != null) {
-                                //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - registeredCellData.cellId="+registeredCellData.cellId);
-                                //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - cell="+cell);
-                                if (Integer.parseInt(cell) == _registeredCellDataSIM2.cellId)
-                                    _registeredCellInValueSIM2 = true;
+                            if (sim2Exists) {
+                                if (_registeredCellDataSIM2 != null) {
+                                    //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - registeredCellData.cellId="+registeredCellData.cellId);
+                                    //PPApplication.logE("MobileCellsPreferenceFragmentX.refreshListView", "add cells from preference value - cell="+cell);
+                                    if (Integer.parseInt(cell) == _registeredCellDataSIM2.cellId)
+                                        _registeredCellInValueSIM2 = true;
+                                }
                             }
                         } else {
                             if (_registeredCellDataDefault != null) {
@@ -828,32 +855,35 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     }
                 }
 
-                if (simCount > 1) {
-                    if (_registeredCellDataSIM1 != null) {
-                        preference.registeredCellDataSIM1 = new MobileCellsData(_registeredCellDataSIM1.cellId,
-                                _registeredCellDataSIM1.name,
-                                _registeredCellDataSIM1.connected,
-                                _registeredCellDataSIM1._new,
-                                _registeredCellDataSIM1.lastConnectedTime,
-                                _registeredCellDataSIM1.lastRunningEvents,
-                                _registeredCellDataSIM1.lastPausedEvents,
-                                _registeredCellDataSIM1.doNotDetect);
+                if (Build.VERSION.SDK_INT >= 26) {
+                    if (sim1Exists) {
+                        if (_registeredCellDataSIM1 != null) {
+                            preference.registeredCellDataSIM1 = new MobileCellsData(_registeredCellDataSIM1.cellId,
+                                    _registeredCellDataSIM1.name,
+                                    _registeredCellDataSIM1.connected,
+                                    _registeredCellDataSIM1._new,
+                                    _registeredCellDataSIM1.lastConnectedTime,
+                                    _registeredCellDataSIM1.lastRunningEvents,
+                                    _registeredCellDataSIM1.lastPausedEvents,
+                                    _registeredCellDataSIM1.doNotDetect);
+                        }
+                        preference.registeredCellInTableSIM1 = _registeredCellInTableSIM1;
+                        preference.registeredCellInValueSIM1 = _registeredCellInValueSIM1;
                     }
-                    preference.registeredCellInTableSIM1 = _registeredCellInTableSIM1;
-                    preference.registeredCellInValueSIM1 = _registeredCellInValueSIM1;
-
-                    if (_registeredCellDataSIM2 != null) {
-                        preference.registeredCellDataSIM2 = new MobileCellsData(_registeredCellDataSIM2.cellId,
-                                _registeredCellDataSIM2.name,
-                                _registeredCellDataSIM2.connected,
-                                _registeredCellDataSIM2._new,
-                                _registeredCellDataSIM2.lastConnectedTime,
-                                _registeredCellDataSIM2.lastRunningEvents,
-                                _registeredCellDataSIM2.lastPausedEvents,
-                                _registeredCellDataSIM2.doNotDetect);
+                    if (sim2Exists) {
+                        if (_registeredCellDataSIM2 != null) {
+                            preference.registeredCellDataSIM2 = new MobileCellsData(_registeredCellDataSIM2.cellId,
+                                    _registeredCellDataSIM2.name,
+                                    _registeredCellDataSIM2.connected,
+                                    _registeredCellDataSIM2._new,
+                                    _registeredCellDataSIM2.lastConnectedTime,
+                                    _registeredCellDataSIM2.lastRunningEvents,
+                                    _registeredCellDataSIM2.lastPausedEvents,
+                                    _registeredCellDataSIM2.doNotDetect);
+                        }
+                        preference.registeredCellInTableSIM2 = _registeredCellInTableSIM2;
+                        preference.registeredCellInValueSIM2 = _registeredCellInValueSIM2;
                     }
-                    preference.registeredCellInTableSIM2 = _registeredCellInTableSIM2;
-                    preference.registeredCellInValueSIM2 = _registeredCellInValueSIM2;
                 } else {
                     if (_registeredCellDataDefault != null) {
                         preference.registeredCellDataDefault = new MobileCellsData(_registeredCellDataDefault.cellId,
@@ -869,42 +899,45 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                     preference.registeredCellInValueDefault = _registeredCellInValueDefault;
                 }
 
-                if (simCount > 1) {
-                    String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim1) + " ";
-                    if (preference.registeredCellDataSIM1 != null) {
-                        if (!preference.registeredCellDataSIM1.name.isEmpty())
-                            connectedCellName = connectedCellName + preference.registeredCellDataSIM1.name + ", ";
-                        String cellFlags = "";
-                        if (preference.registeredCellDataSIM1._new)
-                            cellFlags = cellFlags + "N";
-                        //if (registeredCellData.connected)
-                        //    cellFlags = cellFlags + "C";
-                        if (!cellFlags.isEmpty())
-                            connectedCellName = connectedCellName + "(" + cellFlags + ") ";
-                        connectedCellName = connectedCellName + preference.registeredCellDataSIM1.cellId;
+                if (Build.VERSION.SDK_INT >= 26) {
+                    if (sim1Exists) {
+                        String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim1) + " ";
+                        if (preference.registeredCellDataSIM1 != null) {
+                            if (!preference.registeredCellDataSIM1.name.isEmpty())
+                                connectedCellName = connectedCellName + preference.registeredCellDataSIM1.name + ", ";
+                            String cellFlags = "";
+                            if (preference.registeredCellDataSIM1._new)
+                                cellFlags = cellFlags + "N";
+                            //if (registeredCellData.connected)
+                            //    cellFlags = cellFlags + "C";
+                            if (!cellFlags.isEmpty())
+                                connectedCellName = connectedCellName + "(" + cellFlags + ") ";
+                            connectedCellName = connectedCellName + preference.registeredCellDataSIM1.cellId;
+                        }
+                        connectedCellSIM1.setText(connectedCellName);
+                        GlobalGUIRoutines.setImageButtonEnabled((preference.registeredCellDataSIM1 != null) &&
+                                        !(preference.registeredCellInTableSIM1 && preference.registeredCellInValueSIM1),
+                                addCellButtonSIM1, prefContext);
                     }
-                    connectedCellSIM1.setText(connectedCellName);
-                    GlobalGUIRoutines.setImageButtonEnabled((preference.registeredCellDataSIM1 != null) &&
-                                    !(preference.registeredCellInTableSIM1 && preference.registeredCellInValueSIM1),
-                            addCellButtonSIM1, prefContext);
-
-                    connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim2) + " ";
-                    if (preference.registeredCellDataSIM2 != null) {
-                        if (!preference.registeredCellDataSIM2.name.isEmpty())
-                            connectedCellName = connectedCellName + preference.registeredCellDataSIM2.name + ", ";
-                        String cellFlags = "";
-                        if (preference.registeredCellDataSIM2._new)
-                            cellFlags = cellFlags + "N";
-                        //if (registeredCellData.connected)
-                        //    cellFlags = cellFlags + "C";
-                        if (!cellFlags.isEmpty())
-                            connectedCellName = connectedCellName + "(" + cellFlags + ") ";
-                        connectedCellName = connectedCellName + preference.registeredCellDataSIM2.cellId;
+                    if (sim2Exists) {
+                        String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell_sim2) + " ";
+                        if (preference.registeredCellDataSIM2 != null) {
+                            if (!preference.registeredCellDataSIM2.name.isEmpty())
+                                connectedCellName = connectedCellName + preference.registeredCellDataSIM2.name + ", ";
+                            String cellFlags = "";
+                            if (preference.registeredCellDataSIM2._new)
+                                cellFlags = cellFlags + "N";
+                            //if (registeredCellData.connected)
+                            //    cellFlags = cellFlags + "C";
+                            if (!cellFlags.isEmpty())
+                                connectedCellName = connectedCellName + "(" + cellFlags + ") ";
+                            connectedCellName = connectedCellName + preference.registeredCellDataSIM2.cellId;
+                        }
+                        connectedCellSIM2.setText(connectedCellName);
+                        GlobalGUIRoutines.setImageButtonEnabled((preference.registeredCellDataSIM2 != null) &&
+                                        !(preference.registeredCellInTableSIM2 && preference.registeredCellInValueSIM2),
+                                addCellButtonSIM2, prefContext);
                     }
-                    connectedCellSIM2.setText(connectedCellName);
-                    GlobalGUIRoutines.setImageButtonEnabled((preference.registeredCellDataSIM2 != null) &&
-                                    !(preference.registeredCellInTableSIM2 && preference.registeredCellInValueSIM2),
-                            addCellButtonSIM2, prefContext);
                 } else {
                     String connectedCellName = prefContext.getString(R.string.mobile_cells_pref_dlg_connected_cell) + " ";
                     if (preference.registeredCellDataDefault != null) {

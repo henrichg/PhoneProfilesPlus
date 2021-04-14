@@ -273,7 +273,7 @@ class MobileCellsScanner {
     }
 
     static boolean isValidCellId(int cid) {
-        return (cid != -1) /*&& (cid != 0) && (cid != 1)*/ && (cid != Integer.MAX_VALUE);
+        return (cid != -1) && (cid != 0) /*&& (cid != 1)*/ && (cid != Integer.MAX_VALUE);
     }
 
     static void startAutoRegistration(Context context, boolean forConnect) {
