@@ -384,26 +384,26 @@ class EventPreferencesMobileCells extends EventPreferences {
                     }
 
                     showPreferences = true;
-                    preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
-                    if (preference != null)
-                        preference.setEnabled(enabled && sim1Exists && sim2Exists);
+                    //preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
+                    //if (preference != null)
+                    //    preference.setEnabled(enabled && sim1Exists && sim2Exists);
                     preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD);
                     if (preference != null)
                         preference.setEnabled(enabled && sim1Exists && sim2Exists);
                 }
                 else {
-                    preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
-                    if (preference != null)
-                        preference.setEnabled(false);
+                    //preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
+                    //if (preference != null)
+                    //    preference.setEnabled(false);
                     preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD);
                     if (preference != null)
                         preference.setEnabled(false);
                 }
             }
             if (!showPreferences) {
-                preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
-                if (preference != null)
-                    preference.setVisible(false);
+                //preference = prefMng.findPreference("eventMobileCellsDualSIMInfo");
+                //if (preference != null)
+                //    preference.setVisible(false);
                 preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_FOR_SIM_CARD);
                 if (preference != null)
                     preference.setVisible(false);
