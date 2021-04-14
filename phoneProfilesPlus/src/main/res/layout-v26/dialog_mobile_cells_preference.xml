@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_cells_pref_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -78,7 +79,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="3dp" >
+                android:layout_marginTop="3dp"
+                tools:ignore="InconsistentLayout">
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/mobile_cells_pref_dlg_addCellButton_sim1"
@@ -107,7 +109,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="3dp"
-                android:layout_marginBottom="10dp" >
+                android:layout_marginBottom="10dp"
+                tools:ignore="InconsistentLayout" >
 
                 <androidx.appcompat.widget.AppCompatImageButton
                     android:id="@+id/mobile_cells_pref_dlg_addCellButton_sim2"

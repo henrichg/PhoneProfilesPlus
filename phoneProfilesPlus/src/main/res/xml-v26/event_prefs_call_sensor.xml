@@ -57,13 +57,6 @@
         app:dependency="eventCallEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
-        app:key="eventCallDualSIMInfo"
-        app:title="@string/event_preferences_call_forSimCard"
-        app:summary="@string/event_preferences_call_dualSIM_summary"
-        app:dependency="eventCallEnabled"
-        app:widgetLayout="@layout/widget_info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/event_preferences_call_forSimCard"
         app:summary="@string/event_preferences_forSimCard_bothCards"

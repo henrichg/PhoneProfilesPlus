@@ -11,7 +11,7 @@ import android.telephony.TelephonyManager;
 
 public class PhoneCallsListener extends PhoneStateListener {
 
-    final SubscriptionInfo subscriptionInfo;
+    //final SubscriptionInfo subscriptionInfo;
 
     final Context savedContext;
 
@@ -36,8 +36,9 @@ public class PhoneCallsListener extends PhoneStateListener {
     static final int LINKMODE_UNLINK = 2;
 
 
-    PhoneCallsListener(SubscriptionInfo subscriptionInfo, Context context) {
-        this.subscriptionInfo = subscriptionInfo;
+    PhoneCallsListener(@SuppressWarnings("unused") SubscriptionInfo subscriptionInfo,
+                       Context context) {
+        //this.subscriptionInfo = subscriptionInfo;
         this.savedContext = context.getApplicationContext();
     }
 

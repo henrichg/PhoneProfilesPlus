@@ -43,18 +43,19 @@ class MobileCellsListener extends PhoneStateListener {
     private final TelephonyManager telephonyManager;
     //private final SubscriptionInfo subscriptionInfo;
 
-    private int simSlot = 0;
+    //private int simSlot = 0;
     int registeredCell = Integer.MAX_VALUE;
     long lastConnectedTime = 0;
 
     final MobileCellsScanner scanner;
 
-    MobileCellsListener(SubscriptionInfo subscriptionInfo, Context context,
+    MobileCellsListener(@SuppressWarnings("unused") SubscriptionInfo subscriptionInfo,
+                        Context context,
                         MobileCellsScanner scanner, TelephonyManager telephonyManager) {
 //        PPApplication.logE("MobileCellsListener.constructor", "xxx");
         //this.subscriptionInfo = subscriptionInfo;
-        if (subscriptionInfo != null)
-            simSlot = subscriptionInfo.getSimSlotIndex()+1;
+        //if (subscriptionInfo != null)
+        //    simSlot = subscriptionInfo.getSimSlotIndex()+1;
         this.context = context;
         this.scanner = scanner;
         this.telephonyManager = telephonyManager;
