@@ -2972,13 +2972,14 @@ public class PPApplication extends Application
     }
     */
 
-    public static String getJavaCommandFile(Class<?> mainClass, String name, Context context, Object cmdParam) {
+    public static String getJavaCommandFile(Class<?> mainClass, String fileName, Context context, Object cmdParam) {
         try {
             String cmd =
                     "#!/system/bin/sh\n" +
                             "base=/system\n" +
                             "export CLASSPATH=" + context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0).applicationInfo.sourceDir + "\n" +
                             "exec app_process $base/bin " + mainClass.getName() + " " + cmdParam + " \"$@\"\n";
+            //Log.e("PPApplication.getJavaCommandFile", "cmd="+cmd);
 
             /*String dir = context.getPackageManager().getApplicationInfo(context.PPApplication.PACKAGE_NAME, 0).dataDir;
             File fDir = new File(dir);
@@ -2987,11 +2988,11 @@ public class PPApplication extends Application
             out.write(cmd.getBytes());
             out.close();*/
 
-            FileOutputStream fos = context.getApplicationContext().openFileOutput(name, Context.MODE_PRIVATE);
+            FileOutputStream fos = context.getApplicationContext().openFileOutput(fileName, Context.MODE_PRIVATE);
             fos.write(cmd.getBytes());
             fos.close();
 
-            File file = context.getFileStreamPath(name);
+            File file = context.getFileStreamPath(fileName);
             if (!file.setExecutable(true))
                 return null;
 
