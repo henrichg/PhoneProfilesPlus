@@ -1,37 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/popup_window_root"
+    android:id="@+id/popup_window_root_linla"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="10dp"
-    android:paddingEnd="2dp"
-    android:paddingTop="0dp"
-    android:paddingBottom="5dp">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/popup_window_title"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/popup_window_root"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="Title"
-        tools:ignore="HardcodedText" />
+        android:paddingStart="10dp"
+        android:paddingEnd="4dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="5dp">
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/popup_window_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:padding="5dp"
-        android:layout_gravity="end"
-        android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_button_close"
-        app:textAllCaps="true" />
+        <TextView
+            android:id="@+id/popup_window_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Title"
+            tools:ignore="HardcodedText" />
 
-</RelativeLayout>
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/popup_window_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:layout_gravity="end"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_button_close"
+            app:textAllCaps="true" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/profile_pref_dlg_listview_titleBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="?attr/dialogDivider" />
+
+</LinearLayout>
+
