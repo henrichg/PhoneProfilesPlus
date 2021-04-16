@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.DeadSystemException;
 import android.provider.Settings;
 
 import androidx.annotation.NonNull;
@@ -109,7 +110,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                 // https://stackoverflow.com/a/55999687/2863059
                 ignore = true;
             }
-            /*if (Build.VERSION.SDK_INT >= 24) {
+            //if (Build.VERSION.SDK_INT >= 24) {
                 if (e instanceof DeadSystemException) {
                     // ignore these exceptions
                     // these are from dead of system for example:
@@ -118,7 +119,7 @@ class TopExceptionHandler implements Thread.UncaughtExceptionHandler {
                     // java.lang.RuntimeException: android.os.DeadSystemException
                     ignore = true;
                 }
-            }*/
+            //}
 
             if (!ignore) {
                 //Delegates to Android's error handling
