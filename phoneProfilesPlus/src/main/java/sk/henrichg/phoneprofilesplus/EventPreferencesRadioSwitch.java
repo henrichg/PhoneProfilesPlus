@@ -11,8 +11,6 @@ import android.net.NetworkCapabilities;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
-import android.telephony.SubscriptionInfo;
-import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 
 import androidx.preference.ListPreference;
@@ -20,19 +18,13 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
-import java.util.List;
-//import android.preference.CheckBoxPreference;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.PreferenceManager;
-
 class EventPreferencesRadioSwitch extends EventPreferences {
 
     int _wifi;
     int _bluetooth;
     int _mobileData;
-    int _mobileDataSIM1;
-    int _mobileDataSIM2;
+    //int _mobileDataSIM1;
+    //int _mobileDataSIM2;
     int _gps;
     int _nfc;
     int _airplaneMode;
@@ -41,8 +33,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
     private static final String PREF_EVENT_RADIO_SWITCH_WIFI = "eventRadioSwitchWifi";
     private static final String PREF_EVENT_RADIO_SWITCH_BLUETOOTH = "eventRadioSwitchBluetooth";
     private static final String PREF_EVENT_RADIO_SWITCH_MOBILE_DATA = "eventRadioSwitchMobileData";
-    private static final String PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1 = "eventRadioSwitchMobileDataSIM1";
-    private static final String PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2 = "eventRadioSwitchMobileDataSIM2";
+    //private static final String PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1 = "eventRadioSwitchMobileDataSIM1";
+    //private static final String PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2 = "eventRadioSwitchMobileDataSIM2";
     private static final String PREF_EVENT_RADIO_SWITCH_GPS = "eventRadioSwitchGPS";
     private static final String PREF_EVENT_RADIO_SWITCH_NFC = "eventRadioSwitchNFC";
     private static final String PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE = "eventRadioSwitchAirplaneMode";
@@ -56,9 +48,9 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 int mobileData,
                                 int gps,
                                 int nfc,
-                                int airplaneMode,
+                                int airplaneMode/*,
                                 int mobileDataSIM1,
-                                int mobileDataSIM2)
+                                int mobileDataSIM2*/)
     {
         super(event, enabled);
 
@@ -68,8 +60,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         this._gps = gps;
         this._nfc = nfc;
         this._airplaneMode = airplaneMode;
-        this._mobileDataSIM1 = mobileDataSIM1;
-        this._mobileDataSIM2 = mobileDataSIM2;
+        //this._mobileDataSIM1 = mobileDataSIM1;
+        //this._mobileDataSIM2 = mobileDataSIM2;
     }
 
     void copyPreferences(Event fromEvent)
@@ -81,8 +73,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         this._gps = fromEvent._eventPreferencesRadioSwitch._gps;
         this._nfc = fromEvent._eventPreferencesRadioSwitch._nfc;
         this._airplaneMode = fromEvent._eventPreferencesRadioSwitch._airplaneMode;
-        this._mobileDataSIM1 = fromEvent._eventPreferencesRadioSwitch._mobileDataSIM1;
-        this._mobileDataSIM2 = fromEvent._eventPreferencesRadioSwitch._mobileDataSIM2;
+        //this._mobileDataSIM1 = fromEvent._eventPreferencesRadioSwitch._mobileDataSIM1;
+        //this._mobileDataSIM2 = fromEvent._eventPreferencesRadioSwitch._mobileDataSIM2;
         this.setSensorPassed(fromEvent._eventPreferencesRadioSwitch.getSensorPassed());
     }
 
@@ -96,8 +88,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         editor.putString(PREF_EVENT_RADIO_SWITCH_GPS, String.valueOf(this._gps));
         editor.putString(PREF_EVENT_RADIO_SWITCH_NFC, String.valueOf(this._nfc));
         editor.putString(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE, String.valueOf(this._airplaneMode));
-        editor.putString(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1, String.valueOf(this._mobileDataSIM1));
-        editor.putString(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2, String.valueOf(this._mobileDataSIM2));
+        //editor.putString(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1, String.valueOf(this._mobileDataSIM1));
+        //editor.putString(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2, String.valueOf(this._mobileDataSIM2));
         editor.apply();
     }
 
@@ -110,8 +102,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         this._gps = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_GPS, "0"));
         this._nfc = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_NFC, "0"));
         this._airplaneMode = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE, "0"));
-        this._mobileDataSIM1 = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1, "0"));
-        this._mobileDataSIM2 = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2, "0"));
+        //this._mobileDataSIM1 = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1, "0"));
+        //this._mobileDataSIM2 = Integer.parseInt(preferences.getString(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2, "0"));
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
@@ -154,7 +146,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     descr = descr + "<b>" + fields[this._mobileData] + "</b>";
                     _addBullet = true;
                 }
-                if (Build.VERSION.SDK_INT >= 26) {
+/*                if (Build.VERSION.SDK_INT >= 26) {
                     boolean hasSIMCard = false;
                     //if (Build.VERSION.SDK_INT >= 26) {
                         final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -190,6 +182,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         }
                     }
                 }
+ */
 
                 if (this._gps != 0) {
                     if (_addBullet)
@@ -295,7 +288,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 }
             }
         }
-        boolean hasFeature = false;
+
+/*        boolean hasFeature = false;
         boolean hasSIMCard = false;
         if (Build.VERSION.SDK_INT >= 26) {
             if (key.equals(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1) ||
@@ -359,6 +353,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 }
             }
         }
+ */
 
         Event event = new Event();
         event.createEventPreferences();
@@ -384,7 +379,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
             int index = preference.findIndexOfValue(preference.getValue());
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, true, !isRunnable, false);
         }
-        if (Build.VERSION.SDK_INT >= 26) {
+/*        if (Build.VERSION.SDK_INT >= 26) {
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
@@ -405,7 +400,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     }
                 }
             }
-        }
+        }*/
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
         if (preference != null) {
             if (!PPApplication.HAS_FEATURE_LOCATION_GPS)
@@ -436,8 +431,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         if (key.equals(PREF_EVENT_RADIO_SWITCH_WIFI) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_BLUETOOTH) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA) ||
-            key.equals(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1) ||
-            key.equals(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2) ||
+            //key.equals(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM1) ||
+            //key.equals(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_GPS) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_NFC) ||
             key.equals(PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE))
@@ -452,7 +447,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_WIFI, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_BLUETOOTH, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_MOBILE_DATA, preferences, context);
-        if (Build.VERSION.SDK_INT >= 26) {
+/*        if (Build.VERSION.SDK_INT >= 26) {
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
                 int phoneCount = telephonyManager.getPhoneCount();
@@ -461,7 +456,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_MOBILE_DATA_SIM2, preferences, context);
                 }
             }
-        }
+        }*/
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_GPS, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_NFC, preferences, context);
         setSummary(prefMng, PREF_EVENT_RADIO_SWITCH_AIRPLANE_MODE, preferences, context);
@@ -484,8 +479,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_RADIO_SWITCH_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesRadioSwitch tmp = new EventPreferencesRadioSwitch(this._event, this._enabled,
-                    this._wifi, this._bluetooth, this._mobileData, this._gps, this._nfc, this._airplaneMode,
-                    this._mobileDataSIM1, this._mobileDataSIM2);
+                    this._wifi, this._bluetooth, this._mobileData, this._gps, this._nfc, this._airplaneMode/*,
+                    this._mobileDataSIM1, this._mobileDataSIM2*/);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -527,7 +522,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 if (phoneCount > 1) {
                     runnable = runnable &&
                             ((_wifi != 0) || (_bluetooth != 0) || (_mobileData != 0) || (_gps != 0) ||
-                             (_nfc != 0) || (_airplaneMode != 0) || (_mobileDataSIM1 != 0) || (_mobileDataSIM2 != 0));
+                             (_nfc != 0) || (_airplaneMode != 0) /*|| (_mobileDataSIM1 != 0) || (_mobileDataSIM2 != 0)*/);
                     ok = true;
                 }
             }
@@ -555,7 +550,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_MOBILE_DATA);
         if (preference != null)
             preference.setEnabled(enabled);
-        if (Build.VERSION.SDK_INT >= 26) {
+/*        if (Build.VERSION.SDK_INT >= 26) {
             boolean showPreferences = false;
             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
@@ -599,6 +594,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     preference.setVisible(false);
             }
         }
+ */
 
         preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_GPS);
         if (preference != null)
@@ -779,7 +775,8 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     if (_mobileData == 4)
                         eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
                 }
-                if ((Build.VERSION.SDK_INT >= 26) && PPApplication.HAS_FEATURE_TELEPHONY) {
+
+/*                if ((Build.VERSION.SDK_INT >= 26) && PPApplication.HAS_FEATURE_TELEPHONY) {
                     final TelephonyManager telephonyManager = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
                     if (telephonyManager != null) {
                         int phoneCount = telephonyManager.getPhoneCount();
@@ -808,7 +805,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                             PPApplication.recordException(e);
                                         }
                                         if (subscriptionList != null) {
-                                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                                            for (int i = 0; i < subscriptionList.size(); i++) {
                                                 // Get the active subscription ID for a given SIM card.
                                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                                 if (subscriptionInfo != null) {
@@ -893,7 +890,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                             PPApplication.recordException(e);
                                         }
                                         if (subscriptionList != null) {
-                                            for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                                            for (int i = 0; i < subscriptionList.size(); i++) {
                                                 // Get the active subscription ID for a given SIM card.
                                                 SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
                                                 if (subscriptionInfo != null) {
@@ -957,7 +954,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         }
                     }
                 }
-
+*/
                 if ((_gps != 0) && PPApplication.HAS_FEATURE_LOCATION_GPS) {
 
                     boolean enabled;
