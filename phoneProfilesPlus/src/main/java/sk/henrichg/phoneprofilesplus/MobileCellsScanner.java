@@ -105,7 +105,7 @@ class MobileCellsScanner {
 //                    PPApplication.logE("MobileCellsScanner.constructor", "mSubscriptionManager == null");
             }
             else {
-                telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);;
+                telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
                 mobileCellsListenerDefault = new MobileCellsListener(null, context, this, telephonyManagerDefault);
                 PPApplication.logE("MobileCellsScanner.constructor", "default telephone manager");
             }

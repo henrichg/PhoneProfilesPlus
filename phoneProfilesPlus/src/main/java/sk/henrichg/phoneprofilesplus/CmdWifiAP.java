@@ -65,6 +65,51 @@ public class CmdWifiAP {
         }
     }
 
+    /*
+    static boolean setWifiAP30(boolean enable, boolean doNotChangeWifi, Context context, String profileName) {
+        PPApplication.logE("CmdWifiAP30.setWifiAP", "START enable="+enable);
+        PPApplication.logE("CmdWifiAP30.setWifiAP", "START doNotChangeWifi="+doNotChangeWifi);
+        final String packageName = PPApplication.PACKAGE_NAME;
+        try {
+            //IConnectivityManager connectivityAdapter = IConnectivityManager.Stub.asInterface(ServiceManager.getService("connectivity"));  // service list | grep IConnectivityManager
+            //PPApplication.logE("CmdWifiAP.setWifiAP", "connectivityAdapter="+connectivityAdapter);
+            if (enable) {
+                if (!doNotChangeWifi) {
+                    IWifiManager wifiAdapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
+                    PPApplication.logE("CmdWifiAP.setWifiAP30", "wifiAdapter="+wifiAdapter);
+                    int wifiState = wifiAdapter.getWifiEnabledState();
+                    boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                    PPApplication.logE("CmdWifiAP.setWifiAP30", "isWifiEnabled="+isWifiEnabled);
+                    if (isWifiEnabled) {
+                        PPApplication.logE("[WIFI_ENABLED] CmdWifiAP.setWifiAP30", "false");
+                        wifiAdapter.setWifiEnabled(packageName, false);
+                    }
+                }
+
+
+            } else {
+            }
+
+            PPApplication.logE("CmdWifiAP.setWifiAP30", "END=");
+            return true;
+//        } catch (java.lang.SecurityException ee) {
+//            //Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(ee));
+//            //PPApplication.logToCrashlytics("E/CmdWifiAP.setWifiAP: " + Log.getStackTraceString(ee));
+//            PPApplication.recordException(ee);
+//            PPApplication.logE("CmdWifiAP.setWifiAP", Log.getStackTraceString(ee));
+//            return false;
+        } catch (Throwable e) {
+            if (context != null) {
+                //Log.e("CmdWifiAP.setWifiAP", Log.getStackTraceString(e));
+                //PPApplication.recordException(e);
+                PPApplication.logE("CmdWifiAP.setWifiAP30", Log.getStackTraceString(e));
+                ActivateProfileHelper.showError(context, profileName, Profile.PARAMETER_TYPE_WIFIAP);
+            }
+            return false;
+        }
+    }
+    */
+
     static boolean isEnabled() {
         //PPApplication.logE("CmdWifiAP.isEnabled", "xxx");
         try {

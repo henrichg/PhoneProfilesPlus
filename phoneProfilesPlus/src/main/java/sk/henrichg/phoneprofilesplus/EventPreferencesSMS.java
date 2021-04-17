@@ -170,7 +170,7 @@ class EventPreferencesSMS extends EventPreferences {
 
                     if (Build.VERSION.SDK_INT >= 26) {
                         boolean hasSIMCard = false;
-                        if (Build.VERSION.SDK_INT >= 26) {
+                        //if (Build.VERSION.SDK_INT >= 26) {
                             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                             if (telephonyManager != null) {
                                 int phoneCount = telephonyManager.getPhoneCount();
@@ -184,7 +184,7 @@ class EventPreferencesSMS extends EventPreferences {
                                     hasSIMCard = simExists;
                                 }
                             }
-                        }
+                        //}
                         if (hasSIMCard) {
                             descr = descr + " • " + context.getString(R.string.event_preferences_sms_forSimCard);
                             String[] forSimCard = context.getResources().getStringArray(R.array.eventSMSForSimCardArray);

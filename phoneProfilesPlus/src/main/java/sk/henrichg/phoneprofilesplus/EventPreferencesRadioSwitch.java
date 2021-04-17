@@ -156,7 +156,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                 }
                 if (Build.VERSION.SDK_INT >= 26) {
                     boolean hasSIMCard = false;
-                    if (Build.VERSION.SDK_INT >= 26) {
+                    //if (Build.VERSION.SDK_INT >= 26) {
                         final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                         if (telephonyManager != null) {
                             int phoneCount = telephonyManager.getPhoneCount();
@@ -170,7 +170,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                 hasSIMCard = simExists;
                             }
                         }
-                    }
+                    //}
                     if (hasSIMCard) {
                         if (this._mobileDataSIM1 != 0) {
                             if (_addBullet)
