@@ -124,7 +124,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
@@ -232,7 +232,7 @@ public class PPApplication extends Application
                                                 //+"|LocationScanner"
                                                 //+"|LocationSensorWorker"
 
-                                                //+"|CheckCriticalGitHubReleasesBroadcastReceiver"
+                                                +"|CheckCriticalGitHubReleasesBroadcastReceiver"
                                                 //+"|CheckGitHubReleasesBroadcastReceiver"
                                                 //+"|DonationBroadcastReceiver"
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
@@ -259,8 +259,8 @@ public class PPApplication extends Application
                                                 //+"|EventPreferencesCall.doHandleEvent"
                                                 //+"|EventPreferencesSMS"
 
-                                                //+"|MobileCellsScanner"
-                                                //+"|MobileCellsListener"
+                                                +"|MobileCellsScanner"
+                                                +"|MobileCellsListener"
                                                 //+"|MobileCellsPreferenceFragmentX"
                                                 //+"|EventPreferencesMobileCells"
                                                 ;

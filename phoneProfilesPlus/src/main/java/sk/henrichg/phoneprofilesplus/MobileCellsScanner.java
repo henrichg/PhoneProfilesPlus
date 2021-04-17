@@ -53,9 +53,9 @@ class MobileCellsScanner {
         //PPApplication.logE("MobileCellsScanner.constructor", "xxx");
         this.context = context;
 
-        telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-        if (telephonyManagerDefault != null) {
-            int simCount = telephonyManagerDefault.getPhoneCount();
+        TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManager != null) {
+            int simCount = telephonyManager.getPhoneCount();
             if ((Build.VERSION.SDK_INT >= 26) && (simCount > 1)) {
                 SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
                 //SubscriptionManager.from(appContext);
@@ -81,7 +81,7 @@ class MobileCellsScanner {
                                     if (telephonyManagerSIM1 == null) {
 //                                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionId=" + subscriptionId);
                                         //noinspection ConstantConditions
-                                        telephonyManagerSIM1 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
+                                        telephonyManagerSIM1 = telephonyManager.createForSubscriptionId(subscriptionId);
                                         mobileCellsListenerSIM1 = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerSIM1);
                                     }
                                 }
@@ -89,7 +89,7 @@ class MobileCellsScanner {
                                     if (telephonyManagerSIM2 == null) {
 //                                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionId=" + subscriptionId);
                                         //noinspection ConstantConditions
-                                        telephonyManagerSIM2 = telephonyManagerDefault.createForSubscriptionId(subscriptionId);
+                                        telephonyManagerSIM2 = telephonyManager.createForSubscriptionId(subscriptionId);
                                         mobileCellsListenerSIM2 = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerSIM2);
                                     }
                                 }
@@ -105,7 +105,48 @@ class MobileCellsScanner {
 //                    PPApplication.logE("MobileCellsScanner.constructor", "mSubscriptionManager == null");
             }
             else {
-                mobileCellsListenerDefault = new MobileCellsListener(null, context, this, telephonyManagerDefault);
+                //mobileCellsListenerDefault = new MobileCellsListener(null, context, this, telephonyManagerDefault);
+                PPApplication.logE("MobileCellsScanner.constructor", "default telephone manager");
+
+
+                SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                //SubscriptionManager.from(appContext);
+                if (mSubscriptionManager != null) {
+                    PPApplication.logE("MobileCellsScanner.constructor", "mSubscriptionManager != null");
+                    List<SubscriptionInfo> subscriptionList = null;
+                    try {
+                        // Loop through the subscription list i.e. SIM list.
+                        subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionList=" + subscriptionList);
+                    } catch (SecurityException e) {
+                        //PPApplication.recordException(e);
+                    }
+                    if (subscriptionList != null) {
+                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionList.size()=" + subscriptionList.size());
+                        for (int i = 0; i < subscriptionList.size(); i++) {
+                            // Get the active subscription ID for a given SIM card.
+                            SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                            PPApplication.logE("MobileCellsScanner.constructor", "subscriptionInfo=" + subscriptionInfo);
+                            if (subscriptionInfo != null) {
+                                int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                if (telephonyManagerDefault == null) {
+                                    PPApplication.logE("MobileCellsScanner.constructor", "subscriptionId=" + subscriptionId);
+                                    //noinspection ConstantConditions
+                                    telephonyManagerDefault = telephonyManager.createForSubscriptionId(subscriptionId);
+                                    mobileCellsListenerDefault = new MobileCellsListener(subscriptionInfo, context, this, telephonyManagerDefault);
+                                    break;
+                                }
+                            }
+                            else
+                                PPApplication.logE("MobileCellsScanner.constructor", "subscriptionInfo == null");
+                        }
+                    }
+                    else
+                        PPApplication.logE("MobileCellsScanner.constructor", "subscriptionList == null");
+                }
+                else
+                    PPApplication.logE("MobileCellsScanner.constructor", "mSubscriptionManager == null");
+
             }
         }
 
@@ -126,52 +167,35 @@ class MobileCellsScanner {
             PPApplication.logE("MobileCellsScanner.connect", "checkLocation=" + Permissions.checkLocation(context.getApplicationContext()));
         }*/
 
-        if ((telephonyManagerDefault != null) &&
+        TelephonyManager telephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        if ((telephonyManager != null) &&
                 PPApplication.HAS_FEATURE_TELEPHONY &&
                 Permissions.checkLocation(context.getApplicationContext())) {
-            int simCount = telephonyManagerDefault.getPhoneCount();
+            int simCount = telephonyManager.getPhoneCount();
             if ((Build.VERSION.SDK_INT >= 26) && (simCount > 1)) {
                 if ((telephonyManagerSIM1 != null) && (mobileCellsListenerSIM1 != null)) {
-//                    PPApplication.logE("MobileCellsScanner.connect", "listed SIM 1");
+//                    PPApplication.logE("MobileCellsScanner.connect", "listen SIM 1");
                     telephonyManagerSIM1.listen(mobileCellsListenerSIM1,
-                            //  PhoneStateListener.LISTEN_CALL_STATE
-                            PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
-                                    //| PhoneStateListener.LISTEN_CELL_LOCATION
-                                    //| PhoneStateListener.LISTEN_DATA_ACTIVITY
-                                    //| PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
+                            PhoneStateListener.LISTEN_CELL_INFO
+                                    | PhoneStateListener.LISTEN_CELL_LOCATION // is required for some devices, especially with AP level < 26
                                     | PhoneStateListener.LISTEN_SERVICE_STATE
-                            //| PhoneStateListener.LISTEN_SIGNAL_STRENGTHS
-                            //| PhoneStateListener.LISTEN_CALL_FORWARDING_INDICATOR
-                            //| PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR
                     );
                 }
                 if ((telephonyManagerSIM2 != null) && (mobileCellsListenerSIM2 != null)) {
-//                    PPApplication.logE("MobileCellsScanner.connect", "listed SIM 2");
+//                    PPApplication.logE("MobileCellsScanner.connect", "listen SIM 2");
                     telephonyManagerSIM2.listen(mobileCellsListenerSIM2,
-                            //  PhoneStateListener.LISTEN_CALL_STATE
-                            PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
-                                    //| PhoneStateListener.LISTEN_CELL_LOCATION
-                                    //| PhoneStateListener.LISTEN_DATA_ACTIVITY
-                                    //| PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
+                            PhoneStateListener.LISTEN_CELL_INFO
+                                    | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
                                     | PhoneStateListener.LISTEN_SERVICE_STATE
-                            //| PhoneStateListener.LISTEN_SIGNAL_STRENGTHS
-                            //| PhoneStateListener.LISTEN_CALL_FORWARDING_INDICATOR
-                            //| PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR
                     );
                 }
             }
             else {
-//                PPApplication.logE("MobileCellsScanner.connect", "listed default");
+                PPApplication.logE("MobileCellsScanner.connect", "listen default");
                 telephonyManagerDefault.listen(mobileCellsListenerDefault,
-                        //  PhoneStateListener.LISTEN_CALL_STATE
-                        PhoneStateListener.LISTEN_CELL_INFO // Requires API 17
-                                //| PhoneStateListener.LISTEN_CELL_LOCATION
-                                //| PhoneStateListener.LISTEN_DATA_ACTIVITY
-                                //| PhoneStateListener.LISTEN_DATA_CONNECTION_STATE
+                        PhoneStateListener.LISTEN_CELL_INFO
+                                | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
                                 | PhoneStateListener.LISTEN_SERVICE_STATE
-                        //| PhoneStateListener.LISTEN_SIGNAL_STRENGTHS
-                        //| PhoneStateListener.LISTEN_CALL_FORWARDING_INDICATOR
-                        //| PhoneStateListener.LISTEN_MESSAGE_WAITING_INDICATOR
                         );
             }
 
