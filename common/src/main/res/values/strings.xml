@@ -1737,12 +1737,6 @@
     <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobile data for SIM 1</string>
     <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobile data for SIM 2</string>
 
-    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>
-    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>
-
     <string name="array_pref_radioSwitch_connected">Connected</string>
     <string name="array_pref_radioSwitch_disconnected">Disconnected</string>
     <string name="event_preference_sensor_radioSwitch_summary">This sensor will start an event by switching radios (on/off) and by its connected/disconnected state. Parameters: Wi-Fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode.</string>
@@ -1866,6 +1860,11 @@
 <!--    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>-->
 <!--    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>-->
 <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
+<!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
+<!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
+<!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
+<!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
+<!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
 
 </resources>
 

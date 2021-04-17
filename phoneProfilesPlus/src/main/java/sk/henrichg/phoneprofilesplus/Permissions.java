@@ -13,7 +13,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
-import android.telephony.TelephonyManager;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -71,7 +70,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE = 41;
     static final int PERMISSION_PROFILE_SCREEN_ON_PERMANENT = 42;
     static final int PERMISSION_PROFILE_CAMERA_FLASH = 43;
-    static final int PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES = 44;
+    //static final int PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES = 44;
     static final int PERMISSION_BACGROUND_LOCATION = 45;
 
     static final int GRANT_TYPE_PROFILE = 1;
@@ -1405,7 +1404,7 @@ class Permissions {
                                         permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_PHONE_STATE));
                                 }
                             }
-                            if (event._eventPreferencesRadioSwitch._enabled) {
+                            /*if (event._eventPreferencesRadioSwitch._enabled) {
                                 final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                                 if (telephonyManager != null) {
                                     int phoneCount = telephonyManager.getPhoneCount();
@@ -1417,7 +1416,7 @@ class Permissions {
                                         }
                                     }
                                 }
-                            }
+                            }*/
                         }
                     }
                 }
@@ -1453,7 +1452,7 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_PHONE_STATE));
                             }
                         }
-                        if (preferences.getBoolean(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, false)) {
+                        /*if (preferences.getBoolean(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, false)) {
                             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                             if (telephonyManager != null) {
                                 int phoneCount = telephonyManager.getPhoneCount();
@@ -1465,7 +1464,7 @@ class Permissions {
                                     }
                                 }
                             }
-                        }
+                        }*/
                     }
                 }
             }
