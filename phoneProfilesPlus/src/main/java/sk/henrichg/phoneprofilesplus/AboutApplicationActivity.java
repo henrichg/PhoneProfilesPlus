@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -23,14 +22,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-//import com.google.android.play.core.review.ReviewInfo;
-//import com.google.android.play.core.review.ReviewManager;
-//import com.google.android.play.core.review.ReviewManagerFactory;
-//import com.google.android.play.core.review.testing.FakeReviewManager;
-//import com.google.android.play.core.tasks.OnCompleteListener;
-//import com.google.android.play.core.tasks.OnFailureListener;
-//import com.google.android.play.core.tasks.Task;
 
 public class AboutApplicationActivity extends AppCompatActivity {
 
@@ -331,12 +322,12 @@ public class AboutApplicationActivity extends AppCompatActivity {
         text.setMovementMethod(LinkMovementMethod.getInstance());
         */
 
-        text = findViewById(R.id.about_application_rate_application);
+        //text = findViewById(R.id.about_application_rate_application);
         //if (PPApplication.gitHubRelease) {
         //    text.setVisibility(View.GONE);
         //}
         //else {
-            str1 = getString(R.string.about_application_rate_in_googlePlay) + ".";
+/*            str1 = getString(R.string.about_application_rate_in_googlePlay) + ".";
             sbt = new SpannableString(str1);
             clickableSpan = new ClickableSpan() {
                 @Override
@@ -355,10 +346,10 @@ public class AboutApplicationActivity extends AppCompatActivity {
                     goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
                             Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
                             Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                    /*else
-                        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                                Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
-                                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);*/
+                    //else
+                    //    goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                    //            Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET |
+                    //            Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                     try {
                         startActivity(goToMarket);
                     } catch (ActivityNotFoundException e) {
@@ -376,6 +367,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
             //sbt.setSpan(new UnderlineSpan(), 0, str1.length(), 0);
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
+*/
         //}
         /*else {
             final TextView reviewText = findViewById(R.id.about_application_rate_application);
@@ -435,7 +427,8 @@ public class AboutApplicationActivity extends AppCompatActivity {
                     reviewText.setVisibility(View.GONE);
                 }
             });
-        }*/
+        }
+        */
 
         Button donateButton = findViewById(R.id.about_application_donate_button);
         donateButton.setOnClickListener(view -> {
