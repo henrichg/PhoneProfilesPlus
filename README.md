@@ -24,8 +24,8 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 
 ##### Supported Android versions
 
-- From Android 6.0
-- minSdkVersion = 23
+- From Android 7.0
+- minSdkVersion = 24
 - targetSdkVersion = 28
 
 ##### Required external libs
