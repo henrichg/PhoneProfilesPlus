@@ -107,16 +107,23 @@ public class PPApplication extends Application
 
     // urls
     static final String CROWDIN_URL = "https://crowdin.com/project/phoneprofilesplus";
-    static final String PRIVACY_POLICY_URL = "https://sites.google.com/site/phoneprofilesplus/home/privacy-policy";
+
+    // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/privacy_policy.md
+    // Used is GitHub Pages, needed is use of html type, because this file is displayed in html browser
+    static final String PRIVACY_POLICY_URL = "https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html";
+
     static final String GITHUB_PPP_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlus/releases";
     static final String GITHUB_PPP_URL = "https://github.com/henrichg/PhoneProfilesPlus";
     static final String GITHUB_PPPE_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender";
     static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/android/apps-games/phone-profile-plus-t3799429";
-    static final String PPP_RLEASES_DEBUG_URL = "https://sites.google.com/site/phoneprofilesplus/releases-debug";
-    static final String PPP_RLEASES_URL = "https://sites.google.com/site/phoneprofilesplus/releases";
     static final String PAYPAL_DONATION_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U";
     static final String GITHUB_PPPE_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
 
+    // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases_debug.md
+    // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases.md
+    // Used is GitHub Pages, not neded to use html type, this file is directly downloaded
+    static final String PPP_RELEASES_DEBUG_URL = "https://henrichg.github.io/PhoneProfilesPlus/releases-debug.md";
+    static final String PPP_RELEASES_URL = "https://https://henrichg.github.io/PhoneProfilesPlus/releases.md";
 
 
     //static final boolean gitHubRelease = true;
