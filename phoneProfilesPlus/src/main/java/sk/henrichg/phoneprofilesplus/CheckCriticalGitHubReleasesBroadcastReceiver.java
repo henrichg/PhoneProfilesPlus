@@ -219,10 +219,11 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "conn.getUrl()="+conn.getURL());
             InputStream in = conn.getInputStream();
             contents = convertStreamToString(in);
+            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "contents="+contents);
 
             if (!contents.isEmpty()) {
-                int startIndex = contents.indexOf("###ppp-release:");
-                int endIndex = contents.indexOf("***###");
+                int startIndex = contents.indexOf("@@@ppp-release:");
+                int endIndex = contents.indexOf("***@@@");
                 if ((startIndex >= 0) && (endIndex > startIndex)) {
                     String version = contents.substring(startIndex, endIndex);
                     startIndex = version.indexOf(":");
