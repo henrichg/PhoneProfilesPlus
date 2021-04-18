@@ -542,7 +542,6 @@
     <string name="about_application_author">作者：</string>
     <string name="about_application_source_code">源代码：</string>
     <string name="about_application_translations">翻译：</string>
-    <string name="about_application_rate_in_googlePlay">请在 Google Play 中为此应用程序打分</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">免打扰权限</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">请搜索“PhoneProfilesPlus”应用程序并为其启用此选项。</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">如果把未插电的设备闲置一段时间后，在运行事件激活情景时遇到问题，请尝试将 PhoneProfilesPlus 添加到“未优化”列表。</string>
@@ -1594,11 +1593,6 @@
     <string name="profile_preferences_category_led_accessories">LED 配件</string>
     <string name="profile_preferences_deviceMobileData_21_SIM1">(R) SIM 卡 1 移动数据</string>
     <string name="profile_preferences_deviceMobileData_21_SIM2">(R) SIM 卡 2 移动数据</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM1">SIM 卡 1 移动数据</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM2">SIM 卡 2 移动数据</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM">双 SIM 卡设备移动数据</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">试验功能，可能在你的设备上不工作.</string>
-    <string name="permission_why_event_radio_switch_preferences">在双 SIM 卡设备中检查移动数据的切换</string>
     <string name="array_pref_radioSwitch_connected">已连接</string>
     <string name="array_pref_radioSwitch_disconnected">已断开</string>
     <string name="event_preference_sensor_radioSwitch_summary">该传感器将通过切换无线电 (开/关) 来启动事件，包括连接/断开状态。参数：Wi-Fi，蓝牙，移动数据，GPS，NFC，飞行模式。</string>
@@ -1639,11 +1633,20 @@
     <string name="permissions_for_background_location_text1">后台定位是必需的。</string>
     <string name="permissions_for_background_location_text2">请在下一个对话框中授予他们。PhoneProfilesPlus正在后台运行，为此需要此权限。</string>
     <string name="permission_group_name_background_location">后台定位</string>
-    <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Not configured any parameter</string>
-    <string name="phone_profiles_pref_applicationActivatorNumColumns">Number of columns</string>
-    <string name="array_pref_activatorNumColumns_3">3 columns</string>
-    <string name="array_pref_activatorNumColumns_4">4 columns</string>
-    <string name="array_pref_activatorNumColumns_5">5 columns</string>
+    <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">未配置任何参数</string>
+    <string name="phone_profiles_pref_applicationActivatorNumColumns">列数</string>
+    <string name="array_pref_activatorNumColumns_3">3 列</string>
+    <string name="array_pref_activatorNumColumns_4">4 列</string>
+    <string name="array_pref_activatorNumColumns_5">5 列</string>
+    <string name="event_preferences_call_forSimCard">用于 SIM 卡</string>
+    <string name="event_preferences_forSimCard_bothCards">用于双卡</string>
+    <string name="event_preferences_forSimCard_SIM1">用于 SIM 卡 1</string>
+    <string name="event_preferences_forSimCard_SIM2">用于 SIM 卡 2</string>
+    <string name="event_preferences_sms_forSimCard">用于 SIM 卡</string>
+    <string name="event_preferences_sms_dualSIM_summary">此参数仅适用于SMS。</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim1">已连接的基站 (SIM 1):</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim2">已连接的基站 (SIM 2):</string>
+    <string name="event_preferences_mobile_cells_forSimCard">用于 SIM 卡</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1670,9 +1673,7 @@
     <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - 崩溃报告</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender 已崩溃。附件是崩溃报告。</string>
     <string name="extender_acra_notification_title">对不起，PhoneProfilesPlusExtender 崩溃了</string>
-    <string name="extender_acra_notification_text">请单击“发送”按钮，向作者发送崩溃报告，非常感谢您。</string>
-    <string name="extender_acra_notification_send_button">发送​​</string>
-    <string name="extender_acra_notification_discard_button">丢弃</string>
+    <string name="extender_acra_notification_text">请点击此处，向作者发送崩溃报告，非常感谢您。</string>
     <string name="extender_notification_channel_crash_report">崩溃报告</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -1686,4 +1687,12 @@
     <!--    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
+    <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
+    <!--    <string name="extender_acra_notification_send_button">Send</string>-->
+    <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
 </resources>

@@ -542,7 +542,6 @@
     <string name="about_application_author">Autor:</string>
     <string name="about_application_source_code">Izvorni kod:</string>
     <string name="about_application_translations">Prevodi:</string>
-    <string name="about_application_rate_in_googlePlay">Ocenite ovu aplikaciju na Google Play-u</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Ne uznemiravaj pristup</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Potraži \"PhoneProfilesPlus\" aplikaciju i omogući je.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Dodajte „PhoneProfilesPlus“ u „Ne optimizovano“. Ako imate problema s aktiviranjem profila događaja ili ostavite uređaj neko vrijeme bez napajanja sa isključenim ekranom.</string>
@@ -1595,11 +1594,6 @@
     <string name="profile_preferences_category_led_accessories">LED dodaci</string>
     <string name="profile_preferences_deviceMobileData_21_SIM1">(R) mobilni podaci za SIM 1</string>
     <string name="profile_preferences_deviceMobileData_21_SIM2">(R) mobilni podaci za SIM 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobilni podaci za SIM 1</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobilni podaci za SIM 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobilni podaci za uređaje sa dualnim SIM</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Eksperimentalno. Možda neće raditi na vašem uređaju.</string>
-    <string name="permission_why_event_radio_switch_preferences">prekidač za prebacivanje i proveru mobilnih podataka u uređajima sa dualnim SIM</string>
     <string name="array_pref_radioSwitch_connected">Povezano</string>
     <string name="array_pref_radioSwitch_disconnected">Nepovezan</string>
     <string name="event_preference_sensor_radioSwitch_summary">Ovaj senzor će pokrenuti događaj prebacivanjem radija ( uklj./isklj.) tj. povezan ili nije povezan.Parametri su : Wi-Fi, Bluetooth, Mobilni podaci,GPS, NFC, Mod u avionu</string>
@@ -1645,6 +1639,15 @@
     <string name="array_pref_activatorNumColumns_3">3 columns</string>
     <string name="array_pref_activatorNumColumns_4">4 columns</string>
     <string name="array_pref_activatorNumColumns_5">5 columns</string>
+    <string name="event_preferences_call_forSimCard">For SIM card</string>
+    <string name="event_preferences_forSimCard_bothCards">For both cards</string>
+    <string name="event_preferences_forSimCard_SIM1">For SIM 1</string>
+    <string name="event_preferences_forSimCard_SIM2">For SIM 2</string>
+    <string name="event_preferences_sms_forSimCard">For SIM card</string>
+    <string name="event_preferences_sms_dualSIM_summary">This parameter is only for SMS.</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim1">Connected cell (SIM 1):</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim2">Connected cell (SIM 2):</string>
+    <string name="event_preferences_mobile_cells_forSimCard">For SIM card</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1671,9 +1674,7 @@
     <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Izveštaj o grešci</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender se isključio. Pridodat je Izveštaj o grešci.</string>
     <string name="extender_acra_notification_title">Žao nam je, PhoneProfilesPlusExtender se isključio</string>
-    <string name="extender_acra_notification_text">Kliknite na dugme \"Pošalji\", da pošaljete Izveštaj o grešci autoru aplikacije. Hvala Vam na tome.</string>
-    <string name="extender_acra_notification_send_button">Pošalji</string>
-    <string name="extender_acra_notification_discard_button">Odbaci</string>
+    <string name="extender_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <string name="extender_notification_channel_crash_report">Izveštaj o grešci</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -1687,4 +1688,12 @@
     <!--    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
+    <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
+    <!--    <string name="extender_acra_notification_send_button">Send</string>-->
+    <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
 </resources>

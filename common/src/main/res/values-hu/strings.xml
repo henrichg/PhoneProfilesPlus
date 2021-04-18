@@ -542,7 +542,6 @@
     <string name="about_application_author">Szerző:</string>
     <string name="about_application_source_code">Forráskód:</string>
     <string name="about_application_translations">Fordítások:</string>
-    <string name="about_application_rate_in_googlePlay">Kérjük, értékelje ezt az alkalmazást a Google Playen</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Ne zavarjanak mód</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Keresse a meg a \"PhoneProfilesPlus\"-t a következő alkalmazáslistából, és engedélyezze.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Adja a PhoneProfilesPlus-t a \"Nem optimalizált\" alkalmazásokhoz, ha a profil aktiválása során problémákat tapasztal.</string>
@@ -1594,11 +1593,6 @@
     <string name="profile_preferences_category_led_accessories">LED accessories</string>
     <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobile data for SIM 1</string>
     <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobile data for SIM 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>
-    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>
     <string name="array_pref_radioSwitch_connected">Csatlakoztatva</string>
     <string name="array_pref_radioSwitch_disconnected">Kapcsolat bontva</string>
     <string name="event_preference_sensor_radioSwitch_summary">This sensor will start an event by switching radios (on/off) and by its connected/disconnected state. Parameters: Wi-Fi, Bluetooth, Mobile data, GPS, NFC, Airplane mode.</string>
@@ -1644,6 +1638,15 @@
     <string name="array_pref_activatorNumColumns_3">3 columns</string>
     <string name="array_pref_activatorNumColumns_4">4 columns</string>
     <string name="array_pref_activatorNumColumns_5">5 columns</string>
+    <string name="event_preferences_call_forSimCard">For SIM card</string>
+    <string name="event_preferences_forSimCard_bothCards">For both cards</string>
+    <string name="event_preferences_forSimCard_SIM1">For SIM 1</string>
+    <string name="event_preferences_forSimCard_SIM2">For SIM 2</string>
+    <string name="event_preferences_sms_forSimCard">For SIM card</string>
+    <string name="event_preferences_sms_dualSIM_summary">This parameter is only for SMS.</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim1">Connected cell (SIM 1):</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim2">Connected cell (SIM 2):</string>
+    <string name="event_preferences_mobile_cells_forSimCard">For SIM card</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>
@@ -1670,9 +1673,7 @@
     <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crash report</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is crash report.</string>
     <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender crashed</string>
-    <string name="extender_acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
-    <string name="extender_acra_notification_send_button">Send</string>
-    <string name="extender_acra_notification_discard_button">Discard</string>
+    <string name="extender_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <string name="extender_notification_channel_crash_report">Crash report</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -1686,4 +1687,12 @@
     <!--    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
+    <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
+    <!--    <string name="extender_acra_notification_send_button">Send</string>-->
+    <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
 </resources>

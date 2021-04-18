@@ -542,7 +542,6 @@
     <string name="about_application_author">Auteur:</string>
     <string name="about_application_source_code">Broncode:</string>
     <string name="about_application_translations">Vertalingen:</string>
-    <string name="about_application_rate_in_googlePlay">Beoordeel dit programma in Google Play</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Toegang niet storen</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Zoek naar \"PhoneProfilesPlus\" programma en schakel die in.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Voeg PhoneProfilesPlus toe aan \"Niet geoptimaliseerd\" bij accuinstellingen wanneer u problemen heeft met het activeren van een event. Dit komt voor als het apparaat een tijdje losgekoppeld ligt met het scherm uit.</string>
@@ -1594,11 +1593,6 @@
     <string name="profile_preferences_category_led_accessories">LED accessoires</string>
     <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobiele gegevens voor simkaart 1</string>
     <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobiele gegevens voor simkaart 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobiele gegevens voor simkaart 1</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobiele gegevens voor simkaart 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobiele gegevens voor dubbel SIM-apparaten</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimenteel. Mogelijk werkt het niet op je apparaat.</string>
-    <string name="permission_why_event_radio_switch_preferences">voor het controleren van de mobiele gegevensschakelaar in dubbel SIM-apparaten</string>
     <string name="array_pref_radioSwitch_connected">Verbonden</string>
     <string name="array_pref_radioSwitch_disconnected">Losgekoppeld</string>
     <string name="event_preference_sensor_radioSwitch_summary">Deze sensor start een event door radio\'s te schakelen (aan/uit) en door de verbonden / ontkoppelde status. Parameters: Wi-Fi, Bluetooth, mobiele data, GPS, NFC, Vliegtuigmodus.</string>
@@ -1639,11 +1633,20 @@
     <string name="permissions_for_background_location_text1">Locatie op de achtergrond verkrijgen is vereist.</string>
     <string name="permissions_for_background_location_text2">Sta het toe in de volgende schermen. PhoneProfilesPlus draait op de achtergrond en daarom is deze machtiging vereist.</string>
     <string name="permission_group_name_background_location">Achtergrond locatie</string>
-    <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Not configured any parameter</string>
-    <string name="phone_profiles_pref_applicationActivatorNumColumns">Number of columns</string>
-    <string name="array_pref_activatorNumColumns_3">3 columns</string>
-    <string name="array_pref_activatorNumColumns_4">4 columns</string>
-    <string name="array_pref_activatorNumColumns_5">5 columns</string>
+    <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Geen enkele parameter geconfigureerd</string>
+    <string name="phone_profiles_pref_applicationActivatorNumColumns">Aantal kolommen</string>
+    <string name="array_pref_activatorNumColumns_3">3 kolommen</string>
+    <string name="array_pref_activatorNumColumns_4">4 kolommen</string>
+    <string name="array_pref_activatorNumColumns_5">5 kolommen</string>
+    <string name="event_preferences_call_forSimCard">Voor simkaart</string>
+    <string name="event_preferences_forSimCard_bothCards">Voor beide kaarten</string>
+    <string name="event_preferences_forSimCard_SIM1">Voor SIM 1</string>
+    <string name="event_preferences_forSimCard_SIM2">Voor SIM 2</string>
+    <string name="event_preferences_sms_forSimCard">Voor simkaart</string>
+    <string name="event_preferences_sms_dualSIM_summary">Deze parameter is alleen voor SMS.</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim1">Verbonden cel (SIM 1):</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim2">Verbonden cel (SIM 2):</string>
+    <string name="event_preferences_mobile_cells_forSimCard">Voor simkaart</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1670,9 +1673,7 @@
     <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crashrapport</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender is gecrasht. In de bijlage het crashrapport.</string>
     <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender is gecrasht</string>
-    <string name="extender_acra_notification_text">Klik op de knop \"Verzenden\", om het crashrapport te verzenden naar de auteur. Dank je.</string>
-    <string name="extender_acra_notification_send_button">Verzend</string>
-    <string name="extender_acra_notification_discard_button">Verwijder</string>
+    <string name="extender_acra_notification_text">Klik hier om een crashrapport te verzenden naar de auteur. Dank je wel.</string>
     <string name="extender_notification_channel_crash_report">Crashrapport</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -1686,4 +1687,12 @@
     <!--    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
+    <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
+    <!--    <string name="extender_acra_notification_send_button">Send</string>-->
+    <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
 </resources>

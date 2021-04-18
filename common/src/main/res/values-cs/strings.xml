@@ -542,7 +542,6 @@
     <string name="about_application_author">Autor:</string>
     <string name="about_application_source_code">Zdrojový kód:</string>
     <string name="about_application_translations">Překlady:</string>
-    <string name="about_application_rate_in_googlePlay">Ohodnoťte prosím tuto aplikaci v Google Play</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Přístup k nastavení Nerušit</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Prosím najděte aplikaci \"PhoneProfilePlus\" a povolte ji.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Přidejte PhoneProfilesPlus do \"Neoptimalizované\", v případě problémů s aktivací profilu z událostí, pokud nemáte zařízení připojeno, bez pohybu určitou dobu s vypnutou obrazovkou.</string>
@@ -1594,11 +1593,6 @@
     <string name="profile_preferences_category_led_accessories">LED příslušenství</string>
     <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobilní data pro SIM 1</string>
     <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobilní data pro SIM 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobilní data pro SIM 1</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobilní data pro SIM 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobilní data pro zařízení s dvěma SIM</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimentální. Nemusí fungovat ve vašem zařízení.</string>
-    <string name="permission_why_event_radio_switch_preferences">pro kontrolu změny přepínače mobilních dat v zařízeních se dvěma SIM</string>
     <string name="array_pref_radioSwitch_connected">Připojeno</string>
     <string name="array_pref_radioSwitch_disconnected">Odpojeno</string>
     <string name="event_preference_sensor_radioSwitch_summary">Tento senzor je pro start události podle přepínání rádií (zapnout/vypnout) a podle jejich stavu připojeno/odpojeno. Parametry: Wi-fi, Bluetooth, Mobilní data, GPS, NFC, Režim letadlo.</string>
@@ -1644,6 +1638,15 @@
     <string name="array_pref_activatorNumColumns_3">3 sloupce</string>
     <string name="array_pref_activatorNumColumns_4">4 sloupce</string>
     <string name="array_pref_activatorNumColumns_5">5 sloupců</string>
+    <string name="event_preferences_call_forSimCard">Pro SIM kartu</string>
+    <string name="event_preferences_forSimCard_bothCards">Pro obě karty</string>
+    <string name="event_preferences_forSimCard_SIM1">Pro SIM 1</string>
+    <string name="event_preferences_forSimCard_SIM2">Pro SIM 2</string>
+    <string name="event_preferences_sms_forSimCard">Pro SIM kartu</string>
+    <string name="event_preferences_sms_dualSIM_summary">Tento parametr je pouze pro SMS.</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim1">Připojená buňka (SIM 1):</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim2">Připojená buňka (SIM 2):</string>
+    <string name="event_preferences_mobile_cells_forSimCard">Pro SIM kartu</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1670,9 +1673,7 @@
     <string name="extender_acra_email_subject_text">PhoneProfilesPlus - Zpráva o selhání</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlus selhal. Připojena je zpráva o selhání.</string>
     <string name="extender_acra_notification_title">Je mi líto, PhoneProfilesPlus selhal</string>
-    <string name="extender_acra_notification_text">Kliknutím na tlačítko \"Odeslat\", odešlete autorovi zprávu o selhání. Děkuji velmi pěkně.</string>
-    <string name="extender_acra_notification_send_button">Odeslat</string>
-    <string name="extender_acra_notification_discard_button">Zahodit</string>
+    <string name="extender_acra_notification_text">Kliknutím zde, odešlete autorovi zprávu o selhání. Děkuji velmi pěkně.</string>
     <string name="extender_notification_channel_crash_report">Zpráva o selhání</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -1686,4 +1687,12 @@
     <!--    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
+    <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
+    <!--    <string name="extender_acra_notification_send_button">Send</string>-->
+    <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
 </resources>

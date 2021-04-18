@@ -1842,9 +1842,7 @@
     <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crash report</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is crash report.</string>
     <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender crashed</string>
-    <string name="extender_acra_notification_text">Please click button \"Send\", to send crash report to author. Thank you very much.</string>
-    <string name="extender_acra_notification_send_button">Send</string>
-    <string name="extender_acra_notification_discard_button">Discard</string>
+    <string name="extender_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <string name="extender_notification_channel_crash_report">Crash report</string>
 
 <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
@@ -1865,6 +1863,8 @@
 <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
 <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
 <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
+<!--    <string name="extender_acra_notification_send_button">Send</string>-->
+<!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
 
 </resources>
 

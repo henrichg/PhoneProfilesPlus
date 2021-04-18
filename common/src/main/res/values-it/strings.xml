@@ -542,7 +542,6 @@
     <string name="about_application_author">Autore:</string>
     <string name="about_application_source_code">Codice sorgente:</string>
     <string name="about_application_translations">Traduzioni:</string>
-    <string name="about_application_rate_in_googlePlay">Esprimi la tua opinione su questa applicazione in Google Play</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Accesso non disturbare</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Si prega di cercare l\'applicazione \"PhoneProfilePlus\" e attivarla.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Aggiungere PhoneProfilePlus a \"Non ottimizzato\", quando si incontrano problemi con l\'attivazione di profili dagli eventi, se si lascia il dispositivo scollegato e non in uso per un periodo di tempo, con lo schermo spento.</string>
@@ -1595,11 +1594,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="profile_preferences_category_led_accessories">Accessori LED</string>
     <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Dati mobili per SIM 1</string>
     <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Dati mobili per SIM 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM1">Dati mobili per SIM 1</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM2">Dati mobili per SIM 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Dati mobili per dispositivi dual SIM</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Sperimentale. Potrebbe non funzionare sul tuo dispositivo.</string>
-    <string name="permission_why_event_radio_switch_preferences">per controllare la modifica della selezione dati mobili nei dispositivi dual SIM</string>
     <string name="array_pref_radioSwitch_connected">Connesso</string>
     <string name="array_pref_radioSwitch_disconnected">Disconnesso</string>
     <string name="event_preference_sensor_radioSwitch_summary">Questo sensore avvierà un evento attivando le radio (on/off) e lo stato connesso/disconnesso. Parametri: Wi-Fi, Bluetooth, Dati mobili, GPS, NFC, Modalità aereo.</string>
@@ -1640,11 +1634,20 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="permissions_for_background_location_text1">La posizione in background è necessaria.</string>
     <string name="permissions_for_background_location_text2">Si prega di concederli nella finestra successiva. PhoneProfilesPlus è in esecuzione in background e per questo motivo è necessaria questa autorizzazione.</string>
     <string name="permission_group_name_background_location">Posizione in background</string>
-    <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Not configured any parameter</string>
-    <string name="phone_profiles_pref_applicationActivatorNumColumns">Number of columns</string>
-    <string name="array_pref_activatorNumColumns_3">3 columns</string>
-    <string name="array_pref_activatorNumColumns_4">4 columns</string>
-    <string name="array_pref_activatorNumColumns_5">5 columns</string>
+    <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Nessun parametro configurato</string>
+    <string name="phone_profiles_pref_applicationActivatorNumColumns">Numero di colonne</string>
+    <string name="array_pref_activatorNumColumns_3">3 colonne</string>
+    <string name="array_pref_activatorNumColumns_4">4 colonne</string>
+    <string name="array_pref_activatorNumColumns_5">5 colonne</string>
+    <string name="event_preferences_call_forSimCard">Per la scheda SIM</string>
+    <string name="event_preferences_forSimCard_bothCards">Per entrambe le carte</string>
+    <string name="event_preferences_forSimCard_SIM1">Per SIM 1</string>
+    <string name="event_preferences_forSimCard_SIM2">Per SIM 2</string>
+    <string name="event_preferences_sms_forSimCard">Per la scheda SIM</string>
+    <string name="event_preferences_sms_dualSIM_summary">Questo parametro è solo per SMS.</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim1">Cella collegata (SIM 1):</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim2">Cella collegata (SIM 2):</string>
+    <string name="event_preferences_mobile_cells_forSimCard">Per la scheda SIM</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>
@@ -1671,9 +1674,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Rapporto Crash</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender è crashato. In allegato il rapporto di crash.</string>
     <string name="extender_acra_notification_title">Spiacenti, PhoneProfilesPlusExtender è crashato</string>
-    <string name="extender_acra_notification_text">Sei pregato di cliccare il pulsante \"Invia\", per inviare il rapporto di crash all\'autore. Grazie mille.</string>
-    <string name="extender_acra_notification_send_button">Invia</string>
-    <string name="extender_acra_notification_discard_button">Scarta</string>
+    <string name="extender_acra_notification_text">Sei pregato di cliccare qui, per inviare la segnalazione di crash all\'autore. Grazie mille.</string>
     <string name="extender_notification_channel_crash_report">Rapporto di crash</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -1687,4 +1688,12 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
+    <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
+    <!--    <string name="extender_acra_notification_send_button">Send</string>-->
+    <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
 </resources>

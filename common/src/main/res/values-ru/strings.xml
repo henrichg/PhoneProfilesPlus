@@ -542,7 +542,6 @@
     <string name="about_application_author">Автор:</string>
     <string name="about_application_source_code">Исходный код:</string>
     <string name="about_application_translations">Переводы:</string>
-    <string name="about_application_rate_in_googlePlay">Пожалуйста, оцените это приложение в Google Play</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Доступ к функции \"Не беспокоить\"</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Найдите приложение PhoneProfilesPlus и разрешите доступ.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Если вы испытываете проблемы с активацией профилей или на некоторое время оставляете устройство с выключенным экраном, добавьте PhoneProfilesPlus в список \"Не экономят заряд\".</string>
@@ -1594,11 +1593,6 @@
     <string name="profile_preferences_category_led_accessories">LED-аксессуары</string>
     <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Мобильный интернет для SIM 1</string>
     <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Мобильный интернет для SIM 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM1">Мобильный интернет для SIM 1</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM2">Мобильный интернет для SIM 2</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Мобильный интернет для устройств с 2 SIM-картами</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Эта функция - экспериментальная и может не работать на вашем устройстве.</string>
-    <string name="permission_why_event_radio_switch_preferences">для проверки переключения состояния мобильного интернета на устройствах с 2 SIM-картами</string>
     <string name="array_pref_radioSwitch_connected">Подключено</string>
     <string name="array_pref_radioSwitch_disconnected">Отключено</string>
     <string name="event_preference_sensor_radioSwitch_summary">Этот датчик запускает событие по переключению радиомодулей (вкл./выкл.) и по их состоянию (подключено/отключено). Параметры: \"Wi-Fi\", \"Bluetooth\", \"Мобильный интернет\", \"GPS\", \"NFC\", \"Режим полёта\".</string>
@@ -1640,10 +1634,19 @@
     <string name="permissions_for_background_location_text2">Предоставьте его, пожалуйста, в следующем диалоговом окне. Это разрешение требуется из-за того, что PhoneProfilesPlus работает в фоновом режиме.</string>
     <string name="permission_group_name_background_location">Определение местоположения в фоновом режиме</string>
     <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Не настроен ни один параметр</string>
-    <string name="phone_profiles_pref_applicationActivatorNumColumns">Number of columns</string>
-    <string name="array_pref_activatorNumColumns_3">3 columns</string>
-    <string name="array_pref_activatorNumColumns_4">4 columns</string>
-    <string name="array_pref_activatorNumColumns_5">5 columns</string>
+    <string name="phone_profiles_pref_applicationActivatorNumColumns">Количество столбцов</string>
+    <string name="array_pref_activatorNumColumns_3">3 столбца</string>
+    <string name="array_pref_activatorNumColumns_4">4 столбца</string>
+    <string name="array_pref_activatorNumColumns_5">5 столбцов</string>
+    <string name="event_preferences_call_forSimCard">Для SIM-карты</string>
+    <string name="event_preferences_forSimCard_bothCards">Для обеих SIM-карт</string>
+    <string name="event_preferences_forSimCard_SIM1">Для SIM 1</string>
+    <string name="event_preferences_forSimCard_SIM2">Для SIM 2</string>
+    <string name="event_preferences_sms_forSimCard">Для SIM-карты</string>
+    <string name="event_preferences_sms_dualSIM_summary">Этот параметр - только для SMS.</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim1">Подключённая вышка (SIM 1):</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim2">Подключённая вышка (SIM 2):</string>
+    <string name="event_preferences_mobile_cells_forSimCard">Для SIM-карты</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1670,9 +1673,7 @@
     <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Отчёт об ошибке</string>
     <string name="extender_acra_email_body_text">В PhoneProfilesPlusExtender произошла ошибка. Прилагаю отчёт об ошибке.</string>
     <string name="extender_acra_notification_title">К сожалению, в PhoneProfilesPlusExtender произошла ошибка</string>
-    <string name="extender_acra_notification_text">Нажмите, пожалуйста, \"Отправить\", чтобы послать автору отчёт об ошибке. Огромное спасибо.</string>
-    <string name="extender_acra_notification_send_button">Отправить</string>
-    <string name="extender_acra_notification_discard_button">Отменить</string>
+    <string name="extender_acra_notification_text">Нажмите, пожалуйста, сюда, чтобы отправить автору отчёт об ошибке. Большое спасибо.</string>
     <string name="extender_notification_channel_crash_report">Отчёт об ошибке</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -1686,4 +1687,12 @@
     <!--    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
+    <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
+    <!--    <string name="extender_acra_notification_send_button">Send</string>-->
+    <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
 </resources>

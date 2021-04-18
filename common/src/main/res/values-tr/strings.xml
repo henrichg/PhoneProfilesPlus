@@ -542,7 +542,6 @@
     <string name="about_application_author">Yazar:</string>
     <string name="about_application_source_code">Kaynak kodu:</string>
     <string name="about_application_translations">Tercümeler:</string>
-    <string name="about_application_rate_in_googlePlay">Lutfen bu uygulamaya Google Play\'de puan veriniz</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Rahatsız Etmeyin Modu\'na erişim</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Lutfen \"PhoneProfilesPlus\" uygulamasına \"Uygulama izinleri\" ayarlarında izin verin.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Eğer şarj aleti veya istasyonunu belli bir müddet çıkarıp ekranı kapattığınız zaman Durumlardan tercih faaliyete geçirmede problem yaşıyorsanız, PhoneProfilesPlus\'ı Güç ayarlarında \"Pil en iyi duruma getirme\" bölümünde \"En iyi duruma getirilmedi\" listesine ilave ediniz.</string>
@@ -1594,11 +1593,6 @@
     <string name="profile_preferences_category_led_accessories">LED aksesuarları</string>
     <string name="profile_preferences_deviceMobileData_21_SIM1">(R) SIM 1 için şebeke ağı</string>
     <string name="profile_preferences_deviceMobileData_21_SIM2">(R) SIM 2 için şebeke ağı</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM1">SIM 1 için şebeke ağı</string>
-    <string name="event_preferences_radioSwitch_mobileData_SIM2">SIM 2 için şebeke ağı</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Çift SIM kartlı cihazlar için şebeke ağı</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Tecrübe ediliyor. Cihazınızda çalışmayabilir.</string>
-    <string name="permission_why_event_radio_switch_preferences">çift SIM cihazlarda şebeke ağı anahtarı değişikliğini kontrol etmek için</string>
     <string name="array_pref_radioSwitch_connected">Bağlandı</string>
     <string name="array_pref_radioSwitch_disconnected">Bağlantı kesildi</string>
     <string name="event_preference_sensor_radioSwitch_summary">Bu Şart, durumun radyoların (açık/kapalı) geçişi yaparken başlatılması içindir. Değerler: Wi-Fi, Bluetooth, Şebeke interneti GPS, NFC, Uçak modu.</string>
@@ -1644,6 +1638,15 @@
     <string name="array_pref_activatorNumColumns_3">3 columns</string>
     <string name="array_pref_activatorNumColumns_4">4 columns</string>
     <string name="array_pref_activatorNumColumns_5">5 columns</string>
+    <string name="event_preferences_call_forSimCard">For SIM card</string>
+    <string name="event_preferences_forSimCard_bothCards">For both cards</string>
+    <string name="event_preferences_forSimCard_SIM1">For SIM 1</string>
+    <string name="event_preferences_forSimCard_SIM2">For SIM 2</string>
+    <string name="event_preferences_sms_forSimCard">For SIM card</string>
+    <string name="event_preferences_sms_dualSIM_summary">This parameter is only for SMS.</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim1">Connected cell (SIM 1):</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim2">Connected cell (SIM 2):</string>
+    <string name="event_preferences_mobile_cells_forSimCard">For SIM card</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1670,9 +1673,7 @@
     <string name="extender_acra_email_subject_text">PhoneProfilesPlus simgesi - Çökme raporu</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlus çöktü. Çökme raporu eklendi.</string>
     <string name="extender_acra_notification_title">Maalesef PhoneProfilesPlus çöktü</string>
-    <string name="extender_acra_notification_text">Lutfen, çökme raporunu yazara göndermek için \"Gönder\" butonuna dokunun. Çok teşekkür ederiz.</string>
-    <string name="extender_acra_notification_send_button">Gönder</string>
-    <string name="extender_acra_notification_discard_button">Vazgeç</string>
+    <string name="extender_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <string name="extender_notification_channel_crash_report">Çökme raporu</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
@@ -1686,4 +1687,12 @@
     <!--    <string name="profile_preferences_deviceDefaultSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM">Switch SIM on/off for dual SIM devices</string>-->
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
+    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
+    <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
+    <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
+    <!--    <string name="extender_acra_notification_send_button">Send</string>-->
+    <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
 </resources>
