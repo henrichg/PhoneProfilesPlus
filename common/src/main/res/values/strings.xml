@@ -548,7 +548,6 @@
     <string name="about_application_author">Author:</string>
     <string name="about_application_source_code">Source code:</string>
     <string name="about_application_translations">Translations:</string>
-    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Do not disturb access</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Add PhoneProfilesPlus to \"Not optimized\" if you encounter problems with event profile activation, or if you leave your device unplugged and stationary for a period of time with the screen off.</string>
@@ -1865,6 +1864,7 @@
 <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
 <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
 <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
+<!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
 
 </resources>
 
