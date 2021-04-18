@@ -107,7 +107,7 @@ class MobileCellsScanner {
             else {
                 telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
                 mobileCellsListenerDefault = new MobileCellsListener(null, context, this, telephonyManagerDefault);
-                PPApplication.logE("MobileCellsScanner.constructor", "default telephone manager");
+//                PPApplication.logE("MobileCellsScanner.constructor", "default telephone manager");
             }
         }
 
@@ -152,7 +152,7 @@ class MobileCellsScanner {
                 }
             }
             else {
-                PPApplication.logE("MobileCellsScanner.connect", "listen default");
+//                PPApplication.logE("MobileCellsScanner.connect", "listen default");
                 telephonyManagerDefault.listen(mobileCellsListenerDefault,
                         PhoneStateListener.LISTEN_CELL_INFO
                                 | PhoneStateListener.LISTEN_CELL_LOCATION  // is required for some devices, especially with AP level < 26
