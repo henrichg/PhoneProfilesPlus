@@ -239,7 +239,7 @@ public class PPApplication extends Application
                                                 //+"|LocationScanner"
                                                 //+"|LocationSensorWorker"
 
-                                                +"|CheckCriticalGitHubReleasesBroadcastReceiver"
+                                                //+"|CheckCriticalGitHubReleasesBroadcastReceiver"
                                                 //+"|CheckGitHubReleasesBroadcastReceiver"
                                                 //+"|DonationBroadcastReceiver"
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
