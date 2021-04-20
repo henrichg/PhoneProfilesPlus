@@ -194,9 +194,7 @@ class PreferenceAllowed {
             if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE)) {
                 if (ActivateProfileHelper.canSetMobileData(appContext))
                     if (profile != null) {
-                        if ((profile._deviceMobileData != 0) ||
-                                (profile._deviceMobileDataSIM1 != 0) ||
-                                (profile._deviceMobileDataSIM2 != 0))
+                        if (profile._deviceMobileData != 0)
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                     }
                     else
@@ -208,22 +206,10 @@ class PreferenceAllowed {
 
                 if (profile != null) {
                     // test if grant root is disabled
-                    if (Build.VERSION.SDK_INT < 26) {
-                        if ((profile._deviceMobileData != 0)) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            }
-                        }
-                    }
-                    else {
-                        if ((profile._deviceMobileData != 0) ||
-                                (profile._deviceMobileDataSIM1 != 0) ||
-                                (profile._deviceMobileDataSIM2 != 0)) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            }
+                    if ((profile._deviceMobileData != 0)) {
+                        if (applicationNeverAskForGrantRoot) {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                         }
                     }
                 }
@@ -242,9 +228,7 @@ class PreferenceAllowed {
                 if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
                     if (PPApplication.serviceBinaryExists(fromUIThread)) {
                         if (profile != null) {
-                            if ((profile._deviceMobileData != 0) ||
-                                    (profile._deviceMobileDataSIM1 != 0) ||
-                                    (profile._deviceMobileDataSIM2 != 0))
+                            if (profile._deviceMobileData != 0)
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                         }
                         else
@@ -263,28 +247,9 @@ class PreferenceAllowed {
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     boolean sim0Exists;
-                    boolean sim1Exists;
-                    boolean sim2Exists;
                     synchronized (PPApplication.simCardsMutext) {
                         sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
-                        sim1Exists = sim0Exists;
-                        sim2Exists = sim0Exists;
                         sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
-                        sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                        sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
-                    }
-                    if (Build.VERSION.SDK_INT >= 26) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-                            if (!sim1Exists) {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                            }
-                            if (!sim2Exists) {
-                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                            }
-                        }
                     }
                     if (!sim0Exists) {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -299,21 +264,10 @@ class PreferenceAllowed {
             else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                if (Build.VERSION.SDK_INT < 26) {
-                    if ((profile != null) &&
-                            (profile._deviceMobileData != 0)) {
-                        preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
-                    }
-                }
-                else {
-                    if ((profile != null) &&
-                            ((profile._deviceMobileData != 0) ||
-                                    (profile._deviceMobileDataSIM1 != 0) ||
-                                    (profile._deviceMobileDataSIM2 != 0))) {
-                        preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
-                    }
+                if ((profile != null) &&
+                        (profile._deviceMobileData != 0)) {
+                    preferenceAllowed.notAllowedRoot = true;
+                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
                 }
             }
         }
@@ -321,6 +275,165 @@ class PreferenceAllowed {
             //Log.d("Profile.isProfilePreferenceAllowed", "mobile data not supported");
             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+    }
+
+    static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM(PreferenceAllowed preferenceAllowed,
+                                                                           String preferenceKey, Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
+        Context appContext = context.getApplicationContext();
+
+        if (Build.VERSION.SDK_INT >= 26) {
+
+            boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+            boolean mobileDataSupported = false;
+            if (!PPApplication.HAS_FEATURE_TELEPHONY) {
+                // check mobile data capability for devices without phone call hardware (for example tablets)
+
+                ConnectivityManager connManager = null;
+                try {
+                    connManager = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+                } catch (Exception e) {
+                    // java.lang.NullPointerException: missing IConnectivityManager
+                    // Dual SIM?? Bug in Android ???
+                    PPApplication.recordException(e);
+                }
+
+                if (connManager != null) {
+                    //if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    Network[] networks = connManager.getAllNetworks();
+                    if ((networks != null) && (networks.length > 0)) {
+                        for (Network network : networks) {
+                            try {
+                                /*if (Build.VERSION.SDK_INT < 28) {
+                                    NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
+                                    if (ntkInfo != null) {
+                                        if (ntkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
+                                            mobileDataSupported = true;
+                                            PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "mobileDataSupported=true");
+                                            break;
+                                        }
+                                    }
+                                }
+                                else {*/
+                                NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
+                                if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                                    mobileDataSupported = true;
+                                    break;
+                                }
+                                //}
+                            } catch (Exception ee) {
+                                PPApplication.recordException(ee);
+                            }
+                        }
+                    }
+                    /*} else {
+                        NetworkInfo ni = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+                        mobileDataSupported = ni != null;
+                    }*/
+                }
+                //else
+                //    mobileDataSupported = false;
+            } else
+                mobileDataSupported = true;
+            if (mobileDataSupported) {
+                //Log.d("Profile.isProfilePreferenceAllowed", "mobile data supported");
+                // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
+                // not working :-/
+                if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE)) {
+                    if (ActivateProfileHelper.canSetMobileData(appContext))
+                        if (profile != null) {
+                            if ((profile._deviceMobileDataSIM1 != 0) ||
+                                    (profile._deviceMobileDataSIM2 != 0))
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                } else if (PPApplication.isRooted(fromUIThread)) {
+                    // device is rooted
+
+                    if (profile != null) {
+                        // test if grant root is disabled
+                        if ((profile._deviceMobileDataSIM1 != 0) ||
+                                (profile._deviceMobileDataSIM2 != 0)) {
+                            if (applicationNeverAskForGrantRoot) {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                            }
+                        }
+                    } else if (sharedPreferences != null) {
+                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                            if (applicationNeverAskForGrantRoot) {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                // not needed to test all parameters
+                                return;
+                            }
+                        }
+                    }
+
+                    if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
+                        if (PPApplication.serviceBinaryExists(fromUIThread)) {
+                            if (profile != null) {
+                                if ((profile._deviceMobileDataSIM1 != 0) ||
+                                        (profile._deviceMobileDataSIM2 != 0))
+                                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                            } else
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else {
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                        }
+                    } else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                    }
+
+                    final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                    if (telephonyManager != null) {
+                        boolean sim1Exists;
+                        boolean sim2Exists;
+                        synchronized (PPApplication.simCardsMutext) {
+                            sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
+                            sim2Exists = PPApplication.simCardsMutext.simCardsDetected;
+                            sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                            sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                        }
+                        int phoneCount = telephonyManager.getPhoneCount();
+                        if (phoneCount > 1) {
+                            if (!sim1Exists) {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            }
+                            if (!sim2Exists) {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                            }
+                        }
+                    } else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                    }
+                } else {
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                    if ((profile != null) &&
+                            ((profile._deviceMobileDataSIM1 != 0) ||
+                                    (profile._deviceMobileDataSIM2 != 0))) {
+                        preferenceAllowed.notAllowedRoot = true;
+                        //Log.e("Profile.isProfilePreferenceAllowed", "_deviceMobileData");
+                    }
+                }
+            } else {
+                //Log.d("Profile.isProfilePreferenceAllowed", "mobile data not supported");
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            }
+        } else {
+            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
         }
     }
 
@@ -853,10 +966,6 @@ class PreferenceAllowed {
         {
             final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
             if (telephonyManager != null) {
-                int phoneCount = 1;
-                if (Build.VERSION.SDK_INT >= 26)
-                    phoneCount = telephonyManager.getPhoneCount();
-//                    PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
 
                 final int phoneType = telephonyManager.getPhoneType();
                 if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
@@ -865,23 +974,10 @@ class PreferenceAllowed {
 
                         if (profile != null) {
                             // test if grant root is disabled
-                            if (Build.VERSION.SDK_INT < 26) {
-                                if ((profile._deviceNetworkType != 0)) {
-                                    if (applicationNeverAskForGrantRoot) {
-                                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                    }
-                                }
-                            }
-                            else {
-                                if ((profile._deviceNetworkType != 0) ||
-                                        (profile._deviceNetworkTypeSIM1 != 0) ||
-                                        (profile._deviceNetworkTypeSIM2 != 0)
-                                ) {
-                                    if (applicationNeverAskForGrantRoot) {
-                                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                    }
+                            if ((profile._deviceNetworkType != 0)) {
+                                if (applicationNeverAskForGrantRoot) {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                                 }
                             }
                         }
@@ -902,15 +998,8 @@ class PreferenceAllowed {
                                 if (profile == null)
                                     preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                                 else {
-                                    if (Build.VERSION.SDK_INT < 26) {
-                                        if (profile._deviceNetworkType != 0)
-                                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                                    } else {
-                                        if ((profile._deviceNetworkType != 0) ||
-                                                (profile._deviceNetworkTypeSIM1 != 0) ||
-                                                (profile._deviceNetworkTypeSIM2 != 0))
-                                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                                    }
+                                    if (profile._deviceNetworkType != 0)
+                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                                 }
                             }
                             else {
@@ -924,50 +1013,20 @@ class PreferenceAllowed {
                         }
 
                         boolean sim0Exists;
-                        boolean sim1Exists;
-                        boolean sim2Exists;
                         synchronized (PPApplication.simCardsMutext) {
                             sim0Exists = PPApplication.simCardsMutext.simCardsDetected;
-                            sim1Exists = sim0Exists;
-                            sim2Exists = sim0Exists;
                             sim0Exists = sim0Exists && PPApplication.simCardsMutext.sim0Exists;
-                            sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
-                            sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
-                        }
-                        if (Build.VERSION.SDK_INT >= 26) {
-                            if (phoneCount > 1) {
-                                if (!sim1Exists) {
-                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                                }
-                                if (!sim2Exists) {
-                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                                }
-                            }
                         }
                         if (!sim0Exists) {
                             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
                         }
                     } else {
-                        if (Build.VERSION.SDK_INT < 26) {
-                            if ((profile != null) &&
-                                    (profile._deviceNetworkType != 0)
-                            ) {
-                                preferenceAllowed.notAllowedRoot = true;
-                                //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
-                            }
-                        }
-                        else {
-                            if ((profile != null) &&
-                                    ((profile._deviceNetworkType != 0) ||
-                                            (profile._deviceNetworkTypeSIM1 != 0) ||
-                                            (profile._deviceNetworkTypeSIM2 != 0))
-                            ) {
-                                preferenceAllowed.notAllowedRoot = true;
-                                //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
-                            }
+                        if ((profile != null) &&
+                                (profile._deviceNetworkType != 0)
+                        ) {
+                            preferenceAllowed.notAllowedRoot = true;
+                            //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
                         }
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
@@ -987,6 +1046,115 @@ class PreferenceAllowed {
         else {
             preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
             preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+        }
+    }
+
+    static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_NETWORK_TYPE_DUAL_SIM(PreferenceAllowed preferenceAllowed,
+                                                                            String preferenceKey, Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
+
+        Context appContext = context.getApplicationContext();
+
+        if (Build.VERSION.SDK_INT >= 26) {
+            boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+
+            if (PPApplication.HAS_FEATURE_TELEPHONY) {
+                final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+                if (telephonyManager != null) {
+                    int phoneCount = telephonyManager.getPhoneCount();
+//                    PPApplication.logE("[DUAL_SIM] Profile.isProfilePreferenceAllowed", "phoneCount="+phoneCount);
+
+                    final int phoneType = telephonyManager.getPhoneType();
+                    if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
+                        if (PPApplication.isRooted(fromUIThread)) {
+                            // device is rooted
+
+                            if (profile != null) {
+                                // test if grant root is disabled
+                                if ((profile._deviceNetworkTypeSIM1 != 0) ||
+                                        (profile._deviceNetworkTypeSIM2 != 0)
+                                ) {
+                                    if (applicationNeverAskForGrantRoot) {
+                                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                    }
+                                }
+                            } else if (sharedPreferences != null) {
+                                if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
+                                    if (applicationNeverAskForGrantRoot) {
+                                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
+                                        // not needed to test all parameters
+                                        return;
+                                    }
+                                }
+                            }
+
+                            if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
+                                if (PPApplication.serviceBinaryExists(fromUIThread)) {
+                                    if (profile == null)
+                                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                    else {
+                                        if ((profile._deviceNetworkTypeSIM1 != 0) ||
+                                                (profile._deviceNetworkTypeSIM2 != 0))
+                                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                                    }
+                                } else {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
+                                }
+                            } else {
+                                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
+                            }
+
+                            boolean sim1Exists;
+                            boolean sim2Exists;
+                            synchronized (PPApplication.simCardsMutext) {
+                                sim1Exists = PPApplication.simCardsMutext.simCardsDetected;
+                                sim2Exists = PPApplication.simCardsMutext.simCardsDetected;
+                                sim1Exists = sim1Exists && PPApplication.simCardsMutext.sim1Exists;
+                                sim2Exists = sim2Exists && PPApplication.simCardsMutext.sim2Exists;
+                            }
+                            if (phoneCount > 1) {
+                                if (!sim1Exists) {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                                }
+                                if (!sim2Exists) {
+                                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
+                                }
+                            }
+                        } else {
+                            if ((profile != null) &&
+                                    ((profile._deviceNetworkTypeSIM1 != 0) ||
+                                            (profile._deviceNetworkTypeSIM2 != 0))
+                            ) {
+                                preferenceAllowed.notAllowedRoot = true;
+                                //Log.e("Profile.isProfilePreferenceAllowed", "_deviceNetworkType");
+                            }
+                            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
+                        }
+                    } else {
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
+                    }
+                } else {
+                    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
+                }
+            } else {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
+            }
+        } else {
+            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
         }
     }
 
