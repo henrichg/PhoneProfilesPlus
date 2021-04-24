@@ -219,7 +219,10 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                                 app = packageManager.getApplicationInfo(splits[0], 0);
                                 if (app != null)
                                     prefDataSummary = packageManager.getApplicationLabel(app).toString();
-                            } catch (Exception e) {
+                            } catch (PackageManager.NameNotFoundException e) {
+                                //PPApplication.recordException(e);
+                            }
+                            catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
                         } else {

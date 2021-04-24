@@ -394,7 +394,10 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
                             app = packageManager.getApplicationInfo(splits[0], 0);
                             if (app != null)
                                 prefSummary = packageManager.getApplicationLabel(app).toString();
-                        } catch (Exception e) {
+                        } catch (PackageManager.NameNotFoundException e) {
+                            //PPApplication.recordException(e);
+                        }
+                        catch (Exception e) {
                             PPApplication.recordException(e);
                         }
                     }
