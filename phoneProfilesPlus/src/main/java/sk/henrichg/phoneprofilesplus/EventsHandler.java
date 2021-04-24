@@ -180,11 +180,13 @@ class EventsHandler {
                 oldSystemRingerVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
             }
             try {
+                oldRingtone = "";
+                oldRingtoneSIM1 = "";
+                oldRingtoneSIM2 = "";
+
                 Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
                 if (uri != null)
                     oldRingtone = uri.toString();
-                else
-                    oldRingtone = "";
 
                 Context appContext = context.getApplicationContext();
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);

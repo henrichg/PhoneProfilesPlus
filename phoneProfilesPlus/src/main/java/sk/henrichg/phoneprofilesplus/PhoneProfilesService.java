@@ -7054,6 +7054,9 @@ public class PhoneProfilesService extends Service
                     }
                 }
             }
+            if (oldRingtone == null)
+                oldRingtone = "";
+
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingtone="+oldRingtone);
 
             //int oldSystemRingerVolume = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_VOLUME, -1);
