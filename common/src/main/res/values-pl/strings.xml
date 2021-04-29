@@ -1644,10 +1644,10 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="event_preferences_forSimCard_SIM1">Dla karty SIM 1</string>
     <string name="event_preferences_forSimCard_SIM2">Dla karty SIM 2</string>
     <string name="event_preferences_sms_forSimCard">Dla karty SIM</string>
-    <string name="event_preferences_sms_dualSIM_summary">This parameter is only for SMS.</string>
-    <string name="mobile_cells_pref_dlg_connected_cell_sim1">Connected cell (SIM 1):</string>
-    <string name="mobile_cells_pref_dlg_connected_cell_sim2">Connected cell (SIM 2):</string>
-    <string name="event_preferences_mobile_cells_forSimCard">For SIM card</string>
+    <string name="event_preferences_sms_dualSIM_summary">Ten parametr jest tylko dla SMS.</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim1">Połączona stacja bazowa (SIM 1):</string>
+    <string name="mobile_cells_pref_dlg_connected_cell_sim2">Połączona stacja bazowa (SIM 2):</string>
+    <string name="event_preferences_mobile_cells_forSimCard">Dla karty SIM</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
