@@ -1653,6 +1653,22 @@ public class EditorEventListFragment extends Fragment
                     } catch (Exception e) {
                         //PPApplication.recordException(e);
                     }
+
+                    try {
+                        targets.add(
+                                TapTarget.forToolbarOverflow(bottomToolbar, getString(R.string.editor_activity_targetHelps_eventsBottomMenu_title), getString(R.string.editor_activity_targetHelps_eventsBottomMenu_description))
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(true)
+                                        .drawShadow(true)
+                                        .id(id)
+                        );
+                        ++id;
+                    } catch (Exception e) {
+                        //PPApplication.recordException(e);
+                    }
+
                     try {
                         targets.add(
                                 TapTarget.forToolbarMenuItem(bottomToolbar, R.id.menu_add_event, getString(R.string.editor_activity_targetHelps_newEventButton_title), getString(R.string.editor_activity_targetHelps_newEventButton_description))

@@ -8,14 +8,14 @@
         app:showAsAction="always"
         android:icon="?attr/actionNewProfileIcon"
         tools:ignore="AlwaysShowAction"/>
-    <item android:id="@+id/menu_delete_all_events"
-        android:title="@string/menu_delete_all_events"
-        android:orderInCategory="200"
-        app:showAsAction="always"
-        android:icon="?attr/actionDeleteAllIcon" />
     <item android:id="@+id/menu_default_profile"
           android:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
-          android:orderInCategory="400"
-          app:showAsAction="always"
+          android:orderInCategory="200"
+          app:showAsAction="never"
           android:icon="?attr/actionDefaultProfile"/>
+    <item android:id="@+id/menu_delete_all_events"
+        android:title="@string/menu_delete_all_events"
+        android:orderInCategory="300"
+        app:showAsAction="never"
+        android:icon="?attr/actionDeleteAllIcon" />
 </menu>
