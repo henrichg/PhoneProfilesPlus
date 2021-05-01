@@ -357,6 +357,17 @@ public class EditorEventListFragment extends Fragment
         Menu menu = bottomToolbar.getMenu();
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
+
+        menu = bottomToolbar.getMenu();
+        if (menu != null) {
+            MenuItem item = menu.findItem(R.id.menu_default_profile);
+
+            if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
+                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            else
+                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
+
         bottomToolbar.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.menu_add_event) {
