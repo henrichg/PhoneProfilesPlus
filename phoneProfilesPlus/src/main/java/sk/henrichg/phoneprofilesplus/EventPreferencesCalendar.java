@@ -1032,6 +1032,14 @@ class EventPreferencesCalendar extends EventPreferences {
 
                     beginVal -= utcOffset;
                     endVal -= utcOffset;
+/*
+                    String alarmTime = DateFormat.getDateFormat(dataWrapper.context).format(beginVal) +
+                            " " + DateFormat.getTimeFormat(dataWrapper.context).format(beginVal);
+                    PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "beginVal="+alarmTime);
+                    alarmTime = DateFormat.getDateFormat(dataWrapper.context).format(endVal) +
+                            " " + DateFormat.getTimeFormat(dataWrapper.context).format(endVal);
+                    PPApplication.logE("EventPreferencesCalendar.saveStartEndTime", "endVal="+alarmTime);
+ */
                 }
 
                 //title = cur.getString(PROJECTION_TITLE_INDEX);
@@ -1102,6 +1110,7 @@ class EventPreferencesCalendar extends EventPreferences {
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         long startMillis = calendar.getTimeInMillis();
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         long endMillis = calendar.getTimeInMillis() - 1;

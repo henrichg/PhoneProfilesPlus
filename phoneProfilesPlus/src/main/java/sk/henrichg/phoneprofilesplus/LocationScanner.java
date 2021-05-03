@@ -80,6 +80,8 @@ class LocationScanner
                             }
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LocationScanner.onConnected");
+                        } catch (SecurityException e) {
+                            //
                         } catch (Exception e) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
@@ -361,14 +363,20 @@ class LocationScanner
     void updateTransitionsByLastKnownLocation() {
 //        PPApplication.logE("##### LocationScanner.updateTransitionsByLastKnownLocation","xxxx");
 
-        Location location;
-        if (useGPS)
-            location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        else
-            location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        try {
+            Location location;
+            if (useGPS)
+                location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            else
+                location = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-        LocationSensorWorker.enqueueWork(true, context);
-        doLocationChanged(location, true);
+            LocationSensorWorker.enqueueWork(true, context);
+            doLocationChanged(location, true);
+        } catch (SecurityException e) {
+            //
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
     }
 
     static void doLocationChanged(Location location, boolean callEventsHandler) {

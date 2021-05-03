@@ -371,6 +371,7 @@ class EventsHandler {
                     sensorType.equals(SENSOR_TYPE_SEARCH_CALENDAR_EVENTS) ||
                     sensorType.equals(SENSOR_TYPE_CALENDAR) ||
                     sensorType.equals(SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK) ||
+                    sensorType.equals(SENSOR_TYPE_SCREEN) || // also for screen on/off compute calendar alarms
                     saveCalendarStartEndTime) {
                 // search for calendar events
                 //PPApplication.logE("[CALENDAR] EventsHandler.handleEvents", "search for calendar events");
