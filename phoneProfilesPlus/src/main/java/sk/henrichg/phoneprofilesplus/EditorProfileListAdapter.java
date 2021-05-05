@@ -83,8 +83,8 @@ class EditorProfileListAdapter extends RecyclerView.Adapter<EditorProfileListVie
         holder.bindProfile(profile);
 
         if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR) {
-            if (holder.dragHandle != null) {
-                holder.dragHandle.setOnTouchListener((v, event) -> {
+            if (holder.DragHandle != null) {
+                holder.DragHandle.setOnTouchListener((v, event) -> {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             mDragStartListener.onStartDrag(holder);

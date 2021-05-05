@@ -824,7 +824,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="number_picker_min_max_error">Inserisci un numero compreso tra %1$s e %2$s</string>
     <string name="email_chooser">Invia e-mail con</string>
     <string name="web_browser_chooser">Visualizza pagina con</string>
-    <string name="google_play_chooser">Visualizza Google Play con</string>
     <string name="preference_not_allowed_reason_not_extender_installed">\"PhoneProfilesPlusExtender\" non installato.</string>
     <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">impostazioni di Accessibilità per PhoneProfilesPlusExtender non abilitate</string>
     <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Per abilitare la voce \"Applicazioni\", configurare l\'\"Accessibilità\" di \"PhoneProfilesPlusExternder\" nelle impostazioni di sistema.</string>
@@ -1621,8 +1620,8 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="profile_preferences_soundNotificationSIM1">Suono di notifica per la SIM 1</string>
     <string name="profile_preferences_soundNotificationChangeSIM2">Cambia notifica per la SIM 2</string>
     <string name="profile_preferences_soundNotificationSIM2">Suono di notifica per la SIM 2</string>
-    <string name="profile_preferences_soundsChangeSIM1">Cambia suoni per SIM1</string>
-    <string name="profile_preferences_soundsChangeSIM2">Cambia suoni per SIM2</string>
+    <string name="profile_preferences_soundsChangeSIM1">Cambia suoni per SIM 1</string>
+    <string name="profile_preferences_soundsChangeSIM2">Cambia suoni per SIM 2</string>
     <string name="preference_not_allowed_reason_not_supported_by_ppp">non supportato da PhoneProfilesPlus</string>
     <string name="profile_preferences_soundSameRingtoneForBothSIMCards">Usa la stessa suoneria per entrambe le schede SIM</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Usa lo stesso</string>
@@ -1648,6 +1647,10 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Cella collegata (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Cella collegata (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">Per la scheda SIM</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Altre azioni dei profili</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Cliccare qui per aprire il menu con altre azioni dei profili: \"Elimina tutti i profili\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Azioni di altri eventi</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Cliccare qui per aprire il menu con altre azioni eventi: \"Profilo predefinito\", \"Elimina tutti gli eventi\"</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>
@@ -1696,4 +1699,5 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
+    <!--    <string name="google_play_chooser">View Google Play using</string>-->
 </resources>

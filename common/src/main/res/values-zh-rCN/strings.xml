@@ -823,7 +823,6 @@
     <string name="number_picker_min_max_error">请输入一个数字介于 %1$s 和 %2$s 之间</string>
     <string name="email_chooser">发送电子邮件使用</string>
     <string name="web_browser_chooser">查看Web链接使用</string>
-    <string name="google_play_chooser">查看 Google Play 使用</string>
     <string name="preference_not_allowed_reason_not_extender_installed">未安装 PhoneProfilesPlusExtender</string>
     <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">未启用PhoneProfilesPlusExtender的辅助功能设置</string>
     <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">要启用“Applications”参数，请在系统设置中允许PhoneProfilesPlusExtender “Accessibility ”。</string>
@@ -1647,6 +1646,10 @@
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">已连接的基站 (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">已连接的基站 (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">用于 SIM 卡</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Other profiles actions</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Click this to open menu with other profiles actions: \"Delete all profiles\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Other events actions</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Click this to open menu with other events actions: \"Default profile\", \"Delete all events\"</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1695,4 +1698,5 @@
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
+    <!--    <string name="google_play_chooser">View Google Play using</string>-->
 </resources>

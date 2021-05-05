@@ -17,7 +17,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
 {
 
-    final DragHandle dragHandle;
+    final DragHandle DragHandle;
     //private RelativeLayout listItemRoot;
     private final ImageView profileIcon;
     private final TextView profileName;
@@ -37,9 +37,9 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         this.editorFragment = editorFragment;
 
         if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-            dragHandle = itemView.findViewById(R.id.profile_list_drag_handle);
+            DragHandle = itemView.findViewById(R.id.profile_list_drag_handle);
         else
-            dragHandle = null;
+            DragHandle = null;
         //if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
             showInActivatorButton = itemView.findViewById(R.id.profile_list_item_show_in_activator);
         /*else

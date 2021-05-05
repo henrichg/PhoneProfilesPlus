@@ -183,7 +183,7 @@ public class EditorEventListFragment extends Fragment
         //noinspection ConstantConditions
         activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
 
-        getActivity().getIntent();
+        //getActivity().getIntent();
 
         setHasOptionsMenu(true);
 
@@ -206,6 +206,7 @@ public class EditorEventListFragment extends Fragment
             showTargetHelps();
     }
 
+    @SuppressLint("AlwaysShowAction")
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);

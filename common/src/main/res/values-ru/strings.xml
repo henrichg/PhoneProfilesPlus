@@ -823,7 +823,6 @@
     <string name="number_picker_min_max_error">Пожалуйста, введите число между %1$s и %2$s</string>
     <string name="email_chooser">Отправлять почту с помощью</string>
     <string name="web_browser_chooser">Просмотр веб-ссылки с помощью</string>
-    <string name="google_play_chooser">Просмотр Google Play с помощью</string>
     <string name="preference_not_allowed_reason_not_extender_installed">не установлен PhoneProfilesPlusExtender</string>
     <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">не включены параметры специальных возможностей для PhoneProfilesPlusExtender</string>
     <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Чтобы включить параметр \"Приложения\", разрешите доступ службе PhoneProfilesPlusExtender в разделе \"Спец. возможности\" системных настроек.</string>
@@ -1647,6 +1646,10 @@
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Подключённая вышка (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Подключённая вышка (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">Для SIM-карты</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Другие действия с профилями</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Нажмите сюда, чтобы открыть меню с другими действиями с профилями: \"Удалить все профили\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Другие действия с событиями</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Нажмите сюда, чтобы открыть меню с другими действиями с событиями: \"Профиль по умолчанию\", \"Удалить все события\"</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1695,4 +1698,5 @@
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
+    <!--    <string name="google_play_chooser">View Google Play using</string>-->
 </resources>

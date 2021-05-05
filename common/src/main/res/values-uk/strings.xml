@@ -823,7 +823,6 @@
     <string name="number_picker_min_max_error">Будь ласка, впишіть число між %1$s та %2$s</string>
     <string name="email_chooser">Надсилати пошту за допомогою</string>
     <string name="web_browser_chooser">Перегляд веб-посилання за допомогою</string>
-    <string name="google_play_chooser">Перегляд Google Play за допомогою</string>
     <string name="preference_not_allowed_reason_not_extender_installed">не встановлено PhoneProfilesPlusExtender</string>
     <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">не увімкнено параметри спеціальних можливостей для PhoneProfilesPlusExtender</string>
     <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Щоб увімкнути параметр \"Додатки\", дозвольте доступ службі PhoneProfilesPlusExtender у розділі \"Спец. можливості\" системних налаштувань.</string>
@@ -1648,6 +1647,10 @@
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Підключена вишка (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Підключена вишка (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">Для SIM-карти</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Other profiles actions</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Click this to open menu with other profiles actions: \"Delete all profiles\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Other events actions</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Click this to open menu with other events actions: \"Default profile\", \"Delete all events\"</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1696,4 +1699,5 @@
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
+    <!--    <string name="google_play_chooser">View Google Play using</string>-->
 </resources>

@@ -705,7 +705,7 @@ public class WifiScanWorker extends Worker {
         if (_wifiConfigurationList != null)
         {
             //PPApplication.logE("WifiScanWorker.fillWifiConfigurationList","_wifiConfigurationList.size()="+_wifiConfigurationList.size());
-            wifiConfigurationList.clear();
+            //wifiConfigurationList.clear();
             //noinspection deprecation
             for (WifiConfiguration device : _wifiConfigurationList)
             {

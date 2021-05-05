@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 class ApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    final DragHandle dragHandle;
+    final DragHandle DragHandle;
     private final ImageView imageViewIcon;
     private final TextView textViewAppName;
     private final TextView textViewAppType;
@@ -36,7 +36,7 @@ class ApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder im
         this.context = context;
         this.preference = preference;
 
-        dragHandle = itemView.findViewById(R.id.applications_pref_dlg_item_drag_handle);
+        DragHandle = itemView.findViewById(R.id.applications_pref_dlg_item_drag_handle);
         imageViewIcon = itemView.findViewById(R.id.applications_pref_dlg_item_icon);
         textViewAppName = itemView.findViewById(R.id.applications_pref_dlg_item_app_name);
         textViewAppType = itemView.findViewById(R.id.applications_pref_dlg_item_app_type);

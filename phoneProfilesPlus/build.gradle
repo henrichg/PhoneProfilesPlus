@@ -60,6 +60,7 @@ dependencies {
     implementation "ch.acra:acra-mail:$ppVersions.acra"
     implementation "ch.acra:acra-notification:$ppVersions.acra"
 
+    //noinspection GradleDependency
     implementation 'androidx.work:work-runtime:2.5.0'
 
     implementation 'androidx.core:core:1.3.2'

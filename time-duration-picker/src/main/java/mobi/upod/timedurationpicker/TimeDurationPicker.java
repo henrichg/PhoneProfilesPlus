@@ -416,6 +416,7 @@ public class TimeDurationPicker extends FrameLayout {
         numPad.measure(MeasureSpec.makeMeasureSpec(numPadWidth, MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(numPadHeight, MeasureSpec.EXACTLY));
 
         // forward calculated size to super implementation
+        //noinspection ConstantConditions
         final int width = Math.max(displayRowWidth, numPadWidth);
         final int height = displayRowHeight + numPadHeight;
         setMeasuredDimension(width, height);

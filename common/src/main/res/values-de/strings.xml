@@ -823,7 +823,6 @@
     <string name="number_picker_min_max_error">Bitte eine Zahl zwischen %1$s und %2$s eingeben</string>
     <string name="email_chooser">E-Mail senden mit</string>
     <string name="web_browser_chooser">Link öffnen mit</string>
-    <string name="google_play_chooser">Google Play öffnen mit</string>
     <string name="preference_not_allowed_reason_not_extender_installed">PhoneProfilesPlusExtender nicht installiert</string>
     <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">Die Bedienungshilfe-Einstellungen für den PhoneProfilesPlusExtender sind nicht aktiviert</string>
     <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Um die \"App\" Parameter zu aktivieren, aktivieren sie den PhoneProfilesPlusExtender unter \"Bedienungshilfen\" in den Systemeinstellungen.</string>
@@ -1647,6 +1646,10 @@
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Verbundene Zelle (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Verbundene Zelle (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">Für SIM-Karte</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Weitere Profil-Aktionen</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Hier klicken, um ein Menü mit weiteren Aktionen für Profile zu öffnen: „Alle Profile löschen”</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Weitere Aktionen für Ereignisse</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Hier klicken, um ein Menü mit weiteren Aktionen für Ereignisse zu öffnen: „Standardprofil”, „Alle Ereignisse löschen”</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1695,4 +1698,5 @@
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
+    <!--    <string name="google_play_chooser">View Google Play using</string>-->
 </resources>

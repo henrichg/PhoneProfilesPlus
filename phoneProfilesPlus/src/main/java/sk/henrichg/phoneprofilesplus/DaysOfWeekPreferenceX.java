@@ -40,7 +40,7 @@ public class DaysOfWeekPreferenceX extends DialogPreference {
         String[] newEntryValues = _context.getResources().getStringArray(R.array.daysOfWeekValues);
         */
 
-        daysOfWeekList.clear();
+        //daysOfWeekList.clear();
         DayOfWeek dayOfWeek = new DayOfWeek();
         dayOfWeek.name = context.getString(R.string.array_pref_event_all);
         dayOfWeek.value = allValue;

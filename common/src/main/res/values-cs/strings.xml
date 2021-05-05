@@ -823,7 +823,6 @@
     <string name="number_picker_min_max_error">Vložte prosím číslo v rozmezí %1$s a %2$s</string>
     <string name="email_chooser">Odeslat e-mail pomocí</string>
     <string name="web_browser_chooser">Zobrazit webový odkaz pomocí</string>
-    <string name="google_play_chooser">Zobrazit Google Play pomocí</string>
     <string name="preference_not_allowed_reason_not_extender_installed">není nainstalován PhoneProfilesPlusExtender</string>
     <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">není povoleno nastavení Usnadnění přístupu pro PhoneProfilesPlusExtender</string>
     <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Povolte PhoneProfilesPlusExtender v systémovém nastavení \"Dostupnost\", pro povolení parametru \"Aplikace\".</string>
@@ -1621,7 +1620,7 @@
     <string name="profile_preferences_soundNotificationChangeSIM2">Změnit tón oznámení pro SIM 2</string>
     <string name="profile_preferences_soundNotificationSIM2">Tón oznámení pro SIM 2</string>
     <string name="profile_preferences_soundsChangeSIM1">Změnit tóny pro SIM 1</string>
-    <string name="profile_preferences_soundsChangeSIM2">Změnit tóny pro SIM ľ</string>
+    <string name="profile_preferences_soundsChangeSIM2">Změnit tóny pro SIM 2</string>
     <string name="preference_not_allowed_reason_not_supported_by_ppp">nepodporované PhoneProfilesPlus</string>
     <string name="profile_preferences_soundSameRingtoneForBothSIMCards">Použít stejný vyzváněcí tón pro obě SIM karty</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Použít tentýž</string>
@@ -1647,6 +1646,10 @@
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Připojená buňka (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Připojená buňka (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">Pro SIM kartu</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Ostatní akce pro profily</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Klikněte sem pro otevření menu s ostatními akcemi pro profily: \"Smazat všechny profily\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Ostatní akce pro události</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Klikněte sem pro otevření menu s ostatními akcemi pro události: \"Výchozí profil\", \"Vymazat všechny události \"</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1695,4 +1698,5 @@
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
+    <!--    <string name="google_play_chooser">View Google Play using</string>-->
 </resources>

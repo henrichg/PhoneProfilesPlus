@@ -20,7 +20,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
 {
 
-    final DragHandle dragHandle;
+    final DragHandle DragHandle;
     //RelativeLayout listItemRoot;
     private final TextView eventName;
     private TextView eventPreferencesDescription;
@@ -48,9 +48,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
         this.filterType = filterType;
 
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
-            dragHandle = itemView.findViewById(R.id.event_list_drag_handle);
+            DragHandle = itemView.findViewById(R.id.event_list_drag_handle);
         else
-            dragHandle = null;
+            DragHandle = null;
 
         eventName = itemView.findViewById(R.id.event_list_item_event_name);
         eventStatus = itemView.findViewById(R.id.event_list_item_status);

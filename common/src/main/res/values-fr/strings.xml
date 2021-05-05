@@ -823,7 +823,6 @@
     <string name="number_picker_min_max_error">Il vous plaît, veuillez indiquer un nombre entre %1$s et %2$s</string>
     <string name="email_chooser">Envoyer courrier électronique à l’aide</string>
     <string name="web_browser_chooser">Voir les liens avec</string>
-    <string name="google_play_chooser">Voir google play avec</string>
     <string name="preference_not_allowed_reason_not_extender_installed">phoneProfilesPlusExtender n’a pas été installé</string>
     <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">paramètres d’accessibilité pour PhoneProfilesPlusExtender non activés</string>
     <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Pour activer le paramètre \"Applications\", autoriser PhoneProfilesPlusExtender dans les paramètres système.</string>
@@ -1620,8 +1619,8 @@
     <string name="profile_preferences_soundNotificationSIM1">Son de notification pour la SIM 1</string>
     <string name="profile_preferences_soundNotificationChangeSIM2">Changer la notification pour la SIM 2</string>
     <string name="profile_preferences_soundNotificationSIM2">Son de notification pour la SIM 2</string>
-    <string name="profile_preferences_soundsChangeSIM1">Changer les sons pour la SIM1</string>
-    <string name="profile_preferences_soundsChangeSIM2">Changer les sons pour la SIM2</string>
+    <string name="profile_preferences_soundsChangeSIM1">Changer les sons pour la SIM 1</string>
+    <string name="profile_preferences_soundsChangeSIM2">Changer les sons pour la SIM 2</string>
     <string name="preference_not_allowed_reason_not_supported_by_ppp">non supporté par PhoneProfilesPlus</string>
     <string name="profile_preferences_soundSameRingtoneForBothSIMCards">Utiliser la même sonnerie pour les deux cartes SIM</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Utiliser la même chose</string>
@@ -1647,6 +1646,10 @@
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Cellule connectée (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Cellule connectée (SIM 2) :</string>
     <string name="event_preferences_mobile_cells_forSimCard">Pour la carte SIM</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Autres actions de profils</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Cliquez ici pour ouvrir le menu avec d\'autres actions de profils : \"Supprimer tous les profils\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Autres actions d\'événements</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Cliquez sur ce bouton pour ouvrir le menu avec d\'autres actions : \"Profil par défaut\", \"Supprimer tous les événements\"</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
@@ -1695,4 +1698,5 @@
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
+    <!--    <string name="google_play_chooser">View Google Play using</string>-->
 </resources>

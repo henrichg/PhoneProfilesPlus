@@ -823,7 +823,6 @@
     <string name="number_picker_min_max_error">Proszę wpisz liczbę z zakresu od %1$s do %2$s</string>
     <string name="email_chooser">Wyślij e-mail używając</string>
     <string name="web_browser_chooser">Wyświetl link web używając</string>
-    <string name="google_play_chooser">Pokaż Google Play używając</string>
     <string name="preference_not_allowed_reason_not_extender_installed">nie zainstalowano PhoneProfilesPlusExtender</string>
     <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">ustawienia dostępu nie są włączone dla PhoneProfilesPlusExtender</string>
     <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Aby włączyć parametr \"Aplikacje\", włącz usługę  PhoneProfilesPlusExtender w systemowych \"Ułatwieniach dostępu\".</string>
@@ -1621,8 +1620,8 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="profile_preferences_soundNotificationSIM1">Dźwięk powiadomienia dla SIM 1</string>
     <string name="profile_preferences_soundNotificationChangeSIM2">Zmień powiadomienie dla SIM 2</string>
     <string name="profile_preferences_soundNotificationSIM2">Dźwięk powiadomienia dla SIM 2</string>
-    <string name="profile_preferences_soundsChangeSIM1">Zmień dźwięki dla karty SIM1</string>
-    <string name="profile_preferences_soundsChangeSIM2">Zmień dźwięki dla karty SIM2</string>
+    <string name="profile_preferences_soundsChangeSIM1">Zmień dźwięki dla karty SIM 1</string>
+    <string name="profile_preferences_soundsChangeSIM2">Zmień dźwięki dla karty SIM 2</string>
     <string name="preference_not_allowed_reason_not_supported_by_ppp">nie obsługiwane przez PhoneProfilesPlus</string>
     <string name="profile_preferences_soundSameRingtoneForBothSIMCards">Użyj tego samego dzwonka dla obu kart SIM</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Użyj tego samego</string>
@@ -1648,6 +1647,10 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Połączona stacja bazowa (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Połączona stacja bazowa (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">Dla karty SIM</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Other profiles actions</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Click this to open menu with other profiles actions: \"Delete all profiles\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Other events actions</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Click this to open menu with other events actions: \"Default profile\", \"Delete all events\"</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1696,4 +1699,5 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
+    <!--    <string name="google_play_chooser">View Google Play using</string>-->
 </resources>

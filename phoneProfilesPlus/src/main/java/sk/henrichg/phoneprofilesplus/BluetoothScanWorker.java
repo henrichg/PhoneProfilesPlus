@@ -806,7 +806,7 @@ public class BluetoothScanWorker extends Worker {
             if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH)) {
                 if (bluetooth.getState() == BluetoothAdapter.STATE_ON) {
                     Set<BluetoothDevice> boundedDevices = bluetooth.getBondedDevices();
-                    boundedDevicesList.clear();
+                    //boundedDevicesList.clear();
                     if (boundedDevices != null) {
                         for (BluetoothDevice device : boundedDevices) {
                             boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress(),

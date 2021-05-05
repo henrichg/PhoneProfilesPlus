@@ -41,7 +41,7 @@ class ApplicationsDialogPreferenceAdapterX extends RecyclerView.Adapter<Applicat
         Application application = preference.applicationsList.get(position);
         holder.bindApplication(application);
 
-        holder.dragHandle.setOnTouchListener((v, event) -> {
+        holder.DragHandle.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     mDragStartListener.onStartDrag(holder);

@@ -823,7 +823,6 @@
     <string name="number_picker_min_max_error">Vložte prosím číslo v rozmedzí %1$s a %2$s</string>
     <string name="email_chooser">Odoslať e-mail pomocou</string>
     <string name="web_browser_chooser">Zobraziť webový odkaz pomocou</string>
-    <string name="google_play_chooser">Zobraziť Google Play pomocou</string>
     <string name="preference_not_allowed_reason_not_extender_installed">nie je nainštalovaný PhoneProfilesPlusExtender</string>
     <string name="preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender">nie je zapnutá Dostupnosť pre PhoneProfilesPlusExtender</string>
     <string name="event_preferences_applications_AccessibilitySettingsForExtender_summary">Povoľte PhoneProfilesPlusExtender v systémovom nastavení \"Dostupnosť\", pre povolenie parametra \"Aplikácie\".</string>
@@ -1647,6 +1646,10 @@
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Pripojená bunka (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Pripojená bunka (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">Pre SIM kartu</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Ostatné akcie pre profily</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Kliknite sem pre otvorenie menu s ostatnými akciami pre profily: \"Vymazať všetky profily\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Ostatné akcie pre udalosti</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Kliknite sem pre otvorenie menu s ostatnými akciami pre udalosti: \"Predvolený profil\", \"Vymazať všetky udalosti\"</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1695,4 +1698,5 @@
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
+    <!--    <string name="google_play_chooser">View Google Play using</string>-->
 </resources>

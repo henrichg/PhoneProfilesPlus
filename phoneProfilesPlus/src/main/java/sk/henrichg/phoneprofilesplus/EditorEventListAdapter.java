@@ -73,8 +73,8 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         holder.bindEvent(event);
 
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER) {
-            if (holder.dragHandle != null) {
-                holder.dragHandle.setOnTouchListener((v, event1) -> {
+            if (holder.DragHandle != null) {
+                holder.DragHandle.setOnTouchListener((v, event1) -> {
                     switch (event1.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             mDragStartListener.onStartDrag(holder);
