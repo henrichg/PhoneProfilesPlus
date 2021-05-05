@@ -19,7 +19,6 @@ allprojects {
         google()
         mavenCentral()
         maven { url "https://maven.google.com" }
-        mavenCentral()
         //jcenter() // requred for android.annotation.SuppressLint
         maven { url 'https://jitpack.io' } // required for doki
         flatDir {
