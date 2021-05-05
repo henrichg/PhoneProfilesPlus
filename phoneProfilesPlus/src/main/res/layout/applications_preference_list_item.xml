@@ -36,7 +36,8 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true" >
 
-        <sk.henrichg.phoneprofilesplus.DragHandle
+        <!--<sk.henrichg.phoneprofilesplus.DragHandle-->
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/applications_pref_dlg_item_drag_handle"
             android:layout_width="25dp"
             android:layout_height="45dp"

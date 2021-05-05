@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +21,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
 {
 
-    final DragHandle DragHandle;
+    //final DragHandle dragHandle;
+    final AppCompatImageView dragHandle;
     //RelativeLayout listItemRoot;
     private final TextView eventName;
     private TextView eventPreferencesDescription;
@@ -48,9 +50,9 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
         this.filterType = filterType;
 
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
-            DragHandle = itemView.findViewById(R.id.event_list_drag_handle);
+            dragHandle = itemView.findViewById(R.id.event_list_drag_handle);
         else
-            DragHandle = null;
+            dragHandle = null;
 
         eventName = itemView.findViewById(R.id.event_list_item_event_name);
         eventStatus = itemView.findViewById(R.id.event_list_item_status);

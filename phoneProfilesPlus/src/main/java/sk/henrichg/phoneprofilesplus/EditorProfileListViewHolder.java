@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +18,8 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
 {
 
-    final DragHandle DragHandle;
+    //final DragHandle dragHandle;
+    final AppCompatImageView dragHandle;
     //private RelativeLayout listItemRoot;
     private final ImageView profileIcon;
     private final TextView profileName;
@@ -37,9 +39,9 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
         this.editorFragment = editorFragment;
 
         if (filterType == EditorProfileListFragment.FILTER_TYPE_SHOW_IN_ACTIVATOR)
-            DragHandle = itemView.findViewById(R.id.profile_list_drag_handle);
+            dragHandle = itemView.findViewById(R.id.profile_list_drag_handle);
         else
-            DragHandle = null;
+            dragHandle = null;
         //if (filterType == EditorProfileListFragment.FILTER_TYPE_ALL)
             showInActivatorButton = itemView.findViewById(R.id.profile_list_item_show_in_activator);
         /*else

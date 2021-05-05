@@ -12,12 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class ApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    final DragHandle DragHandle;
+    //final DragHandle dragHandle;
+    final AppCompatImageView dragHandle;
     private final ImageView imageViewIcon;
     private final TextView textViewAppName;
     private final TextView textViewAppType;
@@ -36,7 +38,7 @@ class ApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder im
         this.context = context;
         this.preference = preference;
 
-        DragHandle = itemView.findViewById(R.id.applications_pref_dlg_item_drag_handle);
+        dragHandle = itemView.findViewById(R.id.applications_pref_dlg_item_drag_handle);
         imageViewIcon = itemView.findViewById(R.id.applications_pref_dlg_item_icon);
         textViewAppName = itemView.findViewById(R.id.applications_pref_dlg_item_app_name);
         textViewAppType = itemView.findViewById(R.id.applications_pref_dlg_item_app_type);
