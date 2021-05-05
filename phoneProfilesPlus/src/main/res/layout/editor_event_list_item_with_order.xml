@@ -52,8 +52,7 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="5dp" >
 
-        <!--<sk.henrichg.phoneprofilesplus.DragHandle-->
-        <androidx.appcompat.widget.AppCompatImageView
+        <sk.henrichg.phoneprofilesplus.DragHandle
             android:id="@+id/event_list_drag_handle"
             android:layout_width="25dp"
             android:layout_height="45dp"

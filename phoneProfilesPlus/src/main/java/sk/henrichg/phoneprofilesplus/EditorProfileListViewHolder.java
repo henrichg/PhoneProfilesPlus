@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,8 +17,7 @@ class EditorProfileListViewHolder extends RecyclerView.ViewHolder
 
 {
 
-    //final DragHandle dragHandle;
-    final AppCompatImageView dragHandle;
+    final DragHandle dragHandle;
     //private RelativeLayout listItemRoot;
     private final ImageView profileIcon;
     private final TextView profileName;

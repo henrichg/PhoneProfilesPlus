@@ -12,14 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 class ApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    //final DragHandle dragHandle;
-    final AppCompatImageView dragHandle;
+    final DragHandle dragHandle;
     private final ImageView imageViewIcon;
     private final TextView textViewAppName;
     private final TextView textViewAppType;

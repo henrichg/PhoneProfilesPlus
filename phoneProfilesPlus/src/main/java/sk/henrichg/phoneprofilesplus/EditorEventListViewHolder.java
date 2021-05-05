@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,8 +20,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
 
 {
 
-    //final DragHandle dragHandle;
-    final AppCompatImageView dragHandle;
+    final DragHandle dragHandle;
     //RelativeLayout listItemRoot;
     private final TextView eventName;
     private TextView eventPreferencesDescription;
