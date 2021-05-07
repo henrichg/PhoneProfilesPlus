@@ -1221,7 +1221,7 @@ public class DataWrapper {
         }
     }
 
-    void activateProfileOnBoot()
+    void activateProfileAtFirstStart()
     {
         if (ApplicationPreferences.applicationActivate)
         {
@@ -1247,27 +1247,29 @@ public class DataWrapper {
                     profileId = 0;
             }
 
-            activateProfile(profileId, PPApplication.STARTUP_SOURCE_BOOT, null, true);
+            activateProfile(profileId, PPApplication.STARTUP_SOURCE_FOR_FIRST_START, null, true);
         }
-        else
-            activateProfile(0, PPApplication.STARTUP_SOURCE_BOOT, null, true);
+        // do not remove last activated profile at first start
+        //else
+        //    activateProfile(0, startupSource, null, true);
     }
 
-    private void startEventsOnBoot(boolean startedFromService, boolean useHandler)
+    private void startEventsAtFirstStart(boolean startedFromService, boolean useHandler)
     {
 //        PPApplication.logE("[APP_START] DataWrapper.startEventsOnBoot", "START");
         if (startedFromService) {
-            if (ApplicationPreferences.applicationStartEvents) {
+            if (ApplicationPreferences.applicationActivate &&
+                    ApplicationPreferences.applicationStartEvents) {
                 //restartEvents(false, false, true, false, useHandler);
 //                PPApplication.logE("[APP_START] DataWrapper.startEventsOnBoot", "(1)");
                 restartEventsWithRescan(true, false, useHandler, false, false, false);
 //                restartEventsWithDelay(5, true, false, true, PPApplication.ALTYPE_UNDEFINED);
             }
             else {
-                Event.setGlobalEventsRunning(context, false);
+                //Event.setGlobalEventsRunning(context, false);
 //                PPApplication.logE("[APP_START] DataWrapper.startEventsOnBoot", "PPApplication.setApplicationFullyStarted");
                 PPApplication.setApplicationFullyStarted(context);
-                activateProfileOnBoot();
+                activateProfileAtFirstStart();
             }
         }
         else {
@@ -1321,9 +1323,9 @@ public class DataWrapper {
         {
             PPApplication.logE("DataWrapper.firstStartEvents", "manual profile activation, activate profile");
 
-            activateProfileOnBoot();
+            activateProfileAtFirstStart();
         }
-        startEventsOnBoot(startedFromService, useHandler);
+        startEventsAtFirstStart(startedFromService, useHandler);
     }
 
     static Event getNonInitializedEvent(String name, int startOrder)
@@ -1719,7 +1721,7 @@ public class DataWrapper {
                 //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
 
                 if (((startupSource != PPApplication.STARTUP_SOURCE_EVENT) &&
-                     (startupSource != PPApplication.STARTUP_SOURCE_BOOT) //&&
+                     (startupSource != PPApplication.STARTUP_SOURCE_FOR_FIRST_START) //&&
                    //(startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START)
                 ) || (_profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
                     // activation with duration
@@ -2042,7 +2044,7 @@ public class DataWrapper {
         Profile profile;
 
         // for activated profile is recommended update of activity
-        if (startupSource == PPApplication.STARTUP_SOURCE_BOOT) {
+        if (startupSource == PPApplication.STARTUP_SOURCE_FOR_FIRST_START) {
             long profileId = PPApplication.prefLastActivatedProfile;
             profile = getProfileById(profileId, false, false, false);
         }
@@ -2065,7 +2067,7 @@ public class DataWrapper {
             //interactive = ((startupSource != PPApplication.STARTUP_SOURCE_EVENT));
         }
         else
-        if (startupSource == PPApplication.STARTUP_SOURCE_BOOT)
+        if (startupSource == PPApplication.STARTUP_SOURCE_FOR_FIRST_START)
         {
             // activation is invoked during device boot
 
@@ -2126,9 +2128,9 @@ public class DataWrapper {
         if (actProfile && (profile != null))
         {
             // profile activation
-            if (startupSource == PPApplication.STARTUP_SOURCE_BOOT) {
+            if (startupSource == PPApplication.STARTUP_SOURCE_FOR_FIRST_START) {
                 //PPApplication.logE("&&&&&&& DataWrapper.activateProfile", "called is DataWrapper.activateProfileFromMainThread");
-                activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_BOOT,
+                activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_FOR_FIRST_START,
                         false, null, testGrant);
             }
             else
