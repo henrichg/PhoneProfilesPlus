@@ -4064,6 +4064,71 @@ public class PPApplication extends Application
     }
 
     static void showDoNotKillMyAppDialog(final Fragment fragment) {
+/*
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... voids) {
+                try {
+                    //noinspection RegExpRedundantEscape
+                    return ((JSONObject) new JSONTokener(
+                            InputStreamUtil.read(new URL("https://dontkillmyapp.com/api/v2/"+Build.MANUFACTURER.toLowerCase().replaceAll(" ", "-")+".json").openStream())).nextValue()
+                    ).getString("user_solution").replaceAll("\\[[Yy]our app\\]", fragment.getString(R.string.app_name));
+                } catch (Exception e) {
+                    // This vendor is not in the DontKillMyApp list
+                    Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", Log.getStackTraceString(e));
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                try {
+                    if (result != null) {
+                        //Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", result);
+
+                        String head = "<head><style>img{max-width: 100%; width:auto; height: auto;}</style></head>";
+                        String html = "<html>" + head + "<body>" + result + "</body></html>";
+
+                        WebView wv = new WebView(fragment.getContext());
+                        WebSettings settings = wv.getSettings();
+                        WebSettings.LayoutAlgorithm layoutAlgorithm = WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING;
+                        settings.setLayoutAlgorithm(layoutAlgorithm);
+                        wv.loadData(html, "text/html; charset=utf-8", "UTF-8");
+                        wv.setWebViewClient(new WebViewClient() {
+                            @Override
+                            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                                view.loadUrl(url);
+                                return true;
+                            }
+                        });
+
+                        //noinspection ConstantConditions
+                        new AlertDialog.Builder(fragment.getContext())
+                                .setTitle("How to make my app work")
+                                .setView(wv).setPositiveButton(android.R.string.ok, null).show();
+
+                    }
+                    else {
+                        String url = "https://dontkillmyapp.com/";
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        try {
+                            fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                        } catch (Exception ignored) {}
+                    }
+                } catch (Exception e) {
+                    Log.e("PhoneProfilesPrefsFragment.applicationDoNotKillMyApp", Log.getStackTraceString(e));
+                    String url = "https://dontkillmyapp.com/";
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
+                    } catch (Exception ignored) {}
+                }
+            }
+        }.execute();
+*/
+
         if (fragment.getActivity() != null) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(fragment.getActivity());
             dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
@@ -4095,6 +4160,7 @@ public class PPApplication extends Application
             if (!fragment.getActivity().isFinishing())
                 dialog.show();
         }
+
     }
 
     static void startHandlerThread(/*String from*/) {
