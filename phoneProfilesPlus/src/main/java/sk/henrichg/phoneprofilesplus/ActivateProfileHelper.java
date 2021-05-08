@@ -74,6 +74,11 @@ class ActivateProfileHelper {
 
     // bluetooth calls volume stream
     static final int STREAM_BLUETOOTH_SCO = 6;
+    // stream for TTS - from API 24
+    //static final int STREAM_TTS = 9;
+    // streams for virtual assistant -  from API 30
+    // requires android.Manifest.permission.MODIFY_AUDIO_ROUTING
+    //static final int STREAM_ASSISTANT = 11;
 
     //static final String ADAPTIVE_BRIGHTNESS_SETTING_NAME = "screen_auto_brightness_adj";
 
