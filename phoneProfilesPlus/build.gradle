@@ -94,16 +94,16 @@ dependencies {
         transitive = true
     }
 
-    implementation project(path: ':common')
-    implementation project(path: ':ToastCompat')
-    implementation project(path: ':RootShell')
-    implementation project(path: ':RootTools')
-    implementation project(path: ':android-betterpickers')
-    implementation project(path: ':time-duration-picker')
-    implementation project(path: ':AndroidClearChroma')
-    implementation project(path: ':recyclerview-fastscroll')
-    implementation project(path: ':noobcameraflash')
-    implementation project(path: ':phoneProfilesImport')
+    implementation project(':common')
+    implementation project(':ToastCompat')
+    implementation project(':RootShell')
+    implementation project(':RootTools')
+    implementation project(':android-betterpickers')
+    implementation project(':time-duration-picker')
+    implementation project(':AndroidClearChroma')
+    implementation project(':recyclerview-fastscroll')
+    implementation project(':noobcameraflash')
+    implementation project(':phoneProfilesImport')
 
     implementation files('libs/sdk-v1.0.0.jar')
     implementation files('libs/slook_v1.4.0.jar')
