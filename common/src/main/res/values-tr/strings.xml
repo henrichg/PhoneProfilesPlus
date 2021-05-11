@@ -1595,9 +1595,9 @@
     <string name="array_pref_radioSwitch_connected">Bağlandı</string>
     <string name="array_pref_radioSwitch_disconnected">Bağlantı kesildi</string>
     <string name="event_preference_sensor_radioSwitch_summary">Bu Şart, durumun radyoların (açık/kapalı) geçişi yaparken başlatılması içindir. Değerler: Wi-Fi, Bluetooth, Şebeke interneti GPS, NFC, Uçak modu.</string>
-    <string name="default_sim_pref_dlg_voice">Ses için kullanılacak SIM kart</string>
-    <string name="default_sim_pref_dlg_sms">SMS için kullanılan ancak SIM kart</string>
-    <string name="default_sim_pref_dlg_data">Varsayılan SIM kart</string>
+    <string name="default_sim_pref_dlg_voice">Varsayılan ses SIM kartı</string>
+    <string name="default_sim_pref_dlg_sms">Varsayılan kısa mesaj (SMS) SIM kartı</string>
+    <string name="default_sim_pref_dlg_data">Varsayılan internet SIM kartı</string>
     <string name="array_default_sim_pref_ask_for_sim">Her defasında sor</string>
     <string name="array_default_sim_pref_sim1">SIM 1</string>
     <string name="array_default_sim_pref_sim2">SIM 2</string>
@@ -1646,10 +1646,10 @@
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Bağlanılan şebeke hücresi (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Bağlanılan şebeke hücresi (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">SIM kart için</string>
-    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Other profiles actions</string>
-    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Click this to open menu with other profiles actions: \"Delete all profiles\"</string>
-    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Other events actions</string>
-    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Click this to open menu with other events actions: \"Default profile\", \"Delete all events\"</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Diğer Tercih faaliyetleri</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Diğer Tercih faaliyetleri ile açmak için buna dokunun: \"Tercihlerin tamamını sil\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Diğer Durum faaliyetleri</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Diğer Durum faaliyetleri ile açmak için buna dokunun: \"Varsayılan Tercih\", \"Durumların tamamını sil\"</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• tercih değeri \"Zorla durdurulan uygulamalar\"\n• durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

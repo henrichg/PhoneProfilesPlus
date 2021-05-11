@@ -314,7 +314,7 @@
     <string name="phone_profiles_pref_notificationShowInStatusBar">在状态栏显示</string>
     <string name="phone_profiles_pref_notificationShowInStatusBarAndLockscreen">在状态栏和锁屏界面显示</string>
     <string name="menu_activity_log_reload">重新加载</string>
-    <string name="event_preferences_atEndDo">同时执行</string>
+    <string name="event_preferences_atEndDo">更多操作</string>
     <string name="array_pref_atEndDo_none">无</string>
     <string name="array_pref_atEndDo_undoneProfile">撤销情景</string>
     <string name="array_pref_atEndDo_restartEvents">重新启动事件</string>
@@ -1479,11 +1479,11 @@
     <string name="about_application_package_type_github">从 GitHub 或其他来源安装。</string>
     <string name="notification_channel_new_release">新版 PhoneProfilesPlus 已发布</string>
     <string name="notification_channel_new_release_description">显示新版 PhoneProfilesPlus 发布的通知。</string>
-    <string name="altype_actionFromExternalApp_profileActivation">来自外部应用的动作-情景激活</string>
+    <string name="altype_actionFromExternalApp_profileActivation">来自外部应用的操作-情景激活</string>
     <string name="altype_actionFromExternalApp_restartEvents">来自外部应用程序的操作 - 重启事件</string>
-    <string name="altype_actionFromExternalApp_enableRunForEvent">来自外部应用程序的动作-运行事件运行</string>
-    <string name="altype_actionFromExternalApp_pauseEvent">来自外部应用程序的动作-暂停事件</string>
-    <string name="altype_actionFromExternalApp_stopEvent">来自外部应用的动作-停止事件</string>
+    <string name="altype_actionFromExternalApp_enableRunForEvent">来自外部应用程序的操作-运行事件运行</string>
+    <string name="altype_actionFromExternalApp_pauseEvent">来自外部应用程序的操作-暂停事件</string>
+    <string name="altype_actionFromExternalApp_stopEvent">来自外部应用的操作-停止事件</string>
     <string name="profile_preferences_volumeMuteSound_summary">闹钟声音不能静音</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">此情景中的声音模式也被忽略。</string>
     <string name="location_editor_connection_is_offline">网络连接处于离线状态。因此无法显示地图。</string>
@@ -1646,10 +1646,10 @@
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">已连接的基站 (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">已连接的基站 (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">用于 SIM 卡</string>
-    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Other profiles actions</string>
-    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Click this to open menu with other profiles actions: \"Delete all profiles\"</string>
-    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Other events actions</string>
-    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Click this to open menu with other events actions: \"Default profile\", \"Delete all events\"</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">其他配置文件操作</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">点击此处打开菜单与其他配置文件操作：“删除所有配置文件”</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">其他事件操作</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">点击此处打开菜单与其他事件操作：“默认配置”、“删除所有事件”</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>

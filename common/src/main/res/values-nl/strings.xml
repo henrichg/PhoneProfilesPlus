@@ -1646,10 +1646,10 @@
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Verbonden cel (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Verbonden cel (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">Voor simkaart</string>
-    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Other profiles actions</string>
-    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Click this to open menu with other profiles actions: \"Delete all profiles\"</string>
-    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Other events actions</string>
-    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Click this to open menu with other events actions: \"Default profile\", \"Delete all events\"</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Acties andere profielen</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Klik hier om het menu te openen met acties andere profielen: \"Alle profielen verwijderen\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Andere event acties</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Klik hier om het menu te openen met andere event acties: \"Standaard profiel\", \"Verwijder alle evenementen\"</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

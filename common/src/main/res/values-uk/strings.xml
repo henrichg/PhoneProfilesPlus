@@ -1647,10 +1647,10 @@
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Підключена вишка (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Підключена вишка (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">Для SIM-карти</string>
-    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Other profiles actions</string>
-    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Click this to open menu with other profiles actions: \"Delete all profiles\"</string>
-    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Other events actions</string>
-    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Click this to open menu with other events actions: \"Default profile\", \"Delete all events\"</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Інші дії з профілями</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Натисніть щоб відкрити меню з іншими діями над профілями: \"Видалити всі профілі\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Інші дії з подіями</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Натисніть щоб відкрити меню з іншими діями над подіями: \"Профіль за замовчуванням\", \"Видалити всі події\"</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

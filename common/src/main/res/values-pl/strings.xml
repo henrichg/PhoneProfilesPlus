@@ -1647,10 +1647,10 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="mobile_cells_pref_dlg_connected_cell_sim1">Połączona stacja bazowa (SIM 1):</string>
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Połączona stacja bazowa (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">Dla karty SIM</string>
-    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Other profiles actions</string>
-    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Click this to open menu with other profiles actions: \"Delete all profiles\"</string>
-    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Other events actions</string>
-    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Click this to open menu with other events actions: \"Default profile\", \"Delete all events\"</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_title">Pozostałe działania na profilach</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Kliknij, aby otworzyć menu pozostałych działań na profilach: \"Usuń wszystkie profile\"</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_title">Inne działania na zdarzeniach</string>
+    <string name="editor_activity_targetHelps_eventsBottomMenu_description">Kliknij, aby otworzyć menu pozostałych działań na zdarzeniach: \"Domyślny profil\", \"Usuń wszystkie zdarzenia\"</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
