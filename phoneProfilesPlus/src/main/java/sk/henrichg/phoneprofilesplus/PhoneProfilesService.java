@@ -5416,10 +5416,14 @@ public class PhoneProfilesService extends Service
         boolean notificationNightMode;
         boolean notificationShowButtonExit;
         String notificationLayoutType;
+
+        // !!! Use configured notification style, It is required for restart of PPP by system !!!
         if (forFirstStart) {
-            //notificationNotificationStyle = "1"; //ApplicationPreferences.notificationNotificationStyle;
             synchronized (PPApplication.applicationPreferencesMutex) {
+                // load style directly from shared preferences
+                ApplicationPreferences.notificationNotificationStyle(dataWrapper.context);
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
+
                 notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
                 notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
             }
@@ -5438,7 +5442,11 @@ public class PhoneProfilesService extends Service
             profile = dataWrapper.getActivatedProfileFromDB(false, false);
 
             synchronized (PPApplication.applicationPreferencesMutex) {
+
+                // load style directly from shared preferences
+                ApplicationPreferences.notificationNotificationStyle(dataWrapper.context);
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
+
                 notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon /*|| (Build.VERSION.SDK_INT < 24)*/;
                 //notificationShowProfileIcon = true;
                 notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
