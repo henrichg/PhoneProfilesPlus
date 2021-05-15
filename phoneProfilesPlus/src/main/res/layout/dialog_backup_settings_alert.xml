@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingStart="25dp"
+    android:paddingEnd="25dp">
 
     <TextView
         android:id="@+id/backup_settings_alert_dialog_text"
