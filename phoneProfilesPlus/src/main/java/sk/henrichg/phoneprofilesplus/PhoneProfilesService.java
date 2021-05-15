@@ -5987,6 +5987,7 @@ public class PhoneProfilesService extends Service
         }
 
         // profile preferences indicator
+        String indicators = null;
         try {
             if (notificationNotificationStyle.equals("0")) {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "notification style = 0");
@@ -6042,7 +6043,7 @@ public class PhoneProfilesService extends Service
             else {
                 if (notificationPrefIndicator) {
                     ProfilePreferencesIndicator _indicators = new ProfilePreferencesIndicator();
-                    String indicators = _indicators.getString(profile, 0, appContext);
+                    indicators = _indicators.getString(profile, 0, appContext);
                     notificationBuilder.setContentText(indicators);
 //                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContentText()="+indicators);
                 }
@@ -6258,6 +6259,9 @@ public class PhoneProfilesService extends Service
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContent");
             //    notificationBuilder.setContent(contentViewLarge);
             //}
+        }
+        else {
+            notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(indicators));
         }
 
         if ((notificationShowButtonExit) && useDecorator) {
