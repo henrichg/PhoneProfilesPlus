@@ -1267,7 +1267,7 @@ public class DataWrapper {
             }
             else {
                 //Event.setGlobalEventsRunning(context, false);
-//                PPApplication.logE("[APP_START] DataWrapper.startEventsOnBoot", "PPApplication.setApplicationFullyStarted");
+                PPApplication.logE("[APP_START] DataWrapper.startEventsAtFirstStart", "setApplicationFullyStarted");
                 PPApplication.setApplicationFullyStarted(context);
                 activateProfileAtFirstStart();
             }

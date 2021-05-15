@@ -138,6 +138,7 @@ public class MainWorker extends Worker {
                         }
                         break;
                     case APPLICATION_FULLY_STARTED_WORK_TAG:
+                        PPApplication.logE("[APP_START] MainWorker.doWork", "setApplicationFullyStarted");
                         PPApplication.setApplicationFullyStarted(appContext);
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
@@ -839,7 +840,7 @@ public class MainWorker extends Worker {
                 }
             });
 
-//            PPApplication.logE("[APP_START] MainWorker.doAfterFirstStart", "PPApplication.setApplicationFullyStarted");
+            PPApplication.logE("[APP_START] MainWorker.doAfterFirstStart", "setApplicationFullyStarted");
             PPApplication.setApplicationFullyStarted(appContext);
 
             dataWrapper.activateProfileAtFirstStart();

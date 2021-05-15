@@ -279,7 +279,7 @@ class EventsHandler {
 
             if (DatabaseHandler.getInstance(context.getApplicationContext()).getNotStoppedEventsCount() == 0) {
                 // not any event is paused or running
-//                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (01)");
+                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (01)");
                 PPApplication.setApplicationFullyStarted(context);
 
                 doEndHandler(null);
@@ -295,6 +295,9 @@ class EventsHandler {
 //                    PPApplication.logE("[EVENTS_HANDLER] EventsHandler.handleEvents", "------ events not exists ------");
 //                    if (isRestart)
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "------ events not exists ------");
+
+                    PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (02)");
+                    PPApplication.setApplicationFullyStarted(context);
 
                     doEndHandler(null);
                     //dataWrapper.invalidateDataWrapper();
@@ -884,32 +887,34 @@ class EventsHandler {
                             PPApplication.setBlockProfileEventActions(true);
                         }
 
-                        if (!isRestart) {
-//                            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (xx)");
+                        /*if (!isRestart) {
+                            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (02)");
                             PPApplication.setApplicationFullyStarted(context);
-                        }
+                        }*/
 
                     } else {
-//                        PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (1)");
-                        PPApplication.setApplicationFullyStarted(context);
+                        /*PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (03)");
+                        PPApplication.setApplicationFullyStarted(context);*/
                         if (PPApplication.prefLastActivatedProfile != 0) {
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
                             dataWrapper.addProfileToFIFO(PPApplication.prefLastActivatedProfile, 0);
                         }
                     }
                 }
-                else {
-//                    PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (2)");
+                /*else {
+                    PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (04)");
                     PPApplication.setApplicationFullyStarted(context);
-                }
+                }*/
             } else {
                 // manual profile activation
 
  //                if (isRestart)
 //                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "active profile is activated manually");
 
-//                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "PPApplication.setApplicationFullyStarted (3)");
+                /*
+                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (05)");
                 PPApplication.setApplicationFullyStarted(context);
+                */
 
                 boolean defaultProfileActivated = false;
 
@@ -1107,6 +1112,9 @@ class EventsHandler {
             //restartAtEndOfEvent = false;
 
             doEndHandler(dataWrapper);
+
+            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (XXX)");
+            PPApplication.setApplicationFullyStarted(context);
 
             // refresh all GUI - must be for restart scanners
             //if (PPApplication.isScreenOn) {

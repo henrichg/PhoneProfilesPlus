@@ -1484,7 +1484,7 @@ class Event {
 //            }
 
             // if application is restarted by system, ignore manual profile activation
-            if (!_ignoreManualActivation || (!PPApplication.normalServiceStart))
+            if ((!_ignoreManualActivation) || (!PPApplication.normalServiceStart))
                 // event is not forceRun
                 return;
             if (_blocked)
@@ -1601,7 +1601,7 @@ class Event {
 
         if (this._fkProfileStart != Profile.PROFILE_NO_ACTIVATE) {
             if (mergedProfile == null) {
-                if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart by system
+                if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart of application by system
                     (!this._ignoreManualActivation) ||
                     (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
                     long activatedProfileId = 0;
@@ -1623,7 +1623,7 @@ class Event {
                     PPApplication.updateGUI(1, dataWrapper.context/*, true, false*/);
                 }
             } else {
-                if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart by system
+                if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart of application by system
                     (!this._ignoreManualActivation) ||
                     (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
                     mergedProfile.mergeProfiles(this._fkProfileStart, dataWrapper/*, true*/);
@@ -1683,7 +1683,7 @@ class Event {
 //        }
 
         boolean profileActivated = false;
-        if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart by system
+        if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart of application by system
             (!this._ignoreManualActivation) ||
             (!DataWrapper.getIsManualProfileActivation(false, dataWrapper.context))) {
             if (activateReturnProfile/* && canActivateReturnProfile()*/) {
