@@ -5423,12 +5423,13 @@ public class PhoneProfilesService extends Service
                 // load style directly from shared preferences
                 ApplicationPreferences.notificationNotificationStyle(dataWrapper.context);
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
+                ApplicationPreferences.notificationUseDecoration(dataWrapper.context);
+                notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
 
                 notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
                 notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
             }
             notificationShowProfileIcon = false; // for small notification at start
-            notificationUseDecoration = false;
             notificationPrefIndicator = false;
             notificationStatusBarStyle = "1";
             notificationTextColor = "0";
@@ -5446,13 +5447,14 @@ public class PhoneProfilesService extends Service
                 // load style directly from shared preferences
                 ApplicationPreferences.notificationNotificationStyle(dataWrapper.context);
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
+                ApplicationPreferences.notificationUseDecoration(dataWrapper.context);
+                notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
 
                 notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon /*|| (Build.VERSION.SDK_INT < 24)*/;
                 //notificationShowProfileIcon = true;
                 notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
                 //notificationStatusBarPermanent = ApplicationPreferences.notificationStatusBarPermanent(appContext);
                 //notificationDarkBackground = ApplicationPreferences.notificationDarkBackground(appContext);
-                notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
                 notificationPrefIndicator = ApplicationPreferences.notificationPrefIndicator;
                 notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
                 notificationStatusBarStyle = ApplicationPreferences.notificationStatusBarStyle;
@@ -6238,8 +6240,12 @@ public class PhoneProfilesService extends Service
         if (notificationNotificationStyle.equals("0")) {
             //if (android.os.Build.VERSION.SDK_INT >= 24) {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "setCustomContentView");
+
                 if (useDecorator)
                     notificationBuilder.setStyle(new NotificationCompat.DecoratedCustomViewStyle());
+                else
+                    notificationBuilder.setStyle(null);
+
                 switch (notificationLayoutType) {
                     case "1":
                         // only large layout
