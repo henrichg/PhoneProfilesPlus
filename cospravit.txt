@@ -809,3 +809,29 @@ SIM 1 -> Polaris
 SIM 2 -> Atomic Bell
 
 ----------------------------------
+
+2021-05-17 20:19:39.786 29807-27635/sk.henrichg.phoneprofilesplus E/EventPreferencesTime.doHandleEvent: ------- event._id=4
+2021-05-17 20:19:39.788 29807-27635/sk.henrichg.phoneprofilesplus E/EventPreferencesTime.doHandleEvent: ------- event._name=Overnight
+2021-05-17 20:19:39.790 29807-27635/sk.henrichg.phoneprofilesplus E/EventPreferencesTime.doHandleEvent: startAlarmTime=5/17/21 21:00
+2021-05-17 20:19:39.792 29807-27635/sk.henrichg.phoneprofilesplus E/EventPreferencesTime.doHandleEvent: endAlarmTime=5/18/21 07:00
+2021-05-17 20:19:39.794 29807-27635/sk.henrichg.phoneprofilesplus E/EventPreferencesTime.doHandleEvent: nowAlarmTime=5/17/21 20:19
+2021-05-17 20:19:39.796 29807-27635/sk.henrichg.phoneprofilesplus E/EventPreferencesTime.doHandleEvent: timePassed=false
+
+Weekend ma skoncit o 23:00. Cize po 23:00 ma bezat default profile Home, ale o 21:00 sa spusti Overnight, takze vlastne:
+1. od 21:00 do 23:00 ma bezat Weekend a Overnight - prave to prebieha
+2. 23:00 sa ma skoncit Weekend a spravit sa restart udalosti
+3. od 23:00 ma bezat Overnight.
+4. o 00:00 sa nema vobec nic diat, lebo Weekend uz nebezi.
+
+Co sa naozaj stalo:
+1. nespustil sa Overnight ani Overnight_d
+2. robil sa restart PPP systemom, ale nastaroval sa len Weekend.
+3. Overnight sa nemal spustit, lebo nesedel cas, ma sa spustit v pondelok az o 21:00
+4. !!!! Overnight_d sa mal spustit, ale sa vobec nespustil. Existoval v nedelu? Ci ho spravil az v pondelok? !!!!
+
+
+Hm, Overnight_d nastartoval 15.5. 22:00, a skoncil 16.5. o 09:00. Toto je OK.
+Ale preco nenastartoval v nedelu? Toto je strasna zahada pre mna.
+Ma konfiguraciu tejto udalosti zalogovanu. Ale az v pondelok rano. Ze by vtedy pridaval nedelu?
+
+Weekend skoncil o pol noci. Ja ho mam do 23:00. Ze by povodne bol do pol noci? Pozri potom znova povodne data.

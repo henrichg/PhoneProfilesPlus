@@ -225,7 +225,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
-        PPApplication.logE("[APP_START] PhoneProfilesPrefsActivity.showNotStartedToast", "setApplicationFullyStarted");
+//        PPApplication.logE("[APP_START] PhoneProfilesPrefsActivity.showNotStartedToast", "setApplicationFullyStarted");
         PPApplication.setApplicationFullyStarted(getApplicationContext());
         return false;
 /*        boolean applicationStarted = PPApplication.getApplicationStarted(true);

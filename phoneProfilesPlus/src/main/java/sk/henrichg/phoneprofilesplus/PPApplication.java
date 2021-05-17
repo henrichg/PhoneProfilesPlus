@@ -205,7 +205,7 @@ public class PPApplication extends Application
 //                                                +"|[IN_EVENTS_HANDLER]"
 //                                                +"|[EVENTS_HANDLER_CALL]"
 //                                                +"|[TEST BATTERY]"
-                                                +"|[APP_START]"
+//                                                +"|[APP_START]"
                                                 //+"|[SHEDULE_WORK]"
                                                 //+"|[SHEDULE_SCANNER]"
                                                 //+"|[TEST MEDIA VOLUME]"
@@ -270,6 +270,8 @@ public class PPApplication extends Application
                                                 //+"|MobileCellsListener"
                                                 //+"|MobileCellsPreferenceFragmentX"
                                                 //+"|EventPreferencesMobileCells"
+
+                                                +"|EventPreferencesTime"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

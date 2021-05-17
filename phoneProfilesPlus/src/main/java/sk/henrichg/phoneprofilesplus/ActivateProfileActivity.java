@@ -322,7 +322,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
-        PPApplication.logE("[APP_START] ActivateProfileActivity.showNotStartedToast", "setApplicationFullyStarted");
+//        PPApplication.logE("[APP_START] ActivateProfileActivity.showNotStartedToast", "setApplicationFullyStarted");
         PPApplication.setApplicationFullyStarted(getApplicationContext());
         return false;
 /*        boolean applicationStarted = PPApplication.getApplicationStarted(true);

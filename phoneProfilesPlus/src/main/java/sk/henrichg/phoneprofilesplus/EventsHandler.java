@@ -279,7 +279,7 @@ class EventsHandler {
 
             if (DatabaseHandler.getInstance(context.getApplicationContext()).getNotStoppedEventsCount() == 0) {
                 // not any event is paused or running
-                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (01)");
+//                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (01)");
                 PPApplication.setApplicationFullyStarted(context);
 
                 doEndHandler(null);
@@ -296,7 +296,7 @@ class EventsHandler {
 //                    if (isRestart)
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "------ events not exists ------");
 
-                    PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (02)");
+//                    PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (02)");
                     PPApplication.setApplicationFullyStarted(context);
 
                     doEndHandler(null);
@@ -1113,7 +1113,7 @@ class EventsHandler {
 
             doEndHandler(dataWrapper);
 
-            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (XXX)");
+//            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (XXX)");
             PPApplication.setApplicationFullyStarted(context);
 
             // refresh all GUI - must be for restart scanners

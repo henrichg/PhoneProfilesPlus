@@ -74,7 +74,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
 
     @SuppressWarnings("SameReturnValue")
     private boolean showNotStartedToast() {
-        PPApplication.logE("[APP_START] RestartEventsFromGUIActivity.showNotStartedToast", "setApplicationFullyStarted");
+//        PPApplication.logE("[APP_START] RestartEventsFromGUIActivity.showNotStartedToast", "setApplicationFullyStarted");
         PPApplication.setApplicationFullyStarted(getApplicationContext());
         return false;
 /*        boolean applicationStarted = PPApplication.getApplicationStarted(true);
