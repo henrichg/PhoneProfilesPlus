@@ -1103,9 +1103,9 @@ class EventPreferencesTime extends EventPreferences {
     {
         // set alarm for state PAUSE
 
-        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
-        if (testEvent)
-            PPApplication.logE("EventPreferencesTime.setSystemEventForStart","xxx");
+//        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
+//        if (testEvent)
+//            PPApplication.logE("EventPreferencesTime.setSystemEventForStart","xxx");
 
         // this alarm generates broadcast, that change state into RUNNING;
         // from broadcast will by called EventsHandler
@@ -1130,9 +1130,9 @@ class EventPreferencesTime extends EventPreferences {
     {
         // set alarm for state RUNNING
 
-        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
-        if (testEvent)
-            PPApplication.logE("EventPreferencesTime.setSystemEventForPause","xxx");
+//        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
+//        if (testEvent)
+//            PPApplication.logE("EventPreferencesTime.setSystemEventForPause","xxx");
 
         // this alarm generates broadcast, that change state into PAUSE;
         // from broadcast will by called EventsHandler
@@ -1157,15 +1157,14 @@ class EventPreferencesTime extends EventPreferences {
     {
         // remove alarms for state STOP
 
-        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
-
         //removeAlarm(true, _context);
         removeAlarm(/*false, */context);
 
-        if (testEvent) {
-            //PPApplication.logE("EventPreferencesTime.removeSystemEvent","forceNotUseAlarmClock="+ApplicationPreferences.forceNotUseAlarmClock);
-            PPApplication.logE("EventPreferencesTime.removeSystemEvent", "xxx");
-        }
+//        boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
+//        if (testEvent) {
+//            //PPApplication.logE("EventPreferencesTime.removeSystemEvent","forceNotUseAlarmClock="+ApplicationPreferences.forceNotUseAlarmClock);
+//            PPApplication.logE("EventPreferencesTime.removeSystemEvent", "xxx");
+//        }
     }
 
     private void removeAlarm(/*boolean startEvent, */Context context)
@@ -1304,14 +1303,14 @@ class EventPreferencesTime extends EventPreferences {
             if ((Event.isEventPreferenceAllowed(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)
                 // permissions are checked in EditorProfilesActivity.displayRedTextToPreferencesNotification()
                 /*&& Permissions.checkEventLocation(context, event, null)*/) {
-                boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
+//                boolean testEvent = (_event._name != null) && _event._name.equals("Overnight");
 
-                if (testEvent) {
-                    if (PPApplication.logEnabled()) {
-                        PPApplication.logE("EventPreferencesTime.doHandleEvent", "------- event._id=" + _event._id);
-                        PPApplication.logE("EventPreferencesTime.doHandleEvent", "------- event._name=" + _event._name);
-                    }
-                }
+//                if (testEvent) {
+//                    if (PPApplication.logEnabled()) {
+//                        PPApplication.logE("EventPreferencesTime.doHandleEvent", "------- event._id=" + _event._id);
+//                        PPApplication.logE("EventPreferencesTime.doHandleEvent", "------- event._name=" + _event._name);
+//                    }
+//                }
 
                 // compute start datetime
                 long startAlarmTime;
@@ -1320,31 +1319,29 @@ class EventPreferencesTime extends EventPreferences {
                 startAlarmTime = computeAlarm(true, eventsHandler.context);
                 endAlarmTime = computeAlarm(false, eventsHandler.context);
 
-                if (startAlarmTime > 0) {
-                    String alarmTimeS = DateFormat.getDateFormat(eventsHandler.context).format(startAlarmTime) +
-                            " " + DateFormat.getTimeFormat(eventsHandler.context).format(startAlarmTime);
-                    if (testEvent)
-                        PPApplication.logE("EventPreferencesTime.doHandleEvent", "startAlarmTime=" + alarmTimeS);
-                }
-                else
-                if (testEvent)
-                    PPApplication.logE("EventPreferencesTime.doHandleEvent", "startAlarmTime=not alarm computed");
-                if (endAlarmTime > 0) {
-                    String alarmTimeS = DateFormat.getDateFormat(eventsHandler.context).format(endAlarmTime) +
-                            " " + DateFormat.getTimeFormat(eventsHandler.context).format(endAlarmTime);
-                    if (testEvent)
-                        PPApplication.logE("EventPreferencesTime.doHandleEvent", "endAlarmTime=" + alarmTimeS);
-                }
-                else
-                if (testEvent)
-                    PPApplication.logE("EventPreferencesTime.doHandleEvent", "endAlarmTime=not alarm computed");
+//                if (startAlarmTime > 0) {
+//                    String alarmTimeS = DateFormat.getDateFormat(eventsHandler.context).format(startAlarmTime) +
+//                            " " + DateFormat.getTimeFormat(eventsHandler.context).format(startAlarmTime);
+//                }
+//                else
+//                if (testEvent)
+//                    PPApplication.logE("EventPreferencesTime.doHandleEvent", "startAlarmTime=not alarm computed");
+//                if (endAlarmTime > 0) {
+//                    String alarmTimeS = DateFormat.getDateFormat(eventsHandler.context).format(endAlarmTime) +
+//                            " " + DateFormat.getTimeFormat(eventsHandler.context).format(endAlarmTime);
+//                    if (testEvent)
+//                        PPApplication.logE("EventPreferencesTime.doHandleEvent", "endAlarmTime=" + alarmTimeS);
+//                }
+//                else
+//                if (testEvent)
+//                    PPApplication.logE("EventPreferencesTime.doHandleEvent", "endAlarmTime=not alarm computed");
 
                 Calendar now = Calendar.getInstance();
                 long nowAlarmTime = now.getTimeInMillis();
-                String alarmTimeS = DateFormat.getDateFormat(eventsHandler.context).format(nowAlarmTime) +
-                        " " + DateFormat.getTimeFormat(eventsHandler.context).format(nowAlarmTime);
-                if (testEvent)
-                    PPApplication.logE("EventPreferencesTime.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
+//                String alarmTimeS = DateFormat.getDateFormat(eventsHandler.context).format(nowAlarmTime) +
+//                        " " + DateFormat.getTimeFormat(eventsHandler.context).format(nowAlarmTime);
+//                if (testEvent)
+//                    PPApplication.logE("EventPreferencesTime.doHandleEvent", "nowAlarmTime=" + alarmTimeS);
 
                 /*boolean[] daysOfWeek =  new boolean[8];
                 daysOfWeek[Calendar.SUNDAY] = event._eventPreferencesTime._sunday;
@@ -1373,8 +1370,8 @@ class EventPreferencesTime extends EventPreferences {
                     timePassed = false;
                 }*/
 
-                if (testEvent)
-                    PPApplication.logE("EventPreferencesTime.doHandleEvent", "timePassed=" + eventsHandler.timePassed);
+//                if (testEvent)
+//                    PPApplication.logE("EventPreferencesTime.doHandleEvent", "timePassed=" + eventsHandler.timePassed);
 
                 if (!eventsHandler.notAllowedTime) {
                     if (eventsHandler.timePassed)

@@ -271,7 +271,7 @@ public class PPApplication extends Application
                                                 //+"|MobileCellsPreferenceFragmentX"
                                                 //+"|EventPreferencesMobileCells"
 
-                                                +"|EventPreferencesTime"
+                                                //+"|EventPreferencesTime"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
