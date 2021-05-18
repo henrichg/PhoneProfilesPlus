@@ -36,7 +36,7 @@ ext.ppVersions = [
     compileSdk: 29,
     buildTools: '30.0.3',
 
-    appcompatXLib: '1.3.0-rc01', // use 1.3.0+ for setSmallIcon(IconCompat) support
+    appcompatXLib: '1.3.0', // use 1.3.0+ for setSmallIcon(IconCompat) support
     recyclerView: '1.2.0',
 
     acra: '5.7.0'
