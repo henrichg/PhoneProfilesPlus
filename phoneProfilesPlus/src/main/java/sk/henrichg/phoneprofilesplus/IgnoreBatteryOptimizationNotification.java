@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -157,12 +158,11 @@ class IgnoreBatteryOptimizationNotification {
             intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
         }
         else {
-            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, context)) {
-                intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                intent.setData(Uri.parse("package:" + packageName));
-            }
-            else
+            intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            intent.setData(Uri.parse("package:" + packageName));
+            if (!GlobalGUIRoutines.activityIntentExists(intent, context)) {
                 intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+            }
         }
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

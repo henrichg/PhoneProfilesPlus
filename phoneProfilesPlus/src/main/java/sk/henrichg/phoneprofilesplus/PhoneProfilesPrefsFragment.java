@@ -757,7 +757,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     PowerManager pm = (PowerManager) getActivity().getApplicationContext().getSystemService(Context.POWER_SERVICE);
                     String packageName = PPApplication.PACKAGE_NAME;
                     if (pm.isIgnoringBatteryOptimizations(packageName) ||
-                        (!GlobalGUIRoutines.activityActionExists(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, getActivity().getApplicationContext()))) {
+                        (!GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext()))) {
                         boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext())) {
                             try {
@@ -792,15 +792,24 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         }
                     } else {
                         boolean ok = false;
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, getActivity().getApplicationContext())) {
+                        Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                        intent.setData(Uri.parse("package:" + packageName));
+                        if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
                             try {
-                                @SuppressLint("InlinedApi")
-                                Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                                intent.setData(Uri.parse("package:" + packageName));
-                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
                                 startActivity(intent);
                                 ok = true;
                             } catch (Exception ignored) {
+                            }
+                        } else {
+                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext())) {
+                                try {
+                                    intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                                    startActivity(intent);
+                                    ok = true;
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
+                                }
                             }
                         }
                         if (!ok) {
