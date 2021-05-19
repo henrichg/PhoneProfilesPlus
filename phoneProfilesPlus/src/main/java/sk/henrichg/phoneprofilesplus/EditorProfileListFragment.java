@@ -1314,6 +1314,11 @@ public class EditorProfileListFragment extends Fragment
                         DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
                         //profileListAdapter.notifyDataSetChanged();
                         ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+
+                        PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                getResources().getString(R.string.show_profile_in_activator_not_show_toast),
+                                Toast.LENGTH_LONG);
+
                         return true;
                     }
                     else
@@ -1322,6 +1327,11 @@ public class EditorProfileListFragment extends Fragment
                         DatabaseHandler.getInstance(activityDataWrapper.context).updateProfileShowInActivator(profile);
                         //profileListAdapter.notifyDataSetChanged();
                         ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
+
+                        PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                                getResources().getString(R.string.show_profile_in_activator_show_toast),
+                                Toast.LENGTH_LONG);
+
                         return true;
                     }
                     else {

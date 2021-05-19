@@ -1932,6 +1932,11 @@ public class EditorEventListFragment extends Fragment
                     //eventListAdapter.notifyDataSetChanged();
                     EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
                     ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+
+                    PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                            getResources().getString(R.string.ignore_manual_activation_not_ignore_toast),
+                            Toast.LENGTH_LONG);
+
                     return true;
                 }
                 else
@@ -1942,6 +1947,11 @@ public class EditorEventListFragment extends Fragment
                     //eventListAdapter.notifyDataSetChanged();
                     EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
                     ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+
+                    PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                            getResources().getString(R.string.ignore_manual_activation_ignore_toast),
+                            Toast.LENGTH_LONG);
+
                     return true;
                 }
                 else
@@ -1952,6 +1962,11 @@ public class EditorEventListFragment extends Fragment
                     //eventListAdapter.notifyDataSetChanged();
                     EventsPrefsActivity.saveUpdateOfPreferences(event, activityDataWrapper, event.getStatus());
                     ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
+
+                    PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
+                            getResources().getString(R.string.ignore_manual_activation_ignore_no_pause_toast),
+                            Toast.LENGTH_LONG);
+
                     return true;
                 }
                 else {
