@@ -3571,7 +3571,7 @@ class ActivateProfileHelper {
                                                 try {
                                                     appContext.sendBroadcast(intent);
                                                 } catch (Exception e) {
-                                                    PPApplication.recordException(e);
+                                                    //PPApplication.recordException(e);
                                                 }
                                             }
                                         } else {

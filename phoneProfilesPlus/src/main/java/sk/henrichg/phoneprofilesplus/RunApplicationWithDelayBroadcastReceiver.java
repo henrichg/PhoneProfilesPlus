@@ -329,7 +329,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                             try {
                                 context.sendBroadcast(appIntent);
                             } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                //PPApplication.recordException(e);
                             }
                         }
                     } else {
