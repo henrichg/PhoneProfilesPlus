@@ -754,10 +754,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null) {
                 //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 preference.setOnPreferenceClickListener(preference18 -> {
-                    PowerManager pm = (PowerManager) getActivity().getApplicationContext().getSystemService(Context.POWER_SERVICE);
-                    String packageName = PPApplication.PACKAGE_NAME;
-                    if (pm.isIgnoringBatteryOptimizations(packageName) ||
-                        (!GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext()))) {
+//                    PowerManager pm = (PowerManager) getActivity().getApplicationContext().getSystemService(Context.POWER_SERVICE);
+//                    String packageName = PPApplication.PACKAGE_NAME;
+//                    if (pm.isIgnoringBatteryOptimizations(packageName) //||
+//                        //(!GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext()))
+//                    ) {
                         boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext())) {
                             try {
@@ -790,47 +791,48 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                             if (!getActivity().isFinishing())
                                 dialog.show();
                         }
-                    } else {
-                        boolean ok = false;
-                        Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                        intent.setData(Uri.parse("package:" + packageName));
-                        if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
-                            try {
-                                startActivity(intent);
-                                ok = true;
-                            } catch (Exception ignored) {
-                            }
-                        } else {
-                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext())) {
-                                try {
-                                    intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                    startActivity(intent);
-                                    ok = true;
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                            }
-                        }
-                        if (!ok) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                    @Override
-//                                    public void onShow(DialogInterface dialog) {
-//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                        if (positive != null) positive.setAllCaps(false);
-//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                        if (negative != null) negative.setAllCaps(false);
-//                                    }
-//                                });
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                        }
-                    }
+//                    } else {
+//                        DO NOT USE IT, CHANGE IS NOT DISPLAYED IN SYSTEM SETTINGS
+//                        boolean ok = false;
+//                        Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+//                        intent.setData(Uri.parse("package:" + packageName));
+//                        if (GlobalGUIRoutines.activityIntentExists(intent, getActivity().getApplicationContext())) {
+//                            try {
+//                                startActivity(intent);
+//                                ok = true;
+//                            } catch (Exception ignored) {
+//                            }
+//                        } else {
+//                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, getActivity().getApplicationContext())) {
+//                                try {
+//                                    intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+//                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+//                                    startActivity(intent);
+//                                    ok = true;
+//                                } catch (Exception e) {
+//                                    PPApplication.recordException(e);
+//                                }
+//                            }
+//                        }
+//                        if (!ok) {
+//                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+//                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+//                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+//                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+//                            AlertDialog dialog = dialogBuilder.create();
+////                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+////                                    @Override
+////                                    public void onShow(DialogInterface dialog) {
+////                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+////                                        if (positive != null) positive.setAllCaps(false);
+////                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+////                                        if (negative != null) negative.setAllCaps(false);
+////                                    }
+////                                });
+//                            if (!getActivity().isFinishing())
+//                                dialog.show();
+//                        }
+//                    }
                     return false;
                 });
             }

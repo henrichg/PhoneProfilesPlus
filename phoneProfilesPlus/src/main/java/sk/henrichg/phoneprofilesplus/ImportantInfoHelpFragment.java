@@ -448,10 +448,11 @@ public class ImportantInfoHelpFragment extends Fragment {
 
                 TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
                 infoText10a.setOnClickListener(v -> {
-                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    String packageName = PPApplication.PACKAGE_NAME;
-                    if (pm.isIgnoringBatteryOptimizations(packageName) ||
-                        (!GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context))) {
+//                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+//                    String packageName = PPApplication.PACKAGE_NAME;
+//                    if (pm.isIgnoringBatteryOptimizations(packageName)// ||
+//                        //(!GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context))
+//                    ) {
                         boolean ok = false;
                         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context)) {
                             try {
@@ -483,47 +484,48 @@ public class ImportantInfoHelpFragment extends Fragment {
                             if (!activity.isFinishing())
                                 dialog.show();
                         }
-                    } else {
-                        boolean ok = false;
-                        Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                        intent.setData(Uri.parse("package:" + packageName));
-                        if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
-                            try {
-                                startActivity(intent);
-                                ok = true;
-                            } catch (Exception ignored) {
-                            }
-                        } else {
-                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context)) {
-                                try {
-                                    intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                    startActivity(intent);
-                                    ok = true;
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                            }
-                        }
-                        if (!ok) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
-//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                    @Override
-//                                    public void onShow(DialogInterface dialog) {
-//                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                        if (positive != null) positive.setAllCaps(false);
-//                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                        if (negative != null) negative.setAllCaps(false);
-//                                    }
-//                                });
-                            if (!activity.isFinishing())
-                                dialog.show();
-                        }
-                    }
+//                    } else {
+//                        DO NOT USE IT, CHANGE IS NOT DISPLAYED IN SYSTEM SETTINGS
+//                        boolean ok = false;
+//                        Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+//                        intent.setData(Uri.parse("package:" + packageName));
+//                        if (GlobalGUIRoutines.activityIntentExists(intent, context)) {
+//                            try {
+//                                startActivity(intent);
+//                                ok = true;
+//                            } catch (Exception ignored) {
+//                            }
+//                        } else {
+//                            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context)) {
+//                                try {
+//                                    intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+//                                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+//                                    startActivity(intent);
+//                                    ok = true;
+//                                } catch (Exception e) {
+//                                    PPApplication.recordException(e);
+//                                }
+//                            }
+//                        }
+//                        if (!ok) {
+//                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+//                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+//                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+//                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
+//                            AlertDialog dialog = dialogBuilder.create();
+////                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+////                                    @Override
+////                                    public void onShow(DialogInterface dialog) {
+////                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+////                                        if (positive != null) positive.setAllCaps(false);
+////                                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+////                                        if (negative != null) negative.setAllCaps(false);
+////                                    }
+////                                });
+//                            if (!activity.isFinishing())
+//                                dialog.show();
+//                        }
+//                    }
                 });
             //}
         //}
