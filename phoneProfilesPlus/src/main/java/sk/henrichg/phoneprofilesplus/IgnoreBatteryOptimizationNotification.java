@@ -183,6 +183,7 @@ class IgnoreBatteryOptimizationNotification {
                 context.getString(R.string.ignore_battery_optimization_notification_disable_button),
                 pDisableIntent);
         mBuilder.addAction(actionBuilder.build());
+        mBuilder.setWhen(0);
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
         try {
