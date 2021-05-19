@@ -6088,11 +6088,16 @@ public class PhoneProfilesService extends Service
                             restartEventsId = R.drawable.ic_widget_restart_events;
                     } else {
                         // native
+//                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "Build.VERSION.SDK_INT="+Build.VERSION.SDK_INT);
                         if (Build.VERSION.SDK_INT >= 29) {
-                            if (useNightColor == 1)
+                            if (useNightColor == 1) {
+//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark icon");
                                 restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                            else
+                            }
+                            else {
+//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "light icon");
                                 restartEventsId = R.drawable.ic_widget_restart_events;
+                            }
                         } else {
                             if (notificationTextColor.equals("1"))
                                 restartEventsId = R.drawable.ic_widget_restart_events;
@@ -6102,6 +6107,8 @@ public class PhoneProfilesService extends Service
                                 restartEventsId = R.drawable.ic_widget_restart_events;
                         }
                     }
+
+                    //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), restartEventsId);
 
                     try {
                         contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
