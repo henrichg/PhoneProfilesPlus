@@ -1319,6 +1319,12 @@ public class EditorProfileListFragment extends Fragment
                                 getResources().getString(R.string.show_profile_in_activator_not_show_toast),
                                 Toast.LENGTH_LONG);
 
+//                        Snackbar snackbar = Snackbar.make(getActivity(),
+//                                getActivity().findViewById(R.id.editor_list_root),
+//                                getResources().getString(R.string.show_profile_in_activator_not_show_toast),
+//                                Snackbar.LENGTH_LONG);
+//                        snackbar.show();
+
                         return true;
                     }
                     else
@@ -1331,6 +1337,12 @@ public class EditorProfileListFragment extends Fragment
                         PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
                                 getResources().getString(R.string.show_profile_in_activator_show_toast),
                                 Toast.LENGTH_LONG);
+
+//                        Snackbar snackbar = Snackbar.make(getActivity(),
+//                                getActivity().findViewById(R.id.editor_list_root),
+//                                getResources().getString(R.string.show_profile_in_activator_show_toast),
+//                                Snackbar.LENGTH_LONG);
+//                        snackbar.show();
 
                         return true;
                     }
