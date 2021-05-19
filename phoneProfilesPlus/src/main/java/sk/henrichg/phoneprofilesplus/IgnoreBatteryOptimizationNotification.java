@@ -5,11 +5,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -152,8 +150,8 @@ class IgnoreBatteryOptimizationNotification {
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
 
         Intent intent;
-        PowerManager pm = (PowerManager) context.getApplicationContext().getSystemService(Context.POWER_SERVICE);
-        String packageName = PPApplication.PACKAGE_NAME;
+        //PowerManager pm = (PowerManager) context.getApplicationContext().getSystemService(Context.POWER_SERVICE);
+        //String packageName = PPApplication.PACKAGE_NAME;
         //if (pm.isIgnoringBatteryOptimizations(packageName)) {
             intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
         //}
