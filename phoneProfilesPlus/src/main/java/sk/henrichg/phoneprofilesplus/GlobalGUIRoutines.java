@@ -45,6 +45,7 @@ import androidx.core.content.ContextCompat;
 
 import org.xml.sax.XMLReader;
 
+import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -700,13 +701,33 @@ class GlobalGUIRoutines {
     }
 
     static void setRingtonePreferenceSummary(final String initSummary, final String ringtoneUri,
-                                             final androidx.preference.Preference preference, final Context context) {
-        new AsyncTask<Void, Integer, Void>() {
+                final androidx.preference.Preference preference, final Context context) {
+        SetRingtonePreferenceSummaryAsyncTask asyncTask =
+                new SetRingtonePreferenceSummaryAsyncTask(initSummary, ringtoneUri, preference, context);
+        asyncTask.execute();
+    }
 
-            private String ringtoneName;
+    private static class SetRingtonePreferenceSummaryAsyncTask extends AsyncTask<Void, Integer, Void> {
+        private String ringtoneName;
 
-            @Override
-            protected Void doInBackground(Void... params) {
+        final String initSummary;
+        final String ringtoneUri;
+        private final WeakReference<androidx.preference.Preference> preferenceWeakRef;
+        private final WeakReference<Context> contextWeakReference;
+
+        public SetRingtonePreferenceSummaryAsyncTask(final String initSummary, final String ringtoneUri,
+                    final androidx.preference.Preference preference, final Context context) {
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.contextWeakReference = new WeakReference<>(context);
+            this.initSummary = initSummary;
+            this.ringtoneUri = ringtoneUri;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = contextWeakReference.get();
+            androidx.preference.Preference preference = preferenceWeakRef.get();
+            if ((context != null) && (preference != null)) {
                 if ((ringtoneUri == null) || ringtoneUri.isEmpty())
                     ringtoneName = context.getString(R.string.ringtone_preference_none);
                 else {
@@ -718,30 +739,62 @@ class GlobalGUIRoutines {
                         ringtoneName = context.getString(R.string.ringtone_preference_not_set);
                     }
                 }
-                return null;
             }
+            return null;
+        }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            Context context = contextWeakReference.get();
+            androidx.preference.Preference preference = preferenceWeakRef.get();
+            if ((context != null) && (preference != null)) {
                 String summary = TextUtils.replace(initSummary, new String[]{"<ringtone_name>"}, new String[]{ringtoneName}).toString();
                 preference.setSummary(GlobalGUIRoutines.fromHtml(summary, false, false, 0, 0));
             }
+        }
 
-        }.execute();
     }
 
     static void setProfileSoundsPreferenceSummary(final String initSummary,
-                                             final String ringtoneUri, final String notificationUri, final String alarmUri,
-                                             final androidx.preference.Preference preference, final Context context) {
-        new AsyncTask<Void, Integer, Void>() {
+                     final String ringtoneUri, final String notificationUri, final String alarmUri,
+                     final androidx.preference.Preference preference, final Context context) {
+        SetProfileSoundsPreferenceSummaryAsyncTask asyncTask =
+                new SetProfileSoundsPreferenceSummaryAsyncTask(initSummary,
+                        ringtoneUri, notificationUri, alarmUri,
+                        preference, context);
+        asyncTask.execute();
+    }
 
-            private String ringtoneName;
-            private String notificationName;
-            private String alarmName;
+    private static class SetProfileSoundsPreferenceSummaryAsyncTask extends AsyncTask<Void, Integer, Void> {
+        private String ringtoneName;
+        private String notificationName;
+        private String alarmName;
 
-            @Override
-            protected Void doInBackground(Void... params) {
+        final String initSummary;
+        final String ringtoneUri;
+        final String notificationUri;
+        final String alarmUri;
+        private final WeakReference<androidx.preference.Preference> preferenceWeakRef;
+        private final WeakReference<Context> contextWeakReference;
+
+        public SetProfileSoundsPreferenceSummaryAsyncTask(final String initSummary,
+                    final String ringtoneUri, final String notificationUri, final String alarmUri,
+                    final androidx.preference.Preference preference, final Context context) {
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.contextWeakReference = new WeakReference<>(context);
+            this.initSummary = initSummary;
+            this.ringtoneUri = ringtoneUri;
+            this.notificationUri = notificationUri;
+            this.alarmUri = alarmUri;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = contextWeakReference.get();
+            androidx.preference.Preference preference = preferenceWeakRef.get();
+            if ((context != null) && (preference != null)) {
                 if ((ringtoneUri == null) || ringtoneUri.isEmpty())
                     ringtoneName = context.getString(R.string.ringtone_preference_none);
                 else {
@@ -780,34 +833,71 @@ class GlobalGUIRoutines {
                         alarmName = context.getString(R.string.ringtone_preference_not_set);
                     }
                 }
-
-                return null;
             }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            Context context = contextWeakReference.get();
+            androidx.preference.Preference preference = preferenceWeakRef.get();
+            if ((context != null) && (preference != null)) {
                 String summary = TextUtils.replace(initSummary,
                         new String[]{"<ringtone_name>", "<notification_name>", "<alarm_name>"},
                         new String[]{ringtoneName, notificationName, alarmName}).toString();
                 preference.setSummary(GlobalGUIRoutines.fromHtml(summary, false, false, 0, 0));
             }
+        }
 
-        }.execute();
     }
 
     static void setProfileSoundsDualSIMPreferenceSummary(final String initSummary,
-                                                  final String ringtoneSIM1Uri, final String ringtoneSIM2Uri, final String notificationSIM1Uri, final String notificationSIM2Uri,
-                                                  final androidx.preference.Preference preference, final Context context) {
-        new AsyncTask<Void, Integer, Void>() {
+              final String ringtoneSIM1Uri, final String ringtoneSIM2Uri,
+              final String notificationSIM1Uri, final String notificationSIM2Uri,
+              final androidx.preference.Preference preference, final Context context) {
+        SetProfileSoundsDualSIMPreferenceSummaryAsyncTask asyncTask =
+                new SetProfileSoundsDualSIMPreferenceSummaryAsyncTask(initSummary,
+                        ringtoneSIM1Uri, ringtoneSIM2Uri, notificationSIM1Uri, notificationSIM2Uri,
+                        preference, context);
+        asyncTask.execute();
+    }
 
-            private String ringtoneNameSIM1;
-            private String ringtoneNameSIM2;
-            private String notificationNameSIM1;
-            private String notificationNameSIM2;
+    private static class SetProfileSoundsDualSIMPreferenceSummaryAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-            @Override
-            protected Void doInBackground(Void... params) {
+        private String ringtoneNameSIM1;
+        private String ringtoneNameSIM2;
+        private String notificationNameSIM1;
+        private String notificationNameSIM2;
+
+        final String initSummary;
+        final String ringtoneSIM1Uri;
+        final String ringtoneSIM2Uri;
+        final String notificationSIM1Uri;
+        final String notificationSIM2Uri;
+        private final WeakReference<androidx.preference.Preference> preferenceWeakRef;
+        private final WeakReference<Context> contextWeakReference;
+
+        public SetProfileSoundsDualSIMPreferenceSummaryAsyncTask(final String initSummary,
+                     final String ringtoneSIM1Uri, final String ringtoneSIM2Uri,
+                     final String notificationSIM1Uri, final String notificationSIM2Uri,
+                     final androidx.preference.Preference preference, final Context context) {
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.contextWeakReference = new WeakReference<>(context);
+            this.initSummary = initSummary;
+            this.ringtoneSIM1Uri = ringtoneSIM1Uri;
+            this.ringtoneSIM2Uri = ringtoneSIM2Uri;
+            this.notificationSIM1Uri = notificationSIM1Uri;
+            this.notificationSIM2Uri = notificationSIM2Uri;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = contextWeakReference.get();
+            androidx.preference.Preference preference = preferenceWeakRef.get();
+            if ((context != null) && (preference != null)) {
                 if ((ringtoneSIM1Uri == null) || ringtoneSIM1Uri.isEmpty())
                     ringtoneNameSIM1 = context.getString(R.string.ringtone_preference_none);
                 else {
@@ -859,20 +949,24 @@ class GlobalGUIRoutines {
                         notificationNameSIM2 = context.getString(R.string.ringtone_preference_not_set);
                     }
                 }
-
-                return null;
             }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            Context context = contextWeakReference.get();
+            androidx.preference.Preference preference = preferenceWeakRef.get();
+            if ((context != null) && (preference != null)) {
                 String summary = TextUtils.replace(initSummary,
                         new String[]{"<ringtone_name_sim1>", "<ringtone_name_sim2>", "<notification_name_sim1>", "<notification_name_sim2>"},
                         new String[]{ringtoneNameSIM1, ringtoneNameSIM2, notificationNameSIM1, notificationNameSIM2}).toString();
                 preference.setSummary(GlobalGUIRoutines.fromHtml(summary, false, false, 0, 0));
             }
+        }
 
-        }.execute();
     }
 
     @SuppressLint("DefaultLocale")

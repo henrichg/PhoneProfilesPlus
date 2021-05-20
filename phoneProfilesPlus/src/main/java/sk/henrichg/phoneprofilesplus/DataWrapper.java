@@ -83,7 +83,7 @@ public class DataWrapper {
         useMonochromeValueForCustomIcon = useMonoValForCustomIcon;
     }
 
-    private DataWrapper copyDataWrapper() {
+    DataWrapper copyDataWrapper() {
         DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
         synchronized (profileList) {
             dataWrapper.copyProfileList(this);

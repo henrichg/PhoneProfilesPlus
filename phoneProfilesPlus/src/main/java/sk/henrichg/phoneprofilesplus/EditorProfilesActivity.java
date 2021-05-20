@@ -60,6 +60,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -1853,7 +1854,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     getApplicationContext().getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
 
-                    class BackupAsyncTask extends AsyncTask<Void, Integer, Integer> {
+/*                    class BackupAsyncTask extends AsyncTask<Void, Integer, Integer> {
                         DocumentFile pickedDir;
                         final Uri treeUri;
                         final Activity activity;
@@ -1979,6 +1980,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             }
                         }
                     }
+ */
 
                     backupAsyncTask = new BackupAsyncTask(requestCode, treeUri, this).execute();
                 }
@@ -1997,7 +1999,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     getApplicationContext().getContentResolver().takePersistableUriPermission(treeUri, takeFlags);
 
-                    class RestoreAsyncTask extends AsyncTask<Void, Integer, Integer> {
+/*                    class RestoreAsyncTask extends AsyncTask<Void, Integer, Integer> {
                         DocumentFile pickedDir;
                         final Uri treeUri;
                         final Activity activity;
@@ -2005,7 +2007,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //int _requestCode;
                         int ok = 1;
 
-                        private RestoreAsyncTask(/*int requestCode, */Uri treeUri, Activity activity) {
+                        private RestoreAsyncTask(Uri treeUri, Activity activity) {
                             this.treeUri = treeUri;
                             //this._requestCode = requestCode;
                             this.activity = activity;
@@ -2106,7 +2108,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             }
                         }
                     }
-
+*/
                     restoreAsyncTask = new RestoreAsyncTask(/*requestCode, */treeUri, this).execute();
 
                 }
@@ -2327,219 +2329,10 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void doImportData(/*String applicationDataPath*/)
     {
-        final EditorProfilesActivity activity = this;
+        //final EditorProfilesActivity activity = this;
         //final String _applicationDataPath = applicationDataPath;
 
-        @SuppressLint("StaticFieldLeak")
-        class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
-            private final DataWrapper _dataWrapper;
-            private int dbError = DatabaseHandler.IMPORT_OK;
-            private boolean appSettingsError = false;
-            //private boolean sharedProfileError = false;
-
-            private ImportAsyncTask() {
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                dialogBuilder.setMessage(R.string.import_profiles_alert_title);
-
-                LayoutInflater inflater = (activity.getLayoutInflater());
-                @SuppressLint("InflateParams")
-                View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
-                dialogBuilder.setView(layout);
-
-                importProgressDialog = dialogBuilder.create();
-
-//                    importProgressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-
-                _dataWrapper = getDataWrapper();
-            }
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-
-                doImport = true;
-
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
-                importProgressDialog.setCancelable(false);
-                importProgressDialog.setCanceledOnTouchOutside(false);
-                if (!activity.isFinishing())
-                    importProgressDialog.show();
-
-                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                if (fragment != null) {
-                    if (fragment instanceof EditorProfileListFragment)
-                        ((EditorProfileListFragment) fragment).removeAdapter();
-                    else
-                        ((EditorEventListFragment) fragment).removeAdapter();
-                }
-            }
-
-            @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
-            @Override
-            protected Integer doInBackground(Void... params) {
-                //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
-                if (_dataWrapper != null) {
-                    PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
-
-                    //File sd = Environment.getExternalStorageDirectory();
-                    //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-                    File sd = getApplicationContext().getExternalFilesDir(null);
-
-                    /*try {
-                        File exportPath = new File(sd, _applicationDataPath);
-                        if (exportPath.exists()) {
-                            //noinspection ResultOfMethodCallIgnored
-                            exportPath.setReadable(true, false);
-                        }
-                        if (exportPath.exists()) {
-                            //noinspection ResultOfMethodCallIgnored
-                            exportPath.setWritable(true, false);
-                        }
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }*/
-
-                    // import application preferences must be first,
-                    // because in DatabaseHandler.importDB is recompute of volumes in profiles
-                    //File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                    File exportFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                    appSettingsError = !importApplicationPreferences(exportFile/*, 1*/);
-                    //exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                    //exportFile = new File(sd, GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                    //if (exportFile.exists())
-                    //    sharedProfileError = !importApplicationPreferences(exportFile, 2);
-
-                    //dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(_applicationDataPath);
-                    dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(/*_applicationDataPath*/);
-                    if (dbError == DatabaseHandler.IMPORT_OK) {
-                        DatabaseHandler.getInstance(_dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
-                        DatabaseHandler.getInstance(_dataWrapper.context).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_WAITING);
-                        DatabaseHandler.getInstance(_dataWrapper.context).deactivateProfile();
-                        DatabaseHandler.getInstance(_dataWrapper.context).unblockAllEvents();
-                        DatabaseHandler.getInstance(_dataWrapper.context).disableNotAllowedPreferences();
-                        //this.dataWrapper.invalidateProfileList();
-                        //this.dataWrapper.invalidateEventList();
-                        //this.dataWrapper.invalidateEventTimelineList();
-                        Event.setEventsBlocked(_dataWrapper.context, false);
-                        DatabaseHandler.getInstance(_dataWrapper.context).unblockAllEvents();
-                        Event.setForceRunEventRunning(_dataWrapper.context, false);
-                    }
-
-                    /*if (PPApplication.logEnabled()) {
-                        PPApplication.logE("EditorProfilesActivity.doImportData", "dbError=" + dbError);
-                        PPApplication.logE("EditorProfilesActivity.doImportData", "appSettingsError=" + appSettingsError);
-                        PPApplication.logE("EditorProfilesActivity.doImportData", "sharedProfileError=" + sharedProfileError);
-                    }*/
-
-                    if (!appSettingsError) {
-                        /*Editor editor = ApplicationPreferences.preferences.edit();
-                        editor.putInt(EDITOR_PROFILES_VIEW_SELECTED_ITEM, 0);
-                        editor.putInt(EDITOR_EVENTS_VIEW_SELECTED_ITEM, 0);
-                        editor.putInt(EditorEventListFragment.SP_EDITOR_ORDER_SELECTED_ITEM, 0);
-                        editor.apply();*/
-
-                        Permissions.setAllShowRequestPermissions(_dataWrapper.context, true);
-
-                        //WifiBluetoothScanner.setShowEnableLocationNotification(_dataWrapper.context, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
-                        //WifiBluetoothScanner.setShowEnableLocationNotification(_dataWrapper.context, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
-                        //MobileCellsScanner.setShowEnableLocationNotification(_dataWrapper.context, true);
-                    }
-
-                    if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError/* || sharedProfileError*/)))
-                        return 1;
-                    else
-                        return 0;
-                } else
-                    return 0;
-            }
-
-            @Override
-            protected void onPostExecute(Integer result) {
-                super.onPostExecute(result);
-
-                doImport = false;
-
-                if (!isFinishing()) {
-                    if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
-                        if (!isDestroyed())
-                            importProgressDialog.dismiss();
-                        importProgressDialog = null;
-                    }
-                    GlobalGUIRoutines.unlockScreenOrientation(activity);
-                }
-
-                if (_dataWrapper != null) {
-                    //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
-
-                    // clear shared preferences for last activated profile
-                    //Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
-                    //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
-                    PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
-
-                    //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
-                    //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
-                    PPApplication.updateGUI(0, _dataWrapper.context/*, true, true*/);
-
-                    PPApplication.setApplicationStarted(_dataWrapper.context, true);
-                    Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
-                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-                    serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
-                    serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//                    PPApplication.logE("[START_PP_SERVICE] EditorProfileActivity.doImportData", "xxx");
-                    PPApplication.startPPService(activity, serviceIntent);
-                }
-
-                if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError/* || sharedProfileError*/))) {
-                    //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
-
-                    // restart events
-                    //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
-                    //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
-                    //}
-
-                    PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, null, 0, "");
-
-                    // toast notification
-                    if (!isFinishing())
-                        PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                getResources().getString(R.string.toast_import_ok),
-                                Toast.LENGTH_SHORT);
-
-                    // refresh activity
-                    if (!isFinishing())
-                        GlobalGUIRoutines.reloadActivity(activity, true);
-
-                    DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
-                    IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
-
-                    PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, true);
-                } else {
-                    //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
-
-                    int appSettingsResult = 1;
-                    if (appSettingsError) appSettingsResult = 0;
-                    //int sharedProfileResult = 1;
-                    //if (sharedProfileError) sharedProfileResult = 0;
-                    if (!isFinishing())
-                        importExportErrorDialog(IMPORTEXPORT_IMPORT, dbError, appSettingsResult/*, sharedProfileResult*/);
-
-                    PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, false);
-                }
-            }
-        }
-
-        importAsyncTask = new ImportAsyncTask().execute();
+        importAsyncTask = new ImportAsyncTask(this).execute();
     }
 
     private void importData()
@@ -2612,636 +2405,11 @@ public class EditorProfilesActivity extends AppCompatActivity
     private void doImportDataFromPP(final boolean importProfiles,
                                     final boolean deleteConfiguredProfiles,
                                     final boolean importApplicationPreferences) {
-        final EditorProfilesActivity activity = this;
-
-        @SuppressLint("StaticFieldLeak")
-        class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
-            private final DataWrapper _dataWrapper;
-            private boolean profilesError = true;
-            private boolean shortcutsError = true;
-            private boolean intentsError = true;
-            private boolean appSettingsError = true;
-            private boolean deleteProfilesError = true;
-            private ImportPPDataBroadcastReceiver importPPDataBroadcastReceiver = null;
-
-            private ImportAsyncTask() {
-                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                dialogBuilder.setMessage(R.string.import_profiles_from_pp_alert_title);
-
-                LayoutInflater inflater = (activity.getLayoutInflater());
-                @SuppressLint("InflateParams")
-                View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
-                dialogBuilder.setView(layout);
-
-                dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
-                    // send stop into PP
-                    Intent intent = new Intent(PPApplication.ACTION_EXPORT_PP_DATA_STOP_FROM_PPP);
-                    sendBroadcast(intent, PPApplication.EXPORT_PP_DATA_PERMISSION);
-                    importFromPPStopped = true;
-                });
-
-                importProgressDialog = dialogBuilder.create();
-
-//                    importProgressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-
-                _dataWrapper = getDataWrapper();
-            }
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-
-                doImport = true;
-
-                importPPDataBroadcastReceiver = new ImportPPDataBroadcastReceiver();
-                IntentFilter intentFilter = new IntentFilter();
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_STOP_FROM_PP);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_STARTED);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_ENDED);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_APPLICATION_PREFERENCES);
-                //intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_PROFILES_COUNT);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_PROFILES);
-                //intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS_COUNT);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS);
-                //intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_INTENTS_COUNT);
-                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_INTENTS);
-                registerReceiver(importPPDataBroadcastReceiver, intentFilter,
-                        PPApplication.EXPORT_PP_DATA_PERMISSION, null);
-
-
-                GlobalGUIRoutines.lockScreenOrientation(activity, false);
-                importProgressDialog.setCancelable(false);
-                importProgressDialog.setCanceledOnTouchOutside(false);
-
-                if (!activity.isFinishing())
-                    importProgressDialog.show();
-
-                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                if (fragment != null) {
-                    if (fragment instanceof EditorProfileListFragment)
-                        ((EditorProfileListFragment) fragment).removeAdapter();
-                    else
-                        ((EditorEventListFragment) fragment).removeAdapter();
-                }
-            }
-
-            @SuppressWarnings("StringConcatenationInLoop")
-            @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
-            @Override
-            protected Integer doInBackground(Void... params) {
-                //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
-                if (_dataWrapper != null) {
-
-                    // send start into PP
-                    importFromPPStopped = false;
-                    Intent intent = new Intent(PPApplication.ACTION_EXPORT_PP_DATA_START_FROM_PPP);
-                    sendBroadcast(intent, PPApplication.EXPORT_PP_DATA_PERMISSION);
-
-                    // get PP data
-                    long start = SystemClock.uptimeMillis();
-                    do {
-                        if (importFromPPStopped)
-                            break;
-
-                        if (importPPDataBroadcastReceiver.importStarted &&
-                            importPPDataBroadcastReceiver.importEndeed)
-                            break;
-
-                        PPApplication.sleep(500);
-                    } while (SystemClock.uptimeMillis() - start < 30 * 1000);
-
-                    if (!importFromPPStopped) {
-                        PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
-
-                        if (importPPDataBroadcastReceiver.importStarted &&
-                            importPPDataBroadcastReceiver.importEndeed) {
-
-                            // import application preferences must be first,
-                            // because in DatabaseHandler.importDB is recompute of volumes in profiles
-                            if (importApplicationPreferences) {
-                                try {
-                                    synchronized (PPApplication.applicationPreferencesMutex) {
-                                        ApplicationPreferences.applicationStartOnBoot = importPPDataBroadcastReceiver.applicationData.applicationStartOnBoot;
-                                        ApplicationPreferences.applicationActivate = importPPDataBroadcastReceiver.applicationData.applicationActivate;
-                                        ApplicationPreferences.applicationActivateWithAlert = importPPDataBroadcastReceiver.applicationData.applicationActivateWithAlert;
-                                        ApplicationPreferences.applicationClose = importPPDataBroadcastReceiver.applicationData.applicationClose;
-                                        ApplicationPreferences.applicationLongClickActivation = importPPDataBroadcastReceiver.applicationData.applicationLongClickActivation;
-                                        ApplicationPreferences.applicationTheme = importPPDataBroadcastReceiver.applicationData.applicationTheme;
-                                        ApplicationPreferences.applicationEditorPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationEditorPrefIndicator;
-                                        ApplicationPreferences.notificationsToast = importPPDataBroadcastReceiver.applicationData.notificationsToast;
-                                        ApplicationPreferences.notificationStatusBarStyle = importPPDataBroadcastReceiver.applicationData.notificationStatusBarStyle;
-                                        ApplicationPreferences.notificationShowInStatusBar = importPPDataBroadcastReceiver.applicationData.notificationShowInStatusBar;
-                                        ApplicationPreferences.notificationTextColor = importPPDataBroadcastReceiver.applicationData.notificationTextColor;
-                                        ApplicationPreferences.notificationHideInLockScreen = importPPDataBroadcastReceiver.applicationData.notificationHideInLockscreen;
-                                        ApplicationPreferences.applicationWidgetListPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationWidgetListPrefIndicator;
-                                        ApplicationPreferences.applicationWidgetListHeader = importPPDataBroadcastReceiver.applicationData.applicationWidgetListHeader;
-                                        ApplicationPreferences.applicationWidgetListBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackground;
-                                        ApplicationPreferences.applicationWidgetListLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessB;
-                                        ApplicationPreferences.applicationWidgetListLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessT;
-                                        ApplicationPreferences.applicationWidgetIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconColor;
-                                        ApplicationPreferences.applicationWidgetIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightness;
-                                        ApplicationPreferences.applicationWidgetListIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetListIconColor;
-                                        ApplicationPreferences.applicationWidgetListIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetListIconLightness;
-                                        ApplicationPreferences.notificationPrefIndicator = importPPDataBroadcastReceiver.applicationData.notificationPrefIndicator;
-                                        ApplicationPreferences.applicationActivatorGridLayout = importPPDataBroadcastReceiver.applicationData.applicationActivatorGridLayout;
-                                        ApplicationPreferences.applicationWidgetListGridLayout = importPPDataBroadcastReceiver.applicationData.applicationWidgetListGridLayout;
-                                        ApplicationPreferences.applicationWidgetIconHideProfileName = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconHideProfileName;
-                                        ApplicationPreferences.applicationShortcutEmblem = importPPDataBroadcastReceiver.applicationData.applicationShortcutEmblem;
-                                        ApplicationPreferences.applicationWidgetIconBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackground;
-                                        ApplicationPreferences.applicationWidgetIconLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessB;
-                                        ApplicationPreferences.applicationWidgetIconLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessT;
-                                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes = importPPDataBroadcastReceiver.applicationData.applicationUnlinkRingerNotificationVolumes;
-                                        ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes = importPPDataBroadcastReceiver.applicationData.applicationForceSetMergeRingNotificationVolumes;
-                                        ApplicationPreferences.applicationSamsungEdgeHeader = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeHeader;
-                                        ApplicationPreferences.applicationSamsungEdgeBackground = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackground;
-                                        ApplicationPreferences.applicationSamsungEdgeLightnessB = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeLightnessB;
-                                        ApplicationPreferences.applicationSamsungEdgeLightnessT = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeLightnessT;
-                                        ApplicationPreferences.applicationSamsungEdgeIconColor = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeIconColor;
-                                        ApplicationPreferences.applicationSamsungEdgeIconLightness = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeIconLightness;
-                                        ApplicationPreferences.applicationWidgetListRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetListRoundedCorners;
-                                        ApplicationPreferences.applicationWidgetIconRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconRoundedCorners;
-                                        ApplicationPreferences.applicationWidgetListBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackgroundType;
-                                        ApplicationPreferences.applicationWidgetListBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackgroundColor;
-                                        ApplicationPreferences.applicationWidgetIconBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackgroundType;
-                                        ApplicationPreferences.applicationWidgetIconBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackgroundColor;
-                                        ApplicationPreferences.applicationSamsungEdgeBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackgroundType;
-                                        ApplicationPreferences.applicationSamsungEdgeBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackgroundColor;
-                                        ApplicationPreferences.applicationNeverAskForGrantRoot = importPPDataBroadcastReceiver.applicationData.applicationNeverAskForGrantRoot;
-                                        ApplicationPreferences.notificationShowButtonExit = importPPDataBroadcastReceiver.applicationData.notificationShowButtonExit;
-                                        ApplicationPreferences.applicationWidgetOneRowPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowPrefIndicator;
-                                        ApplicationPreferences.applicationWidgetOneRowBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackground;
-                                        ApplicationPreferences.applicationWidgetOneRowLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessB;
-                                        ApplicationPreferences.applicationWidgetOneRowLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessT;
-                                        ApplicationPreferences.applicationWidgetOneRowIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowIconColor;
-                                        ApplicationPreferences.applicationWidgetOneRowIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowIconLightness;
-                                        ApplicationPreferences.applicationWidgetOneRowRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowRoundedCorners;
-                                        ApplicationPreferences.applicationWidgetOneRowBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackgroundType;
-                                        ApplicationPreferences.applicationWidgetOneRowBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackgroundColor;
-                                        ApplicationPreferences.applicationWidgetListLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessBorder;
-                                        ApplicationPreferences.applicationWidgetOneRowLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessBorder;
-                                        ApplicationPreferences.applicationWidgetIconLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessBorder;
-                                        ApplicationPreferences.applicationWidgetListShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetListShowBorder;
-                                        ApplicationPreferences.applicationWidgetOneRowShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowShowBorder;
-                                        ApplicationPreferences.applicationWidgetIconShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconShowBorder;
-                                        ApplicationPreferences.applicationWidgetListCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetListCustomIconLightness;
-                                        ApplicationPreferences.applicationWidgetOneRowCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowCustomIconLightness;
-                                        ApplicationPreferences.applicationWidgetIconCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconCustomIconLightness;
-                                        ApplicationPreferences.applicationSamsungEdgeCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeCustomIconLightness;
-                                        ApplicationPreferences.notificationUseDecoration = importPPDataBroadcastReceiver.applicationData.notificationUseDecoration;
-                                        ApplicationPreferences.notificationLayoutType = importPPDataBroadcastReceiver.applicationData.notificationLayoutType;
-                                        ApplicationPreferences.notificationBackgroundColor = importPPDataBroadcastReceiver.applicationData.notificationBackgroundColor;
-                                        ApplicationPreferences.notificationNotificationStyle = "0"; // custom notification style
-                                        ApplicationPreferences.notificationNightMode = false;
-                                        ApplicationPreferences.notificationShowProfileIcon = true;
-                                        if (ApplicationPreferences.notificationBackgroundColor.equals("2")) {
-                                            ApplicationPreferences.notificationBackgroundColor = "0";
-                                            ApplicationPreferences.notificationNightMode = true;
-                                        }
-
-                                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, ApplicationPreferences.applicationStartOnBoot);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATE, ApplicationPreferences.applicationActivate);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, ApplicationPreferences.applicationActivateWithAlert);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CLOSE, ApplicationPreferences.applicationClose);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION, ApplicationPreferences.applicationLongClickActivation);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.applicationTheme);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, ApplicationPreferences.applicationEditorPrefIndicator);
-                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, ApplicationPreferences.notificationsToast);
-                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE, ApplicationPreferences.notificationStatusBarStyle);
-                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
-                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR, ApplicationPreferences.notificationTextColor);
-                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, ApplicationPreferences.notificationHideInLockScreen);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, ApplicationPreferences.applicationWidgetListPrefIndicator);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER, ApplicationPreferences.applicationWidgetListHeader);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND, ApplicationPreferences.applicationWidgetListBackground);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B, ApplicationPreferences.applicationWidgetListLightnessB);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, ApplicationPreferences.applicationWidgetListLightnessT);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, ApplicationPreferences.applicationWidgetIconColor);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetIconLightness);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, ApplicationPreferences.applicationWidgetListIconColor);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR, ApplicationPreferences.notificationPrefIndicator);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, ApplicationPreferences.applicationActivatorGridLayout);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, ApplicationPreferences.applicationWidgetListGridLayout);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, ApplicationPreferences.applicationWidgetIconHideProfileName);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_EMBLEM, ApplicationPreferences.applicationShortcutEmblem);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND, ApplicationPreferences.applicationWidgetIconBackground);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B, ApplicationPreferences.applicationWidgetIconLightnessB);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, ApplicationPreferences.applicationWidgetIconLightnessT);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.applicationUnlinkRingerNotificationVolumes);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, String.valueOf(ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes));
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_HEADER, ApplicationPreferences.applicationSamsungEdgeHeader);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, ApplicationPreferences.applicationSamsungEdgeBackground);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B, ApplicationPreferences.applicationSamsungEdgeLightnessB);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, ApplicationPreferences.applicationSamsungEdgeLightnessT);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, ApplicationPreferences.applicationSamsungEdgeIconColor);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, ApplicationPreferences.applicationSamsungEdgeIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetListRoundedCorners);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetIconRoundedCorners);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetIconBackgroundType);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetIconBackgroundColor);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, ApplicationPreferences.applicationSamsungEdgeBackgroundType);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR, ApplicationPreferences.applicationSamsungEdgeBackgroundColor);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, ApplicationPreferences.applicationNeverAskForGrantRoot);
-                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT, ApplicationPreferences.notificationShowButtonExit);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.applicationWidgetOneRowPrefIndicator);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferences.applicationWidgetOneRowBackground);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferences.applicationWidgetOneRowLightnessB);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.applicationWidgetOneRowLightnessT);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.applicationWidgetOneRowIconColor);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetOneRowIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetOneRowBackgroundType);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetOneRowBackgroundColor);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetListLightnessBorder);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetOneRowLightnessBorder);
-                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetIconLightnessBorder);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER, ApplicationPreferences.applicationWidgetListShowBorder);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER, ApplicationPreferences.applicationWidgetOneRowShowBorder);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER, ApplicationPreferences.applicationWidgetIconShowBorder);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListCustomIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetOneRowCustomIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetIconCustomIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationSamsungEdgeCustomIconLightness);
-                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, ApplicationPreferences.notificationUseDecoration);
-                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, ApplicationPreferences.notificationLayoutType);
-                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, ApplicationPreferences.notificationBackgroundColor);
-
-                                        editor.apply();
-                                    }
-
-                                    PPApplication.loadGlobalApplicationData(getApplicationContext());
-                                    PPApplication.loadApplicationPreferences(getApplicationContext());
-                                    PPApplication.loadProfileActivationData(getApplicationContext());
-
-                                    appSettingsError = false;
-                                } catch (Exception e) {
-                                    appSettingsError = true;
-                                }
-                            }
-                            else
-                                appSettingsError = false;
-
-                            if (deleteConfiguredProfiles) {
-                                deleteProfilesError = !DatabaseHandler.getInstance(_dataWrapper.context).deleteAllProfiles();
-                            }
-                            else
-                                deleteProfilesError = false;
-                            if (importProfiles && (!deleteProfilesError)) {
-                                List<Long> ppShortcutIds = new ArrayList<>();
-                                List<Long> importedShortcutIds = new ArrayList<>();
-                                List<Long> ppIntentIds = new ArrayList<>();
-                                List<Long> importedIntentIds = new ArrayList<>();
-
-                                // first import shortcuts and intents
-                                try {
-                                    for (PPShortcutForExport shortcutForImport : importPPDataBroadcastReceiver.shortcuts) {
-                                        Shortcut shortcut = new Shortcut();
-                                        shortcut._intent = shortcutForImport.KEY_S_INTENT;
-                                        shortcut._name = shortcutForImport.KEY_S_NAME;
-
-                                        DatabaseHandler.getInstance(_dataWrapper.context).addShortcut(shortcut);
-                                        // save shortcut id
-                                        ppShortcutIds.add(shortcutForImport.KEY_S_ID);
-                                        importedShortcutIds.add(shortcut._id);
-                                    }
-                                    shortcutsError = false;
-                                } catch (Exception e) {
-                                    shortcutsError = true;
-                                }
-                                try {
-                                    for (PPIntentForExport intentForImport : importPPDataBroadcastReceiver.intents) {
-                                        PPIntent ppIntent = new PPIntent(
-                                                intentForImport.KEY_IN_ID,
-                                                intentForImport.KEY_IN_NAME,
-                                                intentForImport.KEY_IN_PACKAGE_NAME,
-                                                intentForImport.KEY_IN_CLASS_NAME,
-                                                intentForImport.KEY_IN_ACTION,
-                                                intentForImport.KEY_IN_DATA,
-                                                intentForImport.KEY_IN_MIME_TYPE,
-                                                intentForImport.KEY_IN_EXTRA_KEY_1,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_1,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_1,
-                                                intentForImport.KEY_IN_EXTRA_KEY_2,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_2,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_2,
-                                                intentForImport.KEY_IN_EXTRA_KEY_3,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_3,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_3,
-                                                intentForImport.KEY_IN_EXTRA_KEY_4,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_4,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_4,
-                                                intentForImport.KEY_IN_EXTRA_KEY_5,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_5,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_5,
-                                                intentForImport.KEY_IN_EXTRA_KEY_6,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_6,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_6,
-                                                intentForImport.KEY_IN_EXTRA_KEY_7,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_7,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_7,
-                                                intentForImport.KEY_IN_EXTRA_KEY_8,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_8,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_8,
-                                                intentForImport.KEY_IN_EXTRA_KEY_9,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_9,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_9,
-                                                intentForImport.KEY_IN_EXTRA_KEY_10,
-                                                intentForImport.KEY_IN_EXTRA_VALUE_10,
-                                                intentForImport.KEY_IN_EXTRA_TYPE_10,
-                                                intentForImport.KEY_IN_CATEGORIES,
-                                                intentForImport.KEY_IN_FLAGS,
-                                                intentForImport.KEY_IN_USED_COUNT,
-                                                intentForImport.KEY_IN_INTENT_TYPE
-                                        );
-
-                                        DatabaseHandler.getInstance(_dataWrapper.context).addIntent(ppIntent);
-                                        // save intent id
-                                        ppIntentIds.add(intentForImport.KEY_IN_ID);
-                                        importedIntentIds.add(ppIntent._id);
-                                    }
-                                    intentsError = false;
-                                } catch (Exception e) {
-                                    intentsError = true;
-                                }
-
-                                try {
-                                    for (PPProfileForExport profileForImport : importPPDataBroadcastReceiver.profiles) {
-                                        Profile profile = new Profile(
-                                                profileForImport.KEY_NAME,
-                                                profileForImport.KEY_ICON,
-                                                profileForImport.KEY_CHECKED,
-                                                profileForImport.KEY_PORDER,
-                                                profileForImport.KEY_VOLUME_RINGER_MODE,
-                                                profileForImport.KEY_VOLUME_RINGTONE,
-                                                profileForImport.KEY_VOLUME_NOTIFICATION,
-                                                profileForImport.KEY_VOLUME_MEDIA,
-                                                profileForImport.KEY_VOLUME_ALARM,
-                                                profileForImport.KEY_VOLUME_SYSTEM,
-                                                profileForImport.KEY_VOLUME_VOICE,
-                                                profileForImport.KEY_SOUND_RINGTONE_CHANGE,
-                                                profileForImport.KEY_SOUND_RINGTONE,
-                                                profileForImport.KEY_SOUND_NOTIFICATION_CHANGE,
-                                                profileForImport.KEY_SOUND_NOTIFICATION,
-                                                profileForImport.KEY_SOUND_ALARM_CHANGE,
-                                                profileForImport.KEY_SOUND_ALARM,
-                                                profileForImport.KEY_DEVICE_AIRPLANE_MODE,
-                                                profileForImport.KEY_DEVICE_WIFI,
-                                                profileForImport.KEY_DEVICE_BLUETOOTH,
-                                                profileForImport.KEY_DEVICE_SCREEN_TIMEOUT,
-                                                profileForImport.KEY_DEVICE_BRIGHTNESS,
-                                                profileForImport.KEY_DEVICE_WALLPAPER_CHANGE,
-                                                profileForImport.KEY_DEVICE_WALLPAPER,
-                                                profileForImport.KEY_DEVICE_MOBILE_DATA,
-                                                profileForImport.KEY_DEVICE_MOBILE_DATA_PREFS,
-                                                profileForImport.KEY_DEVICE_GPS,
-                                                profileForImport.KEY_DEVICE_RUN_APPLICATION_CHANGE,
-                                                profileForImport.KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
-                                                profileForImport.KEY_DEVICE_AUTOSYNC,
-                                                true,
-                                                profileForImport.KEY_DEVICE_AUTOROTATE,
-                                                profileForImport.KEY_DEVICE_LOCATION_SERVICE_PREFS,
-                                                profileForImport.KEY_VOLUME_SPEAKER_PHONE,
-                                                profileForImport.KEY_DEVICE_NFC,
-                                                profileForImport.KEY_DURATION,
-                                                profileForImport.KEY_AFTER_DURATION_DO,
-                                                profileForImport.KEY_VOLUME_ZEN_MODE,
-                                                profileForImport.KEY_DEVICE_KEYGUARD,
-                                                profileForImport.KEY_VIBRATE_ON_TOUCH,
-                                                profileForImport.KEY_DEVICE_WIFI_AP,
-                                                profileForImport.KEY_DEVICE_POWER_SAVE_MODE,
-                                                profileForImport.KEY_ASK_FOR_DURATION,
-                                                profileForImport.KEY_DEVICE_NETWORK_TYPE,
-                                                profileForImport.KEY_NOTIFICATION_LED,
-                                                profileForImport.KEY_VIBRATE_WHEN_RINGING,
-                                                profileForImport.KEY_DEVICE_WALLPAPER_FOR,
-                                                profileForImport.KEY_HIDE_STATUS_BAR_ICON,
-                                                profileForImport.KEY_LOCK_DEVICE,
-                                                profileForImport.KEY_DEVICE_CONNECT_TO_SSID,
-                                                0,
-                                                0,
-                                                profileForImport.KEY_DURATION_NOTIFICATION_SOUND,
-                                                profileForImport.KEY_DURATION_NOTIFICATION_VIBRATE,
-                                                profileForImport.KEY_DEVICE_WIFI_AP_PREFS,
-                                                0,
-                                                0,
-                                                0,
-                                                profileForImport.KEY_HEADS_UP_NOTIFICATIONS,
-                                                profileForImport.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
-                                                profileForImport.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
-                                                profileForImport.KEY_ACTIVATION_BY_USER_COUNT,
-                                                profileForImport.KEY_DEVICE_NETWORK_TYPE_PREFS,
-                                                profileForImport.KEY_DEVICE_CLOSE_ALL_APPLICATIONS,
-                                                profileForImport.KEY_SCREEN_NIGHT_MODE,
-                                                profileForImport.KEY_DTMF_TONE_WHEN_DIALING,
-                                                profileForImport.KEY_SOUND_ON_TOUCH,
-                                                profileForImport.KEY_VOLUME_DTMF,
-                                                profileForImport.KEY_VOLUME_ACCESSIBILITY,
-                                                profileForImport.KEY_VOLUME_BLUETOOTH_SCO,
-                                                0,
-                                                0,
-                                                0,
-                                                false,
-                                                0,
-                                                0,
-                                                "0|0||",
-                                                0,
-                                                0,
-                                                0,
-                                                0,
-                                                0,
-                                                "0|0|0",
-                                                0,
-                                                0,
-                                                0,
-                                                "",
-                                                0,
-                                                "",
-                                                0,
-                                                "",
-                                                0,
-                                                "",
-                                                0
-                                        );
-
-                                        // replace ids in profile._deviceRunApplicationPackageName
-                                        // with new shortcut and intent ids
-                                        String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
-                                        String newValue = "";
-                                        for (String split : splits) {
-                                            String newSplit = "";
-                                            if (Application.isShortcut(split)) {
-                                                if (split.length() > 2) {
-                                                    long id = Application.getShortcutId(split);
-                                                    for (int i = 0; i < ppShortcutIds.size(); i++) {
-                                                        if (id == ppShortcutIds.get(i)) {
-                                                            id = importedShortcutIds.get(i);
-
-                                                            // "(s)package_name/activity#shortcut_id#delay"
-                                                            String[] valueSplits = split.split("#");
-                                                            if (valueSplits.length == 3)
-                                                                newSplit = valueSplits[0] + "#" + id + "#" + valueSplits[2];
-                                                            else
-                                                                newSplit = split;
-
-                                                            break;
-                                                        }
-                                                    }
-                                                } else
-                                                    newSplit = split;
-                                            } else if (Application.isIntent(split)) {
-                                                if (split.length() > 2) {
-                                                    long id = Application.getIntentId(split);
-                                                    for (int i = 0; i < ppIntentIds.size(); i++) {
-                                                        if (id == ppIntentIds.get(i)) {
-                                                            id = importedIntentIds.get(i);
-
-                                                            // "(i)intent_id#delay"
-                                                            String[] valueSplits = split.split("#");
-                                                            if (valueSplits.length == 2)
-                                                                newSplit = "(i)" + id + "#" + valueSplits[1];
-                                                            else
-                                                                newSplit = split;
-
-                                                            break;
-                                                        }
-                                                    }
-                                                } else
-                                                    newSplit = split;
-                                            } else
-                                                newSplit = split;
-
-                                            if (!newValue.isEmpty())
-                                                newValue = newValue + "|";
-                                            newValue = newValue + newSplit;
-                                        }
-                                        profile._deviceRunApplicationPackageName = newValue;
-
-                                        DatabaseHandler.getInstance(_dataWrapper.context).addProfile(profile, false);
-                                    }
-                                    profilesError = false;
-                                }  catch (Exception e) {
-                                    profilesError = true;
-                                }
-                            } else {
-                                profilesError = false;
-                                shortcutsError = false;
-                                intentsError = false;
-                            }
-                        }
-                    }
-
-                    if (importFromPPStopped)
-                        return 2;
-
-                    if (deleteProfilesError || profilesError || shortcutsError || intentsError || appSettingsError)
-                        return 0;
-                    else
-                        return 1;
-                }
-                else
-                    return 0;
-            }
-
-            @Override
-            protected void onPostExecute(Integer result) {
-                super.onPostExecute(result);
-
-                doImport = false;
-
-                if (!isFinishing()) {
-                    if ((importProgressDialog != null) && importProgressDialog.isShowing()) {
-                        if (!isDestroyed())
-                            importProgressDialog.dismiss();
-                        importProgressDialog = null;
-                    }
-                    GlobalGUIRoutines.unlockScreenOrientation(activity);
-                }
-
-                if (importPPDataBroadcastReceiver != null) {
-                    try {
-                        unregisterReceiver(importPPDataBroadcastReceiver);
-                    } catch (Exception ignored) {
-                    }
-                }
-
-                if (!importFromPPStopped) {
-                    if (_dataWrapper != null) {
-                        //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
-
-                        // clear shared preferences for last activated profile
-                        //Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
-                        //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
-                        PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
-
-                        //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
-                        //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
-                        PPApplication.updateGUI(0, _dataWrapper.context);
-
-                        PPApplication.setApplicationStarted(_dataWrapper.context, true);
-                        Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
-                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-                        serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
-                        serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//                        PPApplication.logE("[START_PP_SERVICE] EditorProfileActivity.doImportDataFromPP", "xxx");
-                        PPApplication.startPPService(activity, serviceIntent);
-                    }
-
-                    if ((_dataWrapper != null) && (!deleteProfilesError) && (!profilesError) && (!shortcutsError) && (!intentsError) && (!appSettingsError)) {
-                        //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
-
-                        // restart events
-                        //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
-                        //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
-                        //}
-
-                        PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, null, null, null, 0, "");
-
-                        // toast notification
-                        if (!isFinishing())
-                            PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                    getResources().getString(R.string.toast_import_from_pp_ok),
-                                    Toast.LENGTH_SHORT);
-
-                        // refresh activity
-                        if (!isFinishing())
-                            GlobalGUIRoutines.reloadActivity(activity, true);
-
-                        DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
-                        IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
-
-                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_IMPORT_FROM_PP_OK, true);
-                    } else {
-                        //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
-
-                        int appSettingsResult = 1;
-                        if (appSettingsError) appSettingsResult = 0;
-                        int dbError = DatabaseHandler.IMPORT_OK;
-                        if (deleteProfilesError || profilesError || shortcutsError || intentsError)
-                            dbError = DatabaseHandler.IMPORT_ERROR_BUG;
-                        if (!isFinishing())
-                            importExportErrorDialog(IMPORTEXPORT_IMPORTFROMPP, dbError, appSettingsResult/*, 1*/);
-
-                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_IMPORT_FROM_PP_OK, false);
-                    }
-                }
-            }
-        }
-
-        importFromPPAsyncTask = new ImportAsyncTask().execute();
+        importFromPPAsyncTask = new ImportFromPPAsyncTask(
+                        importProfiles,
+                        deleteConfiguredProfiles,
+                        importApplicationPreferences,
+                        this).execute();
     }
 
     private void importDataFromPP() {
@@ -3417,302 +2585,9 @@ public class EditorProfilesActivity extends AppCompatActivity
 
     private void doExportData(final boolean email, final boolean toAuthor)
     {
-        final EditorProfilesActivity activity = this;
-
         if (email || Permissions.checkExport(getApplicationContext())) {
 
-            @SuppressLint("StaticFieldLeak")
-            class ExportAsyncTask extends AsyncTask<Void, Integer, Integer> {
-                private final DataWrapper dataWrapper;
-                private boolean runStopEvents;
-
-                private ExportAsyncTask() {
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                    dialogBuilder.setMessage(R.string.export_profiles_alert_title);
-
-                    LayoutInflater inflater = (activity.getLayoutInflater());
-                    @SuppressLint("InflateParams")
-                    View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
-                    dialogBuilder.setView(layout);
-
-                    exportProgressDialog = dialogBuilder.create();
-
-//                    exportProgressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                        @Override
-//                        public void onShow(DialogInterface dialog) {
-//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                            if (positive != null) positive.setAllCaps(false);
-//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                            if (negative != null) negative.setAllCaps(false);
-//                        }
-//                    });
-
-                    this.dataWrapper = getDataWrapper();
-                }
-
-                @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
-
-                    GlobalGUIRoutines.lockScreenOrientation(activity, false);
-                    exportProgressDialog.setCancelable(false);
-                    exportProgressDialog.setCanceledOnTouchOutside(false);
-                    if (!activity.isFinishing())
-                        exportProgressDialog.show();
-
-                    runStopEvents = Event.getGlobalEventsRunning();
-                }
-
-                @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
-                @Override
-                protected Integer doInBackground(Void... params) {
-
-                    if (this.dataWrapper != null) {
-                        //dataWrapper.globalRunStopEvents(true);
-                        PPApplication.exitApp(false, getApplicationContext(), this.dataWrapper, null, false);
-
-                        // wait for end of PPService
-                        PPApplication.sleep(3000);
-
-                        //File sd = Environment.getExternalStorageDirectory();
-                        File sd = getApplicationContext().getExternalFilesDir(null);
-                        //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-
-                        /*File exportDir = new File(sd, PPApplication.EXPORT_PATH);
-                        if (!(exportDir.exists() && exportDir.isDirectory())) {
-                            //noinspection ResultOfMethodCallIgnored
-                            exportDir.mkdirs();
-                            try {
-                                //noinspection ResultOfMethodCallIgnored
-                                exportDir.setReadable(true, false);
-                            } catch (Exception ee) {
-                                PPApplication.recordException(ee);
-                            }
-                            try {
-                                //noinspection ResultOfMethodCallIgnored
-                                exportDir.setWritable(true, false);
-                            } catch (Exception ee) {
-                                PPApplication.recordException(ee);
-                            }
-                        }*/
-
-                        int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB();
-                        if (ret == 1) {
-                            //File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                            File exportFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                            if (exportApplicationPreferences(exportFile, runStopEvents/*, 1*/)) {
-                            /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
-                            if (!exportApplicationPreferences(exportFile, 2))
-                                ret = 0;*/
-                                ret = 1;
-                            } else
-                                ret = 0;
-                        }
-
-                        PPApplication.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, null, 0, "");
-
-                        //Event.setGlobalEventsRunning(this.dataWrapper.context, runStopEvents);
-                        PPApplication.setApplicationStarted(getApplicationContext(), true);
-                        Intent serviceIntent = new Intent(getApplicationContext(), PhoneProfilesService.class);
-                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-                        //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
-                        serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
-//                        PPApplication.logE("[START_PP_SERVICE] EditorProfileActivity.doExportData", "xxx");
-                        PPApplication.startPPService(getApplicationContext(), serviceIntent);
-
-                        return ret;
-                    }
-                    else
-                        return 0;
-                }
-
-                @Override
-                protected void onPostExecute(Integer result) {
-                    super.onPostExecute(result);
-
-                    if (!isFinishing()) {
-                        if ((exportProgressDialog != null) && exportProgressDialog.isShowing()) {
-                            if (!isDestroyed())
-                                exportProgressDialog.dismiss();
-                            exportProgressDialog = null;
-                        }
-                        GlobalGUIRoutines.unlockScreenOrientation(activity);
-                    }
-
-                    if ((dataWrapper != null) && (result == 1)) {
-
-                        Context context = this.dataWrapper.context.getApplicationContext();
-                        // toast notification
-                        if (!isFinishing())
-                            PPApplication.showToast(context, getString(R.string.toast_export_ok), Toast.LENGTH_SHORT);
-
-                        //dataWrapper.restartEventsWithRescan(false, false, true, false, false, false);
-
-                        if (email) {
-                            // email backup
-
-                            ArrayList<Uri> uris = new ArrayList<>();
-
-                            try {
-                                //File sd = Environment.getExternalStorageDirectory();
-                                //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
-                                File sd = context.getExternalFilesDir(null);
-
-                                //File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
-                                File exportedDB = new File(sd, DatabaseHandler.EXPORT_DBFILENAME);
-                                Uri fileUri = FileProvider.getUriForFile(activity, PPApplication.PACKAGE_NAME + ".provider", exportedDB);
-                                uris.add(fileUri);
-
-                                //File appSettingsFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                                File appSettingsFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
-                                fileUri = FileProvider.getUriForFile(activity, PPApplication.PACKAGE_NAME + ".provider", appSettingsFile);
-                                uris.add(fileUri);
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-
-                            String emailAddress = "";
-                            if (toAuthor)
-                                emailAddress = "henrich.gron@gmail.com";
-                            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                                    "mailto", emailAddress, null));
-
-                            String packageVersion = "";
-                            try {
-                                PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                                packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
-                            } catch (Exception e) {
-                                //Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                            }
-                            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.export_data_email_subject));
-                            emailIntent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
-                            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                            List<ResolveInfo> resolveInfo = getPackageManager().queryIntentActivities(emailIntent, 0);
-                            List<LabeledIntent> intents = new ArrayList<>();
-                            for (ResolveInfo info : resolveInfo) {
-                                Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
-                                intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-                                if (!emailAddress.isEmpty())
-                                    intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
-                                intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.export_data_email_subject));
-                                intent.putExtra(Intent.EXTRA_TEXT, getEmailBodyText());
-                                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
-                                intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(getPackageManager()), info.icon));
-                            }
-                            if (intents.size() > 0) {
-                                try {
-                                    Intent chooser = Intent.createChooser(intents.remove(intents.size() - 1), context.getString(R.string.email_chooser));
-                                    //noinspection ToArrayCallWithZeroLengthArrayArgument
-                                    chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
-                                    startActivity(chooser);
-                                } catch (Exception e) {
-                                    //Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
-                                    PPApplication.recordException(e);
-                                }
-                            }
-                        }
-                        else {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                            LayoutInflater inflater = (activity).getLayoutInflater();
-                            @SuppressLint("InflateParams")
-                            View layout = inflater.inflate(R.layout.dialog_backup_settings_alert, null);
-                            dialogBuilder.setView(layout);
-                            dialogBuilder.setTitle(R.string.backup_settings_alert_title);
-
-                            boolean createPPPSubfolder = ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_BACKUP_CREATE_PPP_SUBFOLDER, true);
-
-                            final TextView rewriteInfo = layout.findViewById(R.id.backup_settings_alert_dialog_rewrite_files_info);
-                            rewriteInfo.setEnabled(!createPPPSubfolder);
-
-                            final CheckBox checkBox = layout.findViewById(R.id.backup_settings_alert_dialog_checkBox);
-                            checkBox.setChecked(createPPPSubfolder);
-
-                            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> rewriteInfo.setEnabled(!isChecked));
-                            dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                                boolean ok = false;
-                                try {
-
-                                    boolean _createPPPSubfolder = checkBox.isChecked();
-                                    Editor editor = ApplicationPreferences.getEditor(context);
-                                    editor.putBoolean(PREF_BACKUP_CREATE_PPP_SUBFOLDER, _createPPPSubfolder);
-                                    editor.apply();
-
-                                    Intent intent;
-                                    if (Build.VERSION.SDK_INT >= 29) {
-                                        StorageManager sm = (StorageManager) getSystemService(Context.STORAGE_SERVICE);
-                                        intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
-                                    }
-                                    else {
-                                        intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-                                        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                                    }
-                                    //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
-                                    //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
-                                    //PPApplication.logE("--------- EditorProfilesActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
-                                    if (_createPPPSubfolder)
-                                        //noinspection deprecation
-                                        startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
-                                    else
-                                        //noinspection deprecation
-                                        startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
-                                    ok = true;
-                                } catch (Exception e) {
-                                    PPApplication.recordException(e);
-                                }
-                                if (!ok){
-                                    AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(EditorProfilesActivity.this);
-                                    _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
-                                    //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                                    _dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                                    AlertDialog _dialog = _dialogBuilder.create();
-
-//                                        _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-//                                            @Override
-//                                            public void onShow(DialogInterface dialog) {
-//                                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-//                                                if (positive != null) positive.setAllCaps(false);
-//                                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-//                                                if (negative != null) negative.setAllCaps(false);
-//                                            }
-//                                        });
-
-                                    if (!isFinishing())
-                                        _dialog.show();
-                                }
-                            });
-                            dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
-                            AlertDialog dialog = dialogBuilder.create();
-
-                            //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                            //            @Override
-                            //            public void onShow(DialogInterface dialog) {
-                            //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
-                            //                if (positive != null) positive.setAllCaps(false);
-                            //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
-                            //                if (negative != null) negative.setAllCaps(false);
-                            //            }
-                            //        });
-
-                            if (!isFinishing())
-                                dialog.show();
-
-                        }
-
-                    } else {
-                        if (!isFinishing())
-                            importExportErrorDialog(IMPORTEXPORT_EXPORT, 0, 0/*, 0*/);
-                    }
-                }
-
-            }
-
-            exportAsyncTask = new ExportAsyncTask().execute();
+            exportAsyncTask = new ExportAsyncTask(email, toAuthor, this).execute();
         }
 
     }
@@ -4790,6 +3665,1442 @@ public class EditorProfilesActivity extends AppCompatActivity
             return 0;
         }
         return 1;
+    }
+
+    private static class BackupAsyncTask extends AsyncTask<Void, Integer, Integer> {
+        DocumentFile pickedDir;
+        final Uri treeUri;
+
+        final int requestCode;
+        int ok = 1;
+
+        private final WeakReference<EditorProfilesActivity> activityWeakRef;
+
+        public BackupAsyncTask(int requestCode, Uri treeUri, EditorProfilesActivity activity) {
+            this.treeUri = treeUri;
+            this.requestCode = requestCode;
+
+            this.activityWeakRef = new WeakReference<>(activity);
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            dialogBuilder.setMessage(R.string.backup_settings_alert_title);
+
+            LayoutInflater inflater = (activity.getLayoutInflater());
+            @SuppressLint("InflateParams")
+            View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
+            dialogBuilder.setView(layout);
+
+            activity.backupProgressDialog = dialogBuilder.create();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                pickedDir = DocumentFile.fromTreeUri(activity.getApplicationContext(), treeUri);
+
+                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                activity.backupProgressDialog.setCancelable(false);
+                activity.backupProgressDialog.setCanceledOnTouchOutside(false);
+                if (!activity.isFinishing())
+                    activity.backupProgressDialog.show();
+            }
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                if (pickedDir != null) {
+                    if (pickedDir.canWrite()) {
+                        if (requestCode == REQUEST_CODE_BACKUP_SETTINGS_2) {
+                            // if directory exists, create new = "PhoneProfilesPlus (x)"
+                            // create subdirectory
+                            pickedDir = pickedDir.createDirectory("PhoneProfilesPlus");
+                            if (pickedDir == null) {
+                                // error for create directory
+                                //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - error for create directory");
+                                ok = 0;
+                            }
+                        }
+                    } else {
+                        // pickedDir is not writable
+                        //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is not writable");
+                        ok = 0;
+                    }
+
+                    if (ok == 1) {
+                        if (pickedDir.canWrite()) {
+                            File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
+
+                            ok = copyToBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME, activity.getApplicationContext());
+                            if (ok == 1)
+                                ok = copyToBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
+                        } else {
+                            // cannot copy backup files, pickedDir is not writable
+                            //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - cannot copy backup files, pickedDir is not writable");
+                            ok = 0;
+                        }
+                    }
+
+                } else {
+                    // pickedDir is null
+                    //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - pickedDir is null");
+                    ok = 0;
+                }
+            } else {
+                ok = 0;
+            }
+            return ok;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                if (!activity.isFinishing()) {
+                    if ((activity.backupProgressDialog != null) && activity.backupProgressDialog.isShowing()) {
+                        if (!activity.isDestroyed())
+                            activity.backupProgressDialog.dismiss();
+                        activity.backupProgressDialog = null;
+                    }
+                    GlobalGUIRoutines.unlockScreenOrientation(activity);
+                }
+
+                if (result == 0) {
+                    //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_BACKUP_SETTINGS - Error backup files");
+
+                    if (!activity.isFinishing()) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        dialogBuilder.setTitle(R.string.backup_settings_alert_title);
+                        dialogBuilder.setMessage(R.string.backup_settings_error_on_backup);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+
+                        //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        //            @Override
+                        //            public void onShow(DialogInterface dialog) {
+                        //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        //                if (positive != null) positive.setAllCaps(false);
+                        //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        //                if (negative != null) negative.setAllCaps(false);
+                        //            }
+                        //        });
+
+                        dialog.show();
+                    }
+                } else {
+                    PPApplication.showToast(activity.getApplicationContext(), activity.getString(R.string.backup_settings_ok_backed_up), Toast.LENGTH_SHORT);
+                }
+            }
+        }
+    }
+
+    private static class RestoreAsyncTask extends AsyncTask<Void, Integer, Integer> {
+        DocumentFile pickedDir;
+        final Uri treeUri;
+
+        //int _requestCode;
+        int ok = 1;
+
+        private final WeakReference<EditorProfilesActivity> activityWeakRef;
+
+        public RestoreAsyncTask(/*int requestCode, */Uri treeUri, EditorProfilesActivity activity) {
+            this.treeUri = treeUri;
+            //this._requestCode = requestCode;
+
+            this.activityWeakRef = new WeakReference<>(activity);
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            dialogBuilder.setMessage(R.string.restore_settings_alert_title);
+
+            LayoutInflater inflater = (activity.getLayoutInflater());
+            @SuppressLint("InflateParams")
+            View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
+            dialogBuilder.setView(layout);
+
+            activity.restoreProgressDialog = dialogBuilder.create();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                pickedDir = DocumentFile.fromTreeUri(activity.getApplicationContext(), treeUri);
+
+                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                activity.restoreProgressDialog.setCancelable(false);
+                activity.restoreProgressDialog.setCanceledOnTouchOutside(false);
+                if (!activity.isFinishing())
+                    activity.restoreProgressDialog.show();
+            }
+        }
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                if (pickedDir != null) {
+                    if (pickedDir.canWrite()) {
+                        if (pickedDir.canWrite()) {
+                            File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
+
+                            ok = copyFromBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME, activity.getApplicationContext());
+                            if (ok == 1)
+                                ok = copyFromBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
+                        } else {
+                            // cannot copy backup files, pickedDir is not writable
+                            //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - cannot copy restore files, pickedDir is not writable");
+                            ok = 0;
+                        }
+                    } else {
+                        // pickedDir is not writable
+                        //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is not writable");
+                        ok = 0;
+                    }
+                } else {
+                    // pickedDir is null
+                    //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is null");
+                    ok = 0;
+                }
+            } else {
+                ok = 0;
+            }
+
+            return ok;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                if (!activity.isFinishing()) {
+                    if ((activity.restoreProgressDialog != null) && activity.restoreProgressDialog.isShowing()) {
+                        if (!activity.isDestroyed())
+                            activity.restoreProgressDialog.dismiss();
+                        activity.restoreProgressDialog = null;
+                    }
+                    GlobalGUIRoutines.unlockScreenOrientation(activity);
+                }
+
+                if (result == 0) {
+                    //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - Error restore files");
+
+                    if (!activity.isFinishing()) {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        dialogBuilder.setTitle(R.string.restore_settings_alert_title);
+                        dialogBuilder.setMessage(R.string.restore_settings_error_on_backup);
+                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog = dialogBuilder.create();
+
+                        //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        //            @Override
+                        //            public void onShow(DialogInterface dialog) {
+                        //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        //                if (positive != null) positive.setAllCaps(false);
+                        //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        //                if (negative != null) negative.setAllCaps(false);
+                        //            }
+                        //        });
+
+                        dialog.show();
+                    }
+                } else {
+                    PPApplication.showToast(activity.getApplicationContext(), activity.getString(R.string.restore_settings_ok_backed_up), Toast.LENGTH_SHORT);
+
+                    activity.doImportData();
+                }
+            }
+        }
+    }
+
+    private static class ImportAsyncTask extends AsyncTask<Void, Integer, Integer> {
+        private final DataWrapper _dataWrapper;
+        private int dbError = DatabaseHandler.IMPORT_OK;
+        private boolean appSettingsError = false;
+        //private boolean sharedProfileError = false;
+
+        private final WeakReference<EditorProfilesActivity> activityWeakRef;
+
+        public ImportAsyncTask(EditorProfilesActivity activity) {
+            this.activityWeakRef = new WeakReference<>(activity);
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            dialogBuilder.setMessage(R.string.import_profiles_alert_title);
+
+            LayoutInflater inflater = (activity.getLayoutInflater());
+            @SuppressLint("InflateParams")
+            View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
+            dialogBuilder.setView(layout);
+
+            activity.importProgressDialog = dialogBuilder.create();
+
+//                    importProgressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
+
+            _dataWrapper = activity.getDataWrapper();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                doImport = true;
+
+                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                activity.importProgressDialog.setCancelable(false);
+                activity.importProgressDialog.setCanceledOnTouchOutside(false);
+                if (!activity.isFinishing())
+                    activity.importProgressDialog.show();
+
+                Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment != null) {
+                    if (fragment instanceof EditorProfileListFragment)
+                        ((EditorProfileListFragment) fragment).removeAdapter();
+                    else
+                        ((EditorEventListFragment) fragment).removeAdapter();
+                }
+            }
+        }
+
+        @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
+        @Override
+        protected Integer doInBackground(Void... params) {
+            //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                if (_dataWrapper != null) {
+                    PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
+
+                    //File sd = Environment.getExternalStorageDirectory();
+                    //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                    File sd = activity.getApplicationContext().getExternalFilesDir(null);
+
+                    /*try {
+                        File exportPath = new File(sd, _applicationDataPath);
+                        if (exportPath.exists()) {
+                            //noinspection ResultOfMethodCallIgnored
+                            exportPath.setReadable(true, false);
+                        }
+                        if (exportPath.exists()) {
+                            //noinspection ResultOfMethodCallIgnored
+                            exportPath.setWritable(true, false);
+                        }
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }*/
+
+                    // import application preferences must be first,
+                    // because in DatabaseHandler.importDB is recompute of volumes in profiles
+                    //File exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                    File exportFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                    appSettingsError = !activity.importApplicationPreferences(exportFile/*, 1*/);
+                    //exportFile = new File(sd, _applicationDataPath + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                    //exportFile = new File(sd, GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                    //if (exportFile.exists())
+                    //    sharedProfileError = !importApplicationPreferences(exportFile, 2);
+
+                    //dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(_applicationDataPath);
+                    dbError = DatabaseHandler.getInstance(_dataWrapper.context).importDB(/*_applicationDataPath*/);
+                    if (dbError == DatabaseHandler.IMPORT_OK) {
+                        DatabaseHandler.getInstance(_dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
+                        DatabaseHandler.getInstance(_dataWrapper.context).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_WAITING);
+                        DatabaseHandler.getInstance(_dataWrapper.context).deactivateProfile();
+                        DatabaseHandler.getInstance(_dataWrapper.context).unblockAllEvents();
+                        DatabaseHandler.getInstance(_dataWrapper.context).disableNotAllowedPreferences();
+                        //this.dataWrapper.invalidateProfileList();
+                        //this.dataWrapper.invalidateEventList();
+                        //this.dataWrapper.invalidateEventTimelineList();
+                        Event.setEventsBlocked(_dataWrapper.context, false);
+                        DatabaseHandler.getInstance(_dataWrapper.context).unblockAllEvents();
+                        Event.setForceRunEventRunning(_dataWrapper.context, false);
+                    }
+
+                    /*if (PPApplication.logEnabled()) {
+                        PPApplication.logE("EditorProfilesActivity.doImportData", "dbError=" + dbError);
+                        PPApplication.logE("EditorProfilesActivity.doImportData", "appSettingsError=" + appSettingsError);
+                        PPApplication.logE("EditorProfilesActivity.doImportData", "sharedProfileError=" + sharedProfileError);
+                    }*/
+
+                    if (!appSettingsError) {
+                        /*Editor editor = ApplicationPreferences.preferences.edit();
+                        editor.putInt(EDITOR_PROFILES_VIEW_SELECTED_ITEM, 0);
+                        editor.putInt(EDITOR_EVENTS_VIEW_SELECTED_ITEM, 0);
+                        editor.putInt(EditorEventListFragment.SP_EDITOR_ORDER_SELECTED_ITEM, 0);
+                        editor.apply();*/
+
+                        Permissions.setAllShowRequestPermissions(_dataWrapper.context, true);
+
+                        //WifiBluetoothScanner.setShowEnableLocationNotification(_dataWrapper.context, true, WifiBluetoothScanner.SCANNER_TYPE_WIFI);
+                        //WifiBluetoothScanner.setShowEnableLocationNotification(_dataWrapper.context, true, WifiBluetoothScanner.SCANNER_TYPE_BLUETOOTH);
+                        //MobileCellsScanner.setShowEnableLocationNotification(_dataWrapper.context, true);
+                    }
+
+                    if ((dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError/* || sharedProfileError*/)))
+                        return 1;
+                    else
+                        return 0;
+                } else
+                    return 0;
+            }
+            else
+                return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                doImport = false;
+
+                if (!activity.isFinishing()) {
+                    if ((activity.importProgressDialog != null) && activity.importProgressDialog.isShowing()) {
+                        if (!activity.isDestroyed())
+                            activity.importProgressDialog.dismiss();
+                        activity.importProgressDialog = null;
+                    }
+                    GlobalGUIRoutines.unlockScreenOrientation(activity);
+                }
+
+                if (_dataWrapper != null) {
+                    //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
+
+                    // clear shared preferences for last activated profile
+                    //Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
+                    //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
+                    PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
+
+                    //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
+                    //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+                    PPApplication.updateGUI(0, _dataWrapper.context/*, true, true*/);
+
+                    PPApplication.setApplicationStarted(_dataWrapper.context, true);
+                    Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
+                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
+                    serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                    serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+//                    PPApplication.logE("[START_PP_SERVICE] EditorProfileActivity.doImportData", "xxx");
+                    PPApplication.startPPService(activity, serviceIntent);
+                }
+
+                if ((_dataWrapper != null) && (dbError == DatabaseHandler.IMPORT_OK) && (!(appSettingsError/* || sharedProfileError*/))) {
+                    //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
+
+                    // restart events
+                    //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
+                    //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
+                    //}
+
+                    PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, null, 0, "");
+
+                    // toast notification
+                    if (!activity.isFinishing())
+                        PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
+                                activity.getResources().getString(R.string.toast_import_ok),
+                                Toast.LENGTH_SHORT);
+
+                    // refresh activity
+                    if (!activity.isFinishing())
+                        GlobalGUIRoutines.reloadActivity(activity, true);
+
+                    DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
+                    IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
+
+                    PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, true);
+                } else {
+                    //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
+
+                    int appSettingsResult = 1;
+                    if (appSettingsError) appSettingsResult = 0;
+                    //int sharedProfileResult = 1;
+                    //if (sharedProfileError) sharedProfileResult = 0;
+                    if (!activity.isFinishing())
+                        activity.importExportErrorDialog(IMPORTEXPORT_IMPORT, dbError, appSettingsResult/*, sharedProfileResult*/);
+
+                    PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_RESTORE_BACKUP_OK, false);
+                }
+            }
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private static class ImportFromPPAsyncTask extends AsyncTask<Void, Integer, Integer> {
+        private final DataWrapper _dataWrapper;
+        private boolean profilesError = true;
+        private boolean shortcutsError = true;
+        private boolean intentsError = true;
+        private boolean appSettingsError = true;
+        private boolean deleteProfilesError = true;
+        private ImportPPDataBroadcastReceiver importPPDataBroadcastReceiver = null;
+
+        private final WeakReference<EditorProfilesActivity> activityWeakRef;
+        final boolean importProfiles;
+        final boolean deleteConfiguredProfiles;
+        final boolean importApplicationPreferences;
+
+        public ImportFromPPAsyncTask(
+                final boolean importProfiles,
+                final boolean deleteConfiguredProfiles,
+                final boolean importApplicationPreferences,
+                EditorProfilesActivity activity) {
+            this.activityWeakRef = new WeakReference<>(activity);
+            this.importProfiles = importProfiles;
+            this.deleteConfiguredProfiles = deleteConfiguredProfiles;
+            this.importApplicationPreferences = importApplicationPreferences;
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            dialogBuilder.setMessage(R.string.import_profiles_from_pp_alert_title);
+
+            LayoutInflater inflater = (activity.getLayoutInflater());
+            @SuppressLint("InflateParams")
+            View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
+            dialogBuilder.setView(layout);
+
+            dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                // send stop into PP
+                Intent intent = new Intent(PPApplication.ACTION_EXPORT_PP_DATA_STOP_FROM_PPP);
+                activity.sendBroadcast(intent, PPApplication.EXPORT_PP_DATA_PERMISSION);
+                importFromPPStopped = true;
+            });
+
+            activity.importProgressDialog = dialogBuilder.create();
+
+//                    importProgressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
+
+            _dataWrapper = activity.getDataWrapper();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                doImport = true;
+
+                importPPDataBroadcastReceiver = new ImportPPDataBroadcastReceiver();
+                IntentFilter intentFilter = new IntentFilter();
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_STOP_FROM_PP);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_STARTED);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_ENDED);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_APPLICATION_PREFERENCES);
+                //intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_PROFILES_COUNT);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_PROFILES);
+                //intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS_COUNT);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_SHORTCUTS);
+                //intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_INTENTS_COUNT);
+                intentFilter.addAction(PPApplication.ACTION_EXPORT_PP_DATA_INTENTS);
+                activity.registerReceiver(importPPDataBroadcastReceiver, intentFilter,
+                        PPApplication.EXPORT_PP_DATA_PERMISSION, null);
+
+
+                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                activity.importProgressDialog.setCancelable(false);
+                activity.importProgressDialog.setCanceledOnTouchOutside(false);
+
+                if (!activity.isFinishing())
+                    activity.importProgressDialog.show();
+
+                Fragment fragment = activity.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment != null) {
+                    if (fragment instanceof EditorProfileListFragment)
+                        ((EditorProfileListFragment) fragment).removeAdapter();
+                    else
+                        ((EditorEventListFragment) fragment).removeAdapter();
+                }
+            }
+        }
+
+        @SuppressWarnings("StringConcatenationInLoop")
+        @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
+        @Override
+        protected Integer doInBackground(Void... params) {
+            //PPApplication.logE("PPApplication.exitApp", "from EditorProfilesActivity.doImportData shutdown=false");
+
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                if (_dataWrapper != null) {
+
+                    // send start into PP
+                    importFromPPStopped = false;
+                    Intent intent = new Intent(PPApplication.ACTION_EXPORT_PP_DATA_START_FROM_PPP);
+                    activity.sendBroadcast(intent, PPApplication.EXPORT_PP_DATA_PERMISSION);
+
+                    // get PP data
+                    long start = SystemClock.uptimeMillis();
+                    do {
+                        if (importFromPPStopped)
+                            break;
+
+                        if (importPPDataBroadcastReceiver.importStarted &&
+                                importPPDataBroadcastReceiver.importEndeed)
+                            break;
+
+                        PPApplication.sleep(500);
+                    } while (SystemClock.uptimeMillis() - start < 30 * 1000);
+
+                    if (!importFromPPStopped) {
+                        PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
+
+                        if (importPPDataBroadcastReceiver.importStarted &&
+                                importPPDataBroadcastReceiver.importEndeed) {
+
+                            // import application preferences must be first,
+                            // because in DatabaseHandler.importDB is recompute of volumes in profiles
+                            if (importApplicationPreferences) {
+                                try {
+                                    synchronized (PPApplication.applicationPreferencesMutex) {
+                                        ApplicationPreferences.applicationStartOnBoot = importPPDataBroadcastReceiver.applicationData.applicationStartOnBoot;
+                                        ApplicationPreferences.applicationActivate = importPPDataBroadcastReceiver.applicationData.applicationActivate;
+                                        ApplicationPreferences.applicationActivateWithAlert = importPPDataBroadcastReceiver.applicationData.applicationActivateWithAlert;
+                                        ApplicationPreferences.applicationClose = importPPDataBroadcastReceiver.applicationData.applicationClose;
+                                        ApplicationPreferences.applicationLongClickActivation = importPPDataBroadcastReceiver.applicationData.applicationLongClickActivation;
+                                        ApplicationPreferences.applicationTheme = importPPDataBroadcastReceiver.applicationData.applicationTheme;
+                                        ApplicationPreferences.applicationEditorPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationEditorPrefIndicator;
+                                        ApplicationPreferences.notificationsToast = importPPDataBroadcastReceiver.applicationData.notificationsToast;
+                                        ApplicationPreferences.notificationStatusBarStyle = importPPDataBroadcastReceiver.applicationData.notificationStatusBarStyle;
+                                        ApplicationPreferences.notificationShowInStatusBar = importPPDataBroadcastReceiver.applicationData.notificationShowInStatusBar;
+                                        ApplicationPreferences.notificationTextColor = importPPDataBroadcastReceiver.applicationData.notificationTextColor;
+                                        ApplicationPreferences.notificationHideInLockScreen = importPPDataBroadcastReceiver.applicationData.notificationHideInLockscreen;
+                                        ApplicationPreferences.applicationWidgetListPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationWidgetListPrefIndicator;
+                                        ApplicationPreferences.applicationWidgetListHeader = importPPDataBroadcastReceiver.applicationData.applicationWidgetListHeader;
+                                        ApplicationPreferences.applicationWidgetListBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackground;
+                                        ApplicationPreferences.applicationWidgetListLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessB;
+                                        ApplicationPreferences.applicationWidgetListLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessT;
+                                        ApplicationPreferences.applicationWidgetIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconColor;
+                                        ApplicationPreferences.applicationWidgetIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightness;
+                                        ApplicationPreferences.applicationWidgetListIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetListIconColor;
+                                        ApplicationPreferences.applicationWidgetListIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetListIconLightness;
+                                        ApplicationPreferences.notificationPrefIndicator = importPPDataBroadcastReceiver.applicationData.notificationPrefIndicator;
+                                        ApplicationPreferences.applicationActivatorGridLayout = importPPDataBroadcastReceiver.applicationData.applicationActivatorGridLayout;
+                                        ApplicationPreferences.applicationWidgetListGridLayout = importPPDataBroadcastReceiver.applicationData.applicationWidgetListGridLayout;
+                                        ApplicationPreferences.applicationWidgetIconHideProfileName = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconHideProfileName;
+                                        ApplicationPreferences.applicationShortcutEmblem = importPPDataBroadcastReceiver.applicationData.applicationShortcutEmblem;
+                                        ApplicationPreferences.applicationWidgetIconBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackground;
+                                        ApplicationPreferences.applicationWidgetIconLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessB;
+                                        ApplicationPreferences.applicationWidgetIconLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessT;
+                                        ApplicationPreferences.applicationUnlinkRingerNotificationVolumes = importPPDataBroadcastReceiver.applicationData.applicationUnlinkRingerNotificationVolumes;
+                                        ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes = importPPDataBroadcastReceiver.applicationData.applicationForceSetMergeRingNotificationVolumes;
+                                        ApplicationPreferences.applicationSamsungEdgeHeader = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeHeader;
+                                        ApplicationPreferences.applicationSamsungEdgeBackground = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackground;
+                                        ApplicationPreferences.applicationSamsungEdgeLightnessB = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeLightnessB;
+                                        ApplicationPreferences.applicationSamsungEdgeLightnessT = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeLightnessT;
+                                        ApplicationPreferences.applicationSamsungEdgeIconColor = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeIconColor;
+                                        ApplicationPreferences.applicationSamsungEdgeIconLightness = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeIconLightness;
+                                        ApplicationPreferences.applicationWidgetListRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetListRoundedCorners;
+                                        ApplicationPreferences.applicationWidgetIconRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconRoundedCorners;
+                                        ApplicationPreferences.applicationWidgetListBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackgroundType;
+                                        ApplicationPreferences.applicationWidgetListBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetListBackgroundColor;
+                                        ApplicationPreferences.applicationWidgetIconBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackgroundType;
+                                        ApplicationPreferences.applicationWidgetIconBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconBackgroundColor;
+                                        ApplicationPreferences.applicationSamsungEdgeBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackgroundType;
+                                        ApplicationPreferences.applicationSamsungEdgeBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeBackgroundColor;
+                                        ApplicationPreferences.applicationNeverAskForGrantRoot = importPPDataBroadcastReceiver.applicationData.applicationNeverAskForGrantRoot;
+                                        ApplicationPreferences.notificationShowButtonExit = importPPDataBroadcastReceiver.applicationData.notificationShowButtonExit;
+                                        ApplicationPreferences.applicationWidgetOneRowPrefIndicator = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowPrefIndicator;
+                                        ApplicationPreferences.applicationWidgetOneRowBackground = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackground;
+                                        ApplicationPreferences.applicationWidgetOneRowLightnessB = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessB;
+                                        ApplicationPreferences.applicationWidgetOneRowLightnessT = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessT;
+                                        ApplicationPreferences.applicationWidgetOneRowIconColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowIconColor;
+                                        ApplicationPreferences.applicationWidgetOneRowIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowIconLightness;
+                                        ApplicationPreferences.applicationWidgetOneRowRoundedCorners = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowRoundedCorners;
+                                        ApplicationPreferences.applicationWidgetOneRowBackgroundType = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackgroundType;
+                                        ApplicationPreferences.applicationWidgetOneRowBackgroundColor = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowBackgroundColor;
+                                        ApplicationPreferences.applicationWidgetListLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetListLightnessBorder;
+                                        ApplicationPreferences.applicationWidgetOneRowLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowLightnessBorder;
+                                        ApplicationPreferences.applicationWidgetIconLightnessBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconLightnessBorder;
+                                        ApplicationPreferences.applicationWidgetListShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetListShowBorder;
+                                        ApplicationPreferences.applicationWidgetOneRowShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowShowBorder;
+                                        ApplicationPreferences.applicationWidgetIconShowBorder = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconShowBorder;
+                                        ApplicationPreferences.applicationWidgetListCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetListCustomIconLightness;
+                                        ApplicationPreferences.applicationWidgetOneRowCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetOneRowCustomIconLightness;
+                                        ApplicationPreferences.applicationWidgetIconCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationWidgetIconCustomIconLightness;
+                                        ApplicationPreferences.applicationSamsungEdgeCustomIconLightness = importPPDataBroadcastReceiver.applicationData.applicationSamsungEdgeCustomIconLightness;
+                                        ApplicationPreferences.notificationUseDecoration = importPPDataBroadcastReceiver.applicationData.notificationUseDecoration;
+                                        ApplicationPreferences.notificationLayoutType = importPPDataBroadcastReceiver.applicationData.notificationLayoutType;
+                                        ApplicationPreferences.notificationBackgroundColor = importPPDataBroadcastReceiver.applicationData.notificationBackgroundColor;
+                                        ApplicationPreferences.notificationNotificationStyle = "0"; // custom notification style
+                                        ApplicationPreferences.notificationNightMode = false;
+                                        ApplicationPreferences.notificationShowProfileIcon = true;
+                                        if (ApplicationPreferences.notificationBackgroundColor.equals("2")) {
+                                            ApplicationPreferences.notificationBackgroundColor = "0";
+                                            ApplicationPreferences.notificationNightMode = true;
+                                        }
+
+                                        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, ApplicationPreferences.applicationStartOnBoot);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATE, ApplicationPreferences.applicationActivate);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ALERT, ApplicationPreferences.applicationActivateWithAlert);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_CLOSE, ApplicationPreferences.applicationClose);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_LONG_PRESS_ACTIVATION, ApplicationPreferences.applicationLongClickActivation);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_THEME, ApplicationPreferences.applicationTheme);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_PREF_INDICATOR, ApplicationPreferences.applicationEditorPrefIndicator);
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, ApplicationPreferences.notificationsToast);
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE, ApplicationPreferences.notificationStatusBarStyle);
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR, ApplicationPreferences.notificationTextColor);
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN, ApplicationPreferences.notificationHideInLockScreen);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, ApplicationPreferences.applicationWidgetListPrefIndicator);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER, ApplicationPreferences.applicationWidgetListHeader);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND, ApplicationPreferences.applicationWidgetListBackground);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B, ApplicationPreferences.applicationWidgetListLightnessB);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T, ApplicationPreferences.applicationWidgetListLightnessT);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, ApplicationPreferences.applicationWidgetIconColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetIconLightness);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, ApplicationPreferences.applicationWidgetListIconColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR, ApplicationPreferences.notificationPrefIndicator);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_GRID_LAYOUT, ApplicationPreferences.applicationActivatorGridLayout);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_GRID_LAYOUT, ApplicationPreferences.applicationWidgetListGridLayout);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, ApplicationPreferences.applicationWidgetIconHideProfileName);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_EMBLEM, ApplicationPreferences.applicationShortcutEmblem);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND, ApplicationPreferences.applicationWidgetIconBackground);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B, ApplicationPreferences.applicationWidgetIconLightnessB);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T, ApplicationPreferences.applicationWidgetIconLightnessT);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES, ApplicationPreferences.applicationUnlinkRingerNotificationVolumes);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES, String.valueOf(ApplicationPreferences.applicationForceSetMergeRingNotificationVolumes));
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_HEADER, ApplicationPreferences.applicationSamsungEdgeHeader);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, ApplicationPreferences.applicationSamsungEdgeBackground);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B, ApplicationPreferences.applicationSamsungEdgeLightnessB);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T, ApplicationPreferences.applicationSamsungEdgeLightnessT);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, ApplicationPreferences.applicationSamsungEdgeIconColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS, ApplicationPreferences.applicationSamsungEdgeIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetListRoundedCorners);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetIconRoundedCorners);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetListBackgroundType);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetListBackgroundColor);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetIconBackgroundType);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetIconBackgroundColor);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, ApplicationPreferences.applicationSamsungEdgeBackgroundType);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR, ApplicationPreferences.applicationSamsungEdgeBackgroundColor);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, ApplicationPreferences.applicationNeverAskForGrantRoot);
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT, ApplicationPreferences.notificationShowButtonExit);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, ApplicationPreferences.applicationWidgetOneRowPrefIndicator);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, ApplicationPreferences.applicationWidgetOneRowBackground);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B, ApplicationPreferences.applicationWidgetOneRowLightnessB);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T, ApplicationPreferences.applicationWidgetOneRowLightnessT);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, ApplicationPreferences.applicationWidgetOneRowIconColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetOneRowIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, ApplicationPreferences.applicationWidgetOneRowBackgroundType);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR, ApplicationPreferences.applicationWidgetOneRowBackgroundColor);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetListLightnessBorder);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetOneRowLightnessBorder);
+                                        editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER, ApplicationPreferences.applicationWidgetIconLightnessBorder);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER, ApplicationPreferences.applicationWidgetListShowBorder);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER, ApplicationPreferences.applicationWidgetOneRowShowBorder);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER, ApplicationPreferences.applicationWidgetIconShowBorder);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetListCustomIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetOneRowCustomIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationWidgetIconCustomIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS, ApplicationPreferences.applicationSamsungEdgeCustomIconLightness);
+                                        editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, ApplicationPreferences.notificationUseDecoration);
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, ApplicationPreferences.notificationLayoutType);
+                                        editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, ApplicationPreferences.notificationBackgroundColor);
+
+                                        editor.apply();
+                                    }
+
+                                    PPApplication.loadGlobalApplicationData(activity.getApplicationContext());
+                                    PPApplication.loadApplicationPreferences(activity.getApplicationContext());
+                                    PPApplication.loadProfileActivationData(activity.getApplicationContext());
+
+                                    appSettingsError = false;
+                                } catch (Exception e) {
+                                    appSettingsError = true;
+                                }
+                            } else
+                                appSettingsError = false;
+
+                            if (deleteConfiguredProfiles) {
+                                deleteProfilesError = !DatabaseHandler.getInstance(_dataWrapper.context).deleteAllProfiles();
+                            } else
+                                deleteProfilesError = false;
+                            if (importProfiles && (!deleteProfilesError)) {
+                                List<Long> ppShortcutIds = new ArrayList<>();
+                                List<Long> importedShortcutIds = new ArrayList<>();
+                                List<Long> ppIntentIds = new ArrayList<>();
+                                List<Long> importedIntentIds = new ArrayList<>();
+
+                                // first import shortcuts and intents
+                                try {
+                                    for (PPShortcutForExport shortcutForImport : importPPDataBroadcastReceiver.shortcuts) {
+                                        Shortcut shortcut = new Shortcut();
+                                        shortcut._intent = shortcutForImport.KEY_S_INTENT;
+                                        shortcut._name = shortcutForImport.KEY_S_NAME;
+
+                                        DatabaseHandler.getInstance(_dataWrapper.context).addShortcut(shortcut);
+                                        // save shortcut id
+                                        ppShortcutIds.add(shortcutForImport.KEY_S_ID);
+                                        importedShortcutIds.add(shortcut._id);
+                                    }
+                                    shortcutsError = false;
+                                } catch (Exception e) {
+                                    shortcutsError = true;
+                                }
+                                try {
+                                    for (PPIntentForExport intentForImport : importPPDataBroadcastReceiver.intents) {
+                                        PPIntent ppIntent = new PPIntent(
+                                                intentForImport.KEY_IN_ID,
+                                                intentForImport.KEY_IN_NAME,
+                                                intentForImport.KEY_IN_PACKAGE_NAME,
+                                                intentForImport.KEY_IN_CLASS_NAME,
+                                                intentForImport.KEY_IN_ACTION,
+                                                intentForImport.KEY_IN_DATA,
+                                                intentForImport.KEY_IN_MIME_TYPE,
+                                                intentForImport.KEY_IN_EXTRA_KEY_1,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_1,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_1,
+                                                intentForImport.KEY_IN_EXTRA_KEY_2,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_2,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_2,
+                                                intentForImport.KEY_IN_EXTRA_KEY_3,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_3,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_3,
+                                                intentForImport.KEY_IN_EXTRA_KEY_4,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_4,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_4,
+                                                intentForImport.KEY_IN_EXTRA_KEY_5,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_5,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_5,
+                                                intentForImport.KEY_IN_EXTRA_KEY_6,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_6,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_6,
+                                                intentForImport.KEY_IN_EXTRA_KEY_7,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_7,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_7,
+                                                intentForImport.KEY_IN_EXTRA_KEY_8,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_8,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_8,
+                                                intentForImport.KEY_IN_EXTRA_KEY_9,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_9,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_9,
+                                                intentForImport.KEY_IN_EXTRA_KEY_10,
+                                                intentForImport.KEY_IN_EXTRA_VALUE_10,
+                                                intentForImport.KEY_IN_EXTRA_TYPE_10,
+                                                intentForImport.KEY_IN_CATEGORIES,
+                                                intentForImport.KEY_IN_FLAGS,
+                                                intentForImport.KEY_IN_USED_COUNT,
+                                                intentForImport.KEY_IN_INTENT_TYPE
+                                        );
+
+                                        DatabaseHandler.getInstance(_dataWrapper.context).addIntent(ppIntent);
+                                        // save intent id
+                                        ppIntentIds.add(intentForImport.KEY_IN_ID);
+                                        importedIntentIds.add(ppIntent._id);
+                                    }
+                                    intentsError = false;
+                                } catch (Exception e) {
+                                    intentsError = true;
+                                }
+
+                                try {
+                                    for (PPProfileForExport profileForImport : importPPDataBroadcastReceiver.profiles) {
+                                        Profile profile = new Profile(
+                                                profileForImport.KEY_NAME,
+                                                profileForImport.KEY_ICON,
+                                                profileForImport.KEY_CHECKED,
+                                                profileForImport.KEY_PORDER,
+                                                profileForImport.KEY_VOLUME_RINGER_MODE,
+                                                profileForImport.KEY_VOLUME_RINGTONE,
+                                                profileForImport.KEY_VOLUME_NOTIFICATION,
+                                                profileForImport.KEY_VOLUME_MEDIA,
+                                                profileForImport.KEY_VOLUME_ALARM,
+                                                profileForImport.KEY_VOLUME_SYSTEM,
+                                                profileForImport.KEY_VOLUME_VOICE,
+                                                profileForImport.KEY_SOUND_RINGTONE_CHANGE,
+                                                profileForImport.KEY_SOUND_RINGTONE,
+                                                profileForImport.KEY_SOUND_NOTIFICATION_CHANGE,
+                                                profileForImport.KEY_SOUND_NOTIFICATION,
+                                                profileForImport.KEY_SOUND_ALARM_CHANGE,
+                                                profileForImport.KEY_SOUND_ALARM,
+                                                profileForImport.KEY_DEVICE_AIRPLANE_MODE,
+                                                profileForImport.KEY_DEVICE_WIFI,
+                                                profileForImport.KEY_DEVICE_BLUETOOTH,
+                                                profileForImport.KEY_DEVICE_SCREEN_TIMEOUT,
+                                                profileForImport.KEY_DEVICE_BRIGHTNESS,
+                                                profileForImport.KEY_DEVICE_WALLPAPER_CHANGE,
+                                                profileForImport.KEY_DEVICE_WALLPAPER,
+                                                profileForImport.KEY_DEVICE_MOBILE_DATA,
+                                                profileForImport.KEY_DEVICE_MOBILE_DATA_PREFS,
+                                                profileForImport.KEY_DEVICE_GPS,
+                                                profileForImport.KEY_DEVICE_RUN_APPLICATION_CHANGE,
+                                                profileForImport.KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME,
+                                                profileForImport.KEY_DEVICE_AUTOSYNC,
+                                                true,
+                                                profileForImport.KEY_DEVICE_AUTOROTATE,
+                                                profileForImport.KEY_DEVICE_LOCATION_SERVICE_PREFS,
+                                                profileForImport.KEY_VOLUME_SPEAKER_PHONE,
+                                                profileForImport.KEY_DEVICE_NFC,
+                                                profileForImport.KEY_DURATION,
+                                                profileForImport.KEY_AFTER_DURATION_DO,
+                                                profileForImport.KEY_VOLUME_ZEN_MODE,
+                                                profileForImport.KEY_DEVICE_KEYGUARD,
+                                                profileForImport.KEY_VIBRATE_ON_TOUCH,
+                                                profileForImport.KEY_DEVICE_WIFI_AP,
+                                                profileForImport.KEY_DEVICE_POWER_SAVE_MODE,
+                                                profileForImport.KEY_ASK_FOR_DURATION,
+                                                profileForImport.KEY_DEVICE_NETWORK_TYPE,
+                                                profileForImport.KEY_NOTIFICATION_LED,
+                                                profileForImport.KEY_VIBRATE_WHEN_RINGING,
+                                                profileForImport.KEY_DEVICE_WALLPAPER_FOR,
+                                                profileForImport.KEY_HIDE_STATUS_BAR_ICON,
+                                                profileForImport.KEY_LOCK_DEVICE,
+                                                profileForImport.KEY_DEVICE_CONNECT_TO_SSID,
+                                                0,
+                                                0,
+                                                profileForImport.KEY_DURATION_NOTIFICATION_SOUND,
+                                                profileForImport.KEY_DURATION_NOTIFICATION_VIBRATE,
+                                                profileForImport.KEY_DEVICE_WIFI_AP_PREFS,
+                                                0,
+                                                0,
+                                                0,
+                                                profileForImport.KEY_HEADS_UP_NOTIFICATIONS,
+                                                profileForImport.KEY_DEVICE_FORCE_STOP_APPLICATION_CHANGE,
+                                                profileForImport.KEY_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME,
+                                                profileForImport.KEY_ACTIVATION_BY_USER_COUNT,
+                                                profileForImport.KEY_DEVICE_NETWORK_TYPE_PREFS,
+                                                profileForImport.KEY_DEVICE_CLOSE_ALL_APPLICATIONS,
+                                                profileForImport.KEY_SCREEN_NIGHT_MODE,
+                                                profileForImport.KEY_DTMF_TONE_WHEN_DIALING,
+                                                profileForImport.KEY_SOUND_ON_TOUCH,
+                                                profileForImport.KEY_VOLUME_DTMF,
+                                                profileForImport.KEY_VOLUME_ACCESSIBILITY,
+                                                profileForImport.KEY_VOLUME_BLUETOOTH_SCO,
+                                                0,
+                                                0,
+                                                0,
+                                                false,
+                                                0,
+                                                0,
+                                                "0|0||",
+                                                0,
+                                                0,
+                                                0,
+                                                0,
+                                                0,
+                                                "0|0|0",
+                                                0,
+                                                0,
+                                                0,
+                                                "",
+                                                0,
+                                                "",
+                                                0,
+                                                "",
+                                                0,
+                                                "",
+                                                0
+                                        );
+
+                                        // replace ids in profile._deviceRunApplicationPackageName
+                                        // with new shortcut and intent ids
+                                        String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
+                                        String newValue = "";
+                                        for (String split : splits) {
+                                            String newSplit = "";
+                                            if (Application.isShortcut(split)) {
+                                                if (split.length() > 2) {
+                                                    long id = Application.getShortcutId(split);
+                                                    for (int i = 0; i < ppShortcutIds.size(); i++) {
+                                                        if (id == ppShortcutIds.get(i)) {
+                                                            id = importedShortcutIds.get(i);
+
+                                                            // "(s)package_name/activity#shortcut_id#delay"
+                                                            String[] valueSplits = split.split("#");
+                                                            if (valueSplits.length == 3)
+                                                                newSplit = valueSplits[0] + "#" + id + "#" + valueSplits[2];
+                                                            else
+                                                                newSplit = split;
+
+                                                            break;
+                                                        }
+                                                    }
+                                                } else
+                                                    newSplit = split;
+                                            } else if (Application.isIntent(split)) {
+                                                if (split.length() > 2) {
+                                                    long id = Application.getIntentId(split);
+                                                    for (int i = 0; i < ppIntentIds.size(); i++) {
+                                                        if (id == ppIntentIds.get(i)) {
+                                                            id = importedIntentIds.get(i);
+
+                                                            // "(i)intent_id#delay"
+                                                            String[] valueSplits = split.split("#");
+                                                            if (valueSplits.length == 2)
+                                                                newSplit = "(i)" + id + "#" + valueSplits[1];
+                                                            else
+                                                                newSplit = split;
+
+                                                            break;
+                                                        }
+                                                    }
+                                                } else
+                                                    newSplit = split;
+                                            } else
+                                                newSplit = split;
+
+                                            if (!newValue.isEmpty())
+                                                newValue = newValue + "|";
+                                            newValue = newValue + newSplit;
+                                        }
+                                        profile._deviceRunApplicationPackageName = newValue;
+
+                                        DatabaseHandler.getInstance(_dataWrapper.context).addProfile(profile, false);
+                                    }
+                                    profilesError = false;
+                                } catch (Exception e) {
+                                    profilesError = true;
+                                }
+                            } else {
+                                profilesError = false;
+                                shortcutsError = false;
+                                intentsError = false;
+                            }
+                        }
+                    }
+
+                    if (importFromPPStopped)
+                        return 2;
+
+                    if (deleteProfilesError || profilesError || shortcutsError || intentsError || appSettingsError)
+                        return 0;
+                    else
+                        return 1;
+                } else
+                    return 0;
+            }
+            else
+                return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                doImport = false;
+
+                if (!activity.isFinishing()) {
+                    if ((activity.importProgressDialog != null) && activity.importProgressDialog.isShowing()) {
+                        if (!activity.isDestroyed())
+                            activity.importProgressDialog.dismiss();
+                        activity.importProgressDialog = null;
+                    }
+                    GlobalGUIRoutines.unlockScreenOrientation(activity);
+                }
+
+                if (importPPDataBroadcastReceiver != null) {
+                    try {
+                        activity.unregisterReceiver(importPPDataBroadcastReceiver);
+                    } catch (Exception ignored) {
+                    }
+                }
+
+                if (!importFromPPStopped) {
+                    if (_dataWrapper != null) {
+                        //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from EditorProfilesActivity.doImportData");
+
+                        // clear shared preferences for last activated profile
+                        //Profile profile = DataWrapper.getNonInitializedProfile("", null, 0);
+                        //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
+                        PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
+
+                        //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
+                        //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+                        PPApplication.updateGUI(0, _dataWrapper.context);
+
+                        PPApplication.setApplicationStarted(_dataWrapper.context, true);
+                        Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
+                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
+                        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
+                        serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                        serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+//                        PPApplication.logE("[START_PP_SERVICE] EditorProfileActivity.doImportDataFromPP", "xxx");
+                        PPApplication.startPPService(activity, serviceIntent);
+                    }
+
+                    if ((_dataWrapper != null) && (!deleteProfilesError) && (!profilesError) && (!shortcutsError) && (!intentsError) && (!appSettingsError)) {
+                        //PPApplication.logE("EditorProfilesActivity.doImportData", "restore is ok");
+
+                        // restart events
+                        //if (Event.getGlobalEventsRunning(this.dataWrapper.context)) {
+                        //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
+                        //}
+
+                        PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, null, null, null, 0, "");
+
+                        // toast notification
+                        if (!activity.isFinishing())
+                            PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
+                                    activity.getResources().getString(R.string.toast_import_from_pp_ok),
+                                    Toast.LENGTH_SHORT);
+
+                        // refresh activity
+                        if (!activity.isFinishing())
+                            GlobalGUIRoutines.reloadActivity(activity, true);
+
+                        DrawOverAppsPermissionNotification.showNotification(_dataWrapper.context, true);
+                        IgnoreBatteryOptimizationNotification.showNotification(_dataWrapper.context, true);
+
+                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_IMPORT_FROM_PP_OK, true);
+                    } else {
+                        //PPApplication.logE("EditorProfilesActivity.doImportData", "error restore");
+
+                        int appSettingsResult = 1;
+                        if (appSettingsError) appSettingsResult = 0;
+                        int dbError = DatabaseHandler.IMPORT_OK;
+                        if (deleteProfilesError || profilesError || shortcutsError || intentsError)
+                            dbError = DatabaseHandler.IMPORT_ERROR_BUG;
+                        if (!activity.isFinishing())
+                            activity.importExportErrorDialog(IMPORTEXPORT_IMPORTFROMPP, dbError, appSettingsResult/*, 1*/);
+
+                        PPApplication.setCustomKey(PPApplication.CRASHLYTICS_LOG_IMPORT_FROM_PP_OK, false);
+                    }
+                }
+            }
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    private static class ExportAsyncTask extends AsyncTask<Void, Integer, Integer> {
+        private final DataWrapper dataWrapper;
+        private boolean runStopEvents;
+
+        private final WeakReference<EditorProfilesActivity> activityWeakRef;
+        final boolean email;
+        final boolean toAuthor;
+
+        public ExportAsyncTask(final boolean email, final boolean toAuthor, EditorProfilesActivity activity) {
+            this.activityWeakRef = new WeakReference<>(activity);
+            this.email = email;
+            this.toAuthor = toAuthor;
+
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+            dialogBuilder.setMessage(R.string.export_profiles_alert_title);
+
+            LayoutInflater inflater = (activity.getLayoutInflater());
+            @SuppressLint("InflateParams")
+            View layout = inflater.inflate(R.layout.dialog_progress_bar, null);
+            dialogBuilder.setView(layout);
+
+            activity.exportProgressDialog = dialogBuilder.create();
+
+//                    exportProgressDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                        @Override
+//                        public void onShow(DialogInterface dialog) {
+//                            Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                            if (positive != null) positive.setAllCaps(false);
+//                            Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                            if (negative != null) negative.setAllCaps(false);
+//                        }
+//                    });
+
+            this.dataWrapper = activity.getDataWrapper();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                GlobalGUIRoutines.lockScreenOrientation(activity, false);
+                activity.exportProgressDialog.setCancelable(false);
+                activity.exportProgressDialog.setCanceledOnTouchOutside(false);
+                if (!activity.isFinishing())
+                    activity.exportProgressDialog.show();
+
+                runStopEvents = Event.getGlobalEventsRunning();
+            }
+        }
+
+        @SuppressLint({"SetWorldReadable", "SetWorldWritable"})
+        @Override
+        protected Integer doInBackground(Void... params) {
+
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                if (this.dataWrapper != null) {
+                    //dataWrapper.globalRunStopEvents(true);
+                    PPApplication.exitApp(false, activity.getApplicationContext(), this.dataWrapper, null, false);
+
+                    // wait for end of PPService
+                    PPApplication.sleep(3000);
+
+                    //File sd = Environment.getExternalStorageDirectory();
+                    File sd = activity.getApplicationContext().getExternalFilesDir(null);
+                    //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+
+                        /*File exportDir = new File(sd, PPApplication.EXPORT_PATH);
+                        if (!(exportDir.exists() && exportDir.isDirectory())) {
+                            //noinspection ResultOfMethodCallIgnored
+                            exportDir.mkdirs();
+                            try {
+                                //noinspection ResultOfMethodCallIgnored
+                                exportDir.setReadable(true, false);
+                            } catch (Exception ee) {
+                                PPApplication.recordException(ee);
+                            }
+                            try {
+                                //noinspection ResultOfMethodCallIgnored
+                                exportDir.setWritable(true, false);
+                            } catch (Exception ee) {
+                                PPApplication.recordException(ee);
+                            }
+                        }*/
+
+                    int ret = DatabaseHandler.getInstance(this.dataWrapper.context).exportDB();
+                    if (ret == 1) {
+                        //File exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                        File exportFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                        if (activity.exportApplicationPreferences(exportFile, runStopEvents/*, 1*/)) {
+                            /*exportFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_DEF_PROFILE_PREF_FILENAME);
+                            if (!exportApplicationPreferences(exportFile, 2))
+                                ret = 0;*/
+                            ret = 1;
+                        } else
+                            ret = 0;
+                    }
+
+                    PPApplication.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, null, 0, "");
+
+                    //Event.setGlobalEventsRunning(this.dataWrapper.context, runStopEvents);
+                    PPApplication.setApplicationStarted(activity.getApplicationContext(), true);
+                    Intent serviceIntent = new Intent(activity.getApplicationContext(), PhoneProfilesService.class);
+                    //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, false);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
+                    //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
+                    serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
+                    serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, false);
+//                        PPApplication.logE("[START_PP_SERVICE] EditorProfileActivity.doExportData", "xxx");
+                    PPApplication.startPPService(activity.getApplicationContext(), serviceIntent);
+
+                    return ret;
+                } else
+                    return 0;
+            } else
+                return 0;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+            super.onPostExecute(result);
+
+            EditorProfilesActivity activity = activityWeakRef.get();
+            if (activity != null) {
+                if (!activity.isFinishing()) {
+                    if ((activity.exportProgressDialog != null) && activity.exportProgressDialog.isShowing()) {
+                        if (!activity.isDestroyed())
+                            activity.exportProgressDialog.dismiss();
+                        activity.exportProgressDialog = null;
+                    }
+                    GlobalGUIRoutines.unlockScreenOrientation(activity);
+                }
+
+                if ((dataWrapper != null) && (result == 1)) {
+
+                    Context context = this.dataWrapper.context.getApplicationContext();
+                    // toast notification
+                    if (!activity.isFinishing())
+                        PPApplication.showToast(context, activity.getString(R.string.toast_export_ok), Toast.LENGTH_SHORT);
+
+                    //dataWrapper.restartEventsWithRescan(false, false, true, false, false, false);
+
+                    if (email) {
+                        // email backup
+
+                        ArrayList<Uri> uris = new ArrayList<>();
+
+                        try {
+                            //File sd = Environment.getExternalStorageDirectory();
+                            //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                            File sd = context.getExternalFilesDir(null);
+
+                            //File exportedDB = new File(sd, PPApplication.EXPORT_PATH + "/" + DatabaseHandler.EXPORT_DBFILENAME);
+                            File exportedDB = new File(sd, DatabaseHandler.EXPORT_DBFILENAME);
+                            Uri fileUri = FileProvider.getUriForFile(activity, PPApplication.PACKAGE_NAME + ".provider", exportedDB);
+                            uris.add(fileUri);
+
+                            //File appSettingsFile = new File(sd, PPApplication.EXPORT_PATH + "/" + GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                            File appSettingsFile = new File(sd, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME);
+                            fileUri = FileProvider.getUriForFile(activity, PPApplication.PACKAGE_NAME + ".provider", appSettingsFile);
+                            uris.add(fileUri);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+
+                        String emailAddress = "";
+                        if (toAuthor)
+                            emailAddress = "henrich.gron@gmail.com";
+                        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                                "mailto", emailAddress, null));
+
+                        String packageVersion = "";
+                        try {
+                            PackageInfo pInfo = context.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                            packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+                        } catch (Exception e) {
+                            //Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
+                        }
+                        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
+                        emailIntent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
+                        emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                        List<ResolveInfo> resolveInfo = context.getPackageManager().queryIntentActivities(emailIntent, 0);
+                        List<LabeledIntent> intents = new ArrayList<>();
+                        for (ResolveInfo info : resolveInfo) {
+                            Intent intent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+                            intent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
+                            if (!emailAddress.isEmpty())
+                                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
+                            intent.putExtra(Intent.EXTRA_SUBJECT, "PhoneProfilesPlus" + packageVersion + " - " + activity.getString(R.string.export_data_email_subject));
+                            intent.putExtra(Intent.EXTRA_TEXT, activity.getEmailBodyText());
+                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            intent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris); //ArrayList<Uri> of attachment Uri's
+                            intents.add(new LabeledIntent(intent, info.activityInfo.packageName, info.loadLabel(context.getPackageManager()), info.icon));
+                        }
+                        if (intents.size() > 0) {
+                            try {
+                                Intent chooser = Intent.createChooser(intents.remove(intents.size() - 1), context.getString(R.string.email_chooser));
+                                //noinspection ToArrayCallWithZeroLengthArrayArgument
+                                chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new LabeledIntent[intents.size()]));
+                                activity.startActivity(chooser);
+                            } catch (Exception e) {
+                                //Log.e("EditorProfilesActivity.doExportData", Log.getStackTraceString(e));
+                                PPApplication.recordException(e);
+                            }
+                        }
+                    } else {
+                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                        LayoutInflater inflater = (activity).getLayoutInflater();
+                        @SuppressLint("InflateParams")
+                        View layout = inflater.inflate(R.layout.dialog_backup_settings_alert, null);
+                        dialogBuilder.setView(layout);
+                        dialogBuilder.setTitle(R.string.backup_settings_alert_title);
+
+                        boolean createPPPSubfolder = ApplicationPreferences.getSharedPreferences(context).getBoolean(PREF_BACKUP_CREATE_PPP_SUBFOLDER, true);
+
+                        final TextView rewriteInfo = layout.findViewById(R.id.backup_settings_alert_dialog_rewrite_files_info);
+                        rewriteInfo.setEnabled(!createPPPSubfolder);
+
+                        final CheckBox checkBox = layout.findViewById(R.id.backup_settings_alert_dialog_checkBox);
+                        checkBox.setChecked(createPPPSubfolder);
+
+                        checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> rewriteInfo.setEnabled(!isChecked));
+                        dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                            boolean ok = false;
+                            try {
+
+                                boolean _createPPPSubfolder = checkBox.isChecked();
+                                Editor editor = ApplicationPreferences.getEditor(context);
+                                editor.putBoolean(PREF_BACKUP_CREATE_PPP_SUBFOLDER, _createPPPSubfolder);
+                                editor.apply();
+
+                                Intent intent;
+                                if (Build.VERSION.SDK_INT >= 29) {
+                                    StorageManager sm = (StorageManager) context.getSystemService(Context.STORAGE_SERVICE);
+                                    intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+                                } else {
+                                    intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                                    intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                                }
+                                //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+                                //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);
+                                //PPApplication.logE("--------- EditorProfilesActivity.doExportData", "checkBox.isChecked()="+checkBox.isChecked());
+                                if (_createPPPSubfolder)
+                                    //noinspection deprecation
+                                    activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS_2);
+                                else
+                                    //noinspection deprecation
+                                    activity.startActivityForResult(intent, REQUEST_CODE_BACKUP_SETTINGS);
+                                ok = true;
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                            if (!ok) {
+                                AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(activity);
+                                _dialogBuilder.setMessage(R.string.directory_tree_activity_not_found_alert);
+                                //_dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                                _dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                AlertDialog _dialog = _dialogBuilder.create();
+
+//                                        _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                            @Override
+//                                            public void onShow(DialogInterface dialog) {
+//                                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                                if (positive != null) positive.setAllCaps(false);
+//                                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                                if (negative != null) negative.setAllCaps(false);
+//                                            }
+//                                        });
+
+                                if (!activity.isFinishing())
+                                    _dialog.show();
+                            }
+                        });
+                        dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                        AlertDialog dialog = dialogBuilder.create();
+
+                        //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        //            @Override
+                        //            public void onShow(DialogInterface dialog) {
+                        //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                        //                if (positive != null) positive.setAllCaps(false);
+                        //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                        //                if (negative != null) negative.setAllCaps(false);
+                        //            }
+                        //        });
+
+                        if (!activity.isFinishing())
+                            dialog.show();
+
+                    }
+
+                } else {
+                    if (!activity.isFinishing())
+                        activity.importExportErrorDialog(IMPORTEXPORT_EXPORT, 0, 0/*, 0*/);
+                }
+            }
+        }
+
     }
 
 }

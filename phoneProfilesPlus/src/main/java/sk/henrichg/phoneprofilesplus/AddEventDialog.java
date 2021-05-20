@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +23,10 @@ class AddEventDialog
     final AlertDialog mDialog;
     private final Activity activity;
 
-    private final LinearLayout linlaProgress;
-    private final RelativeLayout rellaData;
-    private final ListView listView;
-    private final TextView help;
+    final LinearLayout linlaProgress;
+    final RelativeLayout rellaData;
+    final ListView listView;
+    final TextView help;
 
     AddEventDialog(Activity activity, EditorEventListFragment eventListFragment)
     {
@@ -65,19 +66,21 @@ class AddEventDialog
 
     @SuppressLint("StaticFieldLeak")
     private void onShow(/*DialogInterface dialog*/) {
+         GetEventsAsyncTask asyncTask = new GetEventsAsyncTask(this, activity, eventListFragment.activityDataWrapper);
+         asyncTask.execute();
 
-        new AsyncTask<Void, Integer, Void>() {
+/*        new AsyncTask<Void, Integer, Void>() {
 
             final List<Event> eventList = new ArrayList<>();
             boolean profileNotExists = false;
 
-            /*@Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
+            //@Override
+            //protected void onPreExecute()
+            //{
+            //    super.onPreExecute();
                 //rellaData.setVisibility(View.GONE);
                 //linlaProgress.setVisibility(View.VISIBLE);
-            }*/
+            //}
 
             @Override
             protected Void doInBackground(Void... params) {
@@ -111,7 +114,7 @@ class AddEventDialog
                 listView.setAdapter(addEventAdapter);
             }
 
-        }.execute();
+        }.execute(); */
     }
 
     void doOnItemSelected(int position)
@@ -123,6 +126,72 @@ class AddEventDialog
     public void show() {
         if (!activity.isFinishing())
             mDialog.show();
+    }
+
+    private static class GetEventsAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final List<Event> eventList = new ArrayList<>();
+        boolean profileNotExists = false;
+
+        private final WeakReference<AddEventDialog> dialogWeakRef;
+        private final WeakReference<Activity> activityWeakRef;
+        DataWrapper dataWrapper;
+
+        public GetEventsAsyncTask(final AddEventDialog dialog,
+                                  final Activity activity,
+                                  final DataWrapper dataWrapper) {
+            this.dialogWeakRef = new WeakReference<>(dialog);
+            this.activityWeakRef = new WeakReference<>(activity);
+            this.dataWrapper = dataWrapper.copyDataWrapper();
+        }
+
+        /*@Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            //rellaData.setVisibility(View.GONE);
+            //linlaProgress.setVisibility(View.VISIBLE);
+        }*/
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Activity activity = activityWeakRef.get();
+            if (activity != null) {
+                Event event;
+                event = DataWrapper.getNonInitializedEvent(activity.getString(R.string.event_name_default), 0);
+                eventList.add(event);
+                for (int index = 0; index < 6; index++) {
+                    event = dataWrapper.getPredefinedEvent(index, false, activity);
+                    if (event._fkProfileStart == 0)
+                        profileNotExists = true;
+                    if (event._fkProfileEnd == 0)
+                        profileNotExists = true;
+                    eventList.add(event);
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            AddEventDialog dialog = dialogWeakRef.get();
+            Activity activity = activityWeakRef.get();
+            if ((dialog != null) && (activity != null)) {
+                dialog.linlaProgress.setVisibility(View.GONE);
+                dialog.rellaData.setVisibility(View.VISIBLE);
+
+                if (profileNotExists)
+                    dialog.help.setVisibility(View.VISIBLE);
+
+                AddEventAdapter addEventAdapter = new AddEventAdapter(dialog, activity, eventList);
+                dialog.listView.setAdapter(addEventAdapter);
+            }
+        }
+
     }
 
 }
