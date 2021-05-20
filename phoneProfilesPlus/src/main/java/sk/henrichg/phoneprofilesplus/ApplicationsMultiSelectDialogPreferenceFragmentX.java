@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
+import java.lang.ref.WeakReference;
+
 @SuppressWarnings("WeakerAccess")
 public class ApplicationsMultiSelectDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
@@ -28,7 +30,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
     private ApplicationsMultiSelectPreferenceAdapterX listAdapter;
 
     @SuppressWarnings("rawtypes")
-    private AsyncTask asyncTask = null;
+    private RefreshListViewAsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -97,46 +99,76 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
 
     @SuppressLint("StaticFieldLeak")
     private void refreshListView(final boolean notForUnselect) {
-        asyncTask = new AsyncTask<Void, Integer, Void>() {
+        asyncTask = new RefreshListViewAsyncTask(notForUnselect, preference, this, prefContext);
+        asyncTask.execute();
+    }
 
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
+    private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final boolean notForUnselect;
+        private final WeakReference<ApplicationsMultiSelectDialogPreferenceX> preferenceWeakRef;
+        private final WeakReference<ApplicationsMultiSelectDialogPreferenceFragmentX> fragmentWeakRef;
+        private final WeakReference<Context> prefContextWeakRef;
+
+        public RefreshListViewAsyncTask(final boolean notForUnselect,
+                                        ApplicationsMultiSelectDialogPreferenceX preference,
+                                        ApplicationsMultiSelectDialogPreferenceFragmentX fragment,
+                                        Context prefContext) {
+            this.notForUnselect = notForUnselect;
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            ApplicationsMultiSelectDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            if (fragment != null) {
                 if (notForUnselect) {
-                    rellaData.setVisibility(View.GONE);
-                    linlaProgress.setVisibility(View.VISIBLE);
+                    fragment.rellaData.setVisibility(View.GONE);
+                    fragment.linlaProgress.setVisibility(View.VISIBLE);
                 }
             }
+        }
 
-            @Override
-            protected Void doInBackground(Void... params) {
+        @Override
+        protected Void doInBackground(Void... params) {
+            ApplicationsMultiSelectDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            ApplicationsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 if (EditorProfilesActivity.getApplicationsCache() != null)
                     if (!EditorProfilesActivity.getApplicationsCache().cached)
                         EditorProfilesActivity.getApplicationsCache().cacheApplicationsList(prefContext);
 
                 preference.getValueAMSDP();
-
-                return null;
             }
 
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            ApplicationsMultiSelectDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            ApplicationsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 if (EditorProfilesActivity.getApplicationsCache() != null)
                     if (!EditorProfilesActivity.getApplicationsCache().cached)
                         EditorProfilesActivity.getApplicationsCache().clearCache(false);
 
-                listAdapter.notifyDataSetChanged();
+                fragment.listAdapter.notifyDataSetChanged();
                 if (notForUnselect) {
-                    rellaData.setVisibility(View.VISIBLE);
-                    linlaProgress.setVisibility(View.GONE);
+                    fragment.rellaData.setVisibility(View.VISIBLE);
+                    fragment.linlaProgress.setVisibility(View.GONE);
                 }
             }
-
-        }.execute();
+        }
     }
 
 }

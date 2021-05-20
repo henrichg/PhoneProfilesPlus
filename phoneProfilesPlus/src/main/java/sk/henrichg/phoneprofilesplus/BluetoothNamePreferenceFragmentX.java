@@ -27,6 +27,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -50,7 +51,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
     private AppCompatImageButton locationSystemSettingsButton;
     private Button rescanButton;
 
-    private AsyncTask<Void, Integer, Void> rescanAsyncTask;
+    private RefreshListViewAsyncTask rescanAsyncTask;
 
     @SuppressLint("InflateParams")
     @Override
@@ -300,28 +301,138 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
     @SuppressLint("StaticFieldLeak")
     void refreshListView(boolean forRescan, final String scrollToBTName)
     {
-        final boolean _forRescan = forRescan;
+        rescanAsyncTask = new RefreshListViewAsyncTask(forRescan, scrollToBTName,
+                preference, this, prefContext) ;
+        rescanAsyncTask.execute();
+    }
 
-        rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
+    private static class SortList implements Comparator<BluetoothDeviceData> {
 
-            List<BluetoothDeviceData> _bluetoothList = null;
+        public int compare(BluetoothDeviceData lhs, BluetoothDeviceData rhs) {
+            if (PPApplication.collator != null)
+                return PPApplication.collator.compare(lhs.getName(), rhs.getName());
+            else
+                return 0;
+        }
 
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
+    }
 
-                _bluetoothList = new ArrayList<>();
+    void showEditMenu(View view)
+    {
+        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
+        Context _context = view.getContext();
+        PopupMenu popup;
+        //if (android.os.Build.VERSION.SDK_INT >= 19)
+        popup = new PopupMenu(_context, view, Gravity.END);
+        //else
+        //    popup = new PopupMenu(context, view);
+        new MenuInflater(_context).inflate(R.menu.bluetooth_name_pref_dlg_item_edit, popup.getMenu());
 
-                if (_forRescan) {
-                    dataRelativeLayout.setVisibility(View.GONE);
-                    progressLinearLayout.setVisibility(View.VISIBLE);
+        int btNamePos = (int)view.getTag();
+        final String btName = preference.bluetoothList.get(btNamePos).getName();
+
+        popup.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.bluetooth_name_pref_dlg_item_menu_change) {
+                if (!bluetoothName.getText().toString().isEmpty()) {
+                    String[] splits = preference.value.split("\\|");
+                    preference.value = "";
+                    boolean found = false;
+                    for (String _bluetoothName : splits) {
+                        if (!_bluetoothName.isEmpty()) {
+                            if (!_bluetoothName.equals(btName)) {
+                                if (!preference.value.isEmpty())
+                                    //noinspection StringConcatenationInLoop
+                                    preference.value = preference.value + "|";
+                                //noinspection StringConcatenationInLoop
+                                preference.value = preference.value + _bluetoothName;
+                            } else
+                                found = true;
+                        }
+                    }
+                    //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
+                    if (found) {
+                        if (!preference.value.isEmpty())
+                            preference.value = preference.value + "|";
+                        preference.value = preference.value + bluetoothName.getText().toString();
+                    }
+                    //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
+                    for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
+                        if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
+                            customBluetoothName.name = bluetoothName.getText().toString();
+                            break;
+                        }
+                    }
+                    refreshListView(false, "");
+                }
+                return true;
+            }
+            else
+            if (itemId == R.id.bluetooth_name_pref_dlg_item_menu_delete) {
+                preference.removeBluetoothName(btName);
+                for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
+                    if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
+                        preference.customBluetoothList.remove(customBluetoothName);
+                        break;
+                    }
+                }
+                refreshListView(false, "");
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+
+        if (getActivity() != null)
+            if (!getActivity().isFinishing())
+                popup.show();
+    }
+
+    private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        List<BluetoothDeviceData> _bluetoothList = null;
+        boolean forRescan;
+        final String scrollToBTName;
+
+        private final WeakReference<BluetoothNamePreferenceX> preferenceWeakRef;
+        private final WeakReference<BluetoothNamePreferenceFragmentX> fragmentWeakRef;
+        private final WeakReference<Context> prefContextWeakRef;
+
+        public RefreshListViewAsyncTask(boolean forRescan, final String scrollToBTName,
+                                        BluetoothNamePreferenceX preference,
+                                        BluetoothNamePreferenceFragmentX fragment,
+                                        Context prefContext) {
+            this.forRescan = forRescan;
+            this.scrollToBTName = scrollToBTName;
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            _bluetoothList = new ArrayList<>();
+
+            BluetoothNamePreferenceFragmentX fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+                if (forRescan) {
+                    fragment.dataRelativeLayout.setVisibility(View.GONE);
+                    fragment.progressLinearLayout.setVisibility(View.VISIBLE);
                 }
             }
+        }
 
-            @Override
-            protected Void doInBackground(Void... params) {
+        @Override
+        protected Void doInBackground(Void... params) {
+            BluetoothNamePreferenceFragmentX fragment = fragmentWeakRef.get();
+            BluetoothNamePreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
-                if (_forRescan) {
+                if (forRescan) {
                     //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView","start rescan");
                     BluetoothScanner.setForceOneBluetoothScan(prefContext, BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     BluetoothScanner.setForceOneLEBluetoothScan(prefContext, BluetoothScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
@@ -334,9 +445,9 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
 
                 List<BluetoothDeviceData> boundedDevicesList = BluetoothScanWorker.getBoundedDevicesList(prefContext);
                 //if (boundedDevicesList != null) {
-                    for (BluetoothDeviceData device : boundedDevicesList) {
-                        _bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, true, false));
-                    }
+                for (BluetoothDeviceData device : boundedDevicesList) {
+                    _bluetoothList.add(new BluetoothDeviceData(device.getName(), device.address, device.type, false, 0, true, false));
+                }
                 //}
 
                 List<BluetoothDeviceData> scanResults = BluetoothScanWorker.getScanResults(prefContext);
@@ -442,18 +553,24 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                     }
                     i++;
                 }
-
-                return null;
             }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            BluetoothNamePreferenceFragmentX fragment = fragmentWeakRef.get();
+            BluetoothNamePreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
                 preference.bluetoothList = new ArrayList<>(_bluetoothList);
-                listAdapter.notifyDataSetChanged();
+                fragment.listAdapter.notifyDataSetChanged();
 
-                if (_forRescan) {
+                if (forRescan) {
                     BluetoothScanWorker.setScanRequest(prefContext, false);
                     BluetoothScanWorker.setWaitForResults(prefContext, false);
                     BluetoothScanWorker.setLEScanRequest(prefContext, false);
@@ -461,105 +578,21 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                     BluetoothScanner.setForceOneBluetoothScan(prefContext, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
                     BluetoothScanner.setForceOneLEBluetoothScan(prefContext, BluetoothScanner.FORCE_ONE_SCAN_DISABLED);
                     BluetoothScanWorker.setScanKilled(prefContext, false);
-                    progressLinearLayout.setVisibility(View.GONE);
-                    dataRelativeLayout.setVisibility(View.VISIBLE);
+                    fragment.progressLinearLayout.setVisibility(View.GONE);
+                    fragment.dataRelativeLayout.setVisibility(View.VISIBLE);
                 }
 
-                if (!scrollToBTName.isEmpty())
+                if (!scrollToBTName.isEmpty()) {
                     for (int position = 0; position < preference.bluetoothList.size() - 1; position++) {
                         if (preference.bluetoothList.get(position).getName().equalsIgnoreCase(scrollToBTName)) {
-                            bluetoothListView.setSelection(position);
+                            fragment.bluetoothListView.setSelection(position);
                             break;
                         }
                     }
+                }
             }
-
-        };
-
-        rescanAsyncTask.execute();
-    }
-
-    private static class SortList implements Comparator<BluetoothDeviceData> {
-
-        public int compare(BluetoothDeviceData lhs, BluetoothDeviceData rhs) {
-            if (PPApplication.collator != null)
-                return PPApplication.collator.compare(lhs.getName(), rhs.getName());
-            else
-                return 0;
         }
 
-    }
-
-    void showEditMenu(View view)
-    {
-        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
-        Context _context = view.getContext();
-        PopupMenu popup;
-        //if (android.os.Build.VERSION.SDK_INT >= 19)
-        popup = new PopupMenu(_context, view, Gravity.END);
-        //else
-        //    popup = new PopupMenu(context, view);
-        new MenuInflater(_context).inflate(R.menu.bluetooth_name_pref_dlg_item_edit, popup.getMenu());
-
-        int btNamePos = (int)view.getTag();
-        final String btName = preference.bluetoothList.get(btNamePos).getName();
-
-        popup.setOnMenuItemClickListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.bluetooth_name_pref_dlg_item_menu_change) {
-                if (!bluetoothName.getText().toString().isEmpty()) {
-                    String[] splits = preference.value.split("\\|");
-                    preference.value = "";
-                    boolean found = false;
-                    for (String _bluetoothName : splits) {
-                        if (!_bluetoothName.isEmpty()) {
-                            if (!_bluetoothName.equals(btName)) {
-                                if (!preference.value.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    preference.value = preference.value + "|";
-                                //noinspection StringConcatenationInLoop
-                                preference.value = preference.value + _bluetoothName;
-                            } else
-                                found = true;
-                        }
-                    }
-                    //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
-                    if (found) {
-                        if (!preference.value.isEmpty())
-                            preference.value = preference.value + "|";
-                        preference.value = preference.value + bluetoothName.getText().toString();
-                    }
-                    //PPApplication.logE("BluetoothNamePreferenceFragmentX.refreshListView", "preference.value="+preference.value);
-                    for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
-                        if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
-                            customBluetoothName.name = bluetoothName.getText().toString();
-                            break;
-                        }
-                    }
-                    refreshListView(false, "");
-                }
-                return true;
-            }
-            else
-            if (itemId == R.id.bluetooth_name_pref_dlg_item_menu_delete) {
-                preference.removeBluetoothName(btName);
-                for (BluetoothDeviceData customBluetoothName : preference.customBluetoothList) {
-                    if (customBluetoothName.getName().equalsIgnoreCase(btName)) {
-                        preference.customBluetoothList.remove(customBluetoothName);
-                        break;
-                    }
-                }
-                refreshListView(false, "");
-                return true;
-            }
-            else {
-                return false;
-            }
-        });
-
-        if (getActivity() != null)
-            if (!getActivity().isFinishing())
-                popup.show();
     }
 
 }

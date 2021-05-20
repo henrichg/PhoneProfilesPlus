@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
     private ConfiguredProfilePreferencesAdapterX listAdapter;
 
     @SuppressWarnings("rawtypes")
-    private AsyncTask asyncTask = null;
+    private RefreshListViewAsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -61,22 +62,45 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
     }
 
     void refreshListView() {
-        asyncTask = new AsyncTask<Void, Integer, Void>() {
+        asyncTask = new RefreshListViewAsyncTask(preference, this, prefContext);
+        asyncTask.execute();
+    }
 
-            List<ConfiguredProfilePreferencesData> _preferencesList = null;
+    private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
+        List<ConfiguredProfilePreferencesData> _preferencesList = null;
 
-                listView.setVisibility(View.GONE);
-                linlaProgress.setVisibility(View.VISIBLE);
+        private final WeakReference<ConfiguredProfilePreferencesDialogPreferenceX> preferenceWeakRef;
+        private final WeakReference<ConfiguredProfilePreferencesDialogPreferenceFragmentX> fragmentWeakRef;
+        private final WeakReference<Context> prefContextWeakRef;
 
-                _preferencesList = new ArrayList<>();
+        public RefreshListViewAsyncTask(ConfiguredProfilePreferencesDialogPreferenceX preference,
+                                        ConfiguredProfilePreferencesDialogPreferenceFragmentX fragment,
+                                        Context prefContext) {
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            ConfiguredProfilePreferencesDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+                fragment.listView.setVisibility(View.GONE);
+                fragment.linlaProgress.setVisibility(View.VISIBLE);
             }
 
-            @Override
-            protected Void doInBackground(Void... params) {
+            _preferencesList = new ArrayList<>();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ConfiguredProfilePreferencesDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            ConfiguredProfilePreferencesDialogPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 try {
 
                     DataWrapper dataWrapper = new DataWrapper(prefContext.getApplicationContext(), false, 0, false);
@@ -117,29 +141,34 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
                                 0,
                                 0,
                                 "",
-                                getString(R.string.profile_preferences_savedProfilePreferences_notConfiguredAnyParameter)
+                                prefContext.getString(R.string.profile_preferences_savedProfilePreferences_notConfiguredAnyParameter)
                         );
                         _preferencesList.add(configuredPreferences);
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
-
-                return null;
             }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            ConfiguredProfilePreferencesDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            ConfiguredProfilePreferencesDialogPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 preference.preferencesList = new ArrayList<>(_preferencesList);
-                listView.setAdapter(listAdapter);
+                fragment.listView.setAdapter(fragment.listAdapter);
 
-                linlaProgress.setVisibility(View.GONE);
-                listView.setVisibility(View.VISIBLE);
+                fragment.linlaProgress.setVisibility(View.GONE);
+                fragment.listView.setVisibility(View.VISIBLE);
             }
+        }
 
-        }.execute();
     }
 
 }

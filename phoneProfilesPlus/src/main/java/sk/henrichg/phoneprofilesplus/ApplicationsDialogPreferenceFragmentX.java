@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
@@ -32,7 +33,7 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
     private RelativeLayout rellaDialog;
 
     @SuppressWarnings("rawtypes")
-    private AsyncTask asyncTask = null;
+    private RefreshListViewAsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -105,18 +106,50 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
 
     @SuppressLint("StaticFieldLeak")
     void refreshListView(final boolean afterEdit) {
-        asyncTask = new AsyncTask<Void, Integer, Void>() {
+        asyncTask = new RefreshListViewAsyncTask(afterEdit, preference, this, prefContext);
+        asyncTask.execute();
+    }
 
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-                rellaDialog.setVisibility(View.GONE);
-                linlaProgress.setVisibility(View.VISIBLE);
+    void updateGUI() {
+        applicationsListView.getRecycledViewPool().clear();
+        listAdapter.notifyDataSetChanged();
+    }
+
+    private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        final boolean afterEdit;
+        private final WeakReference<ApplicationsDialogPreferenceX> preferenceWeakRef;
+        private final WeakReference<ApplicationsDialogPreferenceFragmentX> fragmentWeakRef;
+        private final WeakReference<Context> prefContextWeakRef;
+
+        public RefreshListViewAsyncTask(final boolean afterEdit,
+                                        ApplicationsDialogPreferenceX preference,
+                                        ApplicationsDialogPreferenceFragmentX fragment,
+                                        Context prefContext) {
+            this.afterEdit = afterEdit;
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            ApplicationsDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+                fragment.rellaDialog.setVisibility(View.GONE);
+                fragment.linlaProgress.setVisibility(View.VISIBLE);
             }
+        }
 
-            @Override
-            protected Void doInBackground(Void... params) {
+        @Override
+        protected Void doInBackground(Void... params) {
+            ApplicationsDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            ApplicationsDialogPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 if (EditorProfilesActivity.getApplicationsCache() != null)
                     if (!EditorProfilesActivity.getApplicationsCache().cached)
                         EditorProfilesActivity.getApplicationsCache().cacheApplicationsList(prefContext);
@@ -133,33 +166,33 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
                     preference.oldApplicationsList.clear();
                     preference.oldApplicationsList.addAll(preference.applicationsList);
                 }
-
-                return null;
             }
 
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            ApplicationsDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            ApplicationsDialogPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
 
                 if (EditorProfilesActivity.getApplicationsCache() != null)
                     if (!EditorProfilesActivity.getApplicationsCache().cached)
                         EditorProfilesActivity.getApplicationsCache().clearCache(false);
 
-                applicationsListView.setAdapter(listAdapter);
-                rellaDialog.setVisibility(View.VISIBLE);
-                linlaProgress.setVisibility(View.GONE);
+                fragment.applicationsListView.setAdapter(fragment.listAdapter);
+                fragment.rellaDialog.setVisibility(View.VISIBLE);
+                fragment.linlaProgress.setVisibility(View.GONE);
 
                 if (afterEdit && (preference.mEditorDialog != null))
                     preference.mEditorDialog.updateAfterEdit();
             }
-
-        }.execute();
-    }
-
-    void updateGUI() {
-        applicationsListView.getRecycledViewPool().clear();
-        listAdapter.notifyDataSetChanged();
+        }
     }
 
 }

@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
     private CalendarsMultiSelectPreferenceAdapterX listAdapter;
 
     @SuppressWarnings("rawtypes")
-    private AsyncTask asyncTask = null;
+    private RefreshListViewAsyncTask asyncTask = null;
 
     static final String[] CALENDAR_PROJECTION = new String[] {
             CalendarContract.Calendars._ID,                           // 0
@@ -103,88 +104,9 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
 
     @SuppressLint("StaticFieldLeak")
     void refreshListView(final boolean notForUnselect) {
-        asyncTask = new AsyncTask<Void, Integer, Void>() {
-
-            List<CalendarEvent> _calendarList = null;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-
-                _calendarList = new ArrayList<>();
-
-                if (notForUnselect) {
-                    rellaData.setVisibility(View.GONE);
-                    linlaProgress.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @SuppressLint("MissingPermission")
-            @Override
-            protected Void doInBackground(Void... params) {
-
-                if (Permissions.checkCalendar(prefContext)) {
-                    Cursor cur;
-                    ContentResolver cr = prefContext.getContentResolver();
-                    Uri uri = CalendarContract.Calendars.CONTENT_URI;
-                    /*
-                    String selection = "((" + Calendars.ACCOUNT_NAME + " = ?) AND ("
-                                            + Calendars.ACCOUNT_TYPE + " = ?) AND ("
-                                            + Calendars.OWNER_ACCOUNT + " = ?))";
-                    String[] selectionArgs = new String[] {"sampleuser@gmail.com", "com.google",
-                            "sampleuser@gmail.com"};
-                    */
-                    // Submit the query and get a Cursor object back.
-                    //cur = cr.query(uri, CALENDAR_PROJECTION, selection, selectionArgs, null);
-                    //noinspection MissingPermission
-                    cur = cr.query(uri, CALENDAR_PROJECTION, null, null, null);
-                    if (cur != null) {
-                        while (cur.moveToNext()) {
-                            long calID;
-                            String displayName;
-                            int color;
-
-                            // Get the field values
-                            calID = cur.getLong(PROJECTION_ID_INDEX);
-                            displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
-                            color = cur.getInt(PROJECTION_COLOR_INDEX);
-
-                            CalendarEvent aCalendar = new CalendarEvent();
-                            aCalendar.calendarId = calID;
-                            aCalendar.name = displayName;
-                            aCalendar.color = color;
-
-                            _calendarList.add(aCalendar);
-
-                        }
-                        cur.close();
-                    }
-
-                    getValueCMSDP(_calendarList, notForUnselect);
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-
-                preference.calendarList = new ArrayList<>(_calendarList);
-                //Log.d("CalendarsMultiSelectDialogPreference.refreshListView","calendarList.size()="+calendarList.size());
-
-                if (listAdapter == null) {
-                    listAdapter = new CalendarsMultiSelectPreferenceAdapterX(prefContext, preference.calendarList);
-                    listView.setAdapter(listAdapter);
-                } else
-                    listAdapter.setCalendarList(preference.calendarList);
-                if (notForUnselect) {
-                    rellaData.setVisibility(View.VISIBLE);
-                    linlaProgress.setVisibility(View.GONE);
-                }
-            }
-
-        }.execute();
+        asyncTask = new RefreshListViewAsyncTask(notForUnselect,
+                            preference, this, prefContext) ;
+        asyncTask.execute();
     }
 
     private void getValueCMSDP(List<CalendarEvent> _calendarList, boolean notForUnselect)
@@ -224,6 +146,118 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
             }
             i++;
         }
+    }
+
+    private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        List<CalendarEvent> _calendarList = null;
+
+        final boolean notForUnselect;
+
+        private final WeakReference<CalendarsMultiSelectDialogPreferenceX> preferenceWeakRef;
+        private final WeakReference<CalendarsMultiSelectDialogPreferenceFragmentX> fragmentWeakRef;
+        private final WeakReference<Context> prefContextWeakRef;
+
+        public RefreshListViewAsyncTask(final boolean notForUnselect,
+                                        CalendarsMultiSelectDialogPreferenceX preference,
+                                        CalendarsMultiSelectDialogPreferenceFragmentX fragment,
+                                        Context prefContext) {
+            this.notForUnselect = notForUnselect;
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            _calendarList = new ArrayList<>();
+
+            CalendarsMultiSelectDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+                if (notForUnselect) {
+                    fragment.rellaData.setVisibility(View.GONE);
+                    fragment.linlaProgress.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+
+        @SuppressLint("MissingPermission")
+        @Override
+        protected Void doInBackground(Void... params) {
+            CalendarsMultiSelectDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            CalendarsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
+
+                if (Permissions.checkCalendar(prefContext)) {
+                    Cursor cur;
+                    ContentResolver cr = prefContext.getContentResolver();
+                    Uri uri = CalendarContract.Calendars.CONTENT_URI;
+                    /*
+                    String selection = "((" + Calendars.ACCOUNT_NAME + " = ?) AND ("
+                                            + Calendars.ACCOUNT_TYPE + " = ?) AND ("
+                                            + Calendars.OWNER_ACCOUNT + " = ?))";
+                    String[] selectionArgs = new String[] {"sampleuser@gmail.com", "com.google",
+                            "sampleuser@gmail.com"};
+                    */
+                    // Submit the query and get a Cursor object back.
+                    //cur = cr.query(uri, CALENDAR_PROJECTION, selection, selectionArgs, null);
+                    //noinspection MissingPermission
+                    cur = cr.query(uri, CALENDAR_PROJECTION, null, null, null);
+                    if (cur != null) {
+                        while (cur.moveToNext()) {
+                            long calID;
+                            String displayName;
+                            int color;
+
+                            // Get the field values
+                            calID = cur.getLong(PROJECTION_ID_INDEX);
+                            displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
+                            color = cur.getInt(PROJECTION_COLOR_INDEX);
+
+                            CalendarEvent aCalendar = new CalendarEvent();
+                            aCalendar.calendarId = calID;
+                            aCalendar.name = displayName;
+                            aCalendar.color = color;
+
+                            _calendarList.add(aCalendar);
+
+                        }
+                        cur.close();
+                    }
+
+                    fragment.getValueCMSDP(_calendarList, notForUnselect);
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            CalendarsMultiSelectDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            CalendarsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
+                preference.calendarList = new ArrayList<>(_calendarList);
+                //Log.d("CalendarsMultiSelectDialogPreference.refreshListView","calendarList.size()="+calendarList.size());
+
+                if (fragment.listAdapter == null) {
+                    fragment.listAdapter = new CalendarsMultiSelectPreferenceAdapterX(prefContext, preference.calendarList);
+                    fragment.listView.setAdapter(fragment.listAdapter);
+                } else
+                    fragment.listAdapter.setCalendarList(preference.calendarList);
+                if (notForUnselect) {
+                    fragment.rellaData.setVisibility(View.VISIBLE);
+                    fragment.linlaProgress.setVisibility(View.GONE);
+                }
+            }
+        }
+
     }
 
 }

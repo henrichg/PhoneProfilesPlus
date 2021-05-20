@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
+
 @SuppressWarnings("WeakerAccess")
 public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
@@ -25,7 +27,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
     private ContactGroupsMultiSelectPreferenceAdapterX listAdapter;
 
     @SuppressWarnings("rawtypes")
-    private AsyncTask asyncTask = null;
+    private RefreshListViewAsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")
     @Override
@@ -91,19 +93,45 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
 
     @SuppressLint("StaticFieldLeak")
     public void refreshListView(final boolean notForUnselect) {
-        asyncTask = new AsyncTask<Void, Integer, Void>() {
+        asyncTask = new RefreshListViewAsyncTask(notForUnselect, preference, this, prefContext);
+        asyncTask.execute();
+    }
 
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
+    private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+        final boolean notForUnselect;
+        private final WeakReference<ContactGroupsMultiSelectDialogPreferenceX> preferenceWeakRef;
+        private final WeakReference<ContactGroupsMultiSelectDialogPreferenceFragmentX> fragmentWeakRef;
+        private final WeakReference<Context> prefContextWeakRef;
+
+        public RefreshListViewAsyncTask(final boolean notForUnselect,
+                                        ContactGroupsMultiSelectDialogPreferenceX preference,
+                                        ContactGroupsMultiSelectDialogPreferenceFragmentX fragment,
+                                        Context prefContext) {
+            this.notForUnselect = notForUnselect;
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            ContactGroupsMultiSelectDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            if (fragment != null) {
                 if (notForUnselect) {
-                    rellaData.setVisibility(View.GONE);
-                    linlaProgress.setVisibility(View.VISIBLE);
+                    fragment.rellaData.setVisibility(View.GONE);
+                    fragment.linlaProgress.setVisibility(View.VISIBLE);
                 }
             }
+        }
 
-            @Override
-            protected Void doInBackground(Void... params) {
+        @Override
+        protected Void doInBackground(Void... params) {
+            ContactGroupsMultiSelectDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            ContactGroupsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 //if (!EditorProfilesActivity.getContactGroupsCache().cached)
                 //    EditorProfilesActivity.getContactGroupsCache().getContactGroupList(prefContext);
 
@@ -123,26 +151,31 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
                 }
 
                 preference.getValueCMSDP();
-
-                return null;
             }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            ContactGroupsMultiSelectDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            ContactGroupsMultiSelectDialogPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 //if (!EditorProfilesActivity.getContactGroupsCache().cached)
                 //    EditorProfilesActivity.getContactGroupsCache().clearCache(false);
 
-                listAdapter.notifyDataSetChanged();
+                fragment.listAdapter.notifyDataSetChanged();
 
                 if (notForUnselect) {
-                    rellaData.setVisibility(View.VISIBLE);
-                    linlaProgress.setVisibility(View.GONE);
+                    fragment.rellaData.setVisibility(View.VISIBLE);
+                    fragment.linlaProgress.setVisibility(View.GONE);
                 }
             }
+        }
 
-        }.execute();
     }
 
 }

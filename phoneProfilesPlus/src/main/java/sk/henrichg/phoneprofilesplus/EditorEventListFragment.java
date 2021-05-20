@@ -1100,54 +1100,7 @@ public class EditorEventListFragment extends Fragment
         if (!newDisplayedText.equals(oldDisplayedText))
             activatedProfileHeader.setVisibility(VISIBLE);
 
-        new AsyncTask<Void, Integer, Void>() {
-            boolean redTextVisible = false;
-            DataWrapper _dataWrapper;
-
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-
-                if (getActivity() != null) {
-                    _dataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
-                    _dataWrapper.copyEventList(activityDataWrapper);
-                }
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                if (_dataWrapper != null) {
-                    for (Event event : _dataWrapper.eventList) {
-                        if (EventsPrefsFragment.isRedTextNotificationRequired(event, _dataWrapper.context))
-                            redTextVisible = true;
-                    }
-                }
-                return null;
-            }
-
-            @SuppressLint("SetTextI18n")
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-
-                 if ((getActivity() != null) && (!getActivity().isFinishing())) {
-                    try {
-                        //if (activatedProfileHeader.isVisibleToUser()) {
-                            TextView redText = activatedProfileHeader.findViewById(R.id.activated_profile_red_text);
-                            if (redTextVisible)
-                                redText.setVisibility(View.VISIBLE);
-                            else
-                                redText.setVisibility(GONE);
-                        //}
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
-                }
-            }
-
-        }.execute();
+        new UpdateHeaderAsyncTask(this).execute();
     }
 
     void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition/*, long loadEventId*/)
@@ -2145,4 +2098,59 @@ public class EditorEventListFragment extends Fragment
         }
 
     }
+
+    private static class UpdateHeaderAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        boolean redTextVisible = false;
+        DataWrapper _dataWrapper;
+
+        private final WeakReference<EditorEventListFragment> fragmentWeakRef;
+
+        public UpdateHeaderAsyncTask(final EditorEventListFragment fragment) {
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            EditorEventListFragment fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+                if (fragment.getActivity() != null) {
+                    _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
+                    _dataWrapper.copyEventList(fragment.activityDataWrapper);
+
+                    for (Event event : _dataWrapper.eventList) {
+                        if (EventsPrefsFragment.isRedTextNotificationRequired(event, _dataWrapper.context))
+                            redTextVisible = true;
+                    }
+                }
+            }
+            return null;
+        }
+
+        @SuppressLint("SetTextI18n")
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            EditorEventListFragment fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+                if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
+                    try {
+                        //if (activatedProfileHeader.isVisibleToUser()) {
+                        TextView redText = fragment.activatedProfileHeader.findViewById(R.id.activated_profile_red_text);
+                        if (redTextVisible)
+                            redText.setVisibility(View.VISIBLE);
+                        else
+                            redText.setVisibility(GONE);
+                        //}
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            }
+        }
+
+    }
+
 }
