@@ -508,8 +508,10 @@ public class ActivateProfileListFragment extends Fragment {
             return;
 
         if (profile._porder != PORDER_FOR_IGNORED_PROFILE) {
-            if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context))
+            if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
+                PPApplication.showToastForProfileActivation = true;
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
+            }
             else
                 EditorProfilesActivity.showDialogAboutRedText(profile, null, false, false, getActivity());
         }

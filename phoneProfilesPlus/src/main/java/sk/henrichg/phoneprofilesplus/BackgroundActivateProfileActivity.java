@@ -75,8 +75,10 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
                         dataWrapper.restartEventsWithAlert(this);
                     //} else
                     //    finish();
-                } else
+                } else {
+                    PPApplication.showToastForProfileActivation = true;
                     dataWrapper.activateProfile(profile_id, startupSource, this, true);
+                }
             }
         }
         else {

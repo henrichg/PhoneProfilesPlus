@@ -1785,8 +1785,11 @@ public class DataWrapper {
 
             //if (mappedProfile != null)
             //{
-            if (ApplicationPreferences.notificationsToast && (!PPApplication.lockRefresh) &&
-                    (PPApplication.applicationFullyStarted && PPApplication.normalServiceStart)) {
+            if (ApplicationPreferences.notificationsToast &&
+                    (!PPApplication.lockRefresh) &&
+                    (PPApplication.applicationFullyStarted &&
+                            PPApplication.normalServiceStart &&
+                            PPApplication.showToastForProfileActivation)) {
                 // toast notification
                 if (PPApplication.toastHandler != null) {
                     final Profile __profile = _profile;
@@ -2411,7 +2414,7 @@ public class DataWrapper {
         else
             _restartEventsWithRescan(alsoRescan, unblockEventsRun, manualRestart, logRestart);
 
-        if (showToast) {
+        if (showToast && PPApplication.showToastForProfileActivation) {
             if (ApplicationPreferences.notificationsToast) {
                 PPApplication.showToast(context.getApplicationContext(),
                         context.getResources().getString(R.string.toast_events_restarted),
@@ -2424,6 +2427,8 @@ public class DataWrapper {
     {
         if (!Event.getGlobalEventsRunning()) {
             // events are globally stopped
+
+            PPApplication.showToastForProfileActivation = true;
 
             // show toast about hot working restart events, because global events run is disabled
             PPApplication.showToast(context.getApplicationContext(),

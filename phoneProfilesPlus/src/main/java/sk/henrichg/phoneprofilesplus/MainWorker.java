@@ -140,6 +140,7 @@ public class MainWorker extends Worker {
                     case APPLICATION_FULLY_STARTED_WORK_TAG:
 //                        PPApplication.logE("[APP_START] MainWorker.doWork", "setApplicationFullyStarted");
                         PPApplication.setApplicationFullyStarted(appContext);
+                        PPApplication.showToastForProfileActivation = true;
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
                         doAfterFirstStart(appContext,
