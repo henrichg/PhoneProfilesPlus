@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.DialogPreference;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ class MobileCellNamesDialogX {
     private final MobileCellNamesDialogAdapterX listAdapter;
 
     @SuppressWarnings("rawtypes")
-    private AsyncTask asyncTask = null;
+    private ShowDialogAsyncTask asyncTask = null;
 
     MobileCellNamesDialogX(final Activity activity, final DialogPreference preference, final boolean showFilterItems) {
 
@@ -144,44 +145,69 @@ class MobileCellNamesDialogX {
         if (!activity.isFinishing()) {
             mDialog.show();
 
-            asyncTask = new AsyncTask<Void, Integer, Void>() {
+            asyncTask = new ShowDialogAsyncTask(this, activity);
+            asyncTask.execute();
+        }
+    }
 
-                final List<String> _cellNamesList = new ArrayList<>();
+    private static class ShowDialogAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-                @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
-                    rellaDialog.setVisibility(View.GONE);
-                    linlaProgress.setVisibility(View.VISIBLE);
+        final List<String> _cellNamesList = new ArrayList<>();
+
+        private final WeakReference<MobileCellNamesDialogX> dialogWeakRef;
+        private final WeakReference<Activity> activityWeakReference;
+
+        public ShowDialogAsyncTask(MobileCellNamesDialogX dialog,
+                                   Activity activity) {
+            this.dialogWeakRef = new WeakReference<>(dialog);
+            this.activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            MobileCellNamesDialogX dialog = dialogWeakRef.get();
+            if (dialog != null) {
+                dialog.rellaDialog.setVisibility(View.GONE);
+                dialog.linlaProgress.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            MobileCellNamesDialogX dialog = dialogWeakRef.get();
+            Activity activity = activityWeakReference.get();
+            if ((dialog != null) && (activity != null)) {
+                if (dialog.showFilterItems) {
+                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_selected));
+                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_without_name));
+                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_new));
+                    _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_all));
                 }
+                DatabaseHandler.getInstance(activity.getApplicationContext()).addMobileCellNamesToList(_cellNamesList);
+            }
+            return null;
+        }
 
-                @Override
-                protected Void doInBackground(Void... params) {
-                    if (showFilterItems) {
-                        _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_selected));
-                        _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_without_name));
-                        _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_new));
-                        _cellNamesList.add(activity.getString(R.string.mobile_cell_names_dialog_item_show_all));
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            MobileCellNamesDialogX dialog = dialogWeakRef.get();
+            Activity activity = activityWeakReference.get();
+            if ((dialog != null) && (activity != null)) {
+                dialog.rellaDialog.setVisibility(View.VISIBLE);
+                dialog.linlaProgress.setVisibility(View.GONE);
+
+                dialog.cellNamesList = new ArrayList<>(_cellNamesList);
+
+                if (dialog.preference == null) {
+                    if (activity instanceof NotUsedMobileCellsDetectedActivity) {
+                        dialog.cellName.setText(((NotUsedMobileCellsDetectedActivity) activity).cellNameTextView.getText().toString());
                     }
-                    DatabaseHandler.getInstance(activity.getApplicationContext()).addMobileCellNamesToList(_cellNamesList);
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Void result) {
-                    super.onPostExecute(result);
-                    rellaDialog.setVisibility(View.VISIBLE);
-                    linlaProgress.setVisibility(View.GONE);
-
-                    cellNamesList = new ArrayList<>(_cellNamesList);
-
-                    if (preference == null) {
-                        if (activity instanceof NotUsedMobileCellsDetectedActivity) {
-                            cellName.setText(((NotUsedMobileCellsDetectedActivity)activity).cellNameTextView.getText().toString());
-                        }
-                    } else if (preference instanceof MobileCellsRegistrationDialogPreferenceX) {
-                        cellName.setText(((MobileCellsRegistrationDialogPreferenceX) preference).getCellNameText());
-                    } else if (preference instanceof MobileCellsPreferenceX) {
+                } else if (dialog.preference instanceof MobileCellsRegistrationDialogPreferenceX) {
+                    dialog.cellName.setText(((MobileCellsRegistrationDialogPreferenceX) dialog.preference).getCellNameText());
+                } else if (dialog.preference instanceof MobileCellsPreferenceX) {
                     /*if (showFilterItems) {
                         cellName.setText(((MobileCellsPreference) preference).cellFilter.getText().toString());
                         cellName.setInputType(InputType.TYPE_NULL);
@@ -194,21 +220,19 @@ class MobileCellNamesDialogX {
                         });
                     }
                     else*/
-                        if (!showFilterItems)
-                            cellName.setText(((MobileCellsPreferenceX) preference).getCellNameText());
-                    }
-
-                    listAdapter.notifyDataSetChanged();
-
-                    if (!showFilterItems) {
-                        cellName.setFocusable(true);
-                        cellName.requestFocus();
-                    }
-
+                    if (!dialog.showFilterItems)
+                        dialog.cellName.setText(((MobileCellsPreferenceX) dialog.preference).getCellNameText());
                 }
 
-            }.execute();
+                dialog.listAdapter.notifyDataSetChanged();
+
+                if (!dialog.showFilterItems) {
+                    dialog.cellName.setFocusable(true);
+                    dialog.cellName.requestFocus();
+                }
+            }
         }
+
     }
 
 }

@@ -10,6 +10,7 @@ import android.view.View;
 
 import androidx.preference.DialogPreference;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +37,14 @@ public class MobileCellsPreferenceX extends DialogPreference {
     boolean registeredCellInTableDefault;
     boolean registeredCellInValueDefault;
 
-    private final Context context;
+    private final Context prefContext;
 
     static boolean forceStart;
 
-    public MobileCellsPreferenceX(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public MobileCellsPreferenceX(Context prefContext, AttributeSet attrs) {
+        super(prefContext, attrs);
         
-        this.context = context;
+        this.prefContext = prefContext;
         
         cellsList = new ArrayList<>();
         filteredCellsList = new ArrayList<>();
@@ -73,7 +74,7 @@ public class MobileCellsPreferenceX extends DialogPreference {
             setSummary(R.string.applications_multiselect_summary_text_not_selected);
         else {
             String[] splits = value.split("\\|");
-            String selectedCells = context.getString(R.string.applications_multiselect_summary_text_selected);
+            String selectedCells = prefContext.getString(R.string.applications_multiselect_summary_text_selected);
             selectedCells = selectedCells + " " + splits.length;
             setSummary(selectedCells);
         }
@@ -147,30 +148,7 @@ public class MobileCellsPreferenceX extends DialogPreference {
     void persistValue() {
         if (shouldPersist()) {
             if (callChangeListener(value)) {
-                new AsyncTask<Void, Integer, Void>() {
-                    List<MobileCellsData> _cellsList;
-
-                    @Override
-                    protected void onPreExecute() {
-                        super.onPreExecute();
-                        _cellsList = new ArrayList<>();
-                        _cellsList.addAll(cellsList);
-                    }
-
-                    @Override
-                    protected Void doInBackground(Void... voids) {
-                        DatabaseHandler db = DatabaseHandler.getInstance(context);
-                        db.saveMobileCellsList(_cellsList, false, false);
-                        return null;
-                    }
-
-                    @Override
-                    protected void onPostExecute(Void result) {
-                        super.onPostExecute(result);
-                        persistString(value);
-                        setSummary();
-                    }
-                }.execute();
+                new PersistValueAsyncTask(this, prefContext).execute();
             }
         }
     }
@@ -292,6 +270,52 @@ public class MobileCellsPreferenceX extends DialogPreference {
                     }
 
                 };
+
+    }
+
+    private static class PersistValueAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        private final WeakReference<MobileCellsPreferenceX> preferenceWeakRef;
+        private final WeakReference<Context> prefContextWeakRef;
+
+        public PersistValueAsyncTask(MobileCellsPreferenceX preference,
+                                     Context prefContext) {
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+        }
+
+        List<MobileCellsData> _cellsList;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            MobileCellsPreferenceX preference = preferenceWeakRef.get();
+            if (preference != null) {
+                _cellsList = new ArrayList<>();
+                _cellsList.addAll(preference.cellsList);
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            MobileCellsPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((preference != null) && (prefContext != null)) {
+                DatabaseHandler db = DatabaseHandler.getInstance(prefContext.getApplicationContext());
+                db.saveMobileCellsList(_cellsList, false, false);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            MobileCellsPreferenceX preference = preferenceWeakRef.get();
+            if (preference != null) {
+                preference.persistString(preference.value);
+                preference.setSummary();
+            }
+        }
 
     }
 

@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 
+import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -63,67 +64,7 @@ class FastAccessDurationProfileDialog
 
     @SuppressLint("StaticFieldLeak")
     private void onShow(/*DialogInterface dialog*/) {
-        new AsyncTask<Void, Integer, Void>() {
-
-            /*@Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-                //listView.setVisibility(View.GONE);
-                //linlaProgress.setVisibility(View.VISIBLE);
-            }*/
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
-                synchronized (dataWrapper.profileList) {
-                    //noinspection Java8ListSort
-                    Collections.sort(dataWrapper.profileList, new AlphabeticallyComparator());
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-
-                //listView.setVisibility(View.VISIBLE);
-                linlaProgress.setVisibility(View.GONE);
-
-                FastAccessDurationProfileAdapter adapter = new FastAccessDurationProfileAdapter(FastAccessDurationProfileDialog.this, activity, fastAccessDurationDialog.mAfterDoProfile, dataWrapper.profileList);
-                listView.setAdapter(adapter);
-
-                int position;
-                long iProfileId;
-                iProfileId = fastAccessDurationDialog.mAfterDoProfile;
-                if (iProfileId == Profile.PROFILE_NO_ACTIVATE)
-                    position = 0;
-                else
-                {
-                    boolean found = false;
-                    position = 0;
-                    for (Profile profile : dataWrapper.profileList)
-                    {
-                        if (profile._id == iProfileId)
-                        {
-                            found = true;
-                            break;
-                        }
-                        position++;
-                    }
-                    if (found)
-                    {
-                        position++;
-                    }
-                    else
-                        position = 0;
-                }
-                listView.setSelection(position);
-            }
-
-        }.execute();
+        new ShowDialogAsyncTask(fastAccessDurationDialog.mAfterDoProfile, this, activity).execute();
     }
 
     void doOnItemSelected(int position)
@@ -151,6 +92,83 @@ class FastAccessDurationProfileDialog
             else
                 return 0;
         }
+    }
+
+    private static class ShowDialogAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        private final WeakReference<FastAccessDurationProfileDialog> dialogWeakRef;
+        private final WeakReference<Activity> activityWeakReference;
+        final long afterDoProfile;
+
+        public ShowDialogAsyncTask(final long afterDoProfile,
+                FastAccessDurationProfileDialog dialog,
+                Activity activity) {
+            this.dialogWeakRef = new WeakReference<>(dialog);
+            this.activityWeakReference = new WeakReference<>(activity);
+            this.afterDoProfile = afterDoProfile;
+        }
+
+        /*@Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            //listView.setVisibility(View.GONE);
+            //linlaProgress.setVisibility(View.VISIBLE);
+        }*/
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            FastAccessDurationProfileDialog dialog = dialogWeakRef.get();
+            if (dialog != null) {
+                dialog.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
+                synchronized (dialog.dataWrapper.profileList) {
+                    //noinspection Java8ListSort
+                    Collections.sort(dialog.dataWrapper.profileList, new AlphabeticallyComparator());
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            FastAccessDurationProfileDialog dialog = dialogWeakRef.get();
+            Activity activity = activityWeakReference.get();
+            if ((dialog != null) && (activity != null)) {
+                //listView.setVisibility(View.VISIBLE);
+                dialog.linlaProgress.setVisibility(View.GONE);
+
+                FastAccessDurationProfileAdapter adapter = new FastAccessDurationProfileAdapter(
+                        dialog, activity, afterDoProfile, dialog.dataWrapper.profileList);
+                dialog.listView.setAdapter(adapter);
+
+                int position;
+                long iProfileId;
+                iProfileId = afterDoProfile;
+                if (iProfileId == Profile.PROFILE_NO_ACTIVATE)
+                    position = 0;
+                else {
+                    boolean found = false;
+                    position = 0;
+                    for (Profile profile : dialog.dataWrapper.profileList) {
+                        if (profile._id == iProfileId) {
+                            found = true;
+                            break;
+                        }
+                        position++;
+                    }
+                    if (found) {
+                        position++;
+                    } else
+                        position = 0;
+                }
+                dialog.listView.setSelection(position);
+            }
+        }
+
     }
 
 }
