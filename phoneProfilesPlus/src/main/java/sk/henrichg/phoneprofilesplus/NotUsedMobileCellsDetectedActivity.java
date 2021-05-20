@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -296,32 +297,46 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
     }
 
     private void onShow() {
-        new AsyncTask<Void, Integer, Void>() {
+        new ShowActivityAsyncTask(this).execute();
+    }
 
-            DatabaseHandler db;
-            List<MobileCellsData> _cellsList = null;
-            String cellName;
-            final List<Event> _eventList = new ArrayList<>();
+    private static class ShowActivityAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
+        DatabaseHandler db;
+        List<MobileCellsData> _cellsList = null;
+        String cellName;
+        final List<Event> _eventList = new ArrayList<>();
 
-                db = DatabaseHandler.getInstance(NotUsedMobileCellsDetectedActivity.this);
+        private final WeakReference<NotUsedMobileCellsDetectedActivity> activityWeakReference;
+
+        public ShowActivityAsyncTask(NotUsedMobileCellsDetectedActivity activity) {
+            this.activityWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            NotUsedMobileCellsDetectedActivity activity = activityWeakReference.get();
+            if (activity != null) {
+                db = DatabaseHandler.getInstance(activity.getApplicationContext());
                 _cellsList = new ArrayList<>();
                 cellName = "";
             }
+        }
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                db.addMobileCellsToList(_cellsList, mobileCellId);
+        @Override
+        protected Void doInBackground(Void... params) {
+            NotUsedMobileCellsDetectedActivity activity = activityWeakReference.get();
+            if (activity != null) {
+                db.addMobileCellsToList(_cellsList, activity.mobileCellId);
                 if (!_cellsList.isEmpty())
                     cellName = _cellsList.get(0).name;
 
                 //eventList.clear();
 
-                String[] eventIds = lastRunningEvents.split("\\|");
+                String[] eventIds = activity.lastRunningEvents.split("\\|");
                 for (String eventId : eventIds) {
                     if (!eventId.isEmpty()) {
                         Event event = db.getEvent(Long.parseLong(eventId));
@@ -332,7 +347,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                     }
                 }
 
-                eventIds = lastPausedEvents.split("\\|");
+                eventIds = activity.lastPausedEvents.split("\\|");
                 for (String eventId : eventIds) {
                     if (!eventId.isEmpty()) {
                         Event event = db.getEvent(Long.parseLong(eventId));
@@ -342,40 +357,43 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
                         }
                     }
                 }
-
-                return null;
             }
 
-            @SuppressLint("SetTextI18n")
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
+            return null;
+        }
 
-                cellIdTextView.setText(getString(R.string.not_used_mobile_cells_detected_cell_id) + " " + mobileCellId);
-                lastConnectTimeTextView.setText(getString(R.string.not_used_mobile_cells_detected_connection_time) + " " +
-                        GlobalGUIRoutines.timeDateStringFromTimestamp(NotUsedMobileCellsDetectedActivity.this, lastConnectedTime));
+        @SuppressLint("SetTextI18n")
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            NotUsedMobileCellsDetectedActivity activity = activityWeakReference.get();
+            if (activity != null) {
+                activity.cellIdTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_cell_id) + " " + activity.mobileCellId);
+                activity.lastConnectTimeTextView.setText(activity.getString(R.string.not_used_mobile_cells_detected_connection_time) + " " +
+                        GlobalGUIRoutines.timeDateStringFromTimestamp(activity, activity.lastConnectedTime));
                 if (!cellName.isEmpty())
-                    cellNameTextView.setText(cellName);
+                    activity.cellNameTextView.setText(cellName);
 
-                eventList.clear();
-                eventList.addAll(_eventList);
+                activity.eventList.clear();
+                activity.eventList.addAll(_eventList);
 
                 NotUsedMobileCellsDetectedAdapter notUsedMobileCellsDetectedAdapter =
-                        new NotUsedMobileCellsDetectedAdapter(NotUsedMobileCellsDetectedActivity.this, eventList);
-                lastRunningEventsListView.setAdapter(notUsedMobileCellsDetectedAdapter);
+                        new NotUsedMobileCellsDetectedAdapter(activity, activity.eventList);
+                activity.lastRunningEventsListView.setAdapter(notUsedMobileCellsDetectedAdapter);
 
                 boolean anyChecked = false;
-                for (Event event : eventList) {
+                for (Event event : activity.eventList) {
                     if (event.getStatus() == 1) {
                         anyChecked = true;
                         break;
                     }
                 }
-                mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!cellName.isEmpty() && anyChecked);
+                activity.mDialog.getButton(DialogInterface.BUTTON_POSITIVE).setEnabled(!cellName.isEmpty() && anyChecked);
             }
+        }
 
-        }.execute();
     }
 
 }

@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -46,72 +47,7 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
         listView.setOnItemClickListener((parent, item, position, id) -> doOnItemSelected(position));
 
-        new AsyncTask<Void, Integer, Void>() {
-
-            /*@Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-                //listView.setVisibility(View.GONE);
-                //linlaProgress.setVisibility(View.VISIBLE);
-            }*/
-
-            @Override
-            protected Void doInBackground(Void... params) {
-
-                preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
-                synchronized (preference.dataWrapper.profileList) {
-                    //noinspection Java8ListSort
-                    Collections.sort(preference.dataWrapper.profileList, new AlphabeticallyComparator());
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-
-                //listView.setVisibility(View.VISIBLE);
-                linlaProgress.setVisibility(View.GONE);
-
-                profilePreferenceAdapter = new ProfilePreferenceAdapterX(ProfilePreferenceFragmentX.this, prefContext, preference.profileId, preference.dataWrapper.profileList);
-                listView.setAdapter(profilePreferenceAdapter);
-
-                int position;
-                long iProfileId;
-                if (preference.profileId.isEmpty())
-                    iProfileId = 0;
-                else
-                    iProfileId = Long.parseLong(preference.profileId);
-                if ((preference.addNoActivateItem == 1) && (iProfileId == Profile.PROFILE_NO_ACTIVATE))
-                    position = 0;
-                else
-                {
-                    boolean found = false;
-                    position = 0;
-                    for (Profile profile : preference.dataWrapper.profileList)
-                    {
-                        if (profile._id == iProfileId)
-                        {
-                            found = true;
-                            break;
-                        }
-                        position++;
-                    }
-                    if (found)
-                    {
-                        if (preference.addNoActivateItem == 1)
-                            position++;
-                    }
-                    else
-                        position = 0;
-                }
-                listView.setSelection(position);
-            }
-
-        }.execute();
+        new BindViewAsyncTask(preference, this, prefContext).execute();
 
     }
 
@@ -144,6 +80,86 @@ public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
             else
                 return 0;
         }
+    }
+
+    private static class BindViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        private final WeakReference<ProfilePreferenceX> preferenceWeakRef;
+        private final WeakReference<ProfilePreferenceFragmentX> fragmentWeakRef;
+        private final WeakReference<Context> prefContextWeakRef;
+
+        public BindViewAsyncTask(ProfilePreferenceX preference,
+                                 ProfilePreferenceFragmentX fragment,
+                                 Context prefContext) {
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+        }
+
+        /*@Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            //listView.setVisibility(View.GONE);
+            //linlaProgress.setVisibility(View.VISIBLE);
+        }*/
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ProfilePreferenceX preference = preferenceWeakRef.get();
+            if (preference != null) {
+                preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
+                synchronized (preference.dataWrapper.profileList) {
+                    //noinspection Java8ListSort
+                    Collections.sort(preference.dataWrapper.profileList, new AlphabeticallyComparator());
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            ProfilePreferenceFragmentX fragment = fragmentWeakRef.get();
+            ProfilePreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
+                //listView.setVisibility(View.VISIBLE);
+                fragment.linlaProgress.setVisibility(View.GONE);
+
+                fragment.profilePreferenceAdapter = new ProfilePreferenceAdapterX(fragment, prefContext, preference.profileId, preference.dataWrapper.profileList);
+                fragment.listView.setAdapter(fragment.profilePreferenceAdapter);
+
+                int position;
+                long iProfileId;
+                if (preference.profileId.isEmpty())
+                    iProfileId = 0;
+                else
+                    iProfileId = Long.parseLong(preference.profileId);
+                if ((preference.addNoActivateItem == 1) && (iProfileId == Profile.PROFILE_NO_ACTIVATE))
+                    position = 0;
+                else {
+                    boolean found = false;
+                    position = 0;
+                    for (Profile profile : preference.dataWrapper.profileList) {
+                        if (profile._id == iProfileId) {
+                            found = true;
+                            break;
+                        }
+                        position++;
+                    }
+                    if (found) {
+                        if (preference.addNoActivateItem == 1)
+                            position++;
+                    } else
+                        position = 0;
+                }
+                fragment.listView.setSelection(position);
+            }
+        }
+
     }
 
 }

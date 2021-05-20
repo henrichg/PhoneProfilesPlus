@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 
+import java.lang.ref.WeakReference;
+
 public class ProfileIconPreferenceX extends DialogPreference {
 
     ProfileIconPreferenceFragmentX fragment;
@@ -241,71 +243,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
 
     @SuppressLint("StaticFieldLeak")
     void updateIcon(final boolean inDialog) {
-        new AsyncTask<Void, Integer, Void>() {
-
-            ImageView _imageView;
-            Bitmap bitmap;
-
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-                if (inDialog)
-                    _imageView = dialogIcon;
-                else
-                    _imageView = imageView;
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                if (isImageResourceID)
-                {
-                    // je to resource id
-                    if (useCustomColor) {
-                        //int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.PPApplication.PACKAGE_NAME);
-                        int res = Profile.getIconResource(imageIdentifier);
-                        //bitmap = BitmapFactory.decodeResource(prefContext.getResources(), res);
-                        bitmap = BitmapManipulator.getBitmapFromResource(res, true, prefContext);
-                        bitmap = BitmapManipulator.recolorBitmap(bitmap, customColor/*, prefContext*/);
-                    }
-                }
-                else
-                {
-                    // je to file
-                    bitmap = getBitmap();
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-                if (_imageView != null)
-                {
-                    if (isImageResourceID)
-                    {
-                        // je to resource id
-                        if (useCustomColor)
-                            _imageView.setImageBitmap(bitmap);
-                        else {
-                            //int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.PPApplication.PACKAGE_NAME);
-                            int res = Profile.getIconResource(imageIdentifier);
-                            _imageView.setImageResource(res); // icon resource
-                        }
-                    }
-                    else
-                    {
-                        // je to file
-                        if (bitmap != null)
-                            _imageView.setImageBitmap(bitmap);
-                        else
-                            _imageView.setImageResource(R.drawable.ic_profile_default);
-                    }
-                }
-            }
-
-        }.execute();
+        new UpdateIconAsyncTask(inDialog, this, prefContext).execute();
     }
 
     void dismissDialog() {
@@ -397,6 +335,90 @@ public class ProfileIconPreferenceX extends DialogPreference {
                     }
 
                 };
+
+    }
+
+    private static class UpdateIconAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        ImageView _imageView;
+        Bitmap bitmap;
+
+        private final WeakReference<ProfileIconPreferenceX> preferenceWeakRef;
+        private final WeakReference<Context> prefContextWeakRef;
+        final boolean inDialog;
+
+        public UpdateIconAsyncTask(final boolean inDialog,
+                ProfileIconPreferenceX preference,
+                Context prefContext) {
+            this.inDialog = inDialog;
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            ProfileIconPreferenceX preference = preferenceWeakRef.get();
+            if (preference != null) {
+                if (inDialog)
+                    _imageView = preference.dialogIcon;
+                else
+                    _imageView = preference.imageView;
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ProfileIconPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((preference != null) && (prefContext != null)) {
+                if (preference.isImageResourceID) {
+                    // je to resource id
+                    if (preference.useCustomColor) {
+                        //int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.PPApplication.PACKAGE_NAME);
+                        int res = Profile.getIconResource(preference.imageIdentifier);
+                        //bitmap = BitmapFactory.decodeResource(prefContext.getResources(), res);
+                        bitmap = BitmapManipulator.getBitmapFromResource(res, true, prefContext);
+                        bitmap = BitmapManipulator.recolorBitmap(bitmap, preference.customColor/*, prefContext*/);
+                    }
+                } else {
+                    // je to file
+                    bitmap = preference.getBitmap();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            ProfileIconPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((preference != null) && (prefContext != null)) {
+                if (_imageView != null) {
+                    if (preference.isImageResourceID) {
+                        // je to resource id
+                        if (preference.useCustomColor)
+                            _imageView.setImageBitmap(bitmap);
+                        else {
+                            //int res = prefContext.getResources().getIdentifier(imageIdentifier, "drawable", prefContext.PPApplication.PACKAGE_NAME);
+                            int res = Profile.getIconResource(preference.imageIdentifier);
+                            _imageView.setImageResource(res); // icon resource
+                        }
+                    } else {
+                        // je to file
+                        if (bitmap != null)
+                            _imageView.setImageBitmap(bitmap);
+                        else
+                            _imageView.setImageResource(R.drawable.ic_profile_default);
+                    }
+                }
+            }
+        }
 
     }
 

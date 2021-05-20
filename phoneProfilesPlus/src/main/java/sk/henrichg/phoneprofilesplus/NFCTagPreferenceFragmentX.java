@@ -20,6 +20,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -39,7 +40,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
     private AppCompatImageButton addIcon;
     private NFCTagPreferenceAdapterX listAdapter;
 
-    private AsyncTask<Void, Integer, Void> rescanAsyncTask;
+    private RefreshListViewAsyncTask rescanAsyncTask;
 
     @SuppressLint("InflateParams")
     @Override
@@ -214,104 +215,7 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
     {
         //final boolean _forRescan = forRescan;
 
-        rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
-
-            List<NFCTag> _nfcTagList = null;
-
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-
-                _nfcTagList = new ArrayList<>();
-
-                /*
-                if (_forRescan) {
-                    dataRelativeLayout.setVisibility(View.GONE);
-                    progressLinearLayout.setVisibility(View.VISIBLE);
-                }
-                */
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-
-                //if (_forRescan)
-                //{
-                //}
-
-                // add all from db
-                List<NFCTag> tagsFromDb = DatabaseHandler.getInstance(prefContext).getAllNFCTags();
-                for (NFCTag tag : tagsFromDb)
-                    _nfcTagList.add(new NFCTag(tag._id, tag._name, tag._uid));
-
-                // add all from value
-                boolean found;
-                String[] splits = preference.value.split("\\|");
-                for (String tag : splits) {
-                    if (!tag.isEmpty()) {
-                        found = false;
-                        for (NFCTag tagData : _nfcTagList) {
-                            if (tag.equals(tagData._name)) {
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (!found) {
-                            for (NFCTag tagFromDb : tagsFromDb) {
-                                if (tagFromDb._name.equals(tag))
-                                    _nfcTagList.add(new NFCTag(tagFromDb._id, tag, tagFromDb._uid));
-                            }
-                        }
-                    }
-                }
-
-                //noinspection Java8ListSort
-                Collections.sort(_nfcTagList, new SortList());
-
-                // move checked on top
-                int i = 0;
-                int ich = 0;
-                while (i < _nfcTagList.size()) {
-                    NFCTag nfcTag = _nfcTagList.get(i);
-                    if (preference.isNfcTagSelected(nfcTag._name)) {
-                        _nfcTagList.remove(i);
-                        _nfcTagList.add(ich, nfcTag);
-                        ich++;
-                    }
-                    i++;
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-
-                preference.nfcTagList = new ArrayList<>(_nfcTagList);
-                listAdapter.notifyDataSetChanged();
-
-                /*
-                if (_forRescan) {
-                    progressLinearLayout.setVisibility(View.GONE);
-                    dataRelativeLayout.setVisibility(View.VISIBLE);
-                }
-                */
-
-                if (!scrollToTag.isEmpty()) {
-                    for (int position = 0; position < preference.nfcTagList.size() - 1; position++) {
-                        if (preference.nfcTagList.get(position)._name.equals(scrollToTag)) {
-                            nfcTagListView.setSelection(position);
-                            break;
-                        }
-                    }
-                }
-            }
-
-        };
-
+        rescanAsyncTask = new RefreshListViewAsyncTask(scrollToTag, preference, this, prefContext);
         rescanAsyncTask.execute();
     }
 
@@ -406,6 +310,128 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
         if (getActivity() != null)
             if (!getActivity().isFinishing())
                 popup.show();
+    }
+
+    private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+        List<NFCTag> _nfcTagList = null;
+
+        final String scrollToTag;
+        private final WeakReference<NFCTagPreferenceX> preferenceWeakRef;
+        private final WeakReference<NFCTagPreferenceFragmentX> fragmentWeakRef;
+        private final WeakReference<Context> prefContextWeakRef;
+
+        public RefreshListViewAsyncTask(final String scrollToTag,
+                                        NFCTagPreferenceX preference,
+                                        NFCTagPreferenceFragmentX fragment,
+                                        Context prefContext) {
+            this.scrollToTag = scrollToTag;
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            _nfcTagList = new ArrayList<>();
+
+            /*
+            if (_forRescan) {
+                dataRelativeLayout.setVisibility(View.GONE);
+                progressLinearLayout.setVisibility(View.VISIBLE);
+            }
+            */
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            NFCTagPreferenceFragmentX fragment = fragmentWeakRef.get();
+            NFCTagPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
+
+                //if (_forRescan)
+                //{
+                //}
+
+                // add all from db
+                List<NFCTag> tagsFromDb = DatabaseHandler.getInstance(prefContext).getAllNFCTags();
+                for (NFCTag tag : tagsFromDb)
+                    _nfcTagList.add(new NFCTag(tag._id, tag._name, tag._uid));
+
+                // add all from value
+                boolean found;
+                String[] splits = preference.value.split("\\|");
+                for (String tag : splits) {
+                    if (!tag.isEmpty()) {
+                        found = false;
+                        for (NFCTag tagData : _nfcTagList) {
+                            if (tag.equals(tagData._name)) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            for (NFCTag tagFromDb : tagsFromDb) {
+                                if (tagFromDb._name.equals(tag))
+                                    _nfcTagList.add(new NFCTag(tagFromDb._id, tag, tagFromDb._uid));
+                            }
+                        }
+                    }
+                }
+
+                //noinspection Java8ListSort
+                Collections.sort(_nfcTagList, new SortList());
+
+                // move checked on top
+                int i = 0;
+                int ich = 0;
+                while (i < _nfcTagList.size()) {
+                    NFCTag nfcTag = _nfcTagList.get(i);
+                    if (preference.isNfcTagSelected(nfcTag._name)) {
+                        _nfcTagList.remove(i);
+                        _nfcTagList.add(ich, nfcTag);
+                        ich++;
+                    }
+                    i++;
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            NFCTagPreferenceFragmentX fragment = fragmentWeakRef.get();
+            NFCTagPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
+                preference.nfcTagList = new ArrayList<>(_nfcTagList);
+                fragment.listAdapter.notifyDataSetChanged();
+
+                /*
+                if (_forRescan) {
+                    progressLinearLayout.setVisibility(View.GONE);
+                    dataRelativeLayout.setVisibility(View.VISIBLE);
+                }
+                */
+
+                if (!scrollToTag.isEmpty()) {
+                    for (int position = 0; position < preference.nfcTagList.size() - 1; position++) {
+                        if (preference.nfcTagList.get(position)._name.equals(scrollToTag)) {
+                            fragment.nfcTagListView.setSelection(position);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
 }

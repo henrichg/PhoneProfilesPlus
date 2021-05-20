@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -53,44 +54,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
             viewHolder.checkBox.setChecked(profile._checked);
         });
 
-        new AsyncTask<Void, Integer, Void>() {
-
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
-                listViewRoot.setVisibility(View.GONE);
-                linlaProgress.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-
-                preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
-                synchronized (preference.dataWrapper.profileList) {
-                    //noinspection Java8ListSort
-                    Collections.sort(preference.dataWrapper.profileList, new AlphabeticallyComparator());
-                }
-
-                getValuePMSDP();
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-
-                listViewRoot.setVisibility(View.VISIBLE);
-                linlaProgress.setVisibility(View.GONE);
-
-                profilePreferenceAdapter = new ProfileMultiSelectPreferenceAdapterX(prefContext, preference.dataWrapper.profileList);
-                listView.setAdapter(profilePreferenceAdapter);
-            }
-
-        }.execute();
-
+        new BindViewAsyncTask(preference, this, prefContext).execute();
     }
 
     @Override
@@ -145,6 +109,68 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
                 i++;
             }
         }
+    }
+
+    private static class BindViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        private final WeakReference<ProfileMultiSelectPreferenceX> preferenceWeakRef;
+        private final WeakReference<ProfileMultiSelectPreferenceFragmentX> fragmentWeakRef;
+        private final WeakReference<Context> prefContextWeakRef;
+
+        public BindViewAsyncTask(ProfileMultiSelectPreferenceX preference,
+                                 ProfileMultiSelectPreferenceFragmentX fragment,
+                                 Context prefContext) {
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            ProfileMultiSelectPreferenceFragmentX fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+                fragment.listViewRoot.setVisibility(View.GONE);
+                fragment.linlaProgress.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ProfileMultiSelectPreferenceFragmentX fragment = fragmentWeakRef.get();
+            ProfileMultiSelectPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
+                preference.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
+                synchronized (preference.dataWrapper.profileList) {
+                    //noinspection Java8ListSort
+                    Collections.sort(preference.dataWrapper.profileList, new AlphabeticallyComparator());
+                }
+
+                fragment.getValuePMSDP();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            ProfileMultiSelectPreferenceFragmentX fragment = fragmentWeakRef.get();
+            ProfileMultiSelectPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
+                fragment.listViewRoot.setVisibility(View.VISIBLE);
+                fragment.linlaProgress.setVisibility(View.GONE);
+
+                fragment.profilePreferenceAdapter = new ProfileMultiSelectPreferenceAdapterX(prefContext, preference.dataWrapper.profileList);
+                fragment.listView.setAdapter(fragment.profilePreferenceAdapter);
+            }
+        }
+
     }
 
 }
