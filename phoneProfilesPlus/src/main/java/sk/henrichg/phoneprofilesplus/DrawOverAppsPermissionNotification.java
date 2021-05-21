@@ -19,40 +19,45 @@ class DrawOverAppsPermissionNotification {
         if (Build.VERSION.SDK_INT >= 29) {
             //PPApplication.logE("DrawOverAppsPermissionNotification.showNotification", "xxx");
 
-            final Context appContext = context.getApplicationContext();
-
             if (useHandler) {
                 PPApplication.startHandlerThread(/*"DrawOverAppsPermissionNotification.showNotification"*/);
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                handler.post(() -> {
+                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                __handler.post(new PPApplication.PPHandlerThreadRunnable(
+                        context.getApplicationContext()) {
+                    @Override
+                    public void run() {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DrawOverAppsPermissionNotification.showNotification");
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DrawOverAppsPermissionNotification_showNotification");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
-
-                        try {
-                            if (!Settings.canDrawOverlays(appContext)) {
-                                showNotification(appContext,
-                                        appContext.getString(R.string.draw_over_apps_permission_notification_title),
-                                        appContext.getString(R.string.draw_over_apps_permission_notification_text));
-                            }
-                        } catch (Exception ignore) {
-                        }
-
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DrawOverAppsPermissionNotification");
-                    } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                        Context appContext= appContextWeakRef.get();
+                        if (appContext != null) {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
                             try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DrawOverAppsPermissionNotification_showNotification");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                try {
+                                    if (!Settings.canDrawOverlays(appContext)) {
+                                        showNotification(appContext,
+                                                appContext.getString(R.string.draw_over_apps_permission_notification_title),
+                                                appContext.getString(R.string.draw_over_apps_permission_notification_text));
+                                    }
+                                } catch (Exception ignore) {
+                                }
+
+                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DrawOverAppsPermissionNotification");
+                            } catch (Exception e) {
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplication.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
                             }
                         }
                     }
@@ -60,6 +65,7 @@ class DrawOverAppsPermissionNotification {
             }
             else {
                 try {
+                    final Context appContext = context.getApplicationContext();
                     if (!Settings.canDrawOverlays(appContext)) {
                         showNotification(appContext,
                                 appContext.getString(R.string.draw_over_apps_permission_notification_title),

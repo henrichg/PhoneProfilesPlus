@@ -545,36 +545,44 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         if (useAlarmClockEnabled != ApplicationPreferences.applicationUseAlarmClock) {
             //final Context appContext = getApplicationContext();
             PPApplication.startHandlerThreadBroadcast();
-            final Handler handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler2.post(() -> {
+            final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            __handler2.post(new PPApplication.PPHandlerThreadRunnable(
+                    appContext) {
+                @Override
+                public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges");
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesPrefsActivity_doPreferenceChanges");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "use alarm clock enabled changed");
-                    /*if (DataWrapper.getIsManualProfileActivation(false, appContext))
-                        x
-                    else*/
-                        // unblockEventsRun must be true to reset alarms
-                        //PPApplication.restartEvents(appContext, true, true);
-
-                    // change of this parameter is as change of local time
-                    TimeChangedReceiver.doWork(appContext, true);
-
-                } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                    Context appContext= appContextWeakRef.get();
+                    if (appContext != null) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
                         try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PhoneProfilesPrefsActivity_doPreferenceChanges");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "use alarm clock enabled changed");
+                            /*if (DataWrapper.getIsManualProfileActivation(false, appContext))
+                                x
+                            else*/
+                            // unblockEventsRun must be true to reset alarms
+                            //PPApplication.restartEvents(appContext, true, true);
+
+                            // change of this parameter is as change of local time
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPrefsActivity.doPreferenceChanges (2)");
+                            TimeChangedReceiver.doWork(appContext, true);
+
+                        } catch (Exception e) {
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
                         }
                     }
                 }

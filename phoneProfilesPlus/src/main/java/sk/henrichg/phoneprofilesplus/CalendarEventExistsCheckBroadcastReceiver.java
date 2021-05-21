@@ -23,7 +23,7 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
     private void doWork(/*boolean useHandler,*/ Context context) {
         //PPApplication.logE("[HANDLER] EventTimeBroadcastReceiver.doWork", "useHandler="+useHandler);
 
-        final Context appContext = context.getApplicationContext();
+        //final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -32,43 +32,50 @@ public class CalendarEventExistsCheckBroadcastReceiver extends BroadcastReceiver
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
             PPApplication.startHandlerThreadBroadcast(/*"EventTimeBroadcastReceiver.doWork"*/);
-            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(() -> {
+            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            __handler.post(new PPApplication.PPHandlerThreadRunnable(
+                    context.getApplicationContext()) {
+                @Override
+                public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventTimeBroadcastReceiver.doWork");
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CalendarEventExistsCheckBroadcastReceiver_doWork");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    Context appContext= appContextWeakRef.get();
+                    if (appContext != null) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CalendarEventExistsCheckBroadcastReceiver_doWork");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
 
 //                    PPApplication.logE("[EVENTS_HANDLER_CALL] CalendarEventExistsCheckBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK");
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK);
 
-                    DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
-                    dataWrapper.fillEventList();
+                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                            dataWrapper.fillEventList();
 
-                    for (Event _event : dataWrapper.eventList) {
-                        if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
+                            for (Event _event : dataWrapper.eventList) {
+                                if ((_event._eventPreferencesCalendar._enabled) && (_event.getStatus() != Event.ESTATUS_STOP)) {
 //                            PPApplication.logE("[CALENDAR] CalendarEventExistsCheckBroadcastReceiver.doWork", "setAlarm() - event._id=" + _event._id);
-                            _event._eventPreferencesCalendar.setAlarm(/*true,*/ 0, context, true);
-                        }
-                    }
+                                    _event._eventPreferencesCalendar.setAlarm(/*true,*/ 0, appContext, true);
+                                }
+                            }
 
 
 //                    PPApplication.logE("[EVENTS_HANDLER_CALL] CalendarEventExistsCheckBroadcastReceiver.doWork", "END run");
-                } catch (Exception e) {
+                        } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
                         }
                     }
                 }

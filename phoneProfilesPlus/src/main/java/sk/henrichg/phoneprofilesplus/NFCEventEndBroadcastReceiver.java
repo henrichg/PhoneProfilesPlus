@@ -23,7 +23,7 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
     private void doWork(/*boolean useHandler,*/ Context context) {
         //PPApplication.logE("[HANDLER] NFCEventEndBroadcastReceiver.doWork", "useHandler="+useHandler);
 
-        final Context appContext = context.getApplicationContext();
+        //final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -32,31 +32,38 @@ public class NFCEventEndBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning()) {
             //if (useHandler) {
             PPApplication.startHandlerThreadBroadcast(/*"NFCEventEndBroadcastReceiver.doWork"*/);
-            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(() -> {
+            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            __handler.post(new PPApplication.PPHandlerThreadRunnable(
+                    context.getApplicationContext()) {
+                @Override
+                public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NFCEventEndBroadcastReceiver.doWork");
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":NFCEventEndBroadcastReceiver_doWork");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    Context appContext= appContextWeakRef.get();
+                    if (appContext != null) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":NFCEventEndBroadcastReceiver_doWork");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
 //                        PPApplication.logE("[EVENTS_HANDLER_CALL] NFCEventEndBroadcastReceiver.doWork", "sensorType=SENSOR_TYPE_NFC_EVENT_END");
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_EVENT_END);
 
-                    //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NFCEventEndBroadcastReceiver.doWork");
-                } catch (Exception e) {
+                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NFCEventEndBroadcastReceiver.doWork");
+                        } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
                         }
                     }
                 }

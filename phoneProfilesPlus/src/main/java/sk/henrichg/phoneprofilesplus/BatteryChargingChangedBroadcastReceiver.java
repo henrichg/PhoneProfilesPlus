@@ -15,7 +15,7 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
         //CallsCounter.logCounter(context, "BatteryChargingChangedBroadcastReceiver.onReceive", "BatteryChargingChangedBroadcastReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "BatteryChargingChangedBroadcastReceiver.onReceive->action="+intent.getAction(), "BatteryChargingChangedBroadcastReceiver_onReceive");
 
-        final Context appContext = context.getApplicationContext();
+        //final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -118,35 +118,43 @@ public class BatteryChargingChangedBroadcastReceiver extends BroadcastReceiver {
 
             if (Event.getGlobalEventsRunning()) {
                 PPApplication.startHandlerThreadBroadcast(/*"BatteryChargingChangedBroadcastReceiver.onReceive"*/);
-                final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                handler.post(() -> {
+                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                __handler.post(new PPApplication.PPHandlerThreadRunnable(
+                        context.getApplicationContext()) {
+                    @Override
+                    public void run() {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BatteryChargingChangedBroadcastReceiver_onReceive");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        Context appContext= appContextWeakRef.get();
+                        if (appContext != null) {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":BatteryChargingChangedBroadcastReceiver_onReceive");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
 //                            PPApplication.logE("BatteryChargingChangedBroadcastReceiver.onReceive", "isCharging="+PPApplication.isCharging);
 //                            PPApplication.logE("BatteryChargingChangedBroadcastReceiver.onReceive", "plugged="+PPApplication.plugged);
 
-                        // start events handler
+                                // start events handler
 //                            PPApplication.logE("[EVENTS_HANDLER_CALL] BatteryChargingChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_BATTERY");
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY);
+                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_BATTERY);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
-                    } catch (Exception e) {
+                                //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=BatteryChargingChangedBroadcastReceiver.onReceive");
+                            } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
+                                PPApplication.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
                         }
                     }
                 });

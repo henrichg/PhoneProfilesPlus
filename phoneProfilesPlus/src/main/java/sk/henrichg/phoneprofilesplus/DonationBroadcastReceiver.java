@@ -117,7 +117,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
-        final Context appContext = context.getApplicationContext();
+        //final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -127,32 +127,40 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 
         //if (useHandler) {
             PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
-            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(() -> {
+            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            __handler.post(new PPApplication.PPHandlerThreadRunnable(
+                    context.getApplicationContext()) {
+                @Override
+                public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DonationBroadcastReceiver.doWork");
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DonationBroadcastReceiver_doWork");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
-
-                    try {
-                        _doWork(appContext);
-                    } catch (Exception ignored) {}
-
-                    setAlarm(appContext);
-
-                } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                    Context appContext= appContextWeakRef.get();
+                    if (appContext != null) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
                         try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DonationBroadcastReceiver_doWork");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            try {
+                                _doWork(appContext);
+                            } catch (Exception ignored) {
+                            }
+
+                            setAlarm(appContext);
+
+                        } catch (Exception e) {
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
                         }
                     }
                 }

@@ -22,8 +22,6 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
         //CallsCounter.logCounter(context, "HeadsetConnectionBroadcastReceiver.onReceive", "HeadsetConnectionBroadcastReceiver_onReceive");
 
-        final Context appContext = context.getApplicationContext();
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
@@ -71,7 +69,7 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
         if (broadcast)
         {
-            setEventHeadsetParameters(appContext, connectedWiredHeadphones, connectedWiredMicrophone,
+            setEventHeadsetParameters(context.getApplicationContext(), connectedWiredHeadphones, connectedWiredMicrophone,
                     connectedBluetoothHeadphones, connectedBluetoothMicrophone);
         }
 
@@ -80,17 +78,22 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
             if (broadcast)
             {
                 PPApplication.startHandlerThreadBroadcast(/*"HeadsetConnectionBroadcastReceiver.onReceive"*/);
-                final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                handler.post(() -> {
+                final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+                __handler.post(new PPApplication.PPHandlerThreadRunnable(
+                        context.getApplicationContext()) {
+                    @Override
+                    public void run() {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=HeadsetConnectionBroadcastReceiver.onReceive");
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":HeadsetConnectionBroadcastReceiver_onReceive");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        Context appContext= appContextWeakRef.get();
+                        if (appContext != null) {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":HeadsetConnectionBroadcastReceiver_onReceive");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
                         /*DataWrapper dataWrapper = new DataWrapper(appContext, false, false, 0);
                         boolean accessoryEventsExists = dataWrapper.getDatabaseHandler().getTypeEventsCount(DatabaseHandler.ETYPE_ACCESSORY) > 0;
@@ -98,22 +101,25 @@ public class HeadsetConnectionBroadcastReceiver extends BroadcastReceiver {
 
                         if (accessoryEventsExists)
                         {*/
-                        // start events handler
+                                // start events handler
 //                            PPApplication.logE("[EVENTS_HANDLER_CALL] HeadsetConnectionBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_HEADSET_CONNECTION");
-                        EventsHandler eventsHandler = new EventsHandler(appContext);
-                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION);
+                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_HEADSET_CONNECTION);
 
-                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=HeadsetConnectionBroadcastReceiver.onReceive");
-                        //}
+                                //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=HeadsetConnectionBroadcastReceiver.onReceive");
+                                //}
 
-                    } catch (Exception e) {
+                            } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {}
+                                PPApplication.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
                         }
                     }
                 });

@@ -70,7 +70,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                _doConnection();
+                _doConnection(appContext);
 
 //               PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileDataNetworkCallback.doConnection");
 
@@ -88,30 +88,37 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
         }
         else {
             PPApplication.startHandlerThreadBroadcast();
-            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(() -> {
+            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            __handler.post(new PPApplication.PPHandlerThreadRunnable(
+                    appContext) {
+                @Override
+                public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=MobileDataNetworkCallback.doConnection");
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileDataNetworkCallback_doConnection_2");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    Context appContext= appContextWeakRef.get();
+                    if (appContext != null) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MobileDataNetworkCallback_doConnection_2");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                    _doConnection();
+                            MobileDataNetworkCallback.this._doConnection(appContext);
 
 //                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=MobileDataNetworkCallback.doConnection");
 
-                } catch (Exception e) {
+                        } catch (Exception e) {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
                         }
                     }
                 }
@@ -119,7 +126,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
         }
     }
 
-    private void _doConnection() {
+    private void _doConnection(Context appContext) {
 //        PPApplication.logE("$$$ MobileDataNetworkCallback._doConnection", "isConnected=" + connected);
 
         if (Event.getGlobalEventsRunning()) {

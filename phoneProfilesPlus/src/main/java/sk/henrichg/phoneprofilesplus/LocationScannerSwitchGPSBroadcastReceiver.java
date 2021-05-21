@@ -173,22 +173,27 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 //        PPApplication.logE("##### LocationScannerSwitchGPSBroadcastReceiver.doWork", "xxx");
 
         PPApplication.startHandlerThreadPPScanners(/*"BootUpReceiver.onReceive2"*/);
-        final Handler handler2 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-        handler2.post(() -> {
+        final Handler __handler2 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
+        __handler2.post(new PPApplication.PPHandlerThreadRunnable(
+                appContext) {
+            @Override
+            public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationScannerSwitchGPSBroadcastReceiver.doWork");
 
-            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-            PowerManager.WakeLock wakeLock = null;
-            try {
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LocationScannerSwitchGPSBroadcastReceiver_doWork");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
+                Context appContext= appContextWeakRef.get();
+                if (appContext != null) {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LocationScannerSwitchGPSBroadcastReceiver_doWork");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
-                    LocationScanner locationScanner = PhoneProfilesService.getInstance().getLocationScanner();
-                    if (locationScanner != null) {
-                        if (LocationScanner.mUpdatesStarted) {
+                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
+                            LocationScanner locationScanner = PhoneProfilesService.getInstance().getLocationScanner();
+                            if (locationScanner != null) {
+                                if (LocationScanner.mUpdatesStarted) {
 //                            if (LocationScanner.useGPS) {
 //                                if (PPApplication.googlePlayServiceAvailable) {
 //                                    locationScanner.flushLocations();
@@ -197,31 +202,34 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 //                            }
 
 //                            PPApplication.logE("##### LocationScannerSwitchGPSBroadcastReceiver.doWork", "LocationScanner.useGPS="+LocationScanner.useGPS);
-                            locationScanner.stopLocationUpdates();
+                                    locationScanner.stopLocationUpdates();
 
-                            PPApplication.sleep(1000);
+                                    PPApplication.sleep(1000);
 
-                            if (ApplicationPreferences.applicationEventLocationUseGPS && (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext)))
-                                // force useGPS
-                                LocationScanner.useGPS = true;
-                            else
-                                LocationScanner.useGPS = !LocationScanner.useGPS;
+                                    if (ApplicationPreferences.applicationEventLocationUseGPS && (!CheckOnlineStatusBroadcastReceiver.isOnline(appContext)))
+                                        // force useGPS
+                                        LocationScanner.useGPS = true;
+                                    else
+                                        LocationScanner.useGPS = !LocationScanner.useGPS;
 
-                            // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
-                            locationScanner.startLocationUpdates();
-                            locationScanner.updateTransitionsByLastKnownLocation();
+                                    // this also calls LocationScannerSwitchGPSBroadcastReceiver.setAlarm()
+                                    locationScanner.startLocationUpdates();
+                                    locationScanner.updateTransitionsByLastKnownLocation();
+                                }
+                            }
+                        }
+
+                    } catch (Exception e) {
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
                         }
                     }
-                }
-
-            } catch (Exception e) {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            } finally {
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {}
                 }
             }
         });
