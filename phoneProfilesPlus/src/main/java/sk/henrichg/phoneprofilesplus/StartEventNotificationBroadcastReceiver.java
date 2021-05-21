@@ -186,41 +186,46 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             PPApplication.logE("[HANDLER] StartEventNotificationBroadcastReceiver.doWork", "event_id=" + event_id);
         }*/
 
-        final Context appContext = context.getApplicationContext();
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
 
         if (useHandler) {
             PPApplication.startHandlerThreadBroadcast(/*"StartEventNotificationBroadcastReceiver.doWork"*/);
-            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(() -> {
-                if (event_id != 0) {
+            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            __handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+                @Override
+                public void run() {
+                    if (event_id != 0) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
 
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":StartEventNotificationBroadcastReceiver_doWork");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        Context appContext= appContextWeakRef.get();
 
-                        DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                        Event event = databaseHandler.getEvent(event_id);
-                        if (event != null)
-                            event.notifyEventStart(appContext, true);
-
-                        //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationBroadcastReceiver.doWork");
-                    } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                        if (appContext != null) {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
                             try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":StartEventNotificationBroadcastReceiver_doWork");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
+
+                                DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                                Event event = databaseHandler.getEvent(event_id);
+                                if (event != null)
+                                    event.notifyEventStart(appContext, true);
+
+                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationBroadcastReceiver.doWork");
+                            } catch (Exception e) {
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplication.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
                             }
                         }
                     }
@@ -228,6 +233,7 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             });
         }
         else {
+            final Context appContext = context.getApplicationContext();
             DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
             Event event = databaseHandler.getEvent(event_id);
             if (event != null)

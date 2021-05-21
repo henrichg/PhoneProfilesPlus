@@ -150,32 +150,38 @@ public class PhoneCallsListener extends PhoneStateListener {
         doCall(savedContext, SERVICE_PHONE_EVENT_END, true, true/*, number, eventTime*/);
     }
 
-    private void doCall(final Context context, final int phoneEvent,
+    private void doCall(Context context, final int phoneEvent,
                         final boolean incoming, final boolean missed/*,
                             final String number, final Date eventTime*/) {
-        final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"PhoneCallsListener.doCall"*/);
-        final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        handler.post(() -> {
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        __handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+            @Override
+            public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
 
+                Context appContext= appContextWeakRef.get();
+
+                if (appContext != null) {
 //            int simSlot = 0;
 //            if (subscriptionInfo != null)
 //                simSlot = subscriptionInfo.getSimSlotIndex()+1;
 
-            switch (phoneEvent) {
-                case SERVICE_PHONE_EVENT_START:
-                    callStarted(incoming, /*number, eventTime,*/ appContext);
-                    break;
-                case SERVICE_PHONE_EVENT_ANSWER:
-                    callAnswered(incoming, /*number, eventTime,*/ appContext);
-                    break;
-                case SERVICE_PHONE_EVENT_END:
-                    callEnded(incoming, missed, /*number, eventTime,*/ appContext);
-                    break;
-            }
+                    switch (phoneEvent) {
+                        case SERVICE_PHONE_EVENT_START:
+                            callStarted(incoming, /*number, eventTime,*/ appContext);
+                            break;
+                        case SERVICE_PHONE_EVENT_ANSWER:
+                            callAnswered(incoming, /*number, eventTime,*/ appContext);
+                            break;
+                        case SERVICE_PHONE_EVENT_END:
+                            callEnded(incoming, missed, /*number, eventTime,*/ appContext);
+                            break;
+                    }
 
-            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallsListener.doCall");
+                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallsListener.doCall");
+                }
+            }
         });
     }
 

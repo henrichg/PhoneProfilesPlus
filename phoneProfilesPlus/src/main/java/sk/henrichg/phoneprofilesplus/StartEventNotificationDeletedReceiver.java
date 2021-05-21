@@ -15,36 +15,43 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
 //        PPApplication.logE("[IN_BROADCAST] StartEventNotificationDeletedReceiver.onReceive", "xxx");
         //CallsCounter.logCounter(context, "StartEventNotificationDeletedReceiver.onReceive", "StartEventNotificationDeletedReceiver_onReceive");
 
-        final Context appContext = context.getApplicationContext();
         final long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
         PPApplication.startHandlerThreadBroadcast(/*"StartEventNotificationDeletedReceiver.onReceive"*/);
-        final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        handler.post(() -> {
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        __handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+            @Override
+            public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
 
-            if (event_id != 0) {
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":StartEventNotificationDeletedReceiver_onReceive");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                Context appContext= appContextWeakRef.get();
 
-                    DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                    Event event = databaseHandler.getEvent(event_id);
-                    if (event != null)
-                        StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
-
-                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationDeletedReceiver.onReceive");
-                } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                if (appContext != null) {
+                    if (event_id != 0) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
                         try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":StartEventNotificationDeletedReceiver_onReceive");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                            Event event = databaseHandler.getEvent(event_id);
+                            if (event != null)
+                                StartEventNotificationBroadcastReceiver.removeAlarm(event, appContext);
+
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationDeletedReceiver.onReceive");
+                        } catch (Exception e) {
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
                     }
                 }
             }

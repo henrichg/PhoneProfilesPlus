@@ -68,18 +68,24 @@ public class NFCTagReadActivity extends AppCompatActivity {
                 int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
                 final long _time = now.getTimeInMillis() + gmtOffset;
 
-                final Context appContext = getApplicationContext();
                 PPApplication.startHandlerThread(/*"NFCTagReadActivity.OnTagReadListener.onTagRead"*/);
-                final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-                handler.post(() -> {
+                final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+                __handler.post(new PPApplication.PPHandlerThreadRunnable(getApplicationContext()) {
+                    @Override
+                    public void run() {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
 
-//                            PPApplication.logE("[EVENTS_HANDLER_CALL] NFCTagReadActivity,onCreate", "sensorType=SENSOR_TYPE_NFC_TAG");
-                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                    eventsHandler.setEventNFCParameters(_tagData, _time);
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_TAG);
+                        Context appContext= appContextWeakRef.get();
 
-                    //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
+                        if (appContext != null) {
+//                            PPApplication.logE("[EVENTS_HANDLER_CALL] NFCTagReadActivity,onCreate", "sensorType=SENSOR_TYPE_NFC_TAG");
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.setEventNFCParameters(_tagData, _time);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_NFC_TAG);
+                        }
+
+                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=NFCTagReadActivity.OnTagReadListener.onTagRead");
+                    }
                 });
 
                 try {
