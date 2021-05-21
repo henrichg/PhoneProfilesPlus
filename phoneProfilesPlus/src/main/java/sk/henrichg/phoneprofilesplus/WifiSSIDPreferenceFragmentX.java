@@ -373,7 +373,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
     static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        boolean forRescan;
+        final boolean forRescan;
         final String scrollToSSID;
         private final WeakReference<WifiSSIDPreferenceX> preferenceWeakRef;
         private final WeakReference<WifiSSIDPreferenceFragmentX> fragmentWeakRef;

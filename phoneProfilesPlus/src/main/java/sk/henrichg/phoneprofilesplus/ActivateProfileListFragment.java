@@ -1,13 +1,11 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.animation.LayoutTransition;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -719,7 +717,7 @@ public class ActivateProfileListFragment extends Fragment {
         //boolean doNotRefresh = false;
 
         private final WeakReference<ActivateProfileListFragment> fragmentWeakRef;
-        DataWrapper dataWrapper;
+        final DataWrapper dataWrapper;
         private final boolean refreshIcons;
 
         public RefreshGUIAsyncTask(final boolean refreshIcons,

@@ -23,7 +23,7 @@ public class DeviceBootEventEndBroadcastReceiver extends BroadcastReceiver {
     private void doWork(/*boolean useHandler,*/ Context context) {
         //PPApplication.logE("[BOOT] DeviceBootEventEndBroadcastReceiver.doWork", "xxx");
 
-        final Context appContext = context.getApplicationContext();
+        //final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started

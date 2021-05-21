@@ -392,7 +392,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
     private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         List<BluetoothDeviceData> _bluetoothList = null;
-        boolean forRescan;
+        final boolean forRescan;
         final String scrollToBTName;
 
         private final WeakReference<BluetoothNamePreferenceX> preferenceWeakRef;

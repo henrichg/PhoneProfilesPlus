@@ -28,6 +28,7 @@ import androidx.preference.PreferenceManager;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -542,98 +543,116 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    static void saveUpdateOfPreferences(final Event event, final DataWrapper dataWrapper, final int old_event_status) {
+    static void saveUpdateOfPreferences(Event event, DataWrapper dataWrapper, final int old_event_status) {
         // save preferences into profile
         dataWrapper.getEventTimelineList(true);
 
         if (event.getStatus() == Event.ESTATUS_STOP)
         {
             PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.1"*/);
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(() -> {
+            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            __handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
+                @Override
+                public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
-                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventsPrefsActivity_saveUpdateOfPreferences_1");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                    Event event = eventWeakRef.get();
 
-                    if (old_event_status != Event.ESTATUS_STOP) {
-                        synchronized (PPApplication.eventsHandlerMutex) {
-
-                            synchronized (PPApplication.eventsHandlerMutex) {
-                                // pause event - must be called, because status is ESTATUS_STOP
-                                event.pauseEvent(dataWrapper, true, false,
-                                        false, false, null, false, false, true);
-                                // stop event
-                                event.stopEvent(dataWrapper, true, false,
-                                        true, true, true);
+                    if ((dataWrapper != null) && (event != null)) {
+                        PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventsPrefsActivity_saveUpdateOfPreferences_1");
+                                wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
-//                                PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (1)", "true");
-                            PPApplication.setBlockProfileEventActions(true);
-                        }
-                        // restart Events
-                        //dataWrapper.restartEvents(false, true, true, true, false);
-//                            PPApplication.logE("[APP_START] EventsPrefsActivity.saveUpdateOfPreferences", "(1))");
-                        dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
-                    }
+                            if (old_event_status != Event.ESTATUS_STOP) {
+                                synchronized (PPApplication.eventsHandlerMutex) {
 
-                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.1");
-                } catch (Exception e) {
+                                    synchronized (PPApplication.eventsHandlerMutex) {
+                                        // pause event - must be called, because status is ESTATUS_STOP
+                                        event.pauseEvent(dataWrapper, true, false,
+                                                false, false, null, false, false, true);
+                                        // stop event
+                                        event.stopEvent(dataWrapper, true, false,
+                                                true, true, true);
+                                    }
+
+                                    //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
+//                                PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (1)", "true");
+                                    PPApplication.setBlockProfileEventActions(true);
+                                }
+                                // restart Events
+                                //dataWrapper.restartEvents(false, true, true, true, false);
+//                            PPApplication.logE("[APP_START] EventsPrefsActivity.saveUpdateOfPreferences", "(1))");
+                                dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
+                            }
+
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.1");
+                        } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
                     }
                 }
             });
         }
         else {
             PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.2"*/);
-            final Handler handler = new Handler(PPApplication.handlerThread.getLooper());
-            handler.post(() -> {
+            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            __handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
+                @Override
+                public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
 
-                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventsPrefsActivity_saveUpdateOfPreferences_2");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                    Event event = eventWeakRef.get();
 
-                    // pause event
-                    event.pauseEvent(dataWrapper, true, false,
-                            false, false, null, false, false, true);
-                    // must be called, because status is ESTATUS_PAUSE and in pauseEvent is not called
-                    // ESTATUS_PAUSE is set in Event.saveSharedPreferences()
-                    event.doLogForPauseEvent(dataWrapper.context, false);
-
-                    // restart Events
-                    //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
-//                        PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (2)", "true");
-                    PPApplication.setBlockProfileEventActions(true);
-                    //dataWrapper.restartEvents(false, true, true, true, false);
-//                        PPApplication.logE("[APP_START] EventsPrefsActivity.saveUpdateOfPreferences", "(2)");
-                    dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
-
-                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.2");
-                } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                    if ((dataWrapper != null) && (event != null)) {
+                        PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
                         try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EventsPrefsActivity_saveUpdateOfPreferences_2");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            // pause event
+                            event.pauseEvent(dataWrapper, true, false,
+                                    false, false, null, false, false, true);
+                            // must be called, because status is ESTATUS_PAUSE and in pauseEvent is not called
+                            // ESTATUS_PAUSE is set in Event.saveSharedPreferences()
+                            event.doLogForPauseEvent(dataWrapper.context, false);
+
+                            // restart Events
+                            //PPApplication.logE("$$$ restartEvents", "from EventsPrefsActivity.savePreferences");
+//                        PPApplication.logE("[BLOCK_ACTIONS] EventsPrefsActivity.saveUpdateOfPreferences (2)", "true");
+                            PPApplication.setBlockProfileEventActions(true);
+                            //dataWrapper.restartEvents(false, true, true, true, false);
+//                        PPApplication.logE("[APP_START] EventsPrefsActivity.saveUpdateOfPreferences", "(2)");
+                            dataWrapper.restartEventsWithRescan(true, false, false, false, true, false);
+
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=EventsPrefsActivity.savePreferences.2");
+                        } catch (Exception e) {
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
                     }
                 }
             });
@@ -940,6 +959,19 @@ public class EventsPrefsActivity extends AppCompatActivity {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.activity_preferences_settings);
         if (fragment != null)
             ((EventsPrefsFragment)fragment).changeCurentLightSensorValue();
+    }
+
+    private static abstract class SaveUpdateOfPreferencesRunnable implements Runnable {
+
+        public final WeakReference<DataWrapper> dataWrapperWeakRef;
+        public final WeakReference<Event> eventWeakRef;
+
+        public SaveUpdateOfPreferencesRunnable(DataWrapper dataWrapper,
+                                                Event event) {
+            this.dataWrapperWeakRef = new WeakReference<>(dataWrapper);
+            this.eventWeakRef = new WeakReference<>(event);
+        }
+
     }
 
 }

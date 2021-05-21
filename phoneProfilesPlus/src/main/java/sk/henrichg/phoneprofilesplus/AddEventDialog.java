@@ -135,7 +135,7 @@ class AddEventDialog
 
         private final WeakReference<AddEventDialog> dialogWeakRef;
         private final WeakReference<Activity> activityWeakRef;
-        DataWrapper dataWrapper;
+        final DataWrapper dataWrapper;
 
         public GetEventsAsyncTask(final AddEventDialog dialog,
                                   final Activity activity,

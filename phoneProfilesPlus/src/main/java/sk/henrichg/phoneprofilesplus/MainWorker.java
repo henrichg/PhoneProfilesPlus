@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -721,59 +722,69 @@ public class MainWorker extends Worker {
             //
             // !!! Worker do not have Looper !!!
             PPApplication.startHandlerThreadBroadcast();
-            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(() -> {
-                PPApplication.logE("MainWorker.doAfterFirstStart", "START");
+            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            __handler.post(new PPHandlerThreadRunnable(
+                    appContext, dataWrapper) {
+                @Override
+                public void run() {
+                    PPApplication.logE("MainWorker.doAfterFirstStart", "START");
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart_1");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    Context appContext= appContextWeakRef.get();
+                    DataWrapper dataWrapper = dataWrapperWeakRef.get();
 
-                    // This is fix for 2, 3 restarts of events after first start.
-                    // Bradcasts, observers, callbacks registration starts events and this is not good
-                    PPApplication.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
-                    PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
-                    PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
-                    PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
-                    PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
-                    PhoneProfilesService.getInstance().registerEventsReceiversAndWorkers(false);
+                    if ((appContext != null) && (dataWrapper != null)) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart_1");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                    if (PPApplication.deviceBoot) {
-                        PPApplication.deviceBoot = false;
-                        PPApplication.logE("MainWorker.doAfterFirstStart", "device boot");
-                        boolean deviceBootEvents = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_DEVICE_BOOT);
-                        if (deviceBootEvents) {
-                            PPApplication.logE("MainWorker.doAfterFirstStart", "device boot event exists");
+                            // This is fix for 2, 3 restarts of events after first start.
+                            // Bradcasts, observers, callbacks registration starts events and this is not good
+                            PPApplication.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
+                            PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
+                            PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
+                            PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
+                            PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
+                            PhoneProfilesService.getInstance().registerEventsReceiversAndWorkers(false);
 
-                            // start events handler
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_AFTER_FIRST_START)");
+                            if (PPApplication.deviceBoot) {
+                                PPApplication.deviceBoot = false;
+                                PPApplication.logE("MainWorker.doAfterFirstStart", "device boot");
+                                boolean deviceBootEvents = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_DEVICE_BOOT);
+                                if (deviceBootEvents) {
+                                    PPApplication.logE("MainWorker.doAfterFirstStart", "device boot event exists");
+
+                                    // start events handler
+                                    //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_AFTER_FIRST_START)");
 
 //                            PPApplication.logE("[EVENTS_HANDLER_CALL] MainWorker.doAfterFirstStart", "sensorType=SENSOR_TYPE_DEVICE_BOOT");
-                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                                    EventsHandler eventsHandler = new EventsHandler(appContext);
 
-                            Calendar now = Calendar.getInstance();
-                            int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
-                            final long _time = now.getTimeInMillis() + gmtOffset;
-                            eventsHandler.setEventDeviceBootParameters(_time);
+                                    Calendar now = Calendar.getInstance();
+                                    int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+                                    final long _time = now.getTimeInMillis() + gmtOffset;
+                                    eventsHandler.setEventDeviceBootParameters(_time);
 
-                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_BOOT);
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_BOOT);
 
-                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DelayedWorksWorker.doWork (DELAYED_WORK_AFTER_FIRST_START)");
+                                    //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=DelayedWorksWorker.doWork (DELAYED_WORK_AFTER_FIRST_START)");
+                                }
+                            }
+
+                        } catch (Exception eee) {
+                            PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
+                            //PPApplication.recordException(eee);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
                         }
-                    }
-
-                } catch (Exception eee) {
-                    PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
-                    //PPApplication.recordException(eee);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                        try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
                     }
                 }
             });
@@ -809,34 +820,44 @@ public class MainWorker extends Worker {
             //
             // !!! Worker do not have Looper !!!
             PPApplication.startHandlerThreadBroadcast();
-            final Handler handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            handler.post(() -> {
-                PPApplication.logE("MainWorker.doAfterFirstStart", "START");
+            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            __handler.post(new PPHandlerThreadRunnable(
+                    appContext, dataWrapper) {
+                @Override
+                public void run() {
+                    PPApplication.logE("MainWorker.doAfterFirstStart", "START");
 
-                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                PowerManager.WakeLock wakeLock = null;
-                try {
-                    if (powerManager != null) {
-                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart_2");
-                        wakeLock.acquire(10 * 60 * 1000);
-                    }
+                    Context appContext= appContextWeakRef.get();
+                    DataWrapper dataWrapper = dataWrapperWeakRef.get();
 
-                    // This is fix for 2, 3 restarts of events after first start.
-                    // Bradcasts, observers, callbacks registration starts events and this is not good
-                    PPApplication.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
-                    PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
-                    PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
-                    PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
-                    PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
-
-                } catch (Exception eee) {
-                    PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
-                    //PPApplication.recordException(eee);
-                } finally {
-                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                    if ((appContext != null) && (dataWrapper != null)) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
                         try {
-                            wakeLock.release();
-                        } catch (Exception ignored) {}
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":MainWorker_doAfterFirstStart_2");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
+                            // This is fix for 2, 3 restarts of events after first start.
+                            // Bradcasts, observers, callbacks registration starts events and this is not good
+                            PPApplication.logE("MainWorker.doAfterFirstStart", "register receivers and workers");
+                            PhoneProfilesService.getInstance().registerAllTheTimeRequiredSystemReceivers(true);
+                            PhoneProfilesService.getInstance().registerAllTheTimeContentObservers(true);
+                            PhoneProfilesService.getInstance().registerAllTheTimeCallbacks(true);
+                            PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
+
+                        } catch (Exception eee) {
+                            PPApplication.logE("MainWorker.doAfterFirstStart", Log.getStackTraceString(eee));
+                            //PPApplication.recordException(eee);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
                     }
                 }
             });
@@ -877,6 +898,19 @@ public class MainWorker extends Worker {
         }
 
         PPApplication.logE("------- MainWorker.doAfterFirstStart", "END");
+    }
+
+    private static abstract class PPHandlerThreadRunnable implements Runnable {
+
+        public final WeakReference<Context> appContextWeakRef;
+        public final WeakReference<DataWrapper> dataWrapperWeakRef;
+
+        public PPHandlerThreadRunnable(Context appContext,
+                                       DataWrapper dataWrapper) {
+            this.appContextWeakRef = new WeakReference<>(appContext);
+            this.dataWrapperWeakRef = new WeakReference<>(dataWrapper);
+        }
+
     }
 
 }

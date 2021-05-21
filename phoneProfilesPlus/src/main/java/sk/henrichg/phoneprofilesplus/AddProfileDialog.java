@@ -129,7 +129,7 @@ class AddProfileDialog
 
         private final WeakReference<AddProfileDialog> dialogWeakRef;
         private final WeakReference<Activity> activityWeakRef;
-        DataWrapper dataWrapper;
+        final DataWrapper dataWrapper;
 
         public GetProfilesAsyncTask(final AddProfileDialog dialog,
                                   final Activity activity,

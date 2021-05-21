@@ -23,7 +23,7 @@ public class SMSEventEndBroadcastReceiver extends BroadcastReceiver {
     private void doWork(/*boolean useHandler,*/ Context context) {
         //PPApplication.logE("[HANDLER] SMSEventEndBroadcastReceiver.doWork", "useHandler="+useHandler);
 
-        final Context appContext = context.getApplicationContext();
+        //final Context appContext = context.getApplicationContext();
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started

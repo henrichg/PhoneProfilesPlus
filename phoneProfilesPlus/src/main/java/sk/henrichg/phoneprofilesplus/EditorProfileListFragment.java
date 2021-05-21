@@ -1572,7 +1572,7 @@ public class EditorProfileListFragment extends Fragment
         //boolean doNotRefresh = false;
 
         private final WeakReference<EditorProfileListFragment> fragmentWeakRef;
-        DataWrapper dataWrapper;
+        final DataWrapper dataWrapper;
         private boolean refreshIcons;
         private final boolean setPosition;
         private final long profileId;
