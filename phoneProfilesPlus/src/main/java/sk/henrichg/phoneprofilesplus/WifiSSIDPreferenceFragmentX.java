@@ -26,6 +26,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -49,7 +50,7 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
     private AppCompatImageButton locationSystemSettingsButton;
     private Button rescanButton;
 
-    private AsyncTask<Void, Integer, Void> rescanAsyncTask;
+    private RefreshListViewAsyncTask rescanAsyncTask;
 
     @SuppressLint("InflateParams")
     @Override
@@ -284,28 +285,135 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
     @SuppressLint("StaticFieldLeak")
     void refreshListView(boolean forRescan, final String scrollToSSID)
     {
-        final boolean _forRescan = forRescan;
+        rescanAsyncTask = new RefreshListViewAsyncTask(forRescan, scrollToSSID, preference, this, prefContext);
+        rescanAsyncTask.execute();
+    }
 
-        rescanAsyncTask = new AsyncTask<Void, Integer, Void>() {
+    private static class SortList implements Comparator<WifiSSIDData> {
 
-            List<WifiSSIDData> _SSIDList = null;
+        public int compare(WifiSSIDData lhs, WifiSSIDData rhs) {
+            if (PPApplication.collator != null)
+                return PPApplication.collator.compare(lhs.ssid, rhs.ssid);
+            else
+                return 0;
+        }
 
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
+    }
 
-                _SSIDList = new ArrayList<>();
+    void showEditMenu(View view)
+    {
+        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
+        Context _context = view.getContext();
+        PopupMenu popup;
+        //if (android.os.Build.VERSION.SDK_INT >= 19)
+        popup = new PopupMenu(_context, view, Gravity.END);
+        //else
+        //    popup = new PopupMenu(context, view);
+        new MenuInflater(_context).inflate(R.menu.wifi_ssid_pref_dlg_item_edit, popup.getMenu());
 
-                if (_forRescan) {
-                    dataRelativeLayout.setVisibility(View.GONE);
-                    progressLinearLayout.setVisibility(View.VISIBLE);
+        final int ssidPos = (int)view.getTag();
+        final String ssid = preference.SSIDList.get(ssidPos).ssid;
+
+        popup.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_change) {
+                if (!SSIDName.getText().toString().isEmpty()) {
+                    String[] splits = preference.value.split("\\|");
+                    preference.value = "";
+                    boolean found = false;
+                    for (String _ssid : splits) {
+                        if (!_ssid.isEmpty()) {
+                            if (!_ssid.equals(ssid)) {
+                                if (!preference.value.isEmpty())
+                                    //noinspection StringConcatenationInLoop
+                                    preference.value = preference.value + "|";
+                                //noinspection StringConcatenationInLoop
+                                preference.value = preference.value + _ssid;
+                            } else
+                                found = true;
+                        }
+                    }
+                    if (found) {
+                        if (!preference.value.isEmpty())
+                            preference.value = preference.value + "|";
+                        preference.value = preference.value + SSIDName.getText().toString();
+                    }
+                    for (WifiSSIDData customSSID : preference.customSSIDList) {
+                        if (customSSID.ssid.equals(ssid)) {
+                            customSSID.ssid = SSIDName.getText().toString();
+                            break;
+                        }
+                    }
+                    refreshListView(false, "");
+                }
+                return true;
+            }
+            else
+            if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_delete) {
+                preference.removeSSID(ssid);
+                for (WifiSSIDData customSSID : preference.customSSIDList) {
+                    if (customSSID.ssid.equals(ssid)) {
+                        preference.customSSIDList.remove(customSSID);
+                        break;
+                    }
+                }
+                refreshListView(false, "");
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+
+
+        if (getActivity() != null)
+            if (!getActivity().isFinishing())
+                popup.show();
+    }
+
+    static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        boolean forRescan;
+        final String scrollToSSID;
+        private final WeakReference<WifiSSIDPreferenceX> preferenceWeakRef;
+        private final WeakReference<WifiSSIDPreferenceFragmentX> fragmentWeakRef;
+        private final WeakReference<Context> prefContextWeakRef;
+
+        public RefreshListViewAsyncTask(boolean forRescan, final String scrollToSSID,
+                                        WifiSSIDPreferenceX preference,
+                                        WifiSSIDPreferenceFragmentX fragment,
+                                        Context prefContext) {
+            this.forRescan = forRescan;
+            this.scrollToSSID = scrollToSSID;
+            this.preferenceWeakRef = new WeakReference<>(preference);
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+            this.prefContextWeakRef = new WeakReference<>(prefContext);
+        }
+
+        List<WifiSSIDData> _SSIDList = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            _SSIDList = new ArrayList<>();
+
+            WifiSSIDPreferenceFragmentX fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+                if (forRescan) {
+                    fragment.dataRelativeLayout.setVisibility(View.GONE);
+                    fragment.progressLinearLayout.setVisibility(View.VISIBLE);
                 }
             }
+        }
 
-            @Override
-            protected Void doInBackground(Void... params) {
-
-                if (_forRescan) {
+        @Override
+        protected Void doInBackground(Void... params) {
+            WifiSSIDPreferenceFragmentX fragment = fragmentWeakRef.get();
+            WifiSSIDPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
+                if (forRescan) {
                     //PPApplication.logE("WifiSSIDPreferenceFragmentX.refreshListView","start rescan");
                     WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_FROM_PREF_DIALOG);
                     WifiScanWorker.startScanner(prefContext, true);
@@ -317,12 +425,12 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
 
                 List<WifiSSIDData> wifiConfigurationList = WifiScanWorker.getWifiConfigurationList(prefContext);
                 //if (wifiConfigurationList != null) {
-                    for (WifiSSIDData wifiConfiguration : wifiConfigurationList) {
-                        //if ((wifiConfiguration.bssid != null) && (wifiConfiguration.ssid != null))
-                        // bssid is null from configuration list
-                        if (wifiConfiguration.ssid != null)
-                            _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), /*wifiConfiguration.bssid,*/ false, true, false));
-                    }
+                for (WifiSSIDData wifiConfiguration : wifiConfigurationList) {
+                    //if ((wifiConfiguration.bssid != null) && (wifiConfiguration.ssid != null))
+                    // bssid is null from configuration list
+                    if (wifiConfiguration.ssid != null)
+                        _SSIDList.add(new WifiSSIDData(wifiConfiguration.ssid.replace("\"", ""), /*wifiConfiguration.bssid,*/ false, true, false));
+                }
                 //}
 
                 List<WifiSSIDData> scanResults = WifiScanWorker.getScanResults(prefContext);
@@ -410,121 +518,42 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
                     }
                     i++;
                 }
-
-                return null;
             }
 
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
+            return null;
+        }
 
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+
+            WifiSSIDPreferenceFragmentX fragment = fragmentWeakRef.get();
+            WifiSSIDPreferenceX preference = preferenceWeakRef.get();
+            Context prefContext = prefContextWeakRef.get();
+            if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 preference.SSIDList = new ArrayList<>(_SSIDList);
-                listAdapter.notifyDataSetChanged();
+                fragment.listAdapter.notifyDataSetChanged();
 
-                if (_forRescan) {
+                if (forRescan) {
                     WifiScanWorker.setScanRequest(prefContext, false);
                     WifiScanWorker.setWaitForResults(prefContext, false);
                     WifiScanner.setForceOneWifiScan(prefContext, WifiScanner.FORCE_ONE_SCAN_DISABLED);
-                    progressLinearLayout.setVisibility(View.GONE);
-                    dataRelativeLayout.setVisibility(View.VISIBLE);
+                    fragment.progressLinearLayout.setVisibility(View.GONE);
+                    fragment.dataRelativeLayout.setVisibility(View.VISIBLE);
                 }
 
                 if (!scrollToSSID.isEmpty()) {
                     for (int position = 0; position < preference.SSIDList.size() - 1; position++) {
                         if (preference.SSIDList.get(position).ssid.equals(scrollToSSID)) {
-                            SSIDListView.setSelection(position);
+                            fragment.SSIDListView.setSelection(position);
                             break;
                         }
                     }
                 }
-
             }
 
-        };
-
-        rescanAsyncTask.execute();
-    }
-
-    private static class SortList implements Comparator<WifiSSIDData> {
-
-        public int compare(WifiSSIDData lhs, WifiSSIDData rhs) {
-            if (PPApplication.collator != null)
-                return PPApplication.collator.compare(lhs.ssid, rhs.ssid);
-            else
-                return 0;
         }
 
-    }
-
-    void showEditMenu(View view)
-    {
-        //Context context = ((AppCompatActivity)getActivity()).getSupportActionBar().getThemedContext();
-        Context _context = view.getContext();
-        PopupMenu popup;
-        //if (android.os.Build.VERSION.SDK_INT >= 19)
-        popup = new PopupMenu(_context, view, Gravity.END);
-        //else
-        //    popup = new PopupMenu(context, view);
-        new MenuInflater(_context).inflate(R.menu.wifi_ssid_pref_dlg_item_edit, popup.getMenu());
-
-        final int ssidPos = (int)view.getTag();
-        final String ssid = preference.SSIDList.get(ssidPos).ssid;
-
-        popup.setOnMenuItemClickListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_change) {
-                if (!SSIDName.getText().toString().isEmpty()) {
-                    String[] splits = preference.value.split("\\|");
-                    preference.value = "";
-                    boolean found = false;
-                    for (String _ssid : splits) {
-                        if (!_ssid.isEmpty()) {
-                            if (!_ssid.equals(ssid)) {
-                                if (!preference.value.isEmpty())
-                                    //noinspection StringConcatenationInLoop
-                                    preference.value = preference.value + "|";
-                                //noinspection StringConcatenationInLoop
-                                preference.value = preference.value + _ssid;
-                            } else
-                                found = true;
-                        }
-                    }
-                    if (found) {
-                        if (!preference.value.isEmpty())
-                            preference.value = preference.value + "|";
-                        preference.value = preference.value + SSIDName.getText().toString();
-                    }
-                    for (WifiSSIDData customSSID : preference.customSSIDList) {
-                        if (customSSID.ssid.equals(ssid)) {
-                            customSSID.ssid = SSIDName.getText().toString();
-                            break;
-                        }
-                    }
-                    refreshListView(false, "");
-                }
-                return true;
-            }
-            else
-            if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_delete) {
-                preference.removeSSID(ssid);
-                for (WifiSSIDData customSSID : preference.customSSIDList) {
-                    if (customSSID.ssid.equals(ssid)) {
-                        preference.customSSIDList.remove(customSSID);
-                        break;
-                    }
-                }
-                refreshListView(false, "");
-                return true;
-            }
-            else {
-                return false;
-            }
-        });
-
-
-        if (getActivity() != null)
-            if (!getActivity().isFinishing())
-                popup.show();
     }
 
 }

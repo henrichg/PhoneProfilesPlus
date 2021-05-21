@@ -15,12 +15,15 @@ import android.widget.ImageView;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
+import java.lang.ref.WeakReference;
+
 public class WallpaperViewPreferenceX extends Preference {
 
     private String imageIdentifier;
     //private Bitmap bitmap;
 
     private final Context prefContext;
+    private ImageView imageView;
 
     static final int RESULT_LOAD_IMAGE = 1970;
 
@@ -45,34 +48,12 @@ public class WallpaperViewPreferenceX extends Preference {
     {
         super.onBindViewHolder(holder);
 
-        final ImageView imageView = (ImageView) holder.findViewById(R.id.imageview_pref_imageview);
+        imageView = (ImageView) holder.findViewById(R.id.imageview_pref_imageview);
 
         //imageTitle = view.findViewById(R.id.imageview_pref_label);
         //imageTitle.setText(preferenceTitle);
 
-        new AsyncTask<Void, Integer, Void>() {
-            Bitmap bitmap;
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                bitmap = getBitmap();
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
-                if (imageView != null)
-                {
-                    if (bitmap != null)
-                        imageView.setImageBitmap(bitmap);
-                    else
-                        imageView.setImageResource(R.drawable.ic_empty);
-                }
-            }
-
-        }.execute();
+        new BindViewAsyncTask(this).execute();
     }
 
     @Override
@@ -229,6 +210,43 @@ public class WallpaperViewPreferenceX extends Preference {
             }
 
         };
+
+    }
+
+    private static class BindViewAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        Bitmap bitmap;
+
+        private final WeakReference<WallpaperViewPreferenceX> preferenceWeakRef;
+
+        public BindViewAsyncTask(WallpaperViewPreferenceX preference) {
+            this.preferenceWeakRef = new WeakReference<>(preference);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            WallpaperViewPreferenceX preference = preferenceWeakRef.get();
+            if (preference != null) {
+                bitmap = preference.getBitmap();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            WallpaperViewPreferenceX preference = preferenceWeakRef.get();
+            if (preference != null) {
+                if (preference.imageView != null) {
+                    if (bitmap != null)
+                        preference.imageView.setImageBitmap(bitmap);
+                    else
+                        preference.imageView.setImageResource(R.drawable.ic_empty);
+                }
+            }
+        }
 
     }
 

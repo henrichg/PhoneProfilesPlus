@@ -111,7 +111,7 @@ public class ShortcutCreatorListFragment extends Fragment {
             }
         }
 
-        private LoadProfileListAsyncTask (ShortcutCreatorListFragment fragment) {
+        public LoadProfileListAsyncTask (ShortcutCreatorListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
             //noinspection ConstantConditions
             this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
@@ -206,45 +206,81 @@ public class ShortcutCreatorListFragment extends Fragment {
     @SuppressLint("StaticFieldLeak")
     private void createShortcut(final int position)
     {
-        new AsyncTask<Void, Integer, Void>() {
-            Profile profile;
-            boolean isIconResourceID;
-            String iconIdentifier;
-            Bitmap profileBitmap;
-            Bitmap shortcutOverlayBitmap;
-            Bitmap profileShortcutBitmap;
-            String profileName;
-            String longLabel;
-            boolean useCustomColor;
-            Context context;
-            Intent shortcutIntent;
-            ShortcutInfoCompat.Builder shortcutBuilderCompat;
+        new CreateShortcutAsyncTask(position, this).execute();
+    }
 
-            @Override
-            protected void onPreExecute()
-            {
-                super.onPreExecute();
+    private Bitmap combineImages(Bitmap bitmap1, Bitmap bitmap2)
+    {
+        Bitmap combined;
+
+        int width;
+        int height;
+
+        width = bitmap2.getWidth();
+        height = bitmap2.getHeight();
+
+        combined = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(combined);
+        canvas.drawBitmap(bitmap1, 0f, 0f, null);
+        if (ApplicationPreferences.applicationShortcutEmblem)
+            canvas.drawBitmap(bitmap2, 0f, 0f, null);
+
+        return combined;
+    }
+
+    private static class CreateShortcutAsyncTask extends AsyncTask<Void, Integer, Void> {
+
+        Profile profile;
+        boolean isIconResourceID;
+        String iconIdentifier;
+        Bitmap profileBitmap;
+        Bitmap shortcutOverlayBitmap;
+        Bitmap profileShortcutBitmap;
+        String profileName;
+        String longLabel;
+        boolean useCustomColor;
+        Context context;
+        Intent shortcutIntent;
+        ShortcutInfoCompat.Builder shortcutBuilderCompat;
+
+        final int position;
+        private final WeakReference<ShortcutCreatorListFragment> fragmentWeakRef;
+
+        public CreateShortcutAsyncTask(final int position,
+                                       ShortcutCreatorListFragment fragment) {
+            this.position = position;
+            this.fragmentWeakRef = new WeakReference<>(fragment);
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            ShortcutCreatorListFragment fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+
                 //PPApplication.logE("ShortcutCreatorListFragment.createShortcut","position="+position);
-                synchronized (activityDataWrapper.profileList) {
-                    profile = activityDataWrapper.profileList.get(position);
+                synchronized (fragment.activityDataWrapper.profileList) {
+                    profile = fragment.activityDataWrapper.profileList.get(position);
                 }
 
                 //noinspection ConstantConditions
-                context = getActivity().getApplicationContext();
+                context = fragment.getActivity().getApplicationContext();
 
                 if (profile != null) {
                     isIconResourceID = profile.getIsIconResourceID();
                     iconIdentifier = profile.getIconIdentifier();
                     profileName = profile._name;
-                    longLabel = getString(R.string.shortcut_activate_profile) + profileName;
+                    longLabel = fragment.getString(R.string.shortcut_activate_profile) + profileName;
                     useCustomColor = profile.getUseCustomColorForIcon();
                     String id;
                     if (position == 0) {
-                        profileName = getString(R.string.menu_restart_events);
+                        profileName = fragment.getString(R.string.menu_restart_events);
                         longLabel = profileName;
                         id = "restart_events";
-                    }
-                    else
+                    } else
                         id = "profile_" + profile._id;
 
                     if (profileName.isEmpty())
@@ -282,9 +318,12 @@ public class ShortcutCreatorListFragment extends Fragment {
                     shortcutBuilderCompat.setLongLabel(longLabel);
                 }
             }
+        }
 
-            @Override
-            protected Void doInBackground(Void... params) {
+        @Override
+        protected Void doInBackground(Void... params) {
+            ShortcutCreatorListFragment fragment = fragmentWeakRef.get();
+            if (fragment != null) {
                 if (profile != null) {
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "isIconResourceID=" + isIconResourceID);
@@ -333,7 +372,8 @@ public class ShortcutCreatorListFragment extends Fragment {
                             float monochromeValue = 255f;
                             String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
                             if (applicationWidgetIconLightness.equals("0")) monochromeValue = -255f;
-                            if (applicationWidgetIconLightness.equals("25")) monochromeValue = -128f;
+                            if (applicationWidgetIconLightness.equals("25"))
+                                monochromeValue = -128f;
                             if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0f;
                             if (applicationWidgetIconLightness.equals("75")) monochromeValue = 128f;
                             //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 255f;
@@ -345,22 +385,25 @@ public class ShortcutCreatorListFragment extends Fragment {
                     //PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "profileBitmap=" + profileBitmap);
 
                     if (Build.VERSION.SDK_INT < 26)
-                        profileShortcutBitmap = combineImages(profileBitmap, shortcutOverlayBitmap);
+                        profileShortcutBitmap = fragment.combineImages(profileBitmap, shortcutOverlayBitmap);
                     else
                         profileShortcutBitmap = profileBitmap;
                     //intent.putExtra(Intent.EXTRA_SHORTCUT_ICON, profileShortcutBitmap);
                     shortcutBuilderCompat.setIcon(IconCompat.createWithBitmap(profileShortcutBitmap));
                 }
-
-                return null;
             }
 
-            @Override
-            protected void onPostExecute(Void result)
-            {
-                super.onPostExecute(result);
+            return null;
+        }
 
-                if ((getActivity() != null) && !getActivity().isFinishing()) {
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            super.onPostExecute(result);
+
+            ShortcutCreatorListFragment fragment = fragmentWeakRef.get();
+            if (fragment != null) {
+                if ((fragment.getActivity() != null) && !fragment.getActivity().isFinishing()) {
                     if (profile != null) {
                         //PPApplication.logE("ShortcutCreatorListFragment.createShortcut", "create result intent");
 
@@ -369,34 +412,14 @@ public class ShortcutCreatorListFragment extends Fragment {
 
                         ShortcutInfoCompat shortcutInfo = shortcutBuilderCompat.build();
                         Intent intent = ShortcutManagerCompat.createShortcutResultIntent(context, shortcutInfo);
-                        getActivity().setResult(Activity.RESULT_OK, intent);
+                        fragment.getActivity().setResult(Activity.RESULT_OK, intent);
                     }
 
-                    getActivity().finish();
+                    fragment.getActivity().finish();
                 }
             }
+        }
 
-        }.execute();
-    }
-
-    private Bitmap combineImages(Bitmap bitmap1, Bitmap bitmap2)
-    {
-        Bitmap combined;
-
-        int width;
-        int height;
-
-        width = bitmap2.getWidth();
-        height = bitmap2.getHeight();
-
-        combined = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-
-        Canvas canvas = new Canvas(combined);
-        canvas.drawBitmap(bitmap1, 0f, 0f, null);
-        if (ApplicationPreferences.applicationShortcutEmblem)
-            canvas.drawBitmap(bitmap2, 0f, 0f, null);
-
-        return combined;
     }
 
 }
