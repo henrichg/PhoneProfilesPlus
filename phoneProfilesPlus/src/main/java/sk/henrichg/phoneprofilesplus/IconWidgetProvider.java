@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -15,20 +16,31 @@ import android.widget.RemoteViews;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import java.lang.ref.WeakReference;
+
 public class IconWidgetProvider extends AppWidgetProvider {
 
     static final String ACTION_REFRESH_ICONWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ICONWIDGET";
 
-    public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
 //        PPApplication.logE("[IN_LISTENER] IconWidgetProvider.onUpdate", "xxx");
         if (appWidgetIds.length > 0) {
             PPApplication.startHandlerThreadWidget();
-            final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            handler.post(() -> {
+            final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+            __handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
+                @Override
+                public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
-                _onUpdate(context, appWidgetManager, appWidgetIds);
+
+                    Context appContext= appContextWeakRef.get();
+                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                    if ((appContext != null) && (appWidgetManager != null)) {
+                        _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                    }
+                }
             });
         }
     }
@@ -475,7 +487,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
-    public void onReceive(final Context context, final Intent intent) {
+    public void onReceive(Context context, final Intent intent) {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
 //        PPApplication.logE("[IN_BROADCAST] IconWidgetProvider.onReceive", "xxx");
 
@@ -483,15 +495,24 @@ public class IconWidgetProvider extends AppWidgetProvider {
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_ICONWIDGET))) {
-            final AppWidgetManager manager = AppWidgetManager.getInstance(context);
+            AppWidgetManager manager = AppWidgetManager.getInstance(context);
             if (manager != null) {
                 final int[] ids = manager.getAppWidgetIds(new ComponentName(context, IconWidgetProvider.class));
                 if ((ids != null) && (ids.length > 0)) {
                     PPApplication.startHandlerThreadWidget();
-                    final Handler handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                    handler.post(() -> {
+                    final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+                    __handler.post(new PPHandlerThreadRunnable(context, manager) {
+                        @Override
+                        public void run() {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
-                        _onUpdate(context, manager, ids);
+
+                            Context appContext= appContextWeakRef.get();
+                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+
+                            if ((appContext != null) && (appWidgetManager != null)) {
+                                _onUpdate(appContext, appWidgetManager, ids);
+                            }
+                        }
                     });
                 }
             }
@@ -584,6 +605,19 @@ public class IconWidgetProvider extends AppWidgetProvider {
             if ((ids != null) && (ids.length > 0))
                 _onUpdate(context, manager, profile, dataWrapper, ids);
         }*/
+    }
+
+    private static abstract class PPHandlerThreadRunnable implements Runnable {
+
+        public final WeakReference<Context> appContextWeakRef;
+        public final WeakReference<AppWidgetManager> appWidgetManagerWeakRef;
+
+        public PPHandlerThreadRunnable(Context appContext,
+                                       AppWidgetManager appWidgetManager) {
+            this.appContextWeakRef = new WeakReference<>(appContext);
+            this.appWidgetManagerWeakRef = new WeakReference<>(appWidgetManager);
+        }
+
     }
 
 }
