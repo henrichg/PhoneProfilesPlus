@@ -218,6 +218,7 @@ public class PPApplication extends Application
                                                 //+"|[G1_TEST]"
                                                 //+"|[BACKGROUND_ACTIVITY]"
                                                 //+"|[START_PP_SERVICE]"
+                                                +"|[BRS]"
 
                                                 //+"|PhoneProfilesService.registerReceiverForCalendarSensor"
                                                 //+"|EventPreferencesCalendar"
@@ -275,7 +276,7 @@ public class PPApplication extends Application
 
                                                 //+"|EventPreferencesTime"
 
-                                                +"|BrightnessDialogPreferenceFragmentX"
+                                                //+"|BrightnessDialogPreferenceFragmentX"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
