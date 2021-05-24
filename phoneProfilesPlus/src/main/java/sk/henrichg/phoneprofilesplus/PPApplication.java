@@ -407,6 +407,7 @@ public class PPApplication extends Application
     static final boolean deviceIsOnePlus = isOnePlus();
     static final boolean deviceIsOppo = isOppo();
     static final boolean deviceIsRealme = isRealme();
+    static final boolean deviceIsLenovo = isLenovo();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
 
@@ -3866,6 +3867,12 @@ public class PPApplication extends Application
         return Build.BRAND.equalsIgnoreCase("realme") ||
                 Build.MANUFACTURER.equalsIgnoreCase("realme") ||
                 Build.FINGERPRINT.toLowerCase().contains("realme");
+    }
+
+    private static boolean isLenovo() {
+        return Build.BRAND.equalsIgnoreCase("lenovo") ||
+                Build.MANUFACTURER.equalsIgnoreCase("lenovo") ||
+                Build.FINGERPRINT.toLowerCase().contains("lenovo");
     }
 
     private static String getReadableModVersion() {

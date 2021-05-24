@@ -2745,7 +2745,11 @@ public class Profile {
             else
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI && (Build.VERSION.SDK_INT >= 28))
                 defaultValue = 2048;
-            if ((Build.VERSION.SDK_INT > 28)  && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
+
+            if ((Build.VERSION.SDK_INT > 28) &&
+                    (!PPApplication.deviceIsSamsung) &&
+                    (!PPApplication.deviceIsOnePlus) &&
+                    (!PPApplication.deviceIsLenovo)) {
                 //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 defaultValue = getBrightnessValue_A9(50/*, minimumValue, maximumValue*/);
             }
@@ -2774,7 +2778,10 @@ public class Profile {
                     e.printStackTrace();
                 }
             }*/
-            if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
+            if ((Build.VERSION.SDK_INT > 28) &&
+                    (!PPApplication.deviceIsSamsung) &&
+                    (!PPApplication.deviceIsOnePlus) &&
+                    (!PPApplication.deviceIsLenovo)) {
                 //PPApplication.logE("convertPercentsToBrightnessManualValue", "getBrightnessValue_A9 called - SDK_INT > 28");
                 value = getBrightnessValue_A9(percentage/*, minimumValue, maximumValue*/);
             }
@@ -2814,7 +2821,10 @@ public class Profile {
                                 Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, 0f);
         else {
             boolean exponentialLevel = false;
-            if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
+            if ((Build.VERSION.SDK_INT > 28) &&
+                    (!PPApplication.deviceIsSamsung) &&
+                    (!PPApplication.deviceIsOnePlus) &&
+                    (!PPApplication.deviceIsLenovo)) {
                 //PPApplication.logE("convertPercentsToBrightnessAdaptiveValue", "exponentialLevel=true - SDK_INT > 28");
                 exponentialLevel = true;
             }
@@ -2874,7 +2884,10 @@ public class Profile {
         if (value == BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET)
             percentage = value; // keep BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET
         else {
-            if ((Build.VERSION.SDK_INT > 28) && (!PPApplication.deviceIsSamsung) && (!PPApplication.deviceIsOnePlus)) {
+            if ((Build.VERSION.SDK_INT > 28) &&
+                    (!PPApplication.deviceIsSamsung) &&
+                    (!PPApplication.deviceIsOnePlus) &&
+                    (!PPApplication.deviceIsLenovo)) {
                 //PPApplication.logE("convertBrightnessToPercents", "getBrightnessPercentage_A9 called - SDK_INT > 28");
                 percentage = getBrightnessPercentage_A9(value/*, minValue, maxValue*/);
             }
