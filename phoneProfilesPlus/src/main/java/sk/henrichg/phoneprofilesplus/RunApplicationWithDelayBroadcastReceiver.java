@@ -38,8 +38,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             final String profileName = intent.getStringExtra(EXTRA_PROFILE_NAME);
             final String runApplicationData = intent.getStringExtra(EXTRA_RUN_APPLICATION_DATA);
 
-            final Context appContext = context.getApplicationContext();
-
             PPApplication.startHandlerThreadBroadcast(/*"RunApplicationWithDelayBroadcastReceiver.onReceive"*/);
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             __handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
