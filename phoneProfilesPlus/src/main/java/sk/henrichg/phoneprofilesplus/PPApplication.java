@@ -850,34 +850,34 @@ public class PPApplication extends Application
         super.onCreate();
 
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
-                .setBuildConfigClass(BuildConfig.class)
-                .setReportFormat(StringFormat.KEY_VALUE_LIST);
+                .withBuildConfigClass(BuildConfig.class)
+                .withReportFormat(StringFormat.KEY_VALUE_LIST);
         /*builder.getPluginConfigurationBuilder(ToastConfigurationBuilder.class)
                 .setResText(R.string.acra_toast_text)
                 .setEnabled(true);*/
         builder.getPluginConfigurationBuilder(NotificationConfigurationBuilder.class)
-                .setResChannelName(R.string.notification_channel_crash_report)
-                .setResChannelImportance(NotificationManager.IMPORTANCE_DEFAULT)
-                .setResIcon(R.drawable.ic_exclamation_notify)
-                .setResTitle(R.string.acra_notification_title)
-                .setResText(R.string.acra_notification_text)
-                .setResSendButtonIcon(0)
-                .setResDiscardButtonIcon(0)
-                .setSendOnClick(true)
-                .setEnabled(true);
+                .withResChannelName(R.string.notification_channel_crash_report)
+                .withResChannelImportance(NotificationManager.IMPORTANCE_DEFAULT)
+                .withResIcon(R.drawable.ic_exclamation_notify)
+                .withResTitle(R.string.acra_notification_title)
+                .withResText(R.string.acra_notification_text)
+                .withResSendButtonIcon(0)
+                .withResDiscardButtonIcon(0)
+                .withSendOnClick(true)
+                .withEnabled(true);
         builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
-                .setMailTo("henrich.gron@gmail.com")
-                .setResSubject(R.string.acra_email_subject_text)
-                .setResBody(R.string.acra_email_body_text)
-                .setReportAsFile(true)
-                .setReportFileName("crash_report.txt")
-                .setEnabled(true);
+                .withMailTo("henrich.gron@gmail.com")
+                .withResSubject(R.string.acra_email_subject_text)
+                .withResBody(R.string.acra_email_body_text)
+                .withReportAsFile(true)
+                .withReportFileName("crash_report.txt")
+                .withEnabled(true);
 
         ACRA.init(this, builder);
 
         // don't schedule anything in crash reporter process
-        if (ACRA.isACRASenderServiceProcess())
-            return;
+        //if (ACRA.isACRASenderServiceProcess())
+        //    return;
 
         //if (DebugVersion.enabled) {
         int actualVersionCode = 0;
