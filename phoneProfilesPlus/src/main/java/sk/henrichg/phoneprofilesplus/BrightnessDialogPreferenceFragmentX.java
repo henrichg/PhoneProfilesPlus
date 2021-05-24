@@ -334,11 +334,11 @@ public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmen
     }
 
     private void setBrightnessFromSeekBar(int value) {
-        /*if (PPApplication.logEnabled()) {
+        if (PPApplication.logEnabled()) {
             PPApplication.logE("BrightnessDialogPreferenceFragmentX.setBrightnessFromSeekBar", "value=" + value);
             PPApplication.logE("BrightnessDialogPreferenceFragmentX.setBrightnessFromSeekBar", "computed value=" +
                     Profile.convertPercentsToBrightnessManualValue(value, context));
-        }*/
+        }
         if (Permissions.checkScreenBrightness(context, null)) {
             if (preference.automatic == 1)
                 Settings.System.putInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
