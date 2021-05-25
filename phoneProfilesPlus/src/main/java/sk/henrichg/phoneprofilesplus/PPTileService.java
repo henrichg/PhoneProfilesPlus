@@ -5,13 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Icon;
+import android.os.Handler;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 import android.util.Log;
 
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.drawable.IconCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import java.lang.ref.WeakReference;
 
 public class PPTileService extends TileService {
 
@@ -25,7 +26,8 @@ public class PPTileService extends TileService {
         LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(chooseTileBroadcastReceiver);
         //getApplicationContext().unregisterReceiver(chooseTileBroadcastReceiver);
 
-        // update tile
+        // update Tile and save profileId int SharedPreferences
+        ApplicationPreferences.setQuickTileProfileId(getApplicationContext(), getTileId(), profileId);
         PPTileService.this.updateTile();
         }
     };
@@ -34,6 +36,10 @@ public class PPTileService extends TileService {
     public void onClick () {
         super.onClick();
         // Called when the user click the tile
+
+        // get profileId from shaered preferences
+        profileId = ApplicationPreferences.getQuickTileProfileId(getApplicationContext(), getTileId());
+        updateTile();
 
         if (profileId != 0) {
             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
@@ -67,19 +73,32 @@ public class PPTileService extends TileService {
     public void onTileRemoved () {
         super.onTileRemoved();
         // Do something when the user removes the Tile
+
+        // set it inactive when removed
         profileId = 0;
+        ApplicationPreferences.setQuickTileProfileId(getApplicationContext(), getTileId(), profileId);
+        updateTile();
     }
 
     @Override
     public void onTileAdded () {
         super.onTileAdded();
         // Do something when the user add the Tile
+
+        // get profileId from SharedPreferences and update it
+        profileId = ApplicationPreferences.getQuickTileProfileId(getApplicationContext(), getTileId());
+        updateTile();
     }
 
     @Override
     public void onStartListening () {
         super.onStartListening();
         // Called when the Tile becomes visible
+        Log.e("PPTileService.onStartListening", "xxxx");
+
+        // get profileId of tile from SharedPreferences and update it
+        profileId = ApplicationPreferences.getQuickTileProfileId(getApplicationContext(), getTileId());
+        updateTile();
     }
 
     @Override
@@ -88,36 +107,65 @@ public class PPTileService extends TileService {
         // Called when the tile is no longer visible
     }
 
-    public void onDestroy () {
-        super.onDestroy();
-        Log.e("PPTileService.onDestroy", "xxxx");
-    }
-
     int getTileId() {
         return 0;
     }
 
     void updateTile() {
+        Tile tile = getQsTile();
+
         if (profileId != 0) {
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-            Profile profile = dataWrapper.getProfileById(profileId, true, false, false);
+            final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
+            __handler.post(new PPHandlerThreadRunnable(getApplicationContext(), tile) {
+                @Override
+                public void run() {
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
-            Tile tile = getQsTile();
-            tile.setLabel(profile._name);
+                    Context appContext= appContextWeakRef.get();
+                    Tile tile = tileWeakRef.get();
 
-            if (profile.getIsIconResourceID()) {
-                if (profile._iconBitmap != null)
-                    tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
-                else {
-                    int res = Profile.getIconResource(profile.getIconIdentifier());
-                    tile.setIcon(Icon.createWithResource(getApplicationContext(), res));
+                    if ((appContext != null) && (tile != null)) {
+                        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                        Profile profile = dataWrapper.getProfileById(profileId, true, false, false);
+
+                        tile.setLabel(profile._name);
+
+                        if (profile.getIsIconResourceID()) {
+                            if (profile._iconBitmap != null)
+                                tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
+                            else {
+                                int res = Profile.getIconResource(profile.getIconIdentifier());
+                                tile.setIcon(Icon.createWithResource(getApplicationContext(), res));
+                            }
+                        } else {
+                            tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
+                        }
+                        tile.setState(Tile.STATE_ACTIVE);
+                        tile.updateTile();
+
+                        // save tile profileId into SharedPreferences
+                    }
                 }
-            } else {
-                tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
-            }
-            tile.setState(Tile.STATE_ACTIVE);
+            });
+        } else {
+            tile.setLabel(getString(R.string.quick_tile_icon_label));
+            tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_profile_default));
+            tile.setState(Tile.STATE_INACTIVE);
             tile.updateTile();
         }
+    }
+
+    private static abstract class PPHandlerThreadRunnable implements Runnable {
+
+        public final WeakReference<Context> appContextWeakRef;
+        public final WeakReference<Tile> tileWeakRef;
+
+        public PPHandlerThreadRunnable(Context appContext,
+                                       Tile tile) {
+            this.appContextWeakRef = new WeakReference<>(appContext);
+            this.tileWeakRef = new WeakReference<>(tile);
+        }
+
     }
 
 }

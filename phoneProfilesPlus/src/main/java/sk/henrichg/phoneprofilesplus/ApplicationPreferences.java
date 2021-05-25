@@ -224,8 +224,7 @@ class ApplicationPreferences {
     static boolean prefProfilePrefsActivityStartTargetHelps;
     static boolean prefProfilePrefsActivityStartTargetHelpsSave;
     static boolean prefEventPrefsActivityStartTargetHelps;
-    
-    
+
     private static SharedPreferences preferences = null;
 
     //static final String PREF_APPLICATION_PACKAGE_REPLACED = "applicationPackageReplaced";
@@ -395,6 +394,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS = "applicationWidgetListRoundedCornersRadius";
     static final String PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS = "applicationWidgetIconRoundedCornersRadius";
     static final String PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS = "applicationActivatorNumColums";
+
+    static final String PREF_QUICK_TILE_PROFILE_ID = "quickTileProfileId";
 
     @CheckResult
     static SharedPreferences getSharedPreferences(Context context) {
@@ -1210,5 +1211,16 @@ class ApplicationPreferences {
         ApplicationPreferences.prefEventPrefsActivityStartTargetHelps = start;
         editor.apply();
     }
-    
+
+    static long getQuickTileProfileId(Context context, int tile) {
+        SharedPreferences _preferences = getSharedPreferences(context);
+        return _preferences.getLong(PREF_QUICK_TILE_PROFILE_ID + "_" + tile, 0);
+    }
+
+    static void setQuickTileProfileId(Context context, int tile, long profileId) {
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+        editor.putLong(PREF_QUICK_TILE_PROFILE_ID + "_" + tile, profileId);
+        editor.apply();
+    }
+
 }
