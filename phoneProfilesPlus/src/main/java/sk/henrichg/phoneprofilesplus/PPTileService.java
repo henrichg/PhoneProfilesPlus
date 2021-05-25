@@ -42,17 +42,18 @@ public class PPTileService extends TileService {
         updateTile();
 
         if (profileId != 0) {
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-            Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
-            if (profile != null) {
-                PPApplication.logE("PPTileService.onClick", "profile=" + profile._name);
-                Intent intent = new Intent(getApplicationContext(), BackgroundActivateProfileActivity.class);
-                intent.setAction(Intent.ACTION_MAIN);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_QUICK_TILE);
-                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileId);
-                startActivityAndCollapse(intent);
+            if (profileId != Profile.RESTART_EVENTS_PROFILE_ID) {
+                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                if (profile != null)
+                    PPApplication.logE("PPTileService.onClick", "profile=" + profile._name);
             }
+            Intent intent = new Intent(getApplicationContext(), BackgroundActivateProfileActivity.class);
+            intent.setAction(Intent.ACTION_MAIN);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_QUICK_TILE);
+            intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileId);
+            startActivityAndCollapse(intent);
         } else {
             Log.e("PPTileService.onClick", "xxxx");
             LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(chooseTileBroadcastReceiver,
@@ -125,20 +126,26 @@ public class PPTileService extends TileService {
                     Tile tile = tileWeakRef.get();
 
                     if ((appContext != null) && (tile != null)) {
-                        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-                        Profile profile = dataWrapper.getProfileById(profileId, true, false, false);
+                        if (profileId == Profile.RESTART_EVENTS_PROFILE_ID) {
+                            tile.setLabel(getString(R.string.menu_restart_events));
+                            tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_list_item_events_restart_color));
+                        }
+                        else {
+                            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                            Profile profile = dataWrapper.getProfileById(profileId, true, false, false);
 
-                        tile.setLabel(profile._name);
+                            tile.setLabel(profile._name);
 
-                        if (profile.getIsIconResourceID()) {
-                            if (profile._iconBitmap != null)
+                            if (profile.getIsIconResourceID()) {
+                                if (profile._iconBitmap != null)
+                                    tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
+                                else {
+                                    int res = Profile.getIconResource(profile.getIconIdentifier());
+                                    tile.setIcon(Icon.createWithResource(getApplicationContext(), res));
+                                }
+                            } else {
                                 tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
-                            else {
-                                int res = Profile.getIconResource(profile.getIconIdentifier());
-                                tile.setIcon(Icon.createWithResource(getApplicationContext(), res));
                             }
-                        } else {
-                            tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
                         }
                         tile.setState(Tile.STATE_ACTIVE);
                         tile.updateTile();
