@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -203,9 +202,9 @@ public class TileChooserListFragment extends Fragment {
     private void chooseTile(final int position)
     {
         if (getActivity() != null) {
-            Log.e("TileChooserListFragment.chooseTile", "position=" + position);
+//            PPApplication.logE("TileChooserListFragment.chooseTile", "position=" + position);
             int tileId = ((TileChooserActivity)getActivity()).tileId;
-            Log.e("TileChooserListFragment.chooseTile", "tileId="+tileId);
+//            PPApplication.logE("TileChooserListFragment.chooseTile", "tileId="+tileId);
             Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver" + tileId);
 
             if (position != -1) {
