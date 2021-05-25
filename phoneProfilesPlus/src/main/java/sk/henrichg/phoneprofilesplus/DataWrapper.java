@@ -2123,7 +2123,8 @@ public class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EVENT) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EVENT_MANUAL) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER))
+            (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
+            (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE))
         {
             // activation is invoked from shortcut, widget, Activator, Editor, service,
             // do profile activation
@@ -2180,7 +2181,8 @@ public class DataWrapper {
             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
             (startupSource == PPApplication.STARTUP_SOURCE_EVENT) ||
             //(startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER_START) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER))
+            (startupSource == PPApplication.STARTUP_SOURCE_LAUNCHER) ||
+            (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE))
         {
             if (profile_id == 0)
                 profile = null;

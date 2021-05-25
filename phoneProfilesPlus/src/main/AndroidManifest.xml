@@ -424,6 +424,14 @@
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
+        <activity
+            android:name=".TileChooserActivity"
+            android:excludeFromRecents="true"
+            android:icon="@drawable/ic_profile_default"
+            android:label="@string/title_activity_tile_chooser"
+            android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
+            android:theme="@style/PopupTheme_dayNight">
+        </activity>
 
 
         <!-- implicit broadcast receivers, in Android O exception group -->

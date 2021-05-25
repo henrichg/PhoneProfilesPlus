@@ -1819,6 +1819,7 @@
     <string name="github_assets_screenshot_text">\"Assets\" is below the release notes. \"Assets\" in the mobile view should be clicked.</string>
 
     <string name="quick_tile_icon_label">Choose profile</string>
+    <string name="title_activity_tile_chooser">Quick tile profile chooser</string>
 
     <!-- **************************************************************************************** -->
 
