@@ -1818,6 +1818,8 @@
     <string name="ignore_manual_activation_ignore_no_pause_toast">Event will be started and also not paused, when any profile is activated manually</string>
     <string name="github_assets_screenshot_text">\"Assets\" is below the release notes. \"Assets\" in the mobile view should be clicked.</string>
 
+    <string name="quick_tile_icon_label">Choose profile</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
