@@ -39,7 +39,8 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
         profile_id = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, 0);
 
         if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
-            (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT)) {
+            (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+            (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
 
             dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
         }
@@ -65,7 +66,8 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
 
         if (activityStarted) {
             if ((startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
-                    (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT)) {
+                    (startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                    (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
                 if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID) {
                     //if (Event.getGlobalEventsRunning()) {
                         // set theme and language for dialog alert ;-)

@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.content.Intent;
 import android.service.quicksettings.TileService;
 
 public class PPTileService extends TileService {
@@ -15,14 +16,14 @@ public class PPTileService extends TileService {
             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
             if (profile != null) {
 //                 PPApplication.logE("PPTileService.onClick", "profile=" + profile._name);
-                if (!PhoneProfilesService.displayPreferencesErrorNotification(profile, null, getApplicationContext())) {
-//                    PPApplication.logE("&&&&&&& PPTileService.onClick", "called is DataWrapper.activateProfileFromMainThread");
-                    dataWrapper.activateProfileFromMainThread(profile, false, PPApplication.STARTUP_SOURCE_QUICK_TILE, false, this, false);
-                } else
-                    dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_QUICK_TILE, false, this);
+                Intent intent = new Intent(getApplicationContext(), BackgroundActivateProfileActivity.class);
+                intent.setAction(Intent.ACTION_MAIN);
+                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_QUICK_TILE);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
+                startActivityAndCollapse(intent);
             }
-            else
-                dataWrapper.finishActivity(PPApplication.STARTUP_SOURCE_QUICK_TILE, false, this);
+        } else {
+            //
         }
     }
 
