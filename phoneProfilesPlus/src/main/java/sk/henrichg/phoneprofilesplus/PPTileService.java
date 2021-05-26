@@ -107,11 +107,13 @@ public class PPTileService extends TileService {
         updateTile();
     }
 
+    /*
     @Override
     public void onStopListening () {
         super.onStopListening();
         // Called when the tile is no longer visible
     }
+    */
 
     int getTileId() {
         return 0;

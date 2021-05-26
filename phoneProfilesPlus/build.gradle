@@ -57,7 +57,9 @@ android {
 dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
+    //noinspection GradleDependency
     implementation "ch.acra:acra-mail:$ppVersions.acra"
+    //noinspection GradleDependency
     implementation "ch.acra:acra-notification:$ppVersions.acra"
 
     //noinspection GradleDependency
