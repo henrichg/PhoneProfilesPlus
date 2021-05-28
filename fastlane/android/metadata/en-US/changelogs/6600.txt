@@ -1,0 +1,45 @@
+- Removed support for Android 6.x
+- Changed check of Extender version to 6.0.
+- Added camera flashlight switch into Profile preferences.
+- Added support for 5G into "Preferred network type".
+- Added autostart system settings into PPP preferences, section System and Application start.
+- Added new Profile preferences category: "LED accessories" and "Notification LED", "Camera flash" moved into it.
+- Added Connected/Disconnected type for mobile data in event sensor "Radios".
+- Do not show vibration parameter for notifications and sound profile, when device do not have vibrator.
+- Removed Send and Discard buttons in ACRA crash report notification.
+- Added REQUEST_IGNORE_BATTERY_OPTIMIZATIONS permission.
+- Added call of ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS when inogring battery optimization is not enabled.
+- Added grant of background location permission.
+- Removed unused permission.
+- Increased speed of application when device is rooted.
+
+__Dual SIM support__
+- Added dual sim support for change of network type.
+- Added profile preference for set default sms, data, voice sim card. 
+- Added profile preferences for switch sim cards on/off for dual sim devices.
+- Added dual sim support for set ringtone and notification tone to profile.
+- Added dual SIM support for call and sms event sensor.
+- Added dual sim support for mobile cells sensor.
+
+__GUI changes__
+- Added "Corner radius" parameter for widgets.
+- Changed popup menu and spinner background color.
+- Changed dialog button bar buttons style.
+- Added top and bottom dividers into profile list preference dialogs.
+- Added border over dialogs in dark theme.
+- Added rounded corners for Activator and dialog.
+- Changed activities button bar buttons style. Better dialogs and activities dividers.
+- Added click ripple effect into widgets.
+- Added indicators in RingtonePreferenceX for internal/external ringtone.
+- Custom Toast layout. Added PPP icon.
+- Added "Num of columns" setting for grid type Activator. Default is 3.
+
+__Google dependency removal__
+- Replaced Google Maps with osmdroid library.
+- Used Android API Location service instead Google Play Service Location in geofence editor.
+- Created Android Location API version of GeofenceScanner.
+- Added Privacy policy into Github, folder /docs (used is GitHub Pages).
+- Moved releases files into GitHub, folder /docs.
+- Removed rate link in About application.
+
+__Other fixes__
