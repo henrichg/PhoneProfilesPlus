@@ -5,6 +5,7 @@
 <i>**** Please help me with translation, thank you: https://crowdin.com/project/phoneprofilesplus ****</i>
 
 <b>features:</b>
+
 - for phones and tablets (tablet UI)
 - navigation panel - click on title icon or swipe from left to right (Editor)
 - navigation panel - you can change who you can see on Editor: Profiles, Events and what will by filtered
@@ -22,11 +23,14 @@
 - global enabling/disabling of events start
 
 <b>profile features:</b>
+
 - ringer mode, sound volume, speakerphone, sounds, airplane mode, automatic data synchronization, mobile data, network type, WiFi, Bluetooth, GPS, NFC, screen timeout, screen brightness, screen auto-rotation, run application, launcher wallpaper, lockscreen on/off, wi-fi hotspot, lock device, connect to SSID
 
 <b>events features:</b>
+
 - priority, profile which will by activated on start/end, ignore manual profile activation, sound notification, undo profile activated before start of event, event start delay
 - event types: time, calendar, battery, call, accessories, WiFi (SSID), Screen (on/off), Bluetooth, SMS, Notifications, Applications, Location, Orientation, Mobile cells, NFC tags, Radios, Alarm clock.
 
-Source code (free of use): 
+Source code (free of use):
+
 - https://github.com/henrichg/PhoneProfilesPlus
