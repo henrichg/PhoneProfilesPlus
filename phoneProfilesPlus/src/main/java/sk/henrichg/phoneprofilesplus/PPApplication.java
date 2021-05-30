@@ -133,7 +133,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
@@ -200,7 +200,7 @@ public class PPApplication extends Application
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
-                                                +"|[IN_BROADCAST]"
+//                                                +"|[IN_BROADCAST]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
 //                                                +"|[IN_LISTENER]"
