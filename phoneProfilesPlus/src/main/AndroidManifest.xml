@@ -434,7 +434,7 @@
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
         </activity>
         <activity
-            android:name=".LongClickTileChooserActivity"
+            android:name=".TileChooserLongClickActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.shortcut"

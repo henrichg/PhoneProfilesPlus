@@ -61,6 +61,9 @@ public class PPTileService extends TileService {
             }
         }
         if (!isOK) {
+            LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(chooseTileBroadcastReceiver,
+                    new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver"+getTileId()));
+
             Intent intent = new Intent(getApplicationContext(), TileChooserActivity.class);
             intent.setAction(Intent.ACTION_MAIN);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -95,7 +98,7 @@ public class PPTileService extends TileService {
     public void onStartListening () {
         super.onStartListening();
         // Called when the Tile becomes visible
-//        PPApplication.logE("PPTileService.onStartListening", "xxxx");
+//        PPApplication.logE("PPTileService.onStartListening", "getTileId()="+getTileId());
 
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(chooseTileBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver"+getTileId()));

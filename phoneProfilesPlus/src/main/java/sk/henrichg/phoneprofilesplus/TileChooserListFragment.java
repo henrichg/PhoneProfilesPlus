@@ -210,6 +210,7 @@ public class TileChooserListFragment extends Fragment {
                 synchronized (activityDataWrapper.profileList) {
                     profile = activityDataWrapper.profileList.get(position);
                 }
+//                PPApplication.logE("TileChooserListFragment.chooseTile", "profile="+profile);
 
                 if (profile != null) {
                     if (position == 0)

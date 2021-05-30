@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LongClickTileChooserActivity extends AppCompatActivity {
+public class TileChooserLongClickActivity extends AppCompatActivity {
 
     private boolean activityStarted = false;
 

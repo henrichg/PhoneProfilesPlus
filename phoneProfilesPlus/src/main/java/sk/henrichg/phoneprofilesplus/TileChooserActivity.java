@@ -24,6 +24,9 @@ public class TileChooserActivity extends AppCompatActivity {
         GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
         //GlobalGUIRoutines.setLanguage(this);
 
+        Intent intent = getIntent();
+        tileId = intent.getIntExtra(EXTRA_TILE_ID, 0);
+
     // set window dimensions ----------------------------------------------------------
 
         getWindow().setFlags(LayoutParams.FLAG_DIM_BEHIND, LayoutParams.FLAG_DIM_BEHIND);
@@ -96,11 +99,6 @@ public class TileChooserActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.title_activity_tile_chooser);
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
-
-        Intent intent = getIntent();
-        tileId = intent.getIntExtra(EXTRA_TILE_ID, 0);
-
-//        Log.e("TileChooserActivity.onCreate", "tileId="+tileId);
 
     }
 
