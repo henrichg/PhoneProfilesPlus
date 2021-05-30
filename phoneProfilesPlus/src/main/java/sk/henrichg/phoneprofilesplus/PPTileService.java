@@ -21,7 +21,7 @@ public class PPTileService extends TileService {
         @Override
         public void onReceive(Context context, Intent intent ) {
         profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, -1);
-        PPApplication.logE("[IN_BROADCAST] PPTileService.chooseTileBroadcastReceiver", "profileId="+profileId);
+//        PPApplication.logE("[IN_BROADCAST] PPTileService.chooseTileBroadcastReceiver", "profileId="+profileId);
 
         // update Tile and save profileId int SharedPreferences
         ApplicationPreferences.setQuickTileProfileId(getApplicationContext(), getTileId(), profileId);
@@ -39,7 +39,7 @@ public class PPTileService extends TileService {
         profileId = ApplicationPreferences.getQuickTileProfileId(getApplicationContext(), getTileId());
         updateTile();
 
-        PPApplication.logE("PPTileService.onClick", "profileId="+profileId);
+//        PPApplication.logE("PPTileService.onClick", "profileId="+profileId);
 
         boolean isOK = false;
         if ((profileId != 0) && (profileId != -1)) {
@@ -47,8 +47,8 @@ public class PPTileService extends TileService {
             if (profileId != Profile.RESTART_EVENTS_PROFILE_ID) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
                 profile = dataWrapper.getProfileById(profileId, false, false, false);
-                if (profile != null)
-                    PPApplication.logE("PPTileService.onClick", "profile=" + profile._name);
+//                if (profile != null)
+//                    PPApplication.logE("PPTileService.onClick", "profile=" + profile._name);
             }
             if ((profileId == Profile.RESTART_EVENTS_PROFILE_ID) || (profile != null)) {
                 isOK = true;
@@ -95,7 +95,7 @@ public class PPTileService extends TileService {
     public void onStartListening () {
         super.onStartListening();
         // Called when the Tile becomes visible
-        PPApplication.logE("PPTileService.onStartListening", "xxxx");
+//        PPApplication.logE("PPTileService.onStartListening", "xxxx");
 
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(chooseTileBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver"+getTileId()));
@@ -128,7 +128,7 @@ public class PPTileService extends TileService {
     void updateTile() {
         Tile tile = getQsTile();
 
-        PPApplication.logE("PPTileService.updateTile", "profileId="+profileId);
+//        PPApplication.logE("PPTileService.updateTile", "profileId="+profileId);
 
         if ((profileId != 0) && (profileId != -1)) {
             final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
@@ -142,7 +142,7 @@ public class PPTileService extends TileService {
 
                     if ((appContext != null) && (tile != null)) {
 
-                        PPApplication.logE("PPTileService.updateTile", "udate tile");
+//                        PPApplication.logE("PPTileService.updateTile", "udate tile");
 
                         if (profileId == Profile.RESTART_EVENTS_PROFILE_ID) {
                             tile.setLabel(getString(R.string.menu_restart_events));

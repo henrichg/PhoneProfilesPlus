@@ -278,7 +278,7 @@ public class PPApplication extends Application
 
                                                 //+"|BrightnessDialogPreferenceFragmentX"
 
-                                                +"|PPTileService"
+                                                //+"|PPTileService"
                                                 //+"|LongClickTileChooserActivity"
                                                 ;
 
