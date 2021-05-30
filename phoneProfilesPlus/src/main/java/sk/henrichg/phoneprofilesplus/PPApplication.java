@@ -278,7 +278,8 @@ public class PPApplication extends Application
 
                                                 //+"|BrightnessDialogPreferenceFragmentX"
 
-                                                +"|PPTileService.onClick"
+                                                +"|PPTileService"
+                                                //+"|LongClickTileChooserActivity"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

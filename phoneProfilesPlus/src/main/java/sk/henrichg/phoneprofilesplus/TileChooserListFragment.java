@@ -194,8 +194,6 @@ public class TileChooserListFragment extends Fragment {
         //if (activityDataWrapper != null)
         //    activityDataWrapper.invalidateDataWrapper();
         activityDataWrapper = null;
-
-        chooseTile(-1);
     }
 
     @SuppressLint("StaticFieldLeak")
