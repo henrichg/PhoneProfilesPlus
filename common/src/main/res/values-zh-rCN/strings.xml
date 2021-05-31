@@ -797,7 +797,7 @@
     <string name="important_info_quick_guide_3"><![CDATA[<b>事件</b>：指定何时更改设备设置。]]></string>
     <string name="important_info_quick_guide_profiles_1"><b>情景</b>：允许您更改设备设置，如响铃模式、音量级别、铃声和通知声音、网络设置 (Wi-Fi、蓝牙、移动数据等)。当配置文件被激活时，相应的设置将被永久更改。如果要更改设置，则必须激活另一个配置文件。</string>
     <string name="important_info_quick_guide_profiles_2">情景可手动激活，或者由事件激活。</string>
-    <string name="important_info_quick_guide_profiles_3">您可以通过PPP激活清单 ( 带有可用情景列表的弹出窗口) 手动激活情景。 激活清单可以通过PPP主页图标，PPP通知，PPP小部件以及Samsung Edge设备从Edge面板显示。您还可以通过PPP 4x4小部件(情景的快捷方式) 或在Samsung Edge设备上通过“边缘”面板直接激活情景。</string>
+    <string name="important_info_quick_guide_profiles_3">您可以通过PPP激活清单 ( 带有可用情景列表的弹出窗口) 手动激活情景。 激活清单可以通过PPP主页图标，PPP通知，PPP小部件以及Samsung Edge设备从侧边栏显示。您还可以通过PPP 4x4小部件(情景的快捷方式) 或在Samsung Edge设备上通过侧边栏直接激活情景。</string>
     <string name="important_info_quick_guide_events_1"><b>事件</b>：允许您在情景激活时进行配置。每个事件有开始和结束。您可以配置开始时将发生的情况，以及事件结束时将发生的情况。</string>
     <string name="important_info_quick_guide_events_2">事件包含重要的传感器配置参数，在触发事件之前都必须满足。如果有任何传感器没有通过，则事件将结束 (暂停)。</string>
     <string name="important_info_quick_guide_sensors_1">传感器示例：</string>
@@ -1339,7 +1339,7 @@
     <string name="preferences_durationInfo_summary">只在手动激活此情景时才使用带有 [M] 的参数。从事件中激活忽略了这些参数。</string>
     <string name="profile_preferences_durationEndCategory">持续时间结束</string>
     <string name="profile_event_name_ask_for_duration">询问</string>
-    <string name="phone_profiles_pref_widget_not_working_miui_info">小部件不能点击</string>
+    <string name="phone_profiles_pref_widget_not_working_miui_info">小部件不可点击</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">如果PhoneProfilesPlus 小部件不起作用(点击小部件)， 在设备设置中启用权限：设置/应用/管理应用 / PhoneProfilesPlus / 其他权限/在后台运行时显示弹出窗口。</string>
     <string name="array_pref_12_percent" formatted="false">12.5%</string>
     <string name="array_pref_37_percent" formatted="false">37.5%</string>
@@ -1586,7 +1586,7 @@
     <string name="phone_profiles_pref_systemAutoStartManager_summary">如果 PhoneProfilesPlus 未开机启动，请点击这里并搜索参数启用 PhoneProfilesPlus 自动启动。</string>
     <string name="phone_profiles_pref_systemAutoStartManager_settingScreenNotFound_alert">找不到设定画面，但如果 PhoneProfilesPlus 开机启动，则不需要此设置。</string>
     <string name="phone_profiles_pref_applicationWidgetCornerRadius">圆角半径</string>
-    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">圆角半径 (部件)</string>
+    <string name="phone_profiles_pref_applicationWidgetIconCornerRadius">圆角半径 (小部件)</string>
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) SIM 卡 1 移动网络类型</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) SIM 卡 2 移动网络类型</string>
     <string name="profile_preferences_category_led_accessories">LED 配件</string>
@@ -1650,6 +1650,15 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">点击此处打开菜单与其他配置文件操作：“删除所有配置文件”</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">其他事件操作</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">点击此处打开菜单与其他事件操作：“默认配置”、“删除所有事件”</string>
+    <string name="profile_preferences_showInActivator_summary">启用，如果您想要显示此配置文件在激活清单、桌面小部件、三星侧边栏。</string>
+    <string name="show_profile_in_activator_not_show_toast">配置文件将不会显示在激活清单、桌面小部件、三星侧边栏</string>
+    <string name="show_profile_in_activator_show_toast">配置文件将显示在激活清单、桌面小部件、三星侧边栏</string>
+    <string name="ignore_manual_activation_not_ignore_toast">当任意配置文件被手动激活时，事件将不会启动</string>
+    <string name="ignore_manual_activation_ignore_toast">当任意配置文件被手动激活时，事件将会启动但被暂停</string>
+    <string name="ignore_manual_activation_ignore_no_pause_toast">当任意配置文件被手动激活时，事件将会开始且不会暂停</string>
+    <string name="github_assets_screenshot_text">\"Assets\" 位于发行说明下方， \"Assets\" 在手机视图模式可被点击。</string>
+    <string name="quick_tile_icon_label">选择配置文件</string>
+    <string name="title_activity_tile_chooser">快速磁贴配置文件选择器</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>

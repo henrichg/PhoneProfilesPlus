@@ -1650,6 +1650,15 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Haz clic en esto para abrir el menú de otras acciones con perfiles: \"Borrar todos los perfiles\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Otras acciones con eventos</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Haz clic en esto para abrir el menú de otras acciones con eventos: \"Perfil predeterminado\", \"Borrar todos los eventos\"</string>
+    <string name="profile_preferences_showInActivator_summary">Habilítalo si deseas mostrar este perfil en el Activador, el Widget o el panel de Samsung Edge.</string>
+    <string name="show_profile_in_activator_not_show_toast">El perfil no se mostrará en el Activador ni en el Widget ni en el panel de Samsung Edge</string>
+    <string name="show_profile_in_activator_show_toast">El perfil se mostrará en el Activador, en el Widget y en el panel de Samsung Edge</string>
+    <string name="ignore_manual_activation_not_ignore_toast">El evento no se iniciará cuando se active manualmente cualquier perfil</string>
+    <string name="ignore_manual_activation_ignore_toast">El evento se iniciará, pero pausado, cuando se active manualmente cualquier perfil</string>
+    <string name="ignore_manual_activation_ignore_no_pause_toast">El evento se iniciará, pero no pausado, cuando se active manualmente cualquier perfil</string>
+    <string name="github_assets_screenshot_text">\"Assets\" está debajo de las notas de lanzamiento. Debes hacer click en \"Assets\" en la vista móvil.</string>
+    <string name="quick_tile_icon_label">Elegir perfil</string>
+    <string name="title_activity_tile_chooser">Selector rápido de mosaico de perfiles</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>

@@ -1651,6 +1651,15 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Натисніть щоб відкрити меню з іншими діями над профілями: \"Видалити всі профілі\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Інші дії з подіями</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Натисніть щоб відкрити меню з іншими діями над подіями: \"Профіль за замовчуванням\", \"Видалити всі події\"</string>
+    <string name="profile_preferences_showInActivator_summary">Увімкніть, якщо Ви хочете бачити цей профіль в Активаторі, Списку, панелі - Samsung Edge.</string>
+    <string name="show_profile_in_activator_not_show_toast">Профіль не буде відображатися в Активаторі, Списку, панелі Samsung Edge</string>
+    <string name="show_profile_in_activator_show_toast">Профіль буде відображатися в Активаторі, Списку, панелі Samsung Edge</string>
+    <string name="ignore_manual_activation_not_ignore_toast">Подія не буде запущена при активації любого профілю вручну</string>
+    <string name="ignore_manual_activation_ignore_toast">Подію буде запущено, але призупинено, коли профіль активовано вручну</string>
+    <string name="ignore_manual_activation_ignore_no_pause_toast">Подія буде запущена, а також не призупинена, коли будь-який профіль активовано вручну</string>
+    <string name="github_assets_screenshot_text">\"Assets\" нижче приміток релізу. При перегляді мобільної версії на \"Assets\" слід натиснути.</string>
+    <string name="quick_tile_icon_label">Оберіть профіль</string>
+    <string name="title_activity_tile_chooser">Вибір профілю для швидкого налаштування</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

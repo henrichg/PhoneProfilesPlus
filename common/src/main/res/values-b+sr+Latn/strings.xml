@@ -1651,6 +1651,15 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Click this to open menu with other profiles actions: \"Delete all profiles\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Other events actions</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Click this to open menu with other events actions: \"Default profile\", \"Delete all events\"</string>
+    <string name="profile_preferences_showInActivator_summary">Enable, if you want to show this profile in Activator, List widget, Samsung Edge panel.</string>
+    <string name="show_profile_in_activator_not_show_toast">Profile will not be displayed in Activator, List widget, Samsung Edge panel</string>
+    <string name="show_profile_in_activator_show_toast">Profile will be displayed in Activator, List widget, Samsung Edge panel</string>
+    <string name="ignore_manual_activation_not_ignore_toast">Event will not be started, when any profile is activated manually</string>
+    <string name="ignore_manual_activation_ignore_toast">Event will be started, but paused, when any profile is activated manually</string>
+    <string name="ignore_manual_activation_ignore_no_pause_toast">Event will be started and also not paused, when any profile is activated manually</string>
+    <string name="github_assets_screenshot_text">\"Assets\" is below the release notes. \"Assets\" in the mobile view should be clicked.</string>
+    <string name="quick_tile_icon_label">Choose profile</string>
+    <string name="title_activity_tile_chooser">Quick tile profile chooser</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

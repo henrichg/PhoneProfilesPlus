@@ -1575,7 +1575,7 @@
     <string name="location_editor_change_location_dialog_title">Ort ändern</string>
     <string name="array_location_editor_show_geofence">Bearbeiteten Standort anzeigen</string>
     <string name="array_location_editor_show_actual_location">Aktuelle Position anzeigen</string>
-    <string name="array_location_editor_change_geofence_location_to_actual">Change edited location to actual</string>
+    <string name="array_location_editor_change_geofence_location_to_actual">Bearbeiteten Standort in den aktuellen ändern</string>
     <string name="array_location_editor_rename_geofence_with_address">Bearbeiteten Ort mit Adresse umbenennen</string>
     <string name="location_editor_map_is_loading">Karte wird geladen …</string>
     <string name="profile_preferences_cameraFlash">Kamera-Blitz</string>
@@ -1626,12 +1626,12 @@
     <string name="array_pref_soundSomeRingroneForBothSIMCards_useSame">Identischen verwenden</string>
     <string name="array_pref_soundSomeRingroneForBothSIMCards_separate">Unterschiedliche</string>
     <string name="profile_preferences_deviceDualSIMSupport_summary">Experimentell. Dies funktioniert möglicherweise nicht auf Ihrem Gerät.</string>
-    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Location permission type</string>
-    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus is running in background. For this reason, if you grant Location permission, required is type \"All the time\".</string>
-    <string name="permission_why_profile_background_location">for get location from background</string>
-    <string name="permissions_for_background_location_text1">Background location is required.</string>
-    <string name="permissions_for_background_location_text2">Please grant them in next dialog. PhoneProfilesPlus is running in background and for this reason is this permission required.</string>
-    <string name="permission_group_name_background_location">Background location</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo">Standortberechtigungstyp</string>
+    <string name="phone_profiles_pref_applicationLoacationPermissionTypeInfo_summary">PhoneProfilesPlus wird im Hintergrund ausgeführt. Aus diesem Grund ist bei erteilter Standortberechtigung der Typ „Dauerhaft” erforderlich.</string>
+    <string name="permission_why_profile_background_location">um den Standort im Hintergrund zu ermitteln</string>
+    <string name="permissions_for_background_location_text1">Die Standortbestimmung im Hintergrund ist erforderlich.</string>
+    <string name="permissions_for_background_location_text2">Bitte gewähren Sie diese im nächsten Dialog. PhoneProfilesPlus wird im Hintergrund ausgeführt und aus diesem Grund ist diese Berechtigung erforderlich.</string>
+    <string name="permission_group_name_background_location">Standortbestimmung im Hintergrund</string>
     <string name="profile_preferences_savedProfilePreferences_notConfiguredAnyParameter">Keine Parameter konfiguriert</string>
     <string name="phone_profiles_pref_applicationActivatorNumColumns">Spaltenanzahl</string>
     <string name="array_pref_activatorNumColumns_3">3 Spalten</string>
@@ -1650,6 +1650,15 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Hier klicken, um ein Menü mit weiteren Aktionen für Profile zu öffnen: „Alle Profile löschen”</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Weitere Aktionen für Ereignisse</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Hier klicken, um ein Menü mit weiteren Aktionen für Ereignisse zu öffnen: „Standardprofil”, „Alle Ereignisse löschen”</string>
+    <string name="profile_preferences_showInActivator_summary">Aktivieren, wenn Sie dieses Profil im Aktivator, Listen-Widget und im Samsung Edge-Panel anzeigen möchten.</string>
+    <string name="show_profile_in_activator_not_show_toast">Das Profil wird nicht im Aktivator, Listen-Widget und Samsung Edge-Panel angezeigt</string>
+    <string name="show_profile_in_activator_show_toast">Das Profil wird im Aktivator, Listen-Widget und Samsung Edge-Panel angezeigt</string>
+    <string name="ignore_manual_activation_not_ignore_toast">Ereignis wird nicht gestartet, wenn ein beliebiges Profil manuell aktiviert wurde</string>
+    <string name="ignore_manual_activation_ignore_toast">Ereignis wird gestartet, sobald ein beliebiges Profil manuell aktiviert wird</string>
+    <string name="ignore_manual_activation_ignore_no_pause_toast">Ereignis wird gestartet und auch nicht pausiert, sobald ein beliebiges Profil manuell aktiviert wird</string>
+    <string name="github_assets_screenshot_text">„Assets” befindet sich unter den Versionshinweisen. „Assets” sollte in der mobilen Ansicht angeklickt werden.</string>
+    <string name="quick_tile_icon_label">Profil auswählen</string>
+    <string name="title_activity_tile_chooser">Schnellauswahl für Kachelprofile</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

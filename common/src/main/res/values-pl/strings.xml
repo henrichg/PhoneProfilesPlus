@@ -1651,6 +1651,15 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Kliknij, aby otworzyć menu pozostałych działań na profilach: \"Usuń wszystkie profile\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Inne działania na zdarzeniach</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Kliknij, aby otworzyć menu pozostałych działań na zdarzeniach: \"Domyślny profil\", \"Usuń wszystkie zdarzenia\"</string>
+    <string name="profile_preferences_showInActivator_summary">Zaznacz, jeśli chcesz, aby ten profil był widoczny w Aktywatorze, Widżecie listy, panelu Samsung Edge.</string>
+    <string name="show_profile_in_activator_not_show_toast">Profil nie będzie wyświetlany w Aktywatorze, widżecie listy, panelu Samsung Edge</string>
+    <string name="show_profile_in_activator_show_toast">Profil będzie wyświetlany w Aktywatorze, widżecie listy, panelu Samsung Edge</string>
+    <string name="ignore_manual_activation_not_ignore_toast">Zdarzenie nie zostanie uruchomione, gdy dowolny profil jest aktywowany ręcznie</string>
+    <string name="ignore_manual_activation_ignore_toast">Zdarzenie zostanie uruchomione, ale wstrzymane, gdy dowolny profil jest aktywowany ręcznie</string>
+    <string name="ignore_manual_activation_ignore_no_pause_toast">Zdarzenie zostanie uruchomione oraz nie wstrzymane, gdy dowolny profil jest aktywowany ręcznie</string>
+    <string name="github_assets_screenshot_text">\"Assets\" znajduje się poniżej informacji o wydaniu. Należy kliknąć \"Assets\" w widoku mobilnym.</string>
+    <string name="quick_tile_icon_label">Wybierz profil</string>
+    <string name="title_activity_tile_chooser">Kafelek szybkiego wyboru profilu</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

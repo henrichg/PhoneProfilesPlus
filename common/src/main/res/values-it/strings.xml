@@ -1651,6 +1651,15 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Cliccare qui per aprire il menu con altre azioni dei profili: \"Elimina tutti i profili\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Azioni di altri eventi</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Cliccare qui per aprire il menu con altre azioni eventi: \"Profilo predefinito\", \"Elimina tutti gli eventi\"</string>
+    <string name="profile_preferences_showInActivator_summary">Abilitare, se si desidera mostrare questo profilo in Attivatore, elenco Widget, Pannello Samsung Edge.</string>
+    <string name="show_profile_in_activator_not_show_toast">Il profilo non verrà visualizzato nell\'attivatore, elenco widget, pannello Samsung Edge</string>
+    <string name="show_profile_in_activator_show_toast">Il profilo verrà visualizzato in Attivatore, elenco Widget, Pannello Samsung Edge</string>
+    <string name="ignore_manual_activation_not_ignore_toast">L\'evento non verrà avviato, quando qualunque profilo viene attivato manualmente</string>
+    <string name="ignore_manual_activation_ignore_toast">L\'evento sarà avviato, ma in pausa, quando qualsiasi profilo è attivato manualmente</string>
+    <string name="ignore_manual_activation_ignore_no_pause_toast">L\'evento verrà avviato e non verrà messo in pausa, quando qualsiasi profilo viene attivato manualmente</string>
+    <string name="github_assets_screenshot_text">\"Assets\" è sotto le note di rilascio. \"Assets\" nella vista mobile dovrebbe essere cliccato.</string>
+    <string name="quick_tile_icon_label">Scegli profilo</string>
+    <string name="title_activity_tile_chooser">Quick tile profile chooser</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>
