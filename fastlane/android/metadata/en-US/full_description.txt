@@ -1,4 +1,4 @@
-PhoneProfilesPlus allows automatically or with one click configuring the device for life situations (at home, at work, in your car, sleep outside, ...).
+**PhoneProfilesPlus allows automatically or with one click configuring the device for life situations (at home, at work, in your car, sleep outside, ...).**
 
 *Please report me bugs, comments and suggestions to my mail. Speed up the especially bug fixes. Thank you very much.*
 
