@@ -1,10 +1,8 @@
-<b>PhoneProfilesPlus allows automatically or with one click configuring the device for life situations (at home, at work, in your car, sleep outside, ...).</b>
+PhoneProfilesPlus allows automatically or with one click configuring the device for life situations (at home, at work, in your car, sleep outside, ...).
 
-<i>**** Please report me bugs, comments and suggestions to my mail. Speed up the especially bug fixes. Thank you very much. ****</i>
+*Please report me bugs, comments and suggestions to my mail. Speed up the especially bug fixes. Thank you very much.*
 
-<i>**** Please help me with translation, thank you: https://crowdin.com/project/phoneprofilesplus ****</i>
-
-<b>features:</b>
+**features:**
 
 - for phones and tablets (tablet UI)
 - navigation panel - click on title icon or swipe from left to right (Editor)
@@ -22,15 +20,12 @@
 - who will by launched (Activator, Editor) from home screen, widgets, notification
 - global enabling/disabling of events start
 
-<b>profile features:</b>
+**profile features:**
 
 - ringer mode, sound volume, speakerphone, sounds, airplane mode, automatic data synchronization, mobile data, network type, WiFi, Bluetooth, GPS, NFC, screen timeout, screen brightness, screen auto-rotation, run application, launcher wallpaper, lockscreen on/off, wi-fi hotspot, lock device, connect to SSID
 
-<b>events features:</b>
+**events features:**
 
 - priority, profile which will by activated on start/end, ignore manual profile activation, sound notification, undo profile activated before start of event, event start delay
 - event types: time, calendar, battery, call, accessories, WiFi (SSID), Screen (on/off), Bluetooth, SMS, Notifications, Applications, Location, Orientation, Mobile cells, NFC tags, Radios, Alarm clock.
 
-Source code (free of use):
-
-- https://github.com/henrichg/PhoneProfilesPlus
