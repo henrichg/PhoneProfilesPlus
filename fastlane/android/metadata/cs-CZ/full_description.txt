@@ -1,0 +1,35 @@
+**PhoneProfilesPlus umožňuje automaticky nebo s jedním kliknutím konfiguraci zařízení pro životní situace (doma, v práci, v autě, v spánku, venku, ...).**
+
+*Prosím hlaste mi chyby, připomínky a návrhy na můj mail. Urychlí to hlavně opravy chyb. Děkuji velmi pěkně.*
+
+**Funkce:**
+
+- Pro telefony a tablety (tabletové prostředí)
+- Navigační panel - kliknout na ikonu v titulku okna nebo gesto z leva do prava (Editor)
+- Navigační panel - můžete změnit co se má zobrazit v Editoru: Profily, Události a co se má vyfiltrovat
+- Navigační panel - pro Události lze nastavit pořadí v jakém se mají zobrazit v seznamu
+- zdrojový profil
+- Přidání, úprava, duplikování, vymazání profilů (Editor)
+- Aktivování profilu klikem na profil ze seznamu (Aktivátor)
+- Oznámení: stavový řádek, bublina, styl oznamovací ikony
+- Téma aplikace - světlá / tmavá
+- Miniaplikace: ikona, jednořádková, seznam profilů
+- DashClock widget rozšíření
+- Odkaz na profil
+- "Táhni a pusť" změna pořadí profilů (Editor)
+- Import / export nastavení profilů na sd kartu
+- Import z PhoneProfiles - PhoneProfiles musí být nainstalován!
+- Co se má spustit (Aktivátor, Editor) z domovské obrazovky, miniaplikací a oznamování
+- Globální povolení / zakázání startování událostí
+
+
+**Vlastnosti profilu:**
+
+- Mód vyzvánění, hlasitost, hlasitý odposlech, tóny, režim letadlo, automatická synchronizace dat, mobilní data, Typ mobilní síťe, WiFi, Bluetooth, GPS, NFC, čas zhasnutí dispeje, jas displeje, auto rotace displeje, spuštění aplikace, pozadí home obrazovky, uzamykací obrazovka zapnout/vypnout, Wi-Fi přístupový bod, zamknutí zařízení, připojit k SSID
+
+
+**Vlastnosti událostí:**
+
+- Priorita, profil, který chcete aktivovat při startu / konci, ignoruj ​​manuální aktivaci profilu, zvuková notifikace, vrať zpět profil aktivován před startem události, pozdržení startu události
+- Typy událostí: čas, kalendář, baterie, hovor, příslušenství, WiFi (SSID), Obrazovka (zapnutí /vypnutí), Bluetooth, SMS, Notifikace, Aplikace, Poloha, Orientace, Mobilní buňky, NFC tagy, Rádia, Budík.
+

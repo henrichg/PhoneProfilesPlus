@@ -1,0 +1,35 @@
+**PhoneProfilesPlus umožňuje automaticky alebo s jedným kliknutím konfiguráciu zariadenia pre životné situácie (doma, v práci, v aute, v spánku, vonku, ...).**
+
+*Prosím hláste mi chyby, pripomienky a návrhy na môj mail. Urýchli to hlavne opravy chýb. Ďakujem veľmi pekne.*
+
+**Funkcie:**
+
+- pre telefóny a tablety
+- navigačný panel - kliknúť na ikonu v titulke okna alebo gesto z ľava do prava (Editor)
+- navigačný panel - môžete zmeniť čo sa má zobraziť v Editore: Profily, Udalosti a čo sa má vyfiltrovať
+- navigačný panel - pre Udalosti je možné nastaviť poradie v akom sa majú zobrazit v zozname
+- zdrojový profil
+- pridanie, úprava, duplikovanie, vymazanie profilov (Editor)
+- aktivovanie profilu klikom na profil zo zoznamu (Aktivátor)
+- notifikácie: stavový riadok, bublina,  štýl notifikačnej ikony
+- téma aplikácie - svetlá/tmavá
+- miniaplikácie: ikona, jednoriadková, zoznam profilov
+- DashClock widget rozšírenie
+- odkaz na profil
+- "ťahaj a pusti" zmena poradia profilov (Editor)
+- import/export nastavení profilov na sd kartu
+- import z PhoneProfiles - PhoneProfiles musí byť nainštalovaný!!
+- čo sa má spustiť (Aktivátor, Editor) z domovskej obrazovky, miniaplikácií a notifikácie
+- globálne povolenie/zakázania štartovania udalostí
+
+
+**Vlastnosti profilu:**
+
+- mód zvonenia, hlasitosť, hlasitý odposluch, tóny, režim lietadlo, automatická synchronizácia dát, mobilné dáta, typ mobilnej siete, WiFi, Bluetooth, GPS, NFC, čas zhasnutia dispeja, jas displeja, auto rotácia displeja, spustenie aplikácie, pozadie home obrazovky, uzamykacia obrazovka zapnúť/vypnúť, Wi-Fi prístupový bod, šetrič batérie, zamknutie zariadenia, pripojiť k SSID
+
+
+**Vlastnosti udalostí:**
+
+- priorita, profil, ktorý sa má aktivovať pri štarte/konci, ignoruj manuálnu aktiváciu profilu, zvuková notifikácia, vráť späť profil aktivovaný pred štartom udalosti, pozdržanie štartu udalosti
+- typy udalostí: čas, kalendár, batéria, hovor, príslušenstvo, WiFi (SSID), Obrazovka (zapnutie/vypnutie), Bluetooth, SMS, Notifikácie, Aplikácie, Poloha, Orientácia, Mobilné bunky, NFC tagy, Rádia, Budík.
+
