@@ -1,0 +1,4 @@
+v5.0.1
+- Change log: https://henrichg.github.io/PhoneProfilesPlus/GooglePlay_ChangeLog_FDroid
+
+
