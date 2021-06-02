@@ -1,4 +1,4 @@
 v5.0.1
-- Zoznam zmien: https://henrichg.github.io/PhoneProfilesPlus/GooglePlay_ChangeLog_FDroid_SK
+- Zoznam zmien: https://henrichg.github.io/PhoneProfilesPlus/FDroid_ChangeLog_SK
 
 
