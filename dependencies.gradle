@@ -37,7 +37,7 @@ ext.ppVersions = [
     buildTools: '30.0.3',
 
     appcompatXLib: '1.3.0',
-    recyclerView: '1.2.0',
+    recyclerView: '1.2.1',
 
     acra: '5.7.0'
 ]
