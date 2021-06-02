@@ -6,6 +6,7 @@ PhoneProfilesPlus
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
+[![F-Droid](https://img.shields.io/badge//f-droid/v/:5.0.1](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
 
 __Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...__
 
