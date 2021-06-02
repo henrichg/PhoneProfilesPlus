@@ -8,7 +8,7 @@ PhoneProfilesPlus
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 
 [F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)
-How to add F-Droid repository to F-Droid application: [](https://apt.izzysoft.de/fdroid/index/info)
+_[How to add F-Droid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_
 
 
 __Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...__
