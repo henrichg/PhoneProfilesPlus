@@ -1,4 +1,5 @@
 v5.0.1
+- Pridaná podpora Quick Tile.
 - Zoznam zmien: https://henrichg.github.io/PhoneProfilesPlus/FDroid_ChangeLog_SK
 
 
