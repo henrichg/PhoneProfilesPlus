@@ -9,7 +9,7 @@ PhoneProfilesPlus
 ![version](https://img.shields.io/badge/version-5.0.1-blue)
 
 __[Google Play release](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__
-&nbsp;&nbsp;&nbsp;Latest version is 4.2.0.3 and will never by upgraded in Google Play. 
+&nbsp;&nbsp;&nbsp;Latest version is 4.2.0.3 and will never by upgraded. 
 Please upgrade vith F-Droid or download latest apk from GitHub Releases.
 
 __[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
