@@ -858,6 +858,7 @@ public class PPApplication extends Application
 
         super.onCreate();
 
+        /*
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .setBuildConfigClass(BuildConfig.class)
                 .setReportFormat(StringFormat.KEY_VALUE_LIST);
@@ -882,11 +883,14 @@ public class PPApplication extends Application
                 .setReportFileName("crash_report.txt")
                 .setEnabled(true);
 
+        ACRA.DEV_LOGGING = true;
+
         ACRA.init(this, builder);
 
         // don't schedule anything in crash reporter process
         if (ACRA.isACRASenderServiceProcess())
             return;
+         */
 
         //if (DebugVersion.enabled) {
         int actualVersionCode = 0;
@@ -1188,7 +1192,6 @@ public class PPApplication extends Application
         collator = getCollator();
         MultiDex.install(this);
 
-        /*
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .withBuildConfigClass(BuildConfig.class)
                 .withReportFormat(StringFormat.KEY_VALUE_LIST);
@@ -1213,8 +1216,9 @@ public class PPApplication extends Application
                 .withReportFileName("crash_report.txt")
                 .withEnabled(true);
 
+        ACRA.DEV_LOGGING = true;
+
         ACRA.init(this, builder);
-        */
     }
 
 //    @NonNull
