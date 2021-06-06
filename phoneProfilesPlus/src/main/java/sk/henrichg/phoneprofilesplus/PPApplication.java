@@ -858,8 +858,10 @@ public class PPApplication extends Application
 
         super.onCreate();
 
-        if (ACRA.isACRASenderServiceProcess())
+        if (ACRA.isACRASenderServiceProcess()) {
+            Log.e("##### PPApplication.onCreate", "ACRA.isACRASenderServiceProcess()");
             return;
+        }
 
         /*
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
@@ -1222,9 +1224,12 @@ public class PPApplication extends Application
         collator = getCollator();
         MultiDex.install(this);
 
-        if (ACRA.isACRASenderServiceProcess())
+        if (ACRA.isACRASenderServiceProcess()) {
+            Log.e("##### PPApplication.attachBaseContext", "ACRA.isACRASenderServiceProcess()");
             return;
+        }
 
+        Log.e("##### PPApplication.attachBaseContext", "ACRA inittialization");
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .withBuildConfigClass(BuildConfig.class)
                 .withReportFormat(StringFormat.KEY_VALUE_LIST);
@@ -1249,7 +1254,7 @@ public class PPApplication extends Application
                 .withReportFileName("crash_report.txt")
                 .withEnabled(true);
 
-        ACRA.DEV_LOGGING = true;
+        //ACRA.DEV_LOGGING = true;
 
         ACRA.init(this, builder);
     }
