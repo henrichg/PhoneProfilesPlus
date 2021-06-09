@@ -1364,32 +1364,52 @@ class EventsHandler {
         if (sensorType.equals(SENSOR_TYPE_PHONE_CALL) && (dataWrapper != null)) {
             TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
 
-            //PPApplication.logE("EventsHandler.doEndHandler", "running event exists");
+            PPApplication.logE("EventsHandler.doEndHandler", "SENSOR_TYPE_PHONE_CALL - running event exists");
             // doEndHandler is called even if no event exists, but ringing call simulation is only for running event with call sensor
             //if (android.os.Build.VERSION.SDK_INT >= 21) {
             boolean inRinging = false;
             if (telephony != null) {
-                int callState = telephony.getCallState();
+                /*int callState = TelephonyManager.CALL_STATE_IDLE; //telephony.getCallState();
+                int simCount = telephony.getPhoneCount();
+                PPApplication.logE("EventsHandler.doEndHandler", "simCount=" + simCount);
+                if (simCount > 1) {
+                    if (PPApplication.phoneCallsListenerSIM1 != null) {
+                        callState = PPApplication.phoneCallsListenerSIM1.lastState;
+                        PPApplication.logE("EventsHandler.doEndHandler", "callState (1)=" + callState);
+                    }
+                    if (callState != TelephonyManager.CALL_STATE_RINGING) {
+                        if (PPApplication.phoneCallsListenerSIM2 != null) {
+                            callState = PPApplication.phoneCallsListenerSIM2.lastState;
+                            PPApplication.logE("EventsHandler.doEndHandler", "callState (2)=" + callState);
+                        }
+                    }
+                } else {
+                    if (PPApplication.phoneCallsListenerDefaul != null)
+                        callState = PPApplication.phoneCallsListenerDefaul.lastState;
+                }*/
+                int callState = PPApplication.getCallState(context);
+                PPApplication.logE("EventsHandler.doEndHandler", "callState="+callState);
                 //if (doUnlink) {
                 //if (linkUnlink == PhoneCallsListener.LINKMODE_UNLINK) {
                 inRinging = (callState == TelephonyManager.CALL_STATE_RINGING);
             }
-            //PPApplication.logE("EventsHandler.doEndHandler", "inRinging="+inRinging);
+            PPApplication.logE("EventsHandler.doEndHandler", "inRinging="+inRinging);
             if (inRinging) {
                 // start PhoneProfilesService for ringing call simulation
-//                PPApplication.logE("EventsHandler.doEndHandler", "start simulating ringing call");
+                PPApplication.logE("EventsHandler.doEndHandler", "start simulating ringing call");
                 try {
                     boolean simulateRingingCall = false;
                     String phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
                     for (Event _event : dataWrapper.eventList) {
                         if (_event._eventPreferencesCall._enabled && _event.getStatus() == Event.ESTATUS_RUNNING) {
-                            //PPApplication.logE("EventsHandler.doEndHandler", "event._id=" + _event._id);
+                            PPApplication.logE("EventsHandler.doEndHandler", "event._id=" + _event._id);
                             if (_event._eventPreferencesCall.isPhoneNumberConfigured(phoneNumber/*, dataWrapper*/)) {
                                 simulateRingingCall = true;
                                 break;
                             }
                         }
                     }
+                    PPApplication.logE("EventsHandler.doEndHandler", "simulateRingingCall=" + simulateRingingCall);
                     int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
                     if (simulateRingingCall) {
                         /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
@@ -1425,7 +1445,22 @@ class EventsHandler {
 
             boolean inCall = false;
             if (telephony != null) {
-                int callState = telephony.getCallState();
+                /*int callState = TelephonyManager.CALL_STATE_IDLE; //telephony.getCallState();
+                int simCount = telephony.getPhoneCount();
+                if (simCount > 1) {
+                    if (PPApplication.phoneCallsListenerSIM1 != null)
+                        callState = PPApplication.phoneCallsListenerSIM1.lastState;
+                    if (callState != TelephonyManager.CALL_STATE_RINGING) {
+                        if (PPApplication.phoneCallsListenerSIM2 != null)
+                            callState = PPApplication.phoneCallsListenerSIM2.lastState;
+                    }
+                }
+                else {
+                    if (PPApplication.phoneCallsListenerDefaul != null)
+                        callState = PPApplication.phoneCallsListenerDefaul.lastState;
+                }*/
+                int callState = PPApplication.getCallState(context);
+
                 //if (doUnlink) {
                 //if (linkUnlink == PhoneCallsListener.LINKMODE_UNLINK) {
                 inCall = (callState == TelephonyManager.CALL_STATE_RINGING) || (callState == TelephonyManager.CALL_STATE_OFFHOOK);

@@ -158,7 +158,9 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.getServiceInfo"
                                                 //+"|PhoneProfilesService.isServiceRunning"
                                                 +"|PackageReplacedReceiver.onReceive"
-                                                //+"|PhoneProfilesService.doCommand"
+
+                                                +"|PhoneProfilesService.doCommand"
+
                                                 //+"|PhoneProfilesService.showProfileNotification"
                                                 //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|ShowProfileNotificationBroadcastReceiver"
@@ -264,7 +266,12 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
                                                 //+"|PhoneCallsListener"
                                                 //+"|PPPExtenderBroadcastReceiver"
-                                                //+"|PhoneProfilesService.doSimulatingRingingCall"
+
+                                                +"|PhoneProfilesService.doSimulatingRingingCall"
+                                                +"|PhoneProfilesService.startSimulatingRingingCall"
+                                                +"|PhoneProfilesService.stopSimulatingRingingCall"
+                                                +"|EventsHandler.doEndHandler"
+                                                +"|PPApplication.getCallState"
 
                                                 //+"|EventPreferencesCall.doHandleEvent"
                                                 //+"|EventPreferencesSMS"
@@ -4581,6 +4588,56 @@ public class PPApplication extends Application
         }
         else
             return null;
+    }
+
+    // get phone state --------------------------------------------------------------
+
+    static int getCallState(Context context) {
+        TelephonyManager telephonyManagerDefault = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
+        if (telephonyManagerDefault != null) {
+            int simCount = telephonyManagerDefault.getPhoneCount();
+            if (simCount > 1) {
+                SubscriptionManager mSubscriptionManager = (SubscriptionManager) context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                //SubscriptionManager.from(appContext);
+                if (mSubscriptionManager != null) {
+                    List<SubscriptionInfo> subscriptionList = null;
+                    try {
+                        // Loop through the subscription list i.e. SIM list.
+                        subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                    } catch (SecurityException e) {
+                        //PPApplication.recordException(e);
+                    }
+                    if (subscriptionList != null) {
+                        int callStateSIM1 = TelephonyManager.CALL_STATE_IDLE;
+                        int callStateSIM2 = TelephonyManager.CALL_STATE_IDLE;
+                        for (int i = 0; i < subscriptionList.size(); i++) {
+                            // Get the active subscription ID for a given SIM card.
+                            SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                            if (subscriptionInfo != null) {
+                                int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                if (subscriptionInfo.getSimSlotIndex() == 0) {
+                                    TelephonyManager telephonyManagerSIM1 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
+                                    callStateSIM1 = telephonyManagerSIM1.getCallState(subscriptionId);
+                                }
+                                if ((subscriptionInfo.getSimSlotIndex() == 1)) {
+                                    TelephonyManager telephonyManagerSIM2 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
+                                    callStateSIM2 = telephonyManagerSIM2.getCallState(subscriptionId);
+                                }
+                            }
+                        }
+                        PPApplication.logE("PPApplication.getCallState", "callStateSIM1="+callStateSIM1);
+                        PPApplication.logE("PPApplication.getCallState", "callStateSIM2="+callStateSIM2);
+                        if (callStateSIM1 != TelephonyManager.CALL_STATE_IDLE)
+                            return callStateSIM1;
+                        return callStateSIM2;
+                    }
+                }
+            }
+            else {
+                return telephonyManagerDefault.getCallState();
+            }
+        }
+        return TelephonyManager.CALL_STATE_IDLE;
     }
 
     // ACRA -------------------------------------------------------------------------

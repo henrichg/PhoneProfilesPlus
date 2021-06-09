@@ -840,7 +840,23 @@ class EventPreferencesOrientation extends EventPreferences {
                 boolean inCall = false;
                 TelephonyManager telephony = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephony != null) {
-                    int callState = telephony.getCallState();
+                    /*int callState = TelephonyManager.CALL_STATE_IDLE; //telephony.getCallState();
+                    int simCount = telephony.getPhoneCount();
+                    if (simCount > 1) {
+                        if (PPApplication.phoneCallsListenerSIM1 != null)
+                            callState = PPApplication.phoneCallsListenerSIM1.lastState;
+                        if ((callState != TelephonyManager.CALL_STATE_RINGING) && (callState != TelephonyManager.CALL_STATE_OFFHOOK)){
+                            if (PPApplication.phoneCallsListenerSIM2 != null)
+                                callState = PPApplication.phoneCallsListenerSIM2.lastState;
+                        }
+                    }
+                    else {
+                        if (PPApplication.phoneCallsListenerDefaul != null)
+                            callState = PPApplication.phoneCallsListenerDefaul.lastState;
+                    }*/
+
+                    int callState = PPApplication.getCallState(eventsHandler.context);
+
                     inCall = (callState == TelephonyManager.CALL_STATE_RINGING) || (callState == TelephonyManager.CALL_STATE_OFFHOOK);
                 }
                 if (inCall) {
