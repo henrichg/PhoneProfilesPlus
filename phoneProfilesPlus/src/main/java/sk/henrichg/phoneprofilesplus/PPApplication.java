@@ -4627,9 +4627,18 @@ public class PPApplication extends Application
                         }
                         PPApplication.logE("PPApplication.getCallState", "callStateSIM1="+callStateSIM1);
                         PPApplication.logE("PPApplication.getCallState", "callStateSIM2="+callStateSIM2);
-                        if (callStateSIM1 != TelephonyManager.CALL_STATE_IDLE)
+
+                        if ((callStateSIM1 == TelephonyManager.CALL_STATE_RINGING) ||
+                                (callStateSIM2 == TelephonyManager.CALL_STATE_RINGING))
+                            return TelephonyManager.CALL_STATE_RINGING;
+
+                        if ((callStateSIM1 == TelephonyManager.CALL_STATE_OFFHOOK) ||
+                                (callStateSIM2 == TelephonyManager.CALL_STATE_OFFHOOK))
+                            return TelephonyManager.CALL_STATE_OFFHOOK;
+
+                        /*if (callStateSIM1 != TelephonyManager.CALL_STATE_IDLE)
                             return callStateSIM1;
-                        return callStateSIM2;
+                        return callStateSIM2;*/
                     }
                 }
             }
