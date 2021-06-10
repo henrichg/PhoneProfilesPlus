@@ -7207,7 +7207,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringing is audible");
 
                 boolean simulateRinging = false;
-                int stream = AudioManager.STREAM_RING;
+                //int stream = AudioManager.STREAM_RING;
 
                 //if ((android.os.Build.VERSION.SDK_INT >= 21)) {
                     //if (!(((newRingerMode == Profile.RINGERMODE_SILENT) && (android.os.Build.VERSION.SDK_INT >= 23)) ||
@@ -7229,7 +7229,7 @@ public class PhoneProfilesService extends Service
                     //if (android.os.Build.VERSION.SDK_INT >= 23) {
                        if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode)) {
                            simulateRinging = true;
-                           stream = AudioManager.STREAM_ALARM;
+                           //stream = AudioManager.STREAM_ALARM;
                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "stream=MUSIC (1)");
                        }
                     //}
@@ -7278,16 +7278,16 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulateRinging=" + simulateRinging);
 
                 if (simulateRinging)
-                    startSimulatingRingingCall(stream, newRingtone);
+                    startSimulatingRingingCall(/*stream,*/ newRingtone);
             }
 
         }
     }
 
-    private void startSimulatingRingingCall(int stream, String ringtone) {
+    private void startSimulatingRingingCall(/*int stream,*/ String ringtone) {
         stopSimulatingRingingCall(/*true*/true);
         if (!ringingCallIsSimulating) {
-            PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "stream="+stream);
+            //PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "stream="+stream);
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
@@ -7341,7 +7341,7 @@ public class PhoneProfilesService extends Service
                         ringingMediaPlayer = new MediaPlayer();
 
                     //noinspection IfStatementWithIdenticalBranches
-                        if (stream == AudioManager.STREAM_RING) {
+                        /*if (stream == AudioManager.STREAM_RING) {
                             AudioAttributes attrs = new AudioAttributes.Builder()
                                     .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
                                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
@@ -7349,7 +7349,7 @@ public class PhoneProfilesService extends Service
                             ringingMediaPlayer.setAudioAttributes(attrs);
                             ringingMuted = 0;
                         }
-                        else {
+                        else*/ {
                             ringingMuted = (audioManager.isStreamMute(AudioManager.STREAM_RING)) ? 1 : -1;
                             if (ringingMuted == -1)
                                 audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
