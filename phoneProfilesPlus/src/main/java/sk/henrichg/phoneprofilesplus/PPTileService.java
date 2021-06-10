@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Icon;
+import android.os.Build;
 import android.os.Handler;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
@@ -157,6 +158,8 @@ public class PPTileService extends TileService {
                             Profile profile = dataWrapper.getProfileById(profileId, true, false, false);
                             if (profile != null) {
                                 tile.setLabel(profile._name);
+                                if (Build.VERSION.SDK_INT >= 29)
+                                    tile.setSubtitle(" ");
 
                                 if (profile.getIsIconResourceID()) {
                                     if (profile._iconBitmap != null)
