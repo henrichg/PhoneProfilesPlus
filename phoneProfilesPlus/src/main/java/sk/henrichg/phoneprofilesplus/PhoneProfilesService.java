@@ -162,6 +162,7 @@ public class PhoneProfilesService extends Service
     private boolean ringingCallIsSimulating = false;
     //private boolean notificationToneIsSimulating = false;
     int ringingVolume = 0;
+    int ringingMuted = 0;
     //public static int notificationVolume = 0;
     private int oldMediaVolume = 0;
     private MediaPlayer ringingMediaPlayer = null;
@@ -7346,9 +7347,11 @@ public class PhoneProfilesService extends Service
                                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                                     .build();
                             ringingMediaPlayer.setAudioAttributes(attrs);
+                            ringingMuted = 0;
                         }
                         else {
-                            if (!audioManager.isStreamMute(AudioManager.STREAM_RING))
+                            ringingMuted = (audioManager.isStreamMute(AudioManager.STREAM_RING)) ? 1 : -1;
+                            if (ringingMuted == -1)
                                 audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                             AudioAttributes attrs = new AudioAttributes.Builder()
@@ -7432,14 +7435,16 @@ public class PhoneProfilesService extends Service
                 ringingMediaPlayer = null;
 
                 try {
-                    if (ringingCallIsSimulating)
+                    if (ringingCallIsSimulating) {
                         audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldMediaVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        if (ringingMuted == -1) {
+                            if (audioManager.isStreamMute(AudioManager.STREAM_RING))
+                                audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                        }
+                    }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
-
-                if (audioManager.isStreamMute(AudioManager.STREAM_RING))
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                 PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "ringing stopped");
             }
