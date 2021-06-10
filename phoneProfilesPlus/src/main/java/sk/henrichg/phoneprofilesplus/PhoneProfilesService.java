@@ -7348,6 +7348,9 @@ public class PhoneProfilesService extends Service
                             ringingMediaPlayer.setAudioAttributes(attrs);
                         }
                         else {
+                            if (!audioManager.isStreamMute(AudioManager.STREAM_RING))
+                                audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+
                             AudioAttributes attrs = new AudioAttributes.Builder()
                                     .setUsage(AudioAttributes.USAGE_ALARM)
                                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
@@ -7434,6 +7437,9 @@ public class PhoneProfilesService extends Service
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
+
+                if (audioManager.isStreamMute(AudioManager.STREAM_RING))
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_RING, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                 PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "ringing stopped");
             }
