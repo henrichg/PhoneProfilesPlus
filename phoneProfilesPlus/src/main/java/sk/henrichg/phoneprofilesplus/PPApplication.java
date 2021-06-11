@@ -4618,11 +4618,11 @@ public class PPApplication extends Application
                             if (subscriptionInfo != null) {
                                 int subscriptionId = subscriptionInfo.getSubscriptionId();
                                 if (subscriptionInfo.getSimSlotIndex() == 0) {
-                                    TelephonyManager telephonyManagerSIM1 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
+                                    TelephonyManager telephonyManagerSIM1 = telephonyManagerDefault.createForSubscriptionId(subscriptionId);
                                     callStateSIM1 = telephonyManagerSIM1.getCallState(subscriptionId);
                                 }
                                 if ((subscriptionInfo.getSimSlotIndex() == 1)) {
-                                    TelephonyManager telephonyManagerSIM2 = PPApplication.telephonyManagerDefault.createForSubscriptionId(subscriptionId);
+                                    TelephonyManager telephonyManagerSIM2 = telephonyManagerDefault.createForSubscriptionId(subscriptionId);
                                     callStateSIM2 = telephonyManagerSIM2.getCallState(subscriptionId);
                                 }
                             }
