@@ -943,7 +943,7 @@ class MobileCellsListener extends PhoneStateListener {
 
                         mBuilder = new NotificationCompat.Builder(context, PPApplication.NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL)
                                 .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
-                                .setSmallIcon(R.drawable.ic_exclamation_notify)
+                                .setSmallIcon(R.drawable.ic_information_notify)
                                 .setContentTitle(context.getString(R.string.notification_not_used_mobile_cell_title))
                                 .setContentText(nText)
                                 .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))

@@ -307,7 +307,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             }
             mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_CHANNEL)
                     .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
-                    .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                    .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                     .setContentTitle(nTitle) // title for notification
                     .setContentText(nText)
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))

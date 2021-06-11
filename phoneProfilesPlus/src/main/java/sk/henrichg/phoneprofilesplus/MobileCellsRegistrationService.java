@@ -202,7 +202,7 @@ public class MobileCellsRegistrationService extends Service {
         PPApplication.createMobileCellsRegistrationNotificationChannel(this);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this, PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(this, R.color.notificationDecorationColor))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text) // message for notification
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
@@ -266,7 +266,7 @@ public class MobileCellsRegistrationService extends Service {
         PPApplication.createMobileCellsRegistrationNotificationChannel(this);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this, PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(this, R.color.notificationDecorationColor))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text) // message for notification
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
