@@ -158,9 +158,7 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.getServiceInfo"
                                                 //+"|PhoneProfilesService.isServiceRunning"
                                                 +"|PackageReplacedReceiver.onReceive"
-
-                                                +"|PhoneProfilesService.doCommand"
-
+                                                //+"|PhoneProfilesService.doCommand"
                                                 //+"|PhoneProfilesService.showProfileNotification"
                                                 //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|ShowProfileNotificationBroadcastReceiver"
@@ -270,8 +268,8 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesService.doSimulatingRingingCall"
                                                 +"|PhoneProfilesService.startSimulatingRingingCall"
                                                 +"|PhoneProfilesService.stopSimulatingRingingCall"
-                                                +"|EventsHandler.doEndHandler"
-                                                +"|PPApplication.getCallState"
+                                                //+"|EventsHandler.doEndHandler"
+                                                //+"|PPApplication.getCallState"
 
                                                 //+"|EventPreferencesCall.doHandleEvent"
                                                 //+"|EventPreferencesSMS"
@@ -4627,8 +4625,8 @@ public class PPApplication extends Application
                                 }
                             }
                         }
-                        PPApplication.logE("PPApplication.getCallState", "callStateSIM1="+callStateSIM1);
-                        PPApplication.logE("PPApplication.getCallState", "callStateSIM2="+callStateSIM2);
+//                        PPApplication.logE("PPApplication.getCallState", "callStateSIM1="+callStateSIM1);
+//                        PPApplication.logE("PPApplication.getCallState", "callStateSIM2="+callStateSIM2);
 
                         if ((callStateSIM1 == TelephonyManager.CALL_STATE_RINGING) ||
                                 (callStateSIM2 == TelephonyManager.CALL_STATE_RINGING))

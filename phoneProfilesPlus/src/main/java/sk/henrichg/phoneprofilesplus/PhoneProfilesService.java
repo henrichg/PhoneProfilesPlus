@@ -4936,7 +4936,7 @@ public class PhoneProfilesService extends Service
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REGISTER_CALLBACKS");
                                 PhoneProfilesService.this.registerAllTheTimeCallbacks(true);
                             } else if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
-                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_SIMULATE_RINGING_CALL");
+//                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_SIMULATE_RINGING_CALL");
                                 PhoneProfilesService.this.doSimulatingRingingCall(intent);
                             } else if (intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
@@ -7059,7 +7059,7 @@ public class PhoneProfilesService extends Service
     private void doSimulatingRingingCall(Intent intent) {
         if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false))
         {
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulate ringing call");
+//            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulate ringing call");
 
             Context context = getApplicationContext();
 
