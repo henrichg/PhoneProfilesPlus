@@ -1157,10 +1157,12 @@ public class PPApplication extends Application
 
         initRoot();
         initSIMCards();
-        simCardsMutext.sim0Exists = PPApplication.hasSIMCard(getApplicationContext(), 0);
-        simCardsMutext.sim1Exists = PPApplication.hasSIMCard(getApplicationContext(), 1);
-        simCardsMutext.sim2Exists = PPApplication.hasSIMCard(getApplicationContext(), 2);
-        simCardsMutext.simCardsDetected = true;
+        synchronized (PPApplication.simCardsMutext) {
+            simCardsMutext.sim0Exists = PPApplication.hasSIMCard(getApplicationContext(), 0);
+            simCardsMutext.sim1Exists = PPApplication.hasSIMCard(getApplicationContext(), 1);
+            simCardsMutext.sim2Exists = PPApplication.hasSIMCard(getApplicationContext(), 2);
+            simCardsMutext.simCardsDetected = true;
+        }
 
         /*
         try {

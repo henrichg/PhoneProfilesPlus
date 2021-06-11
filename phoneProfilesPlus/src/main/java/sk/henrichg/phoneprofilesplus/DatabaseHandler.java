@@ -11434,7 +11434,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 }
                             }
                             if ((eventsCursor.getInt(eventsCursor.getColumnIndex(KEY_E_MOBILE_CELLS_ENABLED)) != 0) &&
-                                    (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                    //(Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
+                                    (Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED_NO_CHECK_SIM, context).allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)) {
                                 values.clear();
                                 values.put(KEY_E_MOBILE_CELLS_ENABLED, 0);
                                 db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
