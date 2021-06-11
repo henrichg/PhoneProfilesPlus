@@ -15,7 +15,7 @@
         <item name="colorAccentDisabled">@color/accent_disabled</item>
 
         <item name="android:textViewStyle">@style/TextViewTheme</item>
-        <item name="android:windowBackground">@drawable/pp_dialog_background</item>
+        <item name="android:windowBackground">@drawable/pp_activator_background</item>
         <item name="activityBackgroundColor">@color/activityBackgroundColor</item>
         <item name="activityWhiteTextColor">@color/activityWhiteTextColor</item>
         <item name="activityNormalTextColor">@color/activityNormalTextColor</item>

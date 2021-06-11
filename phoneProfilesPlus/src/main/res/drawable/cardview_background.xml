@@ -12,7 +12,7 @@
 
             <solid android:color="@color/cardViewBorderColor" />
 
-            <corners android:radius="@dimen/popup_corner_radius" />
+            <corners android:radius="@dimen/popup_window_corner_radius" />
         </shape>
     </item>
 
@@ -21,7 +21,7 @@
         <shape android:shape="rectangle">
             <solid android:color="@color/activityBackgroundColor" />
 
-            <corners android:radius="@dimen/popup_corner_radius" />
+            <corners android:radius="@dimen/popup_window_corner_radius" />
         </shape>
     </item>
 
