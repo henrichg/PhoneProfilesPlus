@@ -41,7 +41,7 @@ public class ProfilePreferenceX extends DialogPreference {
         prefContext = context;
         //preferenceTitle = getTitle();
 
-        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, true);
 
         setWidgetLayoutResource(R.layout.widget_profile_preference); // resource na layout custom preference - TextView-ImageView
 

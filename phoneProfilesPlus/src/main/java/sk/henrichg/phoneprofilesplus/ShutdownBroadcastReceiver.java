@@ -15,7 +15,7 @@ public class ShutdownBroadcastReceiver extends BroadcastReceiver {
 
         // !!! Do not use handler !!!
         Context appContext = context.getApplicationContext();
-        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, false);
         PPApplication.exitApp(false, appContext, dataWrapper, null, true/*, false, true*/);
     }
 }

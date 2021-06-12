@@ -122,7 +122,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         //if (dataWrapper == null) {
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
-                    applicationWidgetOneRowCustomIconLightness);
+                    applicationWidgetOneRowCustomIconLightness, false);
 
         Profile profile;
         //boolean fullyStarted = PPApplication.applicationFullyStarted;

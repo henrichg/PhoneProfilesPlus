@@ -45,7 +45,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
         action = intent.getAction();
 //        PPApplication.logE("ActionForExternalApplicationActivity.onCreate", "action="+action);
 
-        dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, false);
 
         if (action != null) {
             if (action.equals(ACTION_ACTIVATE_PROFILE)) {

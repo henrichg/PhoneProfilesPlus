@@ -46,7 +46,7 @@ public class PPTileService extends TileService {
         if ((profileId != 0) && (profileId != -1)) {
             Profile profile = null;
             if (profileId != Profile.RESTART_EVENTS_PROFILE_ID) {
-                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, false);
                 profile = dataWrapper.getProfileById(profileId, false, false, false);
 //                if (profile != null)
 //                    PPApplication.logE("PPTileService.onClick", "profile=" + profile._name);
@@ -154,7 +154,7 @@ public class PPTileService extends TileService {
                             tile.setState(Tile.STATE_INACTIVE);
                         }
                         else {
-                            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+                            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, false);
                             Profile profile = dataWrapper.getProfileById(profileId, true, false, false);
                             if (profile != null) {
                                 tile.setLabel(profile._name);

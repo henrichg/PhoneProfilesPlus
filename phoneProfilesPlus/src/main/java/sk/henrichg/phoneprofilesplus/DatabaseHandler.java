@@ -3376,7 +3376,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         updateDb(db, oldVersion);
 
-        DataWrapper dataWrapper = new DataWrapper(context, false, 0, false);
+        DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, false);
 //        PPApplication.logE("[APP_START] DatabaseHandler.onUpgrade", "xxx");
         dataWrapper.restartEventsWithRescan(true, true, true, false, false, false);
 

@@ -1649,7 +1649,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (profile != null) {
                         // generate bitmaps
                         profile.generateIconBitmap(getApplicationContext(), false, 0, false);
-                        profile.generatePreferencesIndicator(getApplicationContext(), false, 0);
+                        profile.generatePreferencesIndicator(getApplicationContext(), false, 0, true);
 
                         // redraw list fragment , notifications, widgets after finish ProfilesPrefsActivity
                         redrawProfileListFragment(profile, newProfileMode);

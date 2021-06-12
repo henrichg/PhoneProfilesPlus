@@ -149,7 +149,7 @@ public class EditorProfileListFragment extends Fragment
                     EditorProfileListFragment.FILTER_TYPE_ALL;
 
         //noinspection ConstantConditions
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, true);
 
         setHasOptionsMenu(true);
 
@@ -425,7 +425,7 @@ public class EditorProfileListFragment extends Fragment
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
             //noinspection ConstantConditions
-            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
+            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, true);
             //_baseContext = fragment.getActivity();
 
             applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
@@ -1685,7 +1685,7 @@ public class EditorProfileListFragment extends Fragment
             EditorProfileListFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
                 if (fragment.getActivity() != null) {
-                    _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
+                    _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, true);
                     _dataWrapper.copyProfileList(fragment.activityDataWrapper);
 
                     for (Profile profile : _dataWrapper.profileList) {

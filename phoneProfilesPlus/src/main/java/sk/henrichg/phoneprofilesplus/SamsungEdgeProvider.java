@@ -121,7 +121,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
             //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
-            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, false);
             Profile profile = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
 
             //boolean fullyStarted = false;

@@ -86,7 +86,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, true);
             if (dataWrapper.getEventById(event_id) == null) {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.event_preferences_event_not_found),
@@ -330,7 +330,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     private Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex,
                               boolean leaveSaveMenu) {
         Event event;
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, true);
 
         if (!leaveSaveMenu)
             showSaveMenu = false;
@@ -514,7 +514,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         event.setSensorsWaiting();
 
-        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, true);
 
         PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, null, 0, "");
 

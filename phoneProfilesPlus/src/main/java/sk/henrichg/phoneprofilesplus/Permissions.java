@@ -552,7 +552,7 @@ class Permissions {
 
         if (fromProfile) {
             try {
-                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+                DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, false);
                 Profile _profile = DatabaseHandler.getInstance(dataWrapper.context).getProfile(profile._id, false);
                 if (_profile == null) return;// true;
                 if (!_profile.getIsIconResourceID()) {

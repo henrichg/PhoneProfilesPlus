@@ -64,7 +64,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, true);
             if (dataWrapper.getProfileById(profile_id, false, false, false) == null) {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.profile_preferences_profile_not_found),
@@ -253,7 +253,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     private Profile createProfile(long profile_id, int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
         Profile profile;
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, true);
 
         // no change this in shared profile
         if (!leaveSaveMenu)
@@ -591,7 +591,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     {
         Profile profile = getProfileFromPreferences(profile_id, new_profile_mode, predefinedProfileIndex);
         if (profile != null) {
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, true);
 
             Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
             if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {

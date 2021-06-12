@@ -1834,7 +1834,7 @@ class ProfilePreferencesIndicator {
             countDrawables = -1;
     }
 
-    Bitmap paint(Profile profile, boolean monochrome, Context context)
+    Bitmap paint(Profile profile, boolean monochrome, boolean forEditor, Context context)
     {
         Context appContext = context.getApplicationContext();
 

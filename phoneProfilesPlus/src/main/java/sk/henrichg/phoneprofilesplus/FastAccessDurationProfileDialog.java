@@ -31,7 +31,7 @@ class FastAccessDurationProfileDialog
         this.fastAccessDurationDialog = fastAccessDurationDialog;
         this.activity = activity;
 
-        dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false);
+        dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, true);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.profile_preferences_afterDurationProfile);
