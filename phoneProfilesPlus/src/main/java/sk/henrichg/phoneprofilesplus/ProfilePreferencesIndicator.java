@@ -8,10 +8,10 @@ import android.graphics.Canvas;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
-
 class ProfilePreferencesIndicator {
 
     final int[] drawables = new int[60];
+    final boolean[] disabled = new boolean[60];
     final String[] strings = new String[60];
     int countDrawables = 0;
 
@@ -44,15 +44,28 @@ class ProfilePreferencesIndicator {
         return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
     }
 
-    private void addIndicator(int preferenceBitmapResourceID, int index, Context context, Canvas canvas)
+    private void addIndicator(int preferenceBitmapResourceID, int index,
+                              @SuppressWarnings("unused") boolean disabled,
+                              Context context, Canvas canvas)
     {
         Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
         //Bitmap preferenceBitmap = BitmapManipulator.getBitmapFromResource(preferenceBitmapResourceID, false, context);
 
-        if (preferenceBitmap != null)
-            canvas.drawBitmap(preferenceBitmap, preferenceBitmap.getWidth() * index, 0, null);
-        //canvas.save();
+        /*if (!disabled) {
+            Paint paint = new Paint();
+            paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, android.R.color.holo_red_dark), PorterDuff.Mode.SRC_ATOP));
+            Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas _canvas = new Canvas(bitmapResult);
+            _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
 
+            if (bitmapResult != null)
+                canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+        }
+        else {*/
+            if (preferenceBitmap != null)
+                canvas.drawBitmap(preferenceBitmap, preferenceBitmap.getWidth() * index, 0, null);
+        //}
+        //canvas.save();
     }
 
     void fillArrays(Profile profile, boolean fillStrings, boolean monochrome, boolean fillPreferences, Context appContext) {
@@ -83,9 +96,12 @@ class ProfilePreferencesIndicator {
                                     strings[countDrawables++] = "vibr";
                             }
                             else {
+                                disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_zen_mode;
-                                if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3)))
+                                if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))) {
+                                    disabled[countDrawables] = false;
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                                }
                             }
                             if (fillPreferences) {
                                 if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3)))
@@ -109,9 +125,12 @@ class ProfilePreferencesIndicator {
                                     strings[countDrawables++] = "vibr";
                             }
                             else {
+                                disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_priority;
-                                if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3)))
+                                if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))) {
+                                    disabled[countDrawables] = false;
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                                }
                             }
                             if (fillPreferences) {
                                 if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3)))
@@ -127,8 +146,10 @@ class ProfilePreferencesIndicator {
                                         appContext.getString(R.string.array_pref_zenModeArray_totalSilence);
                             if (fillStrings)
                                 strings[countDrawables++] = "dnd:sln";
-                            else
+                            else {
+                                disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_none;
+                            }
                             if (fillPreferences)
                                 countItems[countPreferences++] = 1;
                         }
@@ -142,7 +163,9 @@ class ProfilePreferencesIndicator {
                                 strings[countDrawables++] = "vib";
                             }
                             else {
+                                disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_zen_mode;
+                                disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
                             }
                             if (fillPreferences)
@@ -158,7 +181,9 @@ class ProfilePreferencesIndicator {
                                 strings[countDrawables++] = "vib";
                             }
                             else {
+                                disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_priority;
+                                disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
                             }
                             if (fillPreferences)
@@ -171,8 +196,10 @@ class ProfilePreferencesIndicator {
                                         appContext.getString(R.string.array_pref_zenModeArray_alarms);
                             if (fillStrings)
                                 strings[countDrawables++] = "dnd:ala";
-                            else
+                            else {
+                                disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_alarms;
+                            }
                             if (fillPreferences)
                                 countItems[countPreferences++] = 1;
                         }
@@ -192,9 +219,12 @@ class ProfilePreferencesIndicator {
                                     strings[countDrawables++] = "vibr";
                             }
                             else {
+                                disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_on;
-                                if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3)))
+                                if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))) {
+                                    disabled[countDrawables] = false;
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                                }
                             }
                             if (fillPreferences) {
                                 if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3)))
@@ -210,8 +240,10 @@ class ProfilePreferencesIndicator {
                                         appContext.getString(R.string.array_pref_soundModeArray_vibration);
                             if (fillStrings)
                                 strings[countDrawables++] = "vibr";
-                            else
+                            else {
+                                disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                            }
                             if (fillPreferences)
                                 countItems[countPreferences++] = 1;
                         }
@@ -230,9 +262,12 @@ class ProfilePreferencesIndicator {
                                     strings[countDrawables++] = "vibr";
                             }
                             else {
+                                disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_zenmode_alarms;
-                                if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3)))
+                                if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3))) {
+                                    disabled[countDrawables] = false;
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration;
+                                }
                             }
                             if (fillPreferences) {
                                 if (vibrateWhenRingingAllowed && ((profile._vibrateWhenRinging == 1) || (profile._vibrateWhenRinging == 3)))
@@ -252,8 +287,10 @@ class ProfilePreferencesIndicator {
                             appContext.getString(R.string.array_pref_hardwareModeArray_off);
                 if (fillStrings)
                     strings[countDrawables++] = "volm";
-                else
+                else {
+                    disabled[countDrawables] = false;
                     drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_mute;
+                }
                 if (fillPreferences)
                     countItems[countPreferences++] = 1;
 
@@ -269,8 +306,10 @@ class ProfilePreferencesIndicator {
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumePartial);
                         if (fillStrings)
                             strings[countDrawables++] = "volp";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level_partial;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -299,8 +338,10 @@ class ProfilePreferencesIndicator {
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_volumeAll);
                         if (fillStrings)
                             strings[countDrawables++] = "vola";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_volume_level;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -315,8 +356,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "spe:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -327,6 +370,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "spe:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone_off_mono;
                             else
@@ -349,8 +393,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundsChange);
                     if (fillStrings)
                         strings[countDrawables++] = "sond";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_sound;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -373,8 +419,10 @@ class ProfilePreferencesIndicator {
                                     preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundsChangeSIM1);
                                 if (fillStrings)
                                     strings[countDrawables++] = "snd1";
-                                else
+                                else {
+                                    disabled[countDrawables] = false;
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_sim1;
+                                }
                                 if (fillPreferences)
                                     countItems[countPreferences++] = 1;
                             }
@@ -388,8 +436,10 @@ class ProfilePreferencesIndicator {
                                     preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundsChangeSIM2);
                                 if (fillStrings)
                                     strings[countDrawables++] = "snd2";
-                                else
+                                else {
+                                    disabled[countDrawables] = false;
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_sim2;
+                                }
                                 if (fillPreferences)
                                     countItems[countPreferences++] = 1;
                             }
@@ -402,8 +452,10 @@ class ProfilePreferencesIndicator {
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_soundSameRingtoneForBothSIMCards);
                         if (fillStrings)
                             strings[countDrawables++] = "srbs";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_sound;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -419,8 +471,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "sto:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -431,6 +485,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "sto:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off_mono;
                             else
@@ -450,8 +505,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "vto:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -462,6 +519,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "vto:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off_mono;
                             else
@@ -481,8 +539,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "dtd:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -493,6 +553,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "dtd:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off_mono;
                             else
@@ -512,8 +573,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "arm:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -524,6 +587,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "arm:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off_mono;
                             else
@@ -543,8 +607,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "asy:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -555,6 +621,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "asy:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off_mono;
                             else
@@ -579,8 +646,10 @@ class ProfilePreferencesIndicator {
                                                 appContext.getString(R.string.array_pref_hardwareModeArray_on);
                                     if (fillStrings)
                                         strings[countDrawables++] = "so1:1";
-                                    else
+                                    else {
+                                        disabled[countDrawables] = false;
                                         drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim1;
+                                    }
                                     if (fillPreferences)
                                         countItems[countPreferences++] = 1;
                                 }
@@ -591,6 +660,7 @@ class ProfilePreferencesIndicator {
                                     if (fillStrings)
                                         strings[countDrawables++] = "so1:0";
                                     else {
+                                        disabled[countDrawables] = true;
                                         if (monochrome)
                                             drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim1_off_mono;
                                         else
@@ -609,8 +679,10 @@ class ProfilePreferencesIndicator {
                                                 appContext.getString(R.string.array_pref_hardwareModeArray_on);
                                     if (fillStrings)
                                         strings[countDrawables++] = "so2:1";
-                                    else
+                                    else {
+                                        disabled[countDrawables] = false;
                                         drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim2;
+                                    }
                                     if (fillPreferences)
                                         countItems[countPreferences++] = 1;
                                 }
@@ -621,6 +693,7 @@ class ProfilePreferencesIndicator {
                                     if (fillStrings)
                                         strings[countDrawables++] = "so2:0";
                                     else {
+                                        disabled[countDrawables] = true;
                                         if (monochrome)
                                             drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim2_off_mono;
                                         else
@@ -647,8 +720,10 @@ class ProfilePreferencesIndicator {
                                     preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceDefaultSIM);
                                 if (fillStrings)
                                     strings[countDrawables++] = "dsim";
-                                else
+                                else {
+                                    disabled[countDrawables] = false;
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_defaultsimcards;
+                                }
                                 if (fillPreferences)
                                     countItems[countPreferences++] = 1;
                             }
@@ -666,8 +741,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "mda:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -678,6 +755,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "mda:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_off_mono;
                             else
@@ -701,8 +779,10 @@ class ProfilePreferencesIndicator {
                                                 appContext.getString(R.string.array_pref_hardwareModeArray_on);
                                     if (fillStrings)
                                         strings[countDrawables++] = "md1:1";
-                                    else
+                                    else {
+                                        disabled[countDrawables] = false;
                                         drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim1;
+                                    }
                                     if (fillPreferences)
                                         countItems[countPreferences++] = 1;
                                 }
@@ -713,6 +793,7 @@ class ProfilePreferencesIndicator {
                                     if (fillStrings)
                                         strings[countDrawables++] = "md1:0";
                                     else {
+                                        disabled[countDrawables] = true;
                                         if (monochrome)
                                             drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim1_off_mono;
                                         else
@@ -731,8 +812,10 @@ class ProfilePreferencesIndicator {
                                                 appContext.getString(R.string.array_pref_hardwareModeArray_on);
                                     if (fillStrings)
                                         strings[countDrawables++] = "md2:1";
-                                    else
+                                    else {
+                                        disabled[countDrawables] = false;
                                         drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim2;
+                                    }
                                     if (fillPreferences)
                                         countItems[countPreferences++] = 1;
                                 }
@@ -743,6 +826,7 @@ class ProfilePreferencesIndicator {
                                     if (fillStrings)
                                         strings[countDrawables++] = "md2:0";
                                     else {
+                                        disabled[countDrawables] = true;
                                         if (monochrome)
                                             drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim2_off_mono;
                                         else
@@ -764,8 +848,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceMobileDataPrefs);
                     if (fillStrings)
                         strings[countDrawables++] = "mdpr";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_pref;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -779,8 +865,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "wif:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -791,6 +879,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "wif:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off_mono;
                             else
@@ -811,8 +900,10 @@ class ProfilePreferencesIndicator {
                                         appContext.getString(R.string.array_pref_hardwareModeArray_on);
                             if (fillStrings)
                                 strings[countDrawables++] = "wap:1";
-                            else
+                            else {
+                                disabled[countDrawables] = false;
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap;
+                            }
                             if (fillPreferences)
                                 countItems[countPreferences++] = 1;
                         }
@@ -823,6 +914,7 @@ class ProfilePreferencesIndicator {
                             if (fillStrings)
                                 strings[countDrawables++] = "wap:0";
                             else {
+                                disabled[countDrawables] = true;
                                 if (monochrome)
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off_mono;
                                 else
@@ -841,8 +933,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWiFiAPPrefs);
                     if (fillStrings)
                         strings[countDrawables++] = "wapr";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_pref;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -854,8 +948,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceConnectToSSID);
                     if (fillStrings)
                         strings[countDrawables++] = "ssid";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_connect_to_ssid;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -869,8 +965,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "blt:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -881,6 +979,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "blt:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth_off_mono;
                             else
@@ -900,8 +999,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "lom:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_on;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -912,6 +1013,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "lom:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_off_mono;
                             else
@@ -931,8 +1033,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "gps:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_on;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -943,6 +1047,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "gps:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_off_mono;
                             else
@@ -960,8 +1065,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceLocationServicePrefs);
                     if (fillStrings)
                         strings[countDrawables++] = "lopr";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_locationsettings_pref;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -975,8 +1082,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "nfc:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -987,6 +1096,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "nfc:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc_off_mono;
                             else
@@ -1004,8 +1114,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkType);
                     if (fillStrings)
                         strings[countDrawables++] = "ntyp";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -1021,8 +1133,10 @@ class ProfilePreferencesIndicator {
                                     preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkTypeSIM1);
                                 if (fillStrings)
                                     strings[countDrawables++] = "ntp1";
-                                else
+                                else {
+                                    disabled[countDrawables] = false;
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_sim1;
+                                }
                                 if (fillPreferences)
                                     countItems[countPreferences++] = 1;
                             }
@@ -1033,8 +1147,10 @@ class ProfilePreferencesIndicator {
                                     preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkTypeSIM2);
                                 if (fillStrings)
                                     strings[countDrawables++] = "ntp2";
-                                else
+                                else {
+                                    disabled[countDrawables] = false;
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_sim2;
+                                }
                                 if (fillPreferences)
                                     countItems[countPreferences++] = 1;
                             }
@@ -1049,8 +1165,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceNetworkTypePrefs);
                     if (fillStrings)
                         strings[countDrawables++] = "ntpr";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_network_type_pref;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -1063,8 +1181,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceScreenTimeout);
                     if (fillStrings)
                         strings[countDrawables++] = "sctm";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_timeout;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -1079,8 +1199,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.profile_preferences_deviceBrightness_automatic);
                         if (fillStrings)
                             strings[countDrawables++] = "bri:a";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_autobrightness;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1090,8 +1212,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.profile_preferences_deviceBrightness_manual);
                         if (fillStrings)
                             strings[countDrawables++] = "bri:m";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_brightness;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1107,6 +1231,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "art:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate_off_mono;
                             else
@@ -1121,8 +1246,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "art:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1136,8 +1263,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "son:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1148,6 +1277,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "son:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent_off_mono;
                             else
@@ -1165,8 +1295,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWallpaperChange);
                     if (fillStrings)
                         strings[countDrawables++] = "walp";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_wallpaper;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -1180,8 +1312,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "kgu:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1192,6 +1326,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "kgu:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off_mono;
                             else
@@ -1209,8 +1344,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_lockDevice);
                     if (fillStrings)
                         strings[countDrawables++] = "lock";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_lock;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -1224,8 +1361,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "nld:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1236,6 +1375,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "nld:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off_mono;
                             else
@@ -1255,8 +1395,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "hup:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1267,6 +1409,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "hup:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off_mono;
                             else
@@ -1286,8 +1429,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "aod:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1298,6 +1443,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "aod:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off_mono;
                             else
@@ -1317,8 +1463,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "dkm:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1329,6 +1477,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "dkm:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_off_mono;
                             else
@@ -1349,8 +1498,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "psm:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1361,6 +1512,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "psm:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off_mono;
                             else
@@ -1378,8 +1530,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceRunApplicationsShortcutsChange);
                     if (fillStrings)
                         strings[countDrawables++] = "ruap";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_run_application;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -1391,8 +1545,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceCloseAllApplications);
                     if (fillStrings)
                         strings[countDrawables++] = "caap";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_close_all_applications;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -1410,8 +1566,10 @@ class ProfilePreferencesIndicator {
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceForceStopApplicationsChange);
                         if (fillStrings)
                             strings[countDrawables++] = "fcst";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_force_stop_application;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1424,8 +1582,10 @@ class ProfilePreferencesIndicator {
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_generateNotification);
                     if (fillStrings)
                         strings[countDrawables++] = "gent";
-                    else
+                    else {
+                        disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_generate_notification;
+                    }
                     if (fillPreferences)
                         countItems[countPreferences++] = 1;
                 }
@@ -1439,8 +1599,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_hardwareModeArray_on);
                         if (fillStrings)
                             strings[countDrawables++] = "fla:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_camera_flash;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1451,6 +1613,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "fla:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_camera_flash_off_mono;
                             else
@@ -1472,6 +1635,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "wfs:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi_mono;
                             else
@@ -1486,8 +1650,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "wfs:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi_off;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1503,6 +1669,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "bls:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_mono;
                             else
@@ -1517,8 +1684,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "bls:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_off;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1534,6 +1703,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "los:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_mono;
                             else
@@ -1548,8 +1718,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "los:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_off;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1565,6 +1737,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "mcs:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_mono;
                             else
@@ -1579,8 +1752,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "mcs:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_off;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1596,6 +1771,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "ors:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_mono;
                             else
@@ -1610,8 +1786,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "ors:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_off;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1627,6 +1805,7 @@ class ProfilePreferencesIndicator {
                         if (fillStrings)
                             strings[countDrawables++] = "nos:0";
                         else {
+                            disabled[countDrawables] = true;
                             if (monochrome)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_mono;
                             else
@@ -1641,8 +1820,10 @@ class ProfilePreferencesIndicator {
                                     appContext.getString(R.string.array_pref_applicationDisableScanning_enabled);
                         if (fillStrings)
                             strings[countDrawables++] = "nos:1";
-                        else
+                        else {
+                            disabled[countDrawables] = false;
                             drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_off;
+                        }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
                     }
@@ -1670,7 +1851,7 @@ class ProfilePreferencesIndicator {
                     indicatorBitmap = createIndicatorBitmap(/*appContext,*/ countDrawables);
                     Canvas canvas = new Canvas(indicatorBitmap);
                     for (int i = 0; i < countDrawables; i++)
-                        addIndicator(drawables[i], i, appContext, canvas);
+                        addIndicator(drawables[i], i, disabled[i], appContext, canvas);
                 } catch (Exception e) {
                     indicatorBitmap = null;
                 }

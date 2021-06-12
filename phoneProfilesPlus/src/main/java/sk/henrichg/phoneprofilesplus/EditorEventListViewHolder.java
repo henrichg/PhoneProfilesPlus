@@ -87,7 +87,7 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
             boolean manualProfileActivation = DataWrapper.getIsManualProfileActivation(false, context.getApplicationContext());
             //dataWrapper.invalidateDataWrapper();
 
-            int statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
+            int statusRes = R.drawable.ic_event_status_stop; //GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
             /*if (!Event.getGlobalEventsRunning()) {
                 if (_eventStatus != Event.ESTATUS_STOP)
                     statusRes = R.drawable.ic_event_status_pause_manual_activation;
@@ -111,7 +111,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         break;
                     case Event.ESTATUS_STOP:
                         //if (isRunnable)
-                        statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
+                        statusRes = R.drawable.ic_event_status_stop;
+                        //statusRes = GlobalGUIRoutines.getThemeEventStopStatusIndicator(context);
                         //else
                         //    statusRes = R.drawable.ic_event_status_stop_not_runnable;
                         break;
@@ -150,7 +151,8 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                 eventName.setTypeface(null, Typeface.BOLD_ITALIC/*ITALIC*/);
                 //eventName.setTextSize(15);
                 //noinspection ConstantConditions
-                eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(editorFragment.getActivity()));
+                eventName.setTextColor(GlobalGUIRoutines.getThemeEventStopColor(context));
+                //eventName.setTextColor(ContextCompat.getColor(context, R.color.eventStopTextColor));
             }
             else
             if (_eventStatus == Event.ESTATUS_PAUSE) {

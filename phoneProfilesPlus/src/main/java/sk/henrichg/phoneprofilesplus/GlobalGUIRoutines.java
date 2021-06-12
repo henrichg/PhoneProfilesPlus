@@ -8,7 +8,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.Ringtone;
@@ -1118,11 +1117,12 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
+    /*
     static int getThemeEventStopStatusIndicator(final Context context) {
         //final TypedValue value = new TypedValue();
         //context.getTheme().resolveAttribute(R.attr.eventStopStatusIndicator, value, true);
         //return value.data;
-        int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, context);
+        int theme = GlobalGUIRoutines.getTheme(false, false, false, context);
         if (theme != 0) {
             TypedArray a = context.getTheme().obtainStyledAttributes(theme, new int[]{R.attr.eventStopStatusIndicator});
             return a.getResourceId(0, 0);
@@ -1130,6 +1130,7 @@ class GlobalGUIRoutines {
         else
             return 0;
     }
+    */
 
     /*
     static int getThemeEventInDelayColor(final Context context) {
