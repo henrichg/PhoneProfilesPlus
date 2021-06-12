@@ -1,6 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +10,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
 {
     private final ConfiguredProfilePreferencesDialogPreferenceX preference;
+    private final Context context;
 
     private final LayoutInflater inflater;
 
     ConfiguredProfilePreferencesAdapterX(Context context, ConfiguredProfilePreferencesDialogPreferenceX preference)
     {
         this.preference = preference;
+        this.context = context;
 
         // Cache the LayoutInflate to avoid asking for a new one each time.
         inflater = LayoutInflater.from(context);
@@ -64,11 +70,26 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
             holder = (ViewHolder)vi.getTag();
         }
 
+        String applicationTheme = ApplicationPreferences.applicationTheme(context.getApplicationContext(), true);
+
         if (configuredPreferences.preferenceIcon == 0) {
             holder.preferenceIcon.setVisibility(View.GONE);
         }
         else {
             holder.preferenceIcon.setImageResource(configuredPreferences.preferenceIcon);
+
+            if (applicationTheme.equals("dark")) {
+                if (configuredPreferences.preferenceIconDisabled)
+                    holder.preferenceIcon.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP);
+                else
+                    holder.preferenceIcon.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP);
+            } else {
+                if (configuredPreferences.preferenceIconDisabled)
+                    holder.preferenceIcon.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP);
+                else
+                    holder.preferenceIcon.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP);
+            }
+
             holder.preferenceIcon.setVisibility(View.VISIBLE);
         }
         if (configuredPreferences.preferenceIcon2 == 0) {
@@ -76,6 +97,19 @@ class ConfiguredProfilePreferencesAdapterX extends BaseAdapter
         }
         else {
             holder.preferenceIcon2.setImageResource(configuredPreferences.preferenceIcon2);
+
+            if (applicationTheme.equals("dark")) {
+                if (configuredPreferences.preferenceIcon2Disabled)
+                    holder.preferenceIcon2.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_dark), PorterDuff.Mode.SRC_ATOP);
+                else
+                    holder.preferenceIcon2.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_dark), PorterDuff.Mode.SRC_ATOP);
+            } else {
+                if (configuredPreferences.preferenceIcon2Disabled)
+                    holder.preferenceIcon2.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP);
+                else
+                    holder.preferenceIcon2.setColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP);
+            }
+
             holder.preferenceIcon2.setVisibility(View.VISIBLE);
         }
 
