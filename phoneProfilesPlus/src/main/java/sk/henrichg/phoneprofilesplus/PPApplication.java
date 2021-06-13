@@ -160,7 +160,7 @@ public class PPApplication extends Application
                                                 +"|PackageReplacedReceiver.onReceive"
                                                 //+"|PhoneProfilesService.doCommand"
                                                 //+"|PhoneProfilesService.showProfileNotification"
-                                                +"|PhoneProfilesService._showProfileNotification"
+                                                //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|ShowProfileNotificationBroadcastReceiver"
                                                 //+"|ShowProfileNotificationWorker.doWork"
                                                 //+"|PhoneProfilesService._showProfileNotification"

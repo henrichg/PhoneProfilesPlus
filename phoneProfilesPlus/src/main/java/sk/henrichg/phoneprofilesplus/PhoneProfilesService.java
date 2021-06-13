@@ -5478,7 +5478,7 @@ public class PhoneProfilesService extends Service
             }
         }
 
-        PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationPrefIndicatorLightness="+notificationPrefIndicatorLightness);
+//        PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationPrefIndicatorLightness="+notificationPrefIndicatorLightness);
 
         int requestCode = 0;
         if (profile != null)
