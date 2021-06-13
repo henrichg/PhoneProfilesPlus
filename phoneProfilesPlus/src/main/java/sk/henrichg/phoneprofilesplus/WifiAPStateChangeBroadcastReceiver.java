@@ -55,7 +55,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
                                 // Wifi AP is disabled - schedule wifi scan work
                                 //PPApplication.logE("[RJS] WifiAPStateChangeBroadcastReceiver.onReceive","wifi AP disabled");
                                 if (PhoneProfilesService.getInstance() != null) {
-                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, false);
+                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0);
                                     dataWrapper.fillEventList();
                                     PhoneProfilesService.getInstance().scheduleWifiWorker(/*true,*/ dataWrapper/*, false, true, false, false*/);
                                 }

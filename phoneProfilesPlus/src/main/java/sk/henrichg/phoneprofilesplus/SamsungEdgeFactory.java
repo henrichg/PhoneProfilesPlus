@@ -53,15 +53,15 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
         if (local) {
             return new DataWrapper(context.getApplicationContext(), applicationSamsungEdgeIconColor.equals("1"),
-                    monochromeValue, applicationSamsungEdgeCustomIconLightness, false);
+                    monochromeValue, applicationSamsungEdgeCustomIconLightness, DataWrapper.IT_FOR_WIDGET);
         }
         else {
             if (dataWrapper == null) {
                 dataWrapper = new DataWrapper(context.getApplicationContext(), applicationSamsungEdgeIconColor.equals("1"),
-                        monochromeValue, applicationSamsungEdgeCustomIconLightness, false);
+                        monochromeValue, applicationSamsungEdgeCustomIconLightness, DataWrapper.IT_FOR_WIDGET);
             } else {
                 dataWrapper.setParameters(applicationSamsungEdgeIconColor.equals("1"),
-                        monochromeValue, applicationSamsungEdgeCustomIconLightness, false);
+                        monochromeValue, applicationSamsungEdgeCustomIconLightness, DataWrapper.IT_FOR_WIDGET);
             }
             return dataWrapper;
         }

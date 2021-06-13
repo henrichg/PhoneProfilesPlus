@@ -45,7 +45,7 @@ public class DataWrapper {
     private boolean monochrome = false;
     private int monochromeValue = 0xFF;
     private boolean useMonochromeValueForCustomIcon = false;
-    private boolean indicatorsForEditor = false;
+    private int indicatorsType = 0;
 
     boolean profileListFilled = false;
     boolean eventListFilled = false;
@@ -62,16 +62,20 @@ public class DataWrapper {
     private static final String ACTIVATED_PROFILES_FIFO_COUNT_PREF = "activated_profiles_fifo_count";
     private static final String ACTIVATED_PROFILES_FIFO_ID_PREF = "activated_profiles_fifo_id";
 
+    static final int IT_FOR_EDITOR = 1;
+    static final int IT_FOR_NOTIFICATION = 2;
+    static final int IT_FOR_WIDGET = 3;
+
     DataWrapper(Context _context,
                         //boolean fgui,
                         boolean mono,
                         int monoVal,
                         boolean useMonoValForCustomIcon,
-                        boolean indicatorsForEditor)
+                        int indicatorsType)
     {
         context = _context.getApplicationContext();
 
-        setParameters(/*fgui, */mono, monoVal, useMonoValForCustomIcon, indicatorsForEditor);
+        setParameters(/*fgui, */mono, monoVal, useMonoValForCustomIcon, indicatorsType);
     }
 
     void setParameters(
@@ -79,17 +83,17 @@ public class DataWrapper {
             boolean mono,
             int monoVal,
             boolean useMonoValForCustomIcon,
-            boolean indicatorsForEditor)
+            int indicatorsType)
     {
         //forGUI = fgui;
         monochrome = mono;
         monochromeValue = monoVal;
         useMonochromeValueForCustomIcon = useMonoValForCustomIcon;
-        this.indicatorsForEditor = indicatorsForEditor;
+        this.indicatorsType = indicatorsType;
     }
 
     DataWrapper copyDataWrapper() {
-        DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon, indicatorsForEditor);
+        DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon, indicatorsType);
         synchronized (profileList) {
             dataWrapper.copyProfileList(this);
         }
@@ -124,7 +128,7 @@ public class DataWrapper {
                 if (generateIcons)
                     profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                 if (generateIndicators)
-                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsForEditor);
+                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType);
             }
         //}
         return newProfileList;
@@ -483,7 +487,7 @@ public class DataWrapper {
             if (generateIcon)
                 profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
             if (generateIndicators)
-                profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsForEditor);
+                profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType);
         }
         return profile;
     }
@@ -582,7 +586,7 @@ public class DataWrapper {
             if (generateIcon)
                 profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
             if (generateIndicators)
-                profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsForEditor);
+                profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType);
         }
         return profile;
     }
@@ -713,7 +717,7 @@ public class DataWrapper {
                 if (generateIcon)
                     profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                 if (generateIndicators)
-                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsForEditor);
+                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType);
             }
         }
     }

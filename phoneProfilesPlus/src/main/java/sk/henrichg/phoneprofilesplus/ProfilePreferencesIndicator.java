@@ -50,13 +50,13 @@ class ProfilePreferencesIndicator {
     }
 
     private void addIndicator(int preferenceBitmapResourceID, int index,
-                              boolean disabled, boolean forEditor,
+                              boolean disabled, int indicatorsType,
                               Context context, Canvas canvas)
     {
         Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
         //Bitmap preferenceBitmap = BitmapManipulator.getBitmapFromResource(preferenceBitmapResourceID, false, context);
 
-        if (forEditor) {
+        if (indicatorsType == DataWrapper.IT_FOR_EDITOR) {
             Paint paint = new Paint();
 
             String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
@@ -99,7 +99,8 @@ class ProfilePreferencesIndicator {
         }
     }
 
-    void fillArrays(Profile profile, boolean fillStrings, boolean monochrome, boolean fillPreferences, boolean forEditor, Context appContext) {
+    void fillArrays(Profile profile, boolean fillStrings, boolean monochrome,
+                    boolean fillPreferences, int indicatorsType, Context appContext) {
         countDrawables = 0;
         countPreferences = 0;
         if (profile != null)
@@ -402,7 +403,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "spe:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone;
                             else {
                                 if (monochrome)
@@ -521,7 +522,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "sto:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch;
                             else {
                                 if (monochrome)
@@ -559,7 +560,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "vto:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch;
                             else {
                                 if (monochrome)
@@ -597,7 +598,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "dtd:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing;
                             else {
                                 if (monochrome)
@@ -635,7 +636,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "arm:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode;
                             else {
                                 if (monochrome)
@@ -673,7 +674,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "asy:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync;
                             else {
                                 if (monochrome)
@@ -716,7 +717,7 @@ class ProfilePreferencesIndicator {
                                         strings[countDrawables++] = "so1:0";
                                     else {
                                         disabled[countDrawables] = true;
-                                        if (forEditor)
+                                        if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                             drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim1;
                                         else {
                                             if (monochrome)
@@ -753,7 +754,7 @@ class ProfilePreferencesIndicator {
                                         strings[countDrawables++] = "so2:0";
                                     else {
                                         disabled[countDrawables] = true;
-                                        if (forEditor)
+                                        if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                             drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim2;
                                         else {
                                             if (monochrome)
@@ -819,7 +820,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "mda:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata;
                             else {
                                 if (monochrome)
@@ -860,7 +861,7 @@ class ProfilePreferencesIndicator {
                                     if (fillStrings)
                                         strings[countDrawables++] = "md1:0";
                                     else {
-                                        if (forEditor)
+                                        if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                             drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim1;
                                         else {
                                             disabled[countDrawables] = true;
@@ -898,7 +899,7 @@ class ProfilePreferencesIndicator {
                                         strings[countDrawables++] = "md2:0";
                                     else {
                                         disabled[countDrawables] = true;
-                                        if (forEditor)
+                                        if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                             drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim2;
                                         else {
                                             if (monochrome)
@@ -955,7 +956,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "wif:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi;
                             else {
                                 if (monochrome)
@@ -994,7 +995,7 @@ class ProfilePreferencesIndicator {
                                 strings[countDrawables++] = "wap:0";
                             else {
                                 disabled[countDrawables] = true;
-                                if (forEditor)
+                                if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap;
                                 else {
                                     if (monochrome)
@@ -1063,7 +1064,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "blt:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth;
                             else {
                                 if (monochrome)
@@ -1101,7 +1102,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "lom:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_on;
                             else {
                                 if (monochrome)
@@ -1139,7 +1140,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "gps:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_on;
                             else {
                                 if (monochrome)
@@ -1192,7 +1193,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "nfc:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc;
                             else {
                                 if (monochrome)
@@ -1331,7 +1332,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "art:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
                             else {
                                 if (monochrome)
@@ -1381,7 +1382,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "son:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent;
                             else {
                                 if (monochrome)
@@ -1434,7 +1435,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "kgu:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen;
                             else {
                                 if (monochrome)
@@ -1487,7 +1488,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "nld:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led;
                             else {
                                 if (monochrome)
@@ -1525,7 +1526,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "hup:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications;
                             else {
                                 if (monochrome)
@@ -1563,7 +1564,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "aod:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display;
                             else {
                                 if (monochrome)
@@ -1601,7 +1602,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "dkm:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode;
                             else {
                                 if (monochrome)
@@ -1640,7 +1641,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "psm:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode;
                             else {
                                 if (monochrome)
@@ -1745,7 +1746,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "fla:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_camera_flash;
                             else {
                                 if (monochrome)
@@ -1771,7 +1772,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "wfs:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi_off;
                             else {
                                 if (monochrome)
@@ -1809,7 +1810,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "bls:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_off;
                             else {
                                 if (monochrome)
@@ -1847,7 +1848,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "los:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_off;
                             else {
                                 if (monochrome)
@@ -1885,7 +1886,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "mcs:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_off;
                             else {
                                 if (monochrome)
@@ -1923,7 +1924,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "ors:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_off;
                             else {
                                 if (monochrome)
@@ -1961,7 +1962,7 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "nos:0";
                         else {
                             disabled[countDrawables] = true;
-                            if (forEditor)
+                            if (indicatorsType == DataWrapper.IT_FOR_EDITOR)
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_off;
                             else {
                                 if (monochrome)
@@ -1993,13 +1994,13 @@ class ProfilePreferencesIndicator {
             countDrawables = -1;
     }
 
-    Bitmap paint(Profile profile, boolean monochrome, boolean forEditor, Context context)
+    Bitmap paint(Profile profile, boolean monochrome, int indicatorsType, Context context)
     {
         Context appContext = context.getApplicationContext();
 
         //Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
 
-        fillArrays(profile, false, monochrome, false, forEditor, context);
+        fillArrays(profile, false, monochrome, false, indicatorsType, context);
 
         Bitmap indicatorBitmap;
         if (countDrawables >= 0)
@@ -2010,7 +2011,7 @@ class ProfilePreferencesIndicator {
                     indicatorBitmap = createIndicatorBitmap(/*appContext,*/ countDrawables);
                     Canvas canvas = new Canvas(indicatorBitmap);
                     for (int i = 0; i < countDrawables; i++)
-                        addIndicator(drawables[i], i, disabled[i], forEditor, appContext, canvas);
+                        addIndicator(drawables[i], i, disabled[i], indicatorsType, appContext, canvas);
                 } catch (Exception e) {
                     indicatorBitmap = null;
                 }
@@ -2049,7 +2050,7 @@ class ProfilePreferencesIndicator {
 
         Context appContext = context.getApplicationContext();
 
-        fillArrays(profile, true, false, false, false, appContext);
+        fillArrays(profile, true, false, false, 0, appContext);
 
         String indicator1 = "";
         if (countDrawables > 0) {

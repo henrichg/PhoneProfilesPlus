@@ -420,7 +420,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (applicationWidgetListPrefIndicator)
                     profile.generatePreferencesIndicator(context.getApplicationContext(),
                             applicationWidgetListIconColor.equals("1"),
-                        monochromeValue, false);
+                        monochromeValue, DataWrapper.IT_FOR_NOTIFICATION);
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);
@@ -566,7 +566,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         //Bundle widgetIdOptions;
         //widgetIdOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
         //boolean isLargeLayout = setLayoutParams(context, appWidgetManager, appWidgetId, widgetIdOptions);
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, false);
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_NOTIFICATION);
         RemoteViews widget = buildLayout(context, appWidgetId, /*isLargeLayout,*/ dataWrapper);
         try {
             appWidgetManager.updateAppWidget(appWidgetId, widget);
@@ -645,7 +645,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                 for (int appWidgetId : appWidgetIds) {
                                     //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
                                     RemoteViews layout;
-                                    DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, false);
+                                    DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_NOTIFICATION);
                                     layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
                                     try {
                                         appWidgetManager.updateAppWidget(appWidgetId, layout);

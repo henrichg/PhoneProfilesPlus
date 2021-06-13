@@ -690,7 +690,7 @@ public class MainWorker extends Worker {
 
         //}
 
-        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, false);
+        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0);
 
         if (Event.getGlobalEventsRunning()) {
             PPApplication.logE("MainWorker.doAfterFirstStart", "global event run is enabled, first start events");

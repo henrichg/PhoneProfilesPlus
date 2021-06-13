@@ -39,7 +39,7 @@ public class LocationGeofencePreferenceX extends DialogPreference {
 
         this.context = context;
 
-        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, true);
+        dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR);
 
         if (onlyEdit != 0)
             setNegativeButtonText(null);

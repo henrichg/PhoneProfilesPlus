@@ -35,7 +35,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         //GlobalGUIRoutines.setLanguage(this);
 
         if (dataWrapper == null)
-            dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, false);
+            dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_NOTIFICATION);
 
         setUpdateWhenScreenOn(true);
     }
