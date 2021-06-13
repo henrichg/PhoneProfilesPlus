@@ -42,9 +42,13 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
 
         int monochromeValue = 0xFF;
         if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
+        if (applicationWidgetListIconLightness.equals("12")) monochromeValue = 0x20;
         if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
+        if (applicationWidgetListIconLightness.equals("37")) monochromeValue = 0x60;
         if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
+        if (applicationWidgetListIconLightness.equals("62")) monochromeValue = 0xA0;
         if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
+        if (applicationWidgetListIconLightness.equals("87")) monochromeValue = 0xE0;
         //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
         if (local) {
@@ -143,9 +147,13 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             int green;
             int blue;
             if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
+            if (applicationWidgetListLightnessT.equals("12")) red = 0x20;
             if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
+            if (applicationWidgetListLightnessT.equals("37")) red = 0x60;
             if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
+            if (applicationWidgetListLightnessT.equals("62")) red = 0xA0;
             if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
+            if (applicationWidgetListLightnessT.equals("87")) red = 0xE0;
             //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red;
             blue = red;

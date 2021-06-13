@@ -95,19 +95,26 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         }
         else {
             //if (applicationWidgetListLightnessB.equals("0")) red = 0x00;
+            if (applicationWidgetListLightnessB.equals("12")) red = 0x20;
             if (applicationWidgetListLightnessB.equals("25")) red = 0x40;
+            if (applicationWidgetListLightnessB.equals("37")) red = 0x60;
             if (applicationWidgetListLightnessB.equals("50")) red = 0x80;
+            if (applicationWidgetListLightnessB.equals("62")) red = 0xA0;
             if (applicationWidgetListLightnessB.equals("75")) red = 0xC0;
+            if (applicationWidgetListLightnessB.equals("87")) red = 0xE0;
             if (applicationWidgetListLightnessB.equals("100")) red = 0xFF;
             green = red;
             blue = red;
         }
         int alpha = 0x40;
-        if (applicationWidgetListBackground.equals("0")) alpha = 0x00;
-        //if (applicationWidgetListBackground.equals("25")) alpha = 0x40;
-        if (applicationWidgetListBackground.equals("50")) alpha = 0x80;
-        if (applicationWidgetListBackground.equals("75")) alpha = 0xC0;
-        if (applicationWidgetListBackground.equals("100")) alpha = 0xFF;
+        if (applicationWidgetListBackground.equals("12")) red = 0x20;
+        //if (applicationWidgetListBackground.equals("25")) red = 0x40;
+        if (applicationWidgetListBackground.equals("37")) red = 0x60;
+        if (applicationWidgetListBackground.equals("50")) red = 0x80;
+        if (applicationWidgetListBackground.equals("62")) red = 0xA0;
+        if (applicationWidgetListBackground.equals("75")) red = 0xC0;
+        if (applicationWidgetListBackground.equals("87")) red = 0xE0;
+        if (applicationWidgetListBackground.equals("100")) red = 0xFF;
         widget.setInt(R.id.widget_profile_list_root, "setBackgroundColor", Color.argb(alpha, red, green, blue));
 
 
@@ -116,9 +123,13 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         {
             int monochromeValue = 0xFF;
             if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
+            if (applicationWidgetListIconLightness.equals("12")) monochromeValue = 0x20;
             if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
+            if (applicationWidgetListIconLightness.equals("37")) monochromeValue = 0x60;
             if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
+            if (applicationWidgetListIconLightness.equals("62")) monochromeValue = 0xA0;
             if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
+            if (applicationWidgetListIconLightness.equals("87")) monochromeValue = 0xE0;
             //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, false);
@@ -183,9 +194,13 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
             red = 0xFF;
             if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
+            if (applicationWidgetListLightnessT.equals("12")) red = 0x20;
             if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
+            if (applicationWidgetListLightnessT.equals("37")) red = 0x60;
             if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
+            if (applicationWidgetListLightnessT.equals("62")) red = 0xA0;
             if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
+            if (applicationWidgetListLightnessT.equals("87")) red = 0xE0;
             //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red; blue = red;
             widget.setTextColor(R.id.widget_profile_list_header_profile_name, Color.argb(0xFF, red, green, blue));
@@ -201,9 +216,13 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
             red = 0xFF;
             if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
+            if (applicationWidgetListLightnessT.equals("12")) red = 0x20;
             if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
+            if (applicationWidgetListLightnessT.equals("37")) red = 0x60;
             if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
+            if (applicationWidgetListLightnessT.equals("62")) red = 0xA0;
             if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
+            if (applicationWidgetListLightnessT.equals("87")) red = 0xE0;
             //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red; blue = red;
             widget.setInt(R.id.widget_profile_list_header_separator, "setBackgroundColor", Color.argb(0xFF, red, green, blue));

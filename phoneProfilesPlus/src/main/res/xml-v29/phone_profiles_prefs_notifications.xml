@@ -75,6 +75,16 @@
             app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForNotification_summary"
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
+
+        <ListPreference
+            app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
+            app:summary="100%%"
+            app:key="notificationPrefIndicatorLightness"
+            app:defaultValue="100"
+            app:entries="@array/widgetLightnessArray"
+            app:entryValues="@array/widgetLightnessValues"
+            app:layout="@layout/mp_preference_material_widget" />
+
         <SwitchPreferenceCompat
             app:key="notificationNightMode"
             app:title="@string/phone_profiles_pref_notificationNightMode"

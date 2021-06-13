@@ -758,18 +758,26 @@ public class DataWrapper {
                 int monochromeValue = 0xFF;
                 String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
                 if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
+                if (applicationWidgetIconLightness.equals("12")) monochromeValue = 0x20;
                 if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
+                if (applicationWidgetIconLightness.equals("37")) monochromeValue = 0x60;
                 if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
+                if (applicationWidgetIconLightness.equals("62")) monochromeValue = 0xA0;
                 if (applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
+                if (applicationWidgetIconLightness.equals("87")) monochromeValue = 0xE0;
                 //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
                 profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, getActivity().getBaseContext()*/);
             } else {
                 float monochromeValue = 255f;
                 String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
                 if (applicationWidgetIconLightness.equals("0")) monochromeValue = -255f;
+                if (applicationWidgetIconLightness.equals("12")) monochromeValue = -192f;
                 if (applicationWidgetIconLightness.equals("25")) monochromeValue = -128f;
+                if (applicationWidgetIconLightness.equals("37")) monochromeValue = -64f;
                 if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0f;
+                if (applicationWidgetIconLightness.equals("62")) monochromeValue = 64f;
                 if (applicationWidgetIconLightness.equals("75")) monochromeValue = 128f;
+                if (applicationWidgetIconLightness.equals("87")) monochromeValue = 192f;
                 //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 255f;
                 profileBitmap = BitmapManipulator.grayScaleBitmap(profileBitmap);
                 profileBitmap = BitmapManipulator.setBitmapBrightness(profileBitmap, monochromeValue);

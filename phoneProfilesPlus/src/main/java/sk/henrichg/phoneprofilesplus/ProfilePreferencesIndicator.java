@@ -76,6 +76,22 @@ class ProfilePreferencesIndicator {
             Canvas _canvas = new Canvas(bitmapResult);
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
 
+            /*
+            // change brightness of indicator
+            float brightnessValue = 255f;
+            String notificationPrefIndicatorLightness = ApplicationPreferences.???;
+            if (notificationPrefIndicatorLightness.equals("0")) brightnessValue = -255f;
+            if (notificationPrefIndicatorLightness.equals("12")) brightnessValue = -192f;
+            if (notificationPrefIndicatorLightness.equals("25")) brightnessValue = -128f;
+            if (notificationPrefIndicatorLightness.equals("37")) brightnessValue = -64f;
+            if (notificationPrefIndicatorLightness.equals("50")) brightnessValue = 0f;
+            if (notificationPrefIndicatorLightness.equals("62")) brightnessValue = 64f;
+            if (notificationPrefIndicatorLightness.equals("75")) brightnessValue = 128f;
+            if (notificationPrefIndicatorLightness.equals("87")) brightnessValue = 192f;
+            //if (notificationPrefIndicatorLightness.equals("100")) brightnessValue = 255f;
+            bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, brightnessValue);
+            */
+
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
         }

@@ -3104,9 +3104,13 @@ public class Profile {
                 //PPApplication.logE("generateIconBitmap", "monochromeValue="+monochromeValue);
                 float monoValue = 255f;
                 if (monochromeValue == 0x00) monoValue = -255f;
+                if (monochromeValue == 0x20) monoValue = -192f;
                 if (monochromeValue == 0x40) monoValue = -128f;
+                if (monochromeValue == 0x60) monoValue = -64f;
                 if (monochromeValue == 0x80) monoValue = 0f;
+                if (monochromeValue == 0xA0) monoValue = 64f;
                 if (monochromeValue == 0xC0) monoValue = 128f;
+                if (monochromeValue == 0xE0) monoValue = 192f;
                 //if (monochromeValue == 0xFF) monoValue = 255f;
                 _iconBitmap = BitmapManipulator.grayScaleBitmap(_iconBitmap);
                 if (useMonochromeValueForCustomIcon)
