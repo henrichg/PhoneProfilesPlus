@@ -93,6 +93,25 @@ class ProfilePreferencesIndicator {
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
         }
+        else
+        if (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) {
+            // change brightness of indicator
+            float brightnessValue = 128f;
+            /*String notificationPrefIndicatorLightness = ApplicationPreferences.???;
+            if (notificationPrefIndicatorLightness.equals("0")) brightnessValue = -255f;
+            if (notificationPrefIndicatorLightness.equals("12")) brightnessValue = -192f;
+            if (notificationPrefIndicatorLightness.equals("25")) brightnessValue = -128f;
+            if (notificationPrefIndicatorLightness.equals("37")) brightnessValue = -64f;
+            if (notificationPrefIndicatorLightness.equals("50")) brightnessValue = 0f;
+            if (notificationPrefIndicatorLightness.equals("62")) brightnessValue = 64f;
+            if (notificationPrefIndicatorLightness.equals("75")) brightnessValue = 128f;
+            if (notificationPrefIndicatorLightness.equals("87")) brightnessValue = 192f;
+            //if (notificationPrefIndicatorLightness.equals("100")) brightnessValue = 255f;*/
+            Bitmap bitmapResult = BitmapManipulator.setBitmapBrightness(preferenceBitmap, brightnessValue);
+
+            if (bitmapResult != null)
+                canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+        }
         else {
             if (preferenceBitmap != null)
                 canvas.drawBitmap(preferenceBitmap, preferenceBitmap.getWidth() * index, 0, null);
