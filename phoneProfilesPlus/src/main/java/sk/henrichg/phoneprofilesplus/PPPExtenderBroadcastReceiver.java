@@ -75,7 +75,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 }
 
                                 if (PhoneProfilesService.getInstance() != null) {
-                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0);
+                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
                                     dataWrapper.fillEventList();
                                     //dataWrapper.fillProfileList(false, false);
                                     PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
@@ -135,7 +135,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                                 wakeLock.acquire(10 * 60 * 1000);
                                             }
 
-                                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0);
+                                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
                                             dataWrapper.fillEventList();
                                             //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
 
@@ -195,7 +195,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                         wakeLock.acquire(10 * 60 * 1000);
                                     }
 
-                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0);
+                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
                                     dataWrapper.fillEventList();
                                     //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
 

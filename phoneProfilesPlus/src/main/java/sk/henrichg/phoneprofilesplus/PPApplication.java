@@ -160,7 +160,7 @@ public class PPApplication extends Application
                                                 +"|PackageReplacedReceiver.onReceive"
                                                 //+"|PhoneProfilesService.doCommand"
                                                 //+"|PhoneProfilesService.showProfileNotification"
-                                                //+"|PhoneProfilesService._showProfileNotification"
+                                                +"|PhoneProfilesService._showProfileNotification"
                                                 //+"|ShowProfileNotificationBroadcastReceiver"
                                                 //+"|ShowProfileNotificationWorker.doWork"
                                                 //+"|PhoneProfilesService._showProfileNotification"
@@ -2024,6 +2024,7 @@ public class PPApplication extends Application
             //ApplicationPreferences.applicationEditorAutoCloseDrawer(context);
             //ApplicationPreferences.applicationEditorSaveEditorState(context);
             ApplicationPreferences.notificationPrefIndicator(context);
+            ApplicationPreferences.notificationPrefIndicatorLightness(context);
             ApplicationPreferences.applicationHomeLauncher(context);
             ApplicationPreferences.applicationWidgetLauncher(context);
             ApplicationPreferences.applicationNotificationLauncher(context);

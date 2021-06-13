@@ -50,7 +50,8 @@ class ProfilePreferencesIndicator {
     }
 
     private void addIndicator(int preferenceBitmapResourceID, int index,
-                              boolean disabled, int indicatorsType,
+                              boolean disabled,
+                              int indicatorsType, float indicatorsLightnessValue,
                               Context context, Canvas canvas)
     {
         Bitmap preferenceBitmap = BitmapFactory.decodeResource(context.getResources(), preferenceBitmapResourceID);
@@ -76,38 +77,13 @@ class ProfilePreferencesIndicator {
             Canvas _canvas = new Canvas(bitmapResult);
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
 
-            // change brightness of indicator
-            float brightnessValue = 0f;
-            /*String notificationPrefIndicatorLightness = ApplicationPreferences.???;
-            if (notificationPrefIndicatorLightness.equals("0")) brightnessValue = -255f;
-            if (notificationPrefIndicatorLightness.equals("12")) brightnessValue = -192f;
-            if (notificationPrefIndicatorLightness.equals("25")) brightnessValue = -128f;
-            if (notificationPrefIndicatorLightness.equals("37")) brightnessValue = -64f;
-            if (notificationPrefIndicatorLightness.equals("50")) brightnessValue = 0f;
-            if (notificationPrefIndicatorLightness.equals("62")) brightnessValue = 64f;
-            if (notificationPrefIndicatorLightness.equals("75")) brightnessValue = 128f;
-            if (notificationPrefIndicatorLightness.equals("87")) brightnessValue = 192f;
-            //if (notificationPrefIndicatorLightness.equals("100")) brightnessValue = 255f;*/
-            bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, brightnessValue);
-
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
         }
         else
         if (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) {
             // change brightness of indicator
-            float brightnessValue = 128f;
-            /*String notificationPrefIndicatorLightness = ApplicationPreferences.???;
-            if (notificationPrefIndicatorLightness.equals("0")) brightnessValue = -255f;
-            if (notificationPrefIndicatorLightness.equals("12")) brightnessValue = -192f;
-            if (notificationPrefIndicatorLightness.equals("25")) brightnessValue = -128f;
-            if (notificationPrefIndicatorLightness.equals("37")) brightnessValue = -64f;
-            if (notificationPrefIndicatorLightness.equals("50")) brightnessValue = 0f;
-            if (notificationPrefIndicatorLightness.equals("62")) brightnessValue = 64f;
-            if (notificationPrefIndicatorLightness.equals("75")) brightnessValue = 128f;
-            if (notificationPrefIndicatorLightness.equals("87")) brightnessValue = 192f;
-            //if (notificationPrefIndicatorLightness.equals("100")) brightnessValue = 255f;*/
-            Bitmap bitmapResult = BitmapManipulator.setBitmapBrightness(preferenceBitmap, brightnessValue);
+            Bitmap bitmapResult = BitmapManipulator.setBitmapBrightness(preferenceBitmap, indicatorsLightnessValue);
 
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
@@ -2013,7 +1989,7 @@ class ProfilePreferencesIndicator {
             countDrawables = -1;
     }
 
-    Bitmap paint(Profile profile, boolean monochrome, int indicatorsType, Context context)
+    Bitmap paint(Profile profile, boolean monochrome, int indicatorsType, float indicatorsLightnessValue, Context context)
     {
         Context appContext = context.getApplicationContext();
 
@@ -2030,7 +2006,7 @@ class ProfilePreferencesIndicator {
                     indicatorBitmap = createIndicatorBitmap(/*appContext,*/ countDrawables);
                     Canvas canvas = new Canvas(indicatorBitmap);
                     for (int i = 0; i < countDrawables; i++)
-                        addIndicator(drawables[i], i, disabled[i], indicatorsType, appContext, canvas);
+                        addIndicator(drawables[i], i, disabled[i], indicatorsType, indicatorsLightnessValue, appContext, canvas);
                 } catch (Exception e) {
                     indicatorBitmap = null;
                 }

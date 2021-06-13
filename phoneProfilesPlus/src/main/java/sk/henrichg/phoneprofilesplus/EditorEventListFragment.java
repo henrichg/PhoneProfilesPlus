@@ -181,7 +181,7 @@ public class EditorEventListFragment extends Fragment
         //Log.d("EditorEventListFragment.onCreate","orderType="+orderType);
 
         //noinspection ConstantConditions
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
         //getActivity().getIntent();
 
@@ -479,7 +479,7 @@ public class EditorEventListFragment extends Fragment
             _filterType = filterType;
             _orderType = orderType;
             //noinspection ConstantConditions
-            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR);
+            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
             applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
         }
@@ -2129,7 +2129,7 @@ public class EditorEventListFragment extends Fragment
             EditorEventListFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
                 if (fragment.getActivity() != null) {
-                    _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR);
+                    _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
                     _dataWrapper.copyEventList(fragment.activityDataWrapper);
 
                     for (Event event : _dataWrapper.eventList) {

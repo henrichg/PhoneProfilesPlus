@@ -45,7 +45,7 @@ public class TileChooserListFragment extends Fragment {
         setRetainInstance(true);
 
         //noinspection ConstantConditions
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
     }
 
@@ -107,7 +107,7 @@ public class TileChooserListFragment extends Fragment {
         public LoadProfileListAsyncTask (TileChooserListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
             //noinspection ConstantConditions
-            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR);
+            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
             //applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(this.dataWrapper.context);
             applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;

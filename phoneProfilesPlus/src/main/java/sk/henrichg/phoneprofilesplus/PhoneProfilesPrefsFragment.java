@@ -2069,6 +2069,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_AUTOSTART_MANAGER);
         setSummary(PREF_ACTIVATED_PROFILE_NOTIFICATION_SYSTEM_SETTINGS);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
+        setSummary(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY);
         setSummary(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT);

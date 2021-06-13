@@ -257,15 +257,18 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
         if (local) {
             return new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
-                    monochromeValue, applicationWidgetListCustomIconLightness, DataWrapper.IT_FOR_WIDGET);
+                    monochromeValue, applicationWidgetListCustomIconLightness,
+                    DataWrapper.IT_FOR_WIDGET, 0f);
         }
         else {
             if (dataWrapper == null) {
                 dataWrapper = new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
-                        monochromeValue, applicationWidgetListCustomIconLightness, DataWrapper.IT_FOR_WIDGET);
+                        monochromeValue, applicationWidgetListCustomIconLightness,
+                        DataWrapper.IT_FOR_WIDGET, 0f);
             } else {
                 dataWrapper.setParameters(applicationWidgetListIconColor.equals("1"),
-                        monochromeValue, applicationWidgetListCustomIconLightness, DataWrapper.IT_FOR_WIDGET);
+                        monochromeValue, applicationWidgetListCustomIconLightness,
+                        DataWrapper.IT_FOR_WIDGET, 0f);
             }
             return dataWrapper;
         }

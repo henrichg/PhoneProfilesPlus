@@ -305,7 +305,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
             //if (useHandler)
             //    PPApplication.logE("PPApplication.startHandlerThread", "START run - from=ProfileDurationAlarmBroadcastReceiver._doWork");
 
-            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0);
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
             //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "getIsManualProfileActivation()=" + DataWrapper.getIsManualProfileActivation(true, appContext));
 

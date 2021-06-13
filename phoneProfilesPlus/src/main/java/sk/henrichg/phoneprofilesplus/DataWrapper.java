@@ -46,6 +46,7 @@ public class DataWrapper {
     private int monochromeValue = 0xFF;
     private boolean useMonochromeValueForCustomIcon = false;
     private int indicatorsType = 0;
+    private float indicatorsLightnessValue = 0f;
 
     boolean profileListFilled = false;
     boolean eventListFilled = false;
@@ -71,11 +72,12 @@ public class DataWrapper {
                         boolean mono,
                         int monoVal,
                         boolean useMonoValForCustomIcon,
-                        int indicatorsType)
+                        int indicatorsType,
+                        float indicatorsLightnessVal)
     {
         context = _context.getApplicationContext();
 
-        setParameters(/*fgui, */mono, monoVal, useMonoValForCustomIcon, indicatorsType);
+        setParameters(/*fgui, */mono, monoVal, useMonoValForCustomIcon, indicatorsType, indicatorsLightnessVal);
     }
 
     void setParameters(
@@ -83,17 +85,19 @@ public class DataWrapper {
             boolean mono,
             int monoVal,
             boolean useMonoValForCustomIcon,
-            int indicatorsType)
+            int indicatorsType,
+            float indicatorsLightnessVal)
     {
         //forGUI = fgui;
         monochrome = mono;
         monochromeValue = monoVal;
         useMonochromeValueForCustomIcon = useMonoValForCustomIcon;
         this.indicatorsType = indicatorsType;
+        indicatorsLightnessValue = indicatorsLightnessVal;
     }
 
     DataWrapper copyDataWrapper() {
-        DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon, indicatorsType);
+        DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon, indicatorsType, indicatorsLightnessValue);
         synchronized (profileList) {
             dataWrapper.copyProfileList(this);
         }
@@ -128,7 +132,7 @@ public class DataWrapper {
                 if (generateIcons)
                     profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                 if (generateIndicators)
-                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType);
+                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType, indicatorsLightnessValue);
             }
         //}
         return newProfileList;
@@ -487,7 +491,7 @@ public class DataWrapper {
             if (generateIcon)
                 profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
             if (generateIndicators)
-                profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType);
+                profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType, indicatorsLightnessValue);
         }
         return profile;
     }
@@ -586,7 +590,7 @@ public class DataWrapper {
             if (generateIcon)
                 profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
             if (generateIndicators)
-                profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType);
+                profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType, indicatorsLightnessValue);
         }
         return profile;
     }
@@ -717,7 +721,7 @@ public class DataWrapper {
                 if (generateIcon)
                     profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                 if (generateIndicators)
-                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType);
+                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType, indicatorsLightnessValue);
             }
         }
     }

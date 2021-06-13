@@ -3158,12 +3158,13 @@ public class Profile {
             _iconBitmap = null;
     }
 
-    void generatePreferencesIndicator(Context context, boolean monochrome, int monochromeValue, int indicatorsType)
+    void generatePreferencesIndicator(Context context, boolean monochrome, int monochromeValue,
+                                      int indicatorsType, float indicatorsLightnessValue)
     {
         releasePreferencesIndicator();
 
         ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
-        _preferencesIndicator = indicators.paint(this, monochrome, indicatorsType, context);
+        _preferencesIndicator = indicators.paint(this, monochrome, indicatorsType,indicatorsLightnessValue, context);
         if (_preferencesIndicator != null) {
             if (monochrome)
                 _preferencesIndicator = BitmapManipulator.monochromeBitmap(_preferencesIndicator, monochromeValue/*, context*/);

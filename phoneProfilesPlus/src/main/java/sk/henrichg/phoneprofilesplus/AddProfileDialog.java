@@ -158,13 +158,13 @@ class AddProfileDialog
                         Profile.PROFILE_ICON_DEFAULT, 0);
                 profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
                 if (applicationEditorPrefIndicator)
-                    profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF, DataWrapper.IT_FOR_EDITOR);
+                    profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF, DataWrapper.IT_FOR_EDITOR, 0f);
                 profileList.add(profile);
                 for (int index = 0; index < 7; index++) {
                     profile = dataWrapper.getPredefinedProfile(index, false, activity);
                     profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
                     if (applicationEditorPrefIndicator)
-                        profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF, DataWrapper.IT_FOR_EDITOR);
+                        profile.generatePreferencesIndicator(activity.getApplicationContext(), false, 0xFF, DataWrapper.IT_FOR_EDITOR, 0f);
                     profileList.add(profile);
                 }
             }

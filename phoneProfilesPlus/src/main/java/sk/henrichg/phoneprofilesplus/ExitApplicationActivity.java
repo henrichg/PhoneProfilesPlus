@@ -49,7 +49,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
             ApplicationPreferences.applicationNeverAskForGrantRoot(appContext);
             ApplicationPreferences.applicationNeverAskForGrantG1Permission(appContext);
 
-            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0);
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
             //PPApplication.logE("PPApplication.exitApp", "from ExitApplicationActivity.onStart shutdown=false");
             PPApplication.exitApp(true, appContext, dataWrapper, ExitApplicationActivity.this, false/*, true, true*/);
 

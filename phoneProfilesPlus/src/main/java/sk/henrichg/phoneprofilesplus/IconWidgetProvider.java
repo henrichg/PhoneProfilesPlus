@@ -118,7 +118,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     applicationWidgetIconColor.equals("1"),
                     monochromeValue,
                     applicationWidgetIconCustomIconLightness,
-                    DataWrapper.IT_FOR_WIDGET);
+                    DataWrapper.IT_FOR_WIDGET, 0f);
 
         Profile profile;
         //boolean fullyStarted = PPApplication.applicationFullyStarted;

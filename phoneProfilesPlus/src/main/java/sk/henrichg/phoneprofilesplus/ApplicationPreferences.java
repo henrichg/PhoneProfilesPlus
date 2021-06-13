@@ -85,6 +85,7 @@ class ApplicationPreferences {
     //static boolean applicationEditorAutoCloseDrawer;
     //static boolean applicationEditorSaveEditorState;
     static boolean notificationPrefIndicator;
+    static String notificationPrefIndicatorLightness;
     static String applicationHomeLauncher;
     static String applicationWidgetLauncher;
     static String applicationNotificationLauncher;
@@ -281,6 +282,7 @@ class ApplicationPreferences {
     //static final String PREF_APPLICATION_EDITOR_AUTO_CLOSE_DRAWER = "applicationEditorAutoCloseDrawer";
     //static final String PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE = "applicationEditorSaveEditorState";
     static final String PREF_NOTIFICATION_PREF_INDICATOR = "notificationPrefIndicator";
+    static final String PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS = "notificationPrefIndicatorLightness";
     static final String PREF_APPLICATION_HOME_LAUNCHER = "applicationHomeLauncher";
     static final String PREF_APPLICATION_WIDGET_LAUNCHER = "applicationWidgetLauncher";
     static final String PREF_APPLICATION_NOTIFICATION_LAUNCHER = "applicationNotificationLauncher";
@@ -639,6 +641,10 @@ class ApplicationPreferences {
 
     static void notificationPrefIndicator(Context context) {
         notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, true);
+    }
+
+    static void notificationPrefIndicatorLightness(Context context) {
+        notificationPrefIndicatorLightness = getSharedPreferences(context).getString(PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS, "50");
     }
 
     static void applicationHomeLauncher(Context context) {
