@@ -70,11 +70,12 @@
 
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
-            app:summary="100%%"
+            app:summary="50%%"
             app:key="notificationPrefIndicatorLightness"
-            app:defaultValue="100"
+            app:defaultValue="50"
             app:entries="@array/widgetLightnessArray"
             app:entryValues="@array/widgetLightnessValues"
+            app:dependency="notificationPrefIndicator"
             app:layout="@layout/mp_preference_material_widget" />
 
         <SwitchPreferenceCompat
