@@ -29,8 +29,6 @@
 <!--    <color name="editorDrawerListHeaderTitleColor">#FFFFFFFF</color>-->
     <color name="dialog_divider">#20FFFFFF</color>
 
-    <color name="altype_other">#FF7F7F7F</color>
-
     <color name="editorFilterTitleColor">#FFFFFFFF</color>
     <color name="editorFilterBackgroundColor">#FF272727</color>
 
@@ -66,5 +64,12 @@
     <color name="popupMenuBorderColor">#FF454545</color>
     <color name="profileIconBorderColor">#FF505050</color>
     <color name="cardViewBorderColor">#FF454545</color>
+
+    <color name="altype_profile">#FF4040FF</color>
+    <color name="altype_eventStart">#FF00C000</color>
+    <color name="altype_eventEnd">#FFD0D000</color>
+    <color name="altype_eventDelayStartEnd">#FFffb000</color>
+    <color name="altype_error">#FFFF0000</color>
+    <color name="altype_other">#FF7F7F7F</color>
 
 </resources>
