@@ -2,7 +2,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Theme.PhoneProfilesTheme_withToolbar_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_withToolbar_dayNight">
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:popupMenuStyle">@style/PopupMenu_dayNight</item>
         <item name="actionOverflowMenuStyle">@style/PopupMenu_dayNight</item>
         <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
