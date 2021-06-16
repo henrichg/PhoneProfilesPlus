@@ -109,8 +109,8 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
                         //Log.e("----------- ConfiguredProfilePreferencesDialogPreferenceFragmentX.refreshListView", "profile._name="+profile._name);
 
                         ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
-                        indicators.fillArrays(profile, false, false, true, DataWrapper.IT_FOR_EDITOR, prefContext);
-                        indicators.fillArrays(profile, true, false, true, DataWrapper.IT_FOR_EDITOR, prefContext);
+                        indicators.fillArrays(profile, false, /*false,*/ true, /*DataWrapper.IT_FOR_EDITOR,*/ prefContext);
+                        indicators.fillArrays(profile, true, /*false,*/ true, /*DataWrapper.IT_FOR_EDITOR,*/ prefContext);
 
                         //Log.e("----------- ConfiguredProfilePreferencesDialogPreferenceFragmentX.refreshListView", "ProfilePreferencesIndicator.countDrawables="+ProfilePreferencesIndicator.countDrawables);
 

@@ -5712,15 +5712,15 @@ public class PhoneProfilesService extends Service
                     //PPApplication.logE("[TEST BATTERY] PhoneProfilesService._showProfileNotification", "generate indicators");
 
                     float brightnessValue = 0f;
-                    if (notificationPrefIndicatorLightness.equals("0")) brightnessValue = -255f;
-                    if (notificationPrefIndicatorLightness.equals("12")) brightnessValue = -192f;
-                    if (notificationPrefIndicatorLightness.equals("25")) brightnessValue = -128f;
-                    if (notificationPrefIndicatorLightness.equals("37")) brightnessValue = -64f;
+                    if (notificationPrefIndicatorLightness.equals("0")) brightnessValue = -128f;
+                    if (notificationPrefIndicatorLightness.equals("12")) brightnessValue = -96f;
+                    if (notificationPrefIndicatorLightness.equals("25")) brightnessValue = -64f;
+                    if (notificationPrefIndicatorLightness.equals("37")) brightnessValue = -32f;
                     if (notificationPrefIndicatorLightness.equals("50")) brightnessValue = 0f;
-                    if (notificationPrefIndicatorLightness.equals("62")) brightnessValue = 64f;
-                    if (notificationPrefIndicatorLightness.equals("75")) brightnessValue = 128f;
-                    if (notificationPrefIndicatorLightness.equals("87")) brightnessValue = 192f;
-                    if (notificationPrefIndicatorLightness.equals("100")) brightnessValue = 255f;
+                    if (notificationPrefIndicatorLightness.equals("62")) brightnessValue = 32f;
+                    if (notificationPrefIndicatorLightness.equals("75")) brightnessValue = 64f;
+                    if (notificationPrefIndicatorLightness.equals("87")) brightnessValue = 96f;
+                    if (notificationPrefIndicatorLightness.equals("100")) brightnessValue = 128f;
                     profile.generatePreferencesIndicator(appContext, false, 0,
                             DataWrapper.IT_FOR_NOTIFICATION, brightnessValue);
 

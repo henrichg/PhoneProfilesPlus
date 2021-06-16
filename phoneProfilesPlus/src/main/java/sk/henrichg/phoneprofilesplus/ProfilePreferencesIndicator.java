@@ -50,7 +50,7 @@ class ProfilePreferencesIndicator {
     }
 
     private void addIndicator(int preferenceBitmapResourceID, int index,
-                              boolean disabled,
+                              boolean monochrome, boolean disabled,
                               int indicatorsType, float indicatorsLightnessValue,
                               Context context, Canvas canvas)
     {
@@ -99,14 +99,43 @@ class ProfilePreferencesIndicator {
             if (bitmapResult != null)
                 canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
         }
-        else {
+        else
+        if (indicatorsType == DataWrapper.IT_FOR_WIDGET) {
+            Paint paint = new Paint();
+
+            if (!monochrome) {
+                if (disabled)
+                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColorDisabled_light), PorterDuff.Mode.SRC_ATOP));
+                else
+                    paint.setColorFilter(new PorterDuffColorFilter(ContextCompat.getColor(context, R.color.profileindicatorColor_light), PorterDuff.Mode.SRC_ATOP));
+            }
+            else {
+                if (disabled)
+                    paint.setAlpha(128);
+            }
+
+            Bitmap bitmapResult = Bitmap.createBitmap(preferenceBitmap.getWidth(), preferenceBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas _canvas = new Canvas(bitmapResult);
+            _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
+
+            //TODO will be implemented soon
+            if (!monochrome) {
+                // change brightness of indicator
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, 0);
+            }
+
+
+            if (bitmapResult != null)
+                canvas.drawBitmap(bitmapResult, preferenceBitmap.getWidth() * index, 0, null);
+        }
+        /*else {
             if (preferenceBitmap != null)
                 canvas.drawBitmap(preferenceBitmap, preferenceBitmap.getWidth() * index, 0, null);
-        }
+        }*/
     }
 
-    void fillArrays(Profile profile, boolean fillStrings, boolean monochrome,
-                    boolean fillPreferences, int indicatorsType, Context appContext) {
+    void fillArrays(Profile profile, boolean fillStrings, //boolean monochrome,
+                    boolean fillPreferences, /*int indicatorsType,*/ Context appContext) {
         countDrawables = 0;
         countPreferences = 0;
         if (profile != null)
@@ -409,14 +438,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "spe:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_speakerphone_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -528,14 +559,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "sto:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_sound_on_touch_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -566,14 +599,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "vto:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_vibration_on_touch_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -604,14 +639,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "dtd:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_dtmf_tone_when_dialing_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -642,14 +679,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "arm:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_airplane_mode_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -680,14 +719,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "asy:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_autosync_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -723,14 +764,16 @@ class ProfilePreferencesIndicator {
                                         strings[countDrawables++] = "so1:0";
                                     else {
                                         disabled[countDrawables] = true;
-                                        if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                                        if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                                (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                                (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                             drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim1;
-                                        else {
-                                            if (monochrome)
-                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim1_off_mono;
-                                            else
-                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim1_off;
-                                        }
+//                                        else {
+//                                            if (monochrome)
+//                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim1_off_mono;
+//                                            else
+//                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim1_off;
+//                                        }
                                     }
                                     if (fillPreferences)
                                         countItems[countPreferences++] = 1;
@@ -760,14 +803,16 @@ class ProfilePreferencesIndicator {
                                         strings[countDrawables++] = "so2:0";
                                     else {
                                         disabled[countDrawables] = true;
-                                        if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                                        if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                                (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                                (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                             drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim2;
-                                        else {
-                                            if (monochrome)
-                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim2_off_mono;
-                                            else
-                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim2_off;
-                                        }
+//                                        else {
+//                                            if (monochrome)
+//                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim2_off_mono;
+//                                            else
+//                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_onoff_sim2_off;
+//                                        }
                                     }
                                     if (fillPreferences)
                                         countItems[countPreferences++] = 1;
@@ -826,14 +871,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "mda:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -867,15 +914,17 @@ class ProfilePreferencesIndicator {
                                     if (fillStrings)
                                         strings[countDrawables++] = "md1:0";
                                     else {
-                                        if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                                        if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                                (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                                (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                             drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim1;
-                                        else {
-                                            disabled[countDrawables] = true;
-                                            if (monochrome)
-                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim1_off_mono;
-                                            else
-                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim1_off;
-                                        }
+//                                        else {
+//                                            disabled[countDrawables] = true;
+//                                            if (monochrome)
+//                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim1_off_mono;
+//                                            else
+//                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim1_off;
+//                                        }
                                     }
                                     if (fillPreferences)
                                         countItems[countPreferences++] = 1;
@@ -905,14 +954,16 @@ class ProfilePreferencesIndicator {
                                         strings[countDrawables++] = "md2:0";
                                     else {
                                         disabled[countDrawables] = true;
-                                        if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                                        if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                                (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                                (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                             drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim2;
-                                        else {
-                                            if (monochrome)
-                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim2_off_mono;
-                                            else
-                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim2_off;
-                                        }
+//                                        else {
+//                                            if (monochrome)
+//                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim2_off_mono;
+//                                            else
+//                                                drawables[countDrawables++] = R.drawable.ic_profile_pref_mobiledata_sim2_off;
+//                                        }
                                     }
                                     if (fillPreferences)
                                         countItems[countPreferences++] = 1;
@@ -962,14 +1013,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "wif:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1001,14 +1054,16 @@ class ProfilePreferencesIndicator {
                                 strings[countDrawables++] = "wap:0";
                             else {
                                 disabled[countDrawables] = true;
-                                if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                                if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                        (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                        (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                     drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap;
-                                else {
-                                    if (monochrome)
-                                        drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off_mono;
-                                    else
-                                        drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off;
-                                }
+//                                else {
+//                                    if (monochrome)
+//                                        drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off_mono;
+//                                    else
+//                                        drawables[countDrawables++] = R.drawable.ic_profile_pref_wifi_ap_off;
+//                                }
                             }
                             if (fillPreferences)
                                 countItems[countPreferences++] = 1;
@@ -1070,14 +1125,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "blt:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_bluetooth_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1108,14 +1165,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "lom:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_on;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_location_mode_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1146,14 +1205,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "gps:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_on;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_gps_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1199,14 +1260,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "nfc:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_nfc_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1338,14 +1401,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "art:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_autorotate_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1388,14 +1453,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "son:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_on_permanent_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1441,14 +1508,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "kgu:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_lockscreen_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1494,14 +1563,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "nld:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_notification_led_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1532,14 +1603,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "hup:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_heads_up_notifications_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1570,14 +1643,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "aod:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_always_on_display_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1608,14 +1683,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "dkm:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_screen_dark_mode_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1647,14 +1724,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "psm:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_power_save_mode_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1752,14 +1831,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "fla:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_camera_flash;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_camera_flash_off_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_camera_flash_off;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_camera_flash_off_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_camera_flash_off;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1778,14 +1859,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "wfs:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi_off;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_wifi;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1816,14 +1899,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "bls:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_off;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_bluetooth;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1854,14 +1939,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "los:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_off;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_location;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1892,14 +1979,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "mcs:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_off;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_mobile_cell;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1930,14 +2019,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "ors:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_off;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_orientation;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -1968,14 +2059,16 @@ class ProfilePreferencesIndicator {
                             strings[countDrawables++] = "nos:0";
                         else {
                             disabled[countDrawables] = true;
-                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) || (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION))
+//                            if ((indicatorsType == DataWrapper.IT_FOR_EDITOR) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_NOTIFICATION) ||
+//                                    (indicatorsType == DataWrapper.IT_FOR_WIDGET))
                                 drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_off;
-                            else {
-                                if (monochrome)
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_mono;
-                                else
-                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification;
-                            }
+//                            else {
+//                                if (monochrome)
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification_mono;
+//                                else
+//                                    drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_notification;
+//                            }
                         }
                         if (fillPreferences)
                             countItems[countPreferences++] = 1;
@@ -2006,7 +2099,7 @@ class ProfilePreferencesIndicator {
 
         //Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
 
-        fillArrays(profile, false, monochrome, false, indicatorsType, context);
+        fillArrays(profile, false, /*monochrome,*/ false, /*indicatorsType,*/ context);
 
         Bitmap indicatorBitmap;
         if (countDrawables >= 0)
@@ -2017,7 +2110,7 @@ class ProfilePreferencesIndicator {
                     indicatorBitmap = createIndicatorBitmap(/*appContext,*/ countDrawables);
                     Canvas canvas = new Canvas(indicatorBitmap);
                     for (int i = 0; i < countDrawables; i++)
-                        addIndicator(drawables[i], i, disabled[i], indicatorsType, indicatorsLightnessValue, appContext, canvas);
+                        addIndicator(drawables[i], i, monochrome, disabled[i], indicatorsType, indicatorsLightnessValue, appContext, canvas);
                 } catch (Exception e) {
                     indicatorBitmap = null;
                 }
@@ -2056,7 +2149,7 @@ class ProfilePreferencesIndicator {
 
         Context appContext = context.getApplicationContext();
 
-        fillArrays(profile, true, false, false, 0, appContext);
+        fillArrays(profile, true, /*false,*/ false, /*0,*/ appContext);
 
         String indicator1 = "";
         if (countDrawables > 0) {
