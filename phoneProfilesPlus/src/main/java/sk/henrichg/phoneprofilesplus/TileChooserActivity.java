@@ -23,7 +23,7 @@ public class TileChooserActivity extends AppCompatActivity {
 
 //        PPApplication.logE("[BACKGROUND_ACTIVITY] TileChooserActivity.onCreate", "xxx");
 
-        GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
+        GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, true);
         //GlobalGUIRoutines.setLanguage(this);
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
@@ -44,7 +44,7 @@ public class TileChooserActivity extends AppCompatActivity {
 
     // set window dimensions ----------------------------------------------------------
 
-        getWindow().setFlags(LayoutParams.FLAG_DIM_BEHIND, LayoutParams.FLAG_DIM_BEHIND);
+    /*    getWindow().setFlags(LayoutParams.FLAG_DIM_BEHIND, LayoutParams.FLAG_DIM_BEHIND);
         LayoutParams params = getWindow().getAttributes();
         params.alpha = 1.0f;
         params.dimAmount = 0.5f;
@@ -87,7 +87,7 @@ public class TileChooserActivity extends AppCompatActivity {
         final float scale = getResources().getDisplayMetrics().density;
 
         // add list items height
-        int profileCount = DatabaseHandler.getInstance(getApplicationContext()).getProfilesCount(/*false*/);
+        int profileCount = DatabaseHandler.getInstance(getApplicationContext()).getProfilesCount();
         ++profileCount; // for restart events
         if (profileCount > 0) {
             popupHeight = popupHeight + (60f * scale * profileCount); // item
@@ -104,6 +104,7 @@ public class TileChooserActivity extends AppCompatActivity {
         // set popup window dimensions
         getWindow().setLayout((int) (popupWidth + 0.5f), (int) (popupHeight + 0.5f));
 
+    */
     //-----------------------------------------------------------------------------------
 
         setContentView(R.layout.activity_tile_chooser);

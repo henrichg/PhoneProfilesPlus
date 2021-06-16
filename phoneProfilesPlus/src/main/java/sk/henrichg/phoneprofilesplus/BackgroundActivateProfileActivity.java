@@ -71,7 +71,7 @@ public class BackgroundActivateProfileActivity extends AppCompatActivity {
                 if (profile_id == Profile.RESTART_EVENTS_PROFILE_ID) {
                     //if (Event.getGlobalEventsRunning()) {
                         // set theme and language for dialog alert ;-)
-                        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
+                        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false);
                         //GlobalGUIRoutines.setLanguage(this);
 
                         dataWrapper.restartEventsWithAlert(this);

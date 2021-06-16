@@ -55,7 +55,7 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
 
         if (activityStarted) {
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
+            GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);

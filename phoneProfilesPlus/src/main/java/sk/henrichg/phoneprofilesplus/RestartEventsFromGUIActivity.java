@@ -58,7 +58,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
 
         if (activityStarted) {
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
+            GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
             //dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);

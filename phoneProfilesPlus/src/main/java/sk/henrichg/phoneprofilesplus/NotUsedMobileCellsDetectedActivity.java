@@ -68,7 +68,7 @@ public class NotUsedMobileCellsDetectedActivity extends AppCompatActivity {
         GlobalGUIRoutines.lockScreenOrientation(this, true);
 
         // set theme and language for dialog alert ;-)
-        GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
+        GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         //PPApplication.logE("NotUsedMobileCellsDetectedActivity.onStart", "xxx");

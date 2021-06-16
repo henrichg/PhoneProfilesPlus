@@ -221,7 +221,7 @@
             android:icon="@drawable/ic_shortcut"
             android:label="@string/title_activity_shortcut_creator"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
-            android:theme="@style/PopupTheme_dayNight">
+            android:theme="@style/DialogTheme_dayNight">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
 
@@ -430,7 +430,7 @@
             android:icon="@drawable/ic_profile_default"
             android:label="@string/title_activity_tile_chooser"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
-            android:theme="@style/PopupTheme_dayNight"
+            android:theme="@style/DialogTheme_dayNight"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
         </activity>
         <activity

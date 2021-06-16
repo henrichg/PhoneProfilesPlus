@@ -232,7 +232,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         //PPApplication.logE("EditorProfilesActivity.onCreate", "xxx");
 
-        GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false);
+        GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         savedInstanceStateChanged = (savedInstanceState != null);

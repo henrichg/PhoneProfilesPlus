@@ -115,14 +115,17 @@ class GlobalGUIRoutines {
     }
 */
 
-    public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar/*, boolean withDrawerLayout*/, boolean forActivator)
+    public static void setTheme(Activity activity, boolean forPopup,
+                                boolean withToolbar/*, boolean withDrawerLayout*/,
+                                boolean forActivator, boolean forDialog)
     {
-        int theme = getTheme(forPopup, withToolbar, /*withDrawerLayout,*/ forActivator, activity);
+        int theme = getTheme(forPopup, withToolbar, /*withDrawerLayout,*/ forActivator, forDialog, activity);
         if (theme != 0)
             activity.setTheme(theme);
     }
 
-    static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/ boolean forActivator, Context context) {
+    static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/
+                        boolean forActivator, boolean forDialog, Context context) {
         switch (ApplicationPreferences.applicationTheme(context, false)) {
             /*case "color":
                 if (forPopup) {
@@ -239,6 +242,10 @@ class GlobalGUIRoutines {
         }
         if (forActivator) {
             return R.style.ActivatorTheme_dayNight;
+        }
+        else
+        if (forDialog) {
+            return R.style.DialogTheme_dayNight;
         }
         else
         if (forPopup) {
