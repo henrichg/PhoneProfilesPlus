@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -423,19 +424,25 @@ public class DataWrapper {
                 profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_low), "ic_profile_battery_1", index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 2;
-                profile._deviceMobileData = 2;
+                if (PPApplication.isRooted(true))
+                    profile._deviceMobileData = 2;
                 profile._deviceWiFi = 2;
                 profile._deviceBluetooth = 2;
-                profile._deviceGPS = 2;
+                if (PPApplication.isRooted(true) ||
+                        Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
+                    profile._deviceGPS = 2;
                 break;
             case 6:
                 profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_ok), "ic_profile_battery_3", index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 1;
-                profile._deviceMobileData = 1;
+                if (PPApplication.isRooted(true))
+                    profile._deviceMobileData = 1;
                 profile._deviceWiFi = 1;
                 profile._deviceBluetooth = 1;
-                profile._deviceGPS = 1;
+                if (PPApplication.isRooted(true) ||
+                        Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
+                    profile._deviceGPS = 1;
                 break;
             default:
                 profile = null;
