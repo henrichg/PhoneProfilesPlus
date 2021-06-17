@@ -5422,7 +5422,7 @@ public class PhoneProfilesService extends Service
         String notificationTextColor;
         String notificationBackgroundColor;
         int notificationBackgroundCustomColor;
-        boolean notificationNightMode;
+        //boolean notificationNightMode;
         boolean notificationShowButtonExit;
         String notificationLayoutType;
 
@@ -5445,7 +5445,7 @@ public class PhoneProfilesService extends Service
             notificationTextColor = "0";
             notificationBackgroundColor = "0";
             notificationBackgroundCustomColor = 0xFFFFFFFF;
-            notificationNightMode = false;
+            //notificationNightMode = false;
             notificationShowButtonExit = false;
             notificationLayoutType = "2"; // only small layout
         }
@@ -5472,7 +5472,7 @@ public class PhoneProfilesService extends Service
                 notificationTextColor = ApplicationPreferences.notificationTextColor;
                 notificationBackgroundColor = ApplicationPreferences.notificationBackgroundColor;
                 notificationBackgroundCustomColor = ApplicationPreferences.notificationBackgroundCustomColor;
-                notificationNightMode = ApplicationPreferences.notificationNightMode;
+                //notificationNightMode = ApplicationPreferences.notificationNightMode;
                 notificationShowButtonExit = ApplicationPreferences.notificationShowButtonExit;
                 notificationLayoutType = ApplicationPreferences.notificationLayoutType;
             }
@@ -5530,8 +5530,8 @@ public class PhoneProfilesService extends Service
                     notificationTextColor = "2";
                     break;
             }
-            if (/*(Build.VERSION.SDK_INT >= 24) &&*/ (Build.VERSION.SDK_INT < 29))
-                useDecorator = useDecorator && (!notificationNightMode) && notificationBackgroundColor.equals("0");
+            // is not possible to use decoration when notificication background is not "Native"
+            useDecorator = useDecorator && /*(!notificationNightMode) &&*/ notificationBackgroundColor.equals("0");
 
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "useDecorator="+useDecorator);
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "useNightColor="+useNightColor);
@@ -5701,6 +5701,7 @@ public class PhoneProfilesService extends Service
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "pName=" + pName);
 //            }
 
+            //noinspection ConstantConditions
             if (!forFirstStart) {
                 //if (notificationStatusBarStyle.equals("0"))
                 profile.generateIconBitmap(appContext, false, 0, false);
@@ -5854,6 +5855,7 @@ public class PhoneProfilesService extends Service
                         try {
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                             if (profileIconExists) {
+                                //noinspection ConstantConditions
                                 if (contentView != null)
                                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                             }
@@ -5901,6 +5903,7 @@ public class PhoneProfilesService extends Service
                         try {
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
                             if (profileIconExists) {
+                                //noinspection ConstantConditions
                                 if (contentView != null)
                                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
                             }
@@ -5943,6 +5946,7 @@ public class PhoneProfilesService extends Service
                         else
                             contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
                         if (profileIconExists) {
+                            //noinspection ConstantConditions
                             if (contentView != null) {
                                 if (iconBitmap != null)
                                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
@@ -5967,6 +5971,7 @@ public class PhoneProfilesService extends Service
         else {
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "create default status bar icon");
             int iconSmallResource;
+            //noinspection ConstantConditions
             if (notificationStatusBarStyle.equals("0"))
                 iconSmallResource = R.drawable.ic_profile_default;
             else
@@ -5977,6 +5982,7 @@ public class PhoneProfilesService extends Service
                 try {
                     contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
                     if (profileIconExists) {
+                        //noinspection ConstantConditions
                         if (contentView != null)
                             contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
                     }
@@ -5995,6 +6001,7 @@ public class PhoneProfilesService extends Service
         if (notificationNotificationStyle.equals("0")) {
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "set notification title - style=0");
             contentViewLarge.setTextViewText(R.id.notification_activated_profile_name, profileName);
+            //noinspection ConstantConditions
             if (contentView != null)
                 contentView.setTextViewText(R.id.notification_activated_profile_name, profileName);
 
@@ -6141,6 +6148,7 @@ public class PhoneProfilesService extends Service
                         contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
                         contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
 
+                        //noinspection ConstantConditions
                         if (contentView != null) {
                             contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
                             contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
@@ -6182,6 +6190,7 @@ public class PhoneProfilesService extends Service
                     //noinspection ConstantConditions
                     if (contentViewLarge != null)
                         contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
+                    //noinspection ConstantConditions
                     if (contentView != null)
                         contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
                 } catch (Exception e) {
@@ -6199,6 +6208,7 @@ public class PhoneProfilesService extends Service
                     //if (!notificationNightMode || (useNightColor == 1)) {
                     int color = ContextCompat.getColor(this, R.color.notificationBlackBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
+                    //noinspection ConstantConditions
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     break;
@@ -6206,18 +6216,21 @@ public class PhoneProfilesService extends Service
                     //if (!notificationNightMode || (useNightColor == 1)) {
                     color = ContextCompat.getColor(this, R.color.notificationDarkBackgroundColor);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
+                    //noinspection ConstantConditions
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", color);
                     break;
                 case "5":
                     //if (!notificationNightMode || (useNightColor == 1)) {
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
+                    //noinspection ConstantConditions
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", notificationBackgroundCustomColor);
                     break;
                 default:
                     //int color = getResources().getColor(R.color.notificationBackground);
                     contentViewLarge.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
+                    //noinspection ConstantConditions
                     if (contentView != null)
                         contentView.setInt(R.id.notification_activated_profile_root, "setBackgroundColor", Color.TRANSPARENT);
                     break;
@@ -6231,6 +6244,7 @@ public class PhoneProfilesService extends Service
                 //else
                 //    contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
                 //            ContextCompat.getColorStateList(appContext, R.color.widget_text_color_black));
+                //noinspection ConstantConditions
                 if (contentView != null) {
                     //if (Build.VERSION.SDK_INT < 25)
                         contentView.setTextColor(R.id.notification_activated_profile_name, Color.BLACK);
@@ -6246,6 +6260,7 @@ public class PhoneProfilesService extends Service
                 //    contentViewLarge.setTextColor(R.id.notification_activated_profile_name,
                 //            ContextCompat.getColorStateList(appContext, R.color.widget_text_color_white));
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "after set text color");
+                //noinspection ConstantConditions
                 if (contentView != null)
                     //if (Build.VERSION.SDK_INT < 25)
                         contentView.setTextColor(R.id.notification_activated_profile_name, Color.WHITE);

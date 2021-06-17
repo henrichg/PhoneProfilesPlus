@@ -4352,11 +4352,11 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         ApplicationPreferences.notificationLayoutType = importPPDataBroadcastReceiver.applicationData.notificationLayoutType;
                                         ApplicationPreferences.notificationBackgroundColor = importPPDataBroadcastReceiver.applicationData.notificationBackgroundColor;
                                         ApplicationPreferences.notificationNotificationStyle = "0"; // custom notification style
-                                        ApplicationPreferences.notificationNightMode = false;
+                                        //ApplicationPreferences.notificationNightMode = false;
                                         ApplicationPreferences.notificationShowProfileIcon = true;
                                         if (ApplicationPreferences.notificationBackgroundColor.equals("2")) {
                                             ApplicationPreferences.notificationBackgroundColor = "0";
-                                            ApplicationPreferences.notificationNightMode = true;
+                                            //ApplicationPreferences.notificationNightMode = true;
                                         }
 
                                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());

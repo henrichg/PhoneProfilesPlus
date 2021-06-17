@@ -186,7 +186,7 @@ class ApplicationPreferences {
     static boolean applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled;
     static String applicationSamsungEdgeVerticalPosition;
     static int notificationBackgroundCustomColor;
-    static boolean notificationNightMode;
+    //static boolean notificationNightMode;
     static boolean applicationEditorHideHeaderOrBottomBar;
     static boolean applicationWidgetIconShowProfileDuration;
     static String notificationNotificationStyle;
@@ -1074,9 +1074,9 @@ class ApplicationPreferences {
         notificationBackgroundCustomColor = getSharedPreferences(context).getInt(PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF);
     }
 
-    static void notificationNightMode(Context context) {
-        notificationNightMode = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_NIGHT_MODE, false);
-    }
+//    static void notificationNightMode(Context context) {
+//        notificationNightMode = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_NIGHT_MODE, false);
+//    }
 
     static void applicationEditorHideHeaderOrBottomBar(Context context) {
         applicationEditorHideHeaderOrBottomBar = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, true);

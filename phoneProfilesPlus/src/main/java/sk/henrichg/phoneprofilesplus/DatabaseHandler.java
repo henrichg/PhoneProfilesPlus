@@ -4236,8 +4236,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return ok;
     }
 
+    /*
     // Getting profiles Count
-    int getProfilesCount(/*boolean forActivator*/) {
+    int getProfilesCount() {
         importExportLock.lock();
         try {
             int r = 0;
@@ -4263,12 +4264,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 //db.close();
 
-                /*if (forActivator && (!ApplicationPreferences.applicationActivatorHeader(context))) {
-                    Profile profile = getActivatedProfile();
-                    if ((profile != null) && (!profile._showInActivator)) {
-                        r++;
-                    }
-                }*/
+                //if (forActivator && (!ApplicationPreferences.applicationActivatorHeader(context))) {
+                //    Profile profile = getActivatedProfile();
+                //    if ((profile != null) && (!profile._showInActivator)) {
+                //        r++;
+                //    }
+                //}
 
             } catch (Exception e) {
                 PPApplication.recordException(e);
@@ -4278,6 +4279,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+    */
 
     // Getting max(porder)
     private int getMaxProfileOrder() {

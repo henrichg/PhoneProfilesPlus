@@ -1,11 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.TypedValue;
-import android.view.WindowManager.LayoutParams;
 
 import androidx.appcompat.app.AppCompatActivity;
 

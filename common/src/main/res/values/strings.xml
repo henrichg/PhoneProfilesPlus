@@ -1823,6 +1823,8 @@
 
     <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Preferences indicator lightness</string>
 
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Decoration for notification (if is enabled) will be displayed only when Background color is of type \"Native\".</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

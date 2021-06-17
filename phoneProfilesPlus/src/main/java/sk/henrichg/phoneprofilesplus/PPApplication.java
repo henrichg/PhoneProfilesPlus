@@ -2128,7 +2128,7 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled(context);
             ApplicationPreferences.applicationSamsungEdgeVerticalPosition(context);
             ApplicationPreferences.notificationBackgroundCustomColor(context);
-            ApplicationPreferences.notificationNightMode(context);
+            //ApplicationPreferences.notificationNightMode(context);
             ApplicationPreferences.applicationEditorHideHeaderOrBottomBar(context);
             ApplicationPreferences.applicationWidgetIconShowProfileDuration(context);
             ApplicationPreferences.notificationNotificationStyle(context);
