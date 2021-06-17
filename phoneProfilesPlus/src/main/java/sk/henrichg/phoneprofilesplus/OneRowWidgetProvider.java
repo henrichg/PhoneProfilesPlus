@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -59,6 +60,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         String applicationWidgetOneRowIconColor;
         boolean applicationWidgetOneRowCustomIconLightness;
         boolean applicationWidgetOneRowPrefIndicator;
+        String applicationWidgetOneRowPrefIndicatorLightness;
         boolean applicationWidgetOneRowBackgroundType;
         String applicationWidgetOneRowBackgroundColor;
         String applicationWidgetOneRowLightnessB;
@@ -73,6 +75,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor;
             applicationWidgetOneRowCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness;
             applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetOneRowPrefIndicator;
+            applicationWidgetOneRowPrefIndicatorLightness = ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightness;
             applicationWidgetOneRowBackgroundType = ApplicationPreferences.applicationWidgetOneRowBackgroundType;
             applicationWidgetOneRowBackgroundColor = ApplicationPreferences.applicationWidgetOneRowBackgroundColor;
             applicationWidgetOneRowLightnessB = ApplicationPreferences.applicationWidgetOneRowLightnessB;
@@ -117,13 +120,45 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 break;
         }
 
+        float prefIndicatorLightnessValue = 0f;
+        switch (applicationWidgetOneRowPrefIndicatorLightness) {
+            case "0":
+                prefIndicatorLightnessValue = -128f;
+                break;
+            case "12":
+                prefIndicatorLightnessValue = -96f;
+                break;
+            case "25":
+                prefIndicatorLightnessValue = -64f;
+                break;
+            case "37":
+                prefIndicatorLightnessValue = -32f;
+                break;
+            case "50":
+                prefIndicatorLightnessValue = 0f;
+                break;
+            case "62":
+                prefIndicatorLightnessValue = 32f;
+                break;
+            case "75":
+                prefIndicatorLightnessValue = 64f;
+                break;
+            case "87":
+                prefIndicatorLightnessValue = 96f;
+                break;
+            case "100":
+                prefIndicatorLightnessValue = 128f;
+                break;
+        }
+//        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorLightnessValue="+prefIndicatorLightnessValue);
+
         //DataWrapper dataWrapper = _dataWrapper;
         //Profile profile = _profile;
         //if (dataWrapper == null) {
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
                     applicationWidgetOneRowCustomIconLightness,
-                    DataWrapper.IT_FOR_WIDGET, 0f);
+                    DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
 
         Profile profile;
         //boolean fullyStarted = PPApplication.applicationFullyStarted;

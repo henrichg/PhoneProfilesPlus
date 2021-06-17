@@ -222,7 +222,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     private DataWrapper createProfilesDataWrapper(boolean local,
                                                   String applicationWidgetListIconLightness,
                                                   String applicationWidgetListIconColor,
-                                                  boolean applicationWidgetListCustomIconLightness)
+                                                  boolean applicationWidgetListCustomIconLightness,
+                                                  String applicationWidgetListPrefIndicatorLightness)
     {
         int monochromeValue = 0xFF;
         switch (applicationWidgetListIconLightness) {
@@ -255,20 +256,51 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 break;
         }
 
+        float prefIndicatorLightnessValue = 0f;
+        switch (applicationWidgetListPrefIndicatorLightness) {
+            case "0":
+                prefIndicatorLightnessValue = -128f;
+                break;
+            case "12":
+                prefIndicatorLightnessValue = -96f;
+                break;
+            case "25":
+                prefIndicatorLightnessValue = -64f;
+                break;
+            case "37":
+                prefIndicatorLightnessValue = -32f;
+                break;
+            case "50":
+                prefIndicatorLightnessValue = 0f;
+                break;
+            case "62":
+                prefIndicatorLightnessValue = 32f;
+                break;
+            case "75":
+                prefIndicatorLightnessValue = 64f;
+                break;
+            case "87":
+                prefIndicatorLightnessValue = 96f;
+                break;
+            case "100":
+                prefIndicatorLightnessValue = 128f;
+                break;
+        }
+
         if (local) {
             return new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
                     monochromeValue, applicationWidgetListCustomIconLightness,
-                    DataWrapper.IT_FOR_WIDGET, 0f);
+                    DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
         }
         else {
             if (dataWrapper == null) {
                 dataWrapper = new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
                         monochromeValue, applicationWidgetListCustomIconLightness,
-                        DataWrapper.IT_FOR_WIDGET, 0f);
+                        DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
             } else {
                 dataWrapper.setParameters(applicationWidgetListIconColor.equals("1"),
                         monochromeValue, applicationWidgetListCustomIconLightness,
-                        DataWrapper.IT_FOR_WIDGET, 0f);
+                        DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
             }
             return dataWrapper;
         }
@@ -286,19 +318,22 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         String applicationWidgetListIconColor;
         boolean applicationWidgetListCustomIconLightness;
         boolean applicationWidgetListPrefIndicator;
+        String applicationWidgetListPrefIndicatorLightness;
         boolean applicationWidgetListHeader;
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
             applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
             applicationWidgetListCustomIconLightness = ApplicationPreferences.applicationWidgetListCustomIconLightness;
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
+            applicationWidgetListPrefIndicatorLightness = ApplicationPreferences.applicationWidgetListPrefIndicatorLightness;
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
         }
 
         DataWrapper _dataWrapper = createProfilesDataWrapper(true,
                                                 applicationWidgetListIconLightness,
                                                 applicationWidgetListIconColor,
-                                                applicationWidgetListCustomIconLightness);
+                                                applicationWidgetListCustomIconLightness,
+                                                applicationWidgetListPrefIndicatorLightness);
 
         List<Profile> newProfileList = _dataWrapper.getNewProfileList(true,
                                                         applicationWidgetListPrefIndicator);
@@ -327,7 +362,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         createProfilesDataWrapper(false,
                                     applicationWidgetListIconLightness,
                                     applicationWidgetListIconColor,
-                                    applicationWidgetListCustomIconLightness);
+                                    applicationWidgetListCustomIconLightness,
+                                    applicationWidgetListPrefIndicatorLightness);
         //if (dataWrapper != null) {
             //dataWrapper.invalidateProfileList();
             dataWrapper.setProfileList(newProfileList);

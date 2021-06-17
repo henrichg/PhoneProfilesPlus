@@ -2013,6 +2013,7 @@ public class PPApplication extends Application
             ApplicationPreferences.notificationHideInLockScreen(context);
             //ApplicationPreferences.notificationTheme(context);
             ApplicationPreferences.applicationWidgetListPrefIndicator(context);
+            ApplicationPreferences.applicationWidgetListPrefIndicatorLightness(context);
             ApplicationPreferences.applicationWidgetListHeader(context);
             ApplicationPreferences.applicationWidgetListBackground(context);
             ApplicationPreferences.applicationWidgetListLightnessB(context);
@@ -2102,6 +2103,7 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationNeverAskForGrantG1Permission(context);
             ApplicationPreferences.notificationShowButtonExit(context);
             ApplicationPreferences.applicationWidgetOneRowPrefIndicator(context);
+            ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightness(context);
             ApplicationPreferences.applicationWidgetOneRowBackground(context);
             ApplicationPreferences.applicationWidgetOneRowLightnessB(context);
             ApplicationPreferences.applicationWidgetOneRowLightnessT(context);

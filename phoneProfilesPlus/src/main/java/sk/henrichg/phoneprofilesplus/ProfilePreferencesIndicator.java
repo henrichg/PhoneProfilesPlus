@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Build;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import androidx.core.content.ContextCompat;
 
@@ -121,7 +122,7 @@ class ProfilePreferencesIndicator {
             //TODO will be implemented soon
             if (!monochrome) {
                 // change brightness of indicator
-                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, 0);
+                bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);
             }
 
 
@@ -1812,6 +1813,8 @@ class ProfilePreferencesIndicator {
         //Profile profile = _profile; //Profile.getMappedProfile(_profile, context);
 
         fillArrays(profile, false, /*monochrome,*/ false, /*indicatorsType,*/ context);
+//        if (indicatorsType == DataWrapper.IT_FOR_WIDGET)
+//            Log.e("ProfilePreferencesIndicator.paint", "indicatorsLightnessValue="+indicatorsLightnessValue);
 
         Bitmap indicatorBitmap;
         if (countDrawables >= 0)

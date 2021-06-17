@@ -37,6 +37,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetListHeader;
         boolean applicationWidgetListGridLayout;
         boolean applicationWidgetListPrefIndicator;
+        String applicationWidgetListPrefIndicatorLightness;
         boolean applicationWidgetListBackgroundType;
         String applicationWidgetListBackgroundColor;
         String applicationWidgetListLightnessB;
@@ -53,6 +54,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
             applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
+            applicationWidgetListPrefIndicatorLightness = ApplicationPreferences.applicationWidgetListPrefIndicatorLightness;
             applicationWidgetListBackgroundType = ApplicationPreferences.applicationWidgetListBackgroundType;
             applicationWidgetListBackgroundColor = ApplicationPreferences.applicationWidgetListBackgroundColor;
             applicationWidgetListLightnessB = ApplicationPreferences.applicationWidgetListLightnessB;
@@ -95,6 +97,37 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 break;
             case "100":
                 monochromeValue = 0xFF;
+                break;
+        }
+
+        float prefIndicatorLightnessValue = 0f;
+        switch (applicationWidgetListPrefIndicatorLightness) {
+            case "0":
+                prefIndicatorLightnessValue = -128f;
+                break;
+            case "12":
+                prefIndicatorLightnessValue = -96f;
+                break;
+            case "25":
+                prefIndicatorLightnessValue = -64f;
+                break;
+            case "37":
+                prefIndicatorLightnessValue = -32f;
+                break;
+            case "50":
+                prefIndicatorLightnessValue = 0f;
+                break;
+            case "62":
+                prefIndicatorLightnessValue = 32f;
+                break;
+            case "75":
+                prefIndicatorLightnessValue = 64f;
+                break;
+            case "87":
+                prefIndicatorLightnessValue = 96f;
+                break;
+            case "100":
+                prefIndicatorLightnessValue = 128f;
                 break;
         }
 
@@ -420,7 +453,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (applicationWidgetListPrefIndicator)
                     profile.generatePreferencesIndicator(context.getApplicationContext(),
                             applicationWidgetListIconColor.equals("1"),
-                            monochromeValue, DataWrapper.IT_FOR_WIDGET, 0f);
+                            monochromeValue, DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);

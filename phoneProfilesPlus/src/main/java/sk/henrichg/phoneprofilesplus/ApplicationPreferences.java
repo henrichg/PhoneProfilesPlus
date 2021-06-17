@@ -74,6 +74,7 @@ class ApplicationPreferences {
     static boolean notificationHideInLockScreen;
     //static String notificationTheme;
     static boolean applicationWidgetListPrefIndicator;
+    static String applicationWidgetListPrefIndicatorLightness;
     static boolean applicationWidgetListHeader;
     static String applicationWidgetListBackground;
     static String applicationWidgetListLightnessB;
@@ -160,6 +161,7 @@ class ApplicationPreferences {
     static boolean applicationUseAlarmClock;
     static boolean notificationShowButtonExit;
     static boolean applicationWidgetOneRowPrefIndicator;
+    static String applicationWidgetOneRowPrefIndicatorLightness;
     static String applicationWidgetOneRowBackground;
     static String applicationWidgetOneRowLightnessB;
     static String applicationWidgetOneRowLightnessT;
@@ -271,6 +273,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_SHOW_IN_STATUS_BAR = "notificationShowInStatusBar";
     static final String PREF_NOTIFICATION_TEXT_COLOR = "notificationTextColor";
     static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR = "applicationWidgetListPrefIndicator";
+    static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS = "applicationWidgetListPrefIndicatorLightness";
     static final String PREF_APPLICATION_WIDGET_LIST_HEADER = "applicationWidgetListHeader";
     static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND = "applicationWidgetListBackground";
     static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B = "applicationWidgetListLightnessB";
@@ -352,6 +355,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_SHOW_BUTTON_EXIT = "notificationShowButtonExit";
     //static final String PREF_APPLICATION_DEFAULT_PROFILE_USAGE = "applicationBackgroundProfileUsage";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR = "applicationWidgetOneRowPrefIndicator";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS = "applicationWidgetOneRowPrefIndicatorLightness";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND = "applicationWidgetOneRowBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B = "applicationWidgetOneRowLightnessB";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T = "applicationWidgetOneRowLightnessT";
@@ -592,6 +596,10 @@ class ApplicationPreferences {
 
     static void applicationWidgetListPrefIndicator(Context context) {
         applicationWidgetListPrefIndicator = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, true);
+    }
+
+    static void applicationWidgetListPrefIndicatorLightness(Context context) {
+        applicationWidgetListPrefIndicatorLightness = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS, "50");
     }
 
     static void applicationWidgetListHeader(Context context) {
@@ -962,6 +970,10 @@ class ApplicationPreferences {
 
     static void applicationWidgetOneRowPrefIndicator(Context context) {
         applicationWidgetOneRowPrefIndicator = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, true);
+    }
+
+    static void applicationWidgetOneRowPrefIndicatorLightness(Context context) {
+        applicationWidgetOneRowPrefIndicatorLightness = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS, "50");
     }
 
     static void applicationWidgetOneRowBackground(Context context) {
