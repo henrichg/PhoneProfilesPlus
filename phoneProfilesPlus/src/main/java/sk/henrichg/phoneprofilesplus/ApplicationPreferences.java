@@ -379,7 +379,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED = "applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled";
     static final String PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION = "applicationSamsungEdgeVerticalPosition";
     static final String PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR = "notificationBackgroundCustomColor";
-    static final String PREF_NOTIFICATION_NIGHT_MODE = "notificationNightMode";
+    //static final String PREF_NOTIFICATION_NIGHT_MODE = "notificationNightMode";
     static final String PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR = "applicationEditorHideHeaderOrBottomBar";
     static final String PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION = "applicationWidgetIconShowProfileDuration";
     static final String PREF_NOTIFICATION_NOTIFICATION_STYLE = "notificationNotificationStyle";
