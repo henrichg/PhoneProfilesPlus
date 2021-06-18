@@ -3,4 +3,7 @@
     <item android:id="@+id/mobile_cells_pref_item_menu_delete"
         android:title="@string/profile_context_item_delete"
         android:orderInCategory="102" />
+    <item android:id="@+id/mobile_cells_pref_item_menu_delete_all_selected"
+        android:title="@string/mobile_cells_item_delete_all_selected"
+        android:orderInCategory="103" />
 </menu>

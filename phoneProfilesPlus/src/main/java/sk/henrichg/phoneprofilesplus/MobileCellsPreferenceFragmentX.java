@@ -608,6 +608,20 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
                 refreshListView(false, Integer.MAX_VALUE);
                 return true;
             }
+            if (itemId == R.id.mobile_cells_pref_item_menu_delete_all_selected) {
+                DatabaseHandler db = DatabaseHandler.getInstance(_context);
+                for (MobileCellsData cell : preference.filteredCellsList) {
+                    String[] splits = preference.value.split("\\|");
+                    for (String valueCell : splits) {
+                        if (valueCell.equals(Integer.toString(cell.cellId))) {
+                            db.deleteMobileCell(cell.cellId);
+                            preference.removeCellId(cell.cellId);
+                        }
+                    }
+                }
+                refreshListView(false, Integer.MAX_VALUE);
+                return true;
+            }
             else {
                 return false;
             }
