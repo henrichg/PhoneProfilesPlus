@@ -436,12 +436,18 @@
                     <TextView
                         android:id="@+id/dialog_color_chooser_custom_color_label"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:text="@string/colorChooser_pref_dialog_customIconColor"
-                        android:textSize="15sp"
+                        android:textSize="17sp"
+                        android:textColor="?attr/colorAccent"
+                        android:background="?attr/buttonBackground"
                         android:clickable="true"
                         android:focusable="true" />
                 </LinearLayout>
