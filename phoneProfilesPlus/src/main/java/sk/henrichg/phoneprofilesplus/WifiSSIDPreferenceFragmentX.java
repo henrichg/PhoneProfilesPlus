@@ -350,14 +350,37 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
             }
             else
             if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_delete) {
-                preference.removeSSID(ssid);
-                for (WifiSSIDData customSSID : preference.customSSIDList) {
-                    if (customSSID.ssid.equals(ssid)) {
-                        preference.customSSIDList.remove(customSSID);
-                        break;
-                    }
+                if (getActivity() != null) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                    dialogBuilder.setTitle(getResources().getString(R.string.profile_context_item_delete));
+                    dialogBuilder.setMessage(getResources().getString(R.string.delete_wifi_ssid_alert_message));
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                        preference.removeSSID(ssid);
+                        for (WifiSSIDData customSSID : preference.customSSIDList) {
+                            if (customSSID.ssid.equals(ssid)) {
+                                preference.customSSIDList.remove(customSSID);
+                                break;
+                            }
+                        }
+                        refreshListView(false, "");
+                    });
+                    dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                    AlertDialog dialog = dialogBuilder.create();
+
+                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    //            @Override
+                    //            public void onShow(DialogInterface dialog) {
+                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    //                if (positive != null) positive.setAllCaps(false);
+                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    //                if (negative != null) negative.setAllCaps(false);
+                    //            }
+                    //        });
+
+                    if ((getActivity() != null) && (!getActivity().isFinishing()))
+                        dialog.show();
                 }
-                refreshListView(false, "");
                 return true;
             }
             else {

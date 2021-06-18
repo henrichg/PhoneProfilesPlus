@@ -1678,6 +1678,16 @@
 
     <string name="mobile_cells_item_delete_all_selected">Delete all selected</string>
 
+    <string name="delete_application_alert_message">Delete this application?</string>
+    <string name="delete_intent_alert_message">Delete this intent?</string>
+    <string name="delete_shortcut_alert_message">Delete this shortcut?</string>
+    <string name="delete_wifi_ssid_alert_message">Delete this Wi-Fi SSID?</string>
+    <string name="delete_nfc_tag_alert_message">Delete this NFC tag?</string>
+    <string name="delete_bluetooth_name_alert_message">Delete this Bluetooth name?</string>
+    <string name="delete_geofence_name_alert_message">Delete this location?</string>
+    <string name="delete_mobile_cell_alert_message">Delete this mobile cell?</string>
+    <string name="delete_selected_mobile_cells_alert_message">Delete all selected mobile cells?</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

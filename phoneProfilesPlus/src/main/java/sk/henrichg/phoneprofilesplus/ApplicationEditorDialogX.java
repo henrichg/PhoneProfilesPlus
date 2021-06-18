@@ -418,7 +418,7 @@ class ApplicationEditorDialogX
         final Application application = applicationList.get(position);
 
         boolean canDelete = true;
-        if ((application != null) && (application.type == Application.TYPE_INTENT)) {
+        if (/*(application != null) &&*/ (application.type == Application.TYPE_INTENT)) {
             for (PPIntent ppIntent : preference.intentDBList) {
                 if (ppIntent._id == application.intentId) {
                     canDelete = ppIntent._usedCount == 0;
@@ -445,7 +445,33 @@ class ApplicationEditorDialogX
             }
             else
             if (itemId == R.id.applications_intent_editor_dlg_item_menu_delete) {
-                deleteIntent(application);
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                dialogBuilder.setTitle(activity.getString(R.string.profile_context_item_delete));
+                if (application.intentId != 0)
+                    dialogBuilder.setMessage(activity.getString(R.string.delete_intent_alert_message));
+                else
+                if (application.shortcutId != 0)
+                    dialogBuilder.setMessage(activity.getString(R.string.delete_shortcut_alert_message));
+                else
+                    dialogBuilder.setMessage(activity.getString(R.string.delete_application_alert_message));
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> deleteIntent(application));
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                AlertDialog dialog = dialogBuilder.create();
+
+//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                        if (positive != null) positive.setAllCaps(false);
+//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                        if (negative != null) negative.setAllCaps(false);
+//                    }
+//                });
+
+                if (/*(activity != null) &&*/ (!activity.isFinishing()))
+                    dialog.show();
+
                 return true;
             }
             else {

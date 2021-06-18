@@ -602,24 +602,70 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
         popup.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.mobile_cells_pref_item_menu_delete) {
-                DatabaseHandler db = DatabaseHandler.getInstance(_context);
-                db.deleteMobileCell(cellId);
-                preference.removeCellId(cellId);
-                refreshListView(false, Integer.MAX_VALUE);
+                if (getActivity() != null) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                    dialogBuilder.setTitle(getResources().getString(R.string.profile_context_item_delete));
+                    dialogBuilder.setMessage(getResources().getString(R.string.delete_mobile_cell_alert_message));
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                        DatabaseHandler db = DatabaseHandler.getInstance(_context);
+                        db.deleteMobileCell(cellId);
+                        preference.removeCellId(cellId);
+                        refreshListView(false, Integer.MAX_VALUE);
+                    });
+                    dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                    AlertDialog dialog = dialogBuilder.create();
+
+                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    //            @Override
+                    //            public void onShow(DialogInterface dialog) {
+                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    //                if (positive != null) positive.setAllCaps(false);
+                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    //                if (negative != null) negative.setAllCaps(false);
+                    //            }
+                    //        });
+
+                    if ((getActivity() != null) && (!getActivity().isFinishing()))
+                        dialog.show();
+                }
                 return true;
             }
             if (itemId == R.id.mobile_cells_pref_item_menu_delete_all_selected) {
-                DatabaseHandler db = DatabaseHandler.getInstance(_context);
-                for (MobileCellsData cell : preference.filteredCellsList) {
-                    String[] splits = preference.value.split("\\|");
-                    for (String valueCell : splits) {
-                        if (valueCell.equals(Integer.toString(cell.cellId))) {
-                            db.deleteMobileCell(cell.cellId);
-                            preference.removeCellId(cell.cellId);
+                if (getActivity() != null) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                    dialogBuilder.setTitle(getResources().getString(R.string.profile_context_item_delete));
+                    dialogBuilder.setMessage(getResources().getString(R.string.delete_selected_mobile_cells_alert_message));
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                        DatabaseHandler db = DatabaseHandler.getInstance(_context);
+                        for (MobileCellsData cell : preference.filteredCellsList) {
+                            String[] splits = preference.value.split("\\|");
+                            for (String valueCell : splits) {
+                                if (valueCell.equals(Integer.toString(cell.cellId))) {
+                                    db.deleteMobileCell(cell.cellId);
+                                    preference.removeCellId(cell.cellId);
+                                }
+                            }
                         }
-                    }
+                        refreshListView(false, Integer.MAX_VALUE);
+                    });
+                    dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                    AlertDialog dialog = dialogBuilder.create();
+
+                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    //            @Override
+                    //            public void onShow(DialogInterface dialog) {
+                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    //                if (positive != null) positive.setAllCaps(false);
+                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    //                if (negative != null) negative.setAllCaps(false);
+                    //            }
+                    //        });
+
+                    if ((getActivity() != null) && (!getActivity().isFinishing()))
+                        dialog.show();
                 }
-                refreshListView(false, Integer.MAX_VALUE);
                 return true;
             }
             else {
