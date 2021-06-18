@@ -7,8 +7,10 @@ import android.content.IntentFilter;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
+import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -27,6 +29,49 @@ public class PPTileService extends TileService {
         // update Tile and save profileId int SharedPreferences
         ApplicationPreferences.setQuickTileProfileId(getApplicationContext(), getTileId(), profileId);
         PPTileService.this.updateTile();
+
+        PPApplication.startHandlerThreadBroadcast(/*"AlarmClockBroadcastReceiver.onReceive"*/);
+        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+        __handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+            @Override
+            public void run() {
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPTileService.chooseTileBroadcastReceiver.onReceive");
+
+                Context appContext= appContextWeakRef.get();
+
+                if (appContext != null) {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PTileService_chooseTileBroadcastReceiver_onReceive");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
+                        String toast = getString(R.string.tile_chooser_tile_changed_toast);
+                        if (profileId == Profile.RESTART_EVENTS_PROFILE_ID)
+                            toast = toast + " " + getString(R.string.menu_restart_events);
+                        else {
+                            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0f);
+                            Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                            toast = toast + " " + profile._name;
+                        }
+                        PPApplication.showToast(context.getApplicationContext(), toast, Toast.LENGTH_LONG);
+
+                    } catch (Exception e) {
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }
+                }
+            }
+        });
         }
     };
 
@@ -62,6 +107,9 @@ public class PPTileService extends TileService {
             }
         }
         if (!isOK) {
+            try {
+                LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(chooseTileBroadcastReceiver);
+            } catch (Exception ignored) {}
             LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(chooseTileBroadcastReceiver,
                     new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver"+getTileId()));
 
@@ -101,6 +149,9 @@ public class PPTileService extends TileService {
         // Called when the Tile becomes visible
 //        PPApplication.logE("PPTileService.onStartListening", "getTileId()="+getTileId());
 
+        try {
+            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(chooseTileBroadcastReceiver);
+        } catch (Exception ignored) {}
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(chooseTileBroadcastReceiver,
                 new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver"+getTileId()));
 

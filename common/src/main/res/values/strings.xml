@@ -1688,6 +1688,8 @@
     <string name="delete_mobile_cell_alert_message">Delete this mobile cell?</string>
     <string name="delete_selected_mobile_cells_alert_message">Delete all selected mobile cells?</string>
 
+    <string name="tile_chooser_tile_changed_toast">Quick tile profile changed to:</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
