@@ -1,79 +1,17 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Handler;
-import android.os.PowerManager;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
-import android.widget.Toast;
-
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.lang.ref.WeakReference;
 
 public class PPTileService extends TileService {
-
-    private long profileId = 0;
-
-    public final BroadcastReceiver chooseTileBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent ) {
-        profileId = intent.getLongExtra(PPApplication.EXTRA_PROFILE_ID, -1);
-//        PPApplication.logE("[IN_BROADCAST] PPTileService.chooseTileBroadcastReceiver", "profileId="+profileId);
-
-        // update Tile and save profileId int SharedPreferences
-        ApplicationPreferences.setQuickTileProfileId(getApplicationContext(), getTileId(), profileId);
-        PPTileService.this.updateTile();
-
-        PPApplication.startHandlerThreadBroadcast(/*"AlarmClockBroadcastReceiver.onReceive"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        __handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            @Override
-            public void run() {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPTileService.chooseTileBroadcastReceiver.onReceive");
-
-                Context appContext= appContextWeakRef.get();
-
-                if (appContext != null) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
-                    try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PTileService_chooseTileBroadcastReceiver_onReceive");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
-
-                        String toast = getString(R.string.tile_chooser_tile_changed_toast);
-                        if (profileId == Profile.RESTART_EVENTS_PROFILE_ID)
-                            toast = toast + " " + getString(R.string.menu_restart_events);
-                        else {
-                            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0f);
-                            Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
-                            toast = toast + " " + profile._name;
-                        }
-                        PPApplication.showToast(context.getApplicationContext(), toast, Toast.LENGTH_LONG);
-
-                    } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
-                    } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
-                        }
-                    }
-                }
-            }
-        });
-        }
-    };
 
     @Override
     public void onClick () {
@@ -81,37 +19,47 @@ public class PPTileService extends TileService {
 
         // Called when the user click the tile
 
+        int tileId = getTileId();
         // get profileId from shaered preferences
-        profileId = ApplicationPreferences.getQuickTileProfileId(getApplicationContext(), getTileId());
+        PPApplication.quickTileProfileId[tileId] = ApplicationPreferences.getQuickTileProfileId(getApplicationContext(), tileId);
         updateTile();
 
 //        PPApplication.logE("PPTileService.onClick", "profileId="+profileId);
 
         boolean isOK = false;
-        if ((profileId != 0) && (profileId != -1)) {
+        if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
             Profile profile = null;
-            if (profileId != Profile.RESTART_EVENTS_PROFILE_ID) {
+            if (PPApplication.quickTileProfileId[tileId] != Profile.RESTART_EVENTS_PROFILE_ID) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0f);
-                profile = dataWrapper.getProfileById(profileId, false, false, false);
+                profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], false, false, false);
 //                if (profile != null)
 //                    PPApplication.logE("PPTileService.onClick", "profile=" + profile._name);
             }
-            if ((profileId == Profile.RESTART_EVENTS_PROFILE_ID) || (profile != null)) {
+            if ((PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID) || (profile != null)) {
                 isOK = true;
                 Intent intent = new Intent(getApplicationContext(), BackgroundActivateProfileActivity.class);
                 intent.setAction(Intent.ACTION_MAIN);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_QUICK_TILE);
-                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profileId);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, PPApplication.quickTileProfileId[tileId]);
                 startActivityAndCollapse(intent);
             }
         }
         if (!isOK) {
             try {
-                LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(chooseTileBroadcastReceiver);
+                if (PPApplication.quickTileChooseTileBroadcastReceiver[tileId] != null) {
+                    getApplicationContext().unregisterReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId]);
+                    //LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId]);
+                    PPApplication.quickTileChooseTileBroadcastReceiver[tileId] = null;
+                }
             } catch (Exception ignored) {}
-            LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(chooseTileBroadcastReceiver,
-                    new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver"+getTileId()));
+            if (PPApplication.quickTileChooseTileBroadcastReceiver[tileId] == null) {
+                PPApplication.quickTileChooseTileBroadcastReceiver[tileId] = new QuickTileChooseTileBroadcastReceiver();
+                getApplicationContext().registerReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId],
+                        new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver" + tileId));
+                //LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId],
+                //        new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver"+tileId));
+            }
 
             Intent intent = new Intent(getApplicationContext(), TileChooserActivity.class);
             intent.setAction(Intent.ACTION_MAIN);
@@ -128,8 +76,9 @@ public class PPTileService extends TileService {
         // Do something when the user removes the Tile
 
         // set it inactive when removed
-        profileId = 0;
-        ApplicationPreferences.setQuickTileProfileId(getApplicationContext(), getTileId(), profileId);
+        int tileId = getTileId();
+        PPApplication.quickTileProfileId[tileId] = 0;
+        ApplicationPreferences.setQuickTileProfileId(getApplicationContext(), tileId, PPApplication.quickTileProfileId[tileId]);
         updateTile();
     }
 
@@ -139,7 +88,8 @@ public class PPTileService extends TileService {
         // Do something when the user add the Tile
 
         // get profileId from SharedPreferences and update it
-        profileId = ApplicationPreferences.getQuickTileProfileId(getApplicationContext(), getTileId());
+        int tileId = getTileId();
+        PPApplication.quickTileProfileId[tileId] = ApplicationPreferences.getQuickTileProfileId(getApplicationContext(), tileId);
         updateTile();
     }
 
@@ -149,14 +99,24 @@ public class PPTileService extends TileService {
         // Called when the Tile becomes visible
 //        PPApplication.logE("PPTileService.onStartListening", "getTileId()="+getTileId());
 
+        int tileId = getTileId();
         try {
-            LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(chooseTileBroadcastReceiver);
+            if (PPApplication.quickTileChooseTileBroadcastReceiver[tileId] != null) {
+                getApplicationContext().unregisterReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId]);
+                //LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId]);
+                PPApplication.quickTileChooseTileBroadcastReceiver[tileId] = null;
+            }
         } catch (Exception ignored) {}
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(chooseTileBroadcastReceiver,
-                new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver"+getTileId()));
+        if (PPApplication.quickTileChooseTileBroadcastReceiver[tileId] == null) {
+            PPApplication.quickTileChooseTileBroadcastReceiver[tileId] = new QuickTileChooseTileBroadcastReceiver();
+            getApplicationContext().registerReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId],
+                    new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver" + tileId));
+            //LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId],
+            //        new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver"+tileId));
+        }
 
         // get profileId of tile from SharedPreferences and update it
-        profileId = ApplicationPreferences.getQuickTileProfileId(getApplicationContext(), getTileId());
+        PPApplication.quickTileProfileId[tileId] = ApplicationPreferences.getQuickTileProfileId(getApplicationContext(), tileId);
         updateTile();
     }
 
@@ -171,8 +131,11 @@ public class PPTileService extends TileService {
     @Override
     public void onDestroy () {
         super.onDestroy();
-
-        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(chooseTileBroadcastReceiver);
+//        PPApplication.logE("PPTileService.onDestroy", "getTileId()="+getTileId());
+//        try {
+//            getApplicationContext().unregisterReceiver(chooseTileBroadcastReceiver);
+//            //LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(chooseTileBroadcastReceiver);
+//        } catch (Exception ignored) {}
     }
 
 
@@ -185,7 +148,8 @@ public class PPTileService extends TileService {
 
 //        PPApplication.logE("PPTileService.updateTile", "profileId="+profileId);
 
-        if ((profileId != 0) && (profileId != -1)) {
+        int tileId = getTileId();
+        if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
             final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             __handler.post(new PPHandlerThreadRunnable(getApplicationContext(), tile) {
                 @Override
@@ -199,14 +163,14 @@ public class PPTileService extends TileService {
 
 //                        PPApplication.logE("PPTileService.updateTile", "udate tile");
 
-                        if (profileId == Profile.RESTART_EVENTS_PROFILE_ID) {
+                        if (PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID) {
                             tile.setLabel(getString(R.string.menu_restart_events));
                             tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_list_item_events_restart_color));
                             tile.setState(Tile.STATE_INACTIVE);
                         }
                         else {
                             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0f);
-                            Profile profile = dataWrapper.getProfileById(profileId, true, false, false);
+                            Profile profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], true, false, false);
                             if (profile != null) {
                                 tile.setLabel(profile._name);
                                 if (Build.VERSION.SDK_INT >= 29)

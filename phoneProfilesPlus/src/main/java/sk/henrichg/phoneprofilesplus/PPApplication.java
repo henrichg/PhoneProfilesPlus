@@ -265,9 +265,9 @@ public class PPApplication extends Application
                                                 //+"|PhoneCallsListener"
                                                 //+"|PPPExtenderBroadcastReceiver"
 
-                                                +"|PhoneProfilesService.doSimulatingRingingCall"
-                                                +"|PhoneProfilesService.startSimulatingRingingCall"
-                                                +"|PhoneProfilesService.stopSimulatingRingingCall"
+                                                //+"|PhoneProfilesService.doSimulatingRingingCall"
+                                                //+"|PhoneProfilesService.startSimulatingRingingCall"
+                                                //+"|PhoneProfilesService.stopSimulatingRingingCall"
                                                 //+"|EventsHandler.doEndHandler"
                                                 //+"|PPApplication.getCallState"
 
@@ -286,6 +286,7 @@ public class PPApplication extends Application
                                                 //+"|PPTileService"
                                                 //+"|TileChooserListFragment"
                                                 //+"|LongClickTileChooserActivity"
+                                                //+"|QuickTileChooseTileBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -838,6 +839,9 @@ public class PPApplication extends Application
 
     //public static final Random requestCodeForAlarm = new Random();
 
+    static long[] quickTileProfileId = {0, 0, 0, 0, 0, 0};
+    static QuickTileChooseTileBroadcastReceiver[] quickTileChooseTileBroadcastReceiver =
+            {null, null, null, null, null, null};
 
     @Override
     public void onCreate()

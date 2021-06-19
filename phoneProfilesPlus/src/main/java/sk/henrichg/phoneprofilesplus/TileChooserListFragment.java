@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +15,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.lang.ref.WeakReference;
 import java.util.Collections;
@@ -204,6 +204,7 @@ public class TileChooserListFragment extends Fragment {
             int tileId = ((TileChooserActivity)getActivity()).tileId;
 //            PPApplication.logE("TileChooserListFragment.chooseTile", "tileId="+tileId);
             Intent intent = new Intent(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver" + tileId);
+            intent.putExtra(QuickTileChooseTileBroadcastReceiver.EXTRA_QUICK_TILE_ID, tileId);
 
             if (position != -1) {
                 Profile profile;
@@ -213,15 +214,36 @@ public class TileChooserListFragment extends Fragment {
 //                PPApplication.logE("TileChooserListFragment.chooseTile", "profile="+profile);
 
                 if (profile != null) {
-                    if (position == 0)
+                    if (position == 0) {
                         intent.putExtra(PPApplication.EXTRA_PROFILE_ID, Profile.RESTART_EVENTS_PROFILE_ID);
-                    else
+//                        PPApplication.logE("TileChooserListFragment.chooseTile", "profile._id="+Profile.RESTART_EVENTS_PROFILE_ID);
+                    }
+                    else {
+//                        PPApplication.logE("TileChooserListFragment.chooseTile", "profile._id="+profile._id);
                         intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                    }
                 }
             }
-            LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
-            //getActivity().getApplicationContext().sendBroadcast(intent);
+
+            try {
+                if (PPApplication.quickTileChooseTileBroadcastReceiver[tileId] != null) {
+                    getActivity().getApplicationContext().unregisterReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId]);
+                    //LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).unregisterReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId]);
+                    PPApplication.quickTileChooseTileBroadcastReceiver[tileId] = null;
+                }
+            } catch (Exception ignored) {}
+            if (PPApplication.quickTileChooseTileBroadcastReceiver[tileId] == null) {
+                PPApplication.quickTileChooseTileBroadcastReceiver[tileId] = new QuickTileChooseTileBroadcastReceiver();
+                getActivity().getApplicationContext().registerReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId],
+                        new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver" + tileId));
+                //LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).registerReceiver(PPApplication.quickTileChooseTileBroadcastReceiver[tileId],
+                //        new IntentFilter(PPApplication.PACKAGE_NAME + ".ChooseTileBroadcastReceiver"+tileId));
+            }
+
+            getActivity().getApplicationContext().sendBroadcast(intent);
+            //LocalBroadcastManager.getInstance(getActivity().getApplicationContext()).sendBroadcast(intent);
             getActivity().finish();
+//            PPApplication.logE("TileChooserListFragment.chooseTile", "after send broadcast");
         }
     }
 
