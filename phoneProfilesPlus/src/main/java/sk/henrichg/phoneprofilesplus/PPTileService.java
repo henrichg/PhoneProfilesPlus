@@ -145,6 +145,8 @@ public class PPTileService extends TileService {
 
     void updateTile() {
         Tile tile = getQsTile();
+        if (tile == null)
+            return;
 
 //        PPApplication.logE("PPTileService.updateTile", "profileId="+profileId);
 
