@@ -150,6 +150,8 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT, otherColor);
         activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_SYSTEM_RESTART, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ADDED, otherColor);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_ADDED, otherColor);
 
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, R.color.altype_error);
