@@ -165,6 +165,9 @@ public class PPTileService extends TileService {
 
                         if (PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID) {
                             tile.setLabel(getString(R.string.menu_restart_events));
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                tile.setSubtitle(" ");
+                            }
                             tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_list_item_events_restart_color));
                             tile.setState(Tile.STATE_INACTIVE);
                         }
@@ -173,8 +176,12 @@ public class PPTileService extends TileService {
                             Profile profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], true, false, false);
                             if (profile != null) {
                                 tile.setLabel(profile._name);
-                                if (Build.VERSION.SDK_INT >= 29)
-                                    tile.setSubtitle(" ");
+                                if (Build.VERSION.SDK_INT >= 29) {
+                                    if (profile._checked)
+                                        tile.setSubtitle("Activated");
+                                    else
+                                        tile.setSubtitle("Not activated");
+                                }
 
                                 if (profile.getIsIconResourceID()) {
                                     if (profile._iconBitmap != null)
