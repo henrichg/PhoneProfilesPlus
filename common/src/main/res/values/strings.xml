@@ -1693,6 +1693,9 @@
     <string name="altype_profileAdded">Profile added</string>
     <string name="altype_eventAdded">Event added</string>
 
+    <string name="quick_tile_subtile_activated">Activated</string>
+    <string name="quick_tile_subtile_not_activated">Not activated</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

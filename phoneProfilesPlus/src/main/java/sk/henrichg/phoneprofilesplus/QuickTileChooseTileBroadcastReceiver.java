@@ -1,10 +1,12 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.service.quicksettings.TileService;
 import android.widget.Toast;
 
 public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
@@ -35,8 +37,27 @@ public class QuickTileChooseTileBroadcastReceiver extends BroadcastReceiver {
         // update Tile and save profileId int SharedPreferences
         ApplicationPreferences.setQuickTileProfileId(context.getApplicationContext(), tileId, PPApplication.quickTileProfileId[tileId]);
 
-        // this is not needed tile will be updated in its onStartListening()
-        //PPTileService.this.updateTile();
+        // restart tile - this invoke onStartListening()
+        // require in manifest file for TileService this meta data:
+        //     <meta-data android:name="android.service.quicksettings.ACTIVE_TILE"
+        //         android:value="true" />
+        switch (tileId) {
+            case 1:
+                TileService.requestListeningState(context, new ComponentName(context, PPTileService1.class));
+                break;
+            case 2:
+                TileService.requestListeningState(context, new ComponentName(context, PPTileService2.class));
+                break;
+            case 3:
+                TileService.requestListeningState(context, new ComponentName(context, PPTileService3.class));
+                break;
+            case 4:
+                TileService.requestListeningState(context, new ComponentName(context, PPTileService4.class));
+                break;
+            case 5:
+                TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
+                break;
+        }
 
         PPApplication.startHandlerThreadBroadcast(/*"AlarmClockBroadcastReceiver.onReceive"*/);
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
