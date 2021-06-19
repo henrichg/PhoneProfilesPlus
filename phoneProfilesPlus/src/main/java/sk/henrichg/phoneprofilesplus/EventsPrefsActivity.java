@@ -516,11 +516,11 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
-        PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, null, 0, "");
-
         if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
         {
+            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_ADDED, event._name, null, null, 0, "");
+
             // add event into DB
             DatabaseHandler.getInstance(dataWrapper.context).addEvent(event);
             event_id = event._id;
@@ -536,6 +536,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
         else
         if (event_id > 0)
         {
+            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, null, 0, "");
+
             // update event in DB
             DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
 

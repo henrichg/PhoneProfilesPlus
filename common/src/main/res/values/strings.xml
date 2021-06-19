@@ -1690,6 +1690,9 @@
 
     <string name="tile_chooser_tile_changed_toast">Quick tile profile changed to:</string>
 
+    <string name="altype_profileAdded">Profile added</string>
+    <string name="altype_eventAdded">Event added</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

@@ -91,6 +91,8 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT, R.string.altype_actionFromExternalApp_pauseEvent);
         activityTypeStrings.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT, R.string.altype_actionFromExternalApp_stopEvent);
         activityTypeStrings.put(PPApplication.ALTYPE_APPLICATION_SYSTEM_RESTART, R.string.altype_applicationSystemRestart);
+        activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ADDED, R.string.altype_profileAdded);
+        activityTypeStrings.put(PPApplication.ALTYPE_EVENT_ADDED, R.string.altype_eventAdded);
 
         int otherColor = R.color.altype_other;
         /*//noinspection SwitchStatementWithTooFewBranches

@@ -350,6 +350,8 @@ public class PPApplication extends Application
     static final int ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT = 105;
     static final int ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT = 106;
     static final int ALTYPE_APPLICATION_SYSTEM_RESTART = 107;
+    static final int ALTYPE_PROFILE_ADDED = 108;
+    static final int ALTYPE_EVENT_ADDED = 109;
 
     static boolean doNotShowProfileNotification = false;
     private static boolean applicationStarted = false;
