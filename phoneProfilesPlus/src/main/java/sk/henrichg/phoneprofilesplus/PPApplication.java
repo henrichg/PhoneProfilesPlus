@@ -6,6 +6,7 @@ import android.app.Application;
 import android.app.KeyguardManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
@@ -21,6 +22,7 @@ import android.os.HandlerThread;
 import android.os.PowerManager;
 import android.os.Process;
 import android.provider.Settings;
+import android.service.quicksettings.TileService;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
@@ -1773,6 +1775,16 @@ public class PPApplication extends Application
         //intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH, true);
         intent5.putExtra(RefreshActivitiesBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent5);
+
+        // restart tile - this invoke onStartListening()
+        // require in manifest file for TileService this meta data:
+        //     <meta-data android:name="android.service.quicksettings.ACTIVE_TILE"
+        //         android:value="true" />
+        TileService.requestListeningState(context, new ComponentName(context, PPTileService1.class));
+        TileService.requestListeningState(context, new ComponentName(context, PPTileService2.class));
+        TileService.requestListeningState(context, new ComponentName(context, PPTileService3.class));
+        TileService.requestListeningState(context, new ComponentName(context, PPTileService4.class));
+        TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
 
         if (alsoNotification) {
 /*            // KEEP IT AS WORK !!!
