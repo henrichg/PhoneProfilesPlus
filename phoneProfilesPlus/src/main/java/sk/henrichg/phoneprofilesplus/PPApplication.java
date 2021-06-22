@@ -128,6 +128,7 @@ public class PPApplication extends Application
     // Used is GitHub Pages, not neded to use html type, this file is directly downloaded
     static final String PPP_RELEASES_DEBUG_URL = "https://henrichg.github.io/PhoneProfilesPlus/releases-debug.md";
     static final String PPP_RELEASES_URL = "https://https://henrichg.github.io/PhoneProfilesPlus/releases.md";
+    static final String FDROID_PPP_RELEASES_URL = "https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus";
 
 
     //static final boolean gitHubRelease = true;

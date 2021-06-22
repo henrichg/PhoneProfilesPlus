@@ -1696,6 +1696,10 @@
     <string name="quick_tile_subtile_activated">Activated</string>
     <string name="quick_tile_subtile_not_activated">Not activated</string>
 
+    <string name="menu_check_releases_github">Check in GitHub Releases</string>
+    <string name="menu_check_releases_fdroid">Check in F-Droid</string>
+    <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

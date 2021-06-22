@@ -1272,8 +1272,14 @@ public class EditorProfilesActivity extends AppCompatActivity
             return true;
         }
         else
-        if (itemId == R.id.menu_check_github_releases) {
-            CheckGitHubReleasesActivity.showDialog(this, true);
+
+        if (itemId == R.id.menu_check_in_github) {
+            CheckGitHubReleasesActivity.showDialog(this, true, false);
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_check_in_fdroid) {
+            CheckGitHubReleasesActivity.showDialog(this, true, true);
             return true;
         }
 

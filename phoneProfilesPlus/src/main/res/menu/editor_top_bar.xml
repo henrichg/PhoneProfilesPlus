@@ -94,7 +94,20 @@
     <item android:id="@+id/menu_check_github_releases"
         android:title="@string/menu_check_github_releases"
         android:orderInCategory="250"
-        app:showAsAction="never" />
+        app:showAsAction="never" >
+
+        <menu>
+            <item android:id="@+id/menu_check_in_github"
+                android:title="@string/menu_check_releases_github"
+                android:orderInCategory="100"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_check_in_fdroid"
+                android:title="@string/menu_check_releases_fdroid"
+                android:orderInCategory="101"
+                app:showAsAction="never" />
+        </menu>
+
+    </item>
 
     <item android:id="@+id/menu_about"
         android:title="@string/menu_about_application"

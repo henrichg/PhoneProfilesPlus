@@ -33,7 +33,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
-        showDialog(this, false);
+        showDialog(this, false, false);
     }
 
     @Override
@@ -43,8 +43,8 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
-    @SuppressLint("SetTextI18n")
-    static void showDialog(final Activity activity, final boolean fromEditor) {
+    @SuppressLint({"SetTextI18n", "InflateParams"})
+    static void showDialog(final Activity activity, final boolean fromEditor, final boolean forFDroid) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
         String message;
@@ -56,40 +56,68 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         }
         message = message + activity.getString(R.string.about_application_package_type_github);
         message = message + "\n\n";
-        message = message + activity.getString(R.string.check_github_releases_install_info_1) + "\n";
-        message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";
-        message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
 
+        if (forFDroid) {
+
+        } else {
+            message = message + activity.getString(R.string.check_github_releases_install_info_1) + "\n";
+            message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";
+            message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
+        }
+
+        View layout;
         LayoutInflater inflater = activity.getLayoutInflater();
-        @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.dialog_install_extender, null);
+        if (forFDroid) {
+            layout = inflater.inflate(R.layout.dialog_for_fdroid, null);
+        }
+        else {
+            layout = inflater.inflate(R.layout.dialog_install_extender, null);
+        }
         dialogBuilder.setView(layout);
 
         TextView text = layout.findViewById(R.id.install_extender_dialog_info_text);
         text.setText(message);
 
-        Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
-        button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
-        button.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, GitHubAssetsScreenshotActivity.class);
-            intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplus_assets_screenshot);
-            activity.startActivity(intent);
-        });
+        if (!forFDroid) {
+            Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
+            button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
+            button.setOnClickListener(v -> {
+                Intent intent = new Intent(activity, GitHubAssetsScreenshotActivity.class);
+                intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplus_assets_screenshot);
+                activity.startActivity(intent);
+            });
+        }
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
-        dialogBuilder.setPositiveButton(R.string.check_github_releases_go_to_github, (dialog, which) -> {
-            String url = PPApplication.GITHUB_PPP_RELEASES_URL;
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            try {
-                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-            if (!fromEditor)
-                activity.finish();
-        });
+        if (forFDroid) {
+            dialogBuilder.setPositiveButton(R.string.check_releases_go_to_fdroid, (dialog, which) -> {
+                String url = PPApplication.FDROID_PPP_RELEASES_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+                if (!fromEditor)
+                    activity.finish();
+            });
+        }
+        else {
+            dialogBuilder.setPositiveButton(R.string.check_github_releases_go_to_github, (dialog, which) -> {
+                String url = PPApplication.GITHUB_PPP_RELEASES_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+                if (!fromEditor)
+                    activity.finish();
+            });
+        }
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         dialogBuilder.setOnCancelListener(dialog -> {
             if (!fromEditor)
