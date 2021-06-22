@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/install_extender_dialog_root"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_for_fdroid_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/alert_dialog_top_padding" >
 
-    <TextView
-        android:id="@+id/install_extender_dialog_info_text"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/dialog_for_fdroid_linla0"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
-        android:text="@string/empty_string"
-        android:textSize="16sp"
-        android:scrollbars="vertical" />
+        android:orientation="vertical">
 
-    <!--
-    <Button
-        android:id="@+id/install_extender_dialog_showAssets"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/install_extender_where_is_assets_button"
-        android:minHeight="40dp"
-        android:textColor="@color/action_button_text_color"
-        android:background="?attr/buttonBackground"
-        style="?android:attr/borderlessButtonStyle" />
-    -->
+        <TextView
+            android:id="@+id/dialog_for_fdroid_info_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:text="@string/empty_string"
+            android:textSize="16sp" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/dialog_for_fdroid_fdroid_application"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:text="F-Droid application:"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/dialog_for_fdroid_repository_with_ppp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:text="Repository to configure in F-Droid application:"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</ScrollView>

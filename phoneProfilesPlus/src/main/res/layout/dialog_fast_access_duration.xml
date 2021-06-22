@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/alert_dialog_top_padding" >
 
     <LinearLayout
-        android:id="@+id/fragment_important_info_scroll_view"
+        android:id="@+id/dialog_fast_access_duration_linla0"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

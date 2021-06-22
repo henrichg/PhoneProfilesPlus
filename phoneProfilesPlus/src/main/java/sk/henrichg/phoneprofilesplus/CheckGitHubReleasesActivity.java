@@ -55,11 +55,9 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
             message = "";
         }
         message = message + activity.getString(R.string.about_application_package_type_github);
-        message = message + "\n\n";
 
-        if (forFDroid) {
-
-        } else {
+        if (!forFDroid) {
+            message = message + "\n\n";
             message = message + activity.getString(R.string.check_github_releases_install_info_1) + "\n";
             message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";
             message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
@@ -75,7 +73,11 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         }
         dialogBuilder.setView(layout);
 
-        TextView text = layout.findViewById(R.id.install_extender_dialog_info_text);
+        TextView text;
+        if (forFDroid)
+            text = layout.findViewById(R.id.dialog_for_fdroid_info_text);
+        else
+            text = layout.findViewById(R.id.install_extender_dialog_info_text);
         text.setText(message);
 
         if (!forFDroid) {
