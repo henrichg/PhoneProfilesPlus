@@ -1,4 +1,4 @@
-![PhoneProfilesPlus icon](/art/ic_launcher_README.png)  
+![PhoneProfilesPlus icon](/art/ic_launcher-web.png =250x250)  
 
 PhoneProfilesPlus
 =================
