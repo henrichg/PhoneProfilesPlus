@@ -1258,7 +1258,7 @@ public class EditorProfileListFragment extends Fragment
                 method.setAccessible(true);
                 method.invoke(menuPopupHelper, new Object[]{true});
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                //PPApplication.recordException(e);
             }
 
             Menu menu = popup.getMenu();

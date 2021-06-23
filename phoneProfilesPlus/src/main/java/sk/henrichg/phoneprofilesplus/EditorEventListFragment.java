@@ -1883,7 +1883,7 @@ public class EditorEventListFragment extends Fragment
             method.setAccessible(true);
             method.invoke(menuPopupHelper, new Object[]{true});
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            //PPApplication.recordException(e);
         }
 
         final Event event = (Event)view.getTag();
