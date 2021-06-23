@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +30,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -1256,6 +1259,17 @@ public class EditorProfileListFragment extends Fragment
                 method.invoke(menuPopupHelper, new Object[]{true});
             } catch (Exception e) {
                 PPApplication.recordException(e);
+            }
+
+            Menu menu = popup.getMenu();
+            Drawable drawable;
+            if (profile._showInActivator)
+                drawable = menu.findItem(R.id.profile_list_item_menu_show_in_activator).getIcon();
+            else
+                drawable = menu.findItem(R.id.profile_list_item_menu_not_show_in_activator).getIcon();
+            if(drawable != null) {
+                drawable.mutate();
+                drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
             }
 
             popup.setOnMenuItemClickListener(item -> {

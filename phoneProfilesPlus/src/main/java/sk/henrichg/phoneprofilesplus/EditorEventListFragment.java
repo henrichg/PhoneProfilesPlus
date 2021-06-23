@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -1885,6 +1887,20 @@ public class EditorEventListFragment extends Fragment
         }
 
         final Event event = (Event)view.getTag();
+
+        Menu menu = popup.getMenu();
+        Drawable drawable;
+        if (event._ignoreManualActivation && event._noPauseByManualActivation)
+            drawable = menu.findItem(R.id.event_list_item_ignore_manual_activation_no_pause).getIcon();
+        else
+        if (event._ignoreManualActivation)
+            drawable = menu.findItem(R.id.event_list_item_ignore_manual_activation).getIcon();
+        else
+            drawable = menu.findItem(R.id.event_list_item_not_ignore_manual_activation).getIcon();
+        if(drawable != null) {
+            drawable.mutate();
+            drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+        }
 
         popup.setOnMenuItemClickListener(item -> {
             if (getActivity() != null) {
