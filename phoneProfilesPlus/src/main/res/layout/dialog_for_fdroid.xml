@@ -27,7 +27,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="22dp"
             android:layout_marginEnd="22dp"
-            android:text="F-Droid application:"
+            android:text="@string/empty_string"
             android:textSize="16sp" />
 
         <TextView

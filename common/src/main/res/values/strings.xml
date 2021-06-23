@@ -1699,6 +1699,8 @@
     <string name="menu_check_releases_github">Check in GitHub Releases</string>
     <string name="menu_check_releases_fdroid">Check in F-Droid</string>
     <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
+    <string name="check_releases_fdroid_application">F-Droid application:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
 
     <!-- **************************************************************************************** -->
 

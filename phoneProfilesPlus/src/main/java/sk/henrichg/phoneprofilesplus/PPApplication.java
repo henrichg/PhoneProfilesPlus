@@ -129,6 +129,8 @@ public class PPApplication extends Application
     static final String PPP_RELEASES_DEBUG_URL = "https://henrichg.github.io/PhoneProfilesPlus/releases-debug.md";
     static final String PPP_RELEASES_URL = "https://https://henrichg.github.io/PhoneProfilesPlus/releases.md";
     static final String FDROID_PPP_RELEASES_URL = "https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus";
+    static final String FDROID_APPLICATION_URL = "https://www.f-droid.org/";
+    static final String FDROID_REPOSITORY_URL = "https://apt.izzysoft.de/fdroid/index/info";
 
 
     //static final boolean gitHubRelease = true;

@@ -6,11 +6,18 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -80,7 +87,67 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
             text = layout.findViewById(R.id.install_extender_dialog_info_text);
         text.setText(message);
 
-        if (!forFDroid) {
+        if (forFDroid) {
+
+            text = layout.findViewById(R.id.dialog_for_fdroid_fdroid_application);
+            CharSequence str1 = activity.getString(R.string.check_releases_fdroid_application);
+            CharSequence str2 = str1 + " " + PPApplication.FDROID_APPLICATION_URL;
+            Spannable sbt = new SpannableString(str2);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.FDROID_APPLICATION_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text.setText(sbt);
+            text.setMovementMethod(LinkMovementMethod.getInstance());
+
+            text = layout.findViewById(R.id.dialog_for_fdroid_repository_with_ppp);
+            str1 = activity.getString(R.string.check_releases_fdroid_repository_with_ppp);
+            str2 = str1 + " " + PPApplication.FDROID_REPOSITORY_URL;
+            sbt = new SpannableString(str2);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.FDROID_REPOSITORY_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text.setText(sbt);
+            text.setMovementMethod(LinkMovementMethod.getInstance());
+
+        } else {
             Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
             button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
             button.setOnClickListener(v -> {
