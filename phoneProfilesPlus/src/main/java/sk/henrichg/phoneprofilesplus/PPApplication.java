@@ -846,8 +846,8 @@ public class PPApplication extends Application
 
     //public static final Random requestCodeForAlarm = new Random();
 
-    static long[] quickTileProfileId = {0, 0, 0, 0, 0, 0};
-    static QuickTileChooseTileBroadcastReceiver[] quickTileChooseTileBroadcastReceiver =
+    static final long[] quickTileProfileId = {0, 0, 0, 0, 0, 0};
+    static final QuickTileChooseTileBroadcastReceiver[] quickTileChooseTileBroadcastReceiver =
             {null, null, null, null, null, null};
 
     @Override

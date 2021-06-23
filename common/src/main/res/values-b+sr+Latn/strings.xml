@@ -1289,7 +1289,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Crna</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Proizvoljna boja pozadine</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">Proizvoljna boja</string>
-    <string name="phone_profiles_pref_notificationNightMode">Koristi noćni režim</string>
     <string name="event_preferences_orientation_checkLight">Proveri osvetljenje</string>
     <string name="event_preferences_orientation_light">Osvetljenje</string>
     <string name="event_preferences_orientation_light_min">Osvetljenje - minimalna vrednost</string>
@@ -1660,6 +1659,28 @@
     <string name="github_assets_screenshot_text">\"Assets\" is below the release notes. \"Assets\" in the mobile view should be clicked.</string>
     <string name="quick_tile_icon_label">Choose profile</string>
     <string name="title_activity_tile_chooser">Quick tile profile chooser</string>
+    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Preferences indicator lightness</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Decoration for notification (if is enabled) will be displayed only when Background color is of type \"Native\".</string>
+    <string name="mobile_cells_item_delete_all_selected">Delete all selected</string>
+    <string name="delete_application_alert_message">Delete this application?</string>
+    <string name="delete_intent_alert_message">Delete this intent?</string>
+    <string name="delete_shortcut_alert_message">Delete this shortcut?</string>
+    <string name="delete_wifi_ssid_alert_message">Delete this Wi-Fi SSID?</string>
+    <string name="delete_nfc_tag_alert_message">Delete this NFC tag?</string>
+    <string name="delete_bluetooth_name_alert_message">Delete this Bluetooth name?</string>
+    <string name="delete_geofence_name_alert_message">Delete this location?</string>
+    <string name="delete_mobile_cell_alert_message">Delete this mobile cell?</string>
+    <string name="delete_selected_mobile_cells_alert_message">Delete all selected mobile cells?</string>
+    <string name="tile_chooser_tile_changed_toast">Quick tile profile changed to:</string>
+    <string name="altype_profileAdded">Profile added</string>
+    <string name="altype_eventAdded">Event added</string>
+    <string name="quick_tile_subtile_activated">Activated</string>
+    <string name="quick_tile_subtile_not_activated">Not activated</string>
+    <string name="menu_check_releases_github">Check in GitHub Releases</string>
+    <string name="menu_check_releases_fdroid">Check in F-Droid</string>
+    <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
+    <string name="check_releases_fdroid_application">F-Droid application:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1709,4 +1730,5 @@
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
+    <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
 </resources>

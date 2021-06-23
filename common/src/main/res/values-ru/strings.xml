@@ -1289,7 +1289,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Чёрный</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Пользовательский цвет фона</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">Пользовательский цвет</string>
-    <string name="phone_profiles_pref_notificationNightMode">Использовать ночной режим</string>
     <string name="event_preferences_orientation_checkLight">Проверить освещённость</string>
     <string name="event_preferences_orientation_light">Освещённость</string>
     <string name="event_preferences_orientation_light_min">Освещённость - минимальное значение</string>
@@ -1659,6 +1658,28 @@
     <string name="github_assets_screenshot_text">Раздел Assets находится под списком изменений. При просмотре мобильной версии страницы на него нужно нажать.</string>
     <string name="quick_tile_icon_label">Выберите профиль</string>
     <string name="title_activity_tile_chooser">Выбор профиля для быстрых настроек</string>
+    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Яркость индикатора настроек</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Оформление уведомлений (если оно включено) будет применено, только если цветом фона выбран \"Родной (Android)\".</string>
+    <string name="mobile_cells_item_delete_all_selected">Удалить все выбранные</string>
+    <string name="delete_application_alert_message">Удалить это приложение?</string>
+    <string name="delete_intent_alert_message">Удалить этот intent?</string>
+    <string name="delete_shortcut_alert_message">Удалить этот ярлык?</string>
+    <string name="delete_wifi_ssid_alert_message">Удалить этот SSID?</string>
+    <string name="delete_nfc_tag_alert_message">Удалить эту NFC-метку?</string>
+    <string name="delete_bluetooth_name_alert_message">Удалить это имя Bluetooth?</string>
+    <string name="delete_geofence_name_alert_message">Удалить это местоположение?</string>
+    <string name="delete_mobile_cell_alert_message">Удалить эту мобильную вышку?</string>
+    <string name="delete_selected_mobile_cells_alert_message">Удалить все выбранные мобильные вышки?</string>
+    <string name="tile_chooser_tile_changed_toast">Профиль быстрых настроек изменён на:</string>
+    <string name="altype_profileAdded">Профиль добавлен</string>
+    <string name="altype_eventAdded">Событие добавлено</string>
+    <string name="quick_tile_subtile_activated">Активировано</string>
+    <string name="quick_tile_subtile_not_activated">Не активировано</string>
+    <string name="menu_check_releases_github">Check in GitHub Releases</string>
+    <string name="menu_check_releases_fdroid">Check in F-Droid</string>
+    <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
+    <string name="check_releases_fdroid_application">F-Droid application:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1708,4 +1729,5 @@
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
+    <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
 </resources>

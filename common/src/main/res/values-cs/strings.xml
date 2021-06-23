@@ -1289,7 +1289,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Černá</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Vlastní barva pozadí</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">Vlastní barva</string>
-    <string name="phone_profiles_pref_notificationNightMode">Použít noční mód</string>
     <string name="event_preferences_orientation_checkLight">Sledovat světlo</string>
     <string name="event_preferences_orientation_light">Světlo</string>
     <string name="event_preferences_orientation_light_min">Světlo - minimální hodnota</string>
@@ -1659,6 +1658,28 @@
     <string name="github_assets_screenshot_text">\"Assets\" se nachází pod poznámkami k vydání. Na \"Assets\" v mobilním zobrazení je třeba kliknout.</string>
     <string name="quick_tile_icon_label">Vybrat profil</string>
     <string name="title_activity_tile_chooser">Výběr profilu pro rychlou dlaždici</string>
+    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Světlost indikátoru parametrů</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Dekorace pro notifikaci (pokud je povolena) bude zobrazena pouze pokud Barva pozadí je typu \"Nativní\".</string>
+    <string name="mobile_cells_item_delete_all_selected">Vymazat všechny vybrané</string>
+    <string name="delete_application_alert_message">Smazat tuto aplikaci?</string>
+    <string name="delete_intent_alert_message">Smazat tento intent?</string>
+    <string name="delete_shortcut_alert_message">Smazat tuto zkratku?</string>
+    <string name="delete_wifi_ssid_alert_message">Smazat tuto Wi-Fi SSID?</string>
+    <string name="delete_nfc_tag_alert_message">Smazat tuto NFC značku?</string>
+    <string name="delete_bluetooth_name_alert_message">Smazat tento název Bluetooth?</string>
+    <string name="delete_geofence_name_alert_message">Smazat tuto polohu?</string>
+    <string name="delete_mobile_cell_alert_message">Smazat tuto mobilní buňku?</string>
+    <string name="delete_selected_mobile_cells_alert_message">Smazat všechny vybrané mobilní buňky?</string>
+    <string name="tile_chooser_tile_changed_toast">Profil rychlých dlaždic změněn na:</string>
+    <string name="altype_profileAdded">Profil přidán</string>
+    <string name="altype_eventAdded">Událost přidána</string>
+    <string name="quick_tile_subtile_activated">Aktivováno</string>
+    <string name="quick_tile_subtile_not_activated">Neaktivováno</string>
+    <string name="menu_check_releases_github">Skontolovať v GitHub Releases</string>
+    <string name="menu_check_releases_fdroid">Skontolovať v F-Droid</string>
+    <string name="check_releases_go_to_fdroid">Jít do F-Droid repozitáře</string>
+    <string name="check_releases_fdroid_application">Aplikace F-Droid:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Repozitář na jeho konfiguraci v aplikaci F-Droid:</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1708,4 +1729,5 @@
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
+    <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
 </resources>

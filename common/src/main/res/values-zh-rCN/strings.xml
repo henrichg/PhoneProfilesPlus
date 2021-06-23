@@ -1289,7 +1289,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_black">黑色</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">自定义背景颜色</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">自定义颜色</string>
-    <string name="phone_profiles_pref_notificationNightMode">使用夜间模式</string>
     <string name="event_preferences_orientation_checkLight">检查亮度</string>
     <string name="event_preferences_orientation_light">亮度</string>
     <string name="event_preferences_orientation_light_min">亮-最小值</string>
@@ -1659,6 +1658,28 @@
     <string name="github_assets_screenshot_text">\"Assets\" 位于发行说明下方， \"Assets\" 在手机视图模式可被点击。</string>
     <string name="quick_tile_icon_label">选择配置文件</string>
     <string name="title_activity_tile_chooser">快速磁贴配置文件选择器</string>
+    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">设置指示灯亮度</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">通知装饰(如果启用的话) 将仅在背景颜色为“原生”的时候显示。</string>
+    <string name="mobile_cells_item_delete_all_selected">删除所有已选</string>
+    <string name="delete_application_alert_message">删除此应用程序？</string>
+    <string name="delete_intent_alert_message">删除此 intent？</string>
+    <string name="delete_shortcut_alert_message">删除此快捷方式？</string>
+    <string name="delete_wifi_ssid_alert_message">删除此 Wi-Fi SSID？</string>
+    <string name="delete_nfc_tag_alert_message">删除此NFC标签？</string>
+    <string name="delete_bluetooth_name_alert_message">删除此蓝牙名称？</string>
+    <string name="delete_geofence_name_alert_message">删除此位置？</string>
+    <string name="delete_mobile_cell_alert_message">删除此移动基站？</string>
+    <string name="delete_selected_mobile_cells_alert_message">删除所有选中的移动基站？</string>
+    <string name="tile_chooser_tile_changed_toast">快速磁贴情景更改为:</string>
+    <string name="altype_profileAdded">情景已添加</string>
+    <string name="altype_eventAdded">事件已添加</string>
+    <string name="quick_tile_subtile_activated">已激活</string>
+    <string name="quick_tile_subtile_not_activated">未激活</string>
+    <string name="menu_check_releases_github">Check in GitHub Releases</string>
+    <string name="menu_check_releases_fdroid">Check in F-Droid</string>
+    <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
+    <string name="check_releases_fdroid_application">F-Droid application:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1708,4 +1729,5 @@
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
+    <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
 </resources>

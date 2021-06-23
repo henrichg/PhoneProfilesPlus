@@ -1301,7 +1301,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Black</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Custom background color</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">Custom color</string>
-    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>
     <string name="event_preferences_orientation_checkLight">Check light</string>
     <string name="event_preferences_orientation_light">Light</string>
     <string name="event_preferences_orientation_light_min">Light - minimal value</string>
@@ -1672,12 +1671,9 @@
     <string name="github_assets_screenshot_text">\"Assets\" is below the release notes. \"Assets\" in the mobile view should be clicked.</string>
     <string name="quick_tile_icon_label">Choose profile</string>
     <string name="title_activity_tile_chooser">Quick tile profile chooser</string>
-
     <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Preferences indicator lightness</string>
     <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Decoration for notification (if is enabled) will be displayed only when Background color is of type \"Native\".</string>
-
     <string name="mobile_cells_item_delete_all_selected">Delete all selected</string>
-
     <string name="delete_application_alert_message">Delete this application?</string>
     <string name="delete_intent_alert_message">Delete this intent?</string>
     <string name="delete_shortcut_alert_message">Delete this shortcut?</string>
@@ -1687,12 +1683,9 @@
     <string name="delete_geofence_name_alert_message">Delete this location?</string>
     <string name="delete_mobile_cell_alert_message">Delete this mobile cell?</string>
     <string name="delete_selected_mobile_cells_alert_message">Delete all selected mobile cells?</string>
-
     <string name="tile_chooser_tile_changed_toast">Quick tile profile changed to:</string>
-
     <string name="altype_profileAdded">Profile added</string>
     <string name="altype_eventAdded">Event added</string>
-
     <string name="quick_tile_subtile_activated">Activated</string>
     <string name="quick_tile_subtile_not_activated">Not activated</string>
 
@@ -1762,6 +1755,7 @@
 <!--    <string name="extender_acra_notification_send_button">Send</string>-->
 <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
 <!--    <string name="google_play_chooser">View Google Play using</string>-->
+<!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
 
 </resources>
 

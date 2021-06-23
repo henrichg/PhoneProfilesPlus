@@ -128,6 +128,7 @@ public class PPTileService extends TileService {
     }
     */
 
+    /*
     @Override
     public void onDestroy () {
         super.onDestroy();
@@ -137,6 +138,7 @@ public class PPTileService extends TileService {
 //            //LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(chooseTileBroadcastReceiver);
 //        } catch (Exception ignored) {}
     }
+    */
 
 
     int getTileId() {

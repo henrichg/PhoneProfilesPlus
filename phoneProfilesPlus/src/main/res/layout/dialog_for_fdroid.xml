@@ -37,7 +37,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="22dp"
             android:layout_marginEnd="22dp"
-            android:text="Repository to configure it in F-Droid application:"
+            android:text="@string/empty_string"
             android:textSize="16sp" />
 
     </LinearLayout>
