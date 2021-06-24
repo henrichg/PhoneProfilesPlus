@@ -248,11 +248,11 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         Window win = getWindow();
         WindowManager.LayoutParams layoutParams = win.getAttributes();
-        int actualBightnessMode = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+//        int actualBightnessMode = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
         int actualBrightness = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-        Log.e("ActivateProfileActivity.onCreate", "actualBightnessMode="+actualBightnessMode);
-        Log.e("ActivateProfileActivity.onCreate", "actualBrightness="+actualBrightness);
-        Log.e("ActivateProfileActivity.onCreate", "25%="+Profile.convertPercentsToBrightnessManualValue(25, getApplicationContext()));
+//        Log.e("ActivateProfileActivity.onCreate", "actualBightnessMode="+actualBightnessMode);
+//        Log.e("ActivateProfileActivity.onCreate", "actualBrightness="+actualBrightness);
+//        Log.e("ActivateProfileActivity.onCreate", "25%="+Profile.convertPercentsToBrightnessManualValue(25, getApplicationContext()));
         //if (actualBightnessMode != Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
             if (actualBrightness <
                     Profile.convertPercentsToBrightnessManualValue(25, getApplicationContext())) {
