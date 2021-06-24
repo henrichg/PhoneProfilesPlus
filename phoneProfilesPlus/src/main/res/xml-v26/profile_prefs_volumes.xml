@@ -61,6 +61,13 @@
             app:title="@string/profile_preferences_volumeNotificationVolume0_title"
             app:summary="@string/profile_preferences_volumeNotificationVolume0_summaryConfigureForVolume0"
             app:layout="@layout/mp_preference_material_widget" />
+
+        <Preference
+            app:key="prf_pref_volumeMediaInfo"
+            app:title="@string/profile_preferences_volumeMedia"
+            app:summary="@string/profile_preferences_volumeMediaInfo_summary"
+            app:widgetLayout="@layout/widget_info_preference"
+            app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
             app:key="prf_pref_volumeMedia"
             app:volumeType="media"
@@ -68,6 +75,7 @@
             app:title="@string/profile_preferences_volumeMedia"
             app:summary="@string/volume_pref_dialog_no_change_chb"
             app:layout="@layout/mp_preference_material_widget" />
+
         <sk.henrichg.phoneprofilesplus.VolumeDialogPreferenceX
             app:key="prf_pref_volumeAlarm"
             app:volumeType="alarm"

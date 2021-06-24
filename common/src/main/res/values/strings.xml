@@ -1695,6 +1695,8 @@
     <string name="check_releases_fdroid_application">F-Droid application:</string>
     <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
 
+    <string name="profile_preferences_volumeMediaInfo_summary">If media volume change not working, maybe it is due to enabled \"safe volume flag\". If you want to disable this flag, grant (G1) permission, because this permission is required to disable this flag.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
