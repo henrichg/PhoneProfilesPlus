@@ -10,9 +10,13 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -241,6 +245,30 @@ public class ActivateProfileActivity extends AppCompatActivity {
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onCreate - setContentView");
+
+        Window win = getWindow();
+        WindowManager.LayoutParams layoutParams = win.getAttributes();
+        int actualBightnessMode = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+        int actualBrightness = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+        Log.e("ActivateProfileActivity.onCreate", "actualBightnessMode="+actualBightnessMode);
+        Log.e("ActivateProfileActivity.onCreate", "actualBrightness="+actualBrightness);
+        Log.e("ActivateProfileActivity.onCreate", "25%="+Profile.convertPercentsToBrightnessManualValue(25, getApplicationContext()));
+        if (actualBightnessMode != Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+            if (actualBrightness <
+                    Profile.convertPercentsToBrightnessManualValue(25, getApplicationContext())) {
+                layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(40, getApplicationContext()) / (float) 255;
+                win.setAttributes(layoutParams);
+            }
+        }
+        //if (_automatic == 1)
+        // layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+        //else {
+        //    if (_changeLevel == 1)
+        //        layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+        //        //layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(_value, context) / (float) 255;
+        //    else
+        //        layoutParams.screenBrightness = preference.savedLayoutParamsBrightness;
+        //}
 
         toolbar = findViewById(R.id.act_prof_toolbar);
         setSupportActionBar(toolbar);
