@@ -248,6 +248,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         Window win = getWindow();
         WindowManager.LayoutParams layoutParams = win.getAttributes();
+//        Log.e("ActivateProfileActivity.onCreate", "layoutParams.screenBrightness="+layoutParams.screenBrightness);
 //        int actualBightnessMode = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
         int actualBrightness = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
 //        Log.e("ActivateProfileActivity.onCreate", "actualBightnessMode="+actualBightnessMode);
@@ -255,19 +256,10 @@ public class ActivateProfileActivity extends AppCompatActivity {
 //        Log.e("ActivateProfileActivity.onCreate", "25%="+Profile.convertPercentsToBrightnessManualValue(25, getApplicationContext()));
         //if (actualBightnessMode != Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
             if (actualBrightness <
-                    Profile.convertPercentsToBrightnessManualValue(25, getApplicationContext())) {
-                layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(40, getApplicationContext()) / (float) 255;
+                    Profile.convertPercentsToBrightnessManualValue(15, getApplicationContext())) {
+                layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(35, getApplicationContext()) / (float) 255;
                 win.setAttributes(layoutParams);
             }
-        //}
-        //if (_automatic == 1)
-        // layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-        //else {
-        //    if (_changeLevel == 1)
-        //        layoutParams.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
-        //        //layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(_value, context) / (float) 255;
-        //    else
-        //        layoutParams.screenBrightness = preference.savedLayoutParamsBrightness;
         //}
 
         toolbar = findViewById(R.id.act_prof_toolbar);
