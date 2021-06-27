@@ -97,6 +97,7 @@
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
             android:drawSelectorOnTop="true"
+            android:listSelector="@android:color/transparent"
             android:enabled="false"/>
 
         <!--
