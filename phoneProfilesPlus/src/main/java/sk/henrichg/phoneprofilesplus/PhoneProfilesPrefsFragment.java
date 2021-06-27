@@ -1384,7 +1384,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
                     getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_summary2));
             preference.setOnPreferenceClickListener(preference116 -> {
-                PPApplication.showDoNotKillMyAppDialog(PhoneProfilesPrefsFragment.this);
+                PPApplication.showDoNotKillMyAppDialog(getActivity());
                 return false;
             });
         }

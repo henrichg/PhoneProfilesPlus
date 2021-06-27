@@ -35,7 +35,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.pm.PackageInfoCompat;
-import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.multidex.MultiDex;
 import androidx.work.WorkInfo;
@@ -4209,7 +4208,7 @@ public class PPApplication extends Application
         }
     }
 
-    static void showDoNotKillMyAppDialog(final Fragment fragment) {
+    static void showDoNotKillMyAppDialog(final Activity activity) {
 /*
         new AsyncTask<Void, Void, String>() {
             @Override
@@ -4275,12 +4274,12 @@ public class PPApplication extends Application
         }.execute();
 */
 
-        if (fragment.getActivity() != null) {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(fragment.getActivity());
+        if (activity != null) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.phone_profiles_pref_applicationDoNotKillMyApp_dialogTitle);
             dialogBuilder.setPositiveButton(android.R.string.ok, null);
 
-            LayoutInflater inflater = fragment.getActivity().getLayoutInflater();
+            LayoutInflater inflater = activity.getLayoutInflater();
             @SuppressLint("InflateParams")
             View layout = inflater.inflate(R.layout.dialog_do_not_kill_my_app, null);
             dialogBuilder.setView(layout);
@@ -4303,7 +4302,7 @@ public class PPApplication extends Application
 //            }
 //        });
 
-            if (!fragment.getActivity().isFinishing())
+            if (!activity.isFinishing())
                 dialog.show();
         }
 

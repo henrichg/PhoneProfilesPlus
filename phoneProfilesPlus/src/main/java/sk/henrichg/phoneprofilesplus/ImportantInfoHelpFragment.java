@@ -719,7 +719,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         infoText670.setText(getString(R.string.important_info_do_not_kill_my_app1) + " " +
                 getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
                 getString(R.string.important_info_do_not_kill_my_app2));
-        infoText670.setOnClickListener(v -> PPApplication.showDoNotKillMyAppDialog(ImportantInfoHelpFragment.this));
+        infoText670.setOnClickListener(v -> PPApplication.showDoNotKillMyAppDialog(getActivity()));
 
         TextView infoText40 = view.findViewById(R.id.activity_info_default_profile);
         infoText40.setOnClickListener(v -> {
