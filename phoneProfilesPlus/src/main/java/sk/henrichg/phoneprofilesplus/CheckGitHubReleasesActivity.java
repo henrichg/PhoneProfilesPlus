@@ -57,11 +57,11 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         String message;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_actual_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")\n";
+            message = activity.getString(R.string.check_github_releases_actual_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
         } catch (Exception e) {
             message = "";
         }
-        message = message + activity.getString(R.string.about_application_package_type_github);
+        //message = message + activity.getString(R.string.about_application_package_type_github);
 
         if (!forFDroid) {
             message = message + "\n\n";
@@ -93,7 +93,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
             CharSequence str1 = activity.getString(R.string.check_releases_fdroid_application);
             CharSequence str2 = str1 + " " + PPApplication.FDROID_APPLICATION_URL;
             Spannable sbt = new SpannableString(str2);
-            sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
                 public void updateDrawState(TextPaint ds) {
@@ -122,7 +122,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
             str1 = activity.getString(R.string.check_releases_fdroid_repository_with_ppp);
             str2 = str1 + " " + PPApplication.FDROID_REPOSITORY_URL;
             sbt = new SpannableString(str2);
-            sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             clickableSpan = new ClickableSpan() {
                 @Override
                 public void updateDrawState(TextPaint ds) {

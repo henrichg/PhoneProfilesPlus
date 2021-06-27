@@ -1488,7 +1488,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk is located in</string>
     <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>
     <string name="donation_paypal">Please donate using PayPal:</string>
-    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>
     <string name="notification_channel_new_release">New PhoneProfilesPlus release</string>
     <string name="notification_channel_new_release_description">Shows notification about new PhoneProfilesPlus release.</string>
     <string name="altype_actionFromExternalApp_profileActivation">action from external app. - profile activation</string>
@@ -1758,6 +1757,7 @@
 <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
 <!--    <string name="google_play_chooser">View Google Play using</string>-->
 <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+<!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
 
 </resources>
 
