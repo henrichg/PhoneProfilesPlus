@@ -59,7 +59,9 @@
     <color name="toastBorderColor">#FF707070</color>
     <color name="dialogBorderColor">#FFFFFFFF</color>
     <color name="buttonBorderColor">#FFAAAAAA</color>
-    <color name="alertButtonBorderColor">#FFAAAAAA</color>
+<!--    <color name="alertButtonBorderColor">#FFAAAAAA</color>-->
+    <color name="buttonBackgroundColor">#FFFAFAFA</color>
+    <color name="buttonClickedBackgroundColor">#FFDADADA</color>
     <color name="popupMenuBorderColor">#FFCCCCCC</color>
     <color name="profileIconBorderColor">#FFCCCCCC</color>
     <color name="cardViewBorderColor">#FFFFFFFF</color>

@@ -6,7 +6,7 @@
 <!--    <item>-->
 <!--        <shape>-->
 
-<!--            <solid android:color="#00707070" />-->
+<!--            <solid android:color="#00AAAAAA" />-->
 
 <!--            <corners android:radius="@dimen/button_corner_radius" />-->
 <!--        </shape>-->
@@ -32,7 +32,7 @@
                 android:left="10dp"
                 android:right="10dp" />
 
-            <solid android:color="@color/buttonBackgroundColor" />
+            <solid android:color="@color/buttonClickedBackgroundColor" />
 
             <corners android:radius="@dimen/button_corner_radius" />
         </shape>
