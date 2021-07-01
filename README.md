@@ -18,6 +18,8 @@ __[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phonepr
 __Another sources of application: Galaxy Store (for Samsung devices), Amazon Appstore.__ 
 &nbsp;&nbsp;&nbsp;Use keyword "PhoneProfilesPlus" for search this application in these stores. 
 
+---
+
 __Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...__
 
 __This application is for configuration of device for life situations (at home, at work, in car, sleep, outside, ...) using Profiles.__
