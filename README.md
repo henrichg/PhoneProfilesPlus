@@ -8,12 +8,12 @@ PhoneProfilesPlus
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 [![version](https://img.shields.io/badge/version-5.0.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.0.1)
 
-__[Google Play release](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus):__
+__[Google Play release:](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__
 &nbsp;&nbsp;&nbsp;Latest version is 4.2.0.3 and will never by upgraded. 
 
 __Another sources of PhoneProfilesPlus:__
 
-__[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus):__
+__[F-Droid release:](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
 &nbsp;&nbsp;&nbsp;_[How to add F-Droid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_
 
 __Galaxy Store (for Samsung devices), Amazon Appstore:__ 
