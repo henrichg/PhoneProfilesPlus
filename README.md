@@ -10,12 +10,13 @@ PhoneProfilesPlus
 
 __[Google Play release](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__
 &nbsp;&nbsp;&nbsp;Latest version is 4.2.0.3 and will never by upgraded. 
-Please upgrade vith <nobr>F-Droid</nobr> or download latest apk from GitHub Releases.
+
+__Another sources of PhoneProfilesPlus:__
 
 __[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
 &nbsp;&nbsp;&nbsp;_[How to add F-Droid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_
 
-__Another sources of application: Galaxy Store (for Samsung devices), Amazon Appstore.__ 
+__Other stores: Galaxy Store (for Samsung devices), Amazon Appstore.__ 
 &nbsp;&nbsp;&nbsp;Use keyword "PhoneProfilesPlus" for search this application in these stores. 
 
 ---
