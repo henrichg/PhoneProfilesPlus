@@ -30,6 +30,7 @@ import static android.app.Notification.DEFAULT_VIBRATE;
 public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
 
     private static final String PREF_SHOW_CRITICAL_GITHUB_RELEASE_CODE_NOTIFICATION = "show_critical_github_release_code_notification";
+    private static final String PREF_CRITICAL_GITHUB_RELEASE_ALARM = "critical_github_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] CheckCriticalGitHubReleasesBroadcastReceiver.onReceive", "xxx");
@@ -47,42 +48,75 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
 //        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "xxx");
 
         Calendar alarm = Calendar.getInstance();
+//        if (PPApplication.logEnabled()) {
+//            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//            String result = sdf.format(alarm.getTimeInMillis());
+//            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
+//        }
+
+        long lastAlarm = ApplicationPreferences.
+                getSharedPreferences(context).getLong(PREF_CRITICAL_GITHUB_RELEASE_ALARM, 0);
+//        if (PPApplication.logEnabled()) {
+//            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//            String result = sdf.format(lastAlarm);
+//            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "lastAlarm=" + result);
+//        }
+
+        long alarmTime;
+
         /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
-            //    if (PPApplication.logEnabled()) {
-            //        @SuppressLint("SimpleDateFormat")
-            //        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            //        String result = sdf.format(alarm.getTimeInMillis());
-            //        Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-        } else*/ {
-            // each day at 12:30
-            if (PPApplication.applicationFullyStarted) {
-                alarm.set(Calendar.HOUR_OF_DAY, 12);
-                alarm.set(Calendar.MINUTE, 30);
-                alarm.add(Calendar.DAY_OF_MONTH, 1);
-                alarm.set(Calendar.SECOND, 0);
-                alarm.set(Calendar.MILLISECOND, 0);
+            if (PPApplication.logEnabled()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarm.getTimeInMillis());
+                Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
             }
-            else {
-                alarm.set(Calendar.HOUR_OF_DAY, 12);
-                alarm.set(Calendar.MINUTE, 30);
-                alarm.set(Calendar.SECOND, 0);
-                alarm.set(Calendar.MILLISECOND, 0);
-                if (alarm.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
+
+            alarmTime = alarm.getTimeInMillis();
+        } else*/
+        {
+            if ((lastAlarm == 0) || (lastAlarm <= alarm.getTimeInMillis())) {
+                // saved alarm is less then actual time
+
+                // each day at 12:30
+                //if (PPApplication.applicationFullyStarted) {
+                    alarm.set(Calendar.HOUR_OF_DAY, 12);
+                    alarm.set(Calendar.MINUTE, 30);
                     alarm.add(Calendar.DAY_OF_MONTH, 1);
-                }
+                    alarm.set(Calendar.SECOND, 0);
+                    alarm.set(Calendar.MILLISECOND, 0);
+                /*} else {
+                    alarm.set(Calendar.HOUR_OF_DAY, 12);
+                    alarm.set(Calendar.MINUTE, 30);
+                    alarm.set(Calendar.SECOND, 0);
+                    alarm.set(Calendar.MILLISECOND, 0);
+                    if (alarm.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
+                        alarm.add(Calendar.DAY_OF_MONTH, 1);
+                    }
+                }*/
+
+//                if (PPApplication.logEnabled()) {
+//                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                    String result = sdf.format(alarm.getTimeInMillis());
+//                    Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//                }
+
+                alarmTime = alarm.getTimeInMillis();
+
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                editor.putLong(PREF_CRITICAL_GITHUB_RELEASE_ALARM, alarmTime);
+                editor.apply();
+            } else {
+                alarmTime = lastAlarm;
+
+//                if (PPApplication.logEnabled()) {
+//                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                    String result = sdf.format(alarmTime);
+//                    Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm 2=" + result);
+//                }
             }
-
-//            if (PPApplication.logEnabled()) {
-//                @SuppressLint("SimpleDateFormat")
-//                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                String result = sdf.format(alarm.getTimeInMillis());
-//                PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-//            }
         }
-
-        long alarmTime = alarm.getTimeInMillis();
 
         //Intent intent = new Intent(_context, CheckGitHubReleasesBroadcastReceiver.class);
         Intent intent = new Intent();

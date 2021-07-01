@@ -835,3 +835,9 @@ Ale preco nenastartoval v nedelu? Toto je strasna zahada pre mna.
 Ma konfiguraciu tejto udalosti zalogovanu. Ale az v pondelok rano. Ze by vtedy pridaval nedelu?
 
 Weekend skoncil o pol noci. Ja ho mam do 23:00. Ze by povodne bol do pol noci? Pozri potom znova povodne data.
+
+---------------
+
+1. Najprv precitaj alarm zo shared preferences.
+2. Ak je vacsi ako aktualny, nastav systeovy alarm na tento.
+3. Ak je mensi alebo rovny, alebo ziadny, vytvor novy alarm, zapis ho do shared preferences a nastav ho ako systemovy.

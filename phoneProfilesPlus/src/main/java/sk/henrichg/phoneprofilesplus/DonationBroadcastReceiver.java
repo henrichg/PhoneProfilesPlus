@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
@@ -19,6 +20,8 @@ import java.util.Calendar;
 import static android.app.Notification.DEFAULT_VIBRATE;
 
 public class DonationBroadcastReceiver extends BroadcastReceiver {
+
+    private static final String PREF_NOTIFY_DONATION_ALARM = "notify_donation_alarm";
 
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] DonationBroadcastReceiver.onReceive", "xxx");
@@ -36,36 +39,76 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "xxx");
 
         Calendar alarm = Calendar.getInstance();
-        //if (DebugVersion.enabled) {
-        //    alarm.add(Calendar.MINUTE, 1);
-        //} else {
-            // each day at 13:30
-            if (PPApplication.applicationFullyStarted) {
-                alarm.set(Calendar.HOUR_OF_DAY, 13);
-                alarm.set(Calendar.MINUTE, 30);
-                alarm.add(Calendar.DAY_OF_MONTH, 1);
-                alarm.set(Calendar.SECOND, 0);
-                alarm.set(Calendar.MILLISECOND, 0);
+//        if (PPApplication.logEnabled()) {
+//            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//            String result = sdf.format(alarm.getTimeInMillis());
+//            Log.e("DonationBroadcastReceiver.setAlarm", "now=" + result);
+//        }
+
+        long lastAlarm = ApplicationPreferences.
+                getSharedPreferences(context).getLong(PREF_NOTIFY_DONATION_ALARM, 0);
+//        if (PPApplication.logEnabled()) {
+//            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//            String result = sdf.format(lastAlarm);
+//            Log.e("DonationBroadcastReceiver.setAlarm", "lastAlarm=" + result);
+//        }
+
+        long alarmTime;
+
+        /*if (DebugVersion.enabled) {
+            alarm.add(Calendar.MINUTE, 1);
+
+            if (PPApplication.logEnabled()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarm.getTimeInMillis());
+                Log.e("DonationBroadcastReceiver.setAlarm", "alarm=" + result);
             }
-            else {
-                alarm.set(Calendar.HOUR_OF_DAY, 13);
-                alarm.set(Calendar.MINUTE, 30);
-                alarm.set(Calendar.SECOND, 0);
-                alarm.set(Calendar.MILLISECOND, 0);
-                if (alarm.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
+
+            alarmTime = alarm.getTimeInMillis();
+        } else*/
+        {
+            if ((lastAlarm == 0) || (lastAlarm <= alarm.getTimeInMillis())) {
+                // saved alarm is less then actual time
+
+                // each day at 13:30
+                //if (PPApplication.applicationFullyStarted) {
+                    alarm.set(Calendar.HOUR_OF_DAY, 13);
+                    alarm.set(Calendar.MINUTE, 30);
                     alarm.add(Calendar.DAY_OF_MONTH, 1);
-                }
+                    alarm.set(Calendar.SECOND, 0);
+                    alarm.set(Calendar.MILLISECOND, 0);
+                /*} else {
+                    alarm.set(Calendar.HOUR_OF_DAY, 13);
+                    alarm.set(Calendar.MINUTE, 30);
+                    alarm.set(Calendar.SECOND, 0);
+                    alarm.set(Calendar.MILLISECOND, 0);
+                    if (alarm.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
+                        alarm.add(Calendar.DAY_OF_MONTH, 1);
+                    }
+                }*/
+
+//                if (PPApplication.logEnabled()) {
+//                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                    String result = sdf.format(alarm.getTimeInMillis());
+//                    Log.e("DonationBroadcastReceiver.setAlarm", "alarm=" + result);
+//                }
+
+                alarmTime = alarm.getTimeInMillis();
+
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                editor.putLong(PREF_NOTIFY_DONATION_ALARM, alarmTime);
+                editor.apply();
+
+            } else {
+                alarmTime = lastAlarm;
+
+//                if (PPApplication.logEnabled()) {
+//                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                    String result = sdf.format(alarmTime);
+//                    Log.e("DonationBroadcastReceiver.setAlarm", "alarm 2=" + result);
+//                }
             }
-
-//            if (PPApplication.logEnabled()) {
-//                @SuppressLint("SimpleDateFormat")
-//                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                String result = sdf.format(alarm.getTimeInMillis());
-//                PPApplication.logE("[DONATION] DonationBroadcastReceiver.setAlarm", "alarm=" + result);
-//            }
-        //}
-
-        long alarmTime = alarm.getTimeInMillis();
+        }
 
         //Intent intent = new Intent(_context, DonationBroadcastReceiver.class);
         Intent intent = new Intent();
