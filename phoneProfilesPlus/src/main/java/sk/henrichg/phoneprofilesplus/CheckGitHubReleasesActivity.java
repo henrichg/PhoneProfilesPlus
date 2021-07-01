@@ -40,7 +40,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
-        showDialog(this, false, false);
+        showDialog(this, false, R.id.menu_check_in_github);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
     }
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
-    static void showDialog(final Activity activity, final boolean fromEditor, final boolean forFDroid) {
+    static void showDialog(final Activity activity, final boolean fromEditor, final int store) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
         String message;
@@ -63,7 +63,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         }
         //message = message + activity.getString(R.string.about_application_package_type_github);
 
-        if (!forFDroid) {
+        if (store == R.id.menu_check_in_github) {
             message = message + "\n\n";
             message = message + activity.getString(R.string.check_github_releases_install_info_1) + "\n";
             message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";
@@ -72,22 +72,26 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
 
         View layout;
         LayoutInflater inflater = activity.getLayoutInflater();
-        if (forFDroid) {
+        if (store == R.id.menu_check_in_fdroid)
             layout = inflater.inflate(R.layout.dialog_for_fdroid, null);
-        }
-        else {
+        else
+        if (store == R.id.menu_check_in_galaxy_store)
+            layout = inflater.inflate(R.layout.dialog_for_galaxy_store, null);
+        else
             layout = inflater.inflate(R.layout.dialog_install_extender, null);
-        }
         dialogBuilder.setView(layout);
 
         TextView text;
-        if (forFDroid)
+        if (store == R.id.menu_check_in_fdroid)
             text = layout.findViewById(R.id.dialog_for_fdroid_info_text);
+        else
+        if (store == R.id.menu_check_in_galaxy_store)
+            text = layout.findViewById(R.id.dialog_for_galaxy_store_info_text);
         else
             text = layout.findViewById(R.id.install_extender_dialog_info_text);
         text.setText(message);
 
-        if (forFDroid) {
+        if (store == R.id.menu_check_in_fdroid) {
 
             text = layout.findViewById(R.id.dialog_for_fdroid_fdroid_application);
             CharSequence str1 = activity.getString(R.string.check_releases_fdroid_application);
@@ -147,7 +151,9 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
 
-        } else {
+        }
+        else
+        if (store == R.id.menu_check_in_github) {
             Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
             button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
             button.setOnClickListener(v -> {
@@ -159,13 +165,27 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
-        if (forFDroid) {
+        if (store == R.id.menu_check_in_fdroid) {
             dialogBuilder.setPositiveButton(R.string.check_releases_go_to_fdroid, (dialog, which) -> {
                 String url = PPApplication.FDROID_PPP_RELEASES_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
                     activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+                if (!fromEditor)
+                    activity.finish();
+            });
+        }
+        else
+        if (store == R.id.menu_check_in_galaxy_store) {
+            dialogBuilder.setPositiveButton(R.string.check_releases_open_galaxy_store, (dialog, which) -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplus"));
+                try {
+                    activity.startActivity(intent);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }

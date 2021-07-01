@@ -945,6 +945,12 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }
 
+        menuItem = menu.findItem(R.id.menu_check_in_galaxy_store);
+        if (menuItem != null) {
+            menuItem.setVisible(PPApplication.deviceIsSamsung);
+        }
+
+
         //noinspection Convert2MethodRef
         onNextLayout(editorToolbar, () -> showTargetHelps());
 
@@ -1273,13 +1279,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         }
         else
 
-        if (itemId == R.id.menu_check_in_github) {
-            CheckGitHubReleasesActivity.showDialog(this, true, false);
-            return true;
-        }
-        else
-        if (itemId == R.id.menu_check_in_fdroid) {
-            CheckGitHubReleasesActivity.showDialog(this, true, true);
+        if ((itemId == R.id.menu_check_in_github) ||
+                (itemId == R.id.menu_check_in_fdroid) ||
+                (itemId == R.id.menu_check_in_galaxy_store)) {
+            CheckGitHubReleasesActivity.showDialog(this, true, itemId);
             return true;
         }
 

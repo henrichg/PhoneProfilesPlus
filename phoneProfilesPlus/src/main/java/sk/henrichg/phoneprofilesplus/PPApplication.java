@@ -910,33 +910,6 @@ public class PPApplication extends Application
         // don't schedule anything in crash reporter process
         if (ACRA.isACRASenderServiceProcess())
             return;
-         */
-
-        /*
-        CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
-                .withBuildConfigClass(BuildConfig.class)
-                .withReportFormat(StringFormat.KEY_VALUE_LIST);
-        //builder.getPluginConfigurationBuilder(ToastConfigurationBuilder.class)
-        //        .setResText(R.string.acra_toast_text)
-        //        .setEnabled(true);
-        builder.getPluginConfigurationBuilder(NotificationConfigurationBuilder.class)
-                .withResChannelName(R.string.notification_channel_crash_report)
-                .withResChannelImportance(NotificationManager.IMPORTANCE_DEFAULT)
-                .withResIcon(R.drawable.ic_exclamation_notify)
-                .withResTitle(R.string.acra_notification_title)
-                .withResText(R.string.acra_notification_text)
-                .withResSendButtonIcon(0)
-                .withResDiscardButtonIcon(0)
-                .withSendOnClick(true)
-                .withEnabled(true);
-        builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
-                .withMailTo("henrich.gron@gmail.com")
-                .withResSubject(R.string.acra_email_subject_text)
-                .withResBody(R.string.acra_email_body_text)
-                .withReportAsFile(true)
-                .withReportFileName("crash_report.txt")
-                .withEnabled(true);
-        // don't schedule anything in crash reporter process
         */
 
         //if (DebugVersion.enabled) {

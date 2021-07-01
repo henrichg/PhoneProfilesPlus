@@ -1696,6 +1696,9 @@
 
     <string name="profile_preferences_volumeMediaInfo_summary">If media volume change not working, maybe it is due to enabled \"safe volume flag\". If you want to disable this flag, grant (G1) permission, because this permission is required to disable this flag.</string>
 
+    <string name="menu_check_releases_galaxy_store">Check in Galaxy Store</string>
+    <string name="check_releases_open_galaxy_store">Open Galaxy Store</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
