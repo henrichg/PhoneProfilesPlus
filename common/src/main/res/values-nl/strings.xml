@@ -1475,7 +1475,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk bevindt zich in</string>
     <string name="check_github_releases_notification">Klik op deze notificatie voor het controleren van PhoneProfilesPlus release op GitHub. Misschien is er een nieuwere versie beschikbaar.</string>
     <string name="donation_paypal">Doneer alsjeblieft via PayPal:</string>
-    <string name="about_application_package_type_github">Geïnstalleerd vanaf GitHub of een andere bron.</string>
     <string name="notification_channel_new_release">Nieuwe PhoneProfilesPlus release</string>
     <string name="notification_channel_new_release_description">Toont notificatie over nieuwe PhoneProfilesPlus release.</string>
     <string name="altype_actionFromExternalApp_profileActivation">actie vanui externe app - profiel activatie</string>
@@ -1675,11 +1674,12 @@
     <string name="altype_eventAdded">Event toegevoegd</string>
     <string name="quick_tile_subtile_activated">Geactiveerd</string>
     <string name="quick_tile_subtile_not_activated">Niet geactiveerd</string>
-    <string name="menu_check_releases_github">Check in GitHub Releases</string>
-    <string name="menu_check_releases_fdroid">Check in F-Droid</string>
-    <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
-    <string name="check_releases_fdroid_application">F-Droid application:</string>
-    <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
+    <string name="menu_check_releases_github">Controleer in GitHub Releases</string>
+    <string name="menu_check_releases_fdroid">Controleer in F-Droid</string>
+    <string name="check_releases_go_to_fdroid">Ga naar de F-Droid opslagplek</string>
+    <string name="check_releases_fdroid_application">F-Droid applicatie:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Opslagplek om te configureren in de F-Droid applicatie:</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">Als de verandering van mediavolume niet werkt, is het misschien te wijten aan het inschakelen van \"volume limiet schakelaar\". Als je deze instelling wilt uitschakelen, verleen dan (G1) toestemming. Deze permissie is vereist om deze instelling uit te schakelen.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1730,4 +1730,5 @@
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
 </resources>

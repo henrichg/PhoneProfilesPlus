@@ -1475,7 +1475,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk befindet sich in</string>
     <string name="check_github_releases_notification">Klicken Sie auf diese Benachrichtigung, um die Veröffentlichungen von PhoneProfilesPlus im GitHub zu überprüfen. Vielleicht wurde eine neuere Version veröffentlicht.</string>
     <string name="donation_paypal">Bitte spenden Sie mit PayPal:</string>
-    <string name="about_application_package_type_github">Installiert von GitHub oder einer anderen Quelle.</string>
     <string name="notification_channel_new_release">Neue PhoneProfilesPlus-Version</string>
     <string name="notification_channel_new_release_description">Zeigt Benachrichtigung über neues PhoneProfilesPlus-Release.</string>
     <string name="altype_actionFromExternalApp_profileActivation">Aktion von externer App - Profilaktivierung</string>
@@ -1660,26 +1659,27 @@
     <string name="title_activity_tile_chooser">Schnellauswahl für Kachelprofile</string>
     <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Preferences indicator lightness</string>
     <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Decoration for notification (if is enabled) will be displayed only when Background color is of type \"Native\".</string>
-    <string name="mobile_cells_item_delete_all_selected">Delete all selected</string>
-    <string name="delete_application_alert_message">Delete this application?</string>
-    <string name="delete_intent_alert_message">Delete this intent?</string>
-    <string name="delete_shortcut_alert_message">Delete this shortcut?</string>
-    <string name="delete_wifi_ssid_alert_message">Delete this Wi-Fi SSID?</string>
-    <string name="delete_nfc_tag_alert_message">Delete this NFC tag?</string>
-    <string name="delete_bluetooth_name_alert_message">Delete this Bluetooth name?</string>
-    <string name="delete_geofence_name_alert_message">Delete this location?</string>
-    <string name="delete_mobile_cell_alert_message">Delete this mobile cell?</string>
-    <string name="delete_selected_mobile_cells_alert_message">Delete all selected mobile cells?</string>
+    <string name="mobile_cells_item_delete_all_selected">Alle ausgewählte löschen</string>
+    <string name="delete_application_alert_message">Diesen Anwendung entfernen?</string>
+    <string name="delete_intent_alert_message">Diese Aufgabe entfernen?</string>
+    <string name="delete_shortcut_alert_message">Diese Verknüpfung löschen?</string>
+    <string name="delete_wifi_ssid_alert_message">Diese WLAN-SSID löschen?</string>
+    <string name="delete_nfc_tag_alert_message">Diesen NFC-Tag löschen?</string>
+    <string name="delete_bluetooth_name_alert_message">Diesen Bluetooth-Namen löschen?</string>
+    <string name="delete_geofence_name_alert_message">Diesen Standort entfernen?</string>
+    <string name="delete_mobile_cell_alert_message">Diese Mobilfunkzelle entfernen?</string>
+    <string name="delete_selected_mobile_cells_alert_message">Alle ausgewählten Mobilfunkzellen entfernen?</string>
     <string name="tile_chooser_tile_changed_toast">Quick tile profile changed to:</string>
-    <string name="altype_profileAdded">Profile added</string>
-    <string name="altype_eventAdded">Event added</string>
-    <string name="quick_tile_subtile_activated">Activated</string>
-    <string name="quick_tile_subtile_not_activated">Not activated</string>
-    <string name="menu_check_releases_github">Check in GitHub Releases</string>
-    <string name="menu_check_releases_fdroid">Check in F-Droid</string>
+    <string name="altype_profileAdded">Profil hinzugefügt</string>
+    <string name="altype_eventAdded">Ereignis hinzugefügt</string>
+    <string name="quick_tile_subtile_activated">Aktiviert</string>
+    <string name="quick_tile_subtile_not_activated">Deaktiviert</string>
+    <string name="menu_check_releases_github">GitHub-Veröffentlichungen durchsuchen</string>
+    <string name="menu_check_releases_fdroid">F-Droid durchsuchen</string>
     <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
-    <string name="check_releases_fdroid_application">F-Droid application:</string>
+    <string name="check_releases_fdroid_application">F-Droid-Anwendung:</string>
     <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">Wenn das Ändern der Lautstärke des Mediums nicht funktioniert, liegt das vielleicht daran, dass das \"Safe Volume Flag\" aktiviert ist. Wenn Sie dieses Merkmal deaktivieren möchten, erteilen Sie die (G1) Berechtigung, da diese zum Deaktivieren dieses Parameters erforderlich ist.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1730,4 +1730,5 @@
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
 </resources>

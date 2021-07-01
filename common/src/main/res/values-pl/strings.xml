@@ -1476,7 +1476,6 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk znajduje się w</string>
     <string name="check_github_releases_notification">Kliknij to powiadomienie, aby sprawdzić wersję PhoneProfilesPlus w GitHub. Być może pojawiła się nowa wersja.</string>
     <string name="donation_paypal">Wesprzyj autora darowizną za pomocą PayPal:</string>
-    <string name="about_application_package_type_github">Zainstalowano z GitHub lub innego źródła.</string>
     <string name="notification_channel_new_release">Nowa wersja PhoneProfilesPlus</string>
     <string name="notification_channel_new_release_description">Pokazuje powiadomienie o nowej wersji PhoneProfilesPlus.</string>
     <string name="altype_actionFromExternalApp_profileActivation">działanie z zewnętrznej aplikacji. - aktywacja profilu</string>
@@ -1659,28 +1658,29 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="github_assets_screenshot_text">\"Assets\" znajduje się poniżej informacji o wydaniu. Należy kliknąć \"Assets\" w widoku mobilnym.</string>
     <string name="quick_tile_icon_label">Wybierz profil</string>
     <string name="title_activity_tile_chooser">Kafelek szybkiego wyboru profilu</string>
-    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Preferences indicator lightness</string>
-    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Decoration for notification (if is enabled) will be displayed only when Background color is of type \"Native\".</string>
-    <string name="mobile_cells_item_delete_all_selected">Delete all selected</string>
-    <string name="delete_application_alert_message">Delete this application?</string>
-    <string name="delete_intent_alert_message">Delete this intent?</string>
-    <string name="delete_shortcut_alert_message">Delete this shortcut?</string>
-    <string name="delete_wifi_ssid_alert_message">Delete this Wi-Fi SSID?</string>
-    <string name="delete_nfc_tag_alert_message">Delete this NFC tag?</string>
-    <string name="delete_bluetooth_name_alert_message">Delete this Bluetooth name?</string>
-    <string name="delete_geofence_name_alert_message">Delete this location?</string>
-    <string name="delete_mobile_cell_alert_message">Delete this mobile cell?</string>
-    <string name="delete_selected_mobile_cells_alert_message">Delete all selected mobile cells?</string>
-    <string name="tile_chooser_tile_changed_toast">Quick tile profile changed to:</string>
-    <string name="altype_profileAdded">Profile added</string>
-    <string name="altype_eventAdded">Event added</string>
-    <string name="quick_tile_subtile_activated">Activated</string>
-    <string name="quick_tile_subtile_not_activated">Not activated</string>
-    <string name="menu_check_releases_github">Check in GitHub Releases</string>
-    <string name="menu_check_releases_fdroid">Check in F-Droid</string>
-    <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
-    <string name="check_releases_fdroid_application">F-Droid application:</string>
-    <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
+    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Jasność wskaźnika preferencji</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Styl dla powiadomień (jeśli jest włączony) będzie wyświetlany tylko wtedy, gdy kolor tła jest typu \"Natywny\".</string>
+    <string name="mobile_cells_item_delete_all_selected">Usuń wszystkie zaznaczone</string>
+    <string name="delete_application_alert_message">Usunąć tę aplikację?</string>
+    <string name="delete_intent_alert_message">Usunąć tę intencję?</string>
+    <string name="delete_shortcut_alert_message">Usunąć ten skrót?</string>
+    <string name="delete_wifi_ssid_alert_message">Usunąć ten Wi-Fi SSID?</string>
+    <string name="delete_nfc_tag_alert_message">Usunąć ten tag NFC?</string>
+    <string name="delete_bluetooth_name_alert_message">Usunąć tę nazwę Bluetooth?</string>
+    <string name="delete_geofence_name_alert_message">Usunąć tę lokalizację?</string>
+    <string name="delete_mobile_cell_alert_message">Usunąć tę stację bazową?</string>
+    <string name="delete_selected_mobile_cells_alert_message">Usunąć wszystkie wybrane stacje bazowe?</string>
+    <string name="tile_chooser_tile_changed_toast">Kafelek szybkiego wyboru profilu zmieniony na:</string>
+    <string name="altype_profileAdded">Profil dodany</string>
+    <string name="altype_eventAdded">Wydarzenie dodane</string>
+    <string name="quick_tile_subtile_activated">Aktywowany</string>
+    <string name="quick_tile_subtile_not_activated">Nie aktywowany</string>
+    <string name="menu_check_releases_github">Sprawdź wersję na GitHub</string>
+    <string name="menu_check_releases_fdroid">Sprawdź w F-Droid</string>
+    <string name="check_releases_go_to_fdroid">Przejdź do repozytorium F-Droid</string>
+    <string name="check_releases_fdroid_application">Aplikacja F-Droid:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Repozytorium do konfiguracji w aplikacji F-Droid:</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">Ustawienie zmiany głośności mediów może nie działać z powodu ustawienia \"bezpiecznego poziomu głośności\". Aby wyłączyć ograniczenie, wymagane jest udzielenie uprawnienia (G1).</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1731,4 +1731,5 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
 </resources>

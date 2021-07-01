@@ -1475,7 +1475,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlusExtender.apk se encuentra en</string>
     <string name="check_github_releases_notification">Haz clic en esta notificación para comprobar las versiones de PhoneProfilesPlus en GitHub. Tal vez haya una nueva versión.</string>
     <string name="donation_paypal">Por favor, dona usando PayPal:</string>
-    <string name="about_application_package_type_github">Instalada desde GitHub u otra fuente.</string>
     <string name="notification_channel_new_release">Nueva versión de PhoneProfilesPlus</string>
     <string name="notification_channel_new_release_description">Muestra notificación sobre una nueva versión de PhoneProfilesPlus.</string>
     <string name="altype_actionFromExternalApp_profileActivation">acción desde aplicación externa. - Activación de perfil</string>
@@ -1559,7 +1558,7 @@
     <string name="array_event_pref_calendarAllDayEvents_dontCheck">No comprobar</string>
     <string name="array_event_pref_calendarAllDayEvents_onlyNotAllDays">Solo no todos los días</string>
     <string name="array_event_pref_calendarDayContainsEvent_onlyAllDays">Solo todos los días</string>
-    <string name="altype_applicationSystemRestart">application restart by system</string>
+    <string name="altype_applicationSystemRestart">reiniciar la aplicación por el sistema</string>
     <string name="preference_not_allowed_reason_not_granted_phone_permission">no se ha concedido el permiso Teléfono</string>
     <string name="application_cannot_be_started_button_restart">Reiniciar aplicación</string>
     <string name="contact_group_name_myContacts">Mis Contactos</string>
@@ -1576,7 +1575,7 @@
     <string name="array_location_editor_show_actual_location">Mostrar ubicación actual</string>
     <string name="array_location_editor_change_geofence_location_to_actual">Cambiar la ubicación editada a la actual</string>
     <string name="array_location_editor_rename_geofence_with_address">Renombrar ubicación editada con dirección</string>
-    <string name="location_editor_map_is_loading">Map is loading…</string>
+    <string name="location_editor_map_is_loading">El mapa se está cargando…</string>
     <string name="profile_preferences_cameraFlash">Flash de la cámara</string>
     <string name="permission_why_profile_camera_flash">para alternar el flash de la cámara</string>
     <string name="permission_group_name_camera">Cámara</string>
@@ -1589,8 +1588,8 @@
     <string name="profile_preferences_deviceNetworkTypeSIM1">(R) Tipo de red móvil para la SIM 1</string>
     <string name="profile_preferences_deviceNetworkTypeSIM2">(R) Tipo de red móvil para la SIM 2</string>
     <string name="profile_preferences_category_led_accessories">Accesorios LED</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Mobile data for SIM 1</string>
-    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Mobile data for SIM 2</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM1">(R) Datos móviles para SIM 1</string>
+    <string name="profile_preferences_deviceMobileData_21_SIM2">(R) Datos móviles para la SIM 2</string>
     <string name="array_pref_radioSwitch_connected">Conectado</string>
     <string name="array_pref_radioSwitch_disconnected">Desconectado</string>
     <string name="event_preference_sensor_radioSwitch_summary">Este sensor iniciará un evento al cambiar el estado de las radios (encendido/apagado) y por su estado conectado/desconectado. Parámetros: Wi-Fi, Bluetooth, datos móviles, GPS, NFC, modo avión.</string>
@@ -1658,28 +1657,29 @@
     <string name="github_assets_screenshot_text">\"Assets\" está debajo de las notas de lanzamiento. Debes hacer click en \"Assets\" en la vista móvil.</string>
     <string name="quick_tile_icon_label">Elegir perfil</string>
     <string name="title_activity_tile_chooser">Selector rápido de mosaico de perfiles</string>
-    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Preferences indicator lightness</string>
-    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Decoration for notification (if is enabled) will be displayed only when Background color is of type \"Native\".</string>
-    <string name="mobile_cells_item_delete_all_selected">Delete all selected</string>
-    <string name="delete_application_alert_message">Delete this application?</string>
-    <string name="delete_intent_alert_message">Delete this intent?</string>
-    <string name="delete_shortcut_alert_message">Delete this shortcut?</string>
-    <string name="delete_wifi_ssid_alert_message">Delete this Wi-Fi SSID?</string>
-    <string name="delete_nfc_tag_alert_message">Delete this NFC tag?</string>
-    <string name="delete_bluetooth_name_alert_message">Delete this Bluetooth name?</string>
-    <string name="delete_geofence_name_alert_message">Delete this location?</string>
-    <string name="delete_mobile_cell_alert_message">Delete this mobile cell?</string>
-    <string name="delete_selected_mobile_cells_alert_message">Delete all selected mobile cells?</string>
-    <string name="tile_chooser_tile_changed_toast">Quick tile profile changed to:</string>
-    <string name="altype_profileAdded">Profile added</string>
-    <string name="altype_eventAdded">Event added</string>
-    <string name="quick_tile_subtile_activated">Activated</string>
-    <string name="quick_tile_subtile_not_activated">Not activated</string>
-    <string name="menu_check_releases_github">Check in GitHub Releases</string>
-    <string name="menu_check_releases_fdroid">Check in F-Droid</string>
-    <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
-    <string name="check_releases_fdroid_application">F-Droid application:</string>
-    <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
+    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Preferencias de luminosidad del indicador</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">La decoración para la notificación (si está habilitada) se mostrará sólo cuando el color de fondo es de tipo \"Nativo\".</string>
+    <string name="mobile_cells_item_delete_all_selected">Eliminar todos los seleccionados</string>
+    <string name="delete_application_alert_message">¿Eliminar esta aplicación?</string>
+    <string name="delete_intent_alert_message">¿Eliminar este intento?</string>
+    <string name="delete_shortcut_alert_message">¿Eliminar este acceso directo?</string>
+    <string name="delete_wifi_ssid_alert_message">¿Eliminar este SSID Wi-Fi?</string>
+    <string name="delete_nfc_tag_alert_message">¿Eliminar esta etiqueta NFC?</string>
+    <string name="delete_bluetooth_name_alert_message">¿Eliminar este nombre de Bluetooth?</string>
+    <string name="delete_geofence_name_alert_message">¿Eliminar esta ubicación?</string>
+    <string name="delete_mobile_cell_alert_message">¿Eliminar esta celda móvil?</string>
+    <string name="delete_selected_mobile_cells_alert_message">¿Eliminar todas las celdas móviles seleccionadas?</string>
+    <string name="tile_chooser_tile_changed_toast">Mosaico de selección rápida de perfiles cambiado a:</string>
+    <string name="altype_profileAdded">Perfil añadido</string>
+    <string name="altype_eventAdded">Evento añadido</string>
+    <string name="quick_tile_subtile_activated">Activado</string>
+    <string name="quick_tile_subtile_not_activated">No activado</string>
+    <string name="menu_check_releases_github">Comprobar en GitHub Releases</string>
+    <string name="menu_check_releases_fdroid">Comprobar en F-Droid</string>
+    <string name="check_releases_go_to_fdroid">Ir al repositorio de F-Droid</string>
+    <string name="check_releases_fdroid_application">Aplicación F-Droid:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Repositorio para configurar en la aplicación F-Droid:</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">Si el cambio de volumen multimedia no funciona, tal vez se deba a que esté habilitado el \"limitador de volumen seguro\". Si quieres desactivar este limitador, concede permiso (G1), porque es necesario para desactivarlo.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>
@@ -1730,4 +1730,5 @@
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
 </resources>

@@ -1475,7 +1475,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk is located in</string>
     <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>
     <string name="donation_paypal">Please donate using PayPal:</string>
-    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>
     <string name="notification_channel_new_release">New PhoneProfilesPlus release</string>
     <string name="notification_channel_new_release_description">Shows notification about new PhoneProfilesPlus release.</string>
     <string name="altype_actionFromExternalApp_profileActivation">action from external app. - profile activation</string>
@@ -1680,6 +1679,7 @@
     <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
     <string name="check_releases_fdroid_application">F-Droid application:</string>
     <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">If media volume change not working, maybe it is due to enabled \"safe volume flag\". If you want to disable this flag, grant (G1) permission, because this permission is required to disable this flag.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1730,4 +1730,5 @@
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
 </resources>

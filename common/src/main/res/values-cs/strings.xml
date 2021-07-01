@@ -1475,7 +1475,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk se nachází v</string>
     <string name="check_github_releases_notification">Klikněte na tuto notifikaci na zkontrolování vydání PhoneProfilesPlus v GitHub. Možná byla vydána novější verze.</string>
     <string name="donation_paypal">Prosím přispějte přes PayPal:</string>
-    <string name="about_application_package_type_github">Nainstalované z GitHub nebo jiného zdroje.</string>
     <string name="notification_channel_new_release">Nová verze PhoneProfilesPlus</string>
     <string name="notification_channel_new_release_description">Zobrazuje notifikaci o nové verzi PhoneProfilesPlus.</string>
     <string name="altype_actionFromExternalApp_profileActivation">akce pro externí apl. - aktivace profilu</string>
@@ -1680,6 +1679,7 @@
     <string name="check_releases_go_to_fdroid">Jít do F-Droid repozitáře</string>
     <string name="check_releases_fdroid_application">Aplikace F-Droid:</string>
     <string name="check_releases_fdroid_repository_with_ppp">Repozitář na jeho konfiguraci v aplikaci F-Droid:</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">Pokud změna hlasitosti médií nefunguje, je to pravděpodobně způsobeno povoleným \"příznakem bezpečné hlasitosti\". Chcete-li tento příznak zakázat, udělte oprávnění (G1), protože na povolení tohoto příznaku je třeba toto povolení.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1730,4 +1730,5 @@
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
 </resources>

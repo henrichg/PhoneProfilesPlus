@@ -1475,7 +1475,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlusExtender.apk se nalazi u</string>
     <string name="check_github_releases_notification">Klikni ovo obaveštenje za proveru izdanja PhoneProfilesPlus na GitHub-u. Možda postoji novija verzija aplikacije.</string>
     <string name="donation_paypal">Molimo donirajte putem PayPal aplikacije:</string>
-    <string name="about_application_package_type_github">Instalirano sa GitHUb-a ili nekog drugog izvora.</string>
     <string name="notification_channel_new_release">Nova PhoneProfilesPlus verzija</string>
     <string name="notification_channel_new_release_description">Prikazuj obaveštenja o novoj PhoneProfilesPlus verziji.</string>
     <string name="altype_actionFromExternalApp_profileActivation">radnja iz spoljne aplikacije - aktivacija profila</string>
@@ -1681,6 +1680,7 @@
     <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
     <string name="check_releases_fdroid_application">F-Droid application:</string>
     <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">If media volume change not working, maybe it is due to enabled \"safe volume flag\". If you want to disable this flag, grant (G1) permission, because this permission is required to disable this flag.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1731,4 +1731,5 @@
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
 </resources>

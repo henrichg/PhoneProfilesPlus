@@ -1475,7 +1475,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk 位于：</string>
     <string name="check_github_releases_notification">点击此通知以检查 GitHub 中的 PhoneProfilesPlus 版本。也许会发布更新版本。</string>
     <string name="donation_paypal">请使用PayPal捐赠：</string>
-    <string name="about_application_package_type_github">从 GitHub 或其他来源安装。</string>
     <string name="notification_channel_new_release">新版 PhoneProfilesPlus 已发布</string>
     <string name="notification_channel_new_release_description">显示新版 PhoneProfilesPlus 发布的通知。</string>
     <string name="altype_actionFromExternalApp_profileActivation">来自外部应用的操作-情景激活</string>
@@ -1675,11 +1674,12 @@
     <string name="altype_eventAdded">事件已添加</string>
     <string name="quick_tile_subtile_activated">已激活</string>
     <string name="quick_tile_subtile_not_activated">未激活</string>
-    <string name="menu_check_releases_github">Check in GitHub Releases</string>
-    <string name="menu_check_releases_fdroid">Check in F-Droid</string>
-    <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
-    <string name="check_releases_fdroid_application">F-Droid application:</string>
-    <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
+    <string name="menu_check_releases_github">在  GitHub 检查新版</string>
+    <string name="menu_check_releases_fdroid">在 F-Droid 中检查</string>
+    <string name="check_releases_go_to_fdroid">转到 F-Droid 仓库</string>
+    <string name="check_releases_fdroid_application">F-Droid 应用程序：</string>
+    <string name="check_releases_fdroid_repository_with_ppp">在 F-Droid 应用程序中配置它的仓库：</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">如果媒体音量变化不正常，可能是因为启用了“安全音量标志”。 如果您想要禁用此标志，授予(G1) 权限，此权限是禁用此标志所必需的。</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1730,4 +1730,5 @@
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
 </resources>

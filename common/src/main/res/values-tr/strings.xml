@@ -89,7 +89,7 @@
     <string name="export_profiles_alert_error">Aktarma esnasında hata</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Şebeke internet bağlantı ayarları</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Renkli</string>
-    <string name="phone_profiles_pref_notificationStatusBarStyle_android">Bildirim rengi</string>
+    <string name="phone_profiles_pref_notificationStatusBarStyle_android">Cihaz</string>
     <string name="phone_profiles_pref_applicationLongClickActivation">Tercihi faaliyete geçirmek için uzun basın</string>
     <string name="alert_title_delete_all_profiles">Tercihlerin tamamını sil</string>
     <string name="alert_message_delete_all_profiles">Emin misiniz?</string>
@@ -1475,7 +1475,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk bulunduğu yer</string>
     <string name="check_github_releases_notification">PhoneProfilesPlus\'ın GitHub sürümleri kontrolü için bu bildirime dokunun. Belki yeni bir sürüm yayınlanmış olabilir.</string>
     <string name="donation_paypal">Lütfen bize PayPal`den bağış yapın:</string>
-    <string name="about_application_package_type_github">GitHub veya başka bir kaynaktan yüklendi.</string>
     <string name="notification_channel_new_release">Yeni PhoneProfilesPlus yayınlandı</string>
     <string name="notification_channel_new_release_description">Yeni PhoneProfilesPlus yayını hakkında bildirim gösterir.</string>
     <string name="altype_actionFromExternalApp_profileActivation">harici uygulamadan faaliyet - Tercihi faaliyete geçirme</string>
@@ -1658,28 +1657,29 @@
     <string name="github_assets_screenshot_text">\"Assets\" sürüm notlarının altındadır. Mobil cihazınızda \"Assets\"e dokununuz.</string>
     <string name="quick_tile_icon_label">Tercih seçin</string>
     <string name="title_activity_tile_chooser">Hızlı döşeme Tercih seçici</string>
-    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Preferences indicator lightness</string>
-    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Decoration for notification (if is enabled) will be displayed only when Background color is of type \"Native\".</string>
-    <string name="mobile_cells_item_delete_all_selected">Delete all selected</string>
-    <string name="delete_application_alert_message">Delete this application?</string>
-    <string name="delete_intent_alert_message">Delete this intent?</string>
-    <string name="delete_shortcut_alert_message">Delete this shortcut?</string>
-    <string name="delete_wifi_ssid_alert_message">Delete this Wi-Fi SSID?</string>
-    <string name="delete_nfc_tag_alert_message">Delete this NFC tag?</string>
-    <string name="delete_bluetooth_name_alert_message">Delete this Bluetooth name?</string>
-    <string name="delete_geofence_name_alert_message">Delete this location?</string>
-    <string name="delete_mobile_cell_alert_message">Delete this mobile cell?</string>
-    <string name="delete_selected_mobile_cells_alert_message">Delete all selected mobile cells?</string>
-    <string name="tile_chooser_tile_changed_toast">Quick tile profile changed to:</string>
-    <string name="altype_profileAdded">Profile added</string>
-    <string name="altype_eventAdded">Event added</string>
-    <string name="quick_tile_subtile_activated">Activated</string>
-    <string name="quick_tile_subtile_not_activated">Not activated</string>
-    <string name="menu_check_releases_github">Check in GitHub Releases</string>
-    <string name="menu_check_releases_fdroid">Check in F-Droid</string>
-    <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
-    <string name="check_releases_fdroid_application">F-Droid application:</string>
-    <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
+    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Ayarlar göstergesi şeffaflığı</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Bildirim için döşeme (faal ise) yalnızca arka plan rengi \"Cihaz\" türünde olduğunda görüntülenecektir.</string>
+    <string name="mobile_cells_item_delete_all_selected">Seçilenlerin tamamını sil</string>
+    <string name="delete_application_alert_message">Bu uygulama silinsin mi?</string>
+    <string name="delete_intent_alert_message">Bu maksat silinsin mi?</string>
+    <string name="delete_shortcut_alert_message">Bu kısayol silinsin mi?</string>
+    <string name="delete_wifi_ssid_alert_message">Bu Wi-Fi ismi silinsin mi?</string>
+    <string name="delete_nfc_tag_alert_message">Bu NFC etiketi silinsin mi?</string>
+    <string name="delete_bluetooth_name_alert_message">Bu Bluetooth ismi silinsin mi?</string>
+    <string name="delete_geofence_name_alert_message">Bu konum silinsin mi?</string>
+    <string name="delete_mobile_cell_alert_message">Bu şebeke hücresi silinsin mi?</string>
+    <string name="delete_selected_mobile_cells_alert_message">Seçilen şebeke hücrelerinin tamamı silinsin mi?</string>
+    <string name="tile_chooser_tile_changed_toast">Hızlı döşeme tercihi şu şekilde değiştirildi:</string>
+    <string name="altype_profileAdded">Tercih ilave edildi</string>
+    <string name="altype_eventAdded">Durum ilave edildi</string>
+    <string name="quick_tile_subtile_activated">Faaliyette</string>
+    <string name="quick_tile_subtile_not_activated">Faaliyete geçmedi</string>
+    <string name="menu_check_releases_github">GitHub\'ta güncellemeleri kontrol et</string>
+    <string name="menu_check_releases_fdroid">F-Droid\'te güncellemeleri kontrol et</string>
+    <string name="check_releases_go_to_fdroid">F-Droid deposuna git</string>
+    <string name="check_releases_fdroid_application">F-Droid uygulaması:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">F-Droid uygulamasında ayarlanacak depo:</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">Ses yüksekliği değişikliği çalışmıyorsa, bunun sebebi faaliyette olan \"güvenli ses bayrağı\" olabilir. Bu bayrağı devre dışı bırakmak için, (G1) izni veriniz.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• Tercih değeri \"Zorla durdurulan uygulamalar\"\n• Durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1730,4 +1730,5 @@
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
 </resources>

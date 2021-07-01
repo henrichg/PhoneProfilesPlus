@@ -15,6 +15,8 @@ Please upgrade vith <nobr>F-Droid</nobr> or download latest apk from GitHub Rele
 __[F-Droid release](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
 &nbsp;&nbsp;&nbsp;_[How to add F-Droid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_
 
+__Another sources of application: Galaxy Store (for Samsung devices), Amazon Appstore.__ 
+&nbsp;&nbsp;&nbsp;Use keyword "PhoneProfilesPlus" for search this application in these stores. 
 
 __Android application - manually and by event triggered change of device settings like ringer mode, sounds, Wifi, Bluetooth, launcher wallpaper, ...__
 

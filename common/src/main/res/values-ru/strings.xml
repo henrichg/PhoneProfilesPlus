@@ -1475,7 +1475,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk находится в</string>
     <string name="check_github_releases_notification">Нажмите на это уведомление, чтобы проверить релизы PhoneProfilesPlus на GitHub. Возможно, уже вышла новая версия.</string>
     <string name="donation_paypal">Поддержите проект через PayPal:</string>
-    <string name="about_application_package_type_github">Установлено из GitHub или другого источника.</string>
     <string name="notification_channel_new_release">Новая версия PhoneProfilesPlus</string>
     <string name="notification_channel_new_release_description">Показывает уведомление о новой версии PhoneProfilesPlus.</string>
     <string name="altype_actionFromExternalApp_profileActivation">действие из внешнего приложения - активация профиля</string>
@@ -1675,11 +1674,12 @@
     <string name="altype_eventAdded">Событие добавлено</string>
     <string name="quick_tile_subtile_activated">Активировано</string>
     <string name="quick_tile_subtile_not_activated">Не активировано</string>
-    <string name="menu_check_releases_github">Check in GitHub Releases</string>
-    <string name="menu_check_releases_fdroid">Check in F-Droid</string>
-    <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
-    <string name="check_releases_fdroid_application">F-Droid application:</string>
-    <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
+    <string name="menu_check_releases_github">Проверить в GitHub</string>
+    <string name="menu_check_releases_fdroid">Проверить в F-Droid</string>
+    <string name="check_releases_go_to_fdroid">Перейти в репозиторий F-Droid</string>
+    <string name="check_releases_fdroid_application">Приложение F-Droid:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Репозиторий для настройки в приложении F-Droid:</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">Если изменение уровня громкости медиа не работает, это может происходить из-за включённого \"признака безопасного уровня громкости\". Если вы хотите отключить его, предоставьте необходимое для этого разрешение (G1).</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1730,4 +1730,5 @@
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
 </resources>

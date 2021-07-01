@@ -1475,7 +1475,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk se trouve dans</string>
     <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>
     <string name="donation_paypal">Veuillez faire un don en utilisant PayPal :</string>
-    <string name="about_application_package_type_github">Installé à partir de GitHub ou d\'une autre source.</string>
     <string name="notification_channel_new_release">Nouvelle version de PhoneProfilesPlus</string>
     <string name="notification_channel_new_release_description">Affiche une notification s\'il y a une nouvelle version de PhoneProfilesPlus.</string>
     <string name="altype_actionFromExternalApp_profileActivation">action d\'une application externe - activation du profil</string>
@@ -1675,11 +1674,12 @@
     <string name="altype_eventAdded">Événement ajouté</string>
     <string name="quick_tile_subtile_activated">Activité</string>
     <string name="quick_tile_subtile_not_activated">Non activé</string>
-    <string name="menu_check_releases_github">Check in GitHub Releases</string>
-    <string name="menu_check_releases_fdroid">Check in F-Droid</string>
-    <string name="check_releases_go_to_fdroid">Go to F-Droid repository</string>
-    <string name="check_releases_fdroid_application">F-Droid application:</string>
-    <string name="check_releases_fdroid_repository_with_ppp">Repository to configure it in F-Droid application:</string>
+    <string name="menu_check_releases_github">Vérifier les versions sur GitHub</string>
+    <string name="menu_check_releases_fdroid">Vérifier dans F-Droid</string>
+    <string name="check_releases_go_to_fdroid">Allez dans le dépôt F-Droid</string>
+    <string name="check_releases_fdroid_application">Application F-Droid:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Dépôt pour le configurer dans l\'application F-Droid :</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">Si le changement de volume \"médias\" ne fonctionne pas, c\'est peut-être dû à l\'activation de l\'option \"safe volume flag\". Si vous voulez désactiver ce drapeau, accordez la permission (G1).</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
@@ -1730,4 +1730,5 @@
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
 </resources>
