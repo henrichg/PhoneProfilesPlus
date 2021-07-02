@@ -231,7 +231,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         }
         else
         if (store == R.id.menu_check_in_amazon_appstore) {
-            dialogBuilder.setPositiveButton(R.string.check_releases_go_to_amazon_appstore, (dialog, which) -> {
+            dialogBuilder.setPositiveButton(R.string.check_releases_open_amazon_appstore, (dialog, which) -> {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("amzn://apps/android?p=sk.henrichg.phoneprofilesplus"));
                 try {
