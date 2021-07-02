@@ -1680,6 +1680,12 @@
     <string name="check_releases_fdroid_application">F-Droid 应用程序：</string>
     <string name="check_releases_fdroid_repository_with_ppp">在 F-Droid 应用程序中配置它的仓库：</string>
     <string name="profile_preferences_volumeMediaInfo_summary">如果媒体音量变化不正常，可能是因为启用了“安全音量标志”。 如果您想要禁用此标志，授予(G1) 权限，此权限是禁用此标志所必需的。</string>
+    <string name="menu_check_releases_galaxy_store">Check in Galaxy Store</string>
+    <string name="check_releases_open_galaxy_store">Open Galaxy Store</string>
+    <string name="menu_check_releases_amazon_appstore">Check in Amazon Appstore</string>
+    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>
+    <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>
+    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>

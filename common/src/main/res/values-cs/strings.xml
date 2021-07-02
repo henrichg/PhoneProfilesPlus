@@ -1680,6 +1680,12 @@
     <string name="check_releases_fdroid_application">Aplikace F-Droid:</string>
     <string name="check_releases_fdroid_repository_with_ppp">Repozitář na jeho konfiguraci v aplikaci F-Droid:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Pokud změna hlasitosti médií nefunguje, je to pravděpodobně způsobeno povoleným \"příznakem bezpečné hlasitosti\". Chcete-li tento příznak zakázat, udělte oprávnění (G1), protože na povolení tohoto příznaku je třeba toto povolení.</string>
+    <string name="menu_check_releases_galaxy_store">Skontolovať v Galaxy Store</string>
+    <string name="check_releases_open_galaxy_store">Otevřít Galaxy Store</string>
+    <string name="menu_check_releases_amazon_appstore">Skontolovať v Amazon Appstore</string>
+    <string name="check_releases_amazon_appstore_application">Web pro instalaci aplikace Amazon Appstore:</string>
+    <string name="check_releases_open_amazon_appstore">Otevřít Amazon Appstore</string>
+    <string name="check_releases_install_amazon_appstore">Prosím nainstalujte si aplikaci Amazon Appstore.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

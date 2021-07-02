@@ -1680,6 +1680,12 @@
     <string name="check_releases_fdroid_application">Application F-Droid:</string>
     <string name="check_releases_fdroid_repository_with_ppp">Dépôt pour le configurer dans l\'application F-Droid :</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Si le changement de volume \"médias\" ne fonctionne pas, c\'est peut-être dû à l\'activation de l\'option \"safe volume flag\". Si vous voulez désactiver ce drapeau, accordez la permission (G1).</string>
+    <string name="menu_check_releases_galaxy_store">Check in Galaxy Store</string>
+    <string name="check_releases_open_galaxy_store">Open Galaxy Store</string>
+    <string name="menu_check_releases_amazon_appstore">Check in Amazon Appstore</string>
+    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>
+    <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>
+    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

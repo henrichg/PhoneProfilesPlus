@@ -1680,6 +1680,12 @@
     <string name="check_releases_fdroid_application">Приложение F-Droid:</string>
     <string name="check_releases_fdroid_repository_with_ppp">Репозиторий для настройки в приложении F-Droid:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Если изменение уровня громкости медиа не работает, это может происходить из-за включённого \"признака безопасного уровня громкости\". Если вы хотите отключить его, предоставьте необходимое для этого разрешение (G1).</string>
+    <string name="menu_check_releases_galaxy_store">Проверить в Galaxy Store</string>
+    <string name="check_releases_open_galaxy_store">Открыть Galaxy Store</string>
+    <string name="menu_check_releases_amazon_appstore">Проверить в Amazon Appstore</string>
+    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>
+    <string name="check_releases_open_amazon_appstore">Открыть Amazon Appstore</string>
+    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
