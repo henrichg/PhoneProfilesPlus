@@ -1699,10 +1699,9 @@
     <string name="menu_check_releases_galaxy_store">Check in Galaxy Store</string>
     <string name="check_releases_open_galaxy_store">Open Galaxy Store</string>
     <string name="menu_check_releases_amazon_appstore">Check in Amazon Appstore</string>
-    <string name="check_releases_amazon_appstore_search_ppp">Open Amazaon Appstore application and use keyword \"PhoneProfilesPlus\" for search this application in it.</string>
     <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>
     <string name="check_releases_go_to_amazon_appstore">Go to Amazon Appstore</string>
-    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore</string>
+    <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>
 
     <!-- **************************************************************************************** -->
 
