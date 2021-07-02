@@ -291,7 +291,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
             });
         }
         else
-        if (store == R.id.menu_check_github_releases) {
+        if (store == R.id.menu_check_in_github) {
             dialogBuilder.setPositiveButton(R.string.check_github_releases_go_to_github, (dialog, which) -> {
                 String url = PPApplication.GITHUB_PPP_RELEASES_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);
