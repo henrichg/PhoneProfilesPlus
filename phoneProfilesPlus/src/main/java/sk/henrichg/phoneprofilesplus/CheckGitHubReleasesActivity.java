@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -78,6 +79,9 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         if (store == R.id.menu_check_in_galaxy_store)
             layout = inflater.inflate(R.layout.dialog_for_galaxy_store, null);
         else
+        if (store == R.id.menu_check_in_amazon_appstore)
+            layout = inflater.inflate(R.layout.dialog_for_amazon_appstore, null);
+        else
             layout = inflater.inflate(R.layout.dialog_install_extender, null);
         dialogBuilder.setView(layout);
 
@@ -88,11 +92,13 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         if (store == R.id.menu_check_in_galaxy_store)
             text = layout.findViewById(R.id.dialog_for_galaxy_store_info_text);
         else
+        if (store == R.id.menu_check_in_amazon_appstore)
+            text = layout.findViewById(R.id.dialog_for_amazon_appstore_info_text);
+        else
             text = layout.findViewById(R.id.install_extender_dialog_info_text);
         text.setText(message);
 
         if (store == R.id.menu_check_in_fdroid) {
-
             text = layout.findViewById(R.id.dialog_for_fdroid_fdroid_application);
             CharSequence str1 = activity.getString(R.string.check_releases_fdroid_application);
             CharSequence str2 = str1 + " " + PPApplication.FDROID_APPLICATION_URL;
@@ -150,7 +156,37 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
             //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+        else
+        if (store == R.id.menu_check_in_amazon_appstore) {
+            text = layout.findViewById(R.id.dialog_for_amazon_appstore_amazon_appstore_application);
+            CharSequence str1 = activity.getString(R.string.check_releases_amazon_appstore_application);
+            CharSequence str2 = str1 + " " + PPApplication.AMAZON_APPSTORE_APPLICATION_URL;
+            Spannable sbt = new SpannableString(str2);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
 
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.AMAZON_APPSTORE_APPLICATION_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text.setText(sbt);
+            text.setMovementMethod(LinkMovementMethod.getInstance());
         }
         else
         if (store == R.id.menu_check_in_github) {
@@ -193,7 +229,69 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
                     activity.finish();
             });
         }
-        else {
+        else
+        if (store == R.id.menu_check_in_amazon_appstore) {
+            dialogBuilder.setPositiveButton(R.string.check_releases_go_to_amazon_appstore, (dialog, which) -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("amzn://apps/android?p=sk.henrichg.phoneprofilesplus"));
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception e) {
+                    AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(activity);
+                    dialogBuilder2.setMessage(R.string.check_releases_install_amazon_appstore);
+                    //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder2.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog2 = dialogBuilder2.create();
+
+//                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+
+                    if (!activity.isFinishing())
+                        dialog2.show();
+                }
+/*
+                PackageManager packageManager = activity.getPackageManager();
+                Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
+                if (intent != null) {
+                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    try {
+                        activity.startActivity(intent);
+                    } catch (Exception e) {
+                        AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(activity);
+                        dialogBuilder2.setMessage(R.string.check_releases_install_amazon_appstore);
+                        //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
+                        dialogBuilder2.setPositiveButton(android.R.string.ok, null);
+                        AlertDialog dialog2 = dialogBuilder2.create();
+
+//                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                @Override
+//                                public void onShow(DialogInterface dialog) {
+//                                    Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                    if (positive != null) positive.setAllCaps(false);
+//                                    Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                    if (negative != null) negative.setAllCaps(false);
+//                                }
+//                            });
+
+                        if (!activity.isFinishing())
+                            dialog2.show();
+                    }
+                }
+ */
+                if (!fromEditor)
+                    activity.finish();
+            });
+        }
+        else
+        if (store == R.id.menu_check_github_releases) {
             dialogBuilder.setPositiveButton(R.string.check_github_releases_go_to_github, (dialog, which) -> {
                 String url = PPApplication.GITHUB_PPP_RELEASES_URL;
                 Intent i = new Intent(Intent.ACTION_VIEW);

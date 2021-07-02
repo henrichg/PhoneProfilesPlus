@@ -1281,7 +1281,8 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         if ((itemId == R.id.menu_check_in_github) ||
                 (itemId == R.id.menu_check_in_fdroid) ||
-                (itemId == R.id.menu_check_in_galaxy_store)) {
+                (itemId == R.id.menu_check_in_galaxy_store) ||
+                (itemId == R.id.menu_check_in_amazon_appstore)) {
             CheckGitHubReleasesActivity.showDialog(this, true, itemId);
             return true;
         }
