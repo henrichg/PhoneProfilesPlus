@@ -2141,8 +2141,8 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationWidgetListRoundedCornersRadius(context);
             ApplicationPreferences.applicationWidgetIconRoundedCornersRadius(context);
             ApplicationPreferences.applicationActivatorNumColums(context);
-            ApplicationPreferences.applicationActivatorNotificationSound(context);
-            ApplicationPreferences.applicationActivatorNotificationVibrate(context);
+            ApplicationPreferences.applicationApplicationInterfaceNotificationSound(context);
+            ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate(context);
         }
     }
 

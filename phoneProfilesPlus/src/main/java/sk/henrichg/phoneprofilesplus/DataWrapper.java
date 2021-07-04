@@ -2022,11 +2022,15 @@ public class DataWrapper {
                         if (!PhoneProfilesService.displayPreferencesErrorNotification(_profile, null, context)) {
                             //PPApplication.logE("&&&&&&& DataWrapper.activateProfileWithAlert", "(1) called is DataWrapper.activateProfileFromMainThread");
 
-                            if (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) {
-                                if (!ApplicationPreferences.applicationActivatorNotificationSound.isEmpty() || ApplicationPreferences.applicationActivatorNotificationVibrate) {
+                            if ((startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+                                if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
                                     if (PhoneProfilesService.getInstance() != null) {
                                         //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
-                                        PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationActivatorNotificationSound, ApplicationPreferences.applicationActivatorNotificationVibrate);
+                                        PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
                                         //PPApplication.sleep(500);
                                     }
                                 }

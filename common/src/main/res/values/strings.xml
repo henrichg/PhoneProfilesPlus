@@ -1703,7 +1703,7 @@
     <string name="check_releases_open_amazon_appstore">Open Amazon Appstore</string>
     <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>
 
-    <string name="applicationActivatorActivationNotification">Notification of profile activation</string>
+    <string name="applicationApplicationInterfaceActivationNotification">Notification of profile activation</string>
 
     <!-- **************************************************************************************** -->
 

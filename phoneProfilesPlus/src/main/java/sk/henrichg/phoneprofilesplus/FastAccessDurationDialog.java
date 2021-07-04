@@ -115,11 +115,15 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
                     //PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(1) called is DataWrapper.activateProfileFromMainThread");
 
-                    if (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) {
-                        if (!ApplicationPreferences.applicationActivatorNotificationSound.isEmpty() || ApplicationPreferences.applicationActivatorNotificationVibrate) {
+                    if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                        (mStartupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                        (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                        (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                        (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+                        if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
                             if (PhoneProfilesService.getInstance() != null) {
                                 //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
-                                PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationActivatorNotificationSound, ApplicationPreferences.applicationActivatorNotificationVibrate);
+                                PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
                                 //PPApplication.sleep(500);
                             }
                         }
@@ -333,11 +337,15 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
                 //PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
 
-                if (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) {
-                    if (!ApplicationPreferences.applicationActivatorNotificationSound.isEmpty() || ApplicationPreferences.applicationActivatorNotificationVibrate) {
+                if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                    (mStartupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                    (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                    (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                    (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+                    if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
                         if (PhoneProfilesService.getInstance() != null) {
                             //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
-                            PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationActivatorNotificationSound, ApplicationPreferences.applicationActivatorNotificationVibrate);
+                            PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
                             //PPApplication.sleep(500);
                         }
                     }
