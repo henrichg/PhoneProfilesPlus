@@ -51,7 +51,7 @@ public class ActivateProfileListFragment extends Fragment {
     //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
 
-    static final int PORDER_FOR_IGNORED_PROFILE = 1000000;
+    static final int PORDER_FOR_EMPTY_SPACE = 1000000;
 
     public ActivateProfileListFragment() {
     }
@@ -307,7 +307,7 @@ public class ActivateProfileListFragment extends Fragment {
                     for (int i = 0; i < numColumns - modulo; i++) {
                         Profile profile = DataWrapper.getNonInitializedProfile(
                                 dataWrapper.context.getResources().getString(R.string.profile_name_default),
-                                Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_IGNORED_PROFILE);
+                                Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
                         profile._showInActivator = true;
                         this.dataWrapper.profileList.add(profile);
                     }
@@ -507,7 +507,7 @@ public class ActivateProfileListFragment extends Fragment {
         if ((activityDataWrapper == null) || (profile == null))
             return;
 
-        if (profile._porder != PORDER_FOR_IGNORED_PROFILE) {
+        if (profile._porder != PORDER_FOR_EMPTY_SPACE) {
             if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
                 PPApplication.showToastForProfileActivation = true;
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);

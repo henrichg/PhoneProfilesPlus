@@ -194,7 +194,7 @@ class ActivateProfileListAdapter extends BaseAdapter
         final Profile profile = (Profile)getItem(position);
 
         if ((applicationActivatorGridLayout) &&
-                (profile._porder == ActivateProfileListFragment.PORDER_FOR_IGNORED_PROFILE)) {
+                (profile._porder == ActivateProfileListFragment.PORDER_FOR_EMPTY_SPACE)) {
             holder.profileName.setText(R.string.empty_string);
             holder.profileIcon.setImageResource(R.drawable.ic_empty);
         }

@@ -1890,6 +1890,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             RingtonePreferenceX preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND);
             if (preference != null)
                 preference.refreshListView();
+            preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_NOTIFICATION_SOUND);
+            if (preference != null)
+                preference.refreshListView();
         }
     }
 

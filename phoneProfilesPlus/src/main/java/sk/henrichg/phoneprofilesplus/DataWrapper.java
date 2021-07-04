@@ -2021,6 +2021,17 @@ public class DataWrapper {
                         //        _startupSource, true, true, false))
                         if (!PhoneProfilesService.displayPreferencesErrorNotification(_profile, null, context)) {
                             //PPApplication.logE("&&&&&&& DataWrapper.activateProfileWithAlert", "(1) called is DataWrapper.activateProfileFromMainThread");
+
+                            if (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) {
+                                if (!ApplicationPreferences.applicationActivatorNotificationSound.isEmpty() || ApplicationPreferences.applicationActivatorNotificationVibrate) {
+                                    if (PhoneProfilesService.getInstance() != null) {
+                                        //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                                        PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationActivatorNotificationSound, ApplicationPreferences.applicationActivatorNotificationVibrate);
+                                        //PPApplication.sleep(500);
+                                    }
+                                }
+                            }
+
                             _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity, false);
                         }
                         else {

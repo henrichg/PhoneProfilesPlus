@@ -114,6 +114,17 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 //        mStartupSource, true, true, false))
                 if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
                     //PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(1) called is DataWrapper.activateProfileFromMainThread");
+
+                    if (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) {
+                        if (!ApplicationPreferences.applicationActivatorNotificationSound.isEmpty() || ApplicationPreferences.applicationActivatorNotificationVibrate) {
+                            if (PhoneProfilesService.getInstance() != null) {
+                                //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                                PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationActivatorNotificationSound, ApplicationPreferences.applicationActivatorNotificationVibrate);
+                                //PPApplication.sleep(500);
+                            }
+                        }
+                    }
+
                     mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
                 }
                 else
@@ -321,6 +332,17 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             //        mStartupSource, true, true, false))
             if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
                 //PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
+
+                if (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) {
+                    if (!ApplicationPreferences.applicationActivatorNotificationSound.isEmpty() || ApplicationPreferences.applicationActivatorNotificationVibrate) {
+                        if (PhoneProfilesService.getInstance() != null) {
+                            //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                            PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationActivatorNotificationSound, ApplicationPreferences.applicationActivatorNotificationVibrate);
+                            //PPApplication.sleep(500);
+                        }
+                    }
+                }
+
                 mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
             }
             else

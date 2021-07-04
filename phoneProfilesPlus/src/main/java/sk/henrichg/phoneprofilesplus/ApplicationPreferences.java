@@ -205,6 +205,9 @@ class ApplicationPreferences {
     static int applicationWidgetListRoundedCornersRadius;
     static int applicationWidgetIconRoundedCornersRadius;
     static String applicationActivatorNumColums;
+    static String applicationActivatorNotificationSound;
+    static boolean applicationActivatorNotificationVibrate;
+
 
     static boolean prefActivatorActivityStartTargetHelps;
     static boolean prefActivatorFragmentStartTargetHelps;
@@ -400,6 +403,8 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS = "applicationWidgetListRoundedCornersRadius";
     static final String PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS = "applicationWidgetIconRoundedCornersRadius";
     static final String PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS = "applicationActivatorNumColums";
+    static final String PREF_APPLICATION_ACTIVATOR_NOTIFICATION_SOUND = "applicationActivatorNotificationSound";
+    static final String PREF_APPLICATION_ACTIVATOR_NOTIFICATION_VIBRATE = "applicationActivatorNotificationVibrate";
 
     static final String PREF_QUICK_TILE_PROFILE_ID = "quickTileProfileId";
 
@@ -1152,6 +1157,14 @@ class ApplicationPreferences {
 
     static void applicationActivatorNumColums(Context context) {
         applicationActivatorNumColums = getSharedPreferences(context).getString(PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS, "3");
+    }
+
+    static void applicationActivatorNotificationSound(Context context) {
+        applicationActivatorNotificationSound = getSharedPreferences(context).getString(PREF_APPLICATION_ACTIVATOR_NOTIFICATION_SOUND, "");
+    }
+
+    static void applicationActivatorNotificationVibrate(Context context) {
+        applicationActivatorNotificationVibrate = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_NOTIFICATION_VIBRATE, false);
     }
 
     static void loadStartTargetHelps(Context context) {
