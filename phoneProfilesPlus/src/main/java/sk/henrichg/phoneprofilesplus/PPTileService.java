@@ -19,12 +19,13 @@ public class PPTileService extends TileService {
 
         // Called when the user click the tile
 
+//        PPApplication.logE("PPTileService.onClick", "xxx");
+
         int tileId = getTileId();
         // get profileId from shaered preferences
         PPApplication.quickTileProfileId[tileId] = ApplicationPreferences.getQuickTileProfileId(getApplicationContext(), tileId);
         updateTile();
 
-//        PPApplication.logE("PPTileService.onClick", "profileId="+profileId);
 
         boolean isOK = false;
         if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
@@ -32,6 +33,7 @@ public class PPTileService extends TileService {
             if (PPApplication.quickTileProfileId[tileId] != Profile.RESTART_EVENTS_PROFILE_ID) {
                 DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0f);
                 profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], false, false, false);
+//                PPApplication.logE("PPTileService.onClick", "profile="+profile);
 //                if (profile != null)
 //                    PPApplication.logE("PPTileService.onClick", "profile=" + profile._name);
             }
