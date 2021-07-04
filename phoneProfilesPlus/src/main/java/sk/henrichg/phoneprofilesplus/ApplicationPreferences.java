@@ -207,7 +207,7 @@ class ApplicationPreferences {
     static String applicationActivatorNumColums;
     static String applicationApplicationInterfaceNotificationSound;
     static boolean applicationApplicationInterfaceNotificationVibrate;
-
+    static boolean applicationActivatorAddRestartEventsIntoProfileList;
 
     static boolean prefActivatorActivityStartTargetHelps;
     static boolean prefActivatorFragmentStartTargetHelps;
@@ -405,6 +405,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS = "applicationActivatorNumColums";
     static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND = "applicationApplicationInterfaceNotificationSound";
     static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE = "applicationApplicationInterfaceNotificationVibrate";
+    static final String PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST = "applicationActivatorAddRestartEventsIntoProfileList";
 
     static final String PREF_QUICK_TILE_PROFILE_ID = "quickTileProfileId";
 
@@ -1165,6 +1166,10 @@ class ApplicationPreferences {
 
     static void applicationApplicationInterfaceNotificationVibrate(Context context) {
         applicationApplicationInterfaceNotificationVibrate = getSharedPreferences(context).getBoolean(PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE, false);
+    }
+
+    static void applicationActivatorAddRestartEventsIntoProfileList(Context context) {
+        applicationActivatorAddRestartEventsIntoProfileList = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST, false);
     }
 
     static void loadStartTargetHelps(Context context) {

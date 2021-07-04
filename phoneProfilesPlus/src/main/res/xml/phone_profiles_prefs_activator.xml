@@ -41,5 +41,10 @@
         app:entryValues="@array/activatorNumColumnsValues"
         app:dependency="applicationActivatorGridLayout"
         app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationActivatorAddRestartEventsIntoProfileList"
+        app:title="@string/phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget"/>
 
 </androidx.preference.PreferenceScreen>

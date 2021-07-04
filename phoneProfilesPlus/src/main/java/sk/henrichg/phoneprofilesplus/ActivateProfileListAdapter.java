@@ -239,7 +239,17 @@ class ActivateProfileListAdapter extends BaseAdapter
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
             }
 
+            if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList
+                    && (position == 0)) {
+                if (ApplicationPreferences.applicationEditorPrefIndicator && (!applicationActivatorGridLayout)) {
+                    if (profile._preferencesIndicator != null) {
+                        holder.profileIndicator.setVisibility(View.GONE);
+                    }
+                }
+            }
+            else
             if (holder.profileIndicator != null) {
+                holder.profileIndicator.setVisibility(View.VISIBLE);
                 //if ((ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity())) && (!applicationActivatorGridLayout)) {
                 if (ApplicationPreferences.applicationEditorPrefIndicator && (!applicationActivatorGridLayout)) {
                     if (profile._preferencesIndicator != null) {

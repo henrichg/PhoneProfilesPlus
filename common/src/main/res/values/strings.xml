@@ -1704,6 +1704,7 @@
     <string name="check_releases_install_amazon_appstore">Please install Amazon Appstore application.</string>
 
     <string name="applicationApplicationInterfaceActivationNotification">Notification of profile activation</string>
+    <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Add \"Restart events\" into profile list</string>
 
     <!-- **************************************************************************************** -->
 

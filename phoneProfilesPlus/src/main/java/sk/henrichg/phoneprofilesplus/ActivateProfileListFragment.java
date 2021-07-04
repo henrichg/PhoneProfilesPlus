@@ -292,6 +292,15 @@ public class ActivateProfileListFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
 
+            if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
+                if (Event.getGlobalEventsRunning()) {
+                    Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color|1|0|0", 0);
+                    restartEvents._showInActivator = true;
+                    restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
+                    dataWrapper.profileList.add(0, restartEvents);
+                }
+            }
+
             if (applicationActivatorGridLayout) {
                 int count = 0;
                 for (Profile profile : this.dataWrapper.profileList)
@@ -508,6 +517,10 @@ public class ActivateProfileListFragment extends Fragment {
             return;
 
         if (profile._porder != PORDER_FOR_EMPTY_SPACE) {
+            if (profile._id == Profile.RESTART_EVENTS_PROFILE_ID) {
+                activityDataWrapper.restartEventsWithAlert(getActivity());
+            }
+            else
             if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
                 PPApplication.showToastForProfileActivation = true;
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);

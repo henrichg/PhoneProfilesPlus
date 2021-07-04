@@ -2143,6 +2143,7 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationActivatorNumColums(context);
             ApplicationPreferences.applicationApplicationInterfaceNotificationSound(context);
             ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate(context);
+            ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList(context);
         }
     }
 
