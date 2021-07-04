@@ -2619,6 +2619,14 @@ public class DataWrapper {
                     PPApplication.startPPService(context, serviceIntent);
                 }
                 else {
+                    if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+                        if (PhoneProfilesService.getInstance() != null) {
+                            //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                            PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
+                            //PPApplication.sleep(500);
+                        }
+                    }
+
 //                        PPApplication.logE("[APP_START] DataWrapper.restartEventsWithAlert", "(1)");
                     restartEventsWithRescan(true, true, true, true, true, true);
                     //IgnoreBatteryOptimizationNotification.showNotification(context);
@@ -2674,6 +2682,14 @@ public class DataWrapper {
                         PPApplication.recordException(e);
                     }
                 });
+            }
+
+            if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+                if (PhoneProfilesService.getInstance() != null) {
+                    //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                    PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
+                    //PPApplication.sleep(500);
+                }
             }
 
 //            PPApplication.logE("[APP_START] DataWrapper.restartEventsWithAlert", "(2)");
