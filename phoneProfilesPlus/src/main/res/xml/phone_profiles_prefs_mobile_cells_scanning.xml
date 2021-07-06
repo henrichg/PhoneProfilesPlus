@@ -42,6 +42,32 @@
             app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
     <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanTimeMultiply"
+        app:dependency="applicationEventMobileCellEnableScannig"
+        app:layout="@layout/mp_preference_category" >
+        <ListPreference
+            app:key="applicationEventMobileCellScanInTimeMultiply"
+            app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanTimeMultiply"
+            app:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
+            app:defaultValue="0"
+            app:entries="@array/scanInPowerSaveModeArray"
+            app:entryValues="@array/scanInPowerSaveModeValues"
+            app:dependency="applicationEventMobileCellEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+            app:key="applicationEventMobileCellScanInTimeMultiplyFrom"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyFrom"
+            app:dependency="applicationEventMobileCellEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+            app:key="applicationEventMobileCellScanInTimeMultiplyTo"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyTo"
+            app:dependency="applicationEventMobileCellEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
         app:dependency="applicationEventMobileCellEnableScannig"
         app:layout="@layout/mp_preference_category" >

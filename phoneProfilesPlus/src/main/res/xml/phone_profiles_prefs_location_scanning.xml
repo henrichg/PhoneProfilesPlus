@@ -70,6 +70,32 @@
             app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
     <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationEventLocationScanTimeMultiply"
+        app:dependency="applicationEventLocationEnableScannig"
+        app:layout="@layout/mp_preference_category" >
+        <ListPreference
+            app:key="applicationEventLocationScanInTimeMultiply"
+            app:title="@string/phone_profiles_pref_applicationEventLocationScanTimeMultiply"
+            app:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
+            app:defaultValue="0"
+            app:entries="@array/scanInPowerSaveModeArray"
+            app:entryValues="@array/scanInPowerSaveModeValues"
+            app:dependency="applicationEventLocationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+            app:key="applicationEventLocationScanInTimeMultiplyFrom"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventLocationScanTimeMultiplyFrom"
+            app:dependency="applicationEventLocationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+            app:key="applicationEventLocationScanInTimeMultiplyTo"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventLocationScanTimeMultiplyTo"
+            app:dependency="applicationEventLocationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_category" >

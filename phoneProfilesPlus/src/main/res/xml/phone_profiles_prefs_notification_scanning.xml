@@ -43,6 +43,32 @@
             app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
     <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiply"
+        app:dependency="applicationEventNotificationEnableScannig"
+        app:layout="@layout/mp_preference_category" >
+        <ListPreference
+            app:key="applicationEventNotificationScanInTimeMultiply"
+            app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiply"
+            app:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
+            app:defaultValue="0"
+            app:entries="@array/scanInPowerSaveModeArray"
+            app:entryValues="@array/scanInPowerSaveModeValues"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+            app:key="applicationEventNotificationScanInTimeMultiplyFrom"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+            app:key="applicationEventNotificationScanInTimeMultiplyTo"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
         app:dependency="applicationEventNotificationEnableScannig"
         app:layout="@layout/mp_preference_category" >

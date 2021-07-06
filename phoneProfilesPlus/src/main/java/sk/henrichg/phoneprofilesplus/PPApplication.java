@@ -2144,6 +2144,28 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationApplicationInterfaceNotificationSound(context);
             ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate(context);
             ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList(context);
+
+            ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyFrom(context);
+            ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyTo(context);
+            ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiply(context);
+            ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom(context);
+            ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo(context);
+            ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply(context);
+            ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom(context);
+            ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo(context);
+            ApplicationPreferences.applicationEventLocationScanInTimeMultiply(context);
+            ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyFrom(context);
+            ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyTo(context);
+            ApplicationPreferences.applicationEventMobileCellScanInTimeMultiply(context);
+            ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom(context);
+            ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo(context);
+            ApplicationPreferences.applicationEventNotificationScanInTimeMultiply(context);
+            ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom(context);
+            ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo(context);
+            ApplicationPreferences.applicationEventOrientationScanInTimeMultiply(context);
+            ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom(context);
+            ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo(context);
+            ApplicationPreferences.applicationEventWifiScanInTimeMultiply(context);
         }
     }
 

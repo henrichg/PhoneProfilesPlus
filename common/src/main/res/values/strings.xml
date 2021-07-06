@@ -1706,6 +1706,34 @@
     <string name="applicationApplicationInterfaceActivationNotification">Notification of profile activation</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Add \"Restart events\" into profile list</string>
 
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Background scanning scan in time</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">From</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">To</string>
+
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth scan in time</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">From</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">To</string>
+
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiply">Location scan in time</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyFrom">From</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyTo">To</string>
+
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiply">Mobile cell scan in time</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyFrom">From</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyTo">To</string>
+
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiply">Notification scan in time</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom">From</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo">To</string>
+
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiply">Notification scan in time</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyFrom">From</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyTo">To</string>
+
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Wi-Fi scan in time</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom">From</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">To</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

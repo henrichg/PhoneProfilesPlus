@@ -56,6 +56,32 @@
             app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
     <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply"
+        app:dependency="applicationEventBackgroundScanningEnableScannig"
+        app:layout="@layout/mp_preference_category" >
+        <ListPreference
+            app:key="applicationEventBackgroundScanningScanInTimeMultiply"
+            app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply"
+            app:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
+            app:defaultValue="0"
+            app:entries="@array/scanInPowerSaveModeArray"
+            app:entryValues="@array/scanInPowerSaveModeValues"
+            app:dependency="applicationEventBackgroundScanningEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+            app:key="applicationEventBackgroundScanningScanInTimeMultiplyFrom"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom"
+            app:dependency="applicationEventBackgroundScanningEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+            app:key="applicationEventBackgroundScanningScanInTimeMultiplyTo"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo"
+            app:dependency="applicationEventBackgroundScanningEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
         app:dependency="applicationEventBackgroundScanningEnableScannig"
         app:layout="@layout/mp_preference_category" >

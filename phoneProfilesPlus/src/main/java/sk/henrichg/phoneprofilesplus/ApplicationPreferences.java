@@ -209,6 +209,28 @@ class ApplicationPreferences {
     static boolean applicationApplicationInterfaceNotificationVibrate;
     static boolean applicationActivatorAddRestartEventsIntoProfileList;
 
+    static String applicationEventBackgroundScanningScanInTimeMultiply;
+    static int applicationEventBackgroundScanningScanInTimeMultiplyFrom;
+    static int applicationEventBackgroundScanningScanInTimeMultiplyTo;
+    static String applicationEventBluetoothScanInTimeMultiply;
+    static int applicationEventBluetoothScanInTimeMultiplyFrom;
+    static int applicationEventBluetoothScanInTimeMultiplyTo;
+    static String applicationEventLocationScanInTimeMultiply;
+    static int applicationEventLocationScanInTimeMultiplyFrom;
+    static int applicationEventLocationScanInTimeMultiplyTo;
+    static String applicationEventMobileCellScanInTimeMultiply;
+    static int applicationEventMobileCellScanInTimeMultiplyFrom;
+    static int applicationEventMobileCellScanInTimeMultiplyTo;
+    static String applicationEventNotificationScanInTimeMultiply;
+    static int applicationEventNotificationScanInTimeMultiplyFrom;
+    static int applicationEventNotificationScanInTimeMultiplyTo;
+    static String applicationEventOrientationScanInTimeMultiply;
+    static int applicationEventOrientationScanInTimeMultiplyFrom;
+    static int applicationEventOrientationScanInTimeMultiplyTo;
+    static String applicationEventWifiScanInTimeMultiply;
+    static int applicationEventWifiScanInTimeMultiplyFrom;
+    static int applicationEventWifiScanInTimeMultiplyTo;
+
     static boolean prefActivatorActivityStartTargetHelps;
     static boolean prefActivatorFragmentStartTargetHelps;
     static boolean prefActivatorAdapterStartTargetHelps;
@@ -406,6 +428,28 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND = "applicationApplicationInterfaceNotificationSound";
     static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE = "applicationApplicationInterfaceNotificationVibrate";
     static final String PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST = "applicationActivatorAddRestartEventsIntoProfileList";
+
+    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventBackgroundScanningScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventBackgroundScanningScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventBackgroundScanningScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY = "applicationEventBluetoothScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventBluetoothScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventBluetoothScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY = "applicationEventLocationScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventLocationScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventLocationScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY = "applicationEventMobileCellScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventMobileCellScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventMobileCellScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY = "applicationEventNotificationScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventNotificationScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventNotificationScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY = "applicationEventOrientationScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventOrientationScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventOrientationScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY = "applicationEventWifiScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventWifiScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventWifiScanInTimeMultiplyTo";
 
     static final String PREF_QUICK_TILE_PROFILE_ID = "quickTileProfileId";
 
@@ -1171,6 +1215,92 @@ class ApplicationPreferences {
     static void applicationActivatorAddRestartEventsIntoProfileList(Context context) {
         applicationActivatorAddRestartEventsIntoProfileList = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST, false);
     }
+
+
+    static void applicationEventBackgroundScanningScanInTimeMultiply(Context context) {
+        applicationEventBackgroundScanningScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY, "0");
+    }
+
+    static void applicationEventBackgroundScanningScanInTimeMultiplyFrom(Context context) {
+        applicationEventBackgroundScanningScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventBackgroundScanningScanInTimeMultiplyTo(Context context) {
+        applicationEventBackgroundScanningScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void applicationEventBluetoothScanInTimeMultiply(Context context) {
+        applicationEventBluetoothScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY, "0");
+    }
+
+    static void applicationEventBluetoothScanInTimeMultiplyFrom(Context context) {
+        applicationEventBluetoothScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventBluetoothScanInTimeMultiplyTo(Context context) {
+        applicationEventBluetoothScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void applicationEventLocationScanInTimeMultiply(Context context) {
+        applicationEventLocationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY, "0");
+    }
+
+    static void applicationEventLocationScanInTimeMultiplyFrom(Context context) {
+        applicationEventLocationScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventLocationScanInTimeMultiplyTo(Context context) {
+        applicationEventLocationScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void applicationEventMobileCellScanInTimeMultiply(Context context) {
+        applicationEventMobileCellScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY, "0");
+    }
+
+    static void applicationEventMobileCellScanInTimeMultiplyFrom(Context context) {
+        applicationEventMobileCellScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventMobileCellScanInTimeMultiplyTo(Context context) {
+        applicationEventMobileCellScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void applicationEventNotificationScanInTimeMultiply(Context context) {
+        applicationEventNotificationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY, "0");
+    }
+
+    static void applicationEventNotificationScanInTimeMultiplyFrom(Context context) {
+        applicationEventNotificationScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventNotificationScanInTimeMultiplyTo(Context context) {
+        applicationEventNotificationScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void applicationEventOrientationScanInTimeMultiply(Context context) {
+        applicationEventOrientationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY, "0");
+    }
+
+    static void applicationEventOrientationScanInTimeMultiplyFrom(Context context) {
+        applicationEventOrientationScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventOrientationScanInTimeMultiplyTo(Context context) {
+        applicationEventOrientationScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void applicationEventWifiScanInTimeMultiply(Context context) {
+        applicationEventWifiScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY, "0");
+    }
+
+    static void applicationEventWifiScanInTimeMultiplyFrom(Context context) {
+        applicationEventWifiScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventWifiScanInTimeMultiplyTo(Context context) {
+        applicationEventWifiScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
 
     static void loadStartTargetHelps(Context context) {
         SharedPreferences _preferences = getSharedPreferences(context);
