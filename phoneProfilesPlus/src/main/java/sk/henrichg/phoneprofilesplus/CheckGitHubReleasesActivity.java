@@ -81,6 +81,9 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         if (store == R.id.menu_check_in_amazon_appstore)
             layout = inflater.inflate(R.layout.dialog_for_amazon_appstore, null);
         else
+        if (store == R.id.menu_check_in_appgallery)
+            layout = inflater.inflate(R.layout.dialog_for_appgallery, null);
+        else
             layout = inflater.inflate(R.layout.dialog_install_extender, null);
         dialogBuilder.setView(layout);
 
@@ -90,6 +93,9 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         else
         if (store == R.id.menu_check_in_galaxy_store)
             text = layout.findViewById(R.id.dialog_for_galaxy_store_info_text);
+        else
+        if (store == R.id.menu_check_in_appgallery)
+            text = layout.findViewById(R.id.dialog_for_appgallery_info_text);
         else
         if (store == R.id.menu_check_in_amazon_appstore)
             text = layout.findViewById(R.id.dialog_for_amazon_appstore_info_text);
@@ -219,6 +225,20 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
             dialogBuilder.setPositiveButton(R.string.check_releases_open_galaxy_store, (dialog, which) -> {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplus"));
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+                if (!fromEditor)
+                    activity.finish();
+            });
+        }
+        else
+        if (store == R.id.menu_check_in_appgallery) {
+            dialogBuilder.setPositiveButton(R.string.check_releases_open_appgallery, (dialog, which) -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("appmarket://details?id=sk.henrichg.phoneprofilesplus"));
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {

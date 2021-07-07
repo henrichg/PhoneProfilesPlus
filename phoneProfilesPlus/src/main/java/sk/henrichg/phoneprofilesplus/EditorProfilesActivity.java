@@ -949,7 +949,10 @@ public class EditorProfilesActivity extends AppCompatActivity
         if (menuItem != null) {
             menuItem.setVisible(PPApplication.deviceIsSamsung);
         }
-
+        menuItem = menu.findItem(R.id.menu_check_in_appgallery);
+        if (menuItem != null) {
+            menuItem.setVisible(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI);
+        }
 
         //noinspection Convert2MethodRef
         onNextLayout(editorToolbar, () -> showTargetHelps());
@@ -1282,7 +1285,8 @@ public class EditorProfilesActivity extends AppCompatActivity
         if ((itemId == R.id.menu_check_in_github) ||
                 (itemId == R.id.menu_check_in_fdroid) ||
                 (itemId == R.id.menu_check_in_galaxy_store) ||
-                (itemId == R.id.menu_check_in_amazon_appstore)) {
+                (itemId == R.id.menu_check_in_amazon_appstore) ||
+                (itemId == R.id.menu_check_in_appgallery)) {
             CheckGitHubReleasesActivity.showDialog(this, true, itemId);
             return true;
         }
