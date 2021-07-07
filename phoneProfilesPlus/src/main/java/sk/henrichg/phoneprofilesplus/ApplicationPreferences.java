@@ -1254,7 +1254,7 @@ class ApplicationPreferences {
     }
 
     static void applicationEventMobileCellScanInTimeMultiply(Context context) {
-        applicationEventMobileCellScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY, "0");
+        applicationEventMobileCellScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY, "1");
     }
 
     static void applicationEventMobileCellScanInTimeMultiplyFrom(Context context) {
@@ -1266,7 +1266,7 @@ class ApplicationPreferences {
     }
 
     static void applicationEventNotificationScanInTimeMultiply(Context context) {
-        applicationEventNotificationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY, "0");
+        applicationEventNotificationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY, "1");
     }
 
     static void applicationEventNotificationScanInTimeMultiplyFrom(Context context) {
