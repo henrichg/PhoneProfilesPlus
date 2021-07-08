@@ -8099,6 +8099,9 @@ public class PhoneProfilesService extends Service
     //--------------------------
 
     static boolean isNowTimeBetweenTimes(int startTime, int endTime) {
+        if (startTime == endTime)
+            return false;
+
         Calendar now = Calendar.getInstance();
 
         Calendar calStartTime = Calendar.getInstance();
