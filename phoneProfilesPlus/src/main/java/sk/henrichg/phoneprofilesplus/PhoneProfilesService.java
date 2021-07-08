@@ -69,6 +69,7 @@ import androidx.work.WorkManager;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -8072,6 +8073,123 @@ public class PhoneProfilesService extends Service
         }
 
         return true;
+    }
+
+    //--------------------------
+
+    static boolean isNowTimeBetweenTimes(int startTime, int endTime) {
+        Calendar now = Calendar.getInstance();
+
+        Calendar calStartTime = Calendar.getInstance();
+        Calendar calEndTime = Calendar.getInstance();
+
+        ///// set calendar for startTime and endTime
+        Calendar hoursStartTime = Calendar.getInstance();
+        hoursStartTime.set(Calendar.HOUR_OF_DAY, startTime / 60);
+        hoursStartTime.set(Calendar.MINUTE, startTime % 60);
+        hoursStartTime.set(Calendar.DAY_OF_MONTH, 0);
+        hoursStartTime.set(Calendar.MONTH, 0);
+        hoursStartTime.set(Calendar.YEAR, 0);
+        hoursStartTime.set(Calendar.SECOND, 0);
+        hoursStartTime.set(Calendar.MILLISECOND, 0);
+
+        Calendar hoursEndTime = Calendar.getInstance();
+        hoursEndTime.set(Calendar.HOUR_OF_DAY, endTime / 60);
+        hoursEndTime.set(Calendar.MINUTE, endTime % 60);
+        hoursEndTime.set(Calendar.DAY_OF_MONTH, 0);
+        hoursEndTime.set(Calendar.MONTH, 0);
+        hoursEndTime.set(Calendar.YEAR, 0);
+        hoursEndTime.set(Calendar.SECOND, 0);
+        hoursEndTime.set(Calendar.MILLISECOND, 0);
+
+        Calendar nowTime = Calendar.getInstance();
+        nowTime.set(Calendar.DAY_OF_MONTH, 0);
+        nowTime.set(Calendar.MONTH, 0);
+        nowTime.set(Calendar.YEAR, 0);
+
+        Calendar midnightTime = Calendar.getInstance();
+        midnightTime.set(Calendar.HOUR_OF_DAY, 0);
+        midnightTime.set(Calendar.MINUTE, 0);
+        midnightTime.set(Calendar.SECOND, 0);
+        midnightTime.set(Calendar.MILLISECOND, 0);
+        midnightTime.set(Calendar.DAY_OF_MONTH, 0);
+        midnightTime.set(Calendar.MONTH, 0);
+        midnightTime.set(Calendar.YEAR, 0);
+
+        Calendar midnightMinusOneTime = Calendar.getInstance();
+        midnightMinusOneTime.set(Calendar.HOUR_OF_DAY, 23);
+        midnightMinusOneTime.set(Calendar.MINUTE, 59);
+        midnightMinusOneTime.set(Calendar.SECOND, 59);
+        midnightMinusOneTime.set(Calendar.MILLISECOND, 999);
+        midnightMinusOneTime.set(Calendar.DAY_OF_MONTH, 0);
+        midnightMinusOneTime.set(Calendar.MONTH, 0);
+        midnightMinusOneTime.set(Calendar.YEAR, 0);
+
+        calStartTime.set(Calendar.HOUR_OF_DAY, startTime / 60);
+        calStartTime.set(Calendar.MINUTE, startTime % 60);
+        calStartTime.set(Calendar.SECOND, 0);
+        calStartTime.set(Calendar.MILLISECOND, 0);
+        calStartTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+        calStartTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+        calStartTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+
+        calEndTime.set(Calendar.HOUR_OF_DAY, endTime / 60);
+        calEndTime.set(Calendar.MINUTE, endTime % 60);
+        calEndTime.set(Calendar.SECOND, 0);
+        calEndTime.set(Calendar.MILLISECOND, 0);
+        calEndTime.set(Calendar.DAY_OF_MONTH, now.get(Calendar.DAY_OF_MONTH));
+        calEndTime.set(Calendar.MONTH, now.get(Calendar.MONTH));
+        calEndTime.set(Calendar.YEAR, now.get(Calendar.YEAR));
+
+        if (hoursStartTime.getTimeInMillis() >= hoursEndTime.getTimeInMillis())
+        {
+            // endTime is over midnight
+            //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes","startTime >= endTime");
+
+            if ((nowTime.getTimeInMillis() >= midnightTime.getTimeInMillis()) &&
+                    (nowTime.getTimeInMillis() <= hoursEndTime.getTimeInMillis())) {
+                // now is between midnight and endTime
+                //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes","now is between midnight and endTime");
+
+                calStartTime.add(Calendar.DAY_OF_YEAR, -1);
+            }
+            else
+            if ((nowTime.getTimeInMillis() >= hoursStartTime.getTimeInMillis()) &&
+                    (nowTime.getTimeInMillis() <= midnightMinusOneTime.getTimeInMillis())) {
+                // now is between startTime and midnight
+                //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes","now is between startTime and midnight");
+
+                calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+            }
+            else {
+                // now is before start time
+                //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes","now is before start time");
+
+                calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+            }
+        }
+        else {
+            //    PPApplication.logE("EventPreferencesTime.computeAlarm","startTime < endTime");
+
+            if (nowTime.getTimeInMillis() > hoursEndTime.getTimeInMillis()) {
+                // now is after end time, compute for tomorrow
+                //    PPApplication.logE("PhoneProfilesService.isNowTimeBetweenTimes", "nowTime > endTime");
+
+                calStartTime.add(Calendar.DAY_OF_YEAR, 1);
+                calEndTime.add(Calendar.DAY_OF_YEAR, 1);
+            }
+        }
+
+        long startAlarmTime = calStartTime.getTimeInMillis();
+        long endAlarmTime = calEndTime.getTimeInMillis();
+
+        now = Calendar.getInstance();
+        long nowAlarmTime = now.getTimeInMillis();
+
+        if ((startAlarmTime > 0) && (endAlarmTime > 0))
+            return ((nowAlarmTime >= startAlarmTime) && (nowAlarmTime < endAlarmTime));
+        else
+            return false;
     }
 
     //--------------------------
