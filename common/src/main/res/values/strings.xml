@@ -1726,7 +1726,7 @@
     <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom">From</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo">To</string>
 
-    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiply">Notification scan in time</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiply">Orientation scan in time</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyFrom">From</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyTo">To</string>
 

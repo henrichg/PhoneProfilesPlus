@@ -1686,6 +1686,31 @@
     <string name="check_releases_amazon_appstore_application">Web pro instalaci aplikace Amazon Appstore:</string>
     <string name="check_releases_open_amazon_appstore">Otevřít Amazon Appstore</string>
     <string name="check_releases_install_amazon_appstore">Prosím nainstalujte si aplikaci Amazon Appstore.</string>
+    <string name="applicationApplicationInterfaceActivationNotification">Notifikace aktivace profilu</string>
+    <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Přidej \"Restart událostí\" do seznamu profilů</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Skenování na pozadí v čase</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth skenování v čase</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiply">Skenování polohy v čase</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiply">Skenování mobilních buněk v čase</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiply">Skenování notifikací v čase</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiply">Skenování orientace v čase</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Wi-Fi skenování v čase</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">Do</string>
+    <string name="menu_check_releases_appgallery">Skontolovať v AppGallery</string>
+    <string name="check_releases_open_appgallery">Otevřít AppGallery</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
