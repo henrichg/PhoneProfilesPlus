@@ -41,7 +41,7 @@
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <PreferenceCategory
-        app:title="@string/phone_profiles_pref_applicationEventWifiScanInterval"
+        app:title="@string/phone_profiles_pref_applicationEventWifiScanIntervalCategory"
         app:dependency="applicationEventWifiEnableScannig"
         app:layout="@layout/mp_preference_category" >
         <Preference

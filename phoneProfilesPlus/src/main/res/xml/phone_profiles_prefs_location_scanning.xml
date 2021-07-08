@@ -29,7 +29,7 @@
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <PreferenceCategory
-        app:title="@string/phone_profiles_pref_applicationEventLocationScanInterval"
+        app:title="@string/phone_profiles_pref_applicationEventLocationScanIntervalCategory"
         app:dependency="applicationEventLocationEnableScannig"
         app:layout="@layout/mp_preference_category" >
         <Preference

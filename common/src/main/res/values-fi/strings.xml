@@ -1712,6 +1712,11 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">To</string>
     <string name="menu_check_releases_appgallery">Check in AppGallery</string>
     <string name="check_releases_open_appgallery">Open AppGallery</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Background scanning scan interval</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth scan interval</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Location scan interval</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Orientation scan interval</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Wi-Fi scan interval</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

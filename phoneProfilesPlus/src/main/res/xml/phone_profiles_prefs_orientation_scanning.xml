@@ -15,7 +15,7 @@
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
     <PreferenceCategory
-        app:title="@string/phone_profiles_pref_applicationEventOrientationScanInterval"
+        app:title="@string/phone_profiles_pref_applicationEventOrientationScanIntervalCategory"
         app:dependency="applicationEventOrientationEnableScannig"
         app:layout="@layout/mp_preference_category" >
         <Preference

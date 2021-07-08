@@ -1711,6 +1711,11 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">Do</string>
     <string name="menu_check_releases_appgallery">Skontolovať v AppGallery</string>
     <string name="check_releases_open_appgallery">Otevřít AppGallery</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Interval skenování na pozadí</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Interval skenování Bluetooth</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Interval skenování polohy</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Interval skenování orientace</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Interval skenování Wi-Fi</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

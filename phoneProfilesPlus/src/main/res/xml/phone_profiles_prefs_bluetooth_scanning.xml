@@ -28,7 +28,7 @@
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_material_widget" />
     <PreferenceCategory
-        app:title="@string/phone_profiles_pref_applicationEventBluetoothScanInterval"
+        app:title="@string/phone_profiles_pref_applicationEventBluetoothScanIntervalCategory"
         app:dependency="applicationEventBluetoothEnableScannig"
         app:layout="@layout/mp_preference_category" >
         <Preference
