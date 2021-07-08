@@ -178,8 +178,18 @@ public class WifiScanWorker extends Worker {
                     int interval = ApplicationPreferences.applicationEventWifiScanInterval;
                     //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
                     boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                    if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("1"))
-                        interval = 2 * interval;
+                    if (isPowerSaveMode) {
+                        if (ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("1"))
+                            interval = 2 * interval;
+                    }
+                    else {
+                        if (ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("1")) {
+                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo))
+                                interval = 2 * interval;
+                        }
+                    }
 
                     //PPApplication.logE("WifiScanWorker._scheduleWork", "interval=" + interval);
 

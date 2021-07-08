@@ -6873,17 +6873,38 @@ public class PhoneProfilesService extends Service
             String applicationEventOrientationScanInPowerSaveMode = ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode;
 
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
-            if (isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("2"))
-                // start scanning in power save mode is not allowed
-                return;
+            if (isPowerSaveMode) {
+                if (applicationEventOrientationScanInPowerSaveMode.equals("2"))
+                    // start scanning in power save mode is not allowed
+                    return;
+            }
+            else {
+                if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2")) {
+                    if (PhoneProfilesService.isNowTimeBetweenTimes(
+                            ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
+                            ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo))
+                        // not scan in configured time
+                        return;
+                }
+            }
 
             //DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, false, 0);
             //if (DatabaseHandler.getInstance(getApplicationContext()).getTypeEventsCount(DatabaseHandler.ETYPE_ORIENTATION, false) == 0)
             //    return;
 
             int interval = ApplicationPreferences.applicationEventOrientationScanInterval;
-            if (isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("1"))
-                interval *= 2;
+            if (isPowerSaveMode) {
+                if (applicationEventOrientationScanInPowerSaveMode.equals("1"))
+                    interval = 2 * interval;
+            }
+            else {
+                if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("1")) {
+                    if (PhoneProfilesService.isNowTimeBetweenTimes(
+                            ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
+                            ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo))
+                        interval = 2 * interval;
+                }
+            }
 
             if (PPApplication.accelerometerSensor != null) {
                 PPApplication.sensorManager.registerListener(PPApplication.orientationScanner, PPApplication.accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL, 1000000 * interval, orentationScannerHandler);

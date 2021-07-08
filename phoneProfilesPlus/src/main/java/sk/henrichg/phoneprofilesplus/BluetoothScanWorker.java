@@ -177,8 +177,18 @@ public class BluetoothScanWorker extends Worker {
                     int interval = ApplicationPreferences.applicationEventBluetoothScanInterval;
                     //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
                     boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                    if (isPowerSaveMode && ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
-                        interval = 2 * interval;
+                    if (isPowerSaveMode) {
+                        if (ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode.equals("1"))
+                            interval = 2 * interval;
+                    }
+                    else {
+                        if (ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("1")) {
+                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo))
+                                interval = 2 * interval;
+                        }
+                    }
 
                     //PPApplication.logE("BluetoothScanWorker._scheduleWork", "interval=" + interval);
 

@@ -80,6 +80,19 @@ class BluetoothScanner {
                     }
                 }
             }
+            else {
+                int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
+                if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+                    if (ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2")) {
+                        if (PhoneProfilesService.isNowTimeBetweenTimes(
+                                ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
+                                ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo))
+                            // not scan bluetooth in configured time
+                            //PPApplication.logE("%%%% BluetoothScanner.doScan", "-- END - scan in time -------");
+                            return;
+                    }
+                }
+            }
 
             PPApplication.startHandlerThreadPPScanners(/*"BluetoothScanner.doScan.1"*/);
             final Handler bluetoothChangeHandler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());

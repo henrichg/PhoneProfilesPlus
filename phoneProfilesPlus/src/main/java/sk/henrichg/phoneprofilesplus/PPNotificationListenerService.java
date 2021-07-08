@@ -82,8 +82,19 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
-        if (isPowerSaveMode && ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
-            return;
+        if (isPowerSaveMode) {
+            if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
+                return;
+        }
+        else {
+            if (ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2")) {
+                if (PhoneProfilesService.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo))
+                    // not scan in configured time
+                    return;
+            }
+        }
 
         if (sbn == null)
             return;
@@ -227,9 +238,19 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
-        if (isPowerSaveMode && ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
-            return;
-
+        if (isPowerSaveMode) {
+            if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
+                return;
+        }
+        else {
+            if (ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2")) {
+                if (PhoneProfilesService.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo))
+                    // not scan in configured time
+                    return;
+            }
+        }
 
         if (sbn == null)
             return;

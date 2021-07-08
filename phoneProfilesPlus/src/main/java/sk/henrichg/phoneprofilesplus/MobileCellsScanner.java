@@ -118,9 +118,20 @@ class MobileCellsScanner {
     void connect() {
 //        PPApplication.logE("MobileCellsScanner.connect", "xxx");
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-        if (/*PPApplication.*/isPowerSaveMode && ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode.equals("2"))
-            // start scanning in power save mode is not allowed
-            return;
+        if (/*PPApplication.*/isPowerSaveMode) {
+            if (ApplicationPreferences.applicationEventMobileCellsScanInPowerSaveMode.equals("2"))
+                // start scanning in power save mode is not allowed
+                return;
+        }
+        else {
+            if (ApplicationPreferences.applicationEventMobileCellScanInTimeMultiply.equals("2")) {
+                if (PhoneProfilesService.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyTo))
+                    // not scan in configured time
+                    return;
+            }
+        }
 
         /*if (PPApplication.logEnabled()) {
             PPApplication.logE("MobileCellsScanner.connect", "telephonyManager=" + telephonyManager);
