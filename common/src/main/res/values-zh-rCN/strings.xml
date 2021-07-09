@@ -1340,10 +1340,10 @@
     <string name="profile_event_name_ask_for_duration">询问</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">小部件不可点击</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">如果PhoneProfilesPlus 小部件不起作用(点击小部件)， 在设备设置中启用权限：设置/应用/管理应用 / PhoneProfilesPlus / 其他权限/在后台运行时显示弹出窗口。</string>
-    <string name="array_pref_12_percent" formatted="false">12.5%</string>
-    <string name="array_pref_37_percent" formatted="false">37.5%</string>
-    <string name="array_pref_62_percent" formatted="false">62.5%</string>
-    <string name="array_pref_87_percent" formatted="false">87.5%</string>
+    <string name="array_pref_12_percent" formatted="false">13%</string>
+    <string name="array_pref_37_percent" formatted="false">38%</string>
+    <string name="array_pref_62_percent" formatted="false">63%</string>
+    <string name="array_pref_87_percent" formatted="false">88%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">显示情景持续时间(小部件)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">也许在您的设备上根本不工作。</string>
     <string name="application_is_starting_toast">正在启动…</string>

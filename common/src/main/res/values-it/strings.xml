@@ -1341,10 +1341,10 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="profile_event_name_ask_for_duration">chiedi</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Il widget non è cliccabile</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Se il widget di PhoneProfilesPlus non funziona (clicca sul widget), abilita il permesso nelle impostazioni del dispositivo: Impostazioni / App / Gestisci app / PhoneProfilesPlus / Altri permessi / Mostra finestre pop-up durante l\'esecuzione in background.</string>
-    <string name="array_pref_12_percent" formatted="false">12.5%</string>
-    <string name="array_pref_37_percent" formatted="false">37.5%</string>
-    <string name="array_pref_62_percent" formatted="false">62.5%</string>
-    <string name="array_pref_87_percent" formatted="false">87.5%</string>
+    <string name="array_pref_12_percent" formatted="false">13%</string>
+    <string name="array_pref_37_percent" formatted="false">38%</string>
+    <string name="array_pref_62_percent" formatted="false">63%</string>
+    <string name="array_pref_87_percent" formatted="false">88%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Mostra durata del profilo (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Potrebbe non funzionare affatto nel tuo dispositivo.</string>
     <string name="application_is_starting_toast">si sta avviando…</string>
@@ -1704,7 +1704,7 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiply">Scansione notifica in tempo</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom">Da</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo">A</string>
-    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiply">Orientation scan in time</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiply">Scansione orientamento in tempo</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyFrom">Da</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyTo">A</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Scansione Wi-Fi in tempo</string>
@@ -1712,11 +1712,11 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">A</string>
     <string name="menu_check_releases_appgallery">Cerca nell\'AppGallery</string>
     <string name="check_releases_open_appgallery">Apri AppGallery</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Background scanning scan interval</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth scan interval</string>
-    <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Location scan interval</string>
-    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Orientation scan interval</string>
-    <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Wi-Fi scan interval</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Intervallo della scansione in background</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Intervallo di scansione Bluetooth</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Intervallo di scansione della posizione</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Intervallo della scansione dell\'orientamento</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Intervallo della scansione Wi-Fi</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>

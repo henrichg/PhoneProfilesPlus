@@ -1340,10 +1340,10 @@
     <string name="profile_event_name_ask_for_duration">preguntar</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">No se puede hacer clic en el widget</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Si el widget PhoneProfilesPlus no funciona (clics en el widget), habilita el permiso en la configuración del dispositivo: Ajustes / Aplicaciones / Gestionar aplicaciones / PhoneProfilesPlus / Otros permisos / Mostrar ventanas emergentes mientras se ejecuta en segundo plano.</string>
-    <string name="array_pref_12_percent" formatted="false">12,5%</string>
-    <string name="array_pref_37_percent" formatted="false">37,5%</string>
-    <string name="array_pref_62_percent" formatted="false">62,5%</string>
-    <string name="array_pref_87_percent" formatted="false">87,5%</string>
+    <string name="array_pref_12_percent" formatted="false">13%</string>
+    <string name="array_pref_37_percent" formatted="false">38%</string>
+    <string name="array_pref_62_percent" formatted="false">63%</string>
+    <string name="array_pref_87_percent" formatted="false">88%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Mostrar la duración del perfil (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Podría no funcionar en tu dispositivo en absoluto.</string>
     <string name="application_is_starting_toast">se está iniciando…</string>

@@ -1341,10 +1341,10 @@
     <string name="profile_event_name_ask_for_duration">ask</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Widget is not clickable</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">If PhoneProfilesPlus widget not working (clicks to widget), enable permission in device settings: Settings / Apps / Manage apps / PhoneProfilesPlus / Other permissions / Display pop-up windows while running in the background.</string>
-    <string name="array_pref_12_percent" formatted="false">12.5%</string>
-    <string name="array_pref_37_percent" formatted="false">37.5%</string>
-    <string name="array_pref_62_percent" formatted="false">62.5%</string>
-    <string name="array_pref_87_percent" formatted="false">87.5%</string>
+    <string name="array_pref_12_percent" formatted="false">13%</string>
+    <string name="array_pref_37_percent" formatted="false">38%</string>
+    <string name="array_pref_62_percent" formatted="false">63%</string>
+    <string name="array_pref_87_percent" formatted="false">88%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">May not working in your device at all.</string>
     <string name="application_is_starting_toast">is starting…</string>

@@ -1340,10 +1340,10 @@
     <string name="profile_event_name_ask_for_duration">запитати</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Віджет не спрацьовує при натисканні</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Якщо віджет PhoneProfilesPlus не працює (при натисканні), увімкніть дозвіл у налаштуваннях пристрою: Налаштування / Додатки / Керування програмами / PhoneProfilesPlus / Інші дозволи / Відображати спливаючі вікна під час роботи у фоні.</string>
-    <string name="array_pref_12_percent" formatted="false">12,5%</string>
-    <string name="array_pref_37_percent" formatted="false">37.5%</string>
-    <string name="array_pref_62_percent" formatted="false">62.5%</string>
-    <string name="array_pref_87_percent" formatted="false">87.5%</string>
+    <string name="array_pref_12_percent" formatted="false">13%</string>
+    <string name="array_pref_37_percent" formatted="false">38%</string>
+    <string name="array_pref_62_percent" formatted="false">63%</string>
+    <string name="array_pref_87_percent" formatted="false">88%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Показати тривалість профілю (віджет)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Взагалі може не працювати у вашому пристрої.</string>
     <string name="application_is_starting_toast">запускається…</string>

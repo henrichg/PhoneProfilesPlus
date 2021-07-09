@@ -1340,10 +1340,10 @@
     <string name="profile_event_name_ask_for_duration">demander</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Widget non cliquable</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Si le widget PhoneProfilesPlus ne fonctionne pas (clique sur le widget), activer la permission dans les paramètres de l\'appareil : Paramètres / Applications / Gérer les applications / PhoneProfilesPlus / Autres autorisations / Afficher les fenêtres pop-up lors de l\'exécution en arrière-plan.</string>
-    <string name="array_pref_12_percent" formatted="false">12,5%</string>
-    <string name="array_pref_37_percent" formatted="false">37,5%</string>
-    <string name="array_pref_62_percent" formatted="false">62,5%</string>
-    <string name="array_pref_87_percent" formatted="false">87,5%</string>
+    <string name="array_pref_12_percent" formatted="false">13%</string>
+    <string name="array_pref_37_percent" formatted="false">38%</string>
+    <string name="array_pref_62_percent" formatted="false">63%</string>
+    <string name="array_pref_87_percent" formatted="false">88%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Afficher la durée du profil (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Peut ne pas fonctionner sur votre appareil.</string>
     <string name="application_is_starting_toast">démarrage…</string>
@@ -1711,11 +1711,11 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">To</string>
     <string name="menu_check_releases_appgallery">Check in AppGallery</string>
     <string name="check_releases_open_appgallery">Open AppGallery</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Background scanning scan interval</string>
-    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth scan interval</string>
-    <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Location scan interval</string>
-    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Orientation scan interval</string>
-    <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Wi-Fi scan interval</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Intervalle de balayage de l\'arrière-plan</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Intervalle de recherche Bluetooth</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Intervalle de recherche de localisation</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Intervalle de recherche d\'orientation</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Intervalle de recherche du Wi-Fi</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

@@ -524,9 +524,9 @@
     <string name="applications_preference_applicationType_shortcut">ярлык</string>
     <string name="phone_profiles_pref_eventWifiAppSettings_summary">Установите параметры сканирования Wi-Fi в настройках приложения.</string>
     <string name="phone_profiles_pref_eventBluetoothAppSettings_summary">Установите параметры сканирования Bluetooth в настройках приложения.</string>
-    <string name="phone_profiles_pref_category_orientation_scanning">Определение положения</string>
-    <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Интервал определения положения (сек)</string>
-    <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Сканирование положения в режиме энергосбережения</string>
+    <string name="phone_profiles_pref_category_orientation_scanning">Сканирование ориентации</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanInterval">Интервал сканирования ориентации (сек)</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanInPowerSaveMode">Сканирование ориентации в режиме энергосбережения</string>
     <string name="phone_profiles_pref_eventOrientationAppSettings_summary">Установите параметры сканирования ориентации в настройках приложения.</string>
     <string name="profile_preferences_vibrateWhenRinging">Вибрация при звонке</string>
     <string name="permissions_for_play_ringtone_notification_text1">Вы выбрали мелодию звонка/уведомления, расположенную на sdcard. Звук не будет воспроизводиться, поскольку для этого требуются дополнительные разрешения.</string>
@@ -1340,10 +1340,10 @@
     <string name="profile_event_name_ask_for_duration">спросить</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Виджет некликабельный</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Если виджет PhoneProfilesPlus не работает (не нажимается), дайте разрешение в настройках устройства: Настройки / Приложения / Управление приложениями / PhoneProfilesPlus / Другие разрешения / Отображать всплывающие окна во время работы в фоновом режиме.</string>
-    <string name="array_pref_12_percent" formatted="false">12.5%</string>
-    <string name="array_pref_37_percent" formatted="false">37.5%</string>
-    <string name="array_pref_62_percent" formatted="false">62.5%</string>
-    <string name="array_pref_87_percent" formatted="false">87.5%</string>
+    <string name="array_pref_12_percent" formatted="false">13%</string>
+    <string name="array_pref_37_percent" formatted="false">38%</string>
+    <string name="array_pref_62_percent" formatted="false">63%</string>
+    <string name="array_pref_87_percent" formatted="false">88%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Показывать продолжительность действия профиля (виджет)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Может не работать на вашем устройстве.</string>
     <string name="application_is_starting_toast">запускается…</string>
@@ -1703,7 +1703,7 @@
     <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiply">Сканирование уведомлений по времени</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom">С</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo">До</string>
-    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiply">Определение положения по времени</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiply">Сканирование ориентации по времени</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyFrom">С</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyTo">До</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Сканирование Wi-Fi по времени</string>
@@ -1714,7 +1714,7 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Интервал фонового сканирования</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Интервал сканирования Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Интервал сканирования местоположения</string>
-    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Интервал определения положения</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Интервал сканирования ориентации</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Интервал сканирования Wi-Fi</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->

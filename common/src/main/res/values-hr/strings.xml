@@ -1340,10 +1340,10 @@
     <string name="profile_event_name_ask_for_duration">pitaj</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Nije moguće kliknuti na widget</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Ako PhoneProfilesPlus widget ne radi (klik na widget), omogućite dozvolu u postavkama uređaja: Postavke / Aplikacije / Upravljanje aplikacijama / PhoneProfilesPlus / Ostala dopuštenja / Prikazivanje iskočnih prozora tijekom rada u pozadini.</string>
-    <string name="array_pref_12_percent" formatted="false">12,5%</string>
-    <string name="array_pref_37_percent" formatted="false">37,5%</string>
-    <string name="array_pref_62_percent" formatted="false">62,5%</string>
-    <string name="array_pref_87_percent" formatted="false">87,5%</string>
+    <string name="array_pref_12_percent" formatted="false">13%</string>
+    <string name="array_pref_37_percent" formatted="false">38%</string>
+    <string name="array_pref_62_percent" formatted="false">63%</string>
+    <string name="array_pref_87_percent" formatted="false">88%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Prikaži trajanje profila (vidžet)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Neće da radi uopće sa vašim uređajem.</string>
     <string name="application_is_starting_toast">pokretanje u toku…</string>
