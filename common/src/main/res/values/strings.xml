@@ -1733,8 +1733,6 @@
 
     <string name="menu_activity_log_help">Help</string>
     <string name="activity_log_help_title">Help for Activity log</string>
-    <!--    activity_log_header_data_type    -->
-    <!--    altype_mergedProfileActivation-->
     <string name="activity_log_help_message_mergedPtofileActivation_message">X is the number of activated profiles, Y is the number of events that activated the profiles.</string>
     <string name="activity_log_help_close">Close</string>
 
