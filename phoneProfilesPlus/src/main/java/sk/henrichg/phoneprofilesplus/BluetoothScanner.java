@@ -86,10 +86,11 @@ class BluetoothScanner {
                     if (ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2")) {
                         if (PhoneProfilesService.isNowTimeBetweenTimes(
                                 ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
-                                ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo))
+                                ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo)) {
                             // not scan bluetooth in configured time
-                            //PPApplication.logE("%%%% BluetoothScanner.doScan", "-- END - scan in time -------");
+                            PPApplication.logE("%%%% BluetoothScanner.doScan", "-- END - scan in time = 2 -------");
                             return;
+                        }
                     }
                 }
             }

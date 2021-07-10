@@ -6882,9 +6882,11 @@ public class PhoneProfilesService extends Service
                 if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2")) {
                     if (PhoneProfilesService.isNowTimeBetweenTimes(
                             ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
-                            ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo))
+                            ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
                         // not scan in configured time
+                        PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors", "-- END - scan in time = 2 -------");
                         return;
+                    }
                 }
             }
 
@@ -6901,8 +6903,10 @@ public class PhoneProfilesService extends Service
                 if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("1")) {
                     if (PhoneProfilesService.isNowTimeBetweenTimes(
                             ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
-                            ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo))
+                            ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
                         interval = 2 * interval;
+                        PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors", "scan in time - 2x interval");
+                    }
                 }
             }
 

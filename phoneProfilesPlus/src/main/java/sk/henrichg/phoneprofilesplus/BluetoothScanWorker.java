@@ -185,8 +185,10 @@ public class BluetoothScanWorker extends Worker {
                         if (ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("1")) {
                             if (PhoneProfilesService.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
-                                    ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo))
+                                    ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo)) {
                                 interval = 2 * interval;
+                                PPApplication.logE("BluetoothScanWorker._scheduleWork", "scan in time - 2x interval");
+                            }
                         }
                     }
 

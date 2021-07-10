@@ -81,10 +81,11 @@ class WifiScanner {
                     if (ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2")) {
                         if (PhoneProfilesService.isNowTimeBetweenTimes(
                                 ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
-                                ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo))
+                                ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo)) {
                             // not scan wi-fi in configured time
-                            //PPApplication.logE("%%%% WifiScanner.doScan", "-- END - scan in time -------");
+                            PPApplication.logE("%%%% WifiScanner.doScan", "-- END - scan in time = 2 -------");
                             return;
+                        }
                     }
                 }
             }

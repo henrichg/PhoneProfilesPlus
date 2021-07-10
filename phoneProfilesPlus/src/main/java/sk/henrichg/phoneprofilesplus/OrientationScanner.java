@@ -289,9 +289,11 @@ class OrientationScanner implements SensorEventListener {
                         if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2")) {
                             if (PhoneProfilesService.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
-                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo))
+                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
                                 // not scan in configured time
+                                PPApplication.logE("OrientationScanner.runEventsHandlerForOrientationChange", "-- END - scan in time = 2 -------");
                                 return;
+                            }
                         }
                     }
 
@@ -304,8 +306,10 @@ class OrientationScanner implements SensorEventListener {
                         if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("1")) {
                             if (PhoneProfilesService.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
-                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo))
+                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
                                 interval = 2 * interval;
+                                PPApplication.logE("OrientationScanner.runEventsHandlerForOrientationChange", "scan in time - 2x interval");
+                            }
                         }
                     }
 

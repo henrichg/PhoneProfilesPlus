@@ -186,8 +186,10 @@ public class WifiScanWorker extends Worker {
                         if (ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("1")) {
                             if (PhoneProfilesService.isNowTimeBetweenTimes(
                                     ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
-                                    ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo))
+                                    ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo)) {
                                 interval = 2 * interval;
+                                PPApplication.logE("WifiScanWorker._scheduleWork", "scan in time - 2x interval");
+                            }
                         }
                     }
 

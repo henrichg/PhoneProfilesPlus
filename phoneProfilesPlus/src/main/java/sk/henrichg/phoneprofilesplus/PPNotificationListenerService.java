@@ -90,9 +90,11 @@ public class PPNotificationListenerService extends NotificationListenerService {
             if (ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2")) {
                 if (PhoneProfilesService.isNowTimeBetweenTimes(
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
-                        ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo))
+                        ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo)) {
                     // not scan in configured time
+                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "-- END - scan in time = 2 -------");
                     return;
+                }
             }
         }
 
@@ -246,9 +248,11 @@ public class PPNotificationListenerService extends NotificationListenerService {
             if (ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2")) {
                 if (PhoneProfilesService.isNowTimeBetweenTimes(
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
-                        ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo))
+                        ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo)) {
                     // not scan in configured time
+                    PPApplication.logE("PPNotificationListenerService.onNotificationRemoved", "-- END - scan in time = 2 -------");
                     return;
+                }
             }
         }
 
