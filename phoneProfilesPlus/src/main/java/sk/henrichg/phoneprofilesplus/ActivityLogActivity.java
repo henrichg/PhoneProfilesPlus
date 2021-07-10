@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -158,6 +159,34 @@ public class ActivityLogActivity extends AppCompatActivity {
             activityLogAdapter.reload(dataWrapper);
             listView.setSelection(0);
             invalidateOptionsMenu();
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_activity_log_help) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setTitle(R.string.activity_log_help_title);
+
+            String message = getString(R.string.activity_log_header_data_type) + ": ";
+            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X [Y]\":\n";
+            message = message + getString(R.string.activity_log_help_message_mergedPtofileActivation_message);
+
+            dialogBuilder.setMessage(message);
+
+            dialogBuilder.setPositiveButton(R.string.activity_log_help_close, null);
+            AlertDialog dialog = dialogBuilder.create();
+
+//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                        if (positive != null) positive.setAllCaps(false);
+//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                        if (negative != null) negative.setAllCaps(false);
+//                    }
+//                });
+
+            if (!isFinishing())
+                dialog.show();
             return true;
         }
         else {
