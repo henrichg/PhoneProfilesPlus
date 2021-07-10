@@ -1733,7 +1733,12 @@
 
     <string name="menu_activity_log_help">Help</string>
     <string name="activity_log_help_title">Help for Activity log</string>
-    <string name="activity_log_help_message_mergedPtofileActivation_message">X is the number of activated profiles, Y is the number of events that activated the profiles.</string>
+    <string name="activity_log_help_message_mergedPtofileActivation">X is the number of activated profiles, Y is the number of events that activated the profiles.</string>
+    <string name="activity_log_help_message_data_for">for</string>
+    <string name="activity_log_help_message_data_profileName">Profile name. It may contains [M] (=manual activation) followed by end of duration in parentheses.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started/ended (paused) event.</string>
+    <string name="activity_log_help_message_data_displayedInGUI">This inforamtion is also displayed in all GUI elements (application notification, Activator, Editor, widgets, …).</string>
+
     <string name="activity_log_help_close">Close</string>
 
     <!-- **************************************************************************************** -->
