@@ -175,6 +175,7 @@ public class PhoneProfilesService extends Service
 
     private MediaPlayer notificationMediaPlayer = null;
     private boolean notificationIsPlayed = false;
+    private int oldNotificationVolume = 0;
     private Timer notificationPlayTimer = null;
 
     String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
@@ -7817,13 +7818,30 @@ public class PhoneProfilesService extends Service
             } catch (Exception e) {
                 //PPApplication.recordException(e);
             }
+
+            try {
+                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+            } catch (Exception e) {
+                //PPApplication.recordException(e);
+            }
+
             notificationIsPlayed = false;
             notificationMediaPlayer = null;
         }
     }
 
     public void playNotificationSound (final String notificationSound, final boolean notificationVibrate) {
-        if (notificationVibrate) {
+        if (audioManager == null )
+            audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
+        //int ringerMode = ApplicationPreferences.prefRingerMode;
+        //int zenMode = ApplicationPreferences.prefZenMode;
+        //boolean isAudible = ActivateProfileHelper.isAudibleRinging(ringerMode, zenMode/*, false*/);
+        int systemZenMode = ActivateProfileHelper.getSystemZenMode(getApplicationContext());
+        boolean isAudible = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, getApplicationContext()*/);
+        //PPApplication.logE("PhoneProfilesService.playNotificationSound", "isAudible="+isAudible);
+
+        if (notificationVibrate || ((!isAudible) && (!notificationSound.isEmpty()))) {
             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             if ((vibrator != null) && vibrator.hasVibrator()) {
                 //PPApplication.logE("PhoneProfilesService.playNotificationSound", "vibration");
@@ -7842,20 +7860,11 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("PhoneProfilesService.playNotificationSound", "ringingCallIsSimulating="+ringingCallIsSimulating);
         if ((!ringingCallIsSimulating)/* && (!notificationToneIsSimulating)*/) {
 
-            if (audioManager == null )
-                audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-
             stopPlayNotificationSound();
 
             //PPApplication.logE("PhoneProfilesService.playNotificationSound", "notificationSound="+notificationSound);
             if (!notificationSound.isEmpty())
             {
-                //int ringerMode = ApplicationPreferences.prefRingerMode;
-                //int zenMode = ApplicationPreferences.prefZenMode;
-                //boolean isAudible = ActivateProfileHelper.isAudibleRinging(ringerMode, zenMode/*, false*/);
-                int systemZenMode = ActivateProfileHelper.getSystemZenMode(getApplicationContext());
-                boolean isAudible = ActivateProfileHelper.isAudibleSystemRingerMode(audioManager, systemZenMode/*, getApplicationContext()*/);
-                //PPApplication.logE("PhoneProfilesService.playNotificationSound", "isAudible="+isAudible);
                 if (isAudible) {
 
                     Uri notificationUri = Uri.parse(notificationSound);
@@ -7866,7 +7875,8 @@ public class PhoneProfilesService extends Service
                         notificationMediaPlayer = new MediaPlayer();
 
                         AudioAttributes attrs = new AudioAttributes.Builder()
-                                .setUsage(AudioAttributes.USAGE_MEDIA)
+                                //.setUsage(AudioAttributes.USAGE_MEDIA)
+                                .setUsage(AudioAttributes.USAGE_ALARM)
                                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                                 .build();
                         notificationMediaPlayer.setAudioAttributes(attrs);
@@ -7875,6 +7885,9 @@ public class PhoneProfilesService extends Service
                         notificationMediaPlayer.setDataSource(getApplicationContext(), notificationUri);
                         notificationMediaPlayer.prepare();
                         notificationMediaPlayer.setLooping(false);
+
+                        oldNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                         /*
                         oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
