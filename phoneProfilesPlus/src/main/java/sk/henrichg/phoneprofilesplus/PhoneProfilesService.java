@@ -175,7 +175,7 @@ public class PhoneProfilesService extends Service
 
     private MediaPlayer notificationMediaPlayer = null;
     private boolean notificationIsPlayed = false;
-    private int oldNotificationVolume = 0;
+    //private int oldNotificationVolume = 0;
     private Timer notificationPlayTimer = null;
 
     String connectToSSID = Profile.CONNECTTOSSID_JUSTANY;
@@ -7819,11 +7819,11 @@ public class PhoneProfilesService extends Service
                 //PPApplication.recordException(e);
             }
 
-            try {
-                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
-            } catch (Exception e) {
-                //PPApplication.recordException(e);
-            }
+//            try {
+//                audioManager.setStreamVolume(AudioManager.STREAM_ALARM, oldNotificationVolume, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+//            } catch (Exception e) {
+//                //PPApplication.recordException(e);
+//            }
 
             notificationIsPlayed = false;
             notificationMediaPlayer = null;
@@ -7876,7 +7876,7 @@ public class PhoneProfilesService extends Service
 
                         AudioAttributes attrs = new AudioAttributes.Builder()
                                 //.setUsage(AudioAttributes.USAGE_MEDIA)
-                                .setUsage(AudioAttributes.USAGE_ALARM)
+                                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
                                 .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
                                 .build();
                         notificationMediaPlayer.setAudioAttributes(attrs);
@@ -7886,8 +7886,8 @@ public class PhoneProfilesService extends Service
                         notificationMediaPlayer.prepare();
                         notificationMediaPlayer.setLooping(false);
 
-                        oldNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+//                        oldNotificationVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+//                        audioManager.setStreamVolume(AudioManager.STREAM_ALARM, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION), AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
 
                         /*
                         oldMediaVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
