@@ -55,12 +55,12 @@
         app:title="@string/applicationApplicationInterfaceActivationNotification"
         app:layout="@layout/mp_preference_category" >
 
-        <Preference
-            app:key="applicationApplicationInterfaceNotificationSoundInfo"
-            app:title="@string/profile_preferences_durationNotificationSound"
-            app:summary="@string/preferences_durationNotificationSoundInfo_summary"
-            app:widgetLayout="@layout/widget_info_preference"
-            app:layout="@layout/mp_preference_material_widget" />
+<!--        <Preference-->
+<!--            app:key="applicationApplicationInterfaceNotificationSoundInfo"-->
+<!--            app:title="@string/profile_preferences_durationNotificationSound"-->
+<!--            app:summary="@string/preferences_durationNotificationSoundInfo_summary"-->
+<!--            app:widgetLayout="@layout/widget_info_preference"-->
+<!--            app:layout="@layout/mp_preference_material_widget" />-->
         <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
             app:key="applicationApplicationInterfaceNotificationSound"
             app:summary="@string/ringtone_preference_not_set"

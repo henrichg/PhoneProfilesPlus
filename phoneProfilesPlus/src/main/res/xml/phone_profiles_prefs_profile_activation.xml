@@ -24,12 +24,12 @@
 <!--            app:summary="@string/phone_profiles_pref_backgroundProfileUsage_summary"-->
 <!--            app:defaultValue="false"-->
 <!--            app:layout="@layout/mp_preference_material_widget"/>-->
-        <Preference
-            app:key="applicationBackgroundProfileNotificationSoundInfo"
-            app:title="@string/profile_preferences_durationNotificationSound"
-            app:summary="@string/preferences_durationNotificationSoundInfo_summary"
-            app:widgetLayout="@layout/widget_info_preference"
-            app:layout="@layout/mp_preference_material_widget" />
+<!--        <Preference-->
+<!--            app:key="applicationBackgroundProfileNotificationSoundInfo"-->
+<!--            app:title="@string/profile_preferences_durationNotificationSound"-->
+<!--            app:summary="@string/preferences_durationNotificationSoundInfo_summary"-->
+<!--            app:widgetLayout="@layout/widget_info_preference"-->
+<!--            app:layout="@layout/mp_preference_material_widget" />-->
         <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
             app:key="applicationBackgroundProfileNotificationSound"
             app:summary="@string/ringtone_preference_not_set"
