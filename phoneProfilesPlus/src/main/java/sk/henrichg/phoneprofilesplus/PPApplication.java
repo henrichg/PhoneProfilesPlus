@@ -1509,7 +1509,7 @@ public class PPApplication extends Application
             return;
 
         try {
-            //Log.e("PPApplication.logIntoFile", "--- START");
+            //Log.e("***** PPApplication.logIntoFile", "--- START");
 
             /*File sd = Environment.getExternalStorageDirectory();
             File exportDir = new File(sd, PPApplication.EXPORT_PATH);
@@ -1522,6 +1522,7 @@ public class PPApplication extends Application
 
             File path = instance.getApplicationContext().getExternalFilesDir(null);
             File logFile = new File(path, LOG_FILENAME);
+            //Log.e("***** PPApplication.logIntoFile", "logFile="+logFile.getAbsolutePath());
 
             if (logFile.length() > 1024 * 10000)
                 resetLog();
@@ -1543,7 +1544,7 @@ public class PPApplication extends Application
             buf.flush();
             buf.close();
         } catch (Exception e) {
-            //Log.e("PPApplication.logIntoFile", Log.getStackTraceString(e));
+            Log.e("***** PPApplication.logIntoFile", Log.getStackTraceString(e));
             //PPApplication.recordException(e);
         }
     }
