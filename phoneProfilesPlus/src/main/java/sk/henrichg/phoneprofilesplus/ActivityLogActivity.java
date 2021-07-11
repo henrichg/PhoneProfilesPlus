@@ -166,25 +166,41 @@ public class ActivityLogActivity extends AppCompatActivity {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
             dialogBuilder.setTitle(R.string.activity_log_help_title);
 
-            String message = getString(R.string.activity_log_header_data_type) + ": ";
-            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X [Y]\":\n";
-            message = message + getString(R.string.activity_log_help_message_mergedPtofileActivation);
+            String message = "\n" + getString(R.string.activity_log_help_message) + ": \n\n\n";
 
-            message = message + "\n\n";
-            message = message + getString(R.string.activity_log_header_data) + ": ";
+            message = message + "• " + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X [Y]\":\n\n";
+            message = message + getString(R.string.activity_log_help_message_mergedProfileActivation);
+
+            message = message + "\n\n\n";
+            message = message + "• " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
-            message = message + getString(R.string.activity_log_header_data_type) + " ";
-            message = message + "\"" + getString(R.string.altype_profileActivation) + "\":\n";
+            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + "\"" + getString(R.string.altype_profileActivation) + "\":\n\n";
             message = message + getString(R.string.activity_log_help_message_data_profileName) + "\n";
             message = message + getString(R.string.activity_log_help_message_data_displayedInGUI);
 
-            message = message + "\n\n";
-            message = message + getString(R.string.activity_log_header_data) + ": ";
+            message = message + "\n\n\n";
+            message = message + "• " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
             message = message + getString(R.string.activity_log_help_message_data_for) + " ";
-            message = message + getString(R.string.activity_log_header_data_type) + " ";
-            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + "\":\n";
+            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + "\":\n\n";
             message = message + getString(R.string.activity_log_help_message_data_profileNameEventName) + "\n";
             message = message + getString(R.string.activity_log_help_message_data_displayedInGUI);
+
+            message = message + "\n\n\n";
+            message = message + "• " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
+            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + getString(R.string.activity_log_help_message_data_otherProfileDataTypes) + ":\n\n";
+            message = message + getString(R.string.activity_log_help_message_data_profileName_otherDataTypes);
+
+            message = message + "\n\n\n";
+            message = message + "• " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
+            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":\n\n";
+            message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes);
 
             dialogBuilder.setMessage(message);
 
