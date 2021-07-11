@@ -202,6 +202,7 @@ public class PPApplication extends Application
 
                                                 +"|%%%% BluetoothScanner.doScan"
                                                 +"|BluetoothScanWorker._scheduleWork"
+                                                +"|BluetoothScanWorker.doWork"
                                                 +"|MobileCellsScanner.connect"
                                                 +"|OrientationScanner.runEventsHandlerForOrientationChange"
                                                 +"|PeriodicEventsHandlerWorker.doWork"
@@ -209,6 +210,9 @@ public class PPApplication extends Application
                                                 +"|PhoneProfilesService.startListeningOrientationSensors"
                                                 +"|%%%% WifiScanner.doScan"
                                                 +"|WifiScanWorker._scheduleWork"
+                                                +"|WifiScanWorker.doWork"
+                                                +"|LocationScanner.startLocationUpdates"
+                                                +"|LocationSensorWorker.enqueueWork"
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"

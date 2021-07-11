@@ -281,7 +281,22 @@ class LocationScanner
                                     // check power save mode
                                     String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode;
                                     //boolean powerSaveMode = PPApplication.isPowerSaveMode;
-                                    if (!(isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2"))) {
+                                    boolean canScan = true;
+                                    if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
+                                        canScan = false;
+                                    }
+                                    else {
+                                        if (ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("2")) {
+                                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                                                    ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
+                                                    ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo)) {
+                                                // not scan wi-fi in configured time
+                                                PPApplication.logE("LocationScanner.startLocationUpdates", "-- END - scan in time = 2 -------");
+                                                canScan = false;
+                                            }
+                                        }
+                                    }
+                                    if (canScan) {
                                         int interval = 25; // seconds
                                         if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1) {
                                             // interval is in minutes
