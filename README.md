@@ -65,3 +65,4 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - FreeReflection (only code from https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/Reflection.java) - https://github.com/tiann/FreeReflection
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
+- ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat
