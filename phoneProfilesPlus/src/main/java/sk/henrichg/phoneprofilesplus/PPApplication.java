@@ -138,7 +138,7 @@ public class PPApplication extends Application
 
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
-    static final boolean logIntoFile = true;
+    static final boolean logIntoFile = false;
     //TODO change it back to not log crash for releases
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
@@ -200,19 +200,19 @@ public class PPApplication extends Application
                                                 //+"|%%%%BLE BluetoothScanWorker.startLEScan"
                                                 //+"|%%%%BLE BluetoothScanWorker.stopLEScan"
 
-                                                +"|%%%% BluetoothScanner.doScan"
-                                                +"|BluetoothScanWorker._scheduleWork"
-                                                +"|BluetoothScanWorker.doWork"
-                                                +"|MobileCellsScanner.connect"
-                                                +"|OrientationScanner.runEventsHandlerForOrientationChange"
-                                                +"|PeriodicEventsHandlerWorker.doWork"
-                                                +"|PeriodicEventsHandlerWorker.enqueueWork"
-                                                +"|PhoneProfilesService.startListeningOrientationSensors"
-                                                +"|%%%% WifiScanner.doScan"
-                                                +"|WifiScanWorker._scheduleWork"
-                                                +"|WifiScanWorker.doWork"
-                                                +"|LocationScanner.startLocationUpdates"
-                                                +"|LocationSensorWorker.enqueueWork"
+//                                                +"|%%%% BluetoothScanner.doScan"
+//                                                +"|BluetoothScanWorker._scheduleWork"
+//                                                +"|BluetoothScanWorker.doWork"
+//                                                +"|MobileCellsScanner.connect"
+//                                                +"|OrientationScanner.runEventsHandlerForOrientationChange"
+//                                                +"|PeriodicEventsHandlerWorker.doWork"
+//                                                +"|PeriodicEventsHandlerWorker.enqueueWork"
+//                                                +"|PhoneProfilesService.startListeningOrientationSensors"
+//                                                +"|%%%% WifiScanner.doScan"
+//                                                +"|WifiScanWorker._scheduleWork"
+//                                                +"|WifiScanWorker.doWork"
+//                                                +"|LocationScanner.startLocationUpdates"
+//                                                +"|LocationSensorWorker.enqueueWork"
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"

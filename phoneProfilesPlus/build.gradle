@@ -90,7 +90,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.7'
 
     implementation 'com.google.android.apps.dashclock:dashclock-api:2.0.0'
-    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.2'
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.13.3'
 
     implementation('dev.doubledot.doki:library:0.0.1@aar') {
         transitive = true
