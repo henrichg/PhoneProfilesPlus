@@ -27,8 +27,8 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         }*/
 
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
+            //boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
+            if (/*no60 &&*/ GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 if (!RingerModeChangeReceiver.internalChange) {
 
                     NotificationManager mNotificationManager = (NotificationManager) context.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -124,8 +124,8 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
 
     public static void setZenMode(Context context, AudioManager audioManager/*, String from*/) {
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
+            //boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
+            if (/*no60 &&*/ GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 int zenMode = getZenMode(context, audioManager);
                 //PPApplication.logE("********* InterruptionFilterChangedBroadcastReceiver.setZenMode", "from="+from+" zenMode="+zenMode);
                 if (zenMode != 0) {
@@ -139,8 +139,8 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
     public static void requestInterruptionFilter(Context context, final int zenMode) {
         try {
             //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
+            //boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
+            if (/*no60 &&*/ GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
                 int interruptionFilter = NotificationManager.INTERRUPTION_FILTER_ALL;
                 switch (zenMode) {
                     case ActivateProfileHelper.ZENMODE_ALL:

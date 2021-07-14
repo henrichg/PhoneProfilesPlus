@@ -55,7 +55,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "prf_pref_notEnabledAccessibilityService";
 
-    private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
+    //private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
 
     private static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 1981;
@@ -343,7 +343,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                      (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
                     );*/
-        final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
+        //final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated","canEnableZenMode="+canEnableZenMode);
 
         /*ListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
@@ -352,6 +352,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             zenModePreference.setEnabled((value.equals("5")) && canEnableZenMode);
         }*/
 
+/*
         Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
             if (canEnableZenMode) {
@@ -359,16 +360,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(notificationAccessPreference);
             } else {
-                /*if (ringerModePreference != null) {
-                    CharSequence[] entries = ringerModePreference.getEntries();
-                    entries[4] = "(S) " + getString(R.string.array_pref_soundModeArray_ZenMode);
-                    ringerModePreference.setEntries(entries);
-                }*/
+                //if (ringerModePreference != null) {
+                //    CharSequence[] entries = ringerModePreference.getEntries();
+                //    entries[4] = "(S) " + getString(R.string.array_pref_soundModeArray_ZenMode);
+                //    ringerModePreference.setEntries(entries);
+                //}
 
-                boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
+                //boolean a60 = Build.VERSION.RELEASE.equals("6.0");
                 @SuppressLint("InlinedApi")
                 final boolean showDoNotDisturbPermission =
-                        /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
+                                //(!a60) &&
                                 GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
                 if (showDoNotDisturbPermission) {
                     notificationAccessPreference.setTitle(getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions));
@@ -377,7 +378,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 notificationAccessPreference.setOnPreferenceClickListener(preference -> {
-                    //boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                    //boolean a60 = Build.VERSION.RELEASE.equals("6.0");
                     boolean ok = false;
                     if (showDoNotDisturbPermission) {
                         try {
@@ -428,7 +429,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 });
             }
         }
-
+*/
         if (ringerModePreference != null) {
             CharSequence[] entries;
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -480,9 +481,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_zenModePreference != null) {
                     _zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode1);
 
-                    boolean a60 = /*(Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
+                    //boolean a60 = /*(Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                     @SuppressLint("InlinedApi")
-                    boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
+                    boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
                             GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(_zenModePreference, true, false, false, false, addS);
 
@@ -1239,10 +1240,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
-            /*final boolean canEnableZenMode =
-                    (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
-                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
-                    );*/
+            //final boolean canEnableZenMode =
+            //        (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
+            //                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
+            //        );
 
             final String sZenModeType = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "");
             setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, sZenModeType);
@@ -1580,9 +1581,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + title + ": <b>" + value + "</b>";
             }
             if (_bold) {
-                boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
+                //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                 @SuppressLint("InlinedApi")
-                boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
+                boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
                         GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                 int titleRes;// = R.string.profile_preferences_volumeZenMode;
                 //if (Build.VERSION.SDK_INT >= 23)
@@ -3198,9 +3199,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     listPreference.setEnabled(false);
                     listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                             ": "+getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
-                    boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
+                    //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                     @SuppressLint("InlinedApi")
-                    boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
+                    boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
                             GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, addS);
 
@@ -3234,9 +3235,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         iRingerMode = Integer.parseInt(sRingerMode);
 
                     if (iRingerMode == 5) {
-                        boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
+                        //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                         @SuppressLint("InlinedApi")
-                        boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
+                        boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
                                 GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                         GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, true, false, false, addS);
                     }
@@ -3248,12 +3249,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
 
-                Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
+                /*Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
                 if (notificationAccessPreference != null) {
                     PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
                     if (preferenceCategory != null)
                         preferenceCategory.removePreference(notificationAccessPreference);
-                }
+                }*/
             }
             //}
         }
@@ -5030,17 +5031,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference != null) {
                         String _title = order + ". ";
                         String _summary;
-                        boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-                        final boolean showDoNotDisturbPermission =
-                                /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
-                                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
-                        if (showDoNotDisturbPermission) {
+                        //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
+                        //final boolean showDoNotDisturbPermission =
+                                /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
+                        //                GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
+                        //if (showDoNotDisturbPermission) {
                             _title = _title + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
                             _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_2);
-                        } else {
-                            _title = _title + getString(R.string.profile_preferences_volumeNotificationsAccessSettings_title);
-                            _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access);
-                        }
+                        //} else {
+                        //    _title = _title + getString(R.string.profile_preferences_volumeNotificationsAccessSettings_title);
+                        //    _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access);
+                        //}
                         ++order;
                         Spannable title = new SpannableString(_title);
                         title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
@@ -5050,7 +5051,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setSummary(summary);
 
                         preference.setOnPreferenceClickListener(preference14 -> {
-                            enableNotificationAccess(showDoNotDisturbPermission);
+                            enableNotificationAccess(true/*showDoNotDisturbPermission*/);
                             return false;
                         });
                     }
@@ -5161,7 +5162,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     }
 
-    private void enableNotificationAccess(boolean showDoNotDisturbPermission) {
+    private void enableNotificationAccess(
+            @SuppressWarnings("SameParameterValue") boolean showDoNotDisturbPermission) {
         boolean ok = false;
         if (showDoNotDisturbPermission) {
             // Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS exists
@@ -5176,7 +5178,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 PPApplication.recordException(e);
             }
         }
-        else
+        /*else
         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, getActivity())) {
             try {
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
@@ -5186,7 +5188,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
-        }
+        }*/
         if (!ok) {
             if (getActivity() != null) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());

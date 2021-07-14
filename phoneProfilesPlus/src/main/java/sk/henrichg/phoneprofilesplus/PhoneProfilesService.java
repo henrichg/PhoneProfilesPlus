@@ -1011,8 +1011,8 @@ public class PhoneProfilesService extends Service
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers->REGISTER interruption filter", "PhoneProfilesService_registerAllTheTimeRequiredSystemReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "REGISTER interruption filter");
                 //if (android.os.Build.VERSION.SDK_INT >= 23) {
-                boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-                if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, appContext)) {
+                //boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
+                if (/*no60 &&*/ GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, appContext)) {
                     PPApplication.interruptionFilterChangedReceiver = new InterruptionFilterChangedBroadcastReceiver();
                     IntentFilter intentFilter11 = new IntentFilter();
                     intentFilter11.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED);
@@ -4110,7 +4110,7 @@ public class PhoneProfilesService extends Service
                     AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
                     if (audioManager != null) {
                         RingerModeChangeReceiver.setRingerMode(appContext, audioManager/*, "PhoneProfilesService.doFirstStart"*/);
-                        PPNotificationListenerService.setZenMode(appContext, audioManager/*, "PhoneProfilesService.doFirstStart"*/);
+                        //PPNotificationListenerService.setZenMode(appContext, audioManager/*, "PhoneProfilesService.doFirstStart"*/);
                         InterruptionFilterChangedBroadcastReceiver.setZenMode(appContext, audioManager/*, "PhoneProfilesService.doFirstStart"*/);
                         try {
                             ActivateProfileHelper.setNotificationVolume(appContext, audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION));
