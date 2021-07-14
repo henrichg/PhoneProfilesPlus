@@ -10,7 +10,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/editor_list_bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="?attr/colorPrimary"
         app:elevation="0dp"
@@ -18,6 +18,8 @@
         app:itemTextColor="@drawable/bottom_navigation_colors"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/editor_bottom_navigation_menu" />
+    <!--        android:paddingBottom="25dp"-->
+    <!--        android:clipToPadding="false"-->
 
     <RelativeLayout
         android:id="@+id/editor_list_view"
