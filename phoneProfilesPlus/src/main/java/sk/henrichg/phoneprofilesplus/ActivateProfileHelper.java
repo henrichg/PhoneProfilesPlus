@@ -3050,9 +3050,9 @@ class ActivateProfileHelper {
         //if (android.os.Build.VERSION.SDK_INT >= 23) {
             //boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
             //PPApplication.logE("ActivateProfileHelper.getSystemZenMode", "no60="+no60);
-            boolean activityExists = GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context);
+            //boolean activityExists = GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context);
             //PPApplication.logE("ActivateProfileHelper.getSystemZenMode", "activityExists="+activityExists);
-            if (/*no60 &&*/ activityExists) {
+            //if (/*no60 &&*/ activityExists) {
                 NotificationManager mNotificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
                 //PPApplication.logE("ActivateProfileHelper.getSystemZenMode", "mNotificationManager="+mNotificationManager);
                 if (mNotificationManager != null) {
@@ -3071,7 +3071,7 @@ class ActivateProfileHelper {
                             return ActivateProfileHelper.ZENMODE_ALL;
                     }
                 }
-            }
+            /*}
             else {
                 ContentResolver resolver = appContext.getContentResolver();
                 if (resolver != null) {
@@ -3087,7 +3087,7 @@ class ActivateProfileHelper {
                             return ActivateProfileHelper.ZENMODE_ALARMS;
                     }
                 }
-            }
+            }*/
         /*}
         if (android.os.Build.VERSION.SDK_INT < 23) {
             int interruptionFilter = Settings.Global.getInt(appContext.getContentResolver(), "zen_mode", -1);

@@ -482,10 +482,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     _zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode1);
 
                     //boolean a60 = /*(Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-                    @SuppressLint("InlinedApi")
-                    boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
-                            GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(_zenModePreference, true, false, false, false, addS);
+                    //@SuppressLint("InlinedApi")
+                    //boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
+                    //        GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(_zenModePreference, true, false, false, false, false/*addS*/);
 
                     Preference zenModePreferenceInfo = prefMng.findPreference("prf_pref_volumeZenModeInfo");
                     if (zenModePreferenceInfo != null) {
@@ -1372,7 +1372,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private boolean notGrantedG1Permission;
 
-    private String getCategoryTitleWhenPreferenceChanged(String key, int preferenceTitleId, boolean systemSettings, Context context) {
+    private String getCategoryTitleWhenPreferenceChanged(String key, int preferenceTitleId,
+                    @SuppressWarnings("SameParameterValue") boolean systemSettings,
+                                                         Context context) {
         //Preference preference = prefMng.findPreference(key);
         String title = "";
         PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
@@ -1582,13 +1584,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             if (_bold) {
                 //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-                @SuppressLint("InlinedApi")
-                boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
-                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
+                //@SuppressLint("InlinedApi")
+                //boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
+                //        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                 int titleRes;// = R.string.profile_preferences_volumeZenMode;
                 //if (Build.VERSION.SDK_INT >= 23)
                     titleRes = R.string.profile_preferences_volumeZenModeM;
-                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, titleRes, addS, context);
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, titleRes, false/*addS*/, context);
                 if (!title.isEmpty()) {
                     final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
                     if ((ringerMode != null) && (ringerMode.equals("5")) && canEnableZenMode) {
@@ -3200,10 +3202,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                             ": "+getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
                     //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-                    @SuppressLint("InlinedApi")
-                    boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
-                            GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, addS);
+                    //@SuppressLint("InlinedApi")
+                    //boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
+                    //        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, false/*addS*/);
 
                     Preference zenModePreferenceInfo = prefMng.findPreference("prf_pref_volumeZenModeInfo");
                     if (zenModePreferenceInfo != null) {
@@ -3236,10 +3238,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                     if (iRingerMode == 5) {
                         //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-                        @SuppressLint("InlinedApi")
-                        boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
-                                GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
-                        GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, true, false, false, addS);
+                        //@SuppressLint("InlinedApi")
+                        //boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
+                        //        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, true, false, false, false/*addS*/);
                     }
                     listPreference.setEnabled(iRingerMode == 5);
 
@@ -5175,7 +5177,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                 ok = true;
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                if (getActivity() != null) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = dialogBuilder.create();
+
+//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                        if (positive != null) positive.setAllCaps(false);
+//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                        if (negative != null) negative.setAllCaps(false);
+//                    }
+//                });
+
+                    if (!getActivity().isFinishing())
+                        dialog.show();
+                }
             }
         }
         /*else
