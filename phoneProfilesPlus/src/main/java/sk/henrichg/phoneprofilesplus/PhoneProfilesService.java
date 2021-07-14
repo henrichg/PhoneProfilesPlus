@@ -5795,7 +5795,12 @@ public class PhoneProfilesService extends Service
 
         notificationBuilder.setContentIntent(pIntent);
         notificationBuilder.setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
-        notificationBuilder.setCategory(NotificationCompat.CATEGORY_SERVICE);
+
+        // Android 12:
+        // The service provides a use case related to phone calls, navigation, or media playback,
+        // as defined in the notification's category attribute.
+        notificationBuilder.setCategory(NotificationCompat.CATEGORY_CALL);
+
         notificationBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
         //notificationBuilder.setTicker(profileName);
