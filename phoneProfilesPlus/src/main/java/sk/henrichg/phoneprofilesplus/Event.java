@@ -520,7 +520,7 @@ class Event {
     public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
         Context appContext = context.getApplicationContext();
 
-        boolean runnable = (this._fkProfileStart != 0);
+        boolean runnable = (this._fkProfileStart != 0) && (this._fkProfileEnd != 0);
         if (checkSomeSensorEnabled) {
             boolean someEnabled = isEnabledSomeSensor(appContext);
             if (!someEnabled)
@@ -637,7 +637,11 @@ class Event {
         Editor editor = preferences.edit();
         editor.putLong(PREF_EVENT_ID, this._id);
         editor.putString(PREF_EVENT_NAME, this._name);
+        if (this._fkProfileStart == 0)
+            this._fkProfileStart = Profile.PROFILE_NO_ACTIVATE;
         editor.putString(PREF_EVENT_PROFILE_START, Long.toString(this._fkProfileStart));
+        if (this._fkProfileEnd == 0)
+            this._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
         editor.putString(PREF_EVENT_PROFILE_END, Long.toString(this._fkProfileEnd));
         editor.putBoolean(PREF_EVENT_ENABLED, this._status != ESTATUS_STOP);
         editor.putString(PREF_EVENT_NOTIFICATION_SOUND_START, this._notificationSoundStart);
@@ -682,7 +686,7 @@ class Event {
     public void saveSharedPreferences(SharedPreferences preferences, Context context)
     {
         this._name = preferences.getString(PREF_EVENT_NAME, "");
-        this._fkProfileStart = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_START, "0"));
+        this._fkProfileStart = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_START, Long.toString(Profile.PROFILE_NO_ACTIVATE)));
         this._fkProfileEnd = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_END, Long.toString(Profile.PROFILE_NO_ACTIVATE)));
         this._status = (preferences.getBoolean(PREF_EVENT_ENABLED, false)) ? ESTATUS_PAUSE : ESTATUS_STOP;
         this._notificationSoundStart = preferences.getString(PREF_EVENT_NOTIFICATION_SOUND_START, "");
@@ -750,7 +754,7 @@ class Event {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
             }
         }
-        if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END))
+        if (key.equals(PREF_EVENT_PROFILE_START) || key.equals(PREF_EVENT_PROFILE_END))
         {
             ProfilePreferenceX preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -761,10 +765,10 @@ class Event {
                     lProfileId = 0;
                 }
                 preference.setSummary(lProfileId);
-                if (key.equals(PREF_EVENT_PROFILE_START))
+                //if (key.equals(PREF_EVENT_PROFILE_START))
+                //    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, lProfileId == 0, false);
+                //else
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, lProfileId == 0, false);
-                else
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, false, false);
             }
         }
         if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
