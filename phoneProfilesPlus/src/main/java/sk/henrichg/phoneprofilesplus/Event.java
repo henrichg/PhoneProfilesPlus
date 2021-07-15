@@ -766,9 +766,9 @@ class Event {
                 }
                 preference.setSummary(lProfileId);
                 //if (key.equals(PREF_EVENT_PROFILE_START))
-                //    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, lProfileId == 0, false);
+                //    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, lProfileId == 0, false);
                 //else
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, lProfileId == 0, false);
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, lProfileId == 0, false);
             }
         }
         if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
