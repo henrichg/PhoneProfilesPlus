@@ -423,6 +423,7 @@ class Event {
         createEventPreferencesRadioSwitch();
         createEventPreferencesAlarmClock();
         createEventPreferencesDeviceBoot();
+        createEventPreferencesSoundProfile();
     }
 
     void copyEventPreferences(Event fromEvent)

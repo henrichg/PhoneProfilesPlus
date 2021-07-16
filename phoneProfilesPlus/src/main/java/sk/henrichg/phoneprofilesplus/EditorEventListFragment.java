@@ -14,6 +14,7 @@ import android.os.PowerManager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.CharacterStyle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -508,6 +509,8 @@ public class EditorEventListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             _dataWrapper.fillEventList();
+            Log.e("EditorEventListFragment.LoadEventListAsyncTask","_dataWrapper.eventList.size()="+_dataWrapper.eventList.size());
+
             if ((_dataWrapper.eventList.size() == 0) && PPApplication.restoreFinished)
             {
                 if (ApplicationPreferences.getSharedPreferences(_dataWrapper.context).getBoolean(ApplicationPreferences.PREF_EDITOR_EVENTS_FIRST_START, true)) {
@@ -529,7 +532,6 @@ public class EditorEventListFragment extends Fragment
             }
 
             _dataWrapper.getEventTimelineList(true);
-            //Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
             if (_filterType == FILTER_TYPE_START_ORDER)
                 EditorEventListFragment.sortList(_dataWrapper.eventList, ORDER_TYPE_START_ORDER, _dataWrapper);
             else
