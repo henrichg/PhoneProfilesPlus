@@ -222,6 +222,14 @@
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsNotificationsParameters" />
 
         <Preference
+            app:key="eventSoundProfileCategoryRoot"
+            app:title="@string/event_preferences_category_eventSoundProfileParameters"
+            app:summary="@string/event_preference_sensor_soundProfile_summary"
+            app:widgetLayout="@layout/widget_start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsSoundProfileParameters" />
+
+        <Preference
             app:key="eventApplicationCategoryRoot"
             app:title="@string/event_preferences_category_eventApplicationsParameters"
             app:summary="@string/event_preference_sensor_application_summary"

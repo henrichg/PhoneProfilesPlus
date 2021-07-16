@@ -1761,6 +1761,7 @@
     <string name="array_pref_event_ringerMode_none">Total silence</string>
     <string name="array_pref_event_zenMode_all_and_vibrate">Off with vibration</string>
     <string name="array_pref_event_zenMode_priority_and_vibrate">Priority with vibration</string>
+    <string name="event_preferences_category_eventSoundProfileParameters">Sound profile sensor</string>
 
     <!-- **************************************************************************************** -->
 
