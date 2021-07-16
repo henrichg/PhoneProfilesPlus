@@ -1375,4 +1375,37 @@
         <item>2</item>
     </string-array>
 
+    <string-array name="eventSoundProfileRingerModeArray">
+        <item>@string/array_pref_event_ringerMode_notDetect</item>
+        <item>@string/array_pref_event_ringerMode_ring</item>
+        <item>@string/array_pref_event_ringerMode_vibrate</item>
+        <item>@string/array_pref_event_ringerMode_silent</item>
+        <item>@string/array_pref_event_ringerMode_zenMode</item>
+    </string-array>
+    <string-array name="eventSoundProfileRingerModeValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="eventSoundProfileZenModeArray">
+        <item>@string/array_pref_event_zenMode_notDetect</item>
+        <item>@string/array_pref_event_zenMode_all</item>
+        <item>@string/array_pref_event_zenMode_all_and_vibrate</item>
+        <item>@string/array_pref_event_zenMode_priority</item>
+        <item>@string/array_pref_event_zenMode_priority_and_vibrate</item>
+        <item>@string/array_pref_event_ringerMode_alarm</item>
+        <item>@string/array_pref_event_ringerMode_none</item>
+    </string-array>
+    <string-array name="eventSoundProfileZenModeValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
 </resources>

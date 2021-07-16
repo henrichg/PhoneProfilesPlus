@@ -64,6 +64,7 @@ class EventsHandler {
     boolean notAllowedRadioSwitch;
     boolean notAllowedAlarmClock;
     boolean notAllowedDeviceBoot;
+    boolean notAllowedSoundProfile;
 
     boolean timePassed;
     boolean batteryPassed;
@@ -83,6 +84,7 @@ class EventsHandler {
     boolean radioSwitchPassed;
     boolean alarmClockPassed;
     boolean deviceBootPassed;
+    boolean soundProfilePassed;
 
 
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
@@ -129,6 +131,7 @@ class EventsHandler {
     static final String SENSOR_TYPE_ACCESSORIES = "accessories";
     static final String SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK = "calendarEventExistsCheck";
     static final String SENSOR_TYPE_CONTACTS_CACHE_CHANGED = "contactsCacheChanged";
+    static final String SENSOR_TYPE_SOUND_PROFILE = "soundProfile";
     static final String SENSOR_TYPE_ALL = "ALL";
 
     public EventsHandler(Context context) {
@@ -1537,6 +1540,7 @@ class EventsHandler {
         notAllowedRadioSwitch = false;
         notAllowedAlarmClock = false;
         notAllowedDeviceBoot = false;
+        notAllowedSoundProfile = false;
 
         timePassed = true;
         batteryPassed = true;
@@ -1556,6 +1560,7 @@ class EventsHandler {
         radioSwitchPassed = true;
         alarmClockPassed = true;
         deviceBootPassed = true;
+        soundProfilePassed = true;
 
 //        if (PPApplication.logEnabled()) {
 //            if (forRestartEvents) {
@@ -1584,6 +1589,7 @@ class EventsHandler {
         event._eventPreferencesRadioSwitch.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesAlarmClock.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesDeviceBoot.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesSoundProfile.doHandleEvent(this/*, forRestartEvents*/);
 
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvent", "event._eventPreferencesTime._enabled=" + event._eventPreferencesTime._enabled);
@@ -1721,6 +1727,14 @@ class EventsHandler {
             else
                 someNotAllowed = true;
         }
+        if (event._eventPreferencesSoundProfile._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedSoundProfile)
+                allPassed &= soundProfilePassed;
+            else
+                someNotAllowed = true;
+        }
+
         if (!anySensorEnabled) {
             // force set event as paused
             allPassed = false;

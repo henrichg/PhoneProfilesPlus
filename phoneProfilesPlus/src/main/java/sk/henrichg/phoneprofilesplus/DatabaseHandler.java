@@ -105,6 +105,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_DEVICE_BOOT = 31;
     static final int ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM1 = 32;
     static final int ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM2 = 33;
+    static final int ETYPE_SOUND_PROFILE = 36;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";

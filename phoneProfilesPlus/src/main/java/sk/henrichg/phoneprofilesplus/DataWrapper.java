@@ -3378,6 +3378,9 @@ public class DataWrapper {
                         case DatabaseHandler.ETYPE_DEVICE_BOOT:
                             sensorEnabled = _event._eventPreferencesDeviceBoot._enabled;
                             break;
+                        case DatabaseHandler.ETYPE_SOUND_PROFILE:
+                            sensorEnabled = _event._eventPreferencesSoundProfile._enabled;
+                            break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:
                             sensorEnabled = true;

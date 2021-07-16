@@ -83,6 +83,7 @@ class Event {
     EventPreferencesRadioSwitch _eventPreferencesRadioSwitch;
     EventPreferencesAlarmClock _eventPreferencesAlarmClock;
     EventPreferencesDeviceBoot _eventPreferencesDeviceBoot;
+    EventPreferencesSoundProfile _eventPreferencesSoundProfile;
 
     static final int ESTATUS_STOP = 0;
     static final int ESTATUS_PAUSE = 1;
@@ -397,6 +398,11 @@ class Event {
         this._eventPreferencesDeviceBoot = new EventPreferencesDeviceBoot(this, false, false, 5);
     }
 
+    private void createEventPreferencesSoundProfile()
+    {
+        this._eventPreferencesSoundProfile = new EventPreferencesSoundProfile(this, false, 0, 0);
+    }
+
     void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -457,6 +463,8 @@ class Event {
             createEventPreferencesAlarmClock();
         if (this._eventPreferencesDeviceBoot == null)
             createEventPreferencesDeviceBoot();
+        if (this._eventPreferencesSoundProfile == null)
+            createEventPreferencesSoundProfile();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -475,6 +483,7 @@ class Event {
         this._eventPreferencesRadioSwitch.copyPreferences(fromEvent);
         this._eventPreferencesAlarmClock.copyPreferences(fromEvent);
         this._eventPreferencesDeviceBoot.copyPreferences(fromEvent);
+        this._eventPreferencesSoundProfile.copyPreferences(fromEvent);
     }
 
     boolean isEnabledSomeSensor(Context context) {
@@ -514,7 +523,9 @@ class Event {
                 (this._eventPreferencesAlarmClock._enabled &&
                         (isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesDeviceBoot._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
+                        (isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesSoundProfile._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
     public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
@@ -562,6 +573,8 @@ class Event {
             runnable = runnable && this._eventPreferencesAlarmClock.isRunnable(appContext);
         if (this._eventPreferencesDeviceBoot._enabled)
             runnable = runnable && this._eventPreferencesDeviceBoot.isRunnable(appContext);
+        if (this._eventPreferencesSoundProfile._enabled)
+            runnable = runnable && this._eventPreferencesSoundProfile.isRunnable(appContext);
 
         return runnable;
     }
@@ -588,7 +601,8 @@ class Event {
                             this._eventPreferencesNFC._enabled ||
                             this._eventPreferencesRadioSwitch._enabled ||
                             this._eventPreferencesAlarmClock._enabled ||
-                            this._eventPreferencesDeviceBoot._enabled;
+                            this._eventPreferencesDeviceBoot._enabled ||
+                            this._eventPreferencesSoundProfile._enabled;
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
@@ -627,6 +641,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesAlarmClock.isAccessibilityServiceEnabled(context);
             if (this._eventPreferencesDeviceBoot._enabled)
                 accessibilityEnabled = this._eventPreferencesDeviceBoot.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesSoundProfile._enabled)
+                accessibilityEnabled = this._eventPreferencesSoundProfile.isAccessibilityServiceEnabled(context);
         }
 
         return accessibilityEnabled;
@@ -680,6 +696,7 @@ class Event {
         this._eventPreferencesRadioSwitch.loadSharedPreferences(preferences);
         this._eventPreferencesAlarmClock.loadSharedPreferences(preferences);
         this._eventPreferencesDeviceBoot.loadSharedPreferences(preferences);
+        this._eventPreferencesSoundProfile.loadSharedPreferences(preferences);
         editor.apply();
     }
 
@@ -736,6 +753,7 @@ class Event {
         this._eventPreferencesRadioSwitch.saveSharedPreferences(preferences);
         this._eventPreferencesAlarmClock.saveSharedPreferences(preferences);
         this._eventPreferencesDeviceBoot.saveSharedPreferences(preferences);
+        this._eventPreferencesSoundProfile.saveSharedPreferences(preferences);
 
         if (!this.isRunnable(context, true))
             this._status = ESTATUS_STOP;
@@ -1173,6 +1191,8 @@ class Event {
         _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesDeviceBoot.setSummary(prefMng, key, preferences, context);
         _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesSoundProfile.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
     }
 
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -1242,6 +1262,8 @@ class Event {
         _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesDeviceBoot.setAllSummary(prefMng, preferences, context);
         _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesSoundProfile.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
     }
 
     public String getPreferencesDescription(Context context, boolean addPassStatus)
@@ -1358,6 +1380,12 @@ class Event {
                 description = description + "<li>" + desc + "</li>";
         }
 
+        if (_eventPreferencesSoundProfile._enabled) {
+            String desc = _eventPreferencesSoundProfile.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
         if (!description.isEmpty())
             description = "<ul>" + description + "</ul>";
 
@@ -1383,6 +1411,7 @@ class Event {
         _eventPreferencesRadioSwitch.checkPreferences(prefMng, context);
         _eventPreferencesAlarmClock.checkPreferences(prefMng, context);
         _eventPreferencesDeviceBoot.checkPreferences(prefMng, context);
+        _eventPreferencesSoundProfile.checkPreferences(prefMng, context);
     }
 
     /*
@@ -2225,6 +2254,11 @@ class Event {
         _eventPreferencesDeviceBoot.setSensorPassed(_eventPreferencesDeviceBoot.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         //else
         //    _eventPreferencesDeviceBoot.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        //if (_eventPreferencesSoundProfile._enabled)
+        _eventPreferencesSoundProfile.setSensorPassed(_eventPreferencesSoundProfile.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        //else
+        //    _eventPreferencesSoundProfile.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
     }
 
     private void setSystemEvent(Context context, int forStatus)
@@ -2251,6 +2285,7 @@ class Event {
             _eventPreferencesRadioSwitch.setSystemEventForStart(context);
             _eventPreferencesAlarmClock.setSystemEventForStart(context);
             _eventPreferencesDeviceBoot.setSystemEventForStart(context);
+            _eventPreferencesSoundProfile.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -2275,6 +2310,7 @@ class Event {
             _eventPreferencesRadioSwitch.setSystemEventForPause(context);
             _eventPreferencesAlarmClock.setSystemEventForPause(context);
             _eventPreferencesDeviceBoot.setSystemEventForPause(context);
+            _eventPreferencesSoundProfile.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -2299,6 +2335,7 @@ class Event {
             _eventPreferencesRadioSwitch.removeSystemEvent(context);
             _eventPreferencesAlarmClock.removeSystemEvent(context);
             _eventPreferencesDeviceBoot.removeSystemEvent(context);
+            _eventPreferencesSoundProfile.removeSystemEvent(context);
         }
     }
 
