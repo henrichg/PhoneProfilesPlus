@@ -549,7 +549,6 @@
     <string name="about_application_source_code">Source code:</string>
     <string name="about_application_translations">Translations:</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Do not disturb access</string>
-    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Add PhoneProfilesPlus to \"Not optimized\" if you encounter problems with event profile activation, or if you leave your device unplugged and stationary for a period of time with the screen off.</string>
     <string name="profile_preferences_deviceWallpaperFor">Set wallpaper for</string>
     <string name="array_pref_device_wallpaper_homescreen">Home screen</string>
@@ -769,7 +768,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Scanning enabled</string>
     <string name="duration_pref_dlg_duration_label">Duration:</string>
     <string name="duration_pref_dlg_activation_end_label">End activation:</string>
-    <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
     <string name="setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="action_for_external_application_notification_no_profile_text">Parameter profile_name is missing or empty.</string>
@@ -859,7 +857,6 @@
     <string name="duration_pref_dlg_activation_hours_label">Hours:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Minutes:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Seconds:</string>
-    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Please enable Location and Wi-Fi scanning in System Settings. Without this, Wi-fi scanning will not work.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Please enable Location and Bluetooth scanning in System Settings. Without this, Bluetooth scanning will not work.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Keep Wi-Fi on\" system setting</string>
@@ -1414,8 +1411,6 @@
     <string name="altype_profileError_setWallpaper">profile - error on set wallpaper</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">not granted Bluetooth permission</string>
     <string name="profile_preferences_volumeMuteSound">Mute sound</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
     <string name="phone_profiles_pref_category_background_scanning">Background scanning</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">These settings are for background scanning. It is useful when Time or Calendar event sensor not working good.\n\nIt is recommended not to enable this scanning when Location, Wi-Fi, Bluetooth, Orientation sensor is used in any event.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Enable background scanning</string>
@@ -1829,6 +1824,12 @@
 <!--    <string name="google_play_chooser">View Google Play using</string>-->
 <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
 <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
+
+<!--    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>-->
+<!--    <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>-->
+<!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
+<!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
+<!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
 
 </resources>
 

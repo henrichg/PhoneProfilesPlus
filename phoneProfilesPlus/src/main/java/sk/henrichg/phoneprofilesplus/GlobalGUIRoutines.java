@@ -378,7 +378,8 @@ class GlobalGUIRoutines {
 
     static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled,
                                          boolean bold, //boolean addBullet,
-                                         boolean underline, boolean errorColor, boolean systemSettings)
+                                         boolean underline, boolean errorColor,
+                                         @SuppressWarnings("SameParameterValue") boolean systemSettings)
     {
         if (preference != null) {
             CharSequence title = preference.getTitle();

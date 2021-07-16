@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
-import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
