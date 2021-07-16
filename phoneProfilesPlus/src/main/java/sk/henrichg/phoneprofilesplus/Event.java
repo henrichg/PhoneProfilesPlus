@@ -1350,6 +1350,12 @@ class Event {
                 description = description + "<li>" + desc + "</li>";
         }
 
+        if (_eventPreferencesSoundProfile._enabled) {
+            String desc = _eventPreferencesSoundProfile.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
         if (_eventPreferencesApplication._enabled) {
             String desc = _eventPreferencesApplication.getPreferencesDescription(true, addPassStatus, context);
             if (desc != null)
@@ -1376,12 +1382,6 @@ class Event {
 
         if (_eventPreferencesDeviceBoot._enabled) {
             String desc = _eventPreferencesDeviceBoot.getPreferencesDescription(true, addPassStatus, context);
-            if (desc != null)
-                description = description + "<li>" + desc + "</li>";
-        }
-
-        if (_eventPreferencesSoundProfile._enabled) {
-            String desc = _eventPreferencesSoundProfile.getPreferencesDescription(true, addPassStatus, context);
             if (desc != null)
                 description = description + "<li>" + desc + "</li>";
         }
