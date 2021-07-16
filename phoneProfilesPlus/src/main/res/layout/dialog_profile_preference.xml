@@ -48,6 +48,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:clipToPadding="false"
