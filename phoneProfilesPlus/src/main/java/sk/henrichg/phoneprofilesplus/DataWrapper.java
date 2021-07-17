@@ -855,7 +855,7 @@ public class DataWrapper {
 
                     ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
 
-                    Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color|1|0|0", 0);
+                    Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
                     _profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                     // first profile is restart events
                     shortcuts.add(createShortcutInfo(_profile, true));
