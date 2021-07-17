@@ -2,27 +2,25 @@
 <androidx.preference.PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:key="eventRadioSwitchCategory"
-    app:title="@string/event_preferences_category_eventRadioSwitchParameters" >
+    app:title="@string/event_preferences_category_eventSoundProfileParameters" >
 
     <SwitchPreferenceCompat
         app:key="eventSoundProfileEnabled"
         app:title="@string/event_preferences_enable_sensor"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/event_preferences_soundProfile_ringerMode"
-        app:summary="@string/array_pref_radioSwitch_notDetect"
-        app:key="eventSoundProfileRingerMode"
-        app:defaultValue="0"
+    <MultiSelectListPreference
+        app:title="@string/event_preferences_soundProfile_ringerModes"
+        app:key="eventSoundProfileRingerModes"
+        app:defaultValue="@array/emptyArray"
         app:entries="@array/eventSoundProfileRingerModeArray"
         app:entryValues="@array/eventSoundProfileRingerModeValues"
         app:dependency="eventSoundProfileEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/event_preferences_soundProfile_zenMode"
-        app:summary="@string/array_pref_radioSwitch_notDetect"
-        app:key="eventSoundProfileZenMode"
-        app:defaultValue="0"
+    <MultiSelectListPreference
+        app:title="@string/event_preferences_soundProfile_zenModes"
+        app:key="eventSoundProfileZenModes"
+        app:defaultValue="@array/emptyArray"
         app:entries="@array/eventSoundProfileZenModeArray"
         app:entryValues="@array/eventSoundProfileZenModeValues"
         app:dependency="eventSoundProfileEnabled"

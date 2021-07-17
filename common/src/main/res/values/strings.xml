@@ -1743,24 +1743,23 @@
 
     <string name="activity_log_help_close">Close</string>
 
-    <string name="event_preference_sensor_soundProfile_summary">This sensor will start an event by switching Ringer mode or \"Do not disturb\" type. Parameters: Ringer mode, \"Do not disturb\" type.</string>
-    <string name="event_type_soundProfile">Sound mode</string>
-    <string name="event_preferences_soundProfile_ringerMode">Ringer mode</string>
-    <string name="event_preferences_soundProfile_zenMode">\"Do not disturb\" type</string>
+    <string name="event_preference_sensor_soundProfile_summary">This sensor will start an event by switching Sound modes or \"Do not disturb\" types. Parameters: Sound modes, \"Do not disturb\" types.</string>
+    <string name="event_type_soundProfile">Sound profile</string>
+    <string name="event_preferences_soundProfile_ringerModes">Sound modes</string>
+    <string name="event_preferences_soundProfile_zenModes">\"Do not disturb\" types</string>
 
-    <string name="array_pref_event_ringerMode_notDetect">Don\'t detect</string>
     <string name="array_pref_event_ringerMode_ring">Sound</string>
     <string name="array_pref_event_ringerMode_vibrate">Vibration</string>
     <string name="array_pref_event_ringerMode_silent">Silent</string>
     <string name="array_pref_event_ringerMode_zenMode">Do not disturb</string>
 
-    <string name="array_pref_event_zenMode_notDetect">Don\'t detect</string>
     <string name="array_pref_event_zenMode_all">Off</string>
     <string name="array_pref_event_zenMode_priority">Priority</string>
     <string name="array_pref_event_ringerMode_alarm">Alarms only</string>
     <string name="array_pref_event_ringerMode_none">Total silence</string>
     <string name="array_pref_event_zenMode_all_and_vibrate">Off with vibration</string>
     <string name="array_pref_event_zenMode_priority_and_vibrate">Priority with vibration</string>
+
     <string name="event_preferences_category_eventSoundProfileParameters">Sound profile sensor</string>
 
     <!-- **************************************************************************************** -->

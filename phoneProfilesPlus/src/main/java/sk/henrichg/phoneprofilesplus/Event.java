@@ -400,7 +400,7 @@ class Event {
 
     private void createEventPreferencesSoundProfile()
     {
-        this._eventPreferencesSoundProfile = new EventPreferencesSoundProfile(this, false, 0, 0);
+        this._eventPreferencesSoundProfile = new EventPreferencesSoundProfile(this, false, "", "");
     }
 
     void createEventPreferences()

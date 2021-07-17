@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2465;
+    private static final int DATABASE_VERSION = 2466;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -371,8 +371,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_SMS_FOR_SIM_CARD = "smsForSIMCard";
     private static final String KEY_E_MOBILE_CELLS_FOR_SIM_CARD = "mobileCellsForSIMCard";
     private static final String KEY_E_SOUND_PROFILE_ENABLED = "soundProfileEnabled";
-    private static final String KEY_E_SOUND_PROFILE_RINGER_MODE = "soundProfileRingerMode";
-    private static final String KEY_E_SOUND_PROFILE_ZEN_MODE = "soundProfileZenMode";
+    private static final String KEY_E_SOUND_PROFILE_RINGER_MODES = "soundProfileRingerModes";
+    private static final String KEY_E_SOUND_PROFILE_ZEN_MODES = "soundProfileZenModes";
     private static final String KEY_E_SOUND_PROFILE_SENSOR_PASSED = "soundProfileSensorPassed";
 
     // EventTimeLine Table Columns names
@@ -789,8 +789,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_SMS_FOR_SIM_CARD + " " + INTEGER_TYPE + ","
                 + KEY_E_MOBILE_CELLS_FOR_SIM_CARD + " " + INTEGER_TYPE + ","
                 + KEY_E_SOUND_PROFILE_ENABLED + " " + INTEGER_TYPE + ","
-                + KEY_E_SOUND_PROFILE_RINGER_MODE + " " + INTEGER_TYPE + ","
-                + KEY_E_SOUND_PROFILE_ZEN_MODE + " " + INTEGER_TYPE + ","
+                + KEY_E_SOUND_PROFILE_RINGER_MODES + " " + TEXT_TYPE + ","
+                + KEY_E_SOUND_PROFILE_ZEN_MODES + " " + TEXT_TYPE + ","
                 + KEY_E_SOUND_PROFILE_SENSOR_PASSED + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
@@ -1230,8 +1230,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_SMS_FOR_SIM_CARD, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_MOBILE_CELLS_FOR_SIM_CARD, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_SOUND_PROFILE_ENABLED, INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, KEY_E_SOUND_PROFILE_RINGER_MODE, INTEGER_TYPE, columns);
-                createColumnWhenNotExists(db, table, KEY_E_SOUND_PROFILE_ZEN_MODE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SOUND_PROFILE_RINGER_MODES, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_SOUND_PROFILE_ZEN_MODES, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_SOUND_PROFILE_SENSOR_PASSED, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
@@ -3355,11 +3355,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_FOR_SIM_CARD + "=0");
         }
 
-        if (oldVersion < 2465)
+        if (oldVersion < 2466)
         {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SOUND_PROFILE_ENABLED + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SOUND_PROFILE_RINGER_MODE + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SOUND_PROFILE_ZEN_MODE + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SOUND_PROFILE_RINGER_MODES + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SOUND_PROFILE_ZEN_MODES + "=\"\"");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SOUND_PROFILE_SENSOR_PASSED + "=0");
         }
 
@@ -6394,8 +6394,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private void getEventPreferencesSoundProfile(Event event, SQLiteDatabase db) {
         Cursor cursor = db.query(TABLE_EVENTS,
                 new String[]{KEY_E_SOUND_PROFILE_ENABLED,
-                        KEY_E_SOUND_PROFILE_RINGER_MODE,
-                        KEY_E_SOUND_PROFILE_ZEN_MODE,
+                        KEY_E_SOUND_PROFILE_RINGER_MODES,
+                        KEY_E_SOUND_PROFILE_ZEN_MODES,
                         KEY_E_SOUND_PROFILE_SENSOR_PASSED
                 },
                 KEY_E_ID + "=?",
@@ -6409,8 +6409,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 EventPreferencesSoundProfile eventPreferences = event._eventPreferencesSoundProfile;
 
                 eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndex(KEY_E_SOUND_PROFILE_ENABLED)) == 1);
-                eventPreferences._ringerMode = cursor.getInt(cursor.getColumnIndex(KEY_E_SOUND_PROFILE_RINGER_MODE));
-                eventPreferences._zenMode = cursor.getInt(cursor.getColumnIndex(KEY_E_SOUND_PROFILE_ZEN_MODE));
+                eventPreferences._ringerModes = cursor.getString(cursor.getColumnIndex(KEY_E_SOUND_PROFILE_RINGER_MODES));
+                eventPreferences._zenModes = cursor.getString(cursor.getColumnIndex(KEY_E_SOUND_PROFILE_ZEN_MODES));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_SOUND_PROFILE_SENSOR_PASSED)));
             }
             cursor.close();
@@ -6790,8 +6790,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         EventPreferencesSoundProfile eventPreferences = event._eventPreferencesSoundProfile;
 
         values.put(KEY_E_SOUND_PROFILE_ENABLED, (eventPreferences._enabled) ? 1 : 0);
-        values.put(KEY_E_SOUND_PROFILE_RINGER_MODE, eventPreferences._ringerMode);
-        values.put(KEY_E_SOUND_PROFILE_ZEN_MODE, eventPreferences._zenMode);
+        values.put(KEY_E_SOUND_PROFILE_RINGER_MODES, eventPreferences._ringerModes);
+        values.put(KEY_E_SOUND_PROFILE_ZEN_MODES, eventPreferences._zenModes);
         values.put(KEY_E_SOUND_PROFILE_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row

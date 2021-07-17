@@ -4,38 +4,41 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 class EventPreferencesSoundProfile extends EventPreferences {
 
-    int _ringerMode;
-    int _zenMode;
+    String _ringerModes;
+    String _zenModes;
 
     static final String PREF_EVENT_SOUND_PROFILE_ENABLED = "eventSoundProfileEnabled";
-    private static final String PREF_EVENT_SOUND_PROFILE_RINGER_MODE = "eventSoundProfileRingerMode";
-    private static final String PREF_EVENT_SOUND_PROFILE_ZEN_MODE = "eventSoundProfileZenMode";
+    private static final String PREF_EVENT_SOUND_PROFILE_RINGER_MODES = "eventSoundProfileRingerModes";
+    private static final String PREF_EVENT_SOUND_PROFILE_ZEN_MODES = "eventSoundProfileZenModes";
 
     private static final String PREF_EVENT_SOUND_PROFILE_CATEGORY = "eventSoundProfileCategoryRoot";
 
     EventPreferencesSoundProfile(Event event,
                                  boolean enabled,
-                                 int ringerMode,
-                                 int zenMode)
+                                 String ringerModes,
+                                 String zenModes)
     {
         super(event, enabled);
 
-        this._ringerMode = ringerMode;
-        this._zenMode = zenMode;
+        this._ringerModes = ringerModes;
+        this._zenModes = zenModes;
     }
 
     void copyPreferences(Event fromEvent)
     {
         this._enabled = fromEvent._eventPreferencesSoundProfile._enabled;
-        this._ringerMode = fromEvent._eventPreferencesSoundProfile._ringerMode;
-        this._zenMode = fromEvent._eventPreferencesSoundProfile._zenMode;
+        this._ringerModes = fromEvent._eventPreferencesSoundProfile._ringerModes;
+        this._zenModes = fromEvent._eventPreferencesSoundProfile._zenModes;
         this.setSensorPassed(fromEvent._eventPreferencesSoundProfile.getSensorPassed());
     }
 
@@ -43,18 +46,46 @@ class EventPreferencesSoundProfile extends EventPreferences {
     {
         Editor editor = preferences.edit();
         editor.putBoolean(PREF_EVENT_SOUND_PROFILE_ENABLED, _enabled);
-        editor.putString(PREF_EVENT_SOUND_PROFILE_RINGER_MODE, String.valueOf(this._ringerMode));
-        editor.putString(PREF_EVENT_SOUND_PROFILE_ZEN_MODE, String.valueOf(this._zenMode));
+
+        String[] splits = this._ringerModes.split("\\|");
+        Set<String> set = new HashSet<>(Arrays.asList(splits));
+        editor.putStringSet(PREF_EVENT_SOUND_PROFILE_RINGER_MODES, set);
+
+        splits = this._zenModes.split("\\|");
+        set = new HashSet<>(Arrays.asList(splits));
+        editor.putStringSet(PREF_EVENT_SOUND_PROFILE_ZEN_MODES, set);
+
         editor.apply();
     }
 
     void saveSharedPreferences(SharedPreferences preferences)
     {
         this._enabled = preferences.getBoolean(PREF_EVENT_SOUND_PROFILE_ENABLED, false);
-        this._ringerMode = Integer.parseInt(preferences.getString(PREF_EVENT_SOUND_PROFILE_RINGER_MODE, "0"));
-        this._zenMode = Integer.parseInt(preferences.getString(PREF_EVENT_SOUND_PROFILE_ZEN_MODE, "0"));
+
+        Set<String> set = preferences.getStringSet(PREF_EVENT_SOUND_PROFILE_RINGER_MODES, null);
+        StringBuilder values = new StringBuilder();
+        if (set != null) {
+            for (String s : set) {
+                if (values.length() > 0)
+                    values.append("|");
+                values.append(s);
+            }
+        }
+        this._ringerModes = values.toString();
+
+        set = preferences.getStringSet(PREF_EVENT_SOUND_PROFILE_ZEN_MODES, null);
+        values = new StringBuilder();
+        if (set != null) {
+            for (String s : set) {
+                if (values.length() > 0)
+                    values.append("|");
+                values.append(s);
+            }
+        }
+        this._zenModes = values.toString();
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
     {
         String descr = "";
@@ -70,21 +101,40 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     descr = descr + "</b> ";
                 }
 
-                boolean _addBullet = false;
-                if (this._ringerMode != 0) {
-                    descr = descr + context.getString(R.string.event_preferences_soundProfile_ringerMode) + ": ";
-                    String[] fields = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeArray);
-                    descr = descr + "<b>" + fields[this._ringerMode] + "</b>";
-                    _addBullet = true;
+                String selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                if (!this._ringerModes.isEmpty() && !this._ringerModes.equals("-")) {
+                    String[] splits = this._ringerModes.split("\\|");
+                    String[] sideValues = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeValues);
+                    String[] sideNames = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeArray);
+                    selectedValues = "";
+                    for (String s : splits) {
+                        int sideIdx = Arrays.asList(sideValues).indexOf(s);
+                        if (sideIdx != -1) {
+                            if (!selectedValues.isEmpty())
+                                selectedValues = selectedValues + ", ";
+                            selectedValues = selectedValues + sideNames[sideIdx];
+                        }
+                    }
                 }
+                descr = descr + context.getString(R.string.event_preferences_soundProfile_ringerModes) + ": <b>" + selectedValues + "</b>";
 
-                if (this._zenMode != 0) {
-                    if (_addBullet)
-                        descr = descr +  " • ";
-                    descr = descr + context.getString(R.string.event_preferences_soundProfile_zenMode) + ": ";
-                    String[] fields = context.getResources().getStringArray(R.array.eventSoundProfileZenModeArray);
-                    descr = descr + "<b>" + fields[this._zenMode] + "</b>";
+                selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                if (!this._zenModes.isEmpty() && !this._zenModes.equals("-")) {
+                    String[] splits = this._zenModes.split("\\|");
+                    String[] sideValues = context.getResources().getStringArray(R.array.eventSoundProfileZenModeValues);
+                    String[] sideNames = context.getResources().getStringArray(R.array.eventSoundProfileZenModeArray);
+                    selectedValues = "";
+                    for (String s : splits) {
+                        int sideIdx = Arrays.asList(sideValues).indexOf(s);
+                        if (sideIdx != -1) {
+                            if (!selectedValues.isEmpty())
+                                selectedValues = selectedValues + ", ";
+                            selectedValues = selectedValues + sideNames[sideIdx];
+                        }
+                    }
                 }
+                descr = descr + " • " + context.getString(R.string.event_preferences_soundProfile_zenModes) + ": <b>" + selectedValues + "</b>";
+
             }
         }
 
@@ -102,14 +152,12 @@ class EventPreferencesSoundProfile extends EventPreferences {
             }
         }
 
-        if (key.equals(PREF_EVENT_SOUND_PROFILE_RINGER_MODE) ||
-                key.equals(PREF_EVENT_SOUND_PROFILE_ZEN_MODE))
+        if (key.equals(PREF_EVENT_SOUND_PROFILE_RINGER_MODES) ||
+                key.equals(PREF_EVENT_SOUND_PROFILE_ZEN_MODES))
         {
-            ListPreference listPreference = prefMng.findPreference(key);
-            if (listPreference != null) {
-                int index = listPreference.findIndexOfValue(value);
-                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-                listPreference.setSummary(summary);
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                preference.setSummary(value);
             }
         }
 
@@ -118,43 +166,100 @@ class EventPreferencesSoundProfile extends EventPreferences {
         event._eventPreferencesSoundProfile.saveSharedPreferences(prefMng.getSharedPreferences());
         boolean isRunnable = event._eventPreferencesSoundProfile.isRunnable(context);
         boolean enabled = preferences.getBoolean(PREF_EVENT_SOUND_PROFILE_ENABLED, false);
-        ListPreference preference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_RINGER_MODE);
+
+        Preference preference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_RINGER_MODES);
         if (preference != null) {
-            int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, true, !isRunnable, false);
+            Set<String> set = prefMng.getSharedPreferences().getStringSet(PREF_EVENT_SOUND_PROFILE_RINGER_MODES, null);
+            StringBuilder sides = new StringBuilder();
+            if (set != null) {
+                for (String s : set) {
+                    if (sides.length() > 0)
+                        sides.append("|");
+                    sides.append(s);
+                }
+            }
+            boolean bold = sides.length() > 0;
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, true, !isRunnable, false);
         }
-        preference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_ZEN_MODE);
+        preference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_ZEN_MODES);
         if (preference != null) {
-            int index = preference.findIndexOfValue(preference.getValue());
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, index > 0, true, !isRunnable, false);
+            Set<String> set = prefMng.getSharedPreferences().getStringSet(PREF_EVENT_SOUND_PROFILE_ZEN_MODES, null);
+            StringBuilder sides = new StringBuilder();
+            if (set != null) {
+                for (String s : set) {
+                    if (sides.length() > 0)
+                        sides.append("|");
+                    sides.append(s);
+                }
+            }
+            boolean bold = sides.length() > 0;
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, bold, false, false, false);
         }
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences, Context context)
     {
         if (key.equals(PREF_EVENT_SOUND_PROFILE_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
             setSummary(prefMng, key, value ? "true": "false", context);
         }
-        if (key.equals(PREF_EVENT_SOUND_PROFILE_RINGER_MODE) ||
-            key.equals(PREF_EVENT_SOUND_PROFILE_ZEN_MODE))
-        {
-            setSummary(prefMng, key, preferences.getString(key, ""), context);
+
+        if (key.equals(PREF_EVENT_SOUND_PROFILE_RINGER_MODES)) {
+            Set<String> set = preferences.getStringSet(key, null);
+            String values = "";
+            if (set != null) {
+                String[] sValues = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeValues);
+                String[] sNames = context.getResources().getStringArray(R.array.eventSoundProfileRingerModeArray);
+                for (String s : set) {
+                    if (!s.isEmpty()) {
+                        if (!values.isEmpty())
+                            values = values + ", ";
+                        values = values + sNames[Arrays.asList(sValues).indexOf(s)];
+                    }
+                }
+                if (values.isEmpty())
+                    values = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+            }
+            else
+                values = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+            setSummary(prefMng, key, values, context);
         }
+        if (key.equals(PREF_EVENT_SOUND_PROFILE_ZEN_MODES)) {
+            Set<String> set = preferences.getStringSet(key, null);
+            String values = "";
+            if (set != null) {
+                String[] sValues = context.getResources().getStringArray(R.array.eventSoundProfileZenModeValues);
+                String[] sNames = context.getResources().getStringArray(R.array.eventSoundProfileZenModeArray);
+                for (String s : set) {
+                    if (!s.isEmpty()) {
+                        if (!values.isEmpty())
+                            values = values + ", ";
+                        values = values + sNames[Arrays.asList(sValues).indexOf(s)];
+                    }
+                }
+                if (values.isEmpty())
+                    values = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+            }
+            else
+                values = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+            setSummary(prefMng, key, values, context);
+        }
+
     }
 
     void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context)
     {
         setSummary(prefMng, PREF_EVENT_SOUND_PROFILE_ENABLED, preferences, context);
-        setSummary(prefMng, PREF_EVENT_SOUND_PROFILE_RINGER_MODE, preferences, context);
-        setSummary(prefMng, PREF_EVENT_SOUND_PROFILE_ZEN_MODE, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SOUND_PROFILE_RINGER_MODES, preferences, context);
+        setSummary(prefMng, PREF_EVENT_SOUND_PROFILE_ZEN_MODES, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(PREF_EVENT_SOUND_PROFILE_ENABLED, context);
         if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
             EventPreferencesSoundProfile tmp = new EventPreferencesSoundProfile(this._event, this._enabled,
-                    this._ringerMode, this._zenMode);
+                    this._ringerModes, this._zenModes);
             if (preferences != null)
                 tmp.saveSharedPreferences(preferences);
 
@@ -184,7 +289,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
 
         boolean runnable = super.isRunnable(context);
 
-        runnable = runnable && ((_ringerMode != 0) || (_zenMode != 0));
+        runnable = runnable && (!_ringerModes.isEmpty());
 
         return runnable;
     }
@@ -194,10 +299,10 @@ class EventPreferencesSoundProfile extends EventPreferences {
     {
         boolean enabled = Event.isEventPreferenceAllowed(PREF_EVENT_SOUND_PROFILE_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
 
-        Preference preference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_RINGER_MODE);
+        Preference preference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_RINGER_MODES);
         if (preference != null)
             preference.setEnabled(enabled);
-        preference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_ZEN_MODE);
+        preference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_ZEN_MODES);
         if (preference != null)
             preference.setEnabled(enabled);
     }

@@ -117,26 +117,26 @@ class EventPreferencesOrientation extends EventPreferences {
         this._enabled = preferences.getBoolean(PREF_EVENT_ORIENTATION_ENABLED, false);
 
         Set<String> set = preferences.getStringSet(PREF_EVENT_ORIENTATION_DISPLAY, null);
-        StringBuilder sides = new StringBuilder();
+        StringBuilder values = new StringBuilder();
         if (set != null) {
             for (String s : set) {
-                if (sides.length() > 0)
-                    sides.append("|");
-                sides.append(s);
+                if (values.length() > 0)
+                    values.append("|");
+                values.append(s);
             }
         }
-        this._display = sides.toString();
+        this._display = values.toString();
 
         set = preferences.getStringSet(PREF_EVENT_ORIENTATION_SIDES, null);
-        sides = new StringBuilder();
+        values = new StringBuilder();
         if (set != null) {
             for (String s : set) {
-                if (sides.length() > 0)
-                    sides.append("|");
-                sides.append(s);
+                if (values.length() > 0)
+                    values.append("|");
+                values.append(s);
             }
         }
-        this._sides = sides.toString();
+        this._sides = values.toString();
 
         this._distance = Integer.parseInt(preferences.getString(PREF_EVENT_ORIENTATION_DISTANCE, "0"));
 
@@ -170,39 +170,39 @@ class EventPreferencesOrientation extends EventPreferences {
                         descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 }
 
-                String selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                String selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                 if (!this._display.isEmpty() && !this._display.equals("-")) {
                     String[] splits = this._display.split("\\|");
                     String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationDisplayValues);
                     String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationDisplayArray);
-                    selectedSides = "";
+                    selectedValues = "";
                     for (String s : splits) {
                         int sideIdx = Arrays.asList(sideValues).indexOf(s);
                         if (sideIdx != -1) {
-                            if (!selectedSides.isEmpty())
-                                selectedSides = selectedSides + ", ";
-                            selectedSides = selectedSides + sideNames[sideIdx];
+                            if (!selectedValues.isEmpty())
+                                selectedValues = selectedValues + ", ";
+                            selectedValues = selectedValues + sideNames[sideIdx];
                         }
                     }
                 }
-                descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": <b>" + selectedSides + "</b>";
+                descr = descr + context.getString(R.string.event_preferences_orientation_display) + ": <b>" + selectedValues + "</b>";
 
                 //SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
 
                 if (PPApplication.magneticFieldSensor != null) {
-                    selectedSides = context.getString(R.string.applications_multiselect_summary_text_not_selected);
+                    selectedValues = context.getString(R.string.applications_multiselect_summary_text_not_selected);
                     if (!this._sides.isEmpty() && !this._sides.equals("-")) {
                         String[] splits = this._sides.split("\\|");
                         String[] sideValues = context.getResources().getStringArray(R.array.eventOrientationSidesValues);
                         String[] sideNames = context.getResources().getStringArray(R.array.eventOrientationSidesArray);
-                        selectedSides = "";
+                        selectedValues = "";
                         for (String s : splits) {
-                            if (!selectedSides.isEmpty())
-                                selectedSides = selectedSides + ", ";
-                            selectedSides = selectedSides + sideNames[Arrays.asList(sideValues).indexOf(s)];
+                            if (!selectedValues.isEmpty())
+                                selectedValues = selectedValues + ", ";
+                            selectedValues = selectedValues + sideNames[Arrays.asList(sideValues).indexOf(s)];
                         }
                     }
-                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_sides) + ": <b>" + selectedSides + "</b>";
+                    descr = descr + " • " + context.getString(R.string.event_preferences_orientation_sides) + ": <b>" + selectedValues + "</b>";
                 }
 
                 String[] distanceValues = context.getResources().getStringArray(R.array.eventOrientationDistanceTypeValues);
