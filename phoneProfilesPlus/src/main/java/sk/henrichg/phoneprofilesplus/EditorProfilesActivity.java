@@ -1311,6 +1311,12 @@ public class EditorProfilesActivity extends AppCompatActivity
             return true;
         }
 
+        if (itemId == R.id.menu_donation) {
+            intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
         else {
             return super.onOptionsItemSelected(item);
         }

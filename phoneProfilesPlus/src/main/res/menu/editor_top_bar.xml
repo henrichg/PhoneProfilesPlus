@@ -126,6 +126,11 @@
         android:orderInCategory="255"
         app:showAsAction="never" />
 
+    <item android:id="@+id/menu_donation"
+        android:title="@string/donation_activity_title"
+        android:orderInCategory="256"
+        app:showAsAction="never" />
+
     <item android:id="@+id/menu_debug"
         android:title="Debug"
         android:orderInCategory="260"
