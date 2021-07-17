@@ -127,7 +127,7 @@
         app:showAsAction="never" />
 
     <item android:id="@+id/menu_donation"
-        android:title="@string/donation_activity_title"
+        android:title="@string/about_application_donate_button"
         android:orderInCategory="256"
         app:showAsAction="never" />
 
