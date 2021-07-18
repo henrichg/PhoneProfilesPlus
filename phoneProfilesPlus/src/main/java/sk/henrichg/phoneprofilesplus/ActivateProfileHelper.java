@@ -6697,6 +6697,12 @@ class ActivateProfileHelper {
             editor.putInt(PREF_RINGER_MODE, mode);
             editor.apply();
             ApplicationPreferences.prefRingerMode = mode;
+
+            getRingerMode(context);
+            if (ApplicationPreferences.prefRingerMode != mode) {
+                EventsHandler eventsHandler = new EventsHandler(context);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SOUND_PROFILE);
+            }
         }
     }
 
@@ -6717,6 +6723,12 @@ class ActivateProfileHelper {
             editor.putInt(PREF_ZEN_MODE, mode);
             editor.apply();
             ApplicationPreferences.prefZenMode = mode;
+
+            getZenMode(context);
+            if (ApplicationPreferences.prefZenMode != mode) {
+                EventsHandler eventsHandler = new EventsHandler(context);
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SOUND_PROFILE);
+            }
         }
     }
 

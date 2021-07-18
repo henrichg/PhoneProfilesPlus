@@ -458,7 +458,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                         }
                     }
                     else {
-                        // type is not configured, check if system ringer mode is set to DND
+                        // dnd type is not configured, check if system ringer mode is set to DND
                         // dnd type is ignored in this situation
                         if (ApplicationPreferences.prefRingerMode == Profile.RINGERMODE_ZENMODE)
                             eventsHandler.soundProfilePassed = true;
