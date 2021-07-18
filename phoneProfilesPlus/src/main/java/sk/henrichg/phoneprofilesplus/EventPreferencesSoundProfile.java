@@ -362,18 +362,98 @@ class EventPreferencesSoundProfile extends EventPreferences {
                 eventsHandler.soundProfilePassed = true;
                 boolean tested = false;
 
-                /*
-                if (_airplaneMode != 0) {
+                boolean dndChecked = false;
+                if (!this._ringerModes.isEmpty() && !this._ringerModes.equals("-")) {
+                    String[] splits = this._ringerModes.split("\\|");
+                    String[] values = eventsHandler.context.getResources().getStringArray(R.array.eventSoundProfileRingerModeValues);
+                    for (String s : splits) {
+                        int idx = Arrays.asList(values).indexOf(s);
+                        if (idx != -1) {
+                            if (values[idx].equals(RINGER_MODE_DO_NOT_DISTURB_VALUE))
+                                dndChecked = true;
 
-                    boolean enabled = ActivateProfileHelper.isAirplaneMode(eventsHandler.context);
-                    //PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "airplaneModeState=" + enabled);
-                    tested = true;
-                    if (_airplaneMode == 1)
-                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
-                    else
-                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                            ActivateProfileHelper.getRingerMode(eventsHandler.context);
+                            // check ringer modes
+                            switch (values[idx]) {
+                                case "1":
+                                    // ring
+                                    eventsHandler.soundProfilePassed =
+                                            ApplicationPreferences.prefRingerMode == Profile.RINGERMODE_RING;
+                                    tested = true;
+                                    break;
+                                case "2":
+                                    // vibrate
+                                    eventsHandler.soundProfilePassed =
+                                            ApplicationPreferences.prefRingerMode == Profile.RINGERMODE_VIBRATE;
+                                    tested = true;
+                                    break;
+                                case "3":
+                                    // silent
+                                    eventsHandler.soundProfilePassed =
+                                            ApplicationPreferences.prefRingerMode == Profile.RINGERMODE_SILENT;
+                                    tested = true;
+                                    break;
+                                case "4":
+                                    // dnd
+                                    eventsHandler.soundProfilePassed =
+                                            ApplicationPreferences.prefRingerMode == Profile.RINGERMODE_ZENMODE;
+                                    tested = true;
+                                    break;
+                            }
+                        }
+                    }
                 }
-                */
+
+                if (dndChecked && !this._zenModes.isEmpty() && !this._zenModes.equals("-")) {
+                    String[] splits = this._zenModes.split("\\|");
+                    String[] values = eventsHandler.context.getResources().getStringArray(R.array.eventSoundProfileZenModeValues);
+                    for (String s : splits) {
+                        int idx = Arrays.asList(values).indexOf(s);
+                        if (idx != -1) {
+                            // check zen modes
+
+                            ActivateProfileHelper.getZenMode(eventsHandler.context);
+                            switch (values[idx]) {
+                                case "1":
+                                    // off
+                                    eventsHandler.soundProfilePassed =
+                                            ApplicationPreferences.prefZenMode == Profile.ZENMODE_ALL;
+                                    tested = true;
+                                    break;
+                                case "2":
+                                    // off with vibration
+                                    eventsHandler.soundProfilePassed =
+                                            ApplicationPreferences.prefZenMode == Profile.ZENMODE_ALL_AND_VIBRATE;
+                                    tested = true;
+                                    break;
+                                case "3":
+                                    // priority
+                                    eventsHandler.soundProfilePassed =
+                                            ApplicationPreferences.prefZenMode == Profile.ZENMODE_PRIORITY;
+                                    tested = true;
+                                    break;
+                                case "4":
+                                    // priority with vibration
+                                    eventsHandler.soundProfilePassed =
+                                            ApplicationPreferences.prefZenMode == Profile.ZENMODE_PRIORITY_AND_VIBRATE;
+                                    tested = true;
+                                    break;
+                                case "5":
+                                    // alarms only
+                                    eventsHandler.soundProfilePassed =
+                                            ApplicationPreferences.prefZenMode == Profile.ZENMODE_ALARMS;
+                                    tested = true;
+                                    break;
+                                case "6":
+                                    // total silence
+                                    eventsHandler.soundProfilePassed =
+                                            ApplicationPreferences.prefZenMode == Profile.ZENMODE_NONE;
+                                    tested = true;
+                                    break;
+                            }
+                        }
+                    }
+                }
 
                 eventsHandler.soundProfilePassed = eventsHandler.soundProfilePassed && tested;
 
