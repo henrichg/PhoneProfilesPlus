@@ -1734,7 +1734,7 @@
     <string name="activity_log_help_message_data_for">for</string>
     <string name="activity_log_help_message_data_profileName">Profile name. It may contains [M] (=manual activation) followed by end of duration in parentheses.</string>
     <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string>
-    <string name="activity_log_help_message_data_displayedInGUI">This inforamtion is also displayed in all GUI elements (application notification, Activator, Editor, widgets, …).</string>
+    <string name="activity_log_help_message_data_displayedInGUI">This information is also displayed in all GUI elements (application notification, Activator, Editor, widgets, …).</string>
 
     <string name="activity_log_help_message_data_otherProfileDataTypes">all others for profiles</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Profile name.</string>

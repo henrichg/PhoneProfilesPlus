@@ -509,7 +509,7 @@ public class EditorEventListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             _dataWrapper.fillEventList();
-            Log.e("EditorEventListFragment.LoadEventListAsyncTask","_dataWrapper.eventList.size()="+_dataWrapper.eventList.size());
+            //Log.e("EditorEventListFragment.LoadEventListAsyncTask","_dataWrapper.eventList.size()="+_dataWrapper.eventList.size());
 
             if ((_dataWrapper.eventList.size() == 0) && PPApplication.restoreFinished)
             {

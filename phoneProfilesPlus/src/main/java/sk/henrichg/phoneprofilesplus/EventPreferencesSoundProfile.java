@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
@@ -357,13 +358,18 @@ class EventPreferencesSoundProfile extends EventPreferences {
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
+            Log.e("EventPreferencesSoundProfile.doHandleEvent", "xxxx");
+
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
-                eventsHandler.soundProfilePassed = true;
-                boolean tested = false;
+                eventsHandler.soundProfilePassed = false;
+                //boolean tested = false;
 
                 boolean dndChecked = false;
                 if (!this._ringerModes.isEmpty() && !this._ringerModes.equals("-")) {
+                    ActivateProfileHelper.getRingerMode(eventsHandler.context);
+                    Log.e("EventPreferencesSoundProfile.doHandleEvent", "ApplicationPreferences.prefRingerMode="+ApplicationPreferences.prefRingerMode);
+
                     String[] splits = this._ringerModes.split("\\|");
                     String[] values = eventsHandler.context.getResources().getStringArray(R.array.eventSoundProfileRingerModeValues);
                     for (String s : splits) {
@@ -372,33 +378,33 @@ class EventPreferencesSoundProfile extends EventPreferences {
                             if (values[idx].equals(RINGER_MODE_DO_NOT_DISTURB_VALUE))
                                 dndChecked = true;
 
-                            ActivateProfileHelper.getRingerMode(eventsHandler.context);
+                            Log.e("EventPreferencesSoundProfile.doHandleEvent", "values[idx]="+values[idx]);
                             // check ringer modes
                             switch (values[idx]) {
                                 case "1":
                                     // ring
                                     if (ApplicationPreferences.prefRingerMode == Profile.RINGERMODE_RING)
                                         eventsHandler.soundProfilePassed = true;
-                                    tested = true;
+                                    //tested = true;
                                     break;
                                 case "2":
                                     // vibrate
                                     if (ApplicationPreferences.prefRingerMode == Profile.RINGERMODE_VIBRATE)
                                         eventsHandler.soundProfilePassed = true;
-                                    tested = true;
+                                    //tested = true;
                                     break;
                                 case "3":
                                     // silent
                                     if (ApplicationPreferences.prefRingerMode == Profile.RINGERMODE_SILENT)
                                         eventsHandler.soundProfilePassed = true;
-                                    tested = true;
+                                    //tested = true;
                                     break;
                                 /*
                                 case "4":
                                     // dnd - must be checked dnd type
                                     if (ApplicationPreferences.prefRingerMode == Profile.RINGERMODE_ZENMODE)
                                         eventsHandler.soundProfilePassed = true;
-                                    tested = true;
+                                    //tested = true;
                                     break;
                                 */
                             }
@@ -406,8 +412,12 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     }
                 }
 
-                if (dndChecked) {
+                if (dndChecked && (ApplicationPreferences.prefRingerMode == Profile.RINGERMODE_ZENMODE)) {
+                    // DND ringer mode is configured and current ringer mode is DND
                     if (!this._zenModes.isEmpty() && !this._zenModes.equals("-")) {
+                        ActivateProfileHelper.getZenMode(eventsHandler.context);
+                        Log.e("EventPreferencesSoundProfile.doHandleEvent", "ApplicationPreferences.prefZenMode="+ApplicationPreferences.prefZenMode);
+
                         String[] splits = this._zenModes.split("\\|");
                         String[] values = eventsHandler.context.getResources().getStringArray(R.array.eventSoundProfileZenModeValues);
                         for (String s : splits) {
@@ -415,43 +425,42 @@ class EventPreferencesSoundProfile extends EventPreferences {
                             if (idx != -1) {
                                 // check zen modes
 
-                                ActivateProfileHelper.getZenMode(eventsHandler.context);
                                 switch (values[idx]) {
                                     case "1":
                                         // off
                                         if (ApplicationPreferences.prefZenMode == Profile.ZENMODE_ALL)
                                             eventsHandler.soundProfilePassed = true;
-                                        tested = true;
+                                        //tested = true;
                                         break;
                                     case "2":
                                         // off with vibration
                                         if (ApplicationPreferences.prefZenMode == Profile.ZENMODE_ALL_AND_VIBRATE)
                                             eventsHandler.soundProfilePassed = true;
-                                        tested = true;
+                                        //tested = true;
                                         break;
                                     case "3":
                                         // priority
                                         if (ApplicationPreferences.prefZenMode == Profile.ZENMODE_PRIORITY)
                                             eventsHandler.soundProfilePassed = true;
-                                        tested = true;
+                                        //tested = true;
                                         break;
                                     case "4":
                                         // priority with vibration
                                         if (ApplicationPreferences.prefZenMode == Profile.ZENMODE_PRIORITY_AND_VIBRATE)
                                             eventsHandler.soundProfilePassed = true;
-                                        tested = true;
+                                        //tested = true;
                                         break;
                                     case "5":
                                         // alarms only
                                         if (ApplicationPreferences.prefZenMode == Profile.ZENMODE_ALARMS)
                                             eventsHandler.soundProfilePassed = true;
-                                        tested = true;
+                                        //tested = true;
                                         break;
                                     case "6":
                                         // total silence
                                         if (ApplicationPreferences.prefZenMode == Profile.ZENMODE_NONE)
                                             eventsHandler.soundProfilePassed = true;
-                                        tested = true;
+                                        //tested = true;
                                         break;
                                 }
                             }
@@ -460,13 +469,12 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     else {
                         // dnd type is not configured, check if system ringer mode is set to DND
                         // dnd type is ignored in this situation
-                        if (ApplicationPreferences.prefRingerMode == Profile.RINGERMODE_ZENMODE)
-                            eventsHandler.soundProfilePassed = true;
-                        tested = true;
+                        eventsHandler.soundProfilePassed = true;
+                        //tested = true;
                     }
                 }
 
-                eventsHandler.soundProfilePassed = eventsHandler.soundProfilePassed && tested;
+                //eventsHandler.soundProfilePassed = eventsHandler.soundProfilePassed && tested;
 
                 if (!eventsHandler.notAllowedSoundProfile) {
                     if (eventsHandler.soundProfilePassed)

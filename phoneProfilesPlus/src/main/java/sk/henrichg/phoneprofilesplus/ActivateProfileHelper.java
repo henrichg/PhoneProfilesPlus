@@ -6691,17 +6691,52 @@ class ActivateProfileHelper {
     }
     static void saveRingerMode(Context context, int mode)
     {
+        getRingerMode(context);
+
         synchronized (PPApplication.profileActivationMutex) {
-            //PPApplication.logE("ActivateProfileHelper.(s)saveRingerMode","mode="+mode);
+
+            int savedMode = ApplicationPreferences.prefRingerMode;
+
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(PREF_RINGER_MODE, mode);
             editor.apply();
             ApplicationPreferences.prefRingerMode = mode;
 
-            getRingerMode(context);
-            if (ApplicationPreferences.prefRingerMode != mode) {
-                EventsHandler eventsHandler = new EventsHandler(context);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SOUND_PROFILE);
+            if (savedMode != mode) {
+                Data workData = new Data.Builder()
+                        .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
+                        .build();
+
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG)
+                                .setInputData(workData)
+                                .setInitialDelay(5, TimeUnit.SECONDS)
+                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                .build();
+                try {
+                    if (PPApplication.getApplicationStarted(true)) {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
+                        if (workManager != null) {
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                                PPApplication.logE("[TEST BATTERY] PPNotificationListenerService.onNotificationRemoved", "for=" + MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+//
+//                            PPApplication.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+                            //workManager.enqueue(worker);
+                            workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                        }
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
             }
         }
     }
@@ -6717,17 +6752,53 @@ class ActivateProfileHelper {
     }
     static void saveZenMode(Context context, int mode)
     {
+        getZenMode(context);
+
         synchronized (PPApplication.profileActivationMutex) {
             //PPApplication.logE("ActivateProfileHelper.(s)saveZenMode","mode="+mode);
+
+            int savedMode = ApplicationPreferences.prefZenMode;
+
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
             editor.putInt(PREF_ZEN_MODE, mode);
             editor.apply();
             ApplicationPreferences.prefZenMode = mode;
 
-            getZenMode(context);
-            if (ApplicationPreferences.prefZenMode != mode) {
-                EventsHandler eventsHandler = new EventsHandler(context);
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SOUND_PROFILE);
+            if (savedMode != mode) {
+                Data workData = new Data.Builder()
+                        .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_SOUND_PROFILE)
+                        .build();
+
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG)
+                                .setInputData(workData)
+                                .setInitialDelay(5, TimeUnit.SECONDS)
+                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                .build();
+                try {
+                    if (PPApplication.getApplicationStarted(true)) {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
+                        if (workManager != null) {
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                                PPApplication.logE("[TEST BATTERY] PPNotificationListenerService.onNotificationRemoved", "for=" + MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+//
+//                            PPApplication.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+                            //workManager.enqueue(worker);
+                            workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                        }
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
             }
         }
     }
