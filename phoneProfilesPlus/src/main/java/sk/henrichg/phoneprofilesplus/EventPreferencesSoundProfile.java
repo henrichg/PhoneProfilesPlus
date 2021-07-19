@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.util.Log;
 
 import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
@@ -358,7 +357,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
-            Log.e("EventPreferencesSoundProfile.doHandleEvent", "xxxx");
+//            Log.e("EventPreferencesSoundProfile.doHandleEvent", "xxxx");
 
             int oldSensorPassed = getSensorPassed();
             if ((Event.isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) {
@@ -368,7 +367,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                 boolean dndChecked = false;
                 if (!this._ringerModes.isEmpty() && !this._ringerModes.equals("-")) {
                     ActivateProfileHelper.getRingerMode(eventsHandler.context);
-                    Log.e("EventPreferencesSoundProfile.doHandleEvent", "ApplicationPreferences.prefRingerMode="+ApplicationPreferences.prefRingerMode);
+//                    Log.e("EventPreferencesSoundProfile.doHandleEvent", "ApplicationPreferences.prefRingerMode="+ApplicationPreferences.prefRingerMode);
 
                     String[] splits = this._ringerModes.split("\\|");
                     String[] values = eventsHandler.context.getResources().getStringArray(R.array.eventSoundProfileRingerModeValues);
@@ -378,7 +377,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                             if (values[idx].equals(RINGER_MODE_DO_NOT_DISTURB_VALUE))
                                 dndChecked = true;
 
-                            Log.e("EventPreferencesSoundProfile.doHandleEvent", "values[idx]="+values[idx]);
+//                            Log.e("EventPreferencesSoundProfile.doHandleEvent", "values[idx]="+values[idx]);
                             // check ringer modes
                             switch (values[idx]) {
                                 case "1":
@@ -416,7 +415,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
                     // DND ringer mode is configured and current ringer mode is DND
                     if (!this._zenModes.isEmpty() && !this._zenModes.equals("-")) {
                         ActivateProfileHelper.getZenMode(eventsHandler.context);
-                        Log.e("EventPreferencesSoundProfile.doHandleEvent", "ApplicationPreferences.prefZenMode="+ApplicationPreferences.prefZenMode);
+//                        Log.e("EventPreferencesSoundProfile.doHandleEvent", "ApplicationPreferences.prefZenMode="+ApplicationPreferences.prefZenMode);
 
                         String[] splits = this._zenModes.split("\\|");
                         String[] values = eventsHandler.context.getResources().getStringArray(R.array.eventSoundProfileZenModeValues);

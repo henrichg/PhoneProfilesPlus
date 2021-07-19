@@ -1398,12 +1398,14 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false) == 1;
         boolean eventIsRunnable = event.isRunnable(appContext, false);
 
-//        if (event._name.equals("Nočný hovor")) {
-//            Log.e("------ EventsPrefsFragment.isRedTextNotificationRequired", "enabledSomeSensor="+enabledSomeSensor);
-//            Log.e("------ EventsPrefsFragment.isRedTextNotificationRequired", "grantedAllPermissions="+grantedAllPermissions);
-//            Log.e("------ EventsPrefsFragment.isRedTextNotificationRequired", "accessibilityEnabled="+accessibilityEnabled);
-//            Log.e("------ EventsPrefsFragment.isRedTextNotificationRequired", "eventIsRunnable="+eventIsRunnable);
-//        }
+        if (event._name.equals("Nočný hovor")) {
+            if ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable)) {
+                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "enabledSomeSensor=" + enabledSomeSensor);
+                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "grantedAllPermissions=" + grantedAllPermissions);
+                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "accessibilityEnabled=" + accessibilityEnabled);
+                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "eventIsRunnable=" + eventIsRunnable);
+            }
+        }
 
         return ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable));
     }
