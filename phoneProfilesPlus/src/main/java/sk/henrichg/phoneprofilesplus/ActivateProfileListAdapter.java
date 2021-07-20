@@ -242,9 +242,7 @@ class ActivateProfileListAdapter extends BaseAdapter
             if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList
                     && (position == 0)) {
                 if (ApplicationPreferences.applicationEditorPrefIndicator && (!applicationActivatorGridLayout)) {
-                    if (profile._preferencesIndicator != null) {
-                        holder.profileIndicator.setVisibility(View.GONE);
-                    }
+                    holder.profileIndicator.setVisibility(View.GONE);
                 }
             }
             else
