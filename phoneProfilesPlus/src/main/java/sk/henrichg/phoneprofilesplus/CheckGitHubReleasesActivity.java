@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -12,6 +13,7 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -70,10 +72,20 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
             message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
         }
 
+        boolean fdroidInstalled = false;
         View layout;
         LayoutInflater inflater = activity.getLayoutInflater();
-        if (store == R.id.menu_check_in_fdroid)
-            layout = inflater.inflate(R.layout.dialog_for_fdroid, null);
+        if (store == R.id.menu_check_in_fdroid) {
+            PackageManager pm = activity.getPackageManager();
+            try {
+                pm.getPackageInfo("org.fdroid.fdroid", PackageManager.GET_ACTIVITIES);
+                fdroidInstalled = true;
+            } catch (Exception ignored) {}
+            if (fdroidInstalled)
+                layout = inflater.inflate(R.layout.dialog_for_fdroid_app, null);
+            else
+                layout = inflater.inflate(R.layout.dialog_for_fdroid, null);
+        }
         else
         if (store == R.id.menu_check_in_galaxy_store)
             layout = inflater.inflate(R.layout.dialog_for_galaxy_store, null);
@@ -133,7 +145,7 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
 
-            text = layout.findViewById(R.id.dialog_for_fdroid_repository_with_ppp);
+            text = layout.findViewById(R.id.dialog_for_fdroid_repository_with_ppp_to_configure);
             str1 = activity.getString(R.string.check_releases_fdroid_repository_with_ppp);
             str2 = str1 + " " + PPApplication.FDROID_REPOSITORY_URL;
             sbt = new SpannableString(str2);
@@ -161,6 +173,37 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
             //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
             text.setText(sbt);
             text.setMovementMethod(LinkMovementMethod.getInstance());
+
+            text = layout.findViewById(R.id.dialog_for_fdroid_go_to_repository_with_ppp);
+            if (text != null) {
+                str1 = activity.getString(R.string.check_releases_fdroid_go_to_repository_with_ppp);
+                str2 = str1 + " " + PPApplication.FDROID_PPP_RELEASES_URL;
+                sbt = new SpannableString(str2);
+                sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        ds.setColor(ds.linkColor);    // you can use custom color
+                        ds.setUnderlineText(false);    // this remove the underline
+                    }
+
+                    @Override
+                    public void onClick(@NonNull View textView) {
+                        String url = PPApplication.FDROID_PPP_RELEASES_URL;
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(url));
+                        try {
+                            activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                        }
+                    }
+                };
+                sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+                text.setText(sbt);
+                text.setMovementMethod(LinkMovementMethod.getInstance());
+            }
         }
         else
         if (store == R.id.menu_check_in_amazon_appstore) {
@@ -207,14 +250,30 @@ public class CheckGitHubReleasesActivity extends AppCompatActivity {
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
         if (store == R.id.menu_check_in_fdroid) {
-            dialogBuilder.setPositiveButton(R.string.check_releases_go_to_fdroid, (dialog, which) -> {
-                String url = PPApplication.FDROID_PPP_RELEASES_URL;
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(url));
-                try {
-                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
+            final boolean _fdroidInstalled = fdroidInstalled;
+            int buttonRes = R.string.check_releases_go_to_fdroid;
+            if (fdroidInstalled)
+                buttonRes = R.string.check_releases_open_fdroid;
+            dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
+                if (_fdroidInstalled) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=sk.henrichg.phoneprofilesplus"));
+                    try {
+                        activity.startActivity(intent);
+                    } catch (Exception e) {
+                        //Log.e("CheckGitHubReleasesActivity.showDialog", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    }
+                }
+                else {
+                    String url = PPApplication.FDROID_PPP_RELEASES_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
                 }
                 if (!fromEditor)
                     activity.finish();

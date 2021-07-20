@@ -41,6 +41,17 @@
             android:text="@string/empty_string"
             android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/dialog_for_fdroid_go_to_repository_with_ppp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:text="@string/empty_string"
+            android:textSize="16sp" />
+
     </LinearLayout>
 
 </ScrollView>

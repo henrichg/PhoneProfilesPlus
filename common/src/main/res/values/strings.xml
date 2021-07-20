@@ -1762,6 +1762,9 @@
 
     <string name="event_preferences_category_eventSoundProfileParameters">Sound profile sensor</string>
 
+    <string name="check_releases_open_fdroid">Open F-Droid</string>
+    <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus in repository:</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
