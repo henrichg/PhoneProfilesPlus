@@ -5799,7 +5799,8 @@ public class PhoneProfilesService extends Service
         // Android 12:
         // The service provides a use case related to phone calls, navigation, or media playback,
         // as defined in the notification's category attribute.
-        notificationBuilder.setCategory(NotificationCompat.CATEGORY_CALL);
+        // Use CATEGORY_NAVIGATION to show notification in DND
+        notificationBuilder.setCategory(NotificationCompat.CATEGORY_NAVIGATION);
 
         notificationBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
