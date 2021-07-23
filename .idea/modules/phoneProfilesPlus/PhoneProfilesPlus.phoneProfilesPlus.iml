@@ -43,7 +43,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: ./phoneProfilesPlus/libs/sdk-v1.0.0.jar" level="project" />
     <orderEntry type="library" name="Gradle: ./phoneProfilesPlus/libs/slook_v1.4.0.jar" level="project" />
-    <orderEntry type="library" name="Gradle: ch.acra:acra-javacore:5.8.3" level="project" />
+    <orderEntry type="library" name="Gradle: ch.acra:acra-javacore:5.8.4" level="project" />
     <orderEntry type="library" name="Gradle: androidx.collection:collection:1.1.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-common:2.1.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-common:2.3.1" level="project" />
@@ -58,9 +58,9 @@
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.7" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.apps.dashclock:dashclock-api:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: androidx.multidex:multidex:2.0.1@aar" level="project" />
-    <orderEntry type="library" name="Gradle: ch.acra:acra-mail:5.8.3@aar" level="project" />
-    <orderEntry type="library" name="Gradle: ch.acra:acra-notification:5.8.3@aar" level="project" />
-    <orderEntry type="library" name="Gradle: ch.acra:acra-core:5.8.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: ch.acra:acra-mail:5.8.4@aar" level="project" />
+    <orderEntry type="library" name="Gradle: ch.acra:acra-notification:5.8.4@aar" level="project" />
+    <orderEntry type="library" name="Gradle: ch.acra:acra-core:5.8.4@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.material:material:1.4.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.viewpager2:viewpager2:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.preference:preference:1.1.1@aar" level="project" />

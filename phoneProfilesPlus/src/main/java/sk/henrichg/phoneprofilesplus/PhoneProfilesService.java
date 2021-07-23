@@ -284,9 +284,11 @@ public class PhoneProfilesService extends Service
         //LocalBroadcastManager.getInstance(this).registerReceiver(stopReceiver, new IntentFilter(ACTION_STOP));
         LocalBroadcastManager.getInstance(appContext).registerReceiver(commandReceiver, new IntentFilter(ACTION_COMMAND));
 
-        IntentFilter intentFilter5 = new IntentFilter();
-        intentFilter5.addAction(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
-        appContext.registerReceiver(PPApplication.startLauncherFromNotificationReceiver, intentFilter5);
+        if (Build.VERSION.SDK_INT < 31) {
+            IntentFilter intentFilter5 = new IntentFilter();
+            intentFilter5.addAction(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION);
+            appContext.registerReceiver(PPApplication.startLauncherFromNotificationReceiver, intentFilter5);
+        }
 
         //appContext.registerReceiver(PPApplication.showProfileNotificationBroadcastReceiver, new IntentFilter(PPApplication.ACTION_SHOW_PROFILE_NOTIFICATION));
         //appContext.registerReceiver(PPApplication.updateGUIBroadcastReceiver, new IntentFilter(PPApplication.ACTION_UPDATE_GUI));
@@ -427,10 +429,12 @@ public class PhoneProfilesService extends Service
         registerPPPPExtenderReceiver(false, null);
         unregisterEventsReceiversAndWorkers();
 
-        try {
-            appContext.unregisterReceiver(PPApplication.startLauncherFromNotificationReceiver);
-        } catch (Exception e) {
-            //PPApplication.recordException(e);
+        if (Build.VERSION.SDK_INT < 31) {
+            try {
+                appContext.unregisterReceiver(PPApplication.startLauncherFromNotificationReceiver);
+            } catch (Exception e) {
+                //PPApplication.recordException(e);
+            }
         }
         /*try {
             appContext.unregisterReceiver(PPApplication.showProfileNotificationBroadcastReceiver);
@@ -5402,12 +5406,16 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "show enabled");
 
         // intent to LauncherActivity, for click on notification
-        Intent launcherIntent = new Intent(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
-        //Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
-        // clear all opened activities
-        //launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
-        // setup startupSource
-        //launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+        Intent launcherIntent;
+        if (Build.VERSION.SDK_INT < 31) {
+            launcherIntent = new Intent(ACTION_START_LAUNCHER_FROM_NOTIFICATION);
+        } else {
+            launcherIntent = new Intent(appContext, LauncherActivity.class);
+            // clear all opened activities
+            launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
+            // setup startupSource
+            launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+        }
 
         Profile profile = null;
 
@@ -5757,8 +5765,11 @@ public class PhoneProfilesService extends Service
 //            PPApplication.logE("PhoneProfilesService._showProfileNotification", "iconBitmap=" + iconBitmap);
 //        }
 
-        PendingIntent pIntent = PendingIntent.getBroadcast(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        //PendingIntent pIntent = PendingIntent.getActivity(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pIntent;
+        if (Build.VERSION.SDK_INT < 31)
+            pIntent = PendingIntent.getBroadcast(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        else
+            pIntent = PendingIntent.getActivity(appContext, requestCode, launcherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // ----- create notificationBuilders
         if (Build.VERSION.SDK_INT >= 26) {
