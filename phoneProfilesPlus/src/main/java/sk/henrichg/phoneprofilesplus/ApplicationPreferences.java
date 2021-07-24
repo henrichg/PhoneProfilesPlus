@@ -208,6 +208,7 @@ class ApplicationPreferences {
     static String applicationApplicationInterfaceNotificationSound;
     static boolean applicationApplicationInterfaceNotificationVibrate;
     static boolean applicationActivatorAddRestartEventsIntoProfileList;
+    static boolean applicationActivatorIncreaseBrightness;
 
     static String applicationEventBackgroundScanningScanInTimeMultiply;
     static int applicationEventBackgroundScanningScanInTimeMultiplyFrom;
@@ -428,6 +429,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND = "applicationApplicationInterfaceNotificationSound";
     static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE = "applicationApplicationInterfaceNotificationVibrate";
     static final String PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST = "applicationActivatorAddRestartEventsIntoProfileList";
+    static final String PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS = "applicationActivatorIncreaseBrightness";
 
     static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventBackgroundScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventBackgroundScanningScanInTimeMultiplyFrom";
@@ -1214,6 +1216,10 @@ class ApplicationPreferences {
 
     static void applicationActivatorAddRestartEventsIntoProfileList(Context context) {
         applicationActivatorAddRestartEventsIntoProfileList = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST, false);
+    }
+
+    static void applicationActivatorIncreaseBrightness(Context context) {
+        applicationActivatorIncreaseBrightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS, false);
     }
 
 
