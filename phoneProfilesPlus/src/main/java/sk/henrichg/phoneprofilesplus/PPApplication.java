@@ -280,7 +280,7 @@ public class PPApplication extends Application
 
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
                                                 //+"|PhoneCallsListener"
-                                                //+"|PPPExtenderBroadcastReceiver"
+                                                +"|PPPExtenderBroadcastReceiver"
 
                                                 //+"|PhoneProfilesService.doSimulatingRingingCall"
                                                 //+"|PhoneProfilesService.startSimulatingRingingCall"
@@ -634,7 +634,8 @@ public class PPApplication extends Application
 
     static final int SCANNER_RESTART_ALL_SCANNERS = 50;
 
-    static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.PPPEAccessibilityService";
+    //static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.PPPEAccessibilityService";
+    static final String EXTENDER_ACCESSIBILITY_PACKAGE_NAME = "sk.henrichg.phoneprofilesplusextender";
 
     static final String ACTION_ACCESSIBILITY_SERVICE_CONNECTED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_CONNECTED";
     static final String ACTION_ACCESSIBILITY_SERVICE_UNBIND = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_UNBIND";
@@ -713,6 +714,8 @@ public class PPApplication extends Application
 
     static LockDeviceActivity lockDeviceActivity = null;
     static int screenTimeoutBeforeDeviceLock = 0;
+
+    static boolean accessibilityServiceForPPPExtenderConnected = false;
 
     //boolean willBeDoRestartEvents = false;
 
