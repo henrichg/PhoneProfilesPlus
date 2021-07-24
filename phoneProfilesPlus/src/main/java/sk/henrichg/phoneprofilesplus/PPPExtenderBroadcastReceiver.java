@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
-import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 
 import java.util.List;
@@ -52,10 +51,11 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         if ((intent == null) || (intent.getAction() == null))
             return;
 
-//        PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "action="+intent.getAction());
+        PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "action="+intent.getAction());
 
         switch (intent.getAction()) {
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
+                PPApplication.accessibilityServiceForPPPExtenderConnected = true;
                 PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
                 final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 __handler0.post(new PPApplication.PPHandlerThreadRunnable(
@@ -173,6 +173,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:
                 //PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_UNBIND");
+                PPApplication.accessibilityServiceForPPPExtenderConnected = false;
 
                 setApplicationInForeground(appContext, "");
 
@@ -421,15 +422,27 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         AccessibilityManager manager = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
         if (manager != null) {
             List<AccessibilityServiceInfo> runningServices =
-                    manager.getEnabledAccessibilityServiceList(AccessibilityEvent.TYPES_ALL_MASK);
+                    manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
 
             for (AccessibilityServiceInfo service : runningServices) {
                 if (service != null) {
                     //PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "serviceId=" + service.getId());
-                    if (PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_ID.equals(service.getId())) {
-                        //PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "true");
-                        return true;
-                    }
+                    try {
+                        if (service.getId().contains(PPApplication.EXTENDER_ACCESSIBILITY_PACKAGE_NAME)) {
+                            //PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "true");
+                            return true;
+                        }
+/*
+                        if (service.packageNames != null) {
+                            for (String packageName : service.packageNames) {
+                                if (PPApplication.EXTENDER_ACCESSIBILITY_PACKAGE_NAME.equals(packageName)) {
+                                    //PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "true");
+                                    return true;
+                                }
+                            }
+                        }
+ */
+                    } catch (Exception ignored) {}
                 }
             }
             //PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "false");
