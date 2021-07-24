@@ -55,7 +55,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
         switch (intent.getAction()) {
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
-                PPApplication.accessibilityServiceForPPPExtenderConnected = true;
+                //PPApplication.accessibilityServiceForPPPExtenderConnected = true;
                 PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
                 final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 __handler0.post(new PPApplication.PPHandlerThreadRunnable(
@@ -173,7 +173,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:
                 //PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_UNBIND");
-                PPApplication.accessibilityServiceForPPPExtenderConnected = false;
+                //PPApplication.accessibilityServiceForPPPExtenderConnected = false;
 
                 setApplicationInForeground(appContext, "");
 

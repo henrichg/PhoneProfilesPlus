@@ -715,7 +715,7 @@ public class PPApplication extends Application
     static LockDeviceActivity lockDeviceActivity = null;
     static int screenTimeoutBeforeDeviceLock = 0;
 
-    static boolean accessibilityServiceForPPPExtenderConnected = false;
+    //static boolean accessibilityServiceForPPPExtenderConnected = false;
 
     //boolean willBeDoRestartEvents = false;
 
