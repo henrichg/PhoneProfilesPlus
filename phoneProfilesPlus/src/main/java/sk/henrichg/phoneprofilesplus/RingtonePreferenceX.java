@@ -499,6 +499,10 @@ public class RingtonePreferenceX extends DialogPreference {
 
                         defaultRingtone = RingtoneManager.getRingtone(prefContext, uri);*/
 
+                if (preference.showSilent) {
+                    _toneList.put("", prefContext.getString(R.string.ringtone_preference_none));
+                }
+
                 Ringtone _ringtone;
                 boolean typeIsSet = false;
 
@@ -548,10 +552,6 @@ public class RingtonePreferenceX extends DialogPreference {
                             _toneList.put(Settings.System.DEFAULT_ALARM_ALERT_URI.toString(), ringtoneName);
                         }
                         break;
-                }
-
-                if (preference.showSilent) {
-                    _toneList.put("", prefContext.getString(R.string.ringtone_preference_none));
                 }
 
                 if (typeIsSet) {
