@@ -3212,7 +3212,7 @@ class Event {
                     mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                 //}
 
-                // Android 12 - this do nit starts activity - OK
+                // Android 12 - this do not starts activity - OK
                 Intent deleteIntent = new Intent(StartEventNotificationDeletedReceiver.START_EVENT_NOTIFICATION_DELETED_ACTION);
                 deleteIntent.putExtra(PPApplication.EXTRA_EVENT_ID, _id);
                 PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, (int) _id, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
