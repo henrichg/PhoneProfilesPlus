@@ -730,7 +730,7 @@ public class PPApplication extends Application
     static final SamsungEdgeProvider edgePanelBroadcastReceiver = new SamsungEdgeProvider();
 
     static TimeChangedReceiver timeChangedReceiver = null;
-    static PermissionsNotificationDeletedReceiver permissionsNotificationDeletedReceiver = null;
+    //static PermissionsNotificationDeletedReceiver permissionsNotificationDeletedReceiver = null;
     static StartEventNotificationDeletedReceiver startEventNotificationDeletedReceiver = null;
     static NotUsedMobileCellsNotificationDeletedReceiver notUsedMobileCellsNotificationDeletedReceiver = null;
     static ShutdownBroadcastReceiver shutdownBroadcastReceiver = null;

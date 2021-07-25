@@ -209,6 +209,7 @@ public class MobileCellsRegistrationService extends Service {
                 .setAutoCancel(true); // clear notification after click
 
         if (millisUntilFinished > 0) {
+            // Android 12 - this do nit starts activity - OK
             Intent stopRegistrationIntent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
             PendingIntent stopRegistrationPendingIntent = PendingIntent.getBroadcast(context, 0, stopRegistrationIntent, 0);
             mBuilder.addAction(R.drawable.ic_action_stop_white,
