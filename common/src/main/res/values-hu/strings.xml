@@ -543,7 +543,6 @@
     <string name="about_application_source_code">Forráskód:</string>
     <string name="about_application_translations">Fordítások:</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Ne zavarjanak mód</string>
-    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Keresse a meg a \"PhoneProfilesPlus\"-t a következő alkalmazáslistából, és engedélyezze.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Adja a PhoneProfilesPlus-t a \"Nem optimalizált\" alkalmazásokhoz, ha a profil aktiválása során problémákat tapasztal.</string>
     <string name="profile_preferences_deviceWallpaperFor">Háttérképként</string>
     <string name="array_pref_device_wallpaper_homescreen">Főképernyő</string>
@@ -763,7 +762,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Keresés engedélyezve</string>
     <string name="duration_pref_dlg_duration_label">Időtartam:</string>
     <string name="duration_pref_dlg_activation_end_label">Aktiválás vége:</string>
-    <string name="important_info_profile_zenModeM">\"Ne zavarj\" profil \"Csengő mód\" - ban szükség van, a PhoneProfilesPlus a \"Értesítések hozzáférés\"-hez a rendszer beállításaiban. Kattintson ide, és engedélyezze a PhoneProfilesPlus-t.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6 a rendszer beállítás módosítható, csak a Root -olt eszköznél. Érintett csengetési mód, és nem zavarj típus rezgéssel.</string>
     <string name="setting_screen_not_found_alert">A beállítás képernyő nem található.</string>
     <string name="action_for_external_application_notification_no_profile_text">Paraméter profile_name nem található vagy üres.</string>
@@ -853,7 +851,6 @@
     <string name="duration_pref_dlg_activation_hours_label">Órák:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Percek:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Másodpercek:</string>
-    <string name="preferences_durationNotificationSoundInfo_summary">Ezt az értesítés a média csatornát használja. Ezért a média hangerőt használja.</string>
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Kérem, engedélyezze a helyzet és a Wi-Fi keresést rendszer beállításaiban. E nélkül, a Wi-Fi keresés nem működik.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Kérjük, engedélyezze a helyzet és Bluetooth keresés rendszer beállításait. E nélkül a Bluetooth, keresés nem működik.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Tartsd Wi-Fi-t bekapcsolva\" Rendszerbeállítás</string>
@@ -1401,8 +1398,6 @@
     <string name="altype_profileError_setWallpaper">profil - hiba a háttérkép beállításánál</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">a Bluetooth nem engedélyezett</string>
     <string name="profile_preferences_volumeMuteSound">Hang elnémítása</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>
     <string name="phone_profiles_pref_category_background_scanning">Háttérben futó szkennelés</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Ezek a beállítások a háttérben futó szkennelésekhez tartoznak. Akkor hasznosak, ha az idő, vagy naptár esemény szenzorok nem működnek megfelelően.\n\nNem javasolt az engedélyezésük, ha a Hely, Wi-Fi, Bluetooth, vagy Pozíció érzékelők bármely eseményben használatban vannak.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Háttérben futó szkennelés engedélyezése</string>
@@ -1716,6 +1711,37 @@
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Location scan interval</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Orientation scan interval</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Wi-Fi scan interval</string>
+    <string name="menu_activity_log_help">Help</string>
+    <string name="activity_log_help_title">Help for Activity log</string>
+    <string name="activity_log_help_message">What is displayed in columns</string>
+    <string name="activity_log_help_message_mergedProfileActivation">X is the number of activated profiles, Y is the number of events that activated the profiles.</string>
+    <string name="activity_log_help_message_data_for">for</string>
+    <string name="activity_log_help_message_data_profileName">Profile name. It may contains [M] (=manual activation) followed by end of duration in parentheses.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string>
+    <string name="activity_log_help_message_data_displayedInGUI">This information is also displayed in all GUI elements (application notification, Activator, Editor, widgets, …).</string>
+    <string name="activity_log_help_message_data_otherProfileDataTypes">all others for profiles</string>
+    <string name="activity_log_help_message_data_profileName_otherDataTypes">Profile name.</string>
+    <string name="activity_log_help_message_data_otherEventDataTypes">all others for events</string>
+    <string name="activity_log_help_message_data_eventName_otherDataTypes">Event name.</string>
+    <string name="activity_log_help_close">Close</string>
+    <string name="event_preference_sensor_soundProfile_summary">This sensor will start an event by switching Sound modes or \"Do not disturb\" types. Parameters: Sound modes, \"Do not disturb\" types.</string>
+    <string name="event_type_soundProfile">Sound profile</string>
+    <string name="event_preferences_soundProfile_ringerModes">Sound modes</string>
+    <string name="event_preferences_soundProfile_zenModes">\"Do not disturb\" types</string>
+    <string name="array_pref_event_ringerMode_ring">Sound</string>
+    <string name="array_pref_event_ringerMode_vibrate">Vibration</string>
+    <string name="array_pref_event_ringerMode_silent">Silent</string>
+    <string name="array_pref_event_ringerMode_zenMode">Do not disturb</string>
+    <string name="array_pref_event_zenMode_all">Off</string>
+    <string name="array_pref_event_zenMode_priority">Priority</string>
+    <string name="array_pref_event_ringerMode_alarm">Alarms only</string>
+    <string name="array_pref_event_ringerMode_none">Total silence</string>
+    <string name="array_pref_event_zenMode_all_and_vibrate">Off with vibration</string>
+    <string name="array_pref_event_zenMode_priority_and_vibrate">Priority with vibration</string>
+    <string name="event_preferences_category_eventSoundProfileParameters">Sound profile sensor</string>
+    <string name="check_releases_open_fdroid">Open F-Droid</string>
+    <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus in repository:</string>
+    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Increase brightness</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>
@@ -1767,4 +1793,9 @@
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
     <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
+    <!--    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>-->
+    <!--    <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>-->
+    <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
+    <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
 </resources>

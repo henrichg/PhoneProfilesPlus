@@ -543,7 +543,6 @@
     <string name="about_application_source_code">Codice sorgente:</string>
     <string name="about_application_translations">Traduzioni:</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Accesso non disturbare</string>
-    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Si prega di cercare l\'applicazione \"PhoneProfilePlus\" e attivarla.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Aggiungere PhoneProfilePlus a \"Non ottimizzato\", quando si incontrano problemi con l\'attivazione di profili dagli eventi, se si lascia il dispositivo scollegato e non in uso per un periodo di tempo, con lo schermo spento.</string>
     <string name="profile_preferences_deviceWallpaperFor">Imposta sfondo per</string>
     <string name="array_pref_device_wallpaper_homescreen">Schermata iniziale</string>
@@ -763,7 +762,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Scansione abilitata</string>
     <string name="duration_pref_dlg_duration_label">Durata:</string>
     <string name="duration_pref_dlg_activation_end_label">Fine attivazione:</string>
-    <string name="important_info_profile_zenModeM">\"Non disturbare\" nel profilo \"Modalità sonoro\" richiede di abilitare PhoneProfilesPlus nelle impostazioni di sistema \"Accesso notifica\". Clicca qui ed abilita.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6 questa impostazione di sistema può essere modificata solo su dispositivi di cui si hanno i privilegi di ROOT. Influisce sulla suoneria e sui tipi \"non disturbare\" con vibrazione.</string>
     <string name="setting_screen_not_found_alert">Schermata impostazioni non trovata.</string>
     <string name="action_for_external_application_notification_no_profile_text">Il parametro profile_name è mancante o vuoto.</string>
@@ -854,7 +852,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="duration_pref_dlg_activation_hours_label">Ore:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Minuti:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Secondi:</string>
-    <string name="preferences_durationNotificationSoundInfo_summary">Questa notifica utilizza il canale per la riproduzione audio. Pertanto utilizza il volume della riproduzione audio.</string>
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Si prega di abilitare la scansione di Posizione e Wi-Fi nelle impostazioni di sistema. Senza queste, la scansione Wi-Fi, non può funzionare.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Si prega di abilitare la scansione di Posizione e Bluetooth nelle impostazioni di sistema. Senza queste, la scansione Bluetooth, non può funzionare.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Impostazione di sistema \"Mantenere attivo il Wi-Fi\"</string>
@@ -1402,8 +1399,6 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="altype_profileError_setWallpaper">profilo - errore nell\'impostazione dello sfondo</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">autorizzazione Bluetooth non concessa</string>
     <string name="profile_preferences_volumeMuteSound">Silenzia suono</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">Per abilitare i parametri del profilo \"Non disturbare\", consentire a PhoneProfilesPlus \"Accesso alle notifiche\" nelle impostazioni di sistema.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">Per abilitare il parametro del profilo \"\"Non disturbare\", consentire a PhoneProfilesPlus \"Accesso alle notifiche\" nelle impostazioni di sistema. Clicca qui per abilitarlo.</string>
     <string name="phone_profiles_pref_category_background_scanning">Scansione in background</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Queste impostazioni sono per la scansione in background. È utile quando il sensore di eventi di tempo o di calendario non funziona bene.\n\n Si consiglia di non abilitare questa scansione quando posizione, Wi-Fi, Bluetooth, sensore di orientamento sono utilizzati in ogni evento.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Abilita scansione in background</string>
@@ -1717,6 +1712,37 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Intervallo di scansione della posizione</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Intervallo della scansione dell\'orientamento</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Intervallo della scansione Wi-Fi</string>
+    <string name="menu_activity_log_help">Aiuto</string>
+    <string name="activity_log_help_title">Aiuto per il registro Attività</string>
+    <string name="activity_log_help_message">Cosa è mostrato nelle colonne</string>
+    <string name="activity_log_help_message_mergedProfileActivation">X è il numero di profili attivati, Y è il numero di eventi che hanno attivato i profili.</string>
+    <string name="activity_log_help_message_data_for">per</string>
+    <string name="activity_log_help_message_data_profileName">Nome del profilo. Potrebbe contenere [M] (=attivazione manuale) seguito dalla fine della durata tra parentesi.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Nome del profilo [nome evento]. Il nome del profilo è l\'ultimo profilo attivato e il nome dell\'evento è l\'ultimo evento avviato.</string>
+    <string name="activity_log_help_message_data_displayedInGUI">Quest\'informazione è mostrata anche in tutti gli elementi della GUI (notifica dell\'applicazione, Attivatore, Editor, widget, …).</string>
+    <string name="activity_log_help_message_data_otherProfileDataTypes">tutti gli altri per i profili</string>
+    <string name="activity_log_help_message_data_profileName_otherDataTypes">Nome del profilo.</string>
+    <string name="activity_log_help_message_data_otherEventDataTypes">tutti gli altri per gli eventi</string>
+    <string name="activity_log_help_message_data_eventName_otherDataTypes">Nome dell\'evento.</string>
+    <string name="activity_log_help_close">Chiudi</string>
+    <string name="event_preference_sensor_soundProfile_summary">Questo sensore avvierà un evento cambiando le modalità Suono o i tipi \"Non Disturbare\". Parametri: Modalità Suono, tipi \"Non Disturbare\".</string>
+    <string name="event_type_soundProfile">Profilo sonoro</string>
+    <string name="event_preferences_soundProfile_ringerModes">Modalità sonore</string>
+    <string name="event_preferences_soundProfile_zenModes">Tipi \"Non Disturbare\"</string>
+    <string name="array_pref_event_ringerMode_ring">Suono</string>
+    <string name="array_pref_event_ringerMode_vibrate">Vibrazione</string>
+    <string name="array_pref_event_ringerMode_silent">Silenzioso</string>
+    <string name="array_pref_event_ringerMode_zenMode">Non disturbare</string>
+    <string name="array_pref_event_zenMode_all">Spento</string>
+    <string name="array_pref_event_zenMode_priority">Priorità</string>
+    <string name="array_pref_event_ringerMode_alarm">Solo sveglie</string>
+    <string name="array_pref_event_ringerMode_none">Silenzio totale</string>
+    <string name="array_pref_event_zenMode_all_and_vibrate">Disattivato con vibrazione</string>
+    <string name="array_pref_event_zenMode_priority_and_vibrate">Priorità con vibrazione</string>
+    <string name="event_preferences_category_eventSoundProfileParameters">Sensore del profilo sonoro</string>
+    <string name="check_releases_open_fdroid">Apri F-Droid</string>
+    <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus nella repository:</string>
+    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Increase brightness</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>
@@ -1768,4 +1794,9 @@ WRITE_SECURE_SETTINGS. Non è richiesto il ROOT. Queste preferenze sono contrass
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
     <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
+    <!--    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>-->
+    <!--    <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>-->
+    <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
+    <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
 </resources>

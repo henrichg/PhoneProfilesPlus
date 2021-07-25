@@ -3,10 +3,10 @@
 <!--suppress XmlUnusedNamespaceDeclaration -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <!--suppress CheckTagEmptyBody -->
-    <string name="menu_edit_profiles">Editor</string>
-    <string name="menu_settings">Instellingen</string>
+    <string name="menu_edit_profiles">Bewerker</string>
+    <string name="menu_settings">Opties</string>
     <string name="title_activity_phone_profiles">PhoneProfilesPlus</string>
-    <string name="title_activity_profile_preferences">Profielvoorkeuren</string>
+    <string name="title_activity_profile_preferences">Profiel voorkeuren</string>
     <string name="title_activity_event_preferences">Eventvoorkeuren</string>
     <string name="menu_new_profile">Nieuw profiel</string>
     <string name="menu_delete_all_profiles">Verwijder alle profielen</string>
@@ -543,7 +543,6 @@
     <string name="about_application_source_code">Broncode:</string>
     <string name="about_application_translations">Vertalingen:</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Toegang niet storen</string>
-    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Zoek naar \"PhoneProfilesPlus\" programma en schakel die in.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Voeg PhoneProfilesPlus toe aan \"Niet geoptimaliseerd\" bij accuinstellingen wanneer u problemen heeft met het activeren van een event. Dit komt voor als het apparaat een tijdje losgekoppeld ligt met het scherm uit.</string>
     <string name="profile_preferences_deviceWallpaperFor">Stel achtergrond in</string>
     <string name="array_pref_device_wallpaper_homescreen">Beginscherm</string>
@@ -763,7 +762,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Scannen ingeschakeld</string>
     <string name="duration_pref_dlg_duration_label">Tijdsduur:</string>
     <string name="duration_pref_dlg_activation_end_label">Einde van activering:</string>
-    <string name="important_info_profile_zenModeM">\"Niet storen\" in profiel \"Beltoonmodus\" vereist het autoriseren van PhoneProfilesPlus bij \"Toegang tot meldingen\" in systeem instellingen. Klik hier en schakel PhoneProfiles in.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6 kan deze systeeminstelling alleen gewijzigd worden op geroote apparaten. Dit betreft bel modes met trillen.</string>
     <string name="setting_screen_not_found_alert">Instellen scherm niet gevonden.</string>
     <string name="action_for_external_application_notification_no_profile_text">Parameter profle_name ontbreekt of is leeg.</string>
@@ -853,7 +851,6 @@
     <string name="duration_pref_dlg_activation_hours_label">Uren:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Minuten:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Seconden:</string>
-    <string name="preferences_durationNotificationSoundInfo_summary">Deze melding gebruikt media channel. Het gebruikt het media volume.</string>
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Zet locatie en Wi-Fi scanning aan bij de Systeeminstellingen. Dit is nodig voor Wi-Fi scannen.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Zet locatie en Bluetooth scanning aan bij de Systeeminstellingen. Dit is nodig voor Bluetooth scannen.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Wi-Fi ingeschakeld laten\" Systeeminstelling</string>
@@ -1401,8 +1398,6 @@
     <string name="altype_profileError_setWallpaper">profiel - fout bij instellen achtergrond</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">geen Bluetooth-machtiging verleend</string>
     <string name="profile_preferences_volumeMuteSound">Geluid uitschakelen</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">Om de \"Niet storen\" profielparameter in te schakelen moet je PhoneProfilesPlus \"Toegang tot meldingen\" geven bij systeeminstellingen. Klik hier om in te schakelen.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">Om de \"\"Niet storen\"\" profielparameter in te schakelen moet je PhoneProfilesPlus \"Toegang tot meldingen\" geven bij systeeminstellingen. Klik hier om het in te schakelen.</string>
     <string name="phone_profiles_pref_category_background_scanning">Achtergrond scannen</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Deze instellingen zijn voor het scannen op de achtergrond. Dit is handig wanneer de tijds- of agenda-event sensor niet goed werkt.\n\nHet wordt aangeraden om deze scan niet in te schakelen wanneer locatie, Wi-Fi, Bluetooth, Oriëntatiesensor wordt gebruikt in een event.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Op de achtergrond scannen inschakelen</string>
@@ -1716,6 +1711,37 @@
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Locatie scan interval</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Oriëntatie scan interval</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Wi-Fi scan interval</string>
+    <string name="menu_activity_log_help">Help</string>
+    <string name="activity_log_help_title">Help voor activiteitenlog</string>
+    <string name="activity_log_help_message">Wat wordt weergegeven in kolommen</string>
+    <string name="activity_log_help_message_mergedProfileActivation">X is het aantal geactiveerde profielen, Y is het aantal events dat de profielen heeft geactiveerd.</string>
+    <string name="activity_log_help_message_data_for">voor</string>
+    <string name="activity_log_help_message_data_profileName">Profielnaam. Het kan [M] (=handmatige activering) bevatten gevolgd door einde tijdsduur tussen haakjes.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Profielnaam [event name]. Profielnaam is het laatste geactiveerde profiel en eventnaam is het laatste gestartte event.</string>
+    <string name="activity_log_help_message_data_displayedInGUI">Deze informatie zie je ook in alle GUI elementen (applicatie-notificatie, Activator, Editor, widgets, …).</string>
+    <string name="activity_log_help_message_data_otherProfileDataTypes">alle andere voor profielen</string>
+    <string name="activity_log_help_message_data_profileName_otherDataTypes">Profielnaam.</string>
+    <string name="activity_log_help_message_data_otherEventDataTypes">alle anderen voor events</string>
+    <string name="activity_log_help_message_data_eventName_otherDataTypes">Eventnaam.</string>
+    <string name="activity_log_help_close">Sluiten</string>
+    <string name="event_preference_sensor_soundProfile_summary">Deze sensor start een event door te schakelen tussen de Geluidsmodi of \"Niet storen\" types. Parameters: Geluidsmodi: \"Niet storen\" types.</string>
+    <string name="event_type_soundProfile">Geluidsprofiel</string>
+    <string name="event_preferences_soundProfile_ringerModes">Geluidsmodus</string>
+    <string name="event_preferences_soundProfile_zenModes">\"Niet storen\" types</string>
+    <string name="array_pref_event_ringerMode_ring">Geluid</string>
+    <string name="array_pref_event_ringerMode_vibrate">Trillen</string>
+    <string name="array_pref_event_ringerMode_silent">Stil</string>
+    <string name="array_pref_event_ringerMode_zenMode">Niet storen</string>
+    <string name="array_pref_event_zenMode_all">Uit</string>
+    <string name="array_pref_event_zenMode_priority">Prioriteit</string>
+    <string name="array_pref_event_ringerMode_alarm">Alleen alarmen</string>
+    <string name="array_pref_event_ringerMode_none">Helemaal stil</string>
+    <string name="array_pref_event_zenMode_all_and_vibrate">Uit, wel trillen</string>
+    <string name="array_pref_event_zenMode_priority_and_vibrate">Prioriteit met trillen</string>
+    <string name="event_preferences_category_eventSoundProfileParameters">Sensor geluidsprofiel</string>
+    <string name="check_releases_open_fdroid">Open F-Droid</string>
+    <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus in repository:</string>
+    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Increase brightness</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1767,4 +1793,9 @@
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
     <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
+    <!--    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>-->
+    <!--    <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>-->
+    <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
+    <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
 </resources>

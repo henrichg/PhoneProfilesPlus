@@ -543,7 +543,6 @@
     <string name="about_application_source_code">Kaynak kodu:</string>
     <string name="about_application_translations">Tercümeler:</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Rahatsız Etmeyin Modu\'na erişim</string>
-    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Lutfen \"PhoneProfilesPlus\" uygulamasına \"Uygulama izinleri\" ayarlarında izin verin.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Eğer şarj aleti veya istasyonunu belli bir müddet çıkarıp ekranı kapattığınız zaman Durumlardan Tercih faaliyete geçirmede problem yaşıyorsanız, PhoneProfilesPlus\'ı Güç ayarlarında \"Pil en iyi duruma getirme\" bölümünde \"En iyi duruma getirilmedi\" listesine ilave ediniz.</string>
     <string name="profile_preferences_deviceWallpaperFor">Duvar kağıdını şunun için ayarla:</string>
     <string name="array_pref_device_wallpaper_homescreen">Ana ekran</string>
@@ -763,7 +762,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Tarama açık</string>
     <string name="duration_pref_dlg_duration_label">Müddet:</string>
     <string name="duration_pref_dlg_activation_end_label">Faaliyete geçirdikten sonra:</string>
-    <string name="important_info_profile_zenModeM">Tercih → \"Zil modu\" → \"Rahatsız Etmeyin\" modu için sistem ayarlarında \"Bildirim erişim\" ayarlarında PhoneProfilesPlus\'ın seçilmesi lazımdır. Buraya dokunun ve PhoneProfilesPlus\'ı seçin.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6\'da bu sistem ayarı yalnızca kök erişimi olan (root edilmiş) cihazlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli \"Rahatsız Etmeyin\" türleridir.</string>
     <string name="setting_screen_not_found_alert">Ayar ekranı bulunamadı.</string>
     <string name="action_for_external_application_notification_no_profile_text">Tercih_ismi değeri eksik veya boş.</string>
@@ -853,7 +851,6 @@
     <string name="duration_pref_dlg_activation_hours_label">Saat:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Dakika:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Saniye:</string>
-    <string name="preferences_durationNotificationSoundInfo_summary">Bu bildirim medya kanalını kullanır. Bu nedenle medya ses seviyesini kullanır.</string>
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Konum ve Wi-Fi taramasını Sistem Ayarları\'nda açın. Bu, Wi-Fi taraması için lüzumludur.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Konum ve Bluetooth taramasını Sistem Ayarları\'nda açın. Bluetooth taraması için bu lüzumludur.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Wi-Fi açık tut\" Sistem ayarı</string>
@@ -1401,8 +1398,6 @@
     <string name="altype_profileError_setWallpaper">Tercih - duvar kağıdı ayarlamada hata</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">Bluetooth için izinler verilmedi</string>
     <string name="profile_preferences_volumeMuteSound">Sesi sustur</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">\"Rahatsız Etmeyin\" Tercih değerlerini açmak için \"Sistem Ayarları\" → \"Bildirim Erişimi\" ayarlarında PhoneProfilesPlus\'a izin verin.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">\"«Rahatsız Etmeyin» türü\" Tercih değerini açmak için \"Sistem Ayarları\" → \"Rahatsız Etme Erişimi\" ayarlarında PhoneProfilesPlus\'a izin verin. Açmak için buraya dokunun.</string>
     <string name="phone_profiles_pref_category_background_scanning">Arka plan taraması</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Bu ayarlar arka plan tarama için Saat veya Takvim olayları değerleri iyi çalışmadığı zaman faydalıdır.\n\nKonum, Wi-Fi, Bluetooth ve Ekran Döndürme özelliği her vaziyette kullanılırken bu taramanın açılmaması tavsiye edilir.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Arka plan taramasını etkinleştir</string>
@@ -1716,6 +1711,37 @@
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Konum tarama aralığı</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Döndürme taraması aralığı</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Wi-Fi tarama aralığı</string>
+    <string name="menu_activity_log_help">Help</string>
+    <string name="activity_log_help_title">Help for Activity log</string>
+    <string name="activity_log_help_message">What is displayed in columns</string>
+    <string name="activity_log_help_message_mergedProfileActivation">X is the number of activated profiles, Y is the number of events that activated the profiles.</string>
+    <string name="activity_log_help_message_data_for">for</string>
+    <string name="activity_log_help_message_data_profileName">Profile name. It may contains [M] (=manual activation) followed by end of duration in parentheses.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string>
+    <string name="activity_log_help_message_data_displayedInGUI">This information is also displayed in all GUI elements (application notification, Activator, Editor, widgets, …).</string>
+    <string name="activity_log_help_message_data_otherProfileDataTypes">all others for profiles</string>
+    <string name="activity_log_help_message_data_profileName_otherDataTypes">Profile name.</string>
+    <string name="activity_log_help_message_data_otherEventDataTypes">all others for events</string>
+    <string name="activity_log_help_message_data_eventName_otherDataTypes">Event name.</string>
+    <string name="activity_log_help_close">Close</string>
+    <string name="event_preference_sensor_soundProfile_summary">This sensor will start an event by switching Sound modes or \"Do not disturb\" types. Parameters: Sound modes, \"Do not disturb\" types.</string>
+    <string name="event_type_soundProfile">Sound profile</string>
+    <string name="event_preferences_soundProfile_ringerModes">Sound modes</string>
+    <string name="event_preferences_soundProfile_zenModes">\"Do not disturb\" types</string>
+    <string name="array_pref_event_ringerMode_ring">Sound</string>
+    <string name="array_pref_event_ringerMode_vibrate">Vibration</string>
+    <string name="array_pref_event_ringerMode_silent">Silent</string>
+    <string name="array_pref_event_ringerMode_zenMode">Do not disturb</string>
+    <string name="array_pref_event_zenMode_all">Off</string>
+    <string name="array_pref_event_zenMode_priority">Priority</string>
+    <string name="array_pref_event_ringerMode_alarm">Alarms only</string>
+    <string name="array_pref_event_ringerMode_none">Total silence</string>
+    <string name="array_pref_event_zenMode_all_and_vibrate">Off with vibration</string>
+    <string name="array_pref_event_zenMode_priority_and_vibrate">Priority with vibration</string>
+    <string name="event_preferences_category_eventSoundProfileParameters">Sound profile sensor</string>
+    <string name="check_releases_open_fdroid">Open F-Droid</string>
+    <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus in repository:</string>
+    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Increase brightness</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• Tercih değeri \"Zorla durdurulan uygulamalar\"\n• Durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1767,4 +1793,9 @@
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
     <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
+    <!--    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>-->
+    <!--    <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>-->
+    <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
+    <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
 </resources>

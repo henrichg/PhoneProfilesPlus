@@ -543,7 +543,6 @@
     <string name="about_application_source_code">Quellcode:</string>
     <string name="about_application_translations">Übersetzungen:</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Zugang „Bitte nicht stören”</string>
-    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Bitte suche nach der App \"PhoneProfilesPlus\" und aktiviere sie.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Sollten Sie ein Problem mit der Aktivierung von Ereignissen haben, wenn Ihr Telefon ruhend, nicht angeschlossen und mit ausgeschaltetem Bildschirm eine Zeit lang ungenutzt ist, dann fügen Sie PhoneProfilePlus zu den \"nicht optimierten\" Apps hinzu.</string>
     <string name="profile_preferences_deviceWallpaperFor">Hintergrundbild setzen für</string>
     <string name="array_pref_device_wallpaper_homescreen">Startbildschirm</string>
@@ -763,7 +762,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Scannen eingeschaltet</string>
     <string name="duration_pref_dlg_duration_label">Dauer:</string>
     <string name="duration_pref_dlg_activation_end_label">Aktivierungs-Ende:</string>
-    <string name="important_info_profile_zenModeM">„Bitte nicht Stören” im Profil „Ruftonmodus” benötigt „Benachrichtigungserlaubnis”. Hier klicken, um PhoneProfilesPlus zu erlauben.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Unter Android 6 kann diese Einstellung nur auf gerooteten Geräten geändert werden. Betroffen sind der Klingel-Modus und die Nicht-Stören-Typen mit Vibration.</string>
     <string name="setting_screen_not_found_alert">Einstellungs Dialog nicht gefunden.</string>
     <string name="action_for_external_application_notification_no_profile_text">Profilname ist nicht angegeben.</string>
@@ -853,7 +851,6 @@
     <string name="duration_pref_dlg_activation_hours_label">Stunden:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Minuten:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Sekunden:</string>
-    <string name="preferences_durationNotificationSoundInfo_summary">Diese Benachrichtung benutzt den Medienkanal und daher auch die Medienlautstärke.</string>
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Bitte die Standortbestimmung und Such nach WLAN-Netzen in den Systemeinstellungen aktivieren. Andernfalls funktioniert die Suche nach WLAN-Netzen nicht.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Bitte Lokalisierung und Bluetooth-Suche in den System Einstellungen aktivieren. Ansonsten funktioniert die Bluetooth-Suche nicht.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Systemeinstellung „WLAN aktiviert lassen”</string>
@@ -1401,8 +1398,6 @@
     <string name="altype_profileError_setWallpaper">Profil - Fehler beim Festlegen des Hintergrundbildes</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">Bluetooth-Erlaubnis nicht erteilt</string>
     <string name="profile_preferences_volumeMuteSound">Stummschalten</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">Um den Profilparameter „Bitte nicht stören” zu aktivieren, erlauben Sie PhoneProfilesPlus \"Benachrichtigungszugriff\" in den Systemeinstellungen.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">Um den Profilparameter „Bitte nicht stören” zu aktivieren, gestatten Sie PhoneProfilesPlus den \"Benachrichtigungszugriff\" in den Systemeinstellungen. Klicken Sie hier, um ihn zu aktivieren.</string>
     <string name="phone_profiles_pref_category_background_scanning">Scannen im Hintergrund</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Diese Einstellungen gelten für das Scannen im Hintergrund. Es ist nützlich, wenn der Zeit- oder Kalenderereignissensor nicht gut funktioniert.\n\n Es wird empfohlen, dieses Scannen nicht zu aktivieren, wenn der Positionsbestimmungs-, WLAN-, Bluetooth- oder Ausrichtungssensor in jedem Fall verwendet wird.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Scannen im Hintergrund aktivieren</string>
@@ -1716,6 +1711,37 @@
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Location scan interval</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Orientation scan interval</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Wi-Fi scan interval</string>
+    <string name="menu_activity_log_help">Hilfe</string>
+    <string name="activity_log_help_title">Help for Activity log</string>
+    <string name="activity_log_help_message">Was in Spalten angezeigt wird</string>
+    <string name="activity_log_help_message_mergedProfileActivation">X ist die Anzahl der aktivierten Profile, Y ist die Anzahl der Ereignisse, die durch Profile aktiviert wurden.</string>
+    <string name="activity_log_help_message_data_for">für</string>
+    <string name="activity_log_help_message_data_profileName">Name des Profils. Er kann [M] (=manuelle Aktivierung) enthalten, gefolgt vom in Klammern gesetzten Ende der Dauer.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string>
+    <string name="activity_log_help_message_data_displayedInGUI">Diese Informationen werden auch in allen Elementen der Benutzeroberfläche (Anwendungsbenachrichtigung, Aktivator, Editor, Widgets, …) angezeigt.</string>
+    <string name="activity_log_help_message_data_otherProfileDataTypes">alle anderen für Profile</string>
+    <string name="activity_log_help_message_data_profileName_otherDataTypes">Name des Profils.</string>
+    <string name="activity_log_help_message_data_otherEventDataTypes">alle anderen für Ereignisse</string>
+    <string name="activity_log_help_message_data_eventName_otherDataTypes">Name des Ereignisses.</string>
+    <string name="activity_log_help_close">Schließen</string>
+    <string name="event_preference_sensor_soundProfile_summary">This sensor will start an event by switching Sound modes or \"Do not disturb\" types. Parameters: Sound modes, \"Do not disturb\" types.</string>
+    <string name="event_type_soundProfile">Audioprofil</string>
+    <string name="event_preferences_soundProfile_ringerModes">Sound-Modi</string>
+    <string name="event_preferences_soundProfile_zenModes">„Bitte nicht stören”-Arten</string>
+    <string name="array_pref_event_ringerMode_ring">Töne</string>
+    <string name="array_pref_event_ringerMode_vibrate">Vibration</string>
+    <string name="array_pref_event_ringerMode_silent">Lautlos</string>
+    <string name="array_pref_event_ringerMode_zenMode">Bitte nicht stören</string>
+    <string name="array_pref_event_zenMode_all">Aus</string>
+    <string name="array_pref_event_zenMode_priority">Priorität</string>
+    <string name="array_pref_event_ringerMode_alarm">Nur benachrichtigen</string>
+    <string name="array_pref_event_ringerMode_none">Komplett lautlos</string>
+    <string name="array_pref_event_zenMode_all_and_vibrate">Aus, Vibration erlaubt</string>
+    <string name="array_pref_event_zenMode_priority_and_vibrate">Priorität mit Vibration</string>
+    <string name="event_preferences_category_eventSoundProfileParameters">Sound profile sensor</string>
+    <string name="check_releases_open_fdroid">F-Droid öffnen</string>
+    <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus im Repository:</string>
+    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Increase brightness</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1767,4 +1793,9 @@
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
     <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
     <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
+    <!--    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>-->
+    <!--    <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>-->
+    <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
+    <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
 </resources>

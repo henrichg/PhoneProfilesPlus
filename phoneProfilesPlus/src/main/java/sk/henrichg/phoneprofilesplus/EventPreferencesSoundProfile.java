@@ -25,7 +25,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
     private static final String PREF_EVENT_SOUND_PROFILE_CATEGORY = "eventSoundProfileCategoryRoot";
 
     // it must be same as array/eventSoundProfileRingerModeValues for "array_pref_event_ringerMode_zenMode".
-    static String RINGER_MODE_DO_NOT_DISTURB_VALUE = "4";
+    static final String RINGER_MODE_DO_NOT_DISTURB_VALUE = "4";
 
     EventPreferencesSoundProfile(Event event,
                                  boolean enabled,
