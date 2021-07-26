@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +22,8 @@ class AutoStartPermissionHelper  {
      * Xiaomi
      */
     private final String BRAND_XIAOMI = "xiaomi";
-    private final String BRAND_XIAOMI_REDMI = "redmi";
     private final String BRAND_XIAOMI_POCO = "poco";
+    private final String BRAND_XIAOMI_REDMI = "redmi";
     private final String PACKAGE_XIAOMI_MAIN = "com.miui.securitycenter";
     private final String PACKAGE_XIAOMI_COMPONENT = "com.miui.permcenter.autostart.AutoStartManagementActivity";
 
@@ -52,8 +54,8 @@ class AutoStartPermissionHelper  {
      */
     private final String BRAND_HUAWEI = "huawei";
     private final String PACKAGE_HUAWEI_MAIN = "com.huawei.systemmanager";
-    private final String PACKAGE_HUAWEI_COMPONENT = "com.huawei.systemmanager.optimize.process.ProtectActivity";
-    private final String PACKAGE_HUAWEI_COMPONENT_FALLBACK = "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity";
+    private final String PACKAGE_HUAWEI_COMPONENT = "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity";
+    private final String PACKAGE_HUAWEI_COMPONENT_FALLBACK = "com.huawei.systemmanager.optimize.process.ProtectActivity";
 
     /**
      * Oppo
@@ -90,7 +92,8 @@ class AutoStartPermissionHelper  {
     private final String BRAND_SAMSUNG = "samsung";
     private final String PACKAGE_SAMSUNG_MAIN = "com.samsung.android.lool";
     private final String PACKAGE_SAMSUNG_COMPONENT = "com.samsung.android.sm.ui.battery.BatteryActivity";
-    private final String PACKAGE_SAMSUNG_COMPONENT_2 = "com.samsung.android.sm.battery.ui.BatteryActivity";
+    private final String PACKAGE_SAMSUNG_COMPONENT_2 = "com.samsung.android.sm.battery.ui.usage.CheckableAppListActivity";
+    private final String PACKAGE_SAMSUNG_COMPONENT_3 = "com.samsung.android.sm.battery.ui.BatteryActivity";
 
     /***
      * One plus
@@ -98,11 +101,21 @@ class AutoStartPermissionHelper  {
     private final String BRAND_ONE_PLUS = "oneplus";
     private final String PACKAGE_ONE_PLUS_MAIN = "com.oneplus.security";
     private final String PACKAGE_ONE_PLUS_COMPONENT = "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity";
+    private final String PACKAGE_ONE_PLUS_ACTION = "com.android.settings.action.BACKGROUND_OPTIMIZE";
 
     private final List<String> PACKAGES_TO_CHECK_FOR_PERMISSION = Arrays.asList(
-         PACKAGE_ASUS_MAIN, PACKAGE_XIAOMI_MAIN, PACKAGE_LETV_MAIN, PACKAGE_HONOR_MAIN, PACKAGE_OPPO_MAIN,
-         PACKAGE_OPPO_FALLBACK, PACKAGE_VIVO_MAIN, PACKAGE_VIVO_FALLBACK, PACKAGE_NOKIA_MAIN, PACKAGE_HUAWEI_MAIN,
-         PACKAGE_SAMSUNG_MAIN, PACKAGE_ONE_PLUS_MAIN);
+            PACKAGE_ASUS_MAIN,
+            PACKAGE_XIAOMI_MAIN,
+            PACKAGE_LETV_MAIN,
+            PACKAGE_HONOR_MAIN,
+            PACKAGE_OPPO_MAIN,
+            PACKAGE_OPPO_FALLBACK,
+            PACKAGE_VIVO_MAIN,
+            PACKAGE_VIVO_FALLBACK,
+            PACKAGE_NOKIA_MAIN,
+            PACKAGE_HUAWEI_MAIN,
+            PACKAGE_SAMSUNG_MAIN,
+            PACKAGE_ONE_PLUS_MAIN);
 
     boolean getAutoStartPermission(Context context) {
 
@@ -234,28 +247,50 @@ class AutoStartPermissionHelper  {
     }
 
     private boolean autoStartOppo(Context context) {
+        boolean ok;
         if (isPackageExists(context, PACKAGE_OPPO_MAIN) || isPackageExists(context, PACKAGE_OPPO_FALLBACK)) {
             try {
                 startIntent(context, PACKAGE_OPPO_MAIN, PACKAGE_OPPO_COMPONENT);
+                ok = true;
             } catch (Exception e) {
                 e.printStackTrace();
                 try {
                     startIntent(context, PACKAGE_OPPO_FALLBACK, PACKAGE_OPPO_COMPONENT_FALLBACK);
+                    ok = true;
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     try {
                         startIntent(context, PACKAGE_OPPO_MAIN, PACKAGE_OPPO_COMPONENT_FALLBACK_A);
+                        ok = true;
                     } catch (Exception exx) {
                         exx.printStackTrace();
-                        return false;
+                        ok = false;
                     }
                 }
             }
         } else {
-            return false;
+            ok = false;
         }
 
-        return true;
+        if (!ok) {
+            try {
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.setData(Uri.parse("package:${context.packageName}"));
+                try {
+                    context.startActivity(intent);
+                    ok = true;
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    ok = false;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                ok = false;
+            }
+        }
+
+        return ok;
     }
 
     private boolean autoStartVivo(Context context) {
@@ -308,7 +343,12 @@ class AutoStartPermissionHelper  {
                     startIntent(context, PACKAGE_SAMSUNG_MAIN, PACKAGE_SAMSUNG_COMPONENT_2);
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    return false;
+                    try {
+                        startIntent(context, PACKAGE_SAMSUNG_MAIN, PACKAGE_SAMSUNG_COMPONENT_3);
+                    } catch (Exception exx) {
+                        exx.printStackTrace();
+                        return false;
+                    }
                 }
             }
         } else {
@@ -319,24 +359,47 @@ class AutoStartPermissionHelper  {
     }
 
     private boolean autoStartOnePlus(Context context) {
+        boolean ok;
         if (isPackageExists(context, PACKAGE_ONE_PLUS_MAIN)) {
             try {
                 startIntent(context, PACKAGE_ONE_PLUS_MAIN, PACKAGE_ONE_PLUS_COMPONENT);
+                ok = true;
             } catch (Exception e) {
                 e.printStackTrace();
-                return false;
+                ok = false;
             }
         } else {
-            return false;
+            ok = false;
         }
 
-        return true;
+        if (!ok) {
+            try {
+                startAction(context, PACKAGE_ONE_PLUS_ACTION);
+            } catch (Exception e) {
+                e.printStackTrace();
+                ok = false;
+            }
+        }
+
+        return ok;
     }
 
     private void startIntent(Context context, String packageName, String componentName) {
         try {
             Intent intent = new Intent();
             intent.setComponent(new ComponentName(packageName, componentName));
+            context.startActivity(intent);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            throw exception;
+        }
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private void startAction(Context context, String action) {
+        try {
+            Intent intent = new Intent();
+            intent.setAction(action);
             context.startActivity(intent);
         } catch (Exception exception) {
             exception.printStackTrace();
