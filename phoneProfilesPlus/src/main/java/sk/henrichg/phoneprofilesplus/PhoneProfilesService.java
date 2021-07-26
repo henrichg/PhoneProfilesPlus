@@ -577,6 +577,16 @@ public class PhoneProfilesService extends Service
                 }
             }
             */
+            if (PPApplication.pppExtenderPPPExtenderIsRunningBroadcastReceiver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->UNREGISTER", "PhoneProfilesService_pppExtenderPPPExtenderIsRunningBroadcastReceiver");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER PPPExtender is running");
+                try {
+                    appContext.unregisterReceiver(PPApplication.pppExtenderPPPExtenderIsRunningBroadcastReceiver);
+                    PPApplication.pppExtenderPPPExtenderIsRunningBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.pppExtenderPPPExtenderIsRunningBroadcastReceiver = null;
+                }
+            }
             if (PPApplication.startEventNotificationDeletedReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->UNREGISTER start event notification delete", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER start event notification delete");
@@ -732,6 +742,20 @@ public class PhoneProfilesService extends Service
                 appContext.registerReceiver(PPApplication.permissionsNotificationDeletedReceiver, intentFilter5);
             }
             */
+
+            if (PPApplication.pppExtenderPPPExtenderIsRunningBroadcastReceiver == null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->REGISTER", "PPApplication_pppExtenderPPPExtenderIsRunningBroadcastReceiver");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER PPPExtender is running");
+                PPApplication.pppExtenderPPPExtenderIsRunningBroadcastReceiver = new PPPExtenderBroadcastReceiver();
+                IntentFilter intentFilter23 = new IntentFilter();
+                intentFilter23.addAction(PPApplication.ACTION_PPPEXTENDER_IS_RUNNING_ANSWER);
+                appContext.registerReceiver(PPApplication.pppExtenderPPPExtenderIsRunningBroadcastReceiver, intentFilter23,
+                        PPApplication.PPP_EXTENDER_PERMISSION, null);
+            }
+            // send broadcast to Extender to get if Extender is running
+            //PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER PPApplication.ACTION_PPPEXTENDER_IS_RUNNING");
+            Intent _intent = new Intent(PPApplication.ACTION_PPPEXTENDER_IS_RUNNING);
+            sendBroadcast(_intent, PPApplication.PPP_EXTENDER_PERMISSION);
 
             if (PPApplication.startEventNotificationDeletedReceiver == null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->REGISTER start event notification delete", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
@@ -2125,6 +2149,7 @@ public class PhoneProfilesService extends Service
     private void unregisterPPPPExtenderReceiver(int type) {
         //PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER");
         Context appContext = getApplicationContext();
+
         if (type == PPApplication.REGISTRATION_TYPE_FORCE_STOP_APPLICATIONS_UNREGISTER) {
             if (PPApplication.pppExtenderForceStopApplicationBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.unregisterPPPPExtenderReceiver->UNREGISTER", "PhoneProfilesService_pppExtenderForceStopApplicationBroadcastReceiver");

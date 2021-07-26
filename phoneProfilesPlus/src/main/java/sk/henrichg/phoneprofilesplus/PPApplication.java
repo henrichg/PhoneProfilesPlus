@@ -637,6 +637,8 @@ public class PPApplication extends Application
     //static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.PPPEAccessibilityService";
     static final String EXTENDER_ACCESSIBILITY_PACKAGE_NAME = "sk.henrichg.phoneprofilesplusextender";
 
+    static final String ACTION_PPPEXTENDER_IS_RUNNING = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_PPPEXTENDER_IS_RUNNING";
+    static final String ACTION_PPPEXTENDER_IS_RUNNING_ANSWER = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_PPPEXTENDER_IS_RUNNING_ANSWER";
     static final String ACTION_ACCESSIBILITY_SERVICE_CONNECTED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_CONNECTED";
     static final String ACTION_ACCESSIBILITY_SERVICE_UNBIND = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_UNBIND";
     static final String ACTION_FOREGROUND_APPLICATION_CHANGED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_FOREGROUND_APPLICATION_CHANGED";
@@ -715,7 +717,7 @@ public class PPApplication extends Application
     static LockDeviceActivity lockDeviceActivity = null;
     static int screenTimeoutBeforeDeviceLock = 0;
 
-    //static boolean accessibilityServiceForPPPExtenderConnected = false;
+    static boolean accessibilityServiceForPPPExtenderConnected = false;
 
     //boolean willBeDoRestartEvents = false;
 
@@ -774,6 +776,7 @@ public class PPApplication extends Application
     static BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
     static BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
     static PPPExtenderBroadcastReceiver pppExtenderBroadcastReceiver = null;
+    static PPPExtenderBroadcastReceiver pppExtenderPPPExtenderIsRunningBroadcastReceiver = null;
     static PPPExtenderBroadcastReceiver pppExtenderForceStopApplicationBroadcastReceiver = null;
     static PPPExtenderBroadcastReceiver pppExtenderForegroundApplicationBroadcastReceiver = null;
     static PPPExtenderBroadcastReceiver pppExtenderSMSBroadcastReceiver = null;
