@@ -54,7 +54,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "action="+intent.getAction());
 
         switch (intent.getAction()) {
-            case PPApplication.ACTION_PPPEXTENDER_IS_RUNNING:
+            case PPApplication.ACTION_PPPEXTENDER_IS_RUNNING_ANSWER:
                 PPApplication.accessibilityServiceForPPPExtenderConnected = true;
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
@@ -454,7 +454,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         if (!enabled) {
             enabled = PPApplication.accessibilityServiceForPPPExtenderConnected;
         }
-        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enabled="+enabled);
+//        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enabled="+enabled);
 
         return enabled;
     }
