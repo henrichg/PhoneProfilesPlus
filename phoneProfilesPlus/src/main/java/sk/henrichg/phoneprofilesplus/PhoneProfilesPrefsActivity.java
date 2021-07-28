@@ -806,6 +806,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             //editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, false));
             editor.putString(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE, fromPreference.getString(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE, "0"));
             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON, true));
+            editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON,
+                    Build.VERSION.SDK_INT >= 31));
         }
 
     }

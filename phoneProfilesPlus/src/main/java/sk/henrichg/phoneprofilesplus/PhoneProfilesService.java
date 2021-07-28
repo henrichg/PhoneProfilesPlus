@@ -5464,6 +5464,7 @@ public class PhoneProfilesService extends Service
         //boolean notificationNightMode;
         boolean notificationShowButtonExit;
         String notificationLayoutType;
+        boolean notificationShowRestartEventsAsButton;
 
         // !!! Use configured notification style, It is required for restart of PPP by system !!!
         if (forFirstStart) {
@@ -5473,6 +5474,7 @@ public class PhoneProfilesService extends Service
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
                 ApplicationPreferences.notificationUseDecoration(dataWrapper.context);
                 notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
+                notificationShowRestartEventsAsButton = ApplicationPreferences.notificationShowRestartEventsAsButton;
 
                 notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
                 notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
@@ -5498,6 +5500,7 @@ public class PhoneProfilesService extends Service
                 notificationNotificationStyle = ApplicationPreferences.notificationNotificationStyle;
                 ApplicationPreferences.notificationUseDecoration(dataWrapper.context);
                 notificationUseDecoration = ApplicationPreferences.notificationUseDecoration;
+                notificationShowRestartEventsAsButton = ApplicationPreferences.notificationShowRestartEventsAsButton;
 
                 notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon /*|| (Build.VERSION.SDK_INT < 24)*/;
                 //notificationShowProfileIcon = true;
@@ -6157,53 +6160,78 @@ public class PhoneProfilesService extends Service
                 if (notificationNotificationStyle.equals("0")) {
 //                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationBackgroundColor="+notificationBackgroundColor);
 
-                    int restartEventsId;
-                    if (notificationBackgroundColor.equals("1") || notificationBackgroundColor.equals("3")) {
-                        // dark or black
-                        restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                    } else if (notificationBackgroundColor.equals("5")) {
-                        // custom color
-                        if (ColorUtils.calculateLuminance(notificationBackgroundCustomColor) < 0.23)
+                    if ((!useDecorator) || (!notificationShowRestartEventsAsButton)) {
+                        int restartEventsId;
+                        if (notificationBackgroundColor.equals("1") || notificationBackgroundColor.equals("3")) {
+                            // dark or black
                             restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                        else
-                            restartEventsId = R.drawable.ic_widget_restart_events;
-                    } else {
-                        // native
-//                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "Build.VERSION.SDK_INT="+Build.VERSION.SDK_INT);
-                        if (Build.VERSION.SDK_INT >= 29) {
-                            if (useNightColor == 1) {
-//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark icon");
-                                restartEventsId = R.drawable.ic_widget_restart_events_dark;
-                            }
-                            else {
-//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "light icon");
-                                restartEventsId = R.drawable.ic_widget_restart_events;
-                            }
-                        } else {
-                            if (notificationTextColor.equals("1"))
-                                restartEventsId = R.drawable.ic_widget_restart_events;
-                            else if (notificationTextColor.equals("2"))
+                        } else if (notificationBackgroundColor.equals("5")) {
+                            // custom color
+                            if (ColorUtils.calculateLuminance(notificationBackgroundCustomColor) < 0.23)
                                 restartEventsId = R.drawable.ic_widget_restart_events_dark;
                             else
                                 restartEventsId = R.drawable.ic_widget_restart_events;
+                        } else {
+                            // native
+//                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "Build.VERSION.SDK_INT="+Build.VERSION.SDK_INT);
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                if (useNightColor == 1) {
+//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark icon");
+                                    restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                                } else {
+//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "light icon");
+                                    restartEventsId = R.drawable.ic_widget_restart_events;
+                                }
+                            } else {
+                                if (notificationTextColor.equals("1"))
+                                    restartEventsId = R.drawable.ic_widget_restart_events;
+                                else if (notificationTextColor.equals("2"))
+                                    restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                                else
+                                    restartEventsId = R.drawable.ic_widget_restart_events;
+                            }
+                        }
+
+                        //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), restartEventsId);
+
+                        try {
+                            contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                            contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
+                            contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+
+                            //noinspection ConstantConditions
+                            if (contentView != null) {
+                                contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
+                                contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
+                                contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+                            }
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
                     }
+                    else {
+                        try {
+                            contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
 
-                    //Bitmap bitmap = BitmapFactory.decodeResource(getResources(), restartEventsId);
-
-                    try {
-                        contentViewLarge.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
-                        contentViewLarge.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
-                        contentViewLarge.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
-
-                        //noinspection ConstantConditions
-                        if (contentView != null) {
-                            contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.VISIBLE);
-                            contentView.setImageViewResource(R.id.notification_activated_profile_restart_events, restartEventsId);
-                            contentView.setOnClickPendingIntent(R.id.notification_activated_profile_restart_events, pIntentRE);
+                            //noinspection ConstantConditions
+                            if (contentView != null)
+                                contentView.setViewVisibility(R.id.notification_activated_profile_restart_events, View.GONE);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
+
+                        NotificationCompat.Action.Builder actionBuilder;
+                        //if (Build.VERSION.SDK_INT >= 23)
+                        actionBuilder = new NotificationCompat.Action.Builder(
+                                R.drawable.ic_widget_restart_events,
+                                appContext.getString(R.string.menu_restart_events),
+                                pIntentRE);
+                        /*else
+                            actionBuilder = new Notification.Action.Builder(
+                                    R.drawable.ic_widget_restart_events,
+                                    appContext.getString(R.string.menu_restart_events),
+                                    pIntentRE);*/
+                        notificationBuilder.addAction(actionBuilder.build());
                     }
                 } else {
                     NotificationCompat.Action.Builder actionBuilder;
@@ -6212,11 +6240,11 @@ public class PhoneProfilesService extends Service
                             R.drawable.ic_widget_restart_events,
                             appContext.getString(R.string.menu_restart_events),
                             pIntentRE);
-                /*else
-                    actionBuilder = new Notification.Action.Builder(
-                            R.drawable.ic_widget_restart_events,
-                            appContext.getString(R.string.menu_restart_events),
-                            pIntentRE);*/
+                    /*else
+                        actionBuilder = new Notification.Action.Builder(
+                                R.drawable.ic_widget_restart_events,
+                                appContext.getString(R.string.menu_restart_events),
+                                pIntentRE);*/
                     notificationBuilder.addAction(actionBuilder.build());
                 }
             /*}

@@ -4378,6 +4378,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                             ApplicationPreferences.notificationBackgroundColor = "0";
                                             //ApplicationPreferences.notificationNightMode = true;
                                         }
+                                        ApplicationPreferences.notificationShowRestartEventsAsButton = Build.VERSION.SDK_INT >= 31;
 
                                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, ApplicationPreferences.applicationStartOnBoot);

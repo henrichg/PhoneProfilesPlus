@@ -2138,6 +2138,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST);
         setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS);
+        setSummary(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON);
 
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_TO);
@@ -2365,7 +2366,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON)) {
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON)) {
             String notificationStyle = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE, "0");
             if (notificationStyle.equals("0")) {
                 String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
@@ -2382,6 +2384,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     //else
                         _preference.setEnabled(backgroundColor.equals("0"));
                 }
+
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
                 if (_preference != null) {
                     //if (Build.VERSION.SDK_INT < 29)
@@ -2389,6 +2392,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     //else
                         _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
                 }
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON);
+                if (_preference != null) {
+                    //if (Build.VERSION.SDK_INT < 29)
+                    //    _preference.setEnabled(useDecoration && backgroundColor.equals("0") && (!nightMode));
+                    //else
+                    _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
+                }
+
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(backgroundColor.equals("5"));
@@ -2417,6 +2428,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
                 if (_preference != null)
                     _preference.setEnabled(true);
+                // dislabe, restart events action button is forced for native style
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON);
+                if (_preference != null)
+                    _preference.setEnabled(false);
 
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
                 if (_preference != null)

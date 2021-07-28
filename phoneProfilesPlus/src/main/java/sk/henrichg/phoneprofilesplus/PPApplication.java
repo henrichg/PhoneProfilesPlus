@@ -165,10 +165,9 @@ public class PPApplication extends Application
                                                 +"|PackageReplacedReceiver.onReceive"
                                                 //+"|PhoneProfilesService.doCommand"
                                                 //+"|PhoneProfilesService.showProfileNotification"
-                                                //+"|PhoneProfilesService._showProfileNotification"
+                                                +"|PhoneProfilesService._showProfileNotification"
                                                 //+"|ShowProfileNotificationBroadcastReceiver"
                                                 //+"|ShowProfileNotificationWorker.doWork"
-                                                //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|[CUST] PhoneProfilesService._showProfileNotification"
                                                 //+"|PhoneProfilesService.onConfigurationChanged"
                                                 //+"|PhoneProfilesService.stopReceiver"
@@ -2187,6 +2186,7 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo(context);
             ApplicationPreferences.applicationEventWifiScanInTimeMultiply(context);
+            ApplicationPreferences.notificationShowRestartEventsAsButton(context);
         }
     }
 

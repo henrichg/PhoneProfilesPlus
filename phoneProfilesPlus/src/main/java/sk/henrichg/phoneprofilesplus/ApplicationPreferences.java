@@ -231,6 +231,7 @@ class ApplicationPreferences {
     static String applicationEventWifiScanInTimeMultiply;
     static int applicationEventWifiScanInTimeMultiplyFrom;
     static int applicationEventWifiScanInTimeMultiplyTo;
+    static boolean notificationShowRestartEventsAsButton;
 
     static boolean prefActivatorActivityStartTargetHelps;
     static boolean prefActivatorFragmentStartTargetHelps;
@@ -452,6 +453,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY = "applicationEventWifiScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventWifiScanInTimeMultiplyFrom";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventWifiScanInTimeMultiplyTo";
+    static final String PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON = "notificationShowRestartEventsAsButton";
 
     static final String PREF_QUICK_TILE_PROFILE_ID = "quickTileProfileId";
 
@@ -1307,6 +1309,10 @@ class ApplicationPreferences {
         applicationEventWifiScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO, 0);
     }
 
+    static void notificationShowRestartEventsAsButton(Context context) {
+        notificationShowRestartEventsAsButton = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON,
+                Build.VERSION.SDK_INT >= 31);
+    }
 
     static void loadStartTargetHelps(Context context) {
         SharedPreferences _preferences = getSharedPreferences(context);
