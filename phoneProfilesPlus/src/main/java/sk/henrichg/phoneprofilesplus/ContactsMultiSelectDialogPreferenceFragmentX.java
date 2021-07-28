@@ -154,6 +154,7 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
             return null;
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);

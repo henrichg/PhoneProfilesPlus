@@ -539,6 +539,7 @@ public class EditorEventListFragment extends Fragment
             return null;
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         protected void onPostExecute(Void response) {
             super.onPostExecute(response);
@@ -860,6 +861,7 @@ public class EditorEventListFragment extends Fragment
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void deleteEvent(final Event event)
     {
         if (activityDataWrapper.getEventById(event._id) == null)
@@ -1120,6 +1122,7 @@ public class EditorEventListFragment extends Fragment
         new UpdateHeaderAsyncTask(this).execute();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition/*, long loadEventId*/)
     {
         /*if (listView != null)
@@ -1188,6 +1191,7 @@ public class EditorEventListFragment extends Fragment
     }
     */
 
+    @SuppressLint("NotifyDataSetChanged")
     private void changeListOrder(int orderType, boolean fromOnViewCreated)
     {
         if (isAsyncTaskPendingOrRunning()) {
@@ -1875,6 +1879,7 @@ public class EditorEventListFragment extends Fragment
 
         // show icons
         try {
+            @SuppressLint("DiscouragedPrivateApi")
             Field field = popup.getClass().getDeclaredField("mPopup");
             field.setAccessible(true);
             Object menuPopupHelper = field.get(popup);

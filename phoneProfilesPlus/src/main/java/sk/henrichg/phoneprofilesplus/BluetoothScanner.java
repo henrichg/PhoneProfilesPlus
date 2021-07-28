@@ -440,7 +440,7 @@ class BluetoothScanner {
                     break;
 
                 PPApplication.sleep(500);
-            } while (SystemClock.uptimeMillis() - start < (applicationEventBluetoothLEScanDuration * 5) * 1000);
+            } while (SystemClock.uptimeMillis() - start < (applicationEventBluetoothLEScanDuration * 5L) * 1000);
             //PPApplication.logE("%%%%BLE BluetoothScanner.waitForLEBluetoothScanEnd", "do finishLEScan");
             BluetoothScanWorker.finishLEScan(context);
             //PPApplication.logE("%%%%BLE BluetoothScanner.waitForLEBluetoothScanEnd", "do stopLEScan");

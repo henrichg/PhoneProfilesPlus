@@ -171,6 +171,7 @@ class IgnoreBatteryOptimizationNotification {
         //}
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
         mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
@@ -182,6 +183,7 @@ class IgnoreBatteryOptimizationNotification {
         mBuilder.setOnlyAlertOnce(true);
 
         Intent disableIntent = new Intent(context, IgnoreBatteryOptimizationDisableActivity.class);
+        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pDisableIntent = PendingIntent.getActivity(context, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
                 R.drawable.ic_action_exit_app_white,

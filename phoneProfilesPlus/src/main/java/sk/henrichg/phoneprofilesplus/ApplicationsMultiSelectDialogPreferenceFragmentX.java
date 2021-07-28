@@ -149,6 +149,7 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
             return null;
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         protected void onPostExecute(Void result)
         {

@@ -225,7 +225,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             mSeekBarSeconds.setProgress(seconds1);
 
             updateTextFields(false);
-        }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
+        }, iValue * 1000L, TimeDurationPicker.HH_MM_SS);
         GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), activity);
         mValue.setOnClickListener(view -> {
             int hours12 = mSeekBarHours.getProgress();

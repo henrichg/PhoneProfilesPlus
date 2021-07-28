@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -266,6 +267,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void clear()
     {
         synchronized (activityDataWrapper.eventList) {
@@ -284,6 +286,7 @@ class EditorEventListAdapter extends RecyclerView.Adapter<EditorEventListViewHol
     }
     */
 
+    @SuppressLint("NotifyDataSetChanged")
     public void notifyDataSetChanged(boolean refreshIcons) {
         if (refreshIcons) {
             synchronized (activityDataWrapper.eventList) {

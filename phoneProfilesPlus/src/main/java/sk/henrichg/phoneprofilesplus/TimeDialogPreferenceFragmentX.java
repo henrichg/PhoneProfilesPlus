@@ -86,7 +86,7 @@ public class TimeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
             mSeekBarHours.setProgress(hours1);
             mSeekBarMinutes.setProgress(minutes1);
-        }, iValue * 60 * 1000, TimeDurationPicker.HH_MM);
+        }, (long) iValue * 60 * 1000, TimeDurationPicker.HH_MM);
         GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), getActivity());
         mValue.setOnClickListener(view12 -> {
                 int hours12 = mSeekBarHours.getProgress();
@@ -96,7 +96,7 @@ public class TimeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
                 if (iValue12 < preference.mMin) iValue12 = preference.mMin;
                 if (iValue12 > preference.mMax) iValue12 = preference.mMax;
 
-                mValueDialog.setDuration(iValue12 * 60 * 1000);
+                mValueDialog.setDuration((long) iValue12 * 60 * 1000);
                 if (getActivity() != null)
                     if (!getActivity().isFinishing())
                         mValueDialog.show();

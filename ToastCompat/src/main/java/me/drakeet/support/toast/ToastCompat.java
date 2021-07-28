@@ -190,6 +190,7 @@ public final class ToastCompat extends Toast {
   private static void setContextCompat(@NonNull View view, @NonNull Context context) {
     if (Build.VERSION.SDK_INT == 25) {
       try {
+        @SuppressLint("DiscouragedPrivateApi")
         Field field = View.class.getDeclaredField("mContext");
         field.setAccessible(true);
         field.set(view, context);

@@ -104,6 +104,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                     intent.putExtra(EXTRA_PROFILE_NAME, profileName);
                     intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
+                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
 
                     AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -121,6 +122,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
                         Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -181,6 +183,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 intent.putExtra(EXTRA_PROFILE_NAME, profileName);
                 intent.putExtra(EXTRA_RUN_APPLICATION_DATA, runApplicationData);
 
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -199,11 +202,12 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
 
                         Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
-                        long alarmTime = SystemClock.elapsedRealtime() + startApplicationDelay * 1000;
+                        long alarmTime = SystemClock.elapsedRealtime() + startApplicationDelay * 1000L;
 
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
@@ -233,6 +237,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                 intent.setAction(PhoneProfilesService.ACTION_RUN_APPLICATION_DELAY_BROADCAST_RECEIVER);
                 //intent.setClass(context, RunApplicationWithDelayBroadcastReceiver.class);
 
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.removeDelayAlarm", "alarm found");

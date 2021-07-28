@@ -118,10 +118,10 @@ class ApplicationEditorDialogX
             mDelayValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
             startApplicationDelay = iValue;
-        }, startApplicationDelay * 1000, TimeDurationPicker.HH_MM_SS);
+        }, startApplicationDelay * 1000L, TimeDurationPicker.HH_MM_SS);
         GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mDelayValueDialog.getDurationInput(), activity);
         delayValueRoot.setOnClickListener(view -> {
-            mDelayValueDialog.setDuration(startApplicationDelay * 1000);
+            mDelayValueDialog.setDuration(startApplicationDelay * 1000L);
             if (!ApplicationEditorDialogX.this.activity.isFinishing())
                     mDelayValueDialog.show();
         }
@@ -183,6 +183,7 @@ class ApplicationEditorDialogX
         filterSpinner.setSelection(Arrays.asList(filterValues).indexOf(String.valueOf(selectedFilter)));
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+            @SuppressLint("NotifyDataSetChanged")
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
 
@@ -376,6 +377,7 @@ class ApplicationEditorDialogX
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     void doOnItemSelected(int position)
     {
         if (position != -1) {
@@ -500,12 +502,14 @@ class ApplicationEditorDialogX
         activity.startActivityForResult(intent, RESULT_INTENT_EDITOR);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     void updateAfterEdit() {
         fillApplicationList();
         listView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private Application duplicateIntent(Application originalApplication) {
         if (originalApplication == null)
             return null;
@@ -543,6 +547,7 @@ class ApplicationEditorDialogX
         return newApplication;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void deleteIntent(Application application) {
         if (application == null)
             return;

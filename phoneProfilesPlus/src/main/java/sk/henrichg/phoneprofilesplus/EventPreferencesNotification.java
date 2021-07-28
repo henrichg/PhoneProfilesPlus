@@ -534,7 +534,7 @@ class EventPreferencesNotification extends EventPreferences {
         if (this._duration != 0) {
             StatusBarNotification newestNotification = getNewestVisibleNotification(context);
             if (newestNotification != null) {
-                return newestNotification.getPostTime() + this._duration * 1000;
+                return newestNotification.getPostTime() + this._duration * 1000L;
             }
         }
         return 0;
@@ -589,6 +589,7 @@ class EventPreferencesNotification extends EventPreferences {
                 intent.setAction(PhoneProfilesService.ACTION_NOTIFICATION_EVENT_END_BROADCAST_RECEIVER);
                 //intent.setClass(context, NotificationEventEndBroadcastReceiver.class);
 
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("EventPreferencesNotification.removeAlarm", "alarm found");
@@ -620,6 +621,7 @@ class EventPreferencesNotification extends EventPreferences {
 
             //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
+            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -627,6 +629,7 @@ class EventPreferencesNotification extends EventPreferences {
                 if (ApplicationPreferences.applicationUseAlarmClock) {
                     Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -933,7 +936,7 @@ class EventPreferencesNotification extends EventPreferences {
                                 StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, "com.google.android.dialer", false/*, context*/);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
-                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000L;
 
                                         /*if (PPApplication.logEnabled()) {
                                             Calendar calendar = Calendar.getInstance();
@@ -952,7 +955,7 @@ class EventPreferencesNotification extends EventPreferences {
                                 activeNotification = isNotificationActive(statusBarNotification, "android.incallui", true/*, context*/);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
-                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000L;
 
                                         /*if (PPApplication.logEnabled()) {
                                             Calendar calendar = Calendar.getInstance();
@@ -973,7 +976,7 @@ class EventPreferencesNotification extends EventPreferences {
                                 StatusBarNotification activeNotification = isNotificationActive(statusBarNotification, "com.android.server.telecom", false/*, context*/);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
-                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000L;
 
                                         /*if (PPApplication.logEnabled()) {
                                             Calendar calendar = Calendar.getInstance();
@@ -992,7 +995,7 @@ class EventPreferencesNotification extends EventPreferences {
                                 activeNotification = isNotificationActive(statusBarNotification, "com.samsung.android.dialer", false/*, context*/);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
-                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000L;
 
                                         /*if (PPApplication.logEnabled()) {
                                             Calendar calendar = Calendar.getInstance();
@@ -1011,7 +1014,7 @@ class EventPreferencesNotification extends EventPreferences {
                                 activeNotification = isNotificationActive(statusBarNotification, "com.android.phone", false/*, context*/);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
-                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000L;
 
                                         /*if (PPApplication.logEnabled()) {
                                             Calendar calendar = Calendar.getInstance();
@@ -1030,7 +1033,7 @@ class EventPreferencesNotification extends EventPreferences {
                                 activeNotification = isNotificationActive(statusBarNotification, "com.android.contacts", false/*, context*/);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
-                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000L;
 
                                         /*if (PPApplication.logEnabled()) {
                                             Calendar calendar = Calendar.getInstance();
@@ -1057,7 +1060,7 @@ class EventPreferencesNotification extends EventPreferences {
                                 //PPApplication.logE("EventPreferencesNotification.isNotificationVisible", "notification=" + notification);
                                 if (activeNotification != null) {
                                     if (_duration != 0) {
-                                        long postTime = activeNotification.getPostTime() + this._duration * 1000;
+                                        long postTime = activeNotification.getPostTime() + this._duration * 1000L;
 
                                         /*if (PPApplication.logEnabled()) {
                                             Calendar calendar = Calendar.getInstance();

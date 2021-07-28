@@ -160,7 +160,8 @@
             android:label="@string/title_activity_phone_profiles"
             android:excludeFromRecents="true"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyAppCompatActivity">
+            android:theme="@style/EmptyAppCompatActivity"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -208,7 +209,8 @@
         -->
         <activity
             android:name=".PhoneProfilesPrefsActivity"
-            android:label="@string/title_activity_phone_profiles_preferences">
+            android:label="@string/title_activity_phone_profiles_preferences"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -221,7 +223,8 @@
             android:icon="@drawable/ic_shortcut"
             android:label="@string/title_activity_shortcut_creator"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.popup"
-            android:theme="@style/DialogTheme_dayNight">
+            android:theme="@style/DialogTheme_dayNight"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT"/>
 
@@ -233,7 +236,8 @@
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.shortcut"
-            android:theme="@style/EmptyAppCompatActivity">
+            android:theme="@style/EmptyAppCompatActivity"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -245,7 +249,8 @@
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
-            android:theme="@style/EmptyAppCompatActivity">
+            android:theme="@style/EmptyAppCompatActivity"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -257,7 +262,8 @@
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.externalApp"
-            android:theme="@style/EmptyAppCompatActivity">
+            android:theme="@style/EmptyAppCompatActivity"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="sk.henrichg.phoneprofilesplus.ACTION_ACTIVATE_PROFILE"/>
                 <action android:name="sk.henrichg.phoneprofilesplus.ACTION_RESTART_EVENTS"/>
@@ -313,7 +319,8 @@
         </activity>
         <activity
             android:name=".NFCTagWriteActivity"
-            android:label="@string/nfc_tag_pref_dlg_writeTagTitle">
+            android:label="@string/nfc_tag_pref_dlg_writeTagTitle"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
 
@@ -336,7 +343,8 @@
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
-            android:theme="@style/EmptyAppCompatActivity">
+            android:theme="@style/EmptyAppCompatActivity"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <!--<action android:name="android.nfc.action.TECH_DISCOVERED"/>
                 <action android:name="android.nfc.action.TAG_DISCOVERED"/>-->
@@ -439,7 +447,8 @@
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.shortcut"
             android:theme="@style/EmptyAppCompatActivity"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
             </intent-filter>
@@ -657,7 +666,8 @@
             android:name=".PPTileService1"
             android:label="@string/quick_tile_icon_label"
             android:icon="@drawable/ic_profile_default"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
@@ -668,7 +678,8 @@
             android:name=".PPTileService2"
             android:label="@string/quick_tile_icon_label"
             android:icon="@drawable/ic_profile_default"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
@@ -679,7 +690,8 @@
             android:name=".PPTileService3"
             android:label="@string/quick_tile_icon_label"
             android:icon="@drawable/ic_profile_default"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
@@ -690,7 +702,8 @@
             android:name=".PPTileService4"
             android:label="@string/quick_tile_icon_label"
             android:icon="@drawable/ic_profile_default"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
@@ -701,7 +714,8 @@
             android:name=".PPTileService5"
             android:label="@string/quick_tile_icon_label"
             android:icon="@drawable/ic_profile_default"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+            tools:ignore="IntentFilterExportedReceiver">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>

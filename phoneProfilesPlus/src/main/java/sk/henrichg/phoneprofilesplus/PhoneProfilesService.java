@@ -5383,7 +5383,7 @@ public class PhoneProfilesService extends Service
 
     // profile notification -------------------
 
-    @SuppressLint("NewApi")
+    @SuppressLint({"NewApi", "UnspecifiedImmutableFlag"})
     void _showProfileNotification(/*Profile profile,*/ final DataWrapper dataWrapper,
                                           boolean forFirstStart/*, boolean setForeground*/)
     {
@@ -8166,6 +8166,7 @@ public class PhoneProfilesService extends Service
                 .setAutoCancel(true); // clear notification after click
         mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
 
+        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(pi);
 

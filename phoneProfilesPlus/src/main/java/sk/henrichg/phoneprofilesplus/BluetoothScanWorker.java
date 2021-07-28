@@ -697,7 +697,7 @@ public class BluetoothScanWorker extends Worker {
                                 builder.setScanMode(ScanSettings.SCAN_MODE_BALANCED);
 
                             if (bluetooth.isOffloadedScanBatchingSupported())
-                                builder.setReportDelay(ApplicationPreferences.applicationEventBluetoothLEScanDuration * 1000);
+                                builder.setReportDelay(ApplicationPreferences.applicationEventBluetoothLEScanDuration * 1000L);
                             ScanSettings settings = builder.build();
 
                             List<ScanFilter> filters = new ArrayList<>();

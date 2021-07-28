@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
@@ -587,6 +588,7 @@ class EventPreferencesCalendar extends EventPreferences {
         //PPApplication.logE("EventPreferencesCalendar.removeSystemEvent", "xxx");
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     private void removeAlarm(/*boolean startEvent, */Context context)
     {
         try {
@@ -597,6 +599,7 @@ class EventPreferencesCalendar extends EventPreferences {
                 intent.setAction(PhoneProfilesService.ACTION_CALENDAR_EVENT_EXISTS_CHECK_BROADCAST_RECEIVER);
                 //intent.setClass(context, CalendarEventExistsCheckBroadcastReceiver.class);
 
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("EventPreferencesCalendar.removeAlarm", "alarm found");
@@ -648,6 +651,7 @@ class EventPreferencesCalendar extends EventPreferences {
             intent.setAction(PhoneProfilesService.ACTION_CALENDAR_EVENT_EXISTS_CHECK_BROADCAST_RECEIVER);
             //intent.setClass(context, CalendarEventExistsCheckBroadcastReceiver.class);
 
+            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             Calendar _alarmTime = Calendar.getInstance();
@@ -673,6 +677,7 @@ class EventPreferencesCalendar extends EventPreferences {
 //                    PPApplication.logE("EventPreferencesCalendar.setAlarm", "applicationUseAlarmClock=true");
                     Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                     editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(_alarmTime.getTimeInMillis() - gmtOffset + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                     alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -712,12 +717,14 @@ class EventPreferencesCalendar extends EventPreferences {
 
         //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
+        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (alarmManager != null) {
             if (applicationUseAlarmClock) {
                 Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);

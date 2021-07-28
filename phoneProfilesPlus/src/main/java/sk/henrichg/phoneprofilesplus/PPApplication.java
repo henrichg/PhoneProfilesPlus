@@ -1921,7 +1921,7 @@ public class PPApplication extends Application
                         }
                     }
                 }
-            }, delay * 1000);
+            }, delay * 1000L);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }

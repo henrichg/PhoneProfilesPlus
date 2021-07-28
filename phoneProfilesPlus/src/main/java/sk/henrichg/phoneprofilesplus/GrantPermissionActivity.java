@@ -944,6 +944,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             intent.putExtra(Permissions.EXTRA_GRANT_ALSO_CONTACTS, grantAlsoContacts);
             intent.putExtra(Permissions.EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, grantAlsoBackgroundLocation);
 
+            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pi = PendingIntent.getActivity(context, grantType, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             mBuilder.setContentIntent(pi);
             mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);

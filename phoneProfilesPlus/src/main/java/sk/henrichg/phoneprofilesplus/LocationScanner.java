@@ -309,7 +309,7 @@ class LocationScanner
 //                                        PPApplication.logE("##### LocationScanner.startLocationUpdates", "interval="+interval);
                                         if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("1"))
                                             interval = 2 * interval;
-                                        final long UPDATE_INTERVAL_IN_MILLISECONDS = (interval * 1000) / 2;
+                                        final long UPDATE_INTERVAL_IN_MILLISECONDS = (interval * 1000L) / 2;
 
 //                                        PPApplication.logE("##### LocationScanner.startLocationUpdates", "request location updates - provider=" + provider);
 //                                        PPApplication.logE("##### LocationScanner.startLocationUpdates", "request location updates - interval=" + UPDATE_INTERVAL_IN_MILLISECONDS / 1000);

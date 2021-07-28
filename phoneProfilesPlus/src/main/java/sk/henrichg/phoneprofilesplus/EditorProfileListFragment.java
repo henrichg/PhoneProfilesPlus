@@ -176,7 +176,7 @@ public class EditorProfileListFragment extends Fragment
             showTargetHelps();
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint({"InflateParams", "NotifyDataSetChanged"})
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
@@ -484,6 +484,7 @@ public class EditorProfileListFragment extends Fragment
             return null;
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         protected void onPostExecute(Void response) {
             super.onPostExecute(response);
@@ -638,6 +639,7 @@ public class EditorProfileListFragment extends Fragment
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void deleteProfile(Profile profile)
     {
         //final Profile _profile = profile;
@@ -778,6 +780,7 @@ public class EditorProfileListFragment extends Fragment
             dialog.show();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void deleteAllProfiles()
     {
         if (profileListAdapter != null) {
@@ -980,6 +983,7 @@ public class EditorProfileListFragment extends Fragment
             showAdapterTargetHelps();
     }*/
 
+    @SuppressLint("NotifyDataSetChanged")
     void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition/*, long loadProfileId*/)
     {
         /*if (listView != null)
@@ -1249,6 +1253,7 @@ public class EditorProfileListFragment extends Fragment
 
             // show icons
             try {
+                @SuppressLint("DiscouragedPrivateApi")
                 Field field = popup.getClass().getDeclaredField("mPopup");
                 field.setAccessible(true);
                 Object menuPopupHelper = field.get(popup);
