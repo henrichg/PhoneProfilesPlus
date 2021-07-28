@@ -1741,7 +1741,7 @@
     <string name="event_preferences_category_eventSoundProfileParameters">Sound profile sensor</string>
     <string name="check_releases_open_fdroid">F-Droid öffnen</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus im Repository:</string>
-    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Increase brightness</string>
+    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Helligkeit erhöhen</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
