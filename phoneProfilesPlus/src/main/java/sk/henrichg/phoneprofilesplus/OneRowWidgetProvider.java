@@ -31,8 +31,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 //        PPApplication.logE("[IN_LISTENER] OneRowWidgetProvider.onUpdate", "xxx");
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
-            //PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "update widgets");
-            //PPApplication.logE("OneRowWidgetProvider.onUpdate", "xxx");
+//            PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "update widgets");
             PPApplication.startHandlerThreadWidget();
             final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             __handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
@@ -352,6 +351,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
             for (int widgetId : appWidgetIds) {
 
+//                AppWidgetProviderInfo info = appWidgetManager.getAppWidgetInfo(widgetId);
+//                PPApplication.logE("OneRowWidgetProvider._onUpdate", "info.updatePeriodMillis="+info.updatePeriodMillis);
+
                 RemoteViews remoteViews;
                 if (applicationWidgetOneRowPrefIndicator)
                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
@@ -548,9 +550,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, final Intent intent) {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
-//        PPApplication.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "xxx");
 
         String action = intent.getAction();
+//        PPApplication.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "action="+action);
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
@@ -577,27 +579,37 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             }
         }
     }
-
-    /*
+/*
+    @Override
     public void onDeleted (Context context, int[] appWidgetIds) {
-        Log.e("OneRowWidgetProvider.onDeleted", "xxx");
+        PPApplication.logE("OneRowWidgetProvider.onDeleted", "xxx");
     }
 
+    @Override
     public void onDisabled (Context context) {
-        Log.e("OneRowWidgetProvider.onDisabled", "xxx");
+        PPApplication.logE("OneRowWidgetProvider.onDisabled", "xxx");
     }
 
+    @Override
     public void onEnabled (Context context) {
-        Log.e("OneRowWidgetProvider.onEnabled", "xxx");
+        PPApplication.logE("OneRowWidgetProvider.onEnabled", "xxx");
     }
 
+    @Override
     public void onRestored (Context context,
                             int[] oldWidgetIds,
                             int[] newWidgetIds) {
-        Log.e("OneRowWidgetProvider.onRestored", "xxx");
+        PPApplication.logE("OneRowWidgetProvider.onRestored", "xxx");
     }
-    */
 
+    @Override
+    public void onAppWidgetOptionsChanged (Context context,
+                                           AppWidgetManager appWidgetManager,
+                                           int appWidgetId,
+                                           Bundle newOptions) {
+        PPApplication.logE("OneRowWidgetProvider.onAppWidgetOptionsChanged", "xxx");
+    }
+*/
     static void updateWidgets(Context context/*, boolean refresh*/) {
         /*String applicationWidgetOneRowIconLightness;
         String applicationWidgetOneRowIconColor;
@@ -677,6 +689,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 //        PPApplication.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
+
+        //Intent intent3 = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        //context.sendBroadcast(intent3);
 
         //Intent intent = new Intent(context, OneRowWidgetProvider.class);
         //intent.setAction(ACTION_REFRESH_ONEROWWIDGET);

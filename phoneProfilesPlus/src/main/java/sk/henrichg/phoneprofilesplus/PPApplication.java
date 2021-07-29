@@ -166,7 +166,7 @@ public class PPApplication extends Application
                                                 +"|PackageReplacedReceiver.onReceive"
                                                 //+"|PhoneProfilesService.doCommand"
                                                 //+"|PhoneProfilesService.showProfileNotification"
-                                                +"|PhoneProfilesService._showProfileNotification"
+                                                //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|ShowProfileNotificationBroadcastReceiver"
                                                 //+"|ShowProfileNotificationWorker.doWork"
                                                 //+"|[CUST] PhoneProfilesService._showProfileNotification"
@@ -306,6 +306,7 @@ public class PPApplication extends Application
                                                 //+"|QuickTileChooseTileBroadcastReceiver"
 
                                                 +"|------ EventsPrefsFragment.isRedTextNotificationRequired"
+                                                //+"|OneRowWidgetProvider"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
