@@ -10,6 +10,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -868,6 +869,8 @@ public class PPApplication extends Application
     static final QuickTileChooseTileBroadcastReceiver[] quickTileChooseTileBroadcastReceiver =
             {null, null, null, null, null, null};
 
+    static boolean pixelLauncherInstalled = false;
+
     @Override
     public void onCreate()
     {
@@ -977,6 +980,8 @@ public class PPApplication extends Application
         HAS_FEATURE_CAMERA_FLASH = PPApplication.hasSystemFeature(packageManager, PackageManager.FEATURE_CAMERA_FLASH);
 
         PPApplication.logE("##### PPApplication.onCreate", "end of get features");
+
+        setIsPixelLauncherInstalled(getApplicationContext());
 
         loadGlobalApplicationData(getApplicationContext());
         loadApplicationPreferences(getApplicationContext());
@@ -4690,6 +4695,30 @@ public class PPApplication extends Application
             }
         }
         return TelephonyManager.CALL_STATE_IDLE;
+    }
+
+    // Is Pixel Launcher installed --------------------------------------------------
+
+    static void setIsPixelLauncherInstalled(Context context) {
+        if (Build.VERSION.SDK_INT >= 31) {
+            if (context != null) {
+                try {
+                    PackageManager packageManager = context.getPackageManager();
+                    if (packageManager != null) {
+                        ApplicationInfo appInfo = packageManager.getApplicationInfo(
+                                "com.google.android.apps.nexuslauncher", 0);
+                        pixelLauncherInstalled = appInfo.enabled;
+                    }
+                } catch (Exception e) {
+                    // extender is not installed = package not found
+                    //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+                    //PPApplication.recordException(e);
+                    pixelLauncherInstalled = false;
+                }
+            }
+        }
+        else
+            pixelLauncherInstalled = false;
     }
 
     // ACRA -------------------------------------------------------------------------

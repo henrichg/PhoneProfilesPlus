@@ -7,6 +7,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -1555,6 +1557,50 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 PreferenceCategory preferenceCategory = findPreference("notificationStatusBarCategory");
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= 31) {
+            boolean pixelLauncherInstalled = false;
+            if (getActivity() != null) {
+                try {
+                    PackageManager packageManager = getActivity().getPackageManager();
+                    if (packageManager != null) {
+                        ApplicationInfo appInfo = packageManager.getApplicationInfo(
+                                "com.google.android.apps.nexuslauncher", 0);
+                        pixelLauncherInstalled = appInfo.enabled;
+                    }
+                } catch (Exception e) {
+                    // extender is not installed = package not found
+                    //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
+                    //PPApplication.recordException(e);
+                }
+            }
+            if (pixelLauncherInstalled) {
+                // Pixel Launcher is sinstalled
+                // TODO Maybe rounded corners will be also in another launchers
+                // TODO But currently is checked only Pixel launcher
+                // TODO because Android 12 is in beta (29.7.2021)
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS);
+                if (preference != null)
+                    preference.setVisible(false);
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS);
+                if (preference != null)
+                    preference.setVisible(false);
+
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS);
+                if (preference != null)
+                    preference.setVisible(false);
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS);
+                if (preference != null)
+                    preference.setVisible(false);
+
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS);
+                if (preference != null)
+                    preference.setVisible(false);
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS);
+                if (preference != null)
+                    preference.setVisible(false);
             }
         }
     }

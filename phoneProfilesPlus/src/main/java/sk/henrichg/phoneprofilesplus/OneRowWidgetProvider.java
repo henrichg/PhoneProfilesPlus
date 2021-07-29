@@ -82,9 +82,17 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowBackground = ApplicationPreferences.applicationWidgetOneRowBackground;
             applicationWidgetOneRowShowBorder = ApplicationPreferences.applicationWidgetOneRowShowBorder;
             applicationWidgetOneRowLightnessBorder = ApplicationPreferences.applicationWidgetOneRowLightnessBorder;
-            applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
+
+            if (PPApplication.pixelLauncherInstalled) {
+                applicationWidgetOneRowRoundedCorners = true;
+                applicationWidgetOneRowRoundedCornersRadius = 15;
+            }
+            else {
+                applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
+                applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
+            }
+
             applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT;
-            applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
         }
 
         //PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowShowBorder="+applicationWidgetOneRowShowBorder);

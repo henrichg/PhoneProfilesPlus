@@ -62,12 +62,20 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListBackground = ApplicationPreferences.applicationWidgetListBackground;
             applicationWidgetListShowBorder = ApplicationPreferences.applicationWidgetListShowBorder;
             applicationWidgetListLightnessBorder = ApplicationPreferences.applicationWidgetListLightnessBorder;
-            applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
+
+            if (PPApplication.pixelLauncherInstalled) {
+                applicationWidgetListRoundedCorners = true;
+                applicationWidgetListRoundedCornersRadius = 15;
+            }
+            else {
+                applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
+                applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
+            }
+
             applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
             applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
             applicationWidgetListCustomIconLightness = ApplicationPreferences.applicationWidgetListCustomIconLightness;
             applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
-            applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
         }
 
         int monochromeValue = 0xFF;

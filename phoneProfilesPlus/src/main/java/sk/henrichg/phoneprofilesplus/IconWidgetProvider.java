@@ -72,10 +72,17 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconBackground = ApplicationPreferences.applicationWidgetIconBackground;
             applicationWidgetIconShowBorder = ApplicationPreferences.applicationWidgetIconShowBorder;
             applicationWidgetIconLightnessBorder = ApplicationPreferences.applicationWidgetIconLightnessBorder;
-            applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
+
+            if (PPApplication.pixelLauncherInstalled) {
+                applicationWidgetIconRoundedCorners = true;
+                applicationWidgetIconRoundedCornersRadius = 15;
+            }
+            else {
+                applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
+                applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
+            }
             applicationWidgetIconLightnessT = ApplicationPreferences.applicationWidgetIconLightnessT;
             applicationWidgetIconShowProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;
-            applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
         }
 
         //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconLightness="+ApplicationPreferences.applicationWidgetIconLightness);
