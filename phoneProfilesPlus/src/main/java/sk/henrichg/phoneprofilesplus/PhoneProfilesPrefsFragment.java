@@ -1561,23 +1561,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (Build.VERSION.SDK_INT >= 31) {
-            boolean pixelLauncherInstalled = false;
-            if (getActivity() != null) {
-                try {
-                    PackageManager packageManager = getActivity().getPackageManager();
-                    if (packageManager != null) {
-                        ApplicationInfo appInfo = packageManager.getApplicationInfo(
-                                "com.google.android.apps.nexuslauncher", 0);
-                        pixelLauncherInstalled = appInfo.enabled;
-                    }
-                } catch (Exception e) {
-                    // extender is not installed = package not found
-                    //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
-                    //PPApplication.recordException(e);
-                }
-            }
-            if (pixelLauncherInstalled) {
-                // Pixel Launcher is sinstalled
+            if (PPApplication.isPixelLauncherDefault(getActivity())) {
+                // Pixel Launcher is default
                 // TODO Maybe rounded corners will be also in another launchers
                 // TODO But currently is checked only Pixel launcher
                 // TODO because Android 12 is in beta (29.7.2021)

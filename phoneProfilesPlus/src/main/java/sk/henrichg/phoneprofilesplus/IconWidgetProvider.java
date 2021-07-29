@@ -73,7 +73,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconShowBorder = ApplicationPreferences.applicationWidgetIconShowBorder;
             applicationWidgetIconLightnessBorder = ApplicationPreferences.applicationWidgetIconLightnessBorder;
 
-            if (PPApplication.pixelLauncherInstalled) {
+            if (PPApplication.isPixelLauncherDefault(context)) {
                 applicationWidgetIconRoundedCorners = true;
                 applicationWidgetIconRoundedCornersRadius = 15;
             }

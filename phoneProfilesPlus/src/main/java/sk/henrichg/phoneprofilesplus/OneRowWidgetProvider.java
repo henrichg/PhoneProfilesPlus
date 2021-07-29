@@ -83,7 +83,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowShowBorder = ApplicationPreferences.applicationWidgetOneRowShowBorder;
             applicationWidgetOneRowLightnessBorder = ApplicationPreferences.applicationWidgetOneRowLightnessBorder;
 
-            if (PPApplication.pixelLauncherInstalled) {
+            if (PPApplication.isPixelLauncherDefault(context)) {
                 applicationWidgetOneRowRoundedCorners = true;
                 applicationWidgetOneRowRoundedCornersRadius = 15;
             }

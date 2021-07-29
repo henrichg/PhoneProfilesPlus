@@ -63,7 +63,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListShowBorder = ApplicationPreferences.applicationWidgetListShowBorder;
             applicationWidgetListLightnessBorder = ApplicationPreferences.applicationWidgetListLightnessBorder;
 
-            if (PPApplication.pixelLauncherInstalled) {
+            if (PPApplication.isPixelLauncherDefault(context)) {
                 applicationWidgetListRoundedCorners = true;
                 applicationWidgetListRoundedCornersRadius = 15;
             }
