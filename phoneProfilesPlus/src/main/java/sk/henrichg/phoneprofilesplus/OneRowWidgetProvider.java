@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
@@ -70,6 +71,18 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         String applicationWidgetOneRowLightnessT;
         int applicationWidgetOneRowRoundedCornersRadius;
         synchronized (PPApplication.applicationPreferencesMutex) {
+
+            if (PPApplication.isPixelLauncherDefault(context)) {
+                ApplicationPreferences.applicationWidgetOneRowRoundedCorners = true;
+                ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius = 15;
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS,
+                        ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
+                editor.putInt(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS,
+                        ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius);
+                editor.apply();
+            }
+
             applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
             applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor;
             applicationWidgetOneRowCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness;
@@ -81,17 +94,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowBackground = ApplicationPreferences.applicationWidgetOneRowBackground;
             applicationWidgetOneRowShowBorder = ApplicationPreferences.applicationWidgetOneRowShowBorder;
             applicationWidgetOneRowLightnessBorder = ApplicationPreferences.applicationWidgetOneRowLightnessBorder;
-
-            if (PPApplication.isPixelLauncherDefault(context)) {
-                applicationWidgetOneRowRoundedCorners = true;
-                applicationWidgetOneRowRoundedCornersRadius = 15;
-            }
-            else {
-                applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
-                applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
-            }
-
             applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT;
+            applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
+            applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
         }
 
         //PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowShowBorder="+applicationWidgetOneRowShowBorder);

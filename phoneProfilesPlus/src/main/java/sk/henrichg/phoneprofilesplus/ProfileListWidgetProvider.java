@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -52,6 +53,18 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         String applicationWidgetListLightnessT;
         int applicationWidgetListRoundedCornersRadius;
         synchronized (PPApplication.applicationPreferencesMutex) {
+
+            if (PPApplication.isPixelLauncherDefault(context)) {
+                ApplicationPreferences.applicationWidgetListRoundedCorners = true;
+                ApplicationPreferences.applicationWidgetListRoundedCornersRadius = 15;
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS,
+                        ApplicationPreferences.applicationWidgetListRoundedCorners);
+                editor.putInt(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS,
+                        ApplicationPreferences.applicationWidgetListRoundedCornersRadius);
+                editor.apply();
+            }
+
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
             applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
@@ -62,20 +75,12 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListBackground = ApplicationPreferences.applicationWidgetListBackground;
             applicationWidgetListShowBorder = ApplicationPreferences.applicationWidgetListShowBorder;
             applicationWidgetListLightnessBorder = ApplicationPreferences.applicationWidgetListLightnessBorder;
-
-            if (PPApplication.isPixelLauncherDefault(context)) {
-                applicationWidgetListRoundedCorners = true;
-                applicationWidgetListRoundedCornersRadius = 15;
-            }
-            else {
-                applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
-                applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
-            }
-
             applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
             applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
             applicationWidgetListCustomIconLightness = ApplicationPreferences.applicationWidgetListCustomIconLightness;
             applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
+            applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
+            applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
         }
 
         int monochromeValue = 0xFF;

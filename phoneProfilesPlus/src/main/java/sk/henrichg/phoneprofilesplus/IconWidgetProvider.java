@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
 import android.text.Spannable;
@@ -62,6 +63,18 @@ public class IconWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetIconShowProfileDuration;
         int applicationWidgetIconRoundedCornersRadius;
         synchronized (PPApplication.applicationPreferencesMutex) {
+
+            if (PPApplication.isPixelLauncherDefault(context)) {
+                ApplicationPreferences.applicationWidgetIconRoundedCorners = true;
+                ApplicationPreferences.applicationWidgetIconRoundedCornersRadius = 15;
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS,
+                        ApplicationPreferences.applicationWidgetIconRoundedCorners);
+                editor.putInt(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS,
+                        ApplicationPreferences.applicationWidgetIconRoundedCornersRadius);
+                editor.apply();
+            }
+
             applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
             applicationWidgetIconColor = ApplicationPreferences.applicationWidgetIconColor;
             applicationWidgetIconCustomIconLightness = ApplicationPreferences.applicationWidgetIconCustomIconLightness;
@@ -72,17 +85,10 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconBackground = ApplicationPreferences.applicationWidgetIconBackground;
             applicationWidgetIconShowBorder = ApplicationPreferences.applicationWidgetIconShowBorder;
             applicationWidgetIconLightnessBorder = ApplicationPreferences.applicationWidgetIconLightnessBorder;
-
-            if (PPApplication.isPixelLauncherDefault(context)) {
-                applicationWidgetIconRoundedCorners = true;
-                applicationWidgetIconRoundedCornersRadius = 15;
-            }
-            else {
-                applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
-                applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
-            }
             applicationWidgetIconLightnessT = ApplicationPreferences.applicationWidgetIconLightnessT;
             applicationWidgetIconShowProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;
+            applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
+            applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
         }
 
         //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconLightness="+ApplicationPreferences.applicationWidgetIconLightness);
