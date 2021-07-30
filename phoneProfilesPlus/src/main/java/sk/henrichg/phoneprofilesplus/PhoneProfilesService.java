@@ -5535,7 +5535,7 @@ public class PhoneProfilesService extends Service
         int useNightColor = 0;
         boolean profileIconExists = true;
         //boolean preferencesIndicatorExistsLarge = true;
-        boolean preferencesIndicatorExists = true;
+        //boolean preferencesIndicatorExists = true;
 
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationNotificationStyle="+notificationNotificationStyle);
 
@@ -5594,14 +5594,14 @@ public class PhoneProfilesService extends Service
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator);
                         else
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator_no_indicators);
-                        preferencesIndicatorExists = true;
+                        //preferencesIndicatorExists = true;
                     }
                     else {
                         if (notificationPrefIndicator)
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
                         else
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_indicators);
-                        preferencesIndicatorExists = true;
+                        //preferencesIndicatorExists = true;
                     }
                     //noinspection IfStatementWithIdenticalBranches
                     if (!useDecorator) {
@@ -5620,19 +5620,20 @@ public class PhoneProfilesService extends Service
             else
             if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
                 //if (android.os.Build.VERSION.SDK_INT >= 24) {
+                    //noinspection IfStatementWithIdenticalBranches
                     if (!useDecorator) {
                         if (notificationPrefIndicator)
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui_no_decorator);
                         else
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui_no_decorator_no_indicators);
-                        preferencesIndicatorExists = true;
+                        //preferencesIndicatorExists = true;
                     }
                     else {
                         if (notificationPrefIndicator)
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui);
                         else
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui_no_indicators);
-                        preferencesIndicatorExists = true;
+                        //preferencesIndicatorExists = true;
                     }
                     //noinspection IfStatementWithIdenticalBranches
                     if (!useDecorator) {
@@ -5656,14 +5657,14 @@ public class PhoneProfilesService extends Service
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui_no_decorator);
                         else
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui_no_decorator_no_indicators);
-                        preferencesIndicatorExists = true;
+                        //preferencesIndicatorExists = true;
                     }
                     else {
                         if (notificationPrefIndicator)
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui);
                         else
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_emui_no_indicators);
-                        preferencesIndicatorExists = true;
+                        //preferencesIndicatorExists = true;
                     }
                     //noinspection IfStatementWithIdenticalBranches
                     if (!useDecorator) {
@@ -5686,14 +5687,14 @@ public class PhoneProfilesService extends Service
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_samsung_no_decorator);
                         else
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_samsung_no_decorator_no_indicators);
-                        preferencesIndicatorExists = true;
+                        //preferencesIndicatorExists = true;
                     }
                     else {
                         if (notificationPrefIndicator)
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
                         else
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_indicators);
-                        preferencesIndicatorExists = true;
+                        //preferencesIndicatorExists = true;
                     }
                     //noinspection IfStatementWithIdenticalBranches
                     if (!useDecorator) {
@@ -5717,14 +5718,14 @@ public class PhoneProfilesService extends Service
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator);
                         else
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_decorator_no_indicators);
-                        preferencesIndicatorExists = true;
+                        //preferencesIndicatorExists = true;
                     }
                     else {
                         if (notificationPrefIndicator)
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer);
                         else
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_no_indicators);
-                        preferencesIndicatorExists = true;
+                        //preferencesIndicatorExists = true;
                     }
                     //noinspection IfStatementWithIdenticalBranches
                     if (!useDecorator) {
@@ -5781,7 +5782,7 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationNotificationStyle="+notificationNotificationStyle);
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "preferencesIndicatorExists="+preferencesIndicatorExists);
 
-                if (notificationPrefIndicator && (notificationNotificationStyle.equals("0")) && preferencesIndicatorExists) {
+                if (notificationPrefIndicator && (notificationNotificationStyle.equals("0")) /*&& preferencesIndicatorExists*/) {
                     //PPApplication.logE("[TEST BATTERY] PhoneProfilesService._showProfileNotification", "generate indicators");
 
                     float brightnessValue = 0f;
@@ -6112,18 +6113,18 @@ public class PhoneProfilesService extends Service
                     if (preferencesIndicatorBitmap != null) {
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "preferencesIndicatorBitmap != null");
                         //noinspection ConstantConditions
-                        if (preferencesIndicatorExists) {
+                        //if (preferencesIndicatorExists) {
 //                            PPApplication.logE("PhoneProfilesService._showProfileNotification", "preferencesIndicatorExists");
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_pref_indicator, preferencesIndicatorBitmap);
                             contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.VISIBLE);
-                        }
+                        //}
                     } else {
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "preferencesIndicatorBitmap == null");
-                        if (preferencesIndicatorExists) {
+                        //if (preferencesIndicatorExists) {
 //                            PPApplication.logE("PhoneProfilesService._showProfileNotification", "preferencesIndicatorExists");
                             //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
                             contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
-                        }
+                        //}
                     }
                     /*
                     // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
@@ -6139,11 +6140,11 @@ public class PhoneProfilesService extends Service
                 }
                 else {
 //                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationPrefIndicator=false");
-                    if (preferencesIndicatorExists) {
+                    //if (preferencesIndicatorExists) {
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "preferencesIndicatorExists");
                         //contentViewLarge.setImageViewResource(R.id.notification_activated_profile_pref_indicator, R.drawable.ic_empty);
                         contentViewLarge.setViewVisibility(R.id.notification_activated_profile_pref_indicator, View.GONE);
-                    }
+                    //}
                     /*
                     // Maybe this produce: android.app.RemoteServiceException: Bad notification(tag=null, id=700420) posted from package sk.henrichg.phoneprofilesplus, crashing app(uid=10002, pid=13431): Couldn't inflate contentViewsandroid.widget.RemoteViews$ActionException: android.widget.RemoteViews$ActionException: view: android.widget.ImageView doesn't have method: setText(interface java.lang.CharSequence)
                     try {
