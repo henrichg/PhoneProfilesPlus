@@ -5625,7 +5625,7 @@ public class PhoneProfilesService extends Service
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui_no_decorator);
                         else
                             contentViewLarge = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.notification_drawer_miui_no_decorator_no_indicators);
-                        preferencesIndicatorExists = false;
+                        preferencesIndicatorExists = true;
                     }
                     else {
                         if (notificationPrefIndicator)
