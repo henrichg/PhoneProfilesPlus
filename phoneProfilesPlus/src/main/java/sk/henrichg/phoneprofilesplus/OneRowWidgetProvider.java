@@ -78,8 +78,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS,
                         ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
-                editor.putInt(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS,
-                        ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius);
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS,
+                        String.valueOf(ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius));
                 editor.apply();
             }
 

@@ -60,8 +60,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS,
                         ApplicationPreferences.applicationWidgetListRoundedCorners);
-                editor.putInt(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS,
-                        ApplicationPreferences.applicationWidgetListRoundedCornersRadius);
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS,
+                        String.valueOf(ApplicationPreferences.applicationWidgetListRoundedCornersRadius));
                 editor.apply();
             }
 

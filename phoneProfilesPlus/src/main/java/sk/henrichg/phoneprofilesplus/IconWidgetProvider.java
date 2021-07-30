@@ -70,8 +70,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS,
                         ApplicationPreferences.applicationWidgetIconRoundedCorners);
-                editor.putInt(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS,
-                        ApplicationPreferences.applicationWidgetIconRoundedCornersRadius);
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS,
+                        String.valueOf(ApplicationPreferences.applicationWidgetIconRoundedCornersRadius));
                 editor.apply();
             }
 
