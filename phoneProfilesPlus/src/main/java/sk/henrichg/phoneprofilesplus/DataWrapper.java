@@ -1799,7 +1799,10 @@ public class DataWrapper {
                 if (((startupSource != PPApplication.STARTUP_SOURCE_EVENT) &&
                      (startupSource != PPApplication.STARTUP_SOURCE_FOR_FIRST_START) //&&
                    //(startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START)
-                ) || (_profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
+                    ) ||
+                    ((!_profile._askForDuration) &&
+                     (_profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))
+                ) {
                     // activation with duration
 
 
