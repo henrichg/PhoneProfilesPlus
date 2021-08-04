@@ -1742,6 +1742,7 @@
     <string name="check_releases_open_fdroid">Open F-Droid</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus in repository:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Increase brightness</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Show \"Restart events\" as button</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1770,6 +1771,11 @@
     <string name="extender_acra_notification_title">Συγγνώμη, το PhoneProfilesPlusExtender τερματίστηκε απροσδόκητα</string>
     <string name="extender_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <string name="extender_notification_channel_crash_report">Αναφορά κατάρρευσης</string>
+    <string name="extender_scroll_info">Note: Scroll down in this screen to show all parameters.</string>
+    <string name="extender_battery_optimization_text">• Battery optimization for PhoneProfilesPlusExtender - please add it to \"Not optimized\" group:</string>
+    <string name="extender_battery_optimization_optimized">Optimized</string>
+    <string name="extender_battery_optimization_not_optimized">Not optimized</string>
+    <string name="extender_battery_optimization_button">Open Battery optimization</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

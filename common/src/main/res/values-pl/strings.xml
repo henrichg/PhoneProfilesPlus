@@ -1293,8 +1293,7 @@
     <string name="event_preferences_orientation_light_not_enabled">nieaktywne</string>
     <string name="pref_event_screen_startWhenLocked">Rozpocznij po zablokowaniu</string>
     <string name="event_preferences_screen_start_when_locked">Rozpocznij po zablokowaniu</string>
-    <string name="event_preference_sensor_screen_summary">Czujnik ten uruchomi zdarzenie po włączeniu/wyłączeniu ekranu.
-Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy odblokowany/zablokowany (zdarzenie uruchomi odblokowanie/zablokowanie urządzenia).</string>
+    <string name="event_preference_sensor_screen_summary">Czujnik ten uruchomi zdarzenie po włączeniu/wyłączeniu ekranu. Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy odblokowany/zablokowany (zdarzenie uruchomi odblokowanie/zablokowanie urządzenia).</string>
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Wyświetl wskaźniki preferencji profilu w Aktywatorze, Edytorze, skrócie</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Wyświetl wskaźniki preferencji profilu w powiadomieniu</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Wyświetlaj wskaźniki preferencji profilu w widżetach</string>
@@ -1733,16 +1732,17 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="array_pref_event_ringerMode_vibrate">Wibracje</string>
     <string name="array_pref_event_ringerMode_silent">Wyciszony</string>
     <string name="array_pref_event_ringerMode_zenMode">Nie przeszkadzać</string>
-    <string name="array_pref_event_zenMode_all">Off</string>
-    <string name="array_pref_event_zenMode_priority">Priority</string>
-    <string name="array_pref_event_ringerMode_alarm">Alarms only</string>
-    <string name="array_pref_event_ringerMode_none">Total silence</string>
-    <string name="array_pref_event_zenMode_all_and_vibrate">Off with vibration</string>
-    <string name="array_pref_event_zenMode_priority_and_vibrate">Priority with vibration</string>
-    <string name="event_preferences_category_eventSoundProfileParameters">Sound profile sensor</string>
+    <string name="array_pref_event_zenMode_all">Wyłączony</string>
+    <string name="array_pref_event_zenMode_priority">Priorytetowe</string>
+    <string name="array_pref_event_ringerMode_alarm">Tylko alarmy</string>
+    <string name="array_pref_event_ringerMode_none">Całkowite wyciszenie</string>
+    <string name="array_pref_event_zenMode_all_and_vibrate">Wyłączone z wibracjami</string>
+    <string name="array_pref_event_zenMode_priority_and_vibrate">Priorytetowe z wibracjami</string>
+    <string name="event_preferences_category_eventSoundProfileParameters">Czujnik profilu dźwięku</string>
     <string name="check_releases_open_fdroid">Otwórz F-Droid</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus w repozytorium:</string>
-    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Increase brightness</string>
+    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Zwiększ jasność</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Pokaż \"zrestartuj zdarzenia\" jako przycisk</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1771,6 +1771,11 @@ Parametry: Stan ekranu (ekran włączony, ekran wyłączony), Rozpocznij, gdy od
     <string name="extender_acra_notification_title">Przepraszamy, PhoneProfilesPlusExtender uległ awarii</string>
     <string name="extender_acra_notification_text">Kliknij tutaj, aby wysłać zgłoszenie awarii do autora. Dziękujemy.</string>
     <string name="extender_notification_channel_crash_report">Raport błędu</string>
+    <string name="extender_scroll_info">Uwaga: Przewiń w dół na tym ekranie, aby wyświetlić wszystkie parametry.</string>
+    <string name="extender_battery_optimization_text">• Optymalizacja baterii dla PhoneProfilesPlusExtender - proszę dodać ją do grupy \"Nie zoptymalizowane\":</string>
+    <string name="extender_battery_optimization_optimized">Zoptymalizowana</string>
+    <string name="extender_battery_optimization_not_optimized">Bez optymalizacji</string>
+    <string name="extender_battery_optimization_button">Otwórz optymalizację baterii</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

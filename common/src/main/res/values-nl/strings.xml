@@ -919,7 +919,7 @@
     <string name="profile_preferences_deviceCloseAllApplications">Sluit alle programma\'s</string>
     <string name="array_pref_do_not_close">Sluit niet</string>
     <string name="array_pref_close">Sluiten</string>
-    <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simuleert drukken op de Home toets in de navigatie balk.</string>
+    <string name="profile_preferences_deviceCloseAllApplicationsInfo_summary">Simuleert drukken op de Home knop in de navigatie balk.</string>
     <string name="phone_profiles_pref_applicationEventLocation_info">Deze instellingen zijn voor de Locatie event sensor.</string>
     <string name="phone_profiles_pref_applicationEventWifi_info">Deze instellingen zijn voor de Wi-Fi even sensor.</string>
     <string name="phone_profiles_pref_applicationEventBluetooth_info">Deze instellingen zijn voor de Bluetooth even sensor.</string>
@@ -1742,6 +1742,7 @@
     <string name="check_releases_open_fdroid">Open F-Droid</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus in repository:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Verhoog helderheid</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Toon \"Events herstarten\" als knop</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1770,6 +1771,11 @@
     <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender is gecrasht</string>
     <string name="extender_acra_notification_text">Klik hier om een crashrapport te verzenden naar de auteur. Dank je wel.</string>
     <string name="extender_notification_channel_crash_report">Crashrapport</string>
+    <string name="extender_scroll_info">Opmerking: Scroll naar beneden op dit scherm om alle parameters te zien.</string>
+    <string name="extender_battery_optimization_text">• Accuoptimalisatie voor PhoneProfilesPlusExtender - voeg het toe aan \"Niet geoptimaliseerd\" groep:</string>
+    <string name="extender_battery_optimization_optimized">Geoptimaliseerd</string>
+    <string name="extender_battery_optimization_not_optimized">Niet geoptimaliseerd</string>
+    <string name="extender_battery_optimization_button">Open Batterijoptimalisatie</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

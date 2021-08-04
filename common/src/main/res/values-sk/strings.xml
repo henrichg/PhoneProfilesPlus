@@ -1742,6 +1742,7 @@
     <string name="check_releases_open_fdroid">Otvoriť F-Droid</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus v repozitári:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Zvýšiť jas</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Zobraziť \"Reštart udalostí\" ako tlačidlo</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1770,6 +1771,11 @@
     <string name="extender_acra_notification_title">Je mi ľúto, PhoneProfilesPlus zlyhal</string>
     <string name="extender_acra_notification_text">Kliknutím sem, odošlete autorovi správu o zlyhaní. Ďakujem veľmi pekne.</string>
     <string name="extender_notification_channel_crash_report">Správa o zlyhaní</string>
+    <string name="extender_scroll_info">Poznámka: Posunutím nadol na tejto obrazovke zobrazíte všetky parametre.</string>
+    <string name="extender_battery_optimization_text">• Optimalizácia batérie pre PhoneProfilesPlusExtender - pridajte ho do skupiny „Neoptimalizované“:</string>
+    <string name="extender_battery_optimization_optimized">Optimalizované</string>
+    <string name="extender_battery_optimization_not_optimized">Neoptimalizované</string>
+    <string name="extender_battery_optimization_button">Otvor Optimalizáciu batérie</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

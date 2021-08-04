@@ -494,7 +494,7 @@
     <string name="altype_eventEndDelay">Ereignis verzögert beenden</string>
     <string name="info_notification_event_states_running_delay">Läuft mit Verzögerung: Ereignis läuft, aber die Parameter treffen nicht mehr zu. Ereignis wartet während Verzögerung.</string>
     <string name="profile_preferences_askForDuration">Dauer erfragen</string>
-    <string name="phone_profiles_pref_applicationBatteryOptimization">Batterieoptimierung</string>
+    <string name="phone_profiles_pref_applicationBatteryOptimization">Akku-Optimierung</string>
     <string name="profile_preferences_deviceNetworkType">(R) Netzwerktyp</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Energiesparmodus</string>
     <string name="phone_profiles_pref_applicationBatterySaver_system">Systemeinstellungen einstellen</string>
@@ -1742,6 +1742,7 @@
     <string name="check_releases_open_fdroid">F-Droid öffnen</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus im Repository:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Helligkeit erhöhen</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">„Ereignisse neu starten” als Schaltfläche anzeigen</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1770,6 +1771,11 @@
     <string name="extender_acra_notification_title">Leider ist PhoneProfilesPlusExtender abgestürzt</string>
     <string name="extender_acra_notification_text">Bitte klicken Sie hier, um den Absturzbericht an den Autor zu senden. Vielen Dank.</string>
     <string name="extender_notification_channel_crash_report">Absturzbericht</string>
+    <string name="extender_scroll_info">Hinweis: Blättern Sie in diesem Bildschirm nach unten, um alle Parameter anzuzeigen.</string>
+    <string name="extender_battery_optimization_text">• Akku-Optimierung für PhoneProfilesPlusExtender — bitte zur Gruppe „Nicht optimiert” hinzufügen:</string>
+    <string name="extender_battery_optimization_optimized">Optimiert</string>
+    <string name="extender_battery_optimization_not_optimized">Nicht optimiert</string>
+    <string name="extender_battery_optimization_button">Akku-Optimierung öffnen</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

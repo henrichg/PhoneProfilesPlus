@@ -1742,6 +1742,7 @@
     <string name="check_releases_open_fdroid">打开 F-Droid</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus 在仓库：</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">增加亮度</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">\"重启事件\"显示为按钮</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1770,6 +1771,11 @@
     <string name="extender_acra_notification_title">对不起，PhoneProfilesPlusExtender 崩溃了</string>
     <string name="extender_acra_notification_text">请点击此处，向作者发送崩溃报告，非常感谢您。</string>
     <string name="extender_notification_channel_crash_report">崩溃报告</string>
+    <string name="extender_scroll_info">提示：滚动屏幕可以显示所有参数。</string>
+    <string name="extender_battery_optimization_text">• 为 PhoneProfilesPlusExtender 电池优化-请将其添加到“未优化”组：</string>
+    <string name="extender_battery_optimization_optimized">已优化</string>
+    <string name="extender_battery_optimization_not_optimized">未优化</string>
+    <string name="extender_battery_optimization_button">打开电池优化</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

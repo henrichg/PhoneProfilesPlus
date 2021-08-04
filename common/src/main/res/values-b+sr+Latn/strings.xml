@@ -1527,8 +1527,7 @@
     <string name="profile_preferences_savedProfilePreferences_title">Snimljeni parametri uređaja</string>
     <string name="profile_preferences_savedProfilePreferences_summary">Klikni ovde za prikaz snimljenih parametara uređaja.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Aplikacija umesto ikone profila</string>
-    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Ako je u status baru prikazana PhoneProfilesPlus aplikacija umesto ikone profila, možete je promeniti. Podesite uređaj
-\"Podešavanja\"/\"Obaveštenja\"/\"Senka obaveštenja\"=\"Android\".</string>
+    <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Ako je u status baru prikazana PhoneProfilesPlus aplikacija umesto ikone profila, možete je promeniti. Podesite uređaj \"Podešavanja\"/\"Obaveštenja\"/\"Senka obaveštenja\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignoriši i nemoj prekidati</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Ručno aktiviranje profila na kraju</string>
     <string name="critical_github_release_confirm_notification_disable">Kritična ažuriranja PhoneProfilesPlus su pronađena i potrebno ih je preuzeti. U njima se nalaze ispravke kritičnih greški. Da li ste sigurni da ne želite ovo obaveštenje u budućnosti?</string>
@@ -1743,6 +1742,7 @@
     <string name="check_releases_open_fdroid">Otvori F-Droid apl.</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus u spremištu:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Increase brightness</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Show \"Restart events\" as button</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1771,6 +1771,11 @@
     <string name="extender_acra_notification_title">Žao nam je, PhoneProfilesPlusExtender se isključio</string>
     <string name="extender_acra_notification_text">Kliknite ovde da biste poslali izveštaj o grešci autoru. Hvala vam na tome.</string>
     <string name="extender_notification_channel_crash_report">Izveštaj o grešci</string>
+    <string name="extender_scroll_info">Note: Scroll down in this screen to show all parameters.</string>
+    <string name="extender_battery_optimization_text">• Battery optimization for PhoneProfilesPlusExtender - please add it to \"Not optimized\" group:</string>
+    <string name="extender_battery_optimization_optimized">Optimized</string>
+    <string name="extender_battery_optimization_not_optimized">Not optimized</string>
+    <string name="extender_battery_optimization_button">Open Battery optimization</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

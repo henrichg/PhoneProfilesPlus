@@ -1742,6 +1742,7 @@
     <string name="check_releases_open_fdroid">F-Droid\'i Aç</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">Depodaki PhoneProfilesPlus:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Parlaklığı artır</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">\"Durumları yeniden başlat\"ı düğme olarak göster</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• Tercih değeri \"Zorla durdurulan uygulamalar\"\n• Durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1770,6 +1771,11 @@
     <string name="extender_acra_notification_title">Maalesef PhoneProfilesPlus çöktü</string>
     <string name="extender_acra_notification_text">Lutfen, çökme raporunu yazara göndermek için buraya dokunun. Çok teşekkür ederiz.</string>
     <string name="extender_notification_channel_crash_report">Çökme raporu</string>
+    <string name="extender_scroll_info">Not: Tüm değerleri göstermek için bu ekranda aşağı kaydırın.</string>
+    <string name="extender_battery_optimization_text">• PhoneProfilesPlusExtender için pilin en iyi duruma getirilmesi - lutfen \"En iyi duruma getirilmedi\" grubuna ekleyin:</string>
+    <string name="extender_battery_optimization_optimized">En iyi duruma getirildi</string>
+    <string name="extender_battery_optimization_not_optimized">En iyi duruma getirilmedi</string>
+    <string name="extender_battery_optimization_button">\"Pilin en iyi duruma getirilmesi\"ni aç</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

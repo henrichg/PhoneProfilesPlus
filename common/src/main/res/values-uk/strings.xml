@@ -1530,8 +1530,7 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Якщо, в рядку стану, замість іконки профілю іконка PhoneProfilesPlus, це можна змінити. \"Налаштування\"/ \"Сповіщення\"/ \"Notification shade\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ігнорувати й не призупиняти</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] По завершеню вручну активувати профіль</string>
-    <string name="critical_github_release_confirm_notification_disable">Вкрай важливо завантажити це оновлення PhoneProfilesPlus. В ньому усунуті критичні помилки. 
-Ви впевнені, що не бажаєте бачити це повідомлення в майбутньому?</string>
+    <string name="critical_github_release_confirm_notification_disable">Вкрай важливо завантажити це оновлення PhoneProfilesPlus. В ньому усунуті критичні помилки. Ви впевнені, що не бажаєте бачити це повідомлення в майбутньому?</string>
     <string name="critical_github_release_notification_disable_button">Не зважати</string>
     <string name="editor_drawer_order_start_profile_name">Ім\'я профілю при запуску</string>
     <string name="editor_drawer_order_end_profile_name">Ім\'я профілю по завершені</string>
@@ -1743,6 +1742,7 @@
     <string name="check_releases_open_fdroid">Відкрити F-Droid</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus в репозиторії:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Збільшити яскравість</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Показати \"Перезавантажити події\" як кнопку</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1771,6 +1771,11 @@
     <string name="extender_acra_notification_title">На жаль, PhoneProfilesPlusExtender зазнав аварії</string>
     <string name="extender_acra_notification_text">Будь ласка, натисніть тут, щоб надіслати звіт про помилку автору. Дуже дякуємо.</string>
     <string name="extender_notification_channel_crash_report">Звіт про аварію</string>
+    <string name="extender_scroll_info">Примітка: Треба прокрутити вниз, щоб побачити всі параметри.</string>
+    <string name="extender_battery_optimization_text">• Оптимізація батареї для PhoneProfilesPlusExtender - будь ласка, додайте до групи «Не економити заряд»:</string>
+    <string name="extender_battery_optimization_optimized">Оптимізовано</string>
+    <string name="extender_battery_optimization_not_optimized">Не оптимізовано</string>
+    <string name="extender_battery_optimization_button">Оптимізація батареї</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

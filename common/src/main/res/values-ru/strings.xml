@@ -1742,6 +1742,7 @@
     <string name="check_releases_open_fdroid">Открыть F-Droid</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus в репозитории:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Увеличить яркость</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Показывать \"Перезапустить события\" в виде кнопки</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1770,6 +1771,11 @@
     <string name="extender_acra_notification_title">К сожалению, в PhoneProfilesPlusExtender произошла ошибка</string>
     <string name="extender_acra_notification_text">Нажмите, пожалуйста, сюда, чтобы отправить автору отчёт об ошибке. Большое спасибо.</string>
     <string name="extender_notification_channel_crash_report">Отчёт об ошибке</string>
+    <string name="extender_scroll_info">Примечание: чтобы увидеть все параметры, прокрутите этот экран вниз.</string>
+    <string name="extender_battery_optimization_text">• Экономия заряда батареи для PhoneProfilesPlusExtender - добавьте его, пожалуйста, в группу \"Не экономят заряд\":</string>
+    <string name="extender_battery_optimization_optimized">Экономит заряд</string>
+    <string name="extender_battery_optimization_not_optimized">Не экономит заряд</string>
+    <string name="extender_battery_optimization_button">Открыть \"Экономию заряда батареи\"</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

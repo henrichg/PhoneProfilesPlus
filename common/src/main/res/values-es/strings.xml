@@ -1742,6 +1742,7 @@
     <string name="check_releases_open_fdroid">Abrir F-Droid</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus en el catálogo:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Aumentar brillo</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Mostrar \"Reiniciar eventos\" como botón</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>
@@ -1770,6 +1771,11 @@
     <string name="extender_acra_notification_title">Lo sentimos, PhoneProfilesPlusExtender ha fallado</string>
     <string name="extender_acra_notification_text">Haz clic aquí, por favor, para enviar un informe de error al autor. Muchas gracias.</string>
     <string name="extender_notification_channel_crash_report">Informe de error</string>
+    <string name="extender_scroll_info">Nota: Desplázate hacia abajo en esta pantalla para mostrar todos los parámetros.</string>
+    <string name="extender_battery_optimization_text">• Optimización de la batería para PhoneProfilesPlusExtender - por favor, añádelo al grupo \"No optimizado\":</string>
+    <string name="extender_battery_optimization_optimized">Optimizado</string>
+    <string name="extender_battery_optimization_not_optimized">No optimizado</string>
+    <string name="extender_battery_optimization_button">Abrir optimización de Batería</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
