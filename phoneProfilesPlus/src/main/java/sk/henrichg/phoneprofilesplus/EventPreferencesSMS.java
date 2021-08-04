@@ -147,7 +147,7 @@ class EventPreferencesSMS extends EventPreferences {
                 if (extenderVersion == 0) {
                     descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1) {
                     descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
@@ -308,7 +308,7 @@ class EventPreferencesSMS extends EventPreferences {
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary = context.getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + "\n\n";
-                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0)
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
                         summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
                         summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -431,7 +431,7 @@ class EventPreferencesSMS extends EventPreferences {
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
             return -2;
-        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0)
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
             return -1;
         if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
             return 1;
@@ -441,7 +441,7 @@ class EventPreferencesSMS extends EventPreferences {
     @Override
     void checkPreferences(PreferenceManager prefMng, Context context) {
         final boolean accessibilityEnabled =
-                PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
+                PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_6_1);
 
         SharedPreferences preferences = prefMng.getSharedPreferences();
 

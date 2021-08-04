@@ -7270,7 +7270,7 @@ public class PhoneProfilesService extends Service
             //int newRingerVolume = ActivateProfileHelper.getRingerVolume(context);
             String newRingtone = "";
             String phoneNumber = "";
-            if (PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_3_0))
+            if (PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_6_1))
                 phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
             // get ringtone from contact

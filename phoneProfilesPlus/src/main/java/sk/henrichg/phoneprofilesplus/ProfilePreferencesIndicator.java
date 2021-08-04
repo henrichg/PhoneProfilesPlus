@@ -1549,10 +1549,7 @@ class ProfilePreferencesIndicator {
             if (profile._deviceForceStopApplicationChange == 1) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     boolean enabled;
-                    if (Build.VERSION.SDK_INT >= 28)
-                        enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_5_1_3_1);
-                    else
-                        enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_3_0);
+                    enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_6_1);
                     if (enabled) {
                         if (fillPreferences)
                             preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceForceStopApplicationsChange);

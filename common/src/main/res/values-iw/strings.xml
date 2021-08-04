@@ -645,7 +645,7 @@
     <string name="preference_not_allowed_reason_detail_secure_lock">נעילה מאובטחת שאינה נתמכת</string>
     <string name="preference_not_allowed_reason_detail_cant_be_change">לא ניתן לשינוי</string>
     <string name="event_preferences_sensorsInfo_title">תפקוד החיישנים</string>
-    <string name="event_preferences_sensorsInfo_summary">אירוע יחל רק אם הפרמטר \'איפשור החיישן\' מסומן עבור כל החיישנים. אירוע פעיל יסתיים אם אחד מהפרמטרים של החיישנים אינו מתקיים. סמנו \"איפשור החיישן\" רק עבור חיישנים הדרושים לאירוע. שם החיישן עם \"איפשור החיישן\" יוצג במלל מודגש. \n\n חלק מהפרמטרים של החיישנים נדרשים. שמו של פרמטר נדרש יוצג עם קו תחתון. אם פרמטר נדרש לא הוגדר, האירוע לא יופעל, והפרמטר \'איפשור חיישן\' לא יסומן. פרמטר נדרש לא הוגדר, האירוע לא יופעל, והפרמטר 'איפשור חיישן' לא יסומן.</string>
+    <string name="event_preferences_sensorsInfo_summary">אירוע יחל רק אם הפרמטר \'איפשור החיישן\' מסומן עבור כל החיישנים. אירוע פעיל יסתיים אם אחד מהפרמטרים של החיישנים אינו מתקיים. סמנו \"איפשור החיישן\" רק עבור חיישנים הדרושים לאירוע. שם החיישן עם \"איפשור החיישן\" יוצג במלל מודגש. \n\n חלק מהפרמטרים של החיישנים נדרשים. שמו של פרמטר נדרש יוצג עם קו תחתון. אם פרמטר נדרש לא הוגדר, האירוע לא יופעל, והפרמטר \'איפשור חיישן\' לא יסומן. פרמטר נדרש לא הוגדר, האירוע לא יופעל, והפרמטר \'איפשור חיישן\' לא יסומן.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">סמל צבעוני</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">מכשירים מסוימים אינם תומכים בסמלים צבעוניים בשורת המצב.</string>
     <string name="pref_dlg_change_selection_title">שינוי הבחירה</string>

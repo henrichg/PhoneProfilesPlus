@@ -6033,13 +6033,11 @@ public class Profile {
             if (extenderVersion == 0)
                 accessibilityEnabled = -2;
             else
-            if ((Build.VERSION.SDK_INT < 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0))
-                accessibilityEnabled = -1;
-            else
-            if ((Build.VERSION.SDK_INT >= 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_5_1_3_1))
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
                 accessibilityEnabled = -1;
             else
             if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
+                //noinspection ConstantConditions
                 accessibilityEnabled = 1;
             else
                 accessibilityEnabled = 0;
@@ -6048,10 +6046,11 @@ public class Profile {
             if (extenderVersion == 0)
                 accessibilityEnabled = -2;
             else
-            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_4_0)
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
                 accessibilityEnabled = -1;
             else
             if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
+                //noinspection ConstantConditions
                 accessibilityEnabled = 1;
             else
                 accessibilityEnabled = 0;
