@@ -447,6 +447,7 @@
                         android:text="@string/colorChooser_pref_dialog_customIconColor"
                         android:textSize="15sp"
                         android:textColor="?attr/colorAccent"
+                        android:textStyle="bold"
                         android:background="?attr/buttonBackground"
                         android:clickable="true"
                         android:focusable="true" />

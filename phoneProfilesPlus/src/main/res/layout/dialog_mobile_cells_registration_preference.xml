@@ -43,6 +43,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:textColor="?attr/colorAccent"
+            android:textStyle="bold"
             android:background="?attr/buttonBackground"
             android:clickable="true"
             android:focusable="true"/>
@@ -133,6 +134,7 @@
         android:focusable="true"
         android:hint="@string/mobile_cells_registration_cell_name_hint"
         android:textColor="?attr/colorAccent"
+        android:textStyle="bold"
         android:textColorHint="?attr/colorAccent"
         android:background="?attr/buttonBackground"
         android:textSize="17sp"/>
@@ -163,6 +165,7 @@
         android:layout_marginTop="15dp"
         android:minHeight="40dp"
         android:textColor="@color/action_button_text_color"
+        android:textStyle="bold"
         android:background="?attr/buttonBackground"
         style="?android:attr/borderlessButtonStyle" />
 
