@@ -1,4 +1,2 @@
 v5.1
 - Change log: https://henrichg.github.io/PhoneProfilesPlus/FDroid_ChangeLog
-
-
