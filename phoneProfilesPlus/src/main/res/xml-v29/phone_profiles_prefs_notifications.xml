@@ -36,6 +36,7 @@
             app:summary="@string/phone_profiles_pref_notificationStatusBarStyleInfo_summary"
             app:widgetLayout="@layout/widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
+
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationStatusBarStyle"
             app:summary="@string/phone_profiles_pref_notificationStatusBarStyle_android"
@@ -44,6 +45,7 @@
             app:entries="@array/notificationIconStyleArray"
             app:entryValues="@array/notificationIconStyleValues"
             app:layout="@layout/mp_preference_material_widget" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -69,17 +71,19 @@
             app:entryValues="@array/notificationLayoutTypeValues"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <SwitchPreferenceCompat
-            app:key="notificationPrefIndicator"
-            app:title="@string/phone_profiles_pref_notificationPrefIndicator"
-            app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForNotification_summary"
-            app:defaultValue="true"
+<!--        <SwitchPreferenceCompat-->
+<!--            app:key="notificationNightMode"-->
+<!--            app:title="@string/phone_profiles_pref_notificationNightMode"-->
+<!--            app:defaultValue="true"-->
+<!--            app:layout="@layout/mp_preference_material_widget" />-->
+
+        <Preference
+            app:key="notificationBackgroundColorInfo"
+            app:title="@string/phone_profiles_pref_notificationBackgroundColor"
+            app:summary="@string/phone_profiles_pref_notificationBackgroundColorInfo_summary"
+            app:widgetLayout="@layout/widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
-        <SwitchPreferenceCompat
-            app:key="notificationNightMode"
-            app:title="@string/phone_profiles_pref_notificationNightMode"
-            app:defaultValue="true"
-            app:layout="@layout/mp_preference_material_widget" />
+
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationBackgroundColor"
             app:summary="@string/phone_profiles_pref_notificationBackgroundColor_android"
@@ -88,6 +92,7 @@
             app:entries="@array/notificationBackgroundColorArray"
             app:entryValues="@array/notificationBackgroundColorValues"
             app:layout="@layout/mp_preference_material_widget" />
+
         <sk.henrichg.phoneprofilesplus.CustomColorDialogPreferenceX
             app:key="notificationBackgroundCustomColor"
             app:title="@string/phone_profiles_pref_notificationBackgroundCustomColor"
@@ -95,6 +100,7 @@
             app:chromaColorMode="RGB"
             app:chromaIndicatorMode="HEX"
             app:layout="@layout/mp_preference_material_widget" />
+
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationTextColor"
             app:summary="@string/array_pref_no_change"
@@ -103,6 +109,24 @@
             app:entries="@array/notificationTextColorArray"
             app:entryValues="@array/notificationTextColorValues"
             app:layout="@layout/mp_preference_material_widget" />
+
+        <SwitchPreferenceCompat
+            app:key="notificationPrefIndicator"
+            app:title="@string/phone_profiles_pref_notificationPrefIndicator"
+            app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForNotification_summary"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <ListPreference
+            app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
+            app:summary="50%%"
+            app:key="notificationPrefIndicatorLightness"
+            app:defaultValue="50"
+            app:entries="@array/widgetLightnessArray"
+            app:entryValues="@array/widgetLightnessValues"
+            app:dependency="notificationPrefIndicator"
+            app:layout="@layout/mp_preference_material_widget" />
+
         <SwitchPreferenceCompat
             app:key="notificationUseDecoration"
             app:title="@string/phone_profiles_pref_notificationUseDecoration"
@@ -116,10 +140,17 @@
             app:layout="@layout/mp_preference_material_widget" />
 
         <SwitchPreferenceCompat
+            app:key="notificationShowRestartEventsAsButton"
+            app:title="@string/phone_profiles_pref_notificationShowReastartEventsAsButton"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <SwitchPreferenceCompat
             app:key="notificationShowButtonExit"
             app:title="@string/phone_profiles_pref_notificationShowButtonExit"
             app:defaultValue="false"
             app:layout="@layout/mp_preference_material_widget" />
+
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

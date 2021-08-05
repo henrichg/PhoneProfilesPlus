@@ -68,7 +68,7 @@ class TimeDurationUtil {
      * @return duration in milliseconds.
      */
     static long durationOf(int hours, int minutes, int seconds) {
-        return hours * MILLIS_PER_HOUR + minutes * MILLIS_PER_MINUTE + seconds * MILLIS_PER_SECOND;
+        return (long) hours * MILLIS_PER_HOUR + (long) minutes * MILLIS_PER_MINUTE + (long) seconds * MILLIS_PER_SECOND;
     }
 
     /*

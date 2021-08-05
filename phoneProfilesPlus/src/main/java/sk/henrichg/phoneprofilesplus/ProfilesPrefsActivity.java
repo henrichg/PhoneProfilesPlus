@@ -41,7 +41,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false);
+        GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -64,7 +64,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
         if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
             if (dataWrapper.getProfileById(profile_id, false, false, false) == null) {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.profile_preferences_profile_not_found),
@@ -253,7 +253,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
     private Profile createProfile(long profile_id, int new_profile_mode, int predefinedProfileIndex, boolean leaveSaveMenu) {
         Profile profile;
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
         // no change this in shared profile
         if (!leaveSaveMenu)
@@ -591,7 +591,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
     {
         Profile profile = getProfileFromPreferences(profile_id, new_profile_mode, predefinedProfileIndex);
         if (profile != null) {
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
             Profile activatedProfile = dataWrapper.getActivatedProfile(false, false);
             if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
@@ -600,15 +600,17 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 //Profile.setActivatedProfileForDuration(getApplicationContext(), profile._id);
             }
 
-            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, null, profile._name, profile._icon, 0, "");
-
             if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                     (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)) {
+                PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_ADDED, null, profile._name, profile._icon, 0, "");
+
                 // add profile into DB
                 DatabaseHandler.getInstance(getApplicationContext()).addProfile(profile, false);
                 profile_id = profile._id;
 
             } else if (profile_id > 0) {
+                PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, null, profile._name, profile._icon, 0, "");
+
                 DatabaseHandler.getInstance(getApplicationContext()).updateProfile(profile);
 
                 // restart Events

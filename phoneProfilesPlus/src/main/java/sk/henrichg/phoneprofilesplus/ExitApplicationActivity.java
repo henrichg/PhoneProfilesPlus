@@ -24,7 +24,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
         super.onStart();
 
         // set theme and language for dialog alert ;-)
-        GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
+        GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         //PPApplication.logE("ExitApplicationActivity.onStart", "xxx");
@@ -49,7 +49,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
             ApplicationPreferences.applicationNeverAskForGrantRoot(appContext);
             ApplicationPreferences.applicationNeverAskForGrantG1Permission(appContext);
 
-            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
             //PPApplication.logE("PPApplication.exitApp", "from ExitApplicationActivity.onStart shutdown=false");
             PPApplication.exitApp(true, appContext, dataWrapper, ExitApplicationActivity.this, false/*, true, true*/);
 

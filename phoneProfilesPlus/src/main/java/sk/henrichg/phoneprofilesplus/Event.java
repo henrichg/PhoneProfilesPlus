@@ -83,6 +83,7 @@ class Event {
     EventPreferencesRadioSwitch _eventPreferencesRadioSwitch;
     EventPreferencesAlarmClock _eventPreferencesAlarmClock;
     EventPreferencesDeviceBoot _eventPreferencesDeviceBoot;
+    EventPreferencesSoundProfile _eventPreferencesSoundProfile;
 
     static final int ESTATUS_STOP = 0;
     static final int ESTATUS_PAUSE = 1;
@@ -397,6 +398,11 @@ class Event {
         this._eventPreferencesDeviceBoot = new EventPreferencesDeviceBoot(this, false, false, 5);
     }
 
+    private void createEventPreferencesSoundProfile()
+    {
+        this._eventPreferencesSoundProfile = new EventPreferencesSoundProfile(this, false, "", "");
+    }
+
     void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -417,6 +423,7 @@ class Event {
         createEventPreferencesRadioSwitch();
         createEventPreferencesAlarmClock();
         createEventPreferencesDeviceBoot();
+        createEventPreferencesSoundProfile();
     }
 
     void copyEventPreferences(Event fromEvent)
@@ -457,6 +464,8 @@ class Event {
             createEventPreferencesAlarmClock();
         if (this._eventPreferencesDeviceBoot == null)
             createEventPreferencesDeviceBoot();
+        if (this._eventPreferencesSoundProfile == null)
+            createEventPreferencesSoundProfile();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -475,6 +484,7 @@ class Event {
         this._eventPreferencesRadioSwitch.copyPreferences(fromEvent);
         this._eventPreferencesAlarmClock.copyPreferences(fromEvent);
         this._eventPreferencesDeviceBoot.copyPreferences(fromEvent);
+        this._eventPreferencesSoundProfile.copyPreferences(fromEvent);
     }
 
     boolean isEnabledSomeSensor(Context context) {
@@ -514,13 +524,15 @@ class Event {
                 (this._eventPreferencesAlarmClock._enabled &&
                         (isEventPreferenceAllowed(EventPreferencesAlarmClock.PREF_EVENT_ALARM_CLOCK_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesDeviceBoot._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
+                        (isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesSoundProfile._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
     public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
         Context appContext = context.getApplicationContext();
 
-        boolean runnable = (this._fkProfileStart != 0);
+        boolean runnable = (this._fkProfileStart != 0) && (this._fkProfileEnd != 0);
         if (checkSomeSensorEnabled) {
             boolean someEnabled = isEnabledSomeSensor(appContext);
             if (!someEnabled)
@@ -562,6 +574,8 @@ class Event {
             runnable = runnable && this._eventPreferencesAlarmClock.isRunnable(appContext);
         if (this._eventPreferencesDeviceBoot._enabled)
             runnable = runnable && this._eventPreferencesDeviceBoot.isRunnable(appContext);
+        if (this._eventPreferencesSoundProfile._enabled)
+            runnable = runnable && this._eventPreferencesSoundProfile.isRunnable(appContext);
 
         return runnable;
     }
@@ -588,7 +602,8 @@ class Event {
                             this._eventPreferencesNFC._enabled ||
                             this._eventPreferencesRadioSwitch._enabled ||
                             this._eventPreferencesAlarmClock._enabled ||
-                            this._eventPreferencesDeviceBoot._enabled;
+                            this._eventPreferencesDeviceBoot._enabled ||
+                            this._eventPreferencesSoundProfile._enabled;
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
@@ -627,6 +642,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesAlarmClock.isAccessibilityServiceEnabled(context);
             if (this._eventPreferencesDeviceBoot._enabled)
                 accessibilityEnabled = this._eventPreferencesDeviceBoot.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesSoundProfile._enabled)
+                accessibilityEnabled = this._eventPreferencesSoundProfile.isAccessibilityServiceEnabled(context);
         }
 
         return accessibilityEnabled;
@@ -637,7 +654,11 @@ class Event {
         Editor editor = preferences.edit();
         editor.putLong(PREF_EVENT_ID, this._id);
         editor.putString(PREF_EVENT_NAME, this._name);
+        if (this._fkProfileStart == 0)
+            this._fkProfileStart = Profile.PROFILE_NO_ACTIVATE;
         editor.putString(PREF_EVENT_PROFILE_START, Long.toString(this._fkProfileStart));
+        if (this._fkProfileEnd == 0)
+            this._fkProfileEnd = Profile.PROFILE_NO_ACTIVATE;
         editor.putString(PREF_EVENT_PROFILE_END, Long.toString(this._fkProfileEnd));
         editor.putBoolean(PREF_EVENT_ENABLED, this._status != ESTATUS_STOP);
         editor.putString(PREF_EVENT_NOTIFICATION_SOUND_START, this._notificationSoundStart);
@@ -676,13 +697,14 @@ class Event {
         this._eventPreferencesRadioSwitch.loadSharedPreferences(preferences);
         this._eventPreferencesAlarmClock.loadSharedPreferences(preferences);
         this._eventPreferencesDeviceBoot.loadSharedPreferences(preferences);
+        this._eventPreferencesSoundProfile.loadSharedPreferences(preferences);
         editor.apply();
     }
 
     public void saveSharedPreferences(SharedPreferences preferences, Context context)
     {
         this._name = preferences.getString(PREF_EVENT_NAME, "");
-        this._fkProfileStart = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_START, "0"));
+        this._fkProfileStart = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_START, Long.toString(Profile.PROFILE_NO_ACTIVATE)));
         this._fkProfileEnd = Long.parseLong(preferences.getString(PREF_EVENT_PROFILE_END, Long.toString(Profile.PROFILE_NO_ACTIVATE)));
         this._status = (preferences.getBoolean(PREF_EVENT_ENABLED, false)) ? ESTATUS_PAUSE : ESTATUS_STOP;
         this._notificationSoundStart = preferences.getString(PREF_EVENT_NOTIFICATION_SOUND_START, "");
@@ -732,6 +754,7 @@ class Event {
         this._eventPreferencesRadioSwitch.saveSharedPreferences(preferences);
         this._eventPreferencesAlarmClock.saveSharedPreferences(preferences);
         this._eventPreferencesDeviceBoot.saveSharedPreferences(preferences);
+        this._eventPreferencesSoundProfile.saveSharedPreferences(preferences);
 
         if (!this.isRunnable(context, true))
             this._status = ESTATUS_STOP;
@@ -750,7 +773,7 @@ class Event {
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !value.isEmpty(), false, false, false);
             }
         }
-        if (key.equals(PREF_EVENT_PROFILE_START)||key.equals(PREF_EVENT_PROFILE_END))
+        if (key.equals(PREF_EVENT_PROFILE_START) || key.equals(PREF_EVENT_PROFILE_END))
         {
             ProfilePreferenceX preference = prefMng.findPreference(key);
             if (preference != null) {
@@ -761,10 +784,10 @@ class Event {
                     lProfileId = 0;
                 }
                 preference.setSummary(lProfileId);
-                if (key.equals(PREF_EVENT_PROFILE_START))
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), true, lProfileId == 0, false);
-                else
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, false, false);
+                //if (key.equals(PREF_EVENT_PROFILE_START))
+                //    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, lProfileId == 0, false);
+                //else
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, (lProfileId != 0) && (lProfileId != Profile.PROFILE_NO_ACTIVATE), false, lProfileId == 0, false);
             }
         }
         if (key.equals(PREF_EVENT_START_WHEN_ACTIVATED_PROFILE))
@@ -994,7 +1017,7 @@ class Event {
                     if (profileStartWhenActivatedChanged) {
                         if (!summary.isEmpty()) summary = summary + " • ";
                         summary = summary + context.getString(R.string.event_preferences_eventStartWhenActivatedProfile) + ": ";
-                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0f);
                         String[] splits = startWhenActivatedProfile.split("\\|");
                         Profile profile;
                         if (splits.length == 1) {
@@ -1169,6 +1192,8 @@ class Event {
         _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesDeviceBoot.setSummary(prefMng, key, preferences, context);
         _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesSoundProfile.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
     }
 
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -1238,6 +1263,8 @@ class Event {
         _eventPreferencesAlarmClock.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesDeviceBoot.setAllSummary(prefMng, preferences, context);
         _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesSoundProfile.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
     }
 
     public String getPreferencesDescription(Context context, boolean addPassStatus)
@@ -1324,6 +1351,12 @@ class Event {
                 description = description + "<li>" + desc + "</li>";
         }
 
+        if (_eventPreferencesSoundProfile._enabled) {
+            String desc = _eventPreferencesSoundProfile.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
         if (_eventPreferencesApplication._enabled) {
             String desc = _eventPreferencesApplication.getPreferencesDescription(true, addPassStatus, context);
             if (desc != null)
@@ -1379,6 +1412,7 @@ class Event {
         _eventPreferencesRadioSwitch.checkPreferences(prefMng, context);
         _eventPreferencesAlarmClock.checkPreferences(prefMng, context);
         _eventPreferencesDeviceBoot.checkPreferences(prefMng, context);
+        _eventPreferencesSoundProfile.checkPreferences(prefMng, context);
     }
 
     /*
@@ -2221,6 +2255,11 @@ class Event {
         _eventPreferencesDeviceBoot.setSensorPassed(_eventPreferencesDeviceBoot.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         //else
         //    _eventPreferencesDeviceBoot.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        //if (_eventPreferencesSoundProfile._enabled)
+        _eventPreferencesSoundProfile.setSensorPassed(_eventPreferencesSoundProfile.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        //else
+        //    _eventPreferencesSoundProfile.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
     }
 
     private void setSystemEvent(Context context, int forStatus)
@@ -2247,6 +2286,7 @@ class Event {
             _eventPreferencesRadioSwitch.setSystemEventForStart(context);
             _eventPreferencesAlarmClock.setSystemEventForStart(context);
             _eventPreferencesDeviceBoot.setSystemEventForStart(context);
+            _eventPreferencesSoundProfile.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -2271,6 +2311,7 @@ class Event {
             _eventPreferencesRadioSwitch.setSystemEventForPause(context);
             _eventPreferencesAlarmClock.setSystemEventForPause(context);
             _eventPreferencesDeviceBoot.setSystemEventForPause(context);
+            _eventPreferencesSoundProfile.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -2295,6 +2336,7 @@ class Event {
             _eventPreferencesRadioSwitch.removeSystemEvent(context);
             _eventPreferencesAlarmClock.removeSystemEvent(context);
             _eventPreferencesDeviceBoot.removeSystemEvent(context);
+            _eventPreferencesSoundProfile.removeSystemEvent(context);
         }
     }
 
@@ -2353,6 +2395,7 @@ class Event {
 
                     //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
+                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
@@ -2369,6 +2412,7 @@ class Event {
 
                         Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -2437,6 +2481,7 @@ class Event {
 
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
@@ -2455,11 +2500,12 @@ class Event {
 
                         Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
-                        long alarmTime = SystemClock.elapsedRealtime() + this._delayStart * 1000;
+                        long alarmTime = SystemClock.elapsedRealtime() + this._delayStart * 1000L;
 
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
@@ -2523,6 +2569,7 @@ class Event {
                 intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_START_BROADCAST_RECEIVER);
                 //intent.setClass(context, EventDelayStartBroadcastReceiver.class);
 
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("Event.removeDelayStartAlarm", "alarm found");
@@ -2601,6 +2648,7 @@ class Event {
 
                     //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
+                    @SuppressLint("UnspecifiedImmutableFlag")
                     PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                     AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
@@ -2617,6 +2665,7 @@ class Event {
 
                         Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -2686,6 +2735,7 @@ class Event {
 
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, this._id);
 
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) _context.getSystemService(Context.ALARM_SERVICE);
@@ -2705,11 +2755,12 @@ class Event {
 
                         Intent editorIntent = new Intent(_context, EditorProfilesActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(_context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
-                        long alarmTime = SystemClock.elapsedRealtime() + this._delayEnd * 1000;
+                        long alarmTime = SystemClock.elapsedRealtime() + this._delayEnd * 1000L;
 
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
@@ -2791,6 +2842,7 @@ class Event {
                 intent.setAction(PhoneProfilesService.ACTION_EVENT_DELAY_END_BROADCAST_RECEIVER);
                 //intent.setClass(context, EventDelayEndBroadcastReceiver.class);
 
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(_context, (int) this._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("Event.removeDelayEndAlarm", "alarm found");
@@ -3156,12 +3208,13 @@ class Event {
                 PPApplication.createNotifyEventStartNotificationChannel(context);
                 mBuilder = new NotificationCompat.Builder(context, PPApplication.NOTIFY_EVENT_START_NOTIFICATION_CHANNEL)
                         .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
-                        .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                        .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                         .setContentTitle(nTitle) // title for notification
                         .setContentText(nText)
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                         .setAutoCancel(false); // clear notification after click
 
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pi = PendingIntent.getActivity(context, (int) _id, new Intent(), PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(pi);
                 mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -3170,8 +3223,10 @@ class Event {
                     mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                 //}
 
+                // Android 12 - this do not starts activity - OK
                 Intent deleteIntent = new Intent(StartEventNotificationDeletedReceiver.START_EVENT_NOTIFICATION_DELETED_ACTION);
                 deleteIntent.putExtra(PPApplication.EXTRA_EVENT_ID, _id);
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, (int) _id, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setDeleteIntent(deletePendingIntent);
 

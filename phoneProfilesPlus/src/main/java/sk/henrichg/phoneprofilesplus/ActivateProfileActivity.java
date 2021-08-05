@@ -10,9 +10,12 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -115,7 +118,7 @@ public class ActivateProfileActivity extends AppCompatActivity {
 
         //PPApplication.logE("ActivateProfileActivity.onCreate", "xxx");
 
-        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true);
+        GlobalGUIRoutines.setTheme(this, true, true/*, false*/, true, false);
         //GlobalGUIRoutines.setLanguage(this);
 
     // set window dimensions - not needed, Activator uses Dialog theme ------------------------------
@@ -241,6 +244,24 @@ public class ActivateProfileActivity extends AppCompatActivity {
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         //PPApplication.getMeasuredRunTime(nanoTimeStart, "ActivateProfileActivity.onCreate - setContentView");
+
+        if (ApplicationPreferences.applicationActivatorIncreaseBrightness) {
+            Window win = getWindow();
+            WindowManager.LayoutParams layoutParams = win.getAttributes();
+//            Log.e("ActivateProfileActivity.onCreate", "layoutParams.screenBrightness="+layoutParams.screenBrightness);
+//            int actualBightnessMode = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+            int actualBrightness = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+//            Log.e("ActivateProfileActivity.onCreate", "actualBightnessMode="+actualBightnessMode);
+//            Log.e("ActivateProfileActivity.onCreate", "actualBrightness="+actualBrightness);
+//            Log.e("ActivateProfileActivity.onCreate", "25%="+Profile.convertPercentsToBrightnessManualValue(25, getApplicationContext()));
+            //if (actualBightnessMode != Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+            if (actualBrightness <
+                    Profile.convertPercentsToBrightnessManualValue(15, getApplicationContext())) {
+                layoutParams.screenBrightness = Profile.convertPercentsToBrightnessManualValue(35, getApplicationContext()) / (float) 255;
+                win.setAttributes(layoutParams);
+            }
+            //}
+        }
 
         toolbar = findViewById(R.id.act_prof_toolbar);
         setSupportActionBar(toolbar);

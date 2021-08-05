@@ -35,7 +35,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
         Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         sendBroadcast(it);
 
-        dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
 
         if (activityStarted) {
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false);
+            GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
             //dataWrapper.addActivityLog(DatabaseHandler.ALTYPE_RESTARTEVENTS, null, null, null, 0);

@@ -797,7 +797,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (smsPreference != null) {
             //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             smsPreference.setOnPreferenceClickListener(preference120 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -858,7 +858,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (callPreference != null) {
             //callPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             callPreference.setOnPreferenceClickListener(preference123 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -900,7 +900,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference124 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -942,7 +942,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference125 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -1398,12 +1398,14 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         boolean accessibilityEnabled =  event.isAccessibilityServiceEnabled(appContext, false) == 1;
         boolean eventIsRunnable = event.isRunnable(appContext, false);
 
-//        if (event._name.equals("Nočný hovor")) {
-//            Log.e("------ EventsPrefsFragment.isRedTextNotificationRequired", "enabledSomeSensor="+enabledSomeSensor);
-//            Log.e("------ EventsPrefsFragment.isRedTextNotificationRequired", "grantedAllPermissions="+grantedAllPermissions);
-//            Log.e("------ EventsPrefsFragment.isRedTextNotificationRequired", "accessibilityEnabled="+accessibilityEnabled);
-//            Log.e("------ EventsPrefsFragment.isRedTextNotificationRequired", "eventIsRunnable="+eventIsRunnable);
-//        }
+        if (event._name.equals("Nočný hovor")) {
+            if ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable)) {
+                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "enabledSomeSensor=" + enabledSomeSensor);
+                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "grantedAllPermissions=" + grantedAllPermissions);
+                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "accessibilityEnabled=" + accessibilityEnabled);
+                PPApplication.logE("------ EventsPrefsFragment.isRedTextNotificationRequired", "eventIsRunnable=" + eventIsRunnable);
+            }
+        }
 
         return ((!enabledSomeSensor) || (!grantedAllPermissions) || (!accessibilityEnabled) || (!eventIsRunnable));
     }

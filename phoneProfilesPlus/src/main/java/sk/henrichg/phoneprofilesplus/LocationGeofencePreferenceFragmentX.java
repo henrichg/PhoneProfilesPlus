@@ -275,24 +275,30 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
             }
             else
             if (itemId == R.id.location_geofence_pref_item_menu_delete) {
-                if (geofenceId > 0) {
-                    if (!DatabaseHandler.getInstance(context.getApplicationContext()).isGeofenceUsed(geofenceId)) {
-                        DatabaseHandler.getInstance(context.getApplicationContext()).deleteGeofence(geofenceId);
-                        preference.refreshListView();
-                        //updateGUIWithGeofence(0);
+                if (getActivity() != null) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                    dialogBuilder.setTitle(getResources().getString(R.string.event_preferences_locations_cant_delete_location_title));
+                    dialogBuilder.setMessage(getResources().getString(R.string.delete_geofence_name_alert_message));
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                        if (geofenceId > 0) {
+                            if (!DatabaseHandler.getInstance(context.getApplicationContext()).isGeofenceUsed(geofenceId)) {
+                                DatabaseHandler.getInstance(context.getApplicationContext()).deleteGeofence(geofenceId);
+                                preference.refreshListView();
+                                //updateGUIWithGeofence(0);
                             /*if (dataWrapper.getDatabaseHandler().getGeofenceCount() == 0) {
                                 // stop location updates
                                 if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.isLocationScannerStarted())
                                     PhoneProfilesService.getGeofencesScanner().disconnect();
                             }*/
-                    } else {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
-                        dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
-                        dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
+                            } else {
+                                AlertDialog.Builder _dialogBuilder = new AlertDialog.Builder(context);
+                                _dialogBuilder.setTitle(R.string.event_preferences_locations_cant_delete_location_title);
+                                _dialogBuilder.setMessage(R.string.event_preferences_locations_cant_delete_location_text);
+                                _dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                                AlertDialog _dialog = _dialogBuilder.create();
 
-//                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                                _dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                    @Override
 //                                    public void onShow(DialogInterface dialog) {
 //                                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
@@ -302,10 +308,27 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
 //                                    }
 //                                });
 
-                        if (getActivity() != null)
-                            if (!getActivity().isFinishing())
-                                dialog.show();
-                    }
+                                if (getActivity() != null)
+                                    if (!getActivity().isFinishing())
+                                        _dialog.show();
+                            }
+                        }
+                    });
+                    dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                    AlertDialog dialog = dialogBuilder.create();
+
+                    //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    //            @Override
+                    //            public void onShow(DialogInterface dialog) {
+                    //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+                    //                if (positive != null) positive.setAllCaps(false);
+                    //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+                    //                if (negative != null) negative.setAllCaps(false);
+                    //            }
+                    //        });
+
+                    if ((getActivity() != null) && (!getActivity().isFinishing()))
+                        dialog.show();
                 }
                 return true;
             }

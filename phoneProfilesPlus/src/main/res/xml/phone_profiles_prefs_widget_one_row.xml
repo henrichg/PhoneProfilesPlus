@@ -10,12 +10,6 @@
         app:summary="@string/phone_profiles_pref_widget_not_working_miui_info_summary"
         app:widgetLayout="@layout/widget_exclamation_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <SwitchPreferenceCompat
-        app:key="applicationWidgetOneRowPrefIndicator"
-        app:title="@string/phone_profiles_pref_applicationPrefIndicator"
-        app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForWidget_summary"
-        app:defaultValue="true"
-        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetBackground"
         app:summary="25%%"
@@ -79,6 +73,7 @@
         app:entries="@array/widgetLightnessArray"
         app:entryValues="@array/widgetLightnessValues"
         app:layout="@layout/mp_preference_material_widget" />
+
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
         app:summary="0"
@@ -100,5 +95,21 @@
         app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    
+
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetOneRowPrefIndicator"
+        app:title="@string/phone_profiles_pref_applicationPrefIndicator"
+        app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForWidget_summary"
+        app:defaultValue="true"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
+        app:summary="50%%"
+        app:key="applicationWidgetOneRowPrefIndicatorLightness"
+        app:defaultValue="50"
+        app:entries="@array/widgetLightnessArray"
+        app:entryValues="@array/widgetLightnessValues"
+        app:dependency="applicationWidgetOneRowPrefIndicator"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>

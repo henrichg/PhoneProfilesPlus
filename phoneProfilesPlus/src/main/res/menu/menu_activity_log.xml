@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="sk.henrichg.phoneprofilesplus.ActivityLogActivity">
 
+    <item android:id="@+id/menu_activity_log_help"
+        android:title="@string/menu_activity_log_help"
+        android:orderInCategory="90"
+        app:showAsAction="ifRoom|withText"
+        android:icon="?attr/actionHelpIcon" />
     <item android:id="@+id/menu_activity_log_reload"
         android:title="@string/menu_activity_log_reload"
         android:orderInCategory="100"

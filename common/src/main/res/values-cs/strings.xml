@@ -140,7 +140,7 @@
     <string name="title_activity_editor">Editor</string>
     <string name="menu_run_events">Povol běh událostí</string>
     <string name="menu_stop_events">Zastav události</string>
-    <string name="array_pref_0_percent" formatted="false">0 %</string>
+    <string name="array_pref_0_percent" formatted="false">0%</string>
     <string name="array_pref_25_percent" formatted="false">25%</string>
     <string name="array_pref_50_percent" formatted="false">50%</string>
     <string name="array_pref_75_percent" formatted="false">75%</string>
@@ -543,7 +543,6 @@
     <string name="about_application_source_code">Zdrojový kód:</string>
     <string name="about_application_translations">Překlady:</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Přístup k nastavení Nerušit</string>
-    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Prosím najděte aplikaci \"PhoneProfilePlus\" a povolte ji.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Přidejte PhoneProfilesPlus do \"Neoptimalizované\", v případě problémů s aktivací profilu z událostí, pokud nemáte zařízení připojeno, bez pohybu určitou dobu s vypnutou obrazovkou.</string>
     <string name="profile_preferences_deviceWallpaperFor">Nastavit tapetu pro</string>
     <string name="array_pref_device_wallpaper_homescreen">Domovská obrazovka</string>
@@ -763,7 +762,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Skenování povoleno</string>
     <string name="duration_pref_dlg_duration_label">Trvání:</string>
     <string name="duration_pref_dlg_activation_end_label">Konec aktivace:</string>
-    <string name="important_info_profile_zenModeM">\"Nerušit\" v \"Módu vyzvánění\" profil vyžaduje povolení PhoneProfilesPlus v systémovém nastavení \"Přístup k notifikacím\". Klikněte zde a povolte PhoneProfilesPlus.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">V Androidu 6 toto systémové nastavení lze změnit pouze v rootnutých zařízeních. Postižené jsou režimy vyzvánění a typy Nerušit s vibrací.</string>
     <string name="setting_screen_not_found_alert">Obrazovka nastavení nebyla nalezena.</string>
     <string name="action_for_external_application_notification_no_profile_text">Parametr profile_name chybí nebo je prázdný.</string>
@@ -853,7 +851,6 @@
     <string name="duration_pref_dlg_activation_hours_label">Hodiny:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Minuty:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Vteřiny:</string>
-    <string name="preferences_durationNotificationSoundInfo_summary">Pro tuto notifikaci se používá kanál médií. Použije se tedy hlasitost médií.</string>
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Prosím, zapněte Polohu a Vyhledávání Wi-Fi v nastavení systému. Bez toho Wi-Fi skenování nebude fungovat.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Prosím, zapněte Polohu a skenování Bluetooth v nastavení systému. Bez toho skenování Bluetooth nebude fungovat.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Systémové nastavení \"Ponechat Wi-Fi zapnuto\"</string>
@@ -1289,7 +1286,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Černá</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Vlastní barva pozadí</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">Vlastní barva</string>
-    <string name="phone_profiles_pref_notificationNightMode">Použít noční mód</string>
     <string name="event_preferences_orientation_checkLight">Sledovat světlo</string>
     <string name="event_preferences_orientation_light">Světlo</string>
     <string name="event_preferences_orientation_light_min">Světlo - minimální hodnota</string>
@@ -1341,10 +1337,10 @@
     <string name="profile_event_name_ask_for_duration">ptát</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Na widget nelze kliknout</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Pokud miniaplikace PhoneProfilesPlus nefunguje (kliknutí na widget), povolte povolení v nastavení zařízení: Nastavení / Aplikace / Správa aplikací / PhoneProfilesPlus / Jiné povolení / Zobrazit vyskakovací okna při běhu na pozadí.</string>
-    <string name="array_pref_12_percent" formatted="false">12,5%</string>
-    <string name="array_pref_37_percent" formatted="false">37.5%</string>
-    <string name="array_pref_62_percent" formatted="false">62.5%</string>
-    <string name="array_pref_87_percent" formatted="false">87.5%</string>
+    <string name="array_pref_12_percent" formatted="false">13%</string>
+    <string name="array_pref_37_percent" formatted="false">38%</string>
+    <string name="array_pref_62_percent" formatted="false">63%</string>
+    <string name="array_pref_87_percent" formatted="false">88%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Zobrazovat trvání profilu (miniaplikace)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Ve vašem zařízení nemusí fungovat vůbec.</string>
     <string name="application_is_starting_toast">startuje…</string>
@@ -1402,8 +1398,6 @@
     <string name="altype_profileError_setWallpaper">profil - chyba při nastavení obrázku pozadí</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">udělena Bluetooth povolení</string>
     <string name="profile_preferences_volumeMuteSound">Ztlumit zvuk</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">Pro povolení parametrů profilu \"Nerušit\", povolte pro PhoneProfilesPlus \"Přístup k oznámením\" v systémových nastaveních.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">Pro povolení parametrů profilu \"Typ \"Nerušit \"\", povolte pro PhoneProfilesPlus \"Přístup k oznámením\" v systémových nastaveních. Klikněte sem pro jeho povolení.</string>
     <string name="phone_profiles_pref_category_background_scanning">Skenování na pozadí</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Tato nastavení jsou pro skenování na pozadí. Je to užitečné, pokud Sensor času nebo Sensor kalendáře v události nepracuje správně. \n\nOpdorúča se nepovolit toto skenování, jestliže sensor Polohy, Wi-Fi, Bluetooth, Orientace je používán v nějaké události.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Povolit skenování na pozadí</string>
@@ -1476,7 +1470,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk se nachází v</string>
     <string name="check_github_releases_notification">Klikněte na tuto notifikaci na zkontrolování vydání PhoneProfilesPlus v GitHub. Možná byla vydána novější verze.</string>
     <string name="donation_paypal">Prosím přispějte přes PayPal:</string>
-    <string name="about_application_package_type_github">Nainstalované z GitHub nebo jiného zdroje.</string>
     <string name="notification_channel_new_release">Nová verze PhoneProfilesPlus</string>
     <string name="notification_channel_new_release_description">Zobrazuje notifikaci o nové verzi PhoneProfilesPlus.</string>
     <string name="altype_actionFromExternalApp_profileActivation">akce pro externí apl. - aktivace profilu</string>
@@ -1659,6 +1652,97 @@
     <string name="github_assets_screenshot_text">\"Assets\" se nachází pod poznámkami k vydání. Na \"Assets\" v mobilním zobrazení je třeba kliknout.</string>
     <string name="quick_tile_icon_label">Vybrat profil</string>
     <string name="title_activity_tile_chooser">Výběr profilu pro rychlou dlaždici</string>
+    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Světlost indikátoru parametrů</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Dekorace pro notifikaci (pokud je povolena) bude zobrazena pouze pokud Barva pozadí je typu \"Nativní\".</string>
+    <string name="mobile_cells_item_delete_all_selected">Vymazat všechny vybrané</string>
+    <string name="delete_application_alert_message">Smazat tuto aplikaci?</string>
+    <string name="delete_intent_alert_message">Smazat tento intent?</string>
+    <string name="delete_shortcut_alert_message">Smazat tuto zkratku?</string>
+    <string name="delete_wifi_ssid_alert_message">Smazat tuto Wi-Fi SSID?</string>
+    <string name="delete_nfc_tag_alert_message">Smazat tuto NFC značku?</string>
+    <string name="delete_bluetooth_name_alert_message">Smazat tento název Bluetooth?</string>
+    <string name="delete_geofence_name_alert_message">Smazat tuto polohu?</string>
+    <string name="delete_mobile_cell_alert_message">Smazat tuto mobilní buňku?</string>
+    <string name="delete_selected_mobile_cells_alert_message">Smazat všechny vybrané mobilní buňky?</string>
+    <string name="tile_chooser_tile_changed_toast">Profil rychlých dlaždic změněn na:</string>
+    <string name="altype_profileAdded">Profil přidán</string>
+    <string name="altype_eventAdded">Událost přidána</string>
+    <string name="quick_tile_subtile_activated">Aktivováno</string>
+    <string name="quick_tile_subtile_not_activated">Neaktivováno</string>
+    <string name="menu_check_releases_github">Skontolovať v GitHub Releases</string>
+    <string name="menu_check_releases_fdroid">Skontolovať v F-Droid</string>
+    <string name="check_releases_go_to_fdroid">Jít do F-Droid repozitáře</string>
+    <string name="check_releases_fdroid_application">Aplikace F-Droid:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Repozitář na jeho konfiguraci v aplikaci F-Droid:</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">Pokud změna hlasitosti médií nefunguje, je to pravděpodobně způsobeno povoleným \"příznakem bezpečné hlasitosti\". Chcete-li tento příznak zakázat, udělte oprávnění (G1), protože na povolení tohoto příznaku je třeba toto povolení.</string>
+    <string name="menu_check_releases_galaxy_store">Skontolovať v Galaxy Store</string>
+    <string name="check_releases_open_galaxy_store">Otevřít Galaxy Store</string>
+    <string name="menu_check_releases_amazon_appstore">Skontolovať v Amazon Appstore</string>
+    <string name="check_releases_amazon_appstore_application">Web pro instalaci aplikace Amazon Appstore:</string>
+    <string name="check_releases_open_amazon_appstore">Otevřít Amazon Appstore</string>
+    <string name="check_releases_install_amazon_appstore">Prosím nainstalujte si aplikaci Amazon Appstore.</string>
+    <string name="applicationApplicationInterfaceActivationNotification">Notifikace aktivace profilu</string>
+    <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Přidej \"Restart událostí\" do seznamu profilů</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Skenování na pozadí v čase</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth skenování v čase</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiply">Skenování polohy v čase</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiply">Skenování mobilních buněk v čase</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiply">Skenování notifikací v čase</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiply">Skenování orientace v čase</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Wi-Fi skenování v čase</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">Do</string>
+    <string name="menu_check_releases_appgallery">Skontolovať v AppGallery</string>
+    <string name="check_releases_open_appgallery">Otevřít AppGallery</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Interval skenování na pozadí</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Interval skenování Bluetooth</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Interval skenování polohy</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Interval skenování orientace</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Interval skenování Wi-Fi</string>
+    <string name="menu_activity_log_help">Pomoc</string>
+    <string name="activity_log_help_title">Pomoc pro Záznam aktivity</string>
+    <string name="activity_log_help_message">Co se zobrazí ve sloupcích</string>
+    <string name="activity_log_help_message_mergedProfileActivation">X je počet aktivovaných profilů, Y je počet událostí, které aktivovaly profily.</string>
+    <string name="activity_log_help_message_data_for">pro</string>
+    <string name="activity_log_help_message_data_profileName">Název profilu. Může obsahovat [M] (=ruční aktivace), po němž následuje konec trvání v závorkách.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Název profilu [název události]. Název profilu je naposledy aktivován profil a název události je poslední započata událost.</string>
+    <string name="activity_log_help_message_data_displayedInGUI">Tyto informace se rovněž zobrazují ve všech GUI prvcích (notifikace aplikace, Activator, Editor, widgety, …).</string>
+    <string name="activity_log_help_message_data_otherProfileDataTypes">všechny ostatní pro profily</string>
+    <string name="activity_log_help_message_data_profileName_otherDataTypes">Název profilu.</string>
+    <string name="activity_log_help_message_data_otherEventDataTypes">všechny ostatní pro události</string>
+    <string name="activity_log_help_message_data_eventName_otherDataTypes">Název události.</string>
+    <string name="activity_log_help_close">Zavřít</string>
+    <string name="event_preference_sensor_soundProfile_summary">Tento senzor je pro start události podle přepínání zvukových režimů nebo typů \"Nerušit\". Parametry: Zvukové režimy, typy \"Nerušit\".</string>
+    <string name="event_type_soundProfile">Zvukový profil</string>
+    <string name="event_preferences_soundProfile_ringerModes">Režimy zvuku</string>
+    <string name="event_preferences_soundProfile_zenModes">Typy \"Nerušit\"</string>
+    <string name="array_pref_event_ringerMode_ring">Zvuk</string>
+    <string name="array_pref_event_ringerMode_vibrate">Vibrace</string>
+    <string name="array_pref_event_ringerMode_silent">Ticho</string>
+    <string name="array_pref_event_ringerMode_zenMode">Nerušit</string>
+    <string name="array_pref_event_zenMode_all">Vypnuto</string>
+    <string name="array_pref_event_zenMode_priority">Prioritní</string>
+    <string name="array_pref_event_ringerMode_alarm">Pouze budíky</string>
+    <string name="array_pref_event_ringerMode_none">Úplné ticho</string>
+    <string name="array_pref_event_zenMode_all_and_vibrate">Vypnuto, ale s vibracemi</string>
+    <string name="array_pref_event_zenMode_priority_and_vibrate">Prioritní s vibrací</string>
+    <string name="event_preferences_category_eventSoundProfileParameters">Senzor zvukového profilu</string>
+    <string name="check_releases_open_fdroid">Otevřít F-Droid</string>
+    <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus v repozitáři:</string>
+    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Zvýšit jas</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Zobrazit \"Restart událostí\" jako tlačítko</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1687,6 +1771,11 @@
     <string name="extender_acra_notification_title">Je mi líto, PhoneProfilesPlus selhal</string>
     <string name="extender_acra_notification_text">Kliknutím zde, odešlete autorovi zprávu o selhání. Děkuji velmi pěkně.</string>
     <string name="extender_notification_channel_crash_report">Zpráva o selhání</string>
+    <string name="extender_scroll_info">Poznámka: Posunutím dolů na této obrazovce zobrazíte všechny parametry.</string>
+    <string name="extender_battery_optimization_text">• Optimalizace baterie pro PhoneProfilesPlusExtender - přidejte ji do skupiny \"Neoptimalizováno\":</string>
+    <string name="extender_battery_optimization_optimized">Optimalizováno</string>
+    <string name="extender_battery_optimization_not_optimized">Neoptimalizováno</string>
+    <string name="extender_battery_optimization_button">Otevři Optimalizaci baterie</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
@@ -1708,4 +1797,11 @@
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
+    <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
+    <!--    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>-->
+    <!--    <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>-->
+    <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
+    <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
 </resources>

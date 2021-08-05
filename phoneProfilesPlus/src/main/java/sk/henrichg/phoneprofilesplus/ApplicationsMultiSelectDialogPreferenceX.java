@@ -7,7 +7,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -157,12 +156,14 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
         boolean ok = true;
         if (forPreference) {
             if (systemSettings.equals("notifications") && (!PPNotificationListenerService.isNotificationListenerServiceEnabled(_context, true))) {
+                // notification scanner
                 ok = false;
                 prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + _context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings);
             } else if (systemSettings.equals("accessibility_2.0")) {
+                // PPPExtender
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
-                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_3_0;
+                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_6_1;
                 if (extenderVersion == 0) {
                     ok = false;
                     prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
@@ -177,10 +178,9 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                             ": " + _context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
                 }
             } else if (systemSettings.equals("accessibility_5.0")) {
+                // PPPExtender
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(_context);
-                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_3_0;
-                if (Build.VERSION.SDK_INT >= 28)
-                    requiredVersion = PPApplication.VERSION_CODE_EXTENDER_5_1_3_1;
+                int requiredVersion = PPApplication.VERSION_CODE_EXTENDER_6_1;
                 if (extenderVersion == 0) {
                     ok = false;
                     prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +

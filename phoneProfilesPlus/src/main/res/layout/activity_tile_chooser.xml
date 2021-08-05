@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.fragment.app.FragmentContainerView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/shortcut_creator_list"
-    android:name="sk.henrichg.phoneprofilesplus.TileChooserListFragment"
+    android:id="@+id/tile_chooser_activity_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TileChooserActivity" />
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="@dimen/alert_dialog_top_padding" >
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/tile_chooser_list"
+        android:name="sk.henrichg.phoneprofilesplus.TileChooserListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".TileChooserActivity" />
+
+</LinearLayout>

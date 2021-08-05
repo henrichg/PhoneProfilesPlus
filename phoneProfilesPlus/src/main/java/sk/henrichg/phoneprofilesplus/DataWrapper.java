@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -45,6 +46,8 @@ public class DataWrapper {
     private boolean monochrome = false;
     private int monochromeValue = 0xFF;
     private boolean useMonochromeValueForCustomIcon = false;
+    private int indicatorsType = 0;
+    private float indicatorsLightnessValue = 0f;
 
     boolean profileListFilled = false;
     boolean eventListFilled = false;
@@ -61,31 +64,41 @@ public class DataWrapper {
     private static final String ACTIVATED_PROFILES_FIFO_COUNT_PREF = "activated_profiles_fifo_count";
     private static final String ACTIVATED_PROFILES_FIFO_ID_PREF = "activated_profiles_fifo_id";
 
+    static final int IT_FOR_EDITOR = 1;
+    static final int IT_FOR_NOTIFICATION = 2;
+    static final int IT_FOR_WIDGET = 3;
+
     DataWrapper(Context _context,
                         //boolean fgui,
                         boolean mono,
                         int monoVal,
-                        boolean useMonoValForCustomIcon)
+                        boolean useMonoValForCustomIcon,
+                        int indicatorsType,
+                        float indicatorsLightnessVal)
     {
         context = _context.getApplicationContext();
 
-        setParameters(/*fgui, */mono, monoVal, useMonoValForCustomIcon);
+        setParameters(/*fgui, */mono, monoVal, useMonoValForCustomIcon, indicatorsType, indicatorsLightnessVal);
     }
 
     void setParameters(
             //boolean fgui,
             boolean mono,
             int monoVal,
-            boolean useMonoValForCustomIcon)
+            boolean useMonoValForCustomIcon,
+            int indicatorsType,
+            float indicatorsLightnessVal)
     {
         //forGUI = fgui;
         monochrome = mono;
         monochromeValue = monoVal;
         useMonochromeValueForCustomIcon = useMonoValForCustomIcon;
+        this.indicatorsType = indicatorsType;
+        indicatorsLightnessValue = indicatorsLightnessVal;
     }
 
     DataWrapper copyDataWrapper() {
-        DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
+        DataWrapper dataWrapper = new DataWrapper(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon, indicatorsType, indicatorsLightnessValue);
         synchronized (profileList) {
             dataWrapper.copyProfileList(this);
         }
@@ -120,7 +133,7 @@ public class DataWrapper {
                 if (generateIcons)
                     profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                 if (generateIndicators)
-                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType, indicatorsLightnessValue);
             }
         //}
         return newProfileList;
@@ -411,19 +424,25 @@ public class DataWrapper {
                 profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_low), "ic_profile_battery_1", index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 2;
-                profile._deviceMobileData = 2;
+                if (PPApplication.isRooted(true))
+                    profile._deviceMobileData = 2;
                 profile._deviceWiFi = 2;
                 profile._deviceBluetooth = 2;
-                profile._deviceGPS = 2;
+                if (PPApplication.isRooted(true) ||
+                        Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
+                    profile._deviceGPS = 2;
                 break;
             case 6:
                 profile = getNonInitializedProfile(baseContext.getString(R.string.default_profile_name_battery_ok), "ic_profile_battery_3", index+1);
                 profile._showInActivator = false;
                 profile._deviceAutoSync = 1;
-                profile._deviceMobileData = 1;
+                if (PPApplication.isRooted(true))
+                    profile._deviceMobileData = 1;
                 profile._deviceWiFi = 1;
                 profile._deviceBluetooth = 1;
-                profile._deviceGPS = 1;
+                if (PPApplication.isRooted(true) ||
+                        Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
+                    profile._deviceGPS = 1;
                 break;
             default:
                 profile = null;
@@ -479,7 +498,7 @@ public class DataWrapper {
             if (generateIcon)
                 profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
             if (generateIndicators)
-                profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+                profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType, indicatorsLightnessValue);
         }
         return profile;
     }
@@ -578,7 +597,7 @@ public class DataWrapper {
             if (generateIcon)
                 profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
             if (generateIndicators)
-                profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+                profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType, indicatorsLightnessValue);
         }
         return profile;
     }
@@ -709,7 +728,7 @@ public class DataWrapper {
                 if (generateIcon)
                     profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                 if (generateIndicators)
-                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue);
+                    profile.generatePreferencesIndicator(context, monochrome, monochromeValue, indicatorsType, indicatorsLightnessValue);
             }
         }
     }
@@ -754,18 +773,26 @@ public class DataWrapper {
                 int monochromeValue = 0xFF;
                 String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
                 if (applicationWidgetIconLightness.equals("0")) monochromeValue = 0x00;
+                if (applicationWidgetIconLightness.equals("12")) monochromeValue = 0x20;
                 if (applicationWidgetIconLightness.equals("25")) monochromeValue = 0x40;
+                if (applicationWidgetIconLightness.equals("37")) monochromeValue = 0x60;
                 if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0x80;
+                if (applicationWidgetIconLightness.equals("62")) monochromeValue = 0xA0;
                 if (applicationWidgetIconLightness.equals("75")) monochromeValue = 0xC0;
+                if (applicationWidgetIconLightness.equals("87")) monochromeValue = 0xE0;
                 //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 0xFF;
                 profileBitmap = BitmapManipulator.monochromeBitmap(profileBitmap, monochromeValue/*, getActivity().getBaseContext()*/);
             } else {
                 float monochromeValue = 255f;
                 String applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
                 if (applicationWidgetIconLightness.equals("0")) monochromeValue = -255f;
+                if (applicationWidgetIconLightness.equals("12")) monochromeValue = -192f;
                 if (applicationWidgetIconLightness.equals("25")) monochromeValue = -128f;
+                if (applicationWidgetIconLightness.equals("37")) monochromeValue = -64f;
                 if (applicationWidgetIconLightness.equals("50")) monochromeValue = 0f;
+                if (applicationWidgetIconLightness.equals("62")) monochromeValue = 64f;
                 if (applicationWidgetIconLightness.equals("75")) monochromeValue = 128f;
+                if (applicationWidgetIconLightness.equals("87")) monochromeValue = 192f;
                 //if (applicationWidgetIconLightness.equals("100")) monochromeValue = 255f;
                 profileBitmap = BitmapManipulator.grayScaleBitmap(profileBitmap);
                 profileBitmap = BitmapManipulator.setBitmapBrightness(profileBitmap, monochromeValue);
@@ -828,7 +855,7 @@ public class DataWrapper {
 
                     ArrayList<ShortcutInfo> shortcuts = new ArrayList<>();
 
-                    Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color|1|0|0", 0);
+                    Profile _profile = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
                     _profile.generateIconBitmap(context, monochrome, monochromeValue, useMonochromeValueForCustomIcon);
                     // first profile is restart events
                     shortcuts.add(createShortcutInfo(_profile, true));
@@ -1772,7 +1799,10 @@ public class DataWrapper {
                 if (((startupSource != PPApplication.STARTUP_SOURCE_EVENT) &&
                      (startupSource != PPApplication.STARTUP_SOURCE_FOR_FIRST_START) //&&
                    //(startupSource != PPApplication.STARTUP_SOURCE_LAUNCHER_START)
-                ) || (_profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE)) {
+                    ) ||
+                    ((!_profile._askForDuration) &&
+                     (_profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))
+                ) {
                     // activation with duration
 
 
@@ -1967,7 +1997,7 @@ public class DataWrapper {
                             (startupSource == PPApplication.STARTUP_SOURCE_EDITOR)))
         {
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false);
+            GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false, false);
             //GlobalGUIRoutines.setLanguage(activity);
 
             final Profile _profile = profile;
@@ -1994,6 +2024,21 @@ public class DataWrapper {
                         //        _startupSource, true, true, false))
                         if (!PhoneProfilesService.displayPreferencesErrorNotification(_profile, null, context)) {
                             //PPApplication.logE("&&&&&&& DataWrapper.activateProfileWithAlert", "(1) called is DataWrapper.activateProfileFromMainThread");
+
+                            if ((startupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                                (startupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+                                if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+                                    if (PhoneProfilesService.getInstance() != null) {
+                                        //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                                        PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
+                                        //PPApplication.sleep(500);
+                                    }
+                                }
+                            }
+
                             _dataWrapper.activateProfileFromMainThread(_profile, false, _startupSource, true, _activity, false);
                         }
                         else {
@@ -2035,7 +2080,7 @@ public class DataWrapper {
         }
         else
         {
-            GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false);
+            GlobalGUIRoutines.setTheme(activity, true, true/*, false*/, false, false);
             //GlobalGUIRoutines.setLanguage(activity);
 
             if (profile._askForDuration/* && interactive*/) {
@@ -2577,6 +2622,14 @@ public class DataWrapper {
                     PPApplication.startPPService(context, serviceIntent);
                 }
                 else {
+                    if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+                        if (PhoneProfilesService.getInstance() != null) {
+                            //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                            PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
+                            //PPApplication.sleep(500);
+                        }
+                    }
+
 //                        PPApplication.logE("[APP_START] DataWrapper.restartEventsWithAlert", "(1)");
                     restartEventsWithRescan(true, true, true, true, true, true);
                     //IgnoreBatteryOptimizationNotification.showNotification(context);
@@ -2632,6 +2685,14 @@ public class DataWrapper {
                         PPApplication.recordException(e);
                     }
                 });
+            }
+
+            if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+                if (PhoneProfilesService.getInstance() != null) {
+                    //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                    PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
+                    //PPApplication.sleep(500);
+                }
             }
 
 //            PPApplication.logE("[APP_START] DataWrapper.restartEventsWithAlert", "(2)");
@@ -3319,6 +3380,9 @@ public class DataWrapper {
                             break;
                         case DatabaseHandler.ETYPE_DEVICE_BOOT:
                             sensorEnabled = _event._eventPreferencesDeviceBoot._enabled;
+                            break;
+                        case DatabaseHandler.ETYPE_SOUND_PROFILE:
+                            sensorEnabled = _event._eventPreferencesSoundProfile._enabled;
                             break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:

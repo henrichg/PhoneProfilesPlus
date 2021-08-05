@@ -28,8 +28,6 @@
 <!--    <color name="editorDrawerListHeaderTitleColor">#FF000000</color>-->
     <color name="dialog_divider">#17000000</color>
 
-    <color name="altype_other">#FFD0D0D0</color>
-
     <color name="editorFilterTitleColor">#FF000000</color>
     <color name="editorFilterBackgroundColor">#FFF7F7F7</color>
 
@@ -61,9 +59,18 @@
     <color name="toastBorderColor">#FF707070</color>
     <color name="dialogBorderColor">#FFFFFFFF</color>
     <color name="buttonBorderColor">#FFAAAAAA</color>
-    <color name="alertButtonBorderColor">#FFAAAAAA</color>
+<!--    <color name="alertButtonBorderColor">#FFAAAAAA</color>-->
+    <color name="buttonBackgroundColor">#FFFAFAFA</color>
+    <color name="buttonClickedBackgroundColor">#FFDADADA</color>
     <color name="popupMenuBorderColor">#FFCCCCCC</color>
     <color name="profileIconBorderColor">#FFCCCCCC</color>
     <color name="cardViewBorderColor">#FFFFFFFF</color>
+
+    <color name="altype_profile">#FF0000FF</color>
+    <color name="altype_eventStart">#FF00C000</color>
+    <color name="altype_eventEnd">#FFD0D000</color>
+    <color name="altype_eventDelayStartEnd">#FFffb000</color>
+    <color name="altype_error">#FFFF0000</color>
+    <color name="altype_other">#FFD0D0D0</color>
 
 </resources>

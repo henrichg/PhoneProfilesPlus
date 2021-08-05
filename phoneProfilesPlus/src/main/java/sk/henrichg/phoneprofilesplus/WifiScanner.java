@@ -75,6 +75,20 @@ class WifiScanner {
                     }
                 }
             }
+            else {
+                int forceScan = ApplicationPreferences.prefForceOneWifiScan;
+                if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
+                    if (ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2")) {
+                        if (PhoneProfilesService.isNowTimeBetweenTimes(
+                                ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
+                                ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo)) {
+                            // not scan wi-fi in configured time
+                            PPApplication.logE("%%%% WifiScanner.doScan", "-- END - scan in time = 2 -------");
+                            return;
+                        }
+                    }
+                }
+            }
 
             PPApplication.startHandlerThreadPPScanners(/*"WifiScanner.doScan.1"*/);
             final Handler wifiChangeHandler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());

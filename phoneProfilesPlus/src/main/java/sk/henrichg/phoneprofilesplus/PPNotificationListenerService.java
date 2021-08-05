@@ -1,15 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
+//import android.annotation.SuppressLint;
+//import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.media.AudioManager;
-import android.os.Build;
+//import android.content.Intent;
+//import android.content.IntentFilter;
+//import android.media.AudioManager;
+//import android.os.Build;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
-import android.text.TextUtils;
+//import android.text.TextUtils;
 
 import androidx.core.app.NotificationManagerCompat;
 import androidx.work.Data;
@@ -22,15 +22,15 @@ import java.util.concurrent.TimeUnit;
 
 public class PPNotificationListenerService extends NotificationListenerService {
 
-    private static final String ACTION_REQUEST_INTERRUPTION_FILTER = PPApplication.PACKAGE_NAME + ".PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER";
-    private static final String EXTRA_FILTER = "filter";
+    //private static final String ACTION_REQUEST_INTERRUPTION_FILTER = PPApplication.PACKAGE_NAME + ".PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER";
+    //private static final String EXTRA_FILTER = "filter";
 
     //private static final String TAG = PPNotificationListenerService.class.getSimpleName();
 
     private static volatile PPNotificationListenerService instance;
     private static volatile boolean connected;
 
-    private NLServiceReceiver nlservicereceiver;
+    //private NLServiceReceiver nlservicereceiver;
 
     //private static List<PostedNotificationData> notifications = null;
 
@@ -44,19 +44,19 @@ public class PPNotificationListenerService extends NotificationListenerService {
             connected = false;
         }
 
-        nlservicereceiver = new NLServiceReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER);
-        registerReceiver(nlservicereceiver, filter);
+        //nlservicereceiver = new NLServiceReceiver();
+        //IntentFilter filter = new IntentFilter();
+        //filter.addAction(PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER);
+        //registerReceiver(nlservicereceiver, filter);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        try {
-            unregisterReceiver(nlservicereceiver);
-        } catch (Exception ignored) {}
+        //try {
+        //    unregisterReceiver(nlservicereceiver);
+        //} catch (Exception ignored) {}
 
         synchronized (PPApplication.ppNotificationListenerService) {
             instance = null;
@@ -82,8 +82,21 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
-        if (isPowerSaveMode && ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
-            return;
+        if (isPowerSaveMode) {
+            if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
+                return;
+        }
+        else {
+            if (ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2")) {
+                if (PhoneProfilesService.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo)) {
+                    // not scan in configured time
+                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "-- END - scan in time = 2 -------");
+                    return;
+                }
+            }
+        }
 
         if (sbn == null)
             return;
@@ -227,9 +240,21 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
-        if (isPowerSaveMode && ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
-            return;
-
+        if (isPowerSaveMode) {
+            if (ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode.equals("2"))
+                return;
+        }
+        else {
+            if (ApplicationPreferences.applicationEventNotificationScanInTimeMultiply.equals("2")) {
+                if (PhoneProfilesService.isNowTimeBetweenTimes(
+                        ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo)) {
+                    // not scan in configured time
+                    PPApplication.logE("PPNotificationListenerService.onNotificationRemoved", "-- END - scan in time = 2 -------");
+                    return;
+                }
+            }
+        }
 
         if (sbn == null)
             return;
@@ -358,6 +383,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     }
     */
 
+/*
     @Override
     public void onInterruptionFilterChanged(int interruptionFilter) {
         super.onInterruptionFilterChanged(interruptionFilter);
@@ -366,12 +392,14 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.onInterruptionFilterChanged", "PPNotificationListenerService_onInterruptionFilterChanged");
 
-        boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-        if (/*((android.os.Build.VERSION.SDK_INT >= 21) &&*/ /*(android.os.Build.VERSION.SDK_INT < 23)) ||*/ a60) {
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE(TAG, "onInterruptionFilterChanged(interruptionFilter=" + interruptionFilter + ')');
-                PPApplication.logE(TAG, "onInterruptionFilterChanged(internalChange=" + RingerModeChangeReceiver.internalChange + ")");
-            }*/
+        boolean a60 = //(android.os.Build.VERSION.SDK_INT == 23) &&
+                        Build.VERSION.RELEASE.equals("6.0");
+        if (//((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||
+            a60) {
+            //if (PPApplication.logEnabled()) {
+            //    PPApplication.logE(TAG, "onInterruptionFilterChanged(interruptionFilter=" + interruptionFilter + ')');
+            //    PPApplication.logE(TAG, "onInterruptionFilterChanged(internalChange=" + RingerModeChangeReceiver.internalChange + ")");
+            //}
             if (!RingerModeChangeReceiver.internalChange) {
 
                 final AudioManager audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
@@ -383,14 +411,14 @@ public class PPNotificationListenerService extends NotificationListenerService {
                 int zenMode = 0;
                 switch (interruptionFilter) {
                     case NotificationListenerService.INTERRUPTION_FILTER_ALL:
-                        //if (ActivateProfileHelper.vibrationIsOn(/*getApplicationContext(), */audioManager, true))
+                        //if (ActivateProfileHelper.vibrationIsOn(audioManager, true))
                         if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
                             zenMode = Profile.ZENMODE_ALL_AND_VIBRATE;
                         else
                             zenMode = Profile.ZENMODE_ALL;
                         break;
                     case NotificationListenerService.INTERRUPTION_FILTER_PRIORITY:
-                        //if (ActivateProfileHelper.vibrationIsOn(/*getApplicationContext(), */audioManager, true))
+                        //if (ActivateProfileHelper.vibrationIsOn(audioManager, true))
                         if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
                             zenMode = Profile.ZENMODE_PRIORITY_AND_VIBRATE;
                         else
@@ -416,23 +444,24 @@ public class PPNotificationListenerService extends NotificationListenerService {
             //RingerModeChangeReceiver.setAlarmForDisableInternalChange(getApplicationContext());
         }
     }
-
+*/
+/*
     private static int getZenMode(Context context, AudioManager audioManager) {
         // convert to profile zenMode
         int zenMode = 0;
-        int systemZenMode = ActivateProfileHelper.getSystemZenMode(context/*, -1*/);
+        int systemZenMode = ActivateProfileHelper.getSystemZenMode(context);
         //PPApplication.logE("PPNotificationListenerService.getZenMode", "systemZenMode=" + systemZenMode);
         int ringerMode = audioManager.getRingerMode();
         switch (systemZenMode) {
             case ActivateProfileHelper.ZENMODE_ALL:
-                //if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
+                //if (ActivateProfileHelper.vibrationIsOn(audioManager, true))
                 if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
                     zenMode = Profile.ZENMODE_ALL_AND_VIBRATE;
                 else
                     zenMode = Profile.ZENMODE_ALL;
                 break;
             case ActivateProfileHelper.ZENMODE_PRIORITY:
-                //if (ActivateProfileHelper.vibrationIsOn(/*context, */audioManager, true))
+                //if (ActivateProfileHelper.vibrationIsOn(audioManager, true))
                 if (ringerMode == AudioManager.RINGER_MODE_VIBRATE)
                     zenMode = Profile.ZENMODE_PRIORITY_AND_VIBRATE;
                 else
@@ -448,10 +477,14 @@ public class PPNotificationListenerService extends NotificationListenerService {
         //PPApplication.logE("PPNotificationListenerService.getZenMode", "zenMode=" + zenMode);
         return zenMode;
     }
-
-    public static void setZenMode(Context context, AudioManager audioManager/*, String from*/) {
-        boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-        if (/*((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||*/ a60) {
+ */
+/*
+    public static void setZenMode(Context context, AudioManager audioManager) {
+                                     //, String from*) {
+        boolean a60 = //(android.os.Build.VERSION.SDK_INT == 23) &&
+                Build.VERSION.RELEASE.equals("6.0");
+        if (//((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||
+                a60) {
             int zenMode = getZenMode(context, audioManager);
             //PPApplication.logE("********* PPNotificationListenerService.setZenMode", "from="+from+" zenMode="+zenMode);
             if (zenMode != 0) {
@@ -460,7 +493,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             }
         }
     }
-
+*/
     public static boolean isNotificationListenerServiceEnabled(Context context, boolean checkConnected) {
         /*
         ContentResolver contentResolver = context.getContentResolver();
@@ -515,12 +548,14 @@ public class PPNotificationListenerService extends NotificationListenerService {
     }
     */
 
-    /** Convenience method for sending an {@link android.content.Intent} with {@link #ACTION_REQUEST_INTERRUPTION_FILTER}. */
-    @SuppressLint("InlinedApi")
+    // Convenience method for sending an {@link android.content.Intent} with {@link #ACTION_REQUEST_INTERRUPTION_FILTER}.
+/*    @SuppressLint("InlinedApi")
     public static void requestInterruptionFilter(final Context context, final int zenMode) {
         try {
-            boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-            if (/*((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||*/ a60) {
+            boolean a60 = //(android.os.Build.VERSION.SDK_INT == 23) &&
+                    Build.VERSION.RELEASE.equals("6.0");
+            if (//((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||
+                    a60) {
                 if (isNotificationListenerServiceEnabled(context, false)) {
                     int interruptionFilter = NotificationListenerService.INTERRUPTION_FILTER_ALL;
                     switch (zenMode) {
@@ -548,7 +583,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
             PPApplication.recordException(e);
         }
     }
-
+*/
     /*
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -581,6 +616,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
     }
     */
 
+/*
     class NLServiceReceiver extends BroadcastReceiver {
 
         @SuppressLint("InlinedApi")
@@ -590,8 +626,10 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
             //CallsCounter.logCounter(getApplicationContext(), "PPNotificationListenerService.NLServiceReceiver.onReceive", "PPNotificationListenerService_NLServiceReceiver_onReceive");
 
-            boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-            if (/*((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||*/ a60) {
+            boolean a60 = //(android.os.Build.VERSION.SDK_INT == 23) &&
+                    Build.VERSION.RELEASE.equals("6.0");
+            if (//((android.os.Build.VERSION.SDK_INT >= 21) && (android.os.Build.VERSION.SDK_INT < 23)) ||
+                    a60) {
                 // Handle being told to change the interruption filter (zen mode).
                 if (!TextUtils.isEmpty(intent.getAction())) {
                     if (PPNotificationListenerService.ACTION_REQUEST_INTERRUPTION_FILTER.equals(intent.getAction())) {
@@ -619,7 +657,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
 
         }
     }
-
+*/
     /*
     private static final String POSTED_NOTIFICATIONS_COUNT_PREF = "count";
     private static final String POSTED_NOTIFICATIONS_PACKAGE_PREF = "package";

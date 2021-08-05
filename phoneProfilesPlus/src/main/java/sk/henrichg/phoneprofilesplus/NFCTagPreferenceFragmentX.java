@@ -296,9 +296,32 @@ public class NFCTagPreferenceFragmentX extends PreferenceDialogFragmentCompat {
             }
             else
             if (itemId == R.id.nfc_tag_pref_dlg_item_menu_delete) {
-                preference.removeNfcTag(tagInItem._name);
-                DatabaseHandler.getInstance(prefContext.getApplicationContext()).deleteNFCTag(tagInItem);
-                refreshListView("");
+                if (getActivity() != null) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                    dialogBuilder.setTitle(getResources().getString(R.string.profile_context_item_delete));
+                    dialogBuilder.setMessage(getResources().getString(R.string.delete_nfc_tag_alert_message));
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
+                        preference.removeNfcTag(tagInItem._name);
+                        DatabaseHandler.getInstance(prefContext.getApplicationContext()).deleteNFCTag(tagInItem);
+                        refreshListView("");
+                    });
+                    dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                    AlertDialog dialog = dialogBuilder.create();
+
+            //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            //            @Override
+            //            public void onShow(DialogInterface dialog) {
+            //                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+            //                if (positive != null) positive.setAllCaps(false);
+            //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+            //                if (negative != null) negative.setAllCaps(false);
+            //            }
+            //        });
+
+                    if ((getActivity() != null) && (!getActivity().isFinishing()))
+                        dialog.show();
+                }
                 return true;
             }
             else {

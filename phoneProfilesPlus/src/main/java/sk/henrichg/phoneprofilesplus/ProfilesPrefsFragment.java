@@ -55,7 +55,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "prf_pref_notEnabledAccessibilityService";
 
-    private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
+    //private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
     private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
 
     private static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 1981;
@@ -343,7 +343,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
                      (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
                     );*/
-        final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
+        //final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated","canEnableZenMode="+canEnableZenMode);
 
         /*ListPreference zenModePreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
@@ -352,6 +352,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             zenModePreference.setEnabled((value.equals("5")) && canEnableZenMode);
         }*/
 
+/*
         Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
         if (notificationAccessPreference != null) {
             if (canEnableZenMode) {
@@ -359,16 +360,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(notificationAccessPreference);
             } else {
-                /*if (ringerModePreference != null) {
-                    CharSequence[] entries = ringerModePreference.getEntries();
-                    entries[4] = "(S) " + getString(R.string.array_pref_soundModeArray_ZenMode);
-                    ringerModePreference.setEntries(entries);
-                }*/
+                //if (ringerModePreference != null) {
+                //    CharSequence[] entries = ringerModePreference.getEntries();
+                //    entries[4] = "(S) " + getString(R.string.array_pref_soundModeArray_ZenMode);
+                //    ringerModePreference.setEntries(entries);
+                //}
 
-                boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
+                //boolean a60 = Build.VERSION.RELEASE.equals("6.0");
                 @SuppressLint("InlinedApi")
                 final boolean showDoNotDisturbPermission =
-                        /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
+                                //(!a60) &&
                                 GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
                 if (showDoNotDisturbPermission) {
                     notificationAccessPreference.setTitle(getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions));
@@ -377,7 +378,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 //notificationAccessPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
                 notificationAccessPreference.setOnPreferenceClickListener(preference -> {
-                    //boolean a60 = (android.os.Build.VERSION.SDK_INT == 23) && Build.VERSION.RELEASE.equals("6.0");
+                    //boolean a60 = Build.VERSION.RELEASE.equals("6.0");
                     boolean ok = false;
                     if (showDoNotDisturbPermission) {
                         try {
@@ -428,7 +429,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 });
             }
         }
-
+*/
         if (ringerModePreference != null) {
             CharSequence[] entries;
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
@@ -480,11 +481,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_zenModePreference != null) {
                     _zenModePreference.setEnabled((iNewValue == 5) && canEnableZenMode1);
 
-                    boolean a60 = /*(Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-                    @SuppressLint("InlinedApi")
-                    boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
-                            GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(_zenModePreference, true, false, false, false, addS);
+                    //boolean a60 = /*(Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
+                    //@SuppressLint("InlinedApi")
+                    //boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
+                    //        GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(_zenModePreference, true, false, false, false, false/*addS*/);
 
                     Preference zenModePreferenceInfo = prefMng.findPreference("prf_pref_volumeZenModeInfo");
                     if (zenModePreferenceInfo != null) {
@@ -694,7 +695,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference16 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -736,7 +737,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference17 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -1239,10 +1240,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (requestCode == RESULT_NOTIFICATION_ACCESS_SETTINGS) {
-            /*final boolean canEnableZenMode =
-                    (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
-                            (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
-                    );*/
+            //final boolean canEnableZenMode =
+            //        (PPNotificationListenerService.isNotificationListenerServiceEnabled(context.getApplicationContext()) ||
+            //                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists())
+            //        );
 
             final String sZenModeType = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "");
             setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, sZenModeType);
@@ -1371,7 +1372,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private boolean notGrantedG1Permission;
 
-    private String getCategoryTitleWhenPreferenceChanged(String key, int preferenceTitleId, boolean systemSettings, Context context) {
+    private String getCategoryTitleWhenPreferenceChanged(String key, int preferenceTitleId,
+                    @SuppressWarnings("SameParameterValue") boolean systemSettings,
+                                                         Context context) {
         //Preference preference = prefMng.findPreference(key);
         String title = "";
         PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
@@ -1497,7 +1500,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         summary = summary + afterDurationDoTitle + ": <b>" + value + "</b>";
 
                         if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
-                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
                             long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
                             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
                             if (profile != null)
@@ -1580,14 +1583,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = summary + title + ": <b>" + value + "</b>";
             }
             if (_bold) {
-                boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-                @SuppressLint("InlinedApi")
-                boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
-                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
+                //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
+                //@SuppressLint("InlinedApi")
+                //boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
+                //        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
                 int titleRes;// = R.string.profile_preferences_volumeZenMode;
                 //if (Build.VERSION.SDK_INT >= 23)
                     titleRes = R.string.profile_preferences_volumeZenModeM;
-                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, titleRes, addS, context);
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, titleRes, false/*addS*/, context);
                 if (!title.isEmpty()) {
                     final boolean canEnableZenMode = ActivateProfileHelper.canChangeZenMode(context.getApplicationContext());
                     if ((ringerMode != null) && (ringerMode.equals("5")) && canEnableZenMode) {
@@ -2667,13 +2670,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 ok = false;
             }
             else
-            if ((Build.VERSION.SDK_INT < 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0)) {
-                summary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                ok = false;
-            }
-            else
-            if ((Build.VERSION.SDK_INT >= 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_5_1_3_1)) {
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1) {
                 summary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 ok = false;
@@ -2726,7 +2723,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     summary = summary +
                             getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_4_0) {
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1) {
                     //ok = false;
                     summary = summary +
                             getResources().getString(R.string.profile_preferences_device_not_allowed) +
@@ -3198,11 +3195,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     listPreference.setEnabled(false);
                     listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
                             ": "+getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
-                    boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-                    @SuppressLint("InlinedApi")
-                    boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
-                            GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, addS);
+                    //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
+                    //@SuppressLint("InlinedApi")
+                    //boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
+                    //        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, false, false, false, false/*addS*/);
 
                     Preference zenModePreferenceInfo = prefMng.findPreference("prf_pref_volumeZenModeInfo");
                     if (zenModePreferenceInfo != null) {
@@ -3234,11 +3231,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         iRingerMode = Integer.parseInt(sRingerMode);
 
                     if (iRingerMode == 5) {
-                        boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-                        @SuppressLint("InlinedApi")
-                        boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
-                                GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
-                        GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, true, false, false, addS);
+                        //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
+                        //@SuppressLint("InlinedApi")
+                        //boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
+                        //        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context));
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, true, false, false, false/*addS*/);
                     }
                     listPreference.setEnabled(iRingerMode == 5);
 
@@ -3248,12 +3245,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
 
-                Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
+                /*Preference notificationAccessPreference = prefMng.findPreference(PREF_NOTIFICATION_ACCESS);
                 if (notificationAccessPreference != null) {
                     PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
                     if (preferenceCategory != null)
                         preferenceCategory.removePreference(notificationAccessPreference);
-                }
+                }*/
             }
             //}
         }
@@ -3939,9 +3936,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary =  getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + "\n\n";
-                    if ((Build.VERSION.SDK_INT < 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0))
-                        summary = summary + getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
-                    else if ((Build.VERSION.SDK_INT >= 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_5_1_3_1))
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
                         summary = summary + getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
                         summary = summary + getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -3964,13 +3959,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 }
                 else
-                if ((Build.VERSION.SDK_INT < 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0)) {
-                    ok = false;
-                    changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                }
-                else
-                if ((Build.VERSION.SDK_INT >= 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_5_1_3_1)) {
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1) {
                     ok = false;
                     changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
@@ -4009,7 +3998,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary =  getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + "\n\n";
-                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_4_0)
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
                         summary = summary + getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
                         summary = summary + getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -4038,7 +4027,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         changeSummary = changeSummary + "\n\n" +
                                 getResources().getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_4_0) {
+                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1) {
                         //ok = false;
                         changeSummary = changeSummary + "\n\n" +
                                 getResources().getString(R.string.profile_preferences_device_not_allowed) +
@@ -4651,10 +4640,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)) {
             setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
             boolean enabled;
-            if (Build.VERSION.SDK_INT >= 28)
-                enabled = PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_5_1_3_1);
-            else
-                enabled = PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_3_0);
+            enabled = PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_6_1);
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             if (preference != null) {
@@ -5030,17 +5016,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (preference != null) {
                         String _title = order + ". ";
                         String _summary;
-                        boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
-                        final boolean showDoNotDisturbPermission =
-                                /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ (!a60) &&
-                                        GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
-                        if (showDoNotDisturbPermission) {
+                        //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
+                        //final boolean showDoNotDisturbPermission =
+                                /*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
+                        //                GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, getActivity().getApplicationContext());
+                        //if (showDoNotDisturbPermission) {
                             _title = _title + getString(R.string.phone_profiles_pref_accessNotificationPolicyPermissions);
                             _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_2);
-                        } else {
-                            _title = _title + getString(R.string.profile_preferences_volumeNotificationsAccessSettings_title);
-                            _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access);
-                        }
+                        //} else {
+                        //    _title = _title + getString(R.string.profile_preferences_volumeNotificationsAccessSettings_title);
+                        //    _summary = getString(R.string.profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access);
+                        //}
                         ++order;
                         Spannable title = new SpannableString(_title);
                         title.setSpan(new ForegroundColorSpan(Color.RED), 0, title.length(), 0);
@@ -5050,7 +5036,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         preference.setSummary(summary);
 
                         preference.setOnPreferenceClickListener(preference14 -> {
-                            enableNotificationAccess(showDoNotDisturbPermission);
+                            enableNotificationAccess(true/*showDoNotDisturbPermission*/);
                             return false;
                         });
                     }
@@ -5161,7 +5147,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     }
 
-    private void enableNotificationAccess(boolean showDoNotDisturbPermission) {
+    private void enableNotificationAccess(
+            @SuppressWarnings("SameParameterValue") boolean showDoNotDisturbPermission) {
         boolean ok = false;
         if (showDoNotDisturbPermission) {
             // Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS exists
@@ -5173,10 +5160,29 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 startActivityForResult(intent, RESULT_NOTIFICATION_ACCESS_SETTINGS);
                 ok = true;
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                if (getActivity() != null) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = dialogBuilder.create();
+
+//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                        if (positive != null) positive.setAllCaps(false);
+//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                        if (negative != null) negative.setAllCaps(false);
+//                    }
+//                });
+
+                    if (!getActivity().isFinishing())
+                        dialog.show();
+                }
             }
         }
-        else
+        /*else
         if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS, getActivity())) {
             try {
                 Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
@@ -5186,7 +5192,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
-        }
+        }*/
         if (!ok) {
             if (getActivity() != null) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());

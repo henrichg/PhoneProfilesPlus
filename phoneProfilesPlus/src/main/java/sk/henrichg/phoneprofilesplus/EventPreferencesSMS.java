@@ -147,7 +147,7 @@ class EventPreferencesSMS extends EventPreferences {
                 if (extenderVersion == 0) {
                     descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0) {
+                } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1) {
                     descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
@@ -308,7 +308,7 @@ class EventPreferencesSMS extends EventPreferences {
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary = context.getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + "\n\n";
-                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0)
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
                         summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
                         summary = summary + context.getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -431,7 +431,7 @@ class EventPreferencesSMS extends EventPreferences {
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
             return -2;
-        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0)
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
             return -1;
         if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
             return 1;
@@ -441,7 +441,7 @@ class EventPreferencesSMS extends EventPreferences {
     @Override
     void checkPreferences(PreferenceManager prefMng, Context context) {
         final boolean accessibilityEnabled =
-                PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_3_0);
+                PPPExtenderBroadcastReceiver.isEnabled(context.getApplicationContext(), PPApplication.VERSION_CODE_EXTENDER_6_1);
 
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -507,7 +507,7 @@ class EventPreferencesSMS extends EventPreferences {
 
         int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
 
-        calEndTime.setTimeInMillis((_startTime - gmtOffset) + (_duration * 1000));
+        calEndTime.setTimeInMillis((_startTime - gmtOffset) + (_duration * 1000L));
         //calEndTime.set(Calendar.SECOND, 0);
         //calEndTime.set(Calendar.MILLISECOND, 0);
 
@@ -566,6 +566,7 @@ class EventPreferencesSMS extends EventPreferences {
                 intent.setAction(PhoneProfilesService.ACTION_SMS_EVENT_END_BROADCAST_RECEIVER);
                 //intent.setClass(context, SMSEventEndBroadcastReceiver.class);
 
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     //PPApplication.logE("EventPreferencesSMS.removeAlarm", "alarm found");
@@ -598,6 +599,7 @@ class EventPreferencesSMS extends EventPreferences {
 
                 //intent.putExtra(PPApplication.EXTRA_EVENT_ID, _event._id);
 
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) _event._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -605,6 +607,7 @@ class EventPreferencesSMS extends EventPreferences {
                     if (ApplicationPreferences.applicationUseAlarmClock) {
                         Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                         editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        @SuppressLint("UnspecifiedImmutableFlag")
                         PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime + Event.EVENT_ALARM_TIME_SOFT_OFFSET, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);

@@ -78,13 +78,25 @@ public class WifiScanWorker extends Worker {
 
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-            if (isPowerSaveMode && ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
+            if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("2")) {
                 cancelWork(context, false/*, null*/);
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("WifiScanWorker.doWork", "return - update in power save mode is not allowed");
                     PPApplication.logE("WifiScanWorker.doWork", "---------------------------------------- END");
                 }*/
                 return Result.success();
+            }
+            else {
+                if (ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2")) {
+                    if (PhoneProfilesService.isNowTimeBetweenTimes(
+                            ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
+                            ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo)) {
+                        // not scan wi-fi in configured time
+                        PPApplication.logE("WifiScanWorker.doWork", "-- END - scan in time = 2 -------");
+                        cancelWork(context, false/*, null*/);
+                        return Result.success();
+                    }
+                }
             }
 
             if (wifi == null)
@@ -178,8 +190,20 @@ public class WifiScanWorker extends Worker {
                     int interval = ApplicationPreferences.applicationEventWifiScanInterval;
                     //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
                     boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                    if (isPowerSaveMode && ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("1"))
-                        interval = 2 * interval;
+                    if (isPowerSaveMode) {
+                        if (ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("1"))
+                            interval = 2 * interval;
+                    }
+                    else {
+                        if (ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("1")) {
+                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo)) {
+                                interval = 2 * interval;
+                                PPApplication.logE("WifiScanWorker._scheduleWork", "scan in time - 2x interval");
+                            }
+                        }
+                    }
 
                     //PPApplication.logE("WifiScanWorker._scheduleWork", "interval=" + interval);
 

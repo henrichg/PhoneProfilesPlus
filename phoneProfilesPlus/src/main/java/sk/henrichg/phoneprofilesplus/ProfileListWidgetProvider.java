@@ -1,11 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -37,6 +39,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetListHeader;
         boolean applicationWidgetListGridLayout;
         boolean applicationWidgetListPrefIndicator;
+        String applicationWidgetListPrefIndicatorLightness;
         boolean applicationWidgetListBackgroundType;
         String applicationWidgetListBackgroundColor;
         String applicationWidgetListLightnessB;
@@ -50,20 +53,33 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         String applicationWidgetListLightnessT;
         int applicationWidgetListRoundedCornersRadius;
         synchronized (PPApplication.applicationPreferencesMutex) {
+
+            if (PPApplication.isPixelLauncherDefault(context)) {
+                ApplicationPreferences.applicationWidgetListRoundedCorners = true;
+                ApplicationPreferences.applicationWidgetListRoundedCornersRadius = 15;
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS,
+                        ApplicationPreferences.applicationWidgetListRoundedCorners);
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS,
+                        String.valueOf(ApplicationPreferences.applicationWidgetListRoundedCornersRadius));
+                editor.apply();
+            }
+
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
             applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
+            applicationWidgetListPrefIndicatorLightness = ApplicationPreferences.applicationWidgetListPrefIndicatorLightness;
             applicationWidgetListBackgroundType = ApplicationPreferences.applicationWidgetListBackgroundType;
             applicationWidgetListBackgroundColor = ApplicationPreferences.applicationWidgetListBackgroundColor;
             applicationWidgetListLightnessB = ApplicationPreferences.applicationWidgetListLightnessB;
             applicationWidgetListBackground = ApplicationPreferences.applicationWidgetListBackground;
             applicationWidgetListShowBorder = ApplicationPreferences.applicationWidgetListShowBorder;
             applicationWidgetListLightnessBorder = ApplicationPreferences.applicationWidgetListLightnessBorder;
-            applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
             applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
             applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
             applicationWidgetListCustomIconLightness = ApplicationPreferences.applicationWidgetListCustomIconLightness;
             applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
+            applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
             applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
         }
 
@@ -95,6 +111,37 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 break;
             case "100":
                 monochromeValue = 0xFF;
+                break;
+        }
+
+        float prefIndicatorLightnessValue = 0f;
+        switch (applicationWidgetListPrefIndicatorLightness) {
+            case "0":
+                prefIndicatorLightnessValue = -128f;
+                break;
+            case "12":
+                prefIndicatorLightnessValue = -96f;
+                break;
+            case "25":
+                prefIndicatorLightnessValue = -64f;
+                break;
+            case "37":
+                prefIndicatorLightnessValue = -32f;
+                break;
+            case "50":
+                prefIndicatorLightnessValue = 0f;
+                break;
+            case "62":
+                prefIndicatorLightnessValue = 32f;
+                break;
+            case "75":
+                prefIndicatorLightnessValue = 64f;
+                break;
+            case "87":
+                prefIndicatorLightnessValue = 96f;
+                break;
+            case "100":
+                prefIndicatorLightnessValue = 128f;
                 break;
         }
 
@@ -420,7 +467,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (applicationWidgetListPrefIndicator)
                     profile.generatePreferencesIndicator(context.getApplicationContext(),
                             applicationWidgetListIconColor.equals("1"),
-                        monochromeValue);
+                            monochromeValue, DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, dataWrapper);
@@ -491,6 +538,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         //{
             Intent intent = new Intent(context, EditorProfilesActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, intent,
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
             widget.setOnClickPendingIntent(R.id.widget_profile_list_header_profile_root, pendingIntent);
@@ -498,6 +546,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                 //widget.setViewVisibility(R.id.widget_profile_list_header_restart_events, View.VISIBLE);
                 Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
                 widget.setOnClickPendingIntent(R.id.widget_profile_list_header_restart_events_click, pIntentRE);
             //}
@@ -519,6 +568,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
             Intent clickIntent=new Intent(context, BackgroundActivateProfileActivity.class);
             clickIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
+            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent clickPI=PendingIntent.getActivity(context, 300,
                                                         clickIntent,
                                                         PendingIntent.FLAG_UPDATE_CURRENT);
@@ -566,7 +616,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         //Bundle widgetIdOptions;
         //widgetIdOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
         //boolean isLargeLayout = setLayoutParams(context, appWidgetManager, appWidgetId, widgetIdOptions);
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0f);
         RemoteViews widget = buildLayout(context, appWidgetId, /*isLargeLayout,*/ dataWrapper);
         try {
             appWidgetManager.updateAppWidget(appWidgetId, widget);
@@ -645,7 +695,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                 for (int appWidgetId : appWidgetIds) {
                                     //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
                                     RemoteViews layout;
-                                    DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false);
+                                    DataWrapper dataWrapper = new DataWrapper(appContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0f);
                                     layout = buildLayout(appContext, appWidgetId, /*isLargeLayout,*/ dataWrapper);
                                     try {
                                         appWidgetManager.updateAppWidget(appWidgetId, layout);

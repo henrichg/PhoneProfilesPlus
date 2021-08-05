@@ -74,6 +74,7 @@ class ApplicationPreferences {
     static boolean notificationHideInLockScreen;
     //static String notificationTheme;
     static boolean applicationWidgetListPrefIndicator;
+    static String applicationWidgetListPrefIndicatorLightness;
     static boolean applicationWidgetListHeader;
     static String applicationWidgetListBackground;
     static String applicationWidgetListLightnessB;
@@ -85,6 +86,7 @@ class ApplicationPreferences {
     //static boolean applicationEditorAutoCloseDrawer;
     //static boolean applicationEditorSaveEditorState;
     static boolean notificationPrefIndicator;
+    static String notificationPrefIndicatorLightness;
     static String applicationHomeLauncher;
     static String applicationWidgetLauncher;
     static String applicationNotificationLauncher;
@@ -159,6 +161,7 @@ class ApplicationPreferences {
     static boolean applicationUseAlarmClock;
     static boolean notificationShowButtonExit;
     static boolean applicationWidgetOneRowPrefIndicator;
+    static String applicationWidgetOneRowPrefIndicatorLightness;
     static String applicationWidgetOneRowBackground;
     static String applicationWidgetOneRowLightnessB;
     static String applicationWidgetOneRowLightnessT;
@@ -185,7 +188,7 @@ class ApplicationPreferences {
     static boolean applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled;
     static String applicationSamsungEdgeVerticalPosition;
     static int notificationBackgroundCustomColor;
-    static boolean notificationNightMode;
+    //static boolean notificationNightMode;
     static boolean applicationEditorHideHeaderOrBottomBar;
     static boolean applicationWidgetIconShowProfileDuration;
     static String notificationNotificationStyle;
@@ -202,6 +205,33 @@ class ApplicationPreferences {
     static int applicationWidgetListRoundedCornersRadius;
     static int applicationWidgetIconRoundedCornersRadius;
     static String applicationActivatorNumColums;
+    static String applicationApplicationInterfaceNotificationSound;
+    static boolean applicationApplicationInterfaceNotificationVibrate;
+    static boolean applicationActivatorAddRestartEventsIntoProfileList;
+    static boolean applicationActivatorIncreaseBrightness;
+
+    static String applicationEventBackgroundScanningScanInTimeMultiply;
+    static int applicationEventBackgroundScanningScanInTimeMultiplyFrom;
+    static int applicationEventBackgroundScanningScanInTimeMultiplyTo;
+    static String applicationEventBluetoothScanInTimeMultiply;
+    static int applicationEventBluetoothScanInTimeMultiplyFrom;
+    static int applicationEventBluetoothScanInTimeMultiplyTo;
+    static String applicationEventLocationScanInTimeMultiply;
+    static int applicationEventLocationScanInTimeMultiplyFrom;
+    static int applicationEventLocationScanInTimeMultiplyTo;
+    static String applicationEventMobileCellScanInTimeMultiply;
+    static int applicationEventMobileCellScanInTimeMultiplyFrom;
+    static int applicationEventMobileCellScanInTimeMultiplyTo;
+    static String applicationEventNotificationScanInTimeMultiply;
+    static int applicationEventNotificationScanInTimeMultiplyFrom;
+    static int applicationEventNotificationScanInTimeMultiplyTo;
+    static String applicationEventOrientationScanInTimeMultiply;
+    static int applicationEventOrientationScanInTimeMultiplyFrom;
+    static int applicationEventOrientationScanInTimeMultiplyTo;
+    static String applicationEventWifiScanInTimeMultiply;
+    static int applicationEventWifiScanInTimeMultiplyFrom;
+    static int applicationEventWifiScanInTimeMultiplyTo;
+    static boolean notificationShowRestartEventsAsButton;
 
     static boolean prefActivatorActivityStartTargetHelps;
     static boolean prefActivatorFragmentStartTargetHelps;
@@ -270,6 +300,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_SHOW_IN_STATUS_BAR = "notificationShowInStatusBar";
     static final String PREF_NOTIFICATION_TEXT_COLOR = "notificationTextColor";
     static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR = "applicationWidgetListPrefIndicator";
+    static final String PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS = "applicationWidgetListPrefIndicatorLightness";
     static final String PREF_APPLICATION_WIDGET_LIST_HEADER = "applicationWidgetListHeader";
     static final String PREF_APPLICATION_WIDGET_LIST_BACKGROUND = "applicationWidgetListBackground";
     static final String PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B = "applicationWidgetListLightnessB";
@@ -281,6 +312,7 @@ class ApplicationPreferences {
     //static final String PREF_APPLICATION_EDITOR_AUTO_CLOSE_DRAWER = "applicationEditorAutoCloseDrawer";
     //static final String PREF_APPLICATION_EDITOR_SAVE_EDITOR_STATE = "applicationEditorSaveEditorState";
     static final String PREF_NOTIFICATION_PREF_INDICATOR = "notificationPrefIndicator";
+    static final String PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS = "notificationPrefIndicatorLightness";
     static final String PREF_APPLICATION_HOME_LAUNCHER = "applicationHomeLauncher";
     static final String PREF_APPLICATION_WIDGET_LAUNCHER = "applicationWidgetLauncher";
     static final String PREF_APPLICATION_NOTIFICATION_LAUNCHER = "applicationNotificationLauncher";
@@ -350,6 +382,7 @@ class ApplicationPreferences {
     static final String PREF_NOTIFICATION_SHOW_BUTTON_EXIT = "notificationShowButtonExit";
     //static final String PREF_APPLICATION_DEFAULT_PROFILE_USAGE = "applicationBackgroundProfileUsage";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR = "applicationWidgetOneRowPrefIndicator";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS = "applicationWidgetOneRowPrefIndicatorLightness";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND = "applicationWidgetOneRowBackground";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B = "applicationWidgetOneRowLightnessB";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T = "applicationWidgetOneRowLightnessT";
@@ -377,7 +410,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_MOBILE_CELL_NOT_USED_CELLS_DETECTION_NOTIFICATION_ENABLED = "applicationEventMobileCellNotUsedCellsDetectionNotificationEnabled";
     static final String PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION = "applicationSamsungEdgeVerticalPosition";
     static final String PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR = "notificationBackgroundCustomColor";
-    static final String PREF_NOTIFICATION_NIGHT_MODE = "notificationNightMode";
+    //static final String PREF_NOTIFICATION_NIGHT_MODE = "notificationNightMode";
     static final String PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR = "applicationEditorHideHeaderOrBottomBar";
     static final String PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION = "applicationWidgetIconShowProfileDuration";
     static final String PREF_NOTIFICATION_NOTIFICATION_STYLE = "notificationNotificationStyle";
@@ -394,6 +427,33 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS = "applicationWidgetListRoundedCornersRadius";
     static final String PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS = "applicationWidgetIconRoundedCornersRadius";
     static final String PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS = "applicationActivatorNumColums";
+    static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND = "applicationApplicationInterfaceNotificationSound";
+    static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE = "applicationApplicationInterfaceNotificationVibrate";
+    static final String PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST = "applicationActivatorAddRestartEventsIntoProfileList";
+    static final String PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS = "applicationActivatorIncreaseBrightness";
+
+    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventBackgroundScanningScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventBackgroundScanningScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventBackgroundScanningScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY = "applicationEventBluetoothScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventBluetoothScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventBluetoothScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY = "applicationEventLocationScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventLocationScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventLocationScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY = "applicationEventMobileCellScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventMobileCellScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventMobileCellScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY = "applicationEventNotificationScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventNotificationScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventNotificationScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY = "applicationEventOrientationScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventOrientationScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventOrientationScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY = "applicationEventWifiScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventWifiScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventWifiScanInTimeMultiplyTo";
+    static final String PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON = "notificationShowRestartEventsAsButton";
 
     static final String PREF_QUICK_TILE_PROFILE_ID = "quickTileProfileId";
 
@@ -592,6 +652,10 @@ class ApplicationPreferences {
         applicationWidgetListPrefIndicator = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, true);
     }
 
+    static void applicationWidgetListPrefIndicatorLightness(Context context) {
+        applicationWidgetListPrefIndicatorLightness = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS, "50");
+    }
+
     static void applicationWidgetListHeader(Context context) {
         applicationWidgetListHeader = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_HEADER, true);
     }
@@ -639,6 +703,10 @@ class ApplicationPreferences {
 
     static void notificationPrefIndicator(Context context) {
         notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, true);
+    }
+
+    static void notificationPrefIndicatorLightness(Context context) {
+        notificationPrefIndicatorLightness = getSharedPreferences(context).getString(PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS, "50");
     }
 
     static void applicationHomeLauncher(Context context) {
@@ -958,6 +1026,10 @@ class ApplicationPreferences {
         applicationWidgetOneRowPrefIndicator = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, true);
     }
 
+    static void applicationWidgetOneRowPrefIndicatorLightness(Context context) {
+        applicationWidgetOneRowPrefIndicatorLightness = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS, "50");
+    }
+
     static void applicationWidgetOneRowBackground(Context context) {
         applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, "25");
     }
@@ -1068,9 +1140,9 @@ class ApplicationPreferences {
         notificationBackgroundCustomColor = getSharedPreferences(context).getInt(PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR, 0xFFFFFFFF);
     }
 
-    static void notificationNightMode(Context context) {
-        notificationNightMode = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_NIGHT_MODE, false);
-    }
+//    static void notificationNightMode(Context context) {
+//        notificationNightMode = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_NIGHT_MODE, false);
+//    }
 
     static void applicationEditorHideHeaderOrBottomBar(Context context) {
         applicationEditorHideHeaderOrBottomBar = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, true);
@@ -1134,6 +1206,112 @@ class ApplicationPreferences {
 
     static void applicationActivatorNumColums(Context context) {
         applicationActivatorNumColums = getSharedPreferences(context).getString(PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS, "3");
+    }
+
+    static void applicationApplicationInterfaceNotificationSound(Context context) {
+        applicationApplicationInterfaceNotificationSound = getSharedPreferences(context).getString(PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND, "");
+    }
+
+    static void applicationApplicationInterfaceNotificationVibrate(Context context) {
+        applicationApplicationInterfaceNotificationVibrate = getSharedPreferences(context).getBoolean(PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE, false);
+    }
+
+    static void applicationActivatorAddRestartEventsIntoProfileList(Context context) {
+        applicationActivatorAddRestartEventsIntoProfileList = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST, false);
+    }
+
+    static void applicationActivatorIncreaseBrightness(Context context) {
+        applicationActivatorIncreaseBrightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS, false);
+    }
+
+
+    static void applicationEventBackgroundScanningScanInTimeMultiply(Context context) {
+        applicationEventBackgroundScanningScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY, "0");
+    }
+
+    static void applicationEventBackgroundScanningScanInTimeMultiplyFrom(Context context) {
+        applicationEventBackgroundScanningScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventBackgroundScanningScanInTimeMultiplyTo(Context context) {
+        applicationEventBackgroundScanningScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void applicationEventBluetoothScanInTimeMultiply(Context context) {
+        applicationEventBluetoothScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY, "0");
+    }
+
+    static void applicationEventBluetoothScanInTimeMultiplyFrom(Context context) {
+        applicationEventBluetoothScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventBluetoothScanInTimeMultiplyTo(Context context) {
+        applicationEventBluetoothScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void applicationEventLocationScanInTimeMultiply(Context context) {
+        applicationEventLocationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY, "0");
+    }
+
+    static void applicationEventLocationScanInTimeMultiplyFrom(Context context) {
+        applicationEventLocationScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventLocationScanInTimeMultiplyTo(Context context) {
+        applicationEventLocationScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void applicationEventMobileCellScanInTimeMultiply(Context context) {
+        applicationEventMobileCellScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY, "1");
+    }
+
+    static void applicationEventMobileCellScanInTimeMultiplyFrom(Context context) {
+        applicationEventMobileCellScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventMobileCellScanInTimeMultiplyTo(Context context) {
+        applicationEventMobileCellScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void applicationEventNotificationScanInTimeMultiply(Context context) {
+        applicationEventNotificationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY, "1");
+    }
+
+    static void applicationEventNotificationScanInTimeMultiplyFrom(Context context) {
+        applicationEventNotificationScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventNotificationScanInTimeMultiplyTo(Context context) {
+        applicationEventNotificationScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void applicationEventOrientationScanInTimeMultiply(Context context) {
+        applicationEventOrientationScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY, "0");
+    }
+
+    static void applicationEventOrientationScanInTimeMultiplyFrom(Context context) {
+        applicationEventOrientationScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventOrientationScanInTimeMultiplyTo(Context context) {
+        applicationEventOrientationScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void applicationEventWifiScanInTimeMultiply(Context context) {
+        applicationEventWifiScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY, "0");
+    }
+
+    static void applicationEventWifiScanInTimeMultiplyFrom(Context context) {
+        applicationEventWifiScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    }
+
+    static void applicationEventWifiScanInTimeMultiplyTo(Context context) {
+        applicationEventWifiScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    }
+
+    static void notificationShowRestartEventsAsButton(Context context) {
+        notificationShowRestartEventsAsButton = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON,
+                Build.VERSION.SDK_INT >= 31);
     }
 
     static void loadStartTargetHelps(Context context) {

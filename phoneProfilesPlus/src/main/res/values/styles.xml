@@ -103,7 +103,7 @@
     </style>
 
     <style name="AlertButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-        <item name="android:background">@drawable/pp_alert_button_background</item>
+        <item name="android:background">@drawable/pp_alert_button_background_selector</item>
     </style>
 
 <!--    <style name="ppDialogStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">-->

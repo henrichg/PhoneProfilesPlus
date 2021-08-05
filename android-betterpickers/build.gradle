@@ -27,9 +27,7 @@ android {
 
 dependencies {
     //compileOnly fileTree(dir: 'libs', include: ['*.jar'])
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
-    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 
     implementation project(':common')

@@ -32,7 +32,7 @@
                 android:left="10dp"
                 android:right="10dp" />
 
-            <solid android:color="@color/activityPopupMenuBackgroundColor" />
+            <solid android:color="@color/buttonBackgroundColor" />
 
             <corners android:radius="@dimen/button_corner_radius" />
         </shape>

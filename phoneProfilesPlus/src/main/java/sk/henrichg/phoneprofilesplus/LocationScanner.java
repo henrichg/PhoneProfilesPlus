@@ -281,7 +281,22 @@ class LocationScanner
                                     // check power save mode
                                     String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode;
                                     //boolean powerSaveMode = PPApplication.isPowerSaveMode;
-                                    if (!(isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2"))) {
+                                    boolean canScan = true;
+                                    if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
+                                        canScan = false;
+                                    }
+                                    else {
+                                        if (ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("2")) {
+                                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                                                    ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
+                                                    ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo)) {
+                                                // not scan wi-fi in configured time
+                                                PPApplication.logE("LocationScanner.startLocationUpdates", "-- END - scan in time = 2 -------");
+                                                canScan = false;
+                                            }
+                                        }
+                                    }
+                                    if (canScan) {
                                         int interval = 25; // seconds
                                         if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1) {
                                             // interval is in minutes
@@ -294,7 +309,7 @@ class LocationScanner
 //                                        PPApplication.logE("##### LocationScanner.startLocationUpdates", "interval="+interval);
                                         if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("1"))
                                             interval = 2 * interval;
-                                        final long UPDATE_INTERVAL_IN_MILLISECONDS = (interval * 1000) / 2;
+                                        final long UPDATE_INTERVAL_IN_MILLISECONDS = (interval * 1000L) / 2;
 
 //                                        PPApplication.logE("##### LocationScanner.startLocationUpdates", "request location updates - provider=" + provider);
 //                                        PPApplication.logE("##### LocationScanner.startLocationUpdates", "request location updates - interval=" + UPDATE_INTERVAL_IN_MILLISECONDS / 1000);

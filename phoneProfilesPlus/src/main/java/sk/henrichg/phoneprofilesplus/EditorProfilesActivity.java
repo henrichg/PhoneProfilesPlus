@@ -232,7 +232,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         //PPApplication.logE("EditorProfilesActivity.onCreate", "xxx");
 
-        GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false);
+        GlobalGUIRoutines.setTheme(this, false, true/*, true*/, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         savedInstanceStateChanged = (savedInstanceState != null);
@@ -453,15 +453,15 @@ public class EditorProfilesActivity extends AppCompatActivity
         */
 
         bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(
+        bottomNavigationView.setOnItemSelectedListener(
                 item -> {
                     int itemId = item.getItemId();
                     if (itemId == R.id.menu_profiles_view) {
                         //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_profiles_view");
                         String[] filterItems = new String[]{
-                                getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_all),
-                                getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                                getString(R.string.editor_drawer_title_profiles) + " - " + getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_all),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
                         };
                         GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                                 EditorProfilesActivity.this,
@@ -469,22 +469,20 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 filterItems);
                         filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                         filterSpinner.setAdapter(filterSpinnerAdapter);
-                        selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
-                        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                        EditorProfilesActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
+                        Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                         if (fragment instanceof EditorProfileListFragment)
                             ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
                         return true;
-                    }
-                    else
-                    if (itemId == R.id.menu_events_view) {
+                    } else if (itemId == R.id.menu_events_view) {
                         //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
                         String[] filterItems = new String[]{
-                                getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_start_order),
-                                getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_all),
-                                getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_not_stopped),
-                                getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_running),
-                                getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_paused),
-                                getString(R.string.editor_drawer_title_events) + " - " + getString(R.string.editor_drawer_list_item_events_stopped)
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_start_order),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_all),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_not_stopped),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_running),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_paused),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_stopped)
                         };
                         GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                                 EditorProfilesActivity.this,
@@ -492,14 +490,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 filterItems);
                         filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                         filterSpinner.setAdapter(filterSpinnerAdapter);
-                        selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
-                        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                        EditorProfilesActivity.this.selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
+                        Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                         if (fragment instanceof EditorEventListFragment) {
                             ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
                         }
                         return true;
-                    }
-                    else
+                    } else
                         return false;
                 });
         // set size of icons of BottomNavigationView
@@ -945,6 +942,15 @@ public class EditorProfilesActivity extends AppCompatActivity
             }
         }
 
+        menuItem = menu.findItem(R.id.menu_check_in_galaxy_store);
+        if (menuItem != null) {
+            menuItem.setVisible(PPApplication.deviceIsSamsung);
+        }
+        menuItem = menu.findItem(R.id.menu_check_in_appgallery);
+        if (menuItem != null) {
+            menuItem.setVisible(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI);
+        }
+
         //noinspection Convert2MethodRef
         onNextLayout(editorToolbar, () -> showTargetHelps());
 
@@ -1272,8 +1278,13 @@ public class EditorProfilesActivity extends AppCompatActivity
             return true;
         }
         else
-        if (itemId == R.id.menu_check_github_releases) {
-            CheckGitHubReleasesActivity.showDialog(this, true);
+
+        if ((itemId == R.id.menu_check_in_github) ||
+                (itemId == R.id.menu_check_in_fdroid) ||
+                (itemId == R.id.menu_check_in_galaxy_store) ||
+                (itemId == R.id.menu_check_in_amazon_appstore) ||
+                (itemId == R.id.menu_check_in_appgallery)) {
+            CheckGitHubReleasesActivity.showDialog(this, true, itemId);
             return true;
         }
 
@@ -1297,6 +1308,12 @@ public class EditorProfilesActivity extends AppCompatActivity
                 // throws more than 8 exceptions in a session, older exceptions are lost.
                 PPApplication.recordException(e);
             }
+            return true;
+        }
+
+        if (itemId == R.id.menu_donation) {
+            intent = new Intent(getBaseContext(), DonationPayPalActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -1649,7 +1666,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     if (profile != null) {
                         // generate bitmaps
                         profile.generateIconBitmap(getApplicationContext(), false, 0, false);
-                        profile.generatePreferencesIndicator(getApplicationContext(), false, 0);
+                        profile.generatePreferencesIndicator(getApplicationContext(), false, 0, DataWrapper.IT_FOR_EDITOR, 0f);
 
                         // redraw list fragment , notifications, widgets after finish ProfilesPrefsActivity
                         redrawProfileListFragment(profile, newProfileMode);
@@ -2289,6 +2306,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                             PPApplication.recordException(e);
                         }
                     //}
+
+                    for (int i = 0; i < PPApplication.quickTileProfileId.length; i++)
+                        ApplicationPreferences.setQuickTileProfileId(getApplicationContext(),i, 0);
 
                     PPApplication.loadGlobalApplicationData(getApplicationContext());
                     PPApplication.loadApplicationPreferences(getApplicationContext());
@@ -4352,12 +4372,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         ApplicationPreferences.notificationLayoutType = importPPDataBroadcastReceiver.applicationData.notificationLayoutType;
                                         ApplicationPreferences.notificationBackgroundColor = importPPDataBroadcastReceiver.applicationData.notificationBackgroundColor;
                                         ApplicationPreferences.notificationNotificationStyle = "0"; // custom notification style
-                                        ApplicationPreferences.notificationNightMode = false;
+                                        //ApplicationPreferences.notificationNightMode = false;
                                         ApplicationPreferences.notificationShowProfileIcon = true;
                                         if (ApplicationPreferences.notificationBackgroundColor.equals("2")) {
                                             ApplicationPreferences.notificationBackgroundColor = "0";
-                                            ApplicationPreferences.notificationNightMode = true;
+                                            //ApplicationPreferences.notificationNightMode = true;
                                         }
+                                        ApplicationPreferences.notificationShowRestartEventsAsButton = Build.VERSION.SDK_INT >= 31;
 
                                         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(activity.getApplicationContext());
                                         editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_START_ON_BOOT, ApplicationPreferences.applicationStartOnBoot);
@@ -4429,9 +4450,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, ApplicationPreferences.notificationUseDecoration);
                                         editor.putString(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE, ApplicationPreferences.notificationLayoutType);
                                         editor.putString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, ApplicationPreferences.notificationBackgroundColor);
-
                                         editor.apply();
                                     }
+                                    for (int i = 0; i < PPApplication.quickTileProfileId.length; i++)
+                                        ApplicationPreferences.setQuickTileProfileId(activity.getApplicationContext(),i, 0);
 
                                     PPApplication.loadGlobalApplicationData(activity.getApplicationContext());
                                     PPApplication.loadApplicationPreferences(activity.getApplicationContext());

@@ -54,17 +54,17 @@
     <string name="profile_preferences_volumeSystem">Гучність системних звуків</string>
     <string name="profile_preferences_soundRingtoneChange">Змінити мелодію дзвінка</string>
     <string name="profile_preferences_soundRingtone">Мелодія дзвінка</string>
-    <string name="profile_preferences_soundNotificationChange">Змінити звуки сповіщень</string>
-    <string name="profile_preferences_soundNotification">Звуки сповіщень</string>
-    <string name="profile_preferences_soundAlarmChange">Змінити звуки будильника</string>
-    <string name="profile_preferences_soundAlarm">Звук будильника</string>
+    <string name="profile_preferences_soundNotificationChange">Змінити мелодію сповіщення</string>
+    <string name="profile_preferences_soundNotification">Мелодія сповіщень</string>
+    <string name="profile_preferences_soundAlarmChange">Змінити мелодію будильника</string>
+    <string name="profile_preferences_soundAlarm">Мелодія будильника</string>
     <string name="profile_preferences_deviceAirplaneMode">(R) Режим \"У літаку\"</string>
     <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
     <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
     <string name="profile_preferences_deviceGPS">(G1)(R) GPS</string>
     <string name="profile_preferences_deviceNFC">(G1)(R) NFC</string>
-    <string name="profile_preferences_deviceScreenTimeout">Затримка вимкн. екрану</string>
-    <string name="profile_preferences_deviceBrightness">Яскравість дисплею</string>
+    <string name="profile_preferences_deviceScreenTimeout">Затримка вимкнення екрану</string>
+    <string name="profile_preferences_deviceBrightness">Яскравість екрану</string>
     <string name="profile_preferences_deviceWallpaper">Шпалери</string>
     <string name="profile_preferences_deviceWallpaperChange">Змінити шпалери</string>
     <string name="array_pref_no_change">Не змінювати</string>
@@ -78,11 +78,11 @@
     <string name="array_pref_screenTimeoutArray_10minutes">10 хвилин</string>
     <string name="phone_profiles_pref_applicationStartOnBoot">Запускати при увімкненні телефону</string>
     <string name="profile_preferences_device_not_allowed">Не дозволено</string>
-    <string name="menu_export">Резервування</string>
-    <string name="menu_import">Відновлення</string>
+    <string name="menu_export">Параметри резервування</string>
+    <string name="menu_import">Параметри відновлення</string>
     <string name="toast_export_ok">Налаштування експортовано</string>
-    <string name="toast_import_ok">Відновлено рез. копію налаштувань</string>
-    <string name="import_profiles_alert_title">Відновлення рез. копії</string>
+    <string name="toast_import_ok">Налаштування відновлено</string>
+    <string name="import_profiles_alert_title">Відновити налаштування</string>
     <string name="import_profiles_alert_message">Ви впевнені?</string>
     <string name="import_profiles_alert_error">Помилка під час відновлення</string>
     <string name="export_profiles_alert_title">Експортувати налаштування</string>
@@ -109,7 +109,7 @@
     <string name="phone_profiles_pref_applicationWidgetLightnessT">Світлість тексту</string>
     <string name="phone_profiles_pref_applicationWidgetLightnessI">Світлість іконки</string>
     <string name="array_pref_widgetColor_colorful">Кольорова</string>
-    <string name="array_pref_widgetColor_monochrome">Монохромна</string>
+    <string name="array_pref_widgetColor_monochrome">Чорно-біла</string>
     <string name="phone_profiles_pref_applicationWidgetIconColor">Тип іконки</string>
     <string name="profile_list_empty">Профілі відсутні</string>
     <string name="event_list_empty">Події відсутні</string>
@@ -543,7 +543,6 @@
     <string name="about_application_source_code">Початковий код:</string>
     <string name="about_application_translations">Переклади:</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Доступ до режиму Не турбувати</string>
-    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Будь ласка, знайдіть додаток «PhoneProfilesPlus» та увімкніть його.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Додайте PhoneProfilesPlus до категорії «Не заощаджують батарею», якщо виникли проблеми з активацію профілів, після блокування пристрою з вимкненим екраном.</string>
     <string name="profile_preferences_deviceWallpaperFor">Встановити шпалери для</string>
     <string name="array_pref_device_wallpaper_homescreen">Домашній екран</string>
@@ -763,7 +762,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Сканування увімкнено</string>
     <string name="duration_pref_dlg_duration_label">Тривалість:</string>
     <string name="duration_pref_dlg_activation_end_label">Завершення активації:</string>
-    <string name="important_info_profile_zenModeM">Для встановлення значення \"Не турбувати\" у розділі \"Режим дзвінка\" необхідно увімкнути службу PhoneProfilesPlus в налаштуваннях системи \"Доступ до сповіщень\". Натисніть тут, щоб увімкнути службу PhoneProfilesPlus.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">В Android 6 системні параметри, такі як, режими дзвінків і не турбувати із вібрацією, можна змінити тільки на пристроях із правами Root.</string>
     <string name="setting_screen_not_found_alert">Налаштувань екрану не виявлено.</string>
     <string name="action_for_external_application_notification_no_profile_text">Параметр profile_name відсутній або пустий.</string>
@@ -853,7 +851,6 @@
     <string name="duration_pref_dlg_activation_hours_label">Години:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Хвилини:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Секунди:</string>
-    <string name="preferences_durationNotificationSoundInfo_summary">Це сповіщення використовує канал \"Медія\" і, відповідно, його рівень гучності.</string>
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Будь ласка, увімкніть Місцезнаходження і сканування Wi-Fi в Налаштуваннях пристрою. Без цього сканування Wi-Fi не працюватиме.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Будь ласка, увімкніть Місцезнаходження і сканування Bluetooth в Налаштуваннях пристрою. Без цього сканування Bluetooth не працюватиме.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">Системне налаштування \"Робота Wi-Fi в режимі сну\"</string>
@@ -1289,7 +1286,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Чорний</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Власний колір тла</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">Власний колір</string>
-    <string name="phone_profiles_pref_notificationNightMode">Використовувати нічний режим</string>
     <string name="event_preferences_orientation_checkLight">Перевірте освітлення</string>
     <string name="event_preferences_orientation_light">Освітлення</string>
     <string name="event_preferences_orientation_light_min">Освітлення - мінімальне значення</string>
@@ -1341,10 +1337,10 @@
     <string name="profile_event_name_ask_for_duration">запитати</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Віджет не спрацьовує при натисканні</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Якщо віджет PhoneProfilesPlus не працює (при натисканні), увімкніть дозвіл у налаштуваннях пристрою: Налаштування / Додатки / Керування програмами / PhoneProfilesPlus / Інші дозволи / Відображати спливаючі вікна під час роботи у фоні.</string>
-    <string name="array_pref_12_percent" formatted="false">12,5%</string>
-    <string name="array_pref_37_percent" formatted="false">37.5%</string>
-    <string name="array_pref_62_percent" formatted="false">62.5%</string>
-    <string name="array_pref_87_percent" formatted="false">87.5%</string>
+    <string name="array_pref_12_percent" formatted="false">13%</string>
+    <string name="array_pref_37_percent" formatted="false">38%</string>
+    <string name="array_pref_62_percent" formatted="false">63%</string>
+    <string name="array_pref_87_percent" formatted="false">88%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Показати тривалість профілю (віджет)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Взагалі може не працювати у вашому пристрої.</string>
     <string name="application_is_starting_toast">запускається…</string>
@@ -1402,8 +1398,6 @@
     <string name="altype_profileError_setWallpaper">профіль - помилка при встановленні шпалер</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">Bluetooth дозвіл не надано</string>
     <string name="profile_preferences_volumeMuteSound">Вимкнути звук</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">Щоб отримати доступ до параметру профілю \"Не турбувати\" необхідно надати дозвіл PhoneProfilesPlus до \"Доступ до сповіщень\" в налаштуваннях системи.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">Щоб увімкнути параметр профілю «Не турбувати», дозвольте PhoneProfilesPlus доступ до «Доступ до сповіщень» в налаштуваннях системи. Натисніть тут щоб увімкнути.</string>
     <string name="phone_profiles_pref_category_background_scanning">Сканування у фоні</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Ці налаштування для сканування у фоні. Це корисно, коли датчик події \"Час\" або \"Календар\" не працює належним чином.\n\nРекомендується не вмикати сканування в той час коли датчики розташування, Wi-Fi, Bluetooth, орієнтації використовуються в будь-які події.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Увімкнути сканування у фоні</string>
@@ -1476,7 +1470,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk розташований в</string>
     <string name="check_github_releases_notification">Натисніть на це повідомлення, щоб перевірити версії PhoneProfilesPlus в GitHub. Можливо є нова версія.</string>
     <string name="donation_paypal">Будь ласка, підтримайте проект скориставшись PayPal:</string>
-    <string name="about_application_package_type_github">Встановлено з GitHub або іншого джерела.</string>
     <string name="notification_channel_new_release">Нова версія PhoneProfilesPlus</string>
     <string name="notification_channel_new_release_description">Показує сповіщення про нову версію PhoneProfilesPlus.</string>
     <string name="altype_actionFromExternalApp_profileActivation">дія із зовнішнього додатку - активація профілю</string>
@@ -1537,8 +1530,7 @@
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Якщо, в рядку стану, замість іконки профілю іконка PhoneProfilesPlus, це можна змінити. \"Налаштування\"/ \"Сповіщення\"/ \"Notification shade\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ігнорувати й не призупиняти</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] По завершеню вручну активувати профіль</string>
-    <string name="critical_github_release_confirm_notification_disable">Вкрай важливо завантажити це оновлення PhoneProfilesPlus. В ньому усунуті критичні помилки. 
-Ви впевнені, що не бажаєте бачити це повідомлення в майбутньому?</string>
+    <string name="critical_github_release_confirm_notification_disable">Вкрай важливо завантажити це оновлення PhoneProfilesPlus. В ньому усунуті критичні помилки. Ви впевнені, що не бажаєте бачити це повідомлення в майбутньому?</string>
     <string name="critical_github_release_notification_disable_button">Не зважати</string>
     <string name="editor_drawer_order_start_profile_name">Ім\'я профілю при запуску</string>
     <string name="editor_drawer_order_end_profile_name">Ім\'я профілю по завершені</string>
@@ -1660,6 +1652,97 @@
     <string name="github_assets_screenshot_text">\"Assets\" нижче приміток релізу. При перегляді мобільної версії на \"Assets\" слід натиснути.</string>
     <string name="quick_tile_icon_label">Оберіть профіль</string>
     <string name="title_activity_tile_chooser">Вибір профілю для швидкого налаштування</string>
+    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Яскравість індикатора налаштувань</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Оформлення сповіщення (якщо увімкнено) буде відображатися тільки коли колір тла має тип \"Рідний\".</string>
+    <string name="mobile_cells_item_delete_all_selected">Видалити всі виділені</string>
+    <string name="delete_application_alert_message">Вилучити цей додаток?</string>
+    <string name="delete_intent_alert_message">Вилучити цей intent?</string>
+    <string name="delete_shortcut_alert_message">Вилучити цей ярлик?</string>
+    <string name="delete_wifi_ssid_alert_message">Вилучити цей Wi-Fi SSID?</string>
+    <string name="delete_nfc_tag_alert_message">Вилучити цей NFC тег?</string>
+    <string name="delete_bluetooth_name_alert_message">Вилучити це ім\'я Bluetooth?</string>
+    <string name="delete_geofence_name_alert_message">Вилучити це розташування?</string>
+    <string name="delete_mobile_cell_alert_message">Вилучити цю мобільну вишку?</string>
+    <string name="delete_selected_mobile_cells_alert_message">Вилучити всі вибрані мобільні вишки?</string>
+    <string name="tile_chooser_tile_changed_toast">Профіль швидких налаштувань змінено на:</string>
+    <string name="altype_profileAdded">Профіль додано</string>
+    <string name="altype_eventAdded">Подію додано</string>
+    <string name="quick_tile_subtile_activated">Активовано</string>
+    <string name="quick_tile_subtile_not_activated">Не активовано</string>
+    <string name="menu_check_releases_github">Перевірте релізи на GitHub</string>
+    <string name="menu_check_releases_fdroid">Перевірити на F-Droid</string>
+    <string name="check_releases_go_to_fdroid">Перейти до репозиторію F-Droid</string>
+    <string name="check_releases_fdroid_application">F-Droid додаток:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">Репозиторій для налаштування його у додатку F-Droid:</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">Якщо не працює зміна гучності медіа, можливо це завдяки увімкнутому \"безпечний рівень гучності\". Щоб вимкнути, потрібно надати дозвіл (G1).</string>
+    <string name="menu_check_releases_galaxy_store">Перевірити в Galaxy Store</string>
+    <string name="check_releases_open_galaxy_store">Відкрити Galaxy Store</string>
+    <string name="menu_check_releases_amazon_appstore">Перевірити в Amazon Appstore</string>
+    <string name="check_releases_amazon_appstore_application">Сайт встановлення додатків Amazon Appstore:</string>
+    <string name="check_releases_open_amazon_appstore">Відкрити Amazon Appstore</string>
+    <string name="check_releases_install_amazon_appstore">Будь ласка, встановіть додаток Amazon Appstore.</string>
+    <string name="applicationApplicationInterfaceActivationNotification">Повідомлення про активацію профілю</string>
+    <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Додати до списку профілів \"Перезапустити події\"</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Інтервал фонового сканування</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Від</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">До</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Інтервал сканування Bluetooth</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">Від</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">До</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiply">Інтервал сканування місцезнаходження</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyFrom">Від</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyTo">До</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiply">Інтервал сканування мобільних вишок</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyFrom">Від</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyTo">До</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiply">Інтервал сканування сповіщень</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom">Від</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo">До</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiply">Визначення орієнтації екрану у часі</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyFrom">Від</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyTo">До</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Інтервал сканування Wi-Fi</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom">Від</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">До</string>
+    <string name="menu_check_releases_appgallery">Перевірити в Галереї додатків</string>
+    <string name="check_releases_open_appgallery">Відкрити галерею додатків</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Інтервал фонового сканування</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Інтервал сканування Bluetooth</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Інтервал сканування місцезнаходження</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Інтервал сканування орієнтації екрану</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Інтервал сканування Wi-Fi</string>
+    <string name="menu_activity_log_help">Допомога</string>
+    <string name="activity_log_help_title">Довідка щодо журналу дій</string>
+    <string name="activity_log_help_message">Що відображається в стовпчиках</string>
+    <string name="activity_log_help_message_mergedProfileActivation">X - це кількість активованих профілів, Y - це кількість подій, які активували профілі.</string>
+    <string name="activity_log_help_message_data_for">для</string>
+    <string name="activity_log_help_message_data_profileName">Назва профілю. Може містити [M] (=ручна активація) а потім закінчення тривалості в дужках.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Назва профілю [назва події]. Назва профілю - останній активований профіль, назва події - остання запущена подія.</string>
+    <string name="activity_log_help_message_data_displayedInGUI">Ця інформація також відображається в усіх елементах графічного інтерфейсу (сповіщеннях програми, Активаторі, Редакторі, віджетах, …).</string>
+    <string name="activity_log_help_message_data_otherProfileDataTypes">решта по профілям</string>
+    <string name="activity_log_help_message_data_profileName_otherDataTypes">Назва профілю.</string>
+    <string name="activity_log_help_message_data_otherEventDataTypes">решта по подіям</string>
+    <string name="activity_log_help_message_data_eventName_otherDataTypes">Назва події.</string>
+    <string name="activity_log_help_close">Закрити</string>
+    <string name="event_preference_sensor_soundProfile_summary">Цей сенсор розпочне подію при перемиканні режимів Звуку або \"Не турбувати\". Параметри: режими Звуку, різновиди \"Не турбувати\".</string>
+    <string name="event_type_soundProfile">Звуковий профіль</string>
+    <string name="event_preferences_soundProfile_ringerModes">Режими звуку</string>
+    <string name="event_preferences_soundProfile_zenModes">різновиди \"Не турбувати\"</string>
+    <string name="array_pref_event_ringerMode_ring">Звук</string>
+    <string name="array_pref_event_ringerMode_vibrate">Вібрація</string>
+    <string name="array_pref_event_ringerMode_silent">Тиша</string>
+    <string name="array_pref_event_ringerMode_zenMode">Не турбувати</string>
+    <string name="array_pref_event_zenMode_all">Вимкнено</string>
+    <string name="array_pref_event_zenMode_priority">Важливі</string>
+    <string name="array_pref_event_ringerMode_alarm">Лише будильники</string>
+    <string name="array_pref_event_ringerMode_none">Суцільна тиша</string>
+    <string name="array_pref_event_zenMode_all_and_vibrate">Вимкнено, але є вібрація</string>
+    <string name="array_pref_event_zenMode_priority_and_vibrate">Важливі з вібрацією</string>
+    <string name="event_preferences_category_eventSoundProfileParameters">Датчик звукового профілю</string>
+    <string name="check_releases_open_fdroid">Відкрити F-Droid</string>
+    <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus в репозиторії:</string>
+    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Збільшити яскравість</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Показати \"Перезавантажити події\" як кнопку</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1688,6 +1771,11 @@
     <string name="extender_acra_notification_title">На жаль, PhoneProfilesPlusExtender зазнав аварії</string>
     <string name="extender_acra_notification_text">Будь ласка, натисніть тут, щоб надіслати звіт про помилку автору. Дуже дякуємо.</string>
     <string name="extender_notification_channel_crash_report">Звіт про аварію</string>
+    <string name="extender_scroll_info">Примітка: Треба прокрутити вниз, щоб побачити всі параметри.</string>
+    <string name="extender_battery_optimization_text">• Оптимізація батареї для PhoneProfilesPlusExtender - будь ласка, додайте до групи «Не економити заряд»:</string>
+    <string name="extender_battery_optimization_optimized">Оптимізовано</string>
+    <string name="extender_battery_optimization_not_optimized">Не оптимізовано</string>
+    <string name="extender_battery_optimization_button">Оптимізація батареї</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
@@ -1709,4 +1797,11 @@
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
+    <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
+    <!--    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>-->
+    <!--    <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>-->
+    <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
+    <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
 </resources>

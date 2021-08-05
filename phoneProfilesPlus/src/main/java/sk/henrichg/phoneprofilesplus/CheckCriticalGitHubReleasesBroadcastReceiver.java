@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -30,6 +31,7 @@ import static android.app.Notification.DEFAULT_VIBRATE;
 public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
 
     private static final String PREF_SHOW_CRITICAL_GITHUB_RELEASE_CODE_NOTIFICATION = "show_critical_github_release_code_notification";
+    private static final String PREF_CRITICAL_GITHUB_RELEASE_ALARM = "critical_github_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] CheckCriticalGitHubReleasesBroadcastReceiver.onReceive", "xxx");
@@ -47,48 +49,82 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
 //        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "xxx");
 
         Calendar alarm = Calendar.getInstance();
+//        if (PPApplication.logEnabled()) {
+//            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//            String result = sdf.format(alarm.getTimeInMillis());
+//            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "now=" + result);
+//        }
+
+        long lastAlarm = ApplicationPreferences.
+                getSharedPreferences(context).getLong(PREF_CRITICAL_GITHUB_RELEASE_ALARM, 0);
+//        if (PPApplication.logEnabled()) {
+//            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//            String result = sdf.format(lastAlarm);
+//            Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "lastAlarm=" + result);
+//        }
+
+        long alarmTime;
+
         /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
-            //    if (PPApplication.logEnabled()) {
-            //        @SuppressLint("SimpleDateFormat")
-            //        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-            //        String result = sdf.format(alarm.getTimeInMillis());
-            //        Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-        } else*/ {
-            // each day at 12:30
-            if (PPApplication.applicationFullyStarted) {
-                alarm.set(Calendar.HOUR_OF_DAY, 12);
-                alarm.set(Calendar.MINUTE, 30);
-                alarm.add(Calendar.DAY_OF_MONTH, 1);
-                alarm.set(Calendar.SECOND, 0);
-                alarm.set(Calendar.MILLISECOND, 0);
+            if (PPApplication.logEnabled()) {
+                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                String result = sdf.format(alarm.getTimeInMillis());
+                Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
             }
-            else {
-                alarm.set(Calendar.HOUR_OF_DAY, 12);
-                alarm.set(Calendar.MINUTE, 30);
-                alarm.set(Calendar.SECOND, 0);
-                alarm.set(Calendar.MILLISECOND, 0);
-                if (alarm.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
+
+            alarmTime = alarm.getTimeInMillis();
+        } else*/
+        {
+            if ((lastAlarm == 0) || (lastAlarm <= alarm.getTimeInMillis())) {
+                // saved alarm is less then actual time
+
+                // each day at 12:30
+                //if (PPApplication.applicationFullyStarted) {
+                    alarm.set(Calendar.HOUR_OF_DAY, 12);
+                    alarm.set(Calendar.MINUTE, 30);
                     alarm.add(Calendar.DAY_OF_MONTH, 1);
-                }
+                    alarm.set(Calendar.SECOND, 0);
+                    alarm.set(Calendar.MILLISECOND, 0);
+                /*} else {
+                    alarm.set(Calendar.HOUR_OF_DAY, 12);
+                    alarm.set(Calendar.MINUTE, 30);
+                    alarm.set(Calendar.SECOND, 0);
+                    alarm.set(Calendar.MILLISECOND, 0);
+                    if (alarm.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
+                        alarm.add(Calendar.DAY_OF_MONTH, 1);
+                    }
+                }*/
+
+//                if (PPApplication.logEnabled()) {
+//                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                    String result = sdf.format(alarm.getTimeInMillis());
+//                    Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//                }
+
+                alarmTime = alarm.getTimeInMillis();
+
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                editor.putLong(PREF_CRITICAL_GITHUB_RELEASE_ALARM, alarmTime);
+                editor.apply();
+            } else {
+                alarmTime = lastAlarm;
+
+//                if (PPApplication.logEnabled()) {
+//                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                    String result = sdf.format(alarmTime);
+//                    Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm 2=" + result);
+//                }
             }
-
-//            if (PPApplication.logEnabled()) {
-//                @SuppressLint("SimpleDateFormat")
-//                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-//                String result = sdf.format(alarm.getTimeInMillis());
-//                PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-//            }
         }
-
-        long alarmTime = alarm.getTimeInMillis();
 
         //Intent intent = new Intent(_context, CheckGitHubReleasesBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
         //intent.setClass(context, CheckGitHubReleasesBroadcastReceiver.class);
 
+        @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -96,6 +132,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             if (ApplicationPreferences.applicationUseAlarmClock) {
                 Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
                 editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                 alarmManager.setAlarmClock(clockInfo, pendingIntent);
@@ -121,6 +158,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                 intent.setAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
                 //intent.setClass(context, CheckGitHubReleasesBroadcastReceiver.class);
 
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
                 if (pendingIntent != null) {
                     alarmManager.cancel(pendingIntent);
@@ -307,12 +345,13 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             }
             mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_CHANNEL)
                     .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
-                    .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                    .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                     .setContentTitle(nTitle) // title for notification
                     .setContentText(nText)
                     .setStyle(new NotificationCompat.BigTextStyle().bigText(nText))
                     .setAutoCancel(true); // clear notification after click
 
+            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pi = PendingIntent.getActivity(appContext, 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
             mBuilder.setContentIntent(pi);
             mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -327,6 +366,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             disableIntent.putExtra(CheckCriticalGitHubReleasesDisableActivity.EXTRA_GITHUB_RELEASE_CODE, versionCodeInReleases);
             disableIntent.putExtra(CheckCriticalGitHubReleasesDisableActivity.EXTRA_GITHUB_RELEASE_CRITICAL, critical);
 
+            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pDisableIntent = PendingIntent.getActivity(appContext, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
                     R.drawable.ic_action_exit_app_white,

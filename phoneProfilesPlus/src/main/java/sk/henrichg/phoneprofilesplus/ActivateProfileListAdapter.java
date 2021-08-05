@@ -194,7 +194,7 @@ class ActivateProfileListAdapter extends BaseAdapter
         final Profile profile = (Profile)getItem(position);
 
         if ((applicationActivatorGridLayout) &&
-                (profile._porder == ActivateProfileListFragment.PORDER_FOR_IGNORED_PROFILE)) {
+                (profile._porder == ActivateProfileListFragment.PORDER_FOR_EMPTY_SPACE)) {
             holder.profileName.setText(R.string.empty_string);
             holder.profileIcon.setImageResource(R.drawable.ic_empty);
         }
@@ -239,7 +239,15 @@ class ActivateProfileListAdapter extends BaseAdapter
                 holder.profileIcon.setImageBitmap(profile._iconBitmap);
             }
 
+            if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList
+                    && (position == 0)) {
+                if (ApplicationPreferences.applicationEditorPrefIndicator && (!applicationActivatorGridLayout)) {
+                    holder.profileIndicator.setVisibility(View.GONE);
+                }
+            }
+            else
             if (holder.profileIndicator != null) {
+                holder.profileIndicator.setVisibility(View.VISIBLE);
                 //if ((ApplicationPreferences.applicationActivatorPrefIndicator(fragment.getActivity())) && (!applicationActivatorGridLayout)) {
                 if (ApplicationPreferences.applicationEditorPrefIndicator && (!applicationActivatorGridLayout)) {
                     if (profile._preferencesIndicator != null) {

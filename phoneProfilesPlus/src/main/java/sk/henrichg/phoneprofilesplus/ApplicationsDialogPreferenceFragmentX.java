@@ -110,6 +110,7 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
         asyncTask.execute();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     void updateGUI() {
         applicationsListView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();

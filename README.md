@@ -3,10 +3,10 @@
 PhoneProfilesPlus
 =================
 
+[![version](https://img.shields.io/badge/version-5.0.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.0.2)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
-![version](https://img.shields.io/badge/version-5.0.1-blue)
 
 __[Google Play release:](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__
 &nbsp;&nbsp;&nbsp;Latest version is 4.2.0.3 and will never by upgraded. 
@@ -65,3 +65,4 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - FreeReflection (only code from https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/Reflection.java) - https://github.com/tiann/FreeReflection
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
+- ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat

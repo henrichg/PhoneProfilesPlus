@@ -8,7 +8,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.Ringtone;
@@ -116,14 +115,17 @@ class GlobalGUIRoutines {
     }
 */
 
-    public static void setTheme(Activity activity, boolean forPopup, boolean withToolbar/*, boolean withDrawerLayout*/, boolean forActivator)
+    public static void setTheme(Activity activity, boolean forPopup,
+                                boolean withToolbar/*, boolean withDrawerLayout*/,
+                                boolean forActivator, boolean forDialog)
     {
-        int theme = getTheme(forPopup, withToolbar, /*withDrawerLayout,*/ forActivator, activity);
+        int theme = getTheme(forPopup, withToolbar, /*withDrawerLayout,*/ forActivator, forDialog, activity);
         if (theme != 0)
             activity.setTheme(theme);
     }
 
-    static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/ boolean forActivator, Context context) {
+    static int getTheme(boolean forPopup, boolean withToolbar, /*boolean withDrawerLayout,*/
+                        boolean forActivator, boolean forDialog, Context context) {
         switch (ApplicationPreferences.applicationTheme(context, false)) {
             /*case "color":
                 if (forPopup) {
@@ -240,6 +242,10 @@ class GlobalGUIRoutines {
         }
         if (forActivator) {
             return R.style.ActivatorTheme_dayNight;
+        }
+        else
+        if (forDialog) {
+            return R.style.DialogTheme_dayNight;
         }
         else
         if (forPopup) {
@@ -372,7 +378,8 @@ class GlobalGUIRoutines {
 
     static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled,
                                          boolean bold, //boolean addBullet,
-                                         boolean underline, boolean errorColor, boolean systemSettings)
+                                         boolean underline, boolean errorColor,
+                                         @SuppressWarnings("SameParameterValue") boolean systemSettings)
     {
         if (preference != null) {
             CharSequence title = preference.getTitle();
@@ -1118,11 +1125,12 @@ class GlobalGUIRoutines {
         return value.data;
     }
 
+    /*
     static int getThemeEventStopStatusIndicator(final Context context) {
         //final TypedValue value = new TypedValue();
         //context.getTheme().resolveAttribute(R.attr.eventStopStatusIndicator, value, true);
         //return value.data;
-        int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, context);
+        int theme = GlobalGUIRoutines.getTheme(false, false, false, context);
         if (theme != 0) {
             TypedArray a = context.getTheme().obtainStyledAttributes(theme, new int[]{R.attr.eventStopStatusIndicator});
             return a.getResourceId(0, 0);
@@ -1130,6 +1138,7 @@ class GlobalGUIRoutines {
         else
             return 0;
     }
+    */
 
     /*
     static int getThemeEventInDelayColor(final Context context) {

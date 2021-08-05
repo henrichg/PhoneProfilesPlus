@@ -1,11 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
@@ -30,8 +32,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 //        PPApplication.logE("[IN_LISTENER] OneRowWidgetProvider.onUpdate", "xxx");
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
-            //PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "update widgets");
-            //PPApplication.logE("OneRowWidgetProvider.onUpdate", "xxx");
+//            PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "update widgets");
             PPApplication.startHandlerThreadWidget();
             final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             __handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
@@ -59,6 +60,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         String applicationWidgetOneRowIconColor;
         boolean applicationWidgetOneRowCustomIconLightness;
         boolean applicationWidgetOneRowPrefIndicator;
+        String applicationWidgetOneRowPrefIndicatorLightness;
         boolean applicationWidgetOneRowBackgroundType;
         String applicationWidgetOneRowBackgroundColor;
         String applicationWidgetOneRowLightnessB;
@@ -69,18 +71,31 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         String applicationWidgetOneRowLightnessT;
         int applicationWidgetOneRowRoundedCornersRadius;
         synchronized (PPApplication.applicationPreferencesMutex) {
+
+            if (PPApplication.isPixelLauncherDefault(context)) {
+                ApplicationPreferences.applicationWidgetOneRowRoundedCorners = true;
+                ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius = 15;
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS,
+                        ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS,
+                        String.valueOf(ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius));
+                editor.apply();
+            }
+
             applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
             applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor;
             applicationWidgetOneRowCustomIconLightness = ApplicationPreferences.applicationWidgetOneRowCustomIconLightness;
             applicationWidgetOneRowPrefIndicator = ApplicationPreferences.applicationWidgetOneRowPrefIndicator;
+            applicationWidgetOneRowPrefIndicatorLightness = ApplicationPreferences.applicationWidgetOneRowPrefIndicatorLightness;
             applicationWidgetOneRowBackgroundType = ApplicationPreferences.applicationWidgetOneRowBackgroundType;
             applicationWidgetOneRowBackgroundColor = ApplicationPreferences.applicationWidgetOneRowBackgroundColor;
             applicationWidgetOneRowLightnessB = ApplicationPreferences.applicationWidgetOneRowLightnessB;
             applicationWidgetOneRowBackground = ApplicationPreferences.applicationWidgetOneRowBackground;
             applicationWidgetOneRowShowBorder = ApplicationPreferences.applicationWidgetOneRowShowBorder;
             applicationWidgetOneRowLightnessBorder = ApplicationPreferences.applicationWidgetOneRowLightnessBorder;
-            applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
             applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT;
+            applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
             applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
         }
 
@@ -117,12 +132,45 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 break;
         }
 
+        float prefIndicatorLightnessValue = 0f;
+        switch (applicationWidgetOneRowPrefIndicatorLightness) {
+            case "0":
+                prefIndicatorLightnessValue = -128f;
+                break;
+            case "12":
+                prefIndicatorLightnessValue = -96f;
+                break;
+            case "25":
+                prefIndicatorLightnessValue = -64f;
+                break;
+            case "37":
+                prefIndicatorLightnessValue = -32f;
+                break;
+            case "50":
+                prefIndicatorLightnessValue = 0f;
+                break;
+            case "62":
+                prefIndicatorLightnessValue = 32f;
+                break;
+            case "75":
+                prefIndicatorLightnessValue = 64f;
+                break;
+            case "87":
+                prefIndicatorLightnessValue = 96f;
+                break;
+            case "100":
+                prefIndicatorLightnessValue = 128f;
+                break;
+        }
+//        Log.e("OneRowWidgetProvider._onUpdate", "prefIndicatorLightnessValue="+prefIndicatorLightnessValue);
+
         //DataWrapper dataWrapper = _dataWrapper;
         //Profile profile = _profile;
         //if (dataWrapper == null) {
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetOneRowIconColor.equals("1"), monochromeValue,
-                    applicationWidgetOneRowCustomIconLightness);
+                    applicationWidgetOneRowCustomIconLightness,
+                    DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
 
         Profile profile;
         //boolean fullyStarted = PPApplication.applicationFullyStarted;
@@ -308,6 +356,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 
             for (int widgetId : appWidgetIds) {
 
+//                AppWidgetProviderInfo info = appWidgetManager.getAppWidgetInfo(widgetId);
+//                PPApplication.logE("OneRowWidgetProvider._onUpdate", "info.updatePeriodMillis="+info.updatePeriodMillis);
+
                 RemoteViews remoteViews;
                 if (applicationWidgetOneRowPrefIndicator)
                     remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
@@ -469,6 +520,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 //if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(true)) {
                 //remoteViews.setViewVisibility(R.id.widget_one_row_header_restart_events, VISIBLE);
                 Intent intentRE = new Intent(context, RestartEventsFromGUIActivity.class);
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pIntentRE = PendingIntent.getActivity(context, 2, intentRE, PendingIntent.FLAG_UPDATE_CURRENT);
                 remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_restart_events_click, pIntentRE);
                 //} else
@@ -479,6 +531,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                 // clear all opened activities
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getActivity(context, 200, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 remoteViews.setOnClickPendingIntent(R.id.widget_one_row_header_profile_root, pendingIntent);
 
@@ -502,9 +555,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, final Intent intent) {
         super.onReceive(context, intent); // calls onUpdate, is required for widget
-//        PPApplication.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "xxx");
 
         String action = intent.getAction();
+//        PPApplication.logE("[IN_BROADCAST] OneRowWidgetProvider.onReceive", "action="+action);
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_ONEROWWIDGET))) {
@@ -531,27 +584,37 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             }
         }
     }
-
-    /*
+/*
+    @Override
     public void onDeleted (Context context, int[] appWidgetIds) {
-        Log.e("OneRowWidgetProvider.onDeleted", "xxx");
+        PPApplication.logE("OneRowWidgetProvider.onDeleted", "xxx");
     }
 
+    @Override
     public void onDisabled (Context context) {
-        Log.e("OneRowWidgetProvider.onDisabled", "xxx");
+        PPApplication.logE("OneRowWidgetProvider.onDisabled", "xxx");
     }
 
+    @Override
     public void onEnabled (Context context) {
-        Log.e("OneRowWidgetProvider.onEnabled", "xxx");
+        PPApplication.logE("OneRowWidgetProvider.onEnabled", "xxx");
     }
 
+    @Override
     public void onRestored (Context context,
                             int[] oldWidgetIds,
                             int[] newWidgetIds) {
-        Log.e("OneRowWidgetProvider.onRestored", "xxx");
+        PPApplication.logE("OneRowWidgetProvider.onRestored", "xxx");
     }
-    */
 
+    @Override
+    public void onAppWidgetOptionsChanged (Context context,
+                                           AppWidgetManager appWidgetManager,
+                                           int appWidgetId,
+                                           Bundle newOptions) {
+        PPApplication.logE("OneRowWidgetProvider.onAppWidgetOptionsChanged", "xxx");
+    }
+*/
     static void updateWidgets(Context context/*, boolean refresh*/) {
         /*String applicationWidgetOneRowIconLightness;
         String applicationWidgetOneRowIconColor;
@@ -631,6 +694,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 //        PPApplication.logE("[LOCAL_BROADCAST_CALL] OneRowWidgetProvider.updateWidgets", "xxx");
         Intent intent3 = new Intent(ACTION_REFRESH_ONEROWWIDGET);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent3);
+
+        //Intent intent3 = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        //context.sendBroadcast(intent3);
 
         //Intent intent = new Intent(context, OneRowWidgetProvider.class);
         //intent.setAction(ACTION_REFRESH_ONEROWWIDGET);

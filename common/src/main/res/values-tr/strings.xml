@@ -89,7 +89,7 @@
     <string name="export_profiles_alert_error">Aktarma esnasında hata</string>
     <string name="profile_preferences_deviceMobileDataPrefs">(I) Şebeke internet bağlantı ayarları</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">Renkli</string>
-    <string name="phone_profiles_pref_notificationStatusBarStyle_android">Bildirim rengi</string>
+    <string name="phone_profiles_pref_notificationStatusBarStyle_android">Cihaz</string>
     <string name="phone_profiles_pref_applicationLongClickActivation">Tercihi faaliyete geçirmek için uzun basın</string>
     <string name="alert_title_delete_all_profiles">Tercihlerin tamamını sil</string>
     <string name="alert_message_delete_all_profiles">Emin misiniz?</string>
@@ -121,7 +121,7 @@
     <string name="editor_drawer_title_events">Durumlar</string>
     <string name="editor_drawer_list_item_profiles_all">Tamamı</string>
     <string name="editor_drawer_list_item_profiles_show_in_activator">Muharrik içinde görünen</string>
-    <string name="editor_drawer_list_item_profiles_no_show_in_activator">Etkinleştirici içinde görünmeyen</string>
+    <string name="editor_drawer_list_item_profiles_no_show_in_activator">\"Muharrik\" içinde gösterilmesin</string>
     <string name="editor_drawer_list_item_events_all">Tamamı</string>
     <string name="editor_drawer_list_item_events_running">Çalışan</string>
     <string name="editor_drawer_list_item_events_paused">Durdurulmuş</string>
@@ -543,7 +543,6 @@
     <string name="about_application_source_code">Kaynak kodu:</string>
     <string name="about_application_translations">Tercümeler:</string>
     <string name="phone_profiles_pref_accessNotificationPolicyPermissions">Rahatsız Etmeyin Modu\'na erişim</string>
-    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Lutfen \"PhoneProfilesPlus\" uygulamasına \"Uygulama izinleri\" ayarlarında izin verin.</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization_summary">Eğer şarj aleti veya istasyonunu belli bir müddet çıkarıp ekranı kapattığınız zaman Durumlardan Tercih faaliyete geçirmede problem yaşıyorsanız, PhoneProfilesPlus\'ı Güç ayarlarında \"Pil en iyi duruma getirme\" bölümünde \"En iyi duruma getirilmedi\" listesine ilave ediniz.</string>
     <string name="profile_preferences_deviceWallpaperFor">Duvar kağıdını şunun için ayarla:</string>
     <string name="array_pref_device_wallpaper_homescreen">Ana ekran</string>
@@ -763,7 +762,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Tarama açık</string>
     <string name="duration_pref_dlg_duration_label">Müddet:</string>
     <string name="duration_pref_dlg_activation_end_label">Faaliyete geçirdikten sonra:</string>
-    <string name="important_info_profile_zenModeM">Tercih → \"Zil modu\" → \"Rahatsız Etmeyin\" modu için sistem ayarlarında \"Bildirim erişim\" ayarlarında PhoneProfilesPlus\'ın seçilmesi lazımdır. Buraya dokunun ve PhoneProfilesPlus\'ı seçin.</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6\'da bu sistem ayarı yalnızca kök erişimi olan (root edilmiş) cihazlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli \"Rahatsız Etmeyin\" türleridir.</string>
     <string name="setting_screen_not_found_alert">Ayar ekranı bulunamadı.</string>
     <string name="action_for_external_application_notification_no_profile_text">Tercih_ismi değeri eksik veya boş.</string>
@@ -853,7 +851,6 @@
     <string name="duration_pref_dlg_activation_hours_label">Saat:</string>
     <string name="duration_pref_dlg_activation_minutes_label">Dakika:</string>
     <string name="duration_pref_dlg_activation_seconds_label">Saniye:</string>
-    <string name="preferences_durationNotificationSoundInfo_summary">Bu bildirim medya kanalını kullanır. Bu nedenle medya ses seviyesini kullanır.</string>
     <string name="phone_profiles_pref_eventWiFiLocationSystemSettings_summary">Konum ve Wi-Fi taramasını Sistem Ayarları\'nda açın. Bu, Wi-Fi taraması için lüzumludur.</string>
     <string name="phone_profiles_pref_eventBluetoothLocationSystemSettings_summary">Konum ve Bluetooth taramasını Sistem Ayarları\'nda açın. Bluetooth taraması için bu lüzumludur.</string>
     <string name="phone_profiles_pref_eventWiFiKeepOnSystemSettings">\"Wi-Fi açık tut\" Sistem ayarı</string>
@@ -1132,7 +1129,7 @@
     <string name="application_editor_intent_test_title">Tecrübe</string>
     <string name="application_editor_intent_test_activity_bad_data">Activity başlarken hata belirdi.</string>
     <string name="application_editor_intent_intent_type">Intent türü:</string>
-    <string name="array_intent_type_activity">Activity</string>
+    <string name="array_intent_type_activity">Faaliyet</string>
     <string name="array_intent_type_broadcast">Broadcast</string>
     <string name="application_editor_intent_test_broadcast_bad_data">broadcast gönderilirken hata belirdi.</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsPackageName">Çalıştırılacak uygulamalar, kısayollar, intent\'ler</string>
@@ -1289,7 +1286,6 @@
     <string name="phone_profiles_pref_notificationBackgroundColor_black">Siyah</string>
     <string name="phone_profiles_pref_notificationBackgroundCustomColor">Özel arka plan rengi</string>
     <string name="phone_profiles_pref_notificationBackgroundColor_custom">Özel renk</string>
-    <string name="phone_profiles_pref_notificationNightMode">Gece modunu kullan</string>
     <string name="event_preferences_orientation_checkLight">Parlaklığı kontrol et</string>
     <string name="event_preferences_orientation_light">Açık</string>
     <string name="event_preferences_orientation_light_min">Parlaklık - asgari değer</string>
@@ -1341,10 +1337,10 @@
     <string name="profile_event_name_ask_for_duration">sor</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Widget dokunulanabilir değil</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">PhoneProfilesPlus widget\'ı çalışmıyorsa (widget\' dokunmalar), izinleri cihaz ayarlarında verin: Ayarlar / Uygulamalar / Uygulamaları Yönet / PhoneProfilesPlus / Diğer izinler/ Arka planda çalışırken açılır pencereleri göster.</string>
-    <string name="array_pref_12_percent" formatted="false">%12,5</string>
-    <string name="array_pref_37_percent" formatted="false">%37.5</string>
-    <string name="array_pref_62_percent" formatted="false">%62.5</string>
-    <string name="array_pref_87_percent" formatted="false">%87.5</string>
+    <string name="array_pref_12_percent" formatted="false">13%</string>
+    <string name="array_pref_37_percent" formatted="false">38%</string>
+    <string name="array_pref_62_percent" formatted="false">63%</string>
+    <string name="array_pref_87_percent" formatted="false">88%</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Tercih ismini göster (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Her cihazınızda çalışmayabilir.</string>
     <string name="application_is_starting_toast">başlıyor…</string>
@@ -1402,8 +1398,6 @@
     <string name="altype_profileError_setWallpaper">Tercih - duvar kağıdı ayarlamada hata</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">Bluetooth için izinler verilmedi</string>
     <string name="profile_preferences_volumeMuteSound">Sesi sustur</string>
-    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">\"Rahatsız Etmeyin\" Tercih değerlerini açmak için \"Sistem Ayarları\" → \"Bildirim Erişimi\" ayarlarında PhoneProfilesPlus\'a izin verin.</string>
-    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">\"«Rahatsız Etmeyin» türü\" Tercih değerini açmak için \"Sistem Ayarları\" → \"Rahatsız Etme Erişimi\" ayarlarında PhoneProfilesPlus\'a izin verin. Açmak için buraya dokunun.</string>
     <string name="phone_profiles_pref_category_background_scanning">Arka plan taraması</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Bu ayarlar arka plan tarama için Saat veya Takvim olayları değerleri iyi çalışmadığı zaman faydalıdır.\n\nKonum, Wi-Fi, Bluetooth ve Ekran Döndürme özelliği her vaziyette kullanılırken bu taramanın açılmaması tavsiye edilir.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Arka plan taramasını etkinleştir</string>
@@ -1476,7 +1470,6 @@
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk bulunduğu yer</string>
     <string name="check_github_releases_notification">PhoneProfilesPlus\'ın GitHub sürümleri kontrolü için bu bildirime dokunun. Belki yeni bir sürüm yayınlanmış olabilir.</string>
     <string name="donation_paypal">Lütfen bize PayPal`den bağış yapın:</string>
-    <string name="about_application_package_type_github">GitHub veya başka bir kaynaktan yüklendi.</string>
     <string name="notification_channel_new_release">Yeni PhoneProfilesPlus yayınlandı</string>
     <string name="notification_channel_new_release_description">Yeni PhoneProfilesPlus yayını hakkında bildirim gösterir.</string>
     <string name="altype_actionFromExternalApp_profileActivation">harici uygulamadan faaliyet - Tercihi faaliyete geçirme</string>
@@ -1659,6 +1652,97 @@
     <string name="github_assets_screenshot_text">\"Assets\" sürüm notlarının altındadır. Mobil cihazınızda \"Assets\"e dokununuz.</string>
     <string name="quick_tile_icon_label">Tercih seçin</string>
     <string name="title_activity_tile_chooser">Hızlı döşeme Tercih seçici</string>
+    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Ayarlar göstergesi şeffaflığı</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Bildirim için döşeme (faal ise) yalnızca arka plan rengi \"Cihaz\" türünde olduğunda görüntülenecektir.</string>
+    <string name="mobile_cells_item_delete_all_selected">Seçilenlerin tamamını sil</string>
+    <string name="delete_application_alert_message">Bu uygulama silinsin mi?</string>
+    <string name="delete_intent_alert_message">Bu maksat silinsin mi?</string>
+    <string name="delete_shortcut_alert_message">Bu kısayol silinsin mi?</string>
+    <string name="delete_wifi_ssid_alert_message">Bu Wi-Fi ismi silinsin mi?</string>
+    <string name="delete_nfc_tag_alert_message">Bu NFC etiketi silinsin mi?</string>
+    <string name="delete_bluetooth_name_alert_message">Bu Bluetooth ismi silinsin mi?</string>
+    <string name="delete_geofence_name_alert_message">Bu konum silinsin mi?</string>
+    <string name="delete_mobile_cell_alert_message">Bu şebeke hücresi silinsin mi?</string>
+    <string name="delete_selected_mobile_cells_alert_message">Seçilen şebeke hücrelerinin tamamı silinsin mi?</string>
+    <string name="tile_chooser_tile_changed_toast">Hızlı döşeme tercihi şu şekilde değiştirildi:</string>
+    <string name="altype_profileAdded">Tercih ilave edildi</string>
+    <string name="altype_eventAdded">Durum ilave edildi</string>
+    <string name="quick_tile_subtile_activated">Faaliyette</string>
+    <string name="quick_tile_subtile_not_activated">Faaliyete geçmedi</string>
+    <string name="menu_check_releases_github">GitHub\'ta güncellemeleri kontrol et</string>
+    <string name="menu_check_releases_fdroid">F-Droid\'te güncellemeleri kontrol et</string>
+    <string name="check_releases_go_to_fdroid">F-Droid deposuna git</string>
+    <string name="check_releases_fdroid_application">F-Droid uygulaması:</string>
+    <string name="check_releases_fdroid_repository_with_ppp">F-Droid uygulamasında ayarlanacak depo:</string>
+    <string name="profile_preferences_volumeMediaInfo_summary">Ses yüksekliği değişikliği çalışmıyorsa, bunun sebebi faaliyette olan \"güvenli ses bayrağı\" olabilir. Bu bayrağı devre dışı bırakmak için, (G1) izni veriniz.</string>
+    <string name="menu_check_releases_galaxy_store">Galaxy Store\'da kontrol et</string>
+    <string name="check_releases_open_galaxy_store">Galaxy Store\'u aç</string>
+    <string name="menu_check_releases_amazon_appstore">Amazon Appstore\'da kontrol et</string>
+    <string name="check_releases_amazon_appstore_application">Amazon Appstore uygulaması yükleme sitesi:</string>
+    <string name="check_releases_open_amazon_appstore">Amazon AppStore\'u aç</string>
+    <string name="check_releases_install_amazon_appstore">Lutfen Amazon Appstore uygulamasını yükleyin.</string>
+    <string name="applicationApplicationInterfaceActivationNotification">Tercihi faaliyete geçirme bildirimi</string>
+    <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">\"Durumları yeniden başlat\"ı Tercih listesine ilave et</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Arka plan tarama zamanı</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">den/dan</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">e/a</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth taraması aralığı</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">den/dan</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">e/a</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiply">Konum tarama zamanı</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyFrom">den/dan</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanTimeMultiplyTo">e/a</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiply">Şebeke hücreleri tarama zamanı</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyFrom">den/dan</string>
+    <string name="phone_profiles_pref_applicationEventMobileCellsScanTimeMultiplyTo">e/a</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiply">Bildirim tarama zamanı</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom">den/dan</string>
+    <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo">e/a</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiply">Döndürme taraması zamanı</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyFrom">den/dan</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyTo">e/a</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Wi-Fi tarama zamanı</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom">den/dan</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">e/a</string>
+    <string name="menu_check_releases_appgallery">\"AppGallery\"de kontrol et</string>
+    <string name="check_releases_open_appgallery">\"AppGallery\"de aç</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Arka plan tarama aralığı</string>
+    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth taraması aralığı</string>
+    <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Konum tarama aralığı</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Döndürme taraması aralığı</string>
+    <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Wi-Fi tarama aralığı</string>
+    <string name="menu_activity_log_help">Yardım</string>
+    <string name="activity_log_help_title">Faaliyet kütüğü için yardım</string>
+    <string name="activity_log_help_message">Sütunlarda hangi bilgiler görülür</string>
+    <string name="activity_log_help_message_mergedProfileActivation">X, faaliyete geçirilen Tercihlerin sayısıdır, Y, Tercihleri faaliyete geçirilen Durumların sayısıdır.</string>
+    <string name="activity_log_help_message_data_for">için</string>
+    <string name="activity_log_help_message_data_profileName">Tercih ismi. [M] (=el ile faaliyete geçirme) ve ardından parantez içinde müddetin sonunu içerebilir.</string>
+    <string name="activity_log_help_message_data_profileNameEventName">Tercih ismi [Durum ismi]. Tercih ismi en son faaliyete geçirilen Tercihtir ve Durum ismi son başlatılan Durumdur.</string>
+    <string name="activity_log_help_message_data_displayedInGUI">Bu malumat aynı zamanda GUI öğelerinin tamamında da görüntülenir (uygulama bildirimi, Muharrik, Düzenleyici, widget\'lar,…).</string>
+    <string name="activity_log_help_message_data_otherProfileDataTypes">Tercihler için diğerlerinin tamamı</string>
+    <string name="activity_log_help_message_data_profileName_otherDataTypes">Tercih ismi.</string>
+    <string name="activity_log_help_message_data_otherEventDataTypes">Durumlar için diğerlerinin tamamı</string>
+    <string name="activity_log_help_message_data_eventName_otherDataTypes">Durum ismi.</string>
+    <string name="activity_log_help_close">Kapat</string>
+    <string name="event_preference_sensor_soundProfile_summary">Bu şart, Ses modları veya \"Rahatsız etmeyin\" türleri arasında geçiş yaparak bir Durum başlatır. Değerler: Ses modları, \"Rahatsız etmeyin\" türleri.</string>
+    <string name="event_type_soundProfile">Ses Tercihi</string>
+    <string name="event_preferences_soundProfile_ringerModes">Ses modları</string>
+    <string name="event_preferences_soundProfile_zenModes">\"Rahatsız Etmeyin\" türleri</string>
+    <string name="array_pref_event_ringerMode_ring">Ses</string>
+    <string name="array_pref_event_ringerMode_vibrate">Titreşim</string>
+    <string name="array_pref_event_ringerMode_silent">Sessiz</string>
+    <string name="array_pref_event_ringerMode_zenMode">Rahatsız Etmeyin</string>
+    <string name="array_pref_event_zenMode_all">Kapalı</string>
+    <string name="array_pref_event_zenMode_priority">Öncelik</string>
+    <string name="array_pref_event_ringerMode_alarm">Sadece alarmlar</string>
+    <string name="array_pref_event_ringerMode_none">Tam sessizlik</string>
+    <string name="array_pref_event_zenMode_all_and_vibrate">Kapalı, titreşim var</string>
+    <string name="array_pref_event_zenMode_priority_and_vibrate">Öncelik titreşim ile</string>
+    <string name="event_preferences_category_eventSoundProfileParameters">Ses Tercihi şartı</string>
+    <string name="check_releases_open_fdroid">F-Droid\'i Aç</string>
+    <string name="check_releases_fdroid_go_to_repository_with_ppp">Depodaki PhoneProfilesPlus:</string>
+    <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Parlaklığı artır</string>
+    <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">\"Durumları yeniden başlat\"ı düğme olarak göster</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• Tercih değeri \"Zorla durdurulan uygulamalar\"\n• Durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1687,6 +1771,11 @@
     <string name="extender_acra_notification_title">Maalesef PhoneProfilesPlus çöktü</string>
     <string name="extender_acra_notification_text">Lutfen, çökme raporunu yazara göndermek için buraya dokunun. Çok teşekkür ederiz.</string>
     <string name="extender_notification_channel_crash_report">Çökme raporu</string>
+    <string name="extender_scroll_info">Not: Tüm değerleri göstermek için bu ekranda aşağı kaydırın.</string>
+    <string name="extender_battery_optimization_text">• PhoneProfilesPlusExtender için pilin en iyi duruma getirilmesi - lutfen \"En iyi duruma getirilmedi\" grubuna ekleyin:</string>
+    <string name="extender_battery_optimization_optimized">En iyi duruma getirildi</string>
+    <string name="extender_battery_optimization_not_optimized">En iyi duruma getirilmedi</string>
+    <string name="extender_battery_optimization_button">\"Pilin en iyi duruma getirilmesi\"ni aç</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
@@ -1708,4 +1797,11 @@
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
     <!--    <string name="extender_acra_notification_discard_button">Discard</string>-->
     <!--    <string name="google_play_chooser">View Google Play using</string>-->
+    <!--    <string name="phone_profiles_pref_notificationNightMode">Use night mode</string>-->
+    <!--    <string name="about_application_package_type_github">Installed from GitHub or another source.</string>-->
+    <!--    <string name="phone_profiles_pref_accessNotificationPolicyPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>-->
+    <!--    <string name="important_info_profile_zenModeM">\"Do not disturb\" in profile \"Ringer mode\" requires enabling PhoneProfilesPlus in \"Notification access\" system settings. Click here and enable.</string>-->
+    <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
+    <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
+    <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
 </resources>

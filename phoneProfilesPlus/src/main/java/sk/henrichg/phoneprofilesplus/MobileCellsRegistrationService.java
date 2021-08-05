@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -82,7 +83,7 @@ public class MobileCellsRegistrationService extends Service {
                 context.registerReceiver(mobileCellsRegistrationStopButtonBroadcastReceiver, intentFilter);
             }
 
-            countDownTimer = new CountDownTimer(remainingDuration * 1000, 1000) {
+            countDownTimer = new CountDownTimer(remainingDuration * 1000L, 1000) {
 
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -202,14 +203,16 @@ public class MobileCellsRegistrationService extends Service {
         PPApplication.createMobileCellsRegistrationNotificationChannel(this);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this, PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(this, R.color.notificationDecorationColor))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text) // message for notification
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))
                 .setAutoCancel(true); // clear notification after click
 
         if (millisUntilFinished > 0) {
+            // Android 12 - this do not starts activity - OK
             Intent stopRegistrationIntent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
+            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent stopRegistrationPendingIntent = PendingIntent.getBroadcast(context, 0, stopRegistrationIntent, 0);
             mBuilder.addAction(R.drawable.ic_action_stop_white,
                     context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_stop),
@@ -266,7 +269,7 @@ public class MobileCellsRegistrationService extends Service {
         PPApplication.createMobileCellsRegistrationNotificationChannel(this);
         NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this, PPApplication.MOBILE_CELLS_REGISTRATION_NOTIFICATION_CHANNEL)
                 .setColor(ContextCompat.getColor(this, R.color.notificationDecorationColor))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                 .setContentTitle(getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_notification)) // title for notification
                 .setContentText(text) // message for notification
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(text))

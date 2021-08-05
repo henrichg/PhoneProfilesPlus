@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="ActivatorTheme_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_activator_dayNight">
-<!--        <item name="windowFixedWidthMajor">80%</item>-->
-<!--        <item name="windowFixedWidthMinor">80%</item>-->
-<!--        <item name="android:windowMinWidthMinor">95%</item>-->
+<!--        <item name="windowFixedWidthMajor">65%</item>-->
+<!--        <item name="windowFixedWidthMinor">85%</item>-->
+        <item name="windowMinWidthMinor">65%</item>
+        <item name="windowMinWidthMajor">65%</item>
     </style>
 </resources>

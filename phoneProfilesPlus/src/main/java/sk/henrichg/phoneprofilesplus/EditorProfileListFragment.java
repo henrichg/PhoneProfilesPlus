@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +30,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -149,7 +152,7 @@ public class EditorProfileListFragment extends Fragment
                     EditorProfileListFragment.FILTER_TYPE_ALL;
 
         //noinspection ConstantConditions
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
         setHasOptionsMenu(true);
 
@@ -173,7 +176,7 @@ public class EditorProfileListFragment extends Fragment
             showTargetHelps();
     }
 
-    @SuppressLint("InflateParams")
+    @SuppressLint({"InflateParams", "NotifyDataSetChanged"})
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
@@ -425,7 +428,7 @@ public class EditorProfileListFragment extends Fragment
             fragmentWeakRef = new WeakReference<>(fragment);
             _filterType = filterType;
             //noinspection ConstantConditions
-            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
+            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
             //_baseContext = fragment.getActivity();
 
             applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
@@ -481,6 +484,7 @@ public class EditorProfileListFragment extends Fragment
             return null;
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         protected void onPostExecute(Void response) {
             super.onPostExecute(response);
@@ -635,6 +639,7 @@ public class EditorProfileListFragment extends Fragment
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void deleteProfile(Profile profile)
     {
         //final Profile _profile = profile;
@@ -775,6 +780,7 @@ public class EditorProfileListFragment extends Fragment
             dialog.show();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void deleteAllProfiles()
     {
         if (profileListAdapter != null) {
@@ -977,6 +983,7 @@ public class EditorProfileListFragment extends Fragment
             showAdapterTargetHelps();
     }*/
 
+    @SuppressLint("NotifyDataSetChanged")
     void updateListView(Profile profile, boolean newProfile, boolean refreshIcons, boolean setPosition/*, long loadProfileId*/)
     {
         /*if (listView != null)
@@ -1246,6 +1253,7 @@ public class EditorProfileListFragment extends Fragment
 
             // show icons
             try {
+                @SuppressLint("DiscouragedPrivateApi")
                 Field field = popup.getClass().getDeclaredField("mPopup");
                 field.setAccessible(true);
                 Object menuPopupHelper = field.get(popup);
@@ -1255,7 +1263,18 @@ public class EditorProfileListFragment extends Fragment
                 method.setAccessible(true);
                 method.invoke(menuPopupHelper, new Object[]{true});
             } catch (Exception e) {
-                PPApplication.recordException(e);
+                //PPApplication.recordException(e);
+            }
+
+            Menu menu = popup.getMenu();
+            Drawable drawable;
+            if (profile._showInActivator)
+                drawable = menu.findItem(R.id.profile_list_item_menu_show_in_activator).getIcon();
+            else
+                drawable = menu.findItem(R.id.profile_list_item_menu_not_show_in_activator).getIcon();
+            if(drawable != null) {
+                drawable.mutate();
+                drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
             }
 
             popup.setOnMenuItemClickListener(item -> {
@@ -1685,7 +1704,7 @@ public class EditorProfileListFragment extends Fragment
             EditorProfileListFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
                 if (fragment.getActivity() != null) {
-                    _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
+                    _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
                     _dataWrapper.copyProfileList(fragment.activityDataWrapper);
 
                     for (Profile profile : _dataWrapper.profileList) {

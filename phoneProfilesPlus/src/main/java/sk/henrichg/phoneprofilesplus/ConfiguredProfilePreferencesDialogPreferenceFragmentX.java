@@ -103,14 +103,14 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 try {
 
-                    DataWrapper dataWrapper = new DataWrapper(prefContext.getApplicationContext(), false, 0, false);
+                    DataWrapper dataWrapper = new DataWrapper(prefContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
                     Profile profile = dataWrapper.getProfileById(preference.profile_id, false, false, false);
                     if (profile != null) {
                         //Log.e("----------- ConfiguredProfilePreferencesDialogPreferenceFragmentX.refreshListView", "profile._name="+profile._name);
 
                         ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
-                        indicators.fillArrays(profile, false, false, true, prefContext);
-                        indicators.fillArrays(profile, true, false, true, prefContext);
+                        indicators.fillArrays(profile, false, /*false,*/ true, /*DataWrapper.IT_FOR_EDITOR,*/ prefContext);
+                        indicators.fillArrays(profile, true, /*false,*/ true, /*DataWrapper.IT_FOR_EDITOR,*/ prefContext);
 
                         //Log.e("----------- ConfiguredProfilePreferencesDialogPreferenceFragmentX.refreshListView", "ProfilePreferencesIndicator.countDrawables="+ProfilePreferencesIndicator.countDrawables);
 
@@ -121,6 +121,8 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
                                 configuredPreferences = new ConfiguredProfilePreferencesData(
                                         indicators.drawables[idDrawable],
                                         indicators.drawables[idDrawable + 1],
+                                        indicators.disabled[idDrawable],
+                                        indicators.disabled[idDrawable + 1],
                                         indicators.strings[idDrawable] + " " + indicators.strings[idDrawable + 1],
                                         indicators.preferences[i]
                                 );
@@ -128,6 +130,8 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
                                 configuredPreferences = new ConfiguredProfilePreferencesData(
                                         indicators.drawables[idDrawable],
                                         0,
+                                        indicators.disabled[idDrawable],
+                                        false,
                                         indicators.strings[idDrawable],
                                         indicators.preferences[i]
                                 );
@@ -140,6 +144,8 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
                         ConfiguredProfilePreferencesData configuredPreferences = new ConfiguredProfilePreferencesData(
                                 0,
                                 0,
+                                false,
+                                false,
                                 "",
                                 prefContext.getString(R.string.profile_preferences_savedProfilePreferences_notConfiguredAnyParameter)
                         );

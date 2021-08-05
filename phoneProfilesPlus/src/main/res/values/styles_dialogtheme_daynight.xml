@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DialogTheme_dayNight" parent="@style/Base.Theme.PhoneProfilesTheme_dialog_dayNight">
+<!--        <item name="windowFixedWidthMajor">65%</item>-->
+<!--        <item name="windowFixedWidthMinor">85%</item>-->
+<!--        <item name="windowMinWidthMinor">65%</item>-->
+<!--        <item name="windowMinWidthMajor">65%</item>-->
+    </style>
+</resources>

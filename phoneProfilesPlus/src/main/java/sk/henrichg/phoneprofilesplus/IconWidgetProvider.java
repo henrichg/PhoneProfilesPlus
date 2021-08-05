@@ -1,11 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Handler;
 import android.text.Spannable;
@@ -61,6 +63,18 @@ public class IconWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetIconShowProfileDuration;
         int applicationWidgetIconRoundedCornersRadius;
         synchronized (PPApplication.applicationPreferencesMutex) {
+
+            if (PPApplication.isPixelLauncherDefault(context)) {
+                ApplicationPreferences.applicationWidgetIconRoundedCorners = true;
+                ApplicationPreferences.applicationWidgetIconRoundedCornersRadius = 15;
+                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS,
+                        ApplicationPreferences.applicationWidgetIconRoundedCorners);
+                editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS,
+                        String.valueOf(ApplicationPreferences.applicationWidgetIconRoundedCornersRadius));
+                editor.apply();
+            }
+
             applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
             applicationWidgetIconColor = ApplicationPreferences.applicationWidgetIconColor;
             applicationWidgetIconCustomIconLightness = ApplicationPreferences.applicationWidgetIconCustomIconLightness;
@@ -71,9 +85,9 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconBackground = ApplicationPreferences.applicationWidgetIconBackground;
             applicationWidgetIconShowBorder = ApplicationPreferences.applicationWidgetIconShowBorder;
             applicationWidgetIconLightnessBorder = ApplicationPreferences.applicationWidgetIconLightnessBorder;
-            applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
             applicationWidgetIconLightnessT = ApplicationPreferences.applicationWidgetIconLightnessT;
             applicationWidgetIconShowProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;
+            applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
             applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
         }
 
@@ -117,7 +131,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
         DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(),
                     applicationWidgetIconColor.equals("1"),
                     monochromeValue,
-                    applicationWidgetIconCustomIconLightness);
+                    applicationWidgetIconCustomIconLightness,
+                    DataWrapper.IT_FOR_WIDGET, 0f);
 
         Profile profile;
         //boolean fullyStarted = PPApplication.applicationFullyStarted;
@@ -463,6 +478,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                 // clear all opened activities
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_WIDGET);
+                @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getActivity(context, 100, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 //remoteViews.setOnClickPendingIntent(R.id.icon_widget_icon, pendingIntent);
                 //remoteViews.setOnClickPendingIntent(R.id.icon_widget_name, pendingIntent);

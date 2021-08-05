@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -23,7 +24,7 @@ public class ActivityLogActivity extends AppCompatActivity {
     @SuppressLint("InlinedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -63,7 +64,7 @@ public class ActivityLogActivity extends AppCompatActivity {
             getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
         }
 
-        dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
         listView = findViewById(R.id.activity_log_list);
 
@@ -91,7 +92,7 @@ public class ActivityLogActivity extends AppCompatActivity {
         menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");*/
         MenuItem menuItem = menu.findItem(R.id.menu_activity_log_play_pause);
 
-        int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, getApplicationContext());
+        int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, false, getApplicationContext());
         if (theme != 0) {
             TypedArray a = getTheme().obtainStyledAttributes(theme, new int[]{R.attr.actionActivityLogPauseIcon});
             int attributeResourceId = a.getResourceId(0, 0);
@@ -158,6 +159,66 @@ public class ActivityLogActivity extends AppCompatActivity {
             activityLogAdapter.reload(dataWrapper);
             listView.setSelection(0);
             invalidateOptionsMenu();
+            return true;
+        }
+        else
+        if (itemId == R.id.menu_activity_log_help) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+            dialogBuilder.setTitle(R.string.activity_log_help_title);
+
+            String message = "<br><b>" + getString(R.string.activity_log_help_message) + ":</b><br><br>";
+
+            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + ": X [Y]\":</b><br>";
+            message = message + getString(R.string.activity_log_help_message_mergedProfileActivation);
+
+            message = message + "<br><br>";
+            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
+            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + "\"" + getString(R.string.altype_profileActivation) + "\":</b><br>";
+            message = message + getString(R.string.activity_log_help_message_data_profileName) + "<br>";
+            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI);
+
+            message = message + "<br><br>";
+            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
+            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + "\"" + getString(R.string.altype_mergedProfileActivation) + "\":</b><br>";
+            message = message + getString(R.string.activity_log_help_message_data_profileNameEventName) + "<br>";
+            message = message + getString(R.string.activity_log_help_message_data_displayedInGUI);
+
+            message = message + "<br><br>";
+            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
+            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + getString(R.string.activity_log_help_message_data_otherProfileDataTypes) + ":</b><br>";
+            message = message + getString(R.string.activity_log_help_message_data_profileName_otherDataTypes);
+
+            message = message + "<br><br>";
+            message = message + "•<b> " + "\"" + getString(R.string.activity_log_header_data) + "\" ";
+            message = message + getString(R.string.activity_log_help_message_data_for) + " ";
+            message = message + "\"" + getString(R.string.activity_log_header_data_type) + "\"=";
+            message = message + getString(R.string.activity_log_help_message_data_otherEventDataTypes) + ":</b><br>";
+            message = message + getString(R.string.activity_log_help_message_data_eventName_otherDataTypes);
+
+            dialogBuilder.setMessage(Html.fromHtml(message, Html.FROM_HTML_MODE_COMPACT));
+
+            dialogBuilder.setPositiveButton(R.string.activity_log_help_close, null);
+            AlertDialog dialog = dialogBuilder.create();
+
+//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                        if (positive != null) positive.setAllCaps(false);
+//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                        if (negative != null) negative.setAllCaps(false);
+//                    }
+//                });
+
+            if (!isFinishing())
+                dialog.show();
             return true;
         }
         else {

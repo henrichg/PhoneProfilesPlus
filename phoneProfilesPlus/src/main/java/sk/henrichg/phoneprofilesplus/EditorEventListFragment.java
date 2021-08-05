@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -181,7 +183,7 @@ public class EditorEventListFragment extends Fragment
         //Log.d("EditorEventListFragment.onCreate","orderType="+orderType);
 
         //noinspection ConstantConditions
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
         //getActivity().getIntent();
 
@@ -479,7 +481,7 @@ public class EditorEventListFragment extends Fragment
             _filterType = filterType;
             _orderType = orderType;
             //noinspection ConstantConditions
-            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
+            _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
             applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
         }
@@ -506,6 +508,8 @@ public class EditorEventListFragment extends Fragment
         protected Void doInBackground(Void... params) {
             _dataWrapper.fillProfileList(true, applicationEditorPrefIndicator);
             _dataWrapper.fillEventList();
+            //Log.e("EditorEventListFragment.LoadEventListAsyncTask","_dataWrapper.eventList.size()="+_dataWrapper.eventList.size());
+
             if ((_dataWrapper.eventList.size() == 0) && PPApplication.restoreFinished)
             {
                 if (ApplicationPreferences.getSharedPreferences(_dataWrapper.context).getBoolean(ApplicationPreferences.PREF_EDITOR_EVENTS_FIRST_START, true)) {
@@ -527,7 +531,6 @@ public class EditorEventListFragment extends Fragment
             }
 
             _dataWrapper.getEventTimelineList(true);
-            //Log.d("EditorEventListFragment.LoadEventListAsyncTask","filterType="+filterType);
             if (_filterType == FILTER_TYPE_START_ORDER)
                 EditorEventListFragment.sortList(_dataWrapper.eventList, ORDER_TYPE_START_ORDER, _dataWrapper);
             else
@@ -536,6 +539,7 @@ public class EditorEventListFragment extends Fragment
             return null;
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         protected void onPostExecute(Void response) {
             super.onPostExecute(response);
@@ -857,6 +861,7 @@ public class EditorEventListFragment extends Fragment
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void deleteEvent(final Event event)
     {
         if (activityDataWrapper.getEventById(event._id) == null)
@@ -1117,6 +1122,7 @@ public class EditorEventListFragment extends Fragment
         new UpdateHeaderAsyncTask(this).execute();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     void updateListView(Event event, boolean newEvent, boolean refreshIcons, boolean setPosition/*, long loadEventId*/)
     {
         /*if (listView != null)
@@ -1185,6 +1191,7 @@ public class EditorEventListFragment extends Fragment
     }
     */
 
+    @SuppressLint("NotifyDataSetChanged")
     private void changeListOrder(int orderType, boolean fromOnViewCreated)
     {
         if (isAsyncTaskPendingOrRunning()) {
@@ -1872,6 +1879,7 @@ public class EditorEventListFragment extends Fragment
 
         // show icons
         try {
+            @SuppressLint("DiscouragedPrivateApi")
             Field field = popup.getClass().getDeclaredField("mPopup");
             field.setAccessible(true);
             Object menuPopupHelper = field.get(popup);
@@ -1881,10 +1889,24 @@ public class EditorEventListFragment extends Fragment
             method.setAccessible(true);
             method.invoke(menuPopupHelper, new Object[]{true});
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            //PPApplication.recordException(e);
         }
 
         final Event event = (Event)view.getTag();
+
+        Menu menu = popup.getMenu();
+        Drawable drawable;
+        if (event._ignoreManualActivation && event._noPauseByManualActivation)
+            drawable = menu.findItem(R.id.event_list_item_ignore_manual_activation_no_pause).getIcon();
+        else
+        if (event._ignoreManualActivation)
+            drawable = menu.findItem(R.id.event_list_item_ignore_manual_activation).getIcon();
+        else
+            drawable = menu.findItem(R.id.event_list_item_not_ignore_manual_activation).getIcon();
+        if(drawable != null) {
+            drawable.mutate();
+            drawable.setColorFilter(ContextCompat.getColor(getActivity(), R.color.accent), PorterDuff.Mode.SRC_ATOP);
+        }
 
         popup.setOnMenuItemClickListener(item -> {
             if (getActivity() != null) {
@@ -2129,7 +2151,7 @@ public class EditorEventListFragment extends Fragment
             EditorEventListFragment fragment = fragmentWeakRef.get();
             if (fragment != null) {
                 if (fragment.getActivity() != null) {
-                    _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
+                    _dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
                     _dataWrapper.copyEventList(fragment.activityDataWrapper);
 
                     for (Event event : _dataWrapper.eventList) {

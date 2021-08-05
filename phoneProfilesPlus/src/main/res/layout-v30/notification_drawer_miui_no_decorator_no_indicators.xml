@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/notification_activated_profile_root"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:paddingStart="6dp"
+    android:paddingEnd="6dp">
+
+    <ImageView
+        android:id="@+id/notification_activated_profile_restart_events"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:padding="2dp"
+        android:contentDescription="@string/menu_restart_events"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_widget_restart_events"
+        android:focusable="true"
+        android:clickable="true" />
+
+    <RelativeLayout
+        android:id="@+id/notification_activated_profile_relLa1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/notification_activated_profile_restart_events"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/notification_activated_profile_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="-3dp"
+            android:layout_marginEnd="6dp"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/profile_preferences_profileIcon"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_profile_default" />
+
+        <LinearLayout
+            android:id="@+id/notification_activated_profile_linLa1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/notification_activated_profile_icon" >
+
+            <TextView
+                android:id="@+id/notification_activated_profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/profile_name_default"
+                style="@style/TextAppearance.Compat.Notification.Title"
+                android:ellipsize="end"
+                android:maxLines="1" />
+
+<!--            <ImageView-->
+<!--                android:id="@+id/notification_activated_profile_pref_indicator"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="14dp"-->
+<!--                android:layout_marginTop="2dp"-->
+<!--                android:layout_marginStart="5dp"-->
+<!--                android:adjustViewBounds="true"-->
+<!--                android:contentDescription="@string/empty_string"-->
+<!--                android:scaleType="@integer/profilePrefIndicatorScaleType"-->
+<!--                android:src="@drawable/ic_empty" />-->
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

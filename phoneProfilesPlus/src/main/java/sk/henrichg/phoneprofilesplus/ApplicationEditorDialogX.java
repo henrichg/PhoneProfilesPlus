@@ -118,10 +118,10 @@ class ApplicationEditorDialogX
             mDelayValue.setText(GlobalGUIRoutines.getDurationString(iValue));
 
             startApplicationDelay = iValue;
-        }, startApplicationDelay * 1000, TimeDurationPicker.HH_MM_SS);
+        }, startApplicationDelay * 1000L, TimeDurationPicker.HH_MM_SS);
         GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mDelayValueDialog.getDurationInput(), activity);
         delayValueRoot.setOnClickListener(view -> {
-            mDelayValueDialog.setDuration(startApplicationDelay * 1000);
+            mDelayValueDialog.setDuration(startApplicationDelay * 1000L);
             if (!ApplicationEditorDialogX.this.activity.isFinishing())
                     mDelayValueDialog.show();
         }
@@ -183,6 +183,7 @@ class ApplicationEditorDialogX
         filterSpinner.setSelection(Arrays.asList(filterValues).indexOf(String.valueOf(selectedFilter)));
         filterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+            @SuppressLint("NotifyDataSetChanged")
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
 
@@ -376,6 +377,7 @@ class ApplicationEditorDialogX
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     void doOnItemSelected(int position)
     {
         if (position != -1) {
@@ -418,7 +420,7 @@ class ApplicationEditorDialogX
         final Application application = applicationList.get(position);
 
         boolean canDelete = true;
-        if ((application != null) && (application.type == Application.TYPE_INTENT)) {
+        if (/*(application != null) &&*/ (application.type == Application.TYPE_INTENT)) {
             for (PPIntent ppIntent : preference.intentDBList) {
                 if (ppIntent._id == application.intentId) {
                     canDelete = ppIntent._usedCount == 0;
@@ -445,7 +447,33 @@ class ApplicationEditorDialogX
             }
             else
             if (itemId == R.id.applications_intent_editor_dlg_item_menu_delete) {
-                deleteIntent(application);
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                dialogBuilder.setTitle(activity.getString(R.string.profile_context_item_delete));
+                if (application.intentId != 0)
+                    dialogBuilder.setMessage(activity.getString(R.string.delete_intent_alert_message));
+                else
+                if (application.shortcutId != 0)
+                    dialogBuilder.setMessage(activity.getString(R.string.delete_shortcut_alert_message));
+                else
+                    dialogBuilder.setMessage(activity.getString(R.string.delete_application_alert_message));
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> deleteIntent(application));
+                dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
+                AlertDialog dialog = dialogBuilder.create();
+
+//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                        if (positive != null) positive.setAllCaps(false);
+//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                        if (negative != null) negative.setAllCaps(false);
+//                    }
+//                });
+
+                if (/*(activity != null) &&*/ (!activity.isFinishing()))
+                    dialog.show();
+
                 return true;
             }
             else {
@@ -474,12 +502,14 @@ class ApplicationEditorDialogX
         activity.startActivityForResult(intent, RESULT_INTENT_EDITOR);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     void updateAfterEdit() {
         fillApplicationList();
         listView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private Application duplicateIntent(Application originalApplication) {
         if (originalApplication == null)
             return null;
@@ -517,6 +547,7 @@ class ApplicationEditorDialogX
         return newApplication;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void deleteIntent(Application application) {
         if (application == null)
             return;

@@ -60,7 +60,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false);
+        GlobalGUIRoutines.setTheme(this, false, true/*, false*/, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -86,7 +86,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
             if (dataWrapper.getEventById(event_id) == null) {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.event_preferences_event_not_found),
@@ -330,7 +330,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     private Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex,
                               boolean leaveSaveMenu) {
         Event event;
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false);
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
         if (!leaveSaveMenu)
             showSaveMenu = false;
@@ -514,13 +514,13 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         event.setSensorsWaiting();
 
-        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-
-        PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, null, 0, "");
+        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
         if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
         {
+            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_ADDED, event._name, null, null, 0, "");
+
             // add event into DB
             DatabaseHandler.getInstance(dataWrapper.context).addEvent(event);
             event_id = event._id;
@@ -536,6 +536,8 @@ public class EventsPrefsActivity extends AppCompatActivity {
         else
         if (event_id > 0)
         {
+            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, null, 0, "");
+
             // update event in DB
             DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);
 
@@ -950,6 +952,15 @@ public class EventsPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.event_prefs_device_boot_sensor, rootKey);
+        }
+    }
+
+    @SuppressWarnings("unused")
+    static public class EventsPrefsSoundProfileParameters extends EventsPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            setPreferencesFromResource(R.xml.event_prefs_sound_profile_sensor, rootKey);
         }
     }
 

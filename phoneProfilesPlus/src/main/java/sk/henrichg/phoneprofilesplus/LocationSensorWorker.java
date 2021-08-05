@@ -73,15 +73,44 @@ public class LocationSensorWorker extends Worker {
             // check power save mode
             String applicationEventLocationUpdateInPowerSaveMode = ApplicationPreferences.applicationEventLocationUpdateInPowerSaveMode;
             //boolean powerSaveMode = PPApplication.isPowerSaveMode;
-            if (!(isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2"))) {
+
+            boolean canScan = true;
+            if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("2")) {
+                canScan = false;
+            }
+            else {
+                if (ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("2")) {
+                    if (PhoneProfilesService.isNowTimeBetweenTimes(
+                            ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
+                            ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo)) {
+                        // not scan wi-fi in configured time
+                        PPApplication.logE("LocationSensorWorker.enqueueWork", "-- END - scan in time = 2 -------");
+                        canScan = false;
+                    }
+                }
+            }
+
+            if (canScan) {
                 int interval = 25; // seconds
                 if (ApplicationPreferences.applicationEventLocationUpdateInterval > 1) {
                     // interval is in minutes
                     interval = (ApplicationPreferences.applicationEventLocationUpdateInterval * 60);
                 }
 //                PPApplication.logE("##### LocationSensorWorker.enqueueWork", "ApplicationPreferences.applicationEventLocationUpdateInterval=" + ApplicationPreferences.applicationEventLocationUpdateInterval);
-                if (isPowerSaveMode && applicationEventLocationUpdateInPowerSaveMode.equals("1"))
-                    interval = 2 * interval;
+                if (isPowerSaveMode) {
+                    if (applicationEventLocationUpdateInPowerSaveMode.equals("1"))
+                        interval = 2 * interval;
+                }
+                else {
+                    if (ApplicationPreferences.applicationEventLocationScanInTimeMultiply.equals("1")) {
+                        if (PhoneProfilesService.isNowTimeBetweenTimes(
+                                ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
+                                ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo)) {
+                            interval = 2 * interval;
+                            PPApplication.logE("LocationSensorWorker.enqueueWork", "scan in time - 2x interval");
+                        }
+                    }
+                }
 //                PPApplication.logE("##### LocationSensorWorker.enqueueWork", "interval=" + interval);
 
                 worker =

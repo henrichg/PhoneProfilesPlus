@@ -280,13 +280,38 @@ class OrientationScanner implements SensorEventListener {
                     String applicationEventOrientationScanInPowerSaveMode = ApplicationPreferences.applicationEventOrientationScanInPowerSaveMode;
 
                     boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
-                    if (isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("2"))
-                        // start scanning in power save mode is not allowed
-                        return;
+                    if (isPowerSaveMode) {
+                        if (applicationEventOrientationScanInPowerSaveMode.equals("2"))
+                            // start scanning in power save mode is not allowed
+                            return;
+                    }
+                    else {
+                        if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("2")) {
+                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
+                                // not scan in configured time
+                                PPApplication.logE("OrientationScanner.runEventsHandlerForOrientationChange", "-- END - scan in time = 2 -------");
+                                return;
+                            }
+                        }
+                    }
 
                     int interval = ApplicationPreferences.applicationEventOrientationScanInterval;
-                    if (isPowerSaveMode && applicationEventOrientationScanInPowerSaveMode.equals("1"))
-                        interval *= 2;
+                    if (isPowerSaveMode) {
+                        if (applicationEventOrientationScanInPowerSaveMode.equals("1"))
+                            interval = 2 * interval;
+                    }
+                    else {
+                        if (ApplicationPreferences.applicationEventOrientationScanInTimeMultiply.equals("1")) {
+                            if (PhoneProfilesService.isNowTimeBetweenTimes(
+                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
+                                    ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
+                                interval = 2 * interval;
+                                PPApplication.logE("OrientationScanner.runEventsHandlerForOrientationChange", "scan in time - 2x interval");
+                            }
+                        }
+                    }
 
                     interval = interval / 2;
 

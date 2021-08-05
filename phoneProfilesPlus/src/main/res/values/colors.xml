@@ -3,16 +3,15 @@
     <color name="notificationDarkBackgroundColor">#FF202020</color>
     <color name="notificationBlackBackgroundColor">#FF000000</color>
 
-    <color name="altype_profile">#FF0000FF</color>
-    <color name="altype_eventStart">#FF00C000</color>
-    <color name="altype_eventEnd">#FFB0B000</color>
-    <color name="altype_eventDelayStartEnd">#FFFFB000</color>
-    <color name="altype_error">#FFFF0000</color>
-
     <color name="lockDevice_textColor">#FFFFFFFF</color>
 
     <color name="notification_background_color_default">#FFFFFFFF</color>
 
     <color name="error_in_preferences">#FFFF0000</color>
+
+    <color name="profileindicatorColor_light">#00a7d8</color>
+    <color name="profileindicatorColorDisabled_light">#A0A0A0</color>
+    <color name="profileindicatorColor_dark">#3dbade</color>
+    <color name="profileindicatorColorDisabled_dark">#b5b5b5</color>
 
 </resources>

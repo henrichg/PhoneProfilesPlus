@@ -183,6 +183,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof TimeDialogPreferenceX) {
+            ((TimeDialogPreferenceX) preference).fragment = new TimeDialogPreferenceFragmentX();
+            dialogFragment = ((TimeDialogPreferenceX) preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
 
         if (dialogFragment != null)
         {
@@ -1384,7 +1391,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
                     getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_summary2));
             preference.setOnPreferenceClickListener(preference116 -> {
-                PPApplication.showDoNotKillMyAppDialog(PhoneProfilesPrefsFragment.this);
+                PPApplication.showDoNotKillMyAppDialog(getActivity());
                 return false;
             });
         }
@@ -1548,6 +1555,35 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 PreferenceCategory preferenceCategory = findPreference("notificationStatusBarCategory");
                 if (preferenceCategory != null)
                     preferenceCategory.removePreference(preference);
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= 31) {
+            if (PPApplication.isPixelLauncherDefault(getActivity())) {
+                // Pixel Launcher is default
+                // TODO Maybe rounded corners will be also in another launchers
+                // TODO But currently is checked only Pixel launcher
+                // TODO because Android 12 is in beta (29.7.2021)
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS);
+                if (preference != null)
+                    preference.setVisible(false);
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS);
+                if (preference != null)
+                    preference.setVisible(false);
+
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS);
+                if (preference != null)
+                    preference.setVisible(false);
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS);
+                if (preference != null)
+                    preference.setVisible(false);
+
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS);
+                if (preference != null)
+                    preference.setVisible(false);
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS);
+                if (preference != null)
+                    preference.setVisible(false);
             }
         }
     }
@@ -1890,6 +1926,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             RingtonePreferenceX preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND);
             if (preference != null)
                 preference.refreshListView();
+            preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND);
+            if (preference != null)
+                preference.refreshListView();
         }
     }
 
@@ -1972,7 +2011,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
-        setSummary(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE);
+        //setSummary(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
 
@@ -1990,6 +2029,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         //    setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_PERMANENT);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_HEADER);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
@@ -2039,6 +2079,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             setSummary(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_VERTICAL_POSITION);
         }
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T);
@@ -2069,6 +2110,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(PREF_AUTOSTART_MANAGER);
         setSummary(PREF_ACTIVATED_PROFILE_NOTIFICATION_SYSTEM_SETTINGS);
         setSummary(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
+        setSummary(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS);
         //setSummary(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_USE_PRIORITY);
         setSummary(ApplicationPreferences.PREF_APPLICATION_RESTART_EVENTS_ALERT);
@@ -2121,6 +2163,33 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS);
         setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_NUM_COLUMNS);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS);
+        setSummary(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON);
+
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_TO);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_FROM);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY_TO);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_SCAN_IN_TIME_MULTIPLY);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_FROM);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY_TO);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_SCAN_IN_TIME_MULTIPLY);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_FROM);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY_TO);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_TIME_MULTIPLY);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_FROM);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY_TO);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_ORIENTATION_SCAN_IN_TIME_MULTIPLY);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO);
+        setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY);
 
         PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, getActivity().getApplicationContext());
         if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -2319,16 +2388,19 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE) ||
+                //key.equals(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON)) {
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON)) {
             String notificationStyle = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE, "0");
             if (notificationStyle.equals("0")) {
                 String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
-                boolean nightMode = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, false);
+                //boolean nightMode = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, false);
                 boolean useDecoration = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, true);
 
                 Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
@@ -2336,18 +2408,27 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     _preference.setEnabled(backgroundColor.equals("0") || backgroundColor.equals("5"));
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
                 if (_preference != null) {
-                    if (Build.VERSION.SDK_INT < 29)
-                        _preference.setEnabled(backgroundColor.equals("0") && (!nightMode));
-                    else
+                    //if (Build.VERSION.SDK_INT < 29)
+                    //    _preference.setEnabled(backgroundColor.equals("0") && (!nightMode));
+                    //else
                         _preference.setEnabled(backgroundColor.equals("0"));
                 }
+
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
                 if (_preference != null) {
-                    if (Build.VERSION.SDK_INT < 29)
-                        _preference.setEnabled(useDecoration && backgroundColor.equals("0") && (!nightMode));
-                    else
+                    //if (Build.VERSION.SDK_INT < 29)
+                    //    _preference.setEnabled(useDecoration && backgroundColor.equals("0") && (!nightMode));
+                    //else
                         _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
                 }
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON);
+                if (_preference != null) {
+                    //if (Build.VERSION.SDK_INT < 29)
+                    //    _preference.setEnabled(useDecoration && backgroundColor.equals("0") && (!nightMode));
+                    //else
+                    _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
+                }
+
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(backgroundColor.equals("5"));
@@ -2355,9 +2436,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(true);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE);
-                if (_preference != null)
-                    _preference.setEnabled(true);
+                //_preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE);
+                //if (_preference != null)
+                //    _preference.setEnabled(true);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
                 if (_preference != null)
                     _preference.setEnabled(true);
@@ -2367,10 +2448,19 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
                 if (_preference != null)
                     _preference.setEnabled(false);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS);
+                SwitchPreferenceCompat __preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
+                if ((_preference != null) && (__preference != null)) {
+                    _preference.setEnabled(__preference.isChecked());
+                }
             } else {
                 Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
                 if (_preference != null)
                     _preference.setEnabled(true);
+                // dislabe, restart events action button is forced for native style
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON);
+                if (_preference != null)
+                    _preference.setEnabled(false);
 
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
                 if (_preference != null)
@@ -2378,9 +2468,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(false);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE);
-                if (_preference != null)
-                    _preference.setEnabled(false);
+                //_preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE);
+                //if (_preference != null)
+                //    _preference.setEnabled(false);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(false);
@@ -2393,6 +2483,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
                 if (_preference != null)
                     _preference.setEnabled(true);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS);
+                if (_preference != null)
+                    _preference.setEnabled(false);
             }
         }
         /*if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION)) {
@@ -2519,6 +2612,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             return;
         }
 
+        // Do not bind toggles.
+        if (preference instanceof TimeDialogPreferenceX) {
+            return;
+        }
+
         String stringValue = preferences.getString(key, "");
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE)) {
@@ -2614,27 +2712,33 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR)) {
+            boolean colorful = preferences.getString(key, "0").equals("1");
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS);
             if (_preference != null) {
-                boolean colorful = preferences.getString(key, "0").equals("1");
                 _preference.setEnabled(colorful);
             }
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS);
             if (_preference != null) {
-                boolean colorful = preferences.getString(key, "0").equals("1");
                 _preference.setEnabled(colorful);
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
+            if (_preference != null) {
+                _preference.setEnabled(!colorful);
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR)) {
+            boolean colorful = preferences.getString(key, "0").equals("1");
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
             if (_preference != null) {
-                boolean colorful = preferences.getString(key, "0").equals("1");
                 _preference.setEnabled(colorful);
             }
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS);
             if (_preference != null) {
-                boolean colorful = preferences.getString(key, "0").equals("1");
                 _preference.setEnabled(colorful);
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
+            if (_preference != null) {
+                _preference.setEnabled(!colorful);
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR)) {

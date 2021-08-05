@@ -8,7 +8,7 @@
 
 <!--            <solid android:color="#00454545" />-->
 
-<!--            <corners android:radius="@dimen/popup_corner_radius" />-->
+<!--            <corners android:radius="@dimen/popup_menu_corner_radius" />-->
 <!--        </shape>-->
 <!--    </item>-->
 <!--    <item>-->
@@ -18,7 +18,7 @@
 
 <!--            <solid android:color="#80454545" />-->
 
-<!--            <corners android:radius="@dimen/popup_corner_radius" />-->
+<!--            <corners android:radius="@dimen/popup_menu_corner_radius" />-->
 <!--        </shape>-->
 <!--    </item>-->
     <item>
@@ -31,7 +31,7 @@
 
             <solid android:color="@color/popupMenuBorderColor" />
 
-            <corners android:radius="@dimen/popup_corner_radius" />
+            <corners android:radius="@dimen/popup_menu_corner_radius" />
         </shape>
     </item>
 
@@ -40,7 +40,7 @@
         <shape android:shape="rectangle">
             <solid android:color="@color/activityPopupMenuBackgroundColor" />
 
-            <corners android:radius="@dimen/popup_corner_radius" />
+            <corners android:radius="@dimen/popup_menu_corner_radius" />
         </shape>
     </item>
 

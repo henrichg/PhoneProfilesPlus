@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+<!--
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="@dimen/activatior_transparent_padding"
+                android:left="@dimen/activatior_transparent_padding"
+                android:right="@dimen/activatior_transparent_padding"
+                android:top="@dimen/activatior_transparent_padding" />
+
+            <solid android:color="#00000000" />
+        </shape>
+    </item>
+-->
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+
+            <solid android:color="@color/dialogBorderColor" />
+
+            <corners android:radius="@dimen/dialog_corner_radius" />
+        </shape>
+    </item>
+
+    <!-- Background -->
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="@dimen/dialog_background_padding"
+                android:left="@dimen/dialog_background_padding"
+                android:right="@dimen/dialog_background_padding"
+                android:top="@dimen/dialog_background_padding" />
+
+            <solid android:color="@color/activityBackgroundColor" />
+
+            <corners android:radius="@dimen/dialog_corner_radius" />
+        </shape>
+    </item>
+
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/activityBackgroundColor" />
+        </shape>
+    </item>
+
+</layer-list>

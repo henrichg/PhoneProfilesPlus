@@ -31,7 +31,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false); // must by called before super.onCreate()
+        GlobalGUIRoutines.setTheme(this, false, false/*, false*/, false, false); // must by called before super.onCreate()
         //GlobalGUIRoutines.setLanguage(this);
 
         super.onCreate(savedInstanceState);
@@ -92,11 +92,11 @@ public class AboutApplicationActivity extends AppCompatActivity {
         String message;
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = getString(R.string.about_application_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")\n";
+            message = getString(R.string.about_application_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
         } catch (Exception e) {
             message = "";
         }
-        message = message + getString(R.string.about_application_package_type_github);
+        //message = message + getString(R.string.about_application_package_type_github);
         text.setText(message);
 
         text = findViewById(R.id.about_application_author);

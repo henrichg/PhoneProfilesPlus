@@ -4,10 +4,10 @@
     <item>
         <shape android:shape="rectangle">
             <padding
-                android:bottom="15dp"
-                android:left="15dp"
-                android:right="15dp"
-                android:top="15dp" />
+                android:bottom="@dimen/dialog_transparent_padding"
+                android:left="@dimen/dialog_transparent_padding"
+                android:right="@dimen/dialog_transparent_padding"
+                android:top="@dimen/dialog_transparent_padding" />
 
             <solid android:color="#00000000" />
         </shape>
@@ -31,10 +31,10 @@
     <item>
         <shape android:shape="rectangle">
             <padding
-                android:bottom="2dp"
-                android:left="2dp"
-                android:right="2dp"
-                android:top="2dp" />
+                android:bottom="@dimen/dialog_background_padding"
+                android:left="@dimen/dialog_background_padding"
+                android:right="@dimen/dialog_background_padding"
+                android:top="@dimen/dialog_background_padding" />
 
             <solid android:color="@color/activityBackgroundColor" />
 

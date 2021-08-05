@@ -22,12 +22,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/activity_important_info_toolbar"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:background="?attr/colorPrimary"
         android:elevation="0dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/toolbarTheme"
         app:tabTextAppearance="@style/ImportantInfoTextAppearanceTab"
-        app:tabMode="scrollable"/>
+        app:tabMode="scrollable"
+        app:tabPaddingStart="0dp"
+        app:tabPaddingEnd="15dp"/>
 
     <FrameLayout
         android:id="@+id/activity_important_info_frLa1"

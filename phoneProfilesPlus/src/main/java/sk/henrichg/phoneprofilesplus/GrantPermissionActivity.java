@@ -85,7 +85,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
     private static final String EXTRA_WITH_RATIONALE = PPApplication.PACKAGE_NAME + ".EXTRA_WITH_RATIONALE";
 
-    static final String NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".GrantPermissionActivity.PERMISSIONS_NOTIFICATION_DELETED";
+    //static final String NOTIFICATION_DELETED_ACTION = PPApplication.PACKAGE_NAME + ".GrantPermissionActivity.PERMISSIONS_NOTIFICATION_DELETED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +125,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
 
-        dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false, DataWrapper.IT_FOR_EDITOR, 0f);
         //if (profile_id != Profile.SHARED_PROFILE_ID)
             profile = dataWrapper.getProfileById(profile_id, false, false, mergedProfile);
         //else
@@ -573,7 +573,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_profile_text3);
 
             // set theme and language for dialog alert ;-)
-            GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
+            GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -879,9 +879,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         .setContentText(nText) // message for notification
                         .setAutoCancel(true); // clear notification after click
                 mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
-                Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
-                PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setDeleteIntent(deletePendingIntent);
+                //Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
+                //PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                //mBuilder.setDeleteIntent(deletePendingIntent);
 
                 if (event != null) {
                     intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
@@ -914,9 +914,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         .setContentText(nText) // message for notification
                         .setAutoCancel(true); // clear notification after click
                 mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
-                Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
-                PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setDeleteIntent(deletePendingIntent);
+                //Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
+                //PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                //mBuilder.setDeleteIntent(deletePendingIntent);
 
                 //intent.putExtra(Permissions.EXTRA_FOR_GUI, forGUI);
                 //intent.putExtra(Permissions.EXTRA_MONOCHROME, monochrome);
@@ -944,6 +944,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             intent.putExtra(Permissions.EXTRA_GRANT_ALSO_CONTACTS, grantAlsoContacts);
             intent.putExtra(Permissions.EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, grantAlsoBackgroundLocation);
 
+            @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pi = PendingIntent.getActivity(context, grantType, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             mBuilder.setContentIntent(pi);
             mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
@@ -1039,7 +1040,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //forceGrant = false;
                 //if (!forceGrant) {
                     // set theme and language for dialog alert ;-)
-                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
+                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
 
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
@@ -1172,7 +1173,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 //forceGrant = false;
                 //if (!forceGrant) {
                     // set theme and language for dialog alert ;-)
-                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false);
+                    GlobalGUIRoutines.setTheme(this, true, true/*, false*/, false, false);
                     //GlobalGUIRoutines.setLanguage(this);
 
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);

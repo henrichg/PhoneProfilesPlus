@@ -43,12 +43,12 @@
         app:key="prf_pref_durationEndCategory"
         app:title="@string/profile_preferences_durationEndCategory"
         app:layout="@layout/mp_preference_category" >
-        <Preference
-            app:key="prf_pref_durationNotificationSoundInfo"
-            app:title="@string/profile_preferences_durationNotificationSound"
-            app:summary="@string/preferences_durationNotificationSoundInfo_summary"
-            app:layout="@layout/mp_preference_material_widget"
-            app:widgetLayout="@layout/widget_info_preference" />
+<!--        <Preference-->
+<!--            app:key="prf_pref_durationNotificationSoundInfo"-->
+<!--            app:title="@string/profile_preferences_durationNotificationSound"-->
+<!--            app:summary="@string/preferences_durationNotificationSoundInfo_summary"-->
+<!--            app:layout="@layout/mp_preference_material_widget"-->
+<!--            app:widgetLayout="@layout/widget_info_preference" />-->
         <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
             app:key="prf_pref_durationNotificationSound"
             app:summary="@string/ringtone_preference_not_set"

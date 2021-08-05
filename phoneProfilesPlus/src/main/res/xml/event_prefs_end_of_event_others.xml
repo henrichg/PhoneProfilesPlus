@@ -18,12 +18,12 @@
         app:dMin="0"
         app:dMax="86400"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
-        app:key="eventEndNotificationSoundInfo"
-        app:title="@string/event_preferences_notificationSound"
-        app:summary="@string/preferences_durationNotificationSoundInfo_summary"
-        app:widgetLayout="@layout/widget_info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
+<!--    <Preference-->
+<!--        app:key="eventEndNotificationSoundInfo"-->
+<!--        app:title="@string/event_preferences_notificationSound"-->
+<!--        app:summary="@string/preferences_durationNotificationSoundInfo_summary"-->
+<!--        app:widgetLayout="@layout/widget_info_preference"-->
+<!--        app:layout="@layout/mp_preference_material_widget" />-->
     <sk.henrichg.phoneprofilesplus.RingtonePreferenceX
         app:key="eventEndNotificationSound"
         app:summary="@string/ringtone_preference_not_set"

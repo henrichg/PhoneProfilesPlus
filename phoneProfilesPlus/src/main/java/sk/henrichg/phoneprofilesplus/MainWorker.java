@@ -42,6 +42,7 @@ public class MainWorker extends Worker {
     static final String HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG = "handleEventsNotificationPostedScannerWork";
     static final String HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG = "handleEventsNotificationRemovedScannerWork";
     static final String HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG = "handleEventsNotificationRescanScannerWork";
+    static final String HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG = "handleEventsSoundProfileWork";
 
     static final String START_EVENT_NOTIFICATION_WORK_TAG = "startEventNotificationWork";
     static final String RUN_APPLICATION_WITH_DELAY_WORK_TAG = "runApplicationWithDelayWork";
@@ -91,6 +92,7 @@ public class MainWorker extends Worker {
                     case HANDLE_EVENTS_NOTIFICATION_POSTED_SCANNER_WORK_TAG:
                     case HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG:
                     case HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG:
+                    case HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG:
                         String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
                         if (Event.getGlobalEventsRunning() && (sensorType != null)) {
                             //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");
@@ -690,7 +692,7 @@ public class MainWorker extends Worker {
 
         //}
 
-        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
 
         if (Event.getGlobalEventsRunning()) {
             PPApplication.logE("MainWorker.doAfterFirstStart", "global event run is enabled, first start events");

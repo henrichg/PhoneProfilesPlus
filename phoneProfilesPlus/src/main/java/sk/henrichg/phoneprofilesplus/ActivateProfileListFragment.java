@@ -51,7 +51,7 @@ public class ActivateProfileListFragment extends Fragment {
     //public boolean targetHelpsSequenceStarted;
     public static final String PREF_START_TARGET_HELPS = "activate_profile_list_fragment_start_target_helps";
 
-    static final int PORDER_FOR_IGNORED_PROFILE = 1000000;
+    static final int PORDER_FOR_EMPTY_SPACE = 1000000;
 
     public ActivateProfileListFragment() {
     }
@@ -67,7 +67,7 @@ public class ActivateProfileListFragment extends Fragment {
         setRetainInstance(true);
 
         //noinspection ConstantConditions
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
     }
 
     @Override
@@ -259,7 +259,7 @@ public class ActivateProfileListFragment extends Fragment {
         private LoadProfileListAsyncTask (ActivateProfileListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
             //noinspection ConstantConditions
-            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false);
+            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
             //applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator;
             applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
@@ -292,6 +292,15 @@ public class ActivateProfileListFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
 
+            if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
+                if (Event.getGlobalEventsRunning()) {
+                    Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
+                    restartEvents._showInActivator = true;
+                    restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
+                    dataWrapper.profileList.add(0, restartEvents);
+                }
+            }
+
             if (applicationActivatorGridLayout) {
                 int count = 0;
                 for (Profile profile : this.dataWrapper.profileList)
@@ -307,7 +316,7 @@ public class ActivateProfileListFragment extends Fragment {
                     for (int i = 0; i < numColumns - modulo; i++) {
                         Profile profile = DataWrapper.getNonInitializedProfile(
                                 dataWrapper.context.getResources().getString(R.string.profile_name_default),
-                                Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_IGNORED_PROFILE);
+                                Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
                         profile._showInActivator = true;
                         this.dataWrapper.profileList.add(profile);
                     }
@@ -507,7 +516,11 @@ public class ActivateProfileListFragment extends Fragment {
         if ((activityDataWrapper == null) || (profile == null))
             return;
 
-        if (profile._porder != PORDER_FOR_IGNORED_PROFILE) {
+        if (profile._porder != PORDER_FOR_EMPTY_SPACE) {
+            if (profile._id == Profile.RESTART_EVENTS_PROFILE_ID) {
+                activityDataWrapper.restartEventsWithAlert(getActivity());
+            }
+            else
             if (!ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
                 PPApplication.showToastForProfileActivation = true;
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);

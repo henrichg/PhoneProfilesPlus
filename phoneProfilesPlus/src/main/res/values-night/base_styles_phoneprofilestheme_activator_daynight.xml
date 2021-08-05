@@ -15,7 +15,7 @@
         <item name="colorAccentDisabled">@color/accent_disabled</item>
 
         <item name="android:textViewStyle">@style/TextViewTheme</item>
-        <item name="android:windowBackground">@drawable/pp_dialog_background</item>
+        <item name="android:windowBackground">@drawable/pp_activator_background</item>
         <item name="activityBackgroundColor">@color/activityBackgroundColor</item>
         <item name="activityWhiteTextColor">@color/activityWhiteTextColor</item>
         <item name="activityNormalTextColor">@color/activityNormalTextColor</item>
@@ -72,7 +72,7 @@
         <item name="editorSpinnerDropDownTextColor">@color/activityNormalTextColor</item>
         <item name="editorFilterTitleColor">@color/editorFilterTitleColor</item>
         <item name="runEventsIndicatorAll">@drawable/ic_run_events_indicator_all</item>
-        <item name="buttonBackground">@drawable/pp_button_background</item>
+        <item name="buttonBackground">@drawable/pp_button_background_selector</item>
 <!--        <item name="eventPauseTextColor">@color/eventPauseTextColor</item>-->
         <item name="eventStopTextColor">@color/eventStopTextColor</item>
         <item name="eventStopStatusIndicator">@drawable/ic_event_status_stop</item>

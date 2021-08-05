@@ -21,27 +21,63 @@
         app:dependency="applicationEventNotificationEnableScannig"
         app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:key="applicationEventNotificationScanInPowerSaveMode"
+    <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode"
-        app:summary="@string/array_pref_scanInPowerSaveMode_scan"
-        app:defaultValue="1"
-        app:entries="@array/scanInPowerSaveModeMobileCellsArray"
-        app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
         app:dependency="applicationEventNotificationEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" />
-    <Preference
-        app:key="applicationNotificationPowerSaveMode"
-        app:title="@string/phone_profiles_pref_applicationBatterySaver"
-        app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
+        app:layout="@layout/mp_preference_category" >
+        <ListPreference
+            app:key="applicationEventNotificationScanInPowerSaveMode"
+            app:title="@string/phone_profiles_pref_applicationEventNotificationScanInPowerSaveMode"
+            app:summary="@string/array_pref_scanInPowerSaveMode_scan"
+            app:defaultValue="1"
+            app:entries="@array/scanInPowerSaveModeMobileCellsArray"
+            app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <Preference
+            app:key="applicationNotificationPowerSaveMode"
+            app:title="@string/phone_profiles_pref_applicationBatterySaver"
+            app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:widgetLayout="@layout/widget_start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiply"
         app:dependency="applicationEventNotificationEnableScannig"
-        app:widgetLayout="@layout/widget_start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget"/>
-    <SwitchPreferenceCompat
-        app:key="applicationEventNotificationScanOnlyWhenScreenIsOn"
-        app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
-        app:defaultValue="false"
+        app:layout="@layout/mp_preference_category" >
+        <ListPreference
+            app:key="applicationEventNotificationScanInTimeMultiply"
+            app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiply"
+            app:summary="@string/array_pref_scanInPowerSaveMode_scan"
+            app:defaultValue="1"
+            app:entries="@array/scanInPowerSaveModeMobileCellsArray"
+            app:entryValues="@array/scanInPowerSaveModeMobileCellsValues"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+            app:key="applicationEventNotificationScanInTimeMultiplyFrom"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+            app:key="applicationEventNotificationScanInTimeMultiplyTo"
+            app:defaultValue="0"
+            app:title="@string/phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
         app:dependency="applicationEventNotificationEnableScannig"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:layout="@layout/mp_preference_category" >
+        <SwitchPreferenceCompat
+            app:key="applicationEventNotificationScanOnlyWhenScreenIsOn"
+            app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
+            app:defaultValue="false"
+            app:dependency="applicationEventNotificationEnableScannig"
+            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
     
 </androidx.preference.PreferenceScreen>

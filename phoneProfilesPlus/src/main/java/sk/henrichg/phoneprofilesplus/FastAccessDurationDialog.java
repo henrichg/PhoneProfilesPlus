@@ -114,6 +114,21 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 //        mStartupSource, true, true, false))
                 if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
                     //PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(1) called is DataWrapper.activateProfileFromMainThread");
+
+                    if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                        (mStartupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                        (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                        (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                        (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+                        if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+                            if (PhoneProfilesService.getInstance() != null) {
+                                //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                                PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
+                                //PPApplication.sleep(500);
+                            }
+                        }
+                    }
+
                     mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
                 }
                 else
@@ -210,7 +225,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             mSeekBarSeconds.setProgress(seconds1);
 
             updateTextFields(false);
-        }, iValue * 1000, TimeDurationPicker.HH_MM_SS);
+        }, iValue * 1000L, TimeDurationPicker.HH_MM_SS);
         GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mValueDialog.getDurationInput(), activity);
         mValue.setOnClickListener(view -> {
             int hours12 = mSeekBarHours.getProgress();
@@ -321,6 +336,21 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             //        mStartupSource, true, true, false))
             if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
                 //PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
+
+                if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                    (mStartupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                    (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                    (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                    (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+                    if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+                        if (PhoneProfilesService.getInstance() != null) {
+                            //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                            PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
+                            //PPApplication.sleep(500);
+                        }
+                    }
+                }
+
                 mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
             }
             else

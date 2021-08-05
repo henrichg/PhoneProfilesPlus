@@ -460,7 +460,7 @@ public class Profile {
     static {
         profileIconIdMap = new HashMap<>();
 
-        profileIconIdMap.put("ic_list_item_events_restart_color", R.drawable.ic_list_item_events_restart_color);
+        profileIconIdMap.put("ic_list_item_events_restart_color_filled", R.drawable.ic_list_item_events_restart_color_filled);
 
         profileIconIdMap.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default);
         profileIconIdMap.put("ic_profile_home", R.drawable.ic_profile_home);
@@ -3104,9 +3104,13 @@ public class Profile {
                 //PPApplication.logE("generateIconBitmap", "monochromeValue="+monochromeValue);
                 float monoValue = 255f;
                 if (monochromeValue == 0x00) monoValue = -255f;
+                if (monochromeValue == 0x20) monoValue = -192f;
                 if (monochromeValue == 0x40) monoValue = -128f;
+                if (monochromeValue == 0x60) monoValue = -64f;
                 if (monochromeValue == 0x80) monoValue = 0f;
+                if (monochromeValue == 0xA0) monoValue = 64f;
                 if (monochromeValue == 0xC0) monoValue = 128f;
+                if (monochromeValue == 0xE0) monoValue = 192f;
                 //if (monochromeValue == 0xFF) monoValue = 255f;
                 _iconBitmap = BitmapManipulator.grayScaleBitmap(_iconBitmap);
                 if (useMonochromeValueForCustomIcon)
@@ -3154,12 +3158,13 @@ public class Profile {
             _iconBitmap = null;
     }
 
-    void generatePreferencesIndicator(Context context, boolean monochrome, int monochromeValue)
+    void generatePreferencesIndicator(Context context, boolean monochrome, int monochromeValue,
+                                      int indicatorsType, float indicatorsLightnessValue)
     {
         releasePreferencesIndicator();
 
         ProfilePreferencesIndicator indicators = new ProfilePreferencesIndicator();
-        _preferencesIndicator = indicators.paint(this, monochrome, context);
+        _preferencesIndicator = indicators.paint(this, monochrome, indicatorsType,indicatorsLightnessValue, context);
         if (_preferencesIndicator != null) {
             if (monochrome)
                 _preferencesIndicator = BitmapManipulator.monochromeBitmap(_preferencesIndicator, monochromeValue/*, context*/);
@@ -6028,13 +6033,11 @@ public class Profile {
             if (extenderVersion == 0)
                 accessibilityEnabled = -2;
             else
-            if ((Build.VERSION.SDK_INT < 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_3_0))
-                accessibilityEnabled = -1;
-            else
-            if ((Build.VERSION.SDK_INT >= 28) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_5_1_3_1))
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
                 accessibilityEnabled = -1;
             else
             if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
+                //noinspection ConstantConditions
                 accessibilityEnabled = 1;
             else
                 accessibilityEnabled = 0;
@@ -6043,10 +6046,11 @@ public class Profile {
             if (extenderVersion == 0)
                 accessibilityEnabled = -2;
             else
-            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_4_0)
+            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
                 accessibilityEnabled = -1;
             else
             if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
+                //noinspection ConstantConditions
                 accessibilityEnabled = 1;
             else
                 accessibilityEnabled = 0;

@@ -178,6 +178,7 @@ final class WifiApManager {
         if (mConnectivityManager != null) {
             try {
                 //noinspection JavaReflectionMemberAccess
+                @SuppressLint("DiscouragedPrivateApi")
                 Field internalConnectivityManagerField = ConnectivityManager.class.getDeclaredField("mService");
                 internalConnectivityManagerField.setAccessible(true);
 
@@ -226,6 +227,7 @@ final class WifiApManager {
             //PPApplication.logE("WifiApManager.callStartTethering", Log.getStackTraceString(e));
 
             // Newer devices have "callingPkg" String argument at the end of this method.
+            @SuppressLint("SoonBlockedPrivateApi")
             Method startTetheringMethod = internalConnectivityManagerClass.getDeclaredMethod("startTethering",
                     int.class,
                     ResultReceiver.class,
@@ -242,7 +244,7 @@ final class WifiApManager {
         //PPApplication.logE("WifiApManager.callStartTethering", "END");
     }
 
-    @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess"})
+    @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess", "DiscouragedPrivateApi", "SoonBlockedPrivateApi"})
     static boolean canExploitWifiTethering(Context context) {
         try {
             canExploitWifiAP(context);
