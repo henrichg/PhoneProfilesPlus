@@ -1,0 +1,4 @@
+v5.1
+- Seznam změn: https://henrichg.github.io/PhoneProfilesPlus/FDroid_ChangeLog_CS
+
+
