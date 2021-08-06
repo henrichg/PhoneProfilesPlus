@@ -1775,7 +1775,7 @@
     <string name="extender_battery_optimization_text">• Akku-Optimierung für PhoneProfilesPlusExtender — bitte zur Gruppe „Nicht optimiert” hinzufügen:</string>
     <string name="extender_battery_optimization_optimized">Optimiert</string>
     <string name="extender_battery_optimization_not_optimized">Nicht optimiert</string>
-    <string name="extender_battery_optimization_button">Akku-Optimierung öffnen</string>
+    <string name="extender_battery_optimization_button">Akku-Optimierung\nöffnen</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

@@ -1185,10 +1185,10 @@
     <string name="notification_channel_not_used_mobile_cell">Detekcia nepoužitej mobilnej bunky</string>
     <string name="notification_channel_not_used_mobile_cell_description">Zobrazuje notifikáciu na zistenú nepoužívanú mobilnú bunku.</string>
     <string name="notification_not_used_mobile_cell_title">Bola zistená nová mobilná bunka</string>
-    <string name="notification_not_used_mobile_cell_text1">Zistené ID mobilnej bunky:</string>
+    <string name="notification_not_used_mobile_cell_text1">Zistené id mobilnej bunky:</string>
     <string name="notification_not_used_mobile_cell_text2">Kliknite sem a pridajte ju do senzora mobilných buniek udalostí.</string>
     <string name="not_used_mobile_cells_detected_title">Zistené nepoužité mobilné bunky</string>
-    <string name="not_used_mobile_cells_detected_cell_id">Zistené ID mobilnej bunky:</string>
+    <string name="not_used_mobile_cells_detected_cell_id">Zistené id mobilnej bunky:</string>
     <string name="not_used_mobile_cells_detected_connection_time">Zariadenie bolo pripojené:</string>
     <string name="not_used_mobile_cells_detected_last_running_events_label">Pridajte ju k udalostiam:</string>
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistrationInfo_summary">Registrácia buniek slúži na registráciu mobilných buniek pre túto udalosť. Registrácia bude prebiehať na pozadí. Počas vykonávania registrácie sa odporúča nemeniť umiestnenie zariadenia.</string>
@@ -1367,7 +1367,7 @@
     <string name="phone_profiles_pref_grantG1Permission_summary">Prosím udeľte povolenie WRITE_SECURE_SETTINGS pre PhoneProfilesPlus. Je vyžadované pre parametre profilu a udalosti, označené ako (G1). Potom ROOT nebude potrebný.</string>
     <string name="profile_preferences_profile_not_found">Profil nenájdený. Vymazaný?</string>
     <string name="event_preferences_event_not_found">Udalosť nenájdená. Vymazaná?</string>
-    <string name="permissions_draw_overlays_not_allowed_alway_required">Nemáte udelené povolenie \"Vykresliť cez ďalšie aplikácie\". Ale toto povolenie je vyžadované pre Android 10. Prosím udelte ho.</string>
+    <string name="permissions_draw_overlays_not_allowed_alway_required">Nemáte udelené povolenie \"Vykresliť cez ďalšie aplikácie\". Ale toto povolenie je vyžadované pre Android 10. Prosím udeľte ho.</string>
     <string name="event_preferences_battery_level_info">Upozornenie pre úroveň batérie</string>
     <string name="event_preferences_battery_level_info_summary" tools:ignore="StringFormatCount,StringFormatInvalid">Spodná úroveň &gt; 0% alebo horná úroveň &lt; 100% spotrebúva batériu!</string>
     <string name="event_preference_sensor_device_boot_summary">Tento senzor naštartuje udalosť okamžite po štarte zariadenia. Parametre: Trvalý beh, Trvanie (dĺžka udalosti).</string>
@@ -1669,15 +1669,15 @@
     <string name="altype_eventAdded">Udalosť pridaná</string>
     <string name="quick_tile_subtile_activated">Aktivované</string>
     <string name="quick_tile_subtile_not_activated">Neaktivované</string>
-    <string name="menu_check_releases_github">Skontolovať v GitHub Releases</string>
-    <string name="menu_check_releases_fdroid">Skontolovať v F-Droid</string>
+    <string name="menu_check_releases_github">Skontrolovať v GitHub Releases</string>
+    <string name="menu_check_releases_fdroid">Skontrolovať v F-Droid</string>
     <string name="check_releases_go_to_fdroid">Ísť do F-Droid repozitára</string>
     <string name="check_releases_fdroid_application">Aplikácia F-Droid:</string>
     <string name="check_releases_fdroid_repository_with_ppp">Repozitár na jeho konfiguráciu v aplikácii F-Droid:</string>
     <string name="profile_preferences_volumeMediaInfo_summary">Ak zmena hlasitosti médií nefunguje, je to pravdepodobne spôsobené povoleným \"príznakom bezpečnej hlasitosti\". Ak chcete tento príznak zakázať, udeľte povolenie (G1), pretože na povolenie tohto príznaku je potrebné toto povolenie.</string>
-    <string name="menu_check_releases_galaxy_store">Skontolovať v Galaxy Store</string>
+    <string name="menu_check_releases_galaxy_store">Skontrolovať v Galaxy Store</string>
     <string name="check_releases_open_galaxy_store">Otvoriť Galaxy Store</string>
-    <string name="menu_check_releases_amazon_appstore">Skontolovať v Amazon Appstore</string>
+    <string name="menu_check_releases_amazon_appstore">Skontrolovať v Amazon Appstore</string>
     <string name="check_releases_amazon_appstore_application">Web pre inštaláciu aplikácie Amazon Appstore:</string>
     <string name="check_releases_open_amazon_appstore">Otvoriť Amazon Appstore</string>
     <string name="check_releases_install_amazon_appstore">Prosím nainštalujte si aplikáciu Amazon Appstore.</string>
@@ -1704,7 +1704,7 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Wi-Fi skenovanie v čase</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom">Od</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">Do</string>
-    <string name="menu_check_releases_appgallery">Skontolovať v AppGallery</string>
+    <string name="menu_check_releases_appgallery">Skontrolovať v AppGallery</string>
     <string name="check_releases_open_appgallery">Otvoriť AppGallery</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Interval skenovania na pozadí</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Interval skenovania Bluetooth</string>
@@ -1718,7 +1718,7 @@
     <string name="activity_log_help_message_data_for">pre</string>
     <string name="activity_log_help_message_data_profileName">Názov profilu. Môže obsahovať [M] (= manuálna aktivácia) a za ním koniec v zátvorke.</string>
     <string name="activity_log_help_message_data_profileNameEventName">Názov profilu [názov udalosti]. Názov profilu je naposledy aktivovaný profil a názov udalosti je posledná začatá udalosť.</string>
-    <string name="activity_log_help_message_data_displayedInGUI">Tieto informácie sa tiež zobrazujú vo všetkých GUI prvkoch (notifikácia aplikácie, Activator, Editor, widgety, …).</string>
+    <string name="activity_log_help_message_data_displayedInGUI">Tieto informácie sa tiež zobrazujú vo všetkých GUI prvkoch (notifikácia aplikácie, Aktivátor, Editor, miniaplikácie, …).</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">všetky ostatné pre profily</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Názov profilu.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">všetky ostatné pre udalosti</string>
@@ -1775,7 +1775,7 @@
     <string name="extender_battery_optimization_text">• Optimalizácia batérie pre PhoneProfilesPlusExtender - pridajte ho do skupiny „Neoptimalizované“:</string>
     <string name="extender_battery_optimization_optimized">Optimalizované</string>
     <string name="extender_battery_optimization_not_optimized">Neoptimalizované</string>
-    <string name="extender_battery_optimization_button">Otvor Optimalizáciu batérie</string>
+    <string name="extender_battery_optimization_button">Otvor\nOptimalizáciu batérie</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
