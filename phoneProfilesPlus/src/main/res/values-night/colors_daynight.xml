@@ -71,6 +71,7 @@
     <color name="altype_eventStart">#FF00d800</color>
     <color name="altype_eventEnd">#FFffde00</color>
     <color name="altype_eventDelayStartEnd">#FFD000FF</color>
+    <color name="altype_restartEvents">#0e9bda</color>
     <color name="altype_error">#FFFF0000</color>
     <color name="altype_other">#FF7F7F7F</color>
 
