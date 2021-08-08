@@ -217,7 +217,7 @@ public class PPApplication extends Application
 
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
-//                                                +"|[IN_THREAD_HANDLER]"
+                                                +"|[IN_THREAD_HANDLER]"
 //                                                +"|[IN_BROADCAST]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
@@ -283,10 +283,10 @@ public class PPApplication extends Application
                                                 //+"|PhoneCallsListener"
                                                 +"|PPPExtenderBroadcastReceiver"
 
-                                                //+"|PhoneProfilesService.doSimulatingRingingCall"
-                                                //+"|PhoneProfilesService.startSimulatingRingingCall"
-                                                //+"|PhoneProfilesService.stopSimulatingRingingCall"
-                                                //+"|EventsHandler.doEndHandler"
+                                                +"|PhoneProfilesService.doSimulatingRingingCall"
+                                                +"|PhoneProfilesService.startSimulatingRingingCall"
+                                                +"|PhoneProfilesService.stopSimulatingRingingCall"
+                                                +"|EventsHandler.doEndHandler"
                                                 //+"|PPApplication.getCallState"
 
                                                 //+"|EventPreferencesCall.doHandleEvent"
