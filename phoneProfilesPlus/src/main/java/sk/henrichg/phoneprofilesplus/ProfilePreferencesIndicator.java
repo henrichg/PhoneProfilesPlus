@@ -118,7 +118,6 @@ class ProfilePreferencesIndicator {
             Canvas _canvas = new Canvas(bitmapResult);
             _canvas.drawBitmap(preferenceBitmap, 0, 0, paint);
 
-            //TODO will be implemented soon
             if (!monochrome) {
                 // change brightness of indicator
                 bitmapResult = BitmapManipulator.setBitmapBrightness(bitmapResult, indicatorsLightnessValue);

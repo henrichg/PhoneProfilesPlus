@@ -116,6 +116,7 @@ public class PhoneProfilesService extends Service
     //static final String EXTRA_SET_SERVICE_FOREGROUND = "set_service_foreground";
     //static final String EXTRA_CLEAR_SERVICE_FOREGROUND = "clear_service_foreground";
     static final String EXTRA_SWITCH_KEYGUARD = "switch_keyguard";
+
     static final String EXTRA_SIMULATE_RINGING_CALL = "simulate_ringing_call";
     static final String EXTRA_OLD_RINGER_MODE = "old_ringer_mode";
     //static final String EXTRA_OLD_SYSTEM_RINGER_MODE = "old_system_ringer_mode";
@@ -123,6 +124,19 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_OLD_RINGTONE = "old_ringtone";
     static final String EXTRA_OLD_RINGTONE_SIM1 = "old_ringtone_sim1";
     static final String EXTRA_OLD_RINGTONE_SIM2 = "old_ringtone_sim2";
+
+    static final String EXTRA_NEW_RINGER_MODE = "new_ringer_mode";
+    static final String EXTRA_NEW_ZEN_MODE = "new_zen_mode";
+    static final String EXTRA_NEW_RINGER_VOLUME = "new_ringer_volume";
+    static final String EXTRA_NEW_RINTONE_CHANGE = "new_ringtone_change";
+    static final String EXTRA_NEW_RINGTONE = "new_ringtone";
+    static final String EXTRA_NEW_RINTONE_CHANGE_SIM1 = "new_ringtone_change_sim1";
+    static final String EXTRA_NEW_RINGTONE_SIM1 = "new_ringtone_sim1";
+    static final String EXTRA_NEW_RINTONE_CHANGE_SIM2 = "new_ringtone_change_sim1";
+    static final String EXTRA_NEW_RINGTONE_SIM2 = "new_ringtone_sim2";
+
+    static final String EXTRA_CALL_FROM_SIM_SLOT = "call_from sim_slot";
+
     //static final String EXTRA_SIMULATE_NOTIFICATION_TONE = "simulate_notification_tone";
     //static final String EXTRA_OLD_NOTIFICATION_TONE = "old_notification_tone";
     //static final String EXTRA_OLD_SYSTEM_RINGER_VOLUME = "old_system_ringer_volume";
@@ -149,7 +163,6 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE = "start_for_external_app_data_value";
     static final String EXTRA_RESCAN_SCANNERS = "rescan_scanners";
     //static final String EXTRA_SHOW_TOAST = "show_toast";
-    static final String EXTRA_CALL_FROM_SIM_SLOT = "call_from sim_slot";
 
     static final int START_FOR_EXTERNAL_APP_PROFILE = 1;
     static final int START_FOR_EXTERNAL_APP_EVENT = 2;
@@ -7241,7 +7254,7 @@ public class PhoneProfilesService extends Service
             int fromSIMSlot = intent.getIntExtra(EXTRA_CALL_FROM_SIM_SLOT, 0);
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "fromSIMSlot="+fromSIMSlot);
 
-            //TODO toto je ok
+            //TODO toto je OK
             String oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE);
             Context appContext = context.getApplicationContext();
             final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -7267,8 +7280,20 @@ public class PhoneProfilesService extends Service
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingtone="+oldRingtone);
 
             //TODO !!! toto treba z profilu
-            int newRingerMode = ApplicationPreferences.prefRingerMode;
-            int newZenMode = ApplicationPreferences.prefZenMode;
+            int newRingerMode;
+            int newZenMode;
+            int ringerModeFromProfile = intent.getIntExtra(EXTRA_NEW_RINGER_MODE, 0);
+            if (ringerModeFromProfile != 0) {
+                newRingerMode = ringerModeFromProfile;
+                newZenMode = Profile.ZENMODE_ALL;
+                if (ringerModeFromProfile == Profile.RINGERMODE_ZENMODE) {
+                    newZenMode = intent.getIntExtra(EXTRA_NEW_RINGER_MODE, Profile.ZENMODE_ALL);
+                }
+            }
+            else {
+                newRingerMode = ApplicationPreferences.prefRingerMode;
+                newZenMode = ApplicationPreferences.prefZenMode;
+            }
 
             String phoneNumber = "";
             if (PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_6_1))
@@ -7303,63 +7328,102 @@ public class PhoneProfilesService extends Service
             //TODO !!! toto treba z profilu
             if ((!phoneNumberFound) || newRingtone.isEmpty()) {
                 ringtoneFromContact = false;
-                try {
-                    Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
-                    if (uri != null)
-                        newRingtone = uri.toString();
-                    else
-                        newRingtone = "";
-//                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings="+newRingtone);
 
-                    if (fromSIMSlot > 0) {
-                        if (telephonyManager != null) {
-                            int phoneCount = telephonyManager.getPhoneCount();
-                            if (phoneCount > 1) {
-                                if (PPApplication.deviceIsSamsung) {
-                                    if (fromSIMSlot == 1) {
-                                        String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
-                                        if (_uri != null)
-                                            newRingtone = _uri;
+                int ringtoneChangeFromProfile = intent.getIntExtra(EXTRA_NEW_RINTONE_CHANGE, 0);
+                if (ringtoneChangeFromProfile != 0) {
+                    String ringtoneFromProfile = intent.getStringExtra(EXTRA_NEW_RINGTONE);
+                    String[] splits = ringtoneFromProfile.split("\\|");
+                    if (!splits[0].isEmpty()) {
+                        newRingtone = splits[0];
+                    }
+                }
+                if (fromSIMSlot > 0) {
+                    if (telephonyManager != null) {
+                        int phoneCount = telephonyManager.getPhoneCount();
+                        if (phoneCount > 1) {
+                            if (fromSIMSlot == 1) {
+                                ringtoneChangeFromProfile = intent.getIntExtra(EXTRA_NEW_RINTONE_CHANGE_SIM1, 0);
+                                if (ringtoneChangeFromProfile != 0) {
+                                    String ringtoneFromProfile = intent.getStringExtra(EXTRA_NEW_RINGTONE_SIM1);
+                                    String[] splits = ringtoneFromProfile.split("\\|");
+                                    if (!splits[0].isEmpty()) {
+                                        newRingtone = splits[0];
                                     }
-                                    if (fromSIMSlot == 2) {
-                                        String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_2");
-                                        if (_uri != null)
-                                            newRingtone = _uri;
-                                    }
-                                } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
-                                    if (fromSIMSlot == 1) {
-                                        String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
-                                        if (_uri != null)
-                                            newRingtone = _uri;
-                                    }
-                                    if (fromSIMSlot == 2) {
-                                        String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone2");
-                                        if (_uri != null)
-                                            newRingtone = _uri;
-                                    }
-                                } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
-                                    int useUniform = Settings.System.getInt(appContext.getContentResolver(), "ringtone_sound_use_uniform", 1);
-
-                                    if ((fromSIMSlot == 1) || (useUniform == 1)) {
-                                        String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_1");
-                                        if (_uri != null)
-                                            newRingtone = _uri;
-                                    }
-                                    if ((fromSIMSlot == 2) || (useUniform == 0)) {
-                                        String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_2");
-                                        if (_uri != null)
-                                            newRingtone = _uri;
+                                }
+                            }
+                            if (fromSIMSlot == 2) {
+                                ringtoneChangeFromProfile = intent.getIntExtra(EXTRA_NEW_RINTONE_CHANGE_SIM2, 0);
+                                if (ringtoneChangeFromProfile != 0) {
+                                    String ringtoneFromProfile = intent.getStringExtra(EXTRA_NEW_RINGTONE_SIM2);
+                                    String[] splits = ringtoneFromProfile.split("\\|");
+                                    if (!splits[0].isEmpty()) {
+                                        newRingtone = splits[0];
                                     }
                                 }
                             }
                         }
                     }
+                }
 
-                } catch (SecurityException e) {
-                    Permissions.grantPlayRingtoneNotificationPermissions(context, false);
-                    newRingtone = "";
-                } catch (Exception e) {
-                    newRingtone = "";
+                if (newRingtone.isEmpty()) {
+                    try {
+                        Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
+                        if (uri != null)
+                            newRingtone = uri.toString();
+                        else
+                            newRingtone = "";
+//                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings="+newRingtone);
+
+                        if (fromSIMSlot > 0) {
+                            if (telephonyManager != null) {
+                                int phoneCount = telephonyManager.getPhoneCount();
+                                if (phoneCount > 1) {
+                                    if (PPApplication.deviceIsSamsung) {
+                                        if (fromSIMSlot == 1) {
+                                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
+                                            if (_uri != null)
+                                                newRingtone = _uri;
+                                        }
+                                        if (fromSIMSlot == 2) {
+                                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_2");
+                                            if (_uri != null)
+                                                newRingtone = _uri;
+                                        }
+                                    } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
+                                        if (fromSIMSlot == 1) {
+                                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
+                                            if (_uri != null)
+                                                newRingtone = _uri;
+                                        }
+                                        if (fromSIMSlot == 2) {
+                                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone2");
+                                            if (_uri != null)
+                                                newRingtone = _uri;
+                                        }
+                                    } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
+                                        int useUniform = Settings.System.getInt(appContext.getContentResolver(), "ringtone_sound_use_uniform", 1);
+
+                                        if ((fromSIMSlot == 1) || (useUniform == 1)) {
+                                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_1");
+                                            if (_uri != null)
+                                                newRingtone = _uri;
+                                        }
+                                        if ((fromSIMSlot == 2) || (useUniform == 0)) {
+                                            String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_2");
+                                            if (_uri != null)
+                                                newRingtone = _uri;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    } catch (SecurityException e) {
+                        Permissions.grantPlayRingtoneNotificationPermissions(context, false);
+                        newRingtone = "";
+                    } catch (Exception e) {
+                        newRingtone = "";
+                    }
                 }
             }
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone="+newRingtone);
@@ -7453,14 +7517,23 @@ public class PhoneProfilesService extends Service
 
 //                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulateRinging=" + simulateRinging);
 
-                if (simulateRinging)
-                    startSimulatingRingingCall(/*stream,*/ newRingtone);
+                if (simulateRinging) {
+                    //TODO !!! toto treba z profilu
+                    int _ringingVolume;
+                    String ringtoneVolumeFromProfile = intent.getStringExtra(EXTRA_NEW_RINGER_VOLUME);
+                    if (Profile.getVolumeRingtoneChange(ringtoneVolumeFromProfile)) {
+                        _ringingVolume = Profile.getVolumeRingtoneValue(ringtoneVolumeFromProfile);
+                    }
+                    else
+                        _ringingVolume = ringingVolume;
+                    startSimulatingRingingCall(/*stream,*/ newRingtone, _ringingVolume);
+                }
             }
 
         }
     }
 
-    private void startSimulatingRingingCall(/*int stream,*/ String ringtone) {
+    private void startSimulatingRingingCall(/*int stream,*/ String ringtone, int ringingVolume) {
         stopSimulatingRingingCall(/*true*/true);
         if (!ringingCallIsSimulating) {
             //PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "stream="+stream);
@@ -7549,7 +7622,6 @@ public class PhoneProfilesService extends Service
                         int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
                         int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
 
-                        //TODO !!! toto treba z profilu
                         float percentage = (float) ringingVolume / maximumRingValue * 100.0f;
                         int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
