@@ -199,7 +199,7 @@ public class PhoneProfilesService extends Service
     private final BroadcastReceiver commandReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-//            PPApplication.logE("[IN_BROADCAST] PhoneProfilesService.commandReceiver", "xxx");
+            PPApplication.logE("[IN_BROADCAST] PhoneProfilesService.commandReceiver", "xxx");
             doCommand(intent);
         }
     };
@@ -4869,16 +4869,16 @@ public class PhoneProfilesService extends Service
     }
 
     private void doCommand(Intent intent) {
-        //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "xxx");
+        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "xxx");
         if (intent != null) {
-            //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "intent="+intent.getAction());
+            PPApplication.logE("$$$ PhoneProfilesService.doCommand", "intent="+intent.getAction());
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             __handler.post(new DoCommandRunnable(
                     getApplicationContext(), intent) {
                 @Override
                 public void run() {
-//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPCommand", "START run - from=PhoneProfilesService.doCommand");
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPCommand", "START run - from=PhoneProfilesService.doCommand");
 
                     Context appContext= appContextWeakRef.get();
                     Intent intent = intentWeakRef.get();
@@ -4895,7 +4895,7 @@ public class PhoneProfilesService extends Service
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-                            //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "--- START");
+                            PPApplication.logE("$$$ PhoneProfilesService.doCommand", "--- START");
 
                     /*if (intent.getBooleanExtra(EXTRA_SHOW_PROFILE_NOTIFICATION, false)) {
                         PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_SHOW_PROFILE_NOTIFICATION");
@@ -5318,7 +5318,7 @@ public class PhoneProfilesService extends Service
                         //dataWrapper.invalidateDataWrapper();
                     }*/
 
-                            //PPApplication.logE("$$$ PhoneProfilesService.doCommand", "--- END");
+                            PPApplication.logE("$$$ PhoneProfilesService.doCommand", "--- END");
 
                         } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
