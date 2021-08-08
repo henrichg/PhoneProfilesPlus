@@ -118,14 +118,14 @@ public class PhoneProfilesService extends Service
     static final String EXTRA_SWITCH_KEYGUARD = "switch_keyguard";
     static final String EXTRA_SIMULATE_RINGING_CALL = "simulate_ringing_call";
     static final String EXTRA_OLD_RINGER_MODE = "old_ringer_mode";
-    static final String EXTRA_OLD_SYSTEM_RINGER_MODE = "old_system_ringer_mode";
+    //static final String EXTRA_OLD_SYSTEM_RINGER_MODE = "old_system_ringer_mode";
     static final String EXTRA_OLD_ZEN_MODE = "old_zen_mode";
     static final String EXTRA_OLD_RINGTONE = "old_ringtone";
     static final String EXTRA_OLD_RINGTONE_SIM1 = "old_ringtone_sim1";
     static final String EXTRA_OLD_RINGTONE_SIM2 = "old_ringtone_sim2";
     //static final String EXTRA_SIMULATE_NOTIFICATION_TONE = "simulate_notification_tone";
     //static final String EXTRA_OLD_NOTIFICATION_TONE = "old_notification_tone";
-    static final String EXTRA_OLD_SYSTEM_RINGER_VOLUME = "old_system_ringer_volume";
+    //static final String EXTRA_OLD_SYSTEM_RINGER_VOLUME = "old_system_ringer_volume";
     static final String EXTRA_REGISTER_RECEIVERS_AND_WORKERS = "register_receivers_and_workers";
     static final String EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS = "unregister_receivers_and_workers";
     static final String EXTRA_REREGISTER_RECEIVERS_AND_WORKERS = "reregister_receivers_and_workers";
@@ -7241,7 +7241,7 @@ public class PhoneProfilesService extends Service
             int fromSIMSlot = intent.getIntExtra(EXTRA_CALL_FROM_SIM_SLOT, 0);
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "fromSIMSlot="+fromSIMSlot);
 
-            //TODO toto je tiez ok
+            //TODO toto je ok
             String oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE);
             Context appContext = context.getApplicationContext();
             final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -7277,6 +7277,7 @@ public class PhoneProfilesService extends Service
             String newRingtone = "";
             // get ringtone from contact
             boolean phoneNumberFound = false;
+            boolean ringtoneFromContact = false;
             try {
                 Uri contactLookup = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phoneNumber));
                 Cursor contactLookupCursor = context.getContentResolver().query(contactLookup, new String[]{ContactsContract.PhoneLookup._ID, ContactsContract.PhoneLookup.CUSTOM_RINGTONE}, null, null, null);
@@ -7285,6 +7286,8 @@ public class PhoneProfilesService extends Service
                         newRingtone = contactLookupCursor.getString(contactLookupCursor.getColumnIndex(ContactsContract.PhoneLookup.CUSTOM_RINGTONE));
                         if (newRingtone == null)
                             newRingtone = "";
+                        else
+                            ringtoneFromContact = true;
 //                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from contact="+newRingtone);
                         phoneNumberFound = true;
                     }
@@ -7299,6 +7302,7 @@ public class PhoneProfilesService extends Service
 
             //TODO !!! toto treba z profilu
             if ((!phoneNumberFound) || newRingtone.isEmpty()) {
+                ringtoneFromContact = false;
                 try {
                     Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
                     if (uri != null)
@@ -7441,6 +7445,9 @@ public class PhoneProfilesService extends Service
 
                 //}
 
+                if (ringtoneFromContact)
+                    simulateRinging = true;
+                else
                 if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
                     simulateRinging = true;
 

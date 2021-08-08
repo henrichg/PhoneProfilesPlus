@@ -1415,29 +1415,19 @@ class EventsHandler {
 //                    PPApplication.logE("EventsHandler.doEndHandler", "simulateRingingCall=" + simulateRingingCall);
                     int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
                     if (simulateRingingCall) {
-                        /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
-                        // add saved ringer mode, zen mode, ringtone before handle events as parameters
-                        // ringing call simulator compare this with new (actual values), changed by currently activated profile
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
-                        PPApplication.startPPService(context, serviceIntent);*/
                         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
                         // add saved ringer mode, zen mode, ringtone before handle events as parameters
                         // ringing call simulator compare this with new (actual values), changed by currently activated profile
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
-                        commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM1, oldRingtoneSIM1);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM2, oldRingtoneSIM2);
-                        commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
+                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
+
+
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_CALL_FROM_SIM_SLOT, simSlot);
                         PPApplication.runCommand(context, commandIntent);
                     }
