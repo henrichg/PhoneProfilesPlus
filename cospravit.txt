@@ -869,3 +869,49 @@ MobileCellsRegistrationService:
             mBuilder.addAction(R.drawable.ic_action_stop_white,
                     context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_stop),
                     stopRegistrationPendingIntent);
+
+--------------
+
+  oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE);
+  oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE_SIM1);
+  oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE_SIM2);
+
+  newRingtone -> toto je aktualny ringtone.
+     Je mozne, ze ten sa nezmeni, mal by sa asi aktivaciou profilu, co sa vykona na "Night call"
+
+  Ak sa oldRingtone <> newRingtone, tak sa spusti simulacia, pouzije sa newRingtone
+
+Ak sa zisti rnging z TelephonyManagera (podpora dual sim je spravena) a najde beziaca udalost,
+co ma senzor Call, zapne sa singronizacia. To znamena, ze sa posle ppCommand EXTRA_SIMULATE_RINGING_CALL
+a jednym z paranetrov su aj EXTRA_OLD_RINGTONE_*, Je to premenna EventsHandler.oldRingtone*
+
+Ako sa nastavuje EventsHandler.oldRingtone*:
+Nastavuje sa pri kazdom EventsHandler.handleEvents hned na zaciatku. Je to aktualny ringtone.
+
+Cize este pred spracovanim udalosti a aktivaciou profilu na ringing.
+
+Tie sa poslu do simulacie. Problem je, ze tieto nemusia byt zmenene aktivaciou v systeme. Lebo aktivacia,
+aj ked sa vyykona hned pred poslanim tohoto commandu, nemusia byt zmenene tieto veci.
+Mal by som do commandu poslat profil, co sa aktivoval v EventsHandleri. A z neho pouzivat tieto
+parametre ako nove a porovnat s tymito, co som poslal:
+    commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
+    commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+    commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
+    commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
+    commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM1, oldRingtoneSIM1);
+    commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM2, oldRingtoneSIM2);
+    commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
+
+Co treba z profilu:
+   doSimulatingRingongCall()
+     Vsetky typy su z Profile, ok
+       int newRingerMode = ApplicationPreferences.prefRingerMode; -> _volumeRingerMode
+       int newZenMode = ApplicationPreferences.prefZenMode; -> _volumeZenMode
+
+     newRingtone -> _soundRingtoneChange + _soundRingtone
+
+   startSimulatingRingingCall
+     ringingVolume -> _volumeRingtone
+
+
+

@@ -7233,6 +7233,7 @@ public class PhoneProfilesService extends Service
             // wait for change ringer mode + volume
             PPApplication.sleep(1500);
 
+            //TODO toto je OK
             int oldRingerMode = intent.getIntExtra(EXTRA_OLD_RINGER_MODE, 0);
             //int oldSystemRingerMode = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
             int oldZenMode = intent.getIntExtra(EXTRA_OLD_ZEN_MODE, 0);
@@ -7240,6 +7241,7 @@ public class PhoneProfilesService extends Service
             int fromSIMSlot = intent.getIntExtra(EXTRA_CALL_FROM_SIM_SLOT, 0);
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "fromSIMSlot="+fromSIMSlot);
 
+            //TODO toto je tiez ok
             String oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE);
             Context appContext = context.getApplicationContext();
             final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -7264,15 +7266,15 @@ public class PhoneProfilesService extends Service
 
 //            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingtone="+oldRingtone);
 
-            //int oldSystemRingerVolume = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_VOLUME, -1);
+            //TODO !!! toto treba z profilu
             int newRingerMode = ApplicationPreferences.prefRingerMode;
             int newZenMode = ApplicationPreferences.prefZenMode;
-            //int newRingerVolume = ActivateProfileHelper.getRingerVolume(context);
-            String newRingtone = "";
+
             String phoneNumber = "";
             if (PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_6_1))
                 phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
 
+            String newRingtone = "";
             // get ringtone from contact
             boolean phoneNumberFound = false;
             try {
@@ -7294,6 +7296,8 @@ public class PhoneProfilesService extends Service
             } catch (Exception e) {
                 newRingtone = "";
             }
+
+            //TODO !!! toto treba z profilu
             if ((!phoneNumberFound) || newRingtone.isEmpty()) {
                 try {
                     Uri uri = RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_RINGTONE);
@@ -7538,6 +7542,7 @@ public class PhoneProfilesService extends Service
                         int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
                         int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
 
+                        //TODO !!! toto treba z profilu
                         float percentage = (float) ringingVolume / maximumRingValue * 100.0f;
                         int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
