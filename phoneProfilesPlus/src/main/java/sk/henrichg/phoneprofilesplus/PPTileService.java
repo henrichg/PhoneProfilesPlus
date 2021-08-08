@@ -222,10 +222,10 @@ public class PPTileService extends TileService {
 
     private static abstract class PPHandlerThreadRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<Tile> tileWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<Tile> tileWeakRef;
 
-        public PPHandlerThreadRunnable(Context appContext,
+        PPHandlerThreadRunnable(Context appContext,
                                        Tile tile) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.tileWeakRef = new WeakReference<>(tile);

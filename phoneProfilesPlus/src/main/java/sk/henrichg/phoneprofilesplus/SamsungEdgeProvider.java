@@ -478,10 +478,10 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     private static abstract class PPHandlerThreadRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<SlookCocktailManager> cocktailManagerWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<SlookCocktailManager> cocktailManagerWeakRef;
 
-        public PPHandlerThreadRunnable(Context appContext,
+        PPHandlerThreadRunnable(Context appContext,
                                        SlookCocktailManager cocktailManager) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.cocktailManagerWeakRef = new WeakReference<>(cocktailManager);

@@ -1020,10 +1020,10 @@ class MobileCellsListener extends PhoneStateListener {
 
     private static abstract class PPHandlerThreadRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<TelephonyManager> telephonyManagerWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<TelephonyManager> telephonyManagerWeakRef;
 
-        public PPHandlerThreadRunnable(Context appContext,
+        PPHandlerThreadRunnable(Context appContext,
                                        TelephonyManager telephonyManager) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.telephonyManagerWeakRef = new WeakReference<>(telephonyManager);

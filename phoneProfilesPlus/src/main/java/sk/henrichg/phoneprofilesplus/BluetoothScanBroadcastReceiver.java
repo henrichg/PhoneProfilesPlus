@@ -199,10 +199,10 @@ public class BluetoothScanBroadcastReceiver extends BroadcastReceiver {
 
     private static abstract class PPHandlerThreadRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<BluetoothDevice> deviceWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<BluetoothDevice> deviceWeakRef;
 
-        public PPHandlerThreadRunnable(Context appContext,
+        PPHandlerThreadRunnable(Context appContext,
                                        BluetoothDevice device) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.deviceWeakRef = new WeakReference<>(device);

@@ -4450,9 +4450,9 @@ public class PPApplication extends Application
 
     static abstract class PPHandlerThreadRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
+        final WeakReference<Context> appContextWeakRef;
 
-        public PPHandlerThreadRunnable(Context appContext) {
+        PPHandlerThreadRunnable(Context appContext) {
             this.appContextWeakRef = new WeakReference<>(appContext);
         }
 
@@ -4460,11 +4460,11 @@ public class PPApplication extends Application
 
     private static abstract class ExitAppRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<DataWrapper> dataWrapperWeakRef;
-        public final WeakReference<Activity> activityWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<DataWrapper> dataWrapperWeakRef;
+        final WeakReference<Activity> activityWeakRef;
 
-        public ExitAppRunnable(Context appContext, DataWrapper dataWrapper, Activity activity) {
+        ExitAppRunnable(Context appContext, DataWrapper dataWrapper, Activity activity) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.dataWrapperWeakRef = new WeakReference<>(dataWrapper);
             this.activityWeakRef = new WeakReference<>(activity);

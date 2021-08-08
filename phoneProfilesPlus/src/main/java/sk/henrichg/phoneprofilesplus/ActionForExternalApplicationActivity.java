@@ -437,11 +437,11 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
 
     private static abstract class PPHandlerThreadRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<DataWrapper> dataWrapperWeakRef;
-        public final WeakReference<Event> eventWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<DataWrapper> dataWrapperWeakRef;
+        final WeakReference<Event> eventWeakRef;
 
-        public PPHandlerThreadRunnable(Context appContext,
+        PPHandlerThreadRunnable(Context appContext,
                                        DataWrapper dataWrapper,
                                        Event event) {
             this.appContextWeakRef = new WeakReference<>(appContext);

@@ -157,10 +157,10 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
 
     private static abstract class PPHandlerThreadRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<DataWrapper> dataWrapperWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<DataWrapper> dataWrapperWeakRef;
 
-        public PPHandlerThreadRunnable(Context appContext,
+        PPHandlerThreadRunnable(Context appContext,
                                        DataWrapper dataWrapper) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.dataWrapperWeakRef = new WeakReference<>(dataWrapper);

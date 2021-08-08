@@ -6911,11 +6911,11 @@ class ActivateProfileHelper {
 
     private static abstract class PPHandlerThreadRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<Profile> profileWeakRef;
-        public final WeakReference<SharedPreferences> executedProfileSharedPreferencesWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<Profile> profileWeakRef;
+        final WeakReference<SharedPreferences> executedProfileSharedPreferencesWeakRef;
 
-        public PPHandlerThreadRunnable(Context appContext,
+        PPHandlerThreadRunnable(Context appContext,
                                        Profile profile,
                                        SharedPreferences executedProfileSharedPreferences) {
             this.appContextWeakRef = new WeakReference<>(appContext);

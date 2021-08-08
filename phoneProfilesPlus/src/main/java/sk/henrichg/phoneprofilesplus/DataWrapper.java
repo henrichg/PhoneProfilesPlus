@@ -3487,12 +3487,12 @@ public class DataWrapper {
 
     private static abstract class PPHandlerThreadRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<DataWrapper> dataWrapperWeakRef;
-        public final WeakReference<Profile> profileWeakRef;
-        public final WeakReference<Activity> activityWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<DataWrapper> dataWrapperWeakRef;
+        final WeakReference<Profile> profileWeakRef;
+        final WeakReference<Activity> activityWeakRef;
 
-        public PPHandlerThreadRunnable(Context appContext,
+        PPHandlerThreadRunnable(Context appContext,
                                        DataWrapper dataWrapper,
                                        Profile profile,
                                        Activity activity) {

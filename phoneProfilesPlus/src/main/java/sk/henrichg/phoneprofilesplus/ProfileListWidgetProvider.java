@@ -933,10 +933,10 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
 
     private static abstract class PPHandlerThreadRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<AppWidgetManager> appWidgetManagerWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<AppWidgetManager> appWidgetManagerWeakRef;
 
-        public PPHandlerThreadRunnable(Context appContext,
+        PPHandlerThreadRunnable(Context appContext,
                                        AppWidgetManager appWidgetManager) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.appWidgetManagerWeakRef = new WeakReference<>(appWidgetManager);

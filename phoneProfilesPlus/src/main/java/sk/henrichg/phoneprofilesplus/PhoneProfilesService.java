@@ -4868,14 +4868,14 @@ public class PhoneProfilesService extends Service
         return START_STICKY;
     }
 
-    private void doCommand(Intent intent) {
-        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "xxx");
-        if (intent != null) {
-            PPApplication.logE("$$$ PhoneProfilesService.doCommand", "intent="+intent.getAction());
+    private void doCommand(Intent _intent) {
+        PPApplication.logE("$$$ PhoneProfilesService.doCommand", "_intent="+_intent);
+        if (_intent != null) {
+            PPApplication.logE("$$$ PhoneProfilesService.doCommand", "intent="+_intent.getAction());
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             __handler.post(new DoCommandRunnable(
-                    getApplicationContext(), intent) {
+                    getApplicationContext(), _intent) {
                 @Override
                 public void run() {
                     PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPCommand", "START run - from=PhoneProfilesService.doCommand");
@@ -8443,10 +8443,10 @@ public class PhoneProfilesService extends Service
 
     private static abstract class DoCommandRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<Intent> intentWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<Intent> intentWeakRef;
 
-        public DoCommandRunnable(Context appContext,
+        DoCommandRunnable(Context appContext,
                                        Intent intent) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.intentWeakRef = new WeakReference<>(intent);

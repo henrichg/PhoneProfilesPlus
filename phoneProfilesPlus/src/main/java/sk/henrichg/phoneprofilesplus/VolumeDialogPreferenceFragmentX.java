@@ -351,10 +351,10 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     private static abstract class PlayRingtoneRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<AudioManager> audioManagerWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<AudioManager> audioManagerWeakRef;
 
-        public PlayRingtoneRunnable(Context appContext,
+        PlayRingtoneRunnable(Context appContext,
                                     AudioManager audioManager) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.audioManagerWeakRef = new WeakReference<>(audioManager);
@@ -364,10 +364,10 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
 
     private static abstract class StopPlayRingtoneRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<AudioManager> audioManagerWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<AudioManager> audioManagerWeakRef;
 
-        public StopPlayRingtoneRunnable(Context appContext,
+        StopPlayRingtoneRunnable(Context appContext,
                                         AudioManager audioManager) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.audioManagerWeakRef = new WeakReference<>(audioManager);

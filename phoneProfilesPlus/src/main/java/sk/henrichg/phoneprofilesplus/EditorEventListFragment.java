@@ -2191,10 +2191,10 @@ public class EditorEventListFragment extends Fragment
 
     private static abstract class RunStopEventRunnable implements Runnable {
 
-        public final WeakReference<DataWrapper> dataWrapperWeakRef;
-        public final WeakReference<Event> eventWeakRef;
+        final WeakReference<DataWrapper> dataWrapperWeakRef;
+        final WeakReference<Event> eventWeakRef;
 
-        public RunStopEventRunnable(DataWrapper dataWrapper,
+        RunStopEventRunnable(DataWrapper dataWrapper,
                                        Event event) {
             this.dataWrapperWeakRef = new WeakReference<>(dataWrapper);
             this.eventWeakRef = new WeakReference<>(event);

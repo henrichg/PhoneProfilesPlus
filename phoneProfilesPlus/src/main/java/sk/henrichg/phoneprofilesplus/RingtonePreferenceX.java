@@ -665,11 +665,11 @@ public class RingtonePreferenceX extends DialogPreference {
 
     private static abstract class PlayRingtoneRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<AudioManager> audioManagerWeakRef;
-        public final WeakReference<Uri> ringtoneUriWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<AudioManager> audioManagerWeakRef;
+        final WeakReference<Uri> ringtoneUriWeakRef;
 
-        public PlayRingtoneRunnable(Context appContext,
+        PlayRingtoneRunnable(Context appContext,
                                        AudioManager audioManager,
                                        Uri ringtoneUri) {
             this.appContextWeakRef = new WeakReference<>(appContext);
@@ -692,10 +692,10 @@ public class RingtonePreferenceX extends DialogPreference {
 
     private static abstract class StopPlayRingtoneRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<AudioManager> audioManagerWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<AudioManager> audioManagerWeakRef;
 
-        public StopPlayRingtoneRunnable(Context appContext,
+        StopPlayRingtoneRunnable(Context appContext,
                                     AudioManager audioManager) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.audioManagerWeakRef = new WeakReference<>(audioManager);

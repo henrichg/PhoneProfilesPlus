@@ -974,10 +974,10 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
     private static abstract class SaveUpdateOfPreferencesRunnable implements Runnable {
 
-        public final WeakReference<DataWrapper> dataWrapperWeakRef;
-        public final WeakReference<Event> eventWeakRef;
+        final WeakReference<DataWrapper> dataWrapperWeakRef;
+        final WeakReference<Event> eventWeakRef;
 
-        public SaveUpdateOfPreferencesRunnable(DataWrapper dataWrapper,
+        SaveUpdateOfPreferencesRunnable(DataWrapper dataWrapper,
                                                 Event event) {
             this.dataWrapperWeakRef = new WeakReference<>(dataWrapper);
             this.eventWeakRef = new WeakReference<>(event);
