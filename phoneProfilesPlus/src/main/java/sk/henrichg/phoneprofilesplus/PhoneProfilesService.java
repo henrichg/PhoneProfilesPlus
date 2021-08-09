@@ -5380,7 +5380,7 @@ public class PhoneProfilesService extends Service
                             PPApplication.logE("[IN_THREAD_HANDLER]  PhoneProfilesService.doCommand", "--- END");
 
                         } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
