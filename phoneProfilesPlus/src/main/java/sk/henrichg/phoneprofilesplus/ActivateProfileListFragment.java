@@ -244,6 +244,8 @@ public class ActivateProfileListFragment extends Fragment {
         private final boolean applicationActivatorGridLayout;
         private final GridView gridView;
 
+        private boolean someErrorProfiles = false;
+
         Handler progressBarHandler;
         Runnable progressBarRunnable;
 
@@ -328,6 +330,13 @@ public class ActivateProfileListFragment extends Fragment {
 
             dataWrapper.getEventTimelineList(true);
 
+            for (Profile profile : this.dataWrapper.profileList) {
+                if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile,this.dataWrapper.context)) {
+                    someErrorProfiles = true;
+                    break;
+                }
+            }
+
             return null;
         }
 
@@ -370,6 +379,26 @@ public class ActivateProfileListFragment extends Fragment {
                         }
 
                         return;
+                    }
+                    else {
+                        if (someErrorProfiles) {
+                            // some profiles has errors
+
+                            //noinspection ConstantConditions
+                            Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorProfilesActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR_START);
+                            //noinspection ConstantConditions
+                            fragment.getActivity().startActivity(intent);
+
+                            try {
+                                fragment.getActivity().finish();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+
+                            return;
+                        }
                     }
                 }
 

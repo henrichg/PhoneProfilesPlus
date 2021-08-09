@@ -913,5 +913,11 @@ Co treba z profilu:
    startSimulatingRingingCall
      ringingVolume -> _volumeRingtone
 
+-----
 
+OK po prvom spusteni sa zobrazia notifikacie of Battery optimization a Draw over apps.
+Prve spustenie sice zobrazi editor, ale druhe Aktivator.
+Cize ak spusti Editor vzdy, ked najde aspon jede red profil v Aktivatore, bude to podla mna super aj
+pre Huawei AppGallery. Uvidime.
+A disabluj aktivaciu z popup menu pre red profil.
 
