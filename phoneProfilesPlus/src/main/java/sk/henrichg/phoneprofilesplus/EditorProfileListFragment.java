@@ -17,6 +17,7 @@ import android.text.style.CharacterStyle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -725,6 +726,12 @@ public class EditorProfileListFragment extends Fragment
         getActivity().getMenuInflater().inflate(R.menu.profile_list_item_edit, popup.getMenu());
 
         final Profile profile = (Profile)view.getTag();
+        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
+            MenuItem activateItem = popup.getMenu().findItem(R.id.profile_list_item_menu_activate);
+            if (activateItem != null) {
+                activateItem.setEnabled(false);
+            }
+        }
 
         popup.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
