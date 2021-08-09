@@ -480,6 +480,7 @@ public class PPApplication extends Application
     static final int STARTUP_SOURCE_EVENT_MANUAL = 12;
     static final int STARTUP_SOURCE_EXTERNAL_APP = 13;
     static final int STARTUP_SOURCE_QUICK_TILE = 14;
+    static final int STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER = 15;
 
     //static final int PREFERENCES_STARTUP_SOURCE_ACTIVITY = 1;
     //static final int PREFERENCES_STARTUP_SOURCE_FRAGMENT = 2;

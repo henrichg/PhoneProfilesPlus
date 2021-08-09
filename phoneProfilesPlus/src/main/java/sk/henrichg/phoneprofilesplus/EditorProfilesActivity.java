@@ -417,6 +417,8 @@ public class EditorProfilesActivity extends AppCompatActivity
             getSupportActionBar().setTitle(R.string.title_activity_editor);
         }
 
+        int startupSource = getIntent().getIntExtra(PPApplication.EXTRA_STARTUP_SOURCE, 0);
+
         //bottomToolbar = findViewById(R.id.editor_list_bottom_bar);
 
         /*
@@ -586,8 +588,14 @@ public class EditorProfilesActivity extends AppCompatActivity
         //if ((savedInstanceState != null) || (ApplicationPreferences.applicationEditorSaveEditorState(getApplicationContext())))
         //{
             //filterSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
-            editorSelectedView = ApplicationPreferences.editorSelectedView;
-            filterProfilesSelectedItem = ApplicationPreferences.editorProfilesViewSelectedItem;
+            if (startupSource == PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER) {
+                editorSelectedView = 0;
+                filterProfilesSelectedItem = DSI_PROFILES_ALL;
+            }
+            else {
+                editorSelectedView = ApplicationPreferences.editorSelectedView;
+                filterProfilesSelectedItem = ApplicationPreferences.editorProfilesViewSelectedItem;
+            }
             filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
         //}
 
