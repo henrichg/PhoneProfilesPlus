@@ -4941,8 +4941,8 @@ public class PhoneProfilesService extends Service
             } else
                 PPApplication.logE("*************** PhoneProfilesService.doCommand", "???? OTHER ????");
 
-            PPApplication.startHandlerThreadBroadcast();
-            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
+            PPApplication.startHandlerThreadPPCommand();
+            final Handler __handler = new Handler(PPApplication.handlerThreadPPCommand.getLooper());
             __handler.post(new DoCommandRunnable(
                     getApplicationContext(), _intent) {
                 @Override
@@ -4953,6 +4953,10 @@ public class PhoneProfilesService extends Service
                     Intent intent = intentWeakRef.get();
                     //Profile profile = profileWeakRef.get();
                     //Activity activity = activityWeakRef.get();
+                    if (appContext == null)
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPCommand", "!!! appContext == null !!!");
+                    if (intent == null)
+                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPCommand", "!!! intent == null !!!");
 
                     if ((appContext != null) && (intent != null)) {
 

@@ -308,10 +308,12 @@ public class PhoneCallsListener extends PhoneStateListener {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-//        PPApplication.logE("PhoneCallsListener.callAnswered", "incoming="+incoming);
+        PPApplication.logE("PhoneCallsListener.callAnswered", "incoming="+incoming);
 
-        if (PhoneProfilesService.getInstance() != null)
+        if (PhoneProfilesService.getInstance() != null) {
+            PPApplication.logE("PhoneCallsListener.callAnswered", "call of stopSimulatingRingingCall");
             PhoneProfilesService.getInstance().stopSimulatingRingingCall(true);
+        }
 
         // Delay 2 seconds mode changed to MODE_IN_CALL
         long start = SystemClock.uptimeMillis();
@@ -389,15 +391,17 @@ public class PhoneCallsListener extends PhoneStateListener {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-//        if (PPApplication.logEnabled()) {
-//            PPApplication.logE("PhoneCallsListener.callEnded", "incoming=" + incoming);
-//            PPApplication.logE("PhoneCallsListener.callEnded", "missed=" + missed);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("PhoneCallsListener.callEnded", "incoming=" + incoming);
+            PPApplication.logE("PhoneCallsListener.callEnded", "missed=" + missed);
 //            PPApplication.logE("PhoneCallsListener.callEnded", "speakerphoneSelected=" + speakerphoneSelected);
 //            PPApplication.logE("PhoneCallsListener.callEnded", "savedSpeakerphone=" + savedSpeakerphone);
-//        }
+        }
 
-        if (PhoneProfilesService.getInstance() != null)
+        if (PhoneProfilesService.getInstance() != null) {
+            PPApplication.logE("PhoneCallsListener.callEnded", "call of stopSimulatingRingingCall");
             PhoneProfilesService.getInstance().stopSimulatingRingingCall(false);
+        }
 
         // audio mode is set to MODE_IN_CALL by system
 
