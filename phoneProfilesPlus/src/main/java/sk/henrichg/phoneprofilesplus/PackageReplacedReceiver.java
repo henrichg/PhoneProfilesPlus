@@ -17,20 +17,20 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
         //CallsCounter.logCounter(context, "PackageReplacedReceiver.onReceive", "PackageReplacedReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "PackageReplacedReceiver.onReceive->action="+intent.getAction(), "PackageReplacedReceiver_onReceive");
 
-        //final Context appContext = context.getApplicationContext();
-
         if ((intent != null) && (intent.getAction() != null) && intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
 
+            final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadBroadcast(/*"PackageReplacedReceiver.onReceive"*/);
             final Handler __handler2 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            __handler2.post(new PPApplication.PPHandlerThreadRunnable(
-                    context.getApplicationContext()) {
+            //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
+            //        context.getApplicationContext()) {
+            __handler2.post(new Runnable() {
                 @Override
                 public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PackageReplacedReceiver.onReceive");
 
-                    Context appContext= appContextWeakRef.get();
-                    if (appContext != null) {
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -76,7 +76,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
         }

@@ -53,14 +53,15 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
         if (Event.getGlobalEventsRunning()) {
             PPApplication.startHandlerThreadBroadcast(/*"PowerSaveModeBroadcastReceiver.onReceive"*/);
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            __handler.post(new PPApplication.PPHandlerThreadRunnable(
-                    context.getApplicationContext()) {
+            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+            //        context.getApplicationContext()) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PowerSaveModeBroadcastReceiver.onReceive");
 
-                    Context appContext= appContextWeakRef.get();
-                    if (appContext != null) {
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -86,7 +87,7 @@ public class PowerSaveModeBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
         }

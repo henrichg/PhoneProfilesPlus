@@ -62,16 +62,18 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                 //if (timeChanged) {
                     //PPApplication.logE("TimeChangedReceiver.onReceive", "do time change");
 
+                    final Context appContext = context.getApplicationContext();
                     PPApplication.startHandlerThreadBroadcast(/*"TimeChangedReceiver.onReceive"*/);
                     final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                    __handler.post(new PPApplication.PPHandlerThreadRunnable(
-                            context.getApplicationContext()) {
+                    //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                    //        context.getApplicationContext()) {
+                    __handler.post(new Runnable() {
                         @Override
                         public void run() {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=TimeChangedReceiver.onReceive");
 
-                            Context appContext= appContextWeakRef.get();
-                            if (appContext != null) {
+                            //Context appContext= appContextWeakRef.get();
+                            //if (appContext != null) {
                                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = null;
                                 try {
@@ -95,7 +97,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
                                         }
                                     }
                                 }
-                            }
+                            //}
                         }
                     });
                 //}

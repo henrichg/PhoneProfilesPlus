@@ -16,16 +16,18 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
         //CallsCounter.logCounter(context, "StartEventNotificationDeletedReceiver.onReceive", "StartEventNotificationDeletedReceiver_onReceive");
 
         final long event_id = intent.getLongExtra(PPApplication.EXTRA_EVENT_ID, 0);
+        final Context appContext = context;
         PPApplication.startHandlerThreadBroadcast(/*"StartEventNotificationDeletedReceiver.onReceive"*/);
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        __handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+        //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationDeletedReceiver.onReceive");
 
-                Context appContext= appContextWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
 
-                if (appContext != null) {
+                //if (appContext != null) {
                     if (event_id != 0) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
@@ -53,7 +55,7 @@ public class StartEventNotificationDeletedReceiver extends BroadcastReceiver {
                             }
                         }
                     }
-                }
+                //}
             }
         });
     }

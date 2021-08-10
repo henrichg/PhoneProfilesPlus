@@ -153,19 +153,21 @@ public class PhoneCallsListener extends PhoneStateListener {
     private void doCall(Context context, final int phoneEvent,
                         final boolean incoming, final boolean missed/*,
                             final String number, final Date eventTime*/) {
+        final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"PhoneCallsListener.doCall"*/);
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        __handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+        //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
 
-                Context appContext= appContextWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
 
-                if (appContext != null) {
-//            int simSlot = 0;
-//            if (subscriptionInfo != null)
-//                simSlot = subscriptionInfo.getSimSlotIndex()+1;
+                //if (appContext != null) {
+    //            int simSlot = 0;
+    //            if (subscriptionInfo != null)
+    //                simSlot = subscriptionInfo.getSimSlotIndex()+1;
 
                     switch (phoneEvent) {
                         case SERVICE_PHONE_EVENT_START:
@@ -180,7 +182,7 @@ public class PhoneCallsListener extends PhoneStateListener {
                     }
 
                     //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallsListener.doCall");
-                }
+                //}
             }
         });
     }

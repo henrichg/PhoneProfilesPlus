@@ -4011,15 +4011,16 @@ public class PhoneProfilesService extends Service
 
         PPApplication.startHandlerThread(/*"PhoneProfilesService.doForFirstStart"*/);
         final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-        __handler.post(new PPApplication.PPHandlerThreadRunnable(appContext) {
+        //__handler.post(new PPApplication.PPHandlerThreadRunnable(appContext) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "PhoneProfilesService.doForFirstStart START");
 
-                Context appContext= appContextWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
 
-                if (appContext == null)
-                    return;
+                //if (appContext == null)
+                //    return;
 
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
@@ -6609,18 +6610,18 @@ public class PhoneProfilesService extends Service
     }
 
     static void drawProfileNotification(int delay, Context context) {
-        //final Context appContext = context.getApplicationContext();
-
+        final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
         final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-        __handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
-                context.getApplicationContext()) {
+        //__handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
+        //        context.getApplicationContext()) {
+        __handler.postDelayed(new Runnable() {
             @Override
             public void run() {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.drawProfileNotification");
 
-                Context appContext= appContextWeakRef.get();
-                if (appContext != null) {
+                //Context appContext= appContextWeakRef.get();
+                //if (appContext != null) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -6672,7 +6673,7 @@ public class PhoneProfilesService extends Service
                             }
                         }
                     }
-                }
+                //}
             }
         }, delay);
     }

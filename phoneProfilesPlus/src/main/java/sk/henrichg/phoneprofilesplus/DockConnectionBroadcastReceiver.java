@@ -14,8 +14,6 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
 
         //CallsCounter.logCounter(context, "DockConnectionBroadcastReceiver.onReceive", "DockConnectionBroadcastReceiver_onReceive");
 
-        //final Context appContext = context.getApplicationContext();
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
@@ -28,16 +26,18 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
 
             if (accessoryEventsExists)
             {*/
+                final Context appContext = context.getApplicationContext();
                 PPApplication.startHandlerThreadBroadcast(/*"DockConnectionBroadcastReceiver.onReceive"*/);
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                __handler.post(new PPApplication.PPHandlerThreadRunnable(
-                        context.getApplicationContext()) {
+                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                //        context.getApplicationContext()) {
+                __handler.post(new Runnable() {
                     @Override
                     public void run() {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DockConnectionBroadcastReceiver.onReceive");
 
-                        Context appContext= appContextWeakRef.get();
-                        if (appContext != null) {
+                        //Context appContext= appContextWeakRef.get();
+                        //if (appContext != null) {
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
                             try {
@@ -62,7 +62,7 @@ public class DockConnectionBroadcastReceiver extends BroadcastReceiver {
                                     }
                                 }
                             }
-                        }
+                        //}
                     }
                 });
             //}

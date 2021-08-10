@@ -22,17 +22,18 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
             final String action = intent.getAction();
             if (action != null) {
                 if (action.equals(Intent.ACTION_AIRPLANE_MODE_CHANGED)) {
-                    //final Context appContext = context.getApplicationContext();
+                    final Context appContext = context.getApplicationContext();
                     PPApplication.startHandlerThreadBroadcast(/*"AirplaneModeStateChangedBroadcastReceiver.onReceive"*/);
                     final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                    __handler.post(new PPApplication.PPHandlerThreadRunnable(
-                                    context.getApplicationContext()) {
+                    //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                    //                context.getApplicationContext()) {
+                    __handler.post(new Runnable() {
                         @Override
                         public void run() {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=AirplaneModeStateChangedBroadcastReceiver.onReceive");
 
-                            Context appContext= appContextWeakRef.get();
-                            if (appContext != null) {
+                            //Context appContext= appContextWeakRef.get();
+                            //if (appContext != null) {
                                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = null;
                                 try {
@@ -57,7 +58,7 @@ public class AirplaneModeStateChangedBroadcastReceiver extends BroadcastReceiver
                                         }
                                     }
                                 }
-                            }
+                            //}
                         }
                     });
                 }

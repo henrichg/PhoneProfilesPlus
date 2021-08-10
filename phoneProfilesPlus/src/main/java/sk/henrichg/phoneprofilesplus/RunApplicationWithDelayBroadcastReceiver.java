@@ -38,16 +38,18 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             final String profileName = intent.getStringExtra(EXTRA_PROFILE_NAME);
             final String runApplicationData = intent.getStringExtra(EXTRA_RUN_APPLICATION_DATA);
 
+            final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadBroadcast(/*"RunApplicationWithDelayBroadcastReceiver.onReceive"*/);
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            __handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+            //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=RunApplicationWithDelayBroadcastReceiver.onReceive");
 
-                    Context appContext= appContextWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
 
-                    if (appContext != null) {
+                    //if (appContext != null) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -70,7 +72,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
         }

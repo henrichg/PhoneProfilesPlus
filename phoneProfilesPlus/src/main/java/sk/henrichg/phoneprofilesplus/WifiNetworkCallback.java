@@ -10,12 +10,12 @@ import android.os.PowerManager;
 @SuppressWarnings("WeakerAccess")
 public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
-    private final Context appContext;
+    private final Context context;
 
     static boolean connected = false;
 
     WifiNetworkCallback(Context context) {
-        appContext = context.getApplicationContext();
+        this.context = context.getApplicationContext();
     }
 
     @Override
@@ -109,7 +109,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
 
         if (Build.VERSION.SDK_INT >= 26) {
             // configured is PPApplication.handlerThreadBroadcast handler (see PhoneProfilesService.registerCallbacks()
-            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
             PowerManager.WakeLock wakeLock = null;
             try {
                 if (powerManager != null) {
@@ -117,7 +117,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                     wakeLock.acquire(10 * 60 * 1000);
                 }
 
-                _doConnection(appContext);
+                _doConnection(context);
 
 //               PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiNetworkCallback.doConnection");
 
@@ -134,16 +134,18 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
             }
         }
         else {
+            final Context appContext = context;
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            __handler.post(new PPApplication.PPHandlerThreadRunnable(
-                    appContext) {
+            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+            //        appContext) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
 
-                    Context appContext= appContextWeakRef.get();
-                    if (appContext != null) {
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -167,7 +169,7 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
         }

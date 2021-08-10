@@ -40,8 +40,6 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] PPPExtenderBroadcastReceiver.onReceive", "xxx");
 
-        final Context appContext = context.getApplicationContext();
-
         //CallsCounter.logCounter(context.getApplicationContext(), "PPPExtenderBroadcastReceiver.onReceive", "ForegroundApplicationChangedBroadcastReceiver_onReceive");
 
         if (!PPApplication.getApplicationStarted(true))
@@ -53,6 +51,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
         PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "action="+intent.getAction());
 
+        final Context appContext = context.getApplicationContext();
+
         switch (intent.getAction()) {
             case PPApplication.ACTION_PPPEXTENDER_IS_RUNNING_ANSWER:
                 PPApplication.accessibilityServiceForPPPExtenderConnected = true;
@@ -61,14 +61,15 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.accessibilityServiceForPPPExtenderConnected = true;
                 PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
                 final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                __handler0.post(new PPApplication.PPHandlerThreadRunnable(
-                        context.getApplicationContext()) {
+                //__handler0.post(new PPApplication.PPHandlerThreadRunnable(
+                //        context.getApplicationContext()) {
+                __handler0.post(new Runnable() {
                     @Override
                     public void run() {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
 
-                        Context appContext= appContextWeakRef.get();
-                        if (appContext != null) {
+                        //Context appContext= appContextWeakRef.get();
+                        //if (appContext != null) {
                             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
                             try {
@@ -96,7 +97,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                     }
                                 }
                             }
-                        }
+                        //}
                     }
                 });
                 break;
@@ -122,14 +123,15 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         if (Event.getGlobalEventsRunning()) {
                             PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED"*/);
                             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                            __handler.post(new PPApplication.PPHandlerThreadRunnable(
-                                    context.getApplicationContext()) {
+                            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                            //        context.getApplicationContext()) {
+                            __handler.post(new Runnable() {
                                 @Override
                                 public void run() {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
 
-                                    Context appContext= appContextWeakRef.get();
-                                    if (appContext != null) {
+                                    //Context appContext= appContextWeakRef.get();
+                                    //if (appContext != null) {
                                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                         PowerManager.WakeLock wakeLock = null;
                                         try {
@@ -164,7 +166,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                                 }
                                             }
                                         }
-                                    }
+                                    //}
                                 }
                             });
                         }
@@ -183,14 +185,15 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 if (Event.getGlobalEventsRunning()) {
                     PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND"*/);
                     final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                    __handler.post(new PPApplication.PPHandlerThreadRunnable(
-                            context.getApplicationContext()) {
+                    //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                    //        context.getApplicationContext()) {
+                    __handler.post(new Runnable() {
                         @Override
                         public void run() {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
 
-                            Context appContext= appContextWeakRef.get();
-                            if (appContext != null) {
+                            //Context appContext= appContextWeakRef.get();
+                            //if (appContext != null) {
                                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = null;
                                 try {
@@ -225,7 +228,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                         }
                                     }
                                 }
-                            }
+                            //}
                         }
                     });
                 }

@@ -179,14 +179,15 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
 
         PPApplication.startHandlerThreadPPScanners(/*"BootUpReceiver.onReceive2"*/);
         final Handler __handler2 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-        __handler2.post(new PPApplication.PPHandlerThreadRunnable(
-                appContext) {
+        //__handler2.post(new PPApplication.PPHandlerThreadRunnable(
+        //        appContext) {
+        __handler2.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationScannerSwitchGPSBroadcastReceiver.doWork");
 
-                Context appContext= appContextWeakRef.get();
-                if (appContext != null) {
+                //Context appContext= appContextWeakRef.get();
+                //if (appContext != null) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -235,7 +236,7 @@ public class LocationScannerSwitchGPSBroadcastReceiver extends BroadcastReceiver
                             }
                         }
                     }
-                }
+                //}
             }
         });
     }

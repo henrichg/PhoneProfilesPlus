@@ -17,11 +17,11 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
 
         //CallsCounter.logCounter(context, "DeviceIdleModeBroadcastReceiver.onReceive", "DeviceIdleModeBroadcastReceiver_onReceive");
 
-        final Context appContext = context.getApplicationContext();
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
+
+        final Context appContext = context.getApplicationContext();
 
         if (Event.getGlobalEventsRunning()) {
             PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
@@ -30,14 +30,15 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                 //PPApplication.logE("DeviceIdleModeBroadcastReceiver.onReceive","NOT in idle mode");
                 PPApplication.startHandlerThreadBroadcast(/*"DeviceIdleModeBroadcastReceiver.onReceive"*/);
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                __handler.post(new PPApplication.PPHandlerThreadRunnable(
-                        context.getApplicationContext()) {
+                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                //        context.getApplicationContext()) {
+                __handler.post(new Runnable() {
                     @Override
                     public void run() {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DeviceIdleModeBroadcastReceiver.onReceive");
 
-                        Context appContext= appContextWeakRef.get();
-                        if (appContext != null) {
+                        //Context appContext= appContextWeakRef.get();
+                        //if (appContext != null) {
                             PowerManager powerManager1 = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
                             try {
@@ -73,14 +74,14 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                         PPApplication.rescanAllScanners(appContext);
                                     }
                                 }
-                        /*if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
-                            // rescan mobile cells
-                            synchronized (PPApplication.mobileCellsScannerMutex) {
-                                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
-                                    PhoneProfilesService.getInstance().getMobileCellsScanner().rescanMobileCells();
-                                }
-                            }
-                        }*/
+                                /*if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_MOBILE_CELLS, false) > 0) {
+                                    // rescan mobile cells
+                                    synchronized (PPApplication.mobileCellsScannerMutex) {
+                                        if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isMobileCellsScannerStarted()) {
+                                            PhoneProfilesService.getInstance().getMobileCellsScanner().rescanMobileCells();
+                                        }
+                                    }
+                                }*/
 
                                 //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DeviceIdleModeBroadcastReceiver.onReceive");
                             } catch (Exception e) {
@@ -94,7 +95,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                     }
                                 }
                             }
-                        }
+                        //}
                     }
                 });
             }

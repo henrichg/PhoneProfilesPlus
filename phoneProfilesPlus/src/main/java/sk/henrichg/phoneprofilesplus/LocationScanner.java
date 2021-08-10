@@ -56,17 +56,19 @@ class LocationScanner
                     if (resetUseGPS)
                         useGPS = true;
 
+                    final Context appContext = context.getApplicationContext();
                     PPApplication.startHandlerThreadPPScanners(/*"LocationScanner.onConnected"*/);
                     final Handler __handler6 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-                    __handler6.post(new PPApplication.PPHandlerThreadRunnable(
-                            context.getApplicationContext()) {
+                    //__handler6.post(new PPApplication.PPHandlerThreadRunnable(
+                    //        context.getApplicationContext()) {
+                    __handler6.post(new Runnable() {
                         @Override
                         public void run() {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationScanner.connect");
 
-                            Context appContext= appContextWeakRef.get();
-                            if (appContext != null) {
-                                PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                            //Context appContext= appContextWeakRef.get();
+                            //if (appContext != null) {
+                                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = null;
                                 try {
                                     if (powerManager != null) {
@@ -98,7 +100,7 @@ class LocationScanner
                                         }
                                     }
                                 }
-                            }
+                            //}
                         }
                     });
                 } catch (Exception ee) {
