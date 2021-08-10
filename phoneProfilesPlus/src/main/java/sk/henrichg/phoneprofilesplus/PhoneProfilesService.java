@@ -4941,8 +4941,8 @@ public class PhoneProfilesService extends Service
             } else
                 PPApplication.logE("*************** PhoneProfilesService.doCommand", "???? OTHER ????");
 
-            PPApplication.startHandlerThreadPPCommand();
-            final Handler __handler = new Handler(PPApplication.handlerThreadPPCommand.getLooper());
+            PPApplication.startHandlerThreadBroadcast();
+            final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             __handler.post(new DoCommandRunnable(
                     getApplicationContext(), _intent) {
                 @Override
