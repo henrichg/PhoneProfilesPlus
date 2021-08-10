@@ -62,7 +62,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
-import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.text.Collator;
@@ -1474,19 +1473,16 @@ public class PPApplication extends Application
             PPApplication.startHandlerThread(/*"AlarmClockBroadcastReceiver.onReceive"*/);
             final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            __handler.post(new Runnable() {
-                @Override
-                public void run() {
+            __handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.addActivityLog");
 
-                    //Context context= appContextWeakRef.get();
-                    if (appContext != null) {
-                        //if (ApplicationPreferences.preferences == null)
-                        //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
-                        //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
-                        DatabaseHandler.getInstance(appContext).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
-                                logType, eventName, profileName, profileIcon, durationDelay, profilesEventsCount);
-                    }
+                //Context context= appContextWeakRef.get();
+                if (appContext != null) {
+                    //if (ApplicationPreferences.preferences == null)
+                    //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
+                    //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
+                    DatabaseHandler.getInstance(appContext).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
+                            logType, eventName, profileName, profileIcon, durationDelay, profilesEventsCount);
                 }
             });
         }
@@ -1896,38 +1892,35 @@ public class PPApplication extends Application
             final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
-            __handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
+            __handler.postDelayed(() -> {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.updateGUI");
 
-                    //Context appContext= appContextWeakRef.get();
-                    //if (appContext != null) {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_updateGUI");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                //Context appContext= appContextWeakRef.get();
+                //if (appContext != null) {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_updateGUI");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-        //                    PPApplication.logE("PPApplication.updateGUI", "call of forceUpdateGUI");
-                            PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
+    //                    PPApplication.logE("PPApplication.updateGUI", "call of forceUpdateGUI");
+                        PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
 
-        //                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.updateGUI");
-                        } catch (Exception e) {
-        //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
-                                }
+    //                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.updateGUI");
+                    } catch (Exception e) {
+    //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
                             }
                         }
-                    //}
-                }
+                    }
+                //}
             }, delay * 1000L);
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -4187,46 +4180,43 @@ public class PPApplication extends Application
                 PPApplication.startHandlerThread(/*"PPApplication.exitApp"*/);
                 final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                 //__handler.post(new ExitAppRunnable(context.getApplicationContext(), dataWrapper, activity) {
-                __handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                __handler.post(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
-                        //Context appContext= appContextWeakRef.get();
-                        //DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                        //Activity activity = activityWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                    //Activity activity = activityWeakRef.get();
 
-                        //if ((appContext != null) && (dataWrapper != null) && (activity != null)) {
-                            PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_exitApp");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
+                    //if ((appContext != null) && (dataWrapper != null) && (activity != null)) {
+                        PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPApplication_exitApp");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
-                                }
-                                _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
-
-                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.exitApp");
-                            } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
                                 }
                             }
-                        //}
-                    }
+                            _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
+
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.exitApp");
+                        } catch (Exception e) {
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
+                        }
+                    //}
                 });
             }
             else

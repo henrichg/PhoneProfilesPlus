@@ -26,44 +26,41 @@ class DrawOverAppsPermissionNotification {
                 final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
-                __handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                __handler.post(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=DrawOverAppsPermissionNotification.showNotification");
 
-                        //Context appContext= appContextWeakRef.get();
-                        //if (appContext != null) {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DrawOverAppsPermissionNotification_showNotification");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
+
                             try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":DrawOverAppsPermissionNotification_showNotification");
-                                    wakeLock.acquire(10 * 60 * 1000);
+                                if (!Settings.canDrawOverlays(appContext)) {
+                                    showNotification(appContext,
+                                            appContext.getString(R.string.draw_over_apps_permission_notification_title),
+                                            appContext.getString(R.string.draw_over_apps_permission_notification_text));
                                 }
+                            } catch (Exception ignore) {
+                            }
 
-                                try {
-                                    if (!Settings.canDrawOverlays(appContext)) {
-                                        showNotification(appContext,
-                                                appContext.getString(R.string.draw_over_apps_permission_notification_title),
-                                                appContext.getString(R.string.draw_over_apps_permission_notification_text));
-                                    }
-                                } catch (Exception ignore) {
-                                }
-
-                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DrawOverAppsPermissionNotification");
-                            } catch (Exception e) {
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=DrawOverAppsPermissionNotification");
+                        } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
                                 }
                             }
-                        //}
-                    }
+                        }
+                    //}
                 });
             }
             else {

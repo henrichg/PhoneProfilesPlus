@@ -139,38 +139,35 @@ public class WifiNetworkCallback extends ConnectivityManager.NetworkCallback {
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        appContext) {
-            __handler.post(new Runnable() {
-                @Override
-                public void run() {
+            __handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=WifiNetworkCallback.doConnection");
 
-                    //Context appContext= appContextWeakRef.get();
-                    //if (appContext != null) {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
-                        try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiNetworkCallback_doConnection_2");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                //Context appContext= appContextWeakRef.get();
+                //if (appContext != null) {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":WifiNetworkCallback_doConnection_2");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
 
-                            WifiNetworkCallback.this._doConnection(appContext);
+                        WifiNetworkCallback.this._doConnection(appContext);
 
 //                    PPApplication.logE("PPApplication.startHandlerThread", "END run - from=WifiNetworkCallback.doConnection");
 
-                        } catch (Exception e) {
+                    } catch (Exception e) {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
-                                }
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
                             }
                         }
-                    //}
-                }
+                    }
+                //}
             });
         }
     }

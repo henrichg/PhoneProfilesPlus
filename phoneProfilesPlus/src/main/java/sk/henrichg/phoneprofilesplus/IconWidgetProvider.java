@@ -17,8 +17,6 @@ import android.widget.RemoteViews;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import java.lang.ref.WeakReference;
-
 public class IconWidgetProvider extends AppWidgetProvider {
 
     static final String ACTION_REFRESH_ICONWIDGET = PPApplication.PACKAGE_NAME + ".ACTION_REFRESH_ICONWIDGET";
@@ -32,18 +30,15 @@ public class IconWidgetProvider extends AppWidgetProvider {
             PPApplication.startHandlerThreadWidget();
             final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
-            __handler.post(new Runnable() {
-                @Override
-                public void run() {
+            __handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onUpdate");
 
-                    //Context appContext= appContextWeakRef.get();
-                    //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                    //if ((appContext != null) && (appWidgetManager != null)) {
-                        _onUpdate(appContext, appWidgetManager, appWidgetIds);
-                    //}
-                }
+                //if ((appContext != null) && (appWidgetManager != null)) {
+                    _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                //}
             });
         }
     }
@@ -521,18 +516,15 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     PPApplication.startHandlerThreadWidget();
                     final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
                     //__handler.post(new PPHandlerThreadRunnable(context, manager) {
-                    __handler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    __handler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
-                            //Context appContext= appContextWeakRef.get();
-                            //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                        //Context appContext= appContextWeakRef.get();
+                        //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                            //if ((appContext != null) && (appWidgetManager != null)) {
-                                _onUpdate(appContext, appWidgetManager, ids);
-                            //}
-                        }
+                        //if ((appContext != null) && (appWidgetManager != null)) {
+                            _onUpdate(appContext, appWidgetManager, ids);
+                        //}
                     });
                 }
             }

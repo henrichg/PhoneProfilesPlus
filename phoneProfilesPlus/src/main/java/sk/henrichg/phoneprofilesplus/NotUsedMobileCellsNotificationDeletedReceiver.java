@@ -25,51 +25,48 @@ public class NotUsedMobileCellsNotificationDeletedReceiver extends BroadcastRece
                 PPApplication.startHandlerThreadBroadcast(/*"NotUsedMobileCellsNotificationDeletedReceiver.onReceive"*/);
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-                __handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                __handler.post(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
 
-                        //Context appContext= appContextWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
 
-                        //if (appContext != null) {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":NotUsedMobileCellsNotificationDeletedReceiver_onReceive");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
+                    //if (appContext != null) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":NotUsedMobileCellsNotificationDeletedReceiver_onReceive");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                                //if (PPApplication.logEnabled()) {
-                                //PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "mobileCellId=" + mobileCellId);
-                                //}
+                            //if (PPApplication.logEnabled()) {
+                            //PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "mobileCellId=" + mobileCellId);
+                            //}
 
-                                DatabaseHandler db = DatabaseHandler.getInstance(appContext);
+                            DatabaseHandler db = DatabaseHandler.getInstance(appContext);
 
-                                List<MobileCellsData> localCellsList = new ArrayList<>();
-                                db.addMobileCellsToList(localCellsList, mobileCellId);
-                                if (!localCellsList.isEmpty()) {
-                                    //PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "save mobile cell");
-                                    MobileCellsData cell = localCellsList.get(0);
-                                    cell.doNotDetect = true;
-                                    db.saveMobileCellsList(localCellsList, true, false);
-                                }
+                            List<MobileCellsData> localCellsList = new ArrayList<>();
+                            db.addMobileCellsToList(localCellsList, mobileCellId);
+                            if (!localCellsList.isEmpty()) {
+                                //PPApplication.logE("NotUsedMobileCellsNotificationDeletedReceiver.onReceive", "save mobile cell");
+                                MobileCellsData cell = localCellsList.get(0);
+                                cell.doNotDetect = true;
+                                db.saveMobileCellsList(localCellsList, true, false);
+                            }
 
-                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
-                            } catch (Exception e) {
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=NotUsedMobileCellsNotificationDeletedReceiver.onReceive");
+                        } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
                                 }
                             }
-                        //}
-                    }
+                        }
+                    //}
                 });
             }
         }

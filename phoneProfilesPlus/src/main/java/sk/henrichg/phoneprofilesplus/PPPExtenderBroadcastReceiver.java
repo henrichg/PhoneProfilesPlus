@@ -63,42 +63,39 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler0.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
-                __handler0.post(new Runnable() {
-                    @Override
-                    public void run() {
+                __handler0.post(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
 
-                        //Context appContext= appContextWeakRef.get();
-                        //if (appContext != null) {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                                if (PhoneProfilesService.getInstance() != null) {
-                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
-                                    dataWrapper.fillEventList();
-                                    //dataWrapper.fillProfileList(false, false);
-                                    PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
-                                }
+                            if (PhoneProfilesService.getInstance() != null) {
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                                dataWrapper.fillEventList();
+                                //dataWrapper.fillProfileList(false, false);
+                                PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
+                            }
 
-                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
-                            } catch (Exception e) {
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
+                        } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
                                 }
                             }
-                        //}
-                    }
+                        }
+                    //}
                 });
                 break;
             case PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED:
@@ -125,49 +122,46 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                             //        context.getApplicationContext()) {
-                            __handler.post(new Runnable() {
-                                @Override
-                                public void run() {
+                            __handler.post(() -> {
 //                                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
 
-                                    //Context appContext= appContextWeakRef.get();
-                                    //if (appContext != null) {
-                                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                                        PowerManager.WakeLock wakeLock = null;
-                                        try {
-                                            if (powerManager != null) {
-                                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_FOREGROUND_APPLICATION_CHANGED");
-                                                wakeLock.acquire(10 * 60 * 1000);
-                                            }
+                                //Context appContext= appContextWeakRef.get();
+                                //if (appContext != null) {
+                                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                                    PowerManager.WakeLock wakeLock = null;
+                                    try {
+                                        if (powerManager != null) {
+                                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_FOREGROUND_APPLICATION_CHANGED");
+                                            wakeLock.acquire(10 * 60 * 1000);
+                                        }
 
-                                            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
-                                            dataWrapper.fillEventList();
-                                            //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                                        dataWrapper.fillEventList();
+                                        //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
 
-                                            EventsHandler eventsHandler = new EventsHandler(appContext);
-                                            if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/)) {
+                                        EventsHandler eventsHandler = new EventsHandler(appContext);
+                                        if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/)) {
 //                                            PPApplication.logE("[EVENTS_HANDLER_CALL] PPPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (1)");
-                                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                                            }
-                                            if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/)) {
+                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                                        }
+                                        if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/)) {
 //                                            PPApplication.logE("[EVENTS_HANDLER_CALL] PPPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (1)");
-                                                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
-                                            }
+                                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+                                        }
 
-                                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
-                                        } catch (Exception e) {
+                                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_FOREGROUND_APPLICATION_CHANGED");
+                                    } catch (Exception e) {
 //                                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                            PPApplication.recordException(e);
-                                        } finally {
-                                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                                try {
-                                                    wakeLock.release();
-                                                } catch (Exception ignored) {
-                                                }
+                                        PPApplication.recordException(e);
+                                    } finally {
+                                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                                            try {
+                                                wakeLock.release();
+                                            } catch (Exception ignored) {
                                             }
                                         }
-                                    //}
-                                }
+                                    }
+                                //}
                             });
                         }
                     }
@@ -187,49 +181,46 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                     final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                     //        context.getApplicationContext()) {
-                    __handler.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    __handler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
 
-                            //Context appContext= appContextWeakRef.get();
-                            //if (appContext != null) {
-                                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                                PowerManager.WakeLock wakeLock = null;
-                                try {
-                                    if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_UNBIND");
-                                        wakeLock.acquire(10 * 60 * 1000);
-                                    }
+                        //Context appContext= appContextWeakRef.get();
+                        //if (appContext != null) {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":PPPExtenderBroadcastReceiver_onReceive_ACTION_ACCESSIBILITY_SERVICE_UNBIND");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
-                                    dataWrapper.fillEventList();
-                                    //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                                dataWrapper.fillEventList();
+                                //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
 
-                                    EventsHandler eventsHandler = new EventsHandler(appContext);
-                                    if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/)) {
+                                EventsHandler eventsHandler = new EventsHandler(appContext);
+                                if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/)) {
 //                                    PPApplication.logE("[EVENTS_HANDLER_CALL] PPPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (2)");
-                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
-                                    }
-                                    if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/)) {
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
+                                }
+                                if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/)) {
 //                                    PPApplication.logE("[EVENTS_HANDLER_CALL] PPPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (2)");
-                                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
-                                    }
+                                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
+                                }
 
-                                    //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
-                                } catch (Exception e) {
+                                //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND");
+                            } catch (Exception e) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                    PPApplication.recordException(e);
-                                } finally {
-                                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                                        try {
-                                            wakeLock.release();
-                                        } catch (Exception ignored) {
-                                        }
+                                PPApplication.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
                                     }
                                 }
-                            //}
-                        }
+                            }
+                        //}
                     });
                 }
                 break;

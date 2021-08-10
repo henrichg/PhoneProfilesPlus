@@ -271,17 +271,14 @@ public class BluetoothScanWorker extends Worker {
                 final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
                 //        context.getApplicationContext()) {
-                __handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                __handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork" + " shortInterval=true");
-                        //Context appContext= appContextWeakRef.get();
-                        //if (appContext != null) {
-                            _cancelWork(appContext);
-                            PPApplication.sleep(5000);
-                            _scheduleWork(appContext, true);
-                        //}
-                    }
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
+                        _cancelWork(appContext);
+                        PPApplication.sleep(5000);
+                        _scheduleWork(appContext, true);
+                    //}
                 });
             }
             else
@@ -380,15 +377,12 @@ public class BluetoothScanWorker extends Worker {
             final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(
             //        context.getApplicationContext()) {
-            __handler.post(new Runnable() {
-                @Override
-                public void run() {
+            __handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.cancelWork");
-                    //Context appContext= appContextWeakRef.get();
-                    //if (appContext != null) {
-                        _cancelWork(appContext);
-                    //}
-                }
+                //Context appContext= appContextWeakRef.get();
+                //if (appContext != null) {
+                    _cancelWork(appContext);
+                //}
             });
         }
         else {

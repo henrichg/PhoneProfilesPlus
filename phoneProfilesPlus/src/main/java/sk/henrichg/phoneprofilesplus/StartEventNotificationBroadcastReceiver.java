@@ -200,42 +200,39 @@ public class StartEventNotificationBroadcastReceiver extends BroadcastReceiver {
             PPApplication.startHandlerThreadBroadcast(/*"StartEventNotificationBroadcastReceiver.doWork"*/);
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
             //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            __handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (event_id != 0) {
+            __handler.post(() -> {
+                if (event_id != 0) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartEventNotificationBroadcastReceiver.doWork");
 
-                        //Context appContext= appContextWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
 
-                        //if (appContext != null) {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":StartEventNotificationBroadcastReceiver_doWork");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
+                    //if (appContext != null) {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":StartEventNotificationBroadcastReceiver_doWork");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                                DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
-                                Event event = databaseHandler.getEvent(event_id);
-                                if (event != null)
-                                    event.notifyEventStart(appContext, true);
+                            DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
+                            Event event = databaseHandler.getEvent(event_id);
+                            if (event != null)
+                                event.notifyEventStart(appContext, true);
 
-                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationBroadcastReceiver.doWork");
-                            } catch (Exception e) {
+                            //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=StartEventNotificationBroadcastReceiver.doWork");
+                        } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
                                 }
                             }
-                        //}
-                    }
+                        }
+                    //}
                 }
             });
         }

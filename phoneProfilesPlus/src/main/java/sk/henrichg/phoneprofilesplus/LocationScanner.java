@@ -61,47 +61,44 @@ class LocationScanner
                     final Handler __handler6 = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
                     //__handler6.post(new PPApplication.PPHandlerThreadRunnable(
                     //        context.getApplicationContext()) {
-                    __handler6.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    __handler6.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=LocationScanner.connect");
 
-                            //Context appContext= appContextWeakRef.get();
-                            //if (appContext != null) {
-                                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                                PowerManager.WakeLock wakeLock = null;
-                                try {
-                                    if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LocationScanner_connect");
-                                        wakeLock.acquire(10 * 60 * 1000);
-                                    }
+                        //Context appContext= appContextWeakRef.get();
+                        //if (appContext != null) {
+                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":LocationScanner_connect");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                                    if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
-                                        LocationScanner scanner = PhoneProfilesService.getInstance().getLocationScanner();
-                                        if (scanner != null) {
-                                            scanner.clearAllEventGeofences();
-                                            //PPApplication.logE("##### LocationScanner.onConnected", "updateTransitionsByLastKnownLocation");
-                                            scanner.startLocationUpdates();
-                                            scanner.updateTransitionsByLastKnownLocation();
-                                        }
-                                    }
-
-                                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LocationScanner.onConnected");
-                                } catch (SecurityException e) {
-                                    //
-                                } catch (Exception e) {
-//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                    PPApplication.recordException(e);
-                                } finally {
-                                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                                        try {
-                                            wakeLock.release();
-                                        } catch (Exception ignored) {
-                                        }
+                                if ((PhoneProfilesService.getInstance() != null) && PhoneProfilesService.getInstance().isLocationScannerStarted()) {
+                                    LocationScanner scanner = PhoneProfilesService.getInstance().getLocationScanner();
+                                    if (scanner != null) {
+                                        scanner.clearAllEventGeofences();
+                                        //PPApplication.logE("##### LocationScanner.onConnected", "updateTransitionsByLastKnownLocation");
+                                        scanner.startLocationUpdates();
+                                        scanner.updateTransitionsByLastKnownLocation();
                                     }
                                 }
-                            //}
-                        }
+
+                                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=LocationScanner.onConnected");
+                            } catch (SecurityException e) {
+                                //
+                            } catch (Exception e) {
+//                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                                PPApplication.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
+                                    }
+                                }
+                            }
+                        //}
                     });
                 } catch (Exception ee) {
                     //Log.e("##### LocationScanner.onConnected", Log.getStackTraceString(e));

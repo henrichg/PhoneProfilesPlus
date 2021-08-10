@@ -17,8 +17,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailManager;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailProvider;
 
-import java.lang.ref.WeakReference;
-
 public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     //private DataWrapper dataWrapper;
@@ -334,26 +332,23 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             PPApplication.startHandlerThreadWidget();
             final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
-            __handler.post(new Runnable() {
-                @Override
-                public void run() {
+            __handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
 
-                    //Context appContext= appContextWeakRef.get();
-                    //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
 
-                    //if ((appContext != null) && (cocktailManager != null)) {
-                        //createProfilesDataWrapper(_context);
+                //if ((appContext != null) && (cocktailManager != null)) {
+                    //createProfilesDataWrapper(_context);
 
-                        for (int cocktailId : cocktailIds) {
-                            doOnUpdate(appContext, cocktailManager, cocktailId, true);
-                        }
+                    for (int cocktailId : cocktailIds) {
+                        doOnUpdate(appContext, cocktailManager, cocktailId, true);
+                    }
 
-                        //if (dataWrapper != null)
-                        //    dataWrapper.invalidateDataWrapper();
-                        //dataWrapper = null;
-                    //}
-                }
+                    //if (dataWrapper != null)
+                    //    dataWrapper.invalidateDataWrapper();
+                    //dataWrapper = null;
+                //}
             });
         }
     }
@@ -375,29 +370,26 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                 PPApplication.startHandlerThreadWidget();
                 final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
                 //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
-                __handler.post(new Runnable() {
-                    @Override
-                    public void run() {
+                __handler.post(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
 
-                        //Context appContext= appContextWeakRef.get();
-                        //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
 
-                        //if ((appContext != null) && (cocktailManager != null)) {
-                            //if (EditorProfilesActivity.doImport)
-                            //    return;
+                    //if ((appContext != null) && (cocktailManager != null)) {
+                        //if (EditorProfilesActivity.doImport)
+                        //    return;
 
-                            //createProfilesDataWrapper(context);
+                        //createProfilesDataWrapper(context);
 
-                            for (int cocktailId : cocktailIds) {
-                                doOnUpdate(appContext, cocktailManager, cocktailId, false);
-                            }
+                        for (int cocktailId : cocktailIds) {
+                            doOnUpdate(appContext, cocktailManager, cocktailId, false);
+                        }
 
-                            //if (dataWrapper != null)
-                            //    dataWrapper.invalidateDataWrapper();
-                            //dataWrapper = null;
-                        //}
-                    }
+                        //if (dataWrapper != null)
+                        //    dataWrapper.invalidateDataWrapper();
+                        //dataWrapper = null;
+                    //}
                 });
             }
         }

@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Icon;
@@ -8,8 +7,6 @@ import android.os.Build;
 import android.os.Handler;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
-
-import java.lang.ref.WeakReference;
 
 public class PPTileService extends TileService {
 
@@ -159,60 +156,57 @@ public class PPTileService extends TileService {
             PPApplication.startHandlerThreadWidget();
             final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
             //__handler.post(new PPHandlerThreadRunnable(getApplicationContext(), tile) {
-            __handler.post(new Runnable() {
-                @Override
-                public void run() {
+            __handler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
-                    //Context appContext= appContextWeakRef.get();
-                    //Tile tile = tileWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //Tile tile = tileWeakRef.get();
 
-                    //if ((appContext != null) && (tile != null)) {
+                //if ((appContext != null) && (tile != null)) {
 
 //                        PPApplication.logE("PPTileService.updateTile", "udate tile");
 
-                        if (PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID) {
-                            tile.setLabel(getString(R.string.menu_restart_events));
+                    if (PPApplication.quickTileProfileId[tileId] == Profile.RESTART_EVENTS_PROFILE_ID) {
+                        tile.setLabel(getString(R.string.menu_restart_events));
+                        if (Build.VERSION.SDK_INT >= 29) {
+                            tile.setSubtitle(null);
+                        }
+                        tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_list_item_events_restart_color_filled));
+                        tile.setState(Tile.STATE_INACTIVE);
+                    }
+                    else {
+                        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0f);
+                        Profile profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], true, false, false);
+                        if (profile != null) {
+                            tile.setLabel(profile._name);
                             if (Build.VERSION.SDK_INT >= 29) {
-                                tile.setSubtitle(null);
-                            }
-                            tile.setIcon(Icon.createWithResource(getApplicationContext(), R.drawable.ic_list_item_events_restart_color_filled));
-                            tile.setState(Tile.STATE_INACTIVE);
-                        }
-                        else {
-                            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0f);
-                            Profile profile = dataWrapper.getProfileById(PPApplication.quickTileProfileId[tileId], true, false, false);
-                            if (profile != null) {
-                                tile.setLabel(profile._name);
-                                if (Build.VERSION.SDK_INT >= 29) {
-                                    if (profile._checked)
-                                        tile.setSubtitle(getString(R.string.quick_tile_subtile_activated));
-                                    else
-                                        tile.setSubtitle(getString(R.string.quick_tile_subtile_not_activated));
-                                }
-
-                                if (profile.getIsIconResourceID()) {
-                                    if (profile._iconBitmap != null)
-                                        tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
-                                    else {
-                                        int res = Profile.getIconResource(profile.getIconIdentifier());
-                                        tile.setIcon(Icon.createWithResource(getApplicationContext(), res));
-                                    }
-                                } else {
-                                    tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
-                                }
-
                                 if (profile._checked)
-                                    tile.setState(Tile.STATE_ACTIVE);
+                                    tile.setSubtitle(getString(R.string.quick_tile_subtile_activated));
                                 else
-                                    tile.setState(Tile.STATE_INACTIVE);
+                                    tile.setSubtitle(getString(R.string.quick_tile_subtile_not_activated));
                             }
-                        }
-                        tile.updateTile();
 
-                        // save tile profileId into SharedPreferences
-                    //}
-                }
+                            if (profile.getIsIconResourceID()) {
+                                if (profile._iconBitmap != null)
+                                    tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
+                                else {
+                                    int res = Profile.getIconResource(profile.getIconIdentifier());
+                                    tile.setIcon(Icon.createWithResource(getApplicationContext(), res));
+                                }
+                            } else {
+                                tile.setIcon(Icon.createWithBitmap(profile._iconBitmap));
+                            }
+
+                            if (profile._checked)
+                                tile.setState(Tile.STATE_ACTIVE);
+                            else
+                                tile.setState(Tile.STATE_INACTIVE);
+                        }
+                    }
+                    tile.updateTile();
+
+                    // save tile profileId into SharedPreferences
+                //}
             });
         } else {
             tile.setLabel(getString(R.string.quick_tile_icon_label));
