@@ -7608,6 +7608,8 @@ public class PhoneProfilesService extends Service
             }
 
         }
+        else
+            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "**** it is not EXTRA_SIMULATE_RINGING_CALL ****");
     }
 
     private void startSimulatingRingingCall(/*int stream,*/ String ringtone, int ringingVolume) {
