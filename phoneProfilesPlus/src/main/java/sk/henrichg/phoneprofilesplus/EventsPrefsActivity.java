@@ -545,7 +545,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         }
     }
 
-    static void saveUpdateOfPreferences(Event event, DataWrapper dataWrapper, final int old_event_status) {
+    static void saveUpdateOfPreferences(final Event event, final DataWrapper dataWrapper, final int old_event_status) {
         // save preferences into profile
         dataWrapper.getEventTimelineList(true);
 
@@ -553,15 +553,16 @@ public class EventsPrefsActivity extends AppCompatActivity {
         {
             PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.1"*/);
             final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            __handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
+            //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.1");
 
-                    DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                    Event event = eventWeakRef.get();
+                    //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                    //Event event = eventWeakRef.get();
 
-                    if ((dataWrapper != null) && (event != null)) {
+                    //if ((dataWrapper != null) && (event != null)) {
                         PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -604,22 +605,23 @@ public class EventsPrefsActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
         }
         else {
             PPApplication.startHandlerThread(/*"EventsPrefsActivity.savePreferences.2"*/);
             final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            __handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
+            //__handler.post(new SaveUpdateOfPreferencesRunnable(dataWrapper, event) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EventsPrefsActivity.saveUpdateOfPreferences.2");
 
-                    DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                    Event event = eventWeakRef.get();
+                    //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                    //Event event = eventWeakRef.get();
 
-                    if ((dataWrapper != null) && (event != null)) {
+                    //if ((dataWrapper != null) && (event != null)) {
                         PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -655,7 +657,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
         }
@@ -972,7 +974,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
             ((EventsPrefsFragment)fragment).changeCurentLightSensorValue();
     }
 
-    private static abstract class SaveUpdateOfPreferencesRunnable implements Runnable {
+/*    private static abstract class SaveUpdateOfPreferencesRunnable implements Runnable {
 
         final WeakReference<DataWrapper> dataWrapperWeakRef;
         final WeakReference<Event> eventWeakRef;
@@ -983,6 +985,6 @@ public class EventsPrefsActivity extends AppCompatActivity {
             this.eventWeakRef = new WeakReference<>(event);
         }
 
-    }
+    }*/
 
 }

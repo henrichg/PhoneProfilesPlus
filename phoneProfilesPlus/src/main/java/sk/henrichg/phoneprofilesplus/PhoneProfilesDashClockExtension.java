@@ -66,17 +66,20 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         //final PhoneProfilesDashClockExtension _instance = instance;
         //final DataWrapper _dataWrapper = dataWrapper;
 
+        final Context appContext = dataWrapper.context;
+
         PPApplication.startHandlerThreadWidget();
         final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-        __handler.post(new PPHandlerThreadRunnable(dataWrapper.context, dataWrapper) {
+        //__handler.post(new PPHandlerThreadRunnable(dataWrapper.context, dataWrapper) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=PhoneProfilesDashClockExtension.onUpdateData");
 
-                Context appContext= appContextWeakRef.get();
-                DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //DataWrapper dataWrapper = dataWrapperWeakRef.get();
 
-                if ((appContext != null) && (dataWrapper != null) && (instance != null)) {
+                if (/*(appContext != null) && (dataWrapper != null) &&*/ (instance != null)) {
 
                     try {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesDashClockExtension.onUpdateData", "do it");
@@ -155,7 +158,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
         onUpdateData(UPDATE_REASON_CONTENT_CHANGED);
     }
 
-    private static abstract class PPHandlerThreadRunnable implements Runnable {
+/*    private static abstract class PPHandlerThreadRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<DataWrapper> dataWrapperWeakRef;
@@ -166,6 +169,6 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
             this.dataWrapperWeakRef = new WeakReference<>(dataWrapper);
         }
 
-    }
+    }*/
 
 }

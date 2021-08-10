@@ -826,20 +826,21 @@ class ActivateProfileHelper {
         if (profile == null)
             return;
 
-        //final Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadRadios();
         final Handler __handler = new Handler(PPApplication.handlerThreadRadios.getLooper());
-        __handler.post(new PPHandlerThreadRunnable(
-                context.getApplicationContext(), profile, executedProfileSharedPreferences) {
+        //__handler.post(new PPHandlerThreadRunnable(
+        //        context.getApplicationContext(), profile, executedProfileSharedPreferences) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadRadios", "START run - from=ActivateProfileHelper.executeForRadios");
 
-                Context appContext= appContextWeakRef.get();
-                Profile profile = profileWeakRef.get();
-                SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //Profile profile = profileWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                if ((appContext != null) && (profile != null) && (executedProfileSharedPreferences != null)) {
+                //if ((appContext != null) && (profile != null) && (executedProfileSharedPreferences != null)) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -886,13 +887,13 @@ class ActivateProfileHelper {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "doExecuteForRadios()");
                         doExecuteForRadios(appContext, profile, executedProfileSharedPreferences);
 
-                /*if (_setAirplaneMode && (!_isAirplaneMode)) {
-                    // 200 milliseconds is in doExecuteForRadios
-                    PPApplication.sleep(1800);
+                        /*if (_setAirplaneMode && (!_isAirplaneMode)) {
+                            // 200 milliseconds is in doExecuteForRadios
+                            PPApplication.sleep(1800);
 
-                    // switch OFF airplane mode, set if after executeForRadios
-                    setAirplaneMode(context, _isAirplaneMode);
-                }*/
+                            // switch OFF airplane mode, set if after executeForRadios
+                            setAirplaneMode(context, _isAirplaneMode);
+                        }*/
 
                         //PPApplication.sleep(500);
 
@@ -908,7 +909,7 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                }
+                //}
             }
         });
     }
@@ -2577,20 +2578,21 @@ class ActivateProfileHelper {
 //            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "forProfileActivation=" + forProfileActivation);
 //        }
 
-        //final Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadVolumes();
         final Handler __handler = new Handler(PPApplication.handlerThreadVolumes.getLooper());
-        __handler.post(new PPHandlerThreadRunnable(
-                context.getApplicationContext(), profile, executedProfileSharedPreferences) {
+        //__handler.post(new PPHandlerThreadRunnable(
+        //        context.getApplicationContext(), profile, executedProfileSharedPreferences) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadVolumes", "START run - from=ActivateProfileHelper.executeForVolumes");
 
-                Context appContext= appContextWeakRef.get();
-                Profile profile = profileWeakRef.get();
-                SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //Profile profile = profileWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                if ((appContext != null) && /*(profile != null) &&*/ (executedProfileSharedPreferences != null)) {
+                //if ((appContext != null) && /*(profile != null) &&*/ (executedProfileSharedPreferences != null)) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -2605,7 +2607,7 @@ class ActivateProfileHelper {
                             if (Permissions.checkPhone(appContext))
                                 linkUnlink = linkUnlinkVolumes;
                         }
-//                PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "linkUnlink=" + linkUnlink);
+//                          PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "linkUnlink=" + linkUnlink);
 
                         if (profile != null) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 1");
@@ -2619,7 +2621,7 @@ class ActivateProfileHelper {
                                     profile.getVolumeSystemChange() ||
                                     profile.getVolumeDTMFChange()) {
 
-//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "change ringer mode");
+//                              PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "change ringer mode");
 
                                 //if (Permissions.checkProfileAccessNotificationPolicy(context, profile, null)) {
                                 if (canChangeZenMode(appContext)) {
@@ -2643,7 +2645,7 @@ class ActivateProfileHelper {
                                     //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
                                     PPApplication.sleep(500);
 
-//                            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
+//                                  PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
                                     setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, true);
 
                                     //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "internalChange=" + RingerModeChangeReceiver.internalChange);
@@ -2653,74 +2655,74 @@ class ActivateProfileHelper {
                                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "start internal change work");
                                     DisableInternalChangeWorker.enqueueWork();
 
-                            /*PPApplication.startHandlerThreadInternalChangeToFalse();
-                            final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PPApplication.logE("ActivateProfileHelper.executeForVolumes", "disable ringer mode change internal change");
-                                    RingerModeChangeReceiver.internalChange = false;
-                                }
-                            }, 3000);*/
-                                    //PostDelayedBroadcastReceiver.setAlarm(
-                                    //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
+                                    /*PPApplication.startHandlerThreadInternalChangeToFalse();
+                                    final Handler handler = new Handler(PPApplication.handlerThreadInternalChangeToFalse.getLooper());
+                                    handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "disable ringer mode change internal change");
+                                            RingerModeChangeReceiver.internalChange = false;
+                                        }
+                                    }, 3000);*/
+                                            //PostDelayedBroadcastReceiver.setAlarm(
+                                            //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, context);
                                 }
                             } else
-                    /*if (profile.getVolumeMediaChange() ||
-                        profile.getVolumeAlarmChange() ||
-                        profile.getVolumeVoiceChange() ||
-                        profile.getVolumeAccessibilityChange() ||
-                        profile.getVolumeBluetoothSCOChange())*/ {
+                            /*if (profile.getVolumeMediaChange() ||
+                                profile.getVolumeAlarmChange() ||
+                                profile.getVolumeVoiceChange() ||
+                                profile.getVolumeAccessibilityChange() ||
+                                profile.getVolumeBluetoothSCOChange())*/ {
                                 // call setVolume() for "Mute sound"
 
-//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "do not change ringer mode");
+//                              PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "do not change ringer mode");
 
                                 int systemZenMode = getSystemZenMode(appContext/*, -1*/);
 
-//                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
+//                              PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setVolumes()");
                                 setVolumes(appContext, profile, audioManager, systemZenMode, linkUnlink, forProfileActivation, false);
                             }
-                    /*else {
-                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ringer mode and volumes are not configured");
-                    }*/
+                            /*else {
+                                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ringer mode and volumes are not configured");
+                            }*/
 
-                    /*
-                    if (profile._volumeSpeakerPhone != 0) {
-                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile._volumeSpeakerPhone="+profile._volumeSpeakerPhone);
-                        boolean savedSpeakerphone = false; audioManager.isSpeakerphoneOn();
-                        boolean changeSpeakerphone = false;
-                        if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
-                            changeSpeakerphone = true;
-                        if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
-                            changeSpeakerphone = true;
-                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "changeSpeakerphone="+changeSpeakerphone);
-                        if (changeSpeakerphone) {
-                            /// activate SpeakerPhone
+                            /*
+                            if (profile._volumeSpeakerPhone != 0) {
+                                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "profile._volumeSpeakerPhone="+profile._volumeSpeakerPhone);
+                                boolean savedSpeakerphone = false; audioManager.isSpeakerphoneOn();
+                                boolean changeSpeakerphone = false;
+                                if (savedSpeakerphone && (profile._volumeSpeakerPhone == 2)) // 2=speakerphone off
+                                    changeSpeakerphone = true;
+                                if ((!savedSpeakerphone) && (profile._volumeSpeakerPhone == 1)) // 1=speakerphone on
+                                    changeSpeakerphone = true;
+                                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "changeSpeakerphone="+changeSpeakerphone);
+                                if (changeSpeakerphone) {
+                                    /// activate SpeakerPhone
 
-                            // not working in EMUI :-/
-                            audioManager.setMode(AudioManager.MODE_IN_CALL);
+                                    // not working in EMUI :-/
+                                    audioManager.setMode(AudioManager.MODE_IN_CALL);
 
-                            // Delay 2 seconds mode changed to MODE_IN_CALL
-                            long start = SystemClock.uptimeMillis();
-                            do {
-                                if (audioManager.getMode() != AudioManager.MODE_IN_CALL) {
-                                    //if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
-                                    PPApplication.logE("ActivateProfileHelper.executeForVolumes", "xxx - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
+                                    // Delay 2 seconds mode changed to MODE_IN_CALL
+                                    long start = SystemClock.uptimeMillis();
+                                    do {
+                                        if (audioManager.getMode() != AudioManager.MODE_IN_CALL) {
+                                            //if (audioManager.getMode() != AudioManager.MODE_IN_COMMUNICATION) {
+                                            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "xxx - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
+                                            PPApplication.sleep(500);
+                                        }
+                                        else
+                                            break;
+                                        PPApplication.logE("ActivateProfileHelper.executeForVolumes", "SystemClock.uptimeMillis() - start="+(SystemClock.uptimeMillis() - start));
+                                    } while (SystemClock.uptimeMillis() - start < (5 * 1000));
+                                    PPApplication.logE("ActivateProfileHelper.executeForVolumes", "yyy - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
+                                    //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "yyy - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
+
                                     PPApplication.sleep(500);
+                                    audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
+                                    PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ACTIVATED SPEAKERPHONE");
                                 }
-                                else
-                                    break;
-                                PPApplication.logE("ActivateProfileHelper.executeForVolumes", "SystemClock.uptimeMillis() - start="+(SystemClock.uptimeMillis() - start));
-                            } while (SystemClock.uptimeMillis() - start < (5 * 1000));
-                            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "yyy - audio mode MODE_IN_CALL="+(audioManager.getMode() == AudioManager.MODE_IN_CALL));
-                            //PPApplication.logE("ActivateProfileHelper.executeForVolumes", "yyy - audio mode MODE_IN_COMMUNICATION="+(audioManager.getMode() == AudioManager.MODE_IN_COMMUNICATION));
-
-                            PPApplication.sleep(500);
-                            audioManager.setSpeakerphoneOn(profile._volumeSpeakerPhone == 1);
-                            PPApplication.logE("ActivateProfileHelper.executeForVolumes", "ACTIVATED SPEAKERPHONE");
-                        }
-                    }
-                    */
+                            }
+                            */
 
                             if (noErrorSetTone) {
                                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForVolumes", "setTones() 2");
@@ -2741,26 +2743,27 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                }
+                //}
             }
         });
     }
 
     private static void setNotificationLed(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
-        //final Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadProfileActivation();
         final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-        __handler.post(new PPHandlerThreadRunnable(
-                context.getApplicationContext(), null, executedProfileSharedPreferences) {
+        //__handler.post(new PPHandlerThreadRunnable(
+        //        context.getApplicationContext(), null, executedProfileSharedPreferences) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setNotificationLed");
 
-                Context appContext= appContextWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
                 //Profile profile = profileWeakRef.get();
-                SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                if ((appContext != null) && /*(profile != null) &&*/ (executedProfileSharedPreferences != null)) {
+                //if ((appContext != null) && /*(profile != null) &&*/ (executedProfileSharedPreferences != null)) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -2774,11 +2777,11 @@ class ActivateProfileHelper {
                             //if (android.os.Build.VERSION.SDK_INT < 23)    // Not working in Android M (exception)
                             //    Settings.System.putInt(appContext.getContentResolver(), "notification_light_pulse"/*Settings.System.NOTIFICATION_LIGHT_PULSE*/, value);
                             //else {
-                    /* not working (private secure settings) :-/
-                    if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                        Settings.System.putInt(context.getContentResolver(), "notification_light_pulse", value);
-                    }
-                    else*/
+                            /* not working (private secure settings) :-/
+                            if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
+                                Settings.System.putInt(context.getContentResolver(), "notification_light_pulse", value);
+                            }
+                            else*/
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
@@ -2809,26 +2812,27 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                }
+                //}
             }
         });
     }
 
     private static void setHeadsUpNotifications(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
-        //final Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadProfileActivation();
         final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-        __handler.post(new PPHandlerThreadRunnable(
-                context.getApplicationContext(), null, executedProfileSharedPreferences) {
+        //__handler.post(new PPHandlerThreadRunnable(
+        //        context.getApplicationContext(), null, executedProfileSharedPreferences) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setHeadsUpNotifications");
 
-                Context appContext= appContextWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
                 //Profile profile = profileWeakRef.get();
-                SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                if ((appContext != null) && /*(profile != null) &&*/ (executedProfileSharedPreferences != null)) {
+                //if ((appContext != null) && /*(profile != null) &&*/ (executedProfileSharedPreferences != null)) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -2874,26 +2878,27 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                }
+                //}
             }
         });
     }
 
     private static void setAlwaysOnDisplay(Context context, final int value, SharedPreferences executedProfileSharedPreferences) {
-        //final Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadProfileActivation();
         final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-        __handler.post(new PPHandlerThreadRunnable(
-                context.getApplicationContext(), null, executedProfileSharedPreferences) {
+        //__handler.post(new PPHandlerThreadRunnable(
+        //        context.getApplicationContext(), null, executedProfileSharedPreferences) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setAlwaysOnDisplay");
 
-                Context appContext= appContextWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
                 //Profile profile = profileWeakRef.get();
-                SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                if ((appContext != null) && /*(profile != null) &&*/ (executedProfileSharedPreferences != null)) {
+                //if ((appContext != null) && /*(profile != null) &&*/ (executedProfileSharedPreferences != null)) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -2938,7 +2943,7 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                }
+                //}
             }
         });
     }
@@ -3420,20 +3425,21 @@ class ActivateProfileHelper {
     private static void executeForWallpaper(Profile profile, Context context) {
         if (profile._deviceWallpaperChange == 1)
         {
-            //final Context appContext = context.getApplicationContext();
+            final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadWallpaper();
             final Handler __handler = new Handler(PPApplication.handlerThreadWallpaper.getLooper());
-            __handler.post(new PPHandlerThreadRunnable(
-                    context.getApplicationContext(), profile, null) {
+            //__handler.post(new PPHandlerThreadRunnable(
+            //        context.getApplicationContext(), profile, null) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
 
-                    Context appContext= appContextWeakRef.get();
-                    Profile profile = profileWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //Profile profile = profileWeakRef.get();
                     //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                    if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+                    //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -3516,7 +3522,7 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
         }
@@ -3525,11 +3531,12 @@ class ActivateProfileHelper {
     private static void executeForRunApplications(Profile profile, Context context) {
         if (profile._deviceRunApplicationChange == 1)
         {
-            //final Context appContext = context.getApplicationContext();
+            final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadRunApplication();
             final Handler __handler = new Handler(PPApplication.handlerThreadRunApplication.getLooper());
-            __handler.post(new PPHandlerThreadRunnable(
-                    context.getApplicationContext(), profile, null) {
+            //__handler.post(new PPHandlerThreadRunnable(
+            //        context.getApplicationContext(), profile, null) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadRunApplication", "START run - from=ActivateProfileHelper.executeForRunApplications");
@@ -3538,11 +3545,11 @@ class ActivateProfileHelper {
                         // not start applications after boot
                         return;
 
-                    Context appContext= appContextWeakRef.get();
-                    Profile profile = profileWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //Profile profile = profileWeakRef.get();
                     //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                    if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+                    //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -3709,7 +3716,7 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
         }
@@ -3793,20 +3800,21 @@ class ActivateProfileHelper {
                     profile.getDeviceBrightnessAdaptiveValue(appContext));
         }
         else {*/
-        //final Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadProfileActivation();
         final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-        __handler.post(new PPHandlerThreadRunnable(
-                context.getApplicationContext(), profile, null) {
+        //__handler.post(new PPHandlerThreadRunnable(
+        //        context.getApplicationContext(), profile, null) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.executeRootForAdaptiveBrightness");
 
-                Context appContext= appContextWeakRef.get();
-                Profile profile = profileWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //Profile profile = profileWeakRef.get();
                 //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+                //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -3844,7 +3852,7 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                }
+                //}
             }
         });
         //}
@@ -6029,20 +6037,21 @@ class ActivateProfileHelper {
 
     private static void setPowerSaveMode(Profile profile, Context context, SharedPreferences executedProfileSharedPreferences) {
         if (profile._devicePowerSaveMode != 0) {
-            //final Context appContext = context.getApplicationContext();
+            final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadProfileActivation();
             final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-            __handler.post(new PPHandlerThreadRunnable(
-                    context.getApplicationContext(), profile, executedProfileSharedPreferences) {
+            //__handler.post(new PPHandlerThreadRunnable(
+            //        context.getApplicationContext(), profile, executedProfileSharedPreferences) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.setPowerSaveMode");
 
-                    Context appContext= appContextWeakRef.get();
-                    Profile profile = profileWeakRef.get();
-                    SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //Profile profile = profileWeakRef.get();
+                    //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                    if ((appContext != null) && (profile != null) && (executedProfileSharedPreferences != null)) {
+                    //if ((appContext != null) && (profile != null) && (executedProfileSharedPreferences != null)) {
 
                         if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
@@ -6111,18 +6120,19 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
         }
     }
 
     private static void lockDevice(Profile profile, Context context) {
-        //final Context appContext = context.getApplicationContext();
+        final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadProfileActivation();
         final Handler __handler = new Handler(PPApplication.handlerThreadProfileActivation.getLooper());
-        __handler.post(new PPHandlerThreadRunnable(
-                context.getApplicationContext(), profile, null) {
+        //__handler.post(new PPHandlerThreadRunnable(
+        //        context.getApplicationContext(), profile, null) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadProfileActivation", "START run - from=ActivateProfileHelper.lockDevice");
@@ -6132,16 +6142,16 @@ class ActivateProfileHelper {
                     // not lock device after boot
                     return;
 
-                Context appContext= appContextWeakRef.get();
-                Profile profile = profileWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //Profile profile = profileWeakRef.get();
                 //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-                if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+                //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
 
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("ActivateProfileHelper.lockDevice", "not blocked");
-                PPApplication.logE("ActivateProfileHelper.lockDevice", "profile._lockDevice=" + profile._lockDevice);
-            }*/
+                    /*if (PPApplication.logEnabled()) {
+                        PPApplication.logE("ActivateProfileHelper.lockDevice", "not blocked");
+                        PPApplication.logE("ActivateProfileHelper.lockDevice", "profile._lockDevice=" + profile._lockDevice);
+                    }*/
 
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
@@ -6171,17 +6181,17 @@ class ActivateProfileHelper {
                                 if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                         (PPApplication.isRooted(false))) {
                                     synchronized (PPApplication.rootMutex) {
-                                /*String command1 = "input keyevent 26";
-                                Command command = new Command(0, false, command1);
-                                try {
-                                    roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                    commandWait(command);
-                                } catch (RootDeniedException e) {
-                                    PPApplication.rootMutex.rootGranted = false;
-                                    Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
-                                } catch (Exception e) {
-                                    Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
-                                }*/
+                                        /*String command1 = "input keyevent 26";
+                                        Command command = new Command(0, false, command1);
+                                        try {
+                                            roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                            commandWait(command);
+                                        } catch (RootDeniedException e) {
+                                            PPApplication.rootMutex.rootGranted = false;
+                                            Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                        } catch (Exception e) {
+                                            Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                        }*/
                                         String command1 = PPApplication.getJavaCommandFile(CmdGoToSleep.class, "power", appContext, 0);
                                         if (command1 != null) {
                                             Command command = new Command(0, false, command1);
@@ -6196,27 +6206,27 @@ class ActivateProfileHelper {
                                         }
                                     }
                                 }
-                        /*if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
-                                (PPApplication.isRooted() && PPApplication.serviceBinaryExists())) {
-                            synchronized (PPApplication.rootMutex) {
-                                try {
-                                    // Get the value of the "TRANSACTION_goToSleep" field.
-                                    String transactionCode = PPApplication.getTransactionCode("android.os.IPowerManager", "TRANSACTION_goToSleep");
-                                    String command1 = "service call power " + transactionCode + " i64 " + SystemClock.uptimeMillis();
-                                    Command command = new Command(0, false, command1);
-                                    try {
-                                        roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                        commandWait(command);
-                                    } catch (RootDeniedException e) {
-                                        PPApplication.rootMutex.rootGranted = false;
-                                        Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
-                                    } catch (Exception e) {
-                                        Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                /*if ((!ApplicationPreferences.applicationNeverAskForGrantRoot(context)) &&
+                                        (PPApplication.isRooted() && PPApplication.serviceBinaryExists())) {
+                                    synchronized (PPApplication.rootMutex) {
+                                        try {
+                                            // Get the value of the "TRANSACTION_goToSleep" field.
+                                            String transactionCode = PPApplication.getTransactionCode("android.os.IPowerManager", "TRANSACTION_goToSleep");
+                                            String command1 = "service call power " + transactionCode + " i64 " + SystemClock.uptimeMillis();
+                                            Command command = new Command(0, false, command1);
+                                            try {
+                                                roottools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                                commandWait(command);
+                                            } catch (RootDeniedException e) {
+                                                PPApplication.rootMutex.rootGranted = false;
+                                                Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                            } catch (Exception e) {
+                                                Log.e("ActivateProfileHelper.lockDevice", Log.getStackTraceString(e));
+                                            }
+                                        } catch(Exception ignored) {
+                                        }
                                     }
-                                } catch(Exception ignored) {
-                                }
-                            }
-                        */
+                                */
                                 break;
                             case 3:
                                 Intent intent = new Intent(PPApplication.ACTION_LOCK_DEVICE);
@@ -6234,7 +6244,7 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                }
+                //}
             }
         });
     }
@@ -6909,7 +6919,7 @@ class ActivateProfileHelper {
 
     }
 
-    private static abstract class PPHandlerThreadRunnable implements Runnable {
+/*    private static abstract class PPHandlerThreadRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<Profile> profileWeakRef;
@@ -6923,6 +6933,6 @@ class ActivateProfileHelper {
             this.executedProfileSharedPreferencesWeakRef = new WeakReference<>(executedProfileSharedPreferences);
         }
 
-    }
+    }*/
 
 }

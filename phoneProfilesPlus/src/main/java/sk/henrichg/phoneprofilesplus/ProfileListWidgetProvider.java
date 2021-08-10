@@ -634,24 +634,26 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         }
     }
 
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, final int[] appWidgetIds)
+    public void onUpdate(Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds)
     {
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
 //        PPApplication.logE("[IN_LISTENER] ProfileListWidgetProvider.onUpdate", "xxx");
         if (appWidgetIds.length > 0) {
 
+            final Context appContext = context;
             PPApplication.startHandlerThreadWidget();
             final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            __handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
+            //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onUpdate");
                     //createProfilesDataWrapper(_context);
 
-                    Context appContext= appContextWeakRef.get();
-                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                    if ((appContext != null) && (appWidgetManager != null)) {
+                    //if ((appContext != null) && (appWidgetManager != null)) {
 
                         for (int appWidgetId : appWidgetIds) {
                             doOnUpdate(appContext, appWidgetManager, appWidgetId, true);
@@ -660,7 +662,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                         //if (dataWrapper != null)
                         //    dataWrapper.invalidateDataWrapper();
                         //dataWrapper = null;
-                    }
+                    //}
                 }
             });
         }
@@ -677,21 +679,23 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             if (action.equalsIgnoreCase("com.motorola.blur.home.ACTION_SET_WIDGET_SIZE")) {
                 //final int spanX = intent.getIntExtra("spanX", 1);
                 //final int spanY = intent.getIntExtra("spanY", 1);
-                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
                 final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
 
                 if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
+                    final Context appContext = context;
                     PPApplication.startHandlerThreadWidget();
                     final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                    __handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
+                    //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
+                    __handler.post(new Runnable() {
                         @Override
                         public void run() {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (1)");
 
-                            Context appContext= appContextWeakRef.get();
-                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                            //Context appContext= appContextWeakRef.get();
+                            //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                            if ((appContext != null) && (appWidgetManager != null)) {
+                            //if ((appContext != null) && (appWidgetManager != null)) {
                                 for (int appWidgetId : appWidgetIds) {
                                     //boolean isLargeLayout = setLayoutParamsMotorola(context, spanX, spanY, appWidgetId);
                                     RemoteViews layout;
@@ -703,7 +707,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                                         PPApplication.recordException(e);
                                     }
                                 }
-                            }
+                            //}
                         }
                     });
                 }
@@ -714,21 +718,23 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 final int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, ProfileListWidgetProvider.class));
 
                 if ((appWidgetIds != null) && (appWidgetIds.length > 0)) {
+                    final Context appContext = context;
                     PPApplication.startHandlerThreadWidget();
                     final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                    __handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
+                    //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
+                    __handler.post(new Runnable() {
                         @Override
                         public void run() {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onReceive (2)");
 
-                            Context appContext= appContextWeakRef.get();
-                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                            //Context appContext= appContextWeakRef.get();
+                            //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                            if ((appContext != null) && (appWidgetManager != null)) {
+                            //if ((appContext != null) && (appWidgetManager != null)) {
                                 for (int appWidgetId : appWidgetIds) {
                                     doOnUpdate(appContext, appWidgetManager, appWidgetId, false);
                                 }
-                            }
+                            //}
                         }
                     });
                 }
@@ -807,22 +813,24 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
     }
     */
 
-    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager,
+    public void onAppWidgetOptionsChanged(Context context, final AppWidgetManager appWidgetManager,
             final int appWidgetId, final Bundle newOptions)
     {
 //        PPApplication.logE("[IN_LISTENER] ProfileListWidgetProvider.onAppWidgetOptionsChanged", "xxx");
 
+        final Context appContext = context;
         PPApplication.startHandlerThreadWidget();
         final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-        __handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
+        //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=ProfileListWidgetProvider.onAppWidgetOptionsChanged");
 
-                Context appContext= appContextWeakRef.get();
-                AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                if ((appContext != null) && (appWidgetManager != null)) {
+                //if ((appContext != null) && (appWidgetManager != null)) {
                     //createProfilesDataWrapper(context);
 
                     String preferenceKey = "isLargeLayout_" + appWidgetId;
@@ -838,7 +846,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //if (dataWrapper != null)
                     //    dataWrapper.invalidateDataWrapper();
                     //dataWrapper = null;
-                }
+                //}
             }
         });
 
@@ -931,7 +939,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         //dataWrapper = null;
     }
 
-    private static abstract class PPHandlerThreadRunnable implements Runnable {
+/*    private static abstract class PPHandlerThreadRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<AppWidgetManager> appWidgetManagerWeakRef;
@@ -942,6 +950,6 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             this.appWidgetManagerWeakRef = new WeakReference<>(appWidgetManager);
         }
 
-    }
+    }*/
 
 }

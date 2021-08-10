@@ -137,17 +137,19 @@ public class RingtonePreferenceX extends DialogPreference {
         //PPApplication.logE("RingtonePreferenceFragmentX.stopPlayRingtone", "xxx");
         final AudioManager audioManager = (AudioManager) prefContext.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
+            final Context appContext = prefContext.getApplicationContext();
             PPApplication.startHandlerThreadPlayTone();
             final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-            __handler.post(new StopPlayRingtoneRunnable(prefContext.getApplicationContext(), audioManager) {
+            //__handler.post(new StopPlayRingtoneRunnable(prefContext.getApplicationContext(), audioManager) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceFragmentX.stopPlayRingtone");
 
-                    Context appContext = appContextWeakRef.get();
-                    AudioManager audioManager = audioManagerWeakRef.get();
+                    //Context appContext = appContextWeakRef.get();
+                    //AudioManager audioManager = audioManagerWeakRef.get();
 
-                    if ((appContext != null) && (audioManager != null) && (ringtoneUri != null)) {
+                    if (/*(appContext != null) && (audioManager != null) &&*/ (ringtoneUri != null)) {
                         if (playTimer != null) {
                             playTimer.cancel();
                             playTimer = null;
@@ -187,19 +189,21 @@ public class RingtonePreferenceX extends DialogPreference {
         final AudioManager audioManager = (AudioManager)prefContext.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
 
-            Uri _ringtoneUri = Uri.parse(ringtoneUri);
+            final Uri _ringtoneUri = Uri.parse(ringtoneUri);
 
+            final Context appContext = prefContext.getApplicationContext();
             PPApplication.startHandlerThreadPlayTone();
             final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-            __handler.post(new PlayRingtoneRunnable(prefContext.getApplicationContext(),
-                                    audioManager, _ringtoneUri) {
+            //__handler.post(new PlayRingtoneRunnable(prefContext.getApplicationContext(),
+            //                        audioManager, _ringtoneUri) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Context appContext = appContextWeakRef.get();
-                    AudioManager audioManager = audioManagerWeakRef.get();
-                    Uri ringtoneUri = ringtoneUriWeakRef.get();
+                    //Context appContext = appContextWeakRef.get();
+                    //AudioManager audioManager = audioManagerWeakRef.get();
+                    //Uri ringtoneUri = ringtoneUriWeakRef.get();
 
-                    if ((appContext != null) && (audioManager != null) && (ringtoneUri != null)) {
+                    if (/*(appContext != null) && (audioManager != null) &&*/ (_ringtoneUri != null)) {
 
                         try {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=RingtonePreferenceX.playRingtone");
@@ -218,7 +222,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                 if (mediaPlayer == null)
                                     mediaPlayer = new MediaPlayer();
 
-                                mediaPlayer.setDataSource(appContext, ringtoneUri);
+                                mediaPlayer.setDataSource(appContext, _ringtoneUri);
                             }
 
                             RingerModeChangeReceiver.internalChange = true;
@@ -283,13 +287,13 @@ public class RingtonePreferenceX extends DialogPreference {
                             ringtoneIsPlayed = true;
 
                             playTimer = new Timer();
-                            playTimer.schedule(new PlayRingtoneTimerTask(appContext, audioManager) {
+                            playTimer.schedule(new TimerTask() {
                                 @Override
                                 public void run() {
-                                    Context _appContext = appContextWeakRef.get();
-                                    AudioManager _audioManager = audioManagerWeakRef.get();
+                                    //Context _appContext = appContextWeakRef.get();
+                                    //AudioManager _audioManager = audioManagerWeakRef.get();
 
-                                    if ((_appContext != null) && (_audioManager != null)) {
+                                    //if ((_appContext != null) && (_audioManager != null)) {
                                         if (mediaPlayer != null) {
                                             try {
                                                 if (mediaPlayer.isPlaying())
@@ -304,9 +308,9 @@ public class RingtonePreferenceX extends DialogPreference {
                                             }
 
                                             if (oldMediaVolume > -1)
-                                                ActivateProfileHelper.setMediaVolume(_appContext, _audioManager, oldMediaVolume);
+                                                ActivateProfileHelper.setMediaVolume(appContext, audioManager, oldMediaVolume);
                                             if (oldMediaMuted)
-                                                _audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
+                                                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
                                             //PPApplication.logE("RingtonePreferenceX.playRingtone", "play stopped");
                                         }
 
@@ -327,7 +331,7 @@ public class RingtonePreferenceX extends DialogPreference {
                                         //        PostDelayedBroadcastReceiver.ACTION_RINGER_MODE_INTERNAL_CHANGE_TO_FALSE, 3, prefContext);
 
                                         playTimer = null;
-                                    }
+                                    //}
                                 }
                             }, mediaPlayer.getDuration());
 
@@ -663,7 +667,7 @@ public class RingtonePreferenceX extends DialogPreference {
 
     }
 
-    private static abstract class PlayRingtoneRunnable implements Runnable {
+/*    private static abstract class PlayRingtoneRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<AudioManager> audioManagerWeakRef;
@@ -677,9 +681,9 @@ public class RingtonePreferenceX extends DialogPreference {
             this.ringtoneUriWeakRef = new WeakReference<>(ringtoneUri);
         }
 
-    }
+    }*/
 
-    private static abstract class PlayRingtoneTimerTask extends TimerTask {
+/*    private static abstract class PlayRingtoneTimerTask extends TimerTask {
         public final WeakReference<Context> appContextWeakRef;
         public final WeakReference<AudioManager> audioManagerWeakRef;
 
@@ -688,9 +692,9 @@ public class RingtonePreferenceX extends DialogPreference {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.audioManagerWeakRef = new WeakReference<>(audioManager);
         }
-    }
+    }*/
 
-    private static abstract class StopPlayRingtoneRunnable implements Runnable {
+/*    private static abstract class StopPlayRingtoneRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<AudioManager> audioManagerWeakRef;
@@ -701,6 +705,6 @@ public class RingtonePreferenceX extends DialogPreference {
             this.audioManagerWeakRef = new WeakReference<>(audioManager);
         }
 
-    }
+    }*/
 
 }

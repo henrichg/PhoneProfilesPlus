@@ -143,18 +143,21 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             preference.resetSummary();
         }
 
+        final Context appContext = context.getApplicationContext();
+        final AudioManager audioManager = preference.audioManager;
         PPApplication.startHandlerThreadPlayTone();
         final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-        __handler.post(new StopPlayRingtoneRunnable(
-                context.getApplicationContext(), preference.audioManager) {
+        //__handler.post(new StopPlayRingtoneRunnable(
+        //        context.getApplicationContext(), preference.audioManager) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onDialogClosed");
 
-                Context appContext = appContextWeakRef.get();
-                AudioManager audioManager = audioManagerWeakRef.get();
+                //Context appContext = appContextWeakRef.get();
+                //AudioManager audioManager = audioManagerWeakRef.get();
 
-                if ((appContext != null) && (audioManager != null)) {
+                //if ((appContext != null) && (audioManager != null)) {
                     if (preference.defaultValueMusic != -1)
                         ActivateProfileHelper.setMediaVolume(appContext, audioManager, preference.defaultValueMusic);
                     if (preference.oldMediaMuted)
@@ -172,7 +175,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                             //PPApplication.recordException(e);
                         }
                     }
-                }
+                //}
             }
         });
 
@@ -249,18 +252,21 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                 preference.audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, AudioManager.FLAG_REMOVE_SOUND_AND_VIBRATE);
             ActivateProfileHelper.setMediaVolume(context, preference.audioManager, volume);
 
+            final Context appContext = context.getApplicationContext();
+            final AudioManager audioManager = preference.audioManager;
             PPApplication.startHandlerThreadPlayTone();
             final Handler __handler = new Handler(PPApplication.handlerThreadPlayTone.getLooper());
-            __handler.post(new PlayRingtoneRunnable(
-                    context.getApplicationContext(), preference.audioManager) {
+            //__handler.post(new PlayRingtoneRunnable(
+            //        context.getApplicationContext(), preference.audioManager) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPlayTone", "START run - from=VolumeDialogPreferenceFragmentX.onStopTrackingTouch");
 
-                    Context appContext = appContextWeakRef.get();
-                    AudioManager audioManager = audioManagerWeakRef.get();
+                    //Context appContext = appContextWeakRef.get();
+                    //AudioManager audioManager = audioManagerWeakRef.get();
 
-                    if ((appContext != null) && (audioManager != null)) {
+                    //if ((appContext != null) && (audioManager != null)) {
 
                         if (VolumeDialogPreferenceX.mediaPlayer != null) {
                             try {
@@ -337,7 +343,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
                             //Log.e("VolumeDialogPreferenceFragmentX.onStopTrackingTouch", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         }
-                    }
+                    //}
                 }
             });
             /*
@@ -349,7 +355,7 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
         //}
     }
 
-    private static abstract class PlayRingtoneRunnable implements Runnable {
+/*    private static abstract class PlayRingtoneRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<AudioManager> audioManagerWeakRef;
@@ -360,9 +366,9 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             this.audioManagerWeakRef = new WeakReference<>(audioManager);
         }
 
-    }
+    }*/
 
-    private static abstract class StopPlayRingtoneRunnable implements Runnable {
+/*    private static abstract class StopPlayRingtoneRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<AudioManager> audioManagerWeakRef;
@@ -373,5 +379,5 @@ public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCom
             this.audioManagerWeakRef = new WeakReference<>(audioManager);
         }
 
-    }
+    }*/
 }

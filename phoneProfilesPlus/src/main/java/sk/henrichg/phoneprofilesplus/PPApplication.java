@@ -1470,19 +1470,21 @@ public class PPApplication extends Application
                                final String profileName, final String profileIcon,
                                final int durationDelay, final String profilesEventsCount) {
         if (PPApplication.prefActivityLogEnabled) {
+            final Context appContext = context;
             PPApplication.startHandlerThread(/*"AlarmClockBroadcastReceiver.onReceive"*/);
             final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            __handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+            //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.addActivityLog");
 
-                    Context context= appContextWeakRef.get();
-                    if (context != null) {
+                    //Context context= appContextWeakRef.get();
+                    if (appContext != null) {
                         //if (ApplicationPreferences.preferences == null)
                         //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                         //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
-                        DatabaseHandler.getInstance(context).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
+                        DatabaseHandler.getInstance(appContext).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
                                 logType, eventName, profileName, profileIcon, durationDelay, profilesEventsCount);
                     }
                 }
@@ -1892,14 +1894,15 @@ public class PPApplication extends Application
 
             PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
             final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-            __handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
-                    context.getApplicationContext()) {
+            //__handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
+            //        context.getApplicationContext()) {
+            __handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.updateGUI");
 
-                    Context appContext= appContextWeakRef.get();
-                    if (appContext != null) {
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -1908,12 +1911,12 @@ public class PPApplication extends Application
                                 wakeLock.acquire(10 * 60 * 1000);
                             }
 
-//                    PPApplication.logE("PPApplication.updateGUI", "call of forceUpdateGUI");
+        //                    PPApplication.logE("PPApplication.updateGUI", "call of forceUpdateGUI");
                             PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
 
-//                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.updateGUI");
+        //                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.updateGUI");
                         } catch (Exception e) {
-//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+        //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                             PPApplication.recordException(e);
                         } finally {
                             if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -1923,7 +1926,7 @@ public class PPApplication extends Application
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             }, delay * 1000L);
         } catch (Exception e) {
@@ -4177,22 +4180,23 @@ public class PPApplication extends Application
         }
     }
 
-    static void exitApp(final boolean useHandler, Context context, DataWrapper dataWrapper, Activity activity,
+    static void exitApp(final boolean useHandler, final Context context, final DataWrapper dataWrapper, final Activity activity,
                                  final boolean shutdown/*, final boolean killProcess*//*, final boolean removeAlarmClock*/) {
         try {
             if (useHandler) {
                 PPApplication.startHandlerThread(/*"PPApplication.exitApp"*/);
                 final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                __handler.post(new ExitAppRunnable(context.getApplicationContext(), dataWrapper, activity) {
+                //__handler.post(new ExitAppRunnable(context.getApplicationContext(), dataWrapper, activity) {
+                __handler.post(new Runnable() {
                     @Override
                     public void run() {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PPApplication.exitApp");
 
-                        Context appContext= appContextWeakRef.get();
-                        DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                        Activity activity = activityWeakRef.get();
+                        //Context appContext= appContextWeakRef.get();
+                        //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                        //Activity activity = activityWeakRef.get();
 
-                        if ((appContext != null) && (dataWrapper != null) && (activity != null)) {
+                        //if ((appContext != null) && (dataWrapper != null) && (activity != null)) {
                             PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
                             try {
@@ -4221,7 +4225,7 @@ public class PPApplication extends Application
                                     }
                                 }
                             }
-                        }
+                        //}
                     }
                 });
             }
@@ -4449,7 +4453,7 @@ public class PPApplication extends Application
         }
     }
 
-    static abstract class PPHandlerThreadRunnable implements Runnable {
+/*    static abstract class PPHandlerThreadRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
 
@@ -4457,9 +4461,9 @@ public class PPApplication extends Application
             this.appContextWeakRef = new WeakReference<>(appContext);
         }
 
-    }
+    }*/
 
-    private static abstract class ExitAppRunnable implements Runnable {
+/*    private static abstract class ExitAppRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<DataWrapper> dataWrapperWeakRef;
@@ -4471,7 +4475,7 @@ public class PPApplication extends Application
             this.activityWeakRef = new WeakReference<>(activity);
         }
 
-    }
+    }*/
 
     //--------------------
 

@@ -148,7 +148,7 @@ public class PPTileService extends TileService {
     }
 
     void updateTile() {
-        Tile tile = getQsTile();
+        final Tile tile = getQsTile();
         if (tile == null)
             return;
 
@@ -156,16 +156,18 @@ public class PPTileService extends TileService {
 
         int tileId = getTileId();
         if ((PPApplication.quickTileProfileId[tileId] != 0) && (PPApplication.quickTileProfileId[tileId] != -1)) {
+            PPApplication.startHandlerThreadWidget();
             final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            __handler.post(new PPHandlerThreadRunnable(getApplicationContext(), tile) {
+            //__handler.post(new PPHandlerThreadRunnable(getApplicationContext(), tile) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=IconWidgetProvider.onReceive");
 
-                    Context appContext= appContextWeakRef.get();
-                    Tile tile = tileWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //Tile tile = tileWeakRef.get();
 
-                    if ((appContext != null) && (tile != null)) {
+                    //if ((appContext != null) && (tile != null)) {
 
 //                        PPApplication.logE("PPTileService.updateTile", "udate tile");
 
@@ -209,7 +211,7 @@ public class PPTileService extends TileService {
                         tile.updateTile();
 
                         // save tile profileId into SharedPreferences
-                    }
+                    //}
                 }
             });
         } else {
@@ -220,7 +222,7 @@ public class PPTileService extends TileService {
         }
     }
 
-    private static abstract class PPHandlerThreadRunnable implements Runnable {
+/*    private static abstract class PPHandlerThreadRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<Tile> tileWeakRef;
@@ -231,6 +233,6 @@ public class PPTileService extends TileService {
             this.tileWeakRef = new WeakReference<>(tile);
         }
 
-    }
+    }*/
 
 }

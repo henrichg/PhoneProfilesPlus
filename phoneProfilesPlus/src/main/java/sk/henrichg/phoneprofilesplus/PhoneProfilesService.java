@@ -67,7 +67,6 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -4946,24 +4945,29 @@ public class PhoneProfilesService extends Service
             } else
                 PPApplication.logE("*************** PhoneProfilesService.doCommand", "???? OTHER ????");
 
+            final Context appContext = getApplicationContext();
+            final Intent intent = _intent;
+
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            __handler.post(new DoCommandRunnable(
-                    getApplicationContext(), _intent) {
+//            __handler.post(new DoCommandRunnable(
+//                    getApplicationContext(), _intent) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPCommand", "START run - from=PhoneProfilesService.doCommand");
+                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadBroadcast", "START run - from=PhoneProfilesService.doCommand");
 
-                    Context appContext= appContextWeakRef.get();
-                    Intent intent = intentWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //Intent intent = intentWeakRef.get();
                     //Profile profile = profileWeakRef.get();
                     //Activity activity = activityWeakRef.get();
-                    if (appContext == null)
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPCommand", "!!! appContext == null !!!");
-                    if (intent == null)
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPCommand", "!!! intent == null !!!");
 
-                    if ((appContext != null) && (intent != null)) {
+                    //if (appContext == null)
+                    //    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadBroadcast", "!!! appContext == null !!!");
+                    //if (intent == null)
+                    //    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadBroadcast", "!!! intent == null !!!");
+
+                    //if ((appContext != null) && (intent != null)) {
 
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
@@ -5404,7 +5408,7 @@ public class PhoneProfilesService extends Service
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
         }
@@ -8518,19 +8522,19 @@ public class PhoneProfilesService extends Service
 
     //--------------------------
 
+/*
     private static abstract class DoCommandRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<Intent> intentWeakRef;
 
-        DoCommandRunnable(Context appContext,
-                                       Intent intent) {
+        DoCommandRunnable(Context appContext, Intent intent) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.intentWeakRef = new WeakReference<>(intent);
         }
 
     }
-
+*/
 
     //---------------------------
 

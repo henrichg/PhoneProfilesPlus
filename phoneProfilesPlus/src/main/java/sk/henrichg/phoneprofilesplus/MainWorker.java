@@ -665,13 +665,15 @@ public class MainWorker extends Worker {
     }
     */
 
-    private static void doAfterFirstStart(Context appContext,
+    private static void doAfterFirstStart(Context context,
                                           boolean activateProfiles,
                                           boolean startForExternalApplication,
                                           String startForExternalAppAction,
                                           int startForExternalAppDataType,
                                           String startForExternalAppDataValue) {
         PPApplication.logE("------- MainWorker.doAfterFirstStart", "START");
+
+        final Context appContext = context.getApplicationContext();
 
         //BootUpReceiver.bootUpCompleted = true;
 
@@ -692,7 +694,7 @@ public class MainWorker extends Worker {
 
         //}
 
-        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
+        final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
 
         if (Event.getGlobalEventsRunning()) {
             PPApplication.logE("MainWorker.doAfterFirstStart", "global event run is enabled, first start events");
@@ -725,16 +727,17 @@ public class MainWorker extends Worker {
             // !!! Worker do not have Looper !!!
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            __handler.post(new PPHandlerThreadRunnable(
-                    appContext, dataWrapper) {
+            //__handler.post(new PPHandlerThreadRunnable(
+            //        appContext, dataWrapper) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
                     PPApplication.logE("MainWorker.doAfterFirstStart", "START");
 
-                    Context appContext= appContextWeakRef.get();
-                    DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //DataWrapper dataWrapper = dataWrapperWeakRef.get();
 
-                    if ((appContext != null) && (dataWrapper != null)) {
+                    //if ((appContext != null) && (dataWrapper != null)) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -787,7 +790,7 @@ public class MainWorker extends Worker {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
 
@@ -823,16 +826,17 @@ public class MainWorker extends Worker {
             // !!! Worker do not have Looper !!!
             PPApplication.startHandlerThreadBroadcast();
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            __handler.post(new PPHandlerThreadRunnable(
-                    appContext, dataWrapper) {
+            //__handler.post(new PPHandlerThreadRunnable(
+            //        appContext, dataWrapper) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
                     PPApplication.logE("MainWorker.doAfterFirstStart", "START");
 
-                    Context appContext= appContextWeakRef.get();
-                    DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //DataWrapper dataWrapper = dataWrapperWeakRef.get();
 
-                    if ((appContext != null) && (dataWrapper != null)) {
+                    //if ((appContext != null) && (dataWrapper != null)) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -860,7 +864,7 @@ public class MainWorker extends Worker {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
 
@@ -902,7 +906,7 @@ public class MainWorker extends Worker {
         PPApplication.logE("------- MainWorker.doAfterFirstStart", "END");
     }
 
-    private static abstract class PPHandlerThreadRunnable implements Runnable {
+/*    private static abstract class PPHandlerThreadRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<DataWrapper> dataWrapperWeakRef;
@@ -913,6 +917,6 @@ public class MainWorker extends Worker {
             this.dataWrapperWeakRef = new WeakReference<>(dataWrapper);
         }
 
-    }
+    }*/
 
 }

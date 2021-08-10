@@ -67,17 +67,19 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 }
             }
 
+            final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadBroadcast(/*"BluetoothConnectionBroadcastReceiver.onReceive"*/);
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            __handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
+            //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothConnectionBroadcastReceiver.onReceive");
 
-                    Context appContext= appContextWeakRef.get();
-                    BluetoothDevice device = deviceWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //BluetoothDevice device = deviceWeakRef.get();
 
-                    if ((appContext != null) && (device != null)) {
+                    //if ((appContext != null) && (device != null)) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -175,7 +177,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
         }
@@ -464,7 +466,7 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    private static abstract class PPHandlerThreadRunnable implements Runnable {
+/*    private static abstract class PPHandlerThreadRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<BluetoothDevice> deviceWeakRef;
@@ -475,6 +477,6 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             this.deviceWeakRef = new WeakReference<>(device);
         }
 
-    }
+    }*/
 
 }

@@ -677,7 +677,7 @@ public class EditorEventListFragment extends Fragment
         onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex);
     }
 
-    boolean runStopEvent(Event event) {
+    boolean runStopEvent(final Event event) {
         if (Event.getGlobalEventsRunning()) {
             // events are not globally stopped
 
@@ -687,17 +687,19 @@ public class EditorEventListFragment extends Fragment
                     // pause event
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
 
+                    final DataWrapper dataWrapper = activityDataWrapper;
                     PPApplication.startHandlerThread();
                     final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                    __handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
+                    //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
+                    __handler.post(new Runnable() {
                         @Override
                         public void run() {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
-                            DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                            Event event = eventWeakRef.get();
+                            //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                            //Event event = eventWeakRef.get();
 
-                            if ((dataWrapper != null) && (event != null)) {
+                            //if ((dataWrapper != null) && (event != null)) {
                                 PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                                 PowerManager.WakeLock wakeLock = null;
                                 try {
@@ -722,7 +724,7 @@ public class EditorEventListFragment extends Fragment
                                         }
                                     }
                                 }
-                            }
+                            //}
                         }
                     });
 
@@ -734,17 +736,19 @@ public class EditorEventListFragment extends Fragment
             } else {
                 // stop event
 
+                final DataWrapper dataWrapper = activityDataWrapper;
                 PPApplication.startHandlerThread();
                 final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                __handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
+                //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
+                __handler.post(new Runnable() {
                     @Override
                     public void run() {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
 
-                        DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                        Event event = eventWeakRef.get();
+                        //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                        //Event event = eventWeakRef.get();
 
-                        if ((dataWrapper != null) && (event != null)) {
+                        //if ((dataWrapper != null) && (event != null)) {
                             PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
                             PowerManager.WakeLock wakeLock = null;
                             try {
@@ -769,7 +773,7 @@ public class EditorEventListFragment extends Fragment
                                     }
                                 }
                             }
-                        }
+                        //}
                     }
                 });
 
@@ -2189,7 +2193,7 @@ public class EditorEventListFragment extends Fragment
 
     }
 
-    private static abstract class RunStopEventRunnable implements Runnable {
+/*    private static abstract class RunStopEventRunnable implements Runnable {
 
         final WeakReference<DataWrapper> dataWrapperWeakRef;
         final WeakReference<Event> eventWeakRef;
@@ -2200,6 +2204,6 @@ public class EditorEventListFragment extends Fragment
             this.eventWeakRef = new WeakReference<>(event);
         }
 
-    }
+    }*/
 
 }

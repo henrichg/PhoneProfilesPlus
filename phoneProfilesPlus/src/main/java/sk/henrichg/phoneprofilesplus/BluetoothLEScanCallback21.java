@@ -38,17 +38,19 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                 return;
         }
 
+        final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadPPScanners();
         final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-        __handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
+        //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
+        __handler.post(new Runnable() {
             @Override
             public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=BluetoothLEScanCallback21.onScanResult");
 
-                Context appContext= appContextWeakRef.get();
-                BluetoothDevice device = deviceWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //BluetoothDevice device = deviceWeakRef.get();
 
-                if ((appContext != null) && (device != null)) {
+                //if ((appContext != null) && (device != null)) {
                     PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                     PowerManager.WakeLock wakeLock = null;
                     try {
@@ -74,7 +76,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                             }
                         }
                     }
-                }
+                //}
             }
         });
     }
@@ -100,19 +102,21 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         for (ScanResult result : results) {
             //PPApplication.logE("BluetoothLEScanCallback21", "onBatchScanResults - result=" + result.toString());
 
-            BluetoothDevice device = result.getDevice();
+            final BluetoothDevice device = result.getDevice();
 
+            final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadPPScanners();
             final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-            __handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
+            //__handler.post(new PPHandlerThreadRunnable(context.getApplicationContext(), device) {
+            __handler.post(new Runnable() {
                 @Override
                 public void run() {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadBluetoothLECallback", "START run - from=BluetoothLEScanCallback21.onBatchScanResults");
 
-                    Context appContext= appContextWeakRef.get();
-                    BluetoothDevice device = deviceWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //BluetoothDevice device = deviceWeakRef.get();
 
-                    if ((appContext != null) && (device != null)) {
+                    //if ((appContext != null) && (device != null)) {
                         PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                         PowerManager.WakeLock wakeLock = null;
                         try {
@@ -143,7 +147,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
                                 }
                             }
                         }
-                    }
+                    //}
                 }
             });
 
@@ -158,7 +162,7 @@ class BluetoothLEScanCallback21 extends ScanCallback {
         PPApplication.logToCrashlytics("E/BluetoothLEScanCallback21.onScanFailed: errorCode=" + errorCode);
     }
 
-    private static abstract class PPHandlerThreadRunnable implements Runnable {
+/*    private static abstract class PPHandlerThreadRunnable implements Runnable {
 
         final WeakReference<Context> appContextWeakRef;
         final WeakReference<BluetoothDevice> deviceWeakRef;
@@ -169,6 +173,6 @@ class BluetoothLEScanCallback21 extends ScanCallback {
             this.deviceWeakRef = new WeakReference<>(device);
         }
 
-    }
+    }*/
 
 }
