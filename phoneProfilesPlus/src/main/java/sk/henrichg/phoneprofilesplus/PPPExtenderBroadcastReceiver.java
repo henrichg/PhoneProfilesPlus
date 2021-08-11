@@ -49,7 +49,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         if ((intent == null) || (intent.getAction() == null))
             return;
 
-        PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "action="+intent.getAction());
+//        PPApplication.logE("PPPExtenderBroadcastReceiver.onReceive", "action="+intent.getAction());
 
         final Context appContext = context.getApplicationContext();
 

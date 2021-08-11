@@ -92,7 +92,7 @@ public class WifiScanWorker extends Worker {
                             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
                             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo)) {
                         // not scan wi-fi in configured time
-                        PPApplication.logE("WifiScanWorker.doWork", "-- END - scan in time = 2 -------");
+//                        PPApplication.logE("WifiScanWorker.doWork", "-- END - scan in time = 2 -------");
                         cancelWork(context, false/*, null*/);
                         return Result.success();
                     }
@@ -200,7 +200,7 @@ public class WifiScanWorker extends Worker {
                                     ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo)) {
                                 interval = 2 * interval;
-                                PPApplication.logE("WifiScanWorker._scheduleWork", "scan in time - 2x interval");
+//                                PPApplication.logE("WifiScanWorker._scheduleWork", "scan in time - 2x interval");
                             }
                         }
                     }

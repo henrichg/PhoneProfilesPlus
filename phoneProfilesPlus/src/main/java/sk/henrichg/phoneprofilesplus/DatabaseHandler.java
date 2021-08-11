@@ -11659,8 +11659,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 } while (cursorExportedDB.moveToNext());
             }
 
-            //// TU mUSI BYT UPDATE volanim updateDb()
-
             cursorExportedDB.close();
             cursorImportDB.close();
         } finally {

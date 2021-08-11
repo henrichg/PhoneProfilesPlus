@@ -290,7 +290,7 @@ class LocationScanner
                                                     ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
                                                     ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo)) {
                                                 // not scan wi-fi in configured time
-                                                PPApplication.logE("LocationScanner.startLocationUpdates", "-- END - scan in time = 2 -------");
+//                                                PPApplication.logE("LocationScanner.startLocationUpdates", "-- END - scan in time = 2 -------");
                                                 canScan = false;
                                             }
                                         }

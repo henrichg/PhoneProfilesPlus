@@ -88,7 +88,7 @@ public class BluetoothScanWorker extends Worker {
                             ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
                             ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo)) {
                         // not scan bluetooth in configured time
-                        PPApplication.logE("BluetoothScanWorker.doWork", "-- END - scan in time = 2 -------");
+//                        PPApplication.logE("BluetoothScanWorker.doWork", "-- END - scan in time = 2 -------");
                         cancelWork(context, false/*, null*/);
                         return Result.success();
                     }
@@ -198,7 +198,7 @@ public class BluetoothScanWorker extends Worker {
                                     ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo)) {
                                 interval = 2 * interval;
-                                PPApplication.logE("BluetoothScanWorker._scheduleWork", "scan in time - 2x interval");
+//                                PPApplication.logE("BluetoothScanWorker._scheduleWork", "scan in time - 2x interval");
                             }
                         }
                     }

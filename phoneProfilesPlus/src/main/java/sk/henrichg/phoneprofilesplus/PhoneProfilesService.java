@@ -198,7 +198,7 @@ public class PhoneProfilesService extends Service
     private final BroadcastReceiver commandReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            PPApplication.logE("[IN_BROADCAST] PhoneProfilesService.commandReceiver", "xxx");
+//            PPApplication.logE("[IN_BROADCAST] PhoneProfilesService.commandReceiver", "xxx");
             doCommand(intent);
         }
     };
@@ -4871,77 +4871,77 @@ public class PhoneProfilesService extends Service
     }
 
     private void doCommand(Intent _intent) {
-        PPApplication.logE("*************** PhoneProfilesService.doCommand", "xxxxxx");
+//        PPApplication.logE("*************** PhoneProfilesService.doCommand", "xxxxxx");
         if (_intent != null) {
-            if (_intent.getBooleanExtra(EXTRA_SWITCH_KEYGUARD, false)) {
-                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_SWITCH_KEYGUARD");
-            } else if (_intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_WORKERS, false)) {
-                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_WORKERS");
-            } else if (_intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, false)) {
-                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS");
-            } else if (_intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, false)) {
-                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_WORKERS");
-            } else if (_intent.getBooleanExtra(EXTRA_REGISTER_CONTENT_OBSERVERS, false)) {
-                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_REGISTER_CONTENT_OBSERVERS");
-            } else if (_intent.getBooleanExtra(EXTRA_REGISTER_CALLBACKS, false)) {
-                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_REGISTER_CALLBACKS");
-            } else if (_intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
-                PPApplication.logE("*************** PhoneProfilesService.doCommand", "******** EXTRA_SIMULATE_RINGING_CALL ********");
-            } else if (_intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {
-                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
-            } else if (_intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
-                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_START_STOP_SCANNER");
-
-                switch (_intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
-                    case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_RESTART_MOBILE_CELLS_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_MOBILE_CELLS_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_FORCE_START_MOBILE_CELLS_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_FORCE_START_MOBILE_CELLS_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_RESTART_LOCATION_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_LOCATION_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_FORCE_START_ORIENTATION_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_FORCE_START_ORIENTATION_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_RESTART_TWILIGHT_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_TWILIGHT_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_RESTART_NOTIFICATION_SCANNER:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_NOTIFICATION_SCANNER");
-                        break;
-                    case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
-                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
-                        break;
-                }
-
-            } else
-                PPApplication.logE("*************** PhoneProfilesService.doCommand", "???? OTHER ????");
+//            if (_intent.getBooleanExtra(EXTRA_SWITCH_KEYGUARD, false)) {
+//                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_SWITCH_KEYGUARD");
+//            } else if (_intent.getBooleanExtra(EXTRA_REGISTER_RECEIVERS_AND_WORKERS, false)) {
+//                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_REGISTER_RECEIVERS_AND_WORKERS");
+//            } else if (_intent.getBooleanExtra(EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS, false)) {
+//                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_UNREGISTER_RECEIVERS_AND_WORKERS");
+//            } else if (_intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, false)) {
+//                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_WORKERS");
+//            } else if (_intent.getBooleanExtra(EXTRA_REGISTER_CONTENT_OBSERVERS, false)) {
+//                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_REGISTER_CONTENT_OBSERVERS");
+//            } else if (_intent.getBooleanExtra(EXTRA_REGISTER_CALLBACKS, false)) {
+//                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_REGISTER_CALLBACKS");
+//            } else if (_intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
+//                PPApplication.logE("*************** PhoneProfilesService.doCommand", "******** EXTRA_SIMULATE_RINGING_CALL ********");
+//            } else if (_intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {
+//                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
+//            } else if (_intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
+//                PPApplication.logE("*************** PhoneProfilesService.doCommand", "EXTRA_START_STOP_SCANNER");
+//
+//                switch (_intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
+//                    case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_WIFI_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_RESTART_BLUETOOTH_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_BLUETOOTH_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_RESTART_MOBILE_CELLS_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_MOBILE_CELLS_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_FORCE_START_MOBILE_CELLS_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_FORCE_START_MOBILE_CELLS_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_RESTART_LOCATION_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_LOCATION_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_RESTART_ORIENTATION_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_ORIENTATION_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_FORCE_START_ORIENTATION_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_FORCE_START_ORIENTATION_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_RESTART_TWILIGHT_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_TWILIGHT_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_RESTART_NOTIFICATION_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_NOTIFICATION_SCANNER");
+//                        break;
+//                    case PPApplication.SCANNER_RESTART_ALL_SCANNERS:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_ALL_SCANNERS");
+//                        break;
+//                }
+//
+//            } else
+//                PPApplication.logE("*************** PhoneProfilesService.doCommand", "???? OTHER ????");
 
             final Context appContext = getApplicationContext();
             final Intent intent = _intent;
@@ -4951,7 +4951,7 @@ public class PhoneProfilesService extends Service
 //            __handler.post(new DoCommandRunnable(
 //                    getApplicationContext(), _intent) {
             __handler.post(() -> {
-                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadBroadcast", "START run - from=PhoneProfilesService.doCommand");
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadBroadcast", "START run - from=PhoneProfilesService.doCommand");
 
                 //Context appContext= appContextWeakRef.get();
                 //Intent intent = intentWeakRef.get();
@@ -4973,7 +4973,7 @@ public class PhoneProfilesService extends Service
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        PPApplication.logE("[IN_THREAD_HANDLER]  PhoneProfilesService.doCommand", "--- START");
+//                        PPApplication.logE("[IN_THREAD_HANDLER]  PhoneProfilesService.doCommand", "--- START");
 
                         PhoneProfilesService ppService = PhoneProfilesService.getInstance();
 
@@ -5065,7 +5065,7 @@ public class PhoneProfilesService extends Service
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REGISTER_CALLBACKS");
                                 ppService.registerAllTheTimeCallbacks(true);
                             } else if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false)) {
-                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "******** EXTRA_SIMULATE_RINGING_CALL ********");
+//                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "******** EXTRA_SIMULATE_RINGING_CALL ********");
                                 ppService.doSimulatingRingingCall(intent);
                             } else if (intent.getBooleanExtra(EXTRA_RESCAN_SCANNERS, false)) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_RESCAN_SCANNERS");
@@ -5391,10 +5391,10 @@ public class PhoneProfilesService extends Service
 
                         }
 
-                        PPApplication.logE("[IN_THREAD_HANDLER]  PhoneProfilesService.doCommand", "--- END");
+//                        PPApplication.logE("[IN_THREAD_HANDLER]  PhoneProfilesService.doCommand", "--- END");
 
                     } catch (Exception e) {
-                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
                         PPApplication.recordException(e);
                     } finally {
                         if ((wakeLock != null) && wakeLock.isHeld()) {
@@ -5407,8 +5407,8 @@ public class PhoneProfilesService extends Service
                 //}
             });
         }
-        else
-            PPApplication.logE("*************** PhoneProfilesService.doCommand", "intent=null");
+//        else
+//            PPApplication.logE("*************** PhoneProfilesService.doCommand", "intent=null");
     }
 
 
@@ -7074,7 +7074,7 @@ public class PhoneProfilesService extends Service
                             ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
                             ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
                         // not scan in configured time
-                        PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors", "-- END - scan in time = 2 -------");
+//                        PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors", "-- END - scan in time = 2 -------");
                         return;
                     }
                 }
@@ -7095,7 +7095,7 @@ public class PhoneProfilesService extends Service
                             ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
                             ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
                         interval = 2 * interval;
-                        PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors", "scan in time - 2x interval");
+//                        PPApplication.logE("PhoneProfilesService.startListeningOrientationSensors", "scan in time - 2x interval");
                     }
                 }
             }
@@ -7308,7 +7308,7 @@ public class PhoneProfilesService extends Service
     private void doSimulatingRingingCall(Intent intent) {
         if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false))
         {
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulate ringing call");
+//            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulate ringing call");
 
             Context context = getApplicationContext();
 
@@ -7317,17 +7317,15 @@ public class PhoneProfilesService extends Service
             // wait for change ringer mode + volume
             PPApplication.sleep(1500);
 
-            //TODO toto je OK
             int oldRingerMode = intent.getIntExtra(EXTRA_OLD_RINGER_MODE, 0);
             //int oldSystemRingerMode = intent.getIntExtra(EXTRA_OLD_SYSTEM_RINGER_MODE, 0);
             int oldZenMode = intent.getIntExtra(EXTRA_OLD_ZEN_MODE, 0);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingerMode="+oldRingerMode);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldZenMode="+oldZenMode);
+//            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingerMode="+oldRingerMode);
+//            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldZenMode="+oldZenMode);
 
             int fromSIMSlot = intent.getIntExtra(EXTRA_CALL_FROM_SIM_SLOT, 0);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "fromSIMSlot="+fromSIMSlot);
+//            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "fromSIMSlot="+fromSIMSlot);
 
-            //TODO toto je OK
             String oldRingtone = intent.getStringExtra(EXTRA_OLD_RINGTONE);
             Context appContext = context.getApplicationContext();
             final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
@@ -7349,32 +7347,31 @@ public class PhoneProfilesService extends Service
             }
             if (oldRingtone == null)
                 oldRingtone = "";
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingtone="+oldRingtone);
+//            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "oldRingtone="+oldRingtone);
 
-            //TODO !!! toto treba z profilu
             int newRingerMode;
             int newZenMode;
             int ringerModeFromProfile = intent.getIntExtra(EXTRA_NEW_RINGER_MODE, 0);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringerModeFromProfile="+ringerModeFromProfile);
+//            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringerModeFromProfile="+ringerModeFromProfile);
             if (ringerModeFromProfile != 0) {
                 newRingerMode = ringerModeFromProfile;
                 newZenMode = Profile.ZENMODE_ALL;
                 if (ringerModeFromProfile == Profile.RINGERMODE_ZENMODE) {
                     newZenMode = intent.getIntExtra(EXTRA_NEW_RINGER_MODE, Profile.ZENMODE_ALL);
-                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "zenModeFromProfile="+newZenMode);
+//                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "zenModeFromProfile="+newZenMode);
                 }
             }
             else {
                 newRingerMode = ApplicationPreferences.prefRingerMode;
                 newZenMode = ApplicationPreferences.prefZenMode;
             }
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingerMode="+newRingerMode);
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newZenMode="+newZenMode);
+//            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingerMode="+newRingerMode);
+//            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newZenMode="+newZenMode);
 
             String phoneNumber = "";
             if (PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_6_1))
                 phoneNumber = ApplicationPreferences.prefEventCallPhoneNumber;
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "phoneNumber="+phoneNumber);
+//            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "phoneNumber="+phoneNumber);
 
             String newRingtone = "";
             // get ringtone from contact
@@ -7390,7 +7387,7 @@ public class PhoneProfilesService extends Service
                             newRingtone = "";
                         else
                             ringtoneFromContact = true;
-                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from contact="+newRingtone);
+//                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from contact="+newRingtone);
                         phoneNumberFound = true;
                     }
                     contactLookupCursor.close();
@@ -7402,31 +7399,30 @@ public class PhoneProfilesService extends Service
                 newRingtone = "";
             }
 
-            //TODO !!! toto treba z profilu
             if ((!phoneNumberFound) || newRingtone.isEmpty()) {
                 ringtoneFromContact = false;
 
                 int ringtoneChangeFromProfile = intent.getIntExtra(EXTRA_NEW_RINTONE_CHANGE, 0);
-                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneChangeFromProfile="+ringtoneChangeFromProfile);
+//                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneChangeFromProfile="+ringtoneChangeFromProfile);
                 if (ringtoneChangeFromProfile != 0) {
                     String ringtoneFromProfile = intent.getStringExtra(EXTRA_NEW_RINGTONE);
-                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneFromProfile="+ringtoneFromProfile);
+//                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneFromProfile="+ringtoneFromProfile);
                     String[] splits = ringtoneFromProfile.split("\\|");
                     if (!splits[0].isEmpty()) {
                         newRingtone = splits[0];
                     }
                 }
-                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "fromSIMSlot="+fromSIMSlot);
+//                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "fromSIMSlot="+fromSIMSlot);
                 if (fromSIMSlot > 0) {
                     if (telephonyManager != null) {
                         int phoneCount = telephonyManager.getPhoneCount();
                         if (phoneCount > 1) {
                             if (fromSIMSlot == 1) {
                                 ringtoneChangeFromProfile = intent.getIntExtra(EXTRA_NEW_RINTONE_CHANGE_SIM1, 0);
-                                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneChangeFromProfile (sim1)="+ringtoneChangeFromProfile);
+//                                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneChangeFromProfile (sim1)="+ringtoneChangeFromProfile);
                                 if (ringtoneChangeFromProfile != 0) {
                                     String ringtoneFromProfile = intent.getStringExtra(EXTRA_NEW_RINGTONE_SIM1);
-                                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneFromProfile (sim1)="+ringtoneFromProfile);
+//                                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneFromProfile (sim1)="+ringtoneFromProfile);
                                     String[] splits = ringtoneFromProfile.split("\\|");
                                     if (!splits[0].isEmpty()) {
                                         newRingtone = splits[0];
@@ -7435,10 +7431,10 @@ public class PhoneProfilesService extends Service
                             }
                             if (fromSIMSlot == 2) {
                                 ringtoneChangeFromProfile = intent.getIntExtra(EXTRA_NEW_RINTONE_CHANGE_SIM2, 0);
-                                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneChangeFromProfile (sim2)="+ringtoneChangeFromProfile);
+//                                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneChangeFromProfile (sim2)="+ringtoneChangeFromProfile);
                                 if (ringtoneChangeFromProfile != 0) {
                                     String ringtoneFromProfile = intent.getStringExtra(EXTRA_NEW_RINGTONE_SIM2);
-                                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneFromProfile (sim2)="+ringtoneFromProfile);
+//                                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneFromProfile (sim2)="+ringtoneFromProfile);
                                     String[] splits = ringtoneFromProfile.split("\\|");
                                     if (!splits[0].isEmpty()) {
                                         newRingtone = splits[0];
@@ -7456,7 +7452,7 @@ public class PhoneProfilesService extends Service
                             newRingtone = uri.toString();
                         else
                             newRingtone = "";
-                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings="+newRingtone);
+//                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings="+newRingtone);
 
                         if (fromSIMSlot > 0) {
                             if (telephonyManager != null) {
@@ -7467,26 +7463,26 @@ public class PhoneProfilesService extends Service
                                             String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
                                             if (_uri != null)
                                                 newRingtone = _uri;
-                                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings (sim1)="+newRingtone);
+//                                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings (sim1)="+newRingtone);
                                         }
                                         if (fromSIMSlot == 2) {
                                             String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_2");
                                             if (_uri != null)
                                                 newRingtone = _uri;
-                                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings (sim2)="+newRingtone);
+//                                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings (sim2)="+newRingtone);
                                         }
                                     } else if (PPApplication.deviceIsHuawei && (PPApplication.romIsEMUI)) {
                                         if (fromSIMSlot == 1) {
                                             String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone");
                                             if (_uri != null)
                                                 newRingtone = _uri;
-                                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings (sim1)="+newRingtone);
+//                                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings (sim1)="+newRingtone);
                                         }
                                         if (fromSIMSlot == 2) {
                                             String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone2");
                                             if (_uri != null)
                                                 newRingtone = _uri;
-                                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings (sim2)="+newRingtone);
+//                                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings (sim2)="+newRingtone);
                                         }
                                     } else if (PPApplication.deviceIsXiaomi && (PPApplication.romIsMIUI)) {
                                         int useUniform = Settings.System.getInt(appContext.getContentResolver(), "ringtone_sound_use_uniform", 1);
@@ -7495,13 +7491,13 @@ public class PhoneProfilesService extends Service
                                             String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_1");
                                             if (_uri != null)
                                                 newRingtone = _uri;
-                                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings (sim1)="+newRingtone);
+//                                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings (sim1)="+newRingtone);
                                         }
                                         if ((fromSIMSlot == 2) || (useUniform == 0)) {
                                             String _uri = Settings.System.getString(appContext.getContentResolver(), "ringtone_sound_slot_2");
                                             if (_uri != null)
                                                 newRingtone = _uri;
-                                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings (sim2)="+newRingtone);
+//                                            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone from settings (sim2)="+newRingtone);
                                         }
                                     }
                                 }
@@ -7516,11 +7512,11 @@ public class PhoneProfilesService extends Service
                     }
                 }
             }
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone="+newRingtone);
+//            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "newRingtone="+newRingtone);
 
             if (ActivateProfileHelper.isAudibleRinging(newRingerMode, newZenMode)) {
 
-                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "new sound mode is audible");
+//                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "new sound mode is audible");
 
                 boolean simulateRinging = false;
                 //int stream = AudioManager.STREAM_RING;
@@ -7546,7 +7542,7 @@ public class PhoneProfilesService extends Service
                        if (!ActivateProfileHelper.isAudibleRinging(oldRingerMode, oldZenMode)) {
                            simulateRinging = true;
                            //stream = AudioManager.STREAM_ALARM;
-                           PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "old sound mode is not audible");
+//                           PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "old sound mode is not audible");
                        }
                     //}
 
@@ -7594,19 +7590,18 @@ public class PhoneProfilesService extends Service
                 if (oldRingtone.isEmpty() || (!newRingtone.isEmpty() && !newRingtone.equals(oldRingtone)))
                     simulateRinging = true;
 
-                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulateRinging=" + simulateRinging);
+//                PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "simulateRinging=" + simulateRinging);
 
                 if (simulateRinging) {
-                    //TODO !!! toto treba z profilu
                     int _ringingVolume;
                     String ringtoneVolumeFromProfile = intent.getStringExtra(EXTRA_NEW_RINGER_VOLUME);
-                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneVolumeFromProfile=" + ringtoneVolumeFromProfile);
+//                    PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringtoneVolumeFromProfile=" + ringtoneVolumeFromProfile);
                     if (Profile.getVolumeRingtoneChange(ringtoneVolumeFromProfile)) {
-                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringing volume from profile");
+//                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringing volume from profile");
                         _ringingVolume = Profile.getVolumeRingtoneValue(ringtoneVolumeFromProfile);
                     }
                     else {
-                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringing volume from system");
+//                        PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "ringing volume from system");
                         _ringingVolume = ringingVolume;
                     }
                     startSimulatingRingingCall(/*stream,*/ newRingtone, _ringingVolume);
@@ -7614,13 +7609,13 @@ public class PhoneProfilesService extends Service
             }
 
         }
-        else
-            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "**** it is not EXTRA_SIMULATE_RINGING_CALL ****");
+//        else
+//            PPApplication.logE("PhoneProfilesService.doSimulatingRingingCall", "**** it is not EXTRA_SIMULATE_RINGING_CALL ****");
     }
 
     private void startSimulatingRingingCall(/*int stream,*/ String ringtone, int ringingVolume) {
         stopSimulatingRingingCall(/*true*/true);
-        PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringingCallIsSimulating="+ringingCallIsSimulating);
+//        PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringingCallIsSimulating="+ringingCallIsSimulating);
         if (!ringingCallIsSimulating) {
             //PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "stream="+stream);
             if (audioManager == null )
@@ -7655,7 +7650,7 @@ public class PhoneProfilesService extends Service
                     return;
             }*/
 
-            PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringtone="+ringtone);
+//            PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringtone="+ringtone);
 
             if ((ringtone != null) && !ringtone.isEmpty()) {
                 RingerModeChangeReceiver.internalChange = true;
@@ -7710,7 +7705,7 @@ public class PhoneProfilesService extends Service
                         int maximumRingValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
                         int maximumMediaValue = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
 
-                        PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringingVolume="+ringingVolume);
+//                        PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringingVolume="+ringingVolume);
                         float percentage = (float) ringingVolume / maximumRingValue * 100.0f;
                         int mediaRingingVolume = Math.round(maximumMediaValue / 100.0f * percentage);
 
@@ -7725,12 +7720,12 @@ public class PhoneProfilesService extends Service
                         ringingMediaPlayer.start();
 
                         ringingCallIsSimulating = true;
-                        PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing played");
+//                        PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "ringing played");
                     //} else
                     //    PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", "focus not granted");
                 }
                 catch (Exception e) {
-                    PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", Log.getStackTraceString(e));
+//                    PPApplication.logE("PhoneProfilesService.startSimulatingRingingCall", Log.getStackTraceString(e));
                     ringingMediaPlayer = null;
 
                     DisableInternalChangeWorker.enqueueWork();
@@ -7754,7 +7749,7 @@ public class PhoneProfilesService extends Service
 
     public void stopSimulatingRingingCall(/*boolean abandonFocus*/boolean disableInternalChange) {
         //if (ringingCallIsSimulating) {
-            PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "xxx");
+//            PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "xxx");
             if (audioManager == null )
                 audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
@@ -7784,7 +7779,7 @@ public class PhoneProfilesService extends Service
                     PPApplication.recordException(e);
                 }
 
-                PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "ringing stopped");
+//                PPApplication.logE("PhoneProfilesService.stopSimulatingRingingCall", "ringing stopped");
             }
             /*if (abandonFocus) {
                 if (audioManager != null)

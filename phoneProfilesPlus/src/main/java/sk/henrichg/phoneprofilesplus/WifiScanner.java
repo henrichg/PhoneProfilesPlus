@@ -83,7 +83,7 @@ class WifiScanner {
                                 ApplicationPreferences.applicationEventWifiScanInTimeMultiplyFrom,
                                 ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo)) {
                             // not scan wi-fi in configured time
-                            PPApplication.logE("%%%% WifiScanner.doScan", "-- END - scan in time = 2 -------");
+//                            PPApplication.logE("%%%% WifiScanner.doScan", "-- END - scan in time = 2 -------");
                             return;
                         }
                     }

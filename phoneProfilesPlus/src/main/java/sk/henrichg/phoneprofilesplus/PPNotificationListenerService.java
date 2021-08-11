@@ -92,7 +92,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo)) {
                     // not scan in configured time
-                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "-- END - scan in time = 2 -------");
+//                    PPApplication.logE("PPNotificationListenerService.onNotificationPosted", "-- END - scan in time = 2 -------");
                     return;
                 }
             }
@@ -250,7 +250,7 @@ public class PPNotificationListenerService extends NotificationListenerService {
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventNotificationScanInTimeMultiplyTo)) {
                     // not scan in configured time
-                    PPApplication.logE("PPNotificationListenerService.onNotificationRemoved", "-- END - scan in time = 2 -------");
+//                    PPApplication.logE("PPNotificationListenerService.onNotificationRemoved", "-- END - scan in time = 2 -------");
                     return;
                 }
             }

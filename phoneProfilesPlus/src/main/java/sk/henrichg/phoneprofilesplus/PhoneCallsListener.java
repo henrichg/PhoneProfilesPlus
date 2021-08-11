@@ -307,10 +307,10 @@ public class PhoneCallsListener extends PhoneStateListener {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        PPApplication.logE("PhoneCallsListener.callAnswered", "incoming="+incoming);
+//        PPApplication.logE("PhoneCallsListener.callAnswered", "incoming="+incoming);
 
         if (PhoneProfilesService.getInstance() != null) {
-            PPApplication.logE("PhoneCallsListener.callAnswered", "call of stopSimulatingRingingCall");
+//            PPApplication.logE("PhoneCallsListener.callAnswered", "call of stopSimulatingRingingCall");
             PhoneProfilesService.getInstance().stopSimulatingRingingCall(true);
         }
 
@@ -390,15 +390,15 @@ public class PhoneCallsListener extends PhoneStateListener {
         if (audioManager == null )
             audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
 
-        if (PPApplication.logEnabled()) {
-            PPApplication.logE("PhoneCallsListener.callEnded", "incoming=" + incoming);
-            PPApplication.logE("PhoneCallsListener.callEnded", "missed=" + missed);
-//            PPApplication.logE("PhoneCallsListener.callEnded", "speakerphoneSelected=" + speakerphoneSelected);
-//            PPApplication.logE("PhoneCallsListener.callEnded", "savedSpeakerphone=" + savedSpeakerphone);
-        }
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("PhoneCallsListener.callEnded", "incoming=" + incoming);
+//            PPApplication.logE("PhoneCallsListener.callEnded", "missed=" + missed);
+////            PPApplication.logE("PhoneCallsListener.callEnded", "speakerphoneSelected=" + speakerphoneSelected);
+////            PPApplication.logE("PhoneCallsListener.callEnded", "savedSpeakerphone=" + savedSpeakerphone);
+//        }
 
         if (PhoneProfilesService.getInstance() != null) {
-            PPApplication.logE("PhoneCallsListener.callEnded", "call of stopSimulatingRingingCall");
+//            PPApplication.logE("PhoneCallsListener.callEnded", "call of stopSimulatingRingingCall");
             PhoneProfilesService.getInstance().stopSimulatingRingingCall(false);
         }
 

@@ -291,7 +291,7 @@ class OrientationScanner implements SensorEventListener {
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
                                 // not scan in configured time
-                                PPApplication.logE("OrientationScanner.runEventsHandlerForOrientationChange", "-- END - scan in time = 2 -------");
+//                                PPApplication.logE("OrientationScanner.runEventsHandlerForOrientationChange", "-- END - scan in time = 2 -------");
                                 return;
                             }
                         }
@@ -308,7 +308,7 @@ class OrientationScanner implements SensorEventListener {
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventOrientationScanInTimeMultiplyTo)) {
                                 interval = 2 * interval;
-                                PPApplication.logE("OrientationScanner.runEventsHandlerForOrientationChange", "scan in time - 2x interval");
+//                                PPApplication.logE("OrientationScanner.runEventsHandlerForOrientationChange", "scan in time - 2x interval");
                             }
                         }
                     }
