@@ -6553,6 +6553,9 @@ public class PhoneProfilesService extends Service
             // TODO pohladaj, kde este inde tuto ikonu pouzivas
             // TODO a kde pouizvas podobne pre notification action button
             // TODO len white verziu, pridaj dark a podla night modu nastavuj
+            // TODO
+            // TODO este lepsie bude spravit klasicky night resource ako pri inych ikonach
+            // TODO a nemusis riesit night mode vobec, android to spravi sam.
             int exitAppId;
             if (Build.VERSION.SDK_INT >= 29) {
                 if (useNightColor == 1) {
