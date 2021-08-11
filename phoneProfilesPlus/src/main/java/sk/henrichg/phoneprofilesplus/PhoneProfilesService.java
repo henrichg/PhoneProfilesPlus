@@ -6550,6 +6550,9 @@ public class PhoneProfilesService extends Service
             PendingIntent pExitAppIntent = PendingIntent.getActivity(appContext, 0, exitAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             // TODO nemam dark verziu tejto ikony !!!
+            // TODO pohladaj, kde este inde tuto ikonu pouzivas
+            // TODO a kde pouizvas podobne pre notification action button
+            // TODO len white verziu, pridaj dark a podla night modu nastavuj
             int exitAppId;
             if (Build.VERSION.SDK_INT >= 29) {
                 if (useNightColor == 1) {
@@ -6569,7 +6572,6 @@ public class PhoneProfilesService extends Service
                 else
                     exitAppId = R.drawable.ic_action_exit_app_white;
             }
-
 
             NotificationCompat.Action.Builder actionBuilder;
             actionBuilder = new NotificationCompat.Action.Builder(
