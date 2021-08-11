@@ -6556,6 +6556,11 @@ public class PhoneProfilesService extends Service
             // TODO
             // TODO este lepsie bude spravit klasicky night resource ako pri inych ikonach
             // TODO a nemusis riesit night mode vobec, android to spravi sam.
+            // ic_action_events_view
+            // ic_action_exit_app_white
+            // ic_action_profiles_view
+            // ic_action_stop_white
+
             int exitAppId;
             if (Build.VERSION.SDK_INT >= 29) {
                 if (useNightColor == 1) {
