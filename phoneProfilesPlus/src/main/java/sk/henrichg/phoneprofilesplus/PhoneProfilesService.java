@@ -6558,27 +6558,33 @@ public class PhoneProfilesService extends Service
             // TODO a nemusis riesit night mode vobec, android to spravi sam.
             // ic_action_events_view - v overflow menu
             // ic_action_profiles_view - v overflow menu
-            // ic_action_exit_app_white - v notifikacii
-            // ic_action_stop_white - v notifikacii
+            // ic_action_exit_app - v notifikacii
+            // ic_action_stop - v notifikacii
+
+            // ic_action_event_view -> vsetky nie-night treba spravit tmave
+            // ic_action_profile_view -> vsetky nie-night treba spravit tmave
+            // ic_action_exit_app -> vsetky night treba spravit svetle
+            // ic_action_stop -> vsetky night treba spravit svetle
+            // a netreba ten night mode pre ne
 
             int exitAppId;
             if (Build.VERSION.SDK_INT >= 29) {
                 if (useNightColor == 1) {
 //                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark icon");
 //                    exitAppId = R.drawable.ic_action_exit_app_dark;
-                    exitAppId = R.drawable.ic_action_exit_app_white;
+                    exitAppId = R.drawable.ic_action_exit_app;
                 } else {
 //                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "light icon");
-                    exitAppId = R.drawable.ic_action_exit_app_white;
+                    exitAppId = R.drawable.ic_action_exit_app;
                 }
             } else {
                 if (notificationTextColor.equals("1"))
-                    exitAppId = R.drawable.ic_action_exit_app_white;
+                    exitAppId = R.drawable.ic_action_exit_app;
                 else if (notificationTextColor.equals("2"))
                     //exitAppId = R.drawable.ic_action_exit_app_dark;
-                    exitAppId = R.drawable.ic_action_exit_app_white;
+                    exitAppId = R.drawable.ic_action_exit_app;
                 else
-                    exitAppId = R.drawable.ic_action_exit_app_white;
+                    exitAppId = R.drawable.ic_action_exit_app;
             }
 
             NotificationCompat.Action.Builder actionBuilder;

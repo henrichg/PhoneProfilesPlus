@@ -366,7 +366,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
             @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pDisableIntent = PendingIntent.getActivity(appContext, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
-                    R.drawable.ic_action_exit_app_white,
+                    R.drawable.ic_action_exit_app,
                     appContext.getString(R.string.critical_github_release_notification_disable_button),
                     pDisableIntent);
             mBuilder.addAction(actionBuilder.build());
