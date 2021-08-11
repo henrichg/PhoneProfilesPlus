@@ -5626,33 +5626,34 @@ public class PhoneProfilesService extends Service
 
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationNotificationStyle="+notificationNotificationStyle);
 
+        int nightModeFlags =
+                appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        //if (notificationNightMode) {
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                useNightColor = 1;
+                // this is possible only when device has option for set background color
+                //if ((Build.VERSION.SDK_INT < 29) && notificationNightMode)
+                //    notificationTextColor = "2";
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                useNightColor = 2;
+                // this is possible only when device has option for set background color
+                //if ((Build.VERSION.SDK_INT < 29) && notificationNightMode)
+                //    notificationTextColor = "1";
+                break;
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                break;
+        }
+        //}
+
         if (notificationNotificationStyle.equals("0")) {
             // ----- create content view
 
             useDecorator = (!(PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) || (Build.VERSION.SDK_INT >= 26);
             useDecorator = useDecorator && notificationUseDecoration;
 
-            int nightModeFlags =
-                    appContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
-            //if (notificationNightMode) {
-            switch (nightModeFlags) {
-                case Configuration.UI_MODE_NIGHT_YES:
-                    useNightColor = 1;
-                    // this is possible only when device has option for set background color
-                    //if ((Build.VERSION.SDK_INT < 29) && notificationNightMode)
-                    //    notificationTextColor = "2";
-                    break;
-                case Configuration.UI_MODE_NIGHT_NO:
-                    useNightColor = 2;
-                    // this is possible only when device has option for set background color
-                    //if ((Build.VERSION.SDK_INT < 29) && notificationNightMode)
-                    //    notificationTextColor = "1";
-                    break;
-                case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                    break;
-            }
-            //}
             switch (notificationBackgroundColor) {
                 case "1":
                 case "3":
@@ -6044,31 +6045,56 @@ public class PhoneProfilesService extends Service
                             PPApplication.recordException(e);
                         }
 
+                        int restartEventsId;
+                        if (Build.VERSION.SDK_INT >= 29) {
+                            if (useNightColor == 1) {
+//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark icon");
+                                restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                            } else {
+//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "light icon");
+                                restartEventsId = R.drawable.ic_widget_restart_events;
+                            }
+                        } else {
+                            if (notificationTextColor.equals("1"))
+                                restartEventsId = R.drawable.ic_widget_restart_events;
+                            else if (notificationTextColor.equals("2"))
+                                restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                            else
+                                restartEventsId = R.drawable.ic_widget_restart_events;
+                        }
+
                         NotificationCompat.Action.Builder actionBuilder;
-                        //if (Build.VERSION.SDK_INT >= 23)
                         actionBuilder = new NotificationCompat.Action.Builder(
-                                R.drawable.ic_widget_restart_events,
+                                restartEventsId,
                                 appContext.getString(R.string.menu_restart_events),
                                 pIntentRE);
-                        /*else
-                            actionBuilder = new Notification.Action.Builder(
-                                    R.drawable.ic_widget_restart_events,
-                                    appContext.getString(R.string.menu_restart_events),
-                                    pIntentRE);*/
                         notificationBuilder.addAction(actionBuilder.build());
                     }
                 } else {
                     NotificationCompat.Action.Builder actionBuilder;
-                    //if (Build.VERSION.SDK_INT >= 23)
+
+                    int restartEventsId;
+                    if (Build.VERSION.SDK_INT >= 29) {
+                        if (useNightColor == 1) {
+//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark icon");
+                            restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                        } else {
+//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "light icon");
+                            restartEventsId = R.drawable.ic_widget_restart_events;
+                        }
+                    } else {
+                        if (notificationTextColor.equals("1"))
+                            restartEventsId = R.drawable.ic_widget_restart_events;
+                        else if (notificationTextColor.equals("2"))
+                            restartEventsId = R.drawable.ic_widget_restart_events_dark;
+                        else
+                            restartEventsId = R.drawable.ic_widget_restart_events;
+                    }
+
                     actionBuilder = new NotificationCompat.Action.Builder(
-                            R.drawable.ic_widget_restart_events,
+                            restartEventsId,
                             appContext.getString(R.string.menu_restart_events),
                             pIntentRE);
-                    /*else
-                        actionBuilder = new Notification.Action.Builder(
-                                R.drawable.ic_widget_restart_events,
-                                appContext.getString(R.string.menu_restart_events),
-                                pIntentRE);*/
                     notificationBuilder.addAction(actionBuilder.build());
                 }
             /*}
@@ -6523,17 +6549,33 @@ public class PhoneProfilesService extends Service
             exitAppIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pExitAppIntent = PendingIntent.getActivity(appContext, 0, exitAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+            // TODO nemam dark verziu tejto ikony !!!
+            int exitAppId;
+            if (Build.VERSION.SDK_INT >= 29) {
+                if (useNightColor == 1) {
+//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark icon");
+//                    exitAppId = R.drawable.ic_action_exit_app_dark;
+                    exitAppId = R.drawable.ic_action_exit_app_white;
+                } else {
+//                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "light icon");
+                    exitAppId = R.drawable.ic_action_exit_app_white;
+                }
+            } else {
+                if (notificationTextColor.equals("1"))
+                    exitAppId = R.drawable.ic_action_exit_app_white;
+                else if (notificationTextColor.equals("2"))
+                    //exitAppId = R.drawable.ic_action_exit_app_dark;
+                    exitAppId = R.drawable.ic_action_exit_app_white;
+                else
+                    exitAppId = R.drawable.ic_action_exit_app_white;
+            }
+
+
             NotificationCompat.Action.Builder actionBuilder;
-            //if (Build.VERSION.SDK_INT >= 23)
-                actionBuilder = new NotificationCompat.Action.Builder(
-                        R.drawable.ic_action_exit_app_white,
-                        appContext.getString(R.string.menu_exit),
-                        pExitAppIntent);
-            /*else
-                actionBuilder = new Notification.Action.Builder(
-                        R.drawable.ic_action_exit_app_white,
-                        appContext.getString(R.string.menu_exit),
-                        pExitAppIntent);*/
+            actionBuilder = new NotificationCompat.Action.Builder(
+                    exitAppId,
+                    appContext.getString(R.string.menu_exit),
+                    pExitAppIntent);
             notificationBuilder.addAction(actionBuilder.build());
         }
 
