@@ -6225,14 +6225,14 @@ public class PhoneProfilesService extends Service
                     notificationBuilder.setSmallIcon(iconSmallResource);
 
                     int iconLargeResource = Profile.getIconResource(iconIdentifier);
-                    Bitmap largeIcon = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
+                    iconBitmap = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
                     if (notificationNotificationStyle.equals("0")) {
                         try {
-                            contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
+                            contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                             if (profileIconExists) {
                                 //noinspection ConstantConditions
                                 if (contentView != null)
-                                    contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, largeIcon);
+                                    contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                             }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
@@ -6240,7 +6240,7 @@ public class PhoneProfilesService extends Service
                     }
                     else {
                         if (notificationShowProfileIcon)
-                            notificationBuilder.setLargeIcon(largeIcon);
+                            notificationBuilder.setLargeIcon(iconBitmap);
                     }
                 }
             } else {
@@ -6287,10 +6287,9 @@ public class PhoneProfilesService extends Service
                 }
                 else {
                     if (notificationShowProfileIcon) {
-                        if (iconBitmap != null)
-                            notificationBuilder.setLargeIcon(iconBitmap);
-                        else
-                            notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile_default));
+                        if (iconBitmap == null)
+                            iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile_default);
+                        notificationBuilder.setLargeIcon(iconBitmap);
                     }
                 }
             }
@@ -6319,8 +6318,10 @@ public class PhoneProfilesService extends Service
             }
             else {
                 //noinspection ConstantConditions
-                if (notificationShowProfileIcon)
-                    notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_empty));
+                if (notificationShowProfileIcon) {
+                    iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_empty);
+                    notificationBuilder.setLargeIcon(iconBitmap);
+                }
             }
         }
 
@@ -6536,6 +6537,9 @@ public class PhoneProfilesService extends Service
         }
         else {
             notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(indicators));
+            //notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle().
+            //        bigPicture(iconBitmap).
+            //        bigLargeIcon(iconBitmap));
         }
 
         if ((notificationShowButtonExit) && useDecorator) {
@@ -6548,21 +6552,6 @@ public class PhoneProfilesService extends Service
             // clear all opened activities
             exitAppIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pExitAppIntent = PendingIntent.getActivity(appContext, 0, exitAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            // TODO nemam dark verziu tejto ikony !!!
-            // TODO pohladaj, kde este inde tuto ikonu pouzivas
-            // TODO a kde pouizvas podobne pre notification action button
-            // TODO len white verziu, pridaj dark a podla night modu nastavuj
-            // TODO
-            // TODO este lepsie bude spravit klasicky night resource ako pri inych ikonach
-            // TODO a nemusis riesit night mode vobec, android to spravi sam.
-            // ic_action_exit_app - v notifikacii
-            // ic_action_stop - v notifikacii
-
-            // ic_action_exit_app -> vsetky night treba spravit svetle
-            // ic_action_stop -> vsetky night treba spravit svetle
-            //
-            // a netreba ten night mode pre ne
 
             int exitAppId;
             if (Build.VERSION.SDK_INT >= 29) {
