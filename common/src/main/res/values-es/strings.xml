@@ -1544,8 +1544,8 @@
     <string name="accessibility_service_disabled">Deshabilitado</string>
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">No funciona en Android 10+</string>
     <string name="event_preferences_calendar_day_contains_event">El día actual contiene el evento de calendario</string>
-    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">No lo pruebes</string>
-    <string name="array_event_pref_calendarDayContainsEvent_contains">Contiene Y tiene parámetros configurados</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">No comprobarlo</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Contiene parámetros Y están configurados</string>
     <string name="array_event_pref_calendarDayContainsEvent_notContains">No contiene parámetros O no están configurados</string>
     <string name="event_preferences_calendar_event_parameters">Parámetros de evento de calendario</string>
     <string name="event_preferences_other_parameters">Otros parámetros</string>

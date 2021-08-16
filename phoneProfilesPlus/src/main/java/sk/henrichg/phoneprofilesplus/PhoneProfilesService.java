@@ -6553,8 +6553,8 @@ public class PhoneProfilesService extends Service
             exitAppIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             PendingIntent pExitAppIntent = PendingIntent.getActivity(appContext, 0, exitAppIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            int exitAppId;
-            if (Build.VERSION.SDK_INT >= 29) {
+            int exitAppId = R.drawable.ic_action_exit_app;
+/*            if (Build.VERSION.SDK_INT >= 29) {
                 if (useNightColor == 1) {
 //                                PPApplication.logE("PhoneProfilesService._showProfileNotification", "dark icon");
 //                    exitAppId = R.drawable.ic_action_exit_app_dark;
@@ -6571,7 +6571,7 @@ public class PhoneProfilesService extends Service
                     exitAppId = R.drawable.ic_action_exit_app;
                 else
                     exitAppId = R.drawable.ic_action_exit_app;
-            }
+            }*/
 
             NotificationCompat.Action.Builder actionBuilder;
             actionBuilder = new NotificationCompat.Action.Builder(
