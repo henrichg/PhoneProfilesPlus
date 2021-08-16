@@ -88,7 +88,7 @@ public class BluetoothScanWorker extends Worker {
                             ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
                             ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo)) {
                         // not scan bluetooth in configured time
-                        PPApplication.logE("BluetoothScanWorker.doWork", "-- END - scan in time = 2 -------");
+//                        PPApplication.logE("BluetoothScanWorker.doWork", "-- END - scan in time = 2 -------");
                         cancelWork(context, false/*, null*/);
                         return Result.success();
                     }
@@ -198,7 +198,7 @@ public class BluetoothScanWorker extends Worker {
                                     ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
                                     ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo)) {
                                 interval = 2 * interval;
-                                PPApplication.logE("BluetoothScanWorker._scheduleWork", "scan in time - 2x interval");
+//                                PPApplication.logE("BluetoothScanWorker._scheduleWork", "scan in time - 2x interval");
                             }
                         }
                     }
@@ -260,26 +260,25 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    static void scheduleWork(final Context context, final boolean shortInterval) {
+    static void scheduleWork(Context context, boolean shortInterval) {
         //PPApplication.logE("BluetoothScanWorker.scheduleJob", "shortInterval="+shortInterval);
 
         if (Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context).allowed
                 == PreferenceAllowed.PREFERENCE_ALLOWED) {
             if (shortInterval) {
+                final Context appContext = context;
                 PPApplication.startHandlerThreadPPScanners();
                 final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-                __handler.post(new PPApplication.PPHandlerThreadRunnable(
-                        context.getApplicationContext()) {
-                    @Override
-                    public void run() {
+                //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+                //        context.getApplicationContext()) {
+                __handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.scheduleWork" + " shortInterval=true");
-                        Context appContext= appContextWeakRef.get();
-                        if (appContext != null) {
-                            _cancelWork(appContext);
-                            PPApplication.sleep(5000);
-                            _scheduleWork(appContext, true);
-                        }
-                    }
+                    //Context appContext= appContextWeakRef.get();
+                    //if (appContext != null) {
+                        _cancelWork(appContext);
+                        PPApplication.sleep(5000);
+                        _scheduleWork(appContext, true);
+                    //}
                 });
             }
             else
@@ -369,22 +368,21 @@ public class BluetoothScanWorker extends Worker {
         }
     }
 
-    static void cancelWork(final Context context, final boolean useHandler/*, final Handler _handler*/) {
+    static void cancelWork(Context context, boolean useHandler/*, final Handler _handler*/) {
         //PPApplication.logE("BluetoothScanWorker.cancelWork", "xxx");
 
         if (useHandler /*&& (_handler == null)*/) {
+            final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadPPScanners();
             final Handler __handler = new Handler(PPApplication.handlerThreadPPScanners.getLooper());
-            __handler.post(new PPApplication.PPHandlerThreadRunnable(
-                    context.getApplicationContext()) {
-                @Override
-                public void run() {
+            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+            //        context.getApplicationContext()) {
+            __handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadPPScanners", "START run - from=BluetoothScanWorker.cancelWork");
-                    Context appContext= appContextWeakRef.get();
-                    if (appContext != null) {
-                        _cancelWork(appContext);
-                    }
-                }
+                //Context appContext= appContextWeakRef.get();
+                //if (appContext != null) {
+                    _cancelWork(appContext);
+                //}
             });
         }
         else {

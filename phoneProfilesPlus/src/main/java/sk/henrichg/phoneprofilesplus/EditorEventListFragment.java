@@ -677,7 +677,7 @@ public class EditorEventListFragment extends Fragment
         onStartEventPreferencesCallback.onStartEventPreferences(event, editMode, predefinedEventIndex);
     }
 
-    boolean runStopEvent(Event event) {
+    boolean runStopEvent(final Event event) {
         if (Event.getGlobalEventsRunning()) {
             // events are not globally stopped
 
@@ -687,43 +687,42 @@ public class EditorEventListFragment extends Fragment
                     // pause event
                     //IgnoreBatteryOptimizationNotification.showNotification(activityDataWrapper.context);
 
+                    final DataWrapper dataWrapper = activityDataWrapper;
                     PPApplication.startHandlerThread();
                     final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                    __handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
-                        @Override
-                        public void run() {
+                    //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
+                    __handler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.1");
 
-                            DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                            Event event = eventWeakRef.get();
+                        //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                        //Event event = eventWeakRef.get();
 
-                            if ((dataWrapper != null) && (event != null)) {
-                                PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                                PowerManager.WakeLock wakeLock = null;
-                                try {
-                                    if (powerManager != null) {
-                                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorEventListFragment_runStopEvent_1");
-                                        wakeLock.acquire(10 * 60 * 1000);
-                                    }
+                        //if ((dataWrapper != null) && (event != null)) {
+                            PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                            PowerManager.WakeLock wakeLock = null;
+                            try {
+                                if (powerManager != null) {
+                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorEventListFragment_runStopEvent_1");
+                                    wakeLock.acquire(10 * 60 * 1000);
+                                }
 
-                                    synchronized (PPApplication.eventsHandlerMutex) {
-                                        event.pauseEvent(dataWrapper, false, false,
-                                                false, true, null, false, false, true);
-                                    }
+                                synchronized (PPApplication.eventsHandlerMutex) {
+                                    event.pauseEvent(dataWrapper, false, false,
+                                            false, true, null, false, false, true);
+                                }
 
-                                } catch (Exception e) {
+                            } catch (Exception e) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                    PPApplication.recordException(e);
-                                } finally {
-                                    if ((wakeLock != null) && wakeLock.isHeld()) {
-                                        try {
-                                            wakeLock.release();
-                                        } catch (Exception ignored) {
-                                        }
+                                PPApplication.recordException(e);
+                            } finally {
+                                if ((wakeLock != null) && wakeLock.isHeld()) {
+                                    try {
+                                        wakeLock.release();
+                                    } catch (Exception ignored) {
                                     }
                                 }
                             }
-                        }
+                        //}
                     });
 
                 }
@@ -734,43 +733,42 @@ public class EditorEventListFragment extends Fragment
             } else {
                 // stop event
 
+                final DataWrapper dataWrapper = activityDataWrapper;
                 PPApplication.startHandlerThread();
                 final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-                __handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
-                    @Override
-                    public void run() {
+                //__handler.post(new RunStopEventRunnable(activityDataWrapper, event) {
+                __handler.post(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorEventListFragment.runStopEvent.2");
 
-                        DataWrapper dataWrapper = dataWrapperWeakRef.get();
-                        Event event = eventWeakRef.get();
+                    //DataWrapper dataWrapper = dataWrapperWeakRef.get();
+                    //Event event = eventWeakRef.get();
 
-                        if ((dataWrapper != null) && (event != null)) {
-                            PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorEventListFragment_runStopEvent_2");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
+                    //if ((dataWrapper != null) && (event != null)) {
+                        PowerManager powerManager = (PowerManager) dataWrapper.context.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":EditorEventListFragment_runStopEvent_2");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                                synchronized (PPApplication.eventsHandlerMutex) {
-                                    event.stopEvent(dataWrapper, false, false,
-                                            true, true, true); // activate return profile
-                                }
+                            synchronized (PPApplication.eventsHandlerMutex) {
+                                event.stopEvent(dataWrapper, false, false,
+                                        true, true, true); // activate return profile
+                            }
 
-                            } catch (Exception e) {
+                        } catch (Exception e) {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                            } finally {
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
+                            PPApplication.recordException(e);
+                        } finally {
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
                                 }
                             }
                         }
-                    }
+                    //}
                 });
 
             }
@@ -2189,17 +2187,17 @@ public class EditorEventListFragment extends Fragment
 
     }
 
-    private static abstract class RunStopEventRunnable implements Runnable {
+/*    private static abstract class RunStopEventRunnable implements Runnable {
 
-        public final WeakReference<DataWrapper> dataWrapperWeakRef;
-        public final WeakReference<Event> eventWeakRef;
+        final WeakReference<DataWrapper> dataWrapperWeakRef;
+        final WeakReference<Event> eventWeakRef;
 
-        public RunStopEventRunnable(DataWrapper dataWrapper,
+        RunStopEventRunnable(DataWrapper dataWrapper,
                                        Event event) {
             this.dataWrapperWeakRef = new WeakReference<>(dataWrapper);
             this.eventWeakRef = new WeakReference<>(event);
         }
 
-    }
+    }*/
 
 }

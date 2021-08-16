@@ -40,6 +40,7 @@
         android:focusable="true"
         android:hint="@string/mobile_cells_registration_cell_name_hint"
         android:textColor="?attr/colorAccent"
+        android:textStyle="bold"
         android:textColorHint="?attr/colorAccent"
         android:background="?attr/buttonBackground"
         android:textSize="17sp"/>

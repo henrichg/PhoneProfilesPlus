@@ -25,6 +25,7 @@
         android:text="@string/install_extender_where_is_assets_button"
         android:minHeight="40dp"
         android:textColor="@color/action_button_text_color"
+        android:textStyle="bold"
         android:background="?attr/buttonBackground"
         style="?android:attr/borderlessButtonStyle" />
 

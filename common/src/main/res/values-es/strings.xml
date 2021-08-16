@@ -1277,7 +1277,7 @@
     <string name="time_duration_picker_minute_sign">m</string>
     <string name="time_duration_picker_second_sign">s</string>
     <string name="phone_profiles_pref_category_status_bar">Notificación de aplicación</string>
-    <string name="editor_drawer_title_events_order">Pedido</string>
+    <string name="editor_drawer_title_events_order">Orden</string>
     <string name="editor_activity_targetHelps_orderSpinner_title">Orden de eventos</string>
     <string name="editor_activity_targetHelps_orderSpinner_description">Haz clic aquí para cambiar el orden de la vista de eventos.</string>
     <string name="editor_activity_targetHelps_runStopEvents_title">Habilitar la ejecución de eventos</string>
@@ -1544,8 +1544,8 @@
     <string name="accessibility_service_disabled">Deshabilitado</string>
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">No funciona en Android 10+</string>
     <string name="event_preferences_calendar_day_contains_event">El día actual contiene el evento de calendario</string>
-    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">No lo pruebes</string>
-    <string name="array_event_pref_calendarDayContainsEvent_contains">Contiene Y tiene parámetros configurados</string>
+    <string name="array_event_pref_calendarDayContainsEvent_notTestIt">No comprobarlo</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Contiene parámetros Y están configurados</string>
     <string name="array_event_pref_calendarDayContainsEvent_notContains">No contiene parámetros O no están configurados</string>
     <string name="event_preferences_calendar_event_parameters">Parámetros de evento de calendario</string>
     <string name="event_preferences_other_parameters">Otros parámetros</string>
@@ -1775,7 +1775,7 @@
     <string name="extender_battery_optimization_text">• Optimización de la batería para PhoneProfilesPlusExtender - por favor, añádelo al grupo \"No optimizado\":</string>
     <string name="extender_battery_optimization_optimized">Optimizado</string>
     <string name="extender_battery_optimization_not_optimized">No optimizado</string>
-    <string name="extender_battery_optimization_button">Abrir optimización de Batería</string>
+    <string name="extender_battery_optimization_button">Abrir\noptimización de Batería</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

@@ -94,7 +94,7 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeStrings.put(PPApplication.ALTYPE_PROFILE_ADDED, R.string.altype_profileAdded);
         activityTypeStrings.put(PPApplication.ALTYPE_EVENT_ADDED, R.string.altype_eventAdded);
 
-        int otherColor = R.color.altype_other;
+        //int otherColor = R.color.altype_other;
         /*//noinspection SwitchStatementWithTooFewBranches
         switch (ApplicationPreferences.applicationTheme(context, true)) {
 //            case "color":
@@ -124,35 +124,8 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_RESTART_EVENTS, R.color.altype_eventEnd);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS, R.color.altype_eventEnd);
         activityTypeColors.put(PPApplication.ALTYPE_EVENT_STOP, R.color.altype_eventEnd);
-        activityTypeColors.put(PPApplication.ALTYPE_RESTART_EVENTS, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_START, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_EXIT, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_DATA_IMPORT, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_PAUSED_LOGGING, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_STARTED_LOGGING, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_EVENT_DELETED, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_DELETED, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_ALL_EVENTS_DELETED, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_ALL_PROFILES_DELETED, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_UPGRADE, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_DATA_EXPORT, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_RESTART_EVENTS, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_ENABLE_RUN_FOR_EVENT, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_SYSTEM_RESTART, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ADDED, otherColor);
-        activityTypeColors.put(PPApplication.ALTYPE_EVENT_ADDED, otherColor);
-
+        activityTypeColors.put(PPApplication.ALTYPE_RESTART_EVENTS, R.color.altype_restartEvents);
+        activityTypeColors.put(PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, R.color.altype_restartEvents);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, R.color.altype_error);
@@ -160,7 +133,32 @@ class ActivityLogAdapter extends CursorAdapter {
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM, R.color.altype_error);
         activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, R.color.altype_error);
-
+        activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_DISABLE, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_RUN_EVENTS_ENABLE, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_START, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_EXIT, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_DATA_IMPORT, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_PAUSED_LOGGING, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_STARTED_LOGGING, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_DELETED, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_DELETED, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_SHARED_PROFILE_PREFERENCES_CHANGED, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_ALL_EVENTS_DELETED, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_ALL_PROFILES_DELETED, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_UPGRADE, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_DATA_EXPORT, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_RESTART_EVENTS, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_ENABLE_RUN_FOR_EVENT, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_APPLICATION_SYSTEM_RESTART, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_PROFILE_ADDED, R.color.altype_other);
+        activityTypeColors.put(PPApplication.ALTYPE_EVENT_ADDED, R.color.altype_other);
     }
 
     @Override

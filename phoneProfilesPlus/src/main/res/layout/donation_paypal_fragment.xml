@@ -190,6 +190,7 @@
             android:layout_marginTop="20dp"
             android:minHeight="40dp"
             android:textColor="@color/action_button_text_color"
+            android:textStyle="bold"
             android:background="?attr/buttonBackground"
             android:clickable="true"
             android:focusable="true"

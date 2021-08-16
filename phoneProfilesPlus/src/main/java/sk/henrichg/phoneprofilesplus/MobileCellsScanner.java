@@ -129,7 +129,7 @@ class MobileCellsScanner {
                         ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventMobileCellScanInTimeMultiplyTo)) {
                     // not scan in configured time
-                    PPApplication.logE("MobileCellsScanner.connect", "-- END - scan in time = 2 -------");
+//                    PPApplication.logE("MobileCellsScanner.connect", "-- END - scan in time = 2 -------");
                     return;
                 }
             }

@@ -3,9 +3,10 @@
 PhoneProfilesPlus
 =================
 
-[![version](https://img.shields.io/badge/version-5.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.1)
+[![version](https://img.shields.io/badge/version-5.1.0.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.1.0.1)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
+[![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U&currency_code=EUR)
 
 __[Google Play release:](https://play.google.com/store/apps/details?id=sk.henrichg.phoneprofilesplus)__
@@ -62,7 +63,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - RelativePopupWindow (only modified class RelativePopupWindow) - https://github.com/kakajika/RelativePopupWindow
 - SunriseSunset (only modified class SunriseSunset) - https://github.com/caarmen/SunriseSunset
 - android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/anggrayudi/android-hidden-api
-- FreeReflection (only code from https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/Reflection.java) - https://github.com/tiann/FreeReflection
+- FreeReflection (only code from https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/BootstrapClass.java) - https://github.com/tiann/FreeReflection
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
 - ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat

@@ -112,6 +112,7 @@
                 android:layout_marginBottom="10dp"
                 android:minHeight="40dp"
                 android:textColor="@color/action_button_text_color"
+                android:textStyle="bold"
                 android:background="?attr/buttonBackground"
                 style="?android:attr/borderlessButtonStyle" />
 
@@ -174,6 +175,7 @@
                     android:paddingEnd="10dp"
                     android:paddingBottom="5dp"
                     android:textColor="?attr/colorAccent"
+                    android:textStyle="bold"
                     android:textSize="17sp" />
 
             </RelativeLayout>
@@ -232,6 +234,7 @@
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_sort"
                     android:textSize="17sp"
                     android:textColor="?attr/colorAccent"
+                    android:textStyle="bold"
                     android:background="?attr/buttonBackground"
                     android:clickable="true"
                     android:focusable="true"/>

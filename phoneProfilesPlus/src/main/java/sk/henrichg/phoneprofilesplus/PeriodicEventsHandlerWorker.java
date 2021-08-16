@@ -57,7 +57,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                                 ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyFrom,
                                 ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyTo)) {
                             // not scan in configured time
-                            PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "-- END - scan in time = 2 -------");
+//                            PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "-- END - scan in time = 2 -------");
                             PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
                             PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
                             /*if (PPApplication.logEnabled()) {
@@ -146,7 +146,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                         ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyFrom,
                         ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyTo)) {
                     interval = 2 * interval;
-                    PPApplication.logE("PeriodicEventsHandlerWorker.enqueueWork", "scan in time - 2x interval");
+//                    PPApplication.logE("PeriodicEventsHandlerWorker.enqueueWork", "scan in time - 2x interval");
                 }
             }
         }

@@ -104,6 +104,7 @@
 
     <style name="AlertButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
         <item name="android:background">@drawable/pp_alert_button_background_selector</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 <!--    <style name="ppDialogStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">-->

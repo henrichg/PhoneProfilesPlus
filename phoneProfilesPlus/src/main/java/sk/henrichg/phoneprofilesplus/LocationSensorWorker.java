@@ -84,7 +84,7 @@ public class LocationSensorWorker extends Worker {
                             ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
                             ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo)) {
                         // not scan wi-fi in configured time
-                        PPApplication.logE("LocationSensorWorker.enqueueWork", "-- END - scan in time = 2 -------");
+//                        PPApplication.logE("LocationSensorWorker.enqueueWork", "-- END - scan in time = 2 -------");
                         canScan = false;
                     }
                 }
@@ -107,7 +107,7 @@ public class LocationSensorWorker extends Worker {
                                 ApplicationPreferences.applicationEventLocationScanInTimeMultiplyFrom,
                                 ApplicationPreferences.applicationEventLocationScanInTimeMultiplyTo)) {
                             interval = 2 * interval;
-                            PPApplication.logE("LocationSensorWorker.enqueueWork", "scan in time - 2x interval");
+//                            PPApplication.logE("LocationSensorWorker.enqueueWork", "scan in time - 2x interval");
                         }
                     }
                 }

@@ -23,6 +23,16 @@ public class CmdWifiAP {
     static boolean setWifiAP(boolean enable, boolean doNotChangeWifi, Context context, String profileName) {
         //PPApplication.logE("CmdWifiAP.setWifiAP", "START enable="+enable);
         //PPApplication.logE("CmdWifiAP.setWifiAP", "START doNotChangeWifi="+doNotChangeWifi);
+
+        /*
+        WifiManager wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        if (wifi != null) {
+            PPApplication.startHandlerThreadRadios();
+            final Handler __handler = new Handler(PPApplication.handlerThreadRadios.getLooper());
+            wifi.registerSoftApCallback(callback, __handler);
+        }
+        */
+
         final String packageName = PPApplication.PACKAGE_NAME;
         try {
             IConnectivityManager connectivityAdapter = IConnectivityManager.Stub.asInterface(ServiceManager.getService("connectivity"));  // service list | grep IConnectivityManager

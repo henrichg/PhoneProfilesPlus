@@ -154,8 +154,6 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void doWork(/*boolean useHandler,*/ Context context) {
-        //final Context appContext = context.getApplicationContext();
-
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
             return;
@@ -163,44 +161,43 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
         //PPApplication.logE("CheckGitHubReleasesBroadcastReceiver.doWork", "xxx");
 
         //if (useHandler) {
+            final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadBroadcast(/*"DonationBroadcastReceiver.onReceive"*/);
             final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-            __handler.post(new PPApplication.PPHandlerThreadRunnable(
-                    context.getApplicationContext()) {
-                @Override
-                public void run() {
+            //__handler.post(new PPApplication.PPHandlerThreadRunnable(
+            //        context.getApplicationContext()) {
+            __handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=CheckGitHubReleasesBroadcastReceiver.doWork");
 
-                    Context appContext= appContextWeakRef.get();
-                    if (appContext != null) {
-                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                        PowerManager.WakeLock wakeLock = null;
+                //Context appContext= appContextWeakRef.get();
+                //if (appContext != null) {
+                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                    PowerManager.WakeLock wakeLock = null;
+                    try {
+                        if (powerManager != null) {
+                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CheckGitHubReleasesBroadcastReceiver_doWork");
+                            wakeLock.acquire(10 * 60 * 1000);
+                        }
+
                         try {
-                            if (powerManager != null) {
-                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":CheckGitHubReleasesBroadcastReceiver_doWork");
-                                wakeLock.acquire(10 * 60 * 1000);
-                            }
+                            _doWork(appContext);
+                        } catch (Exception ignored) {
+                        }
 
-                            try {
-                                _doWork(appContext);
-                            } catch (Exception ignored) {
-                            }
+                        setAlarm(appContext);
 
-                            setAlarm(appContext);
-
-                        } catch (Exception e) {
+                    } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                            PPApplication.recordException(e);
-                        } finally {
-                            if ((wakeLock != null) && wakeLock.isHeld()) {
-                                try {
-                                    wakeLock.release();
-                                } catch (Exception ignored) {
-                                }
+                        PPApplication.recordException(e);
+                    } finally {
+                        if ((wakeLock != null) && wakeLock.isHeld()) {
+                            try {
+                                wakeLock.release();
+                            } catch (Exception ignored) {
                             }
                         }
                     }
-                }
+                //}
             });
         /*}
         else {

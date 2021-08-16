@@ -18,8 +18,6 @@ import android.widget.RemoteViews;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import java.lang.ref.WeakReference;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
@@ -33,20 +31,19 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         //super.onUpdate(context, appWidgetManager, appWidgetIds);
         if (appWidgetIds.length > 0) {
 //            PPApplication.logE("##### OneRowWidgetProvider.onUpdate", "update widgets");
+            final Context appContext = context;
             PPApplication.startHandlerThreadWidget();
             final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            __handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
-                @Override
-                public void run() {
+            //__handler.post(new PPHandlerThreadRunnable(context, appWidgetManager) {
+            __handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onUpdate");
 
-                    Context appContext= appContextWeakRef.get();
-                    AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                    if ((appContext != null) && (appWidgetManager != null)) {
-                        _onUpdate(appContext, appWidgetManager, appWidgetIds);
-                    }
-                }
+                //if ((appContext != null) && (appWidgetManager != null)) {
+                    _onUpdate(appContext, appWidgetManager, appWidgetIds);
+                //}
             });
         }
     }
@@ -565,20 +562,20 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             if (manager != null) {
                 final int[] ids = manager.getAppWidgetIds(new ComponentName(context, OneRowWidgetProvider.class));
                 if ((ids != null) && (ids.length > 0)) {
+                    final Context appContext = context;
+                    final AppWidgetManager appWidgetManager = manager;
                     PPApplication.startHandlerThreadWidget();
                     final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                    __handler.post(new PPHandlerThreadRunnable(context, manager) {
-                        @Override
-                        public void run() {
+                    //__handler.post(new PPHandlerThreadRunnable(context, manager) {
+                    __handler.post(() -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=OneRowWidgetProvider.onReceive");
 
-                            Context appContext= appContextWeakRef.get();
-                            AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
+                        //Context appContext= appContextWeakRef.get();
+                        //AppWidgetManager appWidgetManager = appWidgetManagerWeakRef.get();
 
-                            if ((appContext != null) && (appWidgetManager != null)) {
-                                _onUpdate(appContext, appWidgetManager, ids);
-                            }
-                        }
+                        //if ((appContext != null) && (appWidgetManager != null)) {
+                            _onUpdate(appContext, appWidgetManager, ids);
+                        //}
                     });
                 }
             }
@@ -710,17 +707,17 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         }*/
     }
 
-    private static abstract class PPHandlerThreadRunnable implements Runnable {
+/*    private static abstract class PPHandlerThreadRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<AppWidgetManager> appWidgetManagerWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<AppWidgetManager> appWidgetManagerWeakRef;
 
-        public PPHandlerThreadRunnable(Context appContext,
+        PPHandlerThreadRunnable(Context appContext,
                                        AppWidgetManager appWidgetManager) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.appWidgetManagerWeakRef = new WeakReference<>(appWidgetManager);
         }
 
-    }
+    }*/
 
 }

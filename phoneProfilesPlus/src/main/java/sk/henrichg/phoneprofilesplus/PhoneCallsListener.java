@@ -153,35 +153,34 @@ public class PhoneCallsListener extends PhoneStateListener {
     private void doCall(Context context, final int phoneEvent,
                         final boolean incoming, final boolean missed/*,
                             final String number, final Date eventTime*/) {
+        final Context appContext = context.getApplicationContext();
         PPApplication.startHandlerThreadBroadcast(/*"PhoneCallsListener.doCall"*/);
         final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-        __handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-            @Override
-            public void run() {
+        //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
+        __handler.post(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneCallsListener.doCall");
 
-                Context appContext= appContextWeakRef.get();
+            //Context appContext= appContextWeakRef.get();
 
-                if (appContext != null) {
+            //if (appContext != null) {
 //            int simSlot = 0;
 //            if (subscriptionInfo != null)
 //                simSlot = subscriptionInfo.getSimSlotIndex()+1;
 
-                    switch (phoneEvent) {
-                        case SERVICE_PHONE_EVENT_START:
-                            callStarted(incoming, /*number, eventTime,*/ appContext);
-                            break;
-                        case SERVICE_PHONE_EVENT_ANSWER:
-                            callAnswered(incoming, /*number, eventTime,*/ appContext);
-                            break;
-                        case SERVICE_PHONE_EVENT_END:
-                            callEnded(incoming, missed, /*number, eventTime,*/ appContext);
-                            break;
-                    }
-
-                    //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallsListener.doCall");
+                switch (phoneEvent) {
+                    case SERVICE_PHONE_EVENT_START:
+                        callStarted(incoming, /*number, eventTime,*/ appContext);
+                        break;
+                    case SERVICE_PHONE_EVENT_ANSWER:
+                        callAnswered(incoming, /*number, eventTime,*/ appContext);
+                        break;
+                    case SERVICE_PHONE_EVENT_END:
+                        callEnded(incoming, missed, /*number, eventTime,*/ appContext);
+                        break;
                 }
-            }
+
+                //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PhoneCallsListener.doCall");
+            //}
         });
     }
 
@@ -310,8 +309,10 @@ public class PhoneCallsListener extends PhoneStateListener {
 
 //        PPApplication.logE("PhoneCallsListener.callAnswered", "incoming="+incoming);
 
-        if (PhoneProfilesService.getInstance() != null)
+        if (PhoneProfilesService.getInstance() != null) {
+//            PPApplication.logE("PhoneCallsListener.callAnswered", "call of stopSimulatingRingingCall");
             PhoneProfilesService.getInstance().stopSimulatingRingingCall(true);
+        }
 
         // Delay 2 seconds mode changed to MODE_IN_CALL
         long start = SystemClock.uptimeMillis();
@@ -392,12 +393,14 @@ public class PhoneCallsListener extends PhoneStateListener {
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("PhoneCallsListener.callEnded", "incoming=" + incoming);
 //            PPApplication.logE("PhoneCallsListener.callEnded", "missed=" + missed);
-//            PPApplication.logE("PhoneCallsListener.callEnded", "speakerphoneSelected=" + speakerphoneSelected);
-//            PPApplication.logE("PhoneCallsListener.callEnded", "savedSpeakerphone=" + savedSpeakerphone);
+////            PPApplication.logE("PhoneCallsListener.callEnded", "speakerphoneSelected=" + speakerphoneSelected);
+////            PPApplication.logE("PhoneCallsListener.callEnded", "savedSpeakerphone=" + savedSpeakerphone);
 //        }
 
-        if (PhoneProfilesService.getInstance() != null)
+        if (PhoneProfilesService.getInstance() != null) {
+//            PPApplication.logE("PhoneCallsListener.callEnded", "call of stopSimulatingRingingCall");
             PhoneProfilesService.getInstance().stopSimulatingRingingCall(false);
+        }
 
         // audio mode is set to MODE_IN_CALL by system
 

@@ -2439,9 +2439,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 //_preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE);
                 //if (_preference != null)
                 //    _preference.setEnabled(true);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
-                if (_preference != null)
-                    _preference.setEnabled(true);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
                 if (_preference != null)
                     _preference.setEnabled(true);

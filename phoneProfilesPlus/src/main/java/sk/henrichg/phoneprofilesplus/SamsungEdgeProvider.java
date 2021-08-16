@@ -17,8 +17,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailManager;
 import com.samsung.android.sdk.look.cocktailbar.SlookCocktailProvider;
 
-import java.lang.ref.WeakReference;
-
 public class SamsungEdgeProvider extends SlookCocktailProvider {
 
     //private DataWrapper dataWrapper;
@@ -324,34 +322,33 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
     }
 
     @Override
-    public void onUpdate(Context context, SlookCocktailManager cocktailManager, int[] cocktailIds) {
+    public void onUpdate(Context context, final SlookCocktailManager cocktailManager, final int[] cocktailIds) {
         super.onUpdate(context, cocktailManager, cocktailIds);
 //        PPApplication.logE("[IN_LISTENER] SamsungEdgeProvider.onUpdate", "xxx");
         if (cocktailIds.length > 0) {
-            final int[] _cocktailIds = cocktailIds;
+            //final int[] _cocktailIds = cocktailIds;
 
+            final Context appContext = context;
             PPApplication.startHandlerThreadWidget();
             final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-            __handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
-                @Override
-                public void run() {
+            //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
+            __handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onUpdate");
 
-                    Context appContext= appContextWeakRef.get();
-                    SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
 
-                    if ((appContext != null) && (cocktailManager != null)) {
-                        //createProfilesDataWrapper(_context);
+                //if ((appContext != null) && (cocktailManager != null)) {
+                    //createProfilesDataWrapper(_context);
 
-                        for (int cocktailId : _cocktailIds) {
-                            doOnUpdate(appContext, cocktailManager, cocktailId, true);
-                        }
-
-                        //if (dataWrapper != null)
-                        //    dataWrapper.invalidateDataWrapper();
-                        //dataWrapper = null;
+                    for (int cocktailId : cocktailIds) {
+                        doOnUpdate(appContext, cocktailManager, cocktailId, true);
                     }
-                }
+
+                    //if (dataWrapper != null)
+                    //    dataWrapper.invalidateDataWrapper();
+                    //dataWrapper = null;
+                //}
             });
         }
     }
@@ -365,35 +362,34 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
 
         if ((action != null) &&
                 (action.equalsIgnoreCase(ACTION_REFRESH_EDGEPANEL))) {
-            SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
+            final SlookCocktailManager cocktailManager = SlookCocktailManager.getInstance(context);
             final int[] cocktailIds = cocktailManager.getCocktailIds(new ComponentName(context, SamsungEdgeProvider.class));
 
             if ((cocktailIds != null) && (cocktailIds.length > 0)) {
+                final Context appContext = context;
                 PPApplication.startHandlerThreadWidget();
                 final Handler __handler = new Handler(PPApplication.handlerThreadWidget.getLooper());
-                __handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
-                    @Override
-                    public void run() {
+                //__handler.post(new PPHandlerThreadRunnable(context, cocktailManager) {
+                __handler.post(() -> {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWidget", "START run - from=SamsungEdgeProvider.onReceive");
 
-                        Context appContext= appContextWeakRef.get();
-                        SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
+                    //Context appContext= appContextWeakRef.get();
+                    //SlookCocktailManager cocktailManager = cocktailManagerWeakRef.get();
 
-                        if ((appContext != null) && (cocktailManager != null)) {
-                            //if (EditorProfilesActivity.doImport)
-                            //    return;
+                    //if ((appContext != null) && (cocktailManager != null)) {
+                        //if (EditorProfilesActivity.doImport)
+                        //    return;
 
-                            //createProfilesDataWrapper(context);
+                        //createProfilesDataWrapper(context);
 
-                            for (int cocktailId : cocktailIds) {
-                                doOnUpdate(appContext, cocktailManager, cocktailId, false);
-                            }
-
-                            //if (dataWrapper != null)
-                            //    dataWrapper.invalidateDataWrapper();
-                            //dataWrapper = null;
+                        for (int cocktailId : cocktailIds) {
+                            doOnUpdate(appContext, cocktailManager, cocktailId, false);
                         }
-                    }
+
+                        //if (dataWrapper != null)
+                        //    dataWrapper.invalidateDataWrapper();
+                        //dataWrapper = null;
+                    //}
                 });
             }
         }
@@ -476,17 +472,17 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
         //dataWrapper = null;
     }
 
-    private static abstract class PPHandlerThreadRunnable implements Runnable {
+/*    private static abstract class PPHandlerThreadRunnable implements Runnable {
 
-        public final WeakReference<Context> appContextWeakRef;
-        public final WeakReference<SlookCocktailManager> cocktailManagerWeakRef;
+        final WeakReference<Context> appContextWeakRef;
+        final WeakReference<SlookCocktailManager> cocktailManagerWeakRef;
 
-        public PPHandlerThreadRunnable(Context appContext,
+        PPHandlerThreadRunnable(Context appContext,
                                        SlookCocktailManager cocktailManager) {
             this.appContextWeakRef = new WeakReference<>(appContext);
             this.cocktailManagerWeakRef = new WeakReference<>(cocktailManager);
         }
 
-    }
+    }*/
 
 }

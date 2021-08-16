@@ -88,7 +88,7 @@ class BluetoothScanner {
                                 ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom,
                                 ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo)) {
                             // not scan bluetooth in configured time
-                            PPApplication.logE("%%%% BluetoothScanner.doScan", "-- END - scan in time = 2 -------");
+//                            PPApplication.logE("%%%% BluetoothScanner.doScan", "-- END - scan in time = 2 -------");
                             return;
                         }
                     }

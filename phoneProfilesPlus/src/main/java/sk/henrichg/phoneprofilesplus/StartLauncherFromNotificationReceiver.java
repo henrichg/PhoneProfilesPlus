@@ -21,27 +21,25 @@ public class StartLauncherFromNotificationReceiver extends BroadcastReceiver {
                 //PPApplication.logE("StartLauncherFromNotificationReceiver.onReceive", "action="+action);
 
                 if (action.equals(PhoneProfilesService.ACTION_START_LAUNCHER_FROM_NOTIFICATION)) {
-                    //final Context appContext = context.getApplicationContext();
+                    final Context appContext = context.getApplicationContext();
                     //Handler _handler = new Handler(appContext.getMainLooper());
                     PPApplication.startHandlerThreadBroadcast(/*"WifiAPStateChangeBroadcastReceiver.onReceive"*/);
                     final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
-                    PPApplication.PPHandlerThreadRunnable r = new PPApplication.PPHandlerThreadRunnable(
-                            context.getApplicationContext()) {
-                        @Override
-                        public void run() {
+                    //PPApplication.PPHandlerThreadRunnable r = new PPApplication.PPHandlerThreadRunnable(
+                    //        context.getApplicationContext()) {
+                    Runnable r = () -> {
 //                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=StartLauncherFromNotificationReceiver.onReceive");
 
-                            Context appContext= appContextWeakRef.get();
-                            if (appContext != null) {
-                                // intent to LauncherActivity, for click on notification
-                                Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
-                                // clear all opened activities
-                                launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
-                                // setup startupSource
-                                launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
-                                appContext.startActivity(launcherIntent);
-                            }
-                        }
+                        //Context appContext= appContextWeakRef.get();
+                        //if (appContext != null) {
+                            // intent to LauncherActivity, for click on notification
+                            Intent launcherIntent = new Intent(appContext, LauncherActivity.class);
+                            // clear all opened activities
+                            launcherIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK/*|Intent.FLAG_ACTIVITY_NO_ANIMATION*/);
+                            // setup startupSource
+                            launcherIntent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_NOTIFICATION);
+                            appContext.startActivity(launcherIntent);
+                        //}
                     };
                     //PPApplication.logE("StartLauncherFromNotificationReceiver.onReceive", "PPApplication.deviceIsSamsung="+PPApplication.deviceIsSamsung);
                     if ((Build.VERSION.SDK_INT >= 29) &&

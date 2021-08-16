@@ -1775,7 +1775,7 @@
     <string name="extender_battery_optimization_text">• Ottimizzazione della batteria per PhoneProfilesPlusExtender - si prega di aggiungerlo al gruppo \"Non ottimizzato\":</string>
     <string name="extender_battery_optimization_optimized">Ottimizzato</string>
     <string name="extender_battery_optimization_not_optimized">Non ottimizzato</string>
-    <string name="extender_battery_optimization_button">Apri ottimizzazione della batteria</string>
+    <string name="extender_battery_optimization_button">Apri\nottimizzazione della batteria</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

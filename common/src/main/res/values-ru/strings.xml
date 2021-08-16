@@ -1665,8 +1665,8 @@
     <string name="delete_mobile_cell_alert_message">Удалить эту мобильную вышку?</string>
     <string name="delete_selected_mobile_cells_alert_message">Удалить все выбранные мобильные вышки?</string>
     <string name="tile_chooser_tile_changed_toast">Профиль быстрых настроек изменён на:</string>
-    <string name="altype_profileAdded">Профиль добавлен</string>
-    <string name="altype_eventAdded">Событие добавлено</string>
+    <string name="altype_profileAdded">добавлен профиль</string>
+    <string name="altype_eventAdded">добавлено событие</string>
     <string name="quick_tile_subtile_activated">Активировано</string>
     <string name="quick_tile_subtile_not_activated">Не активировано</string>
     <string name="menu_check_releases_github">Проверить в GitHub</string>
@@ -1775,7 +1775,7 @@
     <string name="extender_battery_optimization_text">• Экономия заряда батареи для PhoneProfilesPlusExtender - добавьте его, пожалуйста, в группу \"Не экономят заряд\":</string>
     <string name="extender_battery_optimization_optimized">Экономит заряд</string>
     <string name="extender_battery_optimization_not_optimized">Не экономит заряд</string>
-    <string name="extender_battery_optimization_button">Открыть \"Экономию заряда батареи\"</string>
+    <string name="extender_battery_optimization_button">Открыть\n\"Экономию заряда батареи\"</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

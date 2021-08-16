@@ -81,6 +81,7 @@
                         android:paddingBottom="7dp"
                         android:textSize="17sp"
                         android:textColor="?attr/colorAccent"
+                        android:textStyle="bold"
                         android:background="?attr/buttonBackground"
                         android:maxLines="1"
                         android:ellipsize="end"
@@ -266,6 +267,7 @@
             android:text="@string/fast_access_duration_activate_without_button_2"
             android:minHeight="40dp"
             android:textColor="@color/action_button_text_color"
+            android:textStyle="bold"
             android:background="?attr/buttonBackground"
             style="?android:attr/borderlessButtonStyle"/>
 

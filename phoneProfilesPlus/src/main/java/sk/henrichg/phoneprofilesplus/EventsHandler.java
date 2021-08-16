@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.provider.Settings;
@@ -23,7 +22,7 @@ class EventsHandler {
     String sensorType;
 
     private int oldRingerMode;
-    private int oldSystemRingerMode;
+    //private int oldSystemRingerMode;
     private int oldZenMode;
 
     private String oldRingtone;
@@ -31,7 +30,7 @@ class EventsHandler {
     private String oldRingtoneSIM2;
 
     //private String oldNotificationTone;
-    private int oldSystemRingerVolume;
+    //private int oldSystemRingerVolume;
 
     private String eventSMSPhoneNumber;
     private long eventSMSDate;
@@ -177,11 +176,11 @@ class EventsHandler {
             // used by ringing call simulation (in doEndHandler())
             oldRingerMode = ApplicationPreferences.prefRingerMode;
             oldZenMode = ApplicationPreferences.prefZenMode;
-            final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            /*final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             if (audioManager != null) {
                 oldSystemRingerMode = audioManager.getRingerMode();
                 oldSystemRingerVolume = audioManager.getStreamVolume(AudioManager.STREAM_RING);
-            }
+            }*/
             try {
                 oldRingtone = "";
                 oldRingtoneSIM1 = "";
@@ -266,7 +265,7 @@ class EventsHandler {
             if (!Event.getGlobalEventsRunning()) {
                 // events are globally stopped
 
-                doEndHandler(null);
+                doEndHandler(null, null);
                 //dataWrapper.invalidateDataWrapper();
 
 //                if (isRestart)
@@ -285,7 +284,7 @@ class EventsHandler {
 //                PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (01)");
                 PPApplication.setApplicationFullyStarted(context);
 
-                doEndHandler(null);
+                doEndHandler(null, null);
 
                 return;
             }
@@ -302,7 +301,7 @@ class EventsHandler {
 //                    PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (02)");
                     PPApplication.setApplicationFullyStarted(context);
 
-                    doEndHandler(null);
+                    doEndHandler(null, null);
                     //dataWrapper.invalidateDataWrapper();
 
                     /*
@@ -1114,7 +1113,7 @@ class EventsHandler {
 
             //restartAtEndOfEvent = false;
 
-            doEndHandler(dataWrapper);
+            doEndHandler(dataWrapper, mergedProfile);
 
 //            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "setApplicationFullyStarted (XXX)");
             PPApplication.setApplicationFullyStarted(context);
@@ -1360,8 +1359,8 @@ class EventsHandler {
     }
     */
 
-    private void doEndHandler(DataWrapper dataWrapper) {
-        //PPApplication.logE("EventsHandler.doEndHandler","sensorType="+sensorType);
+    private void doEndHandler(DataWrapper dataWrapper, Profile mergedProfile) {
+//        PPApplication.logE("EventsHandler.doEndHandler","sensorType="+sensorType);
         //PPApplication.logE("EventsHandler.doEndHandler","callEventType="+callEventType);
 
         if (sensorType.equals(SENSOR_TYPE_PHONE_CALL) && (dataWrapper != null)) {
@@ -1415,29 +1414,44 @@ class EventsHandler {
 //                    PPApplication.logE("EventsHandler.doEndHandler", "simulateRingingCall=" + simulateRingingCall);
                     int simSlot = ApplicationPreferences.prefEventCallFromSIMSlot;
                     if (simulateRingingCall) {
-                        /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
-                        // add saved ringer mode, zen mode, ringtone before handle events as parameters
-                        // ringing call simulator compare this with new (actual values), changed by currently activated profile
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
-                        serviceIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
-                        PPApplication.startPPService(context, serviceIntent);*/
                         Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
-                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_SIMULATE_RINGING_CALL, true);
                         // add saved ringer mode, zen mode, ringtone before handle events as parameters
                         // ringing call simulator compare this with new (actual values), changed by currently activated profile
+
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_OLD_RINGER_MODE="+ oldRingerMode);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGER_MODE, oldRingerMode);
-                        commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_MODE, oldSystemRingerMode);
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_OLD_ZEN_MODE="+ oldZenMode);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_ZEN_MODE, oldZenMode);
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_OLD_RINGTONE="+ oldRingtone);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE, oldRingtone);
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_OLD_RINGTONE_SIM1="+ oldRingtoneSIM1);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM1, oldRingtoneSIM1);
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_OLD_RINGTONE_SIM2="+ oldRingtoneSIM2);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_RINGTONE_SIM2, oldRingtoneSIM2);
-                        commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
+                        //commandIntent.putExtra(PhoneProfilesService.EXTRA_OLD_SYSTEM_RINGER_VOLUME, oldSystemRingerVolume);
+
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_NEW_RINGER_MODE="+ mergedProfile._volumeRingerMode);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGER_MODE, mergedProfile._volumeRingerMode);
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_NEW_ZEN_MODE="+ mergedProfile._volumeZenMode);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_ZEN_MODE, mergedProfile._volumeZenMode);
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_NEW_RINGER_VOLUME="+ mergedProfile._volumeRingtone);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGER_VOLUME, mergedProfile._volumeRingtone);
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_NEW_RINTONE_CHANGE="+ mergedProfile._soundRingtoneChange);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINTONE_CHANGE, mergedProfile._soundRingtoneChange);
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_NEW_RINGTONE="+ mergedProfile._soundRingtone);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGTONE, mergedProfile._soundRingtone);
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_NEW_RINTONE_CHANGE_SIM1="+ mergedProfile._soundRingtoneChangeSIM1);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINTONE_CHANGE_SIM1, mergedProfile._soundRingtoneChangeSIM1);
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_NEW_RINGTONE_SIM1="+ mergedProfile._soundRingtoneSIM1);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGTONE_SIM1, mergedProfile._soundRingtoneSIM1);
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_NEW_RINTONE_CHANGE_SIM2="+ mergedProfile._soundRingtoneChangeSIM2);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINTONE_CHANGE_SIM2, mergedProfile._soundRingtoneChangeSIM2);
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_NEW_RINGTONE_SIM2="+ mergedProfile._soundRingtoneSIM2);
+                        commandIntent.putExtra(PhoneProfilesService.EXTRA_NEW_RINGTONE_SIM2, mergedProfile._soundRingtoneSIM2);
+
+//                        PPApplication.logE("EventsHandler.doEndHandler", "EXTRA_CALL_FROM_SIM_SLOT="+ simSlot);
                         commandIntent.putExtra(PhoneProfilesService.EXTRA_CALL_FROM_SIM_SLOT, simSlot);
                         PPApplication.runCommand(context, commandIntent);
                     }
