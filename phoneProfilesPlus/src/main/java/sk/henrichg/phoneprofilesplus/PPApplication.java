@@ -307,6 +307,9 @@ public class PPApplication extends Application
 
                                                 //+"|------ EventsPrefsFragment.isRedTextNotificationRequired"
                                                 //+"|OneRowWidgetProvider"
+
+                                                //+"|ScreenOnOffBroadcastReceiver"
+                                                //+"|LockDeviceAfterScreenOffBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

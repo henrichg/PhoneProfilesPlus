@@ -124,17 +124,25 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 //                            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "isScreenOn="+PPApplication.isScreenOn);
 //                        }
 
-                            // call this, because device my not be locked immediately after screen off
+                            // call this, because device may not be locked immediately after screen off
                             KeyguardManager keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
                             if (keyguardManager != null) {
                                 boolean secureKeyguard = keyguardManager.isKeyguardSecure();
-                                //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "secureKeyguard=" + secureKeyguard);
+//                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "secureKeyguard=" + secureKeyguard);
+                                boolean inKeyguardRestrictedInputMode = keyguardManager.inKeyguardRestrictedInputMode();
+//                                PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "inKeyguardRestrictedInputMode=" + inKeyguardRestrictedInputMode);
 
-                                if (secureKeyguard) {
+                                if (secureKeyguard && (!inKeyguardRestrictedInputMode)) {
                                     int lockDeviceTime = Settings.Secure.getInt(appContext.getContentResolver(), "lock_screen_lock_after_timeout", 0);
                                     //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "lockDeviceTime="+lockDeviceTime);
-                                    if (lockDeviceTime > 0)
-                                        LockDeviceAfterScreenOffBroadcastReceiver.setAlarm(lockDeviceTime, appContext);
+                                    if (lockDeviceTime > 0) {
+                                        if (DatabaseHandler.getInstance(appContext).getTypeEventsCount(DatabaseHandler.ETYPE_SCREEN) > 0) {
+                                            // call this only when any event with screen sensor exists
+                                            // it is not needed to call it again for calendar sensor, because was called for screen off
+//                                            PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "call LockDeviceAfterScreenOffBroadcastReceiver.setAlarm");
+                                            LockDeviceAfterScreenOffBroadcastReceiver.setAlarm(lockDeviceTime, appContext);
+                                        }
+                                    }
                                 }
                             }
 
