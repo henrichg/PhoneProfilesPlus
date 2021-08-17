@@ -31,6 +31,14 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
         //CallsCounter.logCounter(context, "LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "LockDeviceAfterScreenOffBroadcastReceiver_onReceive");
         //CallsCounter.logCounterNoInc(context, "LockDeviceAfterScreenOffBroadcastReceiver.onReceive->action="+intent.getAction(), "LockDeviceAfterScreenOffBroadcastReceiver_onReceive");
 
+//        if (PPApplication.logEnabled()) {
+//            KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+//            if (keyguardManager != null) {
+//                boolean keyguardShowing = keyguardManager.isKeyguardLocked();
+//                PPApplication.logE("@@@ LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "keyguardShowing=" + keyguardShowing);
+//            }
+//        }
+
         String action = intent.getAction();
         if (action != null) {
             //PPApplication.logE("LockDeviceAfterScreenOffBroadcastReceiver.onReceive", "action=" + action);
