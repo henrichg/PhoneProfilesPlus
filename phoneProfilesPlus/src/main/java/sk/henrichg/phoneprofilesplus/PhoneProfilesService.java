@@ -5966,6 +5966,9 @@ public class PhoneProfilesService extends Service
 
         notificationBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
+        // this disable timestamp in decorator
+        notificationBuilder.setShowWhen(false);
+
         //notificationBuilder.setTicker(profileName);
 
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "set restart events icon");
