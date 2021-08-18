@@ -1102,7 +1102,7 @@ public class PhoneProfilesService extends Service
                 IntentFilter intentFilter14 = new IntentFilter();
                 intentFilter14.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
                 intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-                //intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
+                intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
                 intentFilter14.addAction(BluetoothDevice.ACTION_NAME_CHANGED);
                 appContext.registerReceiver(PPApplication.bluetoothConnectionBroadcastReceiver, intentFilter14);
             }
