@@ -37,7 +37,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.multidex.MultiDex;
+//import androidx.multidex.MultiDex;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
@@ -1237,7 +1237,7 @@ public class PPApplication extends Application
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         collator = getCollator();
-        MultiDex.install(this);
+        //MultiDex.install(this);
 
         if (ACRA.isACRASenderServiceProcess()) {
             Log.e("##### PPApplication.attachBaseContext", "ACRA.isACRASenderServiceProcess()");

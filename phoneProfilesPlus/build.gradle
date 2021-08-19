@@ -11,7 +11,7 @@ android {
         targetSdkVersion ppVersions.targetSdk
         versionCode ppVersions.publishVersionCode
         versionName ppVersions.publishVersion
-        multiDexEnabled true
+        //multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
 
         resConfigs "en", "af", "ar", "bn-rIN", "bg", "ca", "cs", "da", "de", "el",
@@ -55,7 +55,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.multidex:multidex:2.0.1'
+    //implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation "ch.acra:acra-mail:$ppVersions.acra"
     implementation "ch.acra:acra-notification:$ppVersions.acra"
