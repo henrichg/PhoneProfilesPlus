@@ -55,6 +55,18 @@
     <!-- for Samsung SLook -->
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
 
+<!--    https://developer.android.com/guide/topics/manifest/uses-feature-element-->
+<!--    <uses-feature-->
+<!--        android:name="android.software.leanback"-->
+<!--        android:required="false"/>-->
+    <!--  Only devices with touchscreen - maybe this exclude TV-->
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="true"/>
+    <uses-feature
+        android:name="android.hardware.faketouch"
+        android:required="true"/>
+
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false"/>
