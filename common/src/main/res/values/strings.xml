@@ -1719,55 +1719,45 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">To</string>
     <string name="menu_check_releases_appgallery">Check in AppGallery</string>
     <string name="check_releases_open_appgallery">Open AppGallery</string>
-
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Background scanning scan interval</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth scan interval</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Location scan interval</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Orientation scan interval</string>
     <string name="phone_profiles_pref_applicationEventWifiScanIntervalCategory">Wi-Fi scan interval</string>
-
     <string name="menu_activity_log_help">Help</string>
     <string name="activity_log_help_title">Help for Activity log</string>
     <string name="activity_log_help_message">What is displayed in columns</string>
-
     <string name="activity_log_help_message_mergedProfileActivation">X is the number of activated profiles, Y is the number of events that activated the profiles.</string>
     <string name="activity_log_help_message_data_for">for</string>
     <string name="activity_log_help_message_data_profileName">Profile name. It may contains [M] (=manual activation) followed by end of duration in parentheses.</string>
     <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string>
     <string name="activity_log_help_message_data_displayedInGUI">This information is also displayed in all GUI elements (application notification, Activator, Editor, widgets, …).</string>
-
     <string name="activity_log_help_message_data_otherProfileDataTypes">all others for profiles</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Profile name.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">all others for events</string>
     <string name="activity_log_help_message_data_eventName_otherDataTypes">Event name.</string>
-
     <string name="activity_log_help_close">Close</string>
-
     <string name="event_preference_sensor_soundProfile_summary">This sensor will start an event by switching Sound modes or \"Do not disturb\" types. Parameters: Sound modes, \"Do not disturb\" types.</string>
     <string name="event_type_soundProfile">Sound profile</string>
     <string name="event_preferences_soundProfile_ringerModes">Sound modes</string>
     <string name="event_preferences_soundProfile_zenModes">\"Do not disturb\" types</string>
-
     <string name="array_pref_event_ringerMode_ring">Sound</string>
     <string name="array_pref_event_ringerMode_vibrate">Vibration</string>
     <string name="array_pref_event_ringerMode_silent">Silent</string>
     <string name="array_pref_event_ringerMode_zenMode">Do not disturb</string>
-
     <string name="array_pref_event_zenMode_all">Off</string>
     <string name="array_pref_event_zenMode_priority">Priority</string>
     <string name="array_pref_event_ringerMode_alarm">Alarms only</string>
     <string name="array_pref_event_ringerMode_none">Total silence</string>
     <string name="array_pref_event_zenMode_all_and_vibrate">Off with vibration</string>
     <string name="array_pref_event_zenMode_priority_and_vibrate">Priority with vibration</string>
-
     <string name="event_preferences_category_eventSoundProfileParameters">Sound profile sensor</string>
-
     <string name="check_releases_open_fdroid">Open F-Droid</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus in repository:</string>
-
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Increase brightness</string>
-
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Show \"Restart events\" as button</string>
+
+    <string name="check_ppp_releases_notification">Click this notification for check of PhoneProfilesPlus releases. Maybe was released newer version.</string>
 
     <!-- **************************************************************************************** -->
 

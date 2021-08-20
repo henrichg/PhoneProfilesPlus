@@ -24,10 +24,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class CheckPPPReleasesActivity extends AppCompatActivity {
 
+    private boolean criticalCheck = false;
+
+    static final String EXTRA_CRITICAL_CHECK = "extra_critical_check";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
+
+        Intent intent = getIntent();
+        criticalCheck = intent.getBooleanExtra(EXTRA_CRITICAL_CHECK, false);
 
 //        PPApplication.logE("[BACKGROUND_ACTIVITY] CheckGitHubReleasesActivity.onCreate", "xxx");
     }
@@ -41,7 +48,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
-        showDialog(this, false, -1);
+        showDialog(this, false, criticalCheck ? -2 : -1);
     }
 
     @Override
@@ -68,10 +75,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         else
         if (store == R.id.menu_check_in_github)
             checkInGitHub(activity, fromEditor);
-        else {
+        else
+        if (store == -1) {
             // this is for
             // - CheckPPPReleasesBroadcastReceiver
-            // - CheckCriticalPPPReleasesBroadcastReceiver
 
             if (PPApplication.deviceIsSamsung)
                 checkInGalaxyStore(activity, fromEditor);
@@ -94,6 +101,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     checkInGitHub(activity, fromEditor);
             }
         }
+        else
+            // this is for
+            // - CheckCriticalPPPReleasesBroadcastReceiver
+            checkInGitHub(activity, fromEditor);
     }
 
     @SuppressLint({"SetTextI18n", "InflateParams"})

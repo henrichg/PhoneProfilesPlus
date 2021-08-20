@@ -319,6 +319,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
             NotificationCompat.Builder mBuilder;
             Intent _intent;
             _intent = new Intent(appContext, CheckPPPReleasesActivity.class);
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, true);
 
             String nTitle;
             String nText;

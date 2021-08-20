@@ -213,9 +213,10 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
         NotificationCompat.Builder mBuilder;
         Intent _intent;
         _intent = new Intent(appContext, CheckPPPReleasesActivity.class);
+        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, false);
 
         String nTitle = appContext.getString(R.string.menu_check_github_releases);
-        String nText = appContext.getString(R.string.check_github_releases_notification);
+        String nText = appContext.getString(R.string.check_ppp_releases_notification);
 //        if (android.os.Build.VERSION.SDK_INT < 24) {
 //            nTitle = appContext.getString(R.string.ppp_app_name);
 //            nText = appContext.getString(R.string.menu_check_github_releases) + ": " +
