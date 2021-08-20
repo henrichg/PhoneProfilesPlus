@@ -74,7 +74,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             checkInHuaweiAppGallery(activity, fromEditor);
         else
         if (store == R.id.menu_check_in_github)
-            checkInGitHub(activity, fromEditor);
+            checkInGitHub(activity, fromEditor, false);
         else
         if (store == -1) {
             // this is for
@@ -98,17 +98,17 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 if (fdroidInstalled)
                     checkInFDroid(activity, fromEditor);
                 else
-                    checkInGitHub(activity, fromEditor);
+                    checkInGitHub(activity, fromEditor, false);
             }
         }
         else
             // this is for
             // - CheckCriticalPPPReleasesBroadcastReceiver
-            checkInGitHub(activity, fromEditor);
+            checkInGitHub(activity, fromEditor, true);
     }
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
-    private static void checkInGitHub(final Activity activity, final boolean fromEditor) {
+    private static void checkInGitHub(final Activity activity, final boolean fromEditor, final boolean critical) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
         String message;
@@ -123,6 +123,11 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         message = message + activity.getString(R.string.check_github_releases_install_info_1) + "\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";
         message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
+
+        if (critical) {
+            message = message + "\n\n";
+            message = message + activity.getString(R.string.check_github_releases_install_info_app_stores_release);
+        }
 
         View layout;
         LayoutInflater inflater = activity.getLayoutInflater();

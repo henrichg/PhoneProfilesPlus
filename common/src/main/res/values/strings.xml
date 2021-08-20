@@ -1758,6 +1758,8 @@
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Show \"Restart events\" as button</string>
 
     <string name="check_ppp_releases_notification">Click this notification for check of PhoneProfilesPlus releases. Maybe was released newer version.</string>
+    <string name="check_github_releases_install_info_app_stores_release">"In application stores will be new version soon."</string>
+
 
     <!-- **************************************************************************************** -->
 
