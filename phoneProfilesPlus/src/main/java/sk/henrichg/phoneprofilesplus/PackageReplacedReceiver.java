@@ -37,7 +37,7 @@ public class PackageReplacedReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        CheckCriticalGitHubReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(appContext, 0);
+                        CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(appContext, 0);
 
                         boolean serviceStarted = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
                         PPApplication.logE("##### PackageReplacedReceiver.onReceive", "serviceStarted=" + serviceStarted);

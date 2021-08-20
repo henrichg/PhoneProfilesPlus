@@ -28,10 +28,10 @@ import java.util.Calendar;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
 
-public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
+public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String PREF_SHOW_CRITICAL_GITHUB_RELEASE_CODE_NOTIFICATION = "show_critical_github_release_code_notification";
-    private static final String PREF_CRITICAL_GITHUB_RELEASE_ALARM = "critical_github_release_alarm";
+    private static final String PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION = "show_critical_github_release_code_notification";
+    private static final String PREF_CRITICAL_PPP_RELEASE_ALARM = "critical_github_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] CheckCriticalGitHubReleasesBroadcastReceiver.onReceive", "xxx");
@@ -56,7 +56,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
 //        }
 
         long lastAlarm = ApplicationPreferences.
-                getSharedPreferences(context).getLong(PREF_CRITICAL_GITHUB_RELEASE_ALARM, 0);
+                getSharedPreferences(context).getLong(PREF_CRITICAL_PPP_RELEASE_ALARM, 0);
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(lastAlarm);
@@ -106,7 +106,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                 alarmTime = alarm.getTimeInMillis();
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putLong(PREF_CRITICAL_GITHUB_RELEASE_ALARM, alarmTime);
+                editor.putLong(PREF_CRITICAL_PPP_RELEASE_ALARM, alarmTime);
                 editor.apply();
             } else {
                 alarmTime = lastAlarm;
@@ -318,7 +318,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
 
             NotificationCompat.Builder mBuilder;
             Intent _intent;
-            _intent = new Intent(appContext, CheckGitHubReleasesActivity.class);
+            _intent = new Intent(appContext, CheckPPPReleasesActivity.class);
 
             String nTitle;
             String nText;
@@ -359,9 +359,9 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
 
 //            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "putExtra - versionCodeInReleases=" + versionCodeInReleases);
 //            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "putExtra - critical=" + critical);
-            Intent disableIntent = new Intent(appContext, CheckCriticalGitHubReleasesDisableActivity.class);
-            disableIntent.putExtra(CheckCriticalGitHubReleasesDisableActivity.EXTRA_GITHUB_RELEASE_CODE, versionCodeInReleases);
-            disableIntent.putExtra(CheckCriticalGitHubReleasesDisableActivity.EXTRA_GITHUB_RELEASE_CRITICAL, critical);
+            Intent disableIntent = new Intent(appContext, CheckCriticalPPPReleasesDisableActivity.class);
+            disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CODE, versionCodeInReleases);
+            disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CRITICAL, critical);
 
             @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pDisableIntent = PendingIntent.getActivity(appContext, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -405,7 +405,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
     {
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification = ApplicationPreferences.
-                    getSharedPreferences(context).getInt(PREF_SHOW_CRITICAL_GITHUB_RELEASE_CODE_NOTIFICATION, 0);
+                    getSharedPreferences(context).getInt(PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION, 0);
             //return prefRingerVolume;
         }
     }
@@ -414,7 +414,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
     {
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putInt(PREF_SHOW_CRITICAL_GITHUB_RELEASE_CODE_NOTIFICATION, versionCode);
+            editor.putInt(PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION, versionCode);
             editor.apply();
             ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification = versionCode;
         }

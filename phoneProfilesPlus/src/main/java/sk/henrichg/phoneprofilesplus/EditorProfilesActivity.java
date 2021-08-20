@@ -1292,7 +1292,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 (itemId == R.id.menu_check_in_galaxy_store) ||
                 (itemId == R.id.menu_check_in_amazon_appstore) ||
                 (itemId == R.id.menu_check_in_appgallery)) {
-            CheckGitHubReleasesActivity.showDialog(this, true, itemId);
+            CheckPPPReleasesActivity.showDialog(this, true, itemId);
             return true;
         }
 

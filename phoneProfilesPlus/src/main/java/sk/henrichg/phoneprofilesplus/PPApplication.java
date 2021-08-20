@@ -756,8 +756,8 @@ public class PPApplication extends Application
     static WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
     static NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
     static DonationBroadcastReceiver donationBroadcastReceiver = null;
-    static CheckGitHubReleasesBroadcastReceiver checkGitHubReleasesBroadcastReceiver = null;
-    static CheckCriticalGitHubReleasesBroadcastReceiver checkCriticalGitHubReleasesBroadcastReceiver = null;
+    static CheckPPPReleasesBroadcastReceiver checkPPPReleasesBroadcastReceiver = null;
+    static CheckCriticalPPPReleasesBroadcastReceiver checkCriticalPPPReleasesBroadcastReceiver = null;
     static CheckOnlineStatusBroadcastReceiver checkOnlineStatusBroadcastReceiver = null;
     static SimStateChangedBroadcastReceiver simStateChangedBroadcastReceiver = null;
 
@@ -1971,7 +1971,7 @@ public class PPApplication extends Application
         }
 
         IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
-        CheckCriticalGitHubReleasesBroadcastReceiver.getShowCriticalGitHubReleasesNotification(context);
+        CheckCriticalPPPReleasesBroadcastReceiver.getShowCriticalGitHubReleasesNotification(context);
         getActivityLogEnabled(context);
         //getNotificationProfileName(context);
         //getWidgetProfileName(context);

@@ -722,24 +722,24 @@ public class PhoneProfilesService extends Service
                     PPApplication.donationBroadcastReceiver = null;
                 }
             }
-            if (PPApplication.checkGitHubReleasesBroadcastReceiver != null) {
+            if (PPApplication.checkPPPReleasesBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->UNREGISTER checkGitHubReleasesBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER checkGitHubReleasesBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver);
-                    PPApplication.checkGitHubReleasesBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.checkPPPReleasesBroadcastReceiver);
+                    PPApplication.checkPPPReleasesBroadcastReceiver = null;
                 } catch (Exception e) {
-                    PPApplication.checkGitHubReleasesBroadcastReceiver = null;
+                    PPApplication.checkPPPReleasesBroadcastReceiver = null;
                 }
             }
-            if (PPApplication.checkCriticalGitHubReleasesBroadcastReceiver != null) {
+            if (PPApplication.checkCriticalPPPReleasesBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->UNREGISTER checkCriticalGitHubReleasesBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER checkCriticalGitHubReleasesBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(PPApplication.checkCriticalGitHubReleasesBroadcastReceiver);
-                    PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.checkCriticalPPPReleasesBroadcastReceiver);
+                    PPApplication.checkCriticalPPPReleasesBroadcastReceiver = null;
                 } catch (Exception e) {
-                    PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = null;
+                    PPApplication.checkCriticalPPPReleasesBroadcastReceiver = null;
                 }
             }
         }
@@ -876,19 +876,19 @@ public class PhoneProfilesService extends Service
                 intentFilter5.addAction(PPApplication.ACTION_DONATION);
                 appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5);
             }
-            if (PPApplication.checkGitHubReleasesBroadcastReceiver == null) {
+            if (PPApplication.checkPPPReleasesBroadcastReceiver == null) {
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER checkGitHubReleasesBroadcastReceiver");
-                PPApplication.checkGitHubReleasesBroadcastReceiver = new CheckGitHubReleasesBroadcastReceiver();
+                PPApplication.checkPPPReleasesBroadcastReceiver = new CheckPPPReleasesBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
-                appContext.registerReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.checkPPPReleasesBroadcastReceiver, intentFilter5);
             }
-            if (PPApplication.checkCriticalGitHubReleasesBroadcastReceiver == null) {
+            if (PPApplication.checkCriticalPPPReleasesBroadcastReceiver == null) {
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER checkCriticalGitHubReleasesBroadcastReceiver");
-                PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = new CheckCriticalGitHubReleasesBroadcastReceiver();
+                PPApplication.checkCriticalPPPReleasesBroadcastReceiver = new CheckCriticalPPPReleasesBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
-                appContext.registerReceiver(PPApplication.checkCriticalGitHubReleasesBroadcastReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.checkCriticalPPPReleasesBroadcastReceiver, intentFilter5);
             }
         }
     }
@@ -4293,8 +4293,8 @@ public class PhoneProfilesService extends Service
 
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "start donation and check GitHub releases alarms");
                 DonationBroadcastReceiver.setAlarm(appContext);
-                CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
-                CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm(appContext);
+                CheckPPPReleasesBroadcastReceiver.setAlarm(appContext);
+                CheckCriticalPPPReleasesBroadcastReceiver.setAlarm(appContext);
 
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application started");
 
