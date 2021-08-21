@@ -65,14 +65,14 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
         long alarmTime;
 
-        /*if (DebugVersion.enabled) {
+/*        if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
-            if (PPApplication.logEnabled()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarm.getTimeInMillis());
-                Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-            }
+//            if (PPApplication.logEnabled()) {
+//                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                String result = sdf.format(alarm.getTimeInMillis());
+//                Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//            }
 
             alarmTime = alarm.getTimeInMillis();
         } else*/
@@ -260,6 +260,11 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "conn.getUrl()="+conn.getURL());
             InputStream in = conn.getInputStream();
             contents = convertStreamToString(in);
+
+            // this must be added when you tests debug branch
+            if (DebugVersion.enabled)
+                contents = "@@@ppp-release:5.1.0.2b:6645:normal***@@@";
+
 //            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "contents="+contents);
 
             if (!contents.isEmpty()) {
@@ -305,7 +310,9 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                 }
             }
 
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+            //PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+        }
 
 //        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "showNotification="+showNotification);
 //        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "critical="+critical);
