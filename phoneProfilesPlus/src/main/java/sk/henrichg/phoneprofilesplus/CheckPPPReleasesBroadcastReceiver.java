@@ -56,14 +56,14 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
         long alarmTime;
 
-        /*if (DebugVersion.enabled) {
+/*        if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
-            if (PPApplication.logEnabled()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarm.getTimeInMillis());
-                Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-            }
+//            if (PPApplication.logEnabled()) {
+//                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                String result = sdf.format(alarm.getTimeInMillis());
+//                Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//            }
 
             alarmTime = alarm.getTimeInMillis();
         } else*/
