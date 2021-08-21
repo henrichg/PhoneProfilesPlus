@@ -194,6 +194,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                         }
 
                         DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                        dataWrapper.fillEventList();
 
                         boolean applicationsAllowed = false;
                         boolean orientationAllowed = false;
@@ -210,15 +211,14 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             setApplicationInForeground(appContext, "");
 
                             if (Event.getGlobalEventsRunning()) {
-                                dataWrapper.fillEventList();
                                 //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
 
                                 EventsHandler eventsHandler = new EventsHandler(appContext);
-                                if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/)) {
+                                if (applicationExists) {
 //                                    PPApplication.logE("[EVENTS_HANDLER_CALL] PPPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (2)");
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
                                 }
-                                if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/)) {
+                                if (orientationExists) {
 //                                    PPApplication.logE("[EVENTS_HANDLER_CALL] PPPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (2)");
                                     eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
                                 }
