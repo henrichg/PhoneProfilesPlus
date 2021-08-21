@@ -3593,6 +3593,20 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 PPApplication.recordException(e);
                             }
                         });
+                dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
+                        (dialog, which) -> {
+                            Intent intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                            activity.startActivity(intent);
+
+                            try {
+                                // close Activator
+                                activity.finish();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        });
             }
             else
                 dialogBuilder.setPositiveButton(android.R.string.ok, null);

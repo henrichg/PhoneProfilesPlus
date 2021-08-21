@@ -6027,7 +6027,7 @@ public class Profile {
     }
 */
     public int isAccessibilityServiceEnabled(Context context) {
-        int accessibilityEnabled = 1;
+        int accessibilityEnabled;
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
             accessibilityEnabled = -2;
