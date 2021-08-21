@@ -2063,7 +2063,7 @@ public class Profile {
     }
 
     // get icon custom color
-    private int getIconCustomColor() {
+    int getIconCustomColor() {
         int value;
         try {
             String[] splits = _icon.split("\\|");

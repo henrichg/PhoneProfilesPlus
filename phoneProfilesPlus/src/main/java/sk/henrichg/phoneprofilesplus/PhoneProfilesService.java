@@ -5956,7 +5956,6 @@ public class PhoneProfilesService extends Service
         }
 
         notificationBuilder.setContentIntent(pIntent);
-        notificationBuilder.setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
 
         // Android 12:
         // The service provides a use case related to phone calls, navigation, or media playback,
@@ -6130,6 +6129,9 @@ public class PhoneProfilesService extends Service
 
         // ----- set icons
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "inHandlerThread="+inHandlerThread);
+
+        int decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
+
         if (!forFirstStart) {
             if (isIconResourceID) {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is internal resource");
@@ -6171,9 +6173,9 @@ public class PhoneProfilesService extends Service
                         iconSmallResource = R.drawable.ic_profile_default_notify;
                         try {
                             if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                                Object idx = Profile.profileIconNotifyId.get(iconIdentifier);
-                                if (idx != null)
-                                    iconSmallResource = (int) idx;
+                                Object obj = Profile.profileIconNotifyId.get(iconIdentifier);
+                                if (obj != null)
+                                    iconSmallResource = (int) obj;
                             }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
@@ -6246,8 +6248,18 @@ public class PhoneProfilesService extends Service
                             notificationBuilder.setLargeIcon(iconBitmap);
                     }
                 }
+
+                if (profile.getUseCustomColorForIcon())
+                    decoratorColor = profile.getIconCustomColor();
+                else {
+                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                        decoratorColor = ProfileIconPreferenceAdapterX.getIconColor(iconIdentifier/*, prefContext*/);
+                    }
+                }
+
             } else {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is custom - external picture");
+
                 // FC in Note 4, 6.0.1 :-/
                 //boolean isNote4 = (Build.MANUFACTURER.compareToIgnoreCase("samsung") == 0) &&
                     /*(Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
@@ -6327,6 +6339,9 @@ public class PhoneProfilesService extends Service
                 }
             }
         }
+
+        //TODO xxx
+        notificationBuilder.setColor(decoratorColor);
 
         // notification title
         if (notificationNotificationStyle.equals("0")) {
