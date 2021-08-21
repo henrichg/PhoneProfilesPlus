@@ -6513,25 +6513,30 @@ public class PhoneProfilesService extends Service
             //if (android.os.Build.VERSION.SDK_INT >= 24) {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "setCustomContentView");
 
-                if (useDecorator)
+                if (useDecorator) {
                     notificationBuilder.setStyle(new NotificationCompat.DecoratedCustomViewStyle());
-                else
+
+                    notificationBuilder.setCustomContentView(contentView);
+                    notificationBuilder.setCustomBigContentView(contentViewLarge);
+                }
+                else {
                     notificationBuilder.setStyle(null);
 
-                switch (notificationLayoutType) {
-                    case "1":
-                        // only large layout
-                        notificationBuilder.setCustomContentView(contentViewLarge);
-                        break;
-                    case "2":
-                        // only small layout
-                        notificationBuilder.setCustomContentView(contentView);
-                        break;
-                    default:
-                        // expandable layout
-                        notificationBuilder.setCustomContentView(contentView);
-                        notificationBuilder.setCustomBigContentView(contentViewLarge);
-                        break;
+                    switch (notificationLayoutType) {
+                        case "1":
+                            // only large layout
+                            notificationBuilder.setCustomContentView(contentViewLarge);
+                            break;
+                        case "2":
+                            // only small layout
+                            notificationBuilder.setCustomContentView(contentView);
+                            break;
+                        default:
+                            // expandable layout
+                            notificationBuilder.setCustomContentView(contentView);
+                            notificationBuilder.setCustomBigContentView(contentViewLarge);
+                            break;
+                    }
                 }
             //} else {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContent");

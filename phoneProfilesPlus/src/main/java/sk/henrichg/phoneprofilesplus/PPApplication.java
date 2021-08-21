@@ -312,7 +312,7 @@ public class PPApplication extends Application
                                                 //+"|LockDeviceAfterScreenOffBroadcastReceiver"
 
                                                 //+"|PPPExtenderBroadcastReceiver.onReceive"
-                                                +"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
+                                                //+"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
 
                                                 //+"|CheckCriticalGitHubReleasesBroadcastReceiver._doWork"
                                                 ;
