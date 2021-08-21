@@ -727,7 +727,7 @@ public class EditorEventListFragment extends Fragment
 
                 }
                 else {
-                    EditorProfilesActivity.showDialogAboutRedText(null, event, false, true, getActivity());
+                    EditorProfilesActivity.showDialogAboutRedText(null, event, false, false, true, getActivity());
                     return false;
                 }
             } else {

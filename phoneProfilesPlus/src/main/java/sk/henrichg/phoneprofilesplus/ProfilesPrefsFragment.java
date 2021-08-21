@@ -1288,6 +1288,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_ACCESSIBILITY_SETTINGS) {
             disableDependedPref(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
+            setSummary(PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS);
+            setSummary(PREF_LOCK_DEVICE_ACCESSIBILITY_SETTINGS);
             // show save menu
             ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
             if (activity != null) {

@@ -311,8 +311,8 @@ public class PPApplication extends Application
                                                 //+"|ScreenOnOffBroadcastReceiver"
                                                 //+"|LockDeviceAfterScreenOffBroadcastReceiver"
 
-                                                //+"|PPPExtenderBroadcastReceiver.onReceive"
-                                                //+"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
+                                                +"|PPPExtenderBroadcastReceiver.onReceive"
+                                                +"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

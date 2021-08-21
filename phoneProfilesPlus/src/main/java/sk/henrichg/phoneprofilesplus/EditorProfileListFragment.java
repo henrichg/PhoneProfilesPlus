@@ -726,12 +726,13 @@ public class EditorProfileListFragment extends Fragment
         getActivity().getMenuInflater().inflate(R.menu.profile_list_item_edit, popup.getMenu());
 
         final Profile profile = (Profile)view.getTag();
-        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
-            MenuItem activateItem = popup.getMenu().findItem(R.id.profile_list_item_menu_activate);
-            if (activateItem != null) {
-                activateItem.setEnabled(false);
-            }
-        }
+
+//        if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile, activityDataWrapper.context)) {
+//            MenuItem activateItem = popup.getMenu().findItem(R.id.profile_list_item_menu_activate);
+//            if (activateItem != null) {
+//                activateItem.setEnabled(false);
+//            }
+//        }
 
         popup.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
@@ -956,7 +957,7 @@ public class EditorProfileListFragment extends Fragment
             activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_EDITOR, getActivity(), false);
         }
         else
-            EditorProfilesActivity.showDialogAboutRedText(profile, null, false, false, getActivity());
+            EditorProfilesActivity.showDialogAboutRedText(profile, null, false, false, false, getActivity());
     }
 
     /*private void setProfileSelection(Profile profile) {
@@ -1342,7 +1343,7 @@ public class EditorProfileListFragment extends Fragment
                 popup.show();
         }
         else
-            EditorProfilesActivity.showDialogAboutRedText(profile, null, true, false, getActivity());
+            EditorProfilesActivity.showDialogAboutRedText(profile, null, false, true, false, getActivity());
     }
 
     /*
