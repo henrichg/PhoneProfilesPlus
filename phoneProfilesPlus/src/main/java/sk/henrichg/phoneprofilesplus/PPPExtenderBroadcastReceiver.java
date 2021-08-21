@@ -55,9 +55,11 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
         switch (intent.getAction()) {
             case PPApplication.ACTION_PPPEXTENDER_IS_RUNNING_ANSWER:
+//                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_PPPEXTENDER_IS_RUNNING_ANSWER");
                 PPApplication.accessibilityServiceForPPPExtenderConnected = true;
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
+//                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
                 PPApplication.accessibilityServiceForPPPExtenderConnected = true;
                 PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
                 final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
@@ -171,7 +173,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 }
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:
-                //PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_UNBIND");
+//                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_UNBIND");
                 PPApplication.accessibilityServiceForPPPExtenderConnected = false;
 
                 setApplicationInForeground(appContext, "");
@@ -427,7 +429,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                     //PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "serviceId=" + service.getId());
                     try {
                         if (service.getId().contains(PPApplication.EXTENDER_ACCESSIBILITY_PACKAGE_NAME)) {
-                            //PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "true");
+//                            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "true");
                             enabled = true;
                         }
 /*
@@ -446,6 +448,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         }
 
         if (!enabled) {
+//            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "PPApplication.accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
             enabled = PPApplication.accessibilityServiceForPPPExtenderConnected;
         }
 //        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enabled="+enabled);
