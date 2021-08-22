@@ -262,8 +262,8 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
             contents = convertStreamToString(in);
 
             // this must be added when you tests debug branch
-            if (DebugVersion.enabled)
-                contents = "@@@ppp-release:5.1.0.2b:6645:normal***@@@";
+//            if (DebugVersion.enabled)
+//                contents = "@@@ppp-release:5.1.0.2b:6645:normal***@@@";
 
 //            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "contents="+contents);
 
