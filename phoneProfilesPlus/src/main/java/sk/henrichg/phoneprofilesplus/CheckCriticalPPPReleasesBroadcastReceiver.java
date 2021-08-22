@@ -312,7 +312,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                 }
             }
 
-        } catch (IOException ignored) {
+        } catch (Exception ignored) {
             //PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
         }
 
