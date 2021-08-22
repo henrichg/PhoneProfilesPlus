@@ -56,11 +56,11 @@ public class FastScroller {
     private final FastScrollPopup mPopup;
 
     private final int mThumbHeight;
-    private final int mThumbWidth;
+    private int mThumbWidth;
     private final Paint mThumb;
 
     private final Paint mTrack;
-    private final int mTrackWidth;
+    private int mTrackWidth;
 
     private final Rect mTmpRect = new Rect();
     private final Rect mInvalidateRect = new Rect();
@@ -141,6 +141,11 @@ public class FastScroller {
             int popupBackgroundSize = typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollPopupBackgroundSize, Utils.toPixels(resources, 62));
             @PopupTextVerticalAlignmentMode int popupTextVerticalAlignmentMode = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupTextVerticalAlignmentMode, PopupTextVerticalAlignmentMode.TEXT_BOUNDS);
             @PopupPosition int popupPosition = typedArray.getInteger(R.styleable.FastScrollRecyclerView_fastScrollPopupPosition, PopupPosition.ADJACENT);
+
+            mThumbWidth =
+                    typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollThumbWidth, mThumbWidth);
+            mTrackWidth =
+                    typedArray.getDimensionPixelSize(R.styleable.FastScrollRecyclerView_fastScrollTrackWidth, mTrackWidth);
 
             mTrack.setColor(trackColor);
             mThumb.setColor(mThumbInactiveState ? mThumbInactiveColor : mThumbActiveColor);
