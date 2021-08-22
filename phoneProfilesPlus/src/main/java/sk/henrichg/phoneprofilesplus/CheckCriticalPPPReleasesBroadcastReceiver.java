@@ -65,7 +65,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
         long alarmTime;
 
-/*        if (DebugVersion.enabled) {
+        /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
 //            if (PPApplication.logEnabled()) {
@@ -249,6 +249,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
     private static void _doWork(Context appContext) {
         boolean showNotification = false;
         boolean critical = true;
+        String versionNameInReleases = "";
         int versionCodeInReleases = 0;
         try {
             String contents;// = "";
@@ -285,6 +286,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                             versionCode = PPApplication.getVersionCode(pInfo);
                         } catch (Exception ignored) {
                         }
+                        versionNameInReleases = splits[0];
                         versionCodeInReleases = Integer.parseInt(splits[1]);
 //                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionCodeInReleases=" + versionCodeInReleases);
 //                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification=" + ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);
@@ -327,6 +329,8 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
             Intent _intent;
             _intent = new Intent(appContext, CheckPPPReleasesActivity.class);
             _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, true);
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, versionNameInReleases);
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
 
             String nTitle;
             String nText;

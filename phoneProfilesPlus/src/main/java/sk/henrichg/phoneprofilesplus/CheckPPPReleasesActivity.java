@@ -25,8 +25,12 @@ import androidx.appcompat.app.AppCompatActivity;
 public class CheckPPPReleasesActivity extends AppCompatActivity {
 
     private boolean criticalCheck = false;
+    private String newVersionName = "";
+    private int newVersionCode = 0;
 
     static final String EXTRA_CRITICAL_CHECK = "extra_critical_check";
+    static final String EXTRA_NEW_VERSION_NAME = "extra_new_version_name";
+    static final String EXTRA_NEW_VERSION_CODE = "extra_new_version_code";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         criticalCheck = intent.getBooleanExtra(EXTRA_CRITICAL_CHECK, false);
+        newVersionName = intent.getStringExtra(EXTRA_NEW_VERSION_NAME);
+        newVersionCode = intent.getIntExtra(EXTRA_NEW_VERSION_CODE, 0);
 
 //        PPApplication.logE("[BACKGROUND_ACTIVITY] CheckGitHubReleasesActivity.onCreate", "xxx");
     }
@@ -48,7 +54,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
-        showDialog(this, false, criticalCheck ? -2 : -1);
+        showDialog(this, false, criticalCheck ? -2 : -1, newVersionName, newVersionCode);
     }
 
     @Override
@@ -59,7 +65,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     }
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
-    static void showDialog(final Activity activity, final boolean fromEditor, final int store) {
+    static void showDialog(final Activity activity, final boolean fromEditor, final int store,
+                           final String newVersionName, final int newVersionCode) {
 
         if (store == R.id.menu_check_in_fdroid)
             checkInFDroid(activity, fromEditor);
@@ -74,7 +81,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             checkInHuaweiAppGallery(activity, fromEditor);
         else
         if (store == R.id.menu_check_in_github)
-            checkInGitHub(activity, fromEditor, false);
+            checkInGitHub(activity, fromEditor, false, newVersionName, newVersionCode);
         else
         if (store == -1) {
             // this is for
@@ -98,17 +105,18 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 if (fdroidInstalled)
                     checkInFDroid(activity, fromEditor);
                 else
-                    checkInGitHub(activity, fromEditor, false);
+                    checkInGitHub(activity, fromEditor, false, newVersionName, newVersionCode);
             }
         }
         else
             // this is for
             // - CheckCriticalPPPReleasesBroadcastReceiver
-            checkInGitHub(activity, fromEditor, true);
+            checkInGitHub(activity, fromEditor, true, newVersionName, newVersionCode);
     }
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
-    private static void checkInGitHub(final Activity activity, final boolean fromEditor, final boolean critical) {
+    private static void checkInGitHub(final Activity activity, final boolean fromEditor, final boolean critical,
+                                      final String newVersionName, final int newVersionCode) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
         String message;
@@ -119,6 +127,10 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             message = "";
         }
 
+        if (critical && (!newVersionName.isEmpty()) && (newVersionCode > 0)) {
+            message = message + "\n\n";
+            message = message + activity.getString(R.string.check_github_releases_new_version) + " " + newVersionName + " (" + newVersionCode + ")";//\n";
+        }
         message = message + "\n\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_1) + "\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";

@@ -1763,6 +1763,8 @@
     <string name="show_dialog_about_red_text_show_profile_preferences">Show profile preferences</string>
     <string name="show_dialog_about_red_text_show_editor">Show Editor</string>
 
+    <string name="check_github_releases_new_version">New version:</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
