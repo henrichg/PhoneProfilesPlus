@@ -41,6 +41,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     //private String activeDefaultProfile;
     private boolean useAlarmClockEnabled;
 
+    private boolean fromFinish = false;
     private boolean invalidateEditor = false;
 
     public static final String EXTRA_SCROLL_TO = "extra_phone_profile_preferences_scroll_to";
@@ -309,17 +310,6 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         return false;
     }
 
-/*
-    @Override
-    protected void onStop() {
-        super.onStop();
-        PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
-
-//        if (activityStarted) {
-//            doPreferenceChanges();
-//        }
-    }
-*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -347,10 +337,25 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+//        PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "activityStarted="+activityStarted);
+//        PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "fromFinish="+fromFinish);
+
+        if (activityStarted) {
+            if (!fromFinish)
+                doPreferenceChanges();
+        }
+
+        super.onStop();
+    }
+
+    @Override
     public void finish() {
         // finish is called before of onStop()
 
 //        PPApplication.logE("PhoneProfilesPrefsActivity.finish", "xxx");
+
+        fromFinish = true;
 
         Intent returnIntent = new Intent();
         if (activityStarted) {
@@ -451,6 +456,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         boolean permissionsChanged = Permissions.getPermissionsChanged(appContext);
+
         if (permissionsChanged) {
             //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "permissions changed");
             invalidateEditor = true;
@@ -461,8 +467,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "language changed");
             GlobalGUIRoutines.setLanguage(this);
             invalidateEditor = true;
-        }
-        else*/
+        }*/
         if (!activeTheme.equals(ApplicationPreferences.applicationTheme(appContext, false)))
         {
             //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "theme changed");
@@ -470,26 +475,22 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             GlobalGUIRoutines.switchNightMode(appContext, false);
             invalidateEditor = true;
         }
-        /*else
-        if (!activeNightModeOffTheme.equals(ApplicationPreferences.applicationNightModeOffTheme(appContext)))
+        /*if (!activeNightModeOffTheme.equals(ApplicationPreferences.applicationNightModeOffTheme(appContext)))
         {
             //EditorProfilesActivity.setTheme(this, false);
             invalidateEditor = true;
         }*/
-        else
         if (showEditorPrefIndicator != ApplicationPreferences.applicationEditorPrefIndicator)
         {
             //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "show editor pref. indicator changed");
             invalidateEditor = true;
         }
-        else
         if (hideEditorHeaderOrBottomBar != ApplicationPreferences.applicationEditorHideHeaderOrBottomBar)
         {
             //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "hide editor header or bottom bar changed");
             invalidateEditor = true;
         }
-        /*else
-        if (showEditorHeader != ApplicationPreferences.applicationEditorHeader(appContext))
+        /*if (showEditorHeader != ApplicationPreferences.applicationEditorHeader(appContext))
         {
             invalidateEditor = true;
         }*/

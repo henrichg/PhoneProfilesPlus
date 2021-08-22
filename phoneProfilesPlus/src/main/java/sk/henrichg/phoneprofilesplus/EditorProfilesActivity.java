@@ -1772,7 +1772,7 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                }
 
                 boolean restart = data.getBooleanExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, false);
-                //PPApplication.logE("EditorProfilesActivity.onActivityResult", "restart="+restart);
+//                PPApplication.logE("EditorProfilesActivity.onActivityResult", "restart="+restart);
 
                 if (restart)
                 {
