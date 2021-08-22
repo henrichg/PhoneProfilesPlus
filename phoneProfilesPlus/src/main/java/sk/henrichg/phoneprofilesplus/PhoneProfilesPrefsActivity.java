@@ -309,15 +309,17 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         return false;
     }
 
+/*
     @Override
     protected void onStop() {
         super.onStop();
-//        PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
+        PPApplication.logE("PhoneProfilesPrefsActivity.onStop", "xxx");
 
-        if (activityStarted) {
-            doPreferenceChanges();
-        }
+//        if (activityStarted) {
+//            doPreferenceChanges();
+//        }
     }
+*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -346,11 +348,13 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
-        //PPApplication.logE("PhoneProfilesPrefsActivity.finish", "xxx");
+        // finish is called before of onStop()
+
+//        PPApplication.logE("PhoneProfilesPrefsActivity.finish", "xxx");
 
         Intent returnIntent = new Intent();
         if (activityStarted) {
-            //doPreferenceChanges();
+            doPreferenceChanges();
 
             // for startActivityForResult
             returnIntent.putExtra(PhoneProfilesPrefsActivity.EXTRA_RESET_EDITOR, invalidateEditor);

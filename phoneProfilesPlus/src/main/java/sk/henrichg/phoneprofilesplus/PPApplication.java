@@ -315,6 +315,9 @@ public class PPApplication extends Application
                                                 //+"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
 
                                                 //+"|CheckCriticalGitHubReleasesBroadcastReceiver._doWork"
+
+                                                //+"|PhoneProfilesPrefsActivity"
+                                                //+"|EditorProfilesActivity"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
