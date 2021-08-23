@@ -160,4 +160,10 @@
 <!--        <item name="android:textAllCaps">false</item>-->
 <!--    </style>-->
 
+    <style name="Actionbar" parent="Widget.AppCompat.ActionBar">
+        <item name="android:layout_marginStart">@dimen/activity_horizontal_margin</item>
+<!--        <item name="contentInsetStart">@dimen/activity_horizontal_margin</item>-->
+<!--        <item name="contentInsetEnd">0dp</item>-->
+    </style>
+
 </resources>

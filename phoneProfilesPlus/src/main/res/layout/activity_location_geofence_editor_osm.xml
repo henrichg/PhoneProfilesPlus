@@ -5,6 +5,7 @@
     android:id="@+id/location_editor_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
     tools:context=".LocationGeofenceEditorActivityOSM">
 
 <!--    <LinearLayout-->

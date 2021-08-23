@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources >
-
     <!-- Match 48dp default ActionBar height on landscape orientation -->
     <!--<dimen name="naw_drawer_margin_offset">-8dp</dimen>-->
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">0dp</dimen>
 
 </resources>

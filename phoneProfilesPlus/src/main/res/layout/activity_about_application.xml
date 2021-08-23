@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/about_application_application_root2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:fitsSystemWindows="false" >
+
+<ScrollView
     android:id="@+id/about_application_application_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:fitsSystemWindows="false" >
+    android:fillViewport="true"
+    tools:ignore="UselessParent">
 
     <LinearLayout
         android:id="@+id/about_application_application_root"
@@ -180,3 +189,4 @@
 
 </ScrollView>
 
+</LinearLayout>

@@ -11,6 +11,7 @@
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="colorAccentDisabled">@color/accent_disabled</item>
+        <item name="actionBarStyle">@style/Actionbar</item>
 
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Dark</item>

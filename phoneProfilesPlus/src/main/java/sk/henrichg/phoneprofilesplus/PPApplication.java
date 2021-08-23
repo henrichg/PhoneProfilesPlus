@@ -152,6 +152,7 @@ public class PPApplication extends Application
                                                 //+"|PPApplication.getEmuiRomName"
                                                 //+"|PPApplication.isEMUIROM"
                                                 //+"|PPApplication.isMIUIROM"
+                                                +"|PPApplication.attachBaseContext"
                                                 +"|PPApplication.exitApp"
                                                 +"|PPApplication._exitApp"
                                                 //+"|PPApplication.createProfileNotificationChannel"
@@ -1252,7 +1253,7 @@ public class PPApplication extends Application
             return;
         }
 
-        Log.e("##### PPApplication.attachBaseContext", "ACRA inittialization");
+        PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .withBuildConfigClass(BuildConfig.class)
                 .withReportFormat(StringFormat.KEY_VALUE_LIST);

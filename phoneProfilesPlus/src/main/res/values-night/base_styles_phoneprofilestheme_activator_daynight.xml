@@ -13,6 +13,7 @@
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="colorAccentDisabled">@color/accent_disabled</item>
+        <item name="actionBarStyle">@style/Actionbar</item>
 
         <item name="android:textViewStyle">@style/TextViewTheme</item>
         <item name="android:windowBackground">@drawable/pp_activator_background</item>
