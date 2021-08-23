@@ -8,7 +8,8 @@
     android:paddingEnd="@dimen/important_info_right_margin"
     android:paddingTop="@dimen/important_info_top_margin"
     android:paddingBottom="@dimen/important_info_bottom_margin"
-    android:layout_marginStart="@dimen/activity_horizontal_margin"
+    android:layout_marginStart="@dimen/activity_margin_start"
+    android:layout_marginEnd="@dimen/activity_margin_end"
     android:fitsSystemWindows="false" >
 
     <TextView
