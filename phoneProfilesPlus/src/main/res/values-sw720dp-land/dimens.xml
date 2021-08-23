@@ -5,4 +5,8 @@
     <!--    <dimen name="activity_vertical_margin">0dp</dimen>-->
 
     <dimen name="run_stop_indicator_margin_end">0dp</dimen>
+
+    <dimen name="activator_min_width_minor">40%</dimen>
+    <dimen name="activator_min_width_major">40%</dimen>
+
 </resources>

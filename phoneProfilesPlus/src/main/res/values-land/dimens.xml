@@ -6,4 +6,7 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">0dp</dimen>
 
+    <dimen name="activator_min_width_minor">65%</dimen>
+    <dimen name="activator_min_width_major">65%</dimen>
+
 </resources>

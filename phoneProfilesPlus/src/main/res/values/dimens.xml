@@ -8,6 +8,9 @@
 
     <dimen name="run_stop_indicator_margin_end">10dp</dimen>
 
+    <dimen name="activator_min_width_minor">65%</dimen>
+    <dimen name="activator_min_width_major">65%</dimen>
+
     <dimen name="dialog_corner_radius">10dp</dimen>
     <dimen name="dialog_transparent_padding">15dp</dimen>
     <dimen name="dialog_background_padding">3dp</dimen>
