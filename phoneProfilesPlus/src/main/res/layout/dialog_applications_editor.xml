@@ -77,7 +77,8 @@
                 app:fastScrollPopupBgColor="?attr/fastScrollPopupBackgroundPP"
                 app:fastScrollPopupTextColor="?attr/fastScrollPopupTextPP"
                 app:fastScrollThumbColor="?attr/fastScrollThumbPP"
-                app:fastScrollTrackColor="?attr/fastScrollTrackPP" />
+                app:fastScrollTrackColor="?attr/fastScrollTrackPP"
+                app:fastScrollThumbInactiveColor="?attr/fastScrollThumbInactivePP" />
 
         </RelativeLayout>
 

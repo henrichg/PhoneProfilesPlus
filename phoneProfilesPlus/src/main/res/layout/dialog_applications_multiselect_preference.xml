@@ -91,7 +91,7 @@
                 app:fastScrollPopupTextColor="?attr/fastScrollPopupTextPP"
                 app:fastScrollThumbColor="?attr/fastScrollThumbPP"
                 app:fastScrollTrackColor="?attr/fastScrollTrackPP"
-                app:fastScrollThumbInactiveColor="?attr/fastScrollThumbInactivePP"/>
+                app:fastScrollThumbInactiveColor="?attr/fastScrollThumbInactivePP" />
 
         </LinearLayout>
 
