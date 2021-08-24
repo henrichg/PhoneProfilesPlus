@@ -111,6 +111,7 @@
     <attr name="fastScrollThumbPP" format="reference" />
     <attr name="fastScrollPopupBackgroundPP" format="reference" />
     <attr name="fastScrollPopupTextPP" format="reference" />
+    <attr name="fastScrollThumbInactivePP" format="reference" />
     <attr name="actionDefaultProfile" format="reference" />
     <attr name="actionRunStopEventsIcon" format="reference" />
     <attr name="editorSpinnerDropDownTextColor" format="reference" />

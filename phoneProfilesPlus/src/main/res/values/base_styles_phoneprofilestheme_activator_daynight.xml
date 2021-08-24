@@ -68,6 +68,7 @@
         <item name="fastScrollThumbPP">@color/fastScrollThumbPP</item>
         <item name="fastScrollPopupBackgroundPP">@color/fastScrollPopupBackgroundPP</item>
         <item name="fastScrollPopupTextPP">@color/fastScrollPopupTextPP</item>
+        <item name="fastScrollThumbInactivePP">@color/fastScrollThumbInactivePP</item>
         <item name="actionDefaultProfile">@drawable/ic_action_default_profile</item>
         <item name="actionRunStopEventsIcon">@drawable/ic_action_play</item>
         <item name="editorSpinnerDropDownTextColor">@color/activityNormalTextColor</item>
