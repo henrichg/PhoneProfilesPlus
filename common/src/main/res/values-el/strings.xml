@@ -333,7 +333,7 @@
     <string name="phone_profiles_pref_applicationUnlinkRingerNotificationVolumes">Αποσύνδεση έντασης κουδουνίσματος και ειδοποίησης</string>
     <string name="info_notification_title">Σημαντικές πληροφορίες</string>
     <string name="info_notification_text">Κάντε κλικ εδώ για εμφάνιση σημαντικών πληροφοριών</string>
-    <string name="profile_preferences_deviceWiFiAP">Wi-Fi hotspot</string>
+    <string name="profile_preferences_deviceWiFiAP">Σημείο πρόσβασης Wi-Fi</string>
     <string name="menu_import_export">Αντίγραφο/επαναφορά</string>
     <string name="array_pref_screenTimeoutArray_5minutes">5 λεπτά</string>
     <string name="important_info_profiles">Προφίλ</string>
@@ -442,7 +442,7 @@
     <string name="important_info_profile_activation_text9">Πράσινο: τα γεγονότα μπορούν να ξεκινήσουν.</string>
     <string name="important_info_profile_activation_text10">Πορτοκαλί: τα γεγονότα δεν μπορούν να ξεκινήσουν - το προφίλ ενεργοποιήθηκε χειροκίνητα.</string>
     <string name="important_info_profile_activation_text11">Red: events are stopped - events run can be enabled through Editor menu item \"Enable events run\".</string>
-    <string name="important_info_profile_activation_restart_events_icon">Restart events icon:</string>
+    <string name="important_info_profile_activation_restart_events_icon">Εικονίδιο επανεκκίνησης συμβάντων:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Εικονίδιο σηματοδότη:</string>
     <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Δόνηση κατά την κλήση</string>
@@ -486,14 +486,14 @@
     <string name="menu_activity_log_pause">Παύση καταγραφής</string>
     <string name="menu_activity_log_play">Έναρξη καταγραφής</string>
     <string name="altype_pausedLogging">Καταγραφή σε παύση</string>
-    <string name="altype_startedLogging">Logging started</string>
+    <string name="altype_startedLogging">Η καταγραφή ξεκίνησε</string>
     <string name="event_pref_dialog_help">(*) Profile not found</string>
     <string name="permissions_for_brightness_dialog_text1">Selecting brightness requires some permissions.</string>
     <string name="permissions_for_brightness_dialog_text2">Please grant them in next dialog.</string>
     <string name="event_preferences_category_sensors">Παράμετροι αισθητήρα</string>
     <string name="altype_eventEndDelay">end event with delay</string>
     <string name="info_notification_event_states_running_delay">Running with delay: event is running, but parameters are not satisfied. Event is waiting for the delay to expire.</string>
-    <string name="profile_preferences_askForDuration">Ask for Duration</string>
+    <string name="profile_preferences_askForDuration">Ερώτηση για διάρκεια</string>
     <string name="phone_profiles_pref_applicationBatteryOptimization">Battery optimization</string>
     <string name="profile_preferences_deviceNetworkType">(R) Mobile network type</string>
     <string name="phone_profiles_pref_applicationBatterySaver">Εξοικονόμηση μπαταρίας</string>
@@ -504,7 +504,7 @@
     <string name="profile_preferences_notificationLed">LED Ειδοποίησης</string>
     <string name="profile_preferences_notificationLed_23">(R) Notification LED</string>
     <string name="profile_preferences_notificationLedInfo_summary">Experimental. It may not work on your device.</string>
-    <string name="event_type_orientation">Orientation</string>
+    <string name="event_type_orientation">Προσανατολισμός</string>
     <string name="event_preferences_category_eventOrientationParameters">Orientation sensor</string>
     <string name="event_preferences_orientation_display">Display</string>
     <string name="event_preferences_orientation_sides">Sides</string>
@@ -580,8 +580,8 @@
     <string name="bluetooth_name_pref_dlg_configured_bt_names_chb">All Bluetooth names configured in system</string>
     <string name="wifi_ssid_pref_dlg_all_ssids_chb">All SSIDs</string>
     <string name="bluetooth_name_pref_dlg_all_bt_names_chb">All Bluetooth names</string>
-    <string name="editor_drawer_list_item_events_start_order">Start order</string>
-    <string name="editor_drawer_order_start_order">Start order</string>
+    <string name="editor_drawer_list_item_events_start_order">Σειρά εκκίνησης</string>
+    <string name="editor_drawer_order_start_order">Σειρά εκκίνησης</string>
     <string name="info_notification_event_priority_new">Each event has \"Priority\". Event will not start if a currently running event has a higher priority value.</string>
     <string name="info_notification_event_start_order">Events run in \"Start order\". You can modify the start order in Editor in events view \"Start order\". You simply drag events up/down by the \"order handler\".</string>
     <string name="info_notification_event_start_order_handler_icon">Order handler:</string>
@@ -591,7 +591,7 @@
     <string name="phone_profiles_pref_applicationWidgetIconBackground">Background opaqueness (widget)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessB">Background lightness (widget)</string>
     <string name="phone_profiles_pref_applicationWidgetIconLightnessT">Text lightness (widget)</string>
-    <string name="altype_eventStop">stop event</string>
+    <string name="altype_eventStop">διακοπή συμβάντος</string>
     <string name="info_notification_manage_events_from_tasker">You can manage events through Tasker. Configure task \"System\"/\"Send Intent\" with parameters:</string>
     <string name="info_notification_manage_events_from_tasker_restart_events">restart events:</string>
     <string name="info_notification_manage_events_from_tasker_enable_run_for_event">enable event run:</string>
@@ -648,10 +648,10 @@
     <string name="event_preferences_sensorsInfo_summary">Event will start only when all \"Enable sensor\" checked sensor parameters are fulfilled. Running event will end if some checked sensor parameters are not fulfilled. Check only those sensors you need for this event. Checked sensor name is marked with bold text.\n\nSome sensor parameters are needed. Needed parameter names are marked with underlined text. If some needed parameters are not configured, event will not start, and parameter \"Enable sensor\" will be unchecked.</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_title">Colorful icon</string>
     <string name="phone_profiles_pref_notificationStatusBarStyleInfo_summary">Some devices do not support colorful icons in the status bar.</string>
-    <string name="pref_dlg_change_selection_title">Change selection</string>
-    <string name="array_pref_change_selection_unselect_all">Unselect all</string>
+    <string name="pref_dlg_change_selection_title">Αλλαγή επιλογής</string>
+    <string name="array_pref_change_selection_unselect_all">Αποεπιλογή όλων</string>
     <string name="array_pref_change_selection_mobile_cells_select_by_name">Select by cell name</string>
-    <string name="pref_dlg_change_selection_button_unselect_all">Unselect all</string>
+    <string name="pref_dlg_change_selection_button_unselect_all">Αποεπιλογή όλων</string>
     <string name="array_pref_change_selection_wifi_ssid_select_by_name">Select by SSID name</string>
     <string name="array_pref_change_selection_bluetooth_name_select_by_name">Select by Bluetooth name</string>
     <string name="array_pref_change_selection_nfc_tags_select_by_name">Select by NFC tag name</string>
@@ -685,13 +685,13 @@
     <string name="event_preference_sensor_nfc_summary">This sensor will start an event by NFC tags. Parameters: NFC tags, Permanent run, Duration (event run duration).</string>
     <string name="editor_activity_targetHelps_applicationMenu_title">Μενού εφαρμογής</string>
     <string name="editor_activity_targetHelps_applicationMenu_description">Click this to open Application menu, where you can change application Settings.</string>
-    <string name="editor_activity_targetHelps_restartEvents_title">Restart events</string>
+    <string name="editor_activity_targetHelps_restartEvents_title">Επανεκκίνηση συμβάντων</string>
     <string name="editor_activity_targetHelps_restartEvents_description">Click this to restart events. You must restart events if you have a manually activated profile.</string>
     <string name="editor_activity_targetHelps_activityLog_title">Αρχείο δραστηριότητας</string>
     <string name="editor_activity_targetHelps_activityLog_description">Click this to open activity log. Items logged are activities about start/pause/stop events, profile activations, applications started, etc.</string>
     <string name="editor_activity_targetHelps_newProfileButton_title">Νέο προφίλ</string>
     <string name="editor_activity_targetHelps_newProfileButton_description">Click this to add a new profile.</string>
-    <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Delete all profiles</string>
+    <string name="editor_activity_targetHelps_deleteAllProfilesButton_title">Διαγραφή όλων των προφίλ</string>
     <string name="editor_activity_targetHelps_deleteAllProfilesButton_description">Click this to delete all profiles.</string>
     <string name="editor_activity_targetHelps_importantInfoButton_title">Important information</string>
     <string name="editor_activity_targetHelps_importantInfoButton_description">Click this to show Important information. Please read this information.</string>
@@ -701,23 +701,23 @@
     <string name="editor_activity_targetHelps_deleteAllEventsButton_description">Click this to delete all events.</string>
     <string name="editor_activity_targetHelps_profilePreferences_title">Profile preferences</string>
     <string name="editor_activity_targetHelps_profilePreferences_description">Click this to open the profile preferences editor.</string>
-    <string name="editor_activity_targetHelps_profileMenu_title">Profile menu</string>
+    <string name="editor_activity_targetHelps_profileMenu_title">Μενού προφίλ</string>
     <string name="editor_activity_targetHelps_profileMenu_description">Click this to open profile menu with options: Activate, Duplicate and Delete profile.</string>
     <string name="editor_activity_targetHelps_profileOrderHandler_title">Order handler</string>
     <string name="editor_activity_targetHelps_profileOrderHandler_description">Drag profile up/down with this handler to change the profile view order in Activator.</string>
     <string name="editor_activity_targetHelps_eventPreferences_title">Event preferences</string>
     <string name="editor_activity_targetHelps_eventPreferences_description">Click this to open the event preferences editor.</string>
-    <string name="editor_activity_targetHelps_eventMenu_title">Event menu</string>
+    <string name="editor_activity_targetHelps_eventMenu_title">Μενού συμβάντων</string>
     <string name="editor_activity_targetHelps_eventMenu_description">Click this to open event menu with options: Enable/Stop run, Duplicate and Delete event.</string>
     <string name="editor_activity_targetHelps_eventOrderHandler_title">Order handler</string>
     <string name="editor_activity_targetHelps_eventOrderHandler_description">Drag event up/down with this handler to change the event \"Start order\".</string>
     <string name="activator_activity_targetHelps_editor_title" tools:keep="@string/activator_activity_targetHelps_editor_title">Editor</string>
     <string name="activator_activity_targetHelps_editor_description_ppp">Click this to open Editor, where you can configure profiles, events, change application settings, etc.</string>
-    <string name="activator_activity_targetHelps_activateProfile_title">Activate profile</string>
+    <string name="activator_activity_targetHelps_activateProfile_title">Ενεργοποίηση προφίλ</string>
     <string name="activator_activity_targetHelps_activateProfile_description">Click this to activate a profile.</string>
-    <string name="profile_preference_activity_targetHelps_save_title">Save profile</string>
+    <string name="profile_preference_activity_targetHelps_save_title">Αποθήκευση προφίλ</string>
     <string name="profile_preference_activity_targetHelps_save_description">Click this to save profile preference changes.</string>
-    <string name="event_preference_activity_targetHelps_save_title">Save event</string>
+    <string name="event_preference_activity_targetHelps_save_title">Αποθήκευση συμβάντος</string>
     <string name="event_preference_activity_targetHelps_save_description">Click this to save event preference changes.</string>
     <string name="about_application_privacy_policy">Privacy Policy:</string>
     <string name="phone_profiles_pref_applicationBackgroundProfileInfo_summary">This profile will activate when no event is running.</string>
@@ -731,7 +731,7 @@
     <string name="event_preferences_startBeforeEvent">Start before the event</string>
     <string name="event_preferences_category_eventRadioSwitchParameters">Radio sensor</string>
     <string name="event_type_radioSwitch">Radios</string>
-    <string name="array_pref_radioSwitch_notDetect">Don\'t detect</string>
+    <string name="array_pref_radioSwitch_notDetect">Χωρίς εντοπισμό</string>
     <string name="array_pref_radioSwitch_on">Ενεργό</string>
     <string name="array_pref_radioSwitch_off">Ανενεργό</string>
     <string name="event_preferences_radioSwitch_wifi">Wi-Fi</string>
@@ -742,7 +742,7 @@
     <string name="event_preferences_radioSwitch_airplaneMode">Λειτουργία πτήσης</string>
     <string name="event_preferences_radioSwitch_info_title">Sensor configuration</string>
     <string name="event_preferences_radioSwitch_info_summary">State of all radios must be fulfilled to start event. Configure only those radios that you need.</string>
-    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Any SSID</string>
+    <string name="connect_to_ssid_pref_dlg_summary_text_just_any">Οποιοδήποτε SSID</string>
     <string name="profile_preferences_deviceConnectToSSID">Connect to SSID</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes">Set volumes link</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Use detection</string>
@@ -760,7 +760,7 @@
     <string name="profile_preferences_zenMode_totalSilence_summary">Silence all notifications</string>
     <string name="array_pref_applicationDisableScanning_disabled">Scanning disabled</string>
     <string name="array_pref_applicationDisableScanning_enabled">Scanning enabled</string>
-    <string name="duration_pref_dlg_duration_label">Duration:</string>
+    <string name="duration_pref_dlg_duration_label">Διάρκεια:</string>
     <string name="duration_pref_dlg_activation_end_label">End activation:</string>
     <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>
     <string name="setting_screen_not_found_alert">Setting screen not found.</string>
@@ -1743,6 +1743,11 @@
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus in repository:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Increase brightness</string>
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Show \"Restart events\" as button</string>
+    <string name="check_ppp_releases_notification">Click this notification for check of PhoneProfilesPlus releases. Maybe was released newer version.</string>
+    <string name="check_github_releases_install_info_app_stores_release">"In application stores will be new version soon."</string>
+    <string name="show_dialog_about_red_text_show_profile_preferences">Show profile preferences</string>
+    <string name="show_dialog_about_red_text_show_editor">Show Editor</string>
+    <string name="check_github_releases_new_version">New version:</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

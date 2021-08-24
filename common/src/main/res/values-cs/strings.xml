@@ -1743,6 +1743,11 @@
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus v repozitáři:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Zvýšit jas</string>
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Zobrazit \"Restart událostí\" jako tlačítko</string>
+    <string name="check_ppp_releases_notification">Klikněte na tuto notifikaci na zkontrolování vydání PhoneProfilesPlus. Možná byla vydána novější verze.</string>
+    <string name="check_github_releases_install_info_app_stores_release">"V obchodech s aplikacemi bude brzy nová verze."</string>
+    <string name="show_dialog_about_red_text_show_profile_preferences">Zobrazit parametry profilu</string>
+    <string name="show_dialog_about_red_text_show_editor">Zobrazit Editor</string>
+    <string name="check_github_releases_new_version">Nová verze:</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
