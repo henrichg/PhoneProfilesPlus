@@ -3155,6 +3155,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 GlobalGUIRoutines.setPreferenceTitleStyleX(checkBoxPreference, true, show, false, false, false);
             }
         }
+
+        boolean alsoSetZenMode = false;
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE))
         {
             String sValue = value.toString();
@@ -3166,12 +3168,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
                 if (sValue.equals("5")) {
                     // do not disturb
-                    Object zenModeValue = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "");
-                    setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, zenModeValue);
+                    value = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "");
+                    alsoSetZenMode = true;
+                    //setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, zenModeValue);
                 }
             }
         }
-        if (key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE))
+        if (key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE) || alsoSetZenMode)
         {
             //if (android.os.Build.VERSION.SDK_INT >= 21)
             //{
@@ -3247,6 +3250,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
             //}
         }
+
         if (key.equals(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS)) {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
