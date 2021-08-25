@@ -1743,6 +1743,11 @@
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus en el catálogo:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Aumentar brillo</string>
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Mostrar \"Reiniciar eventos\" como botón</string>
+    <string name="check_ppp_releases_notification">Haz clic en esta notificación para comprobar las versiones de PhoneProfilesPlus. Tal vez haya una nueva versión.</string>
+    <string name="check_github_releases_install_info_app_stores_release">"En las tiendas de aplicaciones habrá pronto una nueva versión."</string>
+    <string name="show_dialog_about_red_text_show_profile_preferences">Mostrar preferencias de perfil</string>
+    <string name="show_dialog_about_red_text_show_editor">Mostrar editor</string>
+    <string name="check_github_releases_new_version">Nueva versión:</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>

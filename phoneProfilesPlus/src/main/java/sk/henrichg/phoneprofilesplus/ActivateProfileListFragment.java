@@ -244,7 +244,7 @@ public class ActivateProfileListFragment extends Fragment {
         private final boolean applicationActivatorGridLayout;
         private final GridView gridView;
 
-        private boolean someErrorProfiles = false;
+        //private boolean someErrorProfiles = false;
 
         Handler progressBarHandler;
         Runnable progressBarRunnable;
@@ -294,47 +294,48 @@ public class ActivateProfileListFragment extends Fragment {
         protected Void doInBackground(Void... params) {
             this.dataWrapper.fillProfileList(true, applicationActivatorPrefIndicator);
 
-            if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
-                if (Event.getGlobalEventsRunning()) {
-                    Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
-                    restartEvents._showInActivator = true;
-                    restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
-                    dataWrapper.profileList.add(0, restartEvents);
-                }
-            }
+//            for (Profile profile : this.dataWrapper.profileList) {
+//                if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile,this.dataWrapper.context)) {
+//                    someErrorProfiles = true;
+//                    break;
+//                }
+//            }
 
-            if (applicationActivatorGridLayout) {
-                int count = 0;
-                for (Profile profile : this.dataWrapper.profileList)
-                {
-                    if (profile._showInActivator)
-                        ++count;
-                }
-
-                int numColumns = gridView.getNumColumns();
-
-                int modulo = count % numColumns;
-                if (modulo > 0) {
-                    for (int i = 0; i < numColumns - modulo; i++) {
-                        Profile profile = DataWrapper.getNonInitializedProfile(
-                                dataWrapper.context.getResources().getString(R.string.profile_name_default),
-                                Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
-                        profile._showInActivator = true;
-                        this.dataWrapper.profileList.add(profile);
+//            if (!someErrorProfiles) {
+                if (ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList) {
+                    if (Event.getGlobalEventsRunning()) {
+                        Profile restartEvents = DataWrapper.getNonInitializedProfile(dataWrapper.context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
+                        restartEvents._showInActivator = true;
+                        restartEvents._id = Profile.RESTART_EVENTS_PROFILE_ID;
+                        dataWrapper.profileList.add(0, restartEvents);
                     }
                 }
-            }
 
-            //noinspection Java8ListSort
-            Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
+                if (applicationActivatorGridLayout) {
+                    int count = 0;
+                    for (Profile profile : this.dataWrapper.profileList) {
+                        if (profile._showInActivator)
+                            ++count;
+                    }
 
-            dataWrapper.getEventTimelineList(true);
+                    int numColumns = gridView.getNumColumns();
 
-            for (Profile profile : this.dataWrapper.profileList) {
-                if (ProfilesPrefsFragment.isRedTextNotificationRequired(profile,this.dataWrapper.context)) {
-                    someErrorProfiles = true;
-                    break;
-                }
+                    int modulo = count % numColumns;
+                    if (modulo > 0) {
+                        for (int i = 0; i < numColumns - modulo; i++) {
+                            Profile profile = DataWrapper.getNonInitializedProfile(
+                                    dataWrapper.context.getResources().getString(R.string.profile_name_default),
+                                    Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
+                            profile._showInActivator = true;
+                            this.dataWrapper.profileList.add(profile);
+                        }
+                    }
+//                }
+
+                //noinspection Java8ListSort
+                Collections.sort(this.dataWrapper.profileList, new ProfileComparator());
+
+                dataWrapper.getEventTimelineList(true);
             }
 
             return null;
@@ -380,26 +381,26 @@ public class ActivateProfileListFragment extends Fragment {
 
                         return;
                     }
-                    else {
-                        if (someErrorProfiles) {
-                            // some profiles has errors
-
-                            //noinspection ConstantConditions
-                            Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorProfilesActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
-                            //noinspection ConstantConditions
-                            fragment.getActivity().startActivity(intent);
-
-                            try {
-                                fragment.getActivity().finish();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-
-                            return;
-                        }
-                    }
+//                    else {
+//                        if (someErrorProfiles) {
+//                            // some profiles has errors
+//
+//                            //noinspection ConstantConditions
+//                            Intent intent = new Intent(fragment.getActivity().getBaseContext(), EditorProfilesActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+//                            //noinspection ConstantConditions
+//                            fragment.getActivity().startActivity(intent);
+//
+//                            try {
+//                                fragment.getActivity().finish();
+//                            } catch (Exception e) {
+//                                PPApplication.recordException(e);
+//                            }
+//
+//                            return;
+//                        }
+//                    }
                 }
 
                 fragment.profileListAdapter = new ActivateProfileListAdapter(fragment, /*fragment.profileList, */fragment.activityDataWrapper);
@@ -555,7 +556,7 @@ public class ActivateProfileListFragment extends Fragment {
                 activityDataWrapper.activateProfile(profile._id, PPApplication.STARTUP_SOURCE_ACTIVATOR, getActivity(), false);
             }
             else
-                EditorProfilesActivity.showDialogAboutRedText(profile, null, false, false, getActivity());
+                EditorProfilesActivity.showDialogAboutRedText(profile, null, true, false, false, getActivity());
         }
     }
 

@@ -7,14 +7,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 //import me.drakeet.support.toast.ToastCompat;
 
-public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivity
+public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
 {
     private boolean activityStarted = false;
     private boolean criticalRelease = true;
     private int versionCode = 0;
 
-    static final String EXTRA_GITHUB_RELEASE_CRITICAL = "github_release_critical";
-    static final String EXTRA_GITHUB_RELEASE_CODE = "github_release_code";
+    static final String EXTRA_PPP_RELEASE_CRITICAL = "github_release_critical";
+    static final String EXTRA_PPP_RELEASE_CODE = "github_release_code";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +29,8 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
 //        }
 
         Intent intent = getIntent();
-        criticalRelease = intent.getBooleanExtra(EXTRA_GITHUB_RELEASE_CRITICAL, true);
-        versionCode = intent.getIntExtra(EXTRA_GITHUB_RELEASE_CODE, 0);
+        criticalRelease = intent.getBooleanExtra(EXTRA_PPP_RELEASE_CRITICAL, true);
+        versionCode = intent.getIntExtra(EXTRA_PPP_RELEASE_CODE, 0);
 
 //        PPApplication.logE("CheckCriticalGitHubReleasesDisableActivity._doWork", "versionCode=" + versionCode);
 //        PPApplication.logE("CheckCriticalGitHubReleasesDisableActivity._doWork", "criticalRelease=" + criticalRelease);
@@ -69,17 +69,17 @@ public class CheckCriticalGitHubReleasesDisableActivity extends AppCompatActivit
             }
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                CheckCriticalGitHubReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), versionCode);
-                CheckCriticalGitHubReleasesBroadcastReceiver.removeNotification(getApplicationContext());
+                CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), versionCode);
+                CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(getApplicationContext());
                 finish();
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
-                CheckCriticalGitHubReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), 0);
-                CheckCriticalGitHubReleasesBroadcastReceiver.removeNotification(getApplicationContext());
+                CheckCriticalPPPReleasesBroadcastReceiver.setShowCriticalGitHubReleasesNotification(getApplicationContext(), 0);
+                CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(getApplicationContext());
                 finish();
             });
             dialogBuilder.setOnCancelListener(dialog -> {
-                CheckCriticalGitHubReleasesBroadcastReceiver.removeNotification(getApplicationContext());
+                CheckCriticalPPPReleasesBroadcastReceiver.removeNotification(getApplicationContext());
                 finish();
             });
             AlertDialog dialog = dialogBuilder.create();

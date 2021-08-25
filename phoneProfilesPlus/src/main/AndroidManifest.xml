@@ -55,6 +55,18 @@
     <!-- for Samsung SLook -->
     <uses-permission android:name="com.samsung.android.providers.context.permission.WRITE_USE_APP_FEATURE_SURVEY"/>
 
+<!--    https://developer.android.com/guide/topics/manifest/uses-feature-element-->
+<!--    <uses-feature-->
+<!--        android:name="android.software.leanback"-->
+<!--        android:required="false"/>-->
+    <!--  Only devices with touchscreen - maybe this exclude TV-->
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="true"/>
+    <uses-feature
+        android:name="android.hardware.faketouch"
+        android:required="true"/>
+
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false"/>
@@ -411,7 +423,7 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
-            android:name=".CheckGitHubReleasesActivity"
+            android:name=".CheckPPPReleasesActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"
@@ -426,7 +438,7 @@
             android:label="@string/donation_activity_title">
         </activity>
         <activity
-            android:name=".CheckCriticalGitHubReleasesDisableActivity"
+            android:name=".CheckCriticalPPPReleasesDisableActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
             android:taskAffinity="sk.henrichg.phoneprofilesplus.empty"

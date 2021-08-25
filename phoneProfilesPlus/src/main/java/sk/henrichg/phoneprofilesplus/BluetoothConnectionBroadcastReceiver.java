@@ -40,8 +40,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
 
         if (action.equals(BluetoothDevice.ACTION_ACL_CONNECTED) ||
                 action.equals(BluetoothDevice.ACTION_ACL_DISCONNECTED) ||
-                action.equals(BluetoothDevice.ACTION_NAME_CHANGED)/* ||
-                action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED)*/) {
+                action.equals(BluetoothDevice.ACTION_NAME_CHANGED) ||
+                action.equals(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED)) {
             // BluetoothConnectionBroadcastReceiver
 
             final BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
@@ -298,28 +298,32 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                 PPApplication.logE("BluetoothConnectionBroadcastReceiver.removeConnectedDevice", "device.name=" + device.getName());
                 PPApplication.logE("BluetoothConnectionBroadcastReceiver.removeConnectedDevice", "device.address=" + device.getAddress());
             }*/
-            int index = 0;
+            //int index = 0;
+            BluetoothDeviceData deviceToRemove = null;
             boolean found = false;
             for (BluetoothDeviceData _device : connectedDevices) {
                 if (_device.address.equals(device.getAddress())) {
                     found = true;
+                    deviceToRemove = _device;
                     break;
                 }
-                ++index;
+                //++index;
             }
             if (!found) {
-                index = 0;
+                //index = 0;
                 for (BluetoothDeviceData _device : connectedDevices) {
                     if (_device.getName().equalsIgnoreCase(device.getName())) {
                         found = true;
+                        deviceToRemove = _device;
                         break;
                     }
-                    ++index;
+                    //++index;
                 }
             }
             //PPApplication.logE("BluetoothConnectionBroadcastReceiver.removeConnectedDevice","found="+found);
             if (found)
-                connectedDevices.remove(index);
+                //connectedDevices.remove(index);
+                connectedDevices.remove(deviceToRemove);
         }
     }
 
@@ -417,6 +421,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
     {
         synchronized (PPApplication.bluetoothConnectionChangeStateMutex) {
             if ((deviceData == null) && sensorDeviceName.isEmpty()) {
+               // is device connected to any external bluetooth device ???
+
 //                PPApplication.logE("BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "connectedDevices="+connectedDevices);
 //                if (connectedDevices != null) {
 //                    PPApplication.logE("BluetoothConnectionBroadcastReceiver.isBluetoothConnected", "connectedDevices.size()=" + connectedDevices.size());
@@ -428,6 +434,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
             else {
                 if (connectedDevices != null) {
                     if (deviceData != null) {
+                        // is device connected to deviceData ???
+
                         boolean found = false;
                         for (BluetoothDeviceData _device : connectedDevices) {
                             if (_device.address.equals(deviceData.getAddress())) {
@@ -448,6 +456,8 @@ public class BluetoothConnectionBroadcastReceiver extends BroadcastReceiver {
                         return found;
                     }
                     else {
+                        // is device connected to sensorDeviceName ???
+
                         for (BluetoothDeviceData _device : connectedDevices) {
                             String device = _device.getName().trim().toUpperCase();
                             String _adapterName = sensorDeviceName.trim().toUpperCase();

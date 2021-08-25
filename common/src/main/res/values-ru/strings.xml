@@ -1743,6 +1743,11 @@
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus в репозитории:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Увеличить яркость</string>
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Показывать \"Перезапустить события\" в виде кнопки</string>
+    <string name="check_ppp_releases_notification">Нажмите на это уведомление, чтобы проверить релизы PhoneProfilesPlus. Возможно, уже вышла новая версия.</string>
+    <string name="check_github_releases_install_info_app_stores_release">"В магазинах приложений скоро появится новая версия."</string>
+    <string name="show_dialog_about_red_text_show_profile_preferences">Показать настройки профиля</string>
+    <string name="show_dialog_about_red_text_show_editor">Показать Редактор</string>
+    <string name="check_github_releases_new_version">Новая версия:</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

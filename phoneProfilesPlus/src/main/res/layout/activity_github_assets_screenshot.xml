@@ -3,6 +3,8 @@
     android:id="@+id/github_assets_screenshot_activity_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/activity_margin_start"
+    android:layout_marginEnd="@dimen/activity_margin_end"
     android:padding="15dp" >
 
     <ScrollView

@@ -28,10 +28,10 @@ import java.util.Calendar;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
 
-public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
+public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String PREF_SHOW_CRITICAL_GITHUB_RELEASE_CODE_NOTIFICATION = "show_critical_github_release_code_notification";
-    private static final String PREF_CRITICAL_GITHUB_RELEASE_ALARM = "critical_github_release_alarm";
+    private static final String PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION = "show_critical_github_release_code_notification";
+    private static final String PREF_CRITICAL_PPP_RELEASE_ALARM = "critical_github_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] CheckCriticalGitHubReleasesBroadcastReceiver.onReceive", "xxx");
@@ -56,7 +56,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
 //        }
 
         long lastAlarm = ApplicationPreferences.
-                getSharedPreferences(context).getLong(PREF_CRITICAL_GITHUB_RELEASE_ALARM, 0);
+                getSharedPreferences(context).getLong(PREF_CRITICAL_PPP_RELEASE_ALARM, 0);
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(lastAlarm);
@@ -68,11 +68,11 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
         /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
-            if (PPApplication.logEnabled()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarm.getTimeInMillis());
-                Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-            }
+//            if (PPApplication.logEnabled()) {
+//                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                String result = sdf.format(alarm.getTimeInMillis());
+//                Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//            }
 
             alarmTime = alarm.getTimeInMillis();
         } else*/
@@ -106,7 +106,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                 alarmTime = alarm.getTimeInMillis();
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putLong(PREF_CRITICAL_GITHUB_RELEASE_ALARM, alarmTime);
+                editor.putLong(PREF_CRITICAL_PPP_RELEASE_ALARM, alarmTime);
                 editor.apply();
             } else {
                 alarmTime = lastAlarm;
@@ -249,6 +249,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
     private static void _doWork(Context appContext) {
         boolean showNotification = false;
         boolean critical = true;
+        String versionNameInReleases = "";
         int versionCodeInReleases = 0;
         try {
             String contents;// = "";
@@ -260,6 +261,11 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
 //            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "conn.getUrl()="+conn.getURL());
             InputStream in = conn.getInputStream();
             contents = convertStreamToString(in);
+
+            // this must be added when you tests debug branch
+//            if (DebugVersion.enabled)
+//                contents = "@@@ppp-release:5.1.0.2b:6645:normal***@@@";
+
 //            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "contents="+contents);
 
             if (!contents.isEmpty()) {
@@ -280,6 +286,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                             versionCode = PPApplication.getVersionCode(pInfo);
                         } catch (Exception ignored) {
                         }
+                        versionNameInReleases = splits[0];
                         versionCodeInReleases = Integer.parseInt(splits[1]);
 //                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "versionCodeInReleases=" + versionCodeInReleases);
 //                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification=" + ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);
@@ -305,7 +312,9 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
                 }
             }
 
-        } catch (IOException ignored) {}
+        } catch (Exception ignored) {
+            //PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", Log.getStackTraceString(e));
+        }
 
 //        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "showNotification="+showNotification);
 //        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "critical="+critical);
@@ -318,7 +327,10 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
 
             NotificationCompat.Builder mBuilder;
             Intent _intent;
-            _intent = new Intent(appContext, CheckGitHubReleasesActivity.class);
+            _intent = new Intent(appContext, CheckPPPReleasesActivity.class);
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, true);
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, versionNameInReleases);
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
 
             String nTitle;
             String nText;
@@ -359,9 +371,9 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
 
 //            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "putExtra - versionCodeInReleases=" + versionCodeInReleases);
 //            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver._doWork", "putExtra - critical=" + critical);
-            Intent disableIntent = new Intent(appContext, CheckCriticalGitHubReleasesDisableActivity.class);
-            disableIntent.putExtra(CheckCriticalGitHubReleasesDisableActivity.EXTRA_GITHUB_RELEASE_CODE, versionCodeInReleases);
-            disableIntent.putExtra(CheckCriticalGitHubReleasesDisableActivity.EXTRA_GITHUB_RELEASE_CRITICAL, critical);
+            Intent disableIntent = new Intent(appContext, CheckCriticalPPPReleasesDisableActivity.class);
+            disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CODE, versionCodeInReleases);
+            disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CRITICAL, critical);
 
             @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pDisableIntent = PendingIntent.getActivity(appContext, 0, disableIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -405,7 +417,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
     {
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification = ApplicationPreferences.
-                    getSharedPreferences(context).getInt(PREF_SHOW_CRITICAL_GITHUB_RELEASE_CODE_NOTIFICATION, 0);
+                    getSharedPreferences(context).getInt(PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION, 0);
             //return prefRingerVolume;
         }
     }
@@ -414,7 +426,7 @@ public class CheckCriticalGitHubReleasesBroadcastReceiver extends BroadcastRecei
     {
         synchronized (PPApplication.applicationGlobalPreferencesMutex) {
             SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putInt(PREF_SHOW_CRITICAL_GITHUB_RELEASE_CODE_NOTIFICATION, versionCode);
+            editor.putInt(PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION, versionCode);
             editor.apply();
             ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification = versionCode;
         }

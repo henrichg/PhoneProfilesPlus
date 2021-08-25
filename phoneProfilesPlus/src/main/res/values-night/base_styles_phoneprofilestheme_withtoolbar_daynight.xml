@@ -11,6 +11,7 @@
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="colorAccentDisabled">@color/accent_disabled</item>
+        <item name="actionBarStyle">@style/Actionbar</item>
 
         <item name="toolbarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="toolbarPopupMenu">@style/ThemeOverlay.AppCompat.Dark</item>
@@ -66,6 +67,7 @@
         <item name="fastScrollThumbPP">@color/fastScrollThumbPP</item>
         <item name="fastScrollPopupBackgroundPP">@color/fastScrollPopupBackgroundPP</item>
         <item name="fastScrollPopupTextPP">@color/fastScrollPopupTextPP</item>
+        <item name="fastScrollThumbInactivePP">@color/fastScrollThumbInactivePP</item>
         <item name="actionDefaultProfile">@drawable/ic_action_default_profile</item>
         <item name="actionRunStopEventsIcon">@drawable/ic_action_play</item>
         <item name="editorSpinnerDropDownTextColor">@color/activityNormalTextColor</item>

@@ -118,22 +118,6 @@
             app:title="@string/profile_preferences_volumeAccessibility"
             app:summary="@string/volume_pref_dialog_no_change_chb"
             app:layout="@layout/mp_preference_material_widget" />
-        <Preference
-            app:key="prf_pref_volumeSpeakerPhoneInfo"
-            app:title="@string/profile_preferences_volumeSpeakerPhone"
-            app:summary="@string/profile_preferences_volumeSpeakerPhoneInfo29_summary"
-            app:widgetLayout="@layout/widget_info_preference"
-            app:layout="@layout/mp_preference_material_widget" />
-<!--
-        <ListPreference
-            app:title="@string/profile_preferences_volumeSpeakerPhone"
-            app:summary="@string/array_pref_no_change"
-            app:key="prf_pref_volumeSpeakerPhone"
-            app:defaultValue="0"
-            app:entries="@array/volumeSpeakerPhoneArray"
-            app:entryValues="@array/volumeSpeakerPhoneValues"
-            app:layout="@layout/mp_preference_material_widget" />
--->
-        </PreferenceCategory>
+    </PreferenceCategory>
 
-    </androidx.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

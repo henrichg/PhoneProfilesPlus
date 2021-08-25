@@ -37,7 +37,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.pm.PackageInfoCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.multidex.MultiDex;
+//import androidx.multidex.MultiDex;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
@@ -152,6 +152,7 @@ public class PPApplication extends Application
                                                 //+"|PPApplication.getEmuiRomName"
                                                 //+"|PPApplication.isEMUIROM"
                                                 //+"|PPApplication.isMIUIROM"
+                                                +"|PPApplication.attachBaseContext"
                                                 +"|PPApplication.exitApp"
                                                 +"|PPApplication._exitApp"
                                                 //+"|PPApplication.createProfileNotificationChannel"
@@ -307,6 +308,17 @@ public class PPApplication extends Application
 
                                                 //+"|------ EventsPrefsFragment.isRedTextNotificationRequired"
                                                 //+"|OneRowWidgetProvider"
+
+                                                //+"|ScreenOnOffBroadcastReceiver"
+                                                //+"|LockDeviceAfterScreenOffBroadcastReceiver"
+
+                                                //+"|PPPExtenderBroadcastReceiver.onReceive"
+                                                //+"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
+
+                                                //+"|CheckCriticalGitHubReleasesBroadcastReceiver._doWork"
+
+                                                //+"|PhoneProfilesPrefsActivity"
+                                                //+"|EditorProfilesActivity"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -753,8 +765,8 @@ public class PPApplication extends Application
     static WifiStateChangedBroadcastReceiver wifiStateChangedBroadcastReceiver = null;
     static NotUsedMobileCellsNotificationDisableReceiver notUsedMobileCellsNotificationDisableReceiver = null;
     static DonationBroadcastReceiver donationBroadcastReceiver = null;
-    static CheckGitHubReleasesBroadcastReceiver checkGitHubReleasesBroadcastReceiver = null;
-    static CheckCriticalGitHubReleasesBroadcastReceiver checkCriticalGitHubReleasesBroadcastReceiver = null;
+    static CheckPPPReleasesBroadcastReceiver checkPPPReleasesBroadcastReceiver = null;
+    static CheckCriticalPPPReleasesBroadcastReceiver checkCriticalPPPReleasesBroadcastReceiver = null;
     static CheckOnlineStatusBroadcastReceiver checkOnlineStatusBroadcastReceiver = null;
     static SimStateChangedBroadcastReceiver simStateChangedBroadcastReceiver = null;
 
@@ -1234,14 +1246,14 @@ public class PPApplication extends Application
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         collator = getCollator();
-        MultiDex.install(this);
+        //MultiDex.install(this);
 
         if (ACRA.isACRASenderServiceProcess()) {
             Log.e("##### PPApplication.attachBaseContext", "ACRA.isACRASenderServiceProcess()");
             return;
         }
 
-        Log.e("##### PPApplication.attachBaseContext", "ACRA inittialization");
+        PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .withBuildConfigClass(BuildConfig.class)
                 .withReportFormat(StringFormat.KEY_VALUE_LIST);
@@ -1968,7 +1980,7 @@ public class PPApplication extends Application
         }
 
         IgnoreBatteryOptimizationNotification.getShowIgnoreBatteryOptimizationNotificationOnStart(context);
-        CheckCriticalGitHubReleasesBroadcastReceiver.getShowCriticalGitHubReleasesNotification(context);
+        CheckCriticalPPPReleasesBroadcastReceiver.getShowCriticalGitHubReleasesNotification(context);
         getActivityLogEnabled(context);
         //getNotificationProfileName(context);
         //getWidgetProfileName(context);

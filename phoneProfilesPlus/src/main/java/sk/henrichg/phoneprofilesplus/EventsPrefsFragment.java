@@ -1159,6 +1159,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesOrientation.checkPreferences(prefMng, context);
             event._eventPreferencesSMS.checkPreferences(prefMng, context);
             event._eventPreferencesCall.checkPreferences(prefMng, context);
+
+            event._eventPreferencesApplication.setSummary(prefMng,
+                    EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, preferences, context);
+            event._eventPreferencesOrientation.setSummary(prefMng,
+                    EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, preferences, context);
+            event._eventPreferencesSMS.setSummary(prefMng,
+                    EventPreferencesSMS.PREF_EVENT_SMS_ENABLED, preferences, context);
+            event._eventPreferencesCall.setSummary(prefMng,
+                    EventPreferencesCall.PREF_EVENT_CALL_ENABLED, preferences, context);
+
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
             //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (1)");

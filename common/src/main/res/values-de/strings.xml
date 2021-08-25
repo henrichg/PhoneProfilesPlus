@@ -1532,8 +1532,8 @@
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Profil beim Beenden manuell aktivieren</string>
     <string name="critical_github_release_confirm_notification_disable">Einer fehlerbereinigte Version von PhoneProfilesPlus steht zum Herunterladen bereit. Darin sind kritische Fehler behoben. Möchten Sie zukünftig wirklich diese Meldung nicht mehr anzeigen?</string>
     <string name="critical_github_release_notification_disable_button">Diese Version auslassen</string>
-    <string name="editor_drawer_order_start_profile_name">Start profile name</string>
-    <string name="editor_drawer_order_end_profile_name">End profile name</string>
+    <string name="editor_drawer_order_start_profile_name">Name des Startprofils</string>
+    <string name="editor_drawer_order_end_profile_name">Name des Endprofils</string>
     <string name="donation_paypal_donate_button">Spenden</string>
     <string name="normal_github_release">Neue App veröffentlicht</string>
     <string name="normal_github_release_notification">Bitte klicken Sie auf diese Benachrichtigung, um die neue Version von PhoneProfilesPlus von GitHub herunterzuladen.</string>
@@ -1545,7 +1545,7 @@
     <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Funktioniert nicht in Android 10+</string>
     <string name="event_preferences_calendar_day_contains_event">Der aktuelle Tag enthält ein Kalenderereignis</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Nicht ausprobieren</string>
-    <string name="array_event_pref_calendarDayContainsEvent_contains">Contains AND has configured parameters</string>
+    <string name="array_event_pref_calendarDayContainsEvent_contains">Enthält UND und konfigurierte Parameter</string>
     <string name="array_event_pref_calendarDayContainsEvent_notContains">Not contains OR has configured parameters</string>
     <string name="event_preferences_calendar_event_parameters">Parameter für Kalenderereignisse</string>
     <string name="event_preferences_other_parameters">Weitere Parameter</string>
@@ -1652,8 +1652,8 @@
     <string name="github_assets_screenshot_text">„Assets” befindet sich unter den Versionshinweisen. „Assets” sollte in der mobilen Ansicht angeklickt werden.</string>
     <string name="quick_tile_icon_label">Profil auswählen</string>
     <string name="title_activity_tile_chooser">Schnellauswahl für Kachelprofile</string>
-    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Preferences indicator lightness</string>
-    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Decoration for notification (if is enabled) will be displayed only when Background color is of type \"Native\".</string>
+    <string name="phone_profiles_pref_notificationPrefIndicatorLightness">Helligkeit der Präferenzanzeige</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorInfo_summary">Die Dekoration der Benachrichtigung (falls aktiviert) wird nur angezeigt, wenn die Hintergrundfarbe dem Typ „Native” entspricht.</string>
     <string name="mobile_cells_item_delete_all_selected">Alle ausgewählte löschen</string>
     <string name="delete_application_alert_message">Diesen Anwendung entfernen?</string>
     <string name="delete_intent_alert_message">Diese Aufgabe entfernen?</string>
@@ -1664,7 +1664,7 @@
     <string name="delete_geofence_name_alert_message">Diesen Standort entfernen?</string>
     <string name="delete_mobile_cell_alert_message">Diese Mobilfunkzelle entfernen?</string>
     <string name="delete_selected_mobile_cells_alert_message">Alle ausgewählten Mobilfunkzellen entfernen?</string>
-    <string name="tile_chooser_tile_changed_toast">Quick tile profile changed to:</string>
+    <string name="tile_chooser_tile_changed_toast">Titel der Schnellprofils geändert in:</string>
     <string name="altype_profileAdded">Profil hinzugefügt</string>
     <string name="altype_eventAdded">Ereignis hinzugefügt</string>
     <string name="quick_tile_subtile_activated">Aktiviert</string>
@@ -1678,12 +1678,12 @@
     <string name="menu_check_releases_galaxy_store">Im Galaxie Store anzeigen</string>
     <string name="check_releases_open_galaxy_store">Galaxy Store öffnen</string>
     <string name="menu_check_releases_amazon_appstore">Im Amazon Appstore anzeigen</string>
-    <string name="check_releases_amazon_appstore_application">Amazon Appstore App installation site:</string>
+    <string name="check_releases_amazon_appstore_application">Amazon Appstore - Installationsseite der App:</string>
     <string name="check_releases_open_amazon_appstore">Amazon Appstore öffnen</string>
     <string name="check_releases_install_amazon_appstore">Bitte installieren Sie die Amazon Appstore-Anwendung.</string>
-    <string name="applicationApplicationInterfaceActivationNotification">Notification of profile activation</string>
+    <string name="applicationApplicationInterfaceActivationNotification">Benachrichtigung beim Aktivieren des Profils</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">„Ereignisse neu starten” zur Profilliste hinzufügen</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Background scanning scan in time</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Scannen von Hintergrundzeiten</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Von</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">An</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth scan in time</string>
@@ -1743,6 +1743,11 @@
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus im Repository:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Helligkeit erhöhen</string>
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">„Ereignisse neu starten” als Schaltfläche anzeigen</string>
+    <string name="check_ppp_releases_notification">Klicken Sie auf diese Mitteilung, um die PhoneProfilesPlus-Versionen zu überprüfen. Vielleicht wurde eine neuere Version veröffentlicht.</string>
+    <string name="check_github_releases_install_info_app_stores_release">"In den App Stores wird demnächst eine neue Version veröffentlicht."</string>
+    <string name="show_dialog_about_red_text_show_profile_preferences">Profil-Einstellungen anzeigen</string>
+    <string name="show_dialog_about_red_text_show_editor">Editor anzeigen</string>
+    <string name="check_github_releases_new_version">Neue Version:</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

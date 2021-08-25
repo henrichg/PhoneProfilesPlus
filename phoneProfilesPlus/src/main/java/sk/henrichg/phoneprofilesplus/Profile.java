@@ -2063,7 +2063,7 @@ public class Profile {
     }
 
     // get icon custom color
-    private int getIconCustomColor() {
+    int getIconCustomColor() {
         int value;
         try {
             String[] splits = _icon.split("\\|");
@@ -6027,34 +6027,30 @@ public class Profile {
     }
 */
     public int isAccessibilityServiceEnabled(Context context) {
-        int accessibilityEnabled = 1;
+        int accessibilityEnabled;
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
+        if (extenderVersion == 0)
+            accessibilityEnabled = -2;
+        else
+        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
+            //noinspection ConstantConditions
+            accessibilityEnabled = 1;
+        else
+            accessibilityEnabled = 0;
+
+        /*
         if (this._deviceForceStopApplicationChange != 0) {
-            if (extenderVersion == 0)
-                accessibilityEnabled = -2;
-            else
-            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
+            if ((extenderVersion > 0) &&
+                    (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1))
                 accessibilityEnabled = -1;
-            else
-            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
-                //noinspection ConstantConditions
-                accessibilityEnabled = 1;
-            else
-                accessibilityEnabled = 0;
         }
         if (this._lockDevice == 3) {
-            if (extenderVersion == 0)
-                accessibilityEnabled = -2;
-            else
-            if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
+            if ((extenderVersion > 0) &&
+                    (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1))
                 accessibilityEnabled = -1;
-            else
-            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
-                //noinspection ConstantConditions
-                accessibilityEnabled = 1;
-            else
-                accessibilityEnabled = 0;
         }
+        */
+
         return accessibilityEnabled;
     }
 

@@ -1743,6 +1743,11 @@
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus in repository:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Verhoog helderheid</string>
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Toon \"Events herstarten\" als knop</string>
+    <string name="check_ppp_releases_notification">Klik op deze notificatie voor het controleren van PhoneProfilesPlus release op GitHub. Misschien is er een nieuwere versie beschikbaar.</string>
+    <string name="check_github_releases_install_info_app_stores_release">"In de applicatiewinkels zal binnenkort een nieuwe versie zijn."</string>
+    <string name="show_dialog_about_red_text_show_profile_preferences">Profielvoorkeuren tonen</string>
+    <string name="show_dialog_about_red_text_show_editor">Editor tonen</string>
+    <string name="check_github_releases_new_version">Nieuwe versie:</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

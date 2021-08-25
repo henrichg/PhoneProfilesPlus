@@ -722,24 +722,24 @@ public class PhoneProfilesService extends Service
                     PPApplication.donationBroadcastReceiver = null;
                 }
             }
-            if (PPApplication.checkGitHubReleasesBroadcastReceiver != null) {
+            if (PPApplication.checkPPPReleasesBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->UNREGISTER checkGitHubReleasesBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER checkGitHubReleasesBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver);
-                    PPApplication.checkGitHubReleasesBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.checkPPPReleasesBroadcastReceiver);
+                    PPApplication.checkPPPReleasesBroadcastReceiver = null;
                 } catch (Exception e) {
-                    PPApplication.checkGitHubReleasesBroadcastReceiver = null;
+                    PPApplication.checkPPPReleasesBroadcastReceiver = null;
                 }
             }
-            if (PPApplication.checkCriticalGitHubReleasesBroadcastReceiver != null) {
+            if (PPApplication.checkCriticalPPPReleasesBroadcastReceiver != null) {
                 //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->UNREGISTER checkCriticalGitHubReleasesBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER checkCriticalGitHubReleasesBroadcastReceiver");
                 try {
-                    appContext.unregisterReceiver(PPApplication.checkCriticalGitHubReleasesBroadcastReceiver);
-                    PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = null;
+                    appContext.unregisterReceiver(PPApplication.checkCriticalPPPReleasesBroadcastReceiver);
+                    PPApplication.checkCriticalPPPReleasesBroadcastReceiver = null;
                 } catch (Exception e) {
-                    PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = null;
+                    PPApplication.checkCriticalPPPReleasesBroadcastReceiver = null;
                 }
             }
         }
@@ -848,6 +848,7 @@ public class PhoneProfilesService extends Service
                 PPApplication.pppExtenderBroadcastReceiver = new PPPExtenderBroadcastReceiver();
                 IntentFilter intentFilter14 = new IntentFilter();
                 intentFilter14.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED);
+                intentFilter14.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
                 appContext.registerReceiver(PPApplication.pppExtenderBroadcastReceiver, intentFilter14,
                         PPApplication.PPP_EXTENDER_PERMISSION, null);
             }
@@ -876,19 +877,19 @@ public class PhoneProfilesService extends Service
                 intentFilter5.addAction(PPApplication.ACTION_DONATION);
                 appContext.registerReceiver(PPApplication.donationBroadcastReceiver, intentFilter5);
             }
-            if (PPApplication.checkGitHubReleasesBroadcastReceiver == null) {
+            if (PPApplication.checkPPPReleasesBroadcastReceiver == null) {
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER checkGitHubReleasesBroadcastReceiver");
-                PPApplication.checkGitHubReleasesBroadcastReceiver = new CheckGitHubReleasesBroadcastReceiver();
+                PPApplication.checkPPPReleasesBroadcastReceiver = new CheckPPPReleasesBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_GITHUB_RELEASES);
-                appContext.registerReceiver(PPApplication.checkGitHubReleasesBroadcastReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.checkPPPReleasesBroadcastReceiver, intentFilter5);
             }
-            if (PPApplication.checkCriticalGitHubReleasesBroadcastReceiver == null) {
+            if (PPApplication.checkCriticalPPPReleasesBroadcastReceiver == null) {
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER checkCriticalGitHubReleasesBroadcastReceiver");
-                PPApplication.checkCriticalGitHubReleasesBroadcastReceiver = new CheckCriticalGitHubReleasesBroadcastReceiver();
+                PPApplication.checkCriticalPPPReleasesBroadcastReceiver = new CheckCriticalPPPReleasesBroadcastReceiver();
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
-                appContext.registerReceiver(PPApplication.checkCriticalGitHubReleasesBroadcastReceiver, intentFilter5);
+                appContext.registerReceiver(PPApplication.checkCriticalPPPReleasesBroadcastReceiver, intentFilter5);
             }
         }
     }
@@ -1102,7 +1103,7 @@ public class PhoneProfilesService extends Service
                 IntentFilter intentFilter14 = new IntentFilter();
                 intentFilter14.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
                 intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
-                //intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
+                intentFilter14.addAction(BluetoothDevice.ACTION_ACL_DISCONNECT_REQUESTED);
                 intentFilter14.addAction(BluetoothDevice.ACTION_NAME_CHANGED);
                 appContext.registerReceiver(PPApplication.bluetoothConnectionBroadcastReceiver, intentFilter14);
             }
@@ -2349,7 +2350,6 @@ public class PhoneProfilesService extends Service
                         //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerPPPPExtenderReceiver->REGISTER", "PhoneProfilesService_pppExtenderForegroundApplicationBroadcastReceiver");
                         PPApplication.pppExtenderForegroundApplicationBroadcastReceiver = new PPPExtenderBroadcastReceiver();
                         IntentFilter intentFilter23 = new IntentFilter();
-                        intentFilter23.addAction(PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND);
                         intentFilter23.addAction(PPApplication.ACTION_FOREGROUND_APPLICATION_CHANGED);
                         appContext.registerReceiver(PPApplication.pppExtenderForegroundApplicationBroadcastReceiver, intentFilter23,
                                 PPApplication.PPP_EXTENDER_PERMISSION, null);
@@ -4293,8 +4293,8 @@ public class PhoneProfilesService extends Service
 
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "start donation and check GitHub releases alarms");
                 DonationBroadcastReceiver.setAlarm(appContext);
-                CheckGitHubReleasesBroadcastReceiver.setAlarm(appContext);
-                CheckCriticalGitHubReleasesBroadcastReceiver.setAlarm(appContext);
+                CheckPPPReleasesBroadcastReceiver.setAlarm(appContext);
+                CheckCriticalPPPReleasesBroadcastReceiver.setAlarm(appContext);
 
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application started");
 
@@ -5956,7 +5956,6 @@ public class PhoneProfilesService extends Service
         }
 
         notificationBuilder.setContentIntent(pIntent);
-        notificationBuilder.setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
 
         // Android 12:
         // The service provides a use case related to phone calls, navigation, or media playback,
@@ -5965,6 +5964,9 @@ public class PhoneProfilesService extends Service
         notificationBuilder.setCategory(NotificationCompat.CATEGORY_NAVIGATION);
 
         notificationBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+
+        // this disable timestamp in decorator
+        notificationBuilder.setShowWhen(false);
 
         //notificationBuilder.setTicker(profileName);
 
@@ -6127,6 +6129,9 @@ public class PhoneProfilesService extends Service
 
         // ----- set icons
         //PPApplication.logE("PhoneProfilesService._showProfileNotification", "inHandlerThread="+inHandlerThread);
+
+        int decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
+
         if (!forFirstStart) {
             if (isIconResourceID) {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is internal resource");
@@ -6168,9 +6173,9 @@ public class PhoneProfilesService extends Service
                         iconSmallResource = R.drawable.ic_profile_default_notify;
                         try {
                             if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                                Object idx = Profile.profileIconNotifyId.get(iconIdentifier);
-                                if (idx != null)
-                                    iconSmallResource = (int) idx;
+                                Object obj = Profile.profileIconNotifyId.get(iconIdentifier);
+                                if (obj != null)
+                                    iconSmallResource = (int) obj;
                             }
                         } catch (Exception e) {
                             PPApplication.recordException(e);
@@ -6243,8 +6248,18 @@ public class PhoneProfilesService extends Service
                             notificationBuilder.setLargeIcon(iconBitmap);
                     }
                 }
+
+                if ((profile != null) && (profile.getUseCustomColorForIcon()))
+                    decoratorColor = profile.getIconCustomColor();
+                else {
+                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                        decoratorColor = ProfileIconPreferenceAdapterX.getIconColor(iconIdentifier/*, prefContext*/);
+                    }
+                }
+
             } else {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is custom - external picture");
+
                 // FC in Note 4, 6.0.1 :-/
                 //boolean isNote4 = (Build.MANUFACTURER.compareToIgnoreCase("samsung") == 0) &&
                     /*(Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
@@ -6324,6 +6339,9 @@ public class PhoneProfilesService extends Service
                 }
             }
         }
+
+        //TODO xxx
+        notificationBuilder.setColor(decoratorColor);
 
         // notification title
         if (notificationNotificationStyle.equals("0")) {
@@ -6510,25 +6528,30 @@ public class PhoneProfilesService extends Service
             //if (android.os.Build.VERSION.SDK_INT >= 24) {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "setCustomContentView");
 
-                if (useDecorator)
+                if (useDecorator) {
                     notificationBuilder.setStyle(new NotificationCompat.DecoratedCustomViewStyle());
-                else
+
+                    notificationBuilder.setCustomContentView(contentView);
+                    notificationBuilder.setCustomBigContentView(contentViewLarge);
+                }
+                else {
                     notificationBuilder.setStyle(null);
 
-                switch (notificationLayoutType) {
-                    case "1":
-                        // only large layout
-                        notificationBuilder.setCustomContentView(contentViewLarge);
-                        break;
-                    case "2":
-                        // only small layout
-                        notificationBuilder.setCustomContentView(contentView);
-                        break;
-                    default:
-                        // expandable layout
-                        notificationBuilder.setCustomContentView(contentView);
-                        notificationBuilder.setCustomBigContentView(contentViewLarge);
-                        break;
+                    switch (notificationLayoutType) {
+                        case "1":
+                            // only large layout
+                            notificationBuilder.setCustomContentView(contentViewLarge);
+                            break;
+                        case "2":
+                            // only small layout
+                            notificationBuilder.setCustomContentView(contentView);
+                            break;
+                        default:
+                            // expandable layout
+                            notificationBuilder.setCustomContentView(contentView);
+                            notificationBuilder.setCustomBigContentView(contentViewLarge);
+                            break;
+                    }
                 }
             //} else {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "setContent");

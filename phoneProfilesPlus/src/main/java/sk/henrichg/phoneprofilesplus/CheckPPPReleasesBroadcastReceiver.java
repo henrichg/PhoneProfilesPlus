@@ -20,9 +20,9 @@ import java.util.Calendar;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
 
-public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
+public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
-    private static final String PREF_GITHUB_RELEASE_ALARM = "github_release_alarm";
+    private static final String PREF_PPP_RELEASE_ALARM = "github_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] CheckGitHubReleasesBroadcastReceiver.onReceive", "xxx");
@@ -47,7 +47,7 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
 //        }
 
         long lastAlarm = ApplicationPreferences.
-                getSharedPreferences(context).getLong(PREF_GITHUB_RELEASE_ALARM, 0);
+                getSharedPreferences(context).getLong(PREF_PPP_RELEASE_ALARM, 0);
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(lastAlarm);
@@ -56,14 +56,14 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
 
         long alarmTime;
 
-        /*if (DebugVersion.enabled) {
+/*        if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
-            if (PPApplication.logEnabled()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarm.getTimeInMillis());
-                Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
-            }
+//            if (PPApplication.logEnabled()) {
+//                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                String result = sdf.format(alarm.getTimeInMillis());
+//                Log.e("CheckGitHubReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//            }
 
             alarmTime = alarm.getTimeInMillis();
         } else*/
@@ -87,7 +87,7 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
                 alarmTime = alarm.getTimeInMillis();
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putLong(PREF_GITHUB_RELEASE_ALARM, alarmTime);
+                editor.putLong(PREF_PPP_RELEASE_ALARM, alarmTime);
                 editor.apply();
             }
             else {
@@ -212,10 +212,11 @@ public class CheckGitHubReleasesBroadcastReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder mBuilder;
         Intent _intent;
-        _intent = new Intent(appContext, CheckGitHubReleasesActivity.class);
+        _intent = new Intent(appContext, CheckPPPReleasesActivity.class);
+        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, false);
 
         String nTitle = appContext.getString(R.string.menu_check_github_releases);
-        String nText = appContext.getString(R.string.check_github_releases_notification);
+        String nText = appContext.getString(R.string.check_ppp_releases_notification);
 //        if (android.os.Build.VERSION.SDK_INT < 24) {
 //            nTitle = appContext.getString(R.string.ppp_app_name);
 //            nText = appContext.getString(R.string.menu_check_github_releases) + ": " +
