@@ -32,20 +32,21 @@ __Event sensor types:__
 - Calendar
 - Battery
 - Call
-- Accessories
-- WiFi (SSID)
-- Screen (on/off)
-- Bluetooth
-- SMS
-- Notifications
-- Applications
-- Location
-- Orientation
-- Mobile cells
-- NFC tags
+- SMS/MMS
 - Radios
+- Location
+- WiFi (SSID)
+- Bluetooth
+- Mobile cells
+- Accessories
+- Screen (on/off)
+- Notifications
+- Sound profile
+- Applications
+- Orientation
+- NFC tags
 - Alarm clock
-- ...
+- Device boot
 
 __PhoneProfilesPlusExtender__
 
