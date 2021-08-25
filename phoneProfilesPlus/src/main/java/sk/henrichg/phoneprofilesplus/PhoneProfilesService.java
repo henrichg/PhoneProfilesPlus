@@ -6249,7 +6249,7 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                if (profile.getUseCustomColorForIcon())
+                if ((profile != null) && (profile.getUseCustomColorForIcon()))
                     decoratorColor = profile.getIconCustomColor();
                 else {
                     if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
