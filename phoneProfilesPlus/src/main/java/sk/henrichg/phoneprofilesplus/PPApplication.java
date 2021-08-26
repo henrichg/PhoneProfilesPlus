@@ -185,6 +185,7 @@ public class PPApplication extends Application
                                                 +"|DatabaseHandler.onUpgrade"
                                                 //+"|IgnoreBatteryOptimizationNotification"
                                                 //+"|LauncherActivity.startPPServiceWhenNotStarted"
+                                                +"|PPApplication.updateGUI"
 
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
@@ -1464,7 +1465,10 @@ public class PPApplication extends Application
 
         final Context appContext = context.getApplicationContext();
 
-        updateGUI(0, appContext/*, true, true*/);
+        if (!oldApplicationFullyStarted) {
+            PPApplication.logE("###### PPApplication.updateGUI", "from=PPApplication.setApplicationFullyStarted");
+            updateGUI(true, false, appContext);
+        }
 
         if (!oldApplicationFullyStarted && normalServiceStart && showToastForProfileActivation) {
             // it is not restart of application by system
@@ -1796,110 +1800,28 @@ public class PPApplication extends Application
         TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
 
         if (alsoNotification) {
-/*            // KEEP IT AS WORK !!!
-            // update immediate (without initialDelay())
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
-                            .addTag(ShowProfileNotificationWorker.WORK_TAG)
-                            .build();
-            try {
-                if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null) {
-
-//                        //if (PPApplication.logEnabled()) {
-//                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosForUniqueWork(ShowProfileNotificationWorker.WORK_TAG);
-//                        try {
-//                            List<WorkInfo> workInfoList = statuses.get();
-//                            PPApplication.logE("[TEST BATTERY] PPApplication.forceUpdateGUI", "for=" + ShowProfileNotificationWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                        } catch (Exception ignored) {
-//                        }
-//                        //}
-
-//                        PPApplication.logE("[WORKER_CALL] PPApplication.forceUpdateGUI", "PPP notification");
-                        workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                    }
-                }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
- */
-            PhoneProfilesService.drawProfileNotification(200, context);
+            PhoneProfilesService.drawProfileNotification(true, context);
         }
     }
 
-    static void updateGUI(int delay, Context context/*, boolean alsoEditor, boolean refresh*/)
+    static void updateGUI(final boolean drawImmediattely, final boolean longDelay, final Context context)
     {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("PPApplication.updateGUI", "lockRefresh=" + lockRefresh);
-            PPApplication.logE("PPApplication.updateGUI", "doImport=" + EditorProfilesActivity.doImport);
-            PPApplication.logE("PPApplication.updateGUI", "alsoEditor=" + alsoEditor);
-            PPApplication.logE("PPApplication.updateGUI", "refresh=" + refresh);
-        }*/
-
-        /*
-        if (!refresh) {
-            if (lockRefresh || EditorProfilesActivity.doImport)
-                // no refresh widgets
-                return;
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("PPApplication.updateGUI", "drawImmediattely=" + drawImmediattely);
+            PPApplication.logE("PPApplication.updateGUI", "longDelay=" + longDelay);
         }
-
-        //PPApplication.logE("PPApplication.updateGUI", "send broadcast");
-        Intent intent5 = new Intent(PPApplication.ACTION_UPDATE_GUI);
-        intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
-        intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
-        context.sendBroadcast(intent5);
-        */
-
-//        PPApplication.logE("------- PPApplication.updateGUI", "delay=" + delay);
-
-/*
-        OneTimeWorkRequest worker;
-        if (delay == 0) {
-            worker =
-                    new OneTimeWorkRequest.Builder(UpdateGUIWorker.class)
-                            .addTag(UpdateGUIWorker.WORK_TAG)
-                            .build();
-        }
-        else {
-            worker =
-                    new OneTimeWorkRequest.Builder(UpdateGUIWorker.class)
-                            .addTag(UpdateGUIWorker.WORK_TAG)
-                            .setInitialDelay(delay, TimeUnit.SECONDS)
-                            .build();
-        }
-        try {
-            if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null) {
-//                    //if (PPApplication.logEnabled()) {
-//                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosForUniqueWork(UpdateGUIWorker.WORK_TAG);
-//                    try {
-//                        List<WorkInfo> workInfoList = statuses.get();
-//                        PPApplication.logE("[TEST BATTERY] PPApplication.updateGUI", "for=" + UpdateGUIWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                    } catch (Exception ignored) {
-//                    }
-//                    //}
-
-//                    PPApplication.logE("[WORKER_CALL] PPApplication.updateGUI", "xxx");
-                    workManager.enqueueUniqueWork(UpdateGUIWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                }
-            }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
-*/
 
         try {
             final Context appContext = context.getApplicationContext();
 
-            if (delay == 0) {
+            if (drawImmediattely) {
                 PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
                 return;
             }
 
+            int delay = 1;
+            if (longDelay)
+                delay = 10;
             PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
             final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
@@ -1918,7 +1840,10 @@ public class PPApplication extends Application
                         }
 
     //                    PPApplication.logE("PPApplication.updateGUI", "call of forceUpdateGUI");
-                        PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
+
+                        // for longDelay=true, redraw also notiification
+                        // for longDelay=false, notification redraw is called after this postDelayed()
+                        PPApplication.forceUpdateGUI(appContext, true, longDelay/*, true*/);
 
     //                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.updateGUI");
                     } catch (Exception e) {
@@ -1934,6 +1859,9 @@ public class PPApplication extends Application
                     }
                 //}
             }, delay * 1000L);
+
+            if (!longDelay)
+                PhoneProfilesService.drawProfileNotification(false, context);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -2920,15 +2848,15 @@ public class PPApplication extends Application
         }
 
         try {
-            //PPApplication.logE("PPApplication._isRooted", "start isRootAvailable");
+            //PPApplication.logE("[ROOT] PPApplication._isRooted", "start isRootAvailable");
             //if (roottools.isRootAvailable()) {
             //noinspection RedundantIfStatement
             if (RootToolsSmall.isRooted()) {
                 // device is rooted
-                //PPApplication.logE("PPApplication._isRooted", "root available");
+                //PPApplication.logE("[ROOT] PPApplication._isRooted", "root available");
                 rootMutex.rooted = true;
             } else {
-                //PPApplication.logE("PPApplication._isRooted", "root NOT available");
+                //PPApplication.logE("[ROOT] PPApplication._isRooted", "root NOT available");
                 rootMutex.rooted = false;
                 //rootMutex.settingsBinaryExists = false;
                 //rootMutex.settingsBinaryChecked = false;
@@ -2970,6 +2898,9 @@ public class PPApplication extends Application
     }
 
     static boolean isRooted(boolean fromUIThread) {
+//        PPApplication.logE("[ROOT] PPApplication.isRooted", "rootMutex.rootChecked="+rootMutex.rootChecked);
+//        PPApplication.logE("[ROOT] PPApplication.isRooted", "rootMutex.rooted="+rootMutex.rooted);
+
         if (rootMutex.rootChecked)
             return rootMutex.rooted;
 

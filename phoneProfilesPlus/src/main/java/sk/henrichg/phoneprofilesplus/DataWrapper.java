@@ -1845,8 +1845,8 @@ public class DataWrapper {
             //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "update gui");
             //PPApplication.showProfileNotification(/*context*/forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT), false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper._activateProfile (2)");
-            PPApplication.updateGUI(1, context/*, true, forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT)*/);
+            PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper._activateProfile (2)");
+            PPApplication.updateGUI(false, false, context);
 
             if (_profile != null) {
 //                PPApplication.logE("[APP_START] DataWrapper._activateProfile", "call execute");
@@ -2253,8 +2253,8 @@ public class DataWrapper {
 
             //PPApplication.showProfileNotification(/*context*/false, false);
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfile");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfile");
-            PPApplication.updateGUI(1, context/*, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT*/);
+            PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfile");
+            PPApplication.updateGUI(false, false, context);
 
             // for startActivityForResult
             if (activity != null)
@@ -2282,8 +2282,8 @@ public class DataWrapper {
 
                 //PPApplication.showProfileNotification(/*context*/false, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
-                //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfileAfterDuration");
-                PPApplication.updateGUI(1, context/*, true, false*/);
+                PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfileAfterDuration");
+                PPApplication.updateGUI(false, false, context);
                 return;
             }
             //if (Permissions.grantProfilePermissions(context, profile, false, true,
@@ -3037,8 +3037,8 @@ public class DataWrapper {
                     else if (activity instanceof ActivateProfileActivity)
                         ((ActivateProfileActivity) activity).refreshGUI(true, false);*/
                     //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
-                    //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (1)");
-                    PPApplication.updateGUI(0, activity/*, true, true*/);
+                    PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (1)");
+                    PPApplication.updateGUI(true, false, activity);
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
@@ -3069,8 +3069,8 @@ public class DataWrapper {
                 else if (activity instanceof ActivateProfileActivity)
                     ((ActivateProfileActivity) activity).refreshGUI(true, false);*/
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
-                //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (2)");
-                PPApplication.updateGUI(0, activity/*, true, true*/);
+                PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (2)");
+                PPApplication.updateGUI(true, false, activity);
             }
         }
     }

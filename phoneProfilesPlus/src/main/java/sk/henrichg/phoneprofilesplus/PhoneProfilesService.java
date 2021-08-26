@@ -5426,8 +5426,8 @@ public class PhoneProfilesService extends Service
         //PPApplication.logE("PhoneProfilesService.onConfigurationChanged", "xxx");
         //PPApplication.showProfileNotification(true, false/*, false*/);
         //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesService.obConfigurationChanged");
-        //PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesService.onConfigurationChanged");
-        PPApplication.updateGUI(1, getApplicationContext()/*, true, true*/);
+        PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesService.onConfigurationChanged");
+        PPApplication.updateGUI(false, false, getApplicationContext());
     }
 
     //------------------------
@@ -6670,17 +6670,33 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    static void drawProfileNotification(int delay, Context context) {
-        final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
-        final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
-        //__handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
-        //        context.getApplicationContext()) {
-        __handler.postDelayed(() -> {
+    static void clearOldProfileNotification() {
+        boolean clear = false;
+        if (Build.MANUFACTURER.equals("HMD Global"))
+            // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
+            clear = true;
+        if (PPApplication.deviceIsLG && (!Build.MODEL.contains("Nexus")) && (Build.VERSION.SDK_INT == 28))
+            // clear it for redraw icon in "Glance view" for LG with Android 9
+            clear = true;
+        if (clear) {
+            // next show will be with startForeground()
+            PhoneProfilesService.getInstance().clearProfileNotification(/*getApplicationContext(), true*/);
+            PPApplication.sleep(100);
+        }
+    }
+
+    static void drawProfileNotification(boolean drawImmediatelly, Context context) {
+        if (drawImmediatelly) {
+            final Context appContext = context.getApplicationContext();
+            PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
+            final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
+            //__handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
+            //        context.getApplicationContext()) {
+            __handler.postDelayed(() -> {
 //            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesService.drawProfileNotification");
 
-            //Context appContext= appContextWeakRef.get();
-            //if (appContext != null) {
+                //Context appContext= appContextWeakRef.get();
+                //if (appContext != null) {
                 PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
                 PowerManager.WakeLock wakeLock = null;
                 try {
@@ -6699,18 +6715,7 @@ public class PhoneProfilesService extends Service
                             if (PhoneProfilesService.getInstance() != null) {
 //                            PPApplication.logE("PhoneProfilesService.drawProfileNotification", "call of _showProfileNotification()");
 
-                                boolean clear = false;
-                                if (Build.MANUFACTURER.equals("HMD Global"))
-                                    // clear it for redraw icon in "Glance view" for "HMD Global" mobiles
-                                    clear = true;
-                                if (PPApplication.deviceIsLG && (!Build.MODEL.contains("Nexus")) && (Build.VERSION.SDK_INT == 28))
-                                    // clear it for redraw icon in "Glance view" for LG with Android 9
-                                    clear = true;
-                                if (clear) {
-                                    // next show will be with startForeground()
-                                    PhoneProfilesService.getInstance().clearProfileNotification(/*getApplicationContext(), true*/);
-                                    PPApplication.sleep(100);
-                                }
+                                clearOldProfileNotification();
 
                                 if (PhoneProfilesService.getInstance() != null) {
                                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0f);
@@ -6732,8 +6737,40 @@ public class PhoneProfilesService extends Service
                         }
                     }
                 }
-            //}
-        }, delay);
+                //}
+            }, 200);
+        } else {
+            OneTimeWorkRequest worker =
+                    new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
+                            .addTag(ShowProfileNotificationWorker.WORK_TAG)
+                            .setInitialDelay(1, TimeUnit.SECONDS)
+                            .build();
+            try {
+                // EVEN WHEN SERVICE IS NOT FULLY STARTED, SHOW NOTIFICATION IS REQUIRED !!!
+                // FOR THIS REASON, DO NOT TEST serviceHasFirstStart
+                if (PPApplication.getApplicationStarted(false)) {
+                    WorkManager workManager = PPApplication.getWorkManagerInstance();
+                    if (workManager != null) {
+
+//                    //if (PPApplication.logEnabled()) {
+//                    ListenableFuture<List<WorkInfo>> statuses;
+//                    statuses = workManager.getWorkInfosForUniqueWork(ShowProfileNotificationWorker.WORK_TAG);
+//                    try {
+//                        List<WorkInfo> workInfoList = statuses.get();
+//                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.showProfileNotification", "for=" + ShowProfileNotificationWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                    } catch (Exception ignored) {
+//                    }
+//                    //}
+
+//                    PPApplication.logE("[WORKER_CALL] PhoneProfilesService.showProfileNotification", "xxx");
+                        workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                    }
+                }
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+
+        }
     }
 
     void showProfileNotification(boolean drawEmpty, boolean drawActivatedProfle, boolean drawImmediatelly) {
@@ -6767,95 +6804,15 @@ public class PhoneProfilesService extends Service
                 return;
         }
 
-        /*
-        long now = SystemClock.elapsedRealtime();
-
-        if (clear || refresh || ((now - PPApplication.lastRefreshOfProfileNotification) >= PPApplication.DURATION_FOR_GUI_REFRESH))
-        {
-            if (PhoneProfilesService.instance != null) {
-                //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","refresh");
-
-                final boolean _clear = clear;
-                PPApplication.startHandlerThreadProfileNotification();
-                final Handler handler = new Handler(PPApplication.handlerThreadProfileNotification.getLooper());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false);
-                        Profile profile = dataWrapper.getActivatedProfileFromDB(false, false);
-
-                        //boolean fullyStarted = false;
-                        //if (PhoneProfilesService.getInstance() != null)
-                        //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
-                        boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
-                        boolean fullyStarted = PPApplication.applicationFullyStarted;
-                        if ((!fullyStarted) || applicationPackageReplaced)
-                            profile = null;
-
-                        //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification", "_showProfileNotification()");
-                        _showProfileNotification(profile, dataWrapper, _clear || refresh, false);
-                        //dataWrapper.invalidateDataWrapper();
-                    }
-                });
-            }
-        }
-        else {
-            //PPApplication.logE("$$$ PhoneProfilesService.showProfileNotification","do not refresh");
-
-            ShowProfileNotificationBroadcastReceiver.setAlarm(getApplicationContext());
-        }
-        */
-
         if (!drawActivatedProfle)
             return;
 
-        // KEEP IT AS WORK !!!
-/*
-        OneTimeWorkRequest worker;
-        if (drawImmediatelly)
-            worker =
-                    new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
-                            .addTag(ShowProfileNotificationWorker.WORK_TAG)
-                            //.setInitialDelay(1, TimeUnit.SECONDS)
-                            .build();
-        else
-            worker =
-                    new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
-                            .addTag(ShowProfileNotificationWorker.WORK_TAG)
-                            .setInitialDelay(1, TimeUnit.SECONDS)
-                            .build();
-        try {
-            // EVEN WHEN SERVICE IS NOT FULLY STARTED, SHOW NOTIFICATION IS REQUIRED !!!
-            // FOR THIS REASON, DO NOT TEST serviceHasFirstStart
-            if (PPApplication.getApplicationStarted(false)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null) {
-
-//                    //if (PPApplication.logEnabled()) {
-//                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosForUniqueWork(ShowProfileNotificationWorker.WORK_TAG);
-//                    try {
-//                        List<WorkInfo> workInfoList = statuses.get();
-//                        PPApplication.logE("[TEST BATTERY] PhoneProfilesService.showProfileNotification", "for=" + ShowProfileNotificationWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                    } catch (Exception ignored) {
-//                    }
-//                    //}
-
-//                    PPApplication.logE("[WORKER_CALL] PhoneProfilesService.showProfileNotification", "xxx");
-                    workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                }
-            }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
- */
-
-        int delay;
+/*        int delay;
         if (drawImmediatelly)
             delay = 200;
         else
-            delay = 1000;
-        drawProfileNotification(delay, getApplicationContext());
+            delay = 1000;*/
+        drawProfileNotification(drawImmediatelly, getApplicationContext());
 
         //PPApplication.lastRefreshOfProfileNotification = SystemClock.elapsedRealtime();
     }

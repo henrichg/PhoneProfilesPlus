@@ -1080,8 +1080,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             disableDependedPref(Profile.PREF_PROFILE_LOCK_DEVICE);
             setRedTextToPreferences();
             //PPApplication.logE("ActivateProfileHelper.updateGUI", "from ProfilesPrefsFragment.onResume");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=ProfilePrefsFragment.onResume");
-            PPApplication.updateGUI(0, getActivity()/*, true, true*/);
+            PPApplication.logE("###### PPApplication.updateGUI", "from=ProfilePrefsFragment.onResume");
+            PPApplication.updateGUI(true, false, getActivity());
         }
     }
 

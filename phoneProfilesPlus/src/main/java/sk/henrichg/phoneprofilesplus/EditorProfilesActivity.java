@@ -2706,8 +2706,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 fragment.updateHeader(activeProfile);
                 //PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
                 //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
-                //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redrawProfileListFragment");
-                PPApplication.updateGUI(0, fragment.activityDataWrapper.context/*, true, true*/);
+                PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redrawProfileListFragment");
+                PPApplication.updateGUI(true, false, fragment.activityDataWrapper.context);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
@@ -4165,8 +4165,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
                     //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
-                    //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
-                    PPApplication.updateGUI(0, _dataWrapper.context/*, true, true*/);
+                    PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+                    PPApplication.updateGUI(true, false, _dataWrapper.context);
 
                     PPApplication.setApplicationStarted(_dataWrapper.context, true);
                     Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
@@ -4815,8 +4815,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
                         //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
-                        //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
-                        PPApplication.updateGUI(0, _dataWrapper.context);
+                        PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+                        PPApplication.updateGUI(true, false, _dataWrapper.context);
 
                         PPApplication.setApplicationStarted(_dataWrapper.context, true);
                         Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
