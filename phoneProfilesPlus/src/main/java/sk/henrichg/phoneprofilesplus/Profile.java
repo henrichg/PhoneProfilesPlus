@@ -6027,29 +6027,39 @@ public class Profile {
     }
 */
     public int isAccessibilityServiceEnabled(Context context) {
-        int accessibilityEnabled;
+        int accessibilityEnabled = -99;
+
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
+            // not installed
             accessibilityEnabled = -2;
         else
-        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
-            //noinspection ConstantConditions
+        if ((this._deviceForceStopApplicationChange != 0) ||
+            (this._lockDevice != 0)) {
+            if (this._deviceForceStopApplicationChange != 0) {
+                if ((extenderVersion > 0) &&
+                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1))
+                    // old version
+                    accessibilityEnabled = -1;
+            }
+            if (this._lockDevice == 3) {
+                if ((extenderVersion > 0) &&
+                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1))
+                    // old version
+                    accessibilityEnabled = -1;
+            }
+            if (accessibilityEnabled == -99) {
+                // Extender is in right version
+                if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
+                    // accessibility enabled
+                    accessibilityEnabled = 1;
+                else
+                    // accessibility disabled
+                    accessibilityEnabled = 0;
+            }
+        }
+        if (accessibilityEnabled == -99)
             accessibilityEnabled = 1;
-        else
-            accessibilityEnabled = 0;
-
-        /*
-        if (this._deviceForceStopApplicationChange != 0) {
-            if ((extenderVersion > 0) &&
-                    (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1))
-                accessibilityEnabled = -1;
-        }
-        if (this._lockDevice == 3) {
-            if ((extenderVersion > 0) &&
-                    (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1))
-                accessibilityEnabled = -1;
-        }
-        */
 
         return accessibilityEnabled;
     }
