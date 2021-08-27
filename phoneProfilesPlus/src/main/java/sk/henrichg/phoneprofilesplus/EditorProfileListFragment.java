@@ -525,8 +525,7 @@ public class EditorProfileListFragment extends Fragment
                 //    fragment.setProfileSelection(profile);
 
                 if (defaultProfilesGenerated) {
-                    //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.LoadProfileListAsyncTask");
-                    PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.LoadProfileListAsyncTask.onPostExecute");
+//                    PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.LoadProfileListAsyncTask.onPostExecute");
                     PPApplication.updateGUI(true, false, _dataWrapper.context);
                     if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
                         PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
@@ -687,9 +686,7 @@ public class EditorProfileListFragment extends Fragment
             //Profile profile = databaseHandler.getActivatedProfile();
             Profile _profile = profileListAdapter.getActivatedProfile();
             updateHeader(_profile);
-            //PPApplication.showProfileNotification(/*activityDataWrapper.context*/true, false);
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteProfile");
-            PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.deleteProfile");
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.deleteProfile");
             PPApplication.updateGUI(true, false, activityDataWrapper.context);
         }
         else {
@@ -828,9 +825,7 @@ public class EditorProfileListFragment extends Fragment
                 //Profile profile = databaseHandler.getActivatedProfile();
                 //Profile profile = profileListAdapter.getActivatedProfile();
                 updateHeader(null);
-                //PPApplication.showProfileNotification(/*activityDataWrapper.context*/true, false);
-                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfileListFragment.deleteAllProfiles");
-                PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.deleteAllProfiles");
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfileListFragment.deleteAllProfiles");
                 PPApplication.updateGUI(true, false,  activityDataWrapper.context);
 
                 activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();

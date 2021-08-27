@@ -1647,14 +1647,12 @@ class Event {
 //                        PPApplication.logE("[***] Event.startEvent", "(1) called is DataWrapper.activateProfileFromEvent");
                         dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
                     } else {
-                        //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
-                        //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
-                        PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
+//                        PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
                         PPApplication.updateGUI(false, false, dataWrapper.context);
                     }
                 }
                 else {
-                    PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
+//                    PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
                     PPApplication.updateGUI(false, false, dataWrapper.context);
                 }
             } else {
@@ -1676,7 +1674,7 @@ class Event {
                         dataWrapper.addProfileToFIFO(profileId, _id);
                     }
                 } else {
-                    PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
+//                    PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
                     PPApplication.updateGUI(false, false, dataWrapper.context);
                 }
             }
@@ -1944,9 +1942,7 @@ class Event {
 
         if ((!profileActivated) && updateGUI)
         {
-            //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.doActivateEndProfile");
-            //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
-            PPApplication.logE("###### PPApplication.updateGUI", "from=Event.doActivateEndProfile");
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=Event.doActivateEndProfile");
             PPApplication.updateGUI(false, false, dataWrapper.context);
         }
 

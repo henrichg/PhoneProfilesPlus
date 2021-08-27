@@ -1842,10 +1842,7 @@ public class DataWrapper {
                 //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
             }
 
-            //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "update gui");
-            //PPApplication.showProfileNotification(/*context*/forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT), false);
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
-            PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper._activateProfile (2)");
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper._activateProfile (2)");
             PPApplication.updateGUI(false, false, context);
 
             if (_profile != null) {
@@ -2251,9 +2248,7 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context).activateProfile(profile);
             setProfileActive(profile);
 
-            //PPApplication.showProfileNotification(/*context*/false, false);
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfile");
-            PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfile");
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfile");
             PPApplication.updateGUI(false, false, context);
 
             // for startActivityForResult
@@ -2280,9 +2275,7 @@ public class DataWrapper {
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
                 //Profile.setActivatedProfileForDuration(context, 0);
 
-                //PPApplication.showProfileNotification(/*context*/false, false);
-                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
-                PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfileAfterDuration");
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfileAfterDuration");
                 PPApplication.updateGUI(false, false, context);
                 return;
             }
@@ -3032,12 +3025,7 @@ public class DataWrapper {
                 if (globalRunStopEvents(true)) {
                     //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
 
-                    /*if (activity instanceof EditorProfilesActivity)
-                        ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
-                    else if (activity instanceof ActivateProfileActivity)
-                        ((ActivateProfileActivity) activity).refreshGUI(true, false);*/
-                    //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
-                    PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (1)");
+//                    PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (1)");
                     PPApplication.updateGUI(true, false, activity);
                 }
             });
@@ -3063,13 +3051,7 @@ public class DataWrapper {
         }
         else {
             if (globalRunStopEvents(false)) {
-                //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
-                /*if (activity instanceof EditorProfilesActivity)
-                    ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
-                else if (activity instanceof ActivateProfileActivity)
-                    ((ActivateProfileActivity) activity).refreshGUI(true, false);*/
-                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
-                PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (2)");
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (2)");
                 PPApplication.updateGUI(true, false, activity);
             }
         }

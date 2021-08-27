@@ -446,8 +446,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
             }
         }, 1000);
-        //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
-        PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsActivity.doPreferenceChanges");
+//        PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsActivity.doPreferenceChanges");
         PPApplication.updateGUI(true, false, getApplicationContext());
 
         if (Permissions.grantRootChanged) {

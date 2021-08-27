@@ -185,7 +185,7 @@ public class PPApplication extends Application
                                                 +"|DatabaseHandler.onUpgrade"
                                                 //+"|IgnoreBatteryOptimizationNotification"
                                                 //+"|LauncherActivity.startPPServiceWhenNotStarted"
-                                                +"|PPApplication.updateGUI"
+                                                //+"|PPApplication.updateGUI"
 
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
@@ -1466,7 +1466,7 @@ public class PPApplication extends Application
         final Context appContext = context.getApplicationContext();
 
         if (!oldApplicationFullyStarted) {
-            PPApplication.logE("###### PPApplication.updateGUI", "from=PPApplication.setApplicationFullyStarted");
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=PPApplication.setApplicationFullyStarted");
             updateGUI(true, false, appContext);
         }
 
@@ -1806,10 +1806,10 @@ public class PPApplication extends Application
 
     static void updateGUI(final boolean drawImmediattely, final boolean longDelay, final Context context)
     {
-        if (PPApplication.logEnabled()) {
-            PPApplication.logE("PPApplication.updateGUI", "drawImmediattely=" + drawImmediattely);
-            PPApplication.logE("PPApplication.updateGUI", "longDelay=" + longDelay);
-        }
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("PPApplication.updateGUI", "drawImmediattely=" + drawImmediattely);
+//            PPApplication.logE("PPApplication.updateGUI", "longDelay=" + longDelay);
+//        }
 
         try {
             final Context appContext = context.getApplicationContext();

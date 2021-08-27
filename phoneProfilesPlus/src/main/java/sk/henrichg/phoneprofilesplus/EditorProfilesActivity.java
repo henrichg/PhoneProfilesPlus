@@ -2704,9 +2704,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator);
                 fragment.updateHeader(activeProfile);
-                //PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
-                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
-                PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redrawProfileListFragment");
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redrawProfileListFragment");
                 PPApplication.updateGUI(true, false, fragment.activityDataWrapper.context);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
@@ -4164,8 +4162,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
                     PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
-                    //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
-                    PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+//                    PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
                     PPApplication.updateGUI(true, false, _dataWrapper.context);
 
                     PPApplication.setApplicationStarted(_dataWrapper.context, true);
@@ -4814,8 +4811,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
                         PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
-                        //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
-                        PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+//                        PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
                         PPApplication.updateGUI(true, false, _dataWrapper.context);
 
                         PPApplication.setApplicationStarted(_dataWrapper.context, true);

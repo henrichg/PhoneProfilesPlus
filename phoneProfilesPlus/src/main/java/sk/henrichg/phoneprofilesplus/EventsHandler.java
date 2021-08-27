@@ -1121,7 +1121,7 @@ class EventsHandler {
             // refresh all GUI - must be for restart scanners
             //if (PPApplication.isScreenOn) {
             if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
-                PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents");
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents");
                 PPApplication.updateGUI(false, false, context);
 
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### in fifo is:");
