@@ -94,6 +94,8 @@ dependencies {
         transitive = true
     }
 
+    implementation 'com.android.volley:volley:1.2.1'
+
     implementation project(':common')
     implementation project(':ToastCompat')
     implementation project(':RootShell')
