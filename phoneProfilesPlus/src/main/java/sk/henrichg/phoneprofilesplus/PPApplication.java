@@ -316,7 +316,7 @@ public class PPApplication extends Application
                                                 //+"|PPPExtenderBroadcastReceiver.onReceive"
                                                 //+"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
 
-                                                +"|CheckCriticalGitHubReleasesBroadcastReceiver._doWork"
+                                                //+"|CheckCriticalGitHubReleasesBroadcastReceiver.doWork"
 
                                                 //+"|PhoneProfilesPrefsActivity"
                                                 //+"|EditorProfilesActivity"
