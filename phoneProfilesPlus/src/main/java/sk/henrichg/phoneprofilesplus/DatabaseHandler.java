@@ -3549,6 +3549,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting single profile
+    @SuppressWarnings("ConstantConditions")
     Profile getProfile(long profile_id, boolean merged) {
         importExportLock.lock();
         try {
@@ -4390,6 +4391,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         doActivateProfile(null, false);
     }
 
+    @SuppressWarnings("ConstantConditions")
     Profile getActivatedProfile()
     {
         importExportLock.lock();
