@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -220,11 +219,12 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                         String versionNameInReleases = "";
                         int versionCodeInReleases = 0;
 
+                        //noinspection UnnecessaryLocalVariable
                         String contents = response;
                         try {
                             // this must be added when you tests debug branch
-                            if (DebugVersion.enabled)
-                                contents = "@@@ppp-release:5.1.1.1b:6651:normal***@@@";
+//                            if (DebugVersion.enabled)
+//                                contents = "@@@ppp-release:5.1.1.1b:6651:normal***@@@";
 
 //                            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "contents="+contents);
 
