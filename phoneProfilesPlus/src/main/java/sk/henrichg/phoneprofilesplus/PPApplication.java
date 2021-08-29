@@ -227,6 +227,7 @@ public class PPApplication extends Application
 //                                                +"|[EVENTS_HANDLER_CALL]"
 //                                                +"|[TEST BATTERY]"
 //                                                +"|[APP_START]"
+//                                                +"|[HANDLER]"
                                                 //+"|[SHEDULE_WORK]"
                                                 //+"|[SHEDULE_SCANNER]"
                                                 //+"|[TEST MEDIA VOLUME]"
@@ -320,6 +321,8 @@ public class PPApplication extends Application
 
                                                 //+"|PhoneProfilesPrefsActivity"
                                                 //+"|EditorProfilesActivity"
+
+                                                //+"|Event.setDelayEndAlarm"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

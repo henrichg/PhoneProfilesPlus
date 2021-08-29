@@ -21,7 +21,7 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
     }
 
     static void doWork(boolean useHandler, Context context) {
-        //PPApplication.logE("[HANDLER] EventDelayEndBroadcastReceiver.doWork", "useHandler="+useHandler);
+//        PPApplication.logE("[HANDLER] EventDelayEndBroadcastReceiver.doWork", "useHandler="+useHandler);
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -66,7 +66,7 @@ public class EventDelayEndBroadcastReceiver extends BroadcastReceiver {
                     //}
                 });
             } else {
-                //PPApplication.logE("EventDelayEndBroadcastReceiver.doWork", "handle events");
+//                PPApplication.logE("[IN_WORKER] EventDelayEndBroadcastReceiver.doWork", "handle events");
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=EventDelayEndBroadcastReceiver.doWork (2)");
 
                 final Context appContext = context.getApplicationContext();

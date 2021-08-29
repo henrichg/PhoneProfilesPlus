@@ -2634,6 +2634,11 @@ class Event {
         {
             Context _context = dataWrapper.context;
 
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("@@@ Event.setDelayEndAlarm", "ignore battery optimization=" + PPApplication.isIgnoreBatteryOptimizationEnabled(_context));
+                PPApplication.logE("@@@ Event.setDelayEndAlarm", "ApplicationPreferences.applicationUseAlarmClock=" + ApplicationPreferences.applicationUseAlarmClock);
+            }*/
+
             // delay for end is > 0
             // set alarm
 
@@ -2689,7 +2694,7 @@ class Event {
                         if (PPApplication.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
-                                //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
+//                                PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
@@ -2758,10 +2763,16 @@ class Event {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
+//                        PPApplication.logE("Event.setDelayEndAlarm", "setExactAndAllowWhileIdle - this._delayEnd="+this._delayEnd);
+
                         long alarmTime = SystemClock.elapsedRealtime() + this._delayEnd * 1000L;
+                        //Calendar now = Calendar.getInstance();
+                        //now.add(Calendar.SECOND, this._delayEnd);
+                        //long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayEnd;
 
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                            //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
                         //else
                         //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                         //else
