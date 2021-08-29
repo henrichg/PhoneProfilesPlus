@@ -12,12 +12,6 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import java.util.Arrays;
 
-//import android.preference.CheckBoxPreference;
-//import android.preference.ListPreference;
-//import android.preference.Preference;
-//import android.preference.Preference.OnPreferenceChangeListener;
-//import android.preference.PreferenceManager;
-
 class EventPreferencesScreen extends EventPreferences {
 
     int _eventType;
@@ -40,6 +34,7 @@ class EventPreferencesScreen extends EventPreferences {
         super(event, enabled);
 
         this._eventType = eventType;
+        //Log.e("EventPreferencesScreen", "eventType="+this._eventType);
         this._whenUnlocked = whenUnlocked;
     }
 
@@ -89,7 +84,7 @@ class EventPreferencesScreen extends EventPreferences {
                 descr = descr + "<b>" + eventListTypeNames[index] + "</b>";
 
                 if (this._whenUnlocked) {
-                    if (this._eventType == 0)
+                    if (this._eventType == EventPreferencesScreen.ETYPE_SCREENON)
                         descr = descr + " • <b>" + context.getString(R.string.pref_event_screen_startWhenUnlocked) + "</b>";
                     else
                         descr = descr + " • <b>" + context.getString(R.string.pref_event_screen_startWhenLocked) + "</b>";
@@ -118,6 +113,10 @@ class EventPreferencesScreen extends EventPreferences {
                 int index = listPreference.findIndexOfValue(value);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
+
+                //Log.e("EventPreferencesScreen.setSummary", "_eventType="+_eventType);
+                int typeValue = Integer.parseInt(listPreference.getValue());
+                setWhenUnlockedTitle(prefMng, typeValue);
             }
         }
         if (key.equals(PREF_EVENT_SCREEN_WHEN_UNLOCKED)) {
@@ -147,8 +146,6 @@ class EventPreferencesScreen extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_SCREEN_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_SCREEN_EVENT_TYPE, preferences, context);
         setSummary(prefMng, PREF_EVENT_SCREEN_WHEN_UNLOCKED, preferences, context);
-
-        setWhenUnlockedTitle(prefMng, _eventType);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
@@ -200,12 +197,15 @@ class EventPreferencesScreen extends EventPreferences {
         }
     }
 
-    private void setWhenUnlockedTitle(PreferenceManager prefMng, int value)
+    private void setWhenUnlockedTitle(PreferenceManager prefMng, int eventTypeValue)
     {
+        //Log.e("EventPreferencesScreen.setWhenUnlockedTitle", "eventTypeValue="+eventTypeValue);
+
         final SwitchPreferenceCompat whenUnlockedPreference = prefMng.findPreference(PREF_EVENT_SCREEN_WHEN_UNLOCKED);
 
         if (whenUnlockedPreference != null) {
-            if (value == 0)
+            //Log.e("EventPreferencesScreen.setWhenUnlockedTitle", "change title");
+            if (eventTypeValue == EventPreferencesScreen.ETYPE_SCREENON)
                 whenUnlockedPreference.setTitle(R.string.event_preferences_screen_start_when_unlocked);
             else
                 whenUnlockedPreference.setTitle(R.string.event_preferences_screen_start_when_locked);
@@ -256,21 +256,15 @@ class EventPreferencesScreen extends EventPreferences {
                         // event type = screen is on
                         if (_whenUnlocked)
                             // passed if screen is on and unlocked
-                            if (PPApplication.isScreenOn) {
-                                eventsHandler.screenPassed = !keyguardShowing;
-                            } else {
-                                eventsHandler.screenPassed = !keyguardShowing;
-                            }
-                            //screenPassed = PPApplication.isScreenOn && (!keyguardShowing);
-                            else
-                                eventsHandler.screenPassed = PPApplication.isScreenOn;
+                            eventsHandler.screenPassed = PPApplication.isScreenOn && (!keyguardShowing);
+                        else
+                            eventsHandler.screenPassed = PPApplication.isScreenOn;
                     } else {
                         // event type = screen is off
-                        if (_whenUnlocked) {
+                        if (_whenUnlocked)
                             // passed if screen is off and locked
-                            eventsHandler.screenPassed = keyguardShowing;
-                            //screenPassed = (!PPApplication.isScreenOn) && keyguardShowing;
-                        } else
+                            eventsHandler.screenPassed = (!PPApplication.isScreenOn) && keyguardShowing;
+                        else
                             eventsHandler.screenPassed = !PPApplication.isScreenOn;
                     }
 
