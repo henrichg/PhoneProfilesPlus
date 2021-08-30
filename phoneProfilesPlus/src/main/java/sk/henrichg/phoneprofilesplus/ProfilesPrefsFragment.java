@@ -81,6 +81,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_ALWAYS_ON_DISPLAY_INFO = "prf_pref_alwaysOnDisplayInfo";
     private static final String PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_deviceRadiosDualSIMSupportCategoryRoot";
     private static final String PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_soundsDualSIMSupportCategoryRoot";
+    private static final String PREF_DEVICE_WALLPAPER_CATEGORY = "prf_pref_deviceWallpaperCategoryRoot";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -310,6 +311,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setCategorySummary(PREF_LOCK_DEVICE_CATEGORY, context);
         setCategorySummary(PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
         setCategorySummary(PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT, context);
+        setCategorySummary(PREF_DEVICE_WALLPAPER_CATEGORY, context);
 
         setRedTextToPreferences();
 
@@ -538,14 +540,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
             }
         }
-//        if (android.os.Build.VERSION.SDK_INT < 24) {
-//            Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
-//            if (preference != null) {
-//                PreferenceScreen preferenceCategory = findPreference("prf_pref_othersCategory");
-//                if (preferenceCategory != null)
-//                    preferenceCategory.removePreference(preference);
-//            }
-//        }
         /*if (android.os.Build.VERSION.SDK_INT >= 26) {
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
             if (preference != null)
@@ -2397,7 +2391,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
                     R.array.wallpaperForValues, R.array.wallpaperForArray, context);
 
-            cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
+            cattegorySummaryData.summary = cattegorySummaryData.summary +
+                    context.getString(R.string.profile_preferences_deviceWallpaperFor)
+                    + ": <b>" + value + "</b>";
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, R.string.profile_preferences_lockDevice, false, context);
         if (!title.isEmpty()) {
@@ -2573,51 +2569,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
             cattegorySummaryData.accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
         }
-//            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, R.string.profile_preferences_deviceWallpaperChange, false, context);
-//            if (!title.isEmpty()) {
-//                _bold = true;
-//                if (!summary.isEmpty()) summary = summary +" • ";
-//
-//                String value = GlobalGUIRoutines.getListPreferenceString(
-//                        preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
-//                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)),
-//                        R.array.changeWallpaperValues, R.array.changeWallpaperArray, context);
-//
-//                summary = summary + title + ": <b>" + value + "</b>";
-//
-//                summary = summary +" - ";
-//
-//                value = GlobalGUIRoutines.getListPreferenceString(
-//                        preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
-//                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
-//                        R.array.wallpaperForValues, R.array.wallpaperForArray, context);
-//
-//                summary = summary + title + ": <b>" + value + "</b>";
-//            }
-//            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, R.string.profile_preferences_lockDevice, false, context);
-//            if (!title.isEmpty()) {
-//                _bold = true;
-//                if (!summary.isEmpty()) summary = summary +" • ";
-//
-//                String value = GlobalGUIRoutines.getListPreferenceString(
-//                        preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE,
-//                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_LOCK_DEVICE)),
-//                        R.array.lockDeviceValues, R.array.lockDeviceArray, context);
-//
-//                summary = summary + title + ": <b>" + value + "</b>";
-//            }
-//            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY, R.string.profile_preferences_alwaysOnDisplay, false, context);
-//            if (!title.isEmpty()) {
-//                _bold = true;
-//                if (!summary.isEmpty()) summary = summary +" • ";
-//
-//                String value = GlobalGUIRoutines.getListPreferenceString(
-//                        preferences.getString(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY,
-//                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY)),
-//                        R.array.alwaysOnDisplayValues, R.array.alwaysOnDisplayArray, context);
-//
-//                summary = summary + title + ": <b>" + value + "</b>";
-//            }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_GENERATE_NOTIFICATION, R.string.profile_preferences_generateNotification, false, context);
         if (!title.isEmpty()) {
             cattegorySummaryData.bold = true;
@@ -3119,6 +3070,44 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         return false;
     }
 
+    private boolean setCategorySummaryDeviceWallpaper(Context context,
+                                                  CattegorySummaryData cattegorySummaryData) {
+
+        String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, R.string.profile_preferences_deviceWallpaperChange, false, context);
+        if (!title.isEmpty()) {
+            cattegorySummaryData.bold = true;
+            if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
+
+            String value = GlobalGUIRoutines.getListPreferenceString(
+                    preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)),
+                    R.array.changeWallpaperValues, R.array.changeWallpaperArray, context);
+
+            cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
+
+            cattegorySummaryData.summary = cattegorySummaryData.summary +" - ";
+
+            value = GlobalGUIRoutines.getListPreferenceString(
+                    preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
+                    R.array.wallpaperForValues, R.array.wallpaperForArray, context);
+
+            cattegorySummaryData.summary = cattegorySummaryData.summary +
+                    context.getString(R.string.profile_preferences_deviceWallpaperFor)
+                    + ": <b>" + value + "</b>";
+        }
+
+        Profile profile = new Profile();
+        profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
+        ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+        Permissions.checkProfileWallpaper(context, profile, permissions);
+        cattegorySummaryData.permissionGranted = permissions.size() == 0;
+
+        cattegorySummaryData.forceSet = true;
+
+        return false;
+    }
+
     private void setCategorySummary(String key, Context context) {
         Preference preferenceScreen = prefMng.findPreference(key);
         if (preferenceScreen == null)
@@ -3216,6 +3205,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT)) {
             if (setCategorySummarySoundsDualSIMSupport(context, preferenceScreen,
                     cattegorySummaryData, telephonyManager, phoneCount))
+                return;
+        }
+
+        if (key.equals(PREF_DEVICE_WALLPAPER_CATEGORY)) {
+            if (setCategorySummaryDeviceWallpaper(context, cattegorySummaryData))
                 return;
         }
 
