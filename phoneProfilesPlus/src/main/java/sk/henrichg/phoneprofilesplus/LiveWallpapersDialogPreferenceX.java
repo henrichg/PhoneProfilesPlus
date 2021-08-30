@@ -1,9 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.WallpaperInfo;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.service.wallpaper.WallpaperService;
 import android.util.AttributeSet;
 
 import androidx.preference.DialogPreference;
@@ -52,12 +58,38 @@ public class LiveWallpapersDialogPreferenceX extends DialogPreference {
     private void setSummaryLWDP()
     {
         String prefSummary = context.getString(R.string.live_wallpapers_pref_dlg_summary_text_not_selected);
-        if (!value.isEmpty())
-            prefSummary = value;
+        if (!value.isEmpty()) {
+            // get label for ComponentName in value
+
+            PackageManager packageManager = context.getPackageManager();
+
+            // get ResolveInfo of live wallpapers
+            List<ResolveInfo> availableWallpapersList =
+                    packageManager.queryIntentServices(
+                            new Intent(WallpaperService.SERVICE_INTERFACE),
+                            PackageManager.GET_META_DATA);
+
+            for (int i = 0; i < availableWallpapersList.size(); i++) {
+                ResolveInfo wallpaperResInfo = availableWallpapersList.get(i);
+
+                WallpaperInfo info;
+                try {
+                    // WallaperInfo from ResolveInfo
+                    info = new WallpaperInfo(context, wallpaperResInfo);
+                    if (value.equals(info.getComponent().flattenToString())) {
+                        prefSummary = wallpaperResInfo.loadLabel(packageManager).toString();
+                        break;
+                    }
+                } catch (Exception ignored) {
+                }
+            }
+        }
         setSummary(prefSummary);
     }
 
     void persistValue() {
+        // to get ComponentName from value, use ComponentName.unflattenFromString(value)
+
         persistString(value);
         setSummaryLWDP();
     }

@@ -65,10 +65,10 @@ class LiveWallpapersDialogPreferenceAdapterX extends BaseAdapter
         holder.wallpaperName.setText(liveWallpaper.wallpaperName);
 
         holder.radioButton.setTag(position);
-        holder.radioButton.setChecked(preference.value.equals(liveWallpaper.componentName.toString()));
+        holder.radioButton.setChecked(preference.value.equals(liveWallpaper.componentName.flattenToString()));
         holder.radioButton.setOnClickListener(v -> {
             RadioButton rb = (RadioButton) v;
-            preference.value = preference.liveWallpapersList.get((Integer)rb.getTag()).componentName.toString();
+            preference.value = preference.liveWallpapersList.get((Integer)rb.getTag()).componentName.flattenToString();
             notifyDataSetChanged();
         });
 

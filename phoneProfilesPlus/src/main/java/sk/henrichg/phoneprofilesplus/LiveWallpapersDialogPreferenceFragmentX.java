@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.WallpaperInfo;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -59,7 +58,7 @@ public class LiveWallpapersDialogPreferenceFragmentX extends PreferenceDialogFra
         listAdapter = new LiveWallpapersDialogPreferenceAdapterX(prefContext, preference);
 
         listView.setOnItemClickListener((parent, v, position, id) -> {
-            preference.value = preference.liveWallpapersList.get(position).componentName.toString();
+            preference.value = preference.liveWallpapersList.get(position).componentName.flattenToString();
             listAdapter.notifyDataSetChanged();
         });
 
