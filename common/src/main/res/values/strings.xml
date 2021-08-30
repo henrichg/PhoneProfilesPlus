@@ -1764,6 +1764,8 @@
 
     <string name="array_pref_change_image_wallpaper">Change to image</string>
     <string name="array_pref_change_live_wallpaper">Change to live wallpaper</string>
+    <string name="profile_preferences_deviceImageWallpaper">Image wallpaper</string>
+    <string name="profile_preferences_deviceLiveWallpaper">Live wallpaper</string>
     <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Not selected</string>
 
     <!-- **************************************************************************************** -->

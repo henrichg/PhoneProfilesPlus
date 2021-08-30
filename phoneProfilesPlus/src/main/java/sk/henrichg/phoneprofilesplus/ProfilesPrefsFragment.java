@@ -3576,8 +3576,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_LOCK_DEVICE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING) ||
-                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER))
+                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH))
         {
             PreferenceAllowed preferenceAllowed;
             if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
