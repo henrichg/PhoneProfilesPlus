@@ -373,7 +373,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._soundNotificationSIM1,
                         origProfile._soundNotificationChangeSIM2,
                         origProfile._soundNotificationSIM2,
-                        origProfile._soundSameRingtoneForBothSIMCards
+                        origProfile._soundSameRingtoneForBothSIMCards,
+                        origProfile._deviceLiveWallpaper
                 );
                 showSaveMenu = true;
             }
@@ -474,11 +475,13 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, ""));
             profile._deviceBrightness = preferences.getString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, "");
             profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, ""));
-            if (profile._deviceWallpaperChange == 1) {
+            if (profile._deviceWallpaperChange != 0) {
                 profile._deviceWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER, "");
+                profile._deviceLiveWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER, "");
                 profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR, ""));
             } else {
                 profile._deviceWallpaper = "-|0";
+                profile._deviceLiveWallpaper = "";
                 profile._deviceWallpaperFor = 0;
             }
             profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, ""));
@@ -579,6 +582,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotificationSIM2=" + profile._soundNotificationSIM2);
 
             profile._soundSameRingtoneForBothSIMCards = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, ""));
+            profile._deviceLiveWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER, "");
 
         }
 

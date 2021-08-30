@@ -296,11 +296,13 @@
     </string-array>
     <string-array name="changeWallpaperArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_change</item>
+        <item>@string/array_pref_change_image_wallpaper</item>
+        <item>@string/array_pref_change_live_wallpaper</item>
     </string-array>
     <string-array name="changeWallpaperValues">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
 
     <string-array name="launcherArray">

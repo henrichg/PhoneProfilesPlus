@@ -1298,7 +1298,7 @@ class ProfilePreferencesIndicator {
                 }
             }
             // wallpaper
-            if (profile._deviceWallpaperChange == 1) {
+            if (profile._deviceWallpaperChange != 0) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, profile,null,  true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                     if (fillPreferences)
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceWallpaperChange);

@@ -1756,14 +1756,14 @@
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus in repository:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Increase brightness</string>
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Show \"Restart events\" as button</string>
-
     <string name="check_ppp_releases_notification">Click this notification for check of PhoneProfilesPlus releases. Maybe was released newer version.</string>
     <string name="check_github_releases_install_info_app_stores_release">"In application stores will be new version soon."</string>
-
     <string name="show_dialog_about_red_text_show_profile_preferences">Show profile preferences</string>
     <string name="show_dialog_about_red_text_show_editor">Show Editor</string>
-
     <string name="check_github_releases_new_version">New version:</string>
+
+    <string name="array_pref_change_image_wallpaper">Change to image</string>
+    <string name="array_pref_change_live_wallpaper">Change to live wallpaper</string>
 
     <!-- **************************************************************************************** -->
 
@@ -1781,31 +1781,24 @@
     <string name="extender_accessibility_service_button">Enable/Disable\nAccessibility service</string>
     <string name="extender_setting_screen_not_found_alert">Setting screen not found.</string>
     <string name="extender_accessibility_service_permission">PhoneProfilesPlusExtender accessibility service</string>
-
     <string name="extender_accessibility_service_event_sensor_sms_mms">• Accessibility service for event parameter \"SMS/MMS sensor\". Accessibility function is not used, service is needed for receiving SMS and MMS.:</string>
     <string name="extender_permissions_event_sensor_sms_mms">• Permissions for event parameter \"SMS/MMS sensor\" - permission SMS:</string>
     <string name="extender_permissions_not_granted">Not granted</string>
     <string name="extender_permissions_granted">Granted</string>
     <string name="extender_permissions_button">Grant/deny\npermissions</string>
-
     <string name="extender_accessibility_service_event_sensor_call">• Accessibility service for event parameter \"Call sensor\". Accessibility function is not used, service is needed for receiving calls.:</string>
     <string name="extender_permissions_event_sensor_call">• Permissions for event parameter \"Call sensor\" - permission Phone:</string>
     <string name="extender_permissions_event_sensor_call_28">• Permissions for event parameter \"Call sensor\" - permission Phone, Call logs:</string>
     <string name="extender_toast_permissions_not_granted">Permissions are not granted</string>
-
     <string name="extender_accessibility_service_profile_lock_device">• Accessibility service for profile parameter \"Lock device\":</string>
-
     <string name="extender_application_releases">Releases:</string>
     <string name="extender_web_browser_chooser">View web link using</string>
-
     <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crash report</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is crash report.</string>
     <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender crashed</string>
     <string name="extender_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
     <string name="extender_notification_channel_crash_report">Crash report</string>
-
     <string name="extender_scroll_info">Note: Scroll down in this screen to show all parameters.</string>
-
     <string name="extender_battery_optimization_text">• Battery optimization for PhoneProfilesPlusExtender - please add it to \"Not optimized\" group:</string>
     <string name="extender_battery_optimization_optimized">Optimized</string>
     <string name="extender_battery_optimization_not_optimized">Not optimized</string>

@@ -3568,7 +3568,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_LOCK_DEVICE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING) ||
-                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH))
+                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER))
         {
             PreferenceAllowed preferenceAllowed;
             if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
@@ -4569,6 +4570,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2);
         setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
         setSummary(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
+        setSummary(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
@@ -4699,6 +4701,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
+            if (preference != null)
+                preference.setEnabled(enabled);
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER);
             if (preference != null)
                 preference.setEnabled(enabled);
             preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);

@@ -3407,7 +3407,7 @@ class ActivateProfileHelper {
     }
 
     private static void executeForWallpaper(Profile profile, Context context) {
-        if (profile._deviceWallpaperChange == 1)
+        if (profile._deviceWallpaperChange != 0)
         {
             final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadWallpaper();
@@ -4335,7 +4335,7 @@ class ActivateProfileHelper {
 
         // setup wallpaper
         if (Permissions.checkProfileWallpaper(appContext, profile, null)) {
-            if (profile._deviceWallpaperChange == 1) {
+            if (profile._deviceWallpaperChange != 0) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForWallpaper()");
                 ActivateProfileHelper.executeForWallpaper(profile, appContext);
             }
