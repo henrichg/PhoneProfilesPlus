@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2466;
+    private static final int DATABASE_VERSION = 2467;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -203,6 +203,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_SOUND_NOTIFICATION_CHANGE_SIM2 = "soundNotificationChangeSIM2";
     private static final String KEY_SOUND_NOTIFICATION_SIM2 = "soundNotificationSIM2";
     private static final String KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS = "soundSameRingtoneForBothSIMCards";
+    private static final String KEY_DEVICE_LIVE_WALLPAPER = "deviceLiveWallpaper";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -613,7 +614,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_SOUND_NOTIFICATION_SIM1 + " " + TEXT_TYPE + ","
                 + KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + " " + INTEGER_TYPE + ","
                 + KEY_SOUND_NOTIFICATION_SIM2 + " " + TEXT_TYPE + ","
-                + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + " " + INTEGER_TYPE
+                + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_LIVE_WALLPAPER + " " + TEXT_TYPE
                 + ")";
     }
 
@@ -1067,6 +1069,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION_CHANGE_SIM2, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION_SIM2, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_LIVE_WALLPAPER, TEXT_TYPE, columns);
                 break;
             case TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, KEY_E_NAME, TEXT_TYPE, columns);
@@ -2769,7 +2772,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 "",
                                 0,
                                 "",
-                                0
+                                0,
+                                ""
                         );
 
                         //profile = Profile.getMappedProfile(profile, sharedProfile);
@@ -3363,6 +3367,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SOUND_PROFILE_SENSOR_PASSED + "=0");
         }
 
+        if (oldVersion < 2467)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_LIVE_WALLPAPER + "=\"\"");
+        }
+
     }
 
     @Override
@@ -3530,6 +3539,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM2, profile._soundNotificationChangeSIM2);
                 values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
                 values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
+                values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
 
                 // Insert Row
                 if (!merged) {
@@ -3660,7 +3670,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_NOTIFICATION_SIM1,
                                 KEY_SOUND_NOTIFICATION_CHANGE_SIM2,
                                 KEY_SOUND_NOTIFICATION_SIM2,
-                                KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS
+                                KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
+                                KEY_DEVICE_LIVE_WALLPAPER
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3763,7 +3774,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM1)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM2)),
                                 cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS))
+                                cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER))
                         );
                     }
 
@@ -3886,7 +3898,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_SOUND_NOTIFICATION_SIM1 + "," +
                         KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + "," +
                         KEY_SOUND_NOTIFICATION_SIM2 + "," +
-                        KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS +
+                        KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "," +
+                        KEY_DEVICE_LIVE_WALLPAPER +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -3993,6 +4006,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._soundNotificationChangeSIM2 = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM2));
                         profile._soundNotificationSIM2 = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2));
                         profile._soundSameRingtoneForBothSIMCards = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS));
+                        profile._deviceLiveWallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -4117,6 +4131,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM2, profile._soundNotificationChangeSIM2);
                 values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
                 values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
+                values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -4498,7 +4513,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_NOTIFICATION_SIM1,
                                 KEY_SOUND_NOTIFICATION_CHANGE_SIM2,
                                 KEY_SOUND_NOTIFICATION_SIM2,
-                                KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS
+                                KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
+                                KEY_DEVICE_LIVE_WALLPAPER
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -4603,7 +4619,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM1)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM2)),
                                 cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS))
+                                cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER))
                         );
                     }
 

@@ -19,7 +19,7 @@
         app:title="@string/profile_preferences_deviceWallpaper"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.LiveWallpapersPreferenceX
         app:title="@string/profile_preferences_deviceWallpaperChange"
         app:summary="@string/array_pref_no_change"
         app:key="prf_pref_deviceLiveWallpaper"
