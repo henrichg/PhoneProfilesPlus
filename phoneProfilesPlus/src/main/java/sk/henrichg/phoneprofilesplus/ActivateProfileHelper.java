@@ -3407,7 +3407,7 @@ class ActivateProfileHelper {
     }
 
     private static void executeForWallpaper(Profile profile, Context context) {
-        if (profile._deviceWallpaperChange != 0)
+        if (profile._deviceWallpaperChange == 1)
         {
             final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadWallpaper();
@@ -4002,6 +4002,19 @@ class ActivateProfileHelper {
                             PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID,
                             PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_TAG);
                 }
+            }
+        }
+
+        if ((profile._deviceWallpaperChange == 2) && (!profile._deviceLiveWallpaper.isEmpty()))
+        {
+            try {
+                ComponentName componentName = ComponentName.unflattenFromString(profile._deviceLiveWallpaper);
+                Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
+                context.startActivity(intent);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
             }
         }
     }
