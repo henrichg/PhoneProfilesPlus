@@ -19,12 +19,6 @@
         app:title="@string/profile_preferences_deviceImageWallpaper"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <sk.henrichg.phoneprofilesplus.LiveWallpapersDialogPreferenceX
-        app:title="@string/profile_preferences_deviceLiveWallpaper"
-        app:key="prf_pref_deviceLiveWallpaper"
-        app:defaultValue=""
-        app:layout="@layout/mp_preference_material_widget" />
-
     <ListPreference
         app:title="@string/profile_preferences_deviceWallpaperFor"
         app:summary="@string/array_pref_device_wallpaper_homescreen"
@@ -32,6 +26,12 @@
         app:defaultValue="0"
         app:entries="@array/wallpaperForArray"
         app:entryValues="@array/wallpaperForValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.LiveWallpapersDialogPreferenceX
+        app:title="@string/profile_preferences_deviceLiveWallpaper"
+        app:key="prf_pref_deviceLiveWallpaper"
+        app:defaultValue=""
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

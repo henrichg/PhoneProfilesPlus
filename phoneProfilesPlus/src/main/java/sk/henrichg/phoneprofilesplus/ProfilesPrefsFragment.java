@@ -2385,23 +2385,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)),
+            String wallpaperChangeValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
+
+            String sValue = GlobalGUIRoutines.getListPreferenceString(wallpaperChangeValue,
                     R.array.changeWallpaperValues, R.array.changeWallpaperArray, context);
 
-            cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
+            cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + sValue + "</b>";
 
-            cattegorySummaryData.summary = cattegorySummaryData.summary +" - ";
+            if (wallpaperChangeValue.equals("1")) {
+                cattegorySummaryData.summary = cattegorySummaryData.summary +" - ";
 
-            value = GlobalGUIRoutines.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
-                    R.array.wallpaperForValues, R.array.wallpaperForArray, context);
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
+                        R.array.wallpaperForValues, R.array.wallpaperForArray, context);
 
-            cattegorySummaryData.summary = cattegorySummaryData.summary +
-                    context.getString(R.string.profile_preferences_deviceWallpaperFor)
-                    + ": <b>" + value + "</b>";
+                cattegorySummaryData.summary = cattegorySummaryData.summary +
+                        context.getString(R.string.profile_preferences_deviceWallpaperFor)
+                        + ": <b>" + value + "</b>";
+            }
         }
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_LOCK_DEVICE, R.string.profile_preferences_lockDevice, false, context);
         if (!title.isEmpty()) {
@@ -3086,23 +3089,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             cattegorySummaryData.bold = true;
             if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
-            String value = GlobalGUIRoutines.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)),
+            String wallpaperChangeValue = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE,
+                    Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE));
+
+            String sValue = GlobalGUIRoutines.getListPreferenceString(wallpaperChangeValue,
                     R.array.changeWallpaperValues, R.array.changeWallpaperArray, context);
 
-            cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
+            cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + sValue + "</b>";
 
-            cattegorySummaryData.summary = cattegorySummaryData.summary +" - ";
+            if (wallpaperChangeValue.equals("1")) {
+                cattegorySummaryData.summary = cattegorySummaryData.summary +" - ";
 
-            value = GlobalGUIRoutines.getListPreferenceString(
-                    preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
-                    R.array.wallpaperForValues, R.array.wallpaperForArray, context);
+                String value = GlobalGUIRoutines.getListPreferenceString(
+                        preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
+                        R.array.wallpaperForValues, R.array.wallpaperForArray, context);
 
-            cattegorySummaryData.summary = cattegorySummaryData.summary +
-                    context.getString(R.string.profile_preferences_deviceWallpaperFor)
-                    + ": <b>" + value + "</b>";
+                cattegorySummaryData.summary = cattegorySummaryData.summary +
+                        context.getString(R.string.profile_preferences_deviceWallpaperFor)
+                        + ": <b>" + value + "</b>";
+            }
         }
 
         Profile profile = new Profile();
@@ -4707,15 +4713,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE))
         {
             boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
+            boolean imageWallpaper = sValue.equals("1");
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
             if (preference != null)
-                preference.setEnabled(enabled);
-            preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER);
-            if (preference != null)
-                preference.setEnabled(enabled);
+                preference.setEnabled(enabled && imageWallpaper);
             preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
             if (preference != null)
-                preference.setEnabled(enabled);
+                preference.setEnabled(enabled && imageWallpaper);
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER);
+            if (preference != null)
+                preference.setEnabled(enabled && (!imageWallpaper));
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
         {
