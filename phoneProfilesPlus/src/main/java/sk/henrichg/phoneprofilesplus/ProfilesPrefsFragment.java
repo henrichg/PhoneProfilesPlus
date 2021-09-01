@@ -3081,8 +3081,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         return false;
     }
 
+    @SuppressWarnings("SameReturnValue")
     private boolean setCategorySummaryDeviceWallpaper(Context context,
-                                                  CattegorySummaryData cattegorySummaryData) {
+                                                      CattegorySummaryData cattegorySummaryData) {
 
         String title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, R.string.profile_preferences_deviceWallpaperChange, false, context);
         if (!title.isEmpty()) {

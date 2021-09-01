@@ -2,7 +2,6 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -334,6 +333,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= 29) {
                     if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
                         showRequestAccessBackgroundLocation = ActivityCompat.shouldShowRequestPermissionRationale(this, permissionType.permission) || forceGrant;
+//                        Log.e("GrantPermissionActivity.canShowRationale", "ACCESS_BACKGROUND_LOCATION showRequestAccessBackgroundLocation="+showRequestAccessBackgroundLocation);
+//                        Log.e("GrantPermissionActivity.canShowRationale", "ACCESS_BACKGROUND_LOCATION forceGrant="+forceGrant);
+//                        Log.e("GrantPermissionActivity.canShowRationale", "ACCESS_BACKGROUND_LOCATION permissionType.type="+permissionType.type);
                         whyPermissionType[14][permissionType.type] = true;
                     }
                 }
@@ -358,7 +360,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestCamera);
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     private void showRationale(final Context context) {
         if (rationaleAlreadyShown)
             finishGrant();
@@ -781,7 +782,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_PROFILE_CAMERA_FLASH:
                         s = getString(R.string.permission_why_profile_camera_flash);
                         break;
-                    case Permissions.GRANT_TYPE_BACKGROUND_LOCATION:
+                    case Permissions.PERMISSION_BACGROUND_LOCATION:
                         s = getString(R.string.permission_why_profile_background_location);
                         break;
                 }
@@ -966,7 +967,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
         finish();
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -979,7 +979,11 @@ public class GrantPermissionActivity extends AppCompatActivity {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_CODE: {
                 // If request is cancelled, the result arrays are empty.
-                //PPApplication.logE("GrantPermissionActivity.onRequestPermissionsResult", "grantResults.length="+grantResults.length);
+//                PPApplication.logE("GrantPermissionActivity.onRequestPermissionsResult", "grantResults.length="+grantResults.length);
+
+//                for (String permission : permissions) {
+//                    PPApplication.logE("GrantPermissionActivity.onRequestPermissionsResult", "permission=" + permission);
+//                }
 
                 boolean allGranted = true;
                 for (int grantResult : grantResults) {
@@ -999,6 +1003,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             break;
                         }
                     }
+//                    PPApplication.logE("GrantPermissionActivity.onRequestPermissionsResult", "allGranted=" + allGranted);
+
                     if (permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
                         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                         if (mNotificationManager != null) {
@@ -1008,12 +1014,15 @@ public class GrantPermissionActivity extends AppCompatActivity {
                             }
                         }
                     }
+//                    PPApplication.logE("GrantPermissionActivity.onRequestPermissionsResult", "allGranted=" + allGranted);
+
                     if (permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {
                         if (!Settings.canDrawOverlays(context)) {
                             allGranted = false;
                             break;
                         }
                     }
+//                    PPApplication.logE("GrantPermissionActivity.onRequestPermissionsResult", "allGranted=" + allGranted);
                 }
 
                 if (allGranted) {
@@ -1029,7 +1038,6 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -1356,6 +1364,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         if (Build.VERSION.SDK_INT >= 29) {
                             if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
                                 granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
+//                                Log.e("GrantPermissionActivity", "onActivityResult = ACCESS_BACKGROUND_LOCATION granted="+granted);
                             }
                         }
                     }
@@ -1368,9 +1377,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     private void requestPermissions(int iteration, boolean withRationale) {
-        //PPApplication.logE("GrantPermissionActivity.requestPermission","iteration="+iteration);
+//        PPApplication.logE("GrantPermissionActivity.requestPermission","iteration="+iteration);
 
         if (permissions == null)
             return;
@@ -1503,23 +1511,26 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //            PPApplication.logE("GrantPermissionActivity.requestPermissions", "rationaleAlreadyShown=" + rationaleAlreadyShown);
             if (permList.size() > 0) {
                 if (!withRationale && rationaleAlreadyShown) {
+//                    PPApplication.logE("GrantPermissionActivity.requestPermissions", "start application settings");
                     Permissions.saveAllPermissions(getApplicationContext(), false);
                     Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                     //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                    intent.setData(Uri.parse("package"+PPApplication.PACKAGE_NAME));
+                    intent.setData(Uri.parse("package:"+PPApplication.PACKAGE_NAME));
                     if (GlobalGUIRoutines.activityIntentExists(intent, getApplicationContext())) {
-                        intent.putExtra(EXTRA_WITH_RATIONALE, false);
+//                        PPApplication.logE("GrantPermissionActivity.requestPermissions", "intent found");
                         //noinspection deprecation
                         startActivityForResult(intent, Permissions.REQUEST_CODE/*_FORCE_GRANT*/ + grantType);
                     }
-                    else
+                    else {
+//                        PPApplication.logE("GrantPermissionActivity.requestPermissions", "intent not found");
                         finishGrant();
+                    }
                 }
                 else {
                     String[] permArray = new String[permList.size()];
                     for (int i = 0; i < permList.size(); i++) {
                         permArray[i] = permList.get(i);
-//                        PPApplication.logE("GrantPermissionActivity.requestPermissions", "permList.get(i)=" + permList.get(i));
+//                        PPApplication.logE("GrantPermissionActivity.requestPermissions", "permArray[i]=" + permArray[i]);
                     }
 
                     ActivityCompat.requestPermissions(this, permArray, PERMISSIONS_REQUEST_CODE);
@@ -1574,7 +1585,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
     private void finishGrant() {
         final Context context = getApplicationContext();
 
-        if ((Build.VERSION.SDK_INT >= 30) && (grantAlsoBackgroundLocation)) {
+        if (grantAlsoBackgroundLocation) {
+//            Log.e("GrantPermissionActivity.finishGrant", "ACCESS_BACKGROUND_LOCATION");
             Permissions.grantBackgroundLocation(context, this);
         }
 

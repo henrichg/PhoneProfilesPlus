@@ -1,12 +1,10 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.os.Build;
 
 public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -89,7 +87,6 @@ public class InterruptionFilterChangedBroadcastReceiver extends BroadcastReceive
         //}
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     private static int getZenMode(Context context, AudioManager audioManager) {
         // convert to profile zenMode
         int zenMode = 0;

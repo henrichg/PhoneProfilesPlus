@@ -32,7 +32,6 @@ public class LiveWallpapersDialogPreferenceFragmentX extends PreferenceDialogFra
 
     private LiveWallpapersDialogPreferenceAdapterX listAdapter;
 
-    boolean wifiEnabled;
     @SuppressWarnings("rawtypes")
     private RefreshListView1AsyncTask asyncTask = null;
 
@@ -61,8 +60,6 @@ public class LiveWallpapersDialogPreferenceFragmentX extends PreferenceDialogFra
             preference.value = preference.liveWallpapersList.get(position).componentName.flattenToString();
             listAdapter.notifyDataSetChanged();
         });
-
-        wifiEnabled = false;
 
         //if (Permissions.grantConnectToSSIDDialogPermissions(prefContext))
             refreshListView();

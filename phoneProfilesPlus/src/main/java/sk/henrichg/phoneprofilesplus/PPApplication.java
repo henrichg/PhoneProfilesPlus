@@ -323,6 +323,8 @@ public class PPApplication extends Application
                                                 //+"|EditorProfilesActivity"
 
                                                 //+"|Event.setDelayEndAlarm"
+
+                                                //+"|GrantPermissionActivity"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

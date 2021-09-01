@@ -1,11 +1,9 @@
 package com.noob.noobcameraflash.utilities;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
 
@@ -13,7 +11,6 @@ import androidx.annotation.NonNull;
  * Created by Abhishek on 28-11-2015.
  */
 @SuppressWarnings("ConstantConditions")
-@TargetApi(Build.VERSION_CODES.M)
 public class CameraUtilMarshMallow extends BaseCameraUtil {
     private CameraManager mCameraManager;
     private CameraManager.TorchCallback mTorchCallback;

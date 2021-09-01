@@ -1737,7 +1737,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 //(requestCode == RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS) ||
                 (requestCode == RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS)) {
 
-            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Activity activity = getActivity();
                 if (activity != null) {
                     Context context = activity.getApplicationContext();
@@ -1862,7 +1861,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     } else
                         activity.setResult(Activity.RESULT_CANCELED);
                 }
-            //}
         }
 
         if (requestCode == RESULT_WIFI_BLUETOOTH_MOBILE_CELLS_LOCATION_SETTINGS) {
