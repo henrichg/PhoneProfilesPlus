@@ -256,7 +256,7 @@ class Permissions {
             checkProfileWallpaper(context, profile, permissions);
             checkProfileRadioPreferences(context, profile, permissions);
             checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
-            checkCustomProfileIcon(context, profile, true, permissions);
+            checkProfileCustomProfileIcon(context, profile, true, permissions);
             //checkProfileAccessNotificationPolicy(context, profile, permissions);
             checkProfileLockDevice(context, profile, permissions);
             checkProfileDtmfToneWhenDialing(context, profile, permissions);
@@ -546,7 +546,7 @@ class Permissions {
         }
     }
 
-    static void checkCustomProfileIcon(Context context, Profile profile, boolean fromProfile, ArrayList<PermissionType>  permissions) {
+    static void checkProfileCustomProfileIcon(Context context, Profile profile, boolean fromProfile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;// true;
 
         if (fromProfile) {
@@ -689,18 +689,29 @@ class Permissions {
                     permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
                 //permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.MODIFY_PHONE_STATE));
             }
-            boolean grantedLocation = true;
-            if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))
-                grantedLocation = checkLocation(context);
+            boolean grantedAccessCoarseLocation = true;
+            boolean grantedAccessFineLocation = true;
+            boolean grantedAccessBackgroundLocation = true;
+            if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                grantedAccessBackgroundLocation = true;
+                if (Build.VERSION.SDK_INT >= 29)
+                    grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
+            }
             if (permissions != null) {
-                if (!grantedLocation) {
+                if (!grantedAccessFineLocation)
                     permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                if (!grantedAccessCoarseLocation)
                     permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                    // only for API 29 add also background location For 30+ must be granted separatelly
-                    if (Build.VERSION.SDK_INT == 29) {
-//                        Log.e("Permissions.checkProfileRadioPreferences", "ACCESS_BACKGROUND_LOCATION");
+                // only for API 29 add also background location For 30+ must be granted separatelly
+                if (Build.VERSION.SDK_INT == 29) {
+                    if (!grantedAccessBackgroundLocation)
                         permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
-                    }
+                }
+                if (Build.VERSION.SDK_INT > 29) {
+                    if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                 }
             }
         } catch (Exception ignored) {}
@@ -969,7 +980,8 @@ class Permissions {
         }
     }
 
-    static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences, String sensorType) {
+    static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences,
+                                                           String sensorType) {
         ArrayList<PermissionType>  permissions = new ArrayList<>();
         if ((event == null) && (preferences == null)) return permissions;
 
@@ -1171,7 +1183,8 @@ class Permissions {
         }
     }
 
-    static private void checkEventLocation(Context context, Event event, SharedPreferences preferences, ArrayList<PermissionType>  permissions, String sensorType) {
+    static private void checkEventLocation(Context context, Event event, SharedPreferences preferences,
+                                           ArrayList<PermissionType>  permissions, String sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
         if (event != null) {
@@ -1190,7 +1203,7 @@ class Permissions {
                     boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     boolean grantedAccessBackgroundLocation = true;
                     if (Build.VERSION.SDK_INT >= 29)
-                        grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                            grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (event._eventPreferencesWifi._enabled &&
                                 ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
@@ -1201,9 +1214,13 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                    // only for API 29 add also background location For 30+ must be granted separatelly
+                                // only for API 29 add also background location For 30+ must be granted separatelly
                                 if (Build.VERSION.SDK_INT == 29) {
                                     if (!grantedAccessBackgroundLocation)
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }
+                                if (Build.VERSION.SDK_INT > 29) {
+                                    if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                                         permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                                 }
                             }
@@ -1217,9 +1234,13 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                    // only for API 29 add also background location For 30+ must be granted separatelly
+                                // only for API 29 add also background location For 30+ must be granted separatelly
                                 if (Build.VERSION.SDK_INT == 29) {
                                     if (!grantedAccessBackgroundLocation)
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }
+                                if (Build.VERSION.SDK_INT > 29) {
+                                    if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                                         permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                                 }
                             }
@@ -1231,9 +1252,13 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                    // only for API 29 add also background location For 30+ must be granted separatelly
+                                // only for API 29 add also background location For 30+ must be granted separatelly
                                 if (Build.VERSION.SDK_INT == 29) {
                                     if (!grantedAccessBackgroundLocation)
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }
+                                if (Build.VERSION.SDK_INT > 29) {
+                                    if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                                         permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                                 }
                             }
@@ -1246,9 +1271,13 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                    // only for API 29 add also background location For 30+ must be granted separatelly
+                                // only for API 29 add also background location For 30+ must be granted separatelly
                                 if (Build.VERSION.SDK_INT == 29) {
                                     if (!grantedAccessBackgroundLocation)
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }
+                                if (Build.VERSION.SDK_INT > 29) {
+                                    if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                                         permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                                 }
                             }
@@ -1263,9 +1292,13 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                    // only for API 29 add also background location For 30+ must be granted separatelly
+                                // only for API 29 add also background location For 30+ must be granted separatelly
                                 if (Build.VERSION.SDK_INT == 29) {
                                     if (!grantedAccessBackgroundLocation)
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }
+                                if (Build.VERSION.SDK_INT > 29) {
+                                    if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                                         permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                                 }
                             }
@@ -1300,9 +1333,13 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                // only for API 29 add also background location For 30+ must be granted separatelly
+                            // only for API 29 add also background location For 30+ must be granted separatelly
                             if (Build.VERSION.SDK_INT == 29) {
                                 if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
+                            if (Build.VERSION.SDK_INT > 29) {
+                                if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                                     permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
@@ -1316,9 +1353,13 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                // only for API 29 add also background location For 30+ must be granted separatelly
+                            // only for API 29 add also background location For 30+ must be granted separatelly
                             if (Build.VERSION.SDK_INT == 29) {
                                 if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
+                            if (Build.VERSION.SDK_INT > 29) {
+                                if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                                     permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
@@ -1330,9 +1371,13 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                // only for API 29 add also background location For 30+ must be granted separatelly
+                            // only for API 29 add also background location For 30+ must be granted separatelly
                             if (Build.VERSION.SDK_INT == 29) {
                                 if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
+                            if (Build.VERSION.SDK_INT > 29) {
+                                if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                                     permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
@@ -1345,9 +1390,13 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                // only for API 29 add also background location For 30+ must be granted separatelly
+                            // only for API 29 add also background location For 30+ must be granted separatelly
                             if (Build.VERSION.SDK_INT == 29) {
                                 if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
+                            if (Build.VERSION.SDK_INT > 29) {
+                                if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                                     permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }
@@ -1362,9 +1411,13 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                // only for API 29 add also background location For 30+ must be granted separatelly
+                            // only for API 29 add also background location For 30+ must be granted separatelly
                             if (Build.VERSION.SDK_INT == 29) {
                                 if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
+                            if (Build.VERSION.SDK_INT > 29) {
+                                if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                             }
                         }

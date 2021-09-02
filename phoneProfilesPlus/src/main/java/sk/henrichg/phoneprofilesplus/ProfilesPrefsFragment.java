@@ -3291,7 +3291,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 Profile profile = new Profile();
                 profile._icon = value.toString();
                 ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                Permissions.checkCustomProfileIcon(context, profile, false, permissions);
+                Permissions.checkProfileCustomProfileIcon(context, profile, false, permissions);
                 boolean permissionGranted = permissions.size() == 0;
 
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, valueChanged, false, !permissionGranted, false);
@@ -4108,7 +4108,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                             profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0"));
                             profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0"));
-                            Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                            Permissions.checkProfileRingtones(context, profile, permissions);
                             //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
                             _permissionGranted = permissions.size() == 0;
 
@@ -4202,7 +4202,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                             profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0"));
                             profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0"));
-                            Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                            Permissions.checkProfileRingtones(context, profile, permissions);
                             _permissionGranted = permissions.size() == 0;
 
                             GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, !_permissionGranted, false);
