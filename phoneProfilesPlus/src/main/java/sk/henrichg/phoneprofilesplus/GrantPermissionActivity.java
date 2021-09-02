@@ -1355,6 +1355,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                         if (permissionType.permission.equals(Manifest.permission.READ_CONTACTS)) {
                             granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
                         }
+
                         if (permissionType.permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)) {
                             granted = (ContextCompat.checkSelfPermission(context, permissionType.permission) == PackageManager.PERMISSION_GRANTED);
                         }
@@ -1367,6 +1368,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                                Log.e("GrantPermissionActivity", "onActivityResult = ACCESS_BACKGROUND_LOCATION granted="+granted);
                             }
                         }
+
                     }
                 }
                 if (granted)
@@ -1588,6 +1590,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
         if (grantAlsoBackgroundLocation) {
 //            Log.e("GrantPermissionActivity.finishGrant", "ACCESS_BACKGROUND_LOCATION");
             Permissions.grantBackgroundLocation(context, this);
+            finish();
         }
 
         PPApplication.registerContentObservers(context);
