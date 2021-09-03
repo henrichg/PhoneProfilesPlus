@@ -2109,7 +2109,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
             profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "0"));
             ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-            Permissions.checkProfileRadioPreferences(context, profile, permissions);
+            Permissions.checkProfileRadioPreferences(context, profile, permissions, false);
             //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
             cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
@@ -2290,7 +2290,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
         profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
         ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-        Permissions.checkProfileRadioPreferences(context, profile, permissions);
+        Permissions.checkProfileRadioPreferences(context, profile, permissions, false);
         //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
         cattegorySummaryData.permissionGranted = cattegorySummaryData.permissionGranted && (permissions.size() == 0);
 
@@ -2970,7 +2970,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
                     profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "0"));
                     ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                    Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                    Permissions.checkProfileRadioPreferences(context, profile, permissions, false);
                     //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
                     cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
@@ -4258,7 +4258,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     Profile profile = new Profile();
                     ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                     profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
-                    Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                    Permissions.checkProfileRadioPreferences(context, profile, permissions, false);
                     boolean _permissionGranted = permissions.size() == 0;
 
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, !_permissionGranted, false);
@@ -4286,7 +4286,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         profile._deviceNetworkType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
                         profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, "0"));
                         profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
-                        Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                        Permissions.checkProfileRadioPreferences(context, profile, permissions, false);
                         //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
                         _permissionGranted = permissions.size() == 0;
                     }
@@ -4328,7 +4328,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                             profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0"));
                             profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0"));
-                            Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                            Permissions.checkProfileRadioPreferences(context, profile, permissions, false);
                             //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
                             _permissionGranted = permissions.size() == 0;
 
@@ -4365,7 +4365,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                             profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
                             profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
-                            Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                            Permissions.checkProfileRadioPreferences(context, profile, permissions, false);
                             _permissionGranted = permissions.size() == 0;
 
                             GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, !_permissionGranted, false);
@@ -4400,7 +4400,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             Profile profile = new Profile();
                             ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                             profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
-                            Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                            Permissions.checkProfileRadioPreferences(context, profile, permissions, false);
                             _permissionGranted = permissions.size() == 0;
 
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, !sValue.equals("0|0|0"), false, !_permissionGranted, false);
@@ -4436,7 +4436,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
                             profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, "0"));
                             profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, "0"));
-                            Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                            Permissions.checkProfileRadioPreferences(context, profile, permissions, false);
                             //Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
                             _permissionGranted = permissions.size() == 0;
 
@@ -4863,7 +4863,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     }
 
     static boolean isRedTextNotificationRequired(Profile profile, Context context) {
-        boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile).size() == 0;
+        boolean grantedAllPermissions = Permissions.checkProfilePermissions(context, profile, false).size() == 0;
         /*if (Build.VERSION.SDK_INT >= 29) {
             if (!Settings.canDrawOverlays(context))
                 grantedAllPermissions = false;
@@ -5076,7 +5076,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 //}
 
                 // not some permissions
-                if (Permissions.checkProfilePermissions(context, profile).size() == 0) {
+                if (Permissions.checkProfilePermissions(context, profile, false).size() == 0) {
 //                        PPApplication.logE("[G1_TEST] ProfilesPrefsFragment.setRedTextToPreferences", "profile permisions=all granted");
                     Preference preference = prefMng.findPreference(PRF_GRANT_PERMISSIONS);
                     if (preference != null) {

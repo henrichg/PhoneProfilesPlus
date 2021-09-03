@@ -74,6 +74,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
     //private AsyncTask geofenceEditorAsyncTask = null;
 
     private static final int PERMISSIONS_REQUEST_CODE = 9090;
+    private static final int BACKGROUND_LOCATION_PERMISSIONS_REQUEST_CODE = 9091;
 
     private static final int WRITE_SETTINGS_REQUEST_CODE = 9091;
     //private static final int ACCESS_NOTIFICATION_POLICY_REQUEST_CODE = 9092;
@@ -977,7 +978,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
 
         //noinspection SwitchStatementWithTooFewBranches
         switch (requestCode) {
-            case PERMISSIONS_REQUEST_CODE: {
+            case PERMISSIONS_REQUEST_CODE:
+            case BACKGROUND_LOCATION_PERMISSIONS_REQUEST_CODE: {
                 // If request is cancelled, the result arrays are empty.
 //                PPApplication.logE("GrantPermissionActivity.onRequestPermissionsResult", "grantResults.length="+grantResults.length);
 
@@ -1495,8 +1497,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 requestPermissions(4, withRationale);
         }
         else {
+            boolean grantBackgroundLocation = false;
             List<String> permList = new ArrayList<>();
             for (Permissions.PermissionType permissionType : permissions) {
+                if (permissionType.permission.equals(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
+                    grantBackgroundLocation = true;
+                }
                 if ((!permissionType.permission.equals(Manifest.permission.WRITE_SETTINGS)) &&
                     (!permissionType.permission.equals(Manifest.permission.ACCESS_NOTIFICATION_POLICY)) &&
                     (!permissionType.permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) &&
@@ -1535,7 +1541,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                        PPApplication.logE("GrantPermissionActivity.requestPermissions", "permArray[i]=" + permArray[i]);
                     }
 
-                    ActivityCompat.requestPermissions(this, permArray, PERMISSIONS_REQUEST_CODE);
+                    if (grantBackgroundLocation)
+                        ActivityCompat.requestPermissions(this, permArray, BACKGROUND_LOCATION_PERMISSIONS_REQUEST_CODE);
+                    else
+                        ActivityCompat.requestPermissions(this, permArray, PERMISSIONS_REQUEST_CODE);
                 }
             }
             else {
