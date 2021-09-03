@@ -1062,7 +1062,7 @@ public class PPApplication extends Application
             PPApplication.logE("##### PPApplication.onCreate", "modVersion=" + getReadableModVersion());
             PPApplication.logE("##### PPApplication.onCreate", "osVersion=" + System.getProperty("os.version"));
 
-            PPApplication.logE("##### PPApplication.onCreate", "deviceName="+ Settings.System.getString(getContentResolver(), "device_name"));
+            PPApplication.logE("##### PPApplication.onCreate", "deviceName="+ Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME));
             PPApplication.logE("##### PPApplication.onCreate", "release="+ Build.VERSION.RELEASE);
 
             PPApplication.logE("##### PPApplication.onCreate", "board="+ Build.BOARD);
@@ -1267,6 +1267,22 @@ public class PPApplication extends Application
             PPApplication.recordException(e);
         }
 
+        String body;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
+            body = getString(R.string.important_info_email_body_device) + " " +
+                    Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
+                    " (" + Build.MODEL + ")" + " \n";
+        else {
+            String manufacturer = Build.MANUFACTURER;
+            String model = Build.MODEL;
+            if (model.startsWith(manufacturer))
+                body = getString(R.string.important_info_email_body_device) + " " + model + " \n";
+            else
+                body = getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
+        }
+        body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
+        body = body + getString(R.string.acra_email_body_text);
+
         PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .withBuildConfigClass(BuildConfig.class)
@@ -1287,7 +1303,7 @@ public class PPApplication extends Application
         builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
                 .withMailTo("henrich.gron@gmail.com")
                 .withSubject("PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.acra_email_subject_text))
-                .withResBody(R.string.acra_email_body_text)
+                .withBody(body)
                 .withReportAsFile(true)
                 .withReportFileName("crash_report.txt")
                 .withEnabled(true);
