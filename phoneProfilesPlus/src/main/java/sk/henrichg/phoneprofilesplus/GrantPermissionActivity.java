@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -485,12 +486,12 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     whyString = whyString + whyPermissionString;
                 whyString = whyString + "</li>";
             }
-            if (showRequestAccessCoarseLocation || showRequestAccessFineLocation || showRequestAccessBackgroundLocation) {
+            if (showRequestAccessCoarseLocation || showRequestAccessFineLocation /*|| showRequestAccessBackgroundLocation*/) {
                 whyString = whyString + "<li>";
                 whyString = whyString + "<b>" + context.getString(R.string.permission_group_name_location) + "</b>";
                 boolean[] permissionTypes = new boolean[100];
                 for (int i = 0; i < 100; i++) {
-                    permissionTypes[i] = whyPermissionType[12][i] || whyPermissionType[13][i] || whyPermissionType[14][i];
+                    permissionTypes[i] = whyPermissionType[12][i] || whyPermissionType[13][i] /*|| whyPermissionType[14][i]*/;
                 }
                 String whyPermissionString = getWhyPermissionString(permissionTypes);
                 //if (whyPermissionString != null)
@@ -1541,6 +1542,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
 //                        PPApplication.logE("GrantPermissionActivity.requestPermissions", "permArray[i]=" + permArray[i]);
                     }
 
+//                    Log.e("GrantPermissionActivity.recheckPermissions", "grantBackgroundLocation="+grantBackgroundLocation);
                     if (grantBackgroundLocation)
                         ActivityCompat.requestPermissions(this, permArray, BACKGROUND_LOCATION_PERMISSIONS_REQUEST_CODE);
                     else
