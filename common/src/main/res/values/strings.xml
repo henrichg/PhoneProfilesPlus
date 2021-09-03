@@ -1503,7 +1503,7 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Restart events not working, because events run is disabled</string>
     <string name="critical_github_release">Critical app. release</string>
     <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - Crash report</string>
+    <string name="acra_email_subject_text">crash report</string>
     <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is crash report.</string>
     <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
     <string name="notification_channel_crash_report">Crash report</string>

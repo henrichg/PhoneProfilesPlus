@@ -1259,6 +1259,14 @@ public class PPApplication extends Application
             return;
         }
 
+        String packageVersion = "";
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+            packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+
         PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .withBuildConfigClass(BuildConfig.class)
@@ -1278,7 +1286,7 @@ public class PPApplication extends Application
                 .withEnabled(true);
         builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
                 .withMailTo("henrich.gron@gmail.com")
-                .withResSubject(R.string.acra_email_subject_text)
+                .withSubject("PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.acra_email_subject_text))
                 .withResBody(R.string.acra_email_body_text)
                 .withReportAsFile(true)
                 .withReportFileName("crash_report.txt")
