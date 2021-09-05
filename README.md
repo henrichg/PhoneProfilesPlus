@@ -17,7 +17,7 @@ __Another sources of PhoneProfilesPlus:__
 __[F-Droid release:](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
 &nbsp;&nbsp;&nbsp;_[How to add F-Droid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_
 
-__Galaxy Store (for Samsung devices), AppGallery (for Huawei devices), Amazon Appstore:__ 
+__Galaxy Store (for Samsung devices), AppGallery (for Huawei devices), Amazon Appstore, APKPure:__ 
 &nbsp;&nbsp;&nbsp;Use keyword "PhoneProfilesPlus" for search this application in these stores. 
 
 ---

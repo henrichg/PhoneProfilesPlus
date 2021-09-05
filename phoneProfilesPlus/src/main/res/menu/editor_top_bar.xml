@@ -97,25 +97,29 @@
         app:showAsAction="never" >
 
         <menu>
-            <item android:id="@+id/menu_check_in_github"
-                android:title="@string/menu_check_releases_github"
-                android:orderInCategory="100"
-                app:showAsAction="never" />
-            <item android:id="@+id/menu_check_in_fdroid"
-                android:title="@string/menu_check_releases_fdroid"
-                android:orderInCategory="101"
-                app:showAsAction="never" />
-            <item android:id="@+id/menu_check_in_amazon_appstore"
-                android:title="@string/menu_check_releases_amazon_appstore"
-                android:orderInCategory="102"
-                app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_galaxy_store"
                 android:title="@string/menu_check_releases_galaxy_store"
-                android:orderInCategory="103"
+                android:orderInCategory="100"
                 app:showAsAction="never" />
             <item android:id="@+id/menu_check_in_appgallery"
                 android:title="@string/menu_check_releases_appgallery"
+                android:orderInCategory="101"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_check_in_github"
+                android:title="@string/menu_check_releases_github"
+                android:orderInCategory="102"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_check_in_fdroid"
+                android:title="@string/menu_check_releases_fdroid"
+                android:orderInCategory="103"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_check_in_amazon_appstore"
+                android:title="@string/menu_check_releases_amazon_appstore"
                 android:orderInCategory="104"
+                app:showAsAction="never" />
+            <item android:id="@+id/menu_check_in_apkpure"
+                android:title="@string/menu_check_releases_apkpure"
+                android:orderInCategory="105"
                 app:showAsAction="never" />
         </menu>
 

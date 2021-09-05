@@ -1768,6 +1768,9 @@
     <string name="profile_preferences_deviceLiveWallpaper">(I) Live wallpaper</string>
     <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Not selected</string>
 
+    <string name="menu_check_releases_apkpure">Check in APKPure</string>
+    <string name="check_releases_go_to_apkpure">Go to APKPure</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

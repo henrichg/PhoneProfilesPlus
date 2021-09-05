@@ -83,6 +83,9 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         if (store == R.id.menu_check_in_github)
             checkInGitHub(activity, fromEditor, false, newVersionName, newVersionCode);
         else
+        if (store == R.id.menu_check_in_apkpure)
+            checkInAPKPure(activity, fromEditor);
+        else
         if (store == -1) {
             // this is for
             // - CheckPPPReleasesBroadcastReceiver
@@ -598,6 +601,81 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     Uri.parse("appmarket://details?id=sk.henrichg.phoneprofilesplus"));
             try {
                 activity.startActivity(intent);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+            if (!fromEditor)
+                activity.finish();
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+        dialogBuilder.setOnCancelListener(dialog -> {
+            if (!fromEditor)
+                activity.finish();
+        });
+        if (!fromEditor)
+            dialogBuilder.setOnDismissListener(dialog -> activity.finish());
+        AlertDialog dialog = dialogBuilder.create();
+
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
+
+        if (!activity.isFinishing())
+            dialog.show();
+
+    }
+
+    @SuppressLint("InflateParams")
+    private static void checkInAPKPure(final Activity activity, final boolean fromEditor) {
+        // https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+        dialogBuilder.setTitle(R.string.menu_check_github_releases);
+        String message;
+        try {
+            PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+            message = activity.getString(R.string.check_github_releases_actual_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+        } catch (Exception e) {
+            message = "";
+        }
+
+        View layout;
+        LayoutInflater inflater = activity.getLayoutInflater();
+
+        /*
+        boolean fdroidInstalled = false;
+        PackageManager pm = activity.getPackageManager();
+        try {
+            pm.getPackageInfo("org.fdroid.fdroid", PackageManager.GET_ACTIVITIES);
+            fdroidInstalled = true;
+        } catch (Exception ignored) {}
+        if (fdroidInstalled)
+            layout = inflater.inflate(R.layout.dialog_for_fdroid_app, null);
+        else
+            layout = inflater.inflate(R.layout.dialog_for_fdroid, null);
+         */
+        layout = inflater.inflate(R.layout.dialog_for_apkpure, null);
+
+        dialogBuilder.setView(layout);
+
+        TextView text;
+        text = layout.findViewById(R.id.dialog_for_apkpure_info_text);
+        text.setText(message);
+
+        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+        dialogBuilder.setCancelable(true);
+
+        dialogBuilder.setPositiveButton(R.string.check_releases_go_to_apkpure, (dialog, which) -> {
+            String url = PPApplication.APKPURE_PPP_RELEASES_URL;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
