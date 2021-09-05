@@ -5,19 +5,19 @@
     <item android:id="@+id/menu_restart_events"
         android:title="@string/menu_restart_events"
         android:orderInCategory="100"
-        app:showAsAction="always"
+        app:showAsAction="always|withText"
         android:icon="?attr/actionEventsRestartIcon"
         tools:ignore="AlwaysShowAction"/>
     <item android:id="@+id/menu_run_stop_events"
         android:title="@string/menu_run_events"
         android:orderInCategory="101"
         android:icon="?attr/actionRunStopEventsIcon"
-        app:showAsAction="always" />
+        app:showAsAction="always|withText" />
     <item android:id="@+id/menu_activity_log"
         android:title="@string/menu_activity_log"
         android:orderInCategory="102"
         android:icon="?attr/actionActivityLogEditorIcon"
-        app:showAsAction="always" />
+        app:showAsAction="always|withText" />
 
     <item android:id="@+id/important_info_menu"
         android:title="@string/important_info_activity_title"

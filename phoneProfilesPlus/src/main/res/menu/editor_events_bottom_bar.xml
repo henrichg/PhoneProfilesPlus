@@ -5,13 +5,13 @@
     <item android:id="@+id/menu_add_event"
         android:title="@string/menu_new_event"
         android:orderInCategory="100"
-        app:showAsAction="always"
+        app:showAsAction="always|withText"
         android:icon="?attr/actionNewProfileIcon"
         tools:ignore="AlwaysShowAction"/>
     <item android:id="@+id/menu_default_profile"
           android:title="@string/phone_profiles_pref_applicationEventBackgroundProfile"
           android:orderInCategory="200"
-          app:showAsAction="never"
+          app:showAsAction="ifRoom|withText"
           android:icon="?attr/actionDefaultProfile"/>
     <item android:id="@+id/menu_delete_all_events"
         android:title="@string/menu_delete_all_events"
