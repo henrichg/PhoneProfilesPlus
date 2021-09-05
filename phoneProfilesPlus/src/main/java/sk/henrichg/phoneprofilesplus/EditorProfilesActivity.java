@@ -242,7 +242,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             setContentView(R.layout.activity_editor_list_onepane_19);
         else*/
-            setContentView(R.layout.activity_editor_list_onepane);
+            setContentView(R.layout.activity_editor);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
