@@ -175,11 +175,11 @@
                 android:layout_marginStart="1dp"
                 android:ellipsize="end"
                 android:textSize="14sp"
-                android:textColor="?attr/editorFilterTitleColor"
                 android:clickable="true"
                 android:text="@string/editor_drawer_title_events_order"
                 android:maxLines="1"
                 android:focusable="true"/>
+<!--            android:textColor="?attr/editorFilterTitleColor"-->
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/editor_list_bottom_bar_order"

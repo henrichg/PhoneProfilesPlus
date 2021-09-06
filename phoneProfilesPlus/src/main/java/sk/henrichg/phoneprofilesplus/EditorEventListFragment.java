@@ -357,8 +357,8 @@ public class EditorEventListFragment extends Fragment
 
         final EditorEventListFragment fragment = this;
 
-//        Menu menu = bottomToolbar.getMenu();
-//        if (menu != null) menu.clear();
+        Menu menu = bottomToolbar.getMenu();
+        if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
 
 //        menu = bottomToolbar.getMenu();
