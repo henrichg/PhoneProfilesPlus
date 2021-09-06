@@ -361,15 +361,15 @@ public class EditorEventListFragment extends Fragment
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
 
-        menu = bottomToolbar.getMenu();
+        /*menu = bottomToolbar.getMenu();
         if (menu != null) {
             MenuItem item = menu.findItem(R.id.menu_default_profile);
 
             if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
-                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS|MenuItem.SHOW_AS_ACTION_WITH_TEXT);
             else
                 item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-        }
+        }*/
 
         bottomToolbar.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
@@ -408,11 +408,18 @@ public class EditorEventListFragment extends Fragment
 
         orderSelectedItem = ApplicationPreferences.editorOrderSelectedItem;
 
-        orderSpinner = view.findViewById(R.id.editor_list_bottom_bar_order);
+        LinearLayout bottomBarOrderRoot = view.findViewById(R.id.editor_list_bottom_bar_order_root);
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
-            orderSpinner.setVisibility(View.INVISIBLE); // MUST BE INVISIBLE, required for shoTargetHelps().
+            bottomBarOrderRoot.setVisibility(View.INVISIBLE); // MUST BE INVISIBLE, required for showTargetHelps().
         else
-            orderSpinner.setVisibility(VISIBLE);
+            bottomBarOrderRoot.setVisibility(VISIBLE);
+
+        orderSpinner = view.findViewById(R.id.editor_list_bottom_bar_order);
+
+//        if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
+//            orderSpinner.setVisibility(View.INVISIBLE); // MUST BE INVISIBLE, required for shoTargetHelps().
+//        else
+//            orderSpinner.setVisibility(VISIBLE);
 
         String[] orderItems = new String[] {
                 getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_start_order),
