@@ -208,7 +208,7 @@ public class EditorEventListFragment extends Fragment
             showTargetHelps();
     }
 
-    @SuppressLint("AlwaysShowAction")
+    @SuppressLint({"AlwaysShowAction", "SetTextI18n"})
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
@@ -357,19 +357,19 @@ public class EditorEventListFragment extends Fragment
 
         final EditorEventListFragment fragment = this;
 
-        Menu menu = bottomToolbar.getMenu();
-        if (menu != null) menu.clear();
+//        Menu menu = bottomToolbar.getMenu();
+//        if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
 
-        menu = bottomToolbar.getMenu();
-        if (menu != null) {
-            MenuItem item = menu.findItem(R.id.menu_default_profile);
-
-            if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
-                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS|MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-            else
-                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-        }
+//        menu = bottomToolbar.getMenu();
+//        if (menu != null) {
+//            MenuItem item = menu.findItem(R.id.menu_default_profile);
+//
+//            if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
+//                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS|MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+//            else
+//                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
+//        }
 
         bottomToolbar.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
@@ -421,12 +421,15 @@ public class EditorEventListFragment extends Fragment
 //        else
 //            orderSpinner.setVisibility(VISIBLE);
 
+        TextView orderLabel = view.findViewById(R.id.editor_list_bottom_bar_order_title);
+        orderLabel.setText(getString(R.string.editor_drawer_title_events_order) + ":");
+
         String[] orderItems = new String[] {
-                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_start_order),
-                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_event_name),
-                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_start_profile_name),
-                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_end_profile_name),
-                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_priority)
+                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_start_order),
+                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_event_name),
+                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_start_profile_name),
+                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_end_profile_name),
+                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_priority)
         };
 
         GlobalGUIRoutines.HighlightedSpinnerAdapter orderSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
@@ -448,13 +451,8 @@ public class EditorEventListFragment extends Fragment
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        /*TextView orderLabel = view.findViewById(R.id.editor_list_bottom_bar_order_title);
-        orderLabel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                orderSpinner.performClick();
-            }
-        });*/
+
+        orderLabel.setOnClickListener(v -> orderSpinner.performClick());
 
         //PPApplication.logE("EditorEventListFragment.doOnViewCreated", "orderSelectedItem="+orderSelectedItem);
         // first must be set eventsOrderType
