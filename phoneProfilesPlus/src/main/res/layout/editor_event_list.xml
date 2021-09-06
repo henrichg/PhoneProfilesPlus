@@ -154,23 +154,25 @@
         android:id="@+id/editor_list_bottom_bar"
         android:layout_height="48dp"
         android:layout_width="match_parent"
-        android:layout_marginStart="-3dp"
         android:layout_alignParentBottom="true"
         android:background="?attr/colorPrimary"
         android:theme="?attr/bottomToolbarTheme"
         app:popupTheme="?attr/toolbarPopupMenu" >
+<!--        android:layout_marginStart="-3dp"-->
 
         <LinearLayout
             android:id="@+id/editor_list_bottom_bar_order_root"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:orientation="horizontal" >
+<!--            android:layout_marginStart="-3dp"-->
+<!--            android:layout_marginEnd="5dp"-->
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/editor_list_bottom_bar_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="-3dp"
             android:entries="@array/emptyArray"
             android:popupElevation="0dp"
             style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
