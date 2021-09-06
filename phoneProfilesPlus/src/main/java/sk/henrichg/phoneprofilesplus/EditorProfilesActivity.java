@@ -869,7 +869,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             else
             {
                 menuItem.setTitle(R.string.menu_run_events);
-                menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS|MenuItem.SHOW_AS_ACTION_WITH_TEXT);
             }
         }
 
