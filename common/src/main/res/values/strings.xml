@@ -1774,8 +1774,10 @@
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Force native (for custom icons)</string>
 
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Run applications, shortcuts, intents for \"MIUI\"</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">For \"MIUI\" must be granted permission \"Display pop-up windows while running in background\". Click this, to show how.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Display pop-up windows while running in background\" set to \"Accept\".</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">For \"MIUI\" must be granted some permissions. Click this, to show how.</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
+
+    <string name="miui_permissions_alert_dialog_show">Show permissions</string>
 
     <!-- **************************************************************************************** -->
 

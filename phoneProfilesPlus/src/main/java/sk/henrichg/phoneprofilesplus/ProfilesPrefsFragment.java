@@ -82,6 +82,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_DEVICE_RADIOS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_deviceRadiosDualSIMSupportCategoryRoot";
     private static final String PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_soundsDualSIMSupportCategoryRoot";
     private static final String PREF_DEVICE_WALLPAPER_CATEGORY = "prf_pref_deviceWallpaperCategoryRoot";
+    private static final String PREF_PROFILE_DEVICE_RUN_APPLICATION_MIUI_PERMISSIONS = "prf_pref_deviceRunApplicationMIUIPermissions";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1064,20 +1065,21 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (PPApplication.deviceIsXiaomi || PPApplication.romIsMIUI) {
-            preference = findPreference("prf_pref_deviceRunApplicationMIUIPermissions");
+            preference = findPreference(PREF_PROFILE_DEVICE_RUN_APPLICATION_MIUI_PERMISSIONS);
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference118 -> {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
                     dialogBuilder.setTitle(preference118.getTitle());
                     dialogBuilder.setMessage(R.string.profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message);
                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    dialogBuilder.setPositiveButton(R.string.miui_permissions_alert_dialog_show, (dialog, which) -> {
                         Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                         intent.setClassName("com.miui.securitycenter",
                                 "com.miui.permcenter.permissions.PermissionsEditorActivity");
                         intent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
                         startActivity(intent);
                     });
+                    dialogBuilder.setNegativeButton(android.R.string.cancel, null);
                     AlertDialog dialog = dialogBuilder.create();
 
 //                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -4771,6 +4773,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+            if (preference != null)
+                preference.setEnabled(enabled);
+            preference = prefMng.findPreference(PREF_PROFILE_DEVICE_RUN_APPLICATION_MIUI_PERMISSIONS);
             if (preference != null)
                 preference.setEnabled(enabled);
         }

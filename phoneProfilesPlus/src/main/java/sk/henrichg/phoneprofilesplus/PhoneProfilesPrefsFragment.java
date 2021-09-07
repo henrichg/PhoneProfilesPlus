@@ -1503,13 +1503,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     dialogBuilder.setTitle(preference118.getTitle());
                     dialogBuilder.setMessage(R.string.phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_message);
                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                    dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    dialogBuilder.setPositiveButton(R.string.miui_permissions_alert_dialog_show, (dialog, which) -> {
                         Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                         intent.setClassName("com.miui.securitycenter",
                                 "com.miui.permcenter.permissions.PermissionsEditorActivity");
                         intent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
                         startActivity(intent);
                     });
+                    dialogBuilder.setNegativeButton(android.R.string.cancel, null);
                     AlertDialog dialog = dialogBuilder.create();
 
 //                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
