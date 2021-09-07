@@ -12,6 +12,7 @@
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
+
     <ListPreference
         app:title="@string/profile_preferences_deviceRunApplicationsShortcutsChange"
         app:summary="@string/array_pref_no_change"
@@ -25,6 +26,13 @@
         app:key="prf_pref_deviceRunApplicationPackageName"
         app:title="@string/profile_preferences_deviceRunApplicationsShortcutsPackageName"
         app:layout="@layout/mp_preference_material_widget" />
+    <Preference
+        app:key="prf_pref_deviceRunApplicationMIUIPermissions"
+        app:title="@string/profile_preferences_deviceRunApplicationsShortcutsForMIUI"
+        app:summary="@string/profile_preferences_deviceRunApplicationsShortcutsForMIUI_info"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <Preference
         app:key="prf_pref_deviceCloseAllApplicationsInfo"
         app:title="@string/profile_preferences_deviceCloseAllApplications"

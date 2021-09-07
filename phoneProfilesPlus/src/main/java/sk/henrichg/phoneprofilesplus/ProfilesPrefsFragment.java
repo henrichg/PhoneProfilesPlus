@@ -1063,6 +1063,48 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        if (PPApplication.deviceIsXiaomi || PPApplication.romIsMIUI) {
+            preference = findPreference("prf_pref_deviceRunApplicationMIUIPermissions");
+            if (preference != null) {
+                preference.setOnPreferenceClickListener(preference118 -> {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                    dialogBuilder.setTitle(preference118.getTitle());
+                    dialogBuilder.setMessage(R.string.profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message);
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
+                        intent.setClassName("com.miui.securitycenter",
+                                "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                        intent.putExtra("extra_pkgname", PPApplication.PACKAGE_NAME);
+                        startActivity(intent);
+                    });
+                    AlertDialog dialog = dialogBuilder.create();
+
+//                        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                            @Override
+//                            public void onShow(DialogInterface dialog) {
+//                                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                                if (positive != null) positive.setAllCaps(false);
+//                                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                                if (negative != null) negative.setAllCaps(false);
+//                            }
+//                        });
+
+                    if ((getActivity() != null) && (!getActivity().isFinishing()))
+                        dialog.show();
+                    return false;
+                });
+            }
+        }
+        else {
+            preference = findPreference("prf_pref_deviceRunApplicationMIUIPermissions");
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("prf_pref_othersCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
+
 
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
