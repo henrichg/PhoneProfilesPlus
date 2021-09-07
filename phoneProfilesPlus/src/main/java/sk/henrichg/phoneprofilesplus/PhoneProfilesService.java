@@ -62,6 +62,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.palette.graphics.Palette;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -6257,17 +6258,12 @@ public class PhoneProfilesService extends Service
             } else {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is custom - external picture");
 
-                // FC in Note 4, 6.0.1 :-/
-                //boolean isNote4 = (Build.MANUFACTURER.compareToIgnoreCase("samsung") == 0) &&
-                    /*(Build.MODEL.startsWith("SM-N910") ||  // Samsung Note 4
-                     Build.MODEL.startsWith("SM-G900")     // Samsung Galaxy S5
-                    ) &&*/
-                //        (android.os.Build.VERSION.SDK_INT == 23);
-                //PPApplication.logE("PhoneProfilesService._showProfileNotification", "isNote4="+isNote4);
-                //if (/*(Build.VERSION.SDK_INT >= 23) &&*/ (!isNote4) && (iconBitmap != null)) {
                 if (iconBitmap != null) {
 //                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon from picture");
-                    notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
+                    if (notificationStatusBarStyle.equals("2"))
+                        notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
+                    else
+                        notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
                 } else {
 //                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon default icon");
                     int iconSmallResource;
@@ -6304,6 +6300,14 @@ public class PhoneProfilesService extends Service
                         notificationBuilder.setLargeIcon(iconBitmap);
                     }
                 }
+
+                if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                    if (iconBitmap != null) {
+                        Palette palette = Palette.from(iconBitmap).generate();
+                        decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.accent));
+                    }
+                }
+
             }
         }
         else {

@@ -179,10 +179,12 @@
     <string-array name="notificationIconStyleArray">
         <item>@string/phone_profiles_pref_notificationStatusBarStyle_color</item>
         <item>@string/phone_profiles_pref_notificationStatusBarStyle_android</item>
+        <item>@string/phone_profiles_pref_notificationStatusBarStyle_force_android</item>
     </string-array>
     <string-array name="notificationIconStyleValues">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
     <string-array name="themeArray">
         <item>@string/phone_profiles_pref_applicationTheme_white</item>

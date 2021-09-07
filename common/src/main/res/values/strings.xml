@@ -1771,6 +1771,8 @@
     <string name="menu_check_releases_apkpure">Check in APKPure</string>
     <string name="check_releases_go_to_apkpure">Go to APKPure</string>
 
+    <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Force native (for custom icons)</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
