@@ -1587,63 +1587,57 @@ class ActivateProfileHelper {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, executedProfileSharedPreferences, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkVibrateWhenRinging(appContext)) {
-                    /*if (android.os.Build.VERSION.SDK_INT < 23) {    // Not working in Android M (exception)
-                        Settings.System.putInt(appContext.getContentResolver(), "vibrate_when_ringing", lValue);
-                        //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API < 23)");
+                    /*if (PPApplication.romIsMIUI) {
+                        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging",
+                                "vibrate_in_normal="+Settings.System.getInt(context.getContentResolver(), "vibrate_in_normal",-1));
+                        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging",
+                                "vibrate_in_silent="+Settings.System.getInt(context.getContentResolver(), "vibrate_in_silent",-1));
                     }
-                    else {*/
-                        /*if (PPApplication.romIsMIUI) {
-                            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging",
-                                    "vibrate_in_normal="+Settings.System.getInt(context.getContentResolver(), "vibrate_in_normal",-1));
-                            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging",
-                                    "vibrate_in_silent="+Settings.System.getInt(context.getContentResolver(), "vibrate_in_silent",-1));
-                        }
-                        else*/ {
-                            try {
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
-                                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                                    //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "Xiaomi");
-                                    Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_normal", lValue);
-                                    Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_silent", lValue);
-                                }
-                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23)");
-                            } catch (Exception ee) {
-                                // java.lang.IllegalArgumentException: You cannot change private secure settings.
-                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
-                                //PPApplication.recordException(ee);
+                    else*/ {
+                        try {
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
+                            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "Xiaomi");
+                                Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_normal", lValue);
+                                Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_silent", lValue);
+                            }
+                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23)");
+                        } catch (Exception ee) {
+                            // java.lang.IllegalArgumentException: You cannot change private secure settings.
+                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
+                            //PPApplication.recordException(ee);
 
-                                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
-                                    synchronized (PPApplication.rootMutex) {
-                                        String command1;
-                                        Command command;
-                                        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                                            command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
-                                            String command2 = "settings put system " + "vibrate_in_normal" + " " + lValue;
-                                            String command3 = "settings put system " + "vibrate_in_silent" + " " + lValue;
-                                            command = new Command(0, false, command1, command2, command3);
-                                        } else {
-                                            command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
-                                            //if (PPApplication.isSELinuxEnforcing())
-                                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                            command = new Command(0, false, command1); //, command2);
-                                        }
-                                        try {
-                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
-                                        } catch (Exception e) {
-                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                            //PPApplication.recordException(e);
-                                        }
+                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                    (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                synchronized (PPApplication.rootMutex) {
+                                    String command1;
+                                    Command command;
+                                    if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                                        command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                        String command2 = "settings put system " + "vibrate_in_normal" + " " + lValue;
+                                        String command3 = "settings put system " + "vibrate_in_silent" + " " + lValue;
+                                        command = new Command(0, false, command1, command2, command3);
+                                    } else {
+                                        command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                        //if (PPApplication.isSELinuxEnforcing())
+                                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                        command = new Command(0, false, command1); //, command2);
+                                    }
+                                    try {
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                        //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                    } catch (Exception e) {
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                        //PPApplication.recordException(e);
                                     }
                                 }
-                                //else
-                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not rooted");
                             }
+                            //else
+                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not rooted");
                         }
-                    //}
+                    }
                 }
                 //else
                 //    PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not permission granted");
@@ -1652,6 +1646,102 @@ class ActivateProfileHelper {
             //    PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not profile preferences allowed");
         }
     }
+
+    private static void setVibrateNotification(Context context, Profile profile, int value, SharedPreferences executedProfileSharedPreferences) {
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "profile=" + profile);
+//            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "value=" + value);
+//        }
+        int lValue = value;
+        if (profile != null) {
+            switch (profile._vibrateNotifications) {
+                case 1:
+                    if (Build.VERSION.SDK_INT >= 31)
+                        lValue = 3;
+                    else
+                        lValue = 2;
+                    break;
+                case 2:
+                    lValue = 0;
+                    break;
+            }
+        }
+        else {
+            switch (value) {
+                case 1:
+                    if (Build.VERSION.SDK_INT >= 31)
+                        lValue = 3;
+                    else
+                        lValue = 2;
+                    break;
+                case 2:
+                    lValue = 0;
+                    break;
+            }
+        }
+//        PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "lValue="+lValue);
+
+        if (lValue != -1) {
+            Context appContext = context.getApplicationContext();
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
+                    == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (Permissions.checkVibrateNotifications(appContext)) {
+                    {
+                        try {
+                            Settings.System.putInt(appContext.getContentResolver(), "notification_vibration_intensity", lValue);
+
+                            /*if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                                //PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "Xiaomi");
+                                Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_normal", lValue);
+                                Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_silent", lValue);
+                            }*/
+
+                            //PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate when ringing set (API >= 23)");
+                        } catch (Exception ee) {
+                            // java.lang.IllegalArgumentException: You cannot change private secure settings.
+                            //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(ee));
+                            //PPApplication.recordException(ee);
+
+                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                    (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                synchronized (PPApplication.rootMutex) {
+                                    String command1;
+                                    Command command;
+                                    /*if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                                        command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                        String command2 = "settings put system " + "vibrate_in_normal" + " " + lValue;
+                                        String command3 = "settings put system " + "vibrate_in_silent" + " " + lValue;
+                                        command = new Command(0, false, command1, command2, command3);
+                                    } else*/ {
+                                        command1 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
+                                        //if (PPApplication.isSELinuxEnforcing())
+                                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                        command = new Command(0, false, command1); //, command2);
+                                    }
+                                    try {
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        PPApplication.commandWait(command, "ActivateProfileHelper.setVibrateNotification");
+                                        //PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate when ringing set (API >= 23 with root)");
+                                    } catch (Exception e) {
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                        //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(e));
+                                        //PPApplication.recordException(e);
+                                    }
+                                }
+                            }
+                            //else
+                            //PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not rooted");
+                        }
+                    }
+                }
+                //else
+                //    PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not permission granted");
+            }
+            //else
+            //    PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not profile preferences allowed");
+        }
+    }
+
 
     private static boolean setTones(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences) {
         boolean noError = true;
@@ -3203,7 +3293,9 @@ class ActivateProfileHelper {
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_NORMAL);
 
+                    // set it by profile
                     setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
+                    setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_RING_AND_VIBRATE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=RING & VIBRATE");
@@ -3220,7 +3312,9 @@ class ActivateProfileHelper {
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_NORMAL);
 
+                    // force vbration
                     setVibrateWhenRinging(appContext, null, 1, executedProfileSharedPreferences);
+                    setVibrateNotification(appContext, null, 1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_VIBRATE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=VIBRATE");
@@ -3237,7 +3331,9 @@ class ActivateProfileHelper {
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                     //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
 
+                    // force vbration
                     setVibrateWhenRinging(appContext, null, 1, executedProfileSharedPreferences);
+                    setVibrateNotification(appContext, null, 1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_SILENT:
 
@@ -3264,7 +3360,9 @@ class ActivateProfileHelper {
                         InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALARMS);
                     }
 
+                    // set it by profile
                     setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
+                    setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_ZENMODE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=ZEN MODE");
@@ -3283,7 +3381,9 @@ class ActivateProfileHelper {
 
                             //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, /*AudioManager.RINGER_MODE_NORMAL*/profile._ringerModeForZenMode);
 
+                            // set it by profile
                             setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
+                            setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_PRIORITY:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY");
@@ -3300,7 +3400,9 @@ class ActivateProfileHelper {
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             //setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, profile._ringerModeForZenMode);
 
+                            // set it by profile
                             setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
+                            setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_NONE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=NONE");
@@ -3332,7 +3434,9 @@ class ActivateProfileHelper {
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
 
+                            // force vbration
                             setVibrateWhenRinging(appContext, null, 1, executedProfileSharedPreferences);
+                            setVibrateNotification(appContext, null, 1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_PRIORITY_AND_VIBRATE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY & VIBRATE");
@@ -3384,7 +3488,9 @@ class ActivateProfileHelper {
                             //setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
                             //setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
 
+                            // force vbration
                             setVibrateWhenRinging(appContext, null, 1, executedProfileSharedPreferences);
+                            setVibrateNotification(appContext, null, 1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_ALARMS:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALARMS");
