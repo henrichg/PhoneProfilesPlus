@@ -42,6 +42,7 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
@@ -1648,10 +1649,10 @@ class ActivateProfileHelper {
     }
 
     private static void setVibrateNotification(Context context, Profile profile, int value, SharedPreferences executedProfileSharedPreferences) {
-//        if (PPApplication.logEnabled()) {
-//            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "profile=" + profile);
-//            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "value=" + value);
-//        }
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "profile=" + profile);
+            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "value=" + value);
+        }
         int lValue = value;
         if (profile != null) {
             switch (profile._vibrateNotifications) {
@@ -1679,7 +1680,7 @@ class ActivateProfileHelper {
                     break;
             }
         }
-//        PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "lValue="+lValue);
+        PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "lValue="+lValue);
 
         if (lValue != -1) {
             Context appContext = context.getApplicationContext();
@@ -1689,17 +1690,15 @@ class ActivateProfileHelper {
                     {
                         try {
                             Settings.System.putInt(appContext.getContentResolver(), "notification_vibration_intensity", lValue);
-
                             /*if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
                                 //PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "Xiaomi");
                                 Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_normal", lValue);
                                 Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_silent", lValue);
                             }*/
-
-                            //PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate when ringing set (API >= 23)");
+                            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate when ringing set (API >= 23)");
                         } catch (Exception ee) {
                             // java.lang.IllegalArgumentException: You cannot change private secure settings.
-                            //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(ee));
+                            Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(ee));
                             //PPApplication.recordException(ee);
 
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
@@ -1721,7 +1720,7 @@ class ActivateProfileHelper {
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command, "ActivateProfileHelper.setVibrateNotification");
-                                        //PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate when ringing set (API >= 23 with root)");
+//                                        PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate when ringing set (API >= 23 with root)");
                                     } catch (Exception e) {
                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                         //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(e));
@@ -1729,16 +1728,16 @@ class ActivateProfileHelper {
                                     }
                                 }
                             }
-                            //else
-                            //PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not rooted");
+                            else
+                                PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not rooted");
                         }
                     }
                 }
-                //else
-                //    PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not permission granted");
+                else
+                    PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not permission granted");
             }
-            //else
-            //    PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not profile preferences allowed");
+            else
+                PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not profile preferences allowed");
         }
     }
 
