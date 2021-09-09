@@ -1703,7 +1703,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 R.array.vibrateWhenRingingValues, R.array.vibrateWhenRingingArray, context);
 
                         cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
-                    } else if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
+                    } else //noinspection DuplicateExpressions
+                        if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
                         //noinspection ConstantConditions
                         if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
 
@@ -1731,7 +1732,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     R.array.vibrateNotificationsValues, R.array.vibrateNotificationsArray, context);
 
                             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
-                        } else if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
+                        } else //noinspection DuplicateExpressions
+                            if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
                             //noinspection ConstantConditions
                             if (!cattegorySummaryData.summary.isEmpty())
                                 cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";

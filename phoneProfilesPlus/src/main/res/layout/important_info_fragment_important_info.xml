@@ -573,13 +573,13 @@
             android:textSize="@dimen/important_info_text_size"
             android:id="@+id/activity_info_notification_how_does_volume_separation_work" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:text="@string/important_info_profile_ringerMode_root"
-            android:textSize="@dimen/important_info_text_size"
-            android:id="@+id/activity_info_notification_profile_ringerMode_root" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingBottom="10dp"-->
+<!--            android:text="@string/important_info_profile_ringerMode_root"-->
+<!--            android:textSize="@dimen/important_info_text_size"-->
+<!--            android:id="@+id/activity_info_notification_profile_ringerMode_root" />-->
 
 <!--        <TextView-->
 <!--            android:layout_width="wrap_content"-->
