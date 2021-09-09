@@ -10,12 +10,6 @@
         app:summary="@string/profile_preferences_volumeIgnoreSoundModeInfo_summary"
         app:widgetLayout="@layout/widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <Preference
-        app:key="prf_pref_volumeVibrateWhenRingingRootInfo"
-        app:title="@string/profile_preferences_volumeVibrateWhenRingingRootInfo_title"
-        app:summary="@string/profile_preferences_volumeVibrateWhenRingingRootInfoM_summary"
-        app:widgetLayout="@layout/widget_info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_volumeSoundMode"
         app:summary="@string/array_pref_no_change"

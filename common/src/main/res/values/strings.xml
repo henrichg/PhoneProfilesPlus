@@ -419,7 +419,6 @@
     <string name="pref_event_battery_power_save_mode">Power save mode</string>
     <string name="event_preferences_battery_power_save_mode">Power save mode</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Power save mode settings</string>
-    <string name="important_info_profile_ringerMode_root">In Android 6, it is not possible to change the \"Vibrate when ringing\" system setting on non-rooted devices.</string>
     <string name="important_info_profile_adaptiveBrightness_root">In Android 6+, it is not possible to change the level of \"Adaptive brightness\" on non-rooted devices.</string>
     <string name="important_info_profile_wifiScanning_location">In Android 6+, for Wi-Fi scanning to work, you must enable Location and Wi-Fi scanning in Location settings.</string>
     <string name="important_info_profile_bluetoothScanning_location">In Android 6+, for Bluetooth LE scanning to work, you must enable Location and Bluetooth scanning in Location settings.</string>
@@ -451,7 +450,6 @@
     <string name="important_info_profile_activation_restart_events_icon">Restart events icon:</string>
     <string name="important_info_profile_activation_traffic_light_icon">\"Traffic light\" icon:</string>
     <string name="important_info_android_doze_mode">Android 6+ implements \"Doze mode\" and \"App Standby\". Concerning problems with event profile activation, if you leave the device unplugged and stationary for a period of time with the screen off, click here to add PhoneProfilesPlus into \"Not optimized\".</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Vibrate when ringing</string>
     <string name="info_notification_event_states">An event may be in one of 6 states:</string>
     <string name="info_notification_event_states_running">Running: event is started and running. Event parameters are satisfied.</string>
     <string name="info_notification_event_states_paused">Paused: event is not running. Event parameters are not satisfied. Event is waiting for parameters to be satisfied.</string>
@@ -1778,6 +1776,9 @@
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
 
     <string name="miui_permissions_alert_dialog_show">Show permissions</string>
+
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrate when ringing\/Vibrate notifications</string>
+    <string name="profile_preferences_vibrateNotifications">Vibrate notifications</string>
 
     <!-- **************************************************************************************** -->
 

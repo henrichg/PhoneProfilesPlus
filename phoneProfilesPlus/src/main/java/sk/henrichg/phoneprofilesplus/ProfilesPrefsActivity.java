@@ -374,7 +374,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._soundNotificationChangeSIM2,
                         origProfile._soundNotificationSIM2,
                         origProfile._soundSameRingtoneForBothSIMCards,
-                        origProfile._deviceLiveWallpaper
+                        origProfile._deviceLiveWallpaper,
+                        origProfile._vibrateNotifications
                 );
                 showSaveMenu = true;
             }
@@ -504,6 +505,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceNetworkType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, ""));
             profile._notificationLed = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED, ""));
             profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, ""));
+            profile._vibrateNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, ""));
             profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, ""));
             profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, "");
             profile._applicationDisableWifiScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, ""));

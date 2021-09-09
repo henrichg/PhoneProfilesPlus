@@ -758,6 +758,16 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="vibrateNotificationsArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_hardwareModeArray_on</item>
+        <item>@string/array_pref_hardwareModeArray_off</item>
+    </string-array>
+    <string-array name="vibrateNotificationsValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
     <string-array name="wallpaperForArray">
         <item>@string/array_pref_device_wallpaper_all</item>
         <item>@string/array_pref_device_wallpaper_homescreen</item>

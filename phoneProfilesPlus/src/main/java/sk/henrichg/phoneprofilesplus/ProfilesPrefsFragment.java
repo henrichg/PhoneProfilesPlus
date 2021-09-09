@@ -539,7 +539,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferenceCategory.removePreference(preference);
             }
         }
-        if (/*(android.os.Build.VERSION.SDK_INT == 23) ||*/ (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
+        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
             ListPreference preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
             if (preference != null)
             {
@@ -548,6 +548,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, "");
                 setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
             }
+
+            // TODO test if root is needed for this
+            /*
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS);
+            if (preference != null)
+            {
+                preference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
+                preference.setDialogTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
+                String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "");
+                setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, value);
+            }
+            */
         }
         /*if (android.os.Build.VERSION.SDK_INT >= 26) {
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
@@ -1519,8 +1531,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         default:
                             if (!value.equals(defaultValue)) {
                                 if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
-                                        (/*(Build.VERSION.SDK_INT == 23) ||*/ (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)))
+                                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
                                     title = "(R) " + getString(R.string.profile_preferences_vibrateWhenRinging);
+                                // TODO test if root is needed for this
+                                /*else if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS) &&
+                                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
+                                    title = "(R) " + getString(R.string.profile_preferences_vibrateNotifications);*/
                                 else if (key.equals(Profile.PREF_PROFILE_DURATION))
                                     title = context.getString(R.string.profile_preferences_duration);
                                 else
@@ -1700,12 +1716,46 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
             }
+            if (Build.VERSION.SDK_INT >= 28) {
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, R.string.profile_preferences_vibrateNotifications, false, context);
+                if (!title.isEmpty()) {
+                    if (ringerMode != null) {
+                        if (ringerMode.equals("1") || ringerMode.equals("4")) {
+                            //noinspection ConstantConditions
+                            if (!cattegorySummaryData.summary.isEmpty())
+                                cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
+
+                            String value = GlobalGUIRoutines.getListPreferenceString(
+                                    preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS)),
+                                    R.array.vibrateNotificationsValues, R.array.vibrateNotificationsArray, context);
+
+                            cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
+                        } else if ((ringerMode.equals("5")) && (zenMode != null) && (zenMode.equals("1") || zenMode.equals("2"))) {
+                            //noinspection ConstantConditions
+                            if (!cattegorySummaryData.summary.isEmpty())
+                                cattegorySummaryData.summary = cattegorySummaryData.summary + " • ";
+
+                            String value = GlobalGUIRoutines.getListPreferenceString(
+                                    preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS,
+                                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS)),
+                                    R.array.vibrateNotificationsValues, R.array.vibrateNotificationsArray, context);
+
+                            cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
+                        }
+                    }
+                }
+            }
         }
 
         Profile profile = new Profile();
         profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
+        if (Build.VERSION.SDK_INT >= 28)
+            profile._vibrateNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "0"));
         ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
         Permissions.checkProfileVibrateWhenRinging(context, profile, permissions);
+        if (Build.VERSION.SDK_INT >= 28)
+            Permissions.checkProfileVibrateNotifications(context, profile, permissions);
         cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
         return false;
@@ -3651,6 +3701,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE) ||
                 key.equals(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
                 key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
+                key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR) ||
                 key.equals(Profile.PREF_PROFILE_LOCK_DEVICE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS) ||
@@ -3658,8 +3709,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH))
         {
             PreferenceAllowed preferenceAllowed;
-            if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING))
+            if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)) {
                 preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            }
+            else
+            if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS)) {
+                if (Build.VERSION.SDK_INT >= 28)
+                    preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+                else {
+                    preferenceAllowed = new PreferenceAllowed();
+                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
+                }
+            }
             else {
                 preferenceAllowed = new PreferenceAllowed();
                 preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -3693,6 +3754,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             key.equals(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE) ||
                             key.equals(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH) ||
                             key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) ||
+                            key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS) ||
                             key.equals(Profile.PREF_PROFILE_LOCK_DEVICE) ||
                             key.equals(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING) ||
                             key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH)) {
@@ -3702,6 +3764,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE, "0"));
                         profile._vibrationOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH, "0"));
                         profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
+                        if (Build.VERSION.SDK_INT >= 28)
+                            profile._vibrateNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "0"));
                         profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, "0"));
                         profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, "0"));
                         profile._soundOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, "0"));
@@ -3709,6 +3773,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
                         Permissions.checkProfileVibrationOnTouch(context, profile, permissions);
                         Permissions.checkProfileVibrateWhenRinging(context, profile, permissions);
+                        if (Build.VERSION.SDK_INT >= 28)
+                            Permissions.checkProfileVibrateNotifications(context, profile, permissions);
                         Permissions.checkProfileLockDevice(context, profile, permissions);
                         Permissions.checkProfileDtmfToneWhenDialing(context, profile, permissions);
                         Permissions.checkProfileSoundOnTouch(context, profile, permissions);
@@ -4613,6 +4679,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE);
         setSummary(Profile.PREF_PROFILE_NOTIFICATION_LED);
         setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING);
+        setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS);
         setSummary(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
         setSummary(Profile.PREF_PROFILE_LOCK_DEVICE);
         setSummary(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);
@@ -4823,11 +4890,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE) ||
                 key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE)) {
-            //if (android.os.Build.VERSION.SDK_INT >= 21) {
             String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");
             String zenMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "0");
             boolean enabled = false;
-            // also look at Profile.mergeProfiles()
+
             PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, preferences, true, context);
             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (ringerMode.equals("1") || ringerMode.equals("4"))
@@ -4843,7 +4909,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setValue(Profile.NO_CHANGE_VALUE_STR);
                 preference.setEnabled(enabled);
             }
-            //}
+
+            if (Build.VERSION.SDK_INT >= 28) {
+                enabled = false;
+                preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, preferences, true, context);
+                if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (ringerMode.equals("1") || ringerMode.equals("4"))
+                        enabled = true;
+                    if (ringerMode.equals("5")) {
+                        if (zenMode.equals("1") || zenMode.equals("2"))
+                            enabled = true;
+                    }
+                }
+                preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS);
+                if (preference != null) {
+                    if (!enabled)
+                        preference.setValue(Profile.NO_CHANGE_VALUE_STR);
+                    preference.setEnabled(enabled);
+                }
+            }
+
         }
 
         if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)) {
