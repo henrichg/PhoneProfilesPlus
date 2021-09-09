@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2467;
+    private static final int DATABASE_VERSION = 2468;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -157,6 +157,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DEVICE_NETWORK_TYPE = "deviceNetworkType";
     private static final String KEY_NOTIFICATION_LED = "notificationLed";
     private static final String KEY_VIBRATE_WHEN_RINGING = "vibrateWhenRinging";
+    private static final String KEY_VIBRATE_NOTIFICATIONS = "vibrateNotifications";
     private static final String KEY_DEVICE_WALLPAPER_FOR = "deviceWallpaperFor";
     private static final String KEY_HIDE_STATUS_BAR_ICON = "hideStatusBarIcon";
     private static final String KEY_LOCK_DEVICE = "lockDevice";
@@ -615,7 +616,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + " " + INTEGER_TYPE + ","
                 + KEY_SOUND_NOTIFICATION_SIM2 + " " + TEXT_TYPE + ","
                 + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + " " + INTEGER_TYPE + ","
-                + KEY_DEVICE_LIVE_WALLPAPER + " " + TEXT_TYPE
+                + KEY_DEVICE_LIVE_WALLPAPER + " " + TEXT_TYPE + ","
+                + KEY_VIBRATE_NOTIFICATIONS + " " + INTEGER_TYPE
                 + ")";
     }
 
@@ -1070,6 +1072,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION_SIM2, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_DEVICE_LIVE_WALLPAPER, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VIBRATE_NOTIFICATIONS, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, KEY_E_NAME, TEXT_TYPE, columns);
@@ -2773,7 +2776,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 0,
                                 "",
                                 0,
-                                ""
+                                "",
+                                0
                         );
 
                         //profile = Profile.getMappedProfile(profile, sharedProfile);
@@ -2896,8 +2900,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion < 2340)
         {
             try {
-                //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-                //{
                 final String selectQuery = "SELECT " + KEY_ID + "," +
                         KEY_VOLUME_RINGER_MODE +
                         " FROM " + TABLE_PROFILES;
@@ -2922,7 +2924,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 }
 
                 cursor.close();
-                //}
             } catch (Exception ignored) {}
         }
 
@@ -3372,6 +3373,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_LIVE_WALLPAPER + "=\"\"");
         }
 
+        if (oldVersion < 2468)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_VIBRATE_NOTIFICATIONS + "=0");
+
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_LIVE_WALLPAPER + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_VIBRATE_NOTIFICATIONS + "=0");
+        }
+
     }
 
     @Override
@@ -3493,6 +3502,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
                 values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
                 values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
+                values.put(KEY_VIBRATE_NOTIFICATIONS, profile._vibrateNotifications);
                 values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
                 values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
                 values.put(KEY_LOCK_DEVICE, profile._lockDevice);
@@ -3625,6 +3635,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_NETWORK_TYPE,
                                 KEY_NOTIFICATION_LED,
                                 KEY_VIBRATE_WHEN_RINGING,
+                                KEY_VIBRATE_NOTIFICATIONS,
                                 KEY_DEVICE_WALLPAPER_FOR,
                                 KEY_HIDE_STATUS_BAR_ICON,
                                 KEY_LOCK_DEVICE,
@@ -3775,7 +3786,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM2)),
                                 cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
-                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER))
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS))
                         );
                     }
 
@@ -3853,6 +3865,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_NETWORK_TYPE + "," +
                         KEY_NOTIFICATION_LED + "," +
                         KEY_VIBRATE_WHEN_RINGING + "," +
+                        KEY_VIBRATE_NOTIFICATIONS + "," +
                         KEY_DEVICE_WALLPAPER_FOR + "," +
                         KEY_HIDE_STATUS_BAR_ICON + "," +
                         KEY_LOCK_DEVICE + "," +
@@ -3960,6 +3973,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._deviceNetworkType = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE));
                         profile._notificationLed = cursor.getInt(cursor.getColumnIndex(KEY_NOTIFICATION_LED));
                         profile._vibrateWhenRinging = cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING));
+                        profile._vibrateNotifications = cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS));
                         profile._deviceWallpaperFor = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOR));
                         profile._hideStatusBarIcon = cursor.getInt(cursor.getColumnIndex(KEY_HIDE_STATUS_BAR_ICON)) == 1;
                         profile._lockDevice = cursor.getInt(cursor.getColumnIndex(KEY_LOCK_DEVICE));
@@ -4085,6 +4099,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
                 values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
                 values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
+                values.put(KEY_VIBRATE_NOTIFICATIONS, profile._vibrateNotifications);
                 values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
                 values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
                 values.put(KEY_LOCK_DEVICE, profile._lockDevice);
@@ -4468,6 +4483,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_NETWORK_TYPE,
                                 KEY_NOTIFICATION_LED,
                                 KEY_VIBRATE_WHEN_RINGING,
+                                KEY_VIBRATE_NOTIFICATIONS,
                                 KEY_DEVICE_WALLPAPER_FOR,
                                 KEY_HIDE_STATUS_BAR_ICON,
                                 KEY_LOCK_DEVICE,
@@ -4620,7 +4636,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM2)),
                                 cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
-                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER))
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS))
                         );
                     }
 
@@ -11002,6 +11019,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_NETWORK_TYPE_PREFS + "," +
                         KEY_NOTIFICATION_LED + "," +
                         KEY_VIBRATE_WHEN_RINGING + "," +
+                        KEY_VIBRATE_NOTIFICATIONS + "," +
                         KEY_DEVICE_CONNECT_TO_SSID + "," +
                         KEY_APPLICATION_DISABLE_WIFI_SCANNING + "," +
                         KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "," +
@@ -11283,6 +11301,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
                                     values.clear();
                                     values.put(KEY_VIBRATE_WHEN_RINGING, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
+                            }
+
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, sharedPreferences, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_VIBRATE_NOTIFICATIONS, 0);
                                     db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
                                 }
