@@ -461,6 +461,7 @@ public class PPApplication extends Application
     static final boolean deviceIsOppo = isOppo();
     static final boolean deviceIsRealme = isRealme();
     static final boolean deviceIsLenovo = isLenovo();
+    static final boolean deviceIsPixel = isPixel();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
 
@@ -1049,6 +1050,7 @@ public class PPApplication extends Application
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsOnePlus=" + deviceIsOnePlus);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsOppo=" + deviceIsOppo);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsRealme=" + deviceIsRealme);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsPixel=" + deviceIsPixel);
 
             PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI=" + romIsMIUI);
             PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI=" + romIsEMUI);
@@ -3973,6 +3975,12 @@ public class PPApplication extends Application
         return Build.BRAND.equalsIgnoreCase("lenovo") ||
                 Build.MANUFACTURER.equalsIgnoreCase("lenovo") ||
                 Build.FINGERPRINT.toLowerCase().contains("lenovo");
+    }
+
+    private static boolean isPixel() {
+        return Build.BRAND.equalsIgnoreCase("google") ||
+                Build.MANUFACTURER.equalsIgnoreCase("google") ||
+                Build.FINGERPRINT.toLowerCase().contains("google");
     }
 
     private static String getReadableModVersion() {
