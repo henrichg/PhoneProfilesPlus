@@ -1145,6 +1145,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        if (!PPApplication.deviceIsPixel) {
+            preference = findPreference("prf_pref_volumeSoundModeVibrationInfo");
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("prf_pref_soundProfileCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
 
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
