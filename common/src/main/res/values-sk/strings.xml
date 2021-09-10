@@ -1490,7 +1490,7 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Reštart udalostí nefunguje, pretože beh udalostí je vypnutý</string>
     <string name="critical_github_release">Kritické vydanie aplikácie</string>
     <string name="critical_github_release_notification">Kliknite na túto notifikáciu pre stiahnutie kritického vydania PhoneProfilesPlus z jeho GitHub.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - Správa o zlyhaní</string>
+    <string name="acra_email_subject_text">správa o zlyhaní</string>
     <string name="acra_email_body_text">PhoneProfilesPlus zlyhal. Pripojená je správa o zlyhaní.</string>
     <string name="acra_notification_title">Je mi ľúto, PhoneProfilesPlus zlyhal</string>
     <string name="notification_channel_crash_report">Správa o zlyhaní</string>
@@ -1748,6 +1748,13 @@
     <string name="show_dialog_about_red_text_show_profile_preferences">Zobraziť parametre profilu</string>
     <string name="show_dialog_about_red_text_show_editor">Zobraziť Editor</string>
     <string name="check_github_releases_new_version">Nová verzia:</string>
+    <string name="array_pref_change_image_wallpaper">Zmeniť na obrázok</string>
+    <string name="array_pref_change_live_wallpaper">(I) Zmeniť na živú tapetu</string>
+    <string name="profile_preferences_deviceImageWallpaper">Obrázok tapety</string>
+    <string name="profile_preferences_deviceLiveWallpaper">(I) Živá tapeta</string>
+    <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Nevybraté</string>
+    <string name="menu_check_releases_apkpure">Skontrolovať v APKPure</string>
+    <string name="check_releases_go_to_apkpure">Ísť do APKPure</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1771,7 +1778,7 @@
     <string name="extender_accessibility_service_profile_lock_device">• Služba Dostupnosť pre parameter profilu \"Zamknutie zariadenia\":</string>
     <string name="extender_application_releases">Vydania:</string>
     <string name="extender_web_browser_chooser">Zobraziť webový odkaz pomocou</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlus - Správa o zlyhaní</string>
+    <string name="extender_acra_email_subject_text">správa o zlyhaní</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlus zlyhal. Pripojená je správa o zlyhaní.</string>
     <string name="extender_acra_notification_title">Je mi ľúto, PhoneProfilesPlus zlyhal</string>
     <string name="extender_acra_notification_text">Kliknutím sem, odošlete autorovi správu o zlyhaní. Ďakujem veľmi pekne.</string>
@@ -1781,6 +1788,8 @@
     <string name="extender_battery_optimization_optimized">Optimalizované</string>
     <string name="extender_battery_optimization_not_optimized">Neoptimalizované</string>
     <string name="extender_battery_optimization_button">Otvor\nOptimalizáciu batérie</string>
+    <string name="extender_acra_email_body_device">Zariadenie:</string>
+    <string name="extender_acra_email_body_android_version">Verzia Android:</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

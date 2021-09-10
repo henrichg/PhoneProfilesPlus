@@ -1490,7 +1490,7 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Перезапуск подій не працює, оскільки запуск подій вимкнено</string>
     <string name="critical_github_release">Критичне оновлення</string>
     <string name="critical_github_release_notification">Натисніть на це сповіщення, щоб завантажити критичне оновлення додатку PhoneProfilesPlus з GitHub.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus — Аварійний звіт</string>
+    <string name="acra_email_subject_text">звіт про аварію</string>
     <string name="acra_email_body_text">PhoneProfilesPlus був пошкоджений. Прикріплений звіт про аварію.</string>
     <string name="acra_notification_title">На жаль, PhoneProfilesPlus зазнав аварії</string>
     <string name="notification_channel_crash_report">Звіт про аварію</string>
@@ -1748,6 +1748,13 @@
     <string name="show_dialog_about_red_text_show_profile_preferences">Показати параметри профілю</string>
     <string name="show_dialog_about_red_text_show_editor">Показати редактор</string>
     <string name="check_github_releases_new_version">Нова версія:</string>
+    <string name="array_pref_change_image_wallpaper">Змінити на зображення</string>
+    <string name="array_pref_change_live_wallpaper">(I) Змінити на живі шпалери</string>
+    <string name="profile_preferences_deviceImageWallpaper">Звичайні шпалери</string>
+    <string name="profile_preferences_deviceLiveWallpaper">(I) Живі шпалери</string>
+    <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Не обрано</string>
+    <string name="menu_check_releases_apkpure">Перевірити в APKPure</string>
+    <string name="check_releases_go_to_apkpure">Перейти до APKPure</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1771,7 +1778,7 @@
     <string name="extender_accessibility_service_profile_lock_device">• Служба спец. можливостей для параметра профілю \"Блокування телефону\":</string>
     <string name="extender_application_releases">Версії:</string>
     <string name="extender_web_browser_chooser">Перегляд веб-посилання за допомогою</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender — Звіт про аварію</string>
+    <string name="extender_acra_email_subject_text">звіт про аварію</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender був пошкоджений. Прикріплений звіт про аварію.</string>
     <string name="extender_acra_notification_title">На жаль, PhoneProfilesPlusExtender зазнав аварії</string>
     <string name="extender_acra_notification_text">Будь ласка, натисніть тут, щоб надіслати звіт про помилку автору. Дуже дякуємо.</string>
@@ -1781,6 +1788,8 @@
     <string name="extender_battery_optimization_optimized">Оптимізовано</string>
     <string name="extender_battery_optimization_not_optimized">Не оптимізовано</string>
     <string name="extender_battery_optimization_button">Оптимізація батареї</string>
+    <string name="extender_acra_email_body_device">Пристрій:</string>
+    <string name="extender_acra_email_body_android_version">Версія Android:</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

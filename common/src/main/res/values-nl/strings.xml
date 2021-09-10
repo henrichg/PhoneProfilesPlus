@@ -1490,7 +1490,7 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Herstart van events werkt niet omdat events uitvoeren is uitgeschakeld</string>
     <string name="critical_github_release">Belangrijke vrijgage van app</string>
     <string name="critical_github_release_notification">Klik op deze melding om de belangrijke PhoneProfilesPlus versie te downloaden vanuit GitHub.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - Crash rapport</string>
+    <string name="acra_email_subject_text">crashrapport</string>
     <string name="acra_email_body_text">PhoneProfilesPlus is gecrasht. In de bijlage het crashrapport.</string>
     <string name="acra_notification_title">Sorry, PhoneProfilesPlus is gecrasht</string>
     <string name="notification_channel_crash_report">Crashrapport</string>
@@ -1748,6 +1748,13 @@
     <string name="show_dialog_about_red_text_show_profile_preferences">Profielvoorkeuren tonen</string>
     <string name="show_dialog_about_red_text_show_editor">Editor tonen</string>
     <string name="check_github_releases_new_version">Nieuwe versie:</string>
+    <string name="array_pref_change_image_wallpaper">Afbeelding wijzigen</string>
+    <string name="array_pref_change_live_wallpaper">(I) Verander naar live achtergrond</string>
+    <string name="profile_preferences_deviceImageWallpaper">Achtergrond afbeelding</string>
+    <string name="profile_preferences_deviceLiveWallpaper">(I) Live Achtergrond</string>
+    <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Niet geselecteerd</string>
+    <string name="menu_check_releases_apkpure">Controleer in APKPure</string>
+    <string name="check_releases_go_to_apkpure">Ga naar APKPure</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1771,7 +1778,7 @@
     <string name="extender_accessibility_service_profile_lock_device">• Toegankelijkheid service voor profiel parameter \"Apparaat vergrendelen\":</string>
     <string name="extender_application_releases">Releases:</string>
     <string name="extender_web_browser_chooser">Bekijk weblink met</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crashrapport</string>
+    <string name="extender_acra_email_subject_text">crashrapport</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender is gecrasht. In de bijlage het crashrapport.</string>
     <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender is gecrasht</string>
     <string name="extender_acra_notification_text">Klik hier om een crashrapport te verzenden naar de auteur. Dank je wel.</string>
@@ -1781,6 +1788,8 @@
     <string name="extender_battery_optimization_optimized">Geoptimaliseerd</string>
     <string name="extender_battery_optimization_not_optimized">Niet geoptimaliseerd</string>
     <string name="extender_battery_optimization_button">Open\nBatterijoptimalisatie</string>
+    <string name="extender_acra_email_body_device">Apparaat:</string>
+    <string name="extender_acra_email_body_android_version">Android versie:</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

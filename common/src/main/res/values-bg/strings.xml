@@ -1490,7 +1490,7 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Restart events not working, because events run is disabled</string>
     <string name="critical_github_release">Critical app. release</string>
     <string name="critical_github_release_notification">Click this notification for download critical PhoneProfilesPlus release from it\'s GitHub.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - Crash report</string>
+    <string name="acra_email_subject_text">crash report</string>
     <string name="acra_email_body_text">PhoneProfilesPlus was crashed. Attached is crash report.</string>
     <string name="acra_notification_title">Sorry, PhoneProfilesPlus crashed</string>
     <string name="notification_channel_crash_report">Crash report</string>
@@ -1748,6 +1748,13 @@
     <string name="show_dialog_about_red_text_show_profile_preferences">Show profile preferences</string>
     <string name="show_dialog_about_red_text_show_editor">Show Editor</string>
     <string name="check_github_releases_new_version">New version:</string>
+    <string name="array_pref_change_image_wallpaper">Change to image</string>
+    <string name="array_pref_change_live_wallpaper">(I) Change to live wallpaper</string>
+    <string name="profile_preferences_deviceImageWallpaper">Image wallpaper</string>
+    <string name="profile_preferences_deviceLiveWallpaper">(I) Live wallpaper</string>
+    <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Not selected</string>
+    <string name="menu_check_releases_apkpure">Check in APKPure</string>
+    <string name="check_releases_go_to_apkpure">Go to APKPure</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1771,7 +1778,7 @@
     <string name="extender_accessibility_service_profile_lock_device">• Accessibility service for profile parameter \"Lock device\":</string>
     <string name="extender_application_releases">Издания:</string>
     <string name="extender_web_browser_chooser">View web link using</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Crash report</string>
+    <string name="extender_acra_email_subject_text">crash report</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender was crashed. Attached is crash report.</string>
     <string name="extender_acra_notification_title">Sorry, PhoneProfilesPlusExtender crashed</string>
     <string name="extender_acra_notification_text">Please click here, to send crash report to author. Thank you very much.</string>
@@ -1781,6 +1788,8 @@
     <string name="extender_battery_optimization_optimized">Optimized</string>
     <string name="extender_battery_optimization_not_optimized">Not optimized</string>
     <string name="extender_battery_optimization_button">Open\nBattery optimization</string>
+    <string name="extender_acra_email_body_device">Device:</string>
+    <string name="extender_acra_email_body_android_version">Android version:</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

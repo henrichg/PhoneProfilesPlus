@@ -1490,7 +1490,7 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Durumları tekrar başlatma çalışmıyor, çünkü Durumların çalışması devre dışı</string>
     <string name="critical_github_release">Kritik uygulama sürümü</string>
     <string name="critical_github_release_notification">PhoneProfilesPlus\'ın GitHub kritik sürümünü indirmek için bu bildirime dokunun.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - Çökme raporu</string>
+    <string name="acra_email_subject_text">çökme raporu</string>
     <string name="acra_email_body_text">PhoneProfilesPlus çöktü. Çökme raporu eklendi.</string>
     <string name="acra_notification_title">Maalesef PhoneProfilesPlus çöktü</string>
     <string name="notification_channel_crash_report">Çökme raporu</string>
@@ -1748,6 +1748,13 @@
     <string name="show_dialog_about_red_text_show_profile_preferences">Tercih ayarlarını göster</string>
     <string name="show_dialog_about_red_text_show_editor">Düzenleyiciyi göster</string>
     <string name="check_github_releases_new_version">Yeni sürüm:</string>
+    <string name="array_pref_change_image_wallpaper">Change to image</string>
+    <string name="array_pref_change_live_wallpaper">(I) Change to live wallpaper</string>
+    <string name="profile_preferences_deviceImageWallpaper">Image wallpaper</string>
+    <string name="profile_preferences_deviceLiveWallpaper">(I) Live wallpaper</string>
+    <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Not selected</string>
+    <string name="menu_check_releases_apkpure">Check in APKPure</string>
+    <string name="check_releases_go_to_apkpure">Go to APKPure</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• Tercih değeri \"Zorla durdurulan uygulamalar\"\n• Durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1771,7 +1778,7 @@
     <string name="extender_accessibility_service_profile_lock_device">• \"Cihazı kilitle\" Tercih şartı için Erişebilirlik hizmeti:</string>
     <string name="extender_application_releases">Sürümler:</string>
     <string name="extender_web_browser_chooser">Şununla internet adresine bak</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlus simgesi - Çökme raporu</string>
+    <string name="extender_acra_email_subject_text">çökme raporu</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlus çöktü. Çökme raporu eklendi.</string>
     <string name="extender_acra_notification_title">Maalesef PhoneProfilesPlus çöktü</string>
     <string name="extender_acra_notification_text">Lutfen, çökme raporunu yazara göndermek için buraya dokunun. Çok teşekkür ederiz.</string>
@@ -1781,6 +1788,8 @@
     <string name="extender_battery_optimization_optimized">En iyi duruma getirildi</string>
     <string name="extender_battery_optimization_not_optimized">En iyi duruma getirilmedi</string>
     <string name="extender_battery_optimization_button">\"Pilin en iyi duruma getirilmesi\"ni aç</string>
+    <string name="extender_acra_email_body_device">Device:</string>
+    <string name="extender_acra_email_body_android_version">Android version:</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

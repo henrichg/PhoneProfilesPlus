@@ -1490,7 +1490,7 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Neustarten von Ereignissen kann nicht genutzt werden, da das Ausführen von Ereignissen deaktiviert ist</string>
     <string name="critical_github_release">Kritisches Release der App</string>
     <string name="critical_github_release_notification">Klicken Sie auf diese Benachrichtigung, um eine PhoneProfilesPlus-Version mit kritischen Änderungen von GitHub herunterzuladen.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - Absturzbericht</string>
+    <string name="acra_email_subject_text">absturzbericht</string>
     <string name="acra_email_body_text">PhoneProfilesPlus ist abgestürzt. Anbei finden Sie den Absturzbericht.</string>
     <string name="acra_notification_title">Leider ist PhoneProfilesPlus abgestürzt</string>
     <string name="notification_channel_crash_report">Absturzbericht</string>
@@ -1748,6 +1748,13 @@
     <string name="show_dialog_about_red_text_show_profile_preferences">Profil-Einstellungen anzeigen</string>
     <string name="show_dialog_about_red_text_show_editor">Editor anzeigen</string>
     <string name="check_github_releases_new_version">Neue Version:</string>
+    <string name="array_pref_change_image_wallpaper">Change to image</string>
+    <string name="array_pref_change_live_wallpaper">(I) Change to live wallpaper</string>
+    <string name="profile_preferences_deviceImageWallpaper">Image wallpaper</string>
+    <string name="profile_preferences_deviceLiveWallpaper">(I) Live wallpaper</string>
+    <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Nicht ausgewählt</string>
+    <string name="menu_check_releases_apkpure">In APKPure suchen</string>
+    <string name="check_releases_go_to_apkpure">Zu APKPure wechseln</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1771,7 +1778,7 @@
     <string name="extender_accessibility_service_profile_lock_device">• Dienst Eingabehilfen für den Profilparameter „Gerät sperren”:</string>
     <string name="extender_application_releases">Versionen:</string>
     <string name="extender_web_browser_chooser">Link öffnen mit</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Absturzbericht</string>
+    <string name="extender_acra_email_subject_text">absturzbericht</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender ist abgestürzt. Anbei finden Sie den Absturzbericht.</string>
     <string name="extender_acra_notification_title">Leider ist PhoneProfilesPlusExtender abgestürzt</string>
     <string name="extender_acra_notification_text">Bitte klicken Sie hier, um den Absturzbericht an den Autor zu senden. Vielen Dank.</string>
@@ -1781,6 +1788,8 @@
     <string name="extender_battery_optimization_optimized">Optimiert</string>
     <string name="extender_battery_optimization_not_optimized">Nicht optimiert</string>
     <string name="extender_battery_optimization_button">Akku-Optimierung\nöffnen</string>
+    <string name="extender_acra_email_body_device">Gerät:</string>
+    <string name="extender_acra_email_body_android_version">Android-Version:</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

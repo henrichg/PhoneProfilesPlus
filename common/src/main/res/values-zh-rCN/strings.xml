@@ -678,7 +678,7 @@
     <string name="event_preference_sensor_wifi_summary">此传感器用于按 Wi-Fi SSID 连接启动事件。参数：链接类型 (周边，已连接等)，SSID。</string>
     <string name="event_preference_sensor_bluetooth_summary">此传感器用于按蓝牙名称启动事件。参数：连接类型 (周边，已连接等)，扫描设备类型 (经典，低耗电等)，蓝牙名称。</string>
     <string name="event_preference_sensor_mobile_cells_summary">此传感器用于按连接的移动网络 (基站) 启动事件。参数：网络，在网络之外启动事件</string>
-    <string name="event_preference_sensor_accessories_summary">此传感器用于按与附件的连接启动事件 (车载底座，无线免提，耳麦等) 运行事件。参数：附件类型。</string>
+    <string name="event_preference_sensor_accessories_summary">此传感器用于按与附件的连接启动事件 (车载基座，无线免提，耳麦等) 运行事件。参数：附件类型。</string>
     <string name="event_preference_sensor_notification_summary">此传感器用于按程序发出的通知启动事件。参数：程序，移除时终止 (移除通知是终止事件运行)，常驻运行，时间段 (时间运行时间段)。</string>
     <string name="event_preference_sensor_application_summary">此传感器用于按前台运行的应用程序启动事件。参数：应用程序。</string>
     <string name="event_preference_sensor_orientation_summary">此传感器用于按设备的方向启动事件。参数：显示 (向上，向下)，Sides (Horizontal, side up)，距离 (远，近，使用距离传感器检测)，忽略应用程序 (前台)。</string>
@@ -891,7 +891,7 @@
     <string name="array_event_pref_battery_charging_not_use">不使用</string>
     <string name="array_event_pref_battery_charging_start_when_charging">充电时启动</string>
     <string name="array_event_pref_battery_charging_stop_when_charging">充电时停止</string>
-    <string name="profile_multiselect_summary_text_selected">已选择</string>
+    <string name="profile_multiselect_summary_text_selected">已选中</string>
     <string name="profile_multiselect_summary_text_not_selected">未选择</string>
     <string name="notification_channel_activated_profile">已激活的情景</string>
     <string name="notification_channel_activated_profile_description_ppp">显示已启动事件的激活情景。</string>
@@ -1490,7 +1490,7 @@
     <string name="toast_restart_events_global_events_run_is_disabled">重新启动事件无法工作，因为事件运行已禁用</string>
     <string name="critical_github_release">关键应用程序发布</string>
     <string name="critical_github_release_notification">点击此通知从 GitHub 下载关键的 PhoneProfilesPlus 版本。</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - 崩溃报告</string>
+    <string name="acra_email_subject_text">崩溃报告</string>
     <string name="acra_email_body_text">PhoneProfilesPlus 已崩溃。附件是崩溃报告。</string>
     <string name="acra_notification_title">抱歉，PhoneProfilesPlus 已崩溃。</string>
     <string name="notification_channel_crash_report">崩溃报告</string>
@@ -1743,11 +1743,18 @@
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus 在仓库：</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">增加亮度</string>
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">\"重启事件\"显示为按钮</string>
-    <string name="check_ppp_releases_notification">Click this notification for check of PhoneProfilesPlus releases. Maybe was released newer version.</string>
-    <string name="check_github_releases_install_info_app_stores_release">"In application stores will be new version soon."</string>
-    <string name="show_dialog_about_red_text_show_profile_preferences">Show profile preferences</string>
-    <string name="show_dialog_about_red_text_show_editor">Show Editor</string>
-    <string name="check_github_releases_new_version">New version:</string>
+    <string name="check_ppp_releases_notification">点击此通知以检查 PhoneProfilesPlus 版本。也许会发布更新版本。</string>
+    <string name="check_github_releases_install_info_app_stores_release">"应用程序商店将很快有新版本。"</string>
+    <string name="show_dialog_about_red_text_show_profile_preferences">显示情景首选项</string>
+    <string name="show_dialog_about_red_text_show_editor">显示编辑器</string>
+    <string name="check_github_releases_new_version">新版本：</string>
+    <string name="array_pref_change_image_wallpaper">更改为图片</string>
+    <string name="array_pref_change_live_wallpaper">(I) 更改为动态壁纸</string>
+    <string name="profile_preferences_deviceImageWallpaper">图片壁纸</string>
+    <string name="profile_preferences_deviceLiveWallpaper">(I) 动态壁纸</string>
+    <string name="live_wallpapers_pref_dlg_summary_text_not_selected">未选中</string>
+    <string name="menu_check_releases_apkpure">在 APKPure 中检查</string>
+    <string name="check_releases_go_to_apkpure">转到 APKPure</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1771,7 +1778,7 @@
     <string name="extender_accessibility_service_profile_lock_device">•情景参数“锁定设备”的辅助功能服务：</string>
     <string name="extender_application_releases">版本：</string>
     <string name="extender_web_browser_chooser">查看Web链接使用</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - 崩溃报告</string>
+    <string name="extender_acra_email_subject_text">崩溃报告</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender 已崩溃。附件是崩溃报告。</string>
     <string name="extender_acra_notification_title">对不起，PhoneProfilesPlusExtender 崩溃了</string>
     <string name="extender_acra_notification_text">请点击此处，向作者发送崩溃报告，非常感谢您。</string>
@@ -1781,6 +1788,8 @@
     <string name="extender_battery_optimization_optimized">已优化</string>
     <string name="extender_battery_optimization_not_optimized">未优化</string>
     <string name="extender_battery_optimization_button">打开电池优化</string>
+    <string name="extender_acra_email_body_device">设备：</string>
+    <string name="extender_acra_email_body_android_version">Android 版本：</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

@@ -1490,7 +1490,7 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Restart zdarzeń nie działa, ponieważ uruchamianie zdarzeń jest wyłączone</string>
     <string name="critical_github_release">Aktualizacja krytyczna</string>
     <string name="critical_github_release_notification">Kliknij to powiadomienie, aby pobrać krytyczną aktualizację PhoneProfilesPlus z GitHub.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - raport błędu</string>
+    <string name="acra_email_subject_text">raport błędu</string>
     <string name="acra_email_body_text">PhoneProfilesPlus uległ awarii. Załączono raport awarii.</string>
     <string name="acra_notification_title">Przepraszamy, PhoneProfilesPlus uległ awarii</string>
     <string name="notification_channel_crash_report">Raport błędu</string>
@@ -1746,8 +1746,15 @@
     <string name="check_ppp_releases_notification">Click this notification for check of PhoneProfilesPlus releases. Maybe was released newer version.</string>
     <string name="check_github_releases_install_info_app_stores_release">"In application stores will be new version soon."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Show profile preferences</string>
-    <string name="show_dialog_about_red_text_show_editor">Show Editor</string>
-    <string name="check_github_releases_new_version">New version:</string>
+    <string name="show_dialog_about_red_text_show_editor">Pokaż edytor</string>
+    <string name="check_github_releases_new_version">Nowa wersja:</string>
+    <string name="array_pref_change_image_wallpaper">Change to image</string>
+    <string name="array_pref_change_live_wallpaper">(I) Change to live wallpaper</string>
+    <string name="profile_preferences_deviceImageWallpaper">Image wallpaper</string>
+    <string name="profile_preferences_deviceLiveWallpaper">(I) Live wallpaper</string>
+    <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Not selected</string>
+    <string name="menu_check_releases_apkpure">Check in APKPure</string>
+    <string name="check_releases_go_to_apkpure">Go to APKPure</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>
@@ -1771,7 +1778,7 @@
     <string name="extender_accessibility_service_profile_lock_device">• Usługa Ułatwień Dostępu dla parametru Profili  \"Zablokuj urządzenie\":</string>
     <string name="extender_application_releases">Wydania:</string>
     <string name="extender_web_browser_chooser">Wyświetl link web używając</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - raport błędu</string>
+    <string name="extender_acra_email_subject_text">raport błędu</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender uległ awarii. Załączono raport błędu.</string>
     <string name="extender_acra_notification_title">Przepraszamy, PhoneProfilesPlusExtender uległ awarii</string>
     <string name="extender_acra_notification_text">Kliknij tutaj, aby wysłać zgłoszenie awarii do autora. Dziękujemy.</string>
@@ -1781,6 +1788,8 @@
     <string name="extender_battery_optimization_optimized">Zoptymalizowana</string>
     <string name="extender_battery_optimization_not_optimized">Bez optymalizacji</string>
     <string name="extender_battery_optimization_button">Otwórz\noptymalizację baterii</string>
+    <string name="extender_acra_email_body_device">Device:</string>
+    <string name="extender_acra_email_body_android_version">Android version:</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

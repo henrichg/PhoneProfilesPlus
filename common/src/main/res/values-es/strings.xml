@@ -748,7 +748,7 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_keepDetected">Usar detección</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_merged">Volúmenes vinculados</string>
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Volúmenes no vinculados</string>
-    <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Use esto si la detección del vínculo de volúmenes no funciona.</string>
+    <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Usa esto si la detección del vínculo de volúmenes no funciona.</string>
     <string name="profile_preferences_category_application">Funciones de la aplicación</string>
     <string name="profile_preferences_applicationDisableWifiScanning">Desactivar escaneo de red Wi-Fi</string>
     <string name="profile_preferences_applicationDisableBluetoothScanning">Desactivar escaneo de Bluetooth</string>
@@ -1137,7 +1137,7 @@
     <string name="applications_editor_dialog_title">Establecer aplicación, acceso directo, intento</string>
     <string name="profile_preferences_lockDevice_PPPExtender_install_summary">Para el tipo de bloqueo \"Utilizar PhoneProfilesPlusExtender\", haz clic aquí para instalar PhoneProfilesPlusExtender.</string>
     <string name="profile_preferences_lockDevice_AccessibilitySettings_title">Ajustes de Accesibilidad</string>
-    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">Para el tipo de bloqueo \"Use PhoneProfilesPlusExtender\", concede a PhoneProfilesPlusExtender permiso de \"Accesibilidad\" en los ajustes del sistema.</string>
+    <string name="profile_preferences_lockDevice_AccessibilitySettingsForExtender_summary">Para el tipo de bloqueo \"Usa PhoneProfilesPlusExtender\", concede a PhoneProfilesPlusExtender permiso de \"Accesibilidad\" en los ajustes del sistema.</string>
     <string name="array_pref_lockDevice_extender">Usar PhoneProfilesPlusExtender</string>
     <string name="important_info_profile_mobileCellsScanning_location">En Android 9+, para que el escaneo de celdas móviles funcione, debes habilitar la Ubicación en los ajustes del sistema.</string>
     <string name="info_notification_event_not_started_1">El evento no se iniciará cuando:</string>
@@ -1490,7 +1490,7 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Reiniciar eventos no está funcionando porque la ejecución de eventos está desactivada</string>
     <string name="critical_github_release">Actualización crítica de la app</string>
     <string name="critical_github_release_notification">Haz clic en esta notificación para descargar una actualización crítica de PhoneProfilesPlus desde GitHub.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - Informe de error</string>
+    <string name="acra_email_subject_text">informe de error</string>
     <string name="acra_email_body_text">PhoneProfilesPlus ha fallado. Adjunto está el informe de error.</string>
     <string name="acra_notification_title">Lo sentimos, PhoneProfilesPlus ha fallado</string>
     <string name="notification_channel_crash_report">Informe de error</string>
@@ -1748,6 +1748,13 @@
     <string name="show_dialog_about_red_text_show_profile_preferences">Mostrar preferencias de perfil</string>
     <string name="show_dialog_about_red_text_show_editor">Mostrar editor</string>
     <string name="check_github_releases_new_version">Nueva versión:</string>
+    <string name="array_pref_change_image_wallpaper">Cambiar a imagen</string>
+    <string name="array_pref_change_live_wallpaper">(I) Cambiar a fondo de pantalla animado</string>
+    <string name="profile_preferences_deviceImageWallpaper">Fondo de pantalla</string>
+    <string name="profile_preferences_deviceLiveWallpaper">(I) Fondo de pantalla animado</string>
+    <string name="live_wallpapers_pref_dlg_summary_text_not_selected">No seleccionado</string>
+    <string name="menu_check_releases_apkpure">Comprobar en APKPure</string>
+    <string name="check_releases_go_to_apkpure">Ir a APKPure</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>
@@ -1771,7 +1778,7 @@
     <string name="extender_accessibility_service_profile_lock_device">• Servicio de accesibilidad para el parámetro de perfil \"Bloqueo de dispositivo\":</string>
     <string name="extender_application_releases">Lanzamientos:</string>
     <string name="extender_web_browser_chooser">Ver dirección web utilizando</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Informe de error</string>
+    <string name="extender_acra_email_subject_text">informe de error</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender ha fallado. Adjunto está el informe de error.</string>
     <string name="extender_acra_notification_title">Lo sentimos, PhoneProfilesPlusExtender ha fallado</string>
     <string name="extender_acra_notification_text">Haz clic aquí, por favor, para enviar un informe de error al autor. Muchas gracias.</string>
@@ -1781,6 +1788,8 @@
     <string name="extender_battery_optimization_optimized">Optimizado</string>
     <string name="extender_battery_optimization_not_optimized">No optimizado</string>
     <string name="extender_battery_optimization_button">Abrir\noptimización de Batería</string>
+    <string name="extender_acra_email_body_device">Dispositivo:</string>
+    <string name="extender_acra_email_body_android_version">Versión de Android:</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->

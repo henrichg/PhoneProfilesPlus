@@ -1490,7 +1490,7 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Restart událostí nefunguje, protože běh událostí je vypnutý</string>
     <string name="critical_github_release">Kritické vydání aplikace</string>
     <string name="critical_github_release_notification">Klikněte na tuto notifikaci pro stiahutie kritického vydání PhoneProfilesPlus z jeho GitHub.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - Zpráva o selhání</string>
+    <string name="acra_email_subject_text">zpráva o selhání</string>
     <string name="acra_email_body_text">PhoneProfilesPlus selhal. Připojena je zpráva o selhání.</string>
     <string name="acra_notification_title">Je mi líto, PhoneProfilesPlus selhal</string>
     <string name="notification_channel_crash_report">Zpráva o selhání</string>
@@ -1748,6 +1748,13 @@
     <string name="show_dialog_about_red_text_show_profile_preferences">Zobrazit parametry profilu</string>
     <string name="show_dialog_about_red_text_show_editor">Zobrazit Editor</string>
     <string name="check_github_releases_new_version">Nová verze:</string>
+    <string name="array_pref_change_image_wallpaper">Změnit na obrázek</string>
+    <string name="array_pref_change_live_wallpaper">(I) Změnit na živou tapetu</string>
+    <string name="profile_preferences_deviceImageWallpaper">Obrázek tapety</string>
+    <string name="profile_preferences_deviceLiveWallpaper">(I) Živá tapeta</string>
+    <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Nevybráno</string>
+    <string name="menu_check_releases_apkpure">Zkontrolovat v APKPure</string>
+    <string name="check_releases_go_to_apkpure">Jít do APKPure</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1771,7 +1778,7 @@
     <string name="extender_accessibility_service_profile_lock_device">• Služba Dostupnost pro parametr profilu \"Zamknutí zařízení\":</string>
     <string name="extender_application_releases">Vydání:</string>
     <string name="extender_web_browser_chooser">Zobrazit webový odkaz pomocí</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlus - Zpráva o selhání</string>
+    <string name="extender_acra_email_subject_text">zpráva o selhání</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlus selhal. Připojena je zpráva o selhání.</string>
     <string name="extender_acra_notification_title">Je mi líto, PhoneProfilesPlus selhal</string>
     <string name="extender_acra_notification_text">Kliknutím zde, odešlete autorovi zprávu o selhání. Děkuji velmi pěkně.</string>
@@ -1781,6 +1788,8 @@
     <string name="extender_battery_optimization_optimized">Optimalizováno</string>
     <string name="extender_battery_optimization_not_optimized">Neoptimalizováno</string>
     <string name="extender_battery_optimization_button">Otevři\nOptimalizaci baterie</string>
+    <string name="extender_acra_email_body_device">Zařízení:</string>
+    <string name="extender_acra_email_body_android_version">Verze Android:</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
