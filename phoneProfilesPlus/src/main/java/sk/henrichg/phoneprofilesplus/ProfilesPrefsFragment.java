@@ -549,18 +549,16 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 setSummary(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, value);
             }
 
-            // TODO test if root is needed for this
-            /*
-            preference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS);
-            if (preference != null)
-            {
-                preference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
-                preference.setDialogTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
-                String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "");
-                setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, value);
-            }
-            */
         }
+        ListPreference vibrateNotificationsPreference = prefMng.findPreference(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS);
+        if (vibrateNotificationsPreference != null)
+        {
+            vibrateNotificationsPreference.setTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
+            vibrateNotificationsPreference.setDialogTitle("(R) "+getString(R.string.profile_preferences_vibrateNotifications));
+            String value = preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, "");
+            setSummary(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, value);
+        }
+
         /*if (android.os.Build.VERSION.SDK_INT >= 26) {
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WIFI_AP);
             if (preference != null)
@@ -1533,10 +1531,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING) &&
                                         (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
                                     title = "(R) " + getString(R.string.profile_preferences_vibrateWhenRinging);
-                                // TODO test if root is needed for this
-                                /*else if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS) &&
-                                        (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI))
-                                    title = "(R) " + getString(R.string.profile_preferences_vibrateNotifications);*/
+                                else if (key.equals(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS))
+                                    title = "(R) " + getString(R.string.profile_preferences_vibrateNotifications);
                                 else if (key.equals(Profile.PREF_PROFILE_DURATION))
                                     title = context.getString(R.string.profile_preferences_duration);
                                 else

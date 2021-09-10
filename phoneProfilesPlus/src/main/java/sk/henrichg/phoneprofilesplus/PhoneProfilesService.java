@@ -6341,7 +6341,6 @@ public class PhoneProfilesService extends Service
             }
         }
 
-        //TODO xxx
         notificationBuilder.setColor(decoratorColor);
 
         // notification title

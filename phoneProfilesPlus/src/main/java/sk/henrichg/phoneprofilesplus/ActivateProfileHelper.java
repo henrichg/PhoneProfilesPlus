@@ -1602,7 +1602,7 @@ class ActivateProfileHelper {
                                 Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_normal", lValue);
                                 Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_silent", lValue);
                             }
-                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23)");
+                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set");
                         } catch (Exception ee) {
                             // java.lang.IllegalArgumentException: You cannot change private secure settings.
                             //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
@@ -1627,7 +1627,7 @@ class ActivateProfileHelper {
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                        //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
+                                        //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (with root)");
                                     } catch (Exception e) {
                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                         //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
@@ -1688,39 +1688,25 @@ class ActivateProfileHelper {
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkVibrateNotifications(appContext)) {
                     {
-                        try {
+                        /*try {
                             Settings.System.putInt(appContext.getContentResolver(), "notification_vibration_intensity", lValue);
-                            /*if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                                //PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "Xiaomi");
-                                Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_normal", lValue);
-                                Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_silent", lValue);
-                            }*/
-                            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate when ringing set (API >= 23)");
-                        } catch (Exception ee) {
+                            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate notifications set");
+                        } catch (Exception ee) {*/
                             // java.lang.IllegalArgumentException: You cannot change private secure settings.
-                            Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(ee));
+                            //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(ee));
                             //PPApplication.recordException(ee);
 
                             if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                                     (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                                 synchronized (PPApplication.rootMutex) {
-                                    String command1;
-                                    Command command;
-                                    /*if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                                        command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
-                                        String command2 = "settings put system " + "vibrate_in_normal" + " " + lValue;
-                                        String command3 = "settings put system " + "vibrate_in_silent" + " " + lValue;
-                                        command = new Command(0, false, command1, command2, command3);
-                                    } else*/ {
-                                        command1 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
-                                        //if (PPApplication.isSELinuxEnforcing())
-                                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                        command = new Command(0, false, command1); //, command2);
-                                    }
+                                    String command1 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
+                                    //if (PPApplication.isSELinuxEnforcing())
+                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                    Command command = new Command(0, false, command1); //, command2);
                                     try {
                                         RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                         PPApplication.commandWait(command, "ActivateProfileHelper.setVibrateNotification");
-//                                        PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate when ringing set (API >= 23 with root)");
+                                        PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate notifications set (with root)");
                                     } catch (Exception e) {
                                         // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                         //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(e));
@@ -1730,7 +1716,7 @@ class ActivateProfileHelper {
                             }
                             else
                                 PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not rooted");
-                        }
+                        //}
                     }
                 }
                 else

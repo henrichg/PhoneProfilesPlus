@@ -860,12 +860,18 @@ class PreferenceAllowed {
 
         if (Build.VERSION.SDK_INT >= 28) {
 
-            // TODO test in Xialomi, maybe it requires root
-            /*boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
+            if (PPApplication.deviceIsSamsung ||
+                    (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+            }
+            else {
 
-            String preferenceKey = Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS;
+                boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
-            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                String preferenceKey = Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS;
+
                 if (PPApplication.isRooted(fromUIThread)) {
                     // device is rooted
 
@@ -877,9 +883,7 @@ class PreferenceAllowed {
                                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
                             }
                         }
-                    }
-                    else
-                    if (sharedPreferences != null) {
+                    } else if (sharedPreferences != null) {
                         if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
                             if (applicationNeverAskForGrantRoot) {
                                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
@@ -894,16 +898,13 @@ class PreferenceAllowed {
                         if (profile != null) {
                             if (profile._vibrateNotifications != 0)
                                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                        }
-                        else
+                        } else
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                    }
-                    else {
+                    } else {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
                     }
-                }
-                else {
+                } else {
                     if ((profile != null) && (profile._vibrateNotifications != 0)) {
                         preferenceAllowed.notAllowedRoot = true;
                         //Log.e("Profile.isProfilePreferenceAllowed", "_vibrateNotifications");
@@ -911,14 +912,6 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                 }
-            }
-            else*/
-            {
-                if (profile != null) {
-                    if (profile._vibrateNotifications != 0)
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
-                } else
-                    preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             }
         }
         else {
