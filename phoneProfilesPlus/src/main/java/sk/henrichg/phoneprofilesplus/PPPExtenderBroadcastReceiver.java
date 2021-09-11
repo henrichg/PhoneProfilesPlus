@@ -452,6 +452,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
                             enabled = true;
                         }
+
 /*
                         if (service.packageNames != null) {
                             for (String packageName : service.packageNames) {
@@ -471,7 +472,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
         if (checkFlag) {
             if (!enabled) {
-                if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2) {
+                if (PPApplication.accessibilityServiceForPPPExtenderConnected != 0) {
                     PPApplication.accessibilityServiceForPPPExtenderConnected = 0;
 
 //                    PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "send broadcast to Extender");
