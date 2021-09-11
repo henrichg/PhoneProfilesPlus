@@ -4726,7 +4726,7 @@ class ActivateProfileHelper {
 
         if (profile._deviceForceStopApplicationChange == 1) {
             boolean enabled;
-            enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_6_1);
+            enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_6_1_2);
             if (enabled) {
                 // executeForInteractivePreferences() is called from broadcast receiver PPPExtenderBroadcastReceiver
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForForceStopApplications()");

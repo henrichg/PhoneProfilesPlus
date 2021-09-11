@@ -529,13 +529,13 @@ public class EditorProfileListFragment extends Fragment
                     PPApplication.updateGUI(true, false, _dataWrapper.context);
                     if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing()))
                         PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                fragment.getResources().getString(R.string.toast_predefined_profiles_generated),
+                                fragment.getString(R.string.toast_predefined_profiles_generated),
                                 Toast.LENGTH_SHORT);
                 }
                 /*if (defaultEventsGenerated)
                 {
                     Toast msg = ToastCompat.makeText(_dataWrapper.context.getApplicationContext(),
-                            fragment.getResources().getString(R.string.toast_predefined_events_generated),
+                            fragment.getString(R.string.toast_predefined_events_generated),
                             Toast.LENGTH_SHORT);
                     msg.show();
                 }*/
@@ -762,7 +762,7 @@ public class EditorProfileListFragment extends Fragment
 
         //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getResources().getString(R.string.profile_string_0) + ": " + profile._name);
+        dialogBuilder.setTitle(getString(R.string.profile_string_0) + ": " + profile._name);
         dialogBuilder.setMessage(R.string.delete_profile_alert_message);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
 
@@ -1195,7 +1195,7 @@ public class EditorProfileListFragment extends Fragment
         if (profileFromDB != null)
             pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profileFromDB, true, "", true, false, false, activityDataWrapper);
         else
-            pName = getResources().getString(R.string.profiles_header_profile_name_no_activated);
+            pName = getString(R.string.profiles_header_profile_name_no_activated);
         //PPApplication.logE("EditorProfileListFragment.refreshGUI", "pName="+pName);
 
         if (!refresh) {
@@ -1284,7 +1284,7 @@ public class EditorProfileListFragment extends Fragment
                     int itemId = item.getItemId();
                     if (itemId == R.id.profile_list_item_menu_show_in_activator_title) {
                         PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                                getResources().getString(R.string.popupmenu_title_click_below_toast),
+                                getString(R.string.popupmenu_title_click_below_toast),
                                 Toast.LENGTH_SHORT);
                         return true;
                     }
@@ -1296,12 +1296,12 @@ public class EditorProfileListFragment extends Fragment
                         ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
 
                         PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                                getResources().getString(R.string.show_profile_in_activator_not_show_toast),
+                                getString(R.string.show_profile_in_activator_not_show_toast),
                                 Toast.LENGTH_LONG);
 
 //                        Snackbar snackbar = Snackbar.make(getActivity(),
 //                                getActivity().findViewById(R.id.editor_list_root),
-//                                getResources().getString(R.string.show_profile_in_activator_not_show_toast),
+//                                getString(R.string.show_profile_in_activator_not_show_toast),
 //                                Snackbar.LENGTH_LONG);
 //                        snackbar.show();
 
@@ -1315,12 +1315,12 @@ public class EditorProfileListFragment extends Fragment
                         ((EditorProfilesActivity) getActivity()).redrawProfileListFragment(profile, EDIT_MODE_EDIT);
 
                         PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                                getResources().getString(R.string.show_profile_in_activator_show_toast),
+                                getString(R.string.show_profile_in_activator_show_toast),
                                 Toast.LENGTH_LONG);
 
 //                        Snackbar snackbar = Snackbar.make(getActivity(),
 //                                getActivity().findViewById(R.id.editor_list_root),
-//                                getResources().getString(R.string.show_profile_in_activator_show_toast),
+//                                getString(R.string.show_profile_in_activator_show_toast),
 //                                Snackbar.LENGTH_LONG);
 //                        snackbar.show();
 
@@ -1344,7 +1344,7 @@ public class EditorProfileListFragment extends Fragment
     void changeShowInActivator(final Profile profile) {
         //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getResources().getString(R.string.profile_string_0) + ": " + profile._name);
+        dialogBuilder.setTitle(getString(R.string.profile_string_0) + ": " + profile._name);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         int show = profile._showInActivator ? 1 : 0;
         dialogBuilder.setSingleChoiceItems(R.array.showProfileInActivatorArray, show, new DialogInterface.OnClickListener() {

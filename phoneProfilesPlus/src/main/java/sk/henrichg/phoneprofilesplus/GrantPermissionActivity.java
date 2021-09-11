@@ -169,7 +169,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 boolean granted = Permissions.checkInstallTone(context, permissions);
                 if (granted) {
                     Toast msg = ToastCompat.makeText(context.getApplicationContext(),
-                            context.getResources().getString(R.string.toast_permissions_granted),
+                            context.getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     msg.show();
                     finish();
@@ -181,7 +181,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 boolean granted = Permissions.checkPlayRingtoneNotification(context, grantAlsoContacts, permissions);
                 if (granted) {
                     PPApplication.showToast(context.getApplicationContext(),
-                            context.getResources().getString(R.string.toast_permissions_granted),
+                            context.getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     finish();
                     return;
@@ -195,7 +195,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 permissions = Permissions.recheckPermissions(context, permissions);
                 if (permissions.size() == 0) {
                     PPApplication.showToast(context.getApplicationContext(),
-                            context.getResources().getString(R.string.toast_permissions_granted),
+                            context.getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     finish();
                     return;
@@ -206,7 +206,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 boolean granted = Permissions.checkLogToFile(context, permissions);
                 if (granted) {
                     Toast msg = ToastCompat.makeText(context.getApplicationContext(),
-                            context.getResources().getString(R.string.toast_permissions_granted),
+                            context.getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     msg.show();
                     finish();
@@ -220,7 +220,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 permissions = Permissions.recheckPermissions(context, permissions);
                 if (permissions.size() == 0) {
                     PPApplication.showToast(context.getApplicationContext(),
-                            context.getResources().getString(R.string.toast_permissions_granted),
+                            context.getString(R.string.toast_permissions_granted),
                             Toast.LENGTH_SHORT);
                     finish();
                     return;
@@ -1831,7 +1831,7 @@ public class GrantPermissionActivity extends AppCompatActivity {
             permissions = Permissions.recheckPermissions(context, permissionsForRecheck);
             if (permissions.size() != 0) {
                 PPApplication.showToast(context.getApplicationContext(),
-                        context.getResources().getString(R.string.toast_permissions_not_granted),
+                        context.getString(R.string.toast_permissions_not_granted),
                         Toast.LENGTH_LONG);
             }
         }

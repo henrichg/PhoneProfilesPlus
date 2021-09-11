@@ -1,12 +1,18 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.provider.Settings;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -16,6 +22,7 @@ import java.util.Set;
 public class MainWorker extends Worker {
 
     static final String APPLICATION_FULLY_STARTED_WORK_TAG = "applicationFullyStartedWork";
+    static final String ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG = "accessibilityServiceConnectedWork";
 
     static final String LOCATION_SCANNER_SWITCH_GPS_TAG_WORK = "locationScannerSwitchGPSWork";
     static final String LOCK_DEVICE_FINISH_ACTIVITY_TAG_WORK = "lockDeviceFinishActivityWork";
@@ -143,12 +150,52 @@ public class MainWorker extends Worker {
 //                        PPApplication.logE("[APP_START] MainWorker.doWork", "setApplicationFullyStarted");
                         PPApplication.setApplicationFullyStarted(appContext);
                         PPApplication.showToastForProfileActivation = true;
-                        if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
+                        break;
+                    case ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG:
+                        PPApplication.logE("MainWorker.doWork", "ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG PPApplication.accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
+                        int oldAccessibilityServiceForPPPExtenderConnected = PPApplication.accessibilityServiceForPPPExtenderConnected;
+                        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, false))
+                            PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
+                        else {
+                            PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
+
+                            Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                            String nTitle = context.getString(R.string.extender_accessibility_settings_not_enabled_title);
+                            String nText = context.getString(R.string.extender_accessibility_settings_not_enabled_text);
+
+                            PPApplication.createExclamationNotificationChannel(getApplicationContext());
+                            NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)
+                                    .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
+                                    .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                                    .setContentTitle(nTitle) // title for notification
+                                    .setContentText(nText) // message for notification
+                                    .setAutoCancel(true); // clear notification after click
+                            mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+
+                            @SuppressLint("UnspecifiedImmutableFlag")
+                            PendingIntent pi = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                            mBuilder.setContentIntent(pi);
+
+                            mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
+                            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+                            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                            mBuilder.setOnlyAlertOnce(true);
+
+                            NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(getApplicationContext());
+                            try {
+                                mNotificationManager.notify(
+                                        PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_TAG,
+                                        PPApplication.EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_ID, mBuilder.build());
+                            } catch (Exception e) {
+                                //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
+                                PPApplication.recordException(e);
+                            }
+
+                        }
+                        if (oldAccessibilityServiceForPPPExtenderConnected == 0) {
                             // answer from Extender not returned
-                            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, false))
-                                PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
-                            else
-                                PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
                             PPApplication.restartAllScanners(appContext, false);
                             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false, DataWrapper.IT_FOR_EDITOR, 0f);
                             dataWrapper.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);

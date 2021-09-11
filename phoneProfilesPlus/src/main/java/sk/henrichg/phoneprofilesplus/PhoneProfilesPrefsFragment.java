@@ -3094,7 +3094,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals("wifiScanningCategoryRoot")) {
             PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
-                summary = summary + getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
                         ": <b>" + preferenceAllowed.getNotAllowedPreferenceReasonString(context) + "</b>";
             }
             else {
@@ -3143,7 +3143,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals("bluetoothScanningCategoryRoot")) {
             PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
-                summary = summary + getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
                         ": <b>" + preferenceAllowed.getNotAllowedPreferenceReasonString(context) + "</b>";
             }
             else {
@@ -3183,7 +3183,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals("mobileCellsScanningCategoryRoot")) {
             PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
-                summary = summary + getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
                         ": <b>" + preferenceAllowed.getNotAllowedPreferenceReasonString(context) + "</b>";
                 //addEnd = false;
             }
@@ -3215,7 +3215,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals("orientationScanningCategoryRoot")) {
             PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
-                summary = summary + getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
                         ": <b>" + preferenceAllowed.getNotAllowedPreferenceReasonString(context) + "</b>";
             }
             else {
@@ -3243,7 +3243,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals("notificationScanningCategoryRoot")) {
             PreferenceAllowed preferenceAllowed = Event.isEventPreferenceAllowed(EventPreferencesNotification.PREF_EVENT_NOTIFICATION_ENABLED, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
-                summary = summary + getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                summary = summary + getString(R.string.profile_preferences_device_not_allowed) +
                         ": <b>" + preferenceAllowed.getNotAllowedPreferenceReasonString(context) + "</b>";
             }
             else {

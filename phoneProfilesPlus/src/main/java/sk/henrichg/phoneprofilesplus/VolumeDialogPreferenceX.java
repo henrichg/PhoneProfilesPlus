@@ -198,10 +198,10 @@ public class VolumeDialogPreferenceX extends DialogPreference {
     {
         String prefVolumeDataSummary;
         if (noChange == 1)
-            prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_no_change);
+            prefVolumeDataSummary = _context.getString(R.string.preference_profile_no_change);
         /*else
         if (sharedProfile == 1)
-            prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_default_profile);*/
+            prefVolumeDataSummary = _context.getString(R.string.preference_profile_default_profile);*/
         else
             prefVolumeDataSummary = value + " / " + maximumValue;
         setSummary(prefVolumeDataSummary);

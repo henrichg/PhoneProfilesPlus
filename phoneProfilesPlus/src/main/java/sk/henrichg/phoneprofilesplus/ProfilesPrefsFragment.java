@@ -630,7 +630,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         Preference showInActivatorPreference = prefMng.findPreference(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR);
         if (showInActivatorPreference != null) {
-            showInActivatorPreference.setTitle(/*"[A] " + */getResources().getString(R.string.profile_preferences_showInActivator));
+            showInActivatorPreference.setTitle(/*"[A] " + */getString(R.string.profile_preferences_showInActivator));
             boolean value = preferences.getBoolean(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, false);
             setSummary(Profile.PREF_PROFILE_SHOW_IN_ACTIVATOR, value);
         }
@@ -668,7 +668,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             TonesHandler.installTone(TonesHandler.TONE_ID, TonesHandler.TONE_NAME, context.getApplicationContext());
                         else {
                             Toast msg = ToastCompat.makeText(context.getApplicationContext(),
-                                    context.getResources().getString(R.string.profile_preferences_installSilentTone_installed_summary),
+                                    context.getString(R.string.profile_preferences_installSilentTone_installed_summary),
                                     Toast.LENGTH_SHORT);
                             msg.show();
                         }
@@ -708,7 +708,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference16 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1_2) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -750,7 +750,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference17 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1_2) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -1322,7 +1322,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 else {
                     if (getActivity() != null) {
-                        String text = getResources().getString(R.string.profileicon_pref_dialog_custom_icon_image_too_large);
+                        String text = getString(R.string.profileicon_pref_dialog_custom_icon_image_too_large);
                         text = text + " " + (width * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
                         text = text + "x" + (height * BitmapManipulator.ICON_BITMAP_SIZE_MULTIPLIER);
                         PPApplication.showToast(getActivity().getApplicationContext(), text, Toast.LENGTH_LONG);
@@ -1596,7 +1596,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             value = profile._name;
                         else {
                             if (profileId == Profile.PROFILE_NO_ACTIVATE)
-                                value = context.getResources().getString(R.string.profile_preference_profile_end_no_activate);
+                                value = context.getString(R.string.profile_preference_profile_end_no_activate);
                         }
                         String _title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, R.string.profile_preferences_afterDurationProfile, false, context);
                         cattegorySummaryData.summary = cattegorySummaryData.summary + " • " + _title + ": <b>" + value + "</b>";
@@ -2458,12 +2458,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (automatic)
             {
                 //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-                summaryString = context.getResources().getString(R.string.preference_profile_adaptiveBrightness);
+                summaryString = context.getString(R.string.preference_profile_adaptiveBrightness);
                 //else
-                //    summaryString = _context.getResources().getString(R.string.preference_profile_autoBrightness);
+                //    summaryString = _context.getString(R.string.preference_profile_autoBrightness);
             }
             else
-                summaryString = context.getResources().getString(R.string.preference_profile_manual_brightness);
+                summaryString = context.getString(R.string.preference_profile_manual_brightness);
 
             if (changeLevel && (adaptiveAllowed || !automatic)) {
                 String _value = iValue + "/100";
@@ -2762,20 +2762,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean ok = true;
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0) {
-            cattegorySummaryData.summary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
+            cattegorySummaryData.summary = getString(R.string.profile_preferences_device_not_allowed) +
                     ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
             ok = false;
         }
         else
-        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1) {
-            cattegorySummaryData.summary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
+        if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2) {
+            cattegorySummaryData.summary = getString(R.string.profile_preferences_device_not_allowed) +
                     ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
             ok = false;
         }
         else
         if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
-            cattegorySummaryData.summary = getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                    ": "+getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+            cattegorySummaryData.summary = getString(R.string.profile_preferences_device_not_allowed)+
+                    ": "+ getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+            ok = false;
+        }
+        else
+        if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
+            cattegorySummaryData.summary = getString(R.string.profile_preferences_device_not_allowed) +
+                    ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_settings_for_extender_is_checked);
             ok = false;
         }
 
@@ -2822,18 +2828,23 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (extenderVersion == 0) {
                 //ok = false;
                 cattegorySummaryData.summary = cattegorySummaryData.summary +
-                        getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                        getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
-            } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1) {
+            } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2) {
                 //ok = false;
                 cattegorySummaryData.summary = cattegorySummaryData.summary +
-                        getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                        getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
             } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
                 //ok = false;
                 cattegorySummaryData.summary = cattegorySummaryData.summary +
-                        getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                        getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+            } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
+                //ok = false;
+                cattegorySummaryData.summary = cattegorySummaryData.summary +
+                        getString(R.string.profile_preferences_device_not_allowed) +
+                        ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_settings_for_extender_is_checked);
             }
         }
 
@@ -3469,8 +3480,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 ListPreference listPreference = prefMng.findPreference(key);
                 if (listPreference != null) {
                     listPreference.setEnabled(false);
-                    listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                            ": "+getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
+                    listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
+                            ": "+getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
                     //boolean a60 = /*(android.os.Build.VERSION.SDK_INT == 23) &&*/ Build.VERSION.RELEASE.equals("6.0");
                     //@SuppressLint("InlinedApi")
                     //boolean addS = !(/*(android.os.Build.VERSION.SDK_INT >= 23) &&*/ /*(!a60) &&*/
@@ -3650,7 +3661,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     else
                         errorColor = !value.toString().equals("0");
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, errorColor, false, errorColor, false);
                 }
@@ -3741,7 +3752,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     else
                         errorColor = !value.toString().equals("0");
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, errorColor, false, errorColor, false);
                 }
@@ -3804,7 +3815,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     else
                         errorColor = !value.toString().equals("0");
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, errorColor, false, errorColor, false);
                 } else {
@@ -3838,7 +3849,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     else
                         errorColor = !value.toString().equals("0");
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, errorColor, false, errorColor, false);
                 } else {
@@ -3928,7 +3939,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     else
                         errorColor = !value.toString().equals("0");
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                        listPreference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, errorColor, false, errorColor, false);
                 }
@@ -3955,7 +3966,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary =  getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + "\n\n";
-                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2)
                         summary = summary + getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
                         summary = summary + getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -3974,20 +3985,26 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
                 if (extenderVersion == 0) {
                     ok = false;
-                    changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                    changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
                 }
                 else
-                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1) {
+                if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2) {
                     ok = false;
-                    changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                    changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 }
                 else
                 if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
                     ok = false;
-                    changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                    changeSummary = getString(R.string.profile_preferences_device_not_allowed)+
                             ": "+getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                }
+                else
+                if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
+                    ok = false;
+                    changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
+                            ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_settings_for_extender_is_checked);
                 }
 
                 if (!ok) {
@@ -4017,7 +4034,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(context);
                     String summary =  getString(R.string.profile_preferences_PPPExtender_installed_summary) +
                             " " + extenderVersionName + "\n\n";
-                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
+                    if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2)
                         summary = summary + getString(R.string.event_preferences_applications_PPPExtender_new_version_summary);
                     else
                         summary = summary + getString(R.string.event_preferences_applications_PPPExtender_upgrade_summary);
@@ -4044,18 +4061,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     if (extenderVersion == 0) {
                         //ok = false;
                         changeSummary = changeSummary + "\n\n" +
-                                getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_not_extender_installed);
-                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1) {
+                    } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2) {
                         //ok = false;
                         changeSummary = changeSummary + "\n\n" +
-                                getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                     } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
                         //ok = false;
                         changeSummary = changeSummary + "\n\n" +
-                                getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
+                    } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
+                        //ok = false;
+                        changeSummary = changeSummary + getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_settings_for_extender_is_checked);
                     }
                 }
 
@@ -4080,7 +4101,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 boolean _accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
 
                 String summary;
-                if (_accessibilityEnabled)
+                if (_accessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
                     summary = getString(R.string.accessibility_service_enabled);
                 else {
                     summary = getString(R.string.accessibility_service_disabled);
@@ -4100,7 +4121,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 boolean _accessibilityEnabled = profile.isAccessibilityServiceEnabled(context) == 1;
 
                 String summary;
-                if (_accessibilityEnabled)
+                if (_accessibilityEnabled && (PPApplication.accessibilityServiceForPPPExtenderConnected == 1))
                     summary = getString(R.string.accessibility_service_enabled);
                 else {
                     summary = getString(R.string.accessibility_service_disabled);
@@ -4133,7 +4154,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     else
                         errorColor = !value.toString().equals("0");
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                        preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
                 }
@@ -4208,7 +4229,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             else
                                 errorColor = !value.toString().equals("0");
                             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                                preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
 
@@ -4220,7 +4241,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     else
                                         errorColor = !value.toString().equals("0");
                                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                                        preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
                                 }
@@ -4233,7 +4254,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     else
                                         errorColor = !value.toString().equals("0");
                                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                                        preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
                                 }
@@ -4272,7 +4293,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             else
                                 errorColor = !value.toString().equals("0");
                             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                                preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
                         }
@@ -4301,7 +4322,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             else
                                 errorColor = !value.toString().equals("0");
                             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                                preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
 
@@ -4313,7 +4334,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     else
                                         errorColor = !value.toString().equals("0");
                                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                                        preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
                                 }
@@ -4326,7 +4347,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     else
                                         errorColor = !value.toString().equals("0");
                                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                                        preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                                 ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
                                 }
@@ -4387,7 +4408,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     else
                         errorColor = !value.toString().equals("0");
                     if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                        preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
                                 ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                     GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
                 }
@@ -4455,7 +4476,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             else
                                 errorColor = !value.toString().equals("0");
                             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                                preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
                         }
@@ -4492,7 +4513,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             else
                                 errorColor = !value.toString().equals("0");
                             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                                preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
                         }
@@ -4527,7 +4548,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             else
                                 errorColor = !value.toString().equals("0");
                             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                                preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
                         }
@@ -4563,7 +4584,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             else
                                 errorColor = !value.toString().equals("0");
                             if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
-                                preference.setSummary(getResources().getString(R.string.profile_preferences_device_not_allowed) +
+                                preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
                                         ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor, false);
                         }
@@ -4940,7 +4961,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)) {
             setSummary(PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER);
             boolean enabled;
-            enabled = PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_6_1);
+            enabled = PPPExtenderBroadcastReceiver.isEnabled(context, PPApplication.VERSION_CODE_EXTENDER_6_1_2);
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE);
             if (preference != null) {
@@ -5344,6 +5365,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 // not enabled accessibility service
                 int accessibilityEnabled = profile.isAccessibilityServiceEnabled(context.getApplicationContext());
+                if ((accessibilityEnabled == 1) &&
+                        (PPApplication.accessibilityServiceForPPPExtenderConnected == 0))
+                    accessibilityEnabled = 0;
                 Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                 if (accessibilityEnabled == 1) {
                     if (preference != null) {

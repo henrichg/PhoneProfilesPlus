@@ -257,7 +257,7 @@ class EventPreferencesCalendar extends EventPreferences {
                             //}
                         } else {
                             descr = descr + "<br>"; //'\n';
-                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + context.getResources().getString(R.string.event_preferences_calendar_no_event);
+                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + context.getString(R.string.event_preferences_calendar_no_event);
                         }
                     }
                 }
@@ -287,18 +287,18 @@ class EventPreferencesCalendar extends EventPreferences {
                 if (!ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
                     //if (!ApplicationPreferences.applicationEventBackgroundScanningDisabledScannigByProfile) {
                     summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + ".\n\n" +
-                            context.getResources().getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                            context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     //titleColor = Color.RED; //0xFFffb000;
                     //}
                     //else {
-                    //    summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
-                    //            context.getResources().getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    //    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                    //            context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     //    titleColor = 0;
                     //}
                 }
                 else {
-                    summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
-                            context.getResources().getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                            context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     //titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
@@ -462,7 +462,7 @@ class EventPreferencesCalendar extends EventPreferences {
         else {
             Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
             if (preference != null) {
-                preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }

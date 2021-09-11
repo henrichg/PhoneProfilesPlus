@@ -16,7 +16,12 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.view.accessibility.AccessibilityManager;
 
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
@@ -35,6 +40,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
     private static final String PREF_APPLICATION_IN_FOREGROUND = "application_in_foreground";
 
+    private static final int ACCESSIBILITY_SERVICE_CONNECTED_DELAY = 2;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -54,13 +60,6 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         final Context appContext = context.getApplicationContext();
 
         switch (intent.getAction()) {
-            case PPApplication.ACTION_PPPEXTENDER_IS_RUNNING_ANSWER:
-//                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_PPPEXTENDER_IS_RUNNING_ANSWER");
-                PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
-                PPApplication.restartAllScanners(appContext, false);
-                DataWrapper dataWrapper1 = new DataWrapper(appContext, false, 0/*monochrome, monochromeValue*/, false, DataWrapper.IT_FOR_EDITOR, 0f);
-                dataWrapper1.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);
-                break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
 //                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
                 PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
@@ -86,6 +85,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                 dataWrapper2.fillEventList();
                                 //dataWrapper2.fillProfileList(false, false);
                                 PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper2);
+                                PPApplication.restartAllScanners(appContext, false);
+                                dataWrapper2.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);
                             }
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
@@ -465,13 +466,49 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
+        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enabled="+enabled);
+
         if (checkFlag) {
             if (!enabled) {
+                if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2) {
+                    PPApplication.accessibilityServiceForPPPExtenderConnected = 0;
+
+                    PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "send broadcast to Extender");
+
+                    // send broadcast to Extender to get if Extender is connected
+                    Intent _intent = new Intent(PPApplication.ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED);
+                    context.sendBroadcast(_intent, PPApplication.PPP_EXTENDER_PERMISSION);
+
+                    // work for check accessibility, when Extender do not send ACTION_ACCESSIBILITY_SERVICE_CONNECTED
+                    OneTimeWorkRequest worker =
+                            new OneTimeWorkRequest.Builder(MainWorker.class)
+                                    .addTag(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG)
+                                    .setInitialDelay(ACCESSIBILITY_SERVICE_CONNECTED_DELAY, TimeUnit.MINUTES)
+                                    .build();
+                    try {
+                        if (PPApplication.getApplicationStarted(true)) {
+                            WorkManager workManager = PPApplication.getWorkManagerInstance();
+                            //PPApplication.logE("PhoneProfilesService.onCreate", "workManager="+workManager);
+                            if (workManager != null) {
+                                PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enqueue ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG");
+                                workManager.enqueueUniqueWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                            }
+                        }
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+
+                if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0)
+                    enabled = true;
+
+/*
 //            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "PPApplication.accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
                 if (PPApplication.accessibilityServiceForPPPExtenderConnected > 0)
                     enabled = PPApplication.accessibilityServiceForPPPExtenderConnected == 1;
                 else
                     enabled = true;
+ */
             }
         }
 

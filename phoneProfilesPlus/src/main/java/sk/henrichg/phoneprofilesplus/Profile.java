@@ -4004,13 +4004,13 @@ public class Profile {
             (this._lockDevice != 0)) {
             if (this._deviceForceStopApplicationChange != 0) {
                 if ((extenderVersion > 0) &&
-                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1))
+                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2))
                     // old version
                     accessibilityEnabled = -1;
             }
             if (this._lockDevice == 3) {
                 if ((extenderVersion > 0) &&
-                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1))
+                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2))
                     // old version
                     accessibilityEnabled = -1;
             }

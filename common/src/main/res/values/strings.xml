@@ -1778,6 +1778,10 @@
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Sound mode and vibration</string>
     <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">To properly working vibration for ringing and notifications when \"Sound Mode\" is configured to some vibration type, is recommended to enable in device Settings: \"Sound &amp; vibration\"\/\"Vibration &amp; haptic\" and in it \"Notification vibration\".</string>
 
+    <string name="preference_not_allowed_reason_state_of_accessibility_settings_for_extender_is_checked">Accessibility settings for PhoneProfilesPlusExtender is not enabled, but is checking</string>
+    <string name="extender_accessibility_settings_not_enabled_title">Acessibility settings not enabled</string>
+    <string name="extender_accessibility_settings_not_enabled_text">Acessibility settings for PhoneProfilesPlusExtender is not enabled. Click here to enable it.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

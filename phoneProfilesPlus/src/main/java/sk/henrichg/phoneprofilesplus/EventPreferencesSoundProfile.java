@@ -284,7 +284,7 @@ class EventPreferencesSoundProfile extends EventPreferences {
         else {
             Preference preference = prefMng.findPreference(PREF_EVENT_SOUND_PROFILE_CATEGORY);
             if (preference != null) {
-                preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }

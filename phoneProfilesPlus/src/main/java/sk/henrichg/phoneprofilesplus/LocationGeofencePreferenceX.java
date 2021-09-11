@@ -138,13 +138,13 @@ public class LocationGeofencePreferenceX extends DialogPreference {
     private void setSummary() {
         if (onlyEdit == 0) {
             if (!PhoneProfilesService.isLocationEnabled(context.getApplicationContext())) {
-                setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + context.getResources().getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
+                setSummary(context.getString(R.string.profile_preferences_device_not_allowed) +
+                        ": " + context.getString(R.string.preference_not_allowed_reason_not_configured_in_system_settings));
             }
             /*else
             if (!ApplicationPreferences.applicationEventLocationEnableScanning(context.getApplicationContext())) {
-                preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                        ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
+                        ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
             }*/
             else {
                 String value = DatabaseHandler.getInstance(context.getApplicationContext()).getCheckedGeofences();

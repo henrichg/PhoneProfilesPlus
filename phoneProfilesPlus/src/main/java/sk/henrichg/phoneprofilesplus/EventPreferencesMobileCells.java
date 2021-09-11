@@ -144,7 +144,7 @@ class EventPreferencesMobileCells extends EventPreferences {
                 }
             }
             else {
-                descr = descr + context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                descr = descr + context.getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context);
             }
         }
@@ -172,18 +172,18 @@ class EventPreferencesMobileCells extends EventPreferences {
                 if (!ApplicationPreferences.applicationEventMobileCellEnableScanning) {
                     if (!ApplicationPreferences.applicationEventMobileCellDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
-                                context.getResources().getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary);
+                                context.getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;
                     }
                     else {
-                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
-                                context.getResources().getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary);
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary);
                         titleColor = 0;
                     }
                 }
                 else {
-                    summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
-                            context.getResources().getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary);
+                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                            context.getString(R.string.phone_profiles_pref_eventMobileCellsAppSettings_summary);
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
@@ -336,7 +336,7 @@ class EventPreferencesMobileCells extends EventPreferences {
         else {
             Preference preference = prefMng.findPreference(PREF_EVENT_MOBILE_CELLS_CATEGORY);
             if (preference != null) {
-                preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }

@@ -148,21 +148,21 @@ public class BrightnessDialogPreferenceX extends DialogPreference {
     {
         String prefVolumeDataSummary;
         if (noChange == 1)
-            prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_no_change);
+            prefVolumeDataSummary = _context.getString(R.string.preference_profile_no_change);
         /*else
         if (sharedProfile == 1)
-            prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_default_profile);*/
+            prefVolumeDataSummary = _context.getString(R.string.preference_profile_default_profile);*/
         else
         {
             if (automatic == 1)
             {
                 //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-                    prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_adaptiveBrightness);
+                    prefVolumeDataSummary = _context.getString(R.string.preference_profile_adaptiveBrightness);
                 //else
-                //    prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_autoBrightness);
+                //    prefVolumeDataSummary = _context.getString(R.string.preference_profile_autoBrightness);
             }
             else
-                prefVolumeDataSummary = _context.getResources().getString(R.string.preference_profile_manual_brightness);
+                prefVolumeDataSummary = _context.getString(R.string.preference_profile_manual_brightness);
 
             if ((changeLevel == 1) && (adaptiveAllowed || automatic == 0)) {
                 String _value = value + " / " + maximumValue;

@@ -365,26 +365,26 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         // actionbar titles
         drawerItemsTitle = new String[] {
-                getResources().getString(R.string.editor_drawer_title_profiles),
-                getResources().getString(R.string.editor_drawer_title_profiles),
-                getResources().getString(R.string.editor_drawer_title_profiles),
-                getResources().getString(R.string.editor_drawer_title_events),
-                getResources().getString(R.string.editor_drawer_title_events),
-                getResources().getString(R.string.editor_drawer_title_events),
-                getResources().getString(R.string.editor_drawer_title_events),
-                getResources().getString(R.string.editor_drawer_title_events)
+                getString(R.string.editor_drawer_title_profiles),
+                getString(R.string.editor_drawer_title_profiles),
+                getString(R.string.editor_drawer_title_profiles),
+                getString(R.string.editor_drawer_title_events),
+                getString(R.string.editor_drawer_title_events),
+                getString(R.string.editor_drawer_title_events),
+                getString(R.string.editor_drawer_title_events),
+                getString(R.string.editor_drawer_title_events)
               };
 
         // drawer item titles
         drawerItemsSubtitle = new String[] {
-                getResources().getString(R.string.editor_drawer_list_item_profiles_all),
-                getResources().getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                getResources().getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
-                getResources().getString(R.string.editor_drawer_list_item_events_start_order),
-                getResources().getString(R.string.editor_drawer_list_item_events_all),
-                getResources().getString(R.string.editor_drawer_list_item_events_running),
-                getResources().getString(R.string.editor_drawer_list_item_events_paused),
-                getResources().getString(R.string.editor_drawer_list_item_events_stopped)
+                getString(R.string.editor_drawer_list_item_profiles_all),
+                getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                getString(R.string.editor_drawer_list_item_events_start_order),
+                getString(R.string.editor_drawer_list_item_events_all),
+                getString(R.string.editor_drawer_list_item_events_running),
+                getString(R.string.editor_drawer_list_item_events_paused),
+                getString(R.string.editor_drawer_list_item_events_stopped)
               };
 
         drawerItemsIcon = new Integer[] {
@@ -4191,7 +4191,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // toast notification
                     if (!activity.isFinishing())
                         PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                activity.getResources().getString(R.string.toast_import_ok),
+                                activity.getString(R.string.toast_import_ok),
                                 Toast.LENGTH_SHORT);
 
                     // refresh activity
@@ -4842,7 +4842,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         // toast notification
                         if (!activity.isFinishing())
                             PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                    activity.getResources().getString(R.string.toast_import_from_pp_ok),
+                                    activity.getString(R.string.toast_import_from_pp_ok),
                                     Toast.LENGTH_SHORT);
 
                         // refresh activity

@@ -89,8 +89,8 @@ public class PPApplication extends Application
     //static final int VERSION_CODE_EXTENDER_5_1_3_1 = 540;
     //static final int VERSION_CODE_EXTENDER_5_1_4_1 = 600;
     //static final int VERSION_CODE_EXTENDER_6_0 = 620;
-    static final int VERSION_CODE_EXTENDER_6_1 = 660;
-    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_6_1;
+    static final int VERSION_CODE_EXTENDER_6_1_2 = 670;
+    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_6_1_2;
 
     static final int pid = Process.myPid();
     static final int uid = Process.myUid();
@@ -257,7 +257,7 @@ public class PPApplication extends Application
 
                                                 //+"|LocationGeofenceEditorActivityOSM"
                                                 //+"|TimeChangedReceiver"
-                                                //+"|MainWorker.doWork"
+                                                +"|MainWorker.doWork"
                                                 //+"|LocationScannerSwitchGPSBroadcastReceiver.onReceive"
                                                 //+"|LocationScannerSwitchGPSBroadcastReceiver.doWork"
                                                 //+"|LocationScanner"
@@ -316,7 +316,7 @@ public class PPApplication extends Application
                                                 //+"|LockDeviceAfterScreenOffBroadcastReceiver"
 
                                                 //+"|PPPExtenderBroadcastReceiver.onReceive"
-                                                //+"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
+                                                +"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
 
                                                 //+"|CheckCriticalGitHubReleasesBroadcastReceiver.doWork"
 
@@ -576,6 +576,8 @@ public class PPApplication extends Application
     static final String PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION";
     static final int PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_ID = 133;
     static final String PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION";
+    static final int EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_ID = 134;
+    static final String EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_TAG = PACKAGE_NAME+"EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION";
 
     // notifications have also tag, in it is tag name + profile/event/mobile cells id
     static final int PROFILE_ID_NOTIFICATION_ID = 1000;
@@ -661,8 +663,7 @@ public class PPApplication extends Application
     //static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.PPPEAccessibilityService";
     static final String EXTENDER_ACCESSIBILITY_PACKAGE_NAME = "sk.henrichg.phoneprofilesplusextender";
 
-    static final String ACTION_PPPEXTENDER_IS_RUNNING = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_PPPEXTENDER_IS_RUNNING";
-    static final String ACTION_PPPEXTENDER_IS_RUNNING_ANSWER = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_PPPEXTENDER_IS_RUNNING_ANSWER";
+    static final String ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED";
     static final String ACTION_ACCESSIBILITY_SERVICE_CONNECTED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_CONNECTED";
     static final String ACTION_ACCESSIBILITY_SERVICE_UNBIND = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_UNBIND";
     static final String ACTION_FOREGROUND_APPLICATION_CHANGED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_FOREGROUND_APPLICATION_CHANGED";
@@ -744,7 +745,7 @@ public class PPApplication extends Application
     // 0 = wait for answer from Extender;
     // 1 = Extender is connected,
     // 2 = Extender is disconnected
-    static int accessibilityServiceForPPPExtenderConnected = 0;
+    static int accessibilityServiceForPPPExtenderConnected = 2;
 
     //boolean willBeDoRestartEvents = false;
 
@@ -803,7 +804,6 @@ public class PPApplication extends Application
     static BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
     static BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
     static PPPExtenderBroadcastReceiver pppExtenderBroadcastReceiver = null;
-    static PPPExtenderBroadcastReceiver pppExtenderPPPExtenderIsRunningBroadcastReceiver = null;
     static PPPExtenderBroadcastReceiver pppExtenderForceStopApplicationBroadcastReceiver = null;
     static PPPExtenderBroadcastReceiver pppExtenderForegroundApplicationBroadcastReceiver = null;
     static PPPExtenderBroadcastReceiver pppExtenderSMSBroadcastReceiver = null;

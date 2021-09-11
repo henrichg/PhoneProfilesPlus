@@ -386,3 +386,13 @@ PPApplication.accessibilityServiceForPPPExtenderConnected
                     *** dat sem restart senzorov
 
                     break;
+
+Urob to inac:
+PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled()
+ak zisti, ze nie je, tak:
+- nastav accessibilityServiceForPPPExtenderConnected = 0
+- broadcastuj: ACTION_PPPEXTENDER_IS_RUNNING - premenuj na ACTION_PPPEXTENDER_IS_CONNECTED
+- Extender to zaregistruje v PPPEAccessibilityService, ale az na onServiceConnected
+- Extender v FromPhoneProfilesPlusBroadcastReceiver to odchyti a posle spat ACTION_ACCESSIBILITY_SERVICE_CONNECTED
+- PPP bude mat MainWorker len na toto, 2 minutovy. Ten bude robit to, co teraz APPLICATION_FULLY_STARTED_WORK_TAG
+

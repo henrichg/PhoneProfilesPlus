@@ -1975,8 +1975,8 @@ public class DataWrapper {
         try {
             String profileName = getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, this);
             PPApplication.showToast(context.getApplicationContext(),
-                    context.getResources().getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
-                            context.getResources().getString(R.string.toast_profile_activated_1),
+                    context.getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
+                            context.getString(R.string.toast_profile_activated_1),
                     Toast.LENGTH_SHORT);
         }
         catch (Exception e) {
@@ -2013,8 +2013,8 @@ public class DataWrapper {
             }
             else {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                dialogBuilder.setTitle(activity.getResources().getString(R.string.profile_string_0) + ": " + profile._name);
-                dialogBuilder.setMessage(activity.getResources().getString(R.string.activate_profile_alert_message));
+                dialogBuilder.setTitle(activity.getString(R.string.profile_string_0) + ": " + profile._name);
+                dialogBuilder.setMessage(activity.getString(R.string.activate_profile_alert_message));
                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                         //if (Permissions.grantProfilePermissions(context, _profile, false, true,
@@ -2530,7 +2530,7 @@ public class DataWrapper {
         if (showToast && PPApplication.showToastForProfileActivation) {
             if (ApplicationPreferences.notificationsToast) {
                 PPApplication.showToast(context.getApplicationContext(),
-                        context.getResources().getString(R.string.toast_events_restarted),
+                        context.getString(R.string.toast_events_restarted),
                         Toast.LENGTH_SHORT);
             }
         }
@@ -2545,7 +2545,7 @@ public class DataWrapper {
 
             // show toast about hot working restart events, because global events run is disabled
             PPApplication.showToast(context.getApplicationContext(),
-                    context.getResources().getString(R.string.toast_restart_events_global_events_run_is_disabled),
+                    context.getString(R.string.toast_restart_events_global_events_run_is_disabled),
                     Toast.LENGTH_SHORT);
 
             boolean finish;

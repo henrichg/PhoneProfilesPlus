@@ -264,7 +264,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             // create new profile
             if (predefinedProfileIndex == 0) {
                 profile = DataWrapper.getNonInitializedProfile(
-                        getBaseContext().getResources().getString(R.string.profile_name_default),
+                        getBaseContext().getString(R.string.profile_name_default),
                         Profile.PROFILE_ICON_DEFAULT, 0);
             }
             else {

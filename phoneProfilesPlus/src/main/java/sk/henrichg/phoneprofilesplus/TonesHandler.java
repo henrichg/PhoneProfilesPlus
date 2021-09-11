@@ -406,7 +406,7 @@ class TonesHandler {
                 strId = R.string.toast_tone_installation_installed_error;
 
         PPApplication.showToast(context.getApplicationContext(),
-                    context.getResources().getString(strId),
+                    context.getString(strId),
                     Toast.LENGTH_SHORT);
         //}
     }

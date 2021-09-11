@@ -171,11 +171,11 @@ public class ProfilePreferenceX extends DialogPreference {
         {
             if ((addNoActivateItem == 1) && (profileId == Profile.PROFILE_NO_ACTIVATE))
                 if (noActivateAsDoNotApply == 1)
-                    setSummary(prefContext.getResources().getString(R.string.profile_preference_do_not_apply));
+                    setSummary(prefContext.getString(R.string.profile_preference_do_not_apply));
                 else
-                    setSummary(prefContext.getResources().getString(R.string.profile_preference_profile_end_no_activate));
+                    setSummary(prefContext.getString(R.string.profile_preference_profile_end_no_activate));
             else
-                setSummary(prefContext.getResources().getString(R.string.profile_preference_profile_not_set));
+                setSummary(prefContext.getString(R.string.profile_preference_profile_not_set));
         }
     }
 

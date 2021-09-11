@@ -604,8 +604,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             if (itemId == R.id.mobile_cells_pref_item_menu_delete) {
                 if (getActivity() != null) {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setTitle(getResources().getString(R.string.profile_context_item_delete));
-                    dialogBuilder.setMessage(getResources().getString(R.string.delete_mobile_cell_alert_message));
+                    dialogBuilder.setTitle(getString(R.string.profile_context_item_delete));
+                    dialogBuilder.setMessage(getString(R.string.delete_mobile_cell_alert_message));
                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                     dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                         DatabaseHandler db = DatabaseHandler.getInstance(_context);
@@ -634,8 +634,8 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
             if (itemId == R.id.mobile_cells_pref_item_menu_delete_all_selected) {
                 if (getActivity() != null) {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setTitle(getResources().getString(R.string.profile_context_item_delete));
-                    dialogBuilder.setMessage(getResources().getString(R.string.delete_selected_mobile_cells_alert_message));
+                    dialogBuilder.setTitle(getString(R.string.profile_context_item_delete));
+                    dialogBuilder.setMessage(getString(R.string.delete_selected_mobile_cells_alert_message));
                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                     dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                         DatabaseHandler db = DatabaseHandler.getInstance(_context);

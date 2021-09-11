@@ -335,7 +335,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             } else {
                 // create empty profile and set icon resource
                 profile = new Profile();
-                profile._name = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                profile._name = context.getString(R.string.profiles_header_profile_name_no_activated);
                 profile._icon = Profile.PROFILE_ICON_DEFAULT + "|1|0|0";
 
                 profile.generateIconBitmap(context.getApplicationContext(),
@@ -671,7 +671,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         if (profile != null)
             pName = DataWrapper.getProfileNameWithManualIndicatorAsString(profile, true, "", true, false, false, dataWrapper);
         else
-            pName = context.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+            pName = context.getString(R.string.profiles_header_profile_name_no_activated);
 
         //PPApplication.logE("OneRowWidgetProvider.updateWidgets", "pName="+pName);
 

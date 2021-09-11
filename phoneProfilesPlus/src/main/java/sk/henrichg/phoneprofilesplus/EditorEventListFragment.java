@@ -592,7 +592,7 @@ public class EditorEventListFragment extends Fragment
                 {
                     if ((fragment.getActivity() != null ) && (!fragment.getActivity().isFinishing()))
                         PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                fragment.getResources().getString(R.string.toast_predefined_events_generated),
+                                fragment.getString(R.string.toast_predefined_events_generated),
                                 Toast.LENGTH_SHORT);
                 }
             }
@@ -972,8 +972,8 @@ public class EditorEventListFragment extends Fragment
         final Event _event = event;
         //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getResources().getString(R.string.event_string_0) + ": " + event._name);
-        dialogBuilder.setMessage(getResources().getString(R.string.delete_event_alert_message));
+        dialogBuilder.setTitle(getString(R.string.event_string_0) + ": " + event._name);
+        dialogBuilder.setMessage(getString(R.string.delete_event_alert_message));
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> deleteEvent(_event));
         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
@@ -998,8 +998,8 @@ public class EditorEventListFragment extends Fragment
         if (eventListAdapter != null) {
             //noinspection ConstantConditions
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-            dialogBuilder.setTitle(getResources().getString(R.string.alert_title_delete_all_events));
-            dialogBuilder.setMessage(getResources().getString(R.string.alert_message_delete_all_events));
+            dialogBuilder.setTitle(getString(R.string.alert_title_delete_all_events));
+            dialogBuilder.setMessage(getString(R.string.alert_message_delete_all_events));
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                 PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, null, 0, "");
@@ -1075,7 +1075,7 @@ public class EditorEventListFragment extends Fragment
         {
             activatedProfileHeader.setTag(getString(R.string.profiles_header_profile_name_no_activated));
 
-            activeProfileName.setText(getResources().getString(R.string.profiles_header_profile_name_no_activated));
+            activeProfileName.setText(getString(R.string.profiles_header_profile_name_no_activated));
             activeProfileIcon.setImageResource(R.drawable.ic_profile_default);
         }
         else
@@ -1916,7 +1916,7 @@ public class EditorEventListFragment extends Fragment
                 int itemId = item.getItemId();
                 if (itemId == R.id.event_list_item_ignore_manual_activation_title) {
                     PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                            getResources().getString(R.string.popupmenu_title_click_below_toast),
+                            getString(R.string.popupmenu_title_click_below_toast),
                             Toast.LENGTH_SHORT);
                     return true;
                 }
@@ -1929,7 +1929,7 @@ public class EditorEventListFragment extends Fragment
                     ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
                     PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                            getResources().getString(R.string.ignore_manual_activation_not_ignore_toast),
+                            getString(R.string.ignore_manual_activation_not_ignore_toast),
                             Toast.LENGTH_LONG);
 
                     return true;
@@ -1944,7 +1944,7 @@ public class EditorEventListFragment extends Fragment
                     ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
                     PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                            getResources().getString(R.string.ignore_manual_activation_ignore_toast),
+                            getString(R.string.ignore_manual_activation_ignore_toast),
                             Toast.LENGTH_LONG);
 
                     return true;
@@ -1959,7 +1959,7 @@ public class EditorEventListFragment extends Fragment
                     ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
                     PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                            getResources().getString(R.string.ignore_manual_activation_ignore_no_pause_toast),
+                            getString(R.string.ignore_manual_activation_ignore_no_pause_toast),
                             Toast.LENGTH_LONG);
 
                     return true;
@@ -1979,7 +1979,7 @@ public class EditorEventListFragment extends Fragment
     void updateEventForceRun(final Event event) {
         //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getResources().getString(R.string.event_string_0) + ": " + event._name);
+        dialogBuilder.setTitle(getString(R.string.event_string_0) + ": " + event._name);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         int noPause = event._forceRun ? 1 : 0;
         dialogBuilder.setSingleChoiceItems(R.array.ignoreManualActivationArray, noPause, new DialogInterface.OnClickListener() {

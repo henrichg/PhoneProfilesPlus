@@ -66,8 +66,8 @@ public class MobileCellsPreferenceX extends DialogPreference {
 
     private void setSummary() {
         /*if (!ApplicationPreferences.applicationEventMobileCellEnableScannig(context.getApplicationContext())) {
-            preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                    ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
+            preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
+                    ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
         }
         else {*/
         if (value.isEmpty())

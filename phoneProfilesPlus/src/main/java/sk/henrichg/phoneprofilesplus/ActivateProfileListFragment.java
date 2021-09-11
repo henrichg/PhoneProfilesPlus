@@ -324,7 +324,7 @@ public class ActivateProfileListFragment extends Fragment {
                     if (modulo > 0) {
                         for (int i = 0; i < numColumns - modulo; i++) {
                             Profile profile = DataWrapper.getNonInitializedProfile(
-                                    dataWrapper.context.getResources().getString(R.string.profile_name_default),
+                                    dataWrapper.context.getString(R.string.profile_name_default),
                                     Profile.PROFILE_ICON_DEFAULT, PORDER_FOR_EMPTY_SPACE);
                             profile._showInActivator = true;
                             this.dataWrapper.profileList.add(profile);
@@ -493,7 +493,7 @@ public class ActivateProfileListFragment extends Fragment {
         {
             activatedProfileHeader.setTag(getString(R.string.profiles_header_profile_name_no_activated));
 
-            activeProfileName.setText(getResources().getString(R.string.profiles_header_profile_name_no_activated));
+            activeProfileName.setText(getString(R.string.profiles_header_profile_name_no_activated));
             activeProfileIcon.setImageResource(R.drawable.ic_profile_default);
         }
         else
