@@ -65,7 +65,6 @@
     <string name="profile_preferences_deviceNFC">(G1)(R) NFC</string>
     <string name="profile_preferences_deviceScreenTimeout">Tiempo de espera para apagar pantalla</string>
     <string name="profile_preferences_deviceBrightness">Brillo de pantalla</string>
-    <string name="profile_preferences_deviceWallpaper">Fondo de pantalla</string>
     <string name="profile_preferences_deviceWallpaperChange">Cambiar fondo de pantalla</string>
     <string name="array_pref_no_change">No cambiar</string>
     <string name="array_pref_hardwareModeArray_on">Encendido</string>
@@ -413,7 +412,6 @@
     <string name="pref_event_battery_power_save_mode">Modo de ahorro de energía</string>
     <string name="event_preferences_battery_power_save_mode">Modo de ahorro de energía</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Ajustes del modo de ahorro de energía</string>
-    <string name="important_info_profile_ringerMode_root">En Android 6, no es posible cambiar el ajuste de sistema \"Vibrar al sonar\" en dispositivos no \'rooteados\'.</string>
     <string name="important_info_profile_adaptiveBrightness_root">En Android 6+, no es posible cambiar el nivel de \"Brillo adaptativo\" en dispositivos no \'rooteados\'.</string>
     <string name="important_info_profile_wifiScanning_location">En Android 6+, para el escaneo Wi-Fi, debes habilitar la Ubicación y \"Escaneo Wi-fi\" en Ajustes de ubicación.</string>
     <string name="important_info_profile_bluetoothScanning_location">En Android 6+, para el escaneo de Bluetooth, debes habilitar la Ubicación y \"Escaneo Bluetooth\" en Ajustes de Ubicación.</string>
@@ -445,7 +443,6 @@
     <string name="important_info_profile_activation_restart_events_icon">Icono de reiniciar eventos:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Icono de \"Semáforo\":</string>
     <string name="important_info_android_doze_mode">Android 6+ implementa \"Doze mode\" y \"App Standby\". Para evitar problemas con eventos de activación de perfiles —cuando dejas de usar el dispositivo durante un tiempo, con la pantalla apagada, sin conectarlo al cargador e inmoóvil— haz clic aquí para añadir PhoneProfilesPlus a \"No optimizado\".</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Vibrar al sonar</string>
     <string name="info_notification_event_states">Un evento puede estar en uno de 6 estados:</string>
     <string name="info_notification_event_states_running">En ejecución: el evento se ha iniciado y está ejecutándose. Los parámetros del evento se cumplen.</string>
     <string name="info_notification_event_states_paused">En pausa: el evento no se está ejecutando. No se cumplen los parámetros de evento. El evento espera a que los parámetros se cumplan.</string>
@@ -762,7 +759,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Escaneo habilitado</string>
     <string name="duration_pref_dlg_duration_label">Duración:</string>
     <string name="duration_pref_dlg_activation_end_label">Finalizar activación:</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">En Android 6: Este ajuste del sistema sólo se puede cambiar en dispositivos \"rooteados\". Afecta a los modos de timbre y a los tipos de no molestar con vibración.</string>
     <string name="setting_screen_not_found_alert">Pantalla de ajustes no encontrada.</string>
     <string name="action_for_external_application_notification_no_profile_text">El parámetro profine_name está vació o no se encuentra.</string>
     <string name="action_for_external_application_notification_no_event_text">El parámetro event_name está vació o no se encuentra.</string>
@@ -1462,13 +1458,11 @@
     <string name="profile_activation_activation_error_change_wifi_ap">Error durante la activación del perfil. Falló el cambio de estado del punto de acceso Wi-Fi.</string>
     <string name="profile_activation_activation_error_change_wifi">Error durante la activación del perfil. Falló el cambio de estado de la Wi-Fi.</string>
     <string name="profile_activation_activation_error_close_all_applications">Error durante la activación del perfil. Falló el cierre de todas las aplicaciones.</string>
-    <string name="profile_preferences_deviceWiFiAPInfo30_summary">No soportado en Android 11+</string>
     <string name="menu_check_github_releases">Comprobar versiones de la app</string>
     <string name="check_github_releases_actual_version">Versión actual:</string>
     <string name="check_github_releases_go_to_github">Ir a GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Descarga la última versión de la PhoneProfilesPlusExtender.apk desde GitHub. Después haz clic en la notificación de la apk descargada e instálala.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlusExtender.apk se encuentra en</string>
-    <string name="check_github_releases_notification">Haz clic en esta notificación para comprobar las versiones de PhoneProfilesPlus en GitHub. Tal vez haya una nueva versión.</string>
     <string name="donation_paypal">Por favor, dona usando PayPal:</string>
     <string name="notification_channel_new_release">Nueva versión de PhoneProfilesPlus</string>
     <string name="notification_channel_new_release_description">Muestra notificación sobre una nueva versión de PhoneProfilesPlus.</string>
@@ -1542,7 +1536,6 @@
     <string name="profile_preferences_PPPExtender_not_installed_summary">No instalado</string>
     <string name="accessibility_service_enabled">Habilitado</string>
     <string name="accessibility_service_disabled">Deshabilitado</string>
-    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">No funciona en Android 10+</string>
     <string name="event_preferences_calendar_day_contains_event">El día actual contiene el evento de calendario</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">No comprobarlo</string>
     <string name="array_event_pref_calendarDayContainsEvent_contains">Contiene parámetros Y están configurados</string>
@@ -1755,6 +1748,15 @@
     <string name="live_wallpapers_pref_dlg_summary_text_not_selected">No seleccionado</string>
     <string name="menu_check_releases_apkpure">Comprobar en APKPure</string>
     <string name="check_releases_go_to_apkpure">Ir a APKPure</string>
+    <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Force native (for custom icons)</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Run applications, shortcuts, intents for \"MIUI\"</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">For \"MIUI\" must be granted some permissions. Click this, to show how.</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
+    <string name="miui_permissions_alert_dialog_show">Show permissions</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrate when ringing\/Vibrate notifications</string>
+    <string name="profile_preferences_vibrateNotifications">Vibrate notifications</string>
+    <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Sound mode and vibration</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">To properly working vibration for ringing and notifications when \"Sound Mode\" is configured to some vibration type, is recommended to enable in device Settings: \"Sound &amp; vibration\"\/\"Vibration &amp; haptic\" and in it \"Notification vibration\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>
@@ -1818,4 +1820,9 @@
     <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
     <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
     <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
+    <!--    <string name="profile_preferences_deviceWallpaper">Wallpaper</string>-->
+    <!--    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>-->
+    <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
+    <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
+    <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
 </resources>

@@ -65,7 +65,6 @@
     <string name="profile_preferences_deviceNFC">(G1)(R) NFC</string>
     <string name="profile_preferences_deviceScreenTimeout">屏幕超时</string>
     <string name="profile_preferences_deviceBrightness">屏幕亮度</string>
-    <string name="profile_preferences_deviceWallpaper">壁纸</string>
     <string name="profile_preferences_deviceWallpaperChange">更改壁纸</string>
     <string name="array_pref_no_change">不要更改</string>
     <string name="array_pref_hardwareModeArray_on">开启</string>
@@ -413,7 +412,6 @@
     <string name="pref_event_battery_power_save_mode">省电模式</string>
     <string name="event_preferences_battery_power_save_mode">省电模式</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">省电模式设置</string>
-    <string name="important_info_profile_ringerMode_root">在未 root 的 Android 6 设备中，不能更改系统设置“响铃时震动”。</string>
     <string name="important_info_profile_adaptiveBrightness_root">在未 root 的 Android 6+ 设备中，不能更改系统设置“自适应亮度”。</string>
     <string name="important_info_profile_wifiScanning_location">在 Android 6+ 设备中，必须在定位设置中启用定位和“Wi-Fi 扫描”选项以启用 Wi-Fi 扫描。</string>
     <string name="important_info_profile_bluetoothScanning_location">在 Android 6+ 设备中，必须在定位设置中启用定位和“蓝牙扫描”选项以启用蓝牙 LE 扫描。</string>
@@ -445,7 +443,6 @@
     <string name="important_info_profile_activation_restart_events_icon">重新启动事件图标：</string>
     <string name="important_info_profile_activation_traffic_light_icon">“红绿灯”图标：</string>
     <string name="important_info_android_doze_mode">在 Android 6+ 中实现了“打盹模式”和“应用程序待机”。如果把设备限制一段时间后屏幕熄灭，事件激活情景遇到问题，请把 PhoneProfilesPlus 添加到“电池”→“电池优化”→“未优化”中。</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">响铃时震动</string>
     <string name="info_notification_event_states">事件有 6 个状态：</string>
     <string name="info_notification_event_states_running">运行中: 事件已经开始并正在运行；事件参数已满足要求。</string>
     <string name="info_notification_event_states_paused">暂停: 事件没有运行；事件参数不满足要求；或事件正在等待参数满足要求。</string>
@@ -762,7 +759,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">扫描已禁用</string>
     <string name="duration_pref_dlg_duration_label">持续时间︰</string>
     <string name="duration_pref_dlg_activation_end_label">激活结束：</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">在Android 6中：此系统设置只能在已 Root 设备上更改。受影响的是振铃模式，不干扰振动类型。</string>
     <string name="setting_screen_not_found_alert">找不到设置屏幕。</string>
     <string name="action_for_external_application_notification_no_profile_text">参数 profile_name 未设置或为空。</string>
     <string name="action_for_external_application_notification_no_event_text">参数 event_name 未设置或为空。</string>
@@ -1462,13 +1458,11 @@
     <string name="profile_activation_activation_error_change_wifi_ap">启用情景时出错。更改Wi-Fi热点状态失败。</string>
     <string name="profile_activation_activation_error_change_wifi">启用情景时出错。更改Wi-Fi状态失败。</string>
     <string name="profile_activation_activation_error_close_all_applications">启用情景时出错。关闭所有应用程序失败。</string>
-    <string name="profile_preferences_deviceWiFiAPInfo30_summary">不支持 Android 11+</string>
     <string name="menu_check_github_releases">检查应用程序版本</string>
     <string name="check_github_releases_actual_version">实际版本：</string>
     <string name="check_github_releases_go_to_github">转到 GitHub 发布</string>
     <string name="check_github_releases_install_info_1">从 GitHub 下载最新版本的 PhoneProfilesPlus.apk。然后点击通知已下载的apk 并安装它。</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk 位于：</string>
-    <string name="check_github_releases_notification">点击此通知以检查 GitHub 中的 PhoneProfilesPlus 版本。也许会发布更新版本。</string>
     <string name="donation_paypal">请使用PayPal捐赠：</string>
     <string name="notification_channel_new_release">新版 PhoneProfilesPlus 已发布</string>
     <string name="notification_channel_new_release_description">显示新版 PhoneProfilesPlus 发布的通知。</string>
@@ -1542,7 +1536,6 @@
     <string name="profile_preferences_PPPExtender_not_installed_summary">未安装</string>
     <string name="accessibility_service_enabled">已启用</string>
     <string name="accessibility_service_disabled">已禁用</string>
-    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">在 Android 10+ 中不工作</string>
     <string name="event_preferences_calendar_day_contains_event">当前日期包含日历事件</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">不测试</string>
     <string name="array_event_pref_calendarDayContainsEvent_contains">包含并配置了参数</string>
@@ -1755,6 +1748,15 @@
     <string name="live_wallpapers_pref_dlg_summary_text_not_selected">未选中</string>
     <string name="menu_check_releases_apkpure">在 APKPure 中检查</string>
     <string name="check_releases_go_to_apkpure">转到 APKPure</string>
+    <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Force native (for custom icons)</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Run applications, shortcuts, intents for \"MIUI\"</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">For \"MIUI\" must be granted some permissions. Click this, to show how.</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
+    <string name="miui_permissions_alert_dialog_show">Show permissions</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrate when ringing\/Vibrate notifications</string>
+    <string name="profile_preferences_vibrateNotifications">Vibrate notifications</string>
+    <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Sound mode and vibration</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">To properly working vibration for ringing and notifications when \"Sound Mode\" is configured to some vibration type, is recommended to enable in device Settings: \"Sound &amp; vibration\"\/\"Vibration &amp; haptic\" and in it \"Notification vibration\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1818,4 +1820,9 @@
     <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
     <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
     <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
+    <!--    <string name="profile_preferences_deviceWallpaper">Wallpaper</string>-->
+    <!--    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>-->
+    <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
+    <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
+    <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
 </resources>

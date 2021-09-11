@@ -65,7 +65,6 @@
     <string name="profile_preferences_deviceNFC">(G1)(R) NFC</string>
     <string name="profile_preferences_deviceScreenTimeout">Čas do vypnutí obrazovky</string>
     <string name="profile_preferences_deviceBrightness">Jas podsvícení obrazovky</string>
-    <string name="profile_preferences_deviceWallpaper">Obrázek pozadí</string>
     <string name="profile_preferences_deviceWallpaperChange">Změnit obrázek pozadí</string>
     <string name="array_pref_no_change">Neměnit</string>
     <string name="array_pref_hardwareModeArray_on">Zapnout</string>
@@ -413,7 +412,6 @@
     <string name="pref_event_battery_power_save_mode">Úsporný režim</string>
     <string name="event_preferences_battery_power_save_mode">Úsporný režim</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Nastavení Úsporného režimu</string>
-    <string name="important_info_profile_ringerMode_root">V Androidu 6 není možné změnit nastavení \"Vibrovat při vyzvánění\" pokud nemáte práva ROOT.</string>
     <string name="important_info_profile_adaptiveBrightness_root">V Androidu 6+ není možné měnit úrovně \"Adaptivní jas\" pokud nemáte práva ROOT.</string>
     <string name="important_info_profile_wifiScanning_location">V Android 6+, pro skenování Wi-Fi musí být povolena Poloha a \"Vyhledávání sítí Wi-Fi\" v nastaveních Polohy.</string>
     <string name="important_info_profile_bluetoothScanning_location">V Android 6+, pro Bluetooth LE skenování musí být povolena Poloha a \"Hledání zařízení Bluetooth\" v nastavení Polohy.</string>
@@ -445,7 +443,6 @@
     <string name="important_info_profile_activation_restart_events_icon">Ikona pro restart událostí:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Ikona pro \"semafor\":</string>
     <string name="important_info_android_doze_mode">Android 6+ implementuje \"Doze režim\" a \"App Standby\". Pokud jste narazili na problémy s aktivací profilu z událostí, ppokud jste nechali zařízení v klidu a odpojeno nějakou dobu, s vypnutou obrazovkou, klikněte zde a přidejte PhoneProfilesPlus do \"Neoptimalizováno\".</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Vibrovat při vyzvánění</string>
     <string name="info_notification_event_states">Událost může být ve 6ti stavech:</string>
     <string name="info_notification_event_states_running">Běh: událost je spuštěna a běží. Parametry události jsou splněny.</string>
     <string name="info_notification_event_states_paused">Pozastaveno: událost neběží. Parametry události nejsou splněny. Událost čeká na jejich splnění.</string>
@@ -762,7 +759,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Skenování povoleno</string>
     <string name="duration_pref_dlg_duration_label">Trvání:</string>
     <string name="duration_pref_dlg_activation_end_label">Konec aktivace:</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">V Androidu 6 toto systémové nastavení lze změnit pouze v rootnutých zařízeních. Postižené jsou režimy vyzvánění a typy Nerušit s vibrací.</string>
     <string name="setting_screen_not_found_alert">Obrazovka nastavení nebyla nalezena.</string>
     <string name="action_for_external_application_notification_no_profile_text">Parametr profile_name chybí nebo je prázdný.</string>
     <string name="action_for_external_application_notification_no_event_text">Parametr event_name chybí nebo je prázdný.</string>
@@ -1462,13 +1458,11 @@
     <string name="profile_activation_activation_error_change_wifi_ap">Chyba během aktivace profilu. Změna stavu Wi-Fi přístupového bodu selhala.</string>
     <string name="profile_activation_activation_error_change_wifi">Chyba během aktivace profilu. Změna stavu Wi-Fi selhala.</string>
     <string name="profile_activation_activation_error_close_all_applications">Chyba během aktivace profilu. Zavření všech aplikací selhalo.</string>
-    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Není podporováno pro Android 11+</string>
     <string name="menu_check_github_releases">Zkontrolovat vydání apl.</string>
     <string name="check_github_releases_actual_version">Aktuální verze:</string>
     <string name="check_github_releases_go_to_github">Jít do GitHub Releases</string>
     <string name="check_github_releases_install_info_1">Stáhněte si nejnovější verzi PhoneProfilesPlus.apk z jeho GitHub. Klikněte na notifikaci o staženém apk a nainstalujte ho.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk se nachází v</string>
-    <string name="check_github_releases_notification">Klikněte na tuto notifikaci na zkontrolování vydání PhoneProfilesPlus v GitHub. Možná byla vydána novější verze.</string>
     <string name="donation_paypal">Prosím přispějte přes PayPal:</string>
     <string name="notification_channel_new_release">Nová verze PhoneProfilesPlus</string>
     <string name="notification_channel_new_release_description">Zobrazuje notifikaci o nové verzi PhoneProfilesPlus.</string>
@@ -1542,7 +1536,6 @@
     <string name="profile_preferences_PPPExtender_not_installed_summary">Nenainstalováno</string>
     <string name="accessibility_service_enabled">Povoleno</string>
     <string name="accessibility_service_disabled">Zakázáno</string>
-    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Nefunguje v Android 10+</string>
     <string name="event_preferences_calendar_day_contains_event">Aktuální den obsahuje událost kalendáře</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Netestovat</string>
     <string name="array_event_pref_calendarDayContainsEvent_contains">Obsahuje A má nakonfigurovány parametry</string>
@@ -1755,6 +1748,15 @@
     <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Nevybráno</string>
     <string name="menu_check_releases_apkpure">Zkontrolovat v APKPure</string>
     <string name="check_releases_go_to_apkpure">Jít do APKPure</string>
+    <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Vynutit nativní (pro vlastní ikony)</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Spustit aplikace, odkazy, intenty pro \"MIUI\"</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Pro \"MIUI\" musí být udělena některá oprávnění. Klikněte zde pro zobrazení jak.</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">V Nastavení zařízení\/Aplikace\/Správa aplikací\/PhoneProfilesPlus\/Ostatní povolení: \"Zobrazit vyskakovací okna během aktivity na pozadí\" a \"Zobrazit na zamčené obrazovce\" nastavte na \"Povolit\".</string>
+    <string name="miui_permissions_alert_dialog_show">Zobrazit oprávnění</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrovat při vyzvánění\/Vibrovat oznámení</string>
+    <string name="profile_preferences_vibrateNotifications">Vibrovat při oznámení</string>
+    <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Režim zvuku a vibrace</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Pro správné fungování vibrací pro vyzvánění a notifikace v případě, že je \"Zvukový režim\" nastaven na nějaký typ vibrací, doporučujeme povolit v nastavení zařízení: \"Zvuk a vibrace\"\/\"Vibrace a hmatová odezva\" a v něm \"Vibrování při upozornění\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1818,4 +1820,9 @@
     <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
     <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
     <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
+    <!--    <string name="profile_preferences_deviceWallpaper">Wallpaper</string>-->
+    <!--    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>-->
+    <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
+    <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
+    <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
 </resources>

@@ -65,7 +65,6 @@
     <string name="profile_preferences_deviceNFC">(G1)(R) NFC</string>
     <string name="profile_preferences_deviceScreenTimeout">Bildschirm Abschaltung</string>
     <string name="profile_preferences_deviceBrightness">Bildschirmhelligkeit</string>
-    <string name="profile_preferences_deviceWallpaper">Hintergrundbild</string>
     <string name="profile_preferences_deviceWallpaperChange">Hintergrundbild ändern</string>
     <string name="array_pref_no_change">Nicht ändern</string>
     <string name="array_pref_hardwareModeArray_on">An</string>
@@ -413,7 +412,6 @@
     <string name="pref_event_battery_power_save_mode">Energiesparmodus</string>
     <string name="event_preferences_battery_power_save_mode">Energiesparmodus</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Energiesparmodus-Einstellungen</string>
-    <string name="important_info_profile_ringerMode_root">In Android 6 ist es ohne Root nicht möglich, die Vibration im Stumm-Modus zu ändern.</string>
     <string name="important_info_profile_adaptiveBrightness_root">In Android 6+ ist es ohne Root nicht möglich, die adaptive Helligkeit zu ändern.</string>
     <string name="important_info_profile_wifiScanning_location">In Android 6+ muss die Suche nach Standort und WLAN in den Standorteinstellungen aktiviert sein, damit WLAN-Netze gefunden werden können.</string>
     <string name="important_info_profile_bluetoothScanning_location">In Android 6+ müssen Standort und Bluetooth-Scan in den Standorteinstellungen aktiviert sein, damit Bluetooth-LE-Scan funktioniert.</string>
@@ -445,7 +443,6 @@
     <string name="important_info_profile_activation_restart_events_icon">Ereignisneustart-Symbol:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Ampel-Symbol:</string>
     <string name="important_info_android_doze_mode">In Android 6+ gibt es den \"Tiefschlafmodus\" und \"App-Standby\". Wenn du Probleme mit der Profilaktivierung durch Ereignisse hast, wenn dein Gerät lange Zeit ungenutzt und der Bildschirm aufgeschaltet war, dann füge PhoneProfilesPlus in \"Batterie\"→\"Batterieoptimierung\"→\"Nicht optimiert\" hinzu.</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Beim Klingeln vibrieren</string>
     <string name="info_notification_event_states">Ein Ereignis kann 6 Zustände haben:</string>
     <string name="info_notification_event_states_running">Läuft: Ereignis ist gestartet und aktiv. Ereignisparameter sind erfüllt.</string>
     <string name="info_notification_event_states_paused">Angehalten: Ereignis angehalten, bis die Parameter erfüllt sind.</string>
@@ -762,7 +759,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Scannen eingeschaltet</string>
     <string name="duration_pref_dlg_duration_label">Dauer:</string>
     <string name="duration_pref_dlg_activation_end_label">Aktivierungs-Ende:</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Unter Android 6 kann diese Einstellung nur auf gerooteten Geräten geändert werden. Betroffen sind der Klingel-Modus und die Nicht-Stören-Typen mit Vibration.</string>
     <string name="setting_screen_not_found_alert">Einstellungs Dialog nicht gefunden.</string>
     <string name="action_for_external_application_notification_no_profile_text">Profilname ist nicht angegeben.</string>
     <string name="action_for_external_application_notification_no_event_text">Ereignis Name ist nicht angegeben.</string>
@@ -1462,13 +1458,11 @@
     <string name="profile_activation_activation_error_change_wifi_ap">Fehler bei der Aktivierung des Profils. Ändern des WLAN-Hotspot-Status fehlgeschlagen.</string>
     <string name="profile_activation_activation_error_change_wifi">Fehler bei der Aktivierung des Profils. Ändern des WLAN-Status fehlgeschlagen.</string>
     <string name="profile_activation_activation_error_close_all_applications">Fehler bei der Aktivierung des Profils. Schließen aller Anwendungen fehlgeschlagen.</string>
-    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Nicht unterstützt für Android 11+</string>
     <string name="menu_check_github_releases">App-Veröffentlichungen prüfen</string>
     <string name="check_github_releases_actual_version">Aktuelle Version:</string>
     <string name="check_github_releases_go_to_github">Zu den GitHub-Veröffentlichungen</string>
     <string name="check_github_releases_install_info_1">Laden Sie die neueste Version von PhoneProfilesPlusExtender.apk von GitHub herunter. Anschließend klicken Sie auf die Benachrichtigung über der heruntergeladenen apk und installieren Sie sie.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk befindet sich in</string>
-    <string name="check_github_releases_notification">Klicken Sie auf diese Benachrichtigung, um die Veröffentlichungen von PhoneProfilesPlus im GitHub zu überprüfen. Vielleicht wurde eine neuere Version veröffentlicht.</string>
     <string name="donation_paypal">Bitte spenden Sie mit PayPal:</string>
     <string name="notification_channel_new_release">Neue PhoneProfilesPlus-Version</string>
     <string name="notification_channel_new_release_description">Zeigt Benachrichtigung über neues PhoneProfilesPlus-Release.</string>
@@ -1542,7 +1536,6 @@
     <string name="profile_preferences_PPPExtender_not_installed_summary">Nicht installiert</string>
     <string name="accessibility_service_enabled">Aktiviert</string>
     <string name="accessibility_service_disabled">Deaktiviert</string>
-    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Funktioniert nicht in Android 10+</string>
     <string name="event_preferences_calendar_day_contains_event">Der aktuelle Tag enthält ein Kalenderereignis</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Nicht ausprobieren</string>
     <string name="array_event_pref_calendarDayContainsEvent_contains">Enthält UND und konfigurierte Parameter</string>
@@ -1755,6 +1748,15 @@
     <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Nicht ausgewählt</string>
     <string name="menu_check_releases_apkpure">In APKPure suchen</string>
     <string name="check_releases_go_to_apkpure">Zu APKPure wechseln</string>
+    <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Nativ erzwingen (für benutzerdefinierte Symbole)</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Anwendungen, Verknüpfungen, Absichten für „MIUI” ausführen</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Für „MIUI” müssen einige Berechtigungen erteilt werden. Klicken Sie hier, um die Vorgehensweise anzuzeigen.</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In den Geräteeinstellungen ➜ Apps ➜ Apps verwalten ➜ PhoneProfilesPlus ➜ Andere Berechtigungen: „Popup-Fenster anzeigen, wenn im Hintergrund ausgeführt” und „Auf dem Sperrbildschirm anzeigen” auf „Akzeptieren” festlegen.</string>
+    <string name="miui_permissions_alert_dialog_show">Berechtigungen anzeigen</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrieren beim Klingeln ➜ Vibrationsbenachrichtigungen</string>
+    <string name="profile_preferences_vibrateNotifications">Vibrationsbenachrichtigungen</string>
+    <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Töne und Vibration</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Damit das Vibrieren für Klingeln und Benachrichtigungen richtig funktioniert, wenn \"Töne\" auf einen bestimmten Vibrationstyp festgelegt ist, wird empfohlen, in den Geräteeinstellungen zu aktivieren: \"Ton und Vibration\" ➜ \"Vibration und Haptik\" ➜ „Vibrationsbenachrichtigung”.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1818,4 +1820,9 @@
     <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
     <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
     <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
+    <!--    <string name="profile_preferences_deviceWallpaper">Wallpaper</string>-->
+    <!--    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>-->
+    <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
+    <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
+    <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
 </resources>

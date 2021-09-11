@@ -65,7 +65,6 @@
     <string name="profile_preferences_deviceNFC">(G1)(R) NFC</string>
     <string name="profile_preferences_deviceScreenTimeout">Ekran zamanaşımı</string>
     <string name="profile_preferences_deviceBrightness">Ekran parlaklığı</string>
-    <string name="profile_preferences_deviceWallpaper">Duvar kağıdı</string>
     <string name="profile_preferences_deviceWallpaperChange">Duvar kağıdını değiştir</string>
     <string name="array_pref_no_change">Değiştirilmesin</string>
     <string name="array_pref_hardwareModeArray_on">Aç</string>
@@ -413,7 +412,6 @@
     <string name="pref_event_battery_power_save_mode">Güç Tasarrufu modu</string>
     <string name="event_preferences_battery_power_save_mode">Güç Tasarrufu modu açıkken</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Güç Tasarrufu modu ayarları</string>
-    <string name="important_info_profile_ringerMode_root">Android 6\'da sistem ayarı olan \"Çalarken titret\"i değiştirmek, kök erişimi olmayan cihazlarda mümkün değildir.</string>
     <string name="important_info_profile_adaptiveBrightness_root">Android 6+\'da sistem ayarı olan \"Otomatik parlaklık\"ı değiştirmek, kök erişimi olmayan cihazlarda mümkün değildir.</string>
     <string name="important_info_profile_wifiScanning_location">Android 6+\'da Wi-Fi tarama için \"Sistem Ayarları\" → \"Konum\" → \"Konum ve Wi-Fi tarama\" ayarlarında PhoneProfilesPlus\'a izin verilmelidir.</string>
     <string name="important_info_profile_bluetoothScanning_location">Android 6+\'da Bluetooth LE tarama için \"Sistem Ayarları\" → \"Konum\" → \"Konum ve Bluetooth tarama\" ayarlarında PhoneProfilesPlus\'a izin verilmelidir.</string>
@@ -445,7 +443,6 @@
     <string name="important_info_profile_activation_restart_events_icon">Durumları tekrar başlat simgesi:</string>
     <string name="important_info_profile_activation_traffic_light_icon">\"Trafik ışığı\" simgesi:</string>
     <string name="important_info_android_doze_mode">Android 6+\'da \"Doze modu\" ve \"Uygulama bekletme\" uygulanmaktadır. Durumlar vasıtasıyla Tercihi faaliyete geçirmede sorun yaşanırsa şunlara dikkat edin:\nEğer cihazı bir süre şarja takmadan ekranı kapalı bırakıyorsanız, sistem Pil ayarlarında \"Pil\" → \"Pil en iyi duruma getirme\" → \"En iyi duruma getirilmedi\" ayarlarında PhoneProfilesPlus\'ı ilave etmeniz lazımdır.</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Çalarken titret</string>
     <string name="info_notification_event_states">Durum, 6 vaziyette olabilir:</string>
     <string name="info_notification_event_states_running">Çalışıyor: Durum başlamış ve çalışır durumdadır. Durum değerleri karşılanmıştır.</string>
     <string name="info_notification_event_states_paused">Fasıla verildi: Durum çalışmıyor. Durum değerleri yerine gelmiş değildir. Durum, değerlerin yerine gelmesini bekliyor.</string>
@@ -762,7 +759,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Tarama açık</string>
     <string name="duration_pref_dlg_duration_label">Müddet:</string>
     <string name="duration_pref_dlg_activation_end_label">Faaliyete geçirdikten sonra:</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Android 6\'da bu sistem ayarı yalnızca kök erişimi olan (root edilmiş) cihazlarda değiştirilebilir. Etkilenenler zil modları ve titreşimli \"Rahatsız Etmeyin\" türleridir.</string>
     <string name="setting_screen_not_found_alert">Ayar ekranı bulunamadı.</string>
     <string name="action_for_external_application_notification_no_profile_text">Tercih_ismi değeri eksik veya boş.</string>
     <string name="action_for_external_application_notification_no_event_text">Durum_ismi değeri eksik veya boş.</string>
@@ -1462,13 +1458,11 @@
     <string name="profile_activation_activation_error_change_wifi_ap">Tercihi faaliyete geçirmede hata. Wi-Fi hotspot durumunu değiştirme hatalı.</string>
     <string name="profile_activation_activation_error_change_wifi">Tercihi faaliyete geçirmede hata. Wi-Fi durumunu değiştirme hatalı.</string>
     <string name="profile_activation_activation_error_close_all_applications">Tercihi faaliyete geçirmede hata. Bütün uygulamaları kapatma hatalı.</string>
-    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Android 11+ desteklenmiyor</string>
     <string name="menu_check_github_releases">Uygulama sürümlerini kontrol et</string>
     <string name="check_github_releases_actual_version">Mevcud sürüm:</string>
     <string name="check_github_releases_go_to_github">GitHub sürümlerine git</string>
     <string name="check_github_releases_install_info_1">PhoneProfilesPlus.apk\'nın son sürümünü GitHub\'dan indirin. Daha sonra indirilen apk ilgili bildirime dokunup yükleyin.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk bulunduğu yer</string>
-    <string name="check_github_releases_notification">PhoneProfilesPlus\'ın GitHub sürümleri kontrolü için bu bildirime dokunun. Belki yeni bir sürüm yayınlanmış olabilir.</string>
     <string name="donation_paypal">Lütfen bize PayPal`den bağış yapın:</string>
     <string name="notification_channel_new_release">Yeni PhoneProfilesPlus yayınlandı</string>
     <string name="notification_channel_new_release_description">Yeni PhoneProfilesPlus yayını hakkında bildirim gösterir.</string>
@@ -1542,7 +1536,6 @@
     <string name="profile_preferences_PPPExtender_not_installed_summary">Kurulu değil</string>
     <string name="accessibility_service_enabled">Faal</string>
     <string name="accessibility_service_disabled">Kapalı</string>
-    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Android 10 ve üstünde çalışmıyor</string>
     <string name="event_preferences_calendar_day_contains_event">Bugün, takvim Durumunu ihtiva ediyor</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Tecrübe edilmesin</string>
     <string name="array_event_pref_calendarDayContainsEvent_contains">VE ayarlanmış şartlarını ihtiva eder</string>
@@ -1755,6 +1748,15 @@
     <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Not selected</string>
     <string name="menu_check_releases_apkpure">Check in APKPure</string>
     <string name="check_releases_go_to_apkpure">Go to APKPure</string>
+    <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Force native (for custom icons)</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Run applications, shortcuts, intents for \"MIUI\"</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">For \"MIUI\" must be granted some permissions. Click this, to show how.</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
+    <string name="miui_permissions_alert_dialog_show">Show permissions</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrate when ringing\/Vibrate notifications</string>
+    <string name="profile_preferences_vibrateNotifications">Vibrate notifications</string>
+    <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Sound mode and vibration</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">To properly working vibration for ringing and notifications when \"Sound Mode\" is configured to some vibration type, is recommended to enable in device Settings: \"Sound &amp; vibration\"\/\"Vibration &amp; haptic\" and in it \"Notification vibration\".</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• Tercih değeri \"Zorla durdurulan uygulamalar\"\n• Durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1818,4 +1820,9 @@
     <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
     <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
     <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
+    <!--    <string name="profile_preferences_deviceWallpaper">Wallpaper</string>-->
+    <!--    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>-->
+    <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
+    <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
+    <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
 </resources>
