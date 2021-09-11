@@ -466,6 +466,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 //            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "PPApplication.accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
             if (PPApplication.accessibilityServiceForPPPExtenderConnected > 0)
                 enabled = PPApplication.accessibilityServiceForPPPExtenderConnected == 1;
+            else
+                enabled = true;
         }
 //        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enabled="+enabled);
 
