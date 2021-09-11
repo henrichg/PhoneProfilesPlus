@@ -143,6 +143,9 @@ public class MainWorker extends Worker {
 //                        PPApplication.logE("[APP_START] MainWorker.doWork", "setApplicationFullyStarted");
                         PPApplication.setApplicationFullyStarted(appContext);
                         PPApplication.showToastForProfileActivation = true;
+                        if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0)
+                            // answer from Extender not returned
+                            PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
                         doAfterFirstStart(appContext,
