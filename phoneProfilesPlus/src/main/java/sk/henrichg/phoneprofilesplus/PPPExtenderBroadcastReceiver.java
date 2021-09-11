@@ -466,14 +466,14 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
-        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enabled="+enabled);
+//        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enabled="+enabled);
 
         if (checkFlag) {
             if (!enabled) {
                 if (PPApplication.accessibilityServiceForPPPExtenderConnected == 2) {
                     PPApplication.accessibilityServiceForPPPExtenderConnected = 0;
 
-                    PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "send broadcast to Extender");
+//                    PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "send broadcast to Extender");
 
                     // send broadcast to Extender to get if Extender is connected
                     Intent _intent = new Intent(PPApplication.ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED);
@@ -490,7 +490,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             //PPApplication.logE("PhoneProfilesService.onCreate", "workManager="+workManager);
                             if (workManager != null) {
-                                PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enqueue ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG");
+//                                PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enqueue ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG");
                                 workManager.enqueueUniqueWork(MainWorker.ACCESSIBILITY_SERVICE_CONNECTED_NOT_RECEIVED_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                             }
                         }

@@ -257,7 +257,7 @@ public class PPApplication extends Application
 
                                                 //+"|LocationGeofenceEditorActivityOSM"
                                                 //+"|TimeChangedReceiver"
-                                                +"|MainWorker.doWork"
+                                                //+"|MainWorker.doWork"
                                                 //+"|LocationScannerSwitchGPSBroadcastReceiver.onReceive"
                                                 //+"|LocationScannerSwitchGPSBroadcastReceiver.doWork"
                                                 //+"|LocationScanner"
@@ -316,7 +316,7 @@ public class PPApplication extends Application
                                                 //+"|LockDeviceAfterScreenOffBroadcastReceiver"
 
                                                 //+"|PPPExtenderBroadcastReceiver.onReceive"
-                                                +"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
+                                                //+"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
 
                                                 //+"|CheckCriticalGitHubReleasesBroadcastReceiver.doWork"
 
