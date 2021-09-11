@@ -147,6 +147,8 @@ public class MainWorker extends Worker {
                             // answer from Extender not returned
                             PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
                             PPApplication.restartAllScanners(appContext, false);
+                            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                            dataWrapper.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);
                         }
                         break;
                     case PPApplication.AFTER_FIRST_START_WORK_TAG:
@@ -212,68 +214,6 @@ public class MainWorker extends Worker {
             return Result.failure();
         }
     }
-
-    /*
-    private void startService(DataWrapper dataWrapper, boolean exitApp) {
-        //boolean isApplicationStarted = PPApplication.getApplicationStarted(false);
-        //PPApplication.logE("PackageReplacedReceiver.startService", "isApplicationStarted="+isApplicationStarted);
-
-        if (exitApp)
-            PPApplication.exitApp(false, dataWrapper.context, dataWrapper, null, false);
-
-        //DatabaseHandler.getInstance(dataWrapper.context).updateAllEventsStatus(Event.ESTATUS_RUNNING, Event.ESTATUS_PAUSE);
-        //DatabaseHandler.getInstance(dataWrapper.context).updateAllEventsSensorsPassed(EventPreferences.SENSOR_PASSED_WAITING);
-        //DatabaseHandler.getInstance(dataWrapper.context).deactivateProfile();
-        //DatabaseHandler.getInstance(dataWrapper.context).unblockAllEvents();
-        DatabaseHandler.getInstance(dataWrapper.context).disableNotAllowedPreferences();
-        //Event.setEventsBlocked(dataWrapper.context, false);
-        //DatabaseHandler.getInstance(dataWrapper.context).unblockAllEvents();
-        //Event.setForceRunEventRunning(dataWrapper.context, false);
-
-        //if (isApplicationStarted)
-        //{
-        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.startService", "start of wait for end of service");
-        int count = 0;
-        while ((PhoneProfilesService.getInstance() != null) && (count < 50)) {
-            PPApplication.sleep(100);
-            count++;
-        }
-        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.startService", "service ended");
-
-        // start PhoneProfilesService
-        //PPApplication.logE("DelayedWorksWorker.doWork", "xxx");
-        PPApplication.setApplicationStarted(dataWrapper.context, true);
-        Intent serviceIntent = new Intent(dataWrapper.context, PhoneProfilesService.class);
-        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, true);
-        //serviceIntent.putExtra(PhoneProfilesService.EXTRA_DEACTIVATE_PROFILE, true);
-        serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_ON_PACKAGE_REPLACE, true);
-        serviceIntent.putExtra(PhoneProfilesService.EXTRA_ACTIVATE_PROFILES, true);
-        //serviceIntent.putExtra(PPApplication.EXTRA_APPLICATION_START, true);
-        serviceIntent.putExtra(PPApplication.EXTRA_DEVICE_BOOT, false);
-        PPApplication.startPPService(dataWrapper.context, serviceIntent, true);
-        //}
-    }
-
-    private static boolean isServiceRunning(Context context) {
-        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        if (manager != null) {
-            Class<?> serviceClass = PhoneProfilesService.class;
-            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-                if (serviceClass.getName().equals(service.service.getClassName())) {
-//                    if (inForeground) {
-//                        PPApplication.logE("PhoneProfilesService.isServiceRunningInForeground", "service.foreground=" + service.foreground);
-//                        return service.foreground;
-//                    }
-//                    else
-                    PPApplication.logE("PhoneProfilesService.afterPackageReplaced.isServiceRunning", "true");
-                    return true;
-                }
-            }
-        }
-        PPApplication.logE("PhoneProfilesService.afterPackageReplaced.isServiceRunning", "false");
-        return false;
-    }
-    */
 
     private static void doAfterFirstStart(Context context,
                                           boolean activateProfiles,

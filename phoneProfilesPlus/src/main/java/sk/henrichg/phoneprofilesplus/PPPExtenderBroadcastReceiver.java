@@ -58,6 +58,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 //                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_PPPEXTENDER_IS_RUNNING_ANSWER");
                 PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
                 PPApplication.restartAllScanners(appContext, false);
+                DataWrapper dataWrapper1 = new DataWrapper(appContext, false, 0/*monochrome, monochromeValue*/, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                dataWrapper1.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
 //                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
@@ -80,10 +82,10 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             }
 
                             if (PhoneProfilesService.getInstance() != null) {
-                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
-                                dataWrapper.fillEventList();
-                                //dataWrapper.fillProfileList(false, false);
-                                PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper);
+                                DataWrapper dataWrapper2 = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                                dataWrapper2.fillEventList();
+                                //dataWrapper2.fillProfileList(false, false);
+                                PhoneProfilesService.getInstance().registerPPPPExtenderReceiver(true, dataWrapper2);
                             }
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
@@ -138,16 +140,16 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                                             wakeLock.acquire(10 * 60 * 1000);
                                         }
 
-                                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
-                                        dataWrapper.fillEventList();
+                                        DataWrapper dataWrapper3 = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                                        dataWrapper3.fillEventList();
                                         //DatabaseHandler databaseHandler = DatabaseHandler.getInstance(appContext);
 
                                         EventsHandler eventsHandler = new EventsHandler(appContext);
-                                        if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/)) {
+                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/)) {
 //                                            PPApplication.logE("[EVENTS_HANDLER_CALL] PPPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_APPLICATION (1)");
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_APPLICATION);
                                         }
-                                        if (dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/)) {
+                                        if (dataWrapper3.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/)) {
 //                                            PPApplication.logE("[EVENTS_HANDLER_CALL] PPPExtenderBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_DEVICE_ORIENTATION (1)");
                                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_DEVICE_ORIENTATION);
                                         }
@@ -194,16 +196,16 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                             wakeLock.acquire(10 * 60 * 1000);
                         }
 
-                        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
-                        dataWrapper.fillEventList();
+                        DataWrapper dataWrapper4 = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                        dataWrapper4.fillEventList();
 
                         boolean applicationsAllowed = false;
                         boolean orientationAllowed = false;
-                        boolean applicationExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/);
+                        boolean applicationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_APPLICATION/*, false*/);
                         if (applicationExists)
                             applicationsAllowed = (Event.isEventPreferenceAllowed(EventPreferencesApplication.PREF_EVENT_APPLICATION_ENABLED, appContext).allowed ==
                                     PreferenceAllowed.PREFERENCE_ALLOWED);
-                        boolean orientationExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
+                        boolean orientationExists = dataWrapper4.eventTypeExists(DatabaseHandler.ETYPE_ORIENTATION/*, false*/);
                         if (orientationExists)
                             orientationAllowed = (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
                                     PreferenceAllowed.PREFERENCE_ALLOWED);
