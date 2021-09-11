@@ -243,7 +243,7 @@ public class PhoneProfilesService extends Service
         PPApplication.logE("$$$ PhoneProfilesService.onCreate", "OLD serviceHasFirstStart=" + serviceHasFirstStart);
         serviceHasFirstStart = false;
 
-        PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
+        //PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
 
         //startForegroundNotification = true;
         //isInForeground = false;
