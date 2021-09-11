@@ -767,6 +767,7 @@ public class PhoneProfilesService extends Service
             }
             // send broadcast to Extender to get if Extender is running
             //PPApplication.logE("[RJS] PhoneProfilesService.registerPPPPExtenderReceiver", "REGISTER PPApplication.ACTION_PPPEXTENDER_IS_RUNNING");
+            PPApplication.accessibilityServiceForPPPExtenderConnected = 0;
             Intent _intent = new Intent(PPApplication.ACTION_PPPEXTENDER_IS_RUNNING);
             sendBroadcast(_intent, PPApplication.PPP_EXTENDER_PERMISSION);
 

@@ -56,11 +56,11 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         switch (intent.getAction()) {
             case PPApplication.ACTION_PPPEXTENDER_IS_RUNNING_ANSWER:
 //                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_PPPEXTENDER_IS_RUNNING_ANSWER");
-                PPApplication.accessibilityServiceForPPPExtenderConnected = true;
+                PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_CONNECTED:
 //                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_CONNECTED");
-                PPApplication.accessibilityServiceForPPPExtenderConnected = true;
+                PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
                 PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_CONNECTED"*/);
                 final Handler __handler0 = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler0.post(new PPApplication.PPHandlerThreadRunnable(
@@ -174,7 +174,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
                 break;
             case PPApplication.ACTION_ACCESSIBILITY_SERVICE_UNBIND:
 //                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_ACCESSIBILITY_SERVICE_UNBIND");
-                PPApplication.accessibilityServiceForPPPExtenderConnected = false;
+                PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
 
                 PPApplication.startHandlerThreadBroadcast(/*"PPPExtenderBroadcastReceiver.onReceive.ACTION_ACCESSIBILITY_SERVICE_UNBIND"*/);
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
@@ -464,7 +464,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
 
         if (!enabled) {
 //            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "PPApplication.accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
-            enabled = PPApplication.accessibilityServiceForPPPExtenderConnected;
+            if (PPApplication.accessibilityServiceForPPPExtenderConnected > 0)
+                enabled = PPApplication.accessibilityServiceForPPPExtenderConnected == 1;
         }
 //        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enabled="+enabled);
 

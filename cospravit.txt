@@ -370,3 +370,19 @@ Ako zobrazovat nepriesvitnost a svetlost:
      dialog zasa nech zobrazuje okrem percent aj prislusne images pre kazdy item
 
 Skus spravit tie images vektorove.
+
+----------
+
+PPApplication.accessibilityServiceForPPPExtenderConnected
+- dat ako int: 0 = pytam si stav od Extendera, 1 = connected, 2 = not connected
+- ak je 0, netestovat accessibility
+- ak pride odpoved od Extendera:
+  PPPExtenderBroadcastReceiver.onReceive():
+     switch (intent.getAction()) {
+                case PPApplication.ACTION_PPPEXTENDER_IS_RUNNING_ANSWER:
+    //                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_PPPEXTENDER_IS_RUNNING_ANSWER");
+                    PPApplication.accessibilityServiceForPPPExtenderConnected = true;
+
+                    *** dat sem restart senzorov
+
+                    break;
