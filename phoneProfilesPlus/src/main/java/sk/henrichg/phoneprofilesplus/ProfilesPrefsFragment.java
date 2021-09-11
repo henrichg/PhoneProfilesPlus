@@ -2773,7 +2773,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ok = false;
         }
         else
-        if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context)) {
+        if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
             cattegorySummaryData.summary = getResources().getString(R.string.profile_preferences_device_not_allowed)+
                     ": "+getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
             ok = false;
@@ -2829,7 +2829,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 cattegorySummaryData.summary = cattegorySummaryData.summary +
                         getResources().getString(R.string.profile_preferences_device_not_allowed) +
                         ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-            } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context)) {
+            } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
                 //ok = false;
                 cattegorySummaryData.summary = cattegorySummaryData.summary +
                         getResources().getString(R.string.profile_preferences_device_not_allowed) +
@@ -3984,7 +3984,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
                 }
                 else
-                if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context)) {
+                if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
                     ok = false;
                     changeSummary = getResources().getString(R.string.profile_preferences_device_not_allowed)+
                             ": "+getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
@@ -4051,7 +4051,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         changeSummary = changeSummary + "\n\n" +
                                 getResources().getString(R.string.profile_preferences_device_not_allowed) +
                                 ": " + getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                    } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context)) {
+                    } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true)) {
                         //ok = false;
                         changeSummary = changeSummary + "\n\n" +
                                 getResources().getString(R.string.profile_preferences_device_not_allowed) +

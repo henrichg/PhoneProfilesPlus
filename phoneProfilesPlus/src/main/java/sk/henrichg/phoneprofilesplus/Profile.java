@@ -4016,7 +4016,7 @@ public class Profile {
             }
             if (accessibilityEnabled == -99) {
                 // Extender is in right version
-                if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
+                if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true))
                     // accessibility enabled
                     accessibilityEnabled = 1;
                 else

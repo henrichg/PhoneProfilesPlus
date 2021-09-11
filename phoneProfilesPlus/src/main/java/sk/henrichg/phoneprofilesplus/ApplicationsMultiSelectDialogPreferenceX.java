@@ -172,7 +172,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                     ok = false;
                     prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context)) {
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, true)) {
                     ok = false;
                     prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + _context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
@@ -189,7 +189,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                     ok = false;
                     prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + _context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context)) {
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(_context, true)) {
                     ok = false;
                     prefDataSummary = _context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + _context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);

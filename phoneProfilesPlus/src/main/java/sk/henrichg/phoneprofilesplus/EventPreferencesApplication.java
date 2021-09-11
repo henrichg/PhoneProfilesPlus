@@ -95,7 +95,7 @@ class EventPreferencesApplication extends EventPreferences {
                 } else if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1) {
                     selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_extender_not_upgraded);
-                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext())) {
+                } else if (!PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context.getApplicationContext(), true)) {
                     selectedApplications = context.getResources().getString(R.string.profile_preferences_device_not_allowed) +
                             ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
                 } else if (!this._applications.isEmpty() && !this._applications.equals("-")) {
@@ -260,7 +260,7 @@ class EventPreferencesApplication extends EventPreferences {
             return -2;
         if (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1)
             return -1;
-        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
+        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true))
             return 1;
         return 0;
     }

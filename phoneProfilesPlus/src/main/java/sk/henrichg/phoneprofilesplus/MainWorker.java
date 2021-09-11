@@ -145,7 +145,10 @@ public class MainWorker extends Worker {
                         PPApplication.showToastForProfileActivation = true;
                         if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
                             // answer from Extender not returned
-                            PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
+                            if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, false))
+                                PPApplication.accessibilityServiceForPPPExtenderConnected = 1;
+                            else
+                                PPApplication.accessibilityServiceForPPPExtenderConnected = 2;
                             PPApplication.restartAllScanners(appContext, false);
                             DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0/*monochrome, monochromeValue*/, false, DataWrapper.IT_FOR_EDITOR, 0f);
                             dataWrapper.restartEventsWithDelay(5, true, false, false, PPApplication.ALTYPE_UNDEFINED);

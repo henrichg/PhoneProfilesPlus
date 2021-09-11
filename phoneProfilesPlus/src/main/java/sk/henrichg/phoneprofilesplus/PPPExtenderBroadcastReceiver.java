@@ -435,7 +435,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         }
     }
 
-    static boolean isAccessibilityServiceEnabled(Context context) {
+    static boolean isAccessibilityServiceEnabled(Context context, boolean checkFlag) {
         boolean enabled = false;
         AccessibilityManager manager = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
         if (manager != null) {
@@ -465,13 +465,16 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
             }
         }
 
-        if (!enabled) {
+        if (checkFlag) {
+            if (!enabled) {
 //            PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "PPApplication.accessibilityServiceForPPPExtenderConnected="+PPApplication.accessibilityServiceForPPPExtenderConnected);
-            if (PPApplication.accessibilityServiceForPPPExtenderConnected > 0)
-                enabled = PPApplication.accessibilityServiceForPPPExtenderConnected == 1;
-            else
-                enabled = true;
+                if (PPApplication.accessibilityServiceForPPPExtenderConnected > 0)
+                    enabled = PPApplication.accessibilityServiceForPPPExtenderConnected == 1;
+                else
+                    enabled = true;
+            }
         }
+
 //        PPApplication.logE("PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled", "enabled="+enabled);
 
         return enabled;
@@ -535,7 +538,7 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         int extenderVersion = isExtenderInstalled(context);
         boolean enabled = false;
         if (extenderVersion >= version)
-            enabled = isAccessibilityServiceEnabled(context);
+            enabled = isAccessibilityServiceEnabled(context, true);
         return  (extenderVersion >= version) && enabled;
     }
 
