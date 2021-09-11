@@ -327,7 +327,7 @@ public class PPApplication extends Application
 
                                                 //+"|GrantPermissionActivity"
 
-                                                +"|ActivateProfileHelper.setVibrateNotification"
+                                                //+"|ActivateProfileHelper.setVibrateNotification"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

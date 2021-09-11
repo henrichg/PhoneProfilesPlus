@@ -1648,10 +1648,10 @@ class ActivateProfileHelper {
     }
 
     private static void setVibrateNotification(Context context, Profile profile, int value, SharedPreferences executedProfileSharedPreferences) {
-        if (PPApplication.logEnabled()) {
-            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "profile=" + profile);
-            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "value=" + value);
-        }
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "profile=" + profile);
+//            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "value=" + value);
+//        }
         int lValue = value;
         if (profile != null) {
             switch (profile._vibrateNotifications) {
@@ -1679,7 +1679,7 @@ class ActivateProfileHelper {
                     break;
             }
         }
-        PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "lValue="+lValue);
+//        PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "lValue="+lValue);
 
         if (lValue != -1) {
             Context appContext = context.getApplicationContext();
@@ -1712,7 +1712,7 @@ class ActivateProfileHelper {
                                 try {
                                     RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
                                     PPApplication.commandWait(command, "ActivateProfileHelper.setVibrateNotification");
-                                    PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate notifications set (with root)");
+//                                    PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate notifications set (with root)");
                                 } catch (Exception e) {
                                     // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
                                     //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(e));
@@ -1720,15 +1720,15 @@ class ActivateProfileHelper {
                                 }
                             }
                         }
-                        else
-                            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not rooted");
+//                        else
+//                            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not rooted");
                     //}
                 }
-                else
-                    PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not permission granted");
+//                else
+//                    PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not permission granted");
             }
-            else
-                PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not profile preferences allowed");
+//            else
+//                PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not profile preferences allowed");
         }
     }
 
