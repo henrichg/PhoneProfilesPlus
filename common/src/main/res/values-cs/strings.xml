@@ -1757,6 +1757,9 @@
     <string name="profile_preferences_vibrateNotifications">Vibrovat při oznámení</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Režim zvuku a vibrace</string>
     <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Pro správné fungování vibrací pro vyzvánění a notifikace v případě, že je \"Zvukový režim\" nastaven na nějaký typ vibrací, doporučujeme povolit v nastavení zařízení: \"Zvuk a vibrace\"\/\"Vibrace a hmatová odezva\" a v něm \"Vibrování při upozornění\".</string>
+    <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Služba Dostupnost pro PhoneProfilesPlusExtender není povolena, ale se zjišťuje</string>
+    <string name="extender_accessibility_setting_not_enabled_title">Služba Dostupnost není povolena</string>
+    <string name="extender_accessibility_setting_not_enabled_text">Služba Dostupnost pro PhoneProfilesPlusExtender není povolena. Klikněte zde pro její povolení.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

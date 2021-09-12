@@ -1757,6 +1757,9 @@
     <string name="profile_preferences_vibrateNotifications">Vibrationsbenachrichtigungen</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Töne und Vibration</string>
     <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Damit das Vibrieren für Klingeln und Benachrichtigungen richtig funktioniert, wenn \"Töne\" auf einen bestimmten Vibrationstyp festgelegt ist, wird empfohlen, in den Geräteeinstellungen zu aktivieren: \"Ton und Vibration\" ➜ \"Vibration und Haptik\" ➜ „Vibrationsbenachrichtigung”.</string>
+    <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Accessibility service for PhoneProfilesPlusExtender is not enabled, but it is determined</string>
+    <string name="extender_accessibility_setting_not_enabled_title">Accessibility service not enabled</string>
+    <string name="extender_accessibility_setting_not_enabled_text">Accessibility service for PhoneProfilesPlusExtender is not enabled. Click here to enable it.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

@@ -988,7 +988,7 @@
     <string name="phone_profiles_pref_grantRootPermission_otherManagers">Open de root manager op je apparaat en geef PhoneProfilesPlus root toegang.</string>
     <string name="preferences_grantRoot_title">Root is niet toegestaan</string>
     <string name="preferences_grantRoot_summary">Root is niet toegestaan. Klik hier om het toe te staan.</string>
-    <string name="permission_why_profile_vibration_on_touch">voor aan-/uitzetten van vibratie bij aanraken</string>
+    <string name="permission_why_profile_vibration_on_touch">voor aan-/uitzetten van trillen bij aanraken</string>
     <string name="permission_why_profile_ringtones">voor het wijzigen van beltoon, melding en alarm geluid</string>
     <string name="permission_why_profile_screen_timeout">voor het wijzigen van de scherm time-out</string>
     <string name="permission_why_profile_screen_brightness">voor het wijzigen van de schermhelderheid</string>
@@ -1748,15 +1748,18 @@
     <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Niet geselecteerd</string>
     <string name="menu_check_releases_apkpure">Controleer in APKPure</string>
     <string name="check_releases_go_to_apkpure">Ga naar APKPure</string>
-    <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Force native (for custom icons)</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Run applications, shortcuts, intents for \"MIUI\"</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">For \"MIUI\" must be granted some permissions. Click this, to show how.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
-    <string name="miui_permissions_alert_dialog_show">Show permissions</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrate when ringing\/Vibrate notifications</string>
-    <string name="profile_preferences_vibrateNotifications">Vibrate notifications</string>
-    <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Sound mode and vibration</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">To properly working vibration for ringing and notifications when \"Sound Mode\" is configured to some vibration type, is recommended to enable in device Settings: \"Sound &amp; vibration\"\/\"Vibration &amp; haptic\" and in it \"Notification vibration\".</string>
+    <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Forceer oorspronkelijke (voor aangepaste pictogrammen)</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Programma\'s, snelkoppelingen, intents voor \"MIUI\" uitvoeren</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Voor \"MIUI\" moeten machtigingen worden verleend. Klik hierop, om te laten zien hoe.</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In apparaatinstellingen\/Apps\/Beheer apps\/PhoneProfilesPlus\/Overige machtigingen: \"Toon pop-upvensters tijdens uitvoeren in achtergrond\" en \"Toon op vergrendelingsscherm\" instellen op \"Accepteren\".</string>
+    <string name="miui_permissions_alert_dialog_show">Machtigingen weergeven</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Trillen bij bellen\/trillen bij meldingen</string>
+    <string name="profile_preferences_vibrateNotifications">Trillen bij meldingen</string>
+    <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Geluidsmodus en trillen</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Om trillingen en meldingen goed te laten werken wanneer \"Geluid Modus\" is ingesteld op sommige trillingtypes, wordt aanbevolen om het volgende in te schakelen bij apparaatinstellingen: \"Geluid &amp; trillingen\"\/\"Trilling &amp; haptisch\" en daarin \"trillingen van meldingen\".</string>
+    <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Accessibility service for PhoneProfilesPlusExtender is not enabled, but it is determined</string>
+    <string name="extender_accessibility_setting_not_enabled_title">Accessibility service not enabled</string>
+    <string name="extender_accessibility_setting_not_enabled_text">Accessibility service for PhoneProfilesPlusExtender is not enabled. Click here to enable it.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

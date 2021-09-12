@@ -1748,15 +1748,18 @@
     <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Не обрано</string>
     <string name="menu_check_releases_apkpure">Перевірити в APKPure</string>
     <string name="check_releases_go_to_apkpure">Перейти до APKPure</string>
-    <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Force native (for custom icons)</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Run applications, shortcuts, intents for \"MIUI\"</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">For \"MIUI\" must be granted some permissions. Click this, to show how.</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
-    <string name="miui_permissions_alert_dialog_show">Show permissions</string>
-    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrate when ringing\/Vibrate notifications</string>
-    <string name="profile_preferences_vibrateNotifications">Vibrate notifications</string>
-    <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Sound mode and vibration</string>
-    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">To properly working vibration for ringing and notifications when \"Sound Mode\" is configured to some vibration type, is recommended to enable in device Settings: \"Sound &amp; vibration\"\/\"Vibration &amp; haptic\" and in it \"Notification vibration\".</string>
+    <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Примусово вбудовані (для користувацьких іконок)</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Запустити додатки, ярлики, intents для \"MIUI\"</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Для \"MIUI\" потрібно дати деякі дозволи. Натисніть тут, щоб побачити як.</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">У Налаштуваннях\/Додатки\/Керування додатками\/PhoneProfilesPlus\/Інші дозволи: \"Відображати виринаючі вікна під час роботи у фоні\" і \"Показати на екрані блокування\" виберіть \"Дозволити\".</string>
+    <string name="miui_permissions_alert_dialog_show">Показати дозволи</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Вібрувати під час виклику\/Вібрація під час сповіщення</string>
+    <string name="profile_preferences_vibrateNotifications">Вібрація під час сповіщення</string>
+    <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Режим звуку та вібрація</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Для належної роботи вібрації під час виклику та сповіщень, коли \"Режим звуку\" налаштований на вібрацію, рекомендується включити у налаштуваннях пристрою: \"Звук та вібрація\" \/\"Вібрація та відгук\" і в ньому \"Вібрувати при сповіщеннях\".</string>
+    <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Accessibility service for PhoneProfilesPlusExtender is not enabled, but it is determined</string>
+    <string name="extender_accessibility_setting_not_enabled_title">Accessibility service not enabled</string>
+    <string name="extender_accessibility_setting_not_enabled_text">Accessibility service for PhoneProfilesPlusExtender is not enabled. Click here to enable it.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
