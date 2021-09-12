@@ -7,6 +7,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.CharacterStyle;
+import android.text.style.ForegroundColorSpan;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
@@ -26,6 +31,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     static final String PREF_EVENT_PERIODIC_ENABLED = "eventPeriodicEnabled";
     private static final String PREF_EVENT_PERIODIC_MULTIPLE_INTERVAL = "eventPeriodicMultipleInterval";
     private static final String PREF_EVENT_PERIODIC_DURATION = "eventPeriodicDuration";
+    static final String PREF_EVENT_PERIODIC_APP_SETTINGS = "eventEnableBackgroundScanningAppSettings";
 
     private static final String PREF_EVENT_PERIODIC_CATEGORY = "eventPeriodicCategoryRoot";
 
@@ -85,6 +91,13 @@ class EventPreferencesPeriodic extends EventPreferences {
                     descr = descr + "</b> ";
                 }
 
+                if (!ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
+                    //if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
+                        descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
+                    //else
+                    //    descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                }
+
                 descr = descr + context.getString(R.string.pref_event_multiple_interval) + ": <b>" + this._multipleInterval + "</b>";
                 descr = descr + " • ";
                 descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
@@ -94,7 +107,7 @@ class EventPreferencesPeriodic extends EventPreferences {
         return descr;
     }
 
-    private void setSummary(PreferenceManager prefMng, String key, String value/*, Context context*/)
+    private void setSummary(PreferenceManager prefMng, String key, String value, Context context)
     {
         SharedPreferences preferences = prefMng.getSharedPreferences();
 
@@ -105,8 +118,49 @@ class EventPreferencesPeriodic extends EventPreferences {
             }
         }
 
+        if (key.equals(PREF_EVENT_PERIODIC_ENABLED) ||
+                key.equals(PREF_EVENT_PERIODIC_APP_SETTINGS)) {
+            Preference preference = prefMng.findPreference(PREF_EVENT_PERIODIC_APP_SETTINGS);
+            if (preference != null) {
+                String summary;
+                int titleColor;
+                if (!ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
+                    //if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile) {
+                        summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                        titleColor = Color.RED; //0xFFffb000;
+                    //}
+                    //else {
+                    //    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                    //            context.getString(R.string.phone_profiles_pref_eventWifiAppSettings_summary);
+                    //    titleColor = 0;
+                    //}
+                }
+                else {
+                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                            context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    titleColor = 0;
+                }
+                CharSequence sTitle = preference.getTitle();
+                Spannable sbt = new SpannableString(sTitle);
+                Object[] spansToRemove = sbt.getSpans(0, sTitle.length(), Object.class);
+                for(Object span: spansToRemove){
+                    if(span instanceof CharacterStyle)
+                        sbt.removeSpan(span);
+                }
+                if (preferences.getBoolean(PREF_EVENT_PERIODIC_ENABLED, false)) {
+                    if (titleColor != 0)
+                        sbt.setSpan(new ForegroundColorSpan(titleColor), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                }
+                preference.setTitle(sbt);
+                preference.setSummary(summary);
+            }
+        }
+
         if (key.equals(PREF_EVENT_PERIODIC_MULTIPLE_INTERVAL)) {
             Preference preference = prefMng.findPreference(key);
+            if (preference != null)
+                preference.setSummary(value);
             int delay;
             try {
                 delay = Integer.parseInt(value);
@@ -133,12 +187,13 @@ class EventPreferencesPeriodic extends EventPreferences {
     {
         if (key.equals(PREF_EVENT_PERIODIC_ENABLED)) {
             boolean value = preferences.getBoolean(key, false);
-            setSummary(prefMng, key, value ? "true": "false"/*, context*/);
+            setSummary(prefMng, key, value ? "true": "false", context);
         }
         if (key.equals(PREF_EVENT_PERIODIC_MULTIPLE_INTERVAL) ||
-                key.equals(PREF_EVENT_PERIODIC_DURATION))
+                key.equals(PREF_EVENT_PERIODIC_DURATION) ||
+                key.equals(PREF_EVENT_PERIODIC_APP_SETTINGS))
         {
-            setSummary(prefMng, key, preferences.getString(key, "")/*, context*/);
+            setSummary(prefMng, key, preferences.getString(key, ""), context);
         }
     }
 
@@ -147,6 +202,7 @@ class EventPreferencesPeriodic extends EventPreferences {
         setSummary(prefMng, PREF_EVENT_PERIODIC_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_PERIODIC_MULTIPLE_INTERVAL, preferences, context);
         setSummary(prefMng, PREF_EVENT_PERIODIC_DURATION, preferences, context);
+        setSummary(prefMng, PREF_EVENT_PERIODIC_APP_SETTINGS, preferences, context);
     }
 
     void setCategorySummary(PreferenceManager prefMng, /*String key,*/ SharedPreferences preferences, Context context) {
@@ -180,6 +236,13 @@ class EventPreferencesPeriodic extends EventPreferences {
     boolean isRunnable(Context context)
     {
         return super.isRunnable(context);
+    }
+
+    @Override
+    void checkPreferences(PreferenceManager prefMng, Context context) {
+        SharedPreferences preferences = prefMng.getSharedPreferences();
+        setSummary(prefMng, PREF_EVENT_PERIODIC_APP_SETTINGS, preferences, context);
+        setCategorySummary(prefMng, preferences, context);
     }
 
     private long computeAlarm()
