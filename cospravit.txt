@@ -373,26 +373,17 @@ Skus spravit tie images vektorove.
 
 ----------
 
-PPApplication.accessibilityServiceForPPPExtenderConnected
-- dat ako int: 0 = pytam si stav od Extendera, 1 = connected, 2 = not connected
-- ak je 0, netestovat accessibility
-- ak pride odpoved od Extendera:
-  PPPExtenderBroadcastReceiver.onReceive():
-     switch (intent.getAction()) {
-                case PPApplication.ACTION_PPPEXTENDER_IS_RUNNING_ANSWER:
-    //                PPApplication.logE("[TEST BATTERY] PPPExtenderBroadcastReceiver.onReceive", "ACTION_PPPEXTENDER_IS_RUNNING_ANSWER");
-                    PPApplication.accessibilityServiceForPPPExtenderConnected = true;
+Periodic sensor:
+- Bude pouzivat "Background scanning". Cize treba aby v parametrch zobrazoval tento skener, vid Wi-Fi senzor
+- Parametrom bude "Multiple of the scanner interval" - pouzit perefence ako pri "Wi-Fi scanning interval".
+- Dalsi parameter bude "Duartion" - ako pri "Device boot sensor". Permanant run tu nebude
 
-                    *** dat sem restart senzorov
+Budem si musiet pamatat pre kazdu udalost v databaze pocitadlo skenovani Background sacanningu.
+Bude to v databaze pre kazdu udalost ako skryty field.
+Cize onHandleEvent() bude zapisovat do db toto pocitadlo, ALE LEN AK TO BUDE Z BACKGROUND SCANNINGU.
+TOTO JE DOLEZITE, nesmie zvacsovat pocitadlo vzdy ked sa zavola onHandleEvent(), napriklad pri restarte
+udalosti.
+Ak bude pocitadlo rovne nastavenemu nasobku intervalu, pocitadlo sa vynuluje a zavola sa spracovanie udalosti.
 
-                    break;
-
-Urob to inac:
-PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled()
-ak zisti, ze nie je, tak:
-- nastav accessibilityServiceForPPPExtenderConnected = 0
-- broadcastuj: ACTION_PPPEXTENDER_IS_RUNNING - premenuj na ACTION_PPPEXTENDER_IS_CONNECTED
-- Extender to zaregistruje v PPPEAccessibilityService, ale az na onServiceConnected
-- Extender v FromPhoneProfilesPlusBroadcastReceiver to odchyti a posle spat ACTION_ACCESSIBILITY_SERVICE_CONNECTED
-- PPP bude mat MainWorker len na toto, 2 minutovy. Ten bude robit to, co teraz APPLICATION_FULLY_STARTED_WORK_TAG
+------------
 
