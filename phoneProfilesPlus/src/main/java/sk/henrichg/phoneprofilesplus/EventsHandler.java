@@ -64,6 +64,7 @@ class EventsHandler {
     boolean notAllowedAlarmClock;
     boolean notAllowedDeviceBoot;
     boolean notAllowedSoundProfile;
+    boolean notAllowedPeriodic;
 
     boolean timePassed;
     boolean batteryPassed;
@@ -84,6 +85,7 @@ class EventsHandler {
     boolean alarmClockPassed;
     boolean deviceBootPassed;
     boolean soundProfilePassed;
+    boolean periodicPassed;
 
 
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
@@ -131,6 +133,8 @@ class EventsHandler {
     static final String SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK = "calendarEventExistsCheck";
     static final String SENSOR_TYPE_CONTACTS_CACHE_CHANGED = "contactsCacheChanged";
     static final String SENSOR_TYPE_SOUND_PROFILE = "soundProfile";
+    static final String SENSOR_TYPE_PERIODIC = "periodic";
+    static final String SENSOR_TYPE_PERIODIC_EVENT_END = "periodicEventEnd";
     static final String SENSOR_TYPE_ALL = "ALL";
 
     public EventsHandler(Context context) {
@@ -467,6 +471,18 @@ class EventsHandler {
                             if (_event._eventPreferencesDeviceBoot._enabled) {
                                 //PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
                                 _event._eventPreferencesDeviceBoot.saveStartTime(dataWrapper, eventDeviceBootDate);
+                            }
+                        }
+                    }
+                }
+                if (sensorType.equals(SENSOR_TYPE_PERIODIC)) {
+                    // search for periodic events, save start time
+                    //PPApplication.logE("EventsHandler.handleEvents", "search for periodic events");
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event.getStatus() != Event.ESTATUS_STOP) {
+                            if (_event._eventPreferencesPeriodic._enabled) {
+                                //PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
+                                _event._eventPreferencesPeriodic.saveStartTime(dataWrapper);
                             }
                         }
                     }
@@ -1556,6 +1572,7 @@ class EventsHandler {
         notAllowedAlarmClock = false;
         notAllowedDeviceBoot = false;
         notAllowedSoundProfile = false;
+        notAllowedPeriodic = false;
 
         timePassed = true;
         batteryPassed = true;
@@ -1605,6 +1622,7 @@ class EventsHandler {
         event._eventPreferencesAlarmClock.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesDeviceBoot.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesSoundProfile.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesPeriodic.doHandleEvent(this/*, forRestartEvents*/);
 
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvent", "event._eventPreferencesTime._enabled=" + event._eventPreferencesTime._enabled);
@@ -1746,6 +1764,13 @@ class EventsHandler {
             anySensorEnabled = true;
             if (!notAllowedSoundProfile)
                 allPassed &= soundProfilePassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesPeriodic._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedPeriodic)
+                allPassed &= periodicPassed;
             else
                 someNotAllowed = true;
         }

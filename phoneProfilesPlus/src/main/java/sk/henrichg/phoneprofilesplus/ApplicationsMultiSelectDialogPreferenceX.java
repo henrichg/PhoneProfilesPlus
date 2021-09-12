@@ -179,7 +179,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                 } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + _context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_settings_for_extender_is_checked);
+                            ": " + _context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
                 }
             } else if (systemSettings.equals("accessibility_5.0")) {
                 // PPPExtender
@@ -200,7 +200,7 @@ public class ApplicationsMultiSelectDialogPreferenceX extends DialogPreference
                 } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
                     ok = false;
                     prefDataSummary = _context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + _context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_settings_for_extender_is_checked);
+                            ": " + _context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
                 }
             }
         }

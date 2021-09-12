@@ -155,7 +155,7 @@ class EventPreferencesSMS extends EventPreferences {
                             ": " + context.getString(R.string.preference_not_allowed_reason_not_enabled_accessibility_settings_for_extender);
                 } if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
                     descr = descr + context.getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_settings_for_extender_is_checked);
+                            ": " + context.getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
                 } else {
                     //descr = descr + context.getString(R.string.pref_event_sms_event);
                     //String[] smsEvents = context.getResources().getStringArray(R.array.eventSMSEventsArray);

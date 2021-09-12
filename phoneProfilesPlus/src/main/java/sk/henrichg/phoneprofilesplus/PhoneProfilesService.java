@@ -105,6 +105,7 @@ public class PhoneProfilesService extends Service
     //private static final String ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".OrientationEventBroadcastReceiver";
     static final String ACTION_DEVICE_BOOT_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".DeviceBootEventEndBroadcastReceiver";
     static final String ACTION_CALENDAR_EVENT_EXISTS_CHECK_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".CalendarEventExistsCheckBroadcastReceiver";
+    static final String ACTION_PERIODIC_EVENT_END_BROADCAST_RECEIVER = PPApplication.PACKAGE_NAME + ".PeriodicEventEndBroadcastReceiver";
 
     //static final String EXTRA_SHOW_PROFILE_NOTIFICATION = "show_profile_notification";
     static final String EXTRA_START_STOP_SCANNER = "start_stop_scanner";
@@ -2138,6 +2139,52 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    private void registerReceiverForPeriodicSensor(boolean register, DataWrapper dataWrapper) {
+        //if (android.os.Build.VERSION.SDK_INT < 21)
+        //    return;
+
+        Context appContext = getApplicationContext();
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForPeriodicSensor", "PhoneProfilesService_registerReceiverForPeriodicSensor");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeriodicSensor", "xxx");
+        if (!register) {
+            if (PPApplication.periodicEventEndBroadcastReceiver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForPeriodicSensor->UNREGISTER registerReceiverForPeriodicSensor", "PhoneProfilesService_registerReceiverForPeriodicSensor");
+                try {
+                    appContext.unregisterReceiver(PPApplication.periodicEventEndBroadcastReceiver);
+                    PPApplication.periodicEventEndBroadcastReceiver = null;
+                    //PPApplication.logE("[BOOT] PhoneProfilesService.registerReceiverForPeriodicSensor", "UNREGISTER registerReceiverForPeriodicSensor");
+                } catch (Exception e) {
+                    PPApplication.periodicEventEndBroadcastReceiver = null;
+                }
+            }
+            //else
+            //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeriodicSensor", "not registered registerReceiverForPeriodicSensor");
+        }
+        if (register) {
+            //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeriodicSensor", "REGISTER");
+            dataWrapper.fillEventList();
+            boolean allowed = false;
+            boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_PERIODIC/*, false*/);
+            if (eventsExists)
+                allowed = Event.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeriodicSensor", "REGISTER DEVICE BOOT");
+                if (PPApplication.periodicEventEndBroadcastReceiver == null) {
+                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForPeriodicSensor->REGISTER registerReceiverForPeriodicSensor", "PhoneProfilesService_registerReceiverForPeriodicSensor");
+                    PPApplication.periodicEventEndBroadcastReceiver = new PeriodicEventEndBroadcastReceiver();
+                    IntentFilter intentFilter22 = new IntentFilter(PhoneProfilesService.ACTION_PERIODIC_EVENT_END_BROADCAST_RECEIVER);
+                    appContext.registerReceiver(PPApplication.periodicEventEndBroadcastReceiver, intentFilter22);
+                    //PPApplication.logE("[BOOT] PhoneProfilesService.registerReceiverForPeriodicSensor", "REGISTER registerReceiverForPeriodicSensor");
+                }
+                //else
+                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForPeriodicSensor", "registered registerReceiverForPeriodicSensor");
+            }
+            else
+                registerReceiverForPeriodicSensor(false, dataWrapper);
+        }
+    }
+
     private void unregisterPPPPExtenderReceiver(int type) {
         //PPApplication.logE("[RJS] PhoneProfilesService.unregisterPPPPExtenderReceiver", "UNREGISTER");
         Context appContext = getApplicationContext();
@@ -3716,6 +3763,9 @@ public class PhoneProfilesService extends Service
         // required for device boot event
         registerReceiverForDeviceBootSensor(true, dataWrapper);
 
+        // required for periodic event
+        registerReceiverForPeriodicSensor(true, dataWrapper);
+
         // required for location and radio switch event
         registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
 
@@ -3834,6 +3884,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchAirplaneModeSensor(false, null);
         registerReceiverForAlarmClockSensor(false, null);
         registerReceiverForDeviceBootSensor(false, null);
+        registerReceiverForPeriodicSensor(false, null);
         registerLocationModeChangedBroadcastReceiver(false, null);
         registerBluetoothStateChangedBroadcastReceiver(false, null, false);
         //registerBluetoothConnectionBroadcastReceiver(false, true, false, false);
@@ -3891,6 +3942,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchAirplaneModeSensor(true, dataWrapper);
         registerReceiverForAlarmClockSensor(true, dataWrapper);
         registerReceiverForDeviceBootSensor(true, dataWrapper);
+        registerReceiverForPeriodicSensor(true, dataWrapper);
         registerLocationModeChangedBroadcastReceiver(true, dataWrapper);
         registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, false);
         //registerBluetoothConnectionBroadcastReceiver(true, true, true, false);

@@ -162,8 +162,8 @@ public class MainWorker extends Worker {
                             Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                            String nTitle = context.getString(R.string.extender_accessibility_settings_not_enabled_title);
-                            String nText = context.getString(R.string.extender_accessibility_settings_not_enabled_text);
+                            String nTitle = context.getString(R.string.extender_accessibility_setting_not_enabled_title);
+                            String nText = context.getString(R.string.extender_accessibility_setting_not_enabled_text);
 
                             PPApplication.createExclamationNotificationChannel(getApplicationContext());
                             NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(getApplicationContext(), PPApplication.EXCLAMATION_NOTIFICATION_CHANNEL)

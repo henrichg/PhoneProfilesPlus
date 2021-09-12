@@ -2781,7 +2781,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         else
         if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
             cattegorySummaryData.summary = getString(R.string.profile_preferences_device_not_allowed) +
-                    ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_settings_for_extender_is_checked);
+                    ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
             ok = false;
         }
 
@@ -2844,7 +2844,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 //ok = false;
                 cattegorySummaryData.summary = cattegorySummaryData.summary +
                         getString(R.string.profile_preferences_device_not_allowed) +
-                        ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_settings_for_extender_is_checked);
+                        ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
             }
         }
 
@@ -4004,7 +4004,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
                     ok = false;
                     changeSummary = getString(R.string.profile_preferences_device_not_allowed) +
-                            ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_settings_for_extender_is_checked);
+                            ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
                 }
 
                 if (!ok) {
@@ -4076,7 +4076,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     } else if (PPApplication.accessibilityServiceForPPPExtenderConnected == 0) {
                         //ok = false;
                         changeSummary = changeSummary + getString(R.string.profile_preferences_device_not_allowed) +
-                                ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_settings_for_extender_is_checked);
+                                ": " + getString(R.string.preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined);
                     }
                 }
 

@@ -829,6 +829,7 @@ public class PPApplication extends Application
     static DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
     static DeviceBootEventEndBroadcastReceiver deviceBootEventEndBroadcastReceiver = null;
     static CalendarEventExistsCheckBroadcastReceiver calendarEventExistsCheckBroadcastReceiver = null;
+    static PeriodicEventEndBroadcastReceiver periodicEventEndBroadcastReceiver = null;
 
     static SettingsContentObserver settingsContentObserver = null;
     static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
