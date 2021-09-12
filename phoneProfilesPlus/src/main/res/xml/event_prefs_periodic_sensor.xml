@@ -18,15 +18,22 @@
         app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
-
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
         app:key="eventPeriodicMultipleInterval"
-        app:summary="@string/pref_event_multiple_interval"
-        app:title="@string/pref_event_multiple_interval"
+        app:summary="@string/pref_event_periodic_multiple_interval"
+        app:title="@string/pref_event_periodic_multiple_interval"
         app:defaultValue="1"
         app:min="1"
         app:max="300"
         app:dependency="eventPeriodicEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <Preference
+        app:key="eventPeriodicResultingInterval"
+        app:title="@string/pref_event_periodic_resulting_interval"
+        app:summary="@string/empty_string"
+        app:dependency="eventPeriodicEnabled"
+        app:widgetLayout="@layout/widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX

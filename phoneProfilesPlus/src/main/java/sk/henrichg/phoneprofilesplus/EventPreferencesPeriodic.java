@@ -32,6 +32,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     private static final String PREF_EVENT_PERIODIC_MULTIPLE_INTERVAL = "eventPeriodicMultipleInterval";
     private static final String PREF_EVENT_PERIODIC_DURATION = "eventPeriodicDuration";
     static final String PREF_EVENT_PERIODIC_APP_SETTINGS = "eventEnableBackgroundScanningAppSettings";
+    private static final String PREF_EVENT_PERIODIC_RESULTING_INTERVAL = "eventPeriodicResultingInterval";
 
     private static final String PREF_EVENT_PERIODIC_CATEGORY = "eventPeriodicCategoryRoot";
 
@@ -96,9 +97,16 @@ class EventPreferencesPeriodic extends EventPreferences {
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
                     //else
                     //    descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
+                } else {
+                    descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
+                            "<b>" + ApplicationPreferences.applicationEventBackgroundScanningScanInterval + "</b>";
+                    descr = descr + " • ";
                 }
 
-                descr = descr + context.getString(R.string.pref_event_multiple_interval) + ": <b>" + this._multipleInterval + "</b>";
+                descr = descr + context.getString(R.string.pref_event_periodic_multiple_interval) + ": <b>" + this._multipleInterval + "</b>";
+                descr = descr + " • ";
+                int resultingInterval = this._multipleInterval * ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
+                descr = descr + context.getString(R.string.pref_event_periodic_resulting_interval) + ": <b>" + resultingInterval + "</b>";
                 descr = descr + " • ";
                 descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
             }
@@ -137,7 +145,10 @@ class EventPreferencesPeriodic extends EventPreferences {
                     //}
                 }
                 else {
-                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n";
+                    summary = summary  + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
+                            ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
+                    summary = summary + "\n\n" +
                             context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     titleColor = 0;
                 }
@@ -180,6 +191,16 @@ class EventPreferencesPeriodic extends EventPreferences {
             }
             GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false);
         }
+
+        Event event = new Event();
+        event.createEventPreferences();
+        event._eventPreferencesPeriodic.saveSharedPreferences(prefMng.getSharedPreferences());
+        Preference preference = prefMng.findPreference(PREF_EVENT_PERIODIC_RESULTING_INTERVAL);
+        if (preference != null) {
+            int resultingInterval = event._eventPreferencesPeriodic._multipleInterval * ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
+            preference.setSummary(String.valueOf(resultingInterval));
+        }
+
     }
 
     void setSummary(PreferenceManager prefMng, String key, SharedPreferences preferences,
@@ -190,6 +211,7 @@ class EventPreferencesPeriodic extends EventPreferences {
             setSummary(prefMng, key, value ? "true": "false", context);
         }
         if (key.equals(PREF_EVENT_PERIODIC_MULTIPLE_INTERVAL) ||
+                key.equals(PREF_EVENT_PERIODIC_RESULTING_INTERVAL) ||
                 key.equals(PREF_EVENT_PERIODIC_DURATION) ||
                 key.equals(PREF_EVENT_PERIODIC_APP_SETTINGS))
         {
@@ -201,6 +223,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     {
         setSummary(prefMng, PREF_EVENT_PERIODIC_ENABLED, preferences, context);
         setSummary(prefMng, PREF_EVENT_PERIODIC_MULTIPLE_INTERVAL, preferences, context);
+        setSummary(prefMng, PREF_EVENT_PERIODIC_RESULTING_INTERVAL, preferences, context);
         setSummary(prefMng, PREF_EVENT_PERIODIC_DURATION, preferences, context);
         setSummary(prefMng, PREF_EVENT_PERIODIC_APP_SETTINGS, preferences, context);
     }
@@ -242,6 +265,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     void checkPreferences(PreferenceManager prefMng, Context context) {
         SharedPreferences preferences = prefMng.getSharedPreferences();
         setSummary(prefMng, PREF_EVENT_PERIODIC_APP_SETTINGS, preferences, context);
+        setSummary(prefMng, PREF_EVENT_PERIODIC_RESULTING_INTERVAL, preferences, context);
         setCategorySummary(prefMng, preferences, context);
     }
 

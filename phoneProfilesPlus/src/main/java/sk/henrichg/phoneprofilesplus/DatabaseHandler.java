@@ -6906,7 +6906,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_PERIODIC_START_TIME, eventPreferences._startTime);
         values.put(KEY_E_PERIODIC_COUNTER, eventPreferences._counter);
         values.put(KEY_E_PERIODIC_DURATION, eventPreferences._duration);
-        values.put(KEY_E_PERIODIC_MULTIPLY_INTERVAL, eventPreferences._duration);
+        values.put(KEY_E_PERIODIC_MULTIPLY_INTERVAL, eventPreferences._multipleInterval);
         values.put(KEY_E_PERIODIC_SENSOR_PASSED, eventPreferences.getSensorPassed());
 
         // updating row
