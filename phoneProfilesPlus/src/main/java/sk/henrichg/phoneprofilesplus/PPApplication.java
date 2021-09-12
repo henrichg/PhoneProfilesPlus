@@ -1301,7 +1301,7 @@ public class PPApplication extends Application
         //        .setEnabled(true);
         builder.getPluginConfigurationBuilder(NotificationConfigurationBuilder.class)
                 .withResChannelName(R.string.notification_channel_crash_report)
-                .withResChannelImportance(NotificationManager.IMPORTANCE_DEFAULT)
+                .withResChannelImportance(NotificationManager.IMPORTANCE_HIGH)
                 .withResIcon(R.drawable.ic_exclamation_notify)
                 .withResTitle(R.string.acra_notification_title)
                 .withResText(R.string.acra_notification_text)
