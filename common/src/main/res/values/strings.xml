@@ -1785,6 +1785,8 @@
     <string name="event_preference_sensor_periodic_summary">This sensor is for peidical profile activation. Parameters: Multiple of scanning interval, Duration (event run duration).</string>
     <string name="event_type_periodic">Periodic</string>
     <string name="pref_event_multiple_interval">Multiple of scanning interval</string>
+    <string name="event_preferences_category_eventPeriodicParameters">Periodic sensor</string>
+
 
     <!-- **************************************************************************************** -->
 

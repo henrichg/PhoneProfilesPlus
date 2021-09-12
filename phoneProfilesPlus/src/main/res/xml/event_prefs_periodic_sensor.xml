@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/event_preferences_category_eventPeriodicParameters"
+    app:key="eventPeriodicCategory" >
+
+    <SwitchPreferenceCompat
+        app:key="eventPeriodicEnabled"
+        app:title="@string/event_preferences_enable_sensor"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <Preference
+        app:key="eventEnableBackgroundScanningAppSettings"
+        app:title="@string/phone_profiles_pref_category_background_scanning"
+        app:summary="@string/phone_profiles_pref_eventBackgroundScanningAppSettings_summary"
+        app:dependency="eventPeriodicEnabled"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+
+
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        app:key="eventPeriodicMultipleInterval"
+        app:summary="@string/pref_event_multiple_interval"
+        app:title="@string/pref_event_multiple_interval"
+        app:defaultValue="1"
+        app:min="1"
+        app:max="300"
+        app:dependency="eventPeriodicEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
+        app:key="eventPeriodicDuration"
+        app:summary="@string/event_preferences_duration"
+        app:title="@string/event_preferences_duration"
+        app:defaultValue="5"
+        app:dMin="5"
+        app:dMax="86400"
+        app:dependency="eventPeriodicEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+    
+</androidx.preference.PreferenceScreen>
