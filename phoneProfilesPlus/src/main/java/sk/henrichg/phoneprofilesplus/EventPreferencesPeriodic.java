@@ -306,7 +306,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     }
 
     void saveStartTime(DataWrapper dataWrapper) {
-        if (this._startTime == 0) {
+        /*if (this._startTime == 0) {
             // alarm for end is not set
 
             this._startTime = startTime; // + (10 * 1000);
@@ -314,11 +314,11 @@ class EventPreferencesPeriodic extends EventPreferences {
             DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicStartTime(_event);
 
             setSystemEventForPause(dataWrapper.context);
-        }
+        }*/
     }
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
-        if (_enabled) {
+        /*if (_enabled) {
             //PPApplication.logE("[BOOT] EventPreferencesPeriodic.doHandleEvent", "xxx");
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -386,7 +386,7 @@ class EventPreferencesPeriodic extends EventPreferences {
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_PERIODIC);
             }
-        }
+        }*/
     }
 
 }

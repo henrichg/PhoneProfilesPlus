@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2468;
+    private static final int DATABASE_VERSION = 2469;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -377,6 +377,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_SOUND_PROFILE_RINGER_MODES = "soundProfileRingerModes";
     private static final String KEY_E_SOUND_PROFILE_ZEN_MODES = "soundProfileZenModes";
     private static final String KEY_E_SOUND_PROFILE_SENSOR_PASSED = "soundProfileSensorPassed";
+    private static final String KEY_E_PERIODIC_ENABLED = "periodicEnabled";
+    private static final String KEY_E_PERIODIC_MULTIPLY_INTERVAL = "periodicMultiplyInterval";
+    private static final String KEY_E_PERIODIC_DURATION = "periodicDuration";
+    private static final String KEY_E_PERIODIC_START_TIME = "periodicStartTime";
+    private static final String KEY_E_PERIODIC_COUNTER = "periodicCounter";
+    private static final String KEY_E_PERIODIC_SENSOR_PASSED = "periodicSensorPassed";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -796,7 +802,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_SOUND_PROFILE_ENABLED + " " + INTEGER_TYPE + ","
                 + KEY_E_SOUND_PROFILE_RINGER_MODES + " " + TEXT_TYPE + ","
                 + KEY_E_SOUND_PROFILE_ZEN_MODES + " " + TEXT_TYPE + ","
-                + KEY_E_SOUND_PROFILE_SENSOR_PASSED + " " + INTEGER_TYPE
+                + KEY_E_SOUND_PROFILE_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIODIC_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIODIC_MULTIPLY_INTERVAL + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIODIC_DURATION + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIODIC_START_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIODIC_COUNTER + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIODIC_SENSOR_PASSED + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -942,6 +954,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__ALARM_CLOCK_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_ALARM_CLOCK_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__DEVICE_BOOT_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_DEVICE_BOOT_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__SOUND_PROFILE_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_SOUND_PROFILE_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__PERIODIC_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_PERIODIC_ENABLED + ")");
 
         //db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED_WHEN_OUTSIDE ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_MOBILE_CELLS_ENABLED + "," + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + ")");
 
@@ -1240,6 +1253,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_SOUND_PROFILE_RINGER_MODES, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_SOUND_PROFILE_ZEN_MODES, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_SOUND_PROFILE_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIODIC_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIODIC_MULTIPLY_INTERVAL, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIODIC_DURATION, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIODIC_START_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIODIC_COUNTER, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIODIC_SENSOR_PASSED, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -3380,6 +3399,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_LIVE_WALLPAPER + "=\"\"");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_VIBRATE_NOTIFICATIONS + "=0");
+        }
+
+        if (oldVersion < 2469)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_ENABLED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_START_TIME + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_COUNTER + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_DURATION + "=5");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_MULTIPLY_INTERVAL + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_SENSOR_PASSED + "=0");
         }
 
     }
@@ -5797,6 +5826,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesAlarmClock(event, db);
         getEventPreferencesDeviceBoot(event, db);
         getEventPreferencesSoundProfile(event, db);
+        getEventPreferencesPeriodic(event, db);
     }
 
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -6454,6 +6484,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    private void getEventPreferencesPeriodic(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[]{KEY_E_PERIODIC_ENABLED,
+                        KEY_E_PERIODIC_START_TIME,
+                        KEY_E_PERIODIC_COUNTER,
+                        KEY_E_PERIODIC_DURATION,
+                        KEY_E_PERIODIC_MULTIPLY_INTERVAL,
+                        KEY_E_PERIODIC_SENSOR_PASSED
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesPeriodic eventPreferences = event._eventPreferencesPeriodic;
+
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_ENABLED)) == 1);
+                eventPreferences._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_PERIODIC_START_TIME));
+                eventPreferences._counter = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_COUNTER));
+                eventPreferences._multipleInterval = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_MULTIPLY_INTERVAL));
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_DURATION));
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_SENSOR_PASSED)));
+            }
+            cursor.close();
+        }
+    }
+
 
     // this is called only from addEvent and updateEvent.
     // for this is not needed to calling importExportLock.lock();
@@ -6477,6 +6537,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         updateEventPreferencesAlarmClock(event, db);
         updateEventPreferencesDeviceBoot(event, db);
         updateEventPreferencesSoundProfile(event, db);
+        updateEventPreferencesPeriodic(event, db);
     }
 
     private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -6836,6 +6897,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] { String.valueOf(event._id) });
     }
 
+    private void updateEventPreferencesPeriodic(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesPeriodic eventPreferences = event._eventPreferencesPeriodic;
+
+        values.put(KEY_E_PERIODIC_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_PERIODIC_START_TIME, eventPreferences._startTime);
+        values.put(KEY_E_PERIODIC_COUNTER, eventPreferences._counter);
+        values.put(KEY_E_PERIODIC_DURATION, eventPreferences._duration);
+        values.put(KEY_E_PERIODIC_MULTIPLY_INTERVAL, eventPreferences._duration);
+        values.put(KEY_E_PERIODIC_SENSOR_PASSED, eventPreferences.getSensorPassed());
+
+        // updating row
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
+
     int getEventStatus(Event event)
     {
         importExportLock.lock();
@@ -7141,6 +7219,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         case ETYPE_SOUND_PROFILE:
                             sensorPassedField = KEY_E_SOUND_PROFILE_SENSOR_PASSED;
                             break;
+                        case ETYPE_PERIODIC:
+                            sensorPassedField = KEY_E_PERIODIC_SENSOR_PASSED;
+                            break;
                     }
 
                     Cursor cursor = db.query(TABLE_EVENTS,
@@ -7263,6 +7344,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         sensorPassed = event._eventPreferencesSoundProfile.getSensorPassed();
                         sensorPassedField = KEY_E_SOUND_PROFILE_SENSOR_PASSED;
                         break;
+                    case ETYPE_PERIODIC:
+                        sensorPassed = event._eventPreferencesPeriodic.getSensorPassed();
+                        sensorPassedField = KEY_E_PERIODIC_SENSOR_PASSED;
+                        break;
                 }
                 ContentValues values = new ContentValues();
                 values.put(sensorPassedField, sensorPassed);
@@ -7323,6 +7408,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, event._eventPreferencesAlarmClock.getSensorPassed());
                 values.put(KEY_E_DEVICE_BOOT_SENSOR_PASSED, event._eventPreferencesDeviceBoot.getSensorPassed());
                 values.put(KEY_E_SOUND_PROFILE_SENSOR_PASSED, event._eventPreferencesSoundProfile.getSensorPassed());
+                values.put(KEY_E_PERIODIC_SENSOR_PASSED, event._eventPreferencesPeriodic.getSensorPassed());
 
                 db.beginTransaction();
 
@@ -7380,6 +7466,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_DEVICE_BOOT_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_SOUND_PROFILE_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_PERIODIC_SENSOR_PASSED, sensorPassed);
 
                 db.beginTransaction();
 
@@ -7498,6 +7585,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         eventTypeChecked = eventTypeChecked + KEY_E_DEVICE_BOOT_ENABLED + "=1";
                     else if (eventType == ETYPE_SOUND_PROFILE)
                         eventTypeChecked = eventTypeChecked + KEY_E_SOUND_PROFILE_ENABLED + "=1";
+                    else if (eventType == ETYPE_PERIODIC)
+                        eventTypeChecked = eventTypeChecked + KEY_E_PERIODIC_ENABLED + "=1";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
@@ -8402,6 +8491,80 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     if (cursor.getCount() > 0) {
                         event._eventPreferencesDeviceBoot._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_DEVICE_BOOT_START_TIME));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updatePeriodicStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_PERIODIC_START_TIME, event._eventPreferencesPeriodic._startTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandler.updatePeriodicStartTime", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void getPeriodicStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{
+                                KEY_E_PERIODIC_START_TIME
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        event._eventPreferencesPeriodic._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_PERIODIC_START_TIME));
                     }
 
                     cursor.close();

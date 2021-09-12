@@ -3212,6 +3212,13 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context.getApplicationContext()).updateDeviceBootStartTime(_event);
             _event._eventPreferencesDeviceBoot.removeAlarm(context);
         }
+
+        if (force) {
+            _event._eventPreferencesPeriodic._startTime = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updatePeriodicStartTime(_event);
+            _event._eventPreferencesPeriodic.removeAlarm(context);
+        }
+
     }
 
     boolean eventTypeExists(int eventType/*, boolean onlyRunning*/) {
