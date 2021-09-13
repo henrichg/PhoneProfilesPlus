@@ -17,11 +17,13 @@ class RootToolsSmall {
         exists = false;
         try {
             String path = System.getenv("PATH");
-            if (!TextUtils.isEmpty(path)) {
-                for (String p : path.split(":")) {
-                    if (new File(p + binaryName).exists()) {
-                        exists = true;
-                        break;
+            if (path != null) {
+                if (!TextUtils.isEmpty(path)) {
+                    for (String p : path.split(":")) {
+                        if (new File(p + binaryName).exists()) {
+                            exists = true;
+                            break;
+                        }
                     }
                 }
             }

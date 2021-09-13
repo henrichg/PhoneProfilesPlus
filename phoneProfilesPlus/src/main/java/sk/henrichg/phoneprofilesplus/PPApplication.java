@@ -193,6 +193,7 @@ public class PPApplication extends Application
 
                                                 //+"|%%%%% MobileCellsScanner.doAutoRegistration"
                                                 //+"|CmdWifiAP.isEnabled"
+                                                //+"|WifiApManager.isWifiAPEnabled"
                                                 //+"|CmdWifiAP.setWifiAP"
                                                 //+"|WifiApManager.setWifiApState"
 

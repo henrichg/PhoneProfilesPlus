@@ -123,6 +123,7 @@ final class WifiApManager {
     boolean isWifiAPEnabled() {
         try {
             wifiApEnabled.setAccessible(true);
+//            PPApplication.logE("WifiApManager.isWifiAPEnabled", "enabled="+wifiApEnabled.invoke(mWifiManager));
             //noinspection ConstantConditions
             return (Boolean) wifiApEnabled.invoke(mWifiManager);
         } catch (Exception e) {
@@ -141,6 +142,7 @@ final class WifiApManager {
                     // 11 => AP OFF
                     // 13 => AP ON
                     canScan = wifiApState == 11;*/
+//            PPApplication.logE("WifiApManager.isWifiAPEnabled", "enabled="+wifiApManager.isWifiAPEnabled());
             return wifiApManager.isWifiAPEnabled();
         } catch (NoSuchMethodException e) {
             return false;

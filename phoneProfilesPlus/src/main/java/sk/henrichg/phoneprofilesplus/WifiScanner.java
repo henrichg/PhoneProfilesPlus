@@ -102,7 +102,7 @@ class WifiScanner {
                 boolean canScan = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                 if (canScan) {
                     if (!ApplicationPreferences.applicationEventWifiScanIgnoreHotspot) {
-                        if (Build.VERSION.SDK_INT < 28)
+                        if (Build.VERSION.SDK_INT < 30)
                             canScan = !WifiApManager.isWifiAPEnabled(context);
                         else
                             canScan = !CmdWifiAP.isEnabled(context);

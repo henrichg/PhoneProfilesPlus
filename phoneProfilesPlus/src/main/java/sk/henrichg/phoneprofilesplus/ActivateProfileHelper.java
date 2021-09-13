@@ -495,7 +495,7 @@ class ActivateProfileHelper {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 //                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi");
                     boolean isWifiAPEnabled;
-                    if (Build.VERSION.SDK_INT < 28)
+                    if (Build.VERSION.SDK_INT < 30)
                         isWifiAPEnabled = WifiApManager.isWifiAPEnabled(appContext);
                     else
                         isWifiAPEnabled = CmdWifiAP.isEnabled(context);

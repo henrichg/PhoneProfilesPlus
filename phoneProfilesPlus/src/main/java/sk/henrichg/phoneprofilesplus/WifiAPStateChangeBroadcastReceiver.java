@@ -40,7 +40,7 @@ public class WifiAPStateChangeBroadcastReceiver extends BroadcastReceiver {
 
                         boolean isWifiAPEnabled = false;
                         if (!ApplicationPreferences.applicationEventWifiScanIgnoreHotspot) {
-                            if (Build.VERSION.SDK_INT < 28)
+                            if (Build.VERSION.SDK_INT < 30)
                                 isWifiAPEnabled = WifiApManager.isWifiAPEnabled(appContext);
                             else
                                 isWifiAPEnabled = CmdWifiAP.isEnabled(appContext);
