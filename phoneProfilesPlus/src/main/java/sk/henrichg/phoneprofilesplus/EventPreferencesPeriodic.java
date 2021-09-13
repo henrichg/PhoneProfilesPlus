@@ -16,8 +16,13 @@ import android.text.style.ForegroundColorSpan;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 class EventPreferencesPeriodic extends EventPreferences {
 
@@ -75,6 +80,9 @@ class EventPreferencesPeriodic extends EventPreferences {
         this._enabled = preferences.getBoolean(PREF_EVENT_PERIODIC_ENABLED, false);
         this._multipleInterval = Integer.parseInt(preferences.getString(PREF_EVENT_PERIODIC_MULTIPLE_INTERVAL, "1"));
         this._duration = Integer.parseInt(preferences.getString(PREF_EVENT_PERIODIC_DURATION, "5"));
+
+        this._counter = 0;
+        this._startTime = 0;
     }
 
     String getPreferencesDescription(boolean addBullet, boolean addPassStatus, Context context)
@@ -394,21 +402,64 @@ class EventPreferencesPeriodic extends EventPreferences {
 
     void increaseCounter(DataWrapper dataWrapper) {
         if (Event.getGlobalEventsRunning()) {
-            if (_counter >= _multipleInterval) {
-//                    PPApplication.logE("[EVENTS_HANDLER_CALL] EventPreferencesPeriodic.increaseCounter", "sensorType=SENSOR_TYPE_PERIODIC");
-                EventsHandler eventsHandler = new EventsHandler(dataWrapper.context.getApplicationContext());
-                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PERIODIC);
-                _counter = 0;
-            } else {
+            if (_counter < _multipleInterval) {
                 _counter += 1;
+                DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
+                PPApplication.logE("######### EventPreferencesPeriodic.increaseCounter", "_counter="+_counter);
             }
+            if (_counter >= _multipleInterval) {
+                _counter = 0;
+                DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
+
+                //enqueueWork();
+                Data workData = new Data.Builder()
+                        .putString(PhoneProfilesService.EXTRA_SENSOR_TYPE, EventsHandler.SENSOR_TYPE_PERIODIC)
+                        .build();
+
+                OneTimeWorkRequest worker =
+                        new OneTimeWorkRequest.Builder(MainWorker.class)
+                                .addTag(MainWorker.HANDLE_EVENTS_PERIODIC_WORK_TAG)
+                                .setInputData(workData)
+                                .setInitialDelay(5, TimeUnit.SECONDS)
+                                //.keepResultsForAtLeast(PPApplication.WORK_PRUNE_DELAY_MINUTES, TimeUnit.MINUTES)
+                                .build();
+                try {
+                    if (PPApplication.getApplicationStarted(true)) {
+                        WorkManager workManager = PPApplication.getWorkManagerInstance();
+                        if (workManager != null) {
+
+//                            //if (PPApplication.logEnabled()) {
+//                            ListenableFuture<List<WorkInfo>> statuses;
+//                            statuses = workManager.getWorkInfosForUniqueWork(MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG);
+//                            try {
+//                                List<WorkInfo> workInfoList = statuses.get();
+//                                PPApplication.logE("[TEST BATTERY] PPNotificationListenerService.onNotificationRemoved", "for=" + MainWorker.HANDLE_EVENTS_NOTIFICATION_SCANNER_WORK_TAG + " workInfoList.size()=" + workInfoList.size());
+//                            } catch (Exception ignored) {
+//                            }
+//                            //}
+//
+                            PPApplication.logE("[WORKER_CALL] PhoneProfilesService.doCommand", "xxx");
+                            //workManager.enqueue(worker);
+                            workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_PERIODIC_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                        }
+                    }
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
+        }
+        else {
+            _counter = 0;
+            _startTime = 0;
             DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
+            DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicStartTime(_event);
         }
     }
 
     void saveStartTime(DataWrapper dataWrapper) {
         if (this._startTime == 0) {
             // alarm for end is not set
+            PPApplication.logE("######### EventPreferencesPeriodic.saveStartTime", "set _startTime");
 
             Calendar calendar = Calendar.getInstance();
             this._startTime = calendar.getTimeInMillis();
@@ -421,7 +472,7 @@ class EventPreferencesPeriodic extends EventPreferences {
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
         if (_enabled) {
-            //PPApplication.logE("[BOOT] EventPreferencesPeriodic.doHandleEvent", "xxx");
+            PPApplication.logE("######### EventPreferencesPeriodic.doHandleEvent", "xxx");
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[BOOT] EventPreferencesPeriodic.doHandleEvent", "allowed");
@@ -479,12 +530,12 @@ class EventPreferencesPeriodic extends EventPreferences {
             } else
                 eventsHandler.notAllowedPeriodic = true;
 
-            //PPApplication.logE("[BOOT] EventPreferencesPeriodic.doHandleEvent", "periodicPassed=" + periodicPassed);
-            //PPApplication.logE("[BOOT] EventPreferencesPeriodic.doHandleEvent", "notAllowedPeriodic=" + notAllowedPeriodic);
+            PPApplication.logE("######### EventPreferencesPeriodic.doHandleEvent", "periodicPassed=" + eventsHandler.periodicPassed);
+            PPApplication.logE("######### EventPreferencesPeriodic.doHandleEvent", "notAllowedPeriodic=" + eventsHandler.notAllowedPeriodic);
 
             int newSensorPassed = getSensorPassed() & (~EventPreferences.SENSOR_PASSED_WAITING);
             if (oldSensorPassed != newSensorPassed) {
-                //PPApplication.logE("[TEST BATTERY] EventPreferencesPeriodic.doHandleEvent", "device boot - sensor pass changed");
+                PPApplication.logE("######### EventPreferencesPeriodic.doHandleEvent", "periodic - sensor pass changed");
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_PERIODIC);
             }

@@ -9,6 +9,7 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("WeakerAccess")
@@ -70,13 +71,28 @@ public class PeriodicEventsHandlerWorker extends Worker {
 
                 if (Event.getGlobalEventsRunning()) {
 
-                    //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PeriodicEventsHandlerWorker.doWork");
+                    boolean callEventsHandler = false;
+                    Set<String> tags = getTags();
+                    for (String tag : tags) {
+                        PPApplication.logE("######### PeriodicEventsHandlerWorker.doWork", "tag="+tag);
 
-//                    PPApplication.logE("[EVENTS_HANDLER_CALL] PeriodicEventsHandlerWorker.doWork", "sensorType=SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
-                    EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER);
+                        if (tag.equals(WORK_TAG)) {
+                            callEventsHandler = true;
+                            break;
+                        }
+                    }
 
-                    //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PeriodicEventsHandlerWorker.doWork");
+                    PPApplication.logE("######### PeriodicEventsHandlerWorker.doWork", "callEventsHandler="+callEventsHandler);
+
+                    if (callEventsHandler) {
+                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PeriodicEventsHandlerWorker.doWork");
+
+//                        PPApplication.logE("[EVENTS_HANDLER_CALL] PeriodicEventsHandlerWorker.doWork", "sensorType=SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
+                        EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER);
+
+                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PeriodicEventsHandlerWorker.doWork");
+                    }
                 }
 
                 //enqueueWork();

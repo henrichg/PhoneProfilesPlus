@@ -49,6 +49,7 @@ public class MainWorker extends Worker {
     static final String HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG = "handleEventsNotificationRemovedScannerWork";
     static final String HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG = "handleEventsNotificationRescanScannerWork";
     static final String HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG = "handleEventsSoundProfileWork";
+    static final String HANDLE_EVENTS_PERIODIC_WORK_TAG = "handleEventsPeriodicWork";
 
     static final String START_EVENT_NOTIFICATION_WORK_TAG = "startEventNotificationWork";
     static final String RUN_APPLICATION_WITH_DELAY_WORK_TAG = "runApplicationWithDelayWork";
@@ -99,6 +100,7 @@ public class MainWorker extends Worker {
                     case HANDLE_EVENTS_NOTIFICATION_REMOVED_SCANNER_WORK_TAG:
                     case HANDLE_EVENTS_NOTIFICATION_RESCAN_SCANNER_WORK_TAG:
                     case HANDLE_EVENTS_SOUND_PROFILE_WORK_TAG:
+                    case HANDLE_EVENTS_PERIODIC_WORK_TAG:
                         String sensorType = getInputData().getString(PhoneProfilesService.EXTRA_SENSOR_TYPE);
                         if (Event.getGlobalEventsRunning() && (sensorType != null)) {
                             //PPApplication.logE("DelayedWorksWorker.doWork", "DELAYED_WORK_HANDLE_EVENTS");
@@ -106,7 +108,7 @@ public class MainWorker extends Worker {
                             // start events handler
                             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_HANDLE_EVENTS): sensorType="+sensorType);
 
-//                            PPApplication.logE("[EVENTS_HANDLER_CALL] MainWorker.doWork", "sensorType="+sensorType);
+                            PPApplication.logE("[EVENTS_HANDLER_CALL] MainWorker.doWork", "sensorType="+sensorType);
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(sensorType);
 
