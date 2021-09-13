@@ -241,6 +241,7 @@ public class PPApplication extends Application
                                                 //+"|[BACKGROUND_ACTIVITY]"
                                                 //+"|[START_PP_SERVICE]"
                                                 //+"|[BRS]"
+                                                //+"|[CONNECTIVITY_TEST]"
 
                                                 //+"|PhoneProfilesService.registerReceiverForCalendarSensor"
                                                 //+"|EventPreferencesCalendar"

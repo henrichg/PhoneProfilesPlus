@@ -168,6 +168,7 @@ class PreferenceAllowed {
                             NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                             if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                                 mobileDataSupported = true;
+//                                PPApplication.logE("[CONNECTIVITY_TEST] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA", "mobileDataSupported="+mobileDataSupported);
                                 break;
                             }
                             //}
@@ -319,6 +320,7 @@ class PreferenceAllowed {
                                 NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                 if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
                                     mobileDataSupported = true;
+//                                    PPApplication.logE("[CONNECTIVITY_TEST] PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_MOBILE_DATA_DUAL_SIM", "mobileDataSupported="+mobileDataSupported);
                                     break;
                                 }
                                 //}

@@ -430,6 +430,7 @@ class EventPreferencesWifi extends EventPreferences {
                                                 NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                                 if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                                                     wifiConnected = WifiNetworkCallback.connected;
+//                                                    PPApplication.logE("[CONNECTIVITY_TEST] EventPreferencesWifi.doHandleEvent", "wifiConnected="+wifiConnected);
                                                     break;
                                                 }
                                             //}
