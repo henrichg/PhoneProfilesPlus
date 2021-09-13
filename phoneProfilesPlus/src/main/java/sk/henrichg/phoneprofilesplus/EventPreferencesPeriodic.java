@@ -392,16 +392,33 @@ class EventPreferencesPeriodic extends EventPreferences {
         }
     }
 
+    void increaseCounter(DataWrapper dataWrapper) {
+        if (Event.getGlobalEventsRunning()) {
+            if (_counter >= _multipleInterval) {
+//                    PPApplication.logE("[EVENTS_HANDLER_CALL] EventPreferencesPeriodic.increaseCounter", "sensorType=SENSOR_TYPE_PERIODIC");
+                EventsHandler eventsHandler = new EventsHandler(dataWrapper.context.getApplicationContext());
+                eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PERIODIC);
+
+                //TODO tu zapis do databazy _counter=0, aby sa zacalo dozaciatku pocitanie
+                _counter = 0;
+            } else {
+                //TODO tu len rob inc _countera a zapisuj ho do databazy
+                _counter += 1;
+            }
+        }
+    }
+
     void saveStartTime(DataWrapper dataWrapper) {
-        /*if (this._startTime == 0) {
+        if (this._startTime == 0) {
             // alarm for end is not set
 
-            this._startTime = startTime; // + (10 * 1000);
+            Calendar calendar = Calendar.getInstance();
+            this._startTime = calendar.getTimeInMillis();
 
             DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicStartTime(_event);
 
             setSystemEventForPause(dataWrapper.context);
-        }*/
+        }
     }
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {

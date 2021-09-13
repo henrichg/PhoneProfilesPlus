@@ -475,6 +475,19 @@ class EventsHandler {
                         }
                     }
                 }
+
+                if (sensorType.equals(SENSOR_TYPE_PERIODIC_EVENTS_HANDLER)) {
+                    // search for periodic events, save start time
+                    //PPApplication.logE("EventsHandler.handleEvents", "search for periodic events");
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event.getStatus() != Event.ESTATUS_STOP) {
+                            if (_event._eventPreferencesPeriodic._enabled) {
+                                //PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
+                                _event._eventPreferencesPeriodic.increaseCounter(dataWrapper);
+                            }
+                        }
+                    }
+                }
                 if (sensorType.equals(SENSOR_TYPE_PERIODIC)) {
                     // search for periodic events, save start time
                     //PPApplication.logE("EventsHandler.handleEvents", "search for periodic events");
