@@ -420,7 +420,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     }
 
     void doHandleEvent(EventsHandler eventsHandler/*, boolean forRestartEvents*/) {
-        /*if (_enabled) {
+        if (_enabled) {
             //PPApplication.logE("[BOOT] EventPreferencesPeriodic.doHandleEvent", "xxx");
             int oldSensorPassed = getSensorPassed();
             if (Event.isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, eventsHandler.context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -488,7 +488,7 @@ class EventPreferencesPeriodic extends EventPreferences {
                 setSensorPassed(newSensorPassed);
                 DatabaseHandler.getInstance(eventsHandler.context).updateEventSensorPassed(_event, DatabaseHandler.ETYPE_PERIODIC);
             }
-        }*/
+        }
     }
 
 }
