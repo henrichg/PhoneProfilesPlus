@@ -31,7 +31,7 @@ class EventPreferencesPeriodic extends EventPreferences {
     static final String PREF_EVENT_PERIODIC_ENABLED = "eventPeriodicEnabled";
     private static final String PREF_EVENT_PERIODIC_MULTIPLE_INTERVAL = "eventPeriodicMultipleInterval";
     private static final String PREF_EVENT_PERIODIC_DURATION = "eventPeriodicDuration";
-    static final String PREF_EVENT_PERIODIC_APP_SETTINGS = "eventEnableBackgroundScanningAppSettings";
+    static final String PREF_EVENT_PERIODIC_APP_SETTINGS = "eventEnablePeriodicScanningAppSettings";
     private static final String PREF_EVENT_PERIODIC_RESULTING_INTERVAL = "eventPeriodicResultingInterval";
 
     private static final String PREF_EVENT_PERIODIC_CATEGORY = "eventPeriodicCategoryRoot";
@@ -92,20 +92,20 @@ class EventPreferencesPeriodic extends EventPreferences {
                     descr = descr + "</b> ";
                 }
 
-                if (!ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
+                if (!ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
                     //if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile)
                         descr = descr + "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *<br>";
                     //else
                     //    descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "<br>";
                 } else {
                     descr = descr + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
-                            "<b>" + ApplicationPreferences.applicationEventBackgroundScanningScanInterval + "</b>";
+                            "<b>" + ApplicationPreferences.applicationEventPeriodicScanningScanInterval + "</b>";
                     descr = descr + " • ";
                 }
 
                 descr = descr + context.getString(R.string.pref_event_periodic_multiple_interval) + ": <b>" + this._multipleInterval + "</b>";
                 descr = descr + " • ";
-                int resultingInterval = this._multipleInterval * ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
+                int resultingInterval = this._multipleInterval * ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
                 descr = descr + context.getString(R.string.pref_event_periodic_resulting_interval) + ": <b>" + resultingInterval + "</b>";
                 descr = descr + " • ";
                 descr = descr + context.getString(R.string.pref_event_duration) + ": <b>" + GlobalGUIRoutines.getDurationString(this._duration) + "</b>";
@@ -132,7 +132,7 @@ class EventPreferencesPeriodic extends EventPreferences {
             if (preference != null) {
                 String summary;
                 int titleColor;
-                if (!ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
+                if (!ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
                     //if (!ApplicationPreferences.applicationEventWifiDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
                                 context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
@@ -147,7 +147,7 @@ class EventPreferencesPeriodic extends EventPreferences {
                 else {
                     summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n";
                     summary = summary  + context.getString(R.string.phone_profiles_pref_applicationEventBackgroundScanningScanInterval) + ": " +
-                            ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
+                            ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
                     summary = summary + "\n\n" +
                             context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     titleColor = 0;
@@ -197,7 +197,7 @@ class EventPreferencesPeriodic extends EventPreferences {
         event._eventPreferencesPeriodic.saveSharedPreferences(prefMng.getSharedPreferences());
         Preference preference = prefMng.findPreference(PREF_EVENT_PERIODIC_RESULTING_INTERVAL);
         if (preference != null) {
-            int resultingInterval = event._eventPreferencesPeriodic._multipleInterval * ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
+            int resultingInterval = event._eventPreferencesPeriodic._multipleInterval * ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
             preference.setSummary(String.valueOf(resultingInterval));
         }
 

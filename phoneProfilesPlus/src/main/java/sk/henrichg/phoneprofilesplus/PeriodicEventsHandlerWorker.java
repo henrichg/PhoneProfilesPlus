@@ -36,12 +36,12 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 // application is not started
                 return Result.success();
 
-            if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
+            if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
 
                 //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
                 boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
                 if (isPowerSaveMode) {
-                    if (ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode.equals("2")) {
+                    if (ApplicationPreferences.applicationEventPeriodicScanningScanInPowerSaveMode.equals("2")) {
                         PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
                         PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
                         /*if (PPApplication.logEnabled()) {
@@ -52,10 +52,10 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     }
                 }
                 else {
-                    if (ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiply.equals("2")) {
+                    if (ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply.equals("2")) {
                         if (PhoneProfilesService.isNowTimeBetweenTimes(
-                                ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyFrom,
-                                ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyTo)) {
+                                ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
+                                ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo)) {
                             // not scan in configured time
 //                            PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "-- END - scan in time = 2 -------");
                             PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
@@ -133,18 +133,18 @@ public class PeriodicEventsHandlerWorker extends Worker {
     }
 
     static void enqueueWork(Context appContext) {
-        int interval = ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
+        int interval = ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(appContext);
         if (isPowerSaveMode) {
-            if (ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode.equals("1"))
+            if (ApplicationPreferences.applicationEventPeriodicScanningScanInPowerSaveMode.equals("1"))
                 interval = 2 * interval;
         }
         else {
-            if (ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiply.equals("1")) {
+            if (ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply.equals("1")) {
                 if (PhoneProfilesService.isNowTimeBetweenTimes(
-                        ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyFrom,
-                        ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyTo)) {
+                        ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo)) {
                     interval = 2 * interval;
 //                    PPApplication.logE("PeriodicEventsHandlerWorker.enqueueWork", "scan in time - 2x interval");
                 }

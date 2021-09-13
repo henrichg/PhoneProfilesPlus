@@ -657,7 +657,7 @@ public class PPApplication extends Application
     //static final int SCANNER_START_TWILIGHT_SCANNER = 17;
     //static final int SCANNER_STOP_TWILIGHT_SCANNER = 18;
     static final int SCANNER_RESTART_TWILIGHT_SCANNER = 19;
-    static final int SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER = 20;
+    static final int SCANNER_RESTART_PERIODIC_SCANNING_SCANNER = 20;
     static final int SCANNER_RESTART_NOTIFICATION_SCANNER = 21;
 
     static final int SCANNER_RESTART_ALL_SCANNERS = 50;
@@ -2128,10 +2128,10 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationWidgetIconShowProfileDuration(context);
             ApplicationPreferences.notificationNotificationStyle(context);
             ApplicationPreferences.notificationShowProfileIcon(context);
-            ApplicationPreferences.applicationEventBackgroundScanningEnableScanning(context);
-            ApplicationPreferences.applicationEventBackgroundScanningScanInterval(context);
-            ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode(context);
-            ApplicationPreferences.applicationEventBackgroundScanningScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationEventPeriodicScanningEnableScanning(context);
+            ApplicationPreferences.applicationEventPeriodicScanningScanInterval(context);
+            ApplicationPreferences.applicationEventPeriodicScanningScanInPowerSaveMode(context);
+            ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn(context);
             ApplicationPreferences.applicationEventWifiScanIgnoreHotspot(context);
             ApplicationPreferences.applicationEventNotificationEnableScanning(context);
             ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode(context);
@@ -2145,9 +2145,9 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList(context);
             ApplicationPreferences.applicationActivatorIncreaseBrightness(context);
 
-            ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyFrom(context);
-            ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyTo(context);
-            ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiply(context);
+            ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
+            ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);
+            ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply(context);
             ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo(context);
             ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply(context);
@@ -3493,19 +3493,19 @@ public class PPApplication extends Application
         }
     }
 
-    public static void restartBackgroundScanningScanner(Context context/*, boolean forScreenOn*/) {
+    public static void restartPeriodicScanningScanner(Context context/*, boolean forScreenOn*/) {
         try {
             //PPApplication.logE("[RJS] PPApplication.restartWifiScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PERIODIC_SCANNING_SCANNER);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PERIODIC_SCANNING_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
             PPApplication.recordException(e);

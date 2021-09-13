@@ -52,7 +52,7 @@
         app:dependency="eventTimeEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
-        app:key="eventTimeBackgroundScanningAppSettings"
+        app:key="eventTimePeriodicScanningAppSettings"
         app:title="@string/phone_profiles_pref_category_background_scanning"
         app:summary="@string/phone_profiles_pref_eventBackgroundScanningAppSettings_summary"
         app:dependency="eventTimeEnabled"

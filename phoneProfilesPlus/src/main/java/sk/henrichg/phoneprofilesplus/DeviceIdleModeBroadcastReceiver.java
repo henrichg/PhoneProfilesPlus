@@ -63,7 +63,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                     rescan = true;
                                 else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
                                     rescan = true;
-                                else if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning)
+                                else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                                     rescan = true;
                                 if (rescan) {
                                     PPApplication.rescanAllScanners(appContext);

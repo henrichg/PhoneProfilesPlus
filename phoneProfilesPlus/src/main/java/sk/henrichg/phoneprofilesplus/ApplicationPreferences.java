@@ -193,10 +193,10 @@ class ApplicationPreferences {
     static boolean applicationWidgetIconShowProfileDuration;
     static String notificationNotificationStyle;
     static boolean notificationShowProfileIcon;
-    static boolean applicationEventBackgroundScanningEnableScanning;
-    static int applicationEventBackgroundScanningScanInterval;
-    static String applicationEventBackgroundScanningScanInPowerSaveMode;
-    static boolean applicationEventBackgroundScanningScanOnlyWhenScreenIsOn;
+    static boolean applicationEventPeriodicScanningEnableScanning;
+    static int applicationEventPeriodicScanningScanInterval;
+    static String applicationEventPeriodicScanningScanInPowerSaveMode;
+    static boolean applicationEventPeriodicScanningScanOnlyWhenScreenIsOn;
     static boolean applicationEventWifiScanIgnoreHotspot;
     static boolean applicationEventNotificationEnableScanning;
     static String applicationEventNotificationScanInPowerSaveMode;
@@ -210,9 +210,9 @@ class ApplicationPreferences {
     static boolean applicationActivatorAddRestartEventsIntoProfileList;
     static boolean applicationActivatorIncreaseBrightness;
 
-    static String applicationEventBackgroundScanningScanInTimeMultiply;
-    static int applicationEventBackgroundScanningScanInTimeMultiplyFrom;
-    static int applicationEventBackgroundScanningScanInTimeMultiplyTo;
+    static String applicationEventPeriodicScanningScanInTimeMultiply;
+    static int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
+    static int applicationEventPeriodicScanningScanInTimeMultiplyTo;
     static String applicationEventBluetoothScanInTimeMultiply;
     static int applicationEventBluetoothScanInTimeMultiplyFrom;
     static int applicationEventBluetoothScanInTimeMultiplyTo;
@@ -415,10 +415,10 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION = "applicationWidgetIconShowProfileDuration";
     static final String PREF_NOTIFICATION_NOTIFICATION_STYLE = "notificationNotificationStyle";
     static final String PREF_NOTIFICATION_SHOW_PROFILE_ICON = "notificationShowProfileIcon";
-    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_ENABLE_SCANNING = "applicationEventBackgroundScanningEnableScannig";
-    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_INTERVAL = "applicationEventBackgroundScanningScanInterval";
-    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_POWER_SAVE_MODE = "applicationEventBackgroundScanningScanInPowerSaveMode";
-    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventBackgroundScanningScanOnlyWhenScreenIsOn";
+    static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING = "applicationEventPeriodicScanningEnableScannig";
+    static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL = "applicationEventPeriodicScanningScanInterval";
+    static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE = "applicationEventPeriodicScanningScanInPowerSaveMode";
+    static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON = "applicationEventPeriodicScanningScanOnlyWhenScreenIsOn";
     static final String PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT = "applicationEventWifiScanIgnoreHotspot";
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING = "applicationEventNotificationEnableScannig";
     static final String PREF_APPLICATION_EVENT_NOTIFICATION_SCAN_IN_POWER_SAVE_MODE = "applicationEventNotificationScanInPowerSaveMode";
@@ -432,9 +432,9 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST = "applicationActivatorAddRestartEventsIntoProfileList";
     static final String PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS = "applicationActivatorIncreaseBrightness";
 
-    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventBackgroundScanningScanInTimeMultiply";
-    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventBackgroundScanningScanInTimeMultiplyFrom";
-    static final String PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventBackgroundScanningScanInTimeMultiplyTo";
+    static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
+    static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
+    static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventPeriodicScanningScanInTimeMultiplyTo";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY = "applicationEventBluetoothScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventBluetoothScanInTimeMultiplyFrom";
     static final String PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventBluetoothScanInTimeMultiplyTo";
@@ -1160,20 +1160,20 @@ class ApplicationPreferences {
         notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
     }
 
-    static void applicationEventBackgroundScanningEnableScanning(Context context) {
-        applicationEventBackgroundScanningEnableScanning = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_ENABLE_SCANNING, false);
+    static void applicationEventPeriodicScanningEnableScanning(Context context) {
+        applicationEventPeriodicScanningEnableScanning = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, false);
     }
 
-    static void applicationEventBackgroundScanningScanInterval(Context context) {
-        applicationEventBackgroundScanningScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_INTERVAL, "15"));
+    static void applicationEventPeriodicScanningScanInterval(Context context) {
+        applicationEventPeriodicScanningScanInterval = Integer.parseInt(getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, "15"));
     }
 
-    static void applicationEventBackgroundScanningScanInPowerSaveMode(Context context) {
-        applicationEventBackgroundScanningScanInPowerSaveMode = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_POWER_SAVE_MODE, "1");
+    static void applicationEventPeriodicScanningScanInPowerSaveMode(Context context) {
+        applicationEventPeriodicScanningScanInPowerSaveMode = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE, "1");
     }
 
-    static void applicationEventBackgroundScanningScanOnlyWhenScreenIsOn(Context context) {
-        applicationEventBackgroundScanningScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
+    static void applicationEventPeriodicScanningScanOnlyWhenScreenIsOn(Context context) {
+        applicationEventPeriodicScanningScanOnlyWhenScreenIsOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON, false);
     }
 
     static void applicationEventWifiScanIgnoreHotspot(Context context) {
@@ -1225,16 +1225,16 @@ class ApplicationPreferences {
     }
 
 
-    static void applicationEventBackgroundScanningScanInTimeMultiply(Context context) {
-        applicationEventBackgroundScanningScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY, "0");
+    static void applicationEventPeriodicScanningScanInTimeMultiply(Context context) {
+        applicationEventPeriodicScanningScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY, "0");
     }
 
-    static void applicationEventBackgroundScanningScanInTimeMultiplyFrom(Context context) {
-        applicationEventBackgroundScanningScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM, 0);
+    static void applicationEventPeriodicScanningScanInTimeMultiplyFrom(Context context) {
+        applicationEventPeriodicScanningScanInTimeMultiplyFrom = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM, 0);
     }
 
-    static void applicationEventBackgroundScanningScanInTimeMultiplyTo(Context context) {
-        applicationEventBackgroundScanningScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_TO, 0);
+    static void applicationEventPeriodicScanningScanInTimeMultiplyTo(Context context) {
+        applicationEventPeriodicScanningScanInTimeMultiplyTo = getSharedPreferences(context).getInt(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO, 0);
     }
 
     static void applicationEventBluetoothScanInTimeMultiply(Context context) {

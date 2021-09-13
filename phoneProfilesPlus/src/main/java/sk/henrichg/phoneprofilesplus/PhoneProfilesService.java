@@ -337,8 +337,8 @@ public class PhoneProfilesService extends Service
             if ((Build.VERSION.SDK_INT < 26)) {
                 PPApplication.setCustomKey(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
             }
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_ENABLE_SCANNING, ApplicationPreferences.applicationEventBackgroundScanningEnableScanning);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_INTERVAL, ApplicationPreferences.applicationEventBackgroundScanningScanInterval);
+            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, ApplicationPreferences.applicationEventPeriodicScanningEnableScanning);
+            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, ApplicationPreferences.applicationEventPeriodicScanningScanInterval);
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning);
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, ApplicationPreferences.applicationEventWifiScanInterval);
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.applicationEventBluetoothEnableScanning);
@@ -1485,7 +1485,7 @@ public class PhoneProfilesService extends Service
                                 (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);
                     if (!allowed)
-                        allowed = ApplicationPreferences.applicationEventBackgroundScanningEnableScanning;/* &&
+                        allowed = ApplicationPreferences.applicationEventPeriodicScanningEnableScanning;/* &&
                                 (Event.isEventPreferenceAllowed(EventPreferencesOrientation.PREF_EVENT_ORIENTATION_ENABLED, appContext).allowed ==
                                         PreferenceAllowed.PREFERENCE_ALLOWED);*/
                 }
@@ -3238,22 +3238,22 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void cancelBackgroundScanningWorker() {
-        //PPApplication.logE("[RJS] PhoneProfilesService.cancelBackgroundScanningWorker", "xxx");
+    private void cancelPeriodicScanningWorker() {
+        //PPApplication.logE("[RJS] PhoneProfilesService.cancelPeriodicScanningWorker", "xxx");
         PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
         PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
     }
 
-    void scheduleBackgroundScanningWorker(/*final DataWrapper dataWrapper , final boolean rescan*/) {
+    void schedulePeriodicScanningWorker(/*final DataWrapper dataWrapper , final boolean rescan*/) {
         //final Context appContext = getApplicationContext();
-        //CallsCounter.logCounter(appContext, "PhoneProfilesService.scheduleBackgroundScanningWorker", "PhoneProfilesService_scheduleBackgroundScanningWorker");
-        //PPApplication.logE("[RJS] PhoneProfilesService.scheduleBackgroundScanningWorker", "xxx");
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.schedulePeriodicScanningWorker", "PhoneProfilesService_schedulePeriodicScanningWorker");
+        //PPApplication.logE("[RJS] PhoneProfilesService.schedulePeriodicScanningWorker", "xxx");
 
         //if (schedule) {
-        //PPApplication.logE("[RJS] PhoneProfilesService.scheduleBackgroundScanningWorker", "SCHEDULE");
-        if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
+        //PPApplication.logE("[RJS] PhoneProfilesService.schedulePeriodicScanningWorker", "SCHEDULE");
+        if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
             boolean eventAllowed = false;
-            if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventBackgroundScanningScanOnlyWhenScreenIsOn)) {
+            if ((PPApplication.isScreenOn) || (!ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn)) {
                 // start only for screen On
                 eventAllowed = true;
             }
@@ -3274,24 +3274,24 @@ public class PhoneProfilesService extends Service
 //                        statuses = workManager.getWorkInfosForUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT);
 //                        try {
 //                            List<WorkInfo> workInfoList = statuses.get();
-//                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.scheduleBackgroundScanningWorker", "for=" + PeriodicEventsHandlerWorker.WORK_TAG_SHORT + " workInfoList.size()=" + workInfoList.size());
+//                            PPApplication.logE("[TEST BATTERY] PhoneProfilesService.schedulePeriodicScanningWorker", "for=" + PeriodicEventsHandlerWorker.WORK_TAG_SHORT + " workInfoList.size()=" + workInfoList.size());
 //                        } catch (Exception ignored) {
 //                        }
 //                        //}
 
-//                        PPApplication.logE("[WORKER_CALL] PhoneProfilesService.scheduleBackgroundScanningWorker", "xxx");
+//                        PPApplication.logE("[WORKER_CALL] PhoneProfilesService.schedulePeriodicScanningWorker", "xxx");
                         workManager.enqueueUniqueWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, ExistingWorkPolicy.REPLACE/*KEEP*/, periodicEventsHandlerWorker);
                     }
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
             } else
-                cancelBackgroundScanningWorker();
+                cancelPeriodicScanningWorker();
         } else
-            cancelBackgroundScanningWorker();
+            cancelPeriodicScanningWorker();
         //}
         //else
-        //    cancelBackgroundScanningWorker();
+        //    cancelPeriodicScanningWorker();
     }
 
     private void cancelWifiWorker(final Context context, boolean forSchedule) {
@@ -3858,7 +3858,7 @@ public class PhoneProfilesService extends Service
         startTwilightScanner(true, true, dataWrapper);
         startNotificationScanner(true, true, dataWrapper);
 
-        scheduleBackgroundScanningWorker(/*dataWrapper, true*/);
+        schedulePeriodicScanningWorker(/*dataWrapper, true*/);
         scheduleWifiWorker(/*true,*/  dataWrapper/*, false, false, false, true*/);
         scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
         scheduleSearchCalendarEventsWorker(/*true, */dataWrapper/*, true*/);
@@ -3913,7 +3913,7 @@ public class PhoneProfilesService extends Service
         startTwilightScanner(false, true, null);
         startNotificationScanner(false, true, null);
 
-        cancelBackgroundScanningWorker();
+        cancelPeriodicScanningWorker();
         cancelWifiWorker(appContext, false);
         cancelBluetoothWorker(appContext, false);
         //cancelGeofenceWorker(false);
@@ -3959,7 +3959,7 @@ public class PhoneProfilesService extends Service
         //registerReceiverForOrientationSensor(true, dataWrapper);
         registerReceiverForNotificationSensor(true,dataWrapper);
 
-        scheduleBackgroundScanningWorker(/*dataWrapper, true*/);
+        schedulePeriodicScanningWorker(/*dataWrapper, true*/);
         scheduleWifiWorker(/*true,*/  dataWrapper/*, false, false, false, true*/);
         scheduleBluetoothWorker(/*true,*/  dataWrapper /*false, false,*/ /*, true*/);
         scheduleSearchCalendarEventsWorker(/*true,*/ dataWrapper /*, true*/);
@@ -4936,8 +4936,8 @@ public class PhoneProfilesService extends Service
 //                    case PPApplication.SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER:
 //                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_FORCE_REGISTER_RECEIVERS_FOR_BLUETOOTH_SCANNER");
 //                        break;
-//                    case PPApplication.SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER:
-//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER");
+//                    case PPApplication.SCANNER_RESTART_PERIODIC_SCANNING_SCANNER:
+//                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_PERIODIC_SCANNING_SCANNER");
 //                        break;
 //                    case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
 //                        PPApplication.logE("-=***********=- PhoneProfilesService.doCommand", "SCANNER_RESTART_WIFI_SCANNER");
@@ -5134,8 +5134,8 @@ public class PhoneProfilesService extends Service
                                     //Intent intent = new Intent(ACTION_ORIENTATION_EVENT_BROADCAST_RECEIVER);
                                     //sendBroadcast(intent);
                                 }
-                                if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
-                                    ppService.scheduleBackgroundScanningWorker();
+                                if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
+                                    ppService.schedulePeriodicScanningWorker();
                                 }
 
                                 if (ApplicationPreferences.applicationEventNotificationEnableScanning) {
@@ -5247,9 +5247,9 @@ public class PhoneProfilesService extends Service
                                         ppService.registerBluetoothStateChangedBroadcastReceiver(true, dataWrapper, true);
                                         ppService.registerBluetoothScannerReceivers(true, dataWrapper, true);
                                         break;
-                                    case PPApplication.SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER:
-//                                        PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER");
-                                        ppService.scheduleBackgroundScanningWorker(/*dataWrapper, true*/);
+                                    case PPApplication.SCANNER_RESTART_PERIODIC_SCANNING_SCANNER:
+//                                        PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "SCANNER_RESTART_PERIODIC_SCANNING_SCANNER");
+                                        ppService.schedulePeriodicScanningWorker(/*dataWrapper, true*/);
                                         AvoidRescheduleReceiverWorker.enqueueWork();
                                         break;
                                     case PPApplication.SCANNER_RESTART_WIFI_SCANNER:
@@ -5322,14 +5322,14 @@ public class PhoneProfilesService extends Service
                                         //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "fromBatteryChange="+fromBatteryChange);
 
                                         // background
-                                        if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
-                                            boolean canRestart = (!ApplicationPreferences.applicationEventBackgroundScanningScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
-                                        /*PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "ApplicationPreferences.applicationEventBackgroundScanningScanOnlyWhenScreenIsOn="+ApplicationPreferences.applicationEventBackgroundScanningScanOnlyWhenScreenIsOn);
+                                        if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
+                                            boolean canRestart = (!ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn) || PPApplication.isScreenOn;
+                                        /*PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn="+ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn);
                                         PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "PPApplication.isScreenOn="+PPApplication.isScreenOn);
                                         PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "background scanning - canRestart="+canRestart);*/
                                             if ((!fromBatteryChange) || canRestart) {
                                                 //PPApplication.logE("[TEST BATTERY] PhoneProfilesService.doCommand", "background scanning - restart");
-                                                ppService.scheduleBackgroundScanningWorker(/*dataWrapper, true*/);
+                                                ppService.schedulePeriodicScanningWorker(/*dataWrapper, true*/);
                                             }
                                         }
 

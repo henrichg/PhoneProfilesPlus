@@ -40,11 +40,11 @@
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsNotifications" />
 
     <Preference
-        app:key="backgroundScanningCategoryRoot"
+        app:key="periodicScanningCategoryRoot"
         app:title="@string/phone_profiles_pref_category_background_scanning"
         app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsBackgroundScanning" />
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsPeriodicScanning" />
 
     <Preference
         app:key="locationScanningCategoryRoot"

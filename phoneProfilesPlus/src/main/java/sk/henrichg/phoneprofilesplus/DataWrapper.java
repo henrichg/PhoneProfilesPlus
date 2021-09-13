@@ -2463,7 +2463,7 @@ public class DataWrapper {
                 restart = true;
             else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
                 restart = true;
-            else if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning)
+            else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                 restart = true;
             if (restart) {
                 PPApplication.rescanAllScanners(context);

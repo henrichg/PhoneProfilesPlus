@@ -73,7 +73,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_TIME_SCANNING_APP_SETTINGS = 1995;
     private static final int RESULT_CALENDAR_SCANNING_APP_SETTINGS = 1995;
     private static final int RESULT_NOTIFICATION_SCANNING_APP_SETTINGS = 1997;
-    private static final int RESULT_BACKGROUND_SCANNING_APP_SETTINGS = 1997;
+    private static final int RESULT_PERIODIC_SCANNING_APP_SETTINGS = 1997;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -716,7 +716,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference114 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "backgroundScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "periodicScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 //noinspection deprecation
                 startActivityForResult(intent, RESULT_TIME_SCANNING_APP_SETTINGS);
@@ -729,7 +729,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference115 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "backgroundScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "periodicScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 //noinspection deprecation
                 startActivityForResult(intent, RESULT_CALENDAR_SCANNING_APP_SETTINGS);
@@ -742,10 +742,10 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference13 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "backgroundScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "periodicScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 //noinspection deprecation
-                startActivityForResult(intent, RESULT_BACKGROUND_SCANNING_APP_SETTINGS);
+                startActivityForResult(intent, RESULT_PERIODIC_SCANNING_APP_SETTINGS);
                 return false;
             });
         }
@@ -1204,7 +1204,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_LOCATION_APP_SETTINGS) {
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
         }
-        if (requestCode == RESULT_BACKGROUND_SCANNING_APP_SETTINGS) {
+        if (requestCode == RESULT_PERIODIC_SCANNING_APP_SETTINGS) {
             event._eventPreferencesPeriodic.checkPreferences(prefMng, context);
         }
         if (requestCode == LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR) {

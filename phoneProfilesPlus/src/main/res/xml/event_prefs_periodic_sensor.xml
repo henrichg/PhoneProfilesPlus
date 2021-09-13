@@ -11,7 +11,7 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
-        app:key="eventEnableBackgroundScanningAppSettings"
+        app:key="eventEnablePeriodicScanningAppSettings"
         app:title="@string/phone_profiles_pref_category_background_scanning"
         app:summary="@string/phone_profiles_pref_eventBackgroundScanningAppSettings_summary"
         app:dependency="eventPeriodicEnabled"

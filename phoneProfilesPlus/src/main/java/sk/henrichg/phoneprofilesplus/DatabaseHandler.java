@@ -8544,41 +8544,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    void getPeriodicCounter(Event event)
-    {
-        importExportLock.lock();
-        try {
-            try {
-                startRunningCommand();
-
-                //SQLiteDatabase db = this.getReadableDatabase();
-                SQLiteDatabase db = getMyWritableDatabase();
-
-                Cursor cursor = db.query(TABLE_EVENTS,
-                        new String[]{
-                                KEY_E_PERIODIC_COUNTER
-                        },
-                        KEY_E_ID + "=?",
-                        new String[]{String.valueOf(event._id)}, null, null, null, null);
-                if (cursor != null) {
-                    cursor.moveToFirst();
-
-                    if (cursor.getCount() > 0) {
-                        event._eventPreferencesPeriodic._counter = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_COUNTER));
-                    }
-
-                    cursor.close();
-                }
-
-                //db.close();
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        } finally {
-            stopRunningCommand();
-        }
-    }
-
     void updatePeriodicStartTime(Event event)
     {
         importExportLock.lock();
@@ -8630,6 +8595,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 Cursor cursor = db.query(TABLE_EVENTS,
                         new String[]{
+                                KEY_E_PERIODIC_COUNTER,
+                                KEY_E_PERIODIC_MULTIPLY_INTERVAL,
                                 KEY_E_PERIODIC_START_TIME
                         },
                         KEY_E_ID + "=?",
@@ -8638,7 +8605,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     cursor.moveToFirst();
 
                     if (cursor.getCount() > 0) {
-                        event._eventPreferencesPeriodic._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_PERIODIC_START_TIME));
+                        int multiplyInterval = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_MULTIPLY_INTERVAL));
+
+                        event._eventPreferencesPeriodic._counter = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_COUNTER));
+                        if (event._eventPreferencesPeriodic._counter >=
+                                ApplicationPreferences.applicationEventPeriodicScanningScanInterval * multiplyInterval)
+                            event._eventPreferencesPeriodic._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_PERIODIC_START_TIME));
+                        else
+                            event._eventPreferencesPeriodic._startTime = 0;
+
                     }
 
                     cursor.close();

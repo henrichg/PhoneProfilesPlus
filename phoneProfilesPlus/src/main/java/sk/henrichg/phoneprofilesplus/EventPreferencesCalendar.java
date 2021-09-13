@@ -54,7 +54,7 @@ class EventPreferencesCalendar extends EventPreferences {
     private static final String PREF_EVENT_CALENDAR_AVAILABILITY = "eventCalendarAvailability";
     //private static final String PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS = "eventCalendarIgnoreAllDayEvents";
     private static final String PREF_EVENT_CALENDAR_START_BEFORE_EVENT = "eventCalendarStartBeforeEvent";
-    static final String PREF_EVENT_CALENDAR_APP_SETTINGS = "eventCalendarBackgroundScanningAppSettings";
+    static final String PREF_EVENT_CALENDAR_APP_SETTINGS = "eventCalendarPeriodicScanningAppSettings";
     private static final String PREF_EVENT_CALENDAR_STATUS = "eventCalendarStatus";
     private static final String PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT = "eventCalendarDayContainsEvent";
     private static final String PREF_EVENT_CALENDAR_ALL_DAY_EVENTS = "eventCalendarAllDayEvents";
@@ -284,8 +284,8 @@ class EventPreferencesCalendar extends EventPreferences {
             if (preference != null) {
                 String summary;
                 //int titleColor;
-                if (!ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
-                    //if (!ApplicationPreferences.applicationEventBackgroundScanningDisabledScannigByProfile) {
+                if (!ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
+                    //if (!ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile) {
                     summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + ".\n\n" +
                             context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     //titleColor = Color.RED; //0xFFffb000;

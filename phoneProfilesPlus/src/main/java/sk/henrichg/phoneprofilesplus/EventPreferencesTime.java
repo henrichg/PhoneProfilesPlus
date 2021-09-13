@@ -43,7 +43,7 @@ class EventPreferencesTime extends EventPreferences {
     static final String PREF_EVENT_TIME_TYPE = "eventTimeType";
     //private static final String PREF_EVENT_TIME_USE_END_TIME = "eventTimeUseEndTime";
     static final String PREF_EVENT_TIME_LOCATION_SYSTEM_SETTINGS = "eventTimeLocationSystemSettings";
-    static final String PREF_EVENT_TIME_APP_SETTINGS = "eventTimeBackgroundScanningAppSettings";
+    static final String PREF_EVENT_TIME_APP_SETTINGS = "eventTimePeriodicScanningAppSettings";
 
     private static final String PREF_EVENT_TIME_CATEGORY = "eventTimeCategoryRoot";
 
@@ -368,8 +368,8 @@ class EventPreferencesTime extends EventPreferences {
             if (preference != null) {
                 String summary;
                 //int titleColor;
-                if (!ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
-                    //if (!ApplicationPreferences.applicationEventBackgroundScanningDisabledScannigByProfile) {
+                if (!ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
+                    //if (!ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile) {
                         summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + ".\n\n" +
                                             context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                         //titleColor = Color.RED; //0xFFffb000;

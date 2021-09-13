@@ -1,95 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:key="anonymousScanningCategory"
+    app:key="periodicScanningCategory"
     app:title="@string/phone_profiles_pref_category_background_scanning">
 
     <Preference
-        app:key="applicationEventBackgroundScanningInfo"
+        app:key="applicationEventPeriodicScanningInfo"
         app:title="@string/phone_profiles_pref_applicationEventBackgroundScanning_info"
         app:summary="@string/empty_string"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
-        app:key="applicationEventBackgroundScanningEnableScannig"
+        app:key="applicationEventPeriodicScanningEnableScannig"
         app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningEnableScanning"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
     <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory"
-        app:dependency="applicationEventBackgroundScanningEnableScannig"
+        app:dependency="applicationEventPeriodicScanningEnableScannig"
         app:layout="@layout/mp_preference_category" >
         <Preference
-            app:key="applicationEventBackgroundScanningScanIntervalInfo"
+            app:key="applicationEventPeriodicScanningScanIntervalInfo"
             app:title="@string/empty_string"
             app:summary="@string/phone_profiles_pref_applicationEventScanIntervalInfo_summary1"
-            app:dependency="applicationEventBackgroundScanningEnableScannig"
+            app:dependency="applicationEventPeriodicScanningEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
-            app:key="applicationEventBackgroundScanningScanInterval"
+            app:key="applicationEventPeriodicScanningScanInterval"
             app:summary="@string/phone_profiles_pref_applicationEventBackgroundScanningScanInterval"
             app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanInterval"
             app:defaultValue="15"
             app:min="1"
             app:max="300"
-            app:dependency="applicationEventBackgroundScanningEnableScannig"
+            app:dependency="applicationEventPeriodicScanningEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode"
-        app:dependency="applicationEventBackgroundScanningEnableScannig"
+        app:dependency="applicationEventPeriodicScanningEnableScannig"
         app:layout="@layout/mp_preference_category" >
         <ListPreference
-            app:key="applicationEventBackgroundScanningScanInPowerSaveMode"
+            app:key="applicationEventPeriodicScanningScanInPowerSaveMode"
             app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode"
             app:summary="@string/array_pref_scanInPowerSaveMode_2xInterval"
             app:defaultValue="1"
             app:entries="@array/scanInPowerSaveModeArray"
             app:entryValues="@array/scanInPowerSaveModeValues"
-            app:dependency="applicationEventBackgroundScanningEnableScannig"
+            app:dependency="applicationEventPeriodicScanningEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
         <Preference
-            app:key="applicationBackgroundScanningPowerSaveMode"
+            app:key="applicationPeriodicScanningPowerSaveMode"
             app:title="@string/phone_profiles_pref_applicationBatterySaver"
             app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
-            app:dependency="applicationEventBackgroundScanningEnableScannig"
+            app:dependency="applicationEventPeriodicScanningEnableScannig"
             app:widgetLayout="@layout/widget_start_activity_preference"
             app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
     <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply"
-        app:dependency="applicationEventBackgroundScanningEnableScannig"
+        app:dependency="applicationEventPeriodicScanningEnableScannig"
         app:layout="@layout/mp_preference_category" >
         <ListPreference
-            app:key="applicationEventBackgroundScanningScanInTimeMultiply"
+            app:key="applicationEventPeriodicScanningScanInTimeMultiply"
             app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply"
             app:summary="@string/array_pref_scanInPowerSaveMode_1xInterval"
             app:defaultValue="0"
             app:entries="@array/scanInPowerSaveModeArray"
             app:entryValues="@array/scanInPowerSaveModeValues"
-            app:dependency="applicationEventBackgroundScanningEnableScannig"
+            app:dependency="applicationEventPeriodicScanningEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
-            app:key="applicationEventBackgroundScanningScanInTimeMultiplyFrom"
+            app:key="applicationEventPeriodicScanningScanInTimeMultiplyFrom"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom"
-            app:dependency="applicationEventBackgroundScanningEnableScannig"
+            app:dependency="applicationEventPeriodicScanningEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
         <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
-            app:key="applicationEventBackgroundScanningScanInTimeMultiplyTo"
+            app:key="applicationEventPeriodicScanningScanInTimeMultiplyTo"
             app:defaultValue="0"
             app:title="@string/phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo"
-            app:dependency="applicationEventBackgroundScanningEnableScannig"
+            app:dependency="applicationEventPeriodicScanningEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     <PreferenceCategory
         app:title="@string/phone_profiles_pref_applicationOtherParametersCategory"
-        app:dependency="applicationEventBackgroundScanningEnableScannig"
+        app:dependency="applicationEventPeriodicScanningEnableScannig"
         app:layout="@layout/mp_preference_category" >
         <SwitchPreferenceCompat
-            app:key="applicationEventBackgroundScanningScanOnlyWhenScreenIsOn"
+            app:key="applicationEventPeriodicScanningScanOnlyWhenScreenIsOn"
             app:title="@string/phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn"
             app:defaultValue="false"
-            app:dependency="applicationEventBackgroundScanningEnableScannig"
+            app:dependency="applicationEventPeriodicScanningEnableScannig"
             app:layout="@layout/mp_preference_material_widget" />
     </PreferenceCategory>
     
