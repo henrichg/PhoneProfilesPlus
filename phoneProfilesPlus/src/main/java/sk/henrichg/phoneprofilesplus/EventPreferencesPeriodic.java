@@ -398,13 +398,11 @@ class EventPreferencesPeriodic extends EventPreferences {
 //                    PPApplication.logE("[EVENTS_HANDLER_CALL] EventPreferencesPeriodic.increaseCounter", "sensorType=SENSOR_TYPE_PERIODIC");
                 EventsHandler eventsHandler = new EventsHandler(dataWrapper.context.getApplicationContext());
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PERIODIC);
-
-                //TODO tu zapis do databazy _counter=0, aby sa zacalo dozaciatku pocitanie
                 _counter = 0;
             } else {
-                //TODO tu len rob inc _countera a zapisuj ho do databazy
                 _counter += 1;
             }
+            DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
         }
     }
 
