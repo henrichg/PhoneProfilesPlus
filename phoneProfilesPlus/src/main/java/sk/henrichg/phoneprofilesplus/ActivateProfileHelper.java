@@ -395,7 +395,7 @@ class ActivateProfileHelper {
         if (profile._deviceWiFiAP != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP");
-                if (Build.VERSION.SDK_INT < 28) {
+                if (Build.VERSION.SDK_INT < 30) {
                     WifiApManager wifiApManager = null;
                     try {
                         wifiApManager = new WifiApManager(appContext);
@@ -444,11 +444,11 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-                else if (Build.VERSION.SDK_INT < 30) {
+                else {
                     // not working in Android 11+
                     boolean setWifiAPState = false;
                     boolean doNotChangeWifi = false;
-                    boolean isWifiAPEnabled = CmdWifiAP.isEnabled();
+                    boolean isWifiAPEnabled = CmdWifiAP.isEnabled(context);
                     switch (profile._deviceWiFiAP) {
                         case 1:
                         case 4:
@@ -498,7 +498,7 @@ class ActivateProfileHelper {
                     if (Build.VERSION.SDK_INT < 28)
                         isWifiAPEnabled = WifiApManager.isWifiAPEnabled(appContext);
                     else
-                        isWifiAPEnabled = CmdWifiAP.isEnabled();
+                        isWifiAPEnabled = CmdWifiAP.isEnabled(context);
 //                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "isWifiAPEnabled="+isWifiAPEnabled);
                     if ((!isWifiAPEnabled) || (profile._deviceWiFi >= 4)) { // only when wifi AP is not enabled, change wifi
                         WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
@@ -5892,12 +5892,21 @@ class ActivateProfileHelper {
                 }
             }
         }
-        else {
+        else if (Build.VERSION.SDK_INT < 30) {
+            //Context appContext = context.getApplicationContext();
+            //if (WifiApManager.canExploitWifiTethering(appContext)) {
+                if (enable)
+                    wifiApManager.startTethering(doNotChangeWifi);
+                else
+                    wifiApManager.stopTethering();
+            //}
+        }
+        /*else {
             if (enable)
                 wifiApManager.startTethering(doNotChangeWifi);
             else
                 wifiApManager.stopTethering();
-        }
+        }*/
     }
 
     private static void setNFC(Context context, boolean enable)
@@ -6381,11 +6390,13 @@ class ActivateProfileHelper {
                     if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_NORMAL) {
                         uiModeManager.enableCarMode(0);
                         PPApplication.sleep(200);
-                        uiModeManager.disableCarMode(0);
+                        //uiModeManager.disableCarMode(0);
+                        uiModeManager.disableCarMode(UiModeManager.DISABLE_CAR_MODE_GO_HOME);
                     }
                     else
                     if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_CAR) {
-                        uiModeManager.disableCarMode(0);
+                        //uiModeManager.disableCarMode(0);
+                        uiModeManager.disableCarMode(UiModeManager.DISABLE_CAR_MODE_GO_HOME);
                         PPApplication.sleep(200);
                         uiModeManager.enableCarMode(0);
                     }

@@ -1,11 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.IConnectivityManager;
-import android.net.wifi.IWifiManager;
+//import android.net.wifi.IWifiManager;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.ResultReceiver;
 import android.os.ServiceManager;
+
+import java.lang.reflect.Method;
 
 @SuppressWarnings("WeakerAccess")
 public class CmdWifiAP {
@@ -36,24 +40,37 @@ public class CmdWifiAP {
         final String packageName = PPApplication.PACKAGE_NAME;
         try {
             IConnectivityManager connectivityAdapter = IConnectivityManager.Stub.asInterface(ServiceManager.getService("connectivity"));  // service list | grep IConnectivityManager
+
             //PPApplication.logE("CmdWifiAP.setWifiAP", "connectivityAdapter="+connectivityAdapter);
             if (enable) {
                 if (!doNotChangeWifi) {
-                    IWifiManager wifiAdapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
+                    WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);;
+                    //IWifiManager wifiAdapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
                     //PPApplication.logE("CmdWifiAP.setWifiAP", "wifiAdapter="+wifiAdapter);
-                    int wifiState = wifiAdapter.getWifiEnabledState();
-                    boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                    //int wifiState = wifiAdapter.getWifiEnabledState();
+                    //boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                    boolean isWifiEnabled = wifiManager.isWifiEnabled();
                     //PPApplication.logE("CmdWifiAP.setWifiAP", "isWifiEnabled="+isWifiEnabled);
+                    //if (isWifiEnabled) {
+//                        PPApplication.logE("[WIFI_ENABLED] CmdWifiAP.setWifiAP", "false");
+                    //    wifiAdapter.setWifiEnabled(packageName, false);
+                    //}
                     if (isWifiEnabled) {
 //                        PPApplication.logE("[WIFI_ENABLED] CmdWifiAP.setWifiAP", "false");
-                        wifiAdapter.setWifiEnabled(packageName, false);
+                        wifiManager.setWifiEnabled(false);
                     }
                 }
 
                 ResultReceiver dummyResultReceiver = new ResultReceiver(null);
-                connectivityAdapter.startTethering(0, dummyResultReceiver, false, packageName);
+                if (Build.VERSION.SDK_INT < 31) {
+                    //Method wifiApConfigurationMethod = IConnectivityManager.getClass().getMethod("startTethering"/*,null*/);
+
+                    //connectivityAdapter.startTethering(0, dummyResultReceiver, false, packageName);
+                }
             } else {
-                connectivityAdapter.stopTethering(0, packageName);
+                if (Build.VERSION.SDK_INT < 31) {
+                    //connectivityAdapter.stopTethering(0, packageName);
+                }
             }
 
             //PPApplication.logE("CmdWifiAP.setWifiAP", "END=");
@@ -120,15 +137,17 @@ public class CmdWifiAP {
     }
     */
 
-    static boolean isEnabled() {
+    static boolean isEnabled(Context context) {
         //PPApplication.logE("CmdWifiAP.isEnabled", "xxx");
         try {
             boolean enabled;
-            IWifiManager adapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
+            /*IWifiManager adapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
             //PPApplication.logE("CmdWifiAP.isEnabled", "adapter="+adapter);
             enabled = adapter.getWifiApEnabledState() == WifiManager.WIFI_AP_STATE_ENABLED;
             //PPApplication.logE("CmdWifiAP.isEnabled", "enabled="+enabled);
-            return enabled;
+            return enabled;*/
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);;
+            return wifiManager.isWifiApEnabled();
         } catch (Throwable e) {
             //Log.e("CmdWifiAP.isEnabled", Log.getStackTraceString(e));
             PPApplication.recordException(e);
