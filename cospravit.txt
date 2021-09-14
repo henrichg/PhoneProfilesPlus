@@ -422,4 +422,5 @@ Cize v podstate ziskam zoznam subororv z adresara a potom pouzijem Random() na z
 *** Teraz musim zistit, ako ziskam Uri adresara (asi ako to mam pri restore zalohy) a z neho zoznam suborov.
     A z toho zoznamu Uri nahodneho suboru v zozname.
 Pozri: https://developer.android.com/training/secure-file-sharing/retrieve-info
+Asi lepsie: https://stackoverflow.com/questions/62353325/how-to-get-access-to-a-directory-and-its-files-from-tree-uri-path-with-saf
 
