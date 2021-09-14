@@ -1394,12 +1394,6 @@
     <string name="altype_profileError_setWallpaper">profil - błąd podczas ustawiania tapety</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">nie przyznano uprawnień Bluetooth</string>
     <string name="profile_preferences_volumeMuteSound">Wycisz dźwięk</string>
-    <string name="phone_profiles_pref_category_background_scanning">Skanowanie w tle</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Te ustawienia służą konfiguracji skanowania w tle. Funkcja ta jest użyteczna, gdy czujnik czasu lub kalendarza nie działa prawidłowo.\n\n Nie zaleca się używać tej funkcji, jeśli w jakimkolwiek zdarzeniu używany jest czujnik lokalizacji, wifi, Bluetooth lub orientacji.</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Włącz skanowanie w tle</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Interwał skanowania w tle (minuty)</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Skanowanie w tle w trybie oszczędzania energii</string>
-    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Skonfiguruj parametry skanowania w tle w ustawieniach aplikacji.</string>
     <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">nie przyznano dostępu do Telefonu</string>
     <string name="profile_preferences_deviceLocationMode">(G1) Tryb lokalizacji</string>
     <string name="array_pref_locationModeArray_off">Lokalizacja wyłączona</string>
@@ -1676,9 +1670,6 @@
     <string name="check_releases_install_amazon_appstore">Zainstaluj aplikację Amazon Appstore.</string>
     <string name="applicationApplicationInterfaceActivationNotification">Powiadomienie o aktywacji profilu</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Dodaj \"Restart zdarzeń\" do listy profili</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Interwał skanowania w tle</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Od</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">Do</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Skanowanie Bluetooth w czasie</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">Od</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">Do</string>
@@ -1699,7 +1690,6 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">Do</string>
     <string name="menu_check_releases_appgallery">Sprawdź w AppGallery</string>
     <string name="check_releases_open_appgallery">Otwórz AppGallery</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Interwał skanowania w tle</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Interwał skanowania Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Interwał skanowania lokalizacji</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Interwał skanowania orientacji</string>
@@ -1760,6 +1750,21 @@
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Accessibility service for PhoneProfilesPlusExtender is not enabled, but it is determined</string>
     <string name="extender_accessibility_setting_not_enabled_title">Accessibility service not enabled</string>
     <string name="extender_accessibility_setting_not_enabled_text">Accessibility service for PhoneProfilesPlusExtender is not enabled. Click here to enable it.</string>
+    <string name="event_preference_sensor_periodic_summary">This sensor is for periodical profile activation. Parameters: Multiple of scanning interval, Duration (event run duration).</string>
+    <string name="event_type_periodic">Periodic</string>
+    <string name="pref_event_periodic_multiple_interval">Multiple of scanning interval</string>
+    <string name="event_preferences_category_eventPeriodicParameters">Periodic sensor</string>
+    <string name="pref_event_periodic_resulting_interval">Resulting interval (minutes)</string>
+    <string name="phone_profiles_pref_category_background_scanning">Periodic scanning</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">These settings are for periodic scanning. Is used for Periodic event sensor.\nIs also useful when Time or Calendar event sensor not working good.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Enable periodic scanning</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Periodic scan interval (minutes)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Periodic scan in Power Save mode</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Setup Periodic scanning parameters in application settings.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Periodic scan in time</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Periodic scan interval</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Umożliwia PhoneProfilesPlusExtender obsługę:\n• parametru \"Wymuś zatrzymanie aplikacji\"w konfiguracji Profili\n• czujników \"Czujnik Aplikacji\", \"Czujnik Orientacji\", \"Czujnik SMS/MMS sensor\", \"Czujnik Rozmowy\" w konfiguracji Zdarzeń</string>

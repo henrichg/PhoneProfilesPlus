@@ -1772,7 +1772,7 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="extender_accessibility_setting_not_enabled_title">Accessibility service not enabled</string>
     <string name="extender_accessibility_setting_not_enabled_text">Accessibility service for PhoneProfilesPlusExtender is not enabled. Click here to enable it.</string>
 
-    <string name="event_preference_sensor_periodic_summary">This sensor is for peidical profile activation. Parameters: Multiple of scanning interval, Duration (event run duration).</string>
+    <string name="event_preference_sensor_periodic_summary">This sensor is for periodical profile activation. Parameters: Multiple of scanning interval, Duration (event run duration).</string>
     <string name="event_type_periodic">Periodic</string>
     <string name="pref_event_periodic_multiple_interval">Multiple of scanning interval</string>
     <string name="event_preferences_category_eventPeriodicParameters">Periodic sensor</string>

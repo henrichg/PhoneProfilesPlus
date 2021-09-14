@@ -1394,12 +1394,6 @@
     <string name="altype_profileError_setWallpaper">profiel - fout bij instellen achtergrond</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">geen Bluetooth-machtiging verleend</string>
     <string name="profile_preferences_volumeMuteSound">Geluid uitschakelen</string>
-    <string name="phone_profiles_pref_category_background_scanning">Achtergrond scannen</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Deze instellingen zijn voor het scannen op de achtergrond. Dit is handig wanneer de tijds- of agenda-event sensor niet goed werkt.\n\nHet wordt aangeraden om deze scan niet in te schakelen wanneer locatie, Wi-Fi, Bluetooth, Oriëntatiesensor wordt gebruikt in een event.</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Op de achtergrond scannen inschakelen</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Achtergrond scannen scan interval (minuten)</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Achtergrond scannen in Energiebesparingsmodus</string>
-    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Stel achtergrondscan parameters in bij programma-instellingen.</string>
     <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">geen machtiging tot telefoonrechten verleend</string>
     <string name="profile_preferences_deviceLocationMode">(G1) Locatiemodus</string>
     <string name="array_pref_locationModeArray_off">Locatie uit</string>
@@ -1676,9 +1670,6 @@
     <string name="check_releases_install_amazon_appstore">Installeer de Amazon Appstore applicatie.</string>
     <string name="applicationApplicationInterfaceActivationNotification">Melding van profiel activeren</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Voeg \"Event herstarten\" toe aan de profiellijst</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Achtergrond scannen op tijd</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Van</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">Aan</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth scan op tijd</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">Van</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">Aan</string>
@@ -1699,7 +1690,6 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">Aan</string>
     <string name="menu_check_releases_appgallery">Controleren in AppGallerij</string>
     <string name="check_releases_open_appgallery">Open AppGallerij</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Op achtergrond scannen, scan interval</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth scan interval</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Locatie scan interval</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Oriëntatie scan interval</string>
@@ -1757,9 +1747,24 @@
     <string name="profile_preferences_vibrateNotifications">Trillen bij meldingen</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Geluidsmodus en trillen</string>
     <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Om trillingen en meldingen goed te laten werken wanneer \"Geluid Modus\" is ingesteld op sommige trillingtypes, wordt aanbevolen om het volgende in te schakelen bij apparaatinstellingen: \"Geluid &amp; trillingen\"\/\"Trilling &amp; haptisch\" en daarin \"trillingen van meldingen\".</string>
-    <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Accessibility service for PhoneProfilesPlusExtender is not enabled, but it is determined</string>
-    <string name="extender_accessibility_setting_not_enabled_title">Accessibility service not enabled</string>
-    <string name="extender_accessibility_setting_not_enabled_text">Accessibility service for PhoneProfilesPlusExtender is not enabled. Click here to enable it.</string>
+    <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Toegankelijkheidsservice voor PhoneProfilesPlusExtender is niet ingeschakeld, maar wordt bepaald</string>
+    <string name="extender_accessibility_setting_not_enabled_title">Toegankelijkheidsservice niet ingeschakeld</string>
+    <string name="extender_accessibility_setting_not_enabled_text">Toegankelijkheidsservice voor PhoneProfilesPlusExtender is niet ingeschakeld. Klik hier om in te schakelen.</string>
+    <string name="event_preference_sensor_periodic_summary">This sensor is for periodical profile activation. Parameters: Multiple of scanning interval, Duration (event run duration).</string>
+    <string name="event_type_periodic">Periodic</string>
+    <string name="pref_event_periodic_multiple_interval">Multiple of scanning interval</string>
+    <string name="event_preferences_category_eventPeriodicParameters">Periodic sensor</string>
+    <string name="pref_event_periodic_resulting_interval">Resulting interval (minutes)</string>
+    <string name="phone_profiles_pref_category_background_scanning">Periodic scanning</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">These settings are for periodic scanning. Is used for Periodic event sensor.\nIs also useful when Time or Calendar event sensor not working good.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Enable periodic scanning</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Periodic scan interval (minutes)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Periodic scan in Power Save mode</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Setup Periodic scanning parameters in application settings.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Periodic scan in time</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Van</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">Aan</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Periodic scan interval</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

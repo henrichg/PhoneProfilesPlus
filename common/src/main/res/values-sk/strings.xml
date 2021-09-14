@@ -1394,12 +1394,6 @@
     <string name="altype_profileError_setWallpaper">profil - chyba pri nastavení obrázku pozadia</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">neudelené Bluetooth povolenie</string>
     <string name="profile_preferences_volumeMuteSound">Stlmiť zvuk</string>
-    <string name="phone_profiles_pref_category_background_scanning">Skenovanie na pozadí</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Tieto nastavenia sú pre skenovanie na pozadí. Je to užitočné, ak Sensor času alebo Sensor kalendára v udalosti nepracuje správne.\n\nOpdorúča sa nepovoliť toto skenovanie, ak sensor Polohy, Wi-Fi, Bluetooth, Orientácie je používaný v nejakej udalosti.</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Povoliť skenovanie na pozadí</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Interval skenovania na pozadí (min.)</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Skenovanie na pozadí v režime Šetrič batérie</string>
-    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Nastav parametre skenovania na pozadí v nastaveniach aplikácie.</string>
     <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">neudelené povolenie Telefón</string>
     <string name="profile_preferences_deviceLocationMode">(G1) Režim polohy</string>
     <string name="array_pref_locationModeArray_off">Poloha vypnutá</string>
@@ -1676,9 +1670,6 @@
     <string name="check_releases_install_amazon_appstore">Prosím nainštalujte si aplikáciu Amazon Appstore.</string>
     <string name="applicationApplicationInterfaceActivationNotification">Notifikácia aktivácie profilu</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">Pridaj \"Reštart udalostí\" do zoznamu profilov</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Skenovanie na pozadí v čase</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Od</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">Do</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth skenovanie v čase</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">Od</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">Do</string>
@@ -1699,7 +1690,6 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">Do</string>
     <string name="menu_check_releases_appgallery">Skontrolovať v AppGallery</string>
     <string name="check_releases_open_appgallery">Otvoriť AppGallery</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Interval skenovania na pozadí</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Interval skenovania Bluetooth</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Interval skenovania polohy</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Interval skenovania orientácie</string>
@@ -1760,6 +1750,21 @@
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Služba Dostupnosť pre PhoneProfilesPlusExtender nie je povolená, ale sa zisťuje</string>
     <string name="extender_accessibility_setting_not_enabled_title">Služba Dostupnosť nie je povolená</string>
     <string name="extender_accessibility_setting_not_enabled_text">Služba Dostupnosť pre PhoneProfilesPlusExtender nie je povolená. Kliknite sem pre jej povolenie.</string>
+    <string name="event_preference_sensor_periodic_summary">Tento senzor slúži na periodickú aktiváciu profilu. Parametre: Násobok intervalu skenovania, Trvanie (trvanie behu udalosti).</string>
+    <string name="event_type_periodic">Periodický</string>
+    <string name="pref_event_periodic_multiple_interval">Násobok intervalu skenovania</string>
+    <string name="event_preferences_category_eventPeriodicParameters">Periodický senzor</string>
+    <string name="pref_event_periodic_resulting_interval">Výsledný interval (minúty)</string>
+    <string name="phone_profiles_pref_category_background_scanning">Periodické skenovanie</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Tieto nastavenia sú pre periodické skenovanie. Používa sa pre Periodický senzor udalostí.\nJe vhodný aj vtedy, keď Senzor času alebo Kalendára nefunguje správne.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Povoliť periodické skenovanie</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Interval periodického skenovania (min.)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Periodické skenovanie v režime Šetrič batérie</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Nastav parametre Periodického skenovania v nastaveniach aplikácie.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Periodické skenovanie v čase</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Od</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">Do</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Interval periodického skenovania</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

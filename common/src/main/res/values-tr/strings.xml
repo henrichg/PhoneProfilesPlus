@@ -1394,12 +1394,6 @@
     <string name="altype_profileError_setWallpaper">Tercih - duvar kağıdı ayarlamada hata</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">Bluetooth için izinler verilmedi</string>
     <string name="profile_preferences_volumeMuteSound">Sesi sustur</string>
-    <string name="phone_profiles_pref_category_background_scanning">Arka plan taraması</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Bu ayarlar arka plan tarama için Saat veya Takvim olayları değerleri iyi çalışmadığı zaman faydalıdır.\n\nKonum, Wi-Fi, Bluetooth ve Ekran Döndürme özelliği her vaziyette kullanılırken bu taramanın açılmaması tavsiye edilir.</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Arka plan taramasını etkinleştir</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Arka plan tarama aralığı (dakika)</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">\"Güç Tasarrufu\" modunda Arka plan taraması</string>
-    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Uygulama ayarlarında Arka plan tarama değerlerini ayarlayın.</string>
     <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">Telefon için izinler verilmedi</string>
     <string name="profile_preferences_deviceLocationMode">(G1) Konum modu</string>
     <string name="array_pref_locationModeArray_off">Konum Kapalı</string>
@@ -1676,9 +1670,6 @@
     <string name="check_releases_install_amazon_appstore">Lutfen Amazon Appstore uygulamasını yükleyin.</string>
     <string name="applicationApplicationInterfaceActivationNotification">Tercihi faaliyete geçirme bildirimi</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">\"Durumları yeniden başlat\"ı Tercih listesine ilave et</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Arka plan tarama zamanı</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">den/dan</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">e/a</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth taraması aralığı</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">den/dan</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">e/a</string>
@@ -1699,7 +1690,6 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">e/a</string>
     <string name="menu_check_releases_appgallery">\"AppGallery\"de kontrol et</string>
     <string name="check_releases_open_appgallery">\"AppGallery\"de aç</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Arka plan tarama aralığı</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth taraması aralığı</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Konum tarama aralığı</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Döndürme taraması aralığı</string>
@@ -1757,9 +1747,24 @@
     <string name="profile_preferences_vibrateNotifications">Bildirimlerde titret</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Ses ve titreşim</string>
     <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">\"Ses Modu\" bazı titreşim türlerine ayarlandığında, zil sesi ve bildirimlerde titreşimin düzgün çalışması için, cihaz ayarlarında şu ayarların etkinleştirilmesi tavsiye edilir: \"Ses &amp; titreşim\"/ \"Titreşim &amp; dokunuş\" ve içinde \"Bildirim titreşimi\".</string>
-    <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Accessibility service for PhoneProfilesPlusExtender is not enabled, but it is determined</string>
-    <string name="extender_accessibility_setting_not_enabled_title">Accessibility service not enabled</string>
-    <string name="extender_accessibility_setting_not_enabled_text">Accessibility service for PhoneProfilesPlusExtender is not enabled. Click here to enable it.</string>
+    <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">PhoneProfilesPlusExtender için Erişilebilirlik hizmeti tesbit edildi fakat açılmadı</string>
+    <string name="extender_accessibility_setting_not_enabled_title">Erişebilirlik hizmeti açık değil</string>
+    <string name="extender_accessibility_setting_not_enabled_text">PhoneProfilesPlusExtender için Erişilebilirlik hizmeti açık değil. Açmak için buraya dokunun.</string>
+    <string name="event_preference_sensor_periodic_summary">This sensor is for periodical profile activation. Parameters: Multiple of scanning interval, Duration (event run duration).</string>
+    <string name="event_type_periodic">Periodic</string>
+    <string name="pref_event_periodic_multiple_interval">Multiple of scanning interval</string>
+    <string name="event_preferences_category_eventPeriodicParameters">Periodic sensor</string>
+    <string name="pref_event_periodic_resulting_interval">Resulting interval (minutes)</string>
+    <string name="phone_profiles_pref_category_background_scanning">Periodic scanning</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">These settings are for periodic scanning. Is used for Periodic event sensor.\nIs also useful when Time or Calendar event sensor not working good.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Enable periodic scanning</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Periodic scan interval (minutes)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Periodic scan in Power Save mode</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Setup Periodic scanning parameters in application settings.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Periodic scan in time</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">den/dan</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">e/a</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Periodic scan interval</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• Tercih değeri \"Zorla durdurulan uygulamalar\"\n• Durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

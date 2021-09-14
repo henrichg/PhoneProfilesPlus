@@ -1394,12 +1394,6 @@
     <string name="altype_profileError_setWallpaper">Profil - Fehler beim Festlegen des Hintergrundbildes</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">Bluetooth-Erlaubnis nicht erteilt</string>
     <string name="profile_preferences_volumeMuteSound">Stummschalten</string>
-    <string name="phone_profiles_pref_category_background_scanning">Scannen im Hintergrund</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Diese Einstellungen gelten für das Scannen im Hintergrund. Es ist nützlich, wenn der Zeit- oder Kalenderereignissensor nicht gut funktioniert.\n\n Es wird empfohlen, dieses Scannen nicht zu aktivieren, wenn der Positionsbestimmungs-, WLAN-, Bluetooth- oder Ausrichtungssensor in jedem Fall verwendet wird.</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Scannen im Hintergrund aktivieren</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Intervall für das Scannen im Hintergrund (Minuten)</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Scannen im Hintergrund im Energiesparmodus</string>
-    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Legen Sie die Parameter für das Scannen im Hintergrund in den App-Einstellungen fest.</string>
     <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">Zugriff auf das Telefon nicht gewährt</string>
     <string name="profile_preferences_deviceLocationMode">(G1) Standortbestimmungsmodus</string>
     <string name="array_pref_locationModeArray_off">Standortbestimmung aus</string>
@@ -1676,9 +1670,6 @@
     <string name="check_releases_install_amazon_appstore">Bitte installieren Sie die Amazon Appstore-Anwendung.</string>
     <string name="applicationApplicationInterfaceActivationNotification">Benachrichtigung beim Aktivieren des Profils</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">„Ereignisse neu starten” zur Profilliste hinzufügen</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Scannen von Hintergrundzeiten</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Von</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">An</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth scan in time</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">Von</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">An</string>
@@ -1699,7 +1690,6 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">An</string>
     <string name="menu_check_releases_appgallery">Check in AppGallery</string>
     <string name="check_releases_open_appgallery">AppGallery öffnen</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Background scanning scan interval</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth scan interval</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Location scan interval</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Orientation scan interval</string>
@@ -1757,9 +1747,24 @@
     <string name="profile_preferences_vibrateNotifications">Vibrationsbenachrichtigungen</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Töne und Vibration</string>
     <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Damit das Vibrieren für Klingeln und Benachrichtigungen richtig funktioniert, wenn \"Töne\" auf einen bestimmten Vibrationstyp festgelegt ist, wird empfohlen, in den Geräteeinstellungen zu aktivieren: \"Ton und Vibration\" ➜ \"Vibration und Haptik\" ➜ „Vibrationsbenachrichtigung”.</string>
-    <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Accessibility service for PhoneProfilesPlusExtender is not enabled, but it is determined</string>
-    <string name="extender_accessibility_setting_not_enabled_title">Accessibility service not enabled</string>
-    <string name="extender_accessibility_setting_not_enabled_text">Accessibility service for PhoneProfilesPlusExtender is not enabled. Click here to enable it.</string>
+    <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Der Dienst „Eingabehilfen” für PhoneProfilesPlusExtender ist deaktiviert, kann aber aktiviert werden</string>
+    <string name="extender_accessibility_setting_not_enabled_title">Dienst „Eingabehilfen” nicht aktiviert</string>
+    <string name="extender_accessibility_setting_not_enabled_text">Der Dienst „Eingabehilfen” für PhoneProfilesPlusExtender ist derzeit deaktiviert. Klicken Sie hier, um ihn zu aktivieren.</string>
+    <string name="event_preference_sensor_periodic_summary">Dieser Sensor ist für die periodische Profilaktivierung vorgesehen. Parameter: Vielfaches des Abfrageintervalls, Dauer ( Ereignislaufzeit).</string>
+    <string name="event_type_periodic">Periodisch</string>
+    <string name="pref_event_periodic_multiple_interval">Vielfaches des Abfrageintervalls</string>
+    <string name="event_preferences_category_eventPeriodicParameters">Periodischer Sensor</string>
+    <string name="pref_event_periodic_resulting_interval">Resultierendes Intervall (Minuten)</string>
+    <string name="phone_profiles_pref_category_background_scanning">Periodisches Abfragen</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">These settings are for periodic scanning. Is used for Periodic event sensor.\nIs also useful when Time or Calendar event sensor not working good.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Periodisches Abfragen aktivieren</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Periodic scan interval (minutes)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Periodic scan in Power Save mode</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Setup Periodic scanning parameters in application settings.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Periodic scan in time</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Von</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">An</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Periodic scan interval</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
