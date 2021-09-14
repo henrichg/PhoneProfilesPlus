@@ -403,8 +403,11 @@ A ziskam uri :
             Uri selectedImage = Uri.parse(d);
 Nakoniec z Uri ziskam Bitmapu:
             Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(profile._deviceWallpaper, width, height, false, true, appContext);
+A pouzijem na nahodenie ako tapetu:
+            wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
+
 ----
-Ako ziskam nahodny subot z adresara:
+Ako ziskam nahodny subor z adresara (toto vyberie len jpg subory):
     File rootDir = new File(Environment.getExternalStorageDirectory().getPath() + "/Download/pictures/for/");
     File files[] = rootDir.listFiles(new FilenameFilter() {
         @Override
@@ -414,7 +417,9 @@ Ako ziskam nahodny subot z adresara:
     });
     File image = files[new Random().nextInt(files.length)];
 
-Cize v podstate ziskam zoznam subororv z adresara a potom pouizjme Random() na ziskanie jedneho z listu.
+Cize v podstate ziskam zoznam subororv z adresara a potom pouzijem Random() na ziskanie jedneho z listu.
 
 *** Teraz musim zistit, ako ziskam Uri adresara (asi ako to mam pri restore zalohy) a z neho zoznam suborov.
     A z toho zoznamu Uri nahodneho suboru v zozname.
+Pozri: https://developer.android.com/training/secure-file-sharing/retrieve-info
+
