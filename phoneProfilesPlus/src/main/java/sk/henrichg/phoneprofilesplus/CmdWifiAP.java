@@ -43,8 +43,8 @@ public class CmdWifiAP {
 
             //PPApplication.logE("CmdWifiAP.setWifiAP", "connectivityAdapter="+connectivityAdapter);
             if (enable) {
+                WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 if (!doNotChangeWifi) {
-                    WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                     //IWifiManager wifiAdapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
                     //PPApplication.logE("CmdWifiAP.setWifiAP", "wifiAdapter="+wifiAdapter);
                     //int wifiState = wifiAdapter.getWifiEnabledState();
@@ -60,6 +60,9 @@ public class CmdWifiAP {
                         wifiManager.setWifiEnabled(false);
                     }
                 }
+
+                //wifiManager.registerSoftApCallback();
+                //TetheringManager tetheringManager =
 
                 //ResultReceiver dummyResultReceiver = new ResultReceiver(null);
                 //connectivityAdapter.startTethering(0, dummyResultReceiver, false, packageName);
