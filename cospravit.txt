@@ -387,3 +387,34 @@ Ak bude pocitadlo rovne nastavenemu nasobku intervalu, pocitadlo sa vynuluje a z
 
 ------------
 
+Nahodny wallpaper z adresara
+----------------------------
+
+"Change wallpaper", typ: "Change to image", ktory uz je mainplementovany:
+Otvori sa:
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                        intent.addCategory(Intent.CATEGORY_OPENABLE);
+                        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+                        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
+                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        intent.setType("image/*");
+A ziskam uri :
+            Uri selectedImage = Uri.parse(d);
+Nakoniec z Uri ziskam Bitmapu:
+            Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(profile._deviceWallpaper, width, height, false, true, appContext);
+----
+Ako ziskam nahodny subot z adresara:
+    File rootDir = new File(Environment.getExternalStorageDirectory().getPath() + "/Download/pictures/for/");
+    File files[] = rootDir.listFiles(new FilenameFilter() {
+        @Override
+        public boolean accept(File dir, String name) {
+            return name.toLowerCase().endsWith(".jpg");
+        }
+    });
+    File image = files[new Random().nextInt(files.length)];
+
+Cize v podstate ziskam zoznam subororv z adresara a potom pouizjme Random() na ziskanie jedneho z listu.
+
+*** Teraz musim zistit, ako ziskam Uri adresara (asi ako to mam pri restore zalohy) a z neho zoznam suborov.
+    A z toho zoznamu Uri nahodneho suboru v zozname.
