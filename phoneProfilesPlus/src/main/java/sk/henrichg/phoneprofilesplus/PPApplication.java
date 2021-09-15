@@ -4104,7 +4104,7 @@ public class PPApplication extends Application
                 if (dataWrapper != null) {
                     synchronized (PPApplication.profileActivationMutex) {
                         List<String> activateProfilesFIFO = new ArrayList<>();
-                        dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                        dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
                     }
                 }
             }

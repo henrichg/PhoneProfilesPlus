@@ -661,7 +661,7 @@ public class EditorProfileListFragment extends Fragment
         // delete deleted profile from FIFO
 //        PPApplication.logE("[FIFO_TEST] EditorProfileListFragment.deleteProfile", "#### remove deleted profile");
         synchronized (PPApplication.profileActivationMutex) {
-            List<String> activateProfilesFIFO = activityDataWrapper.getActivatedProfilesFIFO();
+            List<String> activateProfilesFIFO = activityDataWrapper.fifoGetActivatedProfiles();
             if (activateProfilesFIFO == null)
                 activateProfilesFIFO = new ArrayList<>();
             List<String> newActivateProfilesFIFO = new ArrayList<>();
@@ -671,7 +671,7 @@ public class EditorProfileListFragment extends Fragment
                 if (profileId != profile._id)
                     newActivateProfilesFIFO.add(toFifo);
             }
-            activityDataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
+            activityDataWrapper.fifoSaveProfiles(newActivateProfilesFIFO);
         }
 
         listView.getRecycledViewPool().clear();
@@ -810,7 +810,7 @@ public class EditorProfileListFragment extends Fragment
 //                    PPApplication.logE("[FIFO_TEST] EditorProfileListFragment.deleteAllProfiles", "#### clear");
                 synchronized (PPApplication.profileActivationMutex) {
                     List<String> activateProfilesFIFO = new ArrayList<>();
-                    activityDataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                    activityDataWrapper.fifoSaveProfiles(activateProfilesFIFO);
                 }
 
                 listView.getRecycledViewPool().clear();

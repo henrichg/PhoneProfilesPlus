@@ -1702,7 +1702,7 @@ class Event {
                     } else {
                         long profileId = _fkProfileStart;
 //                    PPApplication.logE("[FIFO_TEST] Event.startEvent", "#### add profileId=" + profileId);
-                        dataWrapper.addProfileToFIFO(profileId, _id);
+                        dataWrapper.fifoAddProfile(profileId, _id);
                     }
                 } else {
 //                    PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
@@ -1797,7 +1797,7 @@ class Event {
                         {
 //                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### remove last profile");
                             synchronized (PPApplication.profileActivationMutex) {
-                                List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                                List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
                                 int size = activateProfilesFIFO.size();
                                 if (size > 0) {
@@ -1810,7 +1810,7 @@ class Event {
                                             newActivateProfilesFIFO.add(fromFifo);
                                         }
                                     }
-                                    dataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
+                                    dataWrapper.fifoSaveProfiles(newActivateProfilesFIFO);
                                     // get latest profile for Undo
                                     size = newActivateProfilesFIFO.size();
                                     if (size > 0) {
@@ -1865,7 +1865,7 @@ class Event {
                             long profileId = _fkProfileEnd;
 
 //                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profileId=" + profileId);
-                            dataWrapper.addProfileToFIFO(profileId, _id);
+                            dataWrapper.fifoAddProfile(profileId, _id);
                         }
                     }
                     // second activate when undone profile is set
@@ -1899,7 +1899,7 @@ class Event {
                         {
 //                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### merge profile for Undo");
                             synchronized (PPApplication.profileActivationMutex) {
-                                List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                                List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
                                 int size = activateProfilesFIFO.size();
                                 if (size > 0) {
@@ -1913,7 +1913,7 @@ class Event {
                                             newActivateProfilesFIFO.add(fromFifo);
                                         }
                                     }
-                                    dataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
+                                    dataWrapper.fifoSaveProfiles(newActivateProfilesFIFO);
                                     // get latest profile for Undo
                                     size = newActivateProfilesFIFO.size();
                                     if (size > 0) {

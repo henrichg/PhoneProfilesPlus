@@ -4257,12 +4257,12 @@ public class PhoneProfilesService extends Service
 //                        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.doFirstStart", "#### clear");
                     synchronized (PPApplication.profileActivationMutex) {
                         List<String> activateProfilesFIFO = new ArrayList<>();
-                        dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                        dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
                     }
 
                     if (PPApplication.prefLastActivatedProfile != 0) {
 //                            PPApplication.logE("[FIFO_TEST] PhoneProfilesService.doFirstStart", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
-                        dataWrapper.addProfileToFIFO(PPApplication.prefLastActivatedProfile, 0);
+                        dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
                     }
 
                 }

@@ -45,6 +45,53 @@ Ulohy, ktore su spravene [x] a ktore nie [ ]:
 
 ------------------------
 
+Na "Undo profile" sa pouziva FIFO, je to vlastne zoznam profilov a udalosti v poradi, v akom sa aktivovali, spustili.
+
+1. DataWrapper.fifoAddProfile()
+
+PhoneProfilesService.doFirstStart() - PPApplication.prefLastActivatedProfle, 0
+DataWrapper._activateProfile() - profileId (ktory sa aktivuje), 0
+DataWrapper.activateProfileFromEvent() - profieId, event_id
+Event.startEvent() - profileId, _id - ked nejde o merge profilov a nie je to manualna aktivacia z udalosti
+Event.doActivateEndProfile() - profileId, _id - ked nejde o merge profilov a nie je to manualna aktivacia z udalosti
+
+koniec udalosti, nie je manualne aktivovany profil:
+EventsHandler.handleEvents() - defaultProfile, 0 - ak ide o aktivaciu default profilu, je nakonfigurovany
+EventsHandler.handleEvents() - PPApplication.prefLastActivatedProfile, 0 - ak nie je nakonfigurovany default profile
+
+koniec udalosti, je manualne aktivovany profil:
+EventsHandler.handleEvents() - semiOldActivatedProfileId, 0 - ak je aktivovany daky profil
+EventsHandler.handleEvents() - defaultProfile, 0 - ak nie je aktivovany daky profil a ide o aktivaciu default profilu, je nakonfigurovany
+EventsHandler.handleEvents() - PPApplication.prefLastActivatedProfile, 0 - ak nie je aktivovany daky profil a nie je nakonfigurovany default profile
+
+2. DataWrapper.fifoSaveProfiles()
+
+DataWrapper.activateProfile() - pre STARTUP_SOURCE_FOR_FIRST_START - vyprazdni FIFO
+EditorProfileListFragment.deleteProfile() - vymaze vymazavany profil z FIFO
+EditorProfileListFragment.deleteAllProfiles() - vyprazdnenie FIFO
+EventHlandler.handleEvents() - vyprazdnenie FIFO pri starte udalosti pred spustanim udalosti
+PhoneProfilesService.doForFirstStart() - vyprazdnenie FIFO na prvy start, potom hned nasleduje pridanie PPApplication.prefLastActivatedProfile
+PPApplication._exitApp() - vyprazdnenie FIFO na ukoncenie PPP
+
+----
+
+Ako sa robi UNDO:
+
+Event.doActivateEndProfile() - ak je EATENDDO_UNDONE_PROFILE - pre merge an non-merge profiles
+- Spravi sa zonznam FIFO udalosti, ktore nie su rovne ukoncovanej udalosti.
+  Profily z ukoncovanej udalosti nas uz nezaujimaju, vsetky sa z FIFO vymazu.
+- Z novovzniknuteho FIFO sa vezme posledny profil a ten sa aktivuje
+
+ProfileDurationAlarmBroadcastReceiver._doWork() - ak je AFTER_DURATION_DO_UNDO_PROFILE
+- Vymaze sa posledny profil z FIFO, j jedno, ci ma priradenu udalost
+- Potom za z FIFO vezme posledny profil a ten sa aktivuje
+
+
+
+
+
+------------------------
+
 System.Settings:
 notifications_use_ring_volume ---+--> ze by na odlinkovanie zvonenia a notifikacii?
 unlink_volumes_together ---------+
@@ -423,4 +470,6 @@ Cize v podstate ziskam zoznam subororv z adresara a potom pouzijem Random() na z
     A z toho zoznamu Uri nahodneho suboru v zozname.
 Pozri: https://developer.android.com/training/secure-file-sharing/retrieve-info
 Asi lepsie: https://stackoverflow.com/questions/62353325/how-to-get-access-to-a-directory-and-its-files-from-tree-uri-path-with-saf
+
+--------------
 

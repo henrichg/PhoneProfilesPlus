@@ -357,12 +357,12 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                             //activateProfileId = ApplicationPreferences.prefActivatedProfileForDuration;
 //                            PPApplication.logE("[FIFO_TEST] ProfileDurationAlarmBroadcastReceiver._doWork", "#### remove last profile");
                             synchronized (PPApplication.profileActivationMutex) {
-                                List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                                List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 int size = activateProfilesFIFO.size();
                                 if (size > 0) {
                                     //eventTimeline._fkProfileEndActivated = activateProfilesFIFO.get(size - 1);
                                     activateProfilesFIFO.remove(size - 1);
-                                    dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                                    dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
                                     size = activateProfilesFIFO.size();
                                     if (size > 0) {
                                         String fromFifo = activateProfilesFIFO.get(size - 1);

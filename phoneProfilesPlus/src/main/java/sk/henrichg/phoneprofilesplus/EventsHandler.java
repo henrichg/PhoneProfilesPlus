@@ -634,7 +634,7 @@ class EventsHandler {
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### clear for pause - restart events");
                 synchronized (PPApplication.profileActivationMutex) {
                     List<String> activateProfilesFIFO = new ArrayList<>();
-                    dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                    dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
                 }
 
 
@@ -899,7 +899,7 @@ class EventsHandler {
 
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add default profile - profileId=" + defaultProfileId);
 //                            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "#### add default profile - profileId=" + defaultProfileId);
-                            dataWrapper.addProfileToFIFO(defaultProfileId, 0);
+                            dataWrapper.fifoAddProfile(defaultProfileId, 0);
                         }
 
 //                        PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "sensorType="+sensorType);
@@ -928,7 +928,7 @@ class EventsHandler {
                         PPApplication.setApplicationFullyStarted(context);*/
                         if (PPApplication.prefLastActivatedProfile != 0) {
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
-                            dataWrapper.addProfileToFIFO(PPApplication.prefLastActivatedProfile, 0);
+                            dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
                         }
                     }
                 }
@@ -964,7 +964,7 @@ class EventsHandler {
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "activated old profile");
 
 //                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add semi-old activated profile - profileId=" + semiOldActivatedProfileId);
-                    dataWrapper.addProfileToFIFO(semiOldActivatedProfileId, 0);
+                    dataWrapper.fifoAddProfile(semiOldActivatedProfileId, 0);
                 }
                 else {
                     // not any profile activated
@@ -987,11 +987,11 @@ class EventsHandler {
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "activated default profile");
 
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add default profile - profileId=" + PPApplication.prefLastActivatedProfile);
-                        dataWrapper.addProfileToFIFO(defaultProfileId, 0);
+                        dataWrapper.fifoAddProfile(defaultProfileId, 0);
                     } else {
                         if (PPApplication.prefLastActivatedProfile != 0) {
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
-                            dataWrapper.addProfileToFIFO(PPApplication.prefLastActivatedProfile, 0);
+                            dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
                         }
                     }
 
@@ -1154,9 +1154,9 @@ class EventsHandler {
                 PPApplication.updateGUI(false, false, context);
 
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### in fifo is:");
-                synchronized (PPApplication.profileActivationMutex) {
-                    dataWrapper.getActivatedProfilesFIFO();
-                }
+//                synchronized (PPApplication.profileActivationMutex) {
+//                    dataWrapper.fifoGetActivatedProfiles();
+//                }
             }
             else {
                 // refresh only Editor
