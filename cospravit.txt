@@ -45,6 +45,9 @@ Ulohy, ktore su spravene [x] a ktore nie [ ]:
 
 ------------------------
 
+UNDO:
+=====
+
 Na "Undo profile" sa pouziva FIFO, je to vlastne zoznam profilov a udalosti v poradi, v akom sa aktivovali, spustili.
 
 1. DataWrapper.fifoAddProfile()
@@ -73,7 +76,6 @@ EventHlandler.handleEvents() - vyprazdnenie FIFO pri starte udalosti pred spusta
 PhoneProfilesService.doForFirstStart() - vyprazdnenie FIFO na prvy start, potom hned nasleduje pridanie PPApplication.prefLastActivatedProfile
 PPApplication._exitApp() - vyprazdnenie FIFO na ukoncenie PPP
 
-----
 
 Ako sa robi UNDO:
 
@@ -85,10 +87,6 @@ Event.doActivateEndProfile() - ak je EATENDDO_UNDONE_PROFILE - pre merge an non-
 ProfileDurationAlarmBroadcastReceiver._doWork() - ak je AFTER_DURATION_DO_UNDO_PROFILE
 - Vymaze sa posledny profil z FIFO, j jedno, ci ma priradenu udalost
 - Potom za z FIFO vezme posledny profil a ten sa aktivuje
-
-
-
-
 
 ------------------------
 
