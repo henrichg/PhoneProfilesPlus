@@ -261,7 +261,8 @@ public class DataWrapper {
                 Settings.System.DEFAULT_NOTIFICATION_URI.toString(),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS))
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS)),
+                0
             );
     }
 
