@@ -115,6 +115,7 @@ public class Profile {
     int _soundSameRingtoneForBothSIMCards;
     String _deviceLiveWallpaper;
     int _vibrateNotifications;
+    long _changeWallpaperTime;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -997,7 +998,8 @@ public class Profile {
                    String soundNotificationSIM2,
                    int soundSameRingtoneForBothSIMCards,
                    String deviceLiveWallpaper,
-                   int vibrateNotifications
+                   int vibrateNotifications,
+                   long changeWallpaperTime
     )
     {
         this._id = id;
@@ -1100,6 +1102,7 @@ public class Profile {
         this._iconBitmap = null;
         this._preferencesIndicator = null;
         this._activationByUserCount = activationByUserCount;
+        this._changeWallpaperTime = changeWallpaperTime;
     }
 
     // constructor
@@ -1198,7 +1201,8 @@ public class Profile {
                    String soundNotificationSIM2,
                    int soundSameRingtoneForBothSIMCards,
                    String deviceLiveWallpaper,
-                   int vibrateNotifications
+                   int vibrateNotifications,
+                   long changeWallpaperTime
     )
     {
         this._name = name;
@@ -1300,6 +1304,7 @@ public class Profile {
         this._iconBitmap = null;
         this._preferencesIndicator = null;
         this._activationByUserCount = activationByUserCount;
+        this._changeWallpaperTime = changeWallpaperTime;
     }
 
     void copyProfile(Profile profile)
@@ -1404,6 +1409,7 @@ public class Profile {
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
         this._activationByUserCount = profile._activationByUserCount;
+        this._changeWallpaperTime = profile._changeWallpaperTime;
     }
 
     void mergeProfiles(long withProfileId, DataWrapper dataWrapper/*, boolean setDuration*/)
@@ -1455,6 +1461,7 @@ public class Profile {
                 this._hideStatusBarIcon = withProfile._hideStatusBarIcon;
                 this._deviceConnectToSSID = withProfile._deviceConnectToSSID;
                 this._activationByUserCount = withProfile._activationByUserCount;
+                this._changeWallpaperTime = withProfile._changeWallpaperTime;
 
                 if (withProfile._volumeRingerMode != 0) {
                     this._volumeRingerMode = withProfile._volumeRingerMode;
@@ -3519,7 +3526,8 @@ public class Profile {
                     profile._soundNotificationSIM2,
                     profile._soundSameRingtoneForBothSIMCards,
                     profile._deviceLiveWallpaper,
-                    profile._vibrateNotifications
+                    profile._vibrateNotifications,
+                    profile._changeWallpaperTime
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
