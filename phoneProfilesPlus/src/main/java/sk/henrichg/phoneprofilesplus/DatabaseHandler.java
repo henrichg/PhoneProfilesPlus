@@ -5264,6 +5264,45 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    void updateChangeWallpaperTime(Profile profile)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_CHANGE_WALLPAPER_TIME, profile._changeWallpaperTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                            new String[]{String.valueOf(profile._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandler.updatePeriodicStartTime", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
 // EVENTS --------------------------------------------------------------------------------
 
     // Adding new event

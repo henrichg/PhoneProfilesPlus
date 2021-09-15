@@ -3574,6 +3574,8 @@ class ActivateProfileHelper {
                                     wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
                                     //} else
                                     //    wallpaperManager.setBitmap(decodedSampleBitmap);
+
+                                    DatabaseHandler.getInstance(context).updateChangeWallpaperTime(profile);
                                 } catch (IOException e) {
                                     PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
                                             profile._name, profile._icon, 0, "");
@@ -4109,6 +4111,7 @@ class ActivateProfileHelper {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
                 context.startActivity(intent);
+                DatabaseHandler.getInstance(context).updateChangeWallpaperTime(profile);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
