@@ -34,13 +34,13 @@ public class ShowProfileNotificationWorker extends Worker {
 
             if (PhoneProfilesService.getInstance() != null) {
                 try {
-                    if (PhoneProfilesService.getInstance() != null) {
 //                        PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "call of _showProfileNotification()");
 //                        PPApplication.logE("[IN_WORKER] ShowProfileNotificationWorker.doWork", "Build.MODEL="+Build.MODEL);
 
-                        PhoneProfilesService.clearOldProfileNotification();
+                    PhoneProfilesService.clearOldProfileNotification();
 
-                        if (PhoneProfilesService.getInstance() != null) {
+                    if (PhoneProfilesService.getInstance() != null) {
+                        synchronized (PPApplication.showPPPNotificationMutex) {
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0f);
                             PhoneProfilesService.getInstance()._showProfileNotification(/*profile,*/ dataWrapper, false/*, clear*/);
                         }

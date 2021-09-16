@@ -497,10 +497,14 @@ public class PhoneProfilesService extends Service
             NotificationManager notificationManager = (NotificationManager) appContext.getSystemService(Context.NOTIFICATION_SERVICE);
             if (notificationManager != null) {
                 try {
-                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+                    synchronized (PPApplication.showPPPNotificationMutex) {
+                        notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+                    }
                 } catch (Exception ignored) {}
                 try {
-                    notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
+                    synchronized (PPApplication.showPPPNotificationMutex) {
+                        notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
+                    }
                 } catch (Exception ignored) {}
             }
 
@@ -6475,8 +6479,10 @@ public class PhoneProfilesService extends Service
             clear = true;
         if (clear) {
             // next show will be with startForeground()
-            PhoneProfilesService.getInstance().clearProfileNotification(/*getApplicationContext(), true*/);
-            PPApplication.sleep(100);
+            if (PhoneProfilesService.getInstance() != null) {
+                PhoneProfilesService.getInstance().clearProfileNotification(/*getApplicationContext(), true*/);
+                PPApplication.sleep(100);
+            }
         }
     }
 
@@ -6507,12 +6513,12 @@ public class PhoneProfilesService extends Service
 
                     if (!doNotShowProfileNotification) {
                         if (PhoneProfilesService.getInstance() != null) {
-                            if (PhoneProfilesService.getInstance() != null) {
 //                            PPApplication.logE("PhoneProfilesService.drawProfileNotification", "call of _showProfileNotification()");
 
-                                clearOldProfileNotification();
+                            clearOldProfileNotification();
 
-                                if (PhoneProfilesService.getInstance() != null) {
+                            if (PhoneProfilesService.getInstance() != null) {
+                                synchronized (PPApplication.showPPPNotificationMutex) {
                                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0f);
                                     PhoneProfilesService.getInstance()._showProfileNotification(/*profile,*/ dataWrapper, false/*, clear*/);
                                 }
@@ -6629,10 +6635,14 @@ public class PhoneProfilesService extends Service
                 NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
                 if (notificationManager != null) {
                     try {
-                        notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+                        synchronized (PPApplication.showPPPNotificationMutex) {
+                            notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_ID);
+                        }
                     } catch (Exception ignored) {}
                     try {
-                        notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
+                        synchronized (PPApplication.showPPPNotificationMutex) {
+                            notificationManager.cancel(PPApplication.PROFILE_NOTIFICATION_NATIVE_ID);
+                        }
                     } catch (Exception ignored) {}
                 }
             } catch (Exception e) {

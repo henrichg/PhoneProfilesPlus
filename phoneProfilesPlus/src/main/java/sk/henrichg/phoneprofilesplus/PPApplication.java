@@ -439,7 +439,7 @@ public class PPApplication extends Application
     static final SIMCardsMutex simCardsMutext = new SIMCardsMutex();
     static final ServiceListMutex serviceListMutex = new ServiceListMutex();
     //static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
-    //static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
+    static final ShowPPPNotificationMutex showPPPNotificationMutex = new ShowPPPNotificationMutex();
     static final LocationScannerLastLocationMutex locationScannerLastLocationMutex = new LocationScannerLastLocationMutex();
     static final LocationScannerMutex locationScannerMutex = new LocationScannerMutex();
     static final WifiScannerMutex wifiScannerMutex = new WifiScannerMutex();
