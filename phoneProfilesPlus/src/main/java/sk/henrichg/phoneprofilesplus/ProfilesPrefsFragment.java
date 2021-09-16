@@ -1261,6 +1261,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             PPApplication.isRootGranted();
             setRedTextToPreferences();
         }*/
+
         if (requestCode == WallpaperViewPreferenceX.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
         {
             //Uri selectedImage = data.getData();
@@ -1288,6 +1289,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 */
             }
         }
+        if (requestCode == WallpaperFolderPreferenceX.RESULT_GET_FOLDER && resultCode == Activity.RESULT_OK && data != null)
+        {
+            //Uri selectedImage = data.getData();
+            String  d = data.getDataString();
+            if (d != null) {
+                Uri selectedFolder = Uri.parse(d);
+                //WallpaperFolderPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
+                //if (preference != null)
+                //    preference.setImageIdentifier(selectedImage.toString());
+            }
+        }
+
         if (requestCode == ProfileIconPreferenceX.RESULT_LOAD_IMAGE && resultCode == Activity.RESULT_OK && data != null)
         {
             //Uri selectedImage = data.getData();
@@ -1388,10 +1401,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 activity.invalidateOptionsMenu();
             }
         }
-        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_WALLPAPER) {
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_IMAGE_WALLPAPER) {
             WallpaperViewPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
             if (preference != null)
-                preference.startGallery();
+                preference.startGallery(); // image file
+        }
+        if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_WALLPAPER_FOLDER) {
+            WallpaperFolderPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
+            if (preference != null)
+                preference.startGallery(); // folder of images
         }
         if (requestCode == Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON) {
             ProfileIconPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_ICON);
@@ -2596,7 +2614,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         Permissions.checkProfileScreenOnPermanent(context, profile, permissions);
         Permissions.checkProfileScreenBrightness(context, profile, permissions);
         Permissions.checkProfileAutoRotation(context, profile, permissions);
-        Permissions.checkProfileWallpaper(context, profile, permissions);
+        Permissions.checkProfileImageWallpaper(context, profile, permissions);
+        Permissions.checkProfileWallpaperFolder(context, profile, permissions);
         Permissions.checkProfileAlwaysOnDisplay(context, profile, permissions);
         cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
@@ -3254,7 +3273,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         Profile profile = new Profile();
         profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
         ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-        Permissions.checkProfileWallpaper(context, profile, permissions);
+        Permissions.checkProfileImageWallpaper(context, profile, permissions);
+        Permissions.checkProfileWallpaperFolder(context, profile, permissions);
         cattegorySummaryData.permissionGranted = permissions.size() == 0;
 
         cattegorySummaryData.forceSet = true;
@@ -3786,7 +3806,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, "0"));
                         profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING, "0"));
                         profile._soundOnTouch = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_ON_TOUCH, "0"));
-                        Permissions.checkProfileWallpaper(context, profile, permissions);
+                        Permissions.checkProfileImageWallpaper(context, profile, permissions);
+                        Permissions.checkProfileWallpaperFolder(context, profile, permissions);
                         Permissions.checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
                         Permissions.checkProfileVibrationOnTouch(context, profile, permissions);
                         Permissions.checkProfileVibrateWhenRinging(context, profile, permissions);
@@ -4880,16 +4901,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE))
         {
             boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
-            boolean imageWallpaper = sValue.equals("1");
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
             if (preference != null)
-                preference.setEnabled(enabled && imageWallpaper);
+                preference.setEnabled(enabled && sValue.equals("1"));
             preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
             if (preference != null)
-                preference.setEnabled(enabled && imageWallpaper);
+                preference.setEnabled(enabled && (sValue.equals("1") || sValue.equals("3")));
             preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER);
             if (preference != null)
-                preference.setEnabled(enabled && (!imageWallpaper));
+                preference.setEnabled(enabled && sValue.equals("2"));
+            preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
+            if (preference != null)
+                preference.setEnabled(enabled && sValue.equals("3"));
         }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
         {

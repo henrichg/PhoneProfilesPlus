@@ -376,7 +376,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._soundSameRingtoneForBothSIMCards,
                         origProfile._deviceLiveWallpaper,
                         origProfile._vibrateNotifications,
-                        origProfile._changeWallpaperTime
+                        origProfile._changeWallpaperTime,
+                        origProfile._deviceWallpaperFolder
                 );
                 showSaveMenu = true;
             }
@@ -481,10 +482,12 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                 profile._deviceWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER, "");
                 profile._deviceLiveWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER, "");
                 profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR, ""));
+                profile._deviceWallpaperFolder = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, "");
             } else {
-                profile._deviceWallpaper = "-|0";
+                profile._deviceWallpaper = "-";
                 profile._deviceLiveWallpaper = "";
                 profile._deviceWallpaperFor = 0;
+                profile._deviceWallpaperFolder = "-";
             }
             profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, ""));
             profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, ""));

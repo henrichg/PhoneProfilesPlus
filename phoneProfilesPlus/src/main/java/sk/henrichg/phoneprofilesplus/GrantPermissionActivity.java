@@ -379,8 +379,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = context.getString(R.string.permissions_for_install_tone_text1) + "<br><br>";
             else*/ if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION)
                 showRequestString = context.getString(R.string.permissions_for_play_ringtone_notification_text1) + "<br><br>";
-            else if (grantType == Permissions.GRANT_TYPE_WALLPAPER)
+            else if (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER)
                 showRequestString = context.getString(R.string.permissions_for_wallpaper_text1) + "<br><br>";
+            else if (grantType == Permissions.GRANT_TYPE_WALLPAPER_FOLDER)
+                showRequestString = context.getString(R.string.permissions_for_wallpaper_folder_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON)
                 showRequestString = context.getString(R.string.permissions_for_custom_profile_icon_text1) + "<br><br>";
             else if (grantType == Permissions.GRANT_TYPE_EXPORT)
@@ -541,8 +543,10 @@ public class GrantPermissionActivity extends AppCompatActivity {
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_install_tone_text2);
             else*/ if (grantType == Permissions.GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_play_ringtone_notification_text2);
-            else if (grantType == Permissions.GRANT_TYPE_WALLPAPER)
+            else if (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_wallpaper_text2);
+            else if (grantType == Permissions.GRANT_TYPE_WALLPAPER_FOLDER)
+                showRequestString = showRequestString + context.getString(R.string.permissions_for_wallpaper_folder_text2);
             else if (grantType == Permissions.GRANT_TYPE_CUSTOM_PROFILE_ICON)
                 showRequestString = showRequestString + context.getString(R.string.permissions_for_custom_profile_icon_text2);
             else if (grantType == Permissions.GRANT_TYPE_EXPORT)
@@ -669,7 +673,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_PROFILE_AUTOROTATION:
                         s = getString(R.string.permission_why_profile_autorotation);
                         break;
-                    case Permissions.PERMISSION_PROFILE_WALLPAPER:
+                    case Permissions.PERMISSION_PROFILE_IMAGE_WALLPAPER:
+                    case Permissions.PERMISSION_PROFILE_WALLPAPER_FOLDER:
                         s = getString(R.string.permission_why_profile_wallpaper);
                         break;
                     case Permissions.PERMISSION_PROFILE_RADIO_PREFERENCES:
@@ -753,7 +758,8 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_BRIGHTNESS_PREFERENCE:
                         s = getString(R.string.permission_why_brightness_preference);
                         break;
-                    case Permissions.PERMISSION_WALLPAPER_PREFERENCE:
+                    case Permissions.PERMISSION_IMAGE_WALLPAPER_PREFERENCE:
+                    case Permissions.PERMISSION_WALLPAPER_FOLDER_PREFERENCE:
                         s = getString(R.string.permission_why_wallpaper_preference);
                         break;
                     case Permissions.PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE:
@@ -1628,7 +1634,14 @@ public class GrantPermissionActivity extends AppCompatActivity {
             Permissions.removePlayRingtoneNotificationNotification(context);
         }
         else
-        if (grantType == Permissions.GRANT_TYPE_WALLPAPER) {
+        if (grantType == Permissions.GRANT_TYPE_IMAGE_WALLPAPER) {
+            setResult(Activity.RESULT_OK);
+            finish();
+            /*if (Permissions.wallpaperViewPreference != null)
+                Permissions.wallpaperViewPreference.startGallery();*/
+        }
+        else
+        if (grantType == Permissions.GRANT_TYPE_WALLPAPER_FOLDER) {
             setResult(Activity.RESULT_OK);
             finish();
             /*if (Permissions.wallpaperViewPreference != null)

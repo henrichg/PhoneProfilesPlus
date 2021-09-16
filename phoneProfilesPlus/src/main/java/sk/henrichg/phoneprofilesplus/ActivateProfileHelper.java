@@ -4446,7 +4446,7 @@ class ActivateProfileHelper {
         }
 
         // setup wallpaper
-        if (Permissions.checkProfileWallpaper(appContext, profile, null)) {
+        if (Permissions.checkProfileImageWallpaper(appContext, profile, null)) {
             if (profile._deviceWallpaperChange != 0) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForWallpaper()");
                 ActivateProfileHelper.executeForWallpaper(profile, appContext);

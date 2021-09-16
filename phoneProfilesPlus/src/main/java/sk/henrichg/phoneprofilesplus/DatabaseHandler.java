@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2470;
+    private static final int DATABASE_VERSION = 2471;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -207,6 +207,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS = "soundSameRingtoneForBothSIMCards";
     private static final String KEY_DEVICE_LIVE_WALLPAPER = "deviceLiveWallpaper";
     private static final String KEY_CHANGE_WALLPAPER_TIME = "deviceChangeWallpapaerTime";
+    private static final String KEY_DEVICE_WALLPAPER_FOLDER = "deviceWallpaperFolder";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -626,7 +627,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + " " + INTEGER_TYPE + ","
                 + KEY_DEVICE_LIVE_WALLPAPER + " " + TEXT_TYPE + ","
                 + KEY_VIBRATE_NOTIFICATIONS + " " + INTEGER_TYPE + ","
-                + KEY_CHANGE_WALLPAPER_TIME + " " + INTEGER_TYPE
+                + KEY_CHANGE_WALLPAPER_TIME + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_WALLPAPER_FOLDER + " " + TEXT_TYPE
                 + ")";
     }
 
@@ -1090,6 +1092,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_DEVICE_LIVE_WALLPAPER, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_VIBRATE_NOTIFICATIONS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_CHANGE_WALLPAPER_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER_FOLDER, TEXT_TYPE, columns);
                 break;
             case TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, KEY_E_NAME, TEXT_TYPE, columns);
@@ -2801,7 +2804,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 0,
                                 "",
                                 0,
-                                0
+                                0,
+                                "-"
                         );
 
                         //profile = Profile.getMappedProfile(profile, sharedProfile);
@@ -2897,6 +2901,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
                             values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
                             values.put(KEY_CHANGE_WALLPAPER_TIME, profile._changeWallpaperTime);
+                            values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
 
                             // updating row
                             db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -3424,6 +3429,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_CHANGE_WALLPAPER_TIME + "=0");
         }
 
+        if (oldVersion < 2471)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_WALLPAPER_FOLDER + "='-'");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_WALLPAPER_FOLDER + "='-'");
+        }
+
     }
 
     @Override
@@ -3594,6 +3605,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
                 values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
                 values.put(KEY_CHANGE_WALLPAPER_TIME, profile._changeWallpaperTime);
+                values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
 
                 // Insert Row
                 if (!merged) {
@@ -3727,7 +3739,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_NOTIFICATION_SIM2,
                                 KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
                                 KEY_DEVICE_LIVE_WALLPAPER,
-                                KEY_CHANGE_WALLPAPER_TIME
+                                KEY_CHANGE_WALLPAPER_TIME,
+                                KEY_DEVICE_WALLPAPER_FOLDER,
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3833,7 +3846,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_CHANGE_WALLPAPER_TIME))
+                                cursor.getInt(cursor.getColumnIndex(KEY_CHANGE_WALLPAPER_TIME)),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER))
                         );
                     }
 
@@ -3959,7 +3973,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_SOUND_NOTIFICATION_SIM2 + "," +
                         KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "," +
                         KEY_DEVICE_LIVE_WALLPAPER + "," +
-                        KEY_CHANGE_WALLPAPER_TIME +
+                        KEY_CHANGE_WALLPAPER_TIME + "," +
+                        KEY_DEVICE_WALLPAPER_FOLDER +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -4069,6 +4084,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._soundSameRingtoneForBothSIMCards = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS));
                         profile._deviceLiveWallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER));
                         profile._changeWallpaperTime = cursor.getInt(cursor.getColumnIndex(KEY_CHANGE_WALLPAPER_TIME));
+                        profile._deviceWallpaperFolder = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -4196,6 +4212,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
                 values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
                 values.put(KEY_CHANGE_WALLPAPER_TIME, profile._changeWallpaperTime);
+                values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -4580,7 +4597,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_NOTIFICATION_SIM2,
                                 KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
                                 KEY_DEVICE_LIVE_WALLPAPER,
-                                KEY_CHANGE_WALLPAPER_TIME
+                                KEY_CHANGE_WALLPAPER_TIME,
+                                KEY_DEVICE_WALLPAPER_FOLDER,
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -4688,7 +4706,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_CHANGE_WALLPAPER_TIME))
+                                cursor.getInt(cursor.getColumnIndex(KEY_CHANGE_WALLPAPER_TIME)),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER))
                         );
                     }
 

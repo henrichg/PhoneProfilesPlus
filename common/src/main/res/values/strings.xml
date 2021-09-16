@@ -1789,6 +1789,10 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">To</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Periodic scan interval</string>
 
+    <string name="array_pref_change_random_image_wallpaper">Change to random image from folder</string>
+    <string name="permissions_for_wallpaper_folder_text1">Selecting folder for random wallpaper requires some permissions.</string>
+    <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

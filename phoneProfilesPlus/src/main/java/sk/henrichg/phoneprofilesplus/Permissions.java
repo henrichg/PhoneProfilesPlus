@@ -33,7 +33,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_SCREEN_TIMEOUT = 4;
     static final int PERMISSION_PROFILE_SCREEN_BRIGHTNESS = 5;
     static final int PERMISSION_PROFILE_AUTOROTATION = 6;
-    static final int PERMISSION_PROFILE_WALLPAPER = 7;
+    static final int PERMISSION_PROFILE_IMAGE_WALLPAPER = 7;
     static final int PERMISSION_PROFILE_RADIO_PREFERENCES = 8;
     static final int PERMISSION_PROFILE_PHONE_STATE_BROADCAST = 9;
     static final int PERMISSION_PROFILE_CUSTOM_PROFILE_ICON = 10;
@@ -54,7 +54,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING = 26;
     static final int PERMISSION_PROFILE_SOUND_ON_TOUCH = 27;
     static final int PERMISSION_BRIGHTNESS_PREFERENCE = 28;
-    static final int PERMISSION_WALLPAPER_PREFERENCE = 29;
+    static final int PERMISSION_IMAGE_WALLPAPER_PREFERENCE = 29;
     static final int PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE = 30;
     static final int PERMISSION_LOCATION_PREFERENCE = 31;
     static final int PERMISSION_CALENDAR_PREFERENCE = 32;
@@ -72,10 +72,12 @@ class Permissions {
     //static final int PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES = 44;
     static final int PERMISSION_BACGROUND_LOCATION = 45;
     static final int PERMISSION_PROFILE_VIBRATE_NOTIFICATIONS = 46;
+    static final int PERMISSION_PROFILE_WALLPAPER_FOLDER = 47;
+    static final int PERMISSION_WALLPAPER_FOLDER_PREFERENCE = 48;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
-    static final int GRANT_TYPE_WALLPAPER = 3;
+    static final int GRANT_TYPE_IMAGE_WALLPAPER = 3;
     static final int GRANT_TYPE_CUSTOM_PROFILE_ICON = 4;
     static final int GRANT_TYPE_EXPORT = 5;
     static final int GRANT_TYPE_IMPORT = 6;
@@ -95,6 +97,7 @@ class Permissions {
     static final int GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR = 21;
     static final int GRANT_TYPE_CONNECT_TO_SSID_DIALOG = 22;
     static final int GRANT_TYPE_BACKGROUND_LOCATION = 23;
+    static final int GRANT_TYPE_WALLPAPER_FOLDER = 24;
 
     static final int REQUEST_CODE = 5000;
     //static final int REQUEST_CODE_FORCE_GRANT = 6000;
@@ -253,7 +256,8 @@ class Permissions {
         checkProfileScreenBrightness(context, profile, permissions);
         checkProfileAutoRotation(context, profile, permissions);
         checkProfileNotificationLed(context, profile, permissions);
-        checkProfileWallpaper(context, profile, permissions);
+        checkProfileImageWallpaper(context, profile, permissions);
+        checkProfileWallpaperFolder(context, profile, permissions);
         checkProfileRadioPreferences(context, profile, permissions);
         checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
         checkProfileCustomProfileIcon(context, profile, true, permissions);
@@ -545,14 +549,30 @@ class Permissions {
         }
     }
 
-    static boolean checkProfileWallpaper(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+    static boolean checkProfileImageWallpaper(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
 
         try {
-            if (profile._deviceWallpaperChange != 0) {
+            if (profile._deviceWallpaperChange == 1) {
                 boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                 if ((permissions != null) && (!granted))
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_IMAGE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
+                return granted;
+            } else
+                return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    static boolean checkProfileWallpaperFolder(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return true;
+
+        try {
+            if (profile._deviceWallpaperChange == 3) {
+                boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+                if ((permissions != null) && (!granted))
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_WALLPAPER_FOLDER, permission.READ_EXTERNAL_STORAGE));
                 return granted;
             } else
                 return true;
@@ -1663,21 +1683,45 @@ class Permissions {
         //return granted;
     }
 
-    static boolean grantWallpaperPermissions(Context context) {
+    static boolean grantImageWallpaperPermissions(Context context) {
         boolean granted = checkGallery(context);
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_WALLPAPER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
+                permissions.add(new PermissionType(PERMISSION_IMAGE_WALLPAPER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WALLPAPER);
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMAGE_WALLPAPER);
                 intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
                 //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                 intent.putExtra(EXTRA_FORCE_GRANT, true);
-                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WALLPAPER);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMAGE_WALLPAPER);
+                //wallpaperViewPreference = preference;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
+    }
+
+    static boolean grantWallpaperFolderPermissions(Context context) {
+        boolean granted = checkGallery(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_WALLPAPER_FOLDER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WALLPAPER_FOLDER);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WALLPAPER_FOLDER);
                 //wallpaperViewPreference = preference;
                 //context.startActivity(intent);
             } catch (Exception e) {
