@@ -1,16 +1,22 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.storage.StorageManager;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.preference.Preference;
 
 public class WallpaperFolderPreferenceX extends Preference {
 
-    private String folder;
+    private String wallpaperFolder;
     //private Bitmap bitmap;
 
     private final Context prefContext;
@@ -21,7 +27,7 @@ public class WallpaperFolderPreferenceX extends Preference {
     {
         super(context, attrs);
 
-        folder = "-";
+        wallpaperFolder = "-";
 
         prefContext = context;
 
@@ -66,7 +72,49 @@ public class WallpaperFolderPreferenceX extends Preference {
     @Override
     protected void onSetInitialValue(Object defaultValue)
     {
-        folder = getPersistedString((String)defaultValue);
+        wallpaperFolder = getPersistedString((String)defaultValue);
+        if ((wallpaperFolder != null) && (!wallpaperFolder.isEmpty())) {
+            Uri folderUri = Uri.parse(wallpaperFolder);
+
+            try {
+                String path;
+                /*
+                DocumentFile documentFile = DocumentFile.fromTreeUri(prefContext.getApplicationContext(), folderUri);
+                if (documentFile != null) {
+                    for (DocumentFile file : documentFile.listFiles()) {
+
+                        if (file.isDirectory()) { // if it is sub directory
+                            path = "directory";
+                            // Do stuff with sub directory
+                        } else {
+                            // Do stuff with normal file
+                            path = file.getUri().getPath();
+                        }
+                        //Log.d("Uri->", file.getUri() + "\n");
+                    }
+                }
+                */
+                /*
+                Context appContext = prefContext.getApplicationContext();
+
+                ContentResolver contentResolver = appContext.getContentResolver();
+
+                appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                contentResolver.takePersistableUriPermission(folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                Cursor returnCursor = contentResolver.query(folderUri, null, null, null, null);
+                int columnIndex = returnCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                returnCursor.moveToFirst();
+                String path = returnCursor.getString(columnIndex);
+                returnCursor.close();
+                */
+                path = PPApplication.getRealPath(folderUri);
+
+                setSummary(path);
+            } catch (Exception e) {
+                Log.e("WallpaperFolderPreferenceX.onSetInitialValue", Log.getStackTraceString(e));
+            }
+        }
     }
 
     @Override
@@ -78,7 +126,7 @@ public class WallpaperFolderPreferenceX extends Preference {
         }
 
         final SavedState myState = new SavedState(superState);
-        myState.folder = folder;
+        myState.folder = wallpaperFolder;
         return myState;
 
     }
@@ -95,30 +143,129 @@ public class WallpaperFolderPreferenceX extends Preference {
         // restore instance state
         SavedState myState = (SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
-        folder = myState.folder;
+        wallpaperFolder = myState.folder;
+        if ((wallpaperFolder != null) && (!wallpaperFolder.isEmpty())) {
+            Uri folderUri = Uri.parse(wallpaperFolder);
+
+            try {
+                String path;
+                /*DocumentFile documentFile = DocumentFile.fromTreeUri(prefContext.getApplicationContext(), folderUri);
+                if (documentFile != null) {
+                    for (DocumentFile file : documentFile.listFiles()) {
+
+                        if (file.isDirectory()) { // if it is sub directory
+                            path = "directory";
+                            // Do stuff with sub directory
+                        } else {
+                            // Do stuff with normal file
+                            path = file.getUri().getPath();
+                        }
+                        //Log.d("Uri->", file.getUri() + "\n");
+                    }
+                }
+                */
+                /*
+                Context appContext = prefContext.getApplicationContext();
+
+                ContentResolver contentResolver = appContext.getContentResolver();
+
+                appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                contentResolver.takePersistableUriPermission(folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                Cursor returnCursor = contentResolver.query(folderUri, null, null, null, null);
+                int columnIndex = returnCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                returnCursor.moveToFirst();
+                String path = returnCursor.getString(columnIndex);
+                returnCursor.close();
+                */
+                path = PPApplication.getRealPath(folderUri);
+
+                setSummary(path);
+            } catch (Exception e) {
+                Log.e("WallpaperFolderPreferenceX.onRestoreInstanceState", Log.getStackTraceString(e));
+            }
+        }
+
         //notifyChanged();
+    }
+
+    void setWallpaperFolder(String newWallpaperFolder)
+    {
+        if (!callChangeListener(newWallpaperFolder)) {
+            return;
+        }
+
+        wallpaperFolder = newWallpaperFolder;
+        if ((wallpaperFolder != null) && (!wallpaperFolder.isEmpty())) {
+            Uri folderUri = Uri.parse(wallpaperFolder);
+            try {
+                String path;
+                /*DocumentFile documentFile = DocumentFile.fromTreeUri(prefContext.getApplicationContext(), folderUri);
+                if (documentFile != null) {
+                    for (DocumentFile file : documentFile.listFiles()) {
+
+                        if (file.isDirectory()) { // if it is sub directory
+                            path = "directory";
+                            // Do stuff with sub directory
+                        } else {
+                            // Do stuff with normal file
+                            path = file.getUri().getPath();
+                        }
+                        //Log.d("Uri->", file.getUri() + "\n");
+                    }
+                }*/
+                /*
+                Context appContext = prefContext.getApplicationContext();
+
+                ContentResolver contentResolver = appContext.getContentResolver();
+
+                appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                contentResolver.takePersistableUriPermission(folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                Cursor returnCursor = contentResolver.query(folderUri, null, null, null, null);
+                int columnIndex = returnCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                returnCursor.moveToFirst();
+                String path = returnCursor.getString(columnIndex);
+                returnCursor.close();
+                */
+                path = PPApplication.getRealPath(folderUri);
+
+                setSummary(path);
+            } catch (Exception e) {
+                Log.e("WallpaperFolderPreferenceX.setWallpaperFolder", Log.getStackTraceString(e));
+            }
+        }
+
+        // save to preferences
+        persistString(newWallpaperFolder);
+
+        // and notify
+        notifyChanged();
+
     }
 
     void startGallery()
     {
-        /*
         Intent intent;
         try {
-            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setType("image/*");
+            if (Build.VERSION.SDK_INT >= 29) {
+                StorageManager sm = (StorageManager) prefContext.getSystemService(Context.STORAGE_SERVICE);
+                intent = sm.getPrimaryStorageVolume().createOpenDocumentTreeIntent();
+            }
+            else {
+                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            }
+            //intent.putExtra("android.content.extra.SHOW_ADVANCED",true);
+            //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PPApplication.backupFolderUri);*/
 
-            // is not possible to get activity from preference, used is static method
-            //ProfilesPrefsFragment.setChangedWallpaperViewPreference(this);
+            //noinspection deprecation
             ((Activity)prefContext).startActivityForResult(intent, RESULT_GET_FOLDER);
         } catch (Exception e) {
-            PPApplication.recordException(e);
+            Log.e("WallpaperFolderPreferenceX.startGallery", Log.getStackTraceString(e));
+            //PPApplication.recordException(e);
         }
-        */
     }
 
 

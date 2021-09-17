@@ -588,7 +588,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotificationSIM2=" + profile._soundNotificationSIM2);
 
             profile._soundSameRingtoneForBothSIMCards = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, ""));
-            profile._deviceLiveWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER, "");
 
         }
 

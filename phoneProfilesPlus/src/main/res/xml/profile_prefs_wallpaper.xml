@@ -19,6 +19,12 @@
         app:title="@string/profile_preferences_deviceImageWallpaper"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.WallpaperFolderPreferenceX
+        app:defaultValue="-"
+        app:key="prf_pref_deviceWallpaperFolder"
+        app:title="@string/profile_preferences_deviceWallpaperFolder"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <ListPreference
         app:title="@string/profile_preferences_deviceWallpaperFor"
         app:summary="@string/array_pref_device_wallpaper_homescreen"

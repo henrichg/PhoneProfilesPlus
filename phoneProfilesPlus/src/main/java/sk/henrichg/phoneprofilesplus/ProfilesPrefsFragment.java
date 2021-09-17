@@ -1295,9 +1295,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String  d = data.getDataString();
             if (d != null) {
                 Uri selectedFolder = Uri.parse(d);
-                //WallpaperFolderPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
-                //if (preference != null)
-                //    preference.setImageIdentifier(selectedImage.toString());
+                WallpaperFolderPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
+                if (preference != null)
+                    preference.setWallpaperFolder(selectedFolder.toString());
             }
         }
 
@@ -4772,6 +4772,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2);
         setSummary(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS);
         setSummary(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER);
+        setSummary(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {

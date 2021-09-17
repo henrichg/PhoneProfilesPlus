@@ -17,6 +17,7 @@ import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -36,6 +37,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.pm.PackageInfoCompat;
+import androidx.documentfile.provider.DocumentFile;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 //import androidx.multidex.MultiDex;
 import androidx.work.WorkInfo;
@@ -4487,6 +4489,43 @@ public class PPApplication extends Application
 //            //Log.d("GlobalGUIRoutines.getCollator", java.util.Locale.getDefault().toString());
 //            return Collator.getInstance();
 //        }
+    }
+
+    // ----------------------
+
+    static String getRealPath(Uri treeUri)
+    {
+        if (treeUri == null)
+            return "";
+        String path1 = treeUri.getPath();
+        if (path1.startsWith("/tree/"))
+        {
+            String path2 = path1.substring("/tree/".length());
+            Log.e("PPApplication.getRealPath", "path2="+path2);
+            if (path2.startsWith("primary:"))
+            {
+                String primary = path2.substring(0, "primary:".length());
+                Log.e("PPApplication.getRealPath", "primary="+primary);
+                if (primary.contains(":"))
+                {
+                    String storeName = "/storage/emulated/0/";
+                    String[] splits = path2.split(":");
+                    String last = splits[splits.length-1];
+                    return storeName + last;
+                }
+            }
+            else
+            {
+                if (path2.contains(":"))
+                {
+                    String[] splits = path2.split(":");
+                    String storeName = splits[0];
+                    String last = splits[splits.length-1];
+                    return  "/" + storeName + "/" + last;
+                }
+            }
+        }
+        return path1;
     }
 
 
