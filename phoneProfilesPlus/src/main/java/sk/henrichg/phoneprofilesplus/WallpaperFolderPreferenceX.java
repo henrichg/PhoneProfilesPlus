@@ -58,7 +58,9 @@ public class WallpaperFolderPreferenceX extends Preference {
     protected void onSetInitialValue(Object defaultValue)
     {
         wallpaperFolder = getPersistedString((String)defaultValue);
-        if ((wallpaperFolder != null) && (!wallpaperFolder.isEmpty())) {
+        if ((wallpaperFolder != null) &&
+                (!wallpaperFolder.isEmpty()) &&
+                (!wallpaperFolder.equals("-"))) {
             Uri folderUri = Uri.parse(wallpaperFolder);
 
             try {
@@ -101,7 +103,9 @@ public class WallpaperFolderPreferenceX extends Preference {
         SavedState myState = (SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         wallpaperFolder = myState.folder;
-        if ((wallpaperFolder != null) && (!wallpaperFolder.isEmpty())) {
+        if ((wallpaperFolder != null) &&
+                (!wallpaperFolder.isEmpty()) &&
+                (!wallpaperFolder.equals("-"))) {
             Uri folderUri = Uri.parse(wallpaperFolder);
 
             try {
@@ -123,7 +127,9 @@ public class WallpaperFolderPreferenceX extends Preference {
         }
 
         wallpaperFolder = newWallpaperFolder;
-        if ((wallpaperFolder != null) && (!wallpaperFolder.isEmpty())) {
+        if ((wallpaperFolder != null) &&
+                (!wallpaperFolder.isEmpty()) &&
+                (!wallpaperFolder.equals("-"))) {
             Uri folderUri = Uri.parse(wallpaperFolder);
             try {
                 String path;
@@ -260,44 +266,5 @@ public class WallpaperFolderPreferenceX extends Preference {
         };
 
     }
-
-    /*
-    private static class BindViewAsyncTask extends AsyncTask<Void, Integer, Void> {
-
-        Bitmap bitmap;
-
-        private final WeakReference<WallpaperFolderPreferenceX> preferenceWeakRef;
-
-        public BindViewAsyncTask(WallpaperFolderPreferenceX preference) {
-            this.preferenceWeakRef = new WeakReference<>(preference);
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            WallpaperFolderPreferenceX preference = preferenceWeakRef.get();
-            if (preference != null) {
-                bitmap = preference.getBitmap();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result)
-        {
-            super.onPostExecute(result);
-
-            WallpaperFolderPreferenceX preference = preferenceWeakRef.get();
-            if (preference != null) {
-                if (preference.imageView != null) {
-                    if (bitmap != null)
-                        preference.imageView.setImageBitmap(bitmap);
-                    else
-                        preference.imageView.setImageResource(R.drawable.ic_empty);
-                }
-            }
-        }
-
-    }
-    */
 
 }

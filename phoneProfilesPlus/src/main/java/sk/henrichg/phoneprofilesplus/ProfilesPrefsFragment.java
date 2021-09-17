@@ -2539,8 +2539,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + sValue + "</b>";
 
-            if (wallpaperChangeValue.equals("1")) {
-                cattegorySummaryData.summary = cattegorySummaryData.summary +" - ";
+            if (wallpaperChangeValue.equals("1") ||
+                    wallpaperChangeValue.equals("3")) {
+                cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
                 String value = GlobalGUIRoutines.getListPreferenceString(
                         preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
@@ -3256,8 +3257,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + sValue + "</b>";
 
-            if (wallpaperChangeValue.equals("1")) {
-                cattegorySummaryData.summary = cattegorySummaryData.summary +" - ";
+            if (wallpaperChangeValue.equals("1") ||
+                    wallpaperChangeValue.equals("3")) {
+                cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
 
                 String value = GlobalGUIRoutines.getListPreferenceString(
                         preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR,
@@ -3471,9 +3473,11 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE))
         {
             String sValue = value.toString();
+//            Log.e("ProfilesPrefsFragment.setSummary", "sValue="+sValue);
             ListPreference listPreference = prefMng.findPreference(key);
             if (listPreference != null) {
                 int index = listPreference.findIndexOfValue(sValue);
+//                Log.e("ProfilesPrefsFragment.setSummary", "index="+index);
                 CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                 listPreference.setSummary(summary);
                 GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false, false);
@@ -3497,7 +3501,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             if (!canEnableZenMode)
             {
-                ListPreference listPreference = prefMng.findPreference(key);
+                ListPreference listPreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
                 if (listPreference != null) {
                     listPreference.setEnabled(false);
                     listPreference.setSummary(getString(R.string.profile_preferences_device_not_allowed)+
@@ -3517,10 +3521,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             else
             {
                 String sValue = value.toString();
-                ListPreference listPreference = prefMng.findPreference(key);
+                ListPreference listPreference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_ZEN_MODE);
                 if (listPreference != null) {
                     int iValue = Integer.parseInt(sValue);
+//                    Log.e("ProfilesPrefsFragment.setSummary", "iValue="+iValue);
                     int index = listPreference.findIndexOfValue(sValue);
+//                    Log.e("ProfilesPrefsFragment.setSummary", "index="+index);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     if ((iValue != Profile.NO_CHANGE_VALUE) /*&& (iValue != Profile.SHARED_PROFILE_VALUE)*/) {
                         if (!((iValue == 6) /*&& (android.os.Build.VERSION.SDK_INT < 23)*/)) {
