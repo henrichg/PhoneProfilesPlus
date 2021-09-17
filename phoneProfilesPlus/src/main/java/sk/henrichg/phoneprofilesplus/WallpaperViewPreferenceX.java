@@ -35,10 +35,7 @@ public class WallpaperViewPreferenceX extends Preference {
 
         prefContext = context;
 
-        //preferenceTitle = getTitle();
-
         setWidgetLayoutResource(R.layout.widget_imageview_preference);
-        //setLayoutResource(R.layout.widget_imageview_preference);
     }
 
     //@Override
@@ -49,9 +46,6 @@ public class WallpaperViewPreferenceX extends Preference {
         super.onBindViewHolder(holder);
 
         imageView = (ImageView) holder.findViewById(R.id.imageview_pref_imageview);
-
-        //imageTitle = view.findViewById(R.id.imageview_pref_label);
-        //imageTitle.setText(preferenceTitle);
 
         new BindViewAsyncTask(this).execute();
     }

@@ -37,29 +37,7 @@ public class WallpaperFolderPreferenceX extends Preference {
         wallpaperFolder = "-";
 
         prefContext = context;
-
-        //preferenceTitle = getTitle();
-
-        setWidgetLayoutResource(R.layout.widget_imageview_preference);
-        //setLayoutResource(R.layout.widget_imageview_preference);
     }
-
-    /*
-    //@Override
-    @SuppressLint("StaticFieldLeak")
-    @Override
-    public void onBindViewHolder(PreferenceViewHolder holder)
-    {
-        super.onBindViewHolder(holder);
-
-        imageView = (ImageView) holder.findViewById(R.id.imageview_pref_imageview);
-
-        //imageTitle = view.findViewById(R.id.imageview_pref_label);
-        //imageTitle.setText(preferenceTitle);
-
-        new BindViewAsyncTask(this).execute();
-    }
-    */
 
     @Override
     protected void onClick()
@@ -90,6 +68,9 @@ public class WallpaperFolderPreferenceX extends Preference {
             } catch (Exception e) {
                 setSummary(R.string.preference_profile_no_change);
             }
+        }
+        else {
+            setSummary(R.string.preference_profile_no_change);
         }
     }
 
