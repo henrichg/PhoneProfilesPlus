@@ -85,41 +85,10 @@ public class WallpaperFolderPreferenceX extends Preference {
 
             try {
                 String path;
-                /*
-                DocumentFile documentFile = DocumentFile.fromTreeUri(prefContext.getApplicationContext(), folderUri);
-                if (documentFile != null) {
-                    for (DocumentFile file : documentFile.listFiles()) {
-
-                        if (file.isDirectory()) { // if it is sub directory
-                            path = "directory";
-                            // Do stuff with sub directory
-                        } else {
-                            // Do stuff with normal file
-                            path = file.getUri().getPath();
-                        }
-                        //Log.d("Uri->", file.getUri() + "\n");
-                    }
-                }
-                */
-                /*
-                Context appContext = prefContext.getApplicationContext();
-
-                ContentResolver contentResolver = appContext.getContentResolver();
-
-                appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                contentResolver.takePersistableUriPermission(folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                Cursor returnCursor = contentResolver.query(folderUri, null, null, null, null);
-                int columnIndex = returnCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                returnCursor.moveToFirst();
-                String path = returnCursor.getString(columnIndex);
-                returnCursor.close();
-                */
                 path = PPApplication.getRealPath(folderUri);
-
                 setSummary(path);
             } catch (Exception e) {
-                Log.e("WallpaperFolderPreferenceX.onSetInitialValue", Log.getStackTraceString(e));
+                setSummary(R.string.preference_profile_no_change);
             }
         }
     }
@@ -156,40 +125,10 @@ public class WallpaperFolderPreferenceX extends Preference {
 
             try {
                 String path;
-                /*DocumentFile documentFile = DocumentFile.fromTreeUri(prefContext.getApplicationContext(), folderUri);
-                if (documentFile != null) {
-                    for (DocumentFile file : documentFile.listFiles()) {
-
-                        if (file.isDirectory()) { // if it is sub directory
-                            path = "directory";
-                            // Do stuff with sub directory
-                        } else {
-                            // Do stuff with normal file
-                            path = file.getUri().getPath();
-                        }
-                        //Log.d("Uri->", file.getUri() + "\n");
-                    }
-                }
-                */
-                /*
-                Context appContext = prefContext.getApplicationContext();
-
-                ContentResolver contentResolver = appContext.getContentResolver();
-
-                appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                contentResolver.takePersistableUriPermission(folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                Cursor returnCursor = contentResolver.query(folderUri, null, null, null, null);
-                int columnIndex = returnCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                returnCursor.moveToFirst();
-                String path = returnCursor.getString(columnIndex);
-                returnCursor.close();
-                */
                 path = PPApplication.getRealPath(folderUri);
-
                 setSummary(path);
             } catch (Exception e) {
-                Log.e("WallpaperFolderPreferenceX.onRestoreInstanceState", Log.getStackTraceString(e));
+                setSummary(R.string.preference_profile_no_change);
             }
         }
 
@@ -207,36 +146,7 @@ public class WallpaperFolderPreferenceX extends Preference {
             Uri folderUri = Uri.parse(wallpaperFolder);
             try {
                 String path;
-                /*DocumentFile documentFile = DocumentFile.fromTreeUri(prefContext.getApplicationContext(), folderUri);
-                if (documentFile != null) {
-                    for (DocumentFile file : documentFile.listFiles()) {
-
-                        if (file.isDirectory()) { // if it is sub directory
-                            path = "directory";
-                            // Do stuff with sub directory
-                        } else {
-                            // Do stuff with normal file
-                            path = file.getUri().getPath();
-                        }
-                        //Log.d("Uri->", file.getUri() + "\n");
-                    }
-                }*/
-                /*
-                Context appContext = prefContext.getApplicationContext();
-
-                ContentResolver contentResolver = appContext.getContentResolver();
-
-                appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-                contentResolver.takePersistableUriPermission(folderUri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-                Cursor returnCursor = contentResolver.query(folderUri, null, null, null, null);
-                int columnIndex = returnCursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                returnCursor.moveToFirst();
-                String path = returnCursor.getString(columnIndex);
-                returnCursor.close();
-                */
                 path = PPApplication.getRealPath(folderUri);
-
                 setSummary(path);
 
                 //----------
@@ -291,7 +201,7 @@ public class WallpaperFolderPreferenceX extends Preference {
                 //----------------
 
             } catch (Exception e) {
-                Log.e("WallpaperFolderPreferenceX.setWallpaperFolder", Log.getStackTraceString(e));
+                setSummary(R.string.preference_profile_no_change);
             }
         }
 
@@ -323,8 +233,7 @@ public class WallpaperFolderPreferenceX extends Preference {
             //noinspection deprecation
             ((Activity)prefContext).startActivityForResult(intent, RESULT_GET_FOLDER);
         } catch (Exception e) {
-            Log.e("WallpaperFolderPreferenceX.startGallery", Log.getStackTraceString(e));
-            //PPApplication.recordException(e);
+            PPApplication.recordException(e);
         }
     }
 
