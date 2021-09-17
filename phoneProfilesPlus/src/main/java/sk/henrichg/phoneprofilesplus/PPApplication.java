@@ -4501,11 +4501,11 @@ public class PPApplication extends Application
         if (path1.startsWith("/tree/"))
         {
             String path2 = path1.substring("/tree/".length());
-            Log.e("PPApplication.getRealPath", "path2="+path2);
+//            Log.e("PPApplication.getRealPath", "path2="+path2);
             if (path2.startsWith("primary:"))
             {
                 String primary = path2.substring(0, "primary:".length());
-                Log.e("PPApplication.getRealPath", "primary="+primary);
+//                Log.e("PPApplication.getRealPath", "primary="+primary);
                 if (primary.contains(":"))
                 {
                     String storeName = "/storage/emulated/0/";

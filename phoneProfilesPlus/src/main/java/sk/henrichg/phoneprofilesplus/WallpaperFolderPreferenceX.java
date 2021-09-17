@@ -1,18 +1,25 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.storage.StorageManager;
+import android.provider.DocumentsContract;
 import android.util.AttributeSet;
 import android.util.Log;
 
+import androidx.documentfile.provider.DocumentFile;
 import androidx.preference.Preference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class WallpaperFolderPreferenceX extends Preference {
 
@@ -231,6 +238,58 @@ public class WallpaperFolderPreferenceX extends Preference {
                 path = PPApplication.getRealPath(folderUri);
 
                 setSummary(path);
+
+                //----------
+                // TODO move this to ActivateProfileHepler
+                // test get list of files from folder
+
+                prefContext.getApplicationContext().grantUriPermission(PPApplication.PACKAGE_NAME, folderUri,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION /* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
+                // persistent permissions
+                final int takeFlags = //data.getFlags() &
+                        (Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                prefContext.getApplicationContext().getContentResolver().takePersistableUriPermission(folderUri, takeFlags);
+
+
+                List<Uri> uriList = new ArrayList<>();
+
+                // the uri from which we query the files
+                Uri uriFolder = DocumentsContract.buildChildDocumentsUriUsingTree(folderUri, DocumentsContract.getTreeDocumentId(folderUri));
+
+                Cursor cursor = null;
+                try {
+                    // let's query the files
+                    ContentResolver contentResolver = prefContext.getApplicationContext().getContentResolver();
+                    cursor = contentResolver.query(uriFolder,
+                            new String[]{DocumentsContract.Document.COLUMN_DOCUMENT_ID},
+                            null, null, null);
+
+                    if (cursor != null && cursor.moveToFirst()) {
+                        do {
+                            // build the uri for the file
+                            Uri uriFile = DocumentsContract.buildDocumentUriUsingTree(folderUri, cursor.getString(0));
+                            Log.e("WallpaperFolderPreferenceX.setWallpaperFolder", "mime type=" + contentResolver.getType(uriFile));
+                            if (contentResolver.getType(uriFile).startsWith("image/")) {
+                                //add to the list
+                                uriList.add(uriFile);
+                            }
+
+                        } while (cursor.moveToNext());
+                    }
+                } catch (Exception e) {
+                    Log.e("WallpaperFolderPreferenceX.setWallpaperFolder", Log.getStackTraceString(e));
+                } finally {
+                    if (cursor!=null) cursor.close();
+                }
+
+                for (Uri fileUri : uriList) {
+                    DocumentFile documentFile = DocumentFile.fromSingleUri(prefContext.getApplicationContext(), fileUri);
+                    if (documentFile != null)
+                        Log.e("WallpaperFolderPreferenceX.setWallpaperFolder", "documentFile="+documentFile.getName());
+                }
+
+                //----------------
+
             } catch (Exception e) {
                 Log.e("WallpaperFolderPreferenceX.setWallpaperFolder", Log.getStackTraceString(e));
             }

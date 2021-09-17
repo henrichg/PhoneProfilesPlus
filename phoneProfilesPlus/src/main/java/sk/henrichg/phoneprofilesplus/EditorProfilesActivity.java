@@ -3921,17 +3921,11 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (activity != null) {
                 if (pickedDir != null) {
                     if (pickedDir.canWrite()) {
-                        if (pickedDir.canWrite()) {
-                            File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
+                        File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
 
-                            ok = copyFromBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME, activity.getApplicationContext());
-                            if (ok == 1)
-                                ok = copyFromBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
-                        } else {
-                            // cannot copy backup files, pickedDir is not writable
-                            //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - cannot copy restore files, pickedDir is not writable");
-                            ok = 0;
-                        }
+                        ok = copyFromBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME, activity.getApplicationContext());
+                        if (ok == 1)
+                            ok = copyFromBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
                     } else {
                         // pickedDir is not writable
                         //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is not writable");
