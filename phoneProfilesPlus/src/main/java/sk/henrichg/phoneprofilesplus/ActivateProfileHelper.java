@@ -52,6 +52,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.IconCompat;
+import androidx.documentfile.provider.DocumentFile;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -3675,7 +3676,6 @@ class ActivateProfileHelper {
                             do {
                                 // build the uri for the file
                                 Uri uriFile = DocumentsContract.buildDocumentUriUsingTree(folderUri, cursor.getString(0));
-                                Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "mime type=" + contentResolver.getType(uriFile));
                                 if (contentResolver.getType(uriFile).startsWith("image/")) {
                                     //add to the list
                                     uriList.add(uriFile);
@@ -3683,21 +3683,22 @@ class ActivateProfileHelper {
 
                             } while (cursor.moveToNext());
                         }
-                    } catch (Exception e) {
-                        Log.e("ActivateProfileHelper.changeWallpaperFromFolder", Log.getStackTraceString(e));
+                    } catch (Exception ignored) {
                     } finally {
                         if (cursor != null) cursor.close();
                     }
 
-                /*
-                for (Uri fileUri : uriList) {
-                    DocumentFile documentFile = DocumentFile.fromSingleUri(appContext, fileUri);
-                    if (documentFile != null)
-                        Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "documentFile="+documentFile.getName());
-                }*/
+                    if (uriList.size() > 0) {
+                        Uri wallpaperUri = uriList.get(new Random().nextInt(uriList.size()));
 
-                    Uri wallpaperUri = uriList.get(new Random().nextInt(uriList.size()));
-                    _changeImageWallpaper(profile, wallpaperUri.toString(), appContext);
+                        if (PPApplication.logEnabled()) {
+                            DocumentFile documentFile = DocumentFile.fromSingleUri(appContext, wallpaperUri);
+                            if (documentFile != null)
+                                PPApplication.logE("ActivateProfileHelper.changeWallpaperFromFolder", "documentFile=" + documentFile.getName());
+                        }
+
+                        _changeImageWallpaper(profile, wallpaperUri.toString(), appContext);
+                    }
 
                     //----------------
 
