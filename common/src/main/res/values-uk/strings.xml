@@ -1751,20 +1751,24 @@
     <string name="extender_accessibility_setting_not_enabled_title">Служба спец. можливостей вимкнута</string>
     <string name="extender_accessibility_setting_not_enabled_text">Служба спец. можливостей для PhoneProfilesPlusExtender не увімкнена. Натисніть тут, щоб увімкнути її.</string>
     <string name="event_preference_sensor_periodic_summary">This sensor is for periodical profile activation. Parameters: Multiple of scanning interval, Duration (event run duration).</string>
-    <string name="event_type_periodic">Periodic</string>
-    <string name="pref_event_periodic_multiple_interval">Multiple of scanning interval</string>
-    <string name="event_preferences_category_eventPeriodicParameters">Periodic sensor</string>
-    <string name="pref_event_periodic_resulting_interval">Resulting interval (minutes)</string>
-    <string name="phone_profiles_pref_category_background_scanning">Periodic scanning</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">These settings are for periodic scanning. Is used for Periodic event sensor.\nIs also useful when Time or Calendar event sensor not working good.</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Enable periodic scanning</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Periodic scan interval (minutes)</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Periodic scan in Power Save mode</string>
-    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Setup Periodic scanning parameters in application settings.</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Periodic scan in time</string>
+    <string name="event_type_periodic">Періодично</string>
+    <string name="pref_event_periodic_multiple_interval">Кількість інтерввлів сканування</string>
+    <string name="event_preferences_category_eventPeriodicParameters">Датчик періодичности</string>
+    <string name="pref_event_periodic_resulting_interval">Інтервал результата (хвилин)</string>
+    <string name="phone_profiles_pref_category_background_scanning">Періодичне сканування</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Ці налаштування для періодичного сканування. Використовуються для Датчика періодичности.\nТакож корисні, коли датчик подій за часом або календарем не спрацьовує добре.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Увімкнути періодичне сканування</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Інтервал періодичного сканування (хвилин)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Періодичне сканування в режимі енергозбереження</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Встановити параметри періодичного сканування в налаштуваннях додатку.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Періодичне сканування по часу</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Від</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">До</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Periodic scan interval</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Інтервал періодичного сканування</string>
+    <string name="array_pref_change_random_image_wallpaper">Change to random image from folder</string>
+    <string name="permissions_for_wallpaper_folder_text1">Selecting folder for random wallpaper requires some permissions.</string>
+    <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
+    <string name="profile_preferences_deviceWallpaperFolder">Folder of images</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

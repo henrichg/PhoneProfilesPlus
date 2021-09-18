@@ -1765,6 +1765,10 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Od</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">Do</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Interval periodického skenovania</string>
+    <string name="array_pref_change_random_image_wallpaper">Zmeniť na náhodný obrázok z priečinka</string>
+    <string name="permissions_for_wallpaper_folder_text1">Výber priečinka pre náhodnú tapetu vyžaduje určité povolenia.</string>
+    <string name="permissions_for_wallpaper_folder_text2">Prosím, povoľte ich v nasledujúcom dialógovom okne. Potom si môžete vybrať priečinok pre náhodné tapety z výberu priečinka.</string>
+    <string name="profile_preferences_deviceWallpaperFolder">Priečinok s obrázkami</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
