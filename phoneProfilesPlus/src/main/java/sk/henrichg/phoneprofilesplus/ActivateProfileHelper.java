@@ -52,7 +52,6 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.IconCompat;
-import androidx.documentfile.provider.DocumentFile;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -67,6 +66,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -3685,8 +3685,8 @@ class ActivateProfileHelper {
                         Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "documentFile="+documentFile.getName());
                 }*/
 
-                //TODO V uriList su vsetky images z adresara.
-                //TODO Vyber jeden nahdne a nastav ho ako tapetu.
+                Uri wallpaperUri = uriList.get(new Random().nextInt(uriList.size()));
+                _changeImageWallpaper(profile, wallpaperUri.toString(), appContext);
 
                 //----------------
 
