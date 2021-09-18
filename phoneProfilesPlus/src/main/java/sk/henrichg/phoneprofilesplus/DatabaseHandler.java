@@ -2804,7 +2804,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 0,
                                 "",
                                 0,
-                                0,
                                 "-"
                         );
 
@@ -2900,7 +2899,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
                             values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
                             values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
-                            values.put(KEY_CHANGE_WALLPAPER_TIME, profile._changeWallpaperTime);
                             values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
 
                             // updating row
@@ -3604,7 +3602,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
                 values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
                 values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
-                values.put(KEY_CHANGE_WALLPAPER_TIME, profile._changeWallpaperTime);
                 values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
 
                 // Insert Row
@@ -3739,8 +3736,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_NOTIFICATION_SIM2,
                                 KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
                                 KEY_DEVICE_LIVE_WALLPAPER,
-                                KEY_CHANGE_WALLPAPER_TIME,
-                                KEY_DEVICE_WALLPAPER_FOLDER,
+                                KEY_DEVICE_WALLPAPER_FOLDER
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3846,7 +3842,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_CHANGE_WALLPAPER_TIME)),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER))
                         );
                     }
@@ -3973,7 +3968,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_SOUND_NOTIFICATION_SIM2 + "," +
                         KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "," +
                         KEY_DEVICE_LIVE_WALLPAPER + "," +
-                        KEY_CHANGE_WALLPAPER_TIME + "," +
                         KEY_DEVICE_WALLPAPER_FOLDER +
                 " FROM " + TABLE_PROFILES;
 
@@ -4083,7 +4077,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._soundNotificationSIM2 = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2));
                         profile._soundSameRingtoneForBothSIMCards = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS));
                         profile._deviceLiveWallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER));
-                        profile._changeWallpaperTime = cursor.getInt(cursor.getColumnIndex(KEY_CHANGE_WALLPAPER_TIME));
                         profile._deviceWallpaperFolder = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER));
                         // Adding profile to list
                         profileList.add(profile);
@@ -4211,7 +4204,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
                 values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
                 values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
-                values.put(KEY_CHANGE_WALLPAPER_TIME, profile._changeWallpaperTime);
                 values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
 
                 // updating row
@@ -4597,8 +4589,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_NOTIFICATION_SIM2,
                                 KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
                                 KEY_DEVICE_LIVE_WALLPAPER,
-                                KEY_CHANGE_WALLPAPER_TIME,
-                                KEY_DEVICE_WALLPAPER_FOLDER,
+                                KEY_DEVICE_WALLPAPER_FOLDER
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -4706,7 +4697,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_CHANGE_WALLPAPER_TIME)),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER))
                         );
                     }
@@ -5283,6 +5273,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /*
     void updateChangeWallpaperTime(Profile profile)
     {
         importExportLock.lock();
@@ -5321,6 +5312,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+    */
 
 // EVENTS --------------------------------------------------------------------------------
 

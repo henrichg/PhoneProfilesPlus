@@ -376,7 +376,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._soundSameRingtoneForBothSIMCards,
                         origProfile._deviceLiveWallpaper,
                         origProfile._vibrateNotifications,
-                        origProfile._changeWallpaperTime,
                         origProfile._deviceWallpaperFolder
                 );
                 showSaveMenu = true;

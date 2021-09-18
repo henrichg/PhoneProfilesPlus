@@ -37,7 +37,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.pm.PackageInfoCompat;
-import androidx.documentfile.provider.DocumentFile;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 //import androidx.multidex.MultiDex;
 import androidx.work.WorkInfo;
@@ -630,6 +629,7 @@ public class PPApplication extends Application
     //private static final String PREF_WIDGET_PROFILE_NAME = "widget_profile_name";
     //private static final String PREF_ACTIVITY_PROFILE_NAME = "activity_profile_name";
     private static final String PREF_LAST_ACTIVATED_PROFILE = "last_activated_profile";
+    private static final String PREF_WALLPAPER_CHANGE_TIME = "wallpaper_change_time";
 
     // WorkManager tags
     static final String AFTER_FIRST_START_WORK_TAG = "afterFirstStartWork";
@@ -1959,6 +1959,7 @@ public class PPApplication extends Application
         //getWidgetProfileName(context);
         //getActivityProfileName(context);
         getLastActivatedProfile(context);
+        getWallpaperChangeTime(context);
         Event.getEventsBlocked(context);
         Event.getForceRunEventRunning(context);
         PPPExtenderBroadcastReceiver.getApplicationInForeground(context);
@@ -2361,6 +2362,27 @@ public class PPApplication extends Application
             editor.putLong(PREF_LAST_ACTIVATED_PROFILE, profileId);
             editor.apply();
             prefLastActivatedProfile = profileId;
+        }
+    }
+
+    static long wallpaperChangeTime;
+    private static void getWallpaperChangeTime(Context context)
+    {
+        synchronized (applicationGlobalPreferencesMutex) {
+            wallpaperChangeTime = ApplicationPreferences.
+                    getSharedPreferences(context).getLong(PREF_WALLPAPER_CHANGE_TIME, 0);
+            //return prefLastActivatedProfile;
+        }
+    }
+    static public void setWallpaperChangeTime(Context context)
+    {
+        synchronized (applicationGlobalPreferencesMutex) {
+            Calendar now = Calendar.getInstance();
+            long _time = now.getTimeInMillis();
+            Editor editor = ApplicationPreferences.getEditor(context);
+            editor.putLong(PREF_WALLPAPER_CHANGE_TIME, _time);
+            editor.apply();
+            wallpaperChangeTime = _time;
         }
     }
 

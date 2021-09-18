@@ -65,6 +65,7 @@ import com.stericson.roottools.RootTools;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -3556,7 +3557,7 @@ class ActivateProfileHelper {
                     //} else
                     //    wallpaperManager.setBitmap(decodedSampleBitmap);
 
-                    DatabaseHandler.getInstance(appContext).updateChangeWallpaperTime(profile);
+                    PPApplication.setWallpaperChangeTime(appContext);
                 } catch (IOException e) {
                     PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
                             profile._name, profile._icon, 0, "");
@@ -3613,70 +3614,80 @@ class ActivateProfileHelper {
     }
 
     private static void changeWallpaperFromFolder(Profile profile, Context context) {
-        final Context appContext = context.getApplicationContext();
-        PPApplication.startHandlerThreadWallpaper();
-        final Handler __handler = new Handler(PPApplication.handlerThreadWallpaper.getLooper());
-        //__handler.post(new PPHandlerThreadRunnable(
-        //        context.getApplicationContext(), profile, null) {
-        __handler.post(() -> {
+        Calendar now = Calendar.getInstance();
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+
+        // next allowed wallpaper change is 50 seconds after last chaange of wallpaper
+        final long _time = now.getTimeInMillis() + gmtOffset - (50 * 1000);
+
+        if (PPApplication.applicationFullyStarted &&
+                ((PPApplication.wallpaperChangeTime == 0) ||
+                 (PPApplication.wallpaperChangeTime <= _time))) {
+
+            final Context appContext = context.getApplicationContext();
+            PPApplication.startHandlerThreadWallpaper();
+            final Handler __handler = new Handler(PPApplication.handlerThreadWallpaper.getLooper());
+            //__handler.post(new PPHandlerThreadRunnable(
+            //        context.getApplicationContext(), profile, null) {
+            __handler.post(() -> {
 //                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
 
-            //Context appContext= appContextWeakRef.get();
-            //Profile profile = profileWeakRef.get();
-            //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+                //Context appContext= appContextWeakRef.get();
+                //Profile profile = profileWeakRef.get();
+                //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
-            //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
-            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-            PowerManager.WakeLock wakeLock = null;
-            try {
-                if (powerManager != null) {
-                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_executeForWallpaper");
-                    wakeLock.acquire(10 * 60 * 1000);
-                }
-
-                //----------
-                // test get list of files from folder
-
-                Uri folderUri = Uri.parse(profile._deviceWallpaperFolder);
-
-                appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri,
-                        Intent.FLAG_GRANT_READ_URI_PERMISSION /* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
-                // persistent permissions
-                final int takeFlags = //data.getFlags() &
-                        (Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                appContext.getContentResolver().takePersistableUriPermission(folderUri, takeFlags);
-
-
-                List<Uri> uriList = new ArrayList<>();
-
-                // the uri from which we query the files
-                Uri uriFolder = DocumentsContract.buildChildDocumentsUriUsingTree(folderUri, DocumentsContract.getTreeDocumentId(folderUri));
-
-                Cursor cursor = null;
+                //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
                 try {
-                    // let's query the files
-                    ContentResolver contentResolver = appContext.getContentResolver();
-                    cursor = contentResolver.query(uriFolder,
-                            new String[]{DocumentsContract.Document.COLUMN_DOCUMENT_ID},
-                            null, null, null);
-
-                    if (cursor != null && cursor.moveToFirst()) {
-                        do {
-                            // build the uri for the file
-                            Uri uriFile = DocumentsContract.buildDocumentUriUsingTree(folderUri, cursor.getString(0));
-                            Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "mime type=" + contentResolver.getType(uriFile));
-                            if (contentResolver.getType(uriFile).startsWith("image/")) {
-                                //add to the list
-                                uriList.add(uriFile);
-                            }
-
-                        } while (cursor.moveToNext());
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_executeForWallpaper");
+                        wakeLock.acquire(10 * 60 * 1000);
                     }
-                } catch (Exception e) {
-                    Log.e("ActivateProfileHelper.changeWallpaperFromFolder", Log.getStackTraceString(e));
-                } finally {
-                    if (cursor!=null) cursor.close();
-                }
+
+                    //----------
+                    // test get list of files from folder
+
+                    Uri folderUri = Uri.parse(profile._deviceWallpaperFolder);
+
+                    appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION /* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
+                    // persistent permissions
+                    final int takeFlags = //data.getFlags() &
+                            (Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    appContext.getContentResolver().takePersistableUriPermission(folderUri, takeFlags);
+
+
+                    List<Uri> uriList = new ArrayList<>();
+
+                    // the uri from which we query the files
+                    Uri uriFolder = DocumentsContract.buildChildDocumentsUriUsingTree(folderUri, DocumentsContract.getTreeDocumentId(folderUri));
+
+                    Cursor cursor = null;
+                    try {
+                        // let's query the files
+                        ContentResolver contentResolver = appContext.getContentResolver();
+                        cursor = contentResolver.query(uriFolder,
+                                new String[]{DocumentsContract.Document.COLUMN_DOCUMENT_ID},
+                                null, null, null);
+
+                        if (cursor != null && cursor.moveToFirst()) {
+                            do {
+                                // build the uri for the file
+                                Uri uriFile = DocumentsContract.buildDocumentUriUsingTree(folderUri, cursor.getString(0));
+                                Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "mime type=" + contentResolver.getType(uriFile));
+                                if (contentResolver.getType(uriFile).startsWith("image/")) {
+                                    //add to the list
+                                    uriList.add(uriFile);
+                                }
+
+                            } while (cursor.moveToNext());
+                        }
+                    } catch (Exception e) {
+                        Log.e("ActivateProfileHelper.changeWallpaperFromFolder", Log.getStackTraceString(e));
+                    } finally {
+                        if (cursor != null) cursor.close();
+                    }
 
                 /*
                 for (Uri fileUri : uriList) {
@@ -3685,24 +3696,25 @@ class ActivateProfileHelper {
                         Log.e("ActivateProfileHelper.changeWallpaperFromFolder", "documentFile="+documentFile.getName());
                 }*/
 
-                Uri wallpaperUri = uriList.get(new Random().nextInt(uriList.size()));
-                _changeImageWallpaper(profile, wallpaperUri.toString(), appContext);
+                    Uri wallpaperUri = uriList.get(new Random().nextInt(uriList.size()));
+                    _changeImageWallpaper(profile, wallpaperUri.toString(), appContext);
 
-                //----------------
+                    //----------------
 
-            } catch (Exception e) {
+                } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                PPApplication.recordException(e);
-            } finally {
-                if ((wakeLock != null) && wakeLock.isHeld()) {
-                    try {
-                        wakeLock.release();
-                    } catch (Exception ignored) {
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
                     }
                 }
-            }
-            //}
-        });
+                //}
+            });
+        }
     }
 
     private static void executeForRunApplications(Profile profile, Context context) {
@@ -4209,7 +4221,7 @@ class ActivateProfileHelper {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
                 context.startActivity(intent);
-                DatabaseHandler.getInstance(context).updateChangeWallpaperTime(profile);
+                PPApplication.setWallpaperChangeTime(appContext);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
