@@ -3650,21 +3650,20 @@ class ActivateProfileHelper {
 
                     Uri folderUri = Uri.parse(profile._deviceWallpaperFolder);
 
-                    appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri,
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION /* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
-                    // persistent permissions
-                    final int takeFlags = //data.getFlags() &
-                            (Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    appContext.getContentResolver().takePersistableUriPermission(folderUri, takeFlags);
-
-
                     List<Uri> uriList = new ArrayList<>();
-
-                    // the uri from which we query the files
-                    Uri uriFolder = DocumentsContract.buildChildDocumentsUriUsingTree(folderUri, DocumentsContract.getTreeDocumentId(folderUri));
 
                     Cursor cursor = null;
                     try {
+                        appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION /* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
+                        // persistent permissions
+                        final int takeFlags = //data.getFlags() &
+                                (Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        appContext.getContentResolver().takePersistableUriPermission(folderUri, takeFlags);
+
+                        // the uri from which we query the files
+                        Uri uriFolder = DocumentsContract.buildChildDocumentsUriUsingTree(folderUri, DocumentsContract.getTreeDocumentId(folderUri));
+
                         // let's query the files
                         ContentResolver contentResolver = appContext.getContentResolver();
                         cursor = contentResolver.query(uriFolder,
@@ -3682,7 +3681,8 @@ class ActivateProfileHelper {
 
                             } while (cursor.moveToNext());
                         }
-                    } catch (Exception ignored) {
+                    } catch (Exception e) {
+//                        Log.e("ActivateProfileHelper.changeWallpaperFromFolder", Log.getStackTraceString(e));
                     } finally {
                         if (cursor != null) cursor.close();
                     }
