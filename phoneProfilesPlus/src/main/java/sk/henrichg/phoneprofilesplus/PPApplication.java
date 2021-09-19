@@ -333,7 +333,7 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.setVibrateNotification"
 
                                                 +"|EventPreferencesPeriodic"
-                                                +"|PeriodicEventsHandlerWorker"
+                                                //+"|PeriodicEventsHandlerWorker"
                                                 +"|ActivateProfileHelper.changeWallpaperFromFolder"
                                                 ;
 

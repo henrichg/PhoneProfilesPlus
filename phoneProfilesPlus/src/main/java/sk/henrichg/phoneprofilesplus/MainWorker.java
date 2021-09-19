@@ -108,7 +108,8 @@ public class MainWorker extends Worker {
                             // start events handler
                             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DelayedWorksWorker.doWork (DELAYED_WORK_HANDLE_EVENTS): sensorType="+sensorType);
 
-                            PPApplication.logE("[EVENTS_HANDLER_CALL] MainWorker.doWork", "sensorType="+sensorType);
+                            if (tag.equals(HANDLE_EVENTS_PERIODIC_WORK_TAG))
+                                PPApplication.logE("[EVENTS_HANDLER_CALL] MainWorker.doWork", "sensorType="+sensorType);
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(sensorType);
 
