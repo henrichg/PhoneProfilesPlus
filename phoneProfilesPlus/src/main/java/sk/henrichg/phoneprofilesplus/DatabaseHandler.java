@@ -3417,7 +3417,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_START_TIME + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_COUNTER + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_DURATION + "=5");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_MULTIPLY_INTERVAL + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_MULTIPLY_INTERVAL + "=1");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_SENSOR_PASSED + "=0");
         }
 

@@ -402,12 +402,15 @@ class EventPreferencesPeriodic extends EventPreferences {
 
     void increaseCounter(DataWrapper dataWrapper) {
         if (Event.getGlobalEventsRunning()) {
-            if (_counter < _multipleInterval) {
+            int multipleInterval = _multipleInterval;
+            if (multipleInterval == 0)
+                multipleInterval = 1;
+            if (_counter < multipleInterval) {
                 _counter += 1;
                 DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
                 PPApplication.logE("######### EventPreferencesPeriodic.increaseCounter", "_counter="+_counter);
             }
-            if (_counter >= _multipleInterval) {
+            if (_counter >= multipleInterval) {
                 _counter = 0;
                 DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
 
