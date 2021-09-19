@@ -74,7 +74,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     boolean callEventsHandler = false;
                     Set<String> tags = getTags();
                     for (String tag : tags) {
-                        PPApplication.logE("######### PeriodicEventsHandlerWorker.doWork", "tag="+tag);
+//                        PPApplication.logE("######### PeriodicEventsHandlerWorker.doWork", "tag="+tag);
 
                         if (tag.equals(WORK_TAG)) {
                             callEventsHandler = true;
@@ -82,7 +82,7 @@ public class PeriodicEventsHandlerWorker extends Worker {
                         }
                     }
 
-                    PPApplication.logE("######### PeriodicEventsHandlerWorker.doWork", "callEventsHandler="+callEventsHandler);
+//                    PPApplication.logE("######### PeriodicEventsHandlerWorker.doWork", "callEventsHandler="+callEventsHandler);
 
                     if (callEventsHandler) {
                         //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PeriodicEventsHandlerWorker.doWork");

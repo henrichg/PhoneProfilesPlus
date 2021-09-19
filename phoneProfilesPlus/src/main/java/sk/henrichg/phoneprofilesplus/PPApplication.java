@@ -220,14 +220,14 @@ public class PPApplication extends Application
 //                                                +"|LocationSensorWorker.enqueueWork"
 
 //                                                +"|[IN_WORKER]"
-                                                +"|[WORKER_CALL]"
+//                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
 //                                                +"|[IN_BROADCAST]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
 //                                                +"|[IN_LISTENER]"
 //                                                +"|[IN_EVENTS_HANDLER]"
-                                                +"|[EVENTS_HANDLER_CALL]"
+//                                                +"|[EVENTS_HANDLER_CALL]"
 //                                                +"|[TEST BATTERY]"
 //                                                +"|[APP_START]"
 //                                                +"|[HANDLER]"
@@ -332,9 +332,9 @@ public class PPApplication extends Application
 
                                                 //+"|ActivateProfileHelper.setVibrateNotification"
 
-                                                +"|EventPreferencesPeriodic"
+                                                //+"|EventPreferencesPeriodic"
                                                 //+"|PeriodicEventsHandlerWorker"
-                                                +"|ActivateProfileHelper.changeWallpaperFromFolder"
+                                                //+"|ActivateProfileHelper.changeWallpaperFromFolder"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

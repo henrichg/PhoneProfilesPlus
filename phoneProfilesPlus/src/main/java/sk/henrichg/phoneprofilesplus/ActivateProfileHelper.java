@@ -3690,11 +3690,11 @@ class ActivateProfileHelper {
                     if (uriList.size() > 0) {
                         Uri wallpaperUri = uriList.get(new Random().nextInt(uriList.size()));
 
-                        if (PPApplication.logEnabled()) {
-                            DocumentFile documentFile = DocumentFile.fromSingleUri(appContext, wallpaperUri);
-                            if (documentFile != null)
-                                PPApplication.logE("ActivateProfileHelper.changeWallpaperFromFolder", "documentFile=" + documentFile.getName());
-                        }
+//                        if (PPApplication.logEnabled()) {
+//                            DocumentFile documentFile = DocumentFile.fromSingleUri(appContext, wallpaperUri);
+//                            if (documentFile != null)
+//                                PPApplication.logE("ActivateProfileHelper.changeWallpaperFromFolder", "documentFile=" + documentFile.getName());
+//                        }
 
                         _changeImageWallpaper(profile, wallpaperUri.toString(), appContext);
                     }

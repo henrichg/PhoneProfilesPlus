@@ -365,11 +365,11 @@ class EventPreferencesPeriodic extends EventPreferences {
         //PPApplication.logE("EventPreferencesPeriodic.setAlarm","_startTime="+_startTime);
 
         if (_startTime > 0) {
-            if (PPApplication.logEnabled()) {
-                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                String result = sdf.format(alarmTime);
-                PPApplication.logE("EventPreferencesPeriodic.setAlarm", "endTime=" + result);
-            }
+//            if (PPApplication.logEnabled()) {
+//                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+//                String result = sdf.format(alarmTime);
+//                PPApplication.logE("EventPreferencesPeriodic.setAlarm", "endTime=" + result);
+//            }
 
             Intent intent = new Intent();
             intent.setAction(PhoneProfilesService.ACTION_PERIODIC_EVENT_END_BROADCAST_RECEIVER);
@@ -409,13 +409,13 @@ class EventPreferencesPeriodic extends EventPreferences {
             if (_event.getStatus() == Event.ESTATUS_PAUSE) {
                 // len ak nebezi pocitaj counter
 
-                PPApplication.logE("######### EventPreferencesPeriodic.increaseCounter", "_counter=" + _counter);
-                PPApplication.logE("######### EventPreferencesPeriodic.increaseCounter", "=multipleInterval=" + multipleInterval);
+//                PPApplication.logE("######### EventPreferencesPeriodic.increaseCounter", "_counter=" + _counter);
+//                PPApplication.logE("######### EventPreferencesPeriodic.increaseCounter", "=multipleInterval=" + multipleInterval);
 
                 if (_counter < multipleInterval) {
                     _counter += 1;
                     DatabaseHandler.getInstance(dataWrapper.context).updatePeriodicCounter(_event);
-                    PPApplication.logE("######### EventPreferencesPeriodic.increaseCounter", "_counter=" + _counter);
+//                    PPApplication.logE("######### EventPreferencesPeriodic.increaseCounter", "_counter=" + _counter);
                 }
                 if (_counter >= multipleInterval) {
                     _counter = 0;
@@ -448,7 +448,7 @@ class EventPreferencesPeriodic extends EventPreferences {
 //                            }
 //                            //}
 //
-                                PPApplication.logE("[WORKER_CALL] EventPreferencesPeriodic.increaseCounter", "xxx");
+//                                PPApplication.logE("[WORKER_CALL] EventPreferencesPeriodic.increaseCounter", "xxx");
                                 //workManager.enqueue(worker);
                                 workManager.enqueueUniqueWork(MainWorker.HANDLE_EVENTS_PERIODIC_WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
                             }
