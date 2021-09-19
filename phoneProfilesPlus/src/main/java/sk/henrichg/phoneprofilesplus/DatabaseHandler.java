@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2471;
+    private static final int DATABASE_VERSION = 2472;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -3431,6 +3431,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_WALLPAPER_FOLDER + "='-'");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_WALLPAPER_FOLDER + "='-'");
+        }
+
+        if (oldVersion < 2472) {
+            try {
+                final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                        KEY_E_PERIODIC_DURATION + "," +
+                        KEY_E_PERIODIC_MULTIPLY_INTERVAL +
+                        " FROM " + TABLE_EVENTS;
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        ContentValues values = new ContentValues();
+
+                        int multipleInterval = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_MULTIPLY_INTERVAL));
+                        int duration = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_DURATION));
+
+                        if ((multipleInterval == 0) || (duration == 0)) {
+                            if (multipleInterval == 0)
+                                values.put(KEY_E_PERIODIC_MULTIPLY_INTERVAL, 1);
+                            if (duration == 0)
+                                values.put(KEY_E_PERIODIC_DURATION, 5);
+
+                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
+                        }
+
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+            } catch (Exception ignored) {}
         }
 
     }
