@@ -490,9 +490,9 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         if (iValue < mMin) iValue = mMin;
         if (iValue > mMax) iValue = mMax;
 
-        //boolean enable = (mAfterDo == 4) && (iValue > mMin);
-
-        if ((mAfterDo != 4) || (iValue == mMin)) {
+        if (((mAfterDo != Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE) &&
+                (mAfterDo != Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS)) ||
+                (iValue == mMin)) {
             profileLabel.setEnabled(false);
             profileView.setEnabled(false);
             int disabledColor = GlobalGUIRoutines.getThemeDisabledTextColor(mActivity);

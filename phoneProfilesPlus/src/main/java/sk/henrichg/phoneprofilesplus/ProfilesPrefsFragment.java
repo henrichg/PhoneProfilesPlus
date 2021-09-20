@@ -5030,7 +5030,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE);
             if (preference != null) {
                 String afterDurationDo = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO, "0");
-                preference.setEnabled(enable && (afterDurationDo.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))));
+                int afterDurationDoValue = Integer.parseInt(afterDurationDo);
+                preference.setEnabled(enable &&
+                        ((afterDurationDoValue ==  Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE) ||
+                         (afterDurationDoValue ==  Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS)));
             }
         }
 
