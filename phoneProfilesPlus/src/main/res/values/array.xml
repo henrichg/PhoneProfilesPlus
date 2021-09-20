@@ -436,6 +436,7 @@
         <item>@string/array_pref_afterProfileDurationDo_undoProfile</item>
         <item>@string/array_pref_afterProfileDurationDo_backgroundProfile</item>
         <item>@string/array_pref_afterProfileDurationDo_activateProfile</item>
+        <item>@string/array_pref_afterProfileDurationDo_activateProfileThenRestartEvents</item>
         <item>@string/array_pref_afterProfileDurationDo_nothing</item>
     </string-array>
     <string-array name="afterProfileDurationDoValues">
@@ -443,6 +444,7 @@
         <item>1</item>
         <item>2</item>
         <item>4</item>
+        <item>5</item>
         <item>0</item>
     </string-array>
     <string-array name="eventBluetoothConnectionTypeArray">

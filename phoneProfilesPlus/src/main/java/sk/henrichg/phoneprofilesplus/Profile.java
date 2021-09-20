@@ -346,6 +346,7 @@ public class Profile {
     static final int AFTER_DURATION_DO_DEFAULT_PROFILE = 2;
     static final int AFTER_DURATION_DO_RESTART_EVENTS = 3;
     static final int AFTER_DURATION_DO_SPECIFIC_PROFILE = 4;
+    static final int AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS = 5;
 
     static final int BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET = -99;
 
