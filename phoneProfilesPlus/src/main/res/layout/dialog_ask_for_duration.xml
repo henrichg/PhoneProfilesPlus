@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/dialog_fast_access_duration_root"
+    android:id="@+id/ask_for_duration_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/alert_dialog_top_padding" >
 
     <LinearLayout
-        android:id="@+id/dialog_fast_access_duration_linla0"
+        android:id="@+id/ask_for_duration_dlg_linla0"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,13 +26,13 @@
             tools:ignore="HardcodedText"/>
 
         <LinearLayout
-            android:id="@+id/dialog_fast_access_duration_liLa1"
+            android:id="@+id/ask_for_duration_dlg_liLa1"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/dialog_fast_access_duration_liLa2"
+                android:id="@+id/ask_for_duration_dlg_liLa2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -58,14 +58,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/dialog_fast_access_duration_liLa3"
+                android:id="@+id/ask_for_duration_dlg_liLa3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <FrameLayout
-                    android:id="@+id/dialog_fast_access_duration_frLa1"
+                    android:id="@+id/ask_for_duration_dlg_frLa1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="0dp"
@@ -103,14 +103,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/dialog_fast_access_duration_liLa4"
+                android:id="@+id/ask_for_duration_dlg_liLa4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="15dp"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/dialog_fast_access_duration_textView1"
+                    android:id="@+id/ask_for_duration_dlg_textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_pref_dlg_activation_hours_label"
@@ -124,13 +124,13 @@
                     android:splitTrack="false"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/dialog_fast_access_duration_liLa5"
+                android:id="@+id/ask_for_duration_dlg_liLa5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/dialog_fast_access_duration_textView2"
+                    android:id="@+id/ask_for_duration_dlg_textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_pref_dlg_activation_minutes_label"
@@ -144,14 +144,14 @@
                     android:splitTrack="false"/>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/dialog_fast_access_duration_liLa6"
+                android:id="@+id/ask_for_duration_dlg_liLa6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginStart="5dp"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/dialog_fast_access_duration_textView3"
+                    android:id="@+id/ask_for_duration_dlg_textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/duration_pref_dlg_activation_seconds_label"
@@ -168,7 +168,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/fast_access_duration_dlg_after_do_label"
+            android:id="@+id/ask_for_duration_dlg_after_do_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -177,7 +177,7 @@
             android:text="@string/profile_preferences_afterDurationDo" />
 
         <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/fast_access_duration_dlg_after_do_spinner"
+            android:id="@+id/ask_for_duration_dlg_after_do_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
@@ -187,7 +187,7 @@
             style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
 
         <TextView
-            android:id="@+id/fast_access_duration_dlg_profile_label"
+            android:id="@+id/ask_for_duration_dlg_profile_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -196,7 +196,7 @@
             android:textSize="16sp"
             android:text="@string/profile_preferences_afterDurationProfile" />
         <RelativeLayout
-            android:id="@+id/fast_access_duration_dlg_profile"
+            android:id="@+id/ask_for_duration_dlg_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -210,7 +210,7 @@
             android:focusable="true">
 
             <ImageView
-                android:id="@+id/fast_access_duration_dlg_profile_icon"
+                android:id="@+id/ask_for_duration_dlg_profile_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -220,15 +220,15 @@
                 android:src="@drawable/ic_profile_default" />
 
             <LinearLayout
-                android:id="@+id/dialog_fast_access_duration_liLa7"
+                android:id="@+id/ask_for_duration_dlg_liLa7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/fast_access_duration_dlg_profile_icon" >
+                android:layout_toEndOf="@id/ask_for_duration_dlg_profile_icon" >
 
                 <TextView
-                    android:id="@+id/fast_access_duration_dlg_profile_name"
+                    android:id="@+id/ask_for_duration_dlg_profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="12dp"
@@ -241,7 +241,7 @@
                     android:textColor="?attr/colorAccent"/>
 
                 <ImageView
-                    android:id="@+id/fast_access_duration_dlg_profile_pref_indicator"
+                    android:id="@+id/ask_for_duration_dlg_profile_pref_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="14dp"
                     android:layout_marginTop="2dp"
@@ -257,7 +257,7 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/fast_access_duration_dlg_activate_without"
+            android:id="@+id/ask_for_duration_dlg_activate_without"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
