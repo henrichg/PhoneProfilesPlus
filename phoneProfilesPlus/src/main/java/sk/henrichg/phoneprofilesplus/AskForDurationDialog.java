@@ -24,7 +24,7 @@ import java.util.TimerTask;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
-class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
+class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     private final int mMin, mMax;
     private final Profile mProfile;
@@ -62,7 +62,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     //private int mColor = 0;
 
     @SuppressLint("SetTextI18n")
-    FastAccessDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper,
+    AskForDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper,
                              /*boolean monochrome, int monochromeValue,*/
                              int startupSource/*, boolean interactive*/) {
 
@@ -316,7 +316,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         if (!ApplicationPreferences.applicationEditorPrefIndicator)
             profileIndicators.setVisibility(View.GONE);
         profileView.setOnClickListener(v -> {
-            FastAccessDurationProfileDialog dialog = new FastAccessDurationProfileDialog(mActivity, FastAccessDurationDialog.this);
+            AskForDurationActivateProfileDialog dialog = new AskForDurationActivateProfileDialog(mActivity, AskForDurationDialog.this);
             if (!mActivity.isFinishing())
                 dialog.show();
         });

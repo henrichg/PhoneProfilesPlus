@@ -1970,7 +1970,7 @@ public class DataWrapper {
 
             if (profile._askForDuration) {
                 if (!_activity.isFinishing()) {
-                    FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper,
+                    AskForDurationDialog dlg = new AskForDurationDialog(_activity, _profile, _dataWrapper,
                             /*monochrome, monochromeValue,*/ _startupSource);
                     dlg.show();
                 }
@@ -2047,7 +2047,7 @@ public class DataWrapper {
 
             if (profile._askForDuration/* && interactive*/) {
                 if (!activity.isFinishing()) {
-                    FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this,
+                    AskForDurationDialog dlg = new AskForDurationDialog(activity, profile, this,
                             /*monochrome, monochromeValue,*/ startupSource);
                     dlg.show();
                 }

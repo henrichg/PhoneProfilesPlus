@@ -11,17 +11,17 @@ import android.widget.TextView;
 
 import java.util.List;
 
-class FastAccessDurationProfileAdapter extends BaseAdapter {
+class AskForDurationActivateProfileAdapter extends BaseAdapter {
 
     private final List<Profile> profileList;
     private final long profileId;
-    private final FastAccessDurationProfileDialog dialog;
+    private final AskForDurationActivateProfileDialog dialog;
 
     private final Context context;
 
     //private final LayoutInflater inflater;
 
-    FastAccessDurationProfileAdapter(FastAccessDurationProfileDialog dialog, Context c, long profileId, List<Profile> profileList)
+    AskForDurationActivateProfileAdapter(AskForDurationActivateProfileDialog dialog, Context c, long profileId, List<Profile> profileList)
     {
         context = c;
 
@@ -66,7 +66,7 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        FastAccessDurationProfileAdapter.ViewHolder holder;
+        AskForDurationActivateProfileAdapter.ViewHolder holder;
 
         View vi = convertView;
 
@@ -79,7 +79,7 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
             else
                 vi = LayoutInflater.from(context).inflate(R.layout.profile_preference_list_item_no_indicator, parent, false);
 
-            holder = new FastAccessDurationProfileAdapter.ViewHolder();
+            holder = new AskForDurationActivateProfileAdapter.ViewHolder();
             holder.profileIcon = vi.findViewById(R.id.profile_pref_dlg_item_icon);
             holder.profileLabel = vi.findViewById(R.id.profile_pref_dlg_item_label);
             holder.profileIndicator = vi.findViewById(R.id.profile_pref_dlg_item_indicator);
@@ -88,7 +88,7 @@ class FastAccessDurationProfileAdapter extends BaseAdapter {
         }
         else
         {
-            holder = (FastAccessDurationProfileAdapter.ViewHolder)vi.getTag();
+            holder = (AskForDurationActivateProfileAdapter.ViewHolder)vi.getTag();
         }
 
         Profile profile;
