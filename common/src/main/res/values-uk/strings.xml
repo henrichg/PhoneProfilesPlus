@@ -1765,10 +1765,10 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Від</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">До</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Інтервал періодичного сканування</string>
-    <string name="array_pref_change_random_image_wallpaper">Change to random image from folder</string>
-    <string name="permissions_for_wallpaper_folder_text1">Selecting folder for random wallpaper requires some permissions.</string>
-    <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
-    <string name="profile_preferences_deviceWallpaperFolder">Folder of images</string>
+    <string name="array_pref_change_random_image_wallpaper">Змінити на випадкове зображення з теки</string>
+    <string name="permissions_for_wallpaper_folder_text1">Вибір теки для випадкової зміни шпалер потребує дозволів.</string>
+    <string name="permissions_for_wallpaper_folder_text2">Надайте дозвіл у наступному діалоговому вікні. Після цього ви зможете вибрати теку зображень для шпалер.</string>
+    <string name="profile_preferences_deviceWallpaperFolder">Тека зображень</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

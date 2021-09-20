@@ -1765,9 +1765,9 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">С</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">До</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Интервал периодического сканирования</string>
-    <string name="array_pref_change_random_image_wallpaper">Change to random image from folder</string>
-    <string name="permissions_for_wallpaper_folder_text1">Selecting folder for random wallpaper requires some permissions.</string>
-    <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
+    <string name="array_pref_change_random_image_wallpaper">Сменить на случайное изображение из папки</string>
+    <string name="permissions_for_wallpaper_folder_text1">Выбор папки со случайным изображением требует дополнительных разрешений.</string>
+    <string name="permissions_for_wallpaper_folder_text2">Предоставьте их, пожалуйста, в следующем диалоговом окне. Затем вы сможете выбрать папку со случайным изображением для обоев.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Папка с изображениями</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->

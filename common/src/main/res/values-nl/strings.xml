@@ -1765,10 +1765,10 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Van</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">Aan</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Periodieke scan interval</string>
-    <string name="array_pref_change_random_image_wallpaper">Change to random image from folder</string>
-    <string name="permissions_for_wallpaper_folder_text1">Selecting folder for random wallpaper requires some permissions.</string>
-    <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
-    <string name="profile_preferences_deviceWallpaperFolder">Folder of images</string>
+    <string name="array_pref_change_random_image_wallpaper">Verander naar willekeurige afbeelding uit map</string>
+    <string name="permissions_for_wallpaper_folder_text1">Selecteren van map voor willekeurige achtergrond vereist enkele machtigingen.</string>
+    <string name="permissions_for_wallpaper_folder_text2">Sta toe in de volgende schermen. Vervolgens kun je de map kiezen voor willekeurige achtergrond in de map kiezer.</string>
+    <string name="profile_preferences_deviceWallpaperFolder">Map met afbeeldingen</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>

@@ -747,8 +747,8 @@
     <string name="array_pref_forceSetMergeRingNotificationVolumes_notMerged">Hlasitosti nejsou sloučeny</string>
     <string name="phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info">Použijte, pokud zjištění sloučení hlasitosti je špatné.</string>
     <string name="profile_preferences_category_application">Funkce aplikace</string>
-    <string name="profile_preferences_applicationDisableWifiScanning">Vypnutí skenování Wi-Fi</string>
-    <string name="profile_preferences_applicationDisableBluetoothScanning">Vypnutí skenování Bluetooth</string>
+    <string name="profile_preferences_applicationDisableWifiScanning">Zakázat skenování Wi-Fi</string>
+    <string name="profile_preferences_applicationDisableBluetoothScanning">Zakázat skenování Bluetooth</string>
     <string name="profile_preferences_volumeZenModeM">Typ \"Nerušit\"</string>
     <string name="array_pref_zenModeArray_off">Vypnuto</string>
     <string name="array_pref_zenModeArray_offButVibration">Vypnuto, ale s vibracemi</string>

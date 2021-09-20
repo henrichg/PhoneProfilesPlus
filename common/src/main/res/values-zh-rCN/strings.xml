@@ -1765,10 +1765,10 @@
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">自</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">至</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">定期扫描间隔</string>
-    <string name="array_pref_change_random_image_wallpaper">Change to random image from folder</string>
-    <string name="permissions_for_wallpaper_folder_text1">Selecting folder for random wallpaper requires some permissions.</string>
-    <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
-    <string name="profile_preferences_deviceWallpaperFolder">Folder of images</string>
+    <string name="array_pref_change_random_image_wallpaper">从文件夹中更改为随机图片</string>
+    <string name="permissions_for_wallpaper_folder_text1">选择随机壁纸的文件夹需要一些权限。</string>
+    <string name="permissions_for_wallpaper_folder_text2">请在下个对话框中授权，然后您可以从文件夹选择器中选择随机壁纸的文件夹。</string>
+    <string name="profile_preferences_deviceWallpaperFolder">图片文件夹</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
