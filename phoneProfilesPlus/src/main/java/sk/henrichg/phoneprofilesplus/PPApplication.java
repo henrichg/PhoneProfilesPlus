@@ -335,6 +335,8 @@ public class PPApplication extends Application
                                                 //+"|EventPreferencesPeriodic"
                                                 //+"|PeriodicEventsHandlerWorker"
                                                 //+"|ActivateProfileHelper.changeWallpaperFromFolder"
+
+                                                +"|ProfileDurationAlarmBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

@@ -2760,13 +2760,16 @@ public class DataWrapper {
         String manualIndicators = "";
         if (addEventName)
         {
-            //if (ApplicationPreferences.prefEventsBlocked) {
-            if (Event.getEventsBlocked(dataWrapper.context)) {
-                if (Event.getForceRunEventRunning(dataWrapper.context))
-                    manualIndicators = "[»]";
-                else
-                    manualIndicators = "[M]";
+            if (Event.getGlobalEventsRunning()) {
+                if (Event.getEventsBlocked(dataWrapper.context)) {
+                    if (Event.getForceRunEventRunning(dataWrapper.context))
+                        manualIndicators = "[»]";
+                    else
+                        manualIndicators = "[M]";
+                }
             }
+            else
+                manualIndicators = "[M]";
 
             String _eventName = getLastStartedEventName(dataWrapper, profile);
             if (!_eventName.equals("?"))
