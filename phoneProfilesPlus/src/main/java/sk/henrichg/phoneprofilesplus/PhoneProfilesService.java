@@ -5574,8 +5574,12 @@ public class PhoneProfilesService extends Service
             notificationPrefIndicator = false;
             notificationPrefIndicatorLightness = "50";
             notificationStatusBarStyle = "1";
+
+            // default value for Pixel (Android 12) -> 0 (native)
             notificationTextColor = "0";
+            // default value for Pixel (Android 12) -> 0 (native)
             notificationBackgroundColor = "0";
+
             notificationBackgroundCustomColor = 0xFFFFFFFF;
             notificationShowButtonExit = false;
             notificationLayoutType = "2"; // only small layout
