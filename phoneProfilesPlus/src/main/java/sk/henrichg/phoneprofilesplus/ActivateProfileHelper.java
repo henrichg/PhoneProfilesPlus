@@ -4851,6 +4851,12 @@ class ActivateProfileHelper {
             }
         }
 
+        if (profile._applicationDisableGloabalEventsRun != 0) {
+            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableGloabalEventsRun");
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0);
+            dataWrapper.globalRunStopEvents(profile._applicationDisableGloabalEventsRun == 1);
+        }
+
         if (profile._deviceForceStopApplicationChange == 1) {
             boolean enabled;
             enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_6_1_2);
