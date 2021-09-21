@@ -1421,5 +1421,15 @@
         <item>5</item>
         <item>6</item>
     </string-array>
+    <string-array name="applicationDisableGlobalEventsRunArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_applicationDisableGlobalEventsRun_disabled</item>
+        <item>@string/array_pref_applicationDisableGlobalEventsRun_enabled</item>
+    </string-array>
+    <string-array name="applicationDisableGlobalEventsRunValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 
 </resources>

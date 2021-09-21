@@ -376,7 +376,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._soundSameRingtoneForBothSIMCards,
                         origProfile._deviceLiveWallpaper,
                         origProfile._vibrateNotifications,
-                        origProfile._deviceWallpaperFolder
+                        origProfile._deviceWallpaperFolder,
+                        origProfile._applicationDisableGloabalEventsRun
                 );
                 showSaveMenu = true;
             }
@@ -587,6 +588,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotificationSIM2=" + profile._soundNotificationSIM2);
 
             profile._soundSameRingtoneForBothSIMCards = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, ""));
+            profile._applicationDisableGloabalEventsRun = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, ""));
 
         }
 

@@ -1807,6 +1807,38 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
+            // disable wifi scanning
+            if (profile._applicationDisableGloabalEventsRun != 0) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if ((profile._applicationDisableGloabalEventsRun == 1) || (profile._applicationDisableGloabalEventsRun == 3)) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableGlobalEventsRun) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableGlobalEventsRun_disabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "ern:0";
+                        else {
+                            disabled[countDrawables] = true;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_events_run_off;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                    if (profile._applicationDisableGloabalEventsRun == 2) {
+                        if (fillPreferences)
+                            preferences[countPreferences] = appContext.getString(R.string.profile_preferences_applicationDisableGlobalEventsRun) + ": " +
+                                    appContext.getString(R.string.array_pref_applicationDisableGlobalEventsRun_enabled);
+                        if (fillStrings)
+                            strings[countDrawables++] = "ern:1";
+                        else {
+                            disabled[countDrawables] = false;
+                            drawables[countDrawables++] = R.drawable.ic_profile_pref_disable_events_run_off;
+                        }
+                        if (fillPreferences)
+                            countItems[countPreferences++] = 1;
+                    }
+                }
+            }
+
         }
         else
             countDrawables = -1;

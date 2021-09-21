@@ -116,6 +116,7 @@ public class Profile {
     String _deviceLiveWallpaper;
     int _vibrateNotifications;
     String _deviceWallpaperFolder;
+    int _applicationDisableGloabalEventsRun;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -221,6 +222,7 @@ public class Profile {
     static final String PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS = "prf_pref_soundSameRingtoneForBothSIMCards";
     static final String PREF_PROFILE_DEVICE_LIVE_WALLPAPER = "prf_pref_deviceLiveWallpaper";
     static final String PREF_PROFILE_DEVICE_WALLPAPER_FOLDER = "prf_pref_deviceWallpaperFolder";
+    static final String PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN = "prf_pref_applicationDisableGloabalEventsRun";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -326,6 +328,7 @@ public class Profile {
         defaultValuesString.put(PREF_PROFILE_DEVICE_LIVE_WALLPAPER, "");
         defaultValuesString.put(PREF_PROFILE_VIBRATE_NOTIFICATIONS, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, "-");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, "0");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -1002,8 +1005,9 @@ public class Profile {
                    int soundSameRingtoneForBothSIMCards,
                    String deviceLiveWallpaper,
                    int vibrateNotifications,
-                   String deviceWallpaperFolder
-    )
+                   String deviceWallpaperFolder,
+                   int applicationDisableGlobalEventsRun
+            )
     {
         this._id = id;
         this._name = name;
@@ -1102,6 +1106,7 @@ public class Profile {
         this._deviceLiveWallpaper = deviceLiveWallpaper;
         this._vibrateNotifications = vibrateNotifications;
         this._deviceWallpaperFolder = deviceWallpaperFolder;
+        this._applicationDisableGloabalEventsRun = applicationDisableGlobalEventsRun;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1205,7 +1210,8 @@ public class Profile {
                    int soundSameRingtoneForBothSIMCards,
                    String deviceLiveWallpaper,
                    int vibrateNotifications,
-                   String deviceWallpaperFolder
+                   String deviceWallpaperFolder,
+                   int applicationDisableGlobalEventsRun
     )
     {
         this._name = name;
@@ -1304,6 +1310,7 @@ public class Profile {
         this._deviceLiveWallpaper = deviceLiveWallpaper;
         this._vibrateNotifications = vibrateNotifications;
         this._deviceWallpaperFolder = deviceWallpaperFolder;
+        this._applicationDisableGloabalEventsRun = applicationDisableGlobalEventsRun;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1409,6 +1416,7 @@ public class Profile {
         this._deviceLiveWallpaper = profile._deviceLiveWallpaper;
         this._vibrateNotifications = profile._vibrateNotifications;
         this._deviceWallpaperFolder = profile._deviceWallpaperFolder;
+        this._applicationDisableGloabalEventsRun = profile._applicationDisableGloabalEventsRun;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1747,7 +1755,8 @@ public class Profile {
                 }
                 if (withProfile._soundSameRingtoneForBothSIMCards != 0)
                     this._soundSameRingtoneForBothSIMCards = withProfile._soundSameRingtoneForBothSIMCards;
-
+                if (withProfile._applicationDisableGloabalEventsRun != 0)
+                    this._applicationDisableGloabalEventsRun = withProfile._applicationDisableGloabalEventsRun;
 
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
@@ -2166,6 +2175,12 @@ public class Profile {
                 //PPApplication.logE("$$$ compareProfiles","_soundSameRingtoneForBothSIMCards");
                 return false;
             }
+            if (this._applicationDisableGloabalEventsRun != withProfile._applicationDisableGloabalEventsRun) {
+                //PPApplication.logE("$$$ compareProfiles","_applicationDisableGloabalEventsRun");
+                return false;
+            }
+
+
             return true;
         }
         return false;
@@ -3534,7 +3549,8 @@ public class Profile {
                     profile._soundSameRingtoneForBothSIMCards,
                     profile._deviceLiveWallpaper,
                     profile._vibrateNotifications,
-                    profile._deviceWallpaperFolder
+                    profile._deviceWallpaperFolder,
+                    profile._applicationDisableGloabalEventsRun
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -3776,6 +3792,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, Integer.toString(this._soundSameRingtoneForBothSIMCards));
         editor.putString(PREF_PROFILE_DEVICE_LIVE_WALLPAPER, this._deviceLiveWallpaper);
         editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, this._deviceWallpaperFolder);
+        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, Integer.toString(this._applicationDisableGloabalEventsRun));
 
         editor.apply();
     }
