@@ -1801,6 +1801,10 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Events run disabled</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Events run enabled</string>
 
+    <string name="icon_widget_description">Displays activated profile icon.</string>
+    <string name="one_row_widget_description">Displays activated profile and \"Restart events\" button.</string>
+    <string name="profile_list_widget_description">Displays activated profile, \"Restart events\" button and list of configured profiles as in Activator.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
