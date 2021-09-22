@@ -254,6 +254,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                             if ((versionCode > 0) && (versionCode < versionCodeInReleases))
                                                 showNotification = true;
                                         }
+                                        //showNotification = true;
 //                                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "showNotification=" + showNotification);
                                     }
                                     /*if (splits.length == 2) {

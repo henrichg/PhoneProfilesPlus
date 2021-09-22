@@ -166,6 +166,14 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         dialogBuilder.setPositiveButton(R.string.check_github_releases_go_to_github, (dialog, which) -> {
             String url = PPApplication.GITHUB_PPP_RELEASES_URL;
+
+            //TODO takto stiahnes priamo apk, funguje len z CheckCriticalPPPReleasesBroadcastReceiver
+            //if (newVersionName != null) {
+            //    String url = "https://github.com/henrichg/PhoneProfilesPlus/releases/download/" + newVersionName + "/PhoneProfilesPlus.apk";
+            //    Log.e("CheckPPPReleasesActivity.checkInGitHub", "url="+url);
+            //}
+
+
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             try {
