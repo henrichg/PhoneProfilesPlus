@@ -187,8 +187,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             text.setVisibility(View.GONE);
 
             Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
-            button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " " +
-                    activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3) + "?");
+            button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
             button.setVisibility(View.VISIBLE);
             button.setOnClickListener(v -> {
                 Intent intent = new Intent(activity, GitHubAssetsScreenshotActivity.class);
