@@ -1075,7 +1075,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
     <string name="array_event_pref_peripheralType_headphones">Headphones without microphone</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender is not installed!</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in newest version!</string>
     <string name="default_profile_name_battery_ok">OK battery</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Applications</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Shortcuts</string>
@@ -1805,9 +1804,10 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="install_extender_installed_version">Installed version:</string>
     <string name="install_extender_required_version">Required version:</string>
     <string name="install_extender_text1">Install required version of PhoneProfilesPlusExtender by clicking button</string>
-    <string name="install_extender_text2">This opens browser to download PhoneProfilesPlusExtender.apk into folder \"Downloads\".</string>
+    <string name="install_extender_text2">This opens browser to download PhoneProfilesPlusExtender.apk into folder \"Download\".</string>
     <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
     <string name="install_extender_github_releases">GitHub Releases:</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
 
     <!-- **************************************************************************************** -->
 
