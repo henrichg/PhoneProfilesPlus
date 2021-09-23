@@ -15,6 +15,7 @@ import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -136,7 +137,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         message = message + "\n\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_1) + "\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";
-        //message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
+        message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
 
         if (critical) {
             message = message + "\n\n";
@@ -152,26 +153,63 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.install_extender_dialog_info_text);
         text.setText(message);
 
-//        Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
-//        button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
-//        button.setOnClickListener(v -> {
-//            Intent intent = new Intent(activity, GitHubAssetsScreenshotActivity.class);
-//            intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplus_assets_screenshot);
-//            activity.startActivity(intent);
-//        });
+        text = layout.findViewById(R.id.install_extender_dialog_github_releases);
+        if (critical && (!newVersionName.isEmpty()) && (newVersionCode > 0)) {
+            CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
+            CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPP_RELEASES_URL;
+            Spannable sbt = new SpannableString(str2);
+            sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint ds) {
+                    ds.setColor(ds.linkColor);    // you can use custom color
+                    ds.setUnderlineText(false);    // this remove the underline
+                }
+
+                @Override
+                public void onClick(@NonNull View textView) {
+                    String url = PPApplication.GITHUB_PPP_RELEASES_URL;
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    try {
+                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                }
+            };
+            sbt.setSpan(clickableSpan, str1.length() + 1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+            text.setText(sbt);
+            text.setMovementMethod(LinkMovementMethod.getInstance());
+        }
+        else {
+            text.setVisibility(View.GONE);
+
+            Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
+            button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " " +
+                    activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3) + "?");
+            button.setVisibility(View.VISIBLE);
+            button.setOnClickListener(v -> {
+                Intent intent = new Intent(activity, GitHubAssetsScreenshotActivity.class);
+                intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplus_assets_screenshot);
+                activity.startActivity(intent);
+            });
+        }
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
 
-        dialogBuilder.setPositiveButton(R.string.check_github_releases_go_to_github, (dialog, which) -> {
-            String url = PPApplication.GITHUB_PPP_RELEASES_URL;
+        int buttonText = R.string.check_github_releases_go_to_github;
+        if (critical && (!newVersionName.isEmpty()) && (newVersionCode > 0))
+            buttonText = R.string.alert_button_install;
 
-            //TODO takto stiahnes priamo apk, funguje len z CheckCriticalPPPReleasesBroadcastReceiver
-            //if (newVersionName != null) {
-            //    String url = "https://github.com/henrichg/PhoneProfilesPlus/releases/download/" + newVersionName + "/PhoneProfilesPlus.apk";
-            //    Log.e("CheckPPPReleasesActivity.checkInGitHub", "url="+url);
-            //}
-
+        dialogBuilder.setPositiveButton(buttonText, (dialog, which) -> {
+            String url;
+            if (critical && (!newVersionName.isEmpty()) && (newVersionCode > 0))
+                url = PPApplication.GITHUB_PPP_DOWNLOAD_URL_1 + newVersionName + PPApplication.GITHUB_PPP_DOWNLOAD_URL_2;
+            else
+                url = PPApplication.GITHUB_PPP_RELEASES_URL;
 
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));

@@ -1748,7 +1748,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
         dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
             //String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
-            String url = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases/download/" + PPApplication.VERSION_NAME_EXTENDER_LATEST + "/PhoneProfilesPlusExtender.apk";
+            String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
 
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));

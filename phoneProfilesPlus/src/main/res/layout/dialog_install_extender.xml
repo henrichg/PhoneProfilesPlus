@@ -26,18 +26,19 @@
         android:text="@string/empty_string"
         android:textSize="16sp" />
 
-<!--    <Button-->
-<!--        android:id="@+id/install_extender_dialog_showAssets"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:layout_gravity="center_horizontal"-->
-<!--        android:text="@string/install_extender_where_is_assets_button"-->
-<!--        android:minHeight="40dp"-->
-<!--        android:textColor="@color/action_button_text_color"-->
-<!--        android:textStyle="bold"-->
-<!--        android:background="?attr/buttonBackground"-->
-<!--        style="?android:attr/borderlessButtonStyle" />-->
+    <Button
+        android:id="@+id/install_extender_dialog_showAssets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/install_extender_where_is_assets_button"
+        android:minHeight="40dp"
+        android:textColor="@color/action_button_text_color"
+        android:textStyle="bold"
+        android:background="?attr/buttonBackground"
+        android:visibility="gone"
+        style="?android:attr/borderlessButtonStyle"/>
 
 
 </LinearLayout>

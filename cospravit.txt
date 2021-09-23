@@ -427,3 +427,42 @@ Install required version of PhoneProfilesPlusExtender by clicking button "Instal
 This opens browser to download PhoneProfilesPlusExtender.apk into folder "/Downloads".
 Then install this APK by clicking notification about downloaded APK.
 "
+
+CheckPPPReleasesBroadcastReceiver
+- notifikacia otavara toto:
+        Intent _intent;
+        _intent = new Intent(appContext, CheckPPPReleasesActivity.class);
+        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, false);
+- pozri, co ta aktivita spravi, ked je CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK=false
+  - vola sa toto:
+        showDialog(this, false, criticalCheck ? -2 : -1, newVersionName, newVersionCode);
+    cize otvori sa:
+    - pre Samsung Galaxy Store, pre Huawei AppGallery,
+      ked je nainstalovamy AmazanStore, tak ten
+      ked je nainstalovany F-Droid, tak ten
+
+      v ostatnych pripadoch GitHub - !!! tu nemam verziu, aka je v GitHub !!!
+
+CheckCriticalPPPReleasesBroadcastReceiver
+- notifikacia otavara toto:
+        Intent _intent;
+        _intent = new Intent(appContext, CheckPPPReleasesActivity.class);
+        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, true);
+        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, versionNameInReleases);
+        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
+- pozri, co ta aktivita spravi, ked je CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK=true
+  - vola sa toto:
+        showDialog(this, false, criticalCheck ? -2 : -1, newVersionName, newVersionCode);
+    cize otvori sa:
+    - natvrdo GitHub - tu zistujem verziu, aka je v GitHub
+
+EditorProfileActivity
+- vola sa CheckPPPReleasesActivity.showDialog() s itemId = R.id.menu_check_in_github
+  - !!! tu nemam verziu, aka je v GitHub !!!
+
+Takze sprav toto:
+1. Zobrazuj aktualnu verziu
+2. Zobrazuj verziu na stiahnutie - ak mam verziu aka je v GitHub
+3. Ak mam verziu, aka je v GitHub:
+   - zmen positiveButton R.string.check_github_releases_go_to_github na R.string.alert_button_install
+     a volaj instalaciu, inac volaj GitHub releases stranku

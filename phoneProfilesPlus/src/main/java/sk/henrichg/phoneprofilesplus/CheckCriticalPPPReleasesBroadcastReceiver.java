@@ -69,7 +69,8 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
         long alarmTime;
 
-        /*if (DebugVersion.enabled) {
+        /*// TODO remove for release
+        if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
 //            if (PPApplication.logEnabled()) {
@@ -254,7 +255,12 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                             if ((versionCode > 0) && (versionCode < versionCodeInReleases))
                                                 showNotification = true;
                                         }
-                                        //showNotification = true;
+
+//                                        // TODO remove for release
+//                                        if (DebugVersion.enabled)
+//                                            showNotification = true;
+
+
 //                                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "showNotification=" + showNotification);
                                     }
                                     /*if (splits.length == 2) {
