@@ -879,7 +879,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Вимкнути сканування мобільних вишок</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Вимкнути сканування орієнтації</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Спливаючі сповіщення</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary">Завантажте останню версію PhoneProfilesPlusExtender.apk з GitHub. Після цього натисніть на сповіщення про завантажений apk і встановіть його.</string>
     <string name="fast_access_duration_activate_without_button_2">Активувати назавжди</string>
     <string name="profileicon_pref_dlg_customIconButton">Власна іконка</string>
     <string name="mobile_cells_registration_cell_name_hint">Натисніть, щоб встановити ім\'я вишки</string>
@@ -1069,7 +1068,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender не встановленно.</string>
     <string name="array_event_pref_peripheralType_headphones">Навушники без мікрофону</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender не встановленно!</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender застарілої версії!</string>
     <string name="default_profile_name_battery_ok">OK аккумулятор</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Додатки</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Ярлики</string>
@@ -1293,7 +1291,6 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Показувати індикатори налаштувань профілю в Активаторі, Редакторі, ярлик</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Показувати індикатори налаштувань профілю в сповіщеннях</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Показувати індикатори налаштувань профілю в віджетах</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk розташований в</string>
     <string name="event_preferences_not_set_underlined_parameters_summary">Підкреслені параметри необхідні.</string>
     <string name="event_preferences_red_sensors_summary">Перевірте також параметри датчика позначені червоним кольором.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Параметри датчиків знаходяться під основними параметрами події.</string>
@@ -1769,6 +1766,21 @@
     <string name="permissions_for_wallpaper_folder_text1">Вибір теки для випадкової зміни шпалер потребує дозволів.</string>
     <string name="permissions_for_wallpaper_folder_text2">Надайте дозвіл у наступному діалоговому вікні. Після цього ви зможете вибрати теку зображень для шпалер.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Тека зображень</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Активувати певний профіль, потім перезапустити події</string>
+    <string name="profile_preferences_applicationDisableScanning">Вимкнути сканування</string>
+    <string name="profile_preferences_applicationDisableGlobalEventsRun">Вимкнути запуск подій</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Запуск подій вимкнуто</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Запуск подій увімкнено</string>
+    <string name="icon_widget_description">Displays activated profile icon.</string>
+    <string name="one_row_widget_description">Displays activated profile and \"Restart events\" button.</string>
+    <string name="profile_list_widget_description">Displays activated profile, \"Restart events\" button and list of configured profiles as in Activator.</string>
+    <string name="install_extender_installed_version">Installed version:</string>
+    <string name="install_extender_required_version">Required version:</string>
+    <string name="install_extender_text1">Install required version of PhoneProfilesPlusExtender by clicking button</string>
+    <string name="install_extender_text2">This opens browser to download PhoneProfilesPlusExtender.apk into folder \"Download\".</string>
+    <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
+    <string name="install_extender_github_releases">GitHub Releases:</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1837,4 +1849,7 @@
     <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
     <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>

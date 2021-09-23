@@ -1477,7 +1477,6 @@ x    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</s
     <string name="profile_preferences_volumeMuteSound_summary">This do not mute alarm clock sound</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Also Sound mode, configured in this profile is ignored.</string>
     <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to display map.</string>
-    <string name="install_extender_where_is_assets_button">Where is</string>
     <string name="github_assets_screenshot_label">screenshot</string>
     <string name="event_preferences_orientation_light_currentValue_title">Current light value</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
@@ -1890,6 +1889,7 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
 <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
 <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
+<!--    <string name="install_extender_where_is_assets_button">Where is</string>-->
 
 </resources>
 

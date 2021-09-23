@@ -23,13 +23,13 @@
     <string name="delete_event_alert_message">确定要删除事件？</string>
     <string name="toast_profile_activated_0">情景</string>
     <string name="toast_profile_activated_1">已激活</string>
-    <string name="preference_profile_no_change">不要更改</string>
+    <string name="preference_profile_no_change">未做更改</string>
     <string name="title_activity_phone_profiles_preferences">应用设置</string>
     <string name="menu_exit">退出</string>
     <string name="activate_profile_alert_message">确定激活情景？</string>
-    <string name="brightness_pref_dialog_no_change_chb">不做更改</string>
+    <string name="brightness_pref_dialog_no_change_chb">未做更改</string>
     <string name="brightness_pref_dialog_automatic_chb">自动</string>
-    <string name="volume_pref_dialog_no_change_chb">不要更改</string>
+    <string name="volume_pref_dialog_no_change_chb">未做更改</string>
     <string name="phone_profiles_pref_category_activator">激活清单</string>
     <string name="phone_profiles_pref_category_editor">编辑器</string>
     <string name="phone_profiles_pref_category_gui">应用界面</string>
@@ -66,7 +66,7 @@
     <string name="profile_preferences_deviceScreenTimeout">屏幕超时</string>
     <string name="profile_preferences_deviceBrightness">屏幕亮度</string>
     <string name="profile_preferences_deviceWallpaperChange">更改壁纸</string>
-    <string name="array_pref_no_change">不要更改</string>
+    <string name="array_pref_no_change">未做更改</string>
     <string name="array_pref_hardwareModeArray_on">开启</string>
     <string name="array_pref_hardwareModeArray_off">关闭</string>
     <string name="array_pref_hardwareModeArray_toggle">切换</string>
@@ -879,7 +879,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">禁用移动基站扫描</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">禁用手机方向扫描</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) 弹出通知</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary">从GitHub下载最新版本的PhoneProfilesPlusExtender.apk。然后单击关于下载apk的通知并安装它。</string>
     <string name="fast_access_duration_activate_without_button_2">激活没有持续时间</string>
     <string name="profileicon_pref_dlg_customIconButton">自定义图标</string>
     <string name="mobile_cells_registration_cell_name_hint">单击以设置基站名称</string>
@@ -1069,7 +1068,6 @@
     <string name="event_preferences_extender_not_installed">未安装PhoneProfilesPlusExtender。</string>
     <string name="array_event_pref_peripheralType_headphones">没有麦克风的耳机</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender未安装！</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender不是最新版本！</string>
     <string name="default_profile_name_battery_ok">好的电池</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) 应用程序</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) 快捷方式</string>
@@ -1293,7 +1291,6 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">在激活清单, 编辑器, 快捷方式中显示情景首选项指示器</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">在通知中显示情景首选项指示器</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">在小部件中显示情景首选项指示器</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk 位于：</string>
     <string name="event_preferences_not_set_underlined_parameters_summary">下划线参数是必需的。</string>
     <string name="event_preferences_red_sensors_summary">检查标记为红色的传感器参数。</string>
     <string name="event_preferences_sensor_parameters_location_summary">传感器参数处于主要事件参数之下。</string>
@@ -1769,6 +1766,21 @@
     <string name="permissions_for_wallpaper_folder_text1">选择随机壁纸的文件夹需要一些权限。</string>
     <string name="permissions_for_wallpaper_folder_text2">请在下个对话框中授权，然后您可以从文件夹选择器中选择随机壁纸的文件夹。</string>
     <string name="profile_preferences_deviceWallpaperFolder">图片文件夹</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] 激活特定情景，然后重启事件</string>
+    <string name="profile_preferences_applicationDisableScanning">禁用扫描</string>
+    <string name="profile_preferences_applicationDisableGlobalEventsRun">禁用事件运行</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_disabled">事件运行已禁用</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_enabled">事件运行已启用</string>
+    <string name="icon_widget_description">显示已激活的情景图标</string>
+    <string name="one_row_widget_description">显示已激活情景和重启事件按钮</string>
+    <string name="profile_list_widget_description">在激活清单中显示已激活情景、重启事件按钮和配置情景列表</string>
+    <string name="install_extender_installed_version">Installed version:</string>
+    <string name="install_extender_required_version">Required version:</string>
+    <string name="install_extender_text1">Install required version of PhoneProfilesPlusExtender by clicking button</string>
+    <string name="install_extender_text2">This opens browser to download PhoneProfilesPlusExtender.apk into folder \"Download\".</string>
+    <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
+    <string name="install_extender_github_releases">GitHub Releases:</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1837,4 +1849,7 @@
     <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
     <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>

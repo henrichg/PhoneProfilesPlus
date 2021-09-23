@@ -879,7 +879,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Disable mobile cell scanning</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">تعطيل البحث عن الإتجاة</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) الإخطارات المنبثقة</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary">قم بتنزيل أحدث إصدار من تطبيق PhoneProfilesPlusExtender.apk من موقع GitHub.انقر هنا للإستعلام عن التطبيق و تحميلة بصيغة apk وتثبيته.</string>
     <string name="fast_access_duration_activate_without_button_2">تنشيط دون مدة</string>
     <string name="profileicon_pref_dlg_customIconButton">أيقونة مخصصة</string>
     <string name="mobile_cells_registration_cell_name_hint">انقر لتعيين اسم الشبكة</string>
@@ -1069,7 +1068,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender is not installed.</string>
     <string name="array_event_pref_peripheralType_headphones">سماعات رأس بدون ميكروفون</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender is not installed!</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in newest version!</string>
     <string name="default_profile_name_battery_ok">البطارية ممتلئة</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) التطبيقات</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) الإختصارات</string>
@@ -1293,7 +1291,6 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Display profile preference indicators in Activator, Editor, shortcut</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Display profile preference indicators in notification</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Display profile preference indicators in widgets</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>
     <string name="event_preferences_not_set_underlined_parameters_summary">Underlined parameters are required.</string>
     <string name="event_preferences_red_sensors_summary">Check also sensor parameters flagged with red color.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Sensor parameters are under of the main event parameters.</string>
@@ -1769,6 +1766,21 @@
     <string name="permissions_for_wallpaper_folder_text1">Selecting folder for random wallpaper requires some permissions.</string>
     <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Folder of images</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Activate specific profile, then restart events</string>
+    <string name="profile_preferences_applicationDisableScanning">Disable scanning</string>
+    <string name="profile_preferences_applicationDisableGlobalEventsRun">Disable events run</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Events run disabled</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Events run enabled</string>
+    <string name="icon_widget_description">Displays activated profile icon.</string>
+    <string name="one_row_widget_description">Displays activated profile and \"Restart events\" button.</string>
+    <string name="profile_list_widget_description">Displays activated profile, \"Restart events\" button and list of configured profiles as in Activator.</string>
+    <string name="install_extender_installed_version">Installed version:</string>
+    <string name="install_extender_required_version">Required version:</string>
+    <string name="install_extender_text1">Install required version of PhoneProfilesPlusExtender by clicking button</string>
+    <string name="install_extender_text2">This opens browser to download PhoneProfilesPlusExtender.apk into folder \"Download\".</string>
+    <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
+    <string name="install_extender_github_releases">GitHub Releases:</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
@@ -1837,4 +1849,7 @@
     <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
     <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>

@@ -879,7 +879,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Disbilita scansione delle celle mobili</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Disabilita scansione orientamento</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) notifiche pop-up</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary">Scarica ultima versione di PhoneProfilesPlusExtender.apk da GitHub. Quindi cliccare su notifica dell\'apk scaricato e installarlo.</string>
     <string name="fast_access_duration_activate_without_button_2">Attiva senza durata</string>
     <string name="profileicon_pref_dlg_customIconButton">Icona personalizzata</string>
     <string name="mobile_cells_registration_cell_name_hint">Clicca per impostare nome cella</string>
@@ -1069,7 +1068,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender non è installato.</string>
     <string name="array_event_pref_peripheralType_headphones">Cuffie senza microfono</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender non è installato!</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender non è la versione più recente!</string>
     <string name="default_profile_name_battery_ok">Batteria OK</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Applicazioni</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Scorciatoie</string>
@@ -1293,7 +1291,6 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Mostra gli indicatori di preferenza del profilo nell\'Attivatore, Editor, scorciatoia</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Mostra gli indicatori di preferenza del profilo nella notifica</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Mostra gli indicatori di preferenza del profilo nei widget</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk si trova in</string>
     <string name="event_preferences_not_set_underlined_parameters_summary">I parametri sottolineati sono richiesti.</string>
     <string name="event_preferences_red_sensors_summary">Controlla anche i parametri del sensore contrassegnati con il colore rosso.</string>
     <string name="event_preferences_sensor_parameters_location_summary">I parametri del sensore sono sotto i parametri dell\'evento principale.</string>
@@ -1750,25 +1747,40 @@
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Il servizio d\'accessibilità per PhoneProfilesPlusExtender non è abilitato, ma è determinato</string>
     <string name="extender_accessibility_setting_not_enabled_title">Servizio d\'accessibilità non abilitato</string>
     <string name="extender_accessibility_setting_not_enabled_text">Il servizio d\'accessibilità per PhoneProfilesPlusExtender non è abilitato. Clicca qui per abilitarlo.</string>
-    <string name="event_preference_sensor_periodic_summary">This sensor is for periodical profile activation. Parameters: Multiple of scanning interval, Duration (event run duration).</string>
-    <string name="event_type_periodic">Periodic</string>
-    <string name="pref_event_periodic_multiple_interval">Multiple of scanning interval</string>
-    <string name="event_preferences_category_eventPeriodicParameters">Periodic sensor</string>
-    <string name="pref_event_periodic_resulting_interval">Resulting interval (minutes)</string>
-    <string name="phone_profiles_pref_category_background_scanning">Periodic scanning</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">These settings are for periodic scanning. Is used for Periodic event sensor.\nIs also useful when Time or Calendar event sensor not working good.</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Enable periodic scanning</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Periodic scan interval (minutes)</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Periodic scan in Power Save mode</string>
-    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Setup Periodic scanning parameters in application settings.</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Periodic scan in time</string>
+    <string name="event_preference_sensor_periodic_summary">Questo sensore è per l\'attivazione periodica del profilo. Parametri: Intervalli di scansione multipli, Durata (durata d\'esecuzione dell\'evento).</string>
+    <string name="event_type_periodic">Periodico</string>
+    <string name="pref_event_periodic_multiple_interval">Intervalli di scansione multipli</string>
+    <string name="event_preferences_category_eventPeriodicParameters">Sensore periodico</string>
+    <string name="pref_event_periodic_resulting_interval">Intervallo risultante (minuti)</string>
+    <string name="phone_profiles_pref_category_background_scanning">Scansione periodica</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Queste impostazioni sono per la scansione periodica. È usata per il sensore dell\'evento Periodico.\nÈ anche utile quando il sensore dell\'evento Orario o Calendario non stanno funzionando bene.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Abilita la scansione periodica</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Intervallo di scansione periodica (minuti)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Scansione periodica in modalità Risparmio Energetico</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Configura i parametri di scansione Periodica nelle impostazioni dell\'applicazione.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Scansione periodica in tempo</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Da</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">A</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Periodic scan interval</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Intervallo di scansione periodica</string>
     <string name="array_pref_change_random_image_wallpaper">Cambia in immagine casuale dalla cartella</string>
     <string name="permissions_for_wallpaper_folder_text1">La selezione della cartella per uno sfondo casuale richiede alcune autorizzazioni.</string>
     <string name="permissions_for_wallpaper_folder_text2">Si prega di concederli nella finestra successiva. Potrete selezionare la cartella per lo sfondo casuale dal selettore delle cartelle.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Cartella delle immagini</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Attiva un profilo specifico, quindi riavvia gli eventi</string>
+    <string name="profile_preferences_applicationDisableScanning">Disabilita scansione</string>
+    <string name="profile_preferences_applicationDisableGlobalEventsRun">Disabilita esecuzione eventi</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Eventi eseguiti disabilitati</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Eventi eseguiti abilitati</string>
+    <string name="icon_widget_description">Visualizza l\'icona del profilo attivata.</string>
+    <string name="one_row_widget_description">Mostra il profilo attivato e il pulsante \"Riavvia eventi\".</string>
+    <string name="profile_list_widget_description">Mostra il profilo attivato, il pulsante \"Riavvia eventi\" e l\'elenco dei profili configurati come nell\'Attivatore.</string>
+    <string name="install_extender_installed_version">Versione installata:</string>
+    <string name="install_extender_required_version">Versione necessaria:</string>
+    <string name="install_extender_text1">Installa la versione necessaria di PhoneProfilesPlusExtender cliccando il pulsante</string>
+    <string name="install_extender_text2">Questo apre il browser per scaricare PhoneProfilesPlusExtender.apk nella cartella \"Download\".</string>
+    <string name="install_extender_text3">Poi installa quest\'APK cliccando la notifica sull\'APK scaricata.</string>
+    <string name="install_extender_github_releases">Release di GitHub:</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender non è nella versione necessaria!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>
@@ -1837,4 +1849,7 @@
     <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
     <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>

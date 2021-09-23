@@ -879,7 +879,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Отключить сканирование мобильных вышек</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Отключить сканирование ориентации</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Всплывающие уведомления</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary">Загрузите последнюю версию PhoneProfilesPlusExtender.apk с GitHub. Затем нажмите на уведомление о загруженном apk и установите его.</string>
     <string name="fast_access_duration_activate_without_button_2">Активировать бессрочно</string>
     <string name="profileicon_pref_dlg_customIconButton">Пользовательская иконка</string>
     <string name="mobile_cells_registration_cell_name_hint">Нажмите, чтобы задать имя вышки</string>
@@ -1069,7 +1068,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender не установлен.</string>
     <string name="array_event_pref_peripheralType_headphones">Наушники без микрофона</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender не установлен!</string>
-    <string name="preferences_old_version_PPPExtender_title">Установлена не новейшая версия PhoneProfilesPlusExtender!</string>
     <string name="default_profile_name_battery_ok">Батарея заряжена</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Приложения</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Ярлыки</string>
@@ -1293,7 +1291,6 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Отображать индикаторы настроек профилей в Активаторе, Редакторе, ярлыках</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Отображать индикаторы настроек профилей в уведомлениях</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Отображать индикаторы настроек профилей в виджетах</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk находится в</string>
     <string name="event_preferences_not_set_underlined_parameters_summary">Необходимо задать подчёркнутые параметры.</string>
     <string name="event_preferences_red_sensors_summary">Проверьте также параметры датчика, выделенные красным цветом.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Параметры датчиков находятся под основными параметрами событий.</string>
@@ -1769,6 +1766,21 @@
     <string name="permissions_for_wallpaper_folder_text1">Выбор папки со случайным изображением требует дополнительных разрешений.</string>
     <string name="permissions_for_wallpaper_folder_text2">Предоставьте их, пожалуйста, в следующем диалоговом окне. Затем вы сможете выбрать папку со случайным изображением для обоев.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Папка с изображениями</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Активировать конкретный профиль, затем перезапустить события</string>
+    <string name="profile_preferences_applicationDisableScanning">Отключить сканирование</string>
+    <string name="profile_preferences_applicationDisableGlobalEventsRun">Отключить запуск событий</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Запуск событий отключён</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Запуск событий включён</string>
+    <string name="icon_widget_description">Показывает иконку активированного профиля.</string>
+    <string name="one_row_widget_description">Показывает активированный профиль и кнопку \"Перезапустить события\".</string>
+    <string name="profile_list_widget_description">Показывает активированный профиль, кнопку \"Перезапустить события\" и список настроенных профилей, как в Активаторе.</string>
+    <string name="install_extender_installed_version">Installed version:</string>
+    <string name="install_extender_required_version">Required version:</string>
+    <string name="install_extender_text1">Install required version of PhoneProfilesPlusExtender by clicking button</string>
+    <string name="install_extender_text2">This opens browser to download PhoneProfilesPlusExtender.apk into folder \"Download\".</string>
+    <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
+    <string name="install_extender_github_releases">GitHub Releases:</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1837,4 +1849,7 @@
     <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
     <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>

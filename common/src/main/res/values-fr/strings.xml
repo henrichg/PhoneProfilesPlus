@@ -879,7 +879,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Désactiver le scan des antennes cellulaire</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Désactiver le scan des antennes cellulaire</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Utiliser des notifications contextuelles (Popup)</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary">Télécharger dernière version de PhoneProfilesPlusExtender.apk sur son GitHub. Valider l\'installation d\'apk téléchargé, puis installez-le.</string>
     <string name="fast_access_duration_activate_without_button_2">Activer sans limite de durée</string>
     <string name="profileicon_pref_dlg_customIconButton">Icône personnalisée</string>
     <string name="mobile_cells_registration_cell_name_hint">Cliquez pour définir le nom de l\'antenne mobile</string>
@@ -1069,7 +1068,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender n\'est pas installé.</string>
     <string name="array_event_pref_peripheralType_headphones">Casques sans microphone</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender n\'est pas installé !</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender n\'est pas dans la version la plus récente !</string>
     <string name="default_profile_name_battery_ok">Batterie Ok</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Applications</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Raccourcis</string>
@@ -1293,7 +1291,6 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Afficher les indicateurs de préférences de profil dans l\'activateur, l\'éditeur, les raccourcis</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Afficher les indicateurs de préférences du profil dans les notifications</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Afficher les indicateurs de préférences de profil dans les widgets</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk se trouve dans</string>
     <string name="event_preferences_not_set_underlined_parameters_summary">Les paramètres soulignés sont requis.</string>
     <string name="event_preferences_red_sensors_summary">Vérifiez également les paramètres du capteur en rouge.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Les paramètres des capteurs sont en dessous des paramètres principaux de l\'événement.</string>
@@ -1683,7 +1680,7 @@
     <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyFrom">From</string>
     <string name="phone_profiles_pref_applicationEventNotificationScanTimeMultiplyTo">To</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiply">Orientation scan in time</string>
-    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyFrom">From</string>
+    <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyFrom">De</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanTimeMultiplyTo">To</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiply">Wi-Fi scan in time</string>
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyFrom">From</string>
@@ -1722,7 +1719,7 @@
     <string name="array_pref_event_zenMode_all_and_vibrate">Désactivé mais avec vibration</string>
     <string name="array_pref_event_zenMode_priority_and_vibrate">Priorité avec vibration</string>
     <string name="event_preferences_category_eventSoundProfileParameters">Profils de sons</string>
-    <string name="check_releases_open_fdroid">Open F-Droid</string>
+    <string name="check_releases_open_fdroid">Ouvrir F-Droid</string>
     <string name="check_releases_fdroid_go_to_repository_with_ppp">PhoneProfilesPlus in repository:</string>
     <string name="phone_profiles_pref_applicationActivatorIncreaseBrightness">Augmenter la luminosité</string>
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">Afficher \"Redémarrer les événements\" comme un bouton</string>
@@ -1740,9 +1737,9 @@
     <string name="check_releases_go_to_apkpure">Go to APKPure</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Force native (for custom icons)</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Run applications, shortcuts, intents for \"MIUI\"</string>
-    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">For \"MIUI\" must be granted some permissions. Click this, to show how.</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Pour \"MIUI\" il faut certaines autorisations en plus. Cliquez ceci, pour savoir comment faire.</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
-    <string name="miui_permissions_alert_dialog_show">Show permissions</string>
+    <string name="miui_permissions_alert_dialog_show">Afficher les autorisations</string>
     <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrate when ringing\/Vibrate notifications</string>
     <string name="profile_preferences_vibrateNotifications">Vibrate notifications</string>
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Sound mode and vibration</string>
@@ -1769,6 +1766,21 @@
     <string name="permissions_for_wallpaper_folder_text1">Selecting folder for random wallpaper requires some permissions.</string>
     <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Folder of images</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Activez le profil spécifique, puis redémarrez les événements</string>
+    <string name="profile_preferences_applicationDisableScanning">Désactiver le scan</string>
+    <string name="profile_preferences_applicationDisableGlobalEventsRun">Désactiver les événements en cours</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Événements en cours désactivés</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Événements en cours sactivés</string>
+    <string name="icon_widget_description">Affiche l\'icône du profil activée.</string>
+    <string name="one_row_widget_description">Affiche le profil activé et le bouton \"Redémarrer les événements\".</string>
+    <string name="profile_list_widget_description">Affiche le profil activé, le bouton \"Redémarrer les événements\" et la liste des profils configurés dans l\'activateur.</string>
+    <string name="install_extender_installed_version">Installed version:</string>
+    <string name="install_extender_required_version">Required version:</string>
+    <string name="install_extender_text1">Install required version of PhoneProfilesPlusExtender by clicking button</string>
+    <string name="install_extender_text2">This opens browser to download PhoneProfilesPlusExtender.apk into folder \"Download\".</string>
+    <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
+    <string name="install_extender_github_releases">GitHub Releases:</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
@@ -1803,7 +1815,7 @@
     <string name="extender_battery_optimization_not_optimized">Not optimized</string>
     <string name="extender_battery_optimization_button">Open\nBattery optimization</string>
     <string name="extender_acra_email_body_device">Device:</string>
-    <string name="extender_acra_email_body_android_version">Android version:</string>
+    <string name="extender_acra_email_body_android_version">Version Android :</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
@@ -1837,4 +1849,7 @@
     <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
     <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>

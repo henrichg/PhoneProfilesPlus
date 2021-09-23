@@ -283,7 +283,7 @@
     <string name="preference_profile_adaptiveBrightness">Adaptivní</string>
     <string name="profile_preferences_deviceKeyguard">Zámek obrazovky</string>
     <string name="phone_profiles_pref_applicationWidgetIconHideProfileName">Skrýt název profilu (widget)</string>
-    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Restart událostí</string>
+    <string name="array_pref_afterProfileDurationDo_restartEvents">[M] Restartuj události</string>
     <string name="array_event_pref_wifiConnectionType_notConnected">Nepřipojeno</string>
     <string name="array_event_pref_wifiConnectionType_notInFront">Není v blízkosti (není v rozsahu skenování)</string>
     <string name="array_event_pref_bluetoothConnectionType_notConnected">Nepřipojeno</string>
@@ -879,7 +879,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Zakázat skenování mobilních buněk</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Zakázat skenování orientace</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifikace</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary">Stáhněte si nejnovější verzi PhoneProfilesPlusExtender.apk z jeho GitHub. Klikněte na notifikaci o staženém apk a nainstalujte ho.</string>
     <string name="fast_access_duration_activate_without_button_2">Aktivovat bez trvání</string>
     <string name="profileicon_pref_dlg_customIconButton">Vlastní ikona</string>
     <string name="mobile_cells_registration_cell_name_hint">Klepnutím nastavíte název buňky</string>
@@ -1069,7 +1068,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender není nainstalován.</string>
     <string name="array_event_pref_peripheralType_headphones">Sluchátka bez mikrofonu</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender není nainstalován!</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender není v nejnovější verzi!</string>
     <string name="default_profile_name_battery_ok">OK baterie</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Aplikace</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(S) Odkazy</string>
@@ -1200,7 +1198,7 @@
     <string name="event_preference_sensor_time_sunset">Soumrak</string>
     <string name="event_preferences_notifications_duration">Maximální doba trvání</string>
     <string name="donation_description_2">Děkuji vám moc.</string>
-    <string name="array_pref_afterProfileDurationDo_activateProfile">Aktivovat specifický profil</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfile">Aktivuj specifický profil</string>
     <string name="profile_preferences_afterDurationProfile">Profil, který aktivovat</string>
     <string name="altype_afterDuration_specificProfile">po uplynutí trvání - aktivace specifického profilu</string>
     <string name="notification_not_used_mobile_cell_disable">Vypnout</string>
@@ -1293,7 +1291,6 @@
     <string name="phone_profiles_pref_applicationPrefIndicator_summary">Zobrazit indikátory parametrů profilu v aktivátor, Editoru, odkazu</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Zobrazit indikátory parametrů profilu v oznámení</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Zobrazit indikátory parametrů profilu v widgetech</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk se nachází v</string>
     <string name="event_preferences_not_set_underlined_parameters_summary">Podtržené parametry jsou povinné.</string>
     <string name="event_preferences_red_sensors_summary">Zkontrolujte také parametry senzoru označené červenou barvou.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Parametry senzorů jsou pod hlavními parametry události.</string>
@@ -1769,6 +1766,21 @@
     <string name="permissions_for_wallpaper_folder_text1">Výběr složky pro náhodnou tapetu vyžaduje určité povolení.</string>
     <string name="permissions_for_wallpaper_folder_text2">Prosím, povolte je v následujícím dialogovém okně. Pak si můžete vybrat složku pro náhodné tapety z výběru složky.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Složka s obrázky</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Aktivuj specifický profil a potom restartuj události</string>
+    <string name="profile_preferences_applicationDisableScanning">Zakázat skenování</string>
+    <string name="profile_preferences_applicationDisableGlobalEventsRun">Zakázat spouštění událostí</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Běh událostí zakázán</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Běh událostí povolen</string>
+    <string name="icon_widget_description">Zobrazí ikonu aktivovaného profilu.</string>
+    <string name="one_row_widget_description">Zobrazí aktivovaný profil a tlačítko \"Restart událostí\".</string>
+    <string name="profile_list_widget_description">Zobrazí aktivovaný profil, tlačítko \"Restart událostí\" a seznam nakonfigurovaných profilů jako v Aktivátoru.</string>
+    <string name="install_extender_installed_version">Instalovaná verze:</string>
+    <string name="install_extender_required_version">Požadovaná verze:</string>
+    <string name="install_extender_text1">Nainstalujte požadovanou verzi PhoneProfilesPlusExtender kliknutím na tlačítko</string>
+    <string name="install_extender_text2">Tímto se otevře prohlížeč ke stažení PhoneProfilesPlusExtender.apk do složky \"Stáhnout\".</string>
+    <string name="install_extender_text3">Poté nainstalujte tento APK kliknutím na notifikaci o staženém APK.</string>
+    <string name="install_extender_github_releases">GitHub Vydání:</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender není v požadované verzi!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1837,4 +1849,7 @@
     <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
     <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>

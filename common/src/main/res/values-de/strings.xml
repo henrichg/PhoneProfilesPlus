@@ -791,7 +791,7 @@
     <string name="important_info_quick_guide_3"><![CDATA[<b>EREIGNISSE:</b> Spezifiziert, wann Geräteeinstellungen geändert werden.]]></string>
     <string name="important_info_quick_guide_profiles_1"><b>PROFILE:</b> ermöglicht die Einstellung von Klingel Art, Lautstärkeeinstellung, Klingel- und Benachrichtigungstöne, ein/ausschalten von Wi-Fi, Bluetooth, mobile Daten, etc. Wenn ein Profil aktiviert wird gelten die Einstellungen dieses Profils, bis ein anderes Profil manuell oder automatisch aktiviert wird.</string>
     <string name="important_info_quick_guide_profiles_2">Profile können manuell, oder durch ein Event aktiviert werden.</string>
-    <string name="important_info_quick_guide_profiles_3">Manuelle Aktivierung von Profilen mit dem PPP Pop-Up Fenster. Das Fenster kann über das Programm Icon, Benachrichtigungs Icon, PPP Widget, Uhr Widget und bei Samsung Edge Geräten über das Edge Panel aktiviert werden. Direkte Aktivierung auch über das 4x4 Widget oder eine Verknüpfung zum Profil.</string>
+    <string name="important_info_quick_guide_profiles_3">Manuelle Aktivierung von Profilen mit dem PPP Pop-Up Fenster. Das Fenster kann über das Programmsymbol, Benachrichtigungssymbol, PPP-Widget, Uhr-Widget und bei Samsung Edge Geräten über das Edge-Panel aktiviert werden. Direkte Aktivierung auch über das 4x4-Widget oder eine Verknüpfung zum Profil.</string>
     <string name="important_info_quick_guide_events_1"><b>EREIGNISSE:</b> Steuern die Profil Aktivierung. Ereignisse haben Start und Ende Befehle, die bestimmen was beim Start und beim Ende des Ereignisses ausgeführt wird.</string>
     <string name="important_info_quick_guide_events_2">Die Ereignisse beinhalten wichtige Sensor Konfigurationsmöglichkeiten, die erfüllt sein müssen damit ein Ereignis gestartet werden kann. Bei fehlenden Sensoreinstellungen wird das Ereignis beendet bzw. nicht gestartet.</string>
     <string name="important_info_quick_guide_sensors_1">Sensor Beispiele:</string>
@@ -879,7 +879,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Suche nach Mobilfunkzellen deaktivieren</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Bestimmung der Geräteausrichtung deaktivieren</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Popup-Benachrichtigungen</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary">Laden Sie die neueste Version von PhoneProfilesPlusExtender.apk von GitHub herunter. Anschließend klicken Sie auf die Benachrichtigung über der heruntergeladenen apk und installieren Sie ihn.</string>
     <string name="fast_access_duration_activate_without_button_2">Aktivieren ohne Verzögerung</string>
     <string name="profileicon_pref_dlg_customIconButton">Benutzerdefiniertes Symbol</string>
     <string name="mobile_cells_registration_cell_name_hint">Hier klicken, um den Zellnamen festzulegen</string>
@@ -1069,7 +1068,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender ist nicht installiert.</string>
     <string name="array_event_pref_peripheralType_headphones">Kopfhörer ohne Mikrofon</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender ist nicht installiert!</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender muss aktualisiert werden!</string>
     <string name="default_profile_name_battery_ok">Akku OK</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Anwendungen</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(V) Verknüpfungen</string>
@@ -1224,8 +1222,8 @@
     <string name="ignore_battery_optimization_notification_text">Bitte klicke hier und füge PhoneProfilesPlus zu „Nicht optimiert“ hinzu. Dies ist notwendig, um bei ausgeschaltetem Display gut zu funktionieren.</string>
     <string name="array_show_profile_in_activator_not_show">Nicht anzeigen</string>
     <string name="array_show_profile_in_activator_show">Anzeigen</string>
-    <string name="editor_activity_targetHelps_showInActivator_title">Profil in Activator anzeigen</string>
-    <string name="editor_activity_targetHelps_showInActivator_description">Hier klicken, um den Profilparameter „Im Aktivator anzeigen” zu konfigurieren.</string>
+    <string name="editor_activity_targetHelps_showInActivator_title">Profil im Starter anzeigen</string>
+    <string name="editor_activity_targetHelps_showInActivator_description">Hier klicken, um den Profilparameter „Im Starter anzeigen” zu konfigurieren.</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Display immer eingeschaltet</string>
     <string name="permission_why_profile_always_on_display">um das Always-On Display an-/auszuschalten</string>
     <string name="array_ignore_manual_activation_not_ignore">Nicht ignorieren</string>
@@ -1290,10 +1288,9 @@
     <string name="pref_event_screen_startWhenLocked">Starten wenn gesperrt</string>
     <string name="event_preferences_screen_start_when_locked">Starten wenn gesperrt</string>
     <string name="event_preference_sensor_screen_summary">Dieser Sensor startet ein Ereignis beim Aus-/Einschalten des Bildschirms. Parameter: Ereignistyp (Bildschirm ein, Bildschirm aus), Start bei entsperrtem/verriegeltem Gerät (Ereignis startet bei entsperrtem/verriegeltem Gerät).</string>
-    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Profilpräferenz-Kennzeichnen im Aktivator, Editor und Verknüpfungen anzeigen</string>
+    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Profilpräferenz-Kennzeichnen im Starter, Editor und Verknüpfungen anzeigen</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Profilpräferenz-Kennzeichen in Mitteilungen anzeigen</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Profilpräferenz-Kennzeichnen in Widgets anzeigen</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk befindet sich in</string>
     <string name="event_preferences_not_set_underlined_parameters_summary">Unterstrichene Parameter sind erforderlich.</string>
     <string name="event_preferences_red_sensors_summary">Überprüfen Sie auch die rot gekennzeichneten Sensorparameter.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Die Sensorparameter befinden sich unter den Hauptereignisparametern.</string>
@@ -1320,7 +1317,7 @@
     <string name="important_info_android_look_application_settings">Bitte öffnen Sie die Einstellungen von PhoneProfilesPlus und konfigurieren Sie diese. Insbesondere Parameter, die mit fettgedrucktem Text gekennzeichnet sind.</string>
     <string name="profile_preferences_red_texts_text_2">Eine Aktivierung ist hierfür nicht möglich.</string>
     <string name="event_preferences_red_texts_text_2">Eine Änderung der Ausführung ist hierfür nicht möglich.</string>
-    <string name="profile_preferences_red_texts_text_3">Eine Anzeige im Aktivator ist hierfür nicht möglich.</string>
+    <string name="profile_preferences_red_texts_text_3">Eine Anzeige im Starter ist hierfür nicht möglich.</string>
     <string name="profile_preferences_red_texts_in_header">Einige Profile enthalten Fehler in ihren Einstellungen. Diese Profile wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
     <string name="event_preferences_red_texts_in_header">Einige Ereignisse enthalten Fehler in den Einstellungen. Diese Ereignisse wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">für Verbinden mit SSID</string>
@@ -1630,9 +1627,9 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Hier klicken, um ein Menü mit weiteren Aktionen für Profile zu öffnen: „Alle Profile löschen”</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Weitere Aktionen für Ereignisse</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Hier klicken, um ein Menü mit weiteren Aktionen für Ereignisse zu öffnen: „Standardprofil”, „Alle Ereignisse löschen”</string>
-    <string name="profile_preferences_showInActivator_summary">Aktivieren, wenn Sie dieses Profil im Aktivator, Listen-Widget und im Samsung Edge-Panel anzeigen möchten.</string>
-    <string name="show_profile_in_activator_not_show_toast">Das Profil wird nicht im Aktivator, Listen-Widget und Samsung Edge-Panel angezeigt</string>
-    <string name="show_profile_in_activator_show_toast">Das Profil wird im Aktivator, Listen-Widget und Samsung Edge-Panel angezeigt</string>
+    <string name="profile_preferences_showInActivator_summary">Aktivieren, wenn Sie dieses Profil im Starter, Listen-Widget und im Samsung Edge-Panel anzeigen möchten.</string>
+    <string name="show_profile_in_activator_not_show_toast">Das Profil wird nicht im Starter, Listen-Widget und Samsung Edge-Panel angezeigt</string>
+    <string name="show_profile_in_activator_show_toast">Das Profil wird im Starter, Listen-Widget und Samsung Edge-Panel angezeigt</string>
     <string name="ignore_manual_activation_not_ignore_toast">Ereignis wird nicht gestartet, wenn ein beliebiges Profil manuell aktiviert wurde</string>
     <string name="ignore_manual_activation_ignore_toast">Ereignis wird gestartet, sobald ein beliebiges Profil manuell aktiviert wird</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">Ereignis wird gestartet und auch nicht pausiert, sobald ein beliebiges Profil manuell aktiviert wird</string>
@@ -1701,7 +1698,7 @@
     <string name="activity_log_help_message_data_for">für</string>
     <string name="activity_log_help_message_data_profileName">Name des Profils. Er kann [M] (=manuelle Aktivierung) enthalten, gefolgt vom in Klammern gesetzten Ende der Dauer.</string>
     <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string>
-    <string name="activity_log_help_message_data_displayedInGUI">Diese Informationen werden auch in allen Elementen der Benutzeroberfläche (Anwendungsbenachrichtigung, Aktivator, Editor, Widgets, …) angezeigt.</string>
+    <string name="activity_log_help_message_data_displayedInGUI">Diese Informationen werden auch in allen Elementen der Benutzeroberfläche (Anwendungsbenachrichtigung, Starter, Editor, Widgets, …) angezeigt.</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">alle anderen für Profile</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Name des Profils.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">alle anderen für Ereignisse</string>
@@ -1769,6 +1766,21 @@
     <string name="permissions_for_wallpaper_folder_text1">Die Auswahl eines Ordners für ein zufälliges Hintergrundbild erfordert einige Berechtigungen.</string>
     <string name="permissions_for_wallpaper_folder_text2">Bitte geben Sie diese im nächsten Dialog Ihre Zustimmung. Sie können dann einen Ordner für zufällige Hintergrundbilder aus der Ordnerauswahl auswählen.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Ordner mit Grafiken</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Bestimmtes Profil aktivieren, anschließend Ereignisse neu starten</string>
+    <string name="profile_preferences_applicationDisableScanning">Suche deaktivieren</string>
+    <string name="profile_preferences_applicationDisableGlobalEventsRun">„Ereignisse ausführen” deaktivieren</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_disabled">„Ereignisse ausführen” deaktiviert</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_enabled">„Ereignisse ausführen” aktiviert</string>
+    <string name="icon_widget_description">Zeigt das Symbol für das aktivierte Profil an.</string>
+    <string name="one_row_widget_description">Zeigt das aktivierte Profil und die Schaltfläche „Ereignisse neu starten” an.</string>
+    <string name="profile_list_widget_description">Zeigt das aktivierte Profil, die Schaltfläche „Ereignisse neu starten” und die Liste der konfigurierten Profile wie im Starter an.</string>
+    <string name="install_extender_installed_version">Installed version:</string>
+    <string name="install_extender_required_version">Required version:</string>
+    <string name="install_extender_text1">Install required version of PhoneProfilesPlusExtender by clicking button</string>
+    <string name="install_extender_text2">This opens browser to download PhoneProfilesPlusExtender.apk into folder \"Download\".</string>
+    <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
+    <string name="install_extender_github_releases">GitHub Releases:</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1837,4 +1849,7 @@
     <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
     <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>
