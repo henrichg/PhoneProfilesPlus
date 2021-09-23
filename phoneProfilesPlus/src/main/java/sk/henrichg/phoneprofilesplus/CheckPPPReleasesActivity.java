@@ -15,7 +15,6 @@ import android.text.style.ClickableSpan;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -137,7 +136,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         message = message + "\n\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_1) + "\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";
-        message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
+        //message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
 
         if (critical) {
             message = message + "\n\n";
@@ -153,13 +152,13 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.install_extender_dialog_info_text);
         text.setText(message);
 
-        Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
-        button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
-        button.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, GitHubAssetsScreenshotActivity.class);
-            intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplus_assets_screenshot);
-            activity.startActivity(intent);
-        });
+//        Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
+//        button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
+//        button.setOnClickListener(v -> {
+//            Intent intent = new Intent(activity, GitHubAssetsScreenshotActivity.class);
+//            intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplus_assets_screenshot);
+//            activity.startActivity(intent);
+//        });
 
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);

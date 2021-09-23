@@ -418,17 +418,12 @@ Skus spravit tie images vektorove.
 
 ----------
 
-Periodic sensor:
-- Bude pouzivat "Background scanning". Cize treba aby v parametrch zobrazoval tento skener, vid Wi-Fi senzor
-- Parametrom bude "Multiple of the scanner interval" - pouzit perefence ako pri "Wi-Fi scanning interval".
-- Dalsi parameter bude "Duartion" - ako pri "Device boot sensor". Permanant run tu nebude
+Text v dialogu (nedavaj ako parameter, daj natvrdo v installExtender()):
+"
+Installed version: (ak ma nainstalovane, inac to tam nedavaj)
+Required version: (verzia z PPApplication.VERSION_NAME_EXTENDER_LATEST)
 
-Budem si musiet pamatat pre kazdu udalost v databaze pocitadlo skenovani Background sacanningu.
-Bude to v databaze pre kazdu udalost ako skryty field.
-Cize onHandleEvent() bude zapisovat do db toto pocitadlo, ALE LEN AK TO BUDE Z BACKGROUND SCANNINGU.
-TOTO JE DOLEZITE, nesmie zvacsovat pocitadlo vzdy ked sa zavola onHandleEvent(), napriklad pri restarte
-udalosti.
-Ak bude pocitadlo rovne nastavenemu nasobku intervalu, pocitadlo sa vynuluje a zavola sa spracovanie udalosti.
-
-------------
-
+Install required version of PhoneProfilesPlusExtender by clicking button "Install".   (pouzi R.string.alert_button_install)
+This opens browser to download PhoneProfilesPlusExtender.apk into folder "/Downloads".
+Then install this APK by clicking notification about downloaded APK.
+"
