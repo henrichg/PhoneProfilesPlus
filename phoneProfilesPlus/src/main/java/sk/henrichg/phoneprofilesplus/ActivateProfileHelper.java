@@ -4852,7 +4852,7 @@ class ActivateProfileHelper {
         }
 
         if (profile._applicationDisableGloabalEventsRun != 0) {
-            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableGloabalEventsRun");
+//            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableGloabalEventsRun");
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0);
             dataWrapper.globalRunStopEvents(profile._applicationDisableGloabalEventsRun == 1);
         }

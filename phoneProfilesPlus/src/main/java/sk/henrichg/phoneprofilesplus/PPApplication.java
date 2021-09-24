@@ -251,102 +251,8 @@ public class PPApplication extends Application
                                                 //+"|[BRS]"
                                                 //+"|[CONNECTIVITY_TEST]"
 
-                                                //+"|PhoneProfilesService.registerReceiverForCalendarSensor"
-                                                //+"|EventPreferencesCalendar"
-                                                //+"|CalendarEventExistsCheckBroadcastReceiver"
-                                                //+"|ActivateProfileHelper.setScreenTimeout"
-                                                //+"|ContactGroupsCache"
-                                                //+"|EventsPrefsFragment"
-                                                //+"|PPWifiNetworkCallback"
-                                                //+"|EventsHandler.handleEvents"
-
-                                                //+"|ContactsContentObserver.onChange"
-                                                //+"|ContactsContentObserverWorker.doWork"
-                                                //+"|ContactsCache.getContactList"
-                                                //+"|ContactGroupsCache.getContactGroupListX"
-
-                                                //+"|LocationGeofenceEditorActivityOSM"
-                                                //+"|TimeChangedReceiver"
-                                                //+"|MainWorker.doWork"
-                                                //+"|LocationScannerSwitchGPSBroadcastReceiver.onReceive"
-                                                //+"|LocationScannerSwitchGPSBroadcastReceiver.doWork"
-                                                //+"|LocationScanner"
-                                                //+"|LocationSensorWorker"
-
-                                                //+"|CheckCriticalGitHubReleasesBroadcastReceiver"
-                                                //+"|CheckGitHubReleasesBroadcastReceiver"
-                                                //+"|DonationBroadcastReceiver"
-                                                //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
-
-                                                //+"|ActivateProfileHelper.setMobileData"
-                                                //+"|[DUAL_SIM]"
-                                                //+"|WifiNetworkCallback"
-                                                //+"|MobileDataNetworkCallback"
-                                                //+"|EventPreferencesRadioSwitch.doHandleEvent"
-                                                //+"|BluetoothConnectionBroadcastReceiver"
-
-                                                //+"|ActivateProfileHelper.setDefaultSimCard"
-
-                                                //+"|ActivateProfileHelper.setTones"
-                                                //+"|PPApplication.getServicesList"
-                                                //+"|[DEFAULT_SIM]"
-                                                //+"|[ROOT]"
-
-                                                //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
-                                                //+"|PhoneCallsListener"
-                                                //+"|PPPExtenderBroadcastReceiver"
-
-                                                //+"|PhoneProfilesService.doSimulatingRingingCall"
-                                                //+"|PhoneProfilesService.startSimulatingRingingCall"
-                                                //+"|PhoneProfilesService.stopSimulatingRingingCall"
-                                                //+"|EventsHandler.doEndHandler"
-                                                //+"|PPApplication.getCallState"
-
-                                                //+"|EventPreferencesCall.doHandleEvent"
-                                                //+"|EventPreferencesSMS"
-
-                                                //+"|MobileCellsScanner"
-                                                //+"|MobileCellsListener"
-                                                //+"|MobileCellsPreferenceFragmentX"
-                                                //+"|EventPreferencesMobileCells"
-
-                                                //+"|EventPreferencesTime"
-
-                                                //+"|BrightnessDialogPreferenceFragmentX"
-
-                                                //+"|PPTileService"
-                                                //+"|TileChooserListFragment"
-                                                //+"|LongClickTileChooserActivity"
-                                                //+"|QuickTileChooseTileBroadcastReceiver"
-
-                                                //+"|------ EventsPrefsFragment.isRedTextNotificationRequired"
-                                                //+"|OneRowWidgetProvider"
-
-                                                //+"|ScreenOnOffBroadcastReceiver"
-                                                //+"|LockDeviceAfterScreenOffBroadcastReceiver"
-
-                                                //+"|PPPExtenderBroadcastReceiver.onReceive"
-                                                //+"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
-
-                                                //+"|CheckCriticalGitHubReleasesBroadcastReceiver.doWork"
-
-                                                //+"|PhoneProfilesPrefsActivity"
-                                                //+"|EditorProfilesActivity"
-
-                                                //+"|Event.setDelayEndAlarm"
-
-                                                //+"|GrantPermissionActivity"
-
-                                                //+"|ActivateProfileHelper.setVibrateNotification"
-
-                                                //+"|EventPreferencesPeriodic"
-                                                //+"|PeriodicEventsHandlerWorker"
-                                                //+"|ActivateProfileHelper.changeWallpaperFromFolder"
-
-                                                //+"|ProfileDurationAlarmBroadcastReceiver"
-
-                                                +"|PApplication.getReleaseData"
-                                                +"|CheckGitHubReleasesActivity"
+                                                //+"|PApplication.getReleaseData"
+                                                //+"|CheckGitHubReleasesActivity"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -4820,9 +4726,9 @@ public class PPApplication extends Application
                         }
                         pppReleaseData.versionNameInReleases = splits[0];
                         pppReleaseData.versionCodeInReleases = Integer.parseInt(splits[1]);
-                        PPApplication.logE("PPApplication.getReleaseData", "versionCode=" + versionCode);
-                        PPApplication.logE("PPApplication.getReleaseData", "versionCodeInReleases=" + pppReleaseData.versionCodeInReleases);
-                        PPApplication.logE("PPApplication.getReleaseData", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification=" + ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);
+//                        PPApplication.logE("PPApplication.getReleaseData", "versionCode=" + versionCode);
+//                        PPApplication.logE("PPApplication.getReleaseData", "versionCodeInReleases=" + pppReleaseData.versionCodeInReleases);
+//                        PPApplication.logE("PPApplication.getReleaseData", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification=" + ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);
                         if (forceDoData)
                             doData = true;
                         else {
@@ -4848,17 +4754,17 @@ public class PPApplication extends Application
                 }
             }
 
-            PPApplication.logE("PPApplication.getReleaseData", "doData=" + doData);
-            PPApplication.logE("PPApplication.getReleaseData", "critical=" + pppReleaseData.critical);
-            PPApplication.logE("PPApplication.getReleaseData", "versionNameInReleases=" + pppReleaseData.versionNameInReleases);
-            PPApplication.logE("PPApplication.getReleaseData", "versionCodeInReleases=" + pppReleaseData.versionCodeInReleases);
+//            PPApplication.logE("PPApplication.getReleaseData", "doData=" + doData);
+//            PPApplication.logE("PPApplication.getReleaseData", "critical=" + pppReleaseData.critical);
+//            PPApplication.logE("PPApplication.getReleaseData", "versionNameInReleases=" + pppReleaseData.versionNameInReleases);
+//            PPApplication.logE("PPApplication.getReleaseData", "versionCodeInReleases=" + pppReleaseData.versionCodeInReleases);
 
             if (doData)
                 return pppReleaseData;
             else
                 return null;
         } catch (Exception e) {
-            PPApplication.logE("PPApplication.getReleaseData", Log.getStackTraceString(e));
+//            PPApplication.logE("PPApplication.getReleaseData", Log.getStackTraceString(e));
             return null;
         }
     }

@@ -304,7 +304,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
     }
 
     private static void _doWork(/*boolean useHandler,*/ Context appContext, final long profileId, final boolean forRestartEvents, int startupSource) {
-        PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "profileId=" + profileId);
+//        PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "profileId=" + profileId);
 
         if (profileId != 0) {
             //if (useHandler)
@@ -312,7 +312,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
 
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
 
-            PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "getIsManualProfileActivation()=" + DataWrapper.getIsManualProfileActivation(true, appContext));
+//            PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "getIsManualProfileActivation()=" + DataWrapper.getIsManualProfileActivation(true, appContext));
 
             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
             if (profile != null) {
@@ -423,7 +423,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                         }
 
                         if (profile._afterDurationDo == Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS) {
-                            PPApplication.logE("&&&&&&& ProfileDurationAlarmBroadcastReceiver._doWork", "AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS");
+//                            PPApplication.logE("&&&&&&& ProfileDurationAlarmBroadcastReceiver._doWork", "AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS");
                             activateProfileId = profile._afterDurationProfile;
                             if (activateProfileId == Profile.PROFILE_NO_ACTIVATE)
                                 activateProfileId = 0;
@@ -439,7 +439,7 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                                         DataWrapper.getProfileNameWithManualIndicatorAsString(profile, false, "", false, false, false, dataWrapper),
                                         profile._icon, 0, "");
 
-                                PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
+//                                PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "restart events");
                                 dataWrapper.restartEventsWithDelay(5, false, true, true, PPApplication.ALTYPE_UNDEFINED);
                             }
                         }
