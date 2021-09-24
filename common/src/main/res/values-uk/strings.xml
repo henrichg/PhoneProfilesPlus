@@ -1782,6 +1782,7 @@
     <string name="install_extender_where_is_assets_button">Де</string>
     <string name="check_github_releases_released_version">Released version:</string>
     <string name="check_github_releases_version_checking">… detection …</string>
+    <string name="check_github_releases_version_critical">! CRITICAL !</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

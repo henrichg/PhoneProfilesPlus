@@ -1782,6 +1782,7 @@
     <string name="install_extender_where_is_assets_button">位置</string>
     <string name="check_github_releases_released_version">Released version:</string>
     <string name="check_github_releases_version_checking">… detection …</string>
+    <string name="check_github_releases_version_critical">! CRITICAL !</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>

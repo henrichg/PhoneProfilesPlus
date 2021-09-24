@@ -228,6 +228,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 //                        PPApplication.logE("CheckPPPReleasesBroadcastReceiver._doWork", "response="+response);
 
                         boolean showNotification;
+                        boolean critical = true;
                         String versionNameInReleases = "";
                         int versionCodeInReleases = 0;
 
@@ -239,6 +240,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
 
                         showNotification = pppReleaseData != null;
                         if (showNotification) {
+                            critical = pppReleaseData.critical;
                             versionNameInReleases = pppReleaseData.versionNameInReleases;
                             versionCodeInReleases = pppReleaseData.versionCodeInReleases;
                         }
@@ -255,6 +257,7 @@ public class CheckPPPReleasesBroadcastReceiver extends BroadcastReceiver {
                                 _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, false);
                                 _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, versionNameInReleases);
                                 _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
+                                _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CRITICAL, critical);
 
                                 String nTitle = appContext.getString(R.string.menu_check_github_releases);
                                 String nText = appContext.getString(R.string.check_ppp_releases_notification);

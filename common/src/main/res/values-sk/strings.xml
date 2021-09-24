@@ -1782,6 +1782,7 @@
     <string name="install_extender_where_is_assets_button">Kde je</string>
     <string name="check_github_releases_released_version">Verzia vydania:</string>
     <string name="check_github_releases_version_checking">… zisťovanie …</string>
+    <string name="check_github_releases_version_critical">! KRITICKÉ !</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

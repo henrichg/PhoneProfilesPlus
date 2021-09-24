@@ -1782,6 +1782,7 @@
     <string name="install_extender_where_is_assets_button">Gde se nalaze</string>
     <string name="check_github_releases_released_version">Released version:</string>
     <string name="check_github_releases_version_checking">… detection …</string>
+    <string name="check_github_releases_version_critical">! CRITICAL !</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

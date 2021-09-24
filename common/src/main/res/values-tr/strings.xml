@@ -1782,6 +1782,7 @@
     <string name="install_extender_where_is_assets_button">\"Assets\" klasörü nerede?</string>
     <string name="check_github_releases_released_version">Released version:</string>
     <string name="check_github_releases_version_checking">… detection …</string>
+    <string name="check_github_releases_version_critical">! CRITICAL !</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• Tercih değeri \"Zorla durdurulan uygulamalar\"\n• Durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>

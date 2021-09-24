@@ -35,6 +35,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     private boolean criticalCheck = false;
     private String newVersionName = "";
     private int newVersionCode = 0;
+    private boolean newVersionCritical = false;
 
     AlertDialog alertDialog = null;
     View alertDialogLayout = null;
@@ -44,6 +45,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     static final String EXTRA_CRITICAL_CHECK = "extra_critical_check";
     static final String EXTRA_NEW_VERSION_NAME = "extra_new_version_name";
     static final String EXTRA_NEW_VERSION_CODE = "extra_new_version_code";
+    static final String EXTRA_NEW_VERSION_CRITICAL = "extra_new_version_critical";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         criticalCheck = intent.getBooleanExtra(EXTRA_CRITICAL_CHECK, false);
         newVersionName = intent.getStringExtra(EXTRA_NEW_VERSION_NAME);
         newVersionCode = intent.getIntExtra(EXTRA_NEW_VERSION_CODE, 0);
+        newVersionCritical = intent.getBooleanExtra(EXTRA_NEW_VERSION_CRITICAL, false);
 
 //        PPApplication.logE("CheckGitHubReleasesActivity.onCreate", "menuItemId="+menuItemId);
 //        PPApplication.logE("CheckGitHubReleasesActivity.onCreate", "criticalCheck="+criticalCheck);
@@ -113,6 +116,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                             if (updateReleasedVersion) {
                                 newVersionName = pppReleaseData.versionNameInReleases;
                                 newVersionCode = pppReleaseData.versionCodeInReleases;
+                                newVersionCritical = pppReleaseData.critical;
                             }
 
                             try {
@@ -208,16 +212,19 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         String message;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = activity.getString(R.string.check_github_releases_actual_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = activity.getString(R.string.check_github_releases_actual_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
         } catch (Exception e) {
             message = "";
         }
 
         message = message + "\n";
-        if (newVersionDataExists)
-            message = message + activity.getString(R.string.check_github_releases_released_version) + " " + newVersionName + " (" + newVersionCode + ")";//\n";
+        if (newVersionDataExists) {
+            message = message + activity.getString(R.string.check_github_releases_released_version) + " " + newVersionName + " (" + newVersionCode + ")";
+            if (newVersionCritical)
+                message = message + " - " + activity.getString(R.string.check_github_releases_version_critical);
+        }
         else
-            message = message + activity.getString(R.string.check_github_releases_released_version) + " " + getString(R.string.check_github_releases_version_checking);//\n";
+            message = message + activity.getString(R.string.check_github_releases_released_version) + " " + getString(R.string.check_github_releases_version_checking);
 
         message = message + "\n\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_1);

@@ -1782,6 +1782,7 @@
     <string name="install_extender_where_is_assets_button">Où est</string>
     <string name="check_github_releases_released_version">Released version:</string>
     <string name="check_github_releases_version_checking">… detection …</string>
+    <string name="check_github_releases_version_critical">! CRITICAL !</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

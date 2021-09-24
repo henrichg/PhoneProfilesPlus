@@ -1812,6 +1812,7 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
     <string name="check_github_releases_released_version">Released version:</string>
     <string name="check_github_releases_version_checking">… detection …</string>
+    <string name="check_github_releases_version_critical">! CRITICAL !</string>
 
     <!-- **************************************************************************************** -->
 

@@ -252,6 +252,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                 _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, true);
                                 _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, versionNameInReleases);
                                 _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
+                                _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CRITICAL, critical);
 
                                 String nTitle;
                                 String nText;
