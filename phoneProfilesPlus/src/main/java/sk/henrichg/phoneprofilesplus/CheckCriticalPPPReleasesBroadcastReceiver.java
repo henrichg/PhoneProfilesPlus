@@ -69,8 +69,8 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 
         long alarmTime;
 
-        /*// TODO remove for release
-        if (DebugVersion.enabled) {
+        // TODO remove for release
+        /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
 //            if (PPApplication.logEnabled()) {
@@ -200,7 +200,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
     }
     */
 
-    static void doWork(Context appContext) {
+    static void doWork(final Context appContext) {
         try {
             // Instantiate the RequestQueue.
             RequestQueue queue = Volley.newRequestQueue(appContext);
@@ -215,73 +215,32 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                     response -> {
 //                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "response="+response);
 
-                        boolean showNotification = false;
+                        boolean showNotification;
                         boolean critical = true;
                         String versionNameInReleases = "";
                         int versionCodeInReleases = 0;
 
                         //noinspection UnnecessaryLocalVariable
                         String contents = response;
+
+                        boolean forceDoData = false;
+
+                        // TODO remove for release
+                        //if (DebugVersion.enabled)
+                        //    forceDoData = true;
+
+                        //noinspection ConstantConditions
+                        PPApplication.PPPReleaseData pppReleaseData =
+                                PPApplication.getReleaseData(contents, forceDoData, appContext);
+
+                        showNotification = pppReleaseData != null;
+                        if (showNotification) {
+                            critical = pppReleaseData.critical;
+                            versionNameInReleases = pppReleaseData.versionNameInReleases;
+                            versionCodeInReleases = pppReleaseData.versionCodeInReleases;
+                        }
+
                         try {
-                            // this must be added when you tests debug branch
-//                            if (DebugVersion.enabled)
-//                                contents = "@@@ppp-release:5.1.1.1b:6651:normal***@@@";
-
-//                            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "contents="+contents);
-
-                            if (!contents.isEmpty()) {
-                                int startIndex = contents.indexOf("@@@ppp-release:");
-                                int endIndex = contents.indexOf("***@@@");
-                                if ((startIndex >= 0) && (endIndex > startIndex)) {
-                                    String version = contents.substring(startIndex, endIndex);
-                                    startIndex = version.indexOf(":");
-                                    version = version.substring(startIndex + 1);
-//                                    PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "version="+version);
-                                    String[] splits = version.split(":");
-                                    if (splits.length >= 2) {
-//                                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "newVersionName=" + splits[0]);
-//                                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "newVersionCode=" + splits[1]);
-                                        int versionCode = 0;
-                                        try {
-                                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-                                            versionCode = PPApplication.getVersionCode(pInfo);
-                                        } catch (Exception ignored) {
-                                        }
-                                        versionNameInReleases = splits[0];
-                                        versionCodeInReleases = Integer.parseInt(splits[1]);
-//                                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "versionCodeInReleases=" + versionCodeInReleases);
-//                                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification=" + ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);
-                                        if (ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification < versionCodeInReleases) {
-                                            if ((versionCode > 0) && (versionCode < versionCodeInReleases))
-                                                showNotification = true;
-                                        }
-
-//                                        // TODO remove for release
-//                                        if (DebugVersion.enabled)
-//                                            showNotification = true;
-
-
-//                                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "showNotification=" + showNotification);
-                                    }
-                                    /*if (splits.length == 2) {
-                                        // old check, always critical update
-                                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "OLD CHECK");
-                                        //critical = true;
-                                    }*/
-                                    if (splits.length == 3) {
-                                        // new, better check
-//                                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "NEW CHECK");
-                                        // last parameter:
-                                        //  "normal" - normal update
-                                        //  "critical" - critical update
-                                        critical = splits[2].equals("critical");
-                                    }
-                                }
-                            }
-
-//                            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "showNotification="+showNotification);
-//                            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "critical="+critical);
-
                             if (showNotification) {
                                 removeNotification(appContext);
 
@@ -348,7 +307,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                             PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG,
                                             PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID, notification);
                                 } catch (Exception e) {
-                                    //Log.e("CheckGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+                                    //Log.e("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                                     PPApplication.recordException(e);
                                 }
                             }

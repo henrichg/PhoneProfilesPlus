@@ -343,7 +343,10 @@ public class PPApplication extends Application
                                                 //+"|PeriodicEventsHandlerWorker"
                                                 //+"|ActivateProfileHelper.changeWallpaperFromFolder"
 
-                                                +"|ProfileDurationAlarmBroadcastReceiver"
+                                                //+"|ProfileDurationAlarmBroadcastReceiver"
+
+                                                +"|PApplication.getReleaseData"
+                                                +"|CheckGitHubReleasesActivity"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -4776,6 +4779,88 @@ public class PPApplication extends Application
         }
         else
             return false;
+    }
+
+    // get PPP version from relases.md ----------------------------------------------
+
+    static class PPPReleaseData {
+        String versionNameInReleases = "";
+        int versionCodeInReleases = 0;
+        boolean critical = true;
+    }
+
+    static PPPReleaseData getReleaseData(String contents, boolean forceDoData, Context appContext) {
+        // this must be added when you tests debug branch
+//        if (DebugVersion.enabled)
+//            contents = "@@@ppp-release:5.1.1.1b:6651:normal***@@@";
+//
+//        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "contents="+contents);
+
+        boolean doData = false;
+        try {
+            PPPReleaseData pppReleaseData = new PPPReleaseData();
+
+            if (!contents.isEmpty()) {
+                int startIndex = contents.indexOf("@@@ppp-release:");
+                int endIndex = contents.indexOf("***@@@");
+                if ((startIndex >= 0) && (endIndex > startIndex)) {
+                    String version = contents.substring(startIndex, endIndex);
+                    startIndex = version.indexOf(":");
+                    version = version.substring(startIndex + 1);
+//                    PPApplication.logE("PPApplication.getReleaseData", "version="+version);
+                    String[] splits = version.split(":");
+                    if (splits.length >= 2) {
+//                        PPApplication.logE("PPApplication.getReleaseData", "newVersionName=" + splits[0]);
+//                        PPApplication.logE("PPApplication.getReleaseData", "newVersionCode=" + splits[1]);
+                        int versionCode = 0;
+                        try {
+                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                            versionCode = PPApplication.getVersionCode(pInfo);
+                        } catch (Exception ignored) {
+                        }
+                        pppReleaseData.versionNameInReleases = splits[0];
+                        pppReleaseData.versionCodeInReleases = Integer.parseInt(splits[1]);
+                        PPApplication.logE("PPApplication.getReleaseData", "versionCode=" + versionCode);
+                        PPApplication.logE("PPApplication.getReleaseData", "versionCodeInReleases=" + pppReleaseData.versionCodeInReleases);
+                        PPApplication.logE("PPApplication.getReleaseData", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification=" + ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);
+                        if (forceDoData)
+                            doData = true;
+                        else {
+                            if (ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification < pppReleaseData.versionCodeInReleases) {
+                                if ((versionCode > 0) && (versionCode < pppReleaseData.versionCodeInReleases))
+                                    doData = true;
+                            }
+                        }
+                    }
+                    /*if (splits.length == 2) {
+                        // old check, always critical update
+                        PPApplication.logE("PPApplication.getReleaseData", "OLD CHECK");
+                        //critical = true;
+                    }*/
+                    if (splits.length == 3) {
+                        // new, better check
+//                        PPApplication.logE("PPApplication.getReleaseData", "NEW CHECK");
+                        // last parameter:
+                        //  "normal" - normal update
+                        //  "critical" - critical update
+                        pppReleaseData.critical = splits[2].equals("critical");
+                    }
+                }
+            }
+
+            PPApplication.logE("PPApplication.getReleaseData", "doData=" + doData);
+            PPApplication.logE("PPApplication.getReleaseData", "critical=" + pppReleaseData.critical);
+            PPApplication.logE("PPApplication.getReleaseData", "versionNameInReleases=" + pppReleaseData.versionNameInReleases);
+            PPApplication.logE("PPApplication.getReleaseData", "versionCodeInReleases=" + pppReleaseData.versionCodeInReleases);
+
+            if (doData)
+                return pppReleaseData;
+            else
+                return null;
+        } catch (Exception e) {
+            PPApplication.logE("PPApplication.getReleaseData", Log.getStackTraceString(e));
+            return null;
+        }
     }
 
     // ACRA -------------------------------------------------------------------------

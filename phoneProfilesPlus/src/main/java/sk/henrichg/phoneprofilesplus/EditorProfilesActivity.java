@@ -1293,7 +1293,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 (itemId == R.id.menu_check_in_amazon_appstore) ||
                 (itemId == R.id.menu_check_in_appgallery) ||
                 (itemId == R.id.menu_check_in_apkpure)) {
-            CheckPPPReleasesActivity.showDialog(this, true, itemId, "", 0);
+
+            Intent _intent;
+            _intent = new Intent(this, CheckPPPReleasesActivity.class);
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_MENU_ITEM_ID, itemId);
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, false);
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, "");
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, 0);
+            startActivity(_intent);
+
             return true;
         }
 

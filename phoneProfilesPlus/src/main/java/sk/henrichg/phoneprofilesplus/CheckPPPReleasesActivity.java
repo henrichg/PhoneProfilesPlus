@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -22,12 +23,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 public class CheckPPPReleasesActivity extends AppCompatActivity {
 
+    private int menuItemId = 0;
     private boolean criticalCheck = false;
     private String newVersionName = "";
     private int newVersionCode = 0;
 
+    AlertDialog alertDialog = null;
+
+    static final String EXTRA_MENU_ITEM_ID = "extra_menu_item_id";
     static final String EXTRA_CRITICAL_CHECK = "extra_critical_check";
     static final String EXTRA_NEW_VERSION_NAME = "extra_new_version_name";
     static final String EXTRA_NEW_VERSION_CODE = "extra_new_version_code";
@@ -37,12 +47,18 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
+//        PPApplication.logE("CheckGitHubReleasesActivity.onCreate", "xxx");
+
         Intent intent = getIntent();
+        menuItemId = intent.getIntExtra(EXTRA_MENU_ITEM_ID, 0);
         criticalCheck = intent.getBooleanExtra(EXTRA_CRITICAL_CHECK, false);
         newVersionName = intent.getStringExtra(EXTRA_NEW_VERSION_NAME);
         newVersionCode = intent.getIntExtra(EXTRA_NEW_VERSION_CODE, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] CheckGitHubReleasesActivity.onCreate", "xxx");
+        PPApplication.logE("CheckGitHubReleasesActivity.onCreate", "menuItemId="+menuItemId);
+        PPApplication.logE("CheckGitHubReleasesActivity.onCreate", "criticalCheck="+criticalCheck);
+        PPApplication.logE("CheckGitHubReleasesActivity.onCreate", "newVersionName="+newVersionName);
+        PPApplication.logE("CheckGitHubReleasesActivity.onCreate", "newVersionCode="+newVersionCode);
     }
 
     @Override
@@ -54,18 +70,82 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false);
         //GlobalGUIRoutines.setLanguage(this);
 
-        showDialog(this, false, criticalCheck ? -2 : -1, newVersionName, newVersionCode);
+        boolean fromEditor;
+        if (menuItemId == 0) {
+            menuItemId = criticalCheck ? -2 : -1;
+            fromEditor = false;
+        }
+        else {
+            newVersionName = "";
+            newVersionCode = 0;
+            fromEditor = true;
+        }
+        showDialog(this, fromEditor, menuItemId, newVersionName, newVersionCode);
+
+        if (menuItemId == R.id.menu_check_in_github) {
+            try {
+                final Context appContext = getApplicationContext();
+                // Instantiate the RequestQueue.
+                RequestQueue queue = Volley.newRequestQueue(appContext);
+                String url;
+                if (DebugVersion.enabled)
+                    url = PPApplication.PPP_RELEASES_DEBUG_URL;
+                else
+                    url = PPApplication.PPP_RELEASES_URL;
+                // Request a string response from the provided URL.
+                StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                        url,
+                        response -> {
+//                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "response="+response);
+
+                            boolean updateReleasedVersion;
+                            boolean critical = true;
+                            String versionNameInReleases = "";
+                            int versionCodeInReleases = 0;
+
+                            //noinspection UnnecessaryLocalVariable
+                            String contents = response;
+
+                            PPApplication.PPPReleaseData pppReleaseData =
+                                    PPApplication.getReleaseData(contents, true, appContext);
+
+                            updateReleasedVersion = pppReleaseData != null;
+                            if (updateReleasedVersion) {
+                                versionNameInReleases = pppReleaseData.versionNameInReleases;
+                                versionCodeInReleases = pppReleaseData.versionCodeInReleases;
+                            }
+
+                            try {
+                                if (updateReleasedVersion && (alertDialog != null)) {
+
+                                }
+                            } catch (Exception e) {
+//                            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+                            }
+
+                        },
+                        error -> {
+//                        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(error));
+                        });
+                queue.add(stringRequest);
+
+            } catch (Exception e) {
+//            PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+            }
+        }
+
     }
 
     @Override
     public void finish()
     {
+        alertDialog = null;
         super.finish();
         overridePendingTransition(0, 0);
     }
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
-    static void showDialog(final Activity activity, final boolean fromEditor, final int store,
+    private void showDialog(final Activity activity, final boolean fromEditor, final int store,
                            final String newVersionName, final int newVersionCode) {
 
         if (store == R.id.menu_check_in_fdroid)
@@ -81,7 +161,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             checkInHuaweiAppGallery(activity, fromEditor);
         else
         if (store == R.id.menu_check_in_github)
-            checkInGitHub(activity, fromEditor, false, newVersionName, newVersionCode);
+            checkInGitHub(activity, fromEditor, newVersionName, newVersionCode);
         else
         if (store == R.id.menu_check_in_apkpure)
             checkInAPKPure(activity, fromEditor);
@@ -108,17 +188,17 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                 if (fdroidInstalled)
                     checkInFDroid(activity, fromEditor);
                 else
-                    checkInGitHub(activity, fromEditor, false, newVersionName, newVersionCode);
+                    checkInGitHub(activity, fromEditor, newVersionName, newVersionCode);
             }
         }
         else
             // this is for
             // - CheckCriticalPPPReleasesBroadcastReceiver
-            checkInGitHub(activity, fromEditor, true, newVersionName, newVersionCode);
+            checkInGitHub(activity, fromEditor, newVersionName, newVersionCode);
     }
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
-    private static void checkInGitHub(final Activity activity, final boolean fromEditor, final boolean critical,
+    private void checkInGitHub(final Activity activity, final boolean fromEditor,
                                       final String newVersionName, final int newVersionCode) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
@@ -130,19 +210,17 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             message = "";
         }
 
-        if (critical && (!newVersionName.isEmpty()) && (newVersionCode > 0)) {
-            message = message + "\n\n";
-            message = message + activity.getString(R.string.check_github_releases_new_version) + " " + newVersionName + " (" + newVersionCode + ")";//\n";
+        boolean newVersionDataExists = (!newVersionName.isEmpty()) && (newVersionCode > 0);
+        if (newVersionDataExists) {
+            message = message + "\n";
+            message = message + activity.getString(R.string.check_github_releases_released_version) + " " + newVersionName + " (" + newVersionCode + ")";//\n";
         }
         message = message + "\n\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_1) + "\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_2) + " ";
         message = message + activity.getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3);
-
-        if (critical) {
-            message = message + "\n\n";
-            message = message + activity.getString(R.string.check_github_releases_install_info_app_stores_release);
-        }
+        message = message + "\n\n";
+        message = message + activity.getString(R.string.check_github_releases_install_info_app_stores_release);
 
         View layout;
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -154,7 +232,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text.setText(message);
 
         text = layout.findViewById(R.id.install_extender_dialog_github_releases);
-        if (critical && (!newVersionName.isEmpty()) && (newVersionCode > 0)) {
+        if (newVersionDataExists) {
             CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
             CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPP_RELEASES_URL;
             Spannable sbt = new SpannableString(str2);
@@ -200,12 +278,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         dialogBuilder.setCancelable(true);
 
         int buttonText = R.string.check_github_releases_go_to_github;
-        if (critical && (!newVersionName.isEmpty()) && (newVersionCode > 0))
+        if (newVersionDataExists)
             buttonText = R.string.alert_button_install;
 
         dialogBuilder.setPositiveButton(buttonText, (dialog, which) -> {
             String url;
-            if (critical && (!newVersionName.isEmpty()) && (newVersionCode > 0))
+            if (newVersionDataExists)
                 url = PPApplication.GITHUB_PPP_DOWNLOAD_URL_1 + newVersionName + PPApplication.GITHUB_PPP_DOWNLOAD_URL_2;
             else
                 url = PPApplication.GITHUB_PPP_RELEASES_URL;
@@ -222,12 +300,17 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         dialogBuilder.setOnCancelListener(dialog -> {
+            alertDialog = null;
             if (!fromEditor)
                 activity.finish();
         });
-        if (!fromEditor)
-            dialogBuilder.setOnDismissListener(dialog -> activity.finish());
-        AlertDialog dialog = dialogBuilder.create();
+        if (!fromEditor) {
+            dialogBuilder.setOnDismissListener(dialog -> {
+                alertDialog = null;
+                activity.finish();
+            });
+        }
+        alertDialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -240,12 +323,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //        });
 
         if (!activity.isFinishing())
-            dialog.show();
+            alertDialog.show();
 
     }
 
     @SuppressLint("InflateParams")
-    private static void checkInFDroid(final Activity activity, final boolean fromEditor) {
+    private void checkInFDroid(final Activity activity, final boolean fromEditor) {
         // org.fdroid.fdroid
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
@@ -404,7 +487,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         });
         if (!fromEditor)
             dialogBuilder.setOnDismissListener(dialog -> activity.finish());
-        AlertDialog dialog = dialogBuilder.create();
+        alertDialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -417,12 +500,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //        });
 
         if (!activity.isFinishing())
-            dialog.show();
+            alertDialog.show();
 
     }
 
     @SuppressLint("InflateParams")
-    private static void checkInGalaxyStore(final Activity activity, final boolean fromEditor) {
+    private void checkInGalaxyStore(final Activity activity, final boolean fromEditor) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
         String message;
@@ -463,7 +546,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         });
         if (!fromEditor)
             dialogBuilder.setOnDismissListener(dialog -> activity.finish());
-        AlertDialog dialog = dialogBuilder.create();
+        alertDialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -476,12 +559,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //        });
 
         if (!activity.isFinishing())
-            dialog.show();
+            alertDialog.show();
 
     }
 
     @SuppressLint("InflateParams")
-    private static void checkInAmazonAppstore(final Activity activity, final boolean fromEditor) {
+    private void checkInAmazonAppstore(final Activity activity, final boolean fromEditor) {
         // com.amazon.venezia
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
@@ -599,7 +682,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         });
         if (!fromEditor)
             dialogBuilder.setOnDismissListener(dialog -> activity.finish());
-        AlertDialog dialog = dialogBuilder.create();
+        alertDialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -612,12 +695,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //        });
 
         if (!activity.isFinishing())
-            dialog.show();
+            alertDialog.show();
 
     }
 
     @SuppressLint("InflateParams")
-    private static void checkInHuaweiAppGallery(final Activity activity, final boolean fromEditor) {
+    private void checkInHuaweiAppGallery(final Activity activity, final boolean fromEditor) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
         String message;
@@ -658,7 +741,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         });
         if (!fromEditor)
             dialogBuilder.setOnDismissListener(dialog -> activity.finish());
-        AlertDialog dialog = dialogBuilder.create();
+        alertDialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -671,12 +754,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //        });
 
         if (!activity.isFinishing())
-            dialog.show();
+            alertDialog.show();
 
     }
 
     @SuppressLint("InflateParams")
-    private static void checkInAPKPure(final Activity activity, final boolean fromEditor) {
+    private void checkInAPKPure(final Activity activity, final boolean fromEditor) {
         // https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.menu_check_github_releases);
@@ -733,7 +816,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         });
         if (!fromEditor)
             dialogBuilder.setOnDismissListener(dialog -> activity.finish());
-        AlertDialog dialog = dialogBuilder.create();
+        alertDialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -746,7 +829,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //        });
 
         if (!activity.isFinishing())
-            dialog.show();
+            alertDialog.show();
 
     }
 
