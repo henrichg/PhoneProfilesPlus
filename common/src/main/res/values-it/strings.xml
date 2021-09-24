@@ -1465,7 +1465,6 @@
     <string name="profile_preferences_volumeMuteSound_summary">Questo non disattiva il suono della sveglia</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Anche la modalità suono, configurata in questo profilo è ignorata.</string>
     <string name="location_editor_connection_is_offline">La connessione di rete è offline. Per questo motivo non è possibile visualizzare la mappa.</string>
-    <string name="install_extender_where_is_assets_button">Dove si trova</string>
     <string name="github_assets_screenshot_label">screenshot</string>
     <string name="event_preferences_orientation_light_currentValue_title">Valore luminoso attuale</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Il sensore di luce non è nel tuo dispositivo</string>
@@ -1727,7 +1726,6 @@
     <string name="check_github_releases_install_info_app_stores_release">"La nuova versione sarà presto disponibile negli store delle applicazioni."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Mostra le preferenze del profilo</string>
     <string name="show_dialog_about_red_text_show_editor">Mostra Editor</string>
-    <string name="check_github_releases_new_version">Nuova versione:</string>
     <string name="array_pref_change_image_wallpaper">Passa all\'immagine</string>
     <string name="array_pref_change_live_wallpaper">(I) Passa allo sfondo live</string>
     <string name="profile_preferences_deviceImageWallpaper">Sfondo immagine</string>
@@ -1781,6 +1779,9 @@
     <string name="install_extender_text3">Poi installa quest\'APK cliccando la notifica sull\'APK scaricata.</string>
     <string name="install_extender_github_releases">Release di GitHub:</string>
     <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender non è nella versione necessaria!</string>
+    <string name="install_extender_where_is_assets_button">Dove si trova</string>
+    <string name="check_github_releases_released_version">Released version:</string>
+    <string name="check_github_releases_version_checking">… detection …</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>
@@ -1851,5 +1852,4 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
-    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>

@@ -1465,7 +1465,6 @@
     <string name="profile_preferences_volumeMuteSound_summary">Эта настройка не приглушает будильник</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Также не будет учитываться настроенный в этом профиле Звуковой режим.</string>
     <string name="location_editor_connection_is_offline">Невозможно отобразить карту, т.к. отсутствует подключение к сети.</string>
-    <string name="install_extender_where_is_assets_button">Где находится</string>
     <string name="github_assets_screenshot_label">скриншот</string>
     <string name="event_preferences_orientation_light_currentValue_title">Текущее значение освещённости</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">На вашем устройстве нет датчика освещённости</string>
@@ -1727,7 +1726,6 @@
     <string name="check_github_releases_install_info_app_stores_release">"В магазинах приложений скоро появится новая версия."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Показать настройки профиля</string>
     <string name="show_dialog_about_red_text_show_editor">Показать Редактор</string>
-    <string name="check_github_releases_new_version">Новая версия:</string>
     <string name="array_pref_change_image_wallpaper">Сменить на статичные обои</string>
     <string name="array_pref_change_live_wallpaper">(I) Сменить на живые обои</string>
     <string name="profile_preferences_deviceImageWallpaper">Статичные обои</string>
@@ -1774,13 +1772,16 @@
     <string name="icon_widget_description">Показывает иконку активированного профиля.</string>
     <string name="one_row_widget_description">Показывает активированный профиль и кнопку \"Перезапустить события\".</string>
     <string name="profile_list_widget_description">Показывает активированный профиль, кнопку \"Перезапустить события\" и список настроенных профилей, как в Активаторе.</string>
-    <string name="install_extender_installed_version">Installed version:</string>
-    <string name="install_extender_required_version">Required version:</string>
-    <string name="install_extender_text1">Install required version of PhoneProfilesPlusExtender by clicking button</string>
-    <string name="install_extender_text2">This opens browser to download PhoneProfilesPlusExtender.apk into folder \"Download\".</string>
-    <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
-    <string name="install_extender_github_releases">GitHub Releases:</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
+    <string name="install_extender_installed_version">Установленная версия:</string>
+    <string name="install_extender_required_version">Требуемая версия:</string>
+    <string name="install_extender_text1">Установите требуемую версию PhoneProfilesPlusExtender, нажав на кнопку</string>
+    <string name="install_extender_text2">Это действие открывает браузер, загружающий PhoneProfilesPlusExtender.apk в папку \"Download\".</string>
+    <string name="install_extender_text3">Затем установите этот APK, нажав на уведомление о загруженном APK.</string>
+    <string name="install_extender_github_releases">Релизы на GitHub:</string>
+    <string name="preferences_old_version_PPPExtender_title">Версия PhoneProfilesPlusExtender не соответствует требуемой!</string>
+    <string name="install_extender_where_is_assets_button">Где находится</string>
+    <string name="check_github_releases_released_version">Released version:</string>
+    <string name="check_github_releases_version_checking">… detection …</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>
@@ -1851,5 +1852,4 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
-    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>

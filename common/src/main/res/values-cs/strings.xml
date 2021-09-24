@@ -1465,7 +1465,6 @@
     <string name="profile_preferences_volumeMuteSound_summary">Tímto se nevypne zvuk budíku</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Také je ignorován režim zvuku nastaven v tomto profilu.</string>
     <string name="location_editor_connection_is_offline">Síťové připojení je odpojeno. Z tohoto důvodu nelze zobrazit mapu.</string>
-    <string name="install_extender_where_is_assets_button">Kde je</string>
     <string name="github_assets_screenshot_label">snímek obrazovky</string>
     <string name="event_preferences_orientation_light_currentValue_title">Současná hodnota světla</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Světelný senzor není ve vašem zařízení</string>
@@ -1727,7 +1726,6 @@
     <string name="check_github_releases_install_info_app_stores_release">"V obchodech s aplikacemi bude brzy nová verze."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Zobrazit parametry profilu</string>
     <string name="show_dialog_about_red_text_show_editor">Zobrazit Editor</string>
-    <string name="check_github_releases_new_version">Nová verze:</string>
     <string name="array_pref_change_image_wallpaper">Změnit na obrázek</string>
     <string name="array_pref_change_live_wallpaper">(I) Změnit na živou tapetu</string>
     <string name="profile_preferences_deviceImageWallpaper">Obrázek tapety</string>
@@ -1781,6 +1779,9 @@
     <string name="install_extender_text3">Poté nainstalujte tento APK kliknutím na notifikaci o staženém APK.</string>
     <string name="install_extender_github_releases">GitHub Vydání:</string>
     <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender není v požadované verzi!</string>
+    <string name="install_extender_where_is_assets_button">Kde je</string>
+    <string name="check_github_releases_released_version">Verze vydání:</string>
+    <string name="check_github_releases_version_checking">… zjišťování …</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
@@ -1851,5 +1852,4 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
-    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>

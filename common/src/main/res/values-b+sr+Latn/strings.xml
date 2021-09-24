@@ -1465,7 +1465,6 @@
     <string name="profile_preferences_volumeMuteSound_summary">Ovim nećete isključiti zvuk alarma</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Također se zanemaruje i mod zvuka, konfigurisan u ovom profilu.</string>
     <string name="location_editor_connection_is_offline">Mreža za povezivanje nije dostupna. Zbog ovoga je nemoguće prikazati mapu.</string>
-    <string name="install_extender_where_is_assets_button">Gde se nalaze</string>
     <string name="github_assets_screenshot_label">snimak еkrana</string>
     <string name="event_preferences_orientation_light_currentValue_title">Trenutna vrednost osvetljenosti</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Vaš uređaj ne poseduje senzor osvetljenosti</string>
@@ -1727,7 +1726,6 @@
     <string name="check_github_releases_install_info_app_stores_release">"У продавници апликација ће се ускоро појавити нова верзија."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Прикажи профилна подешавања</string>
     <string name="show_dialog_about_red_text_show_editor">Прикажи едитор</string>
-    <string name="check_github_releases_new_version">Нова верзија:</string>
     <string name="array_pref_change_image_wallpaper">Promenite u sliku</string>
     <string name="array_pref_change_live_wallpaper">(I) Promeni u živu pozadinu</string>
     <string name="profile_preferences_deviceImageWallpaper">Slika kao pozadina</string>
@@ -1781,6 +1779,9 @@
     <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
     <string name="install_extender_github_releases">GitHub Releases:</string>
     <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
+    <string name="install_extender_where_is_assets_button">Gde se nalaze</string>
+    <string name="check_github_releases_released_version">Released version:</string>
+    <string name="check_github_releases_version_checking">… detection …</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1851,5 +1852,4 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
-    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>

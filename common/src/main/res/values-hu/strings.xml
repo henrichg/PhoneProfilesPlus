@@ -1465,7 +1465,6 @@
     <string name="profile_preferences_volumeMuteSound_summary">This do not mute alarm clock sound</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Also Sound mode, configured in this profile is ignored.</string>
     <string name="location_editor_connection_is_offline">Network connection is offline. For this reason is not possible to display map.</string>
-    <string name="install_extender_where_is_assets_button">Where is</string>
     <string name="github_assets_screenshot_label">screenshot</string>
     <string name="event_preferences_orientation_light_currentValue_title">Current light value</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Light sensor is not in your device</string>
@@ -1727,7 +1726,6 @@
     <string name="check_github_releases_install_info_app_stores_release">"In application stores will be new version soon."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Show profile preferences</string>
     <string name="show_dialog_about_red_text_show_editor">Show Editor</string>
-    <string name="check_github_releases_new_version">New version:</string>
     <string name="array_pref_change_image_wallpaper">Change to image</string>
     <string name="array_pref_change_live_wallpaper">(I) Change to live wallpaper</string>
     <string name="profile_preferences_deviceImageWallpaper">Image wallpaper</string>
@@ -1781,6 +1779,9 @@
     <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
     <string name="install_extender_github_releases">GitHub Releases:</string>
     <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
+    <string name="install_extender_where_is_assets_button">Where is</string>
+    <string name="check_github_releases_released_version">Released version:</string>
+    <string name="check_github_releases_version_checking">… detection …</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>
@@ -1851,5 +1852,4 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
-    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>

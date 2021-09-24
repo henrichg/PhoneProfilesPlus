@@ -1811,7 +1811,7 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="install_extender_where_is_assets_button">Where is</string>
 
     <string name="check_github_releases_released_version">Released version:</string>
-    <string name="check_github_releases_version_checking">… checking …</string>
+    <string name="check_github_releases_version_checking">… detection …</string>
 
     <!-- **************************************************************************************** -->
 

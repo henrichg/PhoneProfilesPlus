@@ -1465,7 +1465,6 @@
     <string name="profile_preferences_volumeMuteSound_summary">Це не вимкне звук будильника</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Також режим звуку налаштований у цьому профілі не буде враховуватись.</string>
     <string name="location_editor_connection_is_offline">Мережа відсутня, тому неможливо показати карту.</string>
-    <string name="install_extender_where_is_assets_button">Де</string>
     <string name="github_assets_screenshot_label">знімок екрану</string>
     <string name="event_preferences_orientation_light_currentValue_title">Поточне значення світла</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Ваш пристрій немає датчика світла</string>
@@ -1727,7 +1726,6 @@
     <string name="check_github_releases_install_info_app_stores_release">"У магазинах додатків найближчим часом буде нова версія."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Показати параметри профілю</string>
     <string name="show_dialog_about_red_text_show_editor">Показати редактор</string>
-    <string name="check_github_releases_new_version">Нова версія:</string>
     <string name="array_pref_change_image_wallpaper">Змінити на зображення</string>
     <string name="array_pref_change_live_wallpaper">(I) Змінити на живі шпалери</string>
     <string name="profile_preferences_deviceImageWallpaper">Звичайні шпалери</string>
@@ -1771,16 +1769,19 @@
     <string name="profile_preferences_applicationDisableGlobalEventsRun">Вимкнути запуск подій</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Запуск подій вимкнуто</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Запуск подій увімкнено</string>
-    <string name="icon_widget_description">Displays activated profile icon.</string>
-    <string name="one_row_widget_description">Displays activated profile and \"Restart events\" button.</string>
-    <string name="profile_list_widget_description">Displays activated profile, \"Restart events\" button and list of configured profiles as in Activator.</string>
-    <string name="install_extender_installed_version">Installed version:</string>
-    <string name="install_extender_required_version">Required version:</string>
-    <string name="install_extender_text1">Install required version of PhoneProfilesPlusExtender by clicking button</string>
-    <string name="install_extender_text2">This opens browser to download PhoneProfilesPlusExtender.apk into folder \"Download\".</string>
-    <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
-    <string name="install_extender_github_releases">GitHub Releases:</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
+    <string name="icon_widget_description">Показувати іконку активованого профілю.</string>
+    <string name="one_row_widget_description">Показувати активований профіль та кнопку \"Перезавантажити події\".</string>
+    <string name="profile_list_widget_description">Показувати активований профіль, кнопку \"Перезавантажити події\" і список налаштованих профілів, як в Активаторі.</string>
+    <string name="install_extender_installed_version">Встановлена версія:</string>
+    <string name="install_extender_required_version">Потрібна версія:</string>
+    <string name="install_extender_text1">Встановіть необхідну версію PhoneProfilesPlusExtender натиснувши кнопку</string>
+    <string name="install_extender_text2">Таким чином відкриється браузер для завантаження PhoneProfilesPlusExtender.apk в теку \"Завантаження\".</string>
+    <string name="install_extender_text3">Потім встановіть цей APK, натиснувши на сповіщення про завантажений APK.</string>
+    <string name="install_extender_github_releases">GitHub версії:</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender застарілої версії!</string>
+    <string name="install_extender_where_is_assets_button">Де</string>
+    <string name="check_github_releases_released_version">Released version:</string>
+    <string name="check_github_releases_version_checking">… detection …</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1851,5 +1852,4 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
-    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>-->
 </resources>
