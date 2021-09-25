@@ -319,29 +319,29 @@ final class WifiApManager {
             e.printStackTrace();
             myOnStartTetheringCallbackAbstractObj = null;
         }
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(ConnectivityManager.class);
-        try {
-            myOnStartTetheringCallbackAbstractObjCls = Class.forName("android.net.ConnectivityManager$OnStartTetheringCallback");
-        } catch (ClassNotFoundException e2) {
+        if (myOnStartTetheringCallbackAbstractObj != null) {
+            ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(ConnectivityManager.class);
             try {
-                e2.printStackTrace();
+                myOnStartTetheringCallbackAbstractObjCls = Class.forName("android.net.ConnectivityManager$OnStartTetheringCallback");
+            } catch (Exception e2) {
+                Log.e("WifiApManager._startTethering30", Log.getStackTraceString(e2));
+                return;
+            }
+            try {
+                Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("startTethering",
+                        new Class[]{Integer.TYPE, Boolean.TYPE, myOnStartTetheringCallbackAbstractObjCls, Handler.class});
+                //noinspection ConstantConditions
+                if (declaredMethod == null) {
+                    Log.e("WifiApManager._startTethering30", "startTetheringMethod is null");
+                    return;
+                }
+                declaredMethod.invoke(connectivityManager, new Object[]{0, Boolean.FALSE, myOnStartTetheringCallbackAbstractObj, handler});
             } catch (Exception e) {
-                Log.e("WifiApManager.startTethering30", Log.getStackTraceString(e));
-                return;
+                Log.e("WifiApManager._startTethering30", Log.getStackTraceString(e));
             }
         }
-        try {
-            Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("startTethering",
-                    new Class[]{Integer.TYPE, Boolean.TYPE, myOnStartTetheringCallbackAbstractObjCls, Handler.class});
-            //noinspection ConstantConditions
-            if (declaredMethod == null) {
-                Log.e("WifiApManager.startTethering30", "startTetheringMethod is null");
-                return;
-            }
-            declaredMethod.invoke(connectivityManager, new Object[]{0, Boolean.FALSE, myOnStartTetheringCallbackAbstractObj, handler});
-        } catch (Exception e) {
-            Log.e("WifiApManager.startTethering30", Log.getStackTraceString(e));
-        }
+        else
+            Log.e("WifiApManager._startTethering30", "myOnStartTetheringCallbackAbstractObj is null");
     }
 
     @SuppressWarnings("RedundantArrayCreation")
