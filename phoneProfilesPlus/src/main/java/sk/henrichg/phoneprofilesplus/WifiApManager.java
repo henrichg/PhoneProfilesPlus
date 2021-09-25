@@ -334,7 +334,7 @@ final class WifiApManager {
                     new WifiTetheringCallbackMaker(context, myOnStartTetheringCallbackAbstract)
                     .getTtetheringCallback().getDeclaredConstructor(new Class[]{Integer.TYPE}).newInstance(new Object[]{0});
         } catch (Exception e) {
-            Log.e("WifiApManager._startTethering30 (1)", Log.getStackTraceString(e));
+            //Log.e("WifiApManager._startTethering30 (1)", Log.getStackTraceString(e));
             myOnStartTetheringCallbackAbstractObj = null;
         }
         //if (myOnStartTetheringCallbackAbstractObj != null) {
@@ -342,7 +342,8 @@ final class WifiApManager {
             try {
                 myOnStartTetheringCallbackAbstractObjCls = Class.forName("android.net.ConnectivityManager$OnStartTetheringCallback");
             } catch (Exception e2) {
-                Log.e("WifiApManager._startTethering30 (2)", Log.getStackTraceString(e2));
+                //Log.e("WifiApManager._startTethering30 (2)", Log.getStackTraceString(e2));
+                PPApplication.recordException(e2);
                 return;
             }
             try {
@@ -350,12 +351,13 @@ final class WifiApManager {
                         new Class[]{Integer.TYPE, Boolean.TYPE, myOnStartTetheringCallbackAbstractObjCls, Handler.class});
                 //noinspection ConstantConditions
                 if (declaredMethod == null) {
-                    Log.e("WifiApManager._startTethering30", "startTetheringMethod is null");
+                    //Log.e("WifiApManager._startTethering30", "startTetheringMethod is null");
                     return;
                 }
                 declaredMethod.invoke(connectivityManager, new Object[]{0, Boolean.FALSE, myOnStartTetheringCallbackAbstractObj, handler});
             } catch (Exception e) {
-                Log.e("WifiApManager._startTethering30 (3)", Log.getStackTraceString(e));
+                //Log.e("WifiApManager._startTethering30 (3)", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
             }
         //}
         //else

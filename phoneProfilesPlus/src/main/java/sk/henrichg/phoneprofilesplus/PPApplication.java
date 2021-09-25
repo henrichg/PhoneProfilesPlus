@@ -254,7 +254,7 @@ public class PPApplication extends Application
                                                 //+"|PApplication.getReleaseData"
                                                 //+"|CheckGitHubReleasesActivity"
 
-                                                +"|WifiApManager._startTethering30"
+                                                //+"|WifiApManager._startTethering30"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
