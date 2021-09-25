@@ -5958,12 +5958,14 @@ class ActivateProfileHelper {
         //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-enable="+enable);
 
         if (Build.VERSION.SDK_INT < 26) {
+            // for Android 7
             //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 26");
             wifiApManager.setWifiApState(enable, doNotChangeWifi);
         }
         else
         if (Build.VERSION.SDK_INT < 28) {
-            //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API >= 26");
+            // for Android 8
+            //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 28");
             Context appContext = context.getApplicationContext();
             if (WifiApManager.canExploitWifiTethering(appContext)) {
                 if (enable)
@@ -6026,6 +6028,7 @@ class ActivateProfileHelper {
             }
         }
         else if (Build.VERSION.SDK_INT < 30) {
+            // for Android 9, 10
             //Context appContext = context.getApplicationContext();
             //if (WifiApManager.canExploitWifiTethering(appContext)) {
                 if (enable)
