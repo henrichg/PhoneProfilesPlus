@@ -14,9 +14,10 @@ import java.io.IOException;
 
 public final class WifiTetheringCallbackMaker {
 
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private final MyOnStartTetheringCallbackAbstract myOnStartTetheringCallbackAbstract;
 
-    Context context;
+    final Context context;
     Class<?> tetheringCallback;
     DexMaker dexMaker;
 

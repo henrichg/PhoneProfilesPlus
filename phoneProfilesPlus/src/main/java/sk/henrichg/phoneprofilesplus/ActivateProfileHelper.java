@@ -451,7 +451,7 @@ class ActivateProfileHelper {
                 else {
                     boolean setWifiAPState = false;
                     boolean doNotChangeWifi = false;
-                    boolean isWifiAPEnabled = CmdWifiAP.isEnabled(context);
+                    boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabledA30(context);
                     switch (profile._deviceWiFiAP) {
                         case 1:
                         case 4:
