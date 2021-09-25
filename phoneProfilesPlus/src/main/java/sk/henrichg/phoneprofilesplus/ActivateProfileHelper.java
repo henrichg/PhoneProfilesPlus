@@ -448,7 +448,7 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-                else {
+                /*else {
                     // not working in Android 11+
                     boolean setWifiAPState = false;
                     boolean doNotChangeWifi = false;
@@ -489,7 +489,7 @@ class ActivateProfileHelper {
                         CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi, context, profile._name);
                         PPApplication.sleep(1000);
                     }
-                }
+                }*/
             }
         }
 
@@ -502,7 +502,8 @@ class ActivateProfileHelper {
                     if (Build.VERSION.SDK_INT < 30)
                         isWifiAPEnabled = WifiApManager.isWifiAPEnabled(appContext);
                     else
-                        isWifiAPEnabled = CmdWifiAP.isEnabled(context);
+                        //isWifiAPEnabled = CmdWifiAP.isEnabled(context);
+                        isWifiAPEnabled = WifiApManager.isWifiAPEnabledA30(appContext);
 //                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "isWifiAPEnabled="+isWifiAPEnabled);
                     if ((!isWifiAPEnabled) || (profile._deviceWiFi >= 4)) { // only when wifi AP is not enabled, change wifi
                         WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);

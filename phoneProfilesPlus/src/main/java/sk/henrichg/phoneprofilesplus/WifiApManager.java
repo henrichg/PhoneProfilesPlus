@@ -149,6 +149,26 @@ final class WifiApManager {
         }
     }
 
+    static boolean isWifiAPEnabledA30(Context context) {
+//        PPApplication.logE("CmdWifiAP.isEnabled", "xxx");
+        try {
+            //boolean enabled;
+            /*IWifiManager adapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
+            //PPApplication.logE("CmdWifiAP.isEnabled", "adapter="+adapter);
+            enabled = adapter.getWifiApEnabledState() == WifiManager.WIFI_AP_STATE_ENABLED;
+            //PPApplication.logE("CmdWifiAP.isEnabled", "enabled="+enabled);
+            return enabled;*/
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//            PPApplication.logE("CmdWifiAP.isEnabled", "enabled="+wifiManager.isWifiApEnabled());
+            return wifiManager.isWifiApEnabled();
+        } catch (Throwable e) {
+            //Log.e("CmdWifiAP.isEnabled", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+            //PPApplication.logE("CmdWifiAP.isEnabled", Log.getStackTraceString(e));
+            return false;
+        }
+    }
+
     static boolean canExploitWifiAP(Context context) {
         try {
             /*WifiApManager wifiApManager = */new WifiApManager(context);
