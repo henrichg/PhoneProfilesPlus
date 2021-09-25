@@ -6,7 +6,9 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Handler;
 import android.os.ResultReceiver;
+import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -289,6 +291,72 @@ final class WifiApManager {
             return true;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    static class MyOnStartTetheringCallback extends MyOnStartTetheringCallbackAbstract {
+        MyOnStartTetheringCallback() {
+        }
+    }
+
+    public void startTethering30(Context context) {
+        MyOnStartTetheringCallback callback = new MyOnStartTetheringCallback();
+        _startTethering30(context, callback, new Handler());
+    }
+
+    @SuppressWarnings("RedundantArrayCreation")
+    @SuppressLint("PrivateApi")
+    private void _startTethering30(Context context,
+                                   MyOnStartTetheringCallbackAbstract myOnStartTetheringCallbackAbstract,
+                                   Handler handler) {
+        Object myOnStartTetheringCallbackAbstractObj;
+        Class<?> myOnStartTetheringCallbackAbstractObjCls = null;
+        try {
+            myOnStartTetheringCallbackAbstractObj =
+                    new WifiTetheringCallbackMaker(context, myOnStartTetheringCallbackAbstract)
+                    .getTtetheringCallback().getDeclaredConstructor(new Class[]{Integer.TYPE}).newInstance(new Object[]{0});
+        } catch (Exception e) {
+            e.printStackTrace();
+            myOnStartTetheringCallbackAbstractObj = null;
+        }
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(ConnectivityManager.class);
+        try {
+            myOnStartTetheringCallbackAbstractObjCls = Class.forName("android.net.ConnectivityManager$OnStartTetheringCallback");
+        } catch (ClassNotFoundException e2) {
+            try {
+                e2.printStackTrace();
+            } catch (Exception e) {
+                Log.e("WifiApManager.startTethering30", Log.getStackTraceString(e));
+                return;
+            }
+        }
+        try {
+            Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("startTethering",
+                    new Class[]{Integer.TYPE, Boolean.TYPE, myOnStartTetheringCallbackAbstractObjCls, Handler.class});
+            //noinspection ConstantConditions
+            if (declaredMethod == null) {
+                Log.e("WifiApManager.startTethering30", "startTetheringMethod is null");
+                return;
+            }
+            declaredMethod.invoke(connectivityManager, new Object[]{0, Boolean.FALSE, myOnStartTetheringCallbackAbstractObj, handler});
+        } catch (Exception e) {
+            Log.e("WifiApManager.startTethering30", Log.getStackTraceString(e));
+        }
+    }
+
+    @SuppressWarnings("RedundantArrayCreation")
+    public void stopTethering30(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(ConnectivityManager.class);
+        try {
+            Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("stopTethering", new Class[]{Integer.TYPE});
+            //noinspection ConstantConditions
+            if (declaredMethod == null) {
+                Log.e("WifiApManager.stopTethering30", "stopTetheringMethod is null");
+                return;
+            }
+            declaredMethod.invoke(connectivityManager, new Object[]{0});
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

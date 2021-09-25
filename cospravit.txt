@@ -460,7 +460,7 @@ WiFi Hotspot v MacroDroide:
 
    private int m19032f(boolean z) {
         C4018a aVar = new C4018a();
-        C3626c cVar = new C3626c(this); --> toto je ten class co pouizva DexMaker
+        C3626c cVar = new C3626c(this);
         if (z) {
             cVar.mo13440a(aVar, new Handler()); --> zapnutie AP
         } else {
