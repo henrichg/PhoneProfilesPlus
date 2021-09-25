@@ -448,8 +448,7 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-                /*else {
-                    // not working in Android 11+
+                else {
                     boolean setWifiAPState = false;
                     boolean doNotChangeWifi = false;
                     boolean isWifiAPEnabled = CmdWifiAP.isEnabled(context);
@@ -486,10 +485,11 @@ class ActivateProfileHelper {
                     }
                     if (setWifiAPState) {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "CmdWifiAP.setWifiAP()");
-                        CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi, context, profile._name);
+                        //CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi, context, profile._name);
+                        setWifiAP(null, isWifiAPEnabled, doNotChangeWifi, appContext);
                         PPApplication.sleep(1000);
                     }
-                }*/
+                }
             }
         }
 
@@ -6038,12 +6038,12 @@ class ActivateProfileHelper {
                     wifiApManager.stopTethering();
             //}
         }
-        /*else {
+        else {
             if (enable)
-                wifiApManager.startTethering(doNotChangeWifi);
+                WifiApManager.startTethering30(context, doNotChangeWifi);
             else
-                wifiApManager.stopTethering();
-        }*/
+                WifiApManager.stopTethering30(context);
+        }
     }
 
     private static void setNFC(Context context, boolean enable)

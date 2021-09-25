@@ -691,7 +691,7 @@ class PreferenceAllowed {
 
         String preferenceKey = Profile.PREF_PROFILE_DEVICE_WIFI_AP;
 
-        if (Build.VERSION.SDK_INT < 30) {
+        //if (Build.VERSION.SDK_INT < 30) {
             if (PPApplication.HAS_FEATURE_WIFI) {
                 // device has Wifi
                 if (android.os.Build.VERSION.SDK_INT < 26) {
@@ -777,12 +777,12 @@ class PreferenceAllowed {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
             }
-        }
-        else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_android_version);
-        }
+        //}
+        //else {
+        //    preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+        //    preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+        //    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_android_version);
+        //}
 
             /*if (PPApplication.logEnabled()) {
                 PPApplication.logE("$$$ WifiAP", "Profile.isProfilePreferenceAllowed-preferenceAllowed.allowed=" + preferenceAllowed.allowed);

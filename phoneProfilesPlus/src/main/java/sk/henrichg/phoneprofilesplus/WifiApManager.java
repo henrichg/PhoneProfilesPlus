@@ -299,18 +299,36 @@ final class WifiApManager {
         }
     }
 
-    public void startTethering30(Context context) {
+    static void startTethering30(Context context, boolean doNotChangeWifi) {
+        if (!doNotChangeWifi) {
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if (wifiManager != null) {
+                int wifiState = wifiManager.getWifiState();
+                boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                //PPApplication.logE("WifiApManager.startTethering", "isWifiEnabled="+isWifiEnabled);
+                if (isWifiEnabled) {
+                    //PPApplication.logE("#### setWifiEnabled", "from WifiAPManager.startTethering");
+                    //if (Build.VERSION.SDK_INT >= 29)
+                    //    CmdWifi.setWifi(false);
+                    //else
+//                        PPApplication.logE("[WIFI_ENABLED] WifiApManager.startTethering", "false");
+                    //noinspection deprecation
+                    wifiManager.setWifiEnabled(false);
+                }
+            }
+        }
+
         MyOnStartTetheringCallback callback = new MyOnStartTetheringCallback();
         _startTethering30(context, callback, new Handler());
     }
 
     @SuppressWarnings("RedundantArrayCreation")
     @SuppressLint("PrivateApi")
-    private void _startTethering30(Context context,
+    static private void _startTethering30(Context context,
                                    MyOnStartTetheringCallbackAbstract myOnStartTetheringCallbackAbstract,
                                    Handler handler) {
         Object myOnStartTetheringCallbackAbstractObj;
-        Class<?> myOnStartTetheringCallbackAbstractObjCls = null;
+        Class<?> myOnStartTetheringCallbackAbstractObjCls;// = null;
         try {
             myOnStartTetheringCallbackAbstractObj =
                     new WifiTetheringCallbackMaker(context, myOnStartTetheringCallbackAbstract)
@@ -345,7 +363,7 @@ final class WifiApManager {
     }
 
     @SuppressWarnings("RedundantArrayCreation")
-    public void stopTethering30(Context context) {
+    static void stopTethering30(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(ConnectivityManager.class);
         try {
             Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("stopTethering", new Class[]{Integer.TYPE});

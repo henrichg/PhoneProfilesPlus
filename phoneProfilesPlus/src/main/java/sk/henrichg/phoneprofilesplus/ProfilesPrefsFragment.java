@@ -789,14 +789,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
 
         if (Build.VERSION.SDK_INT >= 29) {
-            if (Build.VERSION.SDK_INT < 30) {
+            //if (Build.VERSION.SDK_INT < 30) {
                 preference = findPreference("prf_pref_deviceWiFiAPInfo");
                 if (preference != null) {
                     preference.setSummary(getString(R.string.profile_preferences_deviceWiFiAPInfo_summary) +
                         "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary) +
                         "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo_2_summary));
                 }
-            }
+            //}
             preference = findPreference("prf_pref_deviceCloseAllApplicationsInfo");
             if (preference != null) {
                 preference.setSummary(getString(R.string.profile_preferences_deviceCloseAllApplicationsInfo_summary) + "\n" + getString(R.string.profile_preferences_deviceWiFiAPInfo2_summary));
@@ -2290,7 +2290,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             else
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title;
         }
-        if (Build.VERSION.SDK_INT < 30) {
+        //if (Build.VERSION.SDK_INT < 30) {
             title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI_AP, R.string.profile_preferences_deviceWiFiAP, false, context);
 //                Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_WIFI_AP - notGrantedG1Permission="+notGrantedG1Permission);
             if (!title.isEmpty()) {
@@ -2304,7 +2304,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
                 cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
             }
-        }
+        //}
         title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, R.string.profile_preferences_deviceWiFiAPPrefs, false, context);
 //            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_WIFI_AP_PREFS - notGrantedG1Permission="+notGrantedG1Permission);
         if (!title.isEmpty()) {
@@ -4944,7 +4944,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null)
                 preference.setEnabled(enabled);
         }
-        if (Build.VERSION.SDK_INT < 30) {
+        //if (Build.VERSION.SDK_INT < 30) {
             if (key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP)) {
                 PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
                 if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -4957,7 +4957,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     }
                 }
             }
-        }
+        //}
         if (key.equals(Profile.PREF_PROFILE_VOLUME_RINGER_MODE) ||
                 key.equals(Profile.PREF_PROFILE_VOLUME_ZEN_MODE)) {
             String ringerMode = preferences.getString(Profile.PREF_PROFILE_VOLUME_RINGER_MODE, "0");

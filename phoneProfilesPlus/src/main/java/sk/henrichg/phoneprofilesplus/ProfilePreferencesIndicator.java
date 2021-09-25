@@ -931,7 +931,7 @@ class ProfilePreferencesIndicator {
                     }
                 }
             }
-            if (Build.VERSION.SDK_INT < 30) {
+            //if (Build.VERSION.SDK_INT < 30) {
                 // wifi AP
                 if (profile._deviceWiFiAP != 0) {
                     if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
@@ -963,7 +963,7 @@ class ProfilePreferencesIndicator {
                         }
                     }
                 }
-            }
+            //}
             // wifi AP preferences
             if (profile._deviceWiFiAPPrefs == 1) {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
