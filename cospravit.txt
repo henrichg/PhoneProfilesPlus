@@ -418,51 +418,77 @@ Skus spravit tie images vektorove.
 
 ----------
 
-Text v dialogu (nedavaj ako parameter, daj natvrdo v installExtender()):
-"
-Installed version: (ak ma nainstalovane, inac to tam nedavaj)
-Required version: (verzia z PPApplication.VERSION_NAME_EXTENDER_LATEST)
+WiFi Hotspot v MacroDroide:
 
-Install required version of PhoneProfilesPlusExtender by clicking button "Install".   (pouzi R.string.alert_button_install)
-This opens browser to download PhoneProfilesPlusExtender.apk into folder "/Downloads".
-Then install this APK by clicking notification about downloaded APK.
-"
+/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/p160jm/C3624a.java
+- toto cez DexMaker robi reflection nad OnStartTetheringCallback
 
-CheckPPPReleasesBroadcastReceiver
-- notifikacia otavara toto:
-        Intent _intent;
-        _intent = new Intent(appContext, CheckPPPReleasesActivity.class);
-        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, false);
-- pozri, co ta aktivita spravi, ked je CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK=false
-  - vola sa toto:
-        showDialog(this, false, criticalCheck ? -2 : -1, newVersionName, newVersionCode);
-    cize otvori sa:
-    - pre Samsung Galaxy Store, pre Huawei AppGallery,
-      ked je nainstalovamy AmazanStore, tak ten
-      ked je nainstalovany F-Droid, tak ten
+/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/p160jm/C3626c.java
+- tu je pouzivany C3624a.java
+- vypada, ze je to class, ktory robi startTethering() a stopTethering()
+  - startTethering() -> mo13440a()
+    - ma parameter C3625b
+    - volane takto: cVar.mo13440a(aVar, new Handler());
+  - stopTethering() -> mo13441b()
 
-      v ostatnych pripadoch GitHub - !!! tu nemam verziu, aka je v GitHub !!!
+/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/p160jm/C3625b.java
+- vypada ako abstract class, asi MyOnStartTetheringCallback
 
-CheckCriticalPPPReleasesBroadcastReceiver
-- notifikacia otavara toto:
-        Intent _intent;
-        _intent = new Intent(appContext, CheckPPPReleasesActivity.class);
-        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, true);
-        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, versionNameInReleases);
-        _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, versionCodeInReleases);
-- pozri, co ta aktivita spravi, ked je CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK=true
-  - vola sa toto:
-        showDialog(this, false, criticalCheck ? -2 : -1, newVersionName, newVersionCode);
-    cize otvori sa:
-    - natvrdo GitHub - tu zistujem verziu, aka je v GitHub
+/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/services/WifiHotspotService.java
+- toto este cele prezri, je tam kopa kodu na tethering
 
-EditorProfileActivity
-- vola sa CheckPPPReleasesActivity.showDialog() s itemId = R.id.menu_check_in_github
-  - !!! tu nemam verziu, aka je v GitHub !!!
+- m19030d() -> vypada, ze robi samotne zapnutioe/vypnutie - zakaldna funkcia
+  Je tam test na ali level:
 
-Takze sprav toto:
-1. Zobrazuj aktualnu verziu
-2. Zobrazuj verziu na stiahnutie - ak mam verziu aka je v GitHub
-3. Ak mam verziu, aka je v GitHub:
-   - zmen positiveButton R.string.check_github_releases_go_to_github na R.string.alert_button_install
-     a volaj instalaciu, inac volaj GitHub releases stranku
+      int Mechanizm, boolean ForceLegacy - su parametre
+
+      int api_level = Build.VERSION.SDK_INT;
+        if (api_level >= 26 && !ForceLegacy && Mechanizm == 0) {
+            m19032f(z);
+        } else if (api_level < 25 || (ForceLegacy && Mechanizm != 1)) {
+            m19033g(z);
+            this.f8799a = -1;
+        } else {
+            m19031e(z);
+        }
+
+- onHandleIntent()
+  - tu je volane m19030d():
+
+     public void onHandleIntent(Intent intent) {
+        this.f8800c = (WifiManager) getApplicationContext().getSystemService("wifi");
+        boolean z = false;
+        boolean booleanExtra = intent.getBooleanExtra("ForceLegacy", false);
+        int intExtra = intent.getIntExtra("WifiAPState", 0);
+        int intExtra2 = intent.getIntExtra("Mechanism", 0);
+        this.f8801d = intent.getBooleanExtra("TurnOnWifi", false);
+        this.f8802f = intent.getStringExtra("com.arlosoft.macrodroid.MACRO_NAME");
+        if (intExtra == 0) {
+            m19030d(true, intExtra2, booleanExtra);
+        } else if (intExtra == 1) {
+            m19030d(false, intExtra2, booleanExtra);
+        } else if (intExtra == 2) {
+            int b = m19028b();
+            if (!(b == 2 || b == 3)) {
+                z = true;
+            }
+            m19030d(z, intExtra2, booleanExtra);
+        }
+    }
+
+/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/SetHotspotAction.java
+- tu sa spusta WifiHotspotService nahadzuju sa mu parametre. Pozri samotny MacroDroid, co mam pre akciu, ake parametre:
+   public void mo11681y2(TriggerContextInfo triggerContextInfo) {
+        try {
+            Intent intent = new Intent(mo15668c0(), WifiHotspotService.class);
+            intent.putExtra("ForceLegacy", this.m_useLegacyMechanism);
+            intent.putExtra("WifiAPState", this.m_state);
+            intent.putExtra("TurnOnWifi", this.m_turnWifiOn);
+            intent.putExtra("Mechanism", this.mechanism);
+            intent.putExtra("com.arlosoft.macrodroid.MACRO_NAME", mo15683p0().mo17334C());
+            mo15668c0().startService(intent);
+        } catch (IllegalStateException e) {
+            SystemLog.m25369h("Could not start hotspot service - foreground service not enabled? " + e.toString(), mo15684q0().longValue());
+        }
+    }
+
