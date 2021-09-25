@@ -444,13 +444,39 @@ WiFi Hotspot v MacroDroide:
 
       int api_level = Build.VERSION.SDK_INT;
         if (api_level >= 26 && !ForceLegacy && Mechanizm == 0) {
-            m19032f(z);
+            m19032f(z); ==> VYPADA, ZE TOTO MAM NAKONFIGUROVANE V MacroDroid
         } else if (api_level < 25 || (ForceLegacy && Mechanizm != 1)) {
             m19033g(z);
             this.f8799a = -1;
         } else {
             m19031e(z);
         }
+
+   -----
+   class C4018a extends C3625b {
+       C4018a() {
+       }
+   }
+
+   private int m19032f(boolean z) {
+        C4018a aVar = new C4018a();
+        C3626c cVar = new C3626c(this); --> toto je ten class co pouizva DexMaker
+        if (z) {
+            cVar.mo13440a(aVar, new Handler()); --> zapnutie AP
+        } else {
+            cVar.mo13441b(); --> vypnutie AP
+        }
+        try {
+            Thread.sleep(2000);
+        } catch (Exception unused) {
+        }
+        if (m19029c() == z) {
+            return 0;
+        }
+        m19031e(z);
+        return 0;
+    }
+   -----
 
 - onHandleIntent()
   - tu je volane m19030d():
