@@ -1780,9 +1780,10 @@
     <string name="install_extender_github_releases">GitHub версії:</string>
     <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender застарілої версії!</string>
     <string name="install_extender_where_is_assets_button">Де</string>
-    <string name="check_github_releases_released_version">Released version:</string>
-    <string name="check_github_releases_version_checking">… detection …</string>
-    <string name="check_github_releases_version_critical">! CRITICAL !</string>
+    <string name="check_github_releases_released_version">Випущена версія:</string>
+    <string name="check_github_releases_version_checking">… виявлення …</string>
+    <string name="check_github_releases_version_critical">❗ВАЖЛИВА❗</string>
+    <string name="important_info_profile_grant_1_howTo_0">Цю допомогу краще переглядати браузером на комп\'ютері. В PhoneProfilesPlus GitHub README.md вона позначена як</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

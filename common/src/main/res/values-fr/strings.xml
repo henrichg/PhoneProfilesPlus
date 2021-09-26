@@ -1780,9 +1780,10 @@
     <string name="install_extender_github_releases">Versions GitHub :</string>
     <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender n\'est pas dans la version requise !</string>
     <string name="install_extender_where_is_assets_button">Où est</string>
-    <string name="check_github_releases_released_version">Released version:</string>
-    <string name="check_github_releases_version_checking">… detection …</string>
+    <string name="check_github_releases_released_version">Version mise à jour :</string>
+    <string name="check_github_releases_version_checking">… détection …</string>
     <string name="check_github_releases_version_critical">! CRITICAL !</string>
+    <string name="important_info_profile_grant_1_howTo_0">Il est préférable d\'ouvrir cette aide dans son navigateur Internet sur un PC. Elle est dans le fichier README.md du GitHub de PhoneProfilesPlus</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

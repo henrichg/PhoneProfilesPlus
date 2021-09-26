@@ -1783,6 +1783,7 @@
     <string name="check_github_releases_released_version">Verze vydání:</string>
     <string name="check_github_releases_version_checking">… zjišťování …</string>
     <string name="check_github_releases_version_critical">! KRITICKÉ !</string>
+    <string name="important_info_profile_grant_1_howTo_0">Tuto pomoc je lepší otevřít v počítači v jeho internetovém prohlížeči. Je v PhoneProfilesPlus GitHub README.md, označené jako</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

@@ -1780,9 +1780,10 @@
     <string name="install_extender_github_releases">Релизы на GitHub:</string>
     <string name="preferences_old_version_PPPExtender_title">Версия PhoneProfilesPlusExtender не соответствует требуемой!</string>
     <string name="install_extender_where_is_assets_button">Где находится</string>
-    <string name="check_github_releases_released_version">Released version:</string>
-    <string name="check_github_releases_version_checking">… detection …</string>
-    <string name="check_github_releases_version_critical">! CRITICAL !</string>
+    <string name="check_github_releases_released_version">Выпущенная версия:</string>
+    <string name="check_github_releases_version_checking">… определение …</string>
+    <string name="check_github_releases_version_critical">! КРИТИЧЕСКОЕ !</string>
+    <string name="important_info_profile_grant_1_howTo_0">Эту инструкцию лучше открыть в браузере на компьютере. Она находится в файле README.md на GitHub PhoneProfilesPlus и отмечена</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

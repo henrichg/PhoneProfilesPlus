@@ -1772,17 +1772,18 @@
     <string name="icon_widget_description">显示已激活的情景图标</string>
     <string name="one_row_widget_description">显示已激活情景和重启事件按钮</string>
     <string name="profile_list_widget_description">在激活清单中显示已激活情景、重启事件按钮和配置情景列表</string>
-    <string name="install_extender_installed_version">Installed version:</string>
-    <string name="install_extender_required_version">Required version:</string>
-    <string name="install_extender_text1">Install required version of PhoneProfilesPlusExtender by clicking button</string>
-    <string name="install_extender_text2">This opens browser to download PhoneProfilesPlusExtender.apk into folder \"Download\".</string>
-    <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
-    <string name="install_extender_github_releases">GitHub Releases:</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
+    <string name="install_extender_installed_version">已安装版本：</string>
+    <string name="install_extender_required_version">所需版本：</string>
+    <string name="install_extender_text1">点击按钮安装 PhoneProfilesPlusExture 所需版本</string>
+    <string name="install_extender_text2">打开浏览器将 PhoneProfilesPlusExtender.apk 下载到\"Download\"文件夹。</string>
+    <string name="install_extender_text3">然后点击下载完成通知来安装此 APK。</string>
+    <string name="install_extender_github_releases">GitHub 版本：</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExture 不是所需版本！</string>
     <string name="install_extender_where_is_assets_button">位置</string>
-    <string name="check_github_releases_released_version">Released version:</string>
-    <string name="check_github_releases_version_checking">… detection …</string>
-    <string name="check_github_releases_version_critical">! CRITICAL !</string>
+    <string name="check_github_releases_released_version">已发布版本：</string>
+    <string name="check_github_releases_version_checking">… 检测 …</string>
+    <string name="check_github_releases_version_critical">! 关键 !</string>
+    <string name="important_info_profile_grant_1_howTo_0">This help is better to open it in computer in his Internet browser. It is in PhoneProfilesPlus GitHub README.md, marked as</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>

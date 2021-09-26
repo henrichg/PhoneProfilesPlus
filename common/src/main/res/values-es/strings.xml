@@ -1780,9 +1780,10 @@
     <string name="install_extender_github_releases">Versiones de Github:</string>
     <string name="preferences_old_version_PPPExtender_title">¡PhoneProfilesPlusExtender no está en la versión necesaria!</string>
     <string name="install_extender_where_is_assets_button">¿Dónde está</string>
-    <string name="check_github_releases_released_version">Released version:</string>
-    <string name="check_github_releases_version_checking">… detection …</string>
-    <string name="check_github_releases_version_critical">! CRITICAL !</string>
+    <string name="check_github_releases_released_version">Versión lanzada:</string>
+    <string name="check_github_releases_version_checking">… detección …</string>
+    <string name="check_github_releases_version_critical">!CRÍTICO!</string>
+    <string name="important_info_profile_grant_1_howTo_0">Esta ayuda es mejor abrirla en tu navegador de Internet. Está en el README.md de PhoneProfilesPlus en GitHub, marcada como</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>

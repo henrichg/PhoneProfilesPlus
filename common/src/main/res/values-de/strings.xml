@@ -1782,7 +1782,8 @@
     <string name="install_extender_where_is_assets_button">Wo sind</string>
     <string name="check_github_releases_released_version">Freigegebene Version:</string>
     <string name="check_github_releases_version_checking">… Erkennung …</string>
-    <string name="check_github_releases_version_critical">! CRITICAL !</string>
+    <string name="check_github_releases_version_critical">❗ Kritisch ❗</string>
+    <string name="important_info_profile_grant_1_howTo_0">Für diese Hilfe ist es besser, sie auf dem Computer in seinem Internet-Browser zu öffnen. Es ist in PhoneProfilesPlus GitHub README.md, gekennzeichnet als</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
