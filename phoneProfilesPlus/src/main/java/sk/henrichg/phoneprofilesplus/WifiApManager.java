@@ -294,6 +294,8 @@ final class WifiApManager {
         }
     }
 
+    // Tnank to author of MacroDroid application.
+    // It is used as source of this implenetation.
     static class MyOnStartTetheringCallback extends MyOnStartTetheringCallbackAbstract {
         MyOnStartTetheringCallback() {
         }
