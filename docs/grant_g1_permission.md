@@ -1,3 +1,6 @@
+How to grant (G1) permission
+============================
+
 ##### Profile parameters marked with (G1) need special permission for PhoneProfilesPlus. This is done through your PC with installed adb.
 
 If you do not have adb installed on your PC:
