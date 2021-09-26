@@ -299,6 +299,8 @@ final class WifiApManager {
         }
     }
 
+    // Tnank to author of MacroDroid application.
+    // It is used as source of this implenetation.
     static void startTethering30(Context context, boolean doNotChangeWifi) {
         if (!doNotChangeWifi) {
             WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -322,6 +324,8 @@ final class WifiApManager {
         _startTethering30(context, callback, new Handler());
     }
 
+    // Tnank to author of MacroDroid application.
+    // It is used as source of this implenetation.
     @SuppressWarnings("RedundantArrayCreation")
     @SuppressLint("PrivateApi")
     static private void _startTethering30(Context context,
@@ -364,6 +368,8 @@ final class WifiApManager {
         //    Log.e("WifiApManager._startTethering30", "myOnStartTetheringCallbackAbstractObj is null");
     }
 
+    // Tnank to author of MacroDroid application.
+    // It is used as source of this implenetation.
     @SuppressWarnings("RedundantArrayCreation")
     static void stopTethering30(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(ConnectivityManager.class);

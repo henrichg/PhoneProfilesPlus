@@ -1,5 +1,8 @@
 package sk.henrichg.phoneprofilesplus;
 
+// Tnank to author of MacroDroid application.
+// It is used as source of this implenetation.
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.annotation.RequiresApi;
