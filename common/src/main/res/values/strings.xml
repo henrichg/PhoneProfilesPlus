@@ -1814,7 +1814,7 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="check_github_releases_version_checking">… detection …</string>
     <string name="check_github_releases_version_critical">! CRITICAL !</string>
 
-    <string name="important_info_profile_grant_1_howTo_0">This help is better to open it in computer in his browser. It is in PhoneProfilesPlus GitHub README.md, marked as</string>
+    <string name="important_info_profile_grant_1_howTo_0">This help is better to open it in computer in his Internet browser. It is in PhoneProfilesPlus GitHub README.md, marked as</string>
     <string name="important_info_profile_grant_1_howTo_0_1" translatable="false">\"(HELP) How to grant (G1) permission\"</string>
 
     <!-- **************************************************************************************** -->
