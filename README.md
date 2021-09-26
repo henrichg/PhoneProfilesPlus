@@ -34,6 +34,9 @@ _**** Please report me bugs, comments and suggestions to my e-mail: <henrich.gro
 
 _*** Please help me with translation, thank you: <https://crowdin.com/project/phoneprofilesplus> ***_
 
+##### How to grant (G1) permission
+- [Show it](docs/grant_g1_permission.md)
+
 ##### Features
 - [Show it](docs/ppp_features.md)
 
