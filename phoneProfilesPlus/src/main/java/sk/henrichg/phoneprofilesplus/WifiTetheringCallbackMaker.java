@@ -43,7 +43,7 @@ public final class WifiTetheringCallbackMaker {
             this.dexMaker = new DexMaker();
             TypeId typeIdOfLTetheringCallback = TypeId.get("LTetheringCallback;");
             this.dexMaker.declare(typeIdOfLTetheringCallback, "TetheringCallback.generated", 1, typeIdOfOnStartTetheringCallback, new TypeId[0]);
-            this.dexMaker.declare(typeIdOfLTetheringCallback.getField(TypeId.get(MyOnStartTetheringCallbackAbstract.class), "callback"), 2, (Object) null);
+            this.dexMaker.declare(typeIdOfLTetheringCallback.getField(TypeId.get(MyOnStartTetheringCallbackAbstract.class), "callback"), 2, null);
             invokeOnStartTetheringCallback(typeIdOfLTetheringCallback, typeIdOfOnStartTetheringCallback);
             //noinspection TryWithIdenticalCatches
             try {

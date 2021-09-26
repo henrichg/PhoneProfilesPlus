@@ -344,7 +344,7 @@ final class WifiApManager {
             myOnStartTetheringCallbackAbstractObj = null;
         }
         //if (myOnStartTetheringCallbackAbstractObj != null) {
-            ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(ConnectivityManager.class);
+            ConnectivityManager connectivityManager = context.getApplicationContext().getSystemService(ConnectivityManager.class);
             try {
                 myOnStartTetheringCallbackAbstractObjCls = Class.forName("android.net.ConnectivityManager$OnStartTetheringCallback");
             } catch (Exception e2) {
@@ -374,7 +374,7 @@ final class WifiApManager {
     // It is used as source of this implenetation.
     @SuppressWarnings("RedundantArrayCreation")
     static void stopTethering30(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(ConnectivityManager.class);
+        ConnectivityManager connectivityManager = context.getApplicationContext().getSystemService(ConnectivityManager.class);
         try {
             Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("stopTethering", new Class[]{Integer.TYPE});
             //noinspection ConstantConditions
