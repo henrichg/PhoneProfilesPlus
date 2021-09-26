@@ -324,7 +324,7 @@ final class WifiApManager {
         _startTethering30(context, callback, new Handler());
     }
 
-    // Tnank to author of MacroDroid application.
+    // Thanks to author of MacroDroid application.
     // It is used as source of this implenetation.
     @SuppressWarnings("RedundantArrayCreation")
     @SuppressLint("PrivateApi")
@@ -368,7 +368,7 @@ final class WifiApManager {
         //    Log.e("WifiApManager._startTethering30", "myOnStartTetheringCallbackAbstractObj is null");
     }
 
-    // Tnank to author of MacroDroid application.
+    // Thanks to author of MacroDroid application.
     // It is used as source of this implenetation.
     @SuppressWarnings("RedundantArrayCreation")
     static void stopTethering30(Context context) {
