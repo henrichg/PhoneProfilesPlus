@@ -26,14 +26,14 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
     //private String activeLanguage;
     private String activeTheme;
     //private String activeNightModeOffTheme;
-    private boolean backgroundScannerEnabled;
+    private boolean periodicScannerEnabled;
     private boolean locationScannerEnabled;
     private boolean wifiScannerEnabled;
     private boolean bluetoothScannerEnabled;
     private boolean orientationScannerEnabled;
     private boolean mobileCellScannerEnabled;
     private boolean notificationScannerEnabled;
-    private int backgroundScanInterval;
+    private int periodicScanInterval;
     private int wifiScanInterval;
     private int bluetoothScanInterval;
     private int locationScanInterval;
@@ -96,7 +96,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         hideEditorHeaderOrBottomBar = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HIDE_HEADER_OR_BOTTOM_BAR, true);
         //showEditorHeader = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EDITOR_HEADER, true);
 
-        backgroundScannerEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_ENABLE_SCANNING, false);
+        periodicScannerEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, false);
         locationScannerEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_ENABLE_SCANNING, false);
         wifiScannerEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, false);
         bluetoothScannerEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, false);
@@ -104,7 +104,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         mobileCellScannerEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_MOBILE_CELL_ENABLE_SCANNING, false);
         notificationScannerEnabled = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_NOTIFICATION_ENABLE_SCANNING, false);
 
-        backgroundScanInterval = Integer.parseInt(preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_INTERVAL, "15"));
+        periodicScanInterval = Integer.parseInt(preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, "15"));
         wifiScanInterval = Integer.parseInt(preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, "15"));
         bluetoothScanInterval = Integer.parseInt(preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_SCAN_INTERVAL, "15"));
         locationScanInterval = Integer.parseInt(preferences.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_LOCATION_UPDATE_INTERVAL, "15"));
@@ -148,8 +148,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 case "eventRunCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsEventRun();
                     break;
-                case "backgroundScanningCategoryRoot":
-                    preferenceFragment = new PhoneProfilesPrefsBackgroundScanning();
+                case "periodicScanningCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsPeriodicScanning();
                     break;
                 case "locationScanningCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsLocationScanning();
@@ -192,8 +192,7 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         if (savedInstanceState == null) {
-            //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                Permissions.saveAllPermissions(getApplicationContext(), false);
+            Permissions.saveAllPermissions(getApplicationContext(), false);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.activity_preferences_settings, preferenceFragment)
@@ -384,8 +383,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
 
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(getApplicationContext());
-        //if (backgroundScannerEnabled != ApplicationPreferences.applicationEventBackgroundScanningEnableScanning)
-        //    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_DISABLED_SCANNING_BY_PROFILE, false);
+        //if (backgroundScannerEnabled != ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
+        //    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODICSCANNING_DISABLED_SCANNING_BY_PROFILE, false);
         if (wifiScannerEnabled != ApplicationPreferences.applicationEventWifiEnableScanning)
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_DISABLED_SCANNING_BY_PROFILE, false);
         if (bluetoothScannerEnabled != ApplicationPreferences.applicationEventBluetoothEnableScanning)
@@ -406,8 +405,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             if ((Build.VERSION.SDK_INT < 26)) {
                 PPApplication.setCustomKey(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR, ApplicationPreferences.notificationShowInStatusBar);
             }
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_ENABLE_SCANNING, ApplicationPreferences.applicationEventBackgroundScanningEnableScanning);
-            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_INTERVAL, ApplicationPreferences.applicationEventBackgroundScanningScanInterval);
+            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, ApplicationPreferences.applicationEventPeriodicScanningEnableScanning);
+            PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, ApplicationPreferences.applicationEventPeriodicScanningScanInterval);
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING, ApplicationPreferences.applicationEventWifiEnableScanning);
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_INTERVAL, ApplicationPreferences.applicationEventWifiScanInterval);
             PPApplication.setCustomKey(ApplicationPreferences.PREF_APPLICATION_EVENT_BLUETOOTH_ENABLE_SCANNING, ApplicationPreferences.applicationEventBluetoothEnableScanning);
@@ -446,9 +445,8 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 PhoneProfilesService.getInstance().showProfileNotification(false, true, true);
             }
         }, 1000);
-        //PPApplication.logE("ActivateProfileHelper.updateGUI", "from PhoneProfilesPrefsActivity.onStop");
-        //PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsActivity.onStop");
-        PPApplication.updateGUI(0, getApplicationContext()/*, true, true*/);
+//        PPApplication.logE("###### PPApplication.updateGUI", "from=PhoneProfilesPrefsActivity.doPreferenceChanges");
+        PPApplication.updateGUI(true, false, getApplicationContext());
 
         if (Permissions.grantRootChanged) {
             //PPApplication.logE("PhoneProfilesPrefsActivity.doPreferenceChanges", "grant root changed");
@@ -496,10 +494,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }*/
 
         if (permissionsChanged ||
-                (backgroundScannerEnabled != ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) ||
-                backgroundScanInterval != ApplicationPreferences.applicationEventBackgroundScanningScanInterval) {
+                (periodicScannerEnabled != ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) ||
+                periodicScanInterval != ApplicationPreferences.applicationEventPeriodicScanningScanInterval) {
             //PPApplication.logE("[RJS] PhoneProfilesPrefsActivity.doPreferenceChanged", "restart orientation scanner");
-            PPApplication.restartBackgroundScanningScanner(appContext);
+            PPApplication.restartPeriodicScanningScanner(appContext);
         }
 
         if (permissionsChanged ||
@@ -867,11 +865,11 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
         }
     }
 
-    static public class PhoneProfilesPrefsBackgroundScanning extends PhoneProfilesPrefsFragment {
+    static public class PhoneProfilesPrefsPeriodicScanning extends PhoneProfilesPrefsFragment {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsBackgroundScanning");
+            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsPeriodicScanning");
 
             PreferenceManager prefMng = getPreferenceManager();
             SharedPreferences preferences = prefMng.getSharedPreferences();
@@ -880,19 +878,19 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 loadSharedPreferences(preferences, applicationPreferences);
             }
 
-            setPreferencesFromResource(R.xml.phone_profiles_prefs_background_scanning, rootKey);
+            setPreferencesFromResource(R.xml.phone_profiles_prefs_periodic_scanning, rootKey);
         }
 
         @Override
         void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
-            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsBackgroundScanning");
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_ENABLE_SCANNING, false));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_INTERVAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_INTERVAL, "15"));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_POWER_SAVE_MODE, "1"));
-            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON, false));
-            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY, "0"));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM, 0));
-            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_TO, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_BACKGROUND_SCANNING_SCAN_IN_TIME_MULTIPLY_TO, 0));
+            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsPeriodicScanning");
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_ENABLE_SCANNING, false));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_INTERVAL, "15"));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_POWER_SAVE_MODE, "1"));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_ONLY_WHEN_SCREEN_IS_ON, false));
+            editor.putString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY, "0"));
+            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM, 0));
+            editor.putInt(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO, fromPreference.getInt(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO, 0));
         }
     }
 

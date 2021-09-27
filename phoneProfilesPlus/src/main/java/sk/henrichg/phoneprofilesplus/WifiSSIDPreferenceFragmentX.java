@@ -352,8 +352,8 @@ public class WifiSSIDPreferenceFragmentX extends PreferenceDialogFragmentCompat 
             if (itemId == R.id.wifi_ssid_pref_dlg_item_menu_delete) {
                 if (getActivity() != null) {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setTitle(getResources().getString(R.string.profile_context_item_delete));
-                    dialogBuilder.setMessage(getResources().getString(R.string.delete_wifi_ssid_alert_message));
+                    dialogBuilder.setTitle(getString(R.string.profile_context_item_delete));
+                    dialogBuilder.setMessage(getString(R.string.delete_wifi_ssid_alert_message));
                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                     dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                         preference.removeSSID(ssid);

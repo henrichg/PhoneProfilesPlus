@@ -65,7 +65,6 @@
     <string name="profile_preferences_deviceNFC">(G1)(R) NFC</string>
     <string name="profile_preferences_deviceScreenTimeout">Bildschirm Abschaltung</string>
     <string name="profile_preferences_deviceBrightness">Bildschirmhelligkeit</string>
-    <string name="profile_preferences_deviceWallpaper">Hintergrundbild</string>
     <string name="profile_preferences_deviceWallpaperChange">Hintergrundbild ändern</string>
     <string name="array_pref_no_change">Nicht ändern</string>
     <string name="array_pref_hardwareModeArray_on">An</string>
@@ -413,7 +412,6 @@
     <string name="pref_event_battery_power_save_mode">Energiesparmodus</string>
     <string name="event_preferences_battery_power_save_mode">Energiesparmodus</string>
     <string name="phone_profiles_pref_applicationPowerSaveMode">Energiesparmodus-Einstellungen</string>
-    <string name="important_info_profile_ringerMode_root">In Android 6 ist es ohne Root nicht möglich, die Vibration im Stumm-Modus zu ändern.</string>
     <string name="important_info_profile_adaptiveBrightness_root">In Android 6+ ist es ohne Root nicht möglich, die adaptive Helligkeit zu ändern.</string>
     <string name="important_info_profile_wifiScanning_location">In Android 6+ muss die Suche nach Standort und WLAN in den Standorteinstellungen aktiviert sein, damit WLAN-Netze gefunden werden können.</string>
     <string name="important_info_profile_bluetoothScanning_location">In Android 6+ müssen Standort und Bluetooth-Scan in den Standorteinstellungen aktiviert sein, damit Bluetooth-LE-Scan funktioniert.</string>
@@ -445,7 +443,6 @@
     <string name="important_info_profile_activation_restart_events_icon">Ereignisneustart-Symbol:</string>
     <string name="important_info_profile_activation_traffic_light_icon">Ampel-Symbol:</string>
     <string name="important_info_android_doze_mode">In Android 6+ gibt es den \"Tiefschlafmodus\" und \"App-Standby\". Wenn du Probleme mit der Profilaktivierung durch Ereignisse hast, wenn dein Gerät lange Zeit ungenutzt und der Bildschirm aufgeschaltet war, dann füge PhoneProfilesPlus in \"Batterie\"→\"Batterieoptimierung\"→\"Nicht optimiert\" hinzu.</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfo_title">Beim Klingeln vibrieren</string>
     <string name="info_notification_event_states">Ein Ereignis kann 6 Zustände haben:</string>
     <string name="info_notification_event_states_running">Läuft: Ereignis ist gestartet und aktiv. Ereignisparameter sind erfüllt.</string>
     <string name="info_notification_event_states_paused">Angehalten: Ereignis angehalten, bis die Parameter erfüllt sind.</string>
@@ -762,7 +759,6 @@
     <string name="array_pref_applicationDisableScanning_enabled">Scannen eingeschaltet</string>
     <string name="duration_pref_dlg_duration_label">Dauer:</string>
     <string name="duration_pref_dlg_activation_end_label">Aktivierungs-Ende:</string>
-    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">Unter Android 6 kann diese Einstellung nur auf gerooteten Geräten geändert werden. Betroffen sind der Klingel-Modus und die Nicht-Stören-Typen mit Vibration.</string>
     <string name="setting_screen_not_found_alert">Einstellungs Dialog nicht gefunden.</string>
     <string name="action_for_external_application_notification_no_profile_text">Profilname ist nicht angegeben.</string>
     <string name="action_for_external_application_notification_no_event_text">Ereignis Name ist nicht angegeben.</string>
@@ -795,7 +791,7 @@
     <string name="important_info_quick_guide_3"><![CDATA[<b>EREIGNISSE:</b> Spezifiziert, wann Geräteeinstellungen geändert werden.]]></string>
     <string name="important_info_quick_guide_profiles_1"><b>PROFILE:</b> ermöglicht die Einstellung von Klingel Art, Lautstärkeeinstellung, Klingel- und Benachrichtigungstöne, ein/ausschalten von Wi-Fi, Bluetooth, mobile Daten, etc. Wenn ein Profil aktiviert wird gelten die Einstellungen dieses Profils, bis ein anderes Profil manuell oder automatisch aktiviert wird.</string>
     <string name="important_info_quick_guide_profiles_2">Profile können manuell, oder durch ein Event aktiviert werden.</string>
-    <string name="important_info_quick_guide_profiles_3">Manuelle Aktivierung von Profilen mit dem PPP Pop-Up Fenster. Das Fenster kann über das Programm Icon, Benachrichtigungs Icon, PPP Widget, Uhr Widget und bei Samsung Edge Geräten über das Edge Panel aktiviert werden. Direkte Aktivierung auch über das 4x4 Widget oder eine Verknüpfung zum Profil.</string>
+    <string name="important_info_quick_guide_profiles_3">Manuelle Aktivierung von Profilen mit dem PPP Pop-Up Fenster. Das Fenster kann über das Programmsymbol, Benachrichtigungssymbol, PPP-Widget, Uhr-Widget und bei Samsung Edge Geräten über das Edge-Panel aktiviert werden. Direkte Aktivierung auch über das 4x4-Widget oder eine Verknüpfung zum Profil.</string>
     <string name="important_info_quick_guide_events_1"><b>EREIGNISSE:</b> Steuern die Profil Aktivierung. Ereignisse haben Start und Ende Befehle, die bestimmen was beim Start und beim Ende des Ereignisses ausgeführt wird.</string>
     <string name="important_info_quick_guide_events_2">Die Ereignisse beinhalten wichtige Sensor Konfigurationsmöglichkeiten, die erfüllt sein müssen damit ein Ereignis gestartet werden kann. Bei fehlenden Sensoreinstellungen wird das Ereignis beendet bzw. nicht gestartet.</string>
     <string name="important_info_quick_guide_sensors_1">Sensor Beispiele:</string>
@@ -883,7 +879,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Suche nach Mobilfunkzellen deaktivieren</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Bestimmung der Geräteausrichtung deaktivieren</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Popup-Benachrichtigungen</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary">Laden Sie die neueste Version von PhoneProfilesPlusExtender.apk von GitHub herunter. Anschließend klicken Sie auf die Benachrichtigung über der heruntergeladenen apk und installieren Sie ihn.</string>
     <string name="fast_access_duration_activate_without_button_2">Aktivieren ohne Verzögerung</string>
     <string name="profileicon_pref_dlg_customIconButton">Benutzerdefiniertes Symbol</string>
     <string name="mobile_cells_registration_cell_name_hint">Hier klicken, um den Zellnamen festzulegen</string>
@@ -1073,7 +1068,6 @@
     <string name="event_preferences_extender_not_installed">PhoneProfilesPlusExtender ist nicht installiert.</string>
     <string name="array_event_pref_peripheralType_headphones">Kopfhörer ohne Mikrofon</string>
     <string name="preferences_not_installed_PPPExtender_title">PhoneProfilesPlusExtender ist nicht installiert!</string>
-    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender muss aktualisiert werden!</string>
     <string name="default_profile_name_battery_ok">Akku OK</string>
     <string name="array_pref_applicationsEditorDialogFilter_applications">(A) Anwendungen</string>
     <string name="array_pref_applicationsEditorDialogFilter_shortcuts">(V) Verknüpfungen</string>
@@ -1228,8 +1222,8 @@
     <string name="ignore_battery_optimization_notification_text">Bitte klicke hier und füge PhoneProfilesPlus zu „Nicht optimiert“ hinzu. Dies ist notwendig, um bei ausgeschaltetem Display gut zu funktionieren.</string>
     <string name="array_show_profile_in_activator_not_show">Nicht anzeigen</string>
     <string name="array_show_profile_in_activator_show">Anzeigen</string>
-    <string name="editor_activity_targetHelps_showInActivator_title">Profil in Activator anzeigen</string>
-    <string name="editor_activity_targetHelps_showInActivator_description">Hier klicken, um den Profilparameter „Im Aktivator anzeigen” zu konfigurieren.</string>
+    <string name="editor_activity_targetHelps_showInActivator_title">Profil im Starter anzeigen</string>
+    <string name="editor_activity_targetHelps_showInActivator_description">Hier klicken, um den Profilparameter „Im Starter anzeigen” zu konfigurieren.</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Display immer eingeschaltet</string>
     <string name="permission_why_profile_always_on_display">um das Always-On Display an-/auszuschalten</string>
     <string name="array_ignore_manual_activation_not_ignore">Nicht ignorieren</string>
@@ -1294,10 +1288,9 @@
     <string name="pref_event_screen_startWhenLocked">Starten wenn gesperrt</string>
     <string name="event_preferences_screen_start_when_locked">Starten wenn gesperrt</string>
     <string name="event_preference_sensor_screen_summary">Dieser Sensor startet ein Ereignis beim Aus-/Einschalten des Bildschirms. Parameter: Ereignistyp (Bildschirm ein, Bildschirm aus), Start bei entsperrtem/verriegeltem Gerät (Ereignis startet bei entsperrtem/verriegeltem Gerät).</string>
-    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Profilpräferenz-Kennzeichnen im Aktivator, Editor und Verknüpfungen anzeigen</string>
+    <string name="phone_profiles_pref_applicationPrefIndicator_summary">Profilpräferenz-Kennzeichnen im Starter, Editor und Verknüpfungen anzeigen</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForNotification_summary">Profilpräferenz-Kennzeichen in Mitteilungen anzeigen</string>
     <string name="phone_profiles_pref_applicationPrefIndicatorForWidget_summary">Profilpräferenz-Kennzeichnen in Widgets anzeigen</string>
-    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk befindet sich in</string>
     <string name="event_preferences_not_set_underlined_parameters_summary">Unterstrichene Parameter sind erforderlich.</string>
     <string name="event_preferences_red_sensors_summary">Überprüfen Sie auch die rot gekennzeichneten Sensorparameter.</string>
     <string name="event_preferences_sensor_parameters_location_summary">Die Sensorparameter befinden sich unter den Hauptereignisparametern.</string>
@@ -1324,7 +1317,7 @@
     <string name="important_info_android_look_application_settings">Bitte öffnen Sie die Einstellungen von PhoneProfilesPlus und konfigurieren Sie diese. Insbesondere Parameter, die mit fettgedrucktem Text gekennzeichnet sind.</string>
     <string name="profile_preferences_red_texts_text_2">Eine Aktivierung ist hierfür nicht möglich.</string>
     <string name="event_preferences_red_texts_text_2">Eine Änderung der Ausführung ist hierfür nicht möglich.</string>
-    <string name="profile_preferences_red_texts_text_3">Eine Anzeige im Aktivator ist hierfür nicht möglich.</string>
+    <string name="profile_preferences_red_texts_text_3">Eine Anzeige im Starter ist hierfür nicht möglich.</string>
     <string name="profile_preferences_red_texts_in_header">Einige Profile enthalten Fehler in ihren Einstellungen. Diese Profile wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
     <string name="event_preferences_red_texts_in_header">Einige Ereignisse enthalten Fehler in den Einstellungen. Diese Ereignisse wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">für Verbinden mit SSID</string>
@@ -1398,12 +1391,6 @@
     <string name="altype_profileError_setWallpaper">Profil - Fehler beim Festlegen des Hintergrundbildes</string>
     <string name="preference_not_allowed_reason_detail_not_granted_bluetooth_permission">Bluetooth-Erlaubnis nicht erteilt</string>
     <string name="profile_preferences_volumeMuteSound">Stummschalten</string>
-    <string name="phone_profiles_pref_category_background_scanning">Scannen im Hintergrund</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Diese Einstellungen gelten für das Scannen im Hintergrund. Es ist nützlich, wenn der Zeit- oder Kalenderereignissensor nicht gut funktioniert.\n\n Es wird empfohlen, dieses Scannen nicht zu aktivieren, wenn der Positionsbestimmungs-, WLAN-, Bluetooth- oder Ausrichtungssensor in jedem Fall verwendet wird.</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Scannen im Hintergrund aktivieren</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Intervall für das Scannen im Hintergrund (Minuten)</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Scannen im Hintergrund im Energiesparmodus</string>
-    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Legen Sie die Parameter für das Scannen im Hintergrund in den App-Einstellungen fest.</string>
     <string name="preference_not_allowed_reason_detail_not_granted_phone_permission">Zugriff auf das Telefon nicht gewährt</string>
     <string name="profile_preferences_deviceLocationMode">(G1) Standortbestimmungsmodus</string>
     <string name="array_pref_locationModeArray_off">Standortbestimmung aus</string>
@@ -1462,13 +1449,11 @@
     <string name="profile_activation_activation_error_change_wifi_ap">Fehler bei der Aktivierung des Profils. Ändern des WLAN-Hotspot-Status fehlgeschlagen.</string>
     <string name="profile_activation_activation_error_change_wifi">Fehler bei der Aktivierung des Profils. Ändern des WLAN-Status fehlgeschlagen.</string>
     <string name="profile_activation_activation_error_close_all_applications">Fehler bei der Aktivierung des Profils. Schließen aller Anwendungen fehlgeschlagen.</string>
-    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Nicht unterstützt für Android 11+</string>
     <string name="menu_check_github_releases">App-Veröffentlichungen prüfen</string>
     <string name="check_github_releases_actual_version">Aktuelle Version:</string>
     <string name="check_github_releases_go_to_github">Zu den GitHub-Veröffentlichungen</string>
     <string name="check_github_releases_install_info_1">Laden Sie die neueste Version von PhoneProfilesPlusExtender.apk von GitHub herunter. Anschließend klicken Sie auf die Benachrichtigung über der heruntergeladenen apk und installieren Sie sie.</string>
     <string name="check_github_releases_install_info_2">PhoneProfilesPlus.apk befindet sich in</string>
-    <string name="check_github_releases_notification">Klicken Sie auf diese Benachrichtigung, um die Veröffentlichungen von PhoneProfilesPlus im GitHub zu überprüfen. Vielleicht wurde eine neuere Version veröffentlicht.</string>
     <string name="donation_paypal">Bitte spenden Sie mit PayPal:</string>
     <string name="notification_channel_new_release">Neue PhoneProfilesPlus-Version</string>
     <string name="notification_channel_new_release_description">Zeigt Benachrichtigung über neues PhoneProfilesPlus-Release.</string>
@@ -1480,7 +1465,6 @@
     <string name="profile_preferences_volumeMuteSound_summary">Dadurch wird der akustische Weckalarm nicht deaktiviert</string>
     <string name="profile_preferences_volumeMuteSound_summary_2">Auch der in diesem Profil konfiguriert Audiomodus wird ignoriert.</string>
     <string name="location_editor_connection_is_offline">Die Netzwerkverbindung ist unterbrochen. Aus diesem Grund ist es nicht möglich, die Karte anzuzeigen.</string>
-    <string name="install_extender_where_is_assets_button">Wo sind</string>
     <string name="github_assets_screenshot_label">Bildschirmfoto</string>
     <string name="event_preferences_orientation_light_currentValue_title">Aktueller Lichtwert</string>
     <string name="event_preferences_orientation_light_currentValue_noHardware">Ihr Gerät verfügt nicht über einen Lichtsensor</string>
@@ -1490,7 +1474,7 @@
     <string name="toast_restart_events_global_events_run_is_disabled">Neustarten von Ereignissen kann nicht genutzt werden, da das Ausführen von Ereignissen deaktiviert ist</string>
     <string name="critical_github_release">Kritisches Release der App</string>
     <string name="critical_github_release_notification">Klicken Sie auf diese Benachrichtigung, um eine PhoneProfilesPlus-Version mit kritischen Änderungen von GitHub herunterzuladen.</string>
-    <string name="acra_email_subject_text">PhoneProfilesPlus - Absturzbericht</string>
+    <string name="acra_email_subject_text">absturzbericht</string>
     <string name="acra_email_body_text">PhoneProfilesPlus ist abgestürzt. Anbei finden Sie den Absturzbericht.</string>
     <string name="acra_notification_title">Leider ist PhoneProfilesPlus abgestürzt</string>
     <string name="notification_channel_crash_report">Absturzbericht</string>
@@ -1542,7 +1526,6 @@
     <string name="profile_preferences_PPPExtender_not_installed_summary">Nicht installiert</string>
     <string name="accessibility_service_enabled">Aktiviert</string>
     <string name="accessibility_service_disabled">Deaktiviert</string>
-    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Funktioniert nicht in Android 10+</string>
     <string name="event_preferences_calendar_day_contains_event">Der aktuelle Tag enthält ein Kalenderereignis</string>
     <string name="array_event_pref_calendarDayContainsEvent_notTestIt">Nicht ausprobieren</string>
     <string name="array_event_pref_calendarDayContainsEvent_contains">Enthält UND und konfigurierte Parameter</string>
@@ -1643,9 +1626,9 @@
     <string name="editor_activity_targetHelps_profilesBottomMenu_description">Hier klicken, um ein Menü mit weiteren Aktionen für Profile zu öffnen: „Alle Profile löschen”</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Weitere Aktionen für Ereignisse</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Hier klicken, um ein Menü mit weiteren Aktionen für Ereignisse zu öffnen: „Standardprofil”, „Alle Ereignisse löschen”</string>
-    <string name="profile_preferences_showInActivator_summary">Aktivieren, wenn Sie dieses Profil im Aktivator, Listen-Widget und im Samsung Edge-Panel anzeigen möchten.</string>
-    <string name="show_profile_in_activator_not_show_toast">Das Profil wird nicht im Aktivator, Listen-Widget und Samsung Edge-Panel angezeigt</string>
-    <string name="show_profile_in_activator_show_toast">Das Profil wird im Aktivator, Listen-Widget und Samsung Edge-Panel angezeigt</string>
+    <string name="profile_preferences_showInActivator_summary">Aktivieren, wenn Sie dieses Profil im Starter, Listen-Widget und im Samsung Edge-Panel anzeigen möchten.</string>
+    <string name="show_profile_in_activator_not_show_toast">Das Profil wird nicht im Starter, Listen-Widget und Samsung Edge-Panel angezeigt</string>
+    <string name="show_profile_in_activator_show_toast">Das Profil wird im Starter, Listen-Widget und Samsung Edge-Panel angezeigt</string>
     <string name="ignore_manual_activation_not_ignore_toast">Ereignis wird nicht gestartet, wenn ein beliebiges Profil manuell aktiviert wurde</string>
     <string name="ignore_manual_activation_ignore_toast">Ereignis wird gestartet, sobald ein beliebiges Profil manuell aktiviert wird</string>
     <string name="ignore_manual_activation_ignore_no_pause_toast">Ereignis wird gestartet und auch nicht pausiert, sobald ein beliebiges Profil manuell aktiviert wird</string>
@@ -1683,9 +1666,6 @@
     <string name="check_releases_install_amazon_appstore">Bitte installieren Sie die Amazon Appstore-Anwendung.</string>
     <string name="applicationApplicationInterfaceActivationNotification">Benachrichtigung beim Aktivieren des Profils</string>
     <string name="phone_profiles_pref_applicationActivatorAddRestartEventsIntoProfileList">„Ereignisse neu starten” zur Profilliste hinzufügen</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Scannen von Hintergrundzeiten</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Von</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">An</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiply">Bluetooth scan in time</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyFrom">Von</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanTimeMultiplyTo">An</string>
@@ -1706,7 +1686,6 @@
     <string name="phone_profiles_pref_applicationEventWifiScanTimeMultiplyTo">An</string>
     <string name="menu_check_releases_appgallery">Check in AppGallery</string>
     <string name="check_releases_open_appgallery">AppGallery öffnen</string>
-    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Background scanning scan interval</string>
     <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCategory">Bluetooth scan interval</string>
     <string name="phone_profiles_pref_applicationEventLocationScanIntervalCategory">Location scan interval</string>
     <string name="phone_profiles_pref_applicationEventOrientationScanIntervalCategory">Orientation scan interval</string>
@@ -1718,7 +1697,7 @@
     <string name="activity_log_help_message_data_for">für</string>
     <string name="activity_log_help_message_data_profileName">Name des Profils. Er kann [M] (=manuelle Aktivierung) enthalten, gefolgt vom in Klammern gesetzten Ende der Dauer.</string>
     <string name="activity_log_help_message_data_profileNameEventName">Profile name [event name]. Profile name is last activated profile and event name is last started event.</string>
-    <string name="activity_log_help_message_data_displayedInGUI">Diese Informationen werden auch in allen Elementen der Benutzeroberfläche (Anwendungsbenachrichtigung, Aktivator, Editor, Widgets, …) angezeigt.</string>
+    <string name="activity_log_help_message_data_displayedInGUI">Diese Informationen werden auch in allen Elementen der Benutzeroberfläche (Anwendungsbenachrichtigung, Starter, Editor, Widgets, …) angezeigt.</string>
     <string name="activity_log_help_message_data_otherProfileDataTypes">alle anderen für Profile</string>
     <string name="activity_log_help_message_data_profileName_otherDataTypes">Name des Profils.</string>
     <string name="activity_log_help_message_data_otherEventDataTypes">alle anderen für Ereignisse</string>
@@ -1747,7 +1726,64 @@
     <string name="check_github_releases_install_info_app_stores_release">"In den App Stores wird demnächst eine neue Version veröffentlicht."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Profil-Einstellungen anzeigen</string>
     <string name="show_dialog_about_red_text_show_editor">Editor anzeigen</string>
-    <string name="check_github_releases_new_version">Neue Version:</string>
+    <string name="array_pref_change_image_wallpaper">Change to image</string>
+    <string name="array_pref_change_live_wallpaper">(I) Change to live wallpaper</string>
+    <string name="profile_preferences_deviceImageWallpaper">Image wallpaper</string>
+    <string name="profile_preferences_deviceLiveWallpaper">(I) Live wallpaper</string>
+    <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Nicht ausgewählt</string>
+    <string name="menu_check_releases_apkpure">In APKPure suchen</string>
+    <string name="check_releases_go_to_apkpure">Zu APKPure wechseln</string>
+    <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Nativ erzwingen (für benutzerdefinierte Symbole)</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Anwendungen, Verknüpfungen, Absichten für „MIUI” ausführen</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">Für „MIUI” müssen einige Berechtigungen erteilt werden. Klicken Sie hier, um die Vorgehensweise anzuzeigen.</string>
+    <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In den Geräteeinstellungen ➜ Apps ➜ Apps verwalten ➜ PhoneProfilesPlus ➜ Andere Berechtigungen: „Popup-Fenster anzeigen, wenn im Hintergrund ausgeführt” und „Auf dem Sperrbildschirm anzeigen” auf „Akzeptieren” festlegen.</string>
+    <string name="miui_permissions_alert_dialog_show">Berechtigungen anzeigen</string>
+    <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrieren beim Klingeln ➜ Vibrationsbenachrichtigungen</string>
+    <string name="profile_preferences_vibrateNotifications">Vibrationsbenachrichtigungen</string>
+    <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Töne und Vibration</string>
+    <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">Damit das Vibrieren für Klingeln und Benachrichtigungen richtig funktioniert, wenn \"Töne\" auf einen bestimmten Vibrationstyp festgelegt ist, wird empfohlen, in den Geräteeinstellungen zu aktivieren: \"Ton und Vibration\" ➜ \"Vibration und Haptik\" ➜ „Vibrationsbenachrichtigung”.</string>
+    <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Der Dienst „Eingabehilfen” für PhoneProfilesPlusExtender ist deaktiviert, kann aber aktiviert werden</string>
+    <string name="extender_accessibility_setting_not_enabled_title">Dienst „Eingabehilfen” nicht aktiviert</string>
+    <string name="extender_accessibility_setting_not_enabled_text">Der Dienst „Eingabehilfen” für PhoneProfilesPlusExtender ist derzeit deaktiviert. Klicken Sie hier, um ihn zu aktivieren.</string>
+    <string name="event_preference_sensor_periodic_summary">Dieser Sensor ist für die periodische Profilaktivierung vorgesehen. Parameter: Vielfaches des Abfrageintervalls, Dauer ( Ereignislaufzeit).</string>
+    <string name="event_type_periodic">Periodisch</string>
+    <string name="pref_event_periodic_multiple_interval">Vielfaches des Abfrageintervalls</string>
+    <string name="event_preferences_category_eventPeriodicParameters">Periodischer Sensor</string>
+    <string name="pref_event_periodic_resulting_interval">Resultierendes Intervall (Minuten)</string>
+    <string name="phone_profiles_pref_category_background_scanning">Periodisches Abfragen</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">Diese Einstellungen gelten für periodische Abfragen. Wird für den Sensor für periodische Ereignisse verwendet.\nIst zudem nützlich, wenn der Sensor für Zeit- oder Kalenderereignisse nicht gut funktioniert.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Periodisches Abfragen aktivieren</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInterval">Periodisches Abfrageintervall (Minuten)</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanInPowerSaveMode">Periodisches Abfragen im Energiesparmodus</string>
+    <string name="phone_profiles_pref_eventBackgroundScanningAppSettings_summary">Legen Sie die Parameter für das periodische Abfragen in den Einstellungen der Anwendung fest.</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiply">Periodic scan in time</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">Von</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">An</string>
+    <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Periodisches Abfrageintervall</string>
+    <string name="array_pref_change_random_image_wallpaper">Zu einer zufälligen Grafik aus einem Ordner wechseln</string>
+    <string name="permissions_for_wallpaper_folder_text1">Die Auswahl eines Ordners für ein zufälliges Hintergrundbild erfordert einige Berechtigungen.</string>
+    <string name="permissions_for_wallpaper_folder_text2">Bitte geben Sie diese im nächsten Dialog Ihre Zustimmung. Sie können dann einen Ordner für zufällige Hintergrundbilder aus der Ordnerauswahl auswählen.</string>
+    <string name="profile_preferences_deviceWallpaperFolder">Ordner mit Grafiken</string>
+    <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Bestimmtes Profil aktivieren, anschließend Ereignisse neu starten</string>
+    <string name="profile_preferences_applicationDisableScanning">Suche deaktivieren</string>
+    <string name="profile_preferences_applicationDisableGlobalEventsRun">„Ereignisse ausführen” deaktivieren</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_disabled">„Ereignisse ausführen” deaktiviert</string>
+    <string name="array_pref_applicationDisableGlobalEventsRun_enabled">„Ereignisse ausführen” aktiviert</string>
+    <string name="icon_widget_description">Zeigt das Symbol für das aktivierte Profil an.</string>
+    <string name="one_row_widget_description">Zeigt das aktivierte Profil und die Schaltfläche „Ereignisse neu starten” an.</string>
+    <string name="profile_list_widget_description">Zeigt das aktivierte Profil, die Schaltfläche „Ereignisse neu starten” und die Liste der konfigurierten Profile wie im Starter an.</string>
+    <string name="install_extender_installed_version">Installierte Version:</string>
+    <string name="install_extender_required_version">Geforderte Version:</string>
+    <string name="install_extender_text1">Installieren Sie die geforderte Version von PhoneProfilesPlusExtender, durch Klicken auf die Schaltfläche</string>
+    <string name="install_extender_text2">Dadurch wird der Browser geöffnet, um PhoneProfilesPlusExtender.apk in den Ordner „Download” herunterzuladen.</string>
+    <string name="install_extender_text3">Anschließend installieren Sie diese APK, indem Sie auf die Benachrichtigung über die heruntergeladene APK klicken.</string>
+    <string name="install_extender_github_releases">GitHub-Veröffentlichung:</string>
+    <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender muss aktualisiert werden!</string>
+    <string name="install_extender_where_is_assets_button">Wo sind</string>
+    <string name="check_github_releases_released_version">Freigegebene Version:</string>
+    <string name="check_github_releases_version_checking">… Erkennung …</string>
+    <string name="check_github_releases_version_critical">❗ Kritisch ❗</string>
+    <string name="important_info_profile_grant_1_howTo_0">Für diese Hilfe ist es besser, sie auf dem Computer in seinem Internet-Browser zu öffnen. Es ist in PhoneProfilesPlus GitHub README.md, gekennzeichnet als</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1771,7 +1807,7 @@
     <string name="extender_accessibility_service_profile_lock_device">• Dienst Eingabehilfen für den Profilparameter „Gerät sperren”:</string>
     <string name="extender_application_releases">Versionen:</string>
     <string name="extender_web_browser_chooser">Link öffnen mit</string>
-    <string name="extender_acra_email_subject_text">PhoneProfilesPlusExtender - Absturzbericht</string>
+    <string name="extender_acra_email_subject_text">absturzbericht</string>
     <string name="extender_acra_email_body_text">PhoneProfilesPlusExtender ist abgestürzt. Anbei finden Sie den Absturzbericht.</string>
     <string name="extender_acra_notification_title">Leider ist PhoneProfilesPlusExtender abgestürzt</string>
     <string name="extender_acra_notification_text">Bitte klicken Sie hier, um den Absturzbericht an den Autor zu senden. Vielen Dank.</string>
@@ -1781,6 +1817,8 @@
     <string name="extender_battery_optimization_optimized">Optimiert</string>
     <string name="extender_battery_optimization_not_optimized">Nicht optimiert</string>
     <string name="extender_battery_optimization_button">Akku-Optimierung\nöffnen</string>
+    <string name="extender_acra_email_body_device">Gerät:</string>
+    <string name="extender_acra_email_body_android_version">Android-Version:</string>
     <!--    <string name="profile_preferences_deviceMobileData">Mobile data</string>-->
     <!--    <string name="import_profiles_alert_error_sharedProfile_bug">Error restoring the shared profile preferences.</string>-->
     <!--    <string name="important_info_profile_grant_1_howTo_11">https://developer.android.com/studio/releases/platform-tools.html</string>-->
@@ -1809,4 +1847,11 @@
     <!--    <string name="preferences_durationNotificationSoundInfo_summary">This notification uses the media channel. Therefore it uses the media volume.</string>-->
     <!--    <string name="profile_preferences_volumeNotificationsAccessSettings_summary_notification_access">To enable \"Do not disturb\" profile parameters, allow PhoneProfilesPlus \"Notification access\" in system settings.</string>-->
     <!--    <string name="profile_preferences_red_volumeNotificationsAccessSettings_summary_notification_access">To enable \"\"Do not disturb\" type\" profile parameter, allow for PhoneProfilesPlus \"Notification access\" in system settings. Click here to enable it.</string>-->
+    <!--    <string name="profile_preferences_deviceWallpaper">Wallpaper</string>-->
+    <!--    <string name="profile_preferences_volumeVibrateWhenRingingRootInfoM_summary">In Android 6: This system setting can be changed only on rooted devices. Affected are ringer modes and do not disturb types with vibration.</string>-->
+    <!--    <string name="profile_preferences_deviceWiFiAPInfo30_summary">Not supported for Android 11+</string>-->
+    <!--    <string name="check_github_releases_notification">Click this notification for check of PhoneProfilesPlus releases in it\'s GitHub. Maybe was released newer version.</string>-->
+    <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
+    <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
 </resources>

@@ -264,7 +264,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             // create new profile
             if (predefinedProfileIndex == 0) {
                 profile = DataWrapper.getNonInitializedProfile(
-                        getBaseContext().getResources().getString(R.string.profile_name_default),
+                        getBaseContext().getString(R.string.profile_name_default),
                         Profile.PROFILE_ICON_DEFAULT, 0);
             }
             else {
@@ -373,7 +373,11 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._soundNotificationSIM1,
                         origProfile._soundNotificationChangeSIM2,
                         origProfile._soundNotificationSIM2,
-                        origProfile._soundSameRingtoneForBothSIMCards
+                        origProfile._soundSameRingtoneForBothSIMCards,
+                        origProfile._deviceLiveWallpaper,
+                        origProfile._vibrateNotifications,
+                        origProfile._deviceWallpaperFolder,
+                        origProfile._applicationDisableGloabalEventsRun
                 );
                 showSaveMenu = true;
             }
@@ -474,12 +478,16 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, ""));
             profile._deviceBrightness = preferences.getString(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS, "");
             profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, ""));
-            if (profile._deviceWallpaperChange == 1) {
+            if (profile._deviceWallpaperChange != 0) {
                 profile._deviceWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER, "");
+                profile._deviceLiveWallpaper = preferences.getString(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER, "");
                 profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR, ""));
+                profile._deviceWallpaperFolder = preferences.getString(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, "");
             } else {
-                profile._deviceWallpaper = "-|0";
+                profile._deviceWallpaper = "-";
+                profile._deviceLiveWallpaper = "";
                 profile._deviceWallpaperFor = 0;
+                profile._deviceWallpaperFolder = "-";
             }
             profile._deviceMobileData = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA, ""));
             profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, ""));
@@ -501,6 +509,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceNetworkType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE, ""));
             profile._notificationLed = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_NOTIFICATION_LED, ""));
             profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, ""));
+            profile._vibrateNotifications = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, ""));
             profile._lockDevice = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_LOCK_DEVICE, ""));
             profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, "");
             profile._applicationDisableWifiScanning = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, ""));
@@ -579,6 +588,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotificationSIM2=" + profile._soundNotificationSIM2);
 
             profile._soundSameRingtoneForBothSIMCards = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, ""));
+            profile._applicationDisableGloabalEventsRun = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, ""));
 
         }
 
@@ -904,6 +914,16 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             setPreferencesFromResource(R.xml.profile_prefs_sounds_dual_sim_support, rootKey);
+        }
+
+    }
+
+    @SuppressWarnings("unused")
+    static public class ProfilesPrefsWallpaper extends ProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            setPreferencesFromResource(R.xml.profile_prefs_wallpaper, rootKey);
         }
 
     }

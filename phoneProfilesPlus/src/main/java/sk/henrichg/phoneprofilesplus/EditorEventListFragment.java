@@ -208,7 +208,7 @@ public class EditorEventListFragment extends Fragment
             showTargetHelps();
     }
 
-    @SuppressLint("AlwaysShowAction")
+    @SuppressLint({"AlwaysShowAction", "SetTextI18n"})
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
         profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
@@ -361,15 +361,15 @@ public class EditorEventListFragment extends Fragment
         if (menu != null) menu.clear();
         bottomToolbar.inflateMenu(R.menu.editor_events_bottom_bar);
 
-        menu = bottomToolbar.getMenu();
-        if (menu != null) {
-            MenuItem item = menu.findItem(R.id.menu_default_profile);
-
-            if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
-                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
-            else
-                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
-        }
+//        menu = bottomToolbar.getMenu();
+//        if (menu != null) {
+//            MenuItem item = menu.findItem(R.id.menu_default_profile);
+//
+//            if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
+//                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS|MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+//            else
+//                item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_NEVER);
+//        }
 
         bottomToolbar.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
@@ -408,18 +408,28 @@ public class EditorEventListFragment extends Fragment
 
         orderSelectedItem = ApplicationPreferences.editorOrderSelectedItem;
 
-        orderSpinner = view.findViewById(R.id.editor_list_bottom_bar_order);
+        LinearLayout bottomBarOrderRoot = view.findViewById(R.id.editor_list_bottom_bar_order_root);
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
-            orderSpinner.setVisibility(View.INVISIBLE); // MUST BE INVISIBLE, required for shoTargetHelps().
+            bottomBarOrderRoot.setVisibility(View.INVISIBLE); // MUST BE INVISIBLE, required for showTargetHelps().
         else
-            orderSpinner.setVisibility(VISIBLE);
+            bottomBarOrderRoot.setVisibility(VISIBLE);
+
+        orderSpinner = view.findViewById(R.id.editor_list_bottom_bar_order);
+
+//        if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
+//            orderSpinner.setVisibility(View.INVISIBLE); // MUST BE INVISIBLE, required for shoTargetHelps().
+//        else
+//            orderSpinner.setVisibility(VISIBLE);
+
+        TextView orderLabel = view.findViewById(R.id.editor_list_bottom_bar_order_title);
+        orderLabel.setText(getString(R.string.editor_drawer_title_events_order) + ":");
 
         String[] orderItems = new String[] {
-                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_start_order),
-                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_event_name),
-                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_start_profile_name),
-                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_end_profile_name),
-                getString(R.string.editor_drawer_title_events_order) + ": " + getString(R.string.editor_drawer_order_priority)
+                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_start_order),
+                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_event_name),
+                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_start_profile_name),
+                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_end_profile_name),
+                /*getString(R.string.editor_drawer_title_events_order) + ": " +*/ getString(R.string.editor_drawer_order_priority)
         };
 
         GlobalGUIRoutines.HighlightedSpinnerAdapter orderSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
@@ -441,13 +451,8 @@ public class EditorEventListFragment extends Fragment
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        /*TextView orderLabel = view.findViewById(R.id.editor_list_bottom_bar_order_title);
-        orderLabel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                orderSpinner.performClick();
-            }
-        });*/
+
+        orderLabel.setOnClickListener(v -> orderSpinner.performClick());
 
         //PPApplication.logE("EditorEventListFragment.doOnViewCreated", "orderSelectedItem="+orderSelectedItem);
         // first must be set eventsOrderType
@@ -587,7 +592,7 @@ public class EditorEventListFragment extends Fragment
                 {
                     if ((fragment.getActivity() != null ) && (!fragment.getActivity().isFinishing()))
                         PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                fragment.getResources().getString(R.string.toast_predefined_events_generated),
+                                fragment.getString(R.string.toast_predefined_events_generated),
                                 Toast.LENGTH_SHORT);
                 }
             }
@@ -967,8 +972,8 @@ public class EditorEventListFragment extends Fragment
         final Event _event = event;
         //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getResources().getString(R.string.event_string_0) + ": " + event._name);
-        dialogBuilder.setMessage(getResources().getString(R.string.delete_event_alert_message));
+        dialogBuilder.setTitle(getString(R.string.event_string_0) + ": " + event._name);
+        dialogBuilder.setMessage(getString(R.string.delete_event_alert_message));
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> deleteEvent(_event));
         dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
@@ -993,8 +998,8 @@ public class EditorEventListFragment extends Fragment
         if (eventListAdapter != null) {
             //noinspection ConstantConditions
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-            dialogBuilder.setTitle(getResources().getString(R.string.alert_title_delete_all_events));
-            dialogBuilder.setMessage(getResources().getString(R.string.alert_message_delete_all_events));
+            dialogBuilder.setTitle(getString(R.string.alert_title_delete_all_events));
+            dialogBuilder.setMessage(getString(R.string.alert_message_delete_all_events));
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                 PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, null, 0, "");
@@ -1070,7 +1075,7 @@ public class EditorEventListFragment extends Fragment
         {
             activatedProfileHeader.setTag(getString(R.string.profiles_header_profile_name_no_activated));
 
-            activeProfileName.setText(getResources().getString(R.string.profiles_header_profile_name_no_activated));
+            activeProfileName.setText(getString(R.string.profiles_header_profile_name_no_activated));
             activeProfileIcon.setImageResource(R.drawable.ic_profile_default);
         }
         else
@@ -1911,7 +1916,7 @@ public class EditorEventListFragment extends Fragment
                 int itemId = item.getItemId();
                 if (itemId == R.id.event_list_item_ignore_manual_activation_title) {
                     PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                            getResources().getString(R.string.popupmenu_title_click_below_toast),
+                            getString(R.string.popupmenu_title_click_below_toast),
                             Toast.LENGTH_SHORT);
                     return true;
                 }
@@ -1924,7 +1929,7 @@ public class EditorEventListFragment extends Fragment
                     ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
                     PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                            getResources().getString(R.string.ignore_manual_activation_not_ignore_toast),
+                            getString(R.string.ignore_manual_activation_not_ignore_toast),
                             Toast.LENGTH_LONG);
 
                     return true;
@@ -1939,7 +1944,7 @@ public class EditorEventListFragment extends Fragment
                     ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
                     PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                            getResources().getString(R.string.ignore_manual_activation_ignore_toast),
+                            getString(R.string.ignore_manual_activation_ignore_toast),
                             Toast.LENGTH_LONG);
 
                     return true;
@@ -1954,7 +1959,7 @@ public class EditorEventListFragment extends Fragment
                     ((EditorProfilesActivity) getActivity()).redrawEventListFragment(event, EDIT_MODE_EDIT);
 
                     PPApplication.showToast(activityDataWrapper.context.getApplicationContext(),
-                            getResources().getString(R.string.ignore_manual_activation_ignore_no_pause_toast),
+                            getString(R.string.ignore_manual_activation_ignore_no_pause_toast),
                             Toast.LENGTH_LONG);
 
                     return true;
@@ -1974,7 +1979,7 @@ public class EditorEventListFragment extends Fragment
     void updateEventForceRun(final Event event) {
         //noinspection ConstantConditions
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setTitle(getResources().getString(R.string.event_string_0) + ": " + event._name);
+        dialogBuilder.setTitle(getString(R.string.event_string_0) + ": " + event._name);
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         int noPause = event._forceRun ? 1 : 0;
         dialogBuilder.setSingleChoiceItems(R.array.ignoreManualActivationArray, noPause, new DialogInterface.OnClickListener() {
@@ -2091,6 +2096,7 @@ public class EditorEventListFragment extends Fragment
                             DatabaseHandler.getInstance(dataWrapper.context).getCallStartTime(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getAlarmClockStartTime(event);
                             DatabaseHandler.getInstance(dataWrapper.context).getDeviceBootStartTime(event);
+                            DatabaseHandler.getInstance(dataWrapper.context).getPeriodicStartTime(event);
                         }
                     }
 

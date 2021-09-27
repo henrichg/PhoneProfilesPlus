@@ -497,7 +497,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
         else {
             Preference preference = prefMng.findPreference(PREF_EVENT_RADIO_SWITCH_CATEGORY);
             if (preference != null) {
-                preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
@@ -661,6 +661,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                             NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
                                             if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
                                                 connected = WifiNetworkCallback.connected;
+//                                                PPApplication.logE("[CONNECTIVITY_TEST] EventPreferencesRadioSwitch.doHandleEvent", "connected="+connected);
                                                 break;
                                             }
                                         } catch (Exception e) {
@@ -751,6 +752,7 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                                     if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
 //                                        PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "(NetworkCapabilities.TRANSPORT_CELLULAR");
                                         connected = MobileDataNetworkCallback.connected;
+//                                        PPApplication.logE("[CONNECTIVITY_TEST] EventPreferencesRadioSwitch.doHandleEvent", "connected="+connected);
                                         break;
                                     }
                                 } catch (Exception e) {

@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -34,7 +33,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_SCREEN_TIMEOUT = 4;
     static final int PERMISSION_PROFILE_SCREEN_BRIGHTNESS = 5;
     static final int PERMISSION_PROFILE_AUTOROTATION = 6;
-    static final int PERMISSION_PROFILE_WALLPAPER = 7;
+    static final int PERMISSION_PROFILE_IMAGE_WALLPAPER = 7;
     static final int PERMISSION_PROFILE_RADIO_PREFERENCES = 8;
     static final int PERMISSION_PROFILE_PHONE_STATE_BROADCAST = 9;
     static final int PERMISSION_PROFILE_CUSTOM_PROFILE_ICON = 10;
@@ -55,7 +54,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_DTMF_TONE_WHEN_DIALING = 26;
     static final int PERMISSION_PROFILE_SOUND_ON_TOUCH = 27;
     static final int PERMISSION_BRIGHTNESS_PREFERENCE = 28;
-    static final int PERMISSION_WALLPAPER_PREFERENCE = 29;
+    static final int PERMISSION_IMAGE_WALLPAPER_PREFERENCE = 29;
     static final int PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE = 30;
     static final int PERMISSION_LOCATION_PREFERENCE = 31;
     static final int PERMISSION_CALENDAR_PREFERENCE = 32;
@@ -72,10 +71,13 @@ class Permissions {
     static final int PERMISSION_PROFILE_CAMERA_FLASH = 43;
     //static final int PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES = 44;
     static final int PERMISSION_BACGROUND_LOCATION = 45;
+    static final int PERMISSION_PROFILE_VIBRATE_NOTIFICATIONS = 46;
+    static final int PERMISSION_PROFILE_WALLPAPER_FOLDER = 47;
+    static final int PERMISSION_WALLPAPER_FOLDER_PREFERENCE = 48;
 
     static final int GRANT_TYPE_PROFILE = 1;
     //static final int GRANT_TYPE_INSTALL_TONE = 2;
-    static final int GRANT_TYPE_WALLPAPER = 3;
+    static final int GRANT_TYPE_IMAGE_WALLPAPER = 3;
     static final int GRANT_TYPE_CUSTOM_PROFILE_ICON = 4;
     static final int GRANT_TYPE_EXPORT = 5;
     static final int GRANT_TYPE_IMPORT = 6;
@@ -95,6 +97,7 @@ class Permissions {
     static final int GRANT_TYPE_EXPORT_AND_EMAIL_TO_AUTHOR = 21;
     static final int GRANT_TYPE_CONNECT_TO_SSID_DIALOG = 22;
     static final int GRANT_TYPE_BACKGROUND_LOCATION = 23;
+    static final int GRANT_TYPE_WALLPAPER_FOLDER = 24;
 
     static final int REQUEST_CODE = 5000;
     //static final int REQUEST_CODE_FORCE_GRANT = 6000;
@@ -205,90 +208,83 @@ class Permissions {
 
     static ArrayList<PermissionType> recheckPermissions(Context context, ArrayList<PermissionType> _permissions) {
         ArrayList<PermissionType>  permissions = new ArrayList<>();
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            if (_permissions == null)
-                return permissions;
-            for (PermissionType _permission : _permissions) {
-                switch (_permission.permission) {
-                    case permission.WRITE_SETTINGS:
-                        if (!Settings.System.canWrite(context)) {
-                            if (getShowRequestWriteSettingsPermission(context))
-                                permissions.add(new PermissionType(_permission.type, _permission.permission));
-                        }
-                        break;
-                    /*case permission.ACCESS_NOTIFICATION_POLICY:
-                        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                        if (mNotificationManager != null) {
-                            if (!mNotificationManager.isNotificationPolicyAccessGranted())
-                                if (getShowRequestAccessNotificationPolicyPermission(context))
-                                    permissions.add(new PermissionType(_permission.type, _permission.permission));
-                        } else {
+        if (_permissions == null)
+            return permissions;
+        for (PermissionType _permission : _permissions) {
+            switch (_permission.permission) {
+                case permission.WRITE_SETTINGS:
+                    if (!Settings.System.canWrite(context)) {
+                        if (getShowRequestWriteSettingsPermission(context))
+                            permissions.add(new PermissionType(_permission.type, _permission.permission));
+                    }
+                    break;
+                /*case permission.ACCESS_NOTIFICATION_POLICY:
+                    NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    if (mNotificationManager != null) {
+                        if (!mNotificationManager.isNotificationPolicyAccessGranted())
                             if (getShowRequestAccessNotificationPolicyPermission(context))
                                 permissions.add(new PermissionType(_permission.type, _permission.permission));
-                        }
-                        break;*/
-                    case permission.SYSTEM_ALERT_WINDOW:
-                        if (!Settings.canDrawOverlays(context)) {
-                            if (getShowRequestDrawOverlaysPermission(context))
-                                permissions.add(new PermissionType(_permission.type, _permission.permission));
-                        }
-                        break;
-                    default:
-                        if (ContextCompat.checkSelfPermission(context, _permission.permission) != PackageManager.PERMISSION_GRANTED)
+                    } else {
+                        if (getShowRequestAccessNotificationPolicyPermission(context))
                             permissions.add(new PermissionType(_permission.type, _permission.permission));
-                        break;
-                }
+                    }
+                    break;*/
+                case permission.SYSTEM_ALERT_WINDOW:
+                    if (!Settings.canDrawOverlays(context)) {
+                        if (getShowRequestDrawOverlaysPermission(context))
+                            permissions.add(new PermissionType(_permission.type, _permission.permission));
+                    }
+                    break;
+                default:
+                    if (ContextCompat.checkSelfPermission(context, _permission.permission) != PackageManager.PERMISSION_GRANTED)
+                        permissions.add(new PermissionType(_permission.type, _permission.permission));
+                    break;
             }
-        //}
+        }
         return permissions;
     }
 
     static ArrayList<PermissionType> checkProfilePermissions(Context context, Profile profile) {
         ArrayList<PermissionType>  permissions = new ArrayList<>();
         if (profile == null) return permissions;
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            checkProfileVibrationOnTouch(context, profile, permissions);
-            checkProfileVibrateWhenRinging(context, profile, permissions);
-            checkProfileRingtones(context, profile, permissions);
-            checkProfileScreenTimeout(context, profile, permissions);
-            checkProfileScreenBrightness(context, profile, permissions);
-            checkProfileAutoRotation(context, profile, permissions);
-            checkProfileNotificationLed(context, profile, permissions);
-            checkProfileWallpaper(context, profile, permissions);
-            checkProfileRadioPreferences(context, profile, permissions);
-            checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
-            checkCustomProfileIcon(context, profile, true, permissions);
-            //checkProfileAccessNotificationPolicy(context, profile, permissions);
-            checkProfileLockDevice(context, profile, permissions);
-            checkProfileDtmfToneWhenDialing(context, profile, permissions);
-            checkProfileSoundOnTouch(context, profile, permissions);
-            checkProfileAlwaysOnDisplay(context, profile, permissions);
-            checkProfileScreenOnPermanent(context, profile, permissions);
-            checkProfileCameraFlash(context, profile, permissions);
-            //checkProfileBackgroundLocation(context, profile, permissions);
 
-            return permissions;
-        //}
-        //else
-        //    return permissions;
+        checkProfileVibrationOnTouch(context, profile, permissions);
+        checkProfileVibrateWhenRinging(context, profile, permissions);
+        checkProfileVibrateNotifications(context, profile, permissions);
+        checkProfileRingtones(context, profile, permissions);
+        checkProfileScreenTimeout(context, profile, permissions);
+        checkProfileScreenBrightness(context, profile, permissions);
+        checkProfileAutoRotation(context, profile, permissions);
+        checkProfileNotificationLed(context, profile, permissions);
+        checkProfileImageWallpaper(context, profile, permissions);
+        checkProfileWallpaperFolder(context, profile, permissions);
+        checkProfileRadioPreferences(context, profile, permissions);
+        checkProfileLinkUnkinkAndSpeakerPhone(context, profile, permissions);
+        checkProfileCustomProfileIcon(context, profile, true, permissions);
+        //checkProfileAccessNotificationPolicy(context, profile, permissions);
+        checkProfileLockDevice(context, profile, permissions);
+        checkProfileDtmfToneWhenDialing(context, profile, permissions);
+        checkProfileSoundOnTouch(context, profile, permissions);
+        checkProfileAlwaysOnDisplay(context, profile, permissions);
+        checkProfileScreenOnPermanent(context, profile, permissions);
+        checkProfileCameraFlash(context, profile, permissions);
+        //checkProfileBackgroundLocation(context, profile, permissions);
+
+        return permissions;
     }
 
     /*
     static boolean checkInstallTone(Context context, ArrayList<PermissionType>  permissions) {
         try {
-            if (android.os.Build.VERSION.SDK_INT >= 23) {
-                boolean writeGranted = ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-                boolean readGranted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-                if (permissions != null) {
-                    if (!readGranted)
-                        permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.READ_EXTERNAL_STORAGE));
-                    if (!writeGranted)
-                        permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.WRITE_EXTERNAL_STORAGE));
-                }
-                return readGranted && writeGranted;
-            } else
-                return hasPermission(context, permission.WRITE_EXTERNAL_STORAGE) &&
-                        hasPermission(context, permission.READ_EXTERNAL_STORAGE);
+            boolean writeGranted = ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+            boolean readGranted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+            if (permissions != null) {
+                if (!readGranted)
+                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.READ_EXTERNAL_STORAGE));
+                if (!writeGranted)
+                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_INSTALL_TONE, Manifest.permission.WRITE_EXTERNAL_STORAGE));
+            }
+            return readGranted && writeGranted;
         } catch (Exception e) {
             return false;
         }
@@ -297,24 +293,17 @@ class Permissions {
 
     static boolean checkPlayRingtoneNotification(Context context, boolean alsoContacts, ArrayList<PermissionType>  permissions) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23) {
-                boolean grantedReadExternalStorage = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-                boolean grantedContacts = true;
-                if (alsoContacts)
-                    grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
-                if (permissions != null) {
-                    if (!grantedReadExternalStorage)
-                        permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_EXTERNAL_STORAGE));
-                    if (!grantedContacts)
-                        permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_CONTACTS));
-                }
-                return grantedReadExternalStorage && grantedContacts;
-            /*} else {
-                boolean granted = hasPermission(context, permission.READ_EXTERNAL_STORAGE);
-                if (alsoContacts)
-                    granted = granted && hasPermission(context, permission.READ_CONTACTS);
-                return granted;
-            }*/
+            boolean grantedReadExternalStorage = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+            boolean grantedContacts = true;
+            if (alsoContacts)
+                grantedContacts = ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED;
+            if (permissions != null) {
+                if (!grantedReadExternalStorage)
+                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_EXTERNAL_STORAGE));
+                if (!grantedContacts)
+                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_PLAY_RINGTONE_NOTIFICATION, Manifest.permission.READ_CONTACTS));
+            }
+            return grantedReadExternalStorage && grantedContacts;
         } catch (Exception e) {
             return false;
         }
@@ -363,19 +352,56 @@ class Permissions {
     }
 
     static boolean checkVibrateWhenRinging(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
+        try {
+            boolean granted = Settings.System.canWrite(context);
+            //PPApplication.logE("Permissions.checkVibrateWhenRinging", "granted=" + granted);
+            if (granted)
+                setShowRequestWriteSettingsPermission(context, true);
+            return granted;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    static void checkProfileVibrateNotifications(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return;
+
+        if (Build.VERSION.SDK_INT >= 28) {
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("Permissions.checkProfileVibrateNotifications", "profile._name=" + profile._name);
+                PPApplication.logE("Permissions.checkProfileVibrateNotifications", "permissions=" + permissions);
+            }*/
             try {
+                //PPApplication.logE("Permissions.checkProfileVibrateNotifications", "profile._vibrateNotifications=" + profile._vibrateNotifications);
+                if (profile._vibrateNotifications != 0) {
+                    boolean granted = Settings.System.canWrite(context);
+                    //PPApplication.logE("Permissions.checkProfileVibrateNotifications", "granted=" + granted);
+                    if (granted)
+                        setShowRequestWriteSettingsPermission(context, true);
+                    if (!granted) {
+                        if (permissions != null)
+                            permissions.add(new PermissionType(PERMISSION_PROFILE_VIBRATE_NOTIFICATIONS, permission.WRITE_SETTINGS));
+                    }
+                }
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    static boolean checkVibrateNotifications(Context context) {
+        try {
+            if (Build.VERSION.SDK_INT >= 28) {
                 boolean granted = Settings.System.canWrite(context);
-                //PPApplication.logE("Permissions.checkVibrateWhenRinging", "granted=" + granted);
+                //PPApplication.logE("Permissions.checkVibrateNotifications", "granted=" + granted);
                 if (granted)
                     setShowRequestWriteSettingsPermission(context, true);
                 return granted;
-            } catch (Exception e) {
-                return false;
             }
-        //}
-        //else
-        //    return true;
+            else
+                return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     static void checkProfileNotificationLed(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
@@ -422,21 +448,17 @@ class Permissions {
     }
 
     static boolean checkScreenTimeout(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            try {
-                boolean grantedWriteSettings = Settings.System.canWrite(context);
-                if (grantedWriteSettings)
-                    setShowRequestWriteSettingsPermission(context, true);
-                /*boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
-                if (grantedDrawOverlays)
-                    setShowRequestDrawOverlaysPermission(context, true);*/
-                return grantedWriteSettings;// && grantedDrawOverlays;
-            } catch (Exception e) {
-                return false;
-            }
-        //}
-        //else
-        //    return true;
+        try {
+            boolean grantedWriteSettings = Settings.System.canWrite(context);
+            if (grantedWriteSettings)
+                setShowRequestWriteSettingsPermission(context, true);
+            /*boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+            if (grantedDrawOverlays)
+                setShowRequestDrawOverlaysPermission(context, true);*/
+            return grantedWriteSettings;// && grantedDrawOverlays;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     static boolean checkProfileScreenTimeout(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
@@ -465,27 +487,23 @@ class Permissions {
     }
 
     static boolean checkScreenBrightness(Context context, ArrayList<PermissionType>  permissions) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            try {
-                boolean grantedWriteSettings = Settings.System.canWrite(context);
-                if (grantedWriteSettings)
-                    setShowRequestWriteSettingsPermission(context, true);
-                //boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
-                //if (grantedDrawOverlays)
-                //    setShowRequestDrawOverlaysPermission(context, true);
-                if (permissions != null) {
-                    if (!grantedWriteSettings)
-                        permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.WRITE_SETTINGS));
-                    //if (!grantedDrawOverlays)
-                    //    permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.SYSTEM_ALERT_WINDOW));
-                }
-                return grantedWriteSettings; //&& grantedDrawOverlays;
-            } catch (Exception e) {
-                return false;
+        try {
+            boolean grantedWriteSettings = Settings.System.canWrite(context);
+            if (grantedWriteSettings)
+                setShowRequestWriteSettingsPermission(context, true);
+            //boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
+            //if (grantedDrawOverlays)
+            //    setShowRequestDrawOverlaysPermission(context, true);
+            if (permissions != null) {
+                if (!grantedWriteSettings)
+                    permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.WRITE_SETTINGS));
+                //if (!grantedDrawOverlays)
+                //    permissions.add(new PermissionType(PERMISSION_BRIGHTNESS_PREFERENCE, permission.SYSTEM_ALERT_WINDOW));
             }
-        //}
-        //else
-        //    return true;
+            return grantedWriteSettings; //&& grantedDrawOverlays;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     static boolean checkProfileScreenBrightness(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
@@ -531,14 +549,14 @@ class Permissions {
         }
     }
 
-    static boolean checkProfileWallpaper(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+    static boolean checkProfileImageWallpaper(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
 
         try {
-            if (profile._deviceWallpaperChange != 0) {
+            if (profile._deviceWallpaperChange == 1) {
                 boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                 if ((permissions != null) && (!granted))
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_IMAGE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));
                 return granted;
             } else
                 return true;
@@ -547,7 +565,23 @@ class Permissions {
         }
     }
 
-    static void checkCustomProfileIcon(Context context, Profile profile, boolean fromProfile, ArrayList<PermissionType>  permissions) {
+    static boolean checkProfileWallpaperFolder(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
+        if (profile == null) return true;
+
+        try {
+            if (profile._deviceWallpaperChange == 3) {
+                boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+                if ((permissions != null) && (!granted))
+                    permissions.add(new PermissionType(PERMISSION_PROFILE_WALLPAPER_FOLDER, permission.READ_EXTERNAL_STORAGE));
+                return granted;
+            } else
+                return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    static void checkProfileCustomProfileIcon(Context context, Profile profile, boolean fromProfile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return;// true;
 
         if (fromProfile) {
@@ -573,10 +607,7 @@ class Permissions {
 
     static boolean checkGallery(Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23)
-                return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-            //else
-            //    return hasPermission(context, permission.READ_EXTERNAL_STORAGE);
+            return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }
@@ -584,11 +615,8 @@ class Permissions {
 
     static boolean checkImport(Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23)
             return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
                     (ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-            //else
-            //    return hasPermission(context, permission.READ_EXTERNAL_STORAGE);
         } catch (Exception e) {
             return false;
         }
@@ -596,11 +624,8 @@ class Permissions {
 
     static boolean checkExport(Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23)
             return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
                     (ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-            //else
-            //    return hasPermission(context, permission.WRITE_EXTERNAL_STORAGE);
         } catch (Exception e) {
             return false;
         }
@@ -608,10 +633,7 @@ class Permissions {
 
     static boolean checkReadStorage(Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23)
-                return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-            //else
-            //    return hasPermission(context, permission.READ_EXTERNAL_STORAGE);
+            return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }
@@ -619,10 +641,7 @@ class Permissions {
 
     static boolean checkWriteStorage(Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23)
             return (ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-            //else
-            //    return hasPermission(context, permission.READ_EXTERNAL_STORAGE);
         } catch (Exception e) {
             return false;
         }
@@ -631,10 +650,7 @@ class Permissions {
     /*
     static boolean checkNFC(Context context) {
         try {
-            if (android.os.Build.VERSION.SDK_INT >= 23)
-                return (ContextCompat.checkSelfPermission(context, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
-            else
-                return true;
+            return (ContextCompat.checkSelfPermission(context, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }
@@ -643,10 +659,7 @@ class Permissions {
 
     static boolean checkRingtonePreference(Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23)
-                return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-            //else
-            //    return hasPermission(context, permission.READ_EXTERNAL_STORAGE);
+            return (ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }
@@ -690,14 +703,28 @@ class Permissions {
                     permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.READ_PHONE_STATE));
                 //permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.MODIFY_PHONE_STATE));
             }
-            boolean grantedLocation = true;
-            if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY))
-                grantedLocation = checkLocation(context);
+            boolean grantedAccessCoarseLocation = true;
+            boolean grantedAccessFineLocation = true;
+            boolean grantedAccessBackgroundLocation = true;
+            if (!profile._deviceConnectToSSID.equals(Profile.CONNECTTOSSID_JUSTANY)) {
+                grantedAccessCoarseLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                grantedAccessBackgroundLocation = true;
+                if (Build.VERSION.SDK_INT >= 29)
+                    grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
+            }
             if (permissions != null) {
-                if (!grantedLocation) {
+                if (!grantedAccessFineLocation)
                     permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_FINE_LOCATION));
+                if (!grantedAccessCoarseLocation)
                     permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                    if (Build.VERSION.SDK_INT >= 29)
+                // only for API 29 add also background location For 30+ must be granted separatelly
+                /*if (Build.VERSION.SDK_INT == 29) {
+                    if (!grantedAccessBackgroundLocation)
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                }*/
+                if (Build.VERSION.SDK_INT >= 29) {
+                    if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
                         permissions.add(new PermissionType(PERMISSION_PROFILE_RADIO_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
                 }
             }
@@ -706,10 +733,7 @@ class Permissions {
 
     static boolean checkPhone(Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23) {
-                return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
-            //} else
-            //    return hasPermission(context, Manifest.permission.READ_PHONE_STATE);
+            return (ContextCompat.checkSelfPermission(context, permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }
@@ -759,56 +783,48 @@ class Permissions {
 
     /*static boolean checkProfileAccessNotificationPolicy(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
         if (profile == null) return true;
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
-            try {
-                boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-                if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
-                    PPApplication.logE("Permissions.checkProfileAccessNotificationPolicy", "ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS exists");
-                    if ((profile._volumeRingerMode != 0) ||
-                            profile.getVolumeRingtoneChange() ||
-                            profile.getVolumeNotificationChange() ||
-                            profile.getVolumeSystemChange()) {
-                        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                        boolean granted = false;
-                        if (mNotificationManager != null)
-                            granted = mNotificationManager.isNotificationPolicyAccessGranted();
-                        if (granted)
-                            setShowRequestAccessNotificationPolicyPermission(context, true);
-                        if ((permissions != null) && (!granted))
-                            permissions.add(new PermissionType(PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY, permission.ACCESS_NOTIFICATION_POLICY));
-                        return granted;
-                    } else
-                        return true;
-                } else
-                    return true;
-            } catch (Exception e) {
-                return false;
-            }
-        }
-        else
-            return true;
-    }*/
-
-/*    static boolean checkAccessNotificationPolicy(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
-            try {
-                boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
-                if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
+        try {
+            boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
+            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
+                PPApplication.logE("Permissions.checkProfileAccessNotificationPolicy", "ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS exists");
+                if ((profile._volumeRingerMode != 0) ||
+                        profile.getVolumeRingtoneChange() ||
+                        profile.getVolumeNotificationChange() ||
+                        profile.getVolumeSystemChange()) {
                     NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                     boolean granted = false;
                     if (mNotificationManager != null)
                         granted = mNotificationManager.isNotificationPolicyAccessGranted();
                     if (granted)
                         setShowRequestAccessNotificationPolicyPermission(context, true);
+                    if ((permissions != null) && (!granted))
+                        permissions.add(new PermissionType(PERMISSION_PROFILE_ACCESS_NOTIFICATION_POLICY, permission.ACCESS_NOTIFICATION_POLICY));
                     return granted;
                 } else
                     return true;
-            } catch (Exception e) {
-                return false;
-            }
+            } else
+                return true;
+        } catch (Exception e) {
+            return false;
         }
-        else
-            return true;
+    }*/
+
+/*    static boolean checkAccessNotificationPolicy(Context context) {
+        try {
+            boolean no60 = !Build.VERSION.RELEASE.equals("6.0");
+            if (no60 && GlobalGUIRoutines.activityActionExists(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS, context)) {
+                NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                boolean granted = false;
+                if (mNotificationManager != null)
+                    granted = mNotificationManager.isNotificationPolicyAccessGranted();
+                if (granted)
+                    setShowRequestAccessNotificationPolicyPermission(context, true);
+                return granted;
+            } else
+                return true;
+        } catch (Exception e) {
+            return false;
+        }
     }*/
 
     static void checkProfileAlwaysOnDisplay(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
@@ -831,7 +847,6 @@ class Permissions {
     }
 
     static boolean checkLockDevice(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
         try {
             boolean grantedWriteSettings = Settings.System.canWrite(context);
             if (grantedWriteSettings)
@@ -843,9 +858,6 @@ class Permissions {
         } catch (Exception e) {
             return false;
         }
-        //}
-        //else
-        //    return true;
     }
 
     static boolean checkProfileLockDevice(Context context, Profile profile, ArrayList<PermissionType>  permissions) {
@@ -916,7 +928,6 @@ class Permissions {
 
     /*
     static boolean checkScreenOnPermanent(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
         try {
             boolean grantedDrawOverlays = Settings.canDrawOverlays(context);
             if (grantedDrawOverlays)
@@ -925,9 +936,6 @@ class Permissions {
         } catch (Exception e) {
             return false;
         }
-        //}
-        //else
-        //    return true;
     }
     */
 
@@ -967,31 +975,25 @@ class Permissions {
         }
     }
 
-    static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences, String sensorType) {
+    static ArrayList<PermissionType> checkEventPermissions(Context context, Event event, SharedPreferences preferences,
+                                                           String sensorType) {
         ArrayList<PermissionType>  permissions = new ArrayList<>();
         if ((event == null) && (preferences == null)) return permissions;
 
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            checkEventCalendar(context, event, preferences, permissions, sensorType);
-            checkEventPhoneState(context, event, preferences, permissions, sensorType);
-            checkEventCallContacts(context, event, preferences, permissions, sensorType);
-            checkEventSMSContacts(context, event, preferences, permissions, sensorType);
-            checkEventLocation(context, event, preferences, permissions, sensorType);
-            checkEventBluetoothForEMUI(context, event, preferences, permissions, sensorType);
-            //checkEventBackgroundLocation(context, event, preferences, permissions, sensorType);
+        checkEventCalendar(context, event, preferences, permissions, sensorType);
+        checkEventPhoneState(context, event, preferences, permissions, sensorType);
+        checkEventCallContacts(context, event, preferences, permissions, sensorType);
+        checkEventSMSContacts(context, event, preferences, permissions, sensorType);
+        checkEventLocation(context, event, preferences, permissions, sensorType);
+        checkEventBluetoothForEMUI(context, event, preferences, permissions, sensorType);
+        //checkEventBackgroundLocation(context, event, preferences, permissions, sensorType);
 
-            return permissions;
-        //}
-        //else
-        //    return permissions;
+        return permissions;
     }
 
     static boolean checkContacts(Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23) {
-                return (ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED);
-            //} else
-            //    return hasPermission(context, permission.READ_CONTACTS);
+            return (ContextCompat.checkSelfPermission(context, permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }
@@ -1056,10 +1058,7 @@ class Permissions {
 
     static boolean checkCalendar(Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23) {
-                return (ContextCompat.checkSelfPermission(context, permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED);
-            //} else
-            //    return hasPermission(context, permission.READ_CALENDAR);
+            return (ContextCompat.checkSelfPermission(context, permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }
@@ -1098,13 +1097,10 @@ class Permissions {
         return true;
         /*
         try {
-            if (android.os.Build.VERSION.SDK_INT >= 23) {
-                return (ContextCompat.checkSelfPermission(context, permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED) &&
-                        // not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
-                        //(ContextCompat.checkSelfPermission(context, permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) &&
-                        (ContextCompat.checkSelfPermission(context, permission.RECEIVE_MMS) == PackageManager.PERMISSION_GRANTED);
-            } else
-                return hasPermission(context, permission.READ_CALENDAR);
+            return (ContextCompat.checkSelfPermission(context, permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED) &&
+                    // not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
+                    //(ContextCompat.checkSelfPermission(context, permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) &&
+                    (ContextCompat.checkSelfPermission(context, permission.RECEIVE_MMS) == PackageManager.PERMISSION_GRANTED);
         } catch (Exception e) {
             return false;
         }
@@ -1114,52 +1110,41 @@ class Permissions {
     /*
     static boolean checkEventSMSBroadcast(Context context, Event event, ArrayList<PermissionType>  permissions) {
         if (event == null) return true;
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
-            try {
-                if (event._eventPreferencesSMS._enabled) {
-                    boolean grantedReceiveSMS = ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED;
+        try {
+            if (event._eventPreferencesSMS._enabled) {
+                boolean grantedReceiveSMS = ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_SMS) == PackageManager.PERMISSION_GRANTED;
+                // not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
+                //boolean grantedReadSMS = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED;
+                boolean grantedReceiveMMS = ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_MMS) == PackageManager.PERMISSION_GRANTED;
+                if (permissions != null) {
+                    if (!grantedReceiveSMS)
+                        permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.RECEIVE_SMS));
                     // not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
-                    //boolean grantedReadSMS = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED;
-                    boolean grantedReceiveMMS = ContextCompat.checkSelfPermission(context, Manifest.permission.RECEIVE_MMS) == PackageManager.PERMISSION_GRANTED;
-                    if (permissions != null) {
-                        if (!grantedReceiveSMS)
-                            permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.RECEIVE_SMS));
-                        // not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
-                        //if (!grantedReadSMS)
-                        //    permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_SMS));
-                        if (!grantedReceiveMMS)
-                            permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.RECEIVE_MMS));
-                    }
-                    return grantedReceiveSMS && grantedReceiveMMS; // && grantedReadSMS;
-                } else
-                    return true;
-            } catch (Exception e) {
-                return false;
-            }
-        }
-        else {
-            try {
-                if (event._eventPreferencesSMS._enabled) {
-                    return hasPermission(context, permission.RECEIVE_SMS) &&
-                            // not needed, mobile number is in bundle of receiver intent, data of sms/mms is not read
-                            //hasPermission(context, permission.READ_SMS) &&
-                            hasPermission(context, permission.RECEIVE_MMS);
-                } else
-                    return true;
-            } catch (Exception e) {
-                return false;
-            }
+                    //if (!grantedReadSMS)
+                    //    permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_SMS));
+                    if (!grantedReceiveMMS)
+                        permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.RECEIVE_MMS));
+                }
+                return grantedReceiveSMS && grantedReceiveMMS; // && grantedReadSMS;
+            } else
+                return true;
+        } catch (Exception e) {
+            return false;
         }
     }
     */
 
     static boolean checkLocation(Context context) {
         try {
-            if (Build.VERSION.SDK_INT >= 29)
+            if (Build.VERSION.SDK_INT >= 29) {
+//                if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED)
+//                    Log.e("Permissions.checkLocation", "ACCESS_BACKGROUND_LOCATION granted");
+
                 return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
                         (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
                         (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED)
                         ;
+            }
             else
                 return (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
                         (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
@@ -1169,7 +1154,8 @@ class Permissions {
         }
     }
 
-    static private void checkEventLocation(Context context, Event event, SharedPreferences preferences, ArrayList<PermissionType>  permissions, String sensorType) {
+    static private void checkEventLocation(Context context, Event event, SharedPreferences preferences,
+                                           ArrayList<PermissionType>  permissions, String sensorType) {
         if ((event == null) && (preferences == null)) return; // true;
 
         if (event != null) {
@@ -1188,7 +1174,7 @@ class Permissions {
                     boolean grantedAccessFineLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     boolean grantedAccessBackgroundLocation = true;
                     if (Build.VERSION.SDK_INT >= 29)
-                        grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
+                            grantedAccessBackgroundLocation = ContextCompat.checkSelfPermission(context, permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
                     if (permissions != null) {
                         if (event._eventPreferencesWifi._enabled &&
                                 ((event._eventPreferencesWifi._connectionType == EventPreferencesWifi.CTYPE_NEARBY) ||
@@ -1199,8 +1185,15 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                if (!grantedAccessBackgroundLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                // only for API 29 add also background location For 30+ must be granted separatelly
+                                /*if (Build.VERSION.SDK_INT == 29) {
+                                    if (!grantedAccessBackgroundLocation)
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }*/
+                                if (Build.VERSION.SDK_INT >= 29) {
+                                    if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }
                             }
                         }
                         if (event._eventPreferencesBluetooth._enabled &&
@@ -1212,8 +1205,15 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                if (!grantedAccessBackgroundLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                // only for API 29 add also background location For 30+ must be granted separatelly
+                                /*if (Build.VERSION.SDK_INT == 29) {
+                                    if (!grantedAccessBackgroundLocation)
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }*/
+                                if (Build.VERSION.SDK_INT >= 29) {
+                                    if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }
                             }
                         }
                         if (event._eventPreferencesMobileCells._enabled) {
@@ -1223,8 +1223,15 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                if (!grantedAccessBackgroundLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                // only for API 29 add also background location For 30+ must be granted separatelly
+                                /*if (Build.VERSION.SDK_INT == 29) {
+                                    if (!grantedAccessBackgroundLocation)
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }*/
+                                if (Build.VERSION.SDK_INT >= 29) {
+                                    if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }
                             }
                         }
                         if (event._eventPreferencesTime._enabled &&
@@ -1235,19 +1242,36 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                if (!grantedAccessBackgroundLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                // only for API 29 add also background location For 30+ must be granted separatelly
+                                /*if (Build.VERSION.SDK_INT == 29) {
+                                    if (!grantedAccessBackgroundLocation)
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }*/
+                                if (Build.VERSION.SDK_INT >= 29) {
+                                    if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }
                             }
                         }
                         if (event._eventPreferencesLocation._enabled) {
                             //noinspection DuplicateExpressions
                             if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_LOCATION_SCANNER)) {
+//                                Log.e("Permissions.checkEventLocation", "ACCESS_BACKGROUND_LOCATION grantedAccessCoarseLocation="+grantedAccessCoarseLocation);
+//                                Log.e("Permissions.checkEventLocation", "ACCESS_BACKGROUND_LOCATION grantedAccessFineLocation="+grantedAccessFineLocation);
+//                                Log.e("Permissions.checkEventLocation", "ACCESS_BACKGROUND_LOCATION grantedAccessBackgroundLocation="+grantedAccessBackgroundLocation);
                                 if (!grantedAccessFineLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                                 if (!grantedAccessCoarseLocation)
                                     permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                                if (!grantedAccessBackgroundLocation)
-                                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                // only for API 29 add also background location For 30+ must be granted separatelly
+                                /*if (Build.VERSION.SDK_INT == 29) {
+                                    if (!grantedAccessBackgroundLocation)
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }*/
+                                if (Build.VERSION.SDK_INT >= 29) {
+                                    if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
+                                        permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                                }
                             }
                         }
                     }
@@ -1280,8 +1304,15 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                            if (!grantedAccessBackgroundLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            // only for API 29 add also background location For 30+ must be granted separatelly
+                            /*if (Build.VERSION.SDK_INT == 29) {
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }*/
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_WIFI_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
                         }
                     }
                     if (preferences.getBoolean(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ENABLED, false) &&
@@ -1293,8 +1324,15 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                            if (!grantedAccessBackgroundLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            // only for API 29 add also background location For 30+ must be granted separatelly
+                            /*if (Build.VERSION.SDK_INT == 29) {
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }*/
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_BLUETOOTH_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
                         }
                     }
                     if (preferences.getBoolean(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_ENABLED, false)) {
@@ -1304,8 +1342,15 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                            if (!grantedAccessBackgroundLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            // only for API 29 add also background location For 30+ must be granted separatelly
+                            /*if (Build.VERSION.SDK_INT == 29) {
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }*/
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_MOBILE_CELLS_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
                         }
                     }
                     if (preferences.getBoolean(EventPreferencesTime.PREF_EVENT_TIME_ENABLED, false) &&
@@ -1316,19 +1361,36 @@ class Permissions {
                                 permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                            if (!grantedAccessBackgroundLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            // only for API 29 add also background location For 30+ must be granted separatelly
+                            /*if (Build.VERSION.SDK_INT == 29) {
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }*/
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_TIME_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
                         }
                     }
                     if (preferences.getBoolean(EventPreferencesLocation.PREF_EVENT_LOCATION_ENABLED, false)) {
                         //noinspection DuplicateExpressions
                         if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_LOCATION_SCANNER)) {
+//                            Log.e("Permissions.checkEventLocation", "ACCESS_BACKGROUND_LOCATION grantedAccessCoarseLocation="+grantedAccessCoarseLocation);
+//                            Log.e("Permissions.checkEventLocation", "ACCESS_BACKGROUND_LOCATION grantedAccessFineLocation="+grantedAccessFineLocation);
+//                            Log.e("Permissions.checkEventLocation", "ACCESS_BACKGROUND_LOCATION grantedAccessBackgroundLocation="+grantedAccessBackgroundLocation);
                             if (!grantedAccessFineLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_FINE_LOCATION));
                             if (!grantedAccessCoarseLocation)
                                 permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_COARSE_LOCATION));
-                            if (!grantedAccessBackgroundLocation)
-                                permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            // only for API 29 add also background location For 30+ must be granted separatelly
+                            /*if (Build.VERSION.SDK_INT == 29) {
+                                if (!grantedAccessBackgroundLocation)
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }*/
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                if (grantedAccessFineLocation && grantedAccessCoarseLocation && (!grantedAccessBackgroundLocation))
+                                    permissions.add(new PermissionType(PERMISSION_EVENT_LOCATION_PREFERENCES, permission.ACCESS_BACKGROUND_LOCATION));
+                            }
                         }
                     }
                 }
@@ -1473,10 +1535,7 @@ class Permissions {
 
     static boolean checkCamera(@SuppressWarnings("unused") Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23) {
-                return true;
-            //} else
-            //    return true;
+            return true;
         } catch (Exception e) {
             return false;
         }
@@ -1484,10 +1543,7 @@ class Permissions {
 
     static boolean checkMicrophone(@SuppressWarnings("unused") Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23) {
-                return true;
-            //} else
-            //    return true;
+            return true;
         } catch (Exception e) {
             return false;
         }
@@ -1495,10 +1551,7 @@ class Permissions {
 
     static boolean checkSensors(@SuppressWarnings("unused") Context context) {
         try {
-            //if (android.os.Build.VERSION.SDK_INT >= 23) {
-                return true;
-            //} else
-            //    return true;
+            return true;
         } catch (Exception e) {
             return false;
         }
@@ -1507,16 +1560,12 @@ class Permissions {
     /*
     static boolean checkLogToFile(Context context, ArrayList<PermissionType>  permissions) {
         try {
-            if (android.os.Build.VERSION.SDK_INT >= 23) {
-                boolean grantedWriteExternalStorage = ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
-                if (permissions != null) {
-                    if (!grantedWriteExternalStorage)
-                        permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_LOG_TO_FILE, Manifest.permission.WRITE_EXTERNAL_STORAGE));
-                }
-                return grantedWriteExternalStorage;
-            } else {
-                return hasPermission(context, permission.WRITE_EXTERNAL_STORAGE);
+            boolean grantedWriteExternalStorage = ContextCompat.checkSelfPermission(context, permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+            if (permissions != null) {
+                if (!grantedWriteExternalStorage)
+                    permissions.add(new Permissions.PermissionType(Permissions.PERMISSION_LOG_TO_FILE, Manifest.permission.WRITE_EXTERNAL_STORAGE));
             }
+            return grantedWriteExternalStorage;
         } catch (Exception e) {
             return false;
         }
@@ -1529,519 +1578,455 @@ class Permissions {
                                                   /*int startupSource, boolean interactive,*/
                                                   /*boolean activateProfile,*/
                                                   /*boolean fromPreferences*/) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            ArrayList<PermissionType> permissions = checkProfilePermissions(context, profile);
-            //if (PPApplication.logEnabled()) {
-                //PPApplication.logE("Permissions.grantProfilePermissions", "permissions.size()=" + permissions.size());
-            //    PPApplication.logE("Permissions.grantProfilePermissions", "startupSource=" + startupSource);
-            //}
-            if (permissions.size() > 0) {
-                try {
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //if (!fromPreferences || onlyNotification)
-                    //    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_PROFILE);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true/*fromPreferences*/);
-                    intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
-                    intent.putExtra(EXTRA_MERGED_PROFILE, false);
-                    //if (onlyNotification)
-                    //    addMergedPermissions(context, permissions);
-                    //else
-                        intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    //intent.putExtra(EXTRA_FOR_GUI, forGUI);
-                    //intent.putExtra(EXTRA_MONOCHROME, monochrome);
-                    //intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
-                    intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR);
-                    intent.putExtra(EXTRA_INTERACTIVE, false);
-                    intent.putExtra(EXTRA_ACTIVATE_PROFILE, false);
+        ArrayList<PermissionType> permissions = checkProfilePermissions(context, profile);
+        //if (PPApplication.logEnabled()) {
+            //PPApplication.logE("Permissions.grantProfilePermissions", "permissions.size()=" + permissions.size());
+        //    PPApplication.logE("Permissions.grantProfilePermissions", "startupSource=" + startupSource);
+        //}
+        if (permissions.size() > 0) {
+            try {
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //if (!fromPreferences || onlyNotification)
+                //    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_PROFILE);
+                intent.putExtra(EXTRA_FORCE_GRANT, true/*fromPreferences*/);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                intent.putExtra(EXTRA_MERGED_PROFILE, false);
+                //if (onlyNotification)
+                //    addMergedPermissions(context, permissions);
+                //else
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                //intent.putExtra(EXTRA_FOR_GUI, forGUI);
+                //intent.putExtra(EXTRA_MONOCHROME, monochrome);
+                //intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
+                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR);
+                intent.putExtra(EXTRA_INTERACTIVE, false);
+                intent.putExtra(EXTRA_ACTIVATE_PROFILE, false);
 
-                    if (Build.VERSION.SDK_INT >= 29) {
-                        for (PermissionType permissionType : permissions) {
-                            if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
-                                    permissionType.permission.equals(permission.ACCESS_FINE_LOCATION) ||
-                                    permissionType.permission.equals(permission.ACCESS_BACKGROUND_LOCATION)) {
-                                intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
-                                break;
-                            }
+                if (Build.VERSION.SDK_INT >= 29) {
+                    for (PermissionType permissionType : permissions) {
+                        if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
+                                permissionType.permission.equals(permission.ACCESS_FINE_LOCATION) ||
+                                permissionType.permission.equals(permission.ACCESS_BACKGROUND_LOCATION)) {
+//                                Log.e("Permissions.grantProfilePermissions", "ACCESS_BACKGROUND_LOCATION add EXTRA_GRANT_ALSO_BACKGROUND_LOCATION");
+                            intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+                            break;
                         }
                     }
-
-                    //if (fromPreferences && (!onlyNotification))
-                        ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_PROFILE);
-                    //else
-                    //    context.startActivity(intent);
-                } catch (Exception e) {
-                    //Log.e("Permissions.grantProfilePermissions", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                    //return false;
                 }
+
+                //if (fromPreferences && (!onlyNotification))
+                    ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_PROFILE);
+                //else
+                //    context.startActivity(intent);
+            } catch (Exception e) {
+                //Log.e("Permissions.grantProfilePermissions", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+                //return false;
             }
-            //return permissions.size() == 0;
-        //}
-        //else
-        //    return true;
+        }
+        //return permissions.size() == 0;
     }
 
     /*
     static boolean grantInstallTonePermissions(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
-            ArrayList<PermissionType> permissions = new ArrayList<>();
-            boolean granted = checkInstallTone(context, permissions);
-            if (!granted) {
-                try {
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_INSTALL_TONE);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
-                    context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
+        ArrayList<PermissionType> permissions = new ArrayList<>();
+        boolean granted = checkInstallTone(context, permissions);
+        if (!granted) {
+            try {
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_INSTALL_TONE);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, onlyNotification);
+                context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
             }
-            return granted;
         }
-        else
-            return true;
+        return granted;
     }
     */
 
     static void grantPlayRingtoneNotificationPermissions(Context context/*, boolean onlyNotification*/, boolean alsoContacts) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            ArrayList<PermissionType> permissions = new ArrayList<>();
-            boolean granted = checkPlayRingtoneNotification(context, alsoContacts, permissions);
-            if (!granted) {
-                try {
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //if (!fromPreferences || onlyNotification)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION);
-                    intent.putExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-                    intent.putExtra(EXTRA_MERGED_PROFILE, false);
-                    //if (onlyNotification)
-                    //    addMergedPermissions(context, permissions);
-                    //else
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    intent.putExtra(EXTRA_ONLY_NOTIFICATION, true);
-                    //intent.putExtra(EXTRA_FOR_GUI, forGUI);
-                    //intent.putExtra(EXTRA_MONOCHROME, monochrome);
-                    //intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
-                    intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
-                    intent.putExtra(EXTRA_INTERACTIVE, true);
-                    intent.putExtra(EXTRA_ACTIVATE_PROFILE, 0);
-                    //if (fromPreferences && (!onlyNotification))
-                    //    ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_PROFILE);
-                    //else
-                    context.startActivity(intent);
-                } catch (Exception ignored) {}
-            }
-            //return granted;
-        //}
-        //else
-        //    return true;
+        ArrayList<PermissionType> permissions = new ArrayList<>();
+        boolean granted = checkPlayRingtoneNotification(context, alsoContacts, permissions);
+        if (!granted) {
+            try {
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //if (!fromPreferences || onlyNotification)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_PLAY_RINGTONE_NOTIFICATION);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+                intent.putExtra(EXTRA_MERGED_PROFILE, false);
+                //if (onlyNotification)
+                //    addMergedPermissions(context, permissions);
+                //else
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                intent.putExtra(EXTRA_ONLY_NOTIFICATION, true);
+                //intent.putExtra(EXTRA_FOR_GUI, forGUI);
+                //intent.putExtra(EXTRA_MONOCHROME, monochrome);
+                //intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
+                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
+                intent.putExtra(EXTRA_INTERACTIVE, true);
+                intent.putExtra(EXTRA_ACTIVATE_PROFILE, 0);
+                //if (fromPreferences && (!onlyNotification))
+                //    ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_PROFILE);
+                //else
+                context.startActivity(intent);
+            } catch (Exception ignored) {}
+        }
+        //return granted;
     }
 
-    static boolean grantWallpaperPermissions(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkGallery(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_WALLPAPER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
+    static boolean grantImageWallpaperPermissions(Context context) {
+        boolean granted = checkGallery(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_IMAGE_WALLPAPER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
 
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WALLPAPER);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WALLPAPER);
-                    //wallpaperViewPreference = preference;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMAGE_WALLPAPER);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMAGE_WALLPAPER);
+                //wallpaperViewPreference = preference;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
             }
-            return granted;
-        //}
-        //else
-        //    return true;
+        }
+        return granted;
+    }
+
+    static boolean grantWallpaperFolderPermissions(Context context) {
+        boolean granted = checkGallery(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_WALLPAPER_FOLDER_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WALLPAPER_FOLDER);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WALLPAPER_FOLDER);
+                //wallpaperViewPreference = preference;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
     }
 
     static boolean grantCustomProfileIconPermissions(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkGallery(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
+        boolean granted = checkGallery(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_CUSTOM_PROFILE_ICON_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
 
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CUSTOM_PROFILE_ICON);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CUSTOM_PROFILE_ICON);
-                    //profileIconPreference = preference;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CUSTOM_PROFILE_ICON);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CUSTOM_PROFILE_ICON);
+                //profileIconPreference = preference;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
             }
-            return granted;
-        //}
-        //else
-        //    return true;
+        }
+        return granted;
     }
 
     static boolean grantBrightnessDialogPermissions(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            ArrayList<PermissionType> permissions = new ArrayList<>();
-            boolean granted = checkScreenBrightness(context, permissions);
-            if (!granted) {
-                try {
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_BRIGHTNESS_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_BRIGHTNESS_DIALOG);
-                    //brightnessDialogPreference = preference;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
+        ArrayList<PermissionType> permissions = new ArrayList<>();
+        boolean granted = checkScreenBrightness(context, permissions);
+        if (!granted) {
+            try {
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_BRIGHTNESS_DIALOG);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_BRIGHTNESS_DIALOG);
+                //brightnessDialogPreference = preference;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
             }
-            return granted;
-        //}
-        //else
-        //    return true;
+        }
+        return granted;
     }
 
     static boolean grantExportPermissions(Context context, EditorProfilesActivity editor) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkExport(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_EXPORT, permission.READ_EXTERNAL_STORAGE));
-                    permissions.add(new PermissionType(PERMISSION_EXPORT, permission.WRITE_EXTERNAL_STORAGE));
+        boolean granted = checkExport(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_EXPORT, permission.READ_EXTERNAL_STORAGE));
+                permissions.add(new PermissionType(PERMISSION_EXPORT, permission.WRITE_EXTERNAL_STORAGE));
 
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    //noinspection deprecation
-                    editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT);
-                    //editorActivity = editor;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EXPORT);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                //noinspection deprecation
+                editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EXPORT);
+                //editorActivity = editor;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
             }
-            return granted;
-        //}
-        //else
-        //    return true;
+        }
+        return granted;
     }
 
     static boolean grantImportPermissions(Context context, EditorProfilesActivity editor/*, String applicationDataPath*/) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkImport(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_IMPORT, permission.READ_EXTERNAL_STORAGE));
-                    permissions.add(new PermissionType(PERMISSION_IMPORT, permission.WRITE_EXTERNAL_STORAGE));
+        boolean granted = checkImport(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_IMPORT, permission.READ_EXTERNAL_STORAGE));
+                permissions.add(new PermissionType(PERMISSION_IMPORT, permission.WRITE_EXTERNAL_STORAGE));
 
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMPORT);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_APPLICATION_DATA_PATH, PPApplication.EXPORT_PATH);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    //noinspection deprecation
-                    editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMPORT);
-                    //editorActivity = editor;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_IMPORT);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_APPLICATION_DATA_PATH, PPApplication.EXPORT_PATH);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                //noinspection deprecation
+                editor.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_IMPORT);
+                //editorActivity = editor;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
             }
-            return granted;
-        //}
-        //else
-        //    return true;
+        }
+        return granted;
     }
 
     static void /*boolean*/ grantEventPermissions(Context context, Event event/*,
                                                   boolean onlyNotification,
                                                   boolean fromPreferences*/) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            ArrayList<PermissionType> permissions = checkEventPermissions(context, event, null, EventsHandler.SENSOR_TYPE_ALL);
-            if (permissions.size() > 0) {
-                try {
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //if (!fromPreferences || onlyNotification)
-                    //    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EVENT);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true/*fromPreferences*/);
-                    intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
-                    //if (onlyNotification)
-                    //    addMergedPermissions(context, permissions);
-                    //else
-                        intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+        ArrayList<PermissionType> permissions =
+                checkEventPermissions(context, event, null, EventsHandler.SENSOR_TYPE_ALL);
+        if (permissions.size() > 0) {
+            try {
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //if (!fromPreferences || onlyNotification)
+                //    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_EVENT);
+                intent.putExtra(EXTRA_FORCE_GRANT, true/*fromPreferences*/);
+                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                //if (onlyNotification)
+                //    addMergedPermissions(context, permissions);
+                //else
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
 
-                    if (Build.VERSION.SDK_INT >= 29) {
-                        for (PermissionType permissionType : permissions) {
-                            if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
-                                    permissionType.permission.equals(permission.ACCESS_FINE_LOCATION) ||
-                                    permissionType.permission.equals(permission.ACCESS_BACKGROUND_LOCATION)) {
-                                intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
-                                break;
-                            }
+                if (Build.VERSION.SDK_INT >= 29) {
+                    for (PermissionType permissionType : permissions) {
+                        if (permissionType.permission.equals(permission.ACCESS_COARSE_LOCATION) ||
+                                permissionType.permission.equals(permission.ACCESS_FINE_LOCATION) ||
+                                permissionType.permission.equals(permission.ACCESS_BACKGROUND_LOCATION)) {
+//                                Log.e("Permissions.grantEventPermissions", "ACCESS_BACKGROUND_LOCATION add EXTRA_GRANT_ALSO_BACKGROUND_LOCATION");
+                            intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+                            break;
                         }
                     }
-
-                    //if (fromPreferences && (!onlyNotification))
-                        ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EVENT);
-                    //else
-                    //    context.startActivity(intent);
-                } catch (Exception e) {
-                    //Log.e("Permissions.grantEventPermissions", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                    //return false;
                 }
+
+                //if (fromPreferences && (!onlyNotification))
+                    ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_EVENT);
+                //else
+                //    context.startActivity(intent);
+            } catch (Exception e) {
+                //Log.e("Permissions.grantEventPermissions", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+                //return false;
             }
-            //return permissions.size() == 0;
-        //}
-        //else
-        //    return true;
+        }
+        //return permissions.size() == 0;
     }
 
     static boolean grantWifiScanDialogPermissions(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkLocation(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
-                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                    if (Build.VERSION.SDK_INT >= 29)
-                        permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
-
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    //intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
-                    intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
-                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
-                    //wifiSSIDPreference = preference;
-                    //bluetoothNamePreference = null;
-                    //locationGeofenceEditorActivity = null;
-                    //mobileCellsPreference = null;
-                    //mobileCellsRegistrationDialogPreference = null;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            return granted;
-        //}
-        //else
-        //    return true;
-    }
-
-    static boolean grantBluetoothScanDialogPermissions(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkLocation(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
-                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                    if (Build.VERSION.SDK_INT >= 29)
-                        permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
-
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    //intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
-                    intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
-                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
-                    //bluetoothNamePreference = preference;
-                    //wifiSSIDPreference = null;
-                    //locationGeofenceEditorActivity = null;
-                    //mobileCellsPreference = null;
-                    //mobileCellsRegistrationDialogPreference = null;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            return granted;
-        //}
-        //else
-        //    return true;
-    }
-
-    static boolean grantCalendarDialogPermissions(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkCalendar(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_CALENDAR_PREFERENCE, permission.READ_CALENDAR));
-
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CALENDAR_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CALENDAR_DIALOG);
-                    //calendarsMultiSelectDialogPreference = preference;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            return granted;
-        //}
-        //else
-        //    return true;
-    }
-
-    static boolean grantContactsDialogPermissions(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkContacts(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
-
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONTACT_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CONTACT_DIALOG);
-                    //contactsMultiSelectDialogPreference = preference;
-                    //contactGroupsMultiSelectDialogPreference = null;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            return granted;
-        //}
-        //else
-        //    return true;
-    }
-
-    static boolean grantContactGroupsDialogPermissions(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkContacts(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
-
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONTACT_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CONTACT_DIALOG);
-                    //contactGroupsMultiSelectDialogPreference = preference;
-                    //contactsMultiSelectDialogPreference = null;
-                    context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            return granted;
-        //}
-        //else
-        //    return true;
-    }
-
-    /*
-    static boolean grantLocationGeofenceEditorPermissions(Context context, LocationGeofenceEditorActivity activity) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkLocation(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
-                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                    if (Build.VERSION.SDK_INT >= 29)
-                        permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
-
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    activity.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY);
-                    //bluetoothNamePreference = null;
-                    //wifiSSIDPreference = null;
-                    //locationGeofenceEditorActivity = activity;
-                    //mobileCellsPreference = null;
-                    //mobileCellsRegistrationDialogPreference = null;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            return granted;
-        //}
-        //else
-        //    return true;
-    }
-    */
-
-    static boolean grantLocationGeofenceEditorPermissionsOSM(Context context, LocationGeofenceEditorActivityOSM activity) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
         boolean granted = checkLocation(context);
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
                 permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
                 permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                if (Build.VERSION.SDK_INT >= 29)
-                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
+                // only for API 29 add also background location For 30+ must be granted separatelly
+                //if (Build.VERSION.SDK_INT == 29)
+                //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                //intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
+                intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
+                //wifiSSIDPreference = preference;
+                //bluetoothNamePreference = null;
+                //locationGeofenceEditorActivity = null;
+                //mobileCellsPreference = null;
+                //mobileCellsRegistrationDialogPreference = null;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
+    }
+
+    static boolean grantBluetoothScanDialogPermissions(Context context) {
+        boolean granted = checkLocation(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                // only for API 29 add also background location For 30+ must be granted separatelly
+                //if (Build.VERSION.SDK_INT == 29)
+                //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                //intent.putExtra(EXTRA_FORCE_START_SCANNER, true);
+                intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_WIFI_BT_SCAN_DIALOG);
+                //bluetoothNamePreference = preference;
+                //wifiSSIDPreference = null;
+                //locationGeofenceEditorActivity = null;
+                //mobileCellsPreference = null;
+                //mobileCellsRegistrationDialogPreference = null;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
+    }
+
+    static boolean grantCalendarDialogPermissions(Context context) {
+        boolean granted = checkCalendar(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_CALENDAR_PREFERENCE, permission.READ_CALENDAR));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CALENDAR_DIALOG);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CALENDAR_DIALOG);
+                //calendarsMultiSelectDialogPreference = preference;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
+    }
+
+    static boolean grantContactsDialogPermissions(Context context) {
+        boolean granted = checkContacts(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONTACT_DIALOG);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CONTACT_DIALOG);
+                //contactsMultiSelectDialogPreference = preference;
+                //contactGroupsMultiSelectDialogPreference = null;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
+    }
+
+    static boolean grantContactGroupsDialogPermissions(Context context) {
+        boolean granted = checkContacts(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_EVENT_CONTACTS_PREFERENCE, permission.READ_CONTACTS));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONTACT_DIALOG);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CONTACT_DIALOG);
+                //contactGroupsMultiSelectDialogPreference = preference;
+                //contactsMultiSelectDialogPreference = null;
+                context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
+    }
+
+    /*
+    static boolean grantLocationGeofenceEditorPermissions(Context context, LocationGeofenceEditorActivity activity) {
+        boolean granted = checkLocation(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                //if (Build.VERSION.SDK_INT >= 29)
+                //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -2063,206 +2048,232 @@ class Permissions {
             }
         }
         return granted;
-        //}
-        //else
-        //    return true;
     }
+    */
 
-    static boolean grantMobileCellsDialogPermissions(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkLocation(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
-                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                    if (Build.VERSION.SDK_INT >= 29)
-                        permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
-                    if (Build.VERSION.SDK_INT >= 26)
-                        permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.READ_PHONE_STATE));
-
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
-                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
-                    //wifiSSIDPreference = null;
-                    //bluetoothNamePreference = null;
-                    //locationGeofenceEditorActivity = null;
-                    //mobileCellsPreference = preference;
-                    //mobileCellsRegistrationDialogPreference = null;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            return granted;
-        //}
-        //else
-        //    return true;
-    }
-
-    static boolean grantMobileCellsRegistrationDialogPermissions(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkLocation(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
-                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                    if (Build.VERSION.SDK_INT >= 29)
-                        permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
-
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
-                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG);
-                    //wifiSSIDPreference = null;
-                    //bluetoothNamePreference = null;
-                    //locationGeofenceEditorActivity = null;
-                    //mobileCellsPreference = null;
-                    //mobileCellsRegistrationDialogPreference = preference;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            return granted;
-        //}
-        //else
-        //    return true;
-    }
-
-    static boolean grantRingtonePreferenceDialogPermissions(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkRingtonePreference(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_RINGTONE_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
-
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_RINGTONE_PREFERENCE);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_RINGTONE_PREFERENCE);
-                    //ringtonePreference = preference;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            return granted;
-        //}
-        //else
-        //    return true;
-    }
-
-    static boolean grantConnectToSSIDDialogPermissions(Context context) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-            boolean granted = checkLocation(context);
-            if (!granted) {
-                try {
-                    ArrayList<PermissionType> permissions = new ArrayList<>();
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_FINE_LOCATION));
-                    permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
-                    if (Build.VERSION.SDK_INT >= 29)
-                        permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
-
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONNECT_TO_SSID_DIALOG);
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
-                    intent.putExtra(EXTRA_FORCE_GRANT, true);
-                    intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
-                    ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CONNECT_TO_SSID_DIALOG);
-                    //contactsMultiSelectDialogPreference = preference;
-                    //contactGroupsMultiSelectDialogPreference = null;
-                    //context.startActivity(intent);
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            return granted;
-        //}
-        //else
-        //    return true;
-    }
-
-    static void grantBackgroundLocation(Context context, GrantPermissionActivity activity) {
-        //if (android.os.Build.VERSION.SDK_INT >= 23) {
-        boolean granted = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    static boolean grantLocationGeofenceEditorPermissionsOSM(Context context, LocationGeofenceEditorActivityOSM activity) {
+        boolean granted = checkLocation(context);
         if (!granted) {
             try {
                 ArrayList<PermissionType> permissions = new ArrayList<>();
-                permissions.add(new PermissionType(PERMISSION_BACGROUND_LOCATION, permission.ACCESS_BACKGROUND_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                // only for API 29 add also background location For 30+ must be granted separatelly
+                //if (Build.VERSION.SDK_INT == 29)
+                //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
 
                 Intent intent = new Intent(context, GrantPermissionActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
-                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_BACKGROUND_LOCATION);
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY);
                 intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
                 intent.putExtra(EXTRA_FORCE_GRANT, true);
-                // MUST BE FALSE !!!
-                intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, false);
-                //noinspection deprecation
-                activity.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_BACKGROUND_LOCATION);
+                intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+                activity.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_LOCATION_GEOFENCE_EDITOR_ACTIVITY);
                 //bluetoothNamePreference = null;
                 //wifiSSIDPreference = null;
                 //locationGeofenceEditorActivity = activity;
                 //mobileCellsPreference = null;
                 //mobileCellsRegistrationDialogPreference = null;
                 //context.startActivity(intent);
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
+    }
+
+    static boolean grantMobileCellsDialogPermissions(Context context) {
+        boolean granted = checkLocation(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                // only for API 29 add also background location For 30+ must be granted separatelly
+                //if (Build.VERSION.SDK_INT == 29)
+                //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
+                if (Build.VERSION.SDK_INT >= 26)
+                    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.READ_PHONE_STATE));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_SCAN_DIALOG);
+                //wifiSSIDPreference = null;
+                //bluetoothNamePreference = null;
+                //locationGeofenceEditorActivity = null;
+                //mobileCellsPreference = preference;
+                //mobileCellsRegistrationDialogPreference = null;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
+    }
+
+    static boolean grantMobileCellsRegistrationDialogPermissions(Context context) {
+        boolean granted = checkLocation(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                // only for API 29 add also background location For 30+ must be granted separatelly
+                //if (Build.VERSION.SDK_INT == 29)
+                //    permissions.add(new PermissionType(PERMISSION_LOCATION_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_MOBILE_CELLS_REGISTRATION_DIALOG);
+                //wifiSSIDPreference = null;
+                //bluetoothNamePreference = null;
+                //locationGeofenceEditorActivity = null;
+                //mobileCellsPreference = null;
+                //mobileCellsRegistrationDialogPreference = preference;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
+    }
+
+    static boolean grantRingtonePreferenceDialogPermissions(Context context) {
+        boolean granted = checkRingtonePreference(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_RINGTONE_PREFERENCE, permission.READ_EXTERNAL_STORAGE));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_RINGTONE_PREFERENCE);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_RINGTONE_PREFERENCE);
+                //ringtonePreference = preference;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
+    }
+
+    static boolean grantConnectToSSIDDialogPermissions(Context context) {
+        boolean granted = checkLocation(context);
+        if (!granted) {
+            try {
+                ArrayList<PermissionType> permissions = new ArrayList<>();
+                permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_FINE_LOCATION));
+                permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_COARSE_LOCATION));
+                // only for API 29 add also background location For 30+ must be granted separatelly
+                //if (Build.VERSION.SDK_INT == 29)
+                //    permissions.add(new PermissionType(PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE, permission.ACCESS_BACKGROUND_LOCATION));
+
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_CONNECT_TO_SSID_DIALOG);
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                //intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                intent.putExtra(EXTRA_FORCE_GRANT, true);
+                intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, true);
+                ((Activity)context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_CONNECT_TO_SSID_DIALOG);
+                //contactsMultiSelectDialogPreference = preference;
+                //contactGroupsMultiSelectDialogPreference = null;
+                //context.startActivity(intent);
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return granted;
+    }
+
+    static void grantBackgroundLocation(Context context, GrantPermissionActivity activity) {
+//        Log.e("Permissions.grantBackgroundLocation", "ACCESS_BACKGROUND_LOCATION");
+
+        // separated grand of background location must by for api 30+
+        if (android.os.Build.VERSION.SDK_INT >= 29) {
+            boolean grantedOldLocationTypes =
+                    (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) &&
+                    (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED);
+            boolean grantedBackgroundLocation = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_BACKGROUND_LOCATION) == PackageManager.PERMISSION_GRANTED;
+
+            if (grantedOldLocationTypes && (!grantedBackgroundLocation)) {
+                try {
+//                    Log.e("Permissions.grantBackgroundLocation", "ACCESS_BACKGROUND_LOCATION not granted");
+                    ArrayList<PermissionType> permissions = new ArrayList<>();
+                    permissions.add(new PermissionType(PERMISSION_BACGROUND_LOCATION, permission.ACCESS_BACKGROUND_LOCATION));
+
+                    Intent intent = new Intent(context, GrantPermissionActivity.class);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // this close all activities with same taskAffinity
+                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_BACKGROUND_LOCATION);
+                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                    intent.putExtra(EXTRA_ONLY_NOTIFICATION, false);
+                    intent.putExtra(EXTRA_FORCE_GRANT, true);
+                    // MUST BE FALSE !!!
+                    intent.putExtra(EXTRA_GRANT_ALSO_BACKGROUND_LOCATION, false);
+                    //noinspection deprecation
+                    activity.startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_BACKGROUND_LOCATION);
+                    //bluetoothNamePreference = null;
+                    //wifiSSIDPreference = null;
+                    //locationGeofenceEditorActivity = activity;
+                    //mobileCellsPreference = null;
+                    //mobileCellsRegistrationDialogPreference = null;
+                    //context.startActivity(intent);
+                } catch (Exception ignored) {
+                }
+            }
         }
     }
 
     /*
     static void grantLogToFilePermissions(Context context) {
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
-            ArrayList<PermissionType> permissions = new ArrayList<>();
-            boolean granted = checkLogToFile(context, permissions);
-            if (!granted) {
-                try {
-                    Intent intent = new Intent(context, GrantPermissionActivity.class);
-                    //if (!fromPreferences || onlyNotification)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
-                    intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_LOG_TO_FILE);
-                    intent.putExtra(PPApplication.EXTRA_PROFILE_ID, 0);
-                    intent.putExtra(EXTRA_MERGED_PROFILE, false);
-                    //if (onlyNotification)
-                    //    addMergedPermissions(context, permissions);
-                    //else
-                    intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
-                    intent.putExtra(EXTRA_ONLY_NOTIFICATION, true);
-                    //intent.putExtra(EXTRA_FOR_GUI, forGUI);
-                    //intent.putExtra(EXTRA_MONOCHROME, monochrome);
-                    //intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
-                    intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
-                    intent.putExtra(EXTRA_INTERACTIVE, true);
-                    intent.putExtra(EXTRA_ACTIVATE_PROFILE, 0);
-                    //if (fromPreferences && (!onlyNotification))
-                    //    ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_PROFILE);
-                    //else
-                    context.startActivity(intent);
-                } catch (Exception ignored) {}
-            }
+        ArrayList<PermissionType> permissions = new ArrayList<>();
+        boolean granted = checkLogToFile(context, permissions);
+        if (!granted) {
+            try {
+                Intent intent = new Intent(context, GrantPermissionActivity.class);
+                //if (!fromPreferences || onlyNotification)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);  // this close all activities with same taskAffinity
+                intent.putExtra(EXTRA_GRANT_TYPE, GRANT_TYPE_LOG_TO_FILE);
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, 0);
+                intent.putExtra(EXTRA_MERGED_PROFILE, false);
+                //if (onlyNotification)
+                //    addMergedPermissions(context, permissions);
+                //else
+                intent.putParcelableArrayListExtra(EXTRA_PERMISSION_TYPES, permissions);
+                intent.putExtra(EXTRA_ONLY_NOTIFICATION, true);
+                //intent.putExtra(EXTRA_FOR_GUI, forGUI);
+                //intent.putExtra(EXTRA_MONOCHROME, monochrome);
+                //intent.putExtra(EXTRA_MONOCHROME_VALUE, monochromeValue);
+                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
+                intent.putExtra(EXTRA_INTERACTIVE, true);
+                intent.putExtra(EXTRA_ACTIVATE_PROFILE, 0);
+                //if (fromPreferences && (!onlyNotification))
+                //    ((Activity) context).startActivityForResult(intent, REQUEST_CODE + GRANT_TYPE_PROFILE);
+                //else
+                context.startActivity(intent);
+            } catch (Exception ignored) {}
         }
     }
     */
@@ -2275,7 +2286,6 @@ class Permissions {
                 notificationManager.cancel(
                         PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_TAG,
                         PPApplication.GRANT_PROFILE_PERMISSIONS_NOTIFICATION_ID);
-                //if (Build.VERSION.SDK_INT >= 23) {
                 StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
                 for (StatusBarNotification notification : notifications) {
                     String tag = notification.getTag();
@@ -2285,10 +2295,6 @@ class Permissions {
                         }
                     }
                 }
-            /*} else {
-                int notificationId = intent.getIntExtra("notificationId", 0);
-                manager.cancel(notificationId);
-            }*/
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -2324,7 +2330,6 @@ class Permissions {
                 notificationManager.cancel(
                         PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_TAG,
                         PPApplication.GRANT_EVENT_PERMISSIONS_NOTIFICATION_ID);
-                //if (Build.VERSION.SDK_INT >= 23) {
                 StatusBarNotification[] notifications = notificationManager.getActiveNotifications();
                 for (StatusBarNotification notification : notifications) {
                     String tag = notification.getTag();
@@ -2334,10 +2339,6 @@ class Permissions {
                         }
                     }
                 }
-            /*} else {
-                int notificationId = intent.getIntExtra("notificationId", 0);
-                manager.cancel(notificationId);
-            }*/
             }
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -2512,7 +2513,6 @@ class Permissions {
     }
     */
 
-    @TargetApi(Build.VERSION_CODES.M)
     static void saveAllPermissions(Context context, boolean permissionsChanged) {
         SharedPreferences preferences = context.getSharedPreferences(PPApplication.PERMISSIONS_STATUS_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

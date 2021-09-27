@@ -10,5 +10,6 @@
     android:resizeMode="horizontal"
     android:updatePeriodMillis="0"
     android:previewImage="@drawable/one_row_widget_preview"
+    android:description="@string/one_row_widget_description"
     android:widgetCategory="home_screen">
 </appwidget-provider>

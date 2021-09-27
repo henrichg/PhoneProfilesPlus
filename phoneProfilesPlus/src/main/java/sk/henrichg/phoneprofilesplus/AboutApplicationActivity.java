@@ -92,7 +92,9 @@ public class AboutApplicationActivity extends AppCompatActivity {
         String message;
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
-            message = getString(R.string.about_application_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";//\n";
+            message = getString(R.string.about_application_version) + " " + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+            if (DebugVersion.enabled)
+                message = message + " - debug";
         } catch (Exception e) {
             message = "";
         }

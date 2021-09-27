@@ -12,7 +12,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/editor_list_bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:background="?attr/colorPrimary"
         app:elevation="0dp"

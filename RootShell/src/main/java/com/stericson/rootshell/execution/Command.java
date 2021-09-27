@@ -165,7 +165,7 @@ public class Command {
 
         if (Looper.myLooper() != null && handlerEnabled) {
             RootShell.log("CommandHandler created");
-            mHandler = new CommandHandler();
+            mHandler = new CommandHandler(null);
         } else {
             RootShell.log("CommandHandler not created");
         }
@@ -358,6 +358,10 @@ public class Command {
 
         static final int COMMAND_TERMINATED = 0x03;
 
+        @SuppressWarnings({"deprecation", "unused"})
+        CommandHandler(Looper looper) {
+        }
+
         public final void handleMessage(Message msg) {
             int action = msg.getData().getInt(ACTION);
             String text = msg.getData().getString(TEXT);
@@ -375,4 +379,5 @@ public class Command {
             }
         }
     }
+
 }

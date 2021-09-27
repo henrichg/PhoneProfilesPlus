@@ -84,6 +84,7 @@ class Event {
     EventPreferencesAlarmClock _eventPreferencesAlarmClock;
     EventPreferencesDeviceBoot _eventPreferencesDeviceBoot;
     EventPreferencesSoundProfile _eventPreferencesSoundProfile;
+    EventPreferencesPeriodic _eventPreferencesPeriodic;
 
     static final int ESTATUS_STOP = 0;
     static final int ESTATUS_PAUSE = 1;
@@ -403,6 +404,12 @@ class Event {
         this._eventPreferencesSoundProfile = new EventPreferencesSoundProfile(this, false, "", "");
     }
 
+    private void createEventPreferencesPeriodic()
+    {
+        this._eventPreferencesPeriodic = new EventPreferencesPeriodic(this, false, 1, 5);
+    }
+
+
     void createEventPreferences()
     {
         createEventPreferencesTime();
@@ -424,6 +431,7 @@ class Event {
         createEventPreferencesAlarmClock();
         createEventPreferencesDeviceBoot();
         createEventPreferencesSoundProfile();
+        createEventPreferencesPeriodic();
     }
 
     void copyEventPreferences(Event fromEvent)
@@ -466,6 +474,8 @@ class Event {
             createEventPreferencesDeviceBoot();
         if (this._eventPreferencesSoundProfile == null)
             createEventPreferencesSoundProfile();
+        if (this._eventPreferencesPeriodic == null)
+            createEventPreferencesPeriodic();
         this._eventPreferencesTime.copyPreferences(fromEvent);
         this._eventPreferencesBattery.copyPreferences(fromEvent);
         this._eventPreferencesCall.copyPreferences(fromEvent);
@@ -485,6 +495,7 @@ class Event {
         this._eventPreferencesAlarmClock.copyPreferences(fromEvent);
         this._eventPreferencesDeviceBoot.copyPreferences(fromEvent);
         this._eventPreferencesSoundProfile.copyPreferences(fromEvent);
+        this._eventPreferencesPeriodic.copyPreferences(fromEvent);
     }
 
     boolean isEnabledSomeSensor(Context context) {
@@ -526,7 +537,9 @@ class Event {
                 (this._eventPreferencesDeviceBoot._enabled &&
                         (isEventPreferenceAllowed(EventPreferencesDeviceBoot.PREF_EVENT_DEVICE_BOOT_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
                 (this._eventPreferencesSoundProfile._enabled &&
-                        (isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
+                        (isEventPreferenceAllowed(EventPreferencesSoundProfile.PREF_EVENT_SOUND_PROFILE_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED)) ||
+                (this._eventPreferencesPeriodic._enabled &&
+                        (isEventPreferenceAllowed(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_ENABLED, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED));
     }
 
     public boolean isRunnable(Context context, boolean checkSomeSensorEnabled) {
@@ -576,6 +589,8 @@ class Event {
             runnable = runnable && this._eventPreferencesDeviceBoot.isRunnable(appContext);
         if (this._eventPreferencesSoundProfile._enabled)
             runnable = runnable && this._eventPreferencesSoundProfile.isRunnable(appContext);
+        if (this._eventPreferencesPeriodic._enabled)
+            runnable = runnable && this._eventPreferencesPeriodic.isRunnable(appContext);
 
         return runnable;
     }
@@ -603,7 +618,8 @@ class Event {
                             this._eventPreferencesRadioSwitch._enabled ||
                             this._eventPreferencesAlarmClock._enabled ||
                             this._eventPreferencesDeviceBoot._enabled ||
-                            this._eventPreferencesSoundProfile._enabled;
+                            this._eventPreferencesSoundProfile._enabled ||
+                            this._eventPreferencesPeriodic._enabled;
         }
         if (someEnabled) {
             if (this._eventPreferencesTime._enabled)
@@ -644,6 +660,8 @@ class Event {
                 accessibilityEnabled = this._eventPreferencesDeviceBoot.isAccessibilityServiceEnabled(context);
             if (this._eventPreferencesSoundProfile._enabled)
                 accessibilityEnabled = this._eventPreferencesSoundProfile.isAccessibilityServiceEnabled(context);
+            if (this._eventPreferencesPeriodic._enabled)
+                accessibilityEnabled = this._eventPreferencesPeriodic.isAccessibilityServiceEnabled(context);
         }
 
         return accessibilityEnabled;
@@ -698,6 +716,7 @@ class Event {
         this._eventPreferencesAlarmClock.loadSharedPreferences(preferences);
         this._eventPreferencesDeviceBoot.loadSharedPreferences(preferences);
         this._eventPreferencesSoundProfile.loadSharedPreferences(preferences);
+        this._eventPreferencesPeriodic.loadSharedPreferences(preferences);
         editor.apply();
     }
 
@@ -755,6 +774,7 @@ class Event {
         this._eventPreferencesAlarmClock.saveSharedPreferences(preferences);
         this._eventPreferencesDeviceBoot.saveSharedPreferences(preferences);
         this._eventPreferencesSoundProfile.saveSharedPreferences(preferences);
+        this._eventPreferencesPeriodic.saveSharedPreferences(preferences);
 
         if (!this.isRunnable(context, true))
             this._status = ESTATUS_STOP;
@@ -1194,6 +1214,8 @@ class Event {
         _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesSoundProfile.setSummary(prefMng, key, preferences, context);
         _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesPeriodic.setSummary(prefMng, key, preferences, context);
+        _eventPreferencesPeriodic.setCategorySummary(prefMng, preferences, context);
     }
 
     public void setAllSummary(PreferenceManager prefMng, SharedPreferences preferences, Context context) {
@@ -1265,6 +1287,8 @@ class Event {
         _eventPreferencesDeviceBoot.setCategorySummary(prefMng, preferences, context);
         _eventPreferencesSoundProfile.setAllSummary(prefMng, preferences, context);
         _eventPreferencesSoundProfile.setCategorySummary(prefMng, preferences, context);
+        _eventPreferencesPeriodic.setAllSummary(prefMng, preferences, context);
+        _eventPreferencesPeriodic.setCategorySummary(prefMng, preferences, context);
     }
 
     public String getPreferencesDescription(Context context, boolean addPassStatus)
@@ -1275,6 +1299,12 @@ class Event {
 
         if (_eventPreferencesTime._enabled) {
             String desc = _eventPreferencesTime.getPreferencesDescription(true, addPassStatus, context);
+            if (desc != null)
+                description = description + "<li>" + desc + "</li>";
+        }
+
+        if (_eventPreferencesPeriodic._enabled) {
+            String desc = _eventPreferencesPeriodic.getPreferencesDescription(true, addPassStatus, context);
             if (desc != null)
                 description = description + "<li>" + desc + "</li>";
         }
@@ -1413,6 +1443,7 @@ class Event {
         _eventPreferencesAlarmClock.checkPreferences(prefMng, context);
         _eventPreferencesDeviceBoot.checkPreferences(prefMng, context);
         _eventPreferencesSoundProfile.checkPreferences(prefMng, context);
+        _eventPreferencesPeriodic.checkPreferences(prefMng, context);
     }
 
     /*
@@ -1647,14 +1678,13 @@ class Event {
 //                        PPApplication.logE("[***] Event.startEvent", "(1) called is DataWrapper.activateProfileFromEvent");
                         dataWrapper.activateProfileFromEvent(this._id, this._fkProfileStart, false, false, forRestartEvents);
                     } else {
-                        //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.startEvent");
-                        //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
-                        //PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
-                        PPApplication.updateGUI(1, dataWrapper.context/*, true, false*/);
+//                        PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
+                        PPApplication.updateGUI(false, false, dataWrapper.context);
                     }
                 }
                 else {
-                    PPApplication.updateGUI(1, dataWrapper.context/*, true, false*/);
+//                    PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
+                    PPApplication.updateGUI(false, false, dataWrapper.context);
                 }
             } else {
                 if ((PPApplication.applicationFullyStarted && PPApplication.normalServiceStart) || // normalServiceStart=true = it is not restart of application by system
@@ -1672,10 +1702,11 @@ class Event {
                     } else {
                         long profileId = _fkProfileStart;
 //                    PPApplication.logE("[FIFO_TEST] Event.startEvent", "#### add profileId=" + profileId);
-                        dataWrapper.addProfileToFIFO(profileId, _id);
+                        dataWrapper.fifoAddProfile(profileId, _id);
                     }
                 } else {
-                    PPApplication.updateGUI(1, dataWrapper.context/*, true, false*/);
+//                    PPApplication.logE("###### PPApplication.updateGUI", "from=Event.startEvent");
+                    PPApplication.updateGUI(false, false, dataWrapper.context);
                 }
             }
         }
@@ -1766,7 +1797,7 @@ class Event {
                         {
 //                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### remove last profile");
                             synchronized (PPApplication.profileActivationMutex) {
-                                List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                                List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
                                 int size = activateProfilesFIFO.size();
                                 if (size > 0) {
@@ -1779,7 +1810,7 @@ class Event {
                                             newActivateProfilesFIFO.add(fromFifo);
                                         }
                                     }
-                                    dataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
+                                    dataWrapper.fifoSaveProfiles(newActivateProfilesFIFO);
                                     // get latest profile for Undo
                                     size = newActivateProfilesFIFO.size();
                                     if (size > 0) {
@@ -1834,7 +1865,7 @@ class Event {
                             long profileId = _fkProfileEnd;
 
 //                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### add profileId=" + profileId);
-                            dataWrapper.addProfileToFIFO(profileId, _id);
+                            dataWrapper.fifoAddProfile(profileId, _id);
                         }
                     }
                     // second activate when undone profile is set
@@ -1868,7 +1899,7 @@ class Event {
                         {
 //                        PPApplication.logE("[FIFO_TEST] Event.doActivateEndProfile", "#### merge profile for Undo");
                             synchronized (PPApplication.profileActivationMutex) {
-                                List<String> activateProfilesFIFO = dataWrapper.getActivatedProfilesFIFO();
+                                List<String> activateProfilesFIFO = dataWrapper.fifoGetActivatedProfiles();
                                 List<String> newActivateProfilesFIFO = new ArrayList<>();
                                 int size = activateProfilesFIFO.size();
                                 if (size > 0) {
@@ -1882,7 +1913,7 @@ class Event {
                                             newActivateProfilesFIFO.add(fromFifo);
                                         }
                                     }
-                                    dataWrapper.saveActivatedProfilesFIFO(newActivateProfilesFIFO);
+                                    dataWrapper.fifoSaveProfiles(newActivateProfilesFIFO);
                                     // get latest profile for Undo
                                     size = newActivateProfilesFIFO.size();
                                     if (size > 0) {
@@ -1942,10 +1973,8 @@ class Event {
 
         if ((!profileActivated) && updateGUI)
         {
-            //PPApplication.logE("DataWrapper.updateNotificationAndWidgets", "from Event.doActivateEndProfile");
-            //PPApplication.updateNotificationAndWidgets(false, false, dataWrapper.context);
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=Event.doActivateEndProfile");
-            PPApplication.updateGUI(1, dataWrapper.context/*, true, false*/);
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=Event.doActivateEndProfile");
+            PPApplication.updateGUI(false, false, dataWrapper.context);
         }
 
     }
@@ -2260,6 +2289,12 @@ class Event {
         _eventPreferencesSoundProfile.setSensorPassed(_eventPreferencesSoundProfile.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
         //else
         //    _eventPreferencesSoundProfile.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
+        //if (_eventPreferencesPeriodic._enabled)
+        _eventPreferencesPeriodic.setSensorPassed(_eventPreferencesPeriodic.getSensorPassed() | EventPreferences.SENSOR_PASSED_WAITING);
+        //else
+        //    _eventPreferencesPeriodic.setSensorPassed(EventPreferences.SENSOR_PASSED_NOT_PASSED);
+
     }
 
     private void setSystemEvent(Context context, int forStatus)
@@ -2287,6 +2322,7 @@ class Event {
             _eventPreferencesAlarmClock.setSystemEventForStart(context);
             _eventPreferencesDeviceBoot.setSystemEventForStart(context);
             _eventPreferencesSoundProfile.setSystemEventForStart(context);
+            _eventPreferencesPeriodic.setSystemEventForStart(context);
         }
         else
         if (forStatus == ESTATUS_RUNNING)
@@ -2312,6 +2348,7 @@ class Event {
             _eventPreferencesAlarmClock.setSystemEventForPause(context);
             _eventPreferencesDeviceBoot.setSystemEventForPause(context);
             _eventPreferencesSoundProfile.setSystemEventForPause(context);
+            _eventPreferencesPeriodic.setSystemEventForPause(context);
         }
         else
         if (forStatus == ESTATUS_STOP)
@@ -2337,6 +2374,7 @@ class Event {
             _eventPreferencesAlarmClock.removeSystemEvent(context);
             _eventPreferencesDeviceBoot.removeSystemEvent(context);
             _eventPreferencesSoundProfile.removeSystemEvent(context);
+            _eventPreferencesPeriodic.removeSystemEvent(context);
         }
     }
 
@@ -2636,6 +2674,11 @@ class Event {
         {
             Context _context = dataWrapper.context;
 
+            /*if (PPApplication.logEnabled()) {
+                PPApplication.logE("@@@ Event.setDelayEndAlarm", "ignore battery optimization=" + PPApplication.isIgnoreBatteryOptimizationEnabled(_context));
+                PPApplication.logE("@@@ Event.setDelayEndAlarm", "ApplicationPreferences.applicationUseAlarmClock=" + ApplicationPreferences.applicationUseAlarmClock);
+            }*/
+
             // delay for end is > 0
             // set alarm
 
@@ -2691,7 +2734,7 @@ class Event {
                         if (PPApplication.getApplicationStarted(true)) {
                             WorkManager workManager = PPApplication.getWorkManagerInstance();
                             if (workManager != null) {
-                                //PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
+//                                PPApplication.logE("[HANDLER] Event.setDelayEndAlarm", "enqueueUniqueWork - this._delayEnd="+this._delayEnd);
 
 //                            //if (PPApplication.logEnabled()) {
 //                            ListenableFuture<List<WorkInfo>> statuses;
@@ -2760,10 +2803,16 @@ class Event {
                         AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
                         alarmManager.setAlarmClock(clockInfo, pendingIntent);
                     } else {
+//                        PPApplication.logE("Event.setDelayEndAlarm", "setExactAndAllowWhileIdle - this._delayEnd="+this._delayEnd);
+
                         long alarmTime = SystemClock.elapsedRealtime() + this._delayEnd * 1000L;
+                        //Calendar now = Calendar.getInstance();
+                        //now.add(Calendar.SECOND, this._delayEnd);
+                        //long alarmTime = now.getTimeInMillis(); // + 1000 * /* 60 * */ this._delayEnd;
 
                         //if (android.os.Build.VERSION.SDK_INT >= 23)
                             alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                            //alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
                         //else
                         //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
                         //else

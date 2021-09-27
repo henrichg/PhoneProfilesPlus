@@ -60,6 +60,7 @@ dependencies {
     implementation "ch.acra:acra-mail:$ppVersions.acra"
     implementation "ch.acra:acra-notification:$ppVersions.acra"
 
+    //noinspection GradleDependency
     implementation 'androidx.work:work-runtime:2.5.0'
 
     implementation 'androidx.core:core:1.6.0'
@@ -73,6 +74,7 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.palette:palette:1.0.0'
 
     // required for dev.doubledot.doki.views.DokiContentView
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
@@ -93,6 +95,11 @@ dependencies {
     implementation('dev.doubledot.doki:library:0.0.1@aar') {
         transitive = true
     }
+
+    implementation 'com.android.volley:volley:1.2.1'
+
+    //implementation 'com.linkedin.dexmaker:dexmaker-mockito:2.28.1'
+    implementation 'com.linkedin.dexmaker:dexmaker:2.28.1'
 
     implementation project(':common')
     implementation project(':ToastCompat')

@@ -170,96 +170,100 @@ public class DataWrapper {
                 icon + Profile.defaultValuesString.get("prf_pref_profileIcon_withoutIcon"),
                 false,
                 order,
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_volumeRingerMode")),
-                Profile.defaultValuesString.get("prf_pref_volumeRingtone"),
-                Profile.defaultValuesString.get("prf_pref_volumeNotification"),
-                Profile.defaultValuesString.get("prf_pref_volumeMedia"),
-                Profile.defaultValuesString.get("prf_pref_volumeAlarm"),
-                Profile.defaultValuesString.get("prf_pref_volumeSystem"),
-                Profile.defaultValuesString.get("prf_pref_volumeVoice"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundRingtoneChange")),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_RINGER_MODE)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_RINGTONE),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_NOTIFICATION),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_MEDIA),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_ALARM),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_SYSTEM),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_VOICE),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE)),
                 Settings.System.DEFAULT_RINGTONE_URI.toString(),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundNotificationChange")),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE)),
                 Settings.System.DEFAULT_NOTIFICATION_URI.toString(),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundAlarmChange")),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE)),
                 Settings.System.DEFAULT_ALARM_ALERT_URI.toString(),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceAirplaneMode")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceWiFi")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceBluetooth")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceScreenTimeout")),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WIFI)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_BLUETOOTH)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT)),
                 Profile.BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + Profile.defaultValuesString.get("prf_pref_deviceBrightness_withoutLevel"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceWallpaperChange")),
-                Profile.defaultValuesString.get("prf_pref_deviceWallpaper"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceMobileData")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceMobileDataPrefs")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceGPS")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceRunApplicationChange")),
-                Profile.defaultValuesString.get("prf_pref_deviceRunApplicationPackageName"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceAutosync")),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_CHANGE)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_GPS)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AUTOSYNC)),
                 Profile.defaultValuesBoolean.get("prf_pref_showInActivator_notShow"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceAutoRotation")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceLocationServicePrefs")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_volumeSpeakerPhone")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceNFC")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_duration")),
-                  Profile.AFTER_DURATION_DO_RESTART_EVENTS,
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_volumeZenMode")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceKeyguard")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_vibrationOnTouch")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceWiFiAP")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_devicePowerSaveMode")),
-                Profile.defaultValuesBoolean.get("prf_pref_askForDuration"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceNetworkType")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_notificationLed")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_vibrateWhenRinging")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceWallpaperFor")),
-                Profile.defaultValuesBoolean.get("prf_pref_hideStatusBarIcon"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_lockDevice")),
-                Profile.defaultValuesString.get("prf_pref_deviceConnectToSSID"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_applicationDisableWifiScanning")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_applicationDisableBluetoothScanning")),
-                Profile.defaultValuesString.get("prf_pref_durationNotificationSound"),
-                Profile.defaultValuesBoolean.get("prf_pref_durationNotificationVibrate"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceWiFiAPPrefs")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_applicationDisableLocationScanning")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_applicationDisableMobileCellScanning")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_applicationDisableOrientationScanning")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_headsUpNotifications")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceForceStopApplicationChange")),
-                Profile.defaultValuesString.get("prf_pref_deviceForceStopApplicationPackageName"),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_AUTOROTATE)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_SPEAKER_PHONE)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NFC)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION)),
+                Profile.AFTER_DURATION_DO_RESTART_EVENTS,
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_ZEN_MODE)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_KEYGUARD)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATION_ON_TOUCH)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WIFI_AP)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE)),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_ASK_FOR_DURATION),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_NOTIFICATION_LED)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR)),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_HIDE_STATUS_BAR_ICON),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_LOCK_DEVICE)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_HEADS_UP_NOTIFICATIONS)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME),
                 0,
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceNetworkTypePrefs")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceCloseAllApplications")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_screenDarkMode")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_dtmfToneWhenDialing")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundOnTouch")),
-                Profile.defaultValuesString.get("prf_pref_volumeDTMF"),
-                Profile.defaultValuesString.get("prf_pref_volumeAccessibility"),
-                Profile.defaultValuesString.get("prf_pref_volumeBluetoothSCO"),
-                Long.parseLong(Profile.defaultValuesString.get("prf_pref_afterDurationProfile")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_alwaysOnDisplay")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_screenOnPermanent")),
-                Profile.defaultValuesBoolean.get("prf_pref_volumeMuteSound"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceLocationMode")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_applicationDisableNotificationScanning")),
-                Profile.defaultValuesString.get("prf_pref_generateNotification"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_cameraFlash")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceNetworkTypeSIM1")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceNetworkTypeSIM2")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceMobileDataSIM1")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceMobileDataSIM2")),
-                Profile.defaultValuesString.get("prf_pref_deviceDefaultSIMCards"),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceOnOffSIM1")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_deviceOnOffSIM2")),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundRingtoneChangeSIM1")),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_DARK_MODE)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_ON_TOUCH)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_DTMF),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_ACCESSIBILITY),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_VOLUME_BLUETOOTH_SCO),
+                Long.parseLong(Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_ALWAYS_ON_DISPLAY)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SCREEN_ON_PERMANENT)),
+                Profile.defaultValuesBoolean.get(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_LOCATION_MODE)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_GENERATE_NOTIFICATION),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_CAMERA_FLASH)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1)),
                 Settings.System.DEFAULT_RINGTONE_URI.toString(),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundRingtoneChangeSIM2")),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2)),
                 Settings.System.DEFAULT_RINGTONE_URI.toString(),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundNotificationChangeSIM1")),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1)),
                 Settings.System.DEFAULT_NOTIFICATION_URI.toString(),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundNotificationChangeSIM2")),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)),
                 Settings.System.DEFAULT_NOTIFICATION_URI.toString(),
-                Integer.parseInt(Profile.defaultValuesString.get("prf_pref_soundSameRingtoneForBothSIMCards"))
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS)),
+                Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN))
             );
     }
 
@@ -569,7 +573,7 @@ public class DataWrapper {
             if (activatedProfile != null) {
                 long profileId = activatedProfile._id;
 //                PPApplication.logE("[FIFO_TEST] DataWrapper.activateProfileFromEvent", "#### add profileId=" + profileId + " eventId="+event_id);
-                addProfileToFIFO(profileId, event_id);
+                fifoAddProfile(profileId, event_id);
             }
         }
 
@@ -1676,8 +1680,6 @@ public class DataWrapper {
     {
 
 //        PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._activateProfile", "before synchronized");
-//        synchronized (PPApplication.restartEventsMutex) {
-//            PPApplication.logE("[BLOCK_ACTIONS] DataWrapper._activateProfile", "after synchronized");
 
 //            if (PPApplication.logEnabled()) {
 //                PPApplication.logE("[APP_START] DataWrapper._activateProfile", "_profile=" + _profile);
@@ -1696,38 +1698,6 @@ public class DataWrapper {
             ProfileDurationAlarmBroadcastReceiver.removeAlarm(_profile, context);
             //Profile.setActivatedProfileForDuration(context, 0);
 
-            //final Profile mappedProfile = _profile; //Profile.getMappedProfile(_profile, context);
-            //profile = filterProfileWithBatteryEvents(profile);
-
-            /*if (_profile != null)
-                PPApplication.logE("$$$ DataWrapper._activateProfile","profileName="+_profile._name);
-            else
-            PPApplication.logE("$$$ DataWrapper._activateProfile","profile=null");*/
-
-            //if (_profile != null)
-            //    Profile.saveProfileToSharedPreferences(_profile, context);
-
-            //boolean fullyStarted = false;
-            //if (PhoneProfilesService.getInstance() != null)
-            //    fullyStarted = PhoneProfilesService.getInstance().getApplicationFullyStarted();
-
-//            boolean fullyStarted = PPApplication.applicationFullyStarted;
-
-            //boolean applicationPackageReplaced = PPApplication.applicationPackageReplaced;
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "fullyStarted=" + fullyStarted);
-                PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "applicationPackageReplaced=" + applicationPackageReplaced);
-            }*/
-
-//            if ((!fullyStarted) /*|| applicationPackageReplaced*/) {
-                // do not activate profile during application start
-                //PPApplication.showProfileNotification(/*context*/forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT), false);
-                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
-                //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper._activateProfile (1)");
-//                PPApplication.updateGUI(1/*context, true, forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT)*/);
-//                return;
-//            }
-
             //PPApplication.logE("DataWrapper._activateProfile", "activate");
 
             /*if (PPApplication.logEnabled()) {
@@ -1741,9 +1711,6 @@ public class DataWrapper {
     //                PPApplication.logE("### DataWrapper._activateProfile", "serviceRunning=" + PhoneProfilesService.getInstance().getServiceRunning());
     //            }
     //        }
-
-            //boolean interactive = _interactive;
-            //final Activity activity = _activity;
 
             // get currently activated profile
             //Profile oldActivatedProfile = getActivatedProfile(false, false);
@@ -1828,7 +1795,7 @@ public class DataWrapper {
                     if (startupSource != PPApplication.STARTUP_SOURCE_EVENT_MANUAL) {
                         long profileId = _profile._id;
 //                        PPApplication.logE("[FIFO_TEST] DataWrapper._activateProfile", "#### add profileId=" + profileId);
-                        addProfileToFIFO(profileId, 0);
+                        fifoAddProfile(profileId, 0);
                     }
 
                     ProfileDurationAlarmBroadcastReceiver.setAlarm(_profile, forRestartEvents, startupSource, context);
@@ -1842,11 +1809,8 @@ public class DataWrapper {
                 //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
             }
 
-            //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "update gui");
-            //PPApplication.showProfileNotification(/*context*/forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT), false);
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper._activateProfile");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper._activateProfile (2)");
-            PPApplication.updateGUI(1, context/*, true, forRestartEvents || (startupSource == PPApplication.STARTUP_SOURCE_BOOT)*/);
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper._activateProfile (2)");
+            PPApplication.updateGUI(false, false, context);
 
             if (_profile != null) {
 //                PPApplication.logE("[APP_START] DataWrapper._activateProfile", "call execute");
@@ -1976,8 +1940,8 @@ public class DataWrapper {
         try {
             String profileName = getProfileNameWithManualIndicatorAsString(profile, true, "", false, false, false, this);
             PPApplication.showToast(context.getApplicationContext(),
-                    context.getResources().getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
-                            context.getResources().getString(R.string.toast_profile_activated_1),
+                    context.getString(R.string.toast_profile_activated_0) + ": " + profileName + " " +
+                            context.getString(R.string.toast_profile_activated_1),
                     Toast.LENGTH_SHORT);
         }
         catch (Exception e) {
@@ -2007,15 +1971,15 @@ public class DataWrapper {
 
             if (profile._askForDuration) {
                 if (!_activity.isFinishing()) {
-                    FastAccessDurationDialog dlg = new FastAccessDurationDialog(_activity, _profile, _dataWrapper,
+                    AskForDurationDialog dlg = new AskForDurationDialog(_activity, _profile, _dataWrapper,
                             /*monochrome, monochromeValue,*/ _startupSource);
                     dlg.show();
                 }
             }
             else {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                dialogBuilder.setTitle(activity.getResources().getString(R.string.profile_string_0) + ": " + profile._name);
-                dialogBuilder.setMessage(activity.getResources().getString(R.string.activate_profile_alert_message));
+                dialogBuilder.setTitle(activity.getString(R.string.profile_string_0) + ": " + profile._name);
+                dialogBuilder.setMessage(activity.getString(R.string.activate_profile_alert_message));
                 //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                 dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                         //if (Permissions.grantProfilePermissions(context, _profile, false, true,
@@ -2084,7 +2048,7 @@ public class DataWrapper {
 
             if (profile._askForDuration/* && interactive*/) {
                 if (!activity.isFinishing()) {
-                    FastAccessDurationDialog dlg = new FastAccessDurationDialog(activity, profile, this,
+                    AskForDurationDialog dlg = new AskForDurationDialog(activity, profile, this,
                             /*monochrome, monochromeValue,*/ startupSource);
                     dlg.show();
                 }
@@ -2186,7 +2150,7 @@ public class DataWrapper {
 //            PPApplication.logE("[FIFO_TEST] DataWrapper.activateProfile", "#### clear");
             synchronized (PPApplication.profileActivationMutex) {
                 List<String> activateProfilesFIFO = new ArrayList<>();
-                saveActivatedProfilesFIFO(activateProfilesFIFO);
+                fifoSaveProfiles(activateProfilesFIFO);
             }
 
             if (ApplicationPreferences.applicationActivate)
@@ -2251,10 +2215,8 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context).activateProfile(profile);
             setProfileActive(profile);
 
-            //PPApplication.showProfileNotification(/*context*/false, false);
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfile");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfile");
-            PPApplication.updateGUI(1, context/*, true, startupSource == PPApplication.STARTUP_SOURCE_BOOT*/);
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfile");
+            PPApplication.updateGUI(false, false, context);
 
             // for startActivityForResult
             if (activity != null)
@@ -2280,10 +2242,8 @@ public class DataWrapper {
                 ProfileDurationAlarmBroadcastReceiver.removeAlarm(null, context);
                 //Profile.setActivatedProfileForDuration(context, 0);
 
-                //PPApplication.showProfileNotification(/*context*/false, false);
-                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.activateProfileAfterDuration");
-                //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfileAfterDuration");
-                PPApplication.updateGUI(1, context/*, true, false*/);
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.activateProfileAfterDuration");
+                PPApplication.updateGUI(false, false, context);
                 return;
             }
             //if (Permissions.grantProfilePermissions(context, profile, false, true,
@@ -2468,7 +2428,7 @@ public class DataWrapper {
                 restart = true;
             else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
                 restart = true;
-            else if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning)
+            else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                 restart = true;
             if (restart) {
                 PPApplication.rescanAllScanners(context);
@@ -2535,7 +2495,7 @@ public class DataWrapper {
         if (showToast && PPApplication.showToastForProfileActivation) {
             if (ApplicationPreferences.notificationsToast) {
                 PPApplication.showToast(context.getApplicationContext(),
-                        context.getResources().getString(R.string.toast_events_restarted),
+                        context.getString(R.string.toast_events_restarted),
                         Toast.LENGTH_SHORT);
             }
         }
@@ -2550,7 +2510,7 @@ public class DataWrapper {
 
             // show toast about hot working restart events, because global events run is disabled
             PPApplication.showToast(context.getApplicationContext(),
-                    context.getResources().getString(R.string.toast_restart_events_global_events_run_is_disabled),
+                    context.getString(R.string.toast_restart_events_global_events_run_is_disabled),
                     Toast.LENGTH_SHORT);
 
             boolean finish;
@@ -2800,13 +2760,16 @@ public class DataWrapper {
         String manualIndicators = "";
         if (addEventName)
         {
-            //if (ApplicationPreferences.prefEventsBlocked) {
-            if (Event.getEventsBlocked(dataWrapper.context)) {
-                if (Event.getForceRunEventRunning(dataWrapper.context))
-                    manualIndicators = "[»]";
-                else
-                    manualIndicators = "[M]";
+            if (Event.getGlobalEventsRunning()) {
+                if (Event.getEventsBlocked(dataWrapper.context)) {
+                    if (Event.getForceRunEventRunning(dataWrapper.context))
+                        manualIndicators = "[»]";
+                    else
+                        manualIndicators = "[M]";
+                }
             }
+            else
+                manualIndicators = "[M]";
 
             String _eventName = getLastStartedEventName(dataWrapper, profile);
             if (!_eventName.equals("?"))
@@ -3032,13 +2995,8 @@ public class DataWrapper {
                 if (globalRunStopEvents(true)) {
                     //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
 
-                    /*if (activity instanceof EditorProfilesActivity)
-                        ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
-                    else if (activity instanceof ActivateProfileActivity)
-                        ((ActivateProfileActivity) activity).refreshGUI(true, false);*/
-                    //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
-                    //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (1)");
-                    PPApplication.updateGUI(0, activity/*, true, true*/);
+//                    PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (1)");
+                    PPApplication.updateGUI(true, false, activity);
                 }
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, (dialog, which) -> {
@@ -3063,14 +3021,8 @@ public class DataWrapper {
         }
         else {
             if (globalRunStopEvents(false)) {
-                //PPApplication.showProfileNotification(/*activity.getApplicationContext()*/true, false);
-                /*if (activity instanceof EditorProfilesActivity)
-                    ((EditorProfilesActivity) activity).refreshGUI(true, false, true, 0, 0);
-                else if (activity instanceof ActivateProfileActivity)
-                    ((ActivateProfileActivity) activity).refreshGUI(true, false);*/
-                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from DataWrapper.runStopEventsWithAlert");
-                //PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (2)");
-                PPApplication.updateGUI(0, activity/*, true, true*/);
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=DataWrapper.runStopEventsWithAlert (2)");
+                PPApplication.updateGUI(true, false, activity);
             }
         }
     }
@@ -3228,6 +3180,13 @@ public class DataWrapper {
             DatabaseHandler.getInstance(context.getApplicationContext()).updateDeviceBootStartTime(_event);
             _event._eventPreferencesDeviceBoot.removeAlarm(context);
         }
+
+        if (force) {
+            _event._eventPreferencesPeriodic._startTime = 0;
+            DatabaseHandler.getInstance(context.getApplicationContext()).updatePeriodicStartTime(_event);
+            _event._eventPreferencesPeriodic.removeAlarm(context);
+        }
+
     }
 
     boolean eventTypeExists(int eventType/*, boolean onlyRunning*/) {
@@ -3383,6 +3342,9 @@ public class DataWrapper {
                         case DatabaseHandler.ETYPE_SOUND_PROFILE:
                             sensorEnabled = _event._eventPreferencesSoundProfile._enabled;
                             break;
+                        case DatabaseHandler.ETYPE_PERIODIC:
+                            sensorEnabled = _event._eventPreferencesPeriodic._enabled;
+                            break;
                         case DatabaseHandler.ETYPE_ALL:
                         default:
                             sensorEnabled = true;
@@ -3422,7 +3384,7 @@ public class DataWrapper {
         }
     }
 
-    List<String> getActivatedProfilesFIFO() {
+    List<String> fifoGetActivatedProfiles() {
         //synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILES_FIFO_PREFS_NAME, Context.MODE_PRIVATE);
             int count = preferences.getInt(ACTIVATED_PROFILES_FIFO_COUNT_PREF, -1);
@@ -3441,7 +3403,7 @@ public class DataWrapper {
         //}
     }
 
-    void saveActivatedProfilesFIFO(List<String> activateProfilesFifo)
+    void fifoSaveProfiles(List<String> activateProfilesFifo)
     {
         //synchronized (PPApplication.profileActivationMutex) {
             SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILES_FIFO_PREFS_NAME, Context.MODE_PRIVATE);
@@ -3464,12 +3426,12 @@ public class DataWrapper {
         //}
     }
 
-    void addProfileToFIFO(long profileId, long eventId) {
+    void fifoAddProfile(long profileId, long eventId) {
         if (profileId == Profile.PROFILE_NO_ACTIVATE)
             return;
 
         synchronized (PPApplication.profileActivationMutex) {
-            List<String> activateProfilesFIFO = getActivatedProfilesFIFO();
+            List<String> activateProfilesFIFO = fifoGetActivatedProfiles();
             if (activateProfilesFIFO == null)
                 activateProfilesFIFO = new ArrayList<>();
             int size = activateProfilesFIFO.size();
@@ -3480,7 +3442,7 @@ public class DataWrapper {
             String toFifo = profileId + "|" + eventId;
             if ((size == 0) || (!activateProfilesFIFO.get(size - 1).equals(toFifo)))
                 activateProfilesFIFO.add(toFifo);
-            saveActivatedProfilesFIFO(activateProfilesFIFO);
+            fifoSaveProfiles(activateProfilesFIFO);
         }
     }
 

@@ -24,7 +24,7 @@ import java.util.TimerTask;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
-class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
+class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     private final int mMin, mMax;
     private final Profile mProfile;
@@ -62,7 +62,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
     //private int mColor = 0;
 
     @SuppressLint("SetTextI18n")
-    FastAccessDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper,
+    AskForDurationDialog(Activity activity, Profile profile, DataWrapper dataWrapper,
                              /*boolean monochrome, int monochromeValue,*/
                              int startupSource/*, boolean interactive*/) {
 
@@ -113,7 +113,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 //        /*true, mMonochrome, mMonochromeValue,*/
                 //        mStartupSource, true, true, false))
                 if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
-                    //PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(1) called is DataWrapper.activateProfileFromMainThread");
+                    //PPApplication.logE("&&&&&&& AskForDurationDialog.onClick", "(1) called is DataWrapper.activateProfileFromMainThread");
 
                     if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
                         (mStartupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
@@ -146,7 +146,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         LayoutInflater inflater = activity.getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.dialog_fast_access_duration, null);
+        View layout = inflater.inflate(R.layout.dialog_ask_for_duration, null);
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();
@@ -161,7 +161,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 //            }
 //        });
 
-        afterDurationLabel = layout.findViewById(R.id.fast_access_duration_dlg_after_do_label);
+        afterDurationLabel = layout.findViewById(R.id.ask_for_duration_dlg_after_do_label);
         afterDurationLabel.setText(activity.getString(R.string.profile_preferences_afterDurationDo) + ":");
 
         TextView mTextViewRange = layout.findViewById(R.id.duration_pref_dlg_range);
@@ -247,7 +247,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
         mTextViewRange.setText(sMin + " - " + sMax);
 
-        afterDoSpinner = layout.findViewById(R.id.fast_access_duration_dlg_after_do_spinner);
+        afterDoSpinner = layout.findViewById(R.id.ask_for_duration_dlg_after_do_spinner);
         GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 mActivity,
                 R.layout.highlighted_spinner,
@@ -307,16 +307,16 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             }
         }.init(activity), 250, 250);
 
-        profileView = layout.findViewById(R.id.fast_access_duration_dlg_profile);
-        profileLabel = layout.findViewById(R.id.fast_access_duration_dlg_profile_label);
+        profileView = layout.findViewById(R.id.ask_for_duration_dlg_profile);
+        profileLabel = layout.findViewById(R.id.ask_for_duration_dlg_profile_label);
         profileLabel.setText(mActivity.getString(R.string.profile_preferences_afterDurationProfile) + ":");
-        profileName = layout.findViewById(R.id.fast_access_duration_dlg_profile_name);
-        profileIcon = layout.findViewById(R.id.fast_access_duration_dlg_profile_icon);
-        profileIndicators = layout.findViewById(R.id.fast_access_duration_dlg_profile_pref_indicator);
+        profileName = layout.findViewById(R.id.ask_for_duration_dlg_profile_name);
+        profileIcon = layout.findViewById(R.id.ask_for_duration_dlg_profile_icon);
+        profileIndicators = layout.findViewById(R.id.ask_for_duration_dlg_profile_pref_indicator);
         if (!ApplicationPreferences.applicationEditorPrefIndicator)
             profileIndicators.setVisibility(View.GONE);
         profileView.setOnClickListener(v -> {
-            FastAccessDurationProfileDialog dialog = new FastAccessDurationProfileDialog(mActivity, FastAccessDurationDialog.this);
+            AskForDurationActivateProfileDialog dialog = new AskForDurationActivateProfileDialog(mActivity, AskForDurationDialog.this);
             if (!mActivity.isFinishing())
                 dialog.show();
         });
@@ -324,7 +324,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mAfterDoProfile = mProfile._afterDurationProfile;
         updateProfileView();
 
-        final Button activateWithoutButton = layout.findViewById(R.id.fast_access_duration_dlg_activate_without);
+        final Button activateWithoutButton = layout.findViewById(R.id.ask_for_duration_dlg_activate_without);
         activateWithoutButton.setOnClickListener(v -> {
             updateEndsTimer = null;
 
@@ -335,7 +335,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
             //        /*true, mMonochrome, mMonochromeValue,*/
             //        mStartupSource, true, true, false))
             if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
-                //PPApplication.logE("&&&&&&& FastAccessDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
+                //PPApplication.logE("&&&&&&& AskForDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
 
                 if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
                     (mStartupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
@@ -414,7 +414,7 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
     private void updateProfileView()
     {
-        //PPApplication.logE("FastAccessDurationDialog.updateProfileView", "mProfile="+mProfile);
+        //PPApplication.logE("AskForDurationDialog.updateProfileView", "mProfile="+mProfile);
 
         boolean showIndicators = ApplicationPreferences.applicationEditorPrefIndicator;
 
@@ -490,9 +490,9 @@ class FastAccessDurationDialog implements SeekBar.OnSeekBarChangeListener{
         if (iValue < mMin) iValue = mMin;
         if (iValue > mMax) iValue = mMax;
 
-        //boolean enable = (mAfterDo == 4) && (iValue > mMin);
-
-        if ((mAfterDo != 4) || (iValue == mMin)) {
+        if (((mAfterDo != Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE) &&
+             (mAfterDo != Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS)) ||
+            (iValue == mMin)) {
             profileLabel.setEnabled(false);
             profileView.setEnabled(false);
             int disabledColor = GlobalGUIRoutines.getThemeDisabledTextColor(mActivity);

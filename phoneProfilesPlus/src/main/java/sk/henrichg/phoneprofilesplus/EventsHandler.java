@@ -64,6 +64,7 @@ class EventsHandler {
     boolean notAllowedAlarmClock;
     boolean notAllowedDeviceBoot;
     boolean notAllowedSoundProfile;
+    boolean notAllowedPeriodic;
 
     boolean timePassed;
     boolean batteryPassed;
@@ -84,6 +85,7 @@ class EventsHandler {
     boolean alarmClockPassed;
     boolean deviceBootPassed;
     boolean soundProfilePassed;
+    boolean periodicPassed;
 
 
     static final String SENSOR_TYPE_RADIO_SWITCH = "radioSwitch";
@@ -131,6 +133,8 @@ class EventsHandler {
     static final String SENSOR_TYPE_CALENDAR_EVENT_EXISTS_CHECK = "calendarEventExistsCheck";
     static final String SENSOR_TYPE_CONTACTS_CACHE_CHANGED = "contactsCacheChanged";
     static final String SENSOR_TYPE_SOUND_PROFILE = "soundProfile";
+    static final String SENSOR_TYPE_PERIODIC = "periodic";
+    static final String SENSOR_TYPE_PERIODIC_EVENT_END = "periodicEventEnd";
     static final String SENSOR_TYPE_ALL = "ALL";
 
     public EventsHandler(Context context) {
@@ -471,6 +475,31 @@ class EventsHandler {
                         }
                     }
                 }
+
+                if (sensorType.equals(SENSOR_TYPE_PERIODIC_EVENTS_HANDLER)) {
+                    // search for periodic events, save start time
+                    //PPApplication.logE("EventsHandler.handleEvents", "search for periodic events");
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event.getStatus() != Event.ESTATUS_STOP) {
+                            if (_event._eventPreferencesPeriodic._enabled) {
+                                //PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
+                                _event._eventPreferencesPeriodic.increaseCounter(dataWrapper);
+                            }
+                        }
+                    }
+                }
+                if (sensorType.equals(SENSOR_TYPE_PERIODIC)) {
+                    // search for periodic events, save start time
+                    //PPApplication.logE("EventsHandler.handleEvents", "search for periodic events");
+                    for (Event _event : dataWrapper.eventList) {
+                        if (_event.getStatus() != Event.ESTATUS_STOP) {
+                            if (_event._eventPreferencesPeriodic._enabled) {
+                                //PPApplication.logE("EventsHandler.handleEvents", "event._id=" + _event._id);
+                                _event._eventPreferencesPeriodic.saveStartTime(dataWrapper);
+                            }
+                        }
+                    }
+                }
             }
 
             boolean forDelayStartAlarm = sensorType.equals(SENSOR_TYPE_EVENT_DELAY_START);
@@ -605,7 +634,7 @@ class EventsHandler {
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### clear for pause - restart events");
                 synchronized (PPApplication.profileActivationMutex) {
                     List<String> activateProfilesFIFO = new ArrayList<>();
-                    dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                    dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
                 }
 
 
@@ -870,7 +899,7 @@ class EventsHandler {
 
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add default profile - profileId=" + defaultProfileId);
 //                            PPApplication.logE("[APP_START] EventsHandler.handleEvents", "#### add default profile - profileId=" + defaultProfileId);
-                            dataWrapper.addProfileToFIFO(defaultProfileId, 0);
+                            dataWrapper.fifoAddProfile(defaultProfileId, 0);
                         }
 
 //                        PPApplication.logE("[BLOCK_ACTIONS] EventsHanlder.handleEvents", "sensorType="+sensorType);
@@ -899,7 +928,7 @@ class EventsHandler {
                         PPApplication.setApplicationFullyStarted(context);*/
                         if (PPApplication.prefLastActivatedProfile != 0) {
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
-                            dataWrapper.addProfileToFIFO(PPApplication.prefLastActivatedProfile, 0);
+                            dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
                         }
                     }
                 }
@@ -935,7 +964,7 @@ class EventsHandler {
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "activated old profile");
 
 //                    PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add semi-old activated profile - profileId=" + semiOldActivatedProfileId);
-                    dataWrapper.addProfileToFIFO(semiOldActivatedProfileId, 0);
+                    dataWrapper.fifoAddProfile(semiOldActivatedProfileId, 0);
                 }
                 else {
                     // not any profile activated
@@ -958,11 +987,11 @@ class EventsHandler {
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "activated default profile");
 
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add default profile - profileId=" + PPApplication.prefLastActivatedProfile);
-                        dataWrapper.addProfileToFIFO(defaultProfileId, 0);
+                        dataWrapper.fifoAddProfile(defaultProfileId, 0);
                     } else {
                         if (PPApplication.prefLastActivatedProfile != 0) {
 //                            PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### add PPApplication.prefLastActivatedProfile - profileId=" + PPApplication.prefLastActivatedProfile);
-                            dataWrapper.addProfileToFIFO(PPApplication.prefLastActivatedProfile, 0);
+                            dataWrapper.fifoAddProfile(PPApplication.prefLastActivatedProfile, 0);
                         }
                     }
 
@@ -1121,12 +1150,13 @@ class EventsHandler {
             // refresh all GUI - must be for restart scanners
             //if (PPApplication.isScreenOn) {
             if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
-                PPApplication.updateGUI(1, context/*, true, true*/);
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=EventsHandler.handleEvents");
+                PPApplication.updateGUI(false, false, context);
 
 //                PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "#### in fifo is:");
-                synchronized (PPApplication.profileActivationMutex) {
-                    dataWrapper.getActivatedProfilesFIFO();
-                }
+//                synchronized (PPApplication.profileActivationMutex) {
+//                    dataWrapper.fifoGetActivatedProfiles();
+//                }
             }
             else {
                 // refresh only Editor
@@ -1555,6 +1585,7 @@ class EventsHandler {
         notAllowedAlarmClock = false;
         notAllowedDeviceBoot = false;
         notAllowedSoundProfile = false;
+        notAllowedPeriodic = false;
 
         timePassed = true;
         batteryPassed = true;
@@ -1604,6 +1635,7 @@ class EventsHandler {
         event._eventPreferencesAlarmClock.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesDeviceBoot.doHandleEvent(this/*, forRestartEvents*/);
         event._eventPreferencesSoundProfile.doHandleEvent(this/*, forRestartEvents*/);
+        event._eventPreferencesPeriodic.doHandleEvent(this/*, forRestartEvents*/);
 
 //        if (PPApplication.logEnabled()) {
 //            PPApplication.logE("[FIFO_TEST] ----- EventsHandler.doHandleEvent", "event._eventPreferencesTime._enabled=" + event._eventPreferencesTime._enabled);
@@ -1745,6 +1777,13 @@ class EventsHandler {
             anySensorEnabled = true;
             if (!notAllowedSoundProfile)
                 allPassed &= soundProfilePassed;
+            else
+                someNotAllowed = true;
+        }
+        if (event._eventPreferencesPeriodic._enabled) {
+            anySensorEnabled = true;
+            if (!notAllowedPeriodic)
+                allPassed &= periodicPassed;
             else
                 someNotAllowed = true;
         }

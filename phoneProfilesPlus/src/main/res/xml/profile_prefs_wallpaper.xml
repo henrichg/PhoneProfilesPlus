@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:title="@string/profile_preferences_deviceWallpaperChange"
+    app:key="prf_pref_deviceWallpaperCategory" >
+
+    <ListPreference
+        app:title="@string/profile_preferences_deviceWallpaperChange"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceWallpaperChange"
+        app:defaultValue="0"
+        app:entries="@array/changeWallpaperArray"
+        app:entryValues="@array/changeWallpaperValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.WallpaperViewPreferenceX
+        app:defaultValue="-"
+        app:key="prf_pref_deviceWallpaper"
+        app:title="@string/profile_preferences_deviceImageWallpaper"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.WallpaperFolderPreferenceX
+        app:defaultValue="-"
+        app:key="prf_pref_deviceWallpaperFolder"
+        app:title="@string/profile_preferences_deviceWallpaperFolder"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <ListPreference
+        app:title="@string/profile_preferences_deviceWallpaperFor"
+        app:summary="@string/array_pref_device_wallpaper_homescreen"
+        app:key="prf_pref_deviceWallpaperFor"
+        app:defaultValue="0"
+        app:entries="@array/wallpaperForArray"
+        app:entryValues="@array/wallpaperForValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.LiveWallpapersDialogPreferenceX
+        app:title="@string/profile_preferences_deviceLiveWallpaper"
+        app:key="prf_pref_deviceLiveWallpaper"
+        app:defaultValue=""
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

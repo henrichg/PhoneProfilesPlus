@@ -164,7 +164,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         else {
             Preference preference = prefMng.findPreference(PREF_EVENT_DEVICE_BOOT_CATEGORY);
             if (preference != null) {
-                preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }

@@ -65,8 +65,8 @@ class WifiScanner {
             // check power save mode
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            int forceScan = ApplicationPreferences.prefForceOneWifiScan;
             if (isPowerSaveMode) {
-                int forceScan = ApplicationPreferences.prefForceOneWifiScan;
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     if (ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("2")) {
                         // not scan wi-fi in power save mode
@@ -76,7 +76,6 @@ class WifiScanner {
                 }
             }
             else {
-                int forceScan = ApplicationPreferences.prefForceOneWifiScan;
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     if (ApplicationPreferences.applicationEventWifiScanInTimeMultiply.equals("2")) {
                         if (PhoneProfilesService.isNowTimeBetweenTimes(
@@ -102,10 +101,11 @@ class WifiScanner {
                 boolean canScan = Event.isEventPreferenceAllowed(EventPreferencesWifi.PREF_EVENT_WIFI_ENABLED, context).allowed == PreferenceAllowed.PREFERENCE_ALLOWED;
                 if (canScan) {
                     if (!ApplicationPreferences.applicationEventWifiScanIgnoreHotspot) {
-                        if (Build.VERSION.SDK_INT < 28)
+                        if (Build.VERSION.SDK_INT < 30)
                             canScan = !WifiApManager.isWifiAPEnabled(context);
                         else
-                            canScan = !CmdWifiAP.isEnabled();
+                            //canScan = !CmdWifiAP.isEnabled(context);
+                            canScan = !WifiApManager.isWifiAPEnabledA30(context);
                     }
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("$$$W WifiScanner.doScan", "canScan=" + canScan);

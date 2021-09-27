@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/alert_dialog_top_padding">
+    android:paddingTop="@dimen/alert_dialog_top_padding"
+    android:paddingBottom="10dp">
 
     <TextView
         android:id="@+id/install_extender_dialog_info_text"
@@ -15,6 +16,16 @@
         android:text="@string/empty_string"
         android:textSize="16sp"
         android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/install_extender_dialog_github_releases"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        android:text="@string/empty_string"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/install_extender_dialog_showAssets"
@@ -27,7 +38,8 @@
         android:textColor="@color/action_button_text_color"
         android:textStyle="bold"
         android:background="?attr/buttonBackground"
-        style="?android:attr/borderlessButtonStyle" />
+        android:visibility="gone"
+        style="?android:attr/borderlessButtonStyle"/>
 
 
 </LinearLayout>

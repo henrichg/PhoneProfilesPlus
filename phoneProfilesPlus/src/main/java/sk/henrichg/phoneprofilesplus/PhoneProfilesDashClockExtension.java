@@ -94,7 +94,7 @@ public class PhoneProfilesDashClockExtension extends DashClockExtension {
                     } else {
                         isIconResourceID = true;
                         iconIdentifier = Profile.PROFILE_ICON_DEFAULT;
-                        profileName = PhoneProfilesDashClockExtension.this.getResources().getString(R.string.profiles_header_profile_name_no_activated);
+                        profileName = PhoneProfilesDashClockExtension.this.getString(R.string.profiles_header_profile_name_no_activated);
                     }
                     int iconResource;
                     if (isIconResourceID)

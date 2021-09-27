@@ -14,9 +14,9 @@ import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
 
-class FastAccessDurationProfileDialog
+class AskForDurationActivateProfileDialog
 {
-    private final FastAccessDurationDialog fastAccessDurationDialog;
+    private final AskForDurationDialog askForDurationDialog;
 
     private final DataWrapper dataWrapper;
 
@@ -26,9 +26,9 @@ class FastAccessDurationProfileDialog
     private final LinearLayout linlaProgress;
     private final ListView listView;
 
-    FastAccessDurationProfileDialog(Activity activity, FastAccessDurationDialog fastAccessDurationDialog)
+    AskForDurationActivateProfileDialog(Activity activity, AskForDurationDialog askForDurationDialog)
     {
-        this.fastAccessDurationDialog = fastAccessDurationDialog;
+        this.askForDurationDialog = askForDurationDialog;
         this.activity = activity;
 
         dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
@@ -51,7 +51,7 @@ class FastAccessDurationProfileDialog
 //                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
 //                if (negative != null) negative.setAllCaps(false);
 
-            FastAccessDurationProfileDialog.this.onShow();
+            AskForDurationActivateProfileDialog.this.onShow();
         });
 
         linlaProgress = layout.findViewById(R.id.profile_pref_dlg_linla_progress);
@@ -64,7 +64,7 @@ class FastAccessDurationProfileDialog
 
     @SuppressLint("StaticFieldLeak")
     private void onShow(/*DialogInterface dialog*/) {
-        new ShowDialogAsyncTask(fastAccessDurationDialog.mAfterDoProfile, this, activity).execute();
+        new ShowDialogAsyncTask(askForDurationDialog.mAfterDoProfile, this, activity).execute();
     }
 
     void doOnItemSelected(int position)
@@ -75,7 +75,7 @@ class FastAccessDurationProfileDialog
                 profileId = dataWrapper.profileList.get(position - 1)._id;
             }
         }
-        fastAccessDurationDialog.updateAfterDoProfile(profileId);
+        askForDurationDialog.updateAfterDoProfile(profileId);
         mDialog.dismiss();
     }
 
@@ -96,12 +96,12 @@ class FastAccessDurationProfileDialog
 
     private static class ShowDialogAsyncTask extends AsyncTask<Void, Integer, Void> {
 
-        private final WeakReference<FastAccessDurationProfileDialog> dialogWeakRef;
+        private final WeakReference<AskForDurationActivateProfileDialog> dialogWeakRef;
         private final WeakReference<Activity> activityWeakReference;
         final long afterDoProfile;
 
         public ShowDialogAsyncTask(final long afterDoProfile,
-                FastAccessDurationProfileDialog dialog,
+                AskForDurationActivateProfileDialog dialog,
                 Activity activity) {
             this.dialogWeakRef = new WeakReference<>(dialog);
             this.activityWeakReference = new WeakReference<>(activity);
@@ -118,7 +118,7 @@ class FastAccessDurationProfileDialog
 
         @Override
         protected Void doInBackground(Void... params) {
-            FastAccessDurationProfileDialog dialog = dialogWeakRef.get();
+            AskForDurationActivateProfileDialog dialog = dialogWeakRef.get();
             if (dialog != null) {
                 dialog.dataWrapper.fillProfileList(true, ApplicationPreferences.applicationEditorPrefIndicator);
                 synchronized (dialog.dataWrapper.profileList) {
@@ -135,13 +135,13 @@ class FastAccessDurationProfileDialog
         {
             super.onPostExecute(result);
 
-            FastAccessDurationProfileDialog dialog = dialogWeakRef.get();
+            AskForDurationActivateProfileDialog dialog = dialogWeakRef.get();
             Activity activity = activityWeakReference.get();
             if ((dialog != null) && (activity != null)) {
                 //listView.setVisibility(View.VISIBLE);
                 dialog.linlaProgress.setVisibility(View.GONE);
 
-                FastAccessDurationProfileAdapter adapter = new FastAccessDurationProfileAdapter(
+                AskForDurationActivateProfileAdapter adapter = new AskForDurationActivateProfileAdapter(
                         dialog, activity, afterDoProfile, dialog.dataWrapper.profileList);
                 dialog.listView.setAdapter(adapter);
 

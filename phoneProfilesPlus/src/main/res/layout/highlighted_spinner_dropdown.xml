@@ -8,6 +8,6 @@
           android:paddingEnd="10dp"
           android:paddingTop="12dp"
           android:paddingBottom="12dp"
-          android:ellipsize="marquee"
-          android:singleLine="true"/>
+          android:ellipsize="none"
+          android:singleLine="false"/>
 <!--    android:textColor="@color/activityWhiteTextColor"-->

@@ -242,7 +242,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         /*if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
             setContentView(R.layout.activity_editor_list_onepane_19);
         else*/
-            setContentView(R.layout.activity_editor_list_onepane);
+            setContentView(R.layout.activity_editor);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         boolean doServiceStart = startPPServiceWhenNotStarted();
@@ -365,26 +365,26 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         // actionbar titles
         drawerItemsTitle = new String[] {
-                getResources().getString(R.string.editor_drawer_title_profiles),
-                getResources().getString(R.string.editor_drawer_title_profiles),
-                getResources().getString(R.string.editor_drawer_title_profiles),
-                getResources().getString(R.string.editor_drawer_title_events),
-                getResources().getString(R.string.editor_drawer_title_events),
-                getResources().getString(R.string.editor_drawer_title_events),
-                getResources().getString(R.string.editor_drawer_title_events),
-                getResources().getString(R.string.editor_drawer_title_events)
+                getString(R.string.editor_drawer_title_profiles),
+                getString(R.string.editor_drawer_title_profiles),
+                getString(R.string.editor_drawer_title_profiles),
+                getString(R.string.editor_drawer_title_events),
+                getString(R.string.editor_drawer_title_events),
+                getString(R.string.editor_drawer_title_events),
+                getString(R.string.editor_drawer_title_events),
+                getString(R.string.editor_drawer_title_events)
               };
 
         // drawer item titles
         drawerItemsSubtitle = new String[] {
-                getResources().getString(R.string.editor_drawer_list_item_profiles_all),
-                getResources().getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                getResources().getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
-                getResources().getString(R.string.editor_drawer_list_item_events_start_order),
-                getResources().getString(R.string.editor_drawer_list_item_events_all),
-                getResources().getString(R.string.editor_drawer_list_item_events_running),
-                getResources().getString(R.string.editor_drawer_list_item_events_paused),
-                getResources().getString(R.string.editor_drawer_list_item_events_stopped)
+                getString(R.string.editor_drawer_list_item_profiles_all),
+                getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                getString(R.string.editor_drawer_list_item_events_start_order),
+                getString(R.string.editor_drawer_list_item_events_all),
+                getString(R.string.editor_drawer_list_item_events_running),
+                getString(R.string.editor_drawer_list_item_events_paused),
+                getString(R.string.editor_drawer_list_item_events_stopped)
               };
 
         drawerItemsIcon = new Integer[] {
@@ -869,7 +869,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             else
             {
                 menuItem.setTitle(R.string.menu_run_events);
-                menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+                menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS|MenuItem.SHOW_AS_ACTION_WITH_TEXT);
             }
         }
 
@@ -1291,8 +1291,17 @@ public class EditorProfilesActivity extends AppCompatActivity
                 (itemId == R.id.menu_check_in_fdroid) ||
                 (itemId == R.id.menu_check_in_galaxy_store) ||
                 (itemId == R.id.menu_check_in_amazon_appstore) ||
-                (itemId == R.id.menu_check_in_appgallery)) {
-            CheckPPPReleasesActivity.showDialog(this, true, itemId, "", 0);
+                (itemId == R.id.menu_check_in_appgallery) ||
+                (itemId == R.id.menu_check_in_apkpure)) {
+
+            Intent _intent;
+            _intent = new Intent(this, CheckPPPReleasesActivity.class);
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_MENU_ITEM_ID, itemId);
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_CRITICAL_CHECK, false);
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_NAME, "");
+            _intent.putExtra(CheckPPPReleasesActivity.EXTRA_NEW_VERSION_CODE, 0);
+            startActivity(_intent);
+
             return true;
         }
 
@@ -2704,10 +2713,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 Profile activeProfile = fragment.activityDataWrapper.getActivatedProfile(true,
                         ApplicationPreferences.applicationEditorPrefIndicator);
                 fragment.updateHeader(activeProfile);
-                //PPApplication.showProfileNotification(/*getApplicationContext()*/true, false);
-                //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EditorProfilesActivity.redrawProfileListFragment");
-                //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redrawProfileListFragment");
-                PPApplication.updateGUI(0, fragment.activityDataWrapper.context/*, true, true*/);
+//                PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.redrawProfileListFragment");
+                PPApplication.updateGUI(true, false, fragment.activityDataWrapper.context);
 
                 fragment.activityDataWrapper.setDynamicLauncherShortcutsFromMainThread();
 
@@ -3922,17 +3929,11 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (activity != null) {
                 if (pickedDir != null) {
                     if (pickedDir.canWrite()) {
-                        if (pickedDir.canWrite()) {
-                            File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
+                        File applicationDir = activity.getApplicationContext().getExternalFilesDir(null);
 
-                            ok = copyFromBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME, activity.getApplicationContext());
-                            if (ok == 1)
-                                ok = copyFromBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
-                        } else {
-                            // cannot copy backup files, pickedDir is not writable
-                            //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - cannot copy restore files, pickedDir is not writable");
-                            ok = 0;
-                        }
+                        ok = copyFromBackupDirectory(pickedDir, applicationDir, GlobalGUIRoutines.EXPORT_APP_PREF_FILENAME, activity.getApplicationContext());
+                        if (ok == 1)
+                            ok = copyFromBackupDirectory(pickedDir, applicationDir, DatabaseHandler.EXPORT_DBFILENAME, activity.getApplicationContext());
                     } else {
                         // pickedDir is not writable
                         //PPApplication.logE("--------- EditorProfilesActivity.onActivityResult", "REQUEST_CODE_RESTORE_SETTINGS - pickedDir is not writable");
@@ -4164,9 +4165,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                     //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
                     PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
-                    //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
-                    //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
-                    PPApplication.updateGUI(0, _dataWrapper.context/*, true, true*/);
+//                    PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+                    PPApplication.updateGUI(true, false, _dataWrapper.context);
 
                     PPApplication.setApplicationStarted(_dataWrapper.context, true);
                     Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
@@ -4193,7 +4193,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     // toast notification
                     if (!activity.isFinishing())
                         PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                activity.getResources().getString(R.string.toast_import_ok),
+                                activity.getString(R.string.toast_import_ok),
                                 Toast.LENGTH_SHORT);
 
                     // refresh activity
@@ -4697,6 +4697,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                                                 "",
                                                 0,
                                                 "",
+                                                0,
+                                                "",
+                                                0,
+                                                "-",
                                                 0
                                         );
 
@@ -4814,9 +4818,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //Profile.saveProfileToSharedPreferences(profile, _dataWrapper.context);
                         PPApplication.setLastActivatedProfile(_dataWrapper.context, 0);
 
-                        //PPApplication.updateNotificationAndWidgets(true, true, _dataWrapper.context);
-                        //PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
-                        PPApplication.updateGUI(0, _dataWrapper.context);
+//                        PPApplication.logE("###### PPApplication.updateGUI", "from=EditorProfilesActivity.doImportData");
+                        PPApplication.updateGUI(true, false, _dataWrapper.context);
 
                         PPApplication.setApplicationStarted(_dataWrapper.context, true);
                         Intent serviceIntent = new Intent(_dataWrapper.context, PhoneProfilesService.class);
@@ -4843,7 +4846,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         // toast notification
                         if (!activity.isFinishing())
                             PPApplication.showToast(_dataWrapper.context.getApplicationContext(),
-                                    activity.getResources().getString(R.string.toast_import_from_pp_ok),
+                                    activity.getString(R.string.toast_import_from_pp_ok),
                                     Toast.LENGTH_SHORT);
 
                         // refresh activity

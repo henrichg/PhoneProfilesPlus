@@ -3,7 +3,7 @@
 PhoneProfilesPlus
 =================
 
-[![version](https://img.shields.io/badge/version-5.1.1-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.1.1)
+[![version](https://img.shields.io/badge/version-5.1.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.1.2)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
@@ -17,7 +17,7 @@ __Another sources of PhoneProfilesPlus:__
 __[F-Droid release:](https://apt.izzysoft.de/fdroid/index/apk/sk.henrichg.phoneprofilesplus)__
 &nbsp;&nbsp;&nbsp;_[How to add F-Droid repository to F-Droid application](https://apt.izzysoft.de/fdroid/index/info)_
 
-__Galaxy Store (for Samsung devices), AppGallery (for Huawei devices), Amazon Appstore:__ 
+__Galaxy Store (for Samsung devices), AppGallery (for Huawei devices), Amazon Appstore, APKPure:__ 
 &nbsp;&nbsp;&nbsp;Use keyword "PhoneProfilesPlus" for search this application in these stores. 
 
 ---
@@ -33,6 +33,9 @@ __In it is also possibility to automatically activate Profiles by Events.__
 _**** Please report me bugs, comments and suggestions to my e-mail: <henrich.gron@gmail.com>. Speed up the especially bug fixes. Thank you very much. ****_
 
 _*** Please help me with translation, thank you: <https://crowdin.com/project/phoneprofilesplus> ***_
+
+##### (HELP) How to grant (G1) permission
+- [Show it](docs/grant_g1_permission.md)
 
 ##### Features
 - [Show it](docs/ppp_features.md)

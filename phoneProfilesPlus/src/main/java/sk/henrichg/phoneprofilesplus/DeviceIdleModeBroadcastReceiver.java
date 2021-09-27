@@ -1,16 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 
 public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
 
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onReceive(Context context, Intent intent) {
 //        PPApplication.logE("[IN_BROADCAST] DeviceIdleModeBroadcastReceiver.onReceive","xxx");
@@ -66,7 +63,7 @@ public class DeviceIdleModeBroadcastReceiver extends BroadcastReceiver {
                                     rescan = true;
                                 else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
                                     rescan = true;
-                                else if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning)
+                                else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                                     rescan = true;
                                 if (rescan) {
                                     PPApplication.rescanAllScanners(appContext);

@@ -9,6 +9,7 @@ import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("WeakerAccess")
@@ -36,12 +37,12 @@ public class PeriodicEventsHandlerWorker extends Worker {
                 // application is not started
                 return Result.success();
 
-            if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
+            if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
 
                 //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
                 boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
                 if (isPowerSaveMode) {
-                    if (ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode.equals("2")) {
+                    if (ApplicationPreferences.applicationEventPeriodicScanningScanInPowerSaveMode.equals("2")) {
                         PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
                         PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG_SHORT, false);
                         /*if (PPApplication.logEnabled()) {
@@ -52,10 +53,10 @@ public class PeriodicEventsHandlerWorker extends Worker {
                     }
                 }
                 else {
-                    if (ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiply.equals("2")) {
+                    if (ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply.equals("2")) {
                         if (PhoneProfilesService.isNowTimeBetweenTimes(
-                                ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyFrom,
-                                ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyTo)) {
+                                ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
+                                ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo)) {
                             // not scan in configured time
 //                            PPApplication.logE("PeriodicEventsHandlerWorker.doWork", "-- END - scan in time = 2 -------");
                             PPApplication.cancelWork(PeriodicEventsHandlerWorker.WORK_TAG, false);
@@ -70,13 +71,28 @@ public class PeriodicEventsHandlerWorker extends Worker {
 
                 if (Event.getGlobalEventsRunning()) {
 
-                    //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PeriodicEventsHandlerWorker.doWork");
+                    boolean callEventsHandler = false;
+                    Set<String> tags = getTags();
+                    for (String tag : tags) {
+//                        PPApplication.logE("######### PeriodicEventsHandlerWorker.doWork", "tag="+tag);
 
-//                    PPApplication.logE("[EVENTS_HANDLER_CALL] PeriodicEventsHandlerWorker.doWork", "sensorType=SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
-                    EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
-                    eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER);
+                        if (tag.equals(WORK_TAG)) {
+                            callEventsHandler = true;
+                            break;
+                        }
+                    }
 
-                    //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PeriodicEventsHandlerWorker.doWork");
+//                    PPApplication.logE("######### PeriodicEventsHandlerWorker.doWork", "callEventsHandler="+callEventsHandler);
+
+                    if (callEventsHandler) {
+                        //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=PeriodicEventsHandlerWorker.doWork");
+
+//                        PPApplication.logE("[EVENTS_HANDLER_CALL] PeriodicEventsHandlerWorker.doWork", "sensorType=SENSOR_TYPE_PERIODIC_EVENTS_HANDLER");
+                        EventsHandler eventsHandler = new EventsHandler(getApplicationContext());
+                        eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_PERIODIC_EVENTS_HANDLER);
+
+                        //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=PeriodicEventsHandlerWorker.doWork");
+                    }
                 }
 
                 //enqueueWork();
@@ -133,18 +149,18 @@ public class PeriodicEventsHandlerWorker extends Worker {
     }
 
     static void enqueueWork(Context appContext) {
-        int interval = ApplicationPreferences.applicationEventBackgroundScanningScanInterval;
+        int interval = ApplicationPreferences.applicationEventPeriodicScanningScanInterval;
         //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
         boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(appContext);
         if (isPowerSaveMode) {
-            if (ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode.equals("1"))
+            if (ApplicationPreferences.applicationEventPeriodicScanningScanInPowerSaveMode.equals("1"))
                 interval = 2 * interval;
         }
         else {
-            if (ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiply.equals("1")) {
+            if (ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply.equals("1")) {
                 if (PhoneProfilesService.isNowTimeBetweenTimes(
-                        ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyFrom,
-                        ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyTo)) {
+                        ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom,
+                        ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo)) {
                     interval = 2 * interval;
 //                    PPApplication.logE("PeriodicEventsHandlerWorker.enqueueWork", "scan in time - 2x interval");
                 }

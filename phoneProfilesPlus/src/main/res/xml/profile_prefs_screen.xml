@@ -45,27 +45,13 @@
         app:entries="@array/displayRotationArray"
         app:entryValues="@array/displayRotationValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+
+    <Preference
         app:title="@string/profile_preferences_deviceWallpaperChange"
-        app:summary="@string/array_pref_no_change"
-        app:key="prf_pref_deviceWallpaperChange"
-        app:defaultValue="0"
-        app:entries="@array/changeWallpaperArray"
-        app:entryValues="@array/changeWallpaperValues"
-        app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.WallpaperViewPreferenceX
-        app:defaultValue="-"
-        app:key="prf_pref_deviceWallpaper"
-        app:title="@string/profile_preferences_deviceWallpaper"
-        app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/profile_preferences_deviceWallpaperFor"
-        app:summary="@string/array_pref_device_wallpaper_homescreen"
-        app:key="prf_pref_deviceWallpaperFor"
-        app:defaultValue="0"
-        app:entries="@array/wallpaperForArray"
-        app:entryValues="@array/wallpaperForValues"
-        app:layout="@layout/mp_preference_material_widget" />
+        app:key="prf_pref_deviceWallpaperCategoryRoot"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsWallpaper" />
 
     <ListPreference
         app:title="@string/profile_preferences_deviceKeyguard"

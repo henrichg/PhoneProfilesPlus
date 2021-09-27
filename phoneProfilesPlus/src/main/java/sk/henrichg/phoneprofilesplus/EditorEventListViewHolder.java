@@ -362,17 +362,17 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                         if (event._delayEnd > 0)
                             profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "] " + profileName;
                         if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                            profileName = profileName + " + " + context.getResources().getString(R.string.event_preference_profile_undone);
+                            profileName = profileName + " + " + context.getString(R.string.event_preference_profile_undone);
                         else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
-                            profileName = profileName + " + " + context.getResources().getString(R.string.event_preference_profile_restartEvents);
+                            profileName = profileName + " + " + context.getString(R.string.event_preference_profile_restartEvents);
                     //}
                     //else {
                     //    if (event._delayEnd > 0)
                     //        profileName = "[" + GlobalGUIRoutines.getDurationString(event._delayEnd) + "]";
                     //    if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE)
-                    //        profileName = profileName + " + " + context.getResources().getString(R.string.event_preference_profile_undone);
+                    //        profileName = profileName + " + " + context.getString(R.string.event_preference_profile_undone);
                     //    else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
-                    //        profileName = profileName + " + " + context.getResources().getString(R.string.event_preference_profile_restartEvents);
+                    //        profileName = profileName + " + " + context.getString(R.string.event_preference_profile_restartEvents);
                     //}
                     profileEndName.setText(profileName);
                     if (profile.getIsIconResourceID()) {
@@ -407,16 +407,16 @@ class EditorEventListViewHolder extends RecyclerView.ViewHolder
                     if (event._atEndDo == Event.EATENDDO_UNDONE_PROFILE) {
                         if (event._manualProfileActivationAtEnd)
                             profileName = "[M] ";
-                        profileName = profileName + context.getResources().getString(R.string.event_preference_profile_undone);
+                        profileName = profileName + context.getString(R.string.event_preference_profile_undone);
                     }
                     else if (event._atEndDo == Event.EATENDDO_RESTART_EVENTS)
-                        profileName = profileName + context.getResources().getString(R.string.event_preference_profile_restartEvents);
+                        profileName = profileName + context.getString(R.string.event_preference_profile_restartEvents);
                     else {
                         //if (event._atEndHowUndo == 0) {
                             if (event._fkProfileEnd == Profile.PROFILE_NO_ACTIVATE)
-                                profileName = profileName + context.getResources().getString(R.string.profile_preference_profile_end_no_activate);
+                                profileName = profileName + context.getString(R.string.profile_preference_profile_end_no_activate);
                             else
-                                profileName = profileName + context.getResources().getString(R.string.profile_preference_profile_not_set);
+                                profileName = profileName + context.getString(R.string.profile_preference_profile_not_set);
                         //}
                     }
                     profileEndName.setText(profileName);

@@ -70,6 +70,7 @@ public class CheckOnlineStatusBroadcastReceiver extends BroadcastReceiver {
         ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connMgr != null) {
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+//            PPApplication.logE("[CONNECTIVITY_TEST] CheckOnlineStatusBroadcastReceiver.isOnline", "isOnline="+(networkInfo != null && networkInfo.isConnected()));
             return (networkInfo != null && networkInfo.isConnected());
         }
         else

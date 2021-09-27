@@ -113,6 +113,10 @@ public class Profile {
     int _soundNotificationChangeSIM2;
     String _soundNotificationSIM2;
     int _soundSameRingtoneForBothSIMCards;
+    String _deviceLiveWallpaper;
+    int _vibrateNotifications;
+    String _deviceWallpaperFolder;
+    int _applicationDisableGloabalEventsRun;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -169,6 +173,7 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_NETWORK_TYPE = "prf_pref_deviceNetworkType";
     static final String PREF_PROFILE_NOTIFICATION_LED = "prf_pref_notificationLed";
     static final String PREF_PROFILE_VIBRATE_WHEN_RINGING = "prf_pref_vibrateWhenRinging";
+    static final String PREF_PROFILE_VIBRATE_NOTIFICATIONS = "prf_pref_vibrateNotifications";
     static final String PREF_PROFILE_DEVICE_WALLPAPER_FOR = "prf_pref_deviceWallpaperFor";
     static final String PREF_PROFILE_HIDE_STATUS_BAR_ICON = "prf_pref_hideStatusBarIcon";
     static final String PREF_PROFILE_LOCK_DEVICE = "prf_pref_lockDevice";
@@ -215,108 +220,115 @@ public class Profile {
     static final String PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2 = "prf_pref_soundNotificationChangeSIM2";
     static final String PREF_PROFILE_SOUND_NOTIFICATION_SIM2 = "prf_pref_soundNotificationSIM2";
     static final String PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS = "prf_pref_soundSameRingtoneForBothSIMCards";
+    static final String PREF_PROFILE_DEVICE_LIVE_WALLPAPER = "prf_pref_deviceLiveWallpaper";
+    static final String PREF_PROFILE_DEVICE_WALLPAPER_FOLDER = "prf_pref_deviceWallpaperFolder";
+    static final String PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN = "prf_pref_applicationDisableGloabalEventsRun";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
         defaultValuesBoolean = new HashMap<>();
-        defaultValuesBoolean.put("prf_pref_showInActivator", false);
+        defaultValuesBoolean.put(PREF_PROFILE_SHOW_IN_ACTIVATOR, false);
         defaultValuesBoolean.put("prf_pref_showInActivator_notShow", false);
-        defaultValuesBoolean.put("prf_pref_askForDuration", false);
-        defaultValuesBoolean.put("prf_pref_durationNotificationVibrate", false);
-        defaultValuesBoolean.put("prf_pref_hideStatusBarIcon", false);
-        defaultValuesBoolean.put("prf_pref_volumeMuteSound", false);
+        defaultValuesBoolean.put(PREF_PROFILE_ASK_FOR_DURATION, false);
+        defaultValuesBoolean.put(PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, false);
+        defaultValuesBoolean.put(PREF_PROFILE_HIDE_STATUS_BAR_ICON, false);
+        defaultValuesBoolean.put(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
     }
     static final HashMap<String, String> defaultValuesString;
     static {
         defaultValuesString = new HashMap<>();
-        defaultValuesString.put("prf_pref_profileName", "");
-        defaultValuesString.put("prf_pref_profileIcon", "ic_profile_default|1|0|0");
+        defaultValuesString.put(PREF_PROFILE_NAME, "");
+        defaultValuesString.put(PREF_PROFILE_ICON, "ic_profile_default|1|0|0");
         defaultValuesString.put("prf_pref_profileIcon_withoutIcon", "|1|0|0");
-        defaultValuesString.put("prf_pref_duration", "0");
-        defaultValuesString.put("prf_pref_afterDurationDo", "0");
-        defaultValuesString.put("prf_pref_durationNotificationSound", "");
-        defaultValuesString.put("prf_pref_volumeRingerMode", "0");
-        defaultValuesString.put("prf_pref_volumeZenMode", "1");
-        defaultValuesString.put("prf_pref_vibrationOnTouch", "0");
-        defaultValuesString.put("prf_pref_volumeRingtone", "-1|1|0");
-        defaultValuesString.put("prf_pref_volumeNotification", "-1|1|0");
-        defaultValuesString.put("prf_pref_volumeMedia", "-1|1|0");
-        defaultValuesString.put("prf_pref_volumeAlarm", "-1|1|0");
-        defaultValuesString.put("prf_pref_volumeSystem", "-1|1|0");
-        defaultValuesString.put("prf_pref_volumeVoice", "-1|1|0");
-        defaultValuesString.put("prf_pref_volumeSpeakerPhone", "0");
-        defaultValuesString.put("prf_pref_soundRingtoneChange", "0");
-        defaultValuesString.put("prf_pref_soundRingtone", "");
-        defaultValuesString.put("prf_pref_soundNotificationChange", "0");
-        defaultValuesString.put("prf_pref_soundNotification", "");
-        defaultValuesString.put("prf_pref_soundAlarmChange", "0");
-        defaultValuesString.put("prf_pref_soundAlarm", "");
-        defaultValuesString.put("prf_pref_deviceAirplaneMode", "0");
-        defaultValuesString.put("prf_pref_deviceAutosync", "0");
-        defaultValuesString.put("prf_pref_deviceMobileData", "0");
-        defaultValuesString.put("prf_pref_deviceMobileDataPrefs", "0");
-        defaultValuesString.put("prf_pref_deviceWiFi", "0");
-        defaultValuesString.put("prf_pref_deviceWiFiAP", "0");
-        defaultValuesString.put("prf_pref_deviceBluetooth", "0");
-        defaultValuesString.put("prf_pref_deviceGPS", "0");
-        defaultValuesString.put("prf_pref_deviceLocationServicePrefs", "0");
-        defaultValuesString.put("prf_pref_deviceNFC", "0");
-        defaultValuesString.put("prf_pref_deviceScreenTimeout", "0");
-        defaultValuesString.put("prf_pref_deviceKeyguard", "0");
-        defaultValuesString.put("prf_pref_deviceBrightness", "50|1|1|0");
+        defaultValuesString.put(PREF_PROFILE_DURATION, "0");
+        defaultValuesString.put(PREF_PROFILE_AFTER_DURATION_DO, "0");
+        defaultValuesString.put(PREF_PROFILE_DURATION_NOTIFICATION_SOUND, "");
+        defaultValuesString.put(PREF_PROFILE_VOLUME_RINGER_MODE, "0");
+        defaultValuesString.put(PREF_PROFILE_VOLUME_ZEN_MODE, "1");
+        defaultValuesString.put(PREF_PROFILE_VIBRATION_ON_TOUCH, "0");
+        defaultValuesString.put(PREF_PROFILE_VOLUME_RINGTONE, "-1|1|0");
+        defaultValuesString.put(PREF_PROFILE_VOLUME_NOTIFICATION, "-1|1|0");
+        defaultValuesString.put(PREF_PROFILE_VOLUME_MEDIA, "-1|1|0");
+        defaultValuesString.put(PREF_PROFILE_VOLUME_ALARM, "-1|1|0");
+        defaultValuesString.put(PREF_PROFILE_VOLUME_SYSTEM, "-1|1|0");
+        defaultValuesString.put(PREF_PROFILE_VOLUME_VOICE, "-1|1|0");
+        defaultValuesString.put(PREF_PROFILE_VOLUME_SPEAKER_PHONE, "0");
+        defaultValuesString.put(PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0");
+        defaultValuesString.put(PREF_PROFILE_SOUND_RINGTONE, "");
+        defaultValuesString.put(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0");
+        defaultValuesString.put(PREF_PROFILE_SOUND_NOTIFICATION, "");
+        defaultValuesString.put(PREF_PROFILE_SOUND_ALARM_CHANGE, "0");
+        defaultValuesString.put(PREF_PROFILE_SOUND_ALARM, "");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_AIRPLANE_MODE, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_AUTOSYNC, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_MOBILE_DATA, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_WIFI, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_WIFI_AP, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_BLUETOOTH, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_GPS, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_NFC, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_KEYGUARD, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_BRIGHTNESS, "50|1|1|0");
         defaultValuesString.put("prf_pref_deviceBrightness_withoutLevel", "|1|1|0");
-        defaultValuesString.put("prf_pref_deviceAutoRotation", "0");
-        defaultValuesString.put("prf_pref_devicePowerSaveMode", "0");
-        defaultValuesString.put("prf_pref_deviceRunApplicationChange", "0");
-        defaultValuesString.put("prf_pref_deviceRunApplicationPackageName", "-");
-        defaultValuesString.put("prf_pref_deviceWallpaperChange", "0");
-        defaultValuesString.put("prf_pref_deviceWallpaper", "-");
-        defaultValuesString.put("prf_pref_deviceNetworkType", "0");
-        defaultValuesString.put("prf_pref_notificationLed", "0");
-        defaultValuesString.put("prf_pref_vibrateWhenRinging", "0");
-        defaultValuesString.put("prf_pref_deviceWallpaperFor", "0");
-        defaultValuesString.put("prf_pref_lockDevice", "0");
-        defaultValuesString.put("prf_pref_deviceConnectToSSID", "^just_any^");
-        defaultValuesString.put("prf_pref_applicationDisableWifiScanning", "0");
-        defaultValuesString.put("prf_pref_applicationDisableBluetoothScanning", "0");
-        defaultValuesString.put("prf_pref_deviceWiFiAPPrefs", "0");
-        defaultValuesString.put("prf_pref_applicationDisableLocationScanning", "0");
-        defaultValuesString.put("prf_pref_applicationDisableMobileCellScanning", "0");
-        defaultValuesString.put("prf_pref_applicationDisableOrientationScanning", "0");
-        defaultValuesString.put("prf_pref_headsUpNotifications", "0");
-        defaultValuesString.put("prf_pref_deviceForceStopApplicationChange", "0");
-        defaultValuesString.put("prf_pref_deviceForceStopApplicationPackageName", "-");
-        defaultValuesString.put("prf_pref_deviceNetworkTypePrefs", "0");
-        defaultValuesString.put("prf_pref_deviceCloseAllApplications", "0");
-        defaultValuesString.put("prf_pref_screenDarkMode", "0");
-        defaultValuesString.put("prf_pref_dtmfToneWhenDialing", "0");
-        defaultValuesString.put("prf_pref_soundOnTouch", "0");
-        defaultValuesString.put("prf_pref_volumeDTMF", "-1|1|0");
-        defaultValuesString.put("prf_pref_volumeAccessibility", "-1|1|0");
-        defaultValuesString.put("prf_pref_volumeBluetoothSCO", "-1|1|0");
-        defaultValuesString.put("prf_pref_afterDurationProfile", String.valueOf(PROFILE_NO_ACTIVATE));
-        defaultValuesString.put("prf_pref_alwaysOnDisplay", "0");
-        defaultValuesString.put("prf_pref_screenOnPermanent", "0");
-        defaultValuesString.put("prf_pref_deviceLocationMode", "0");
-        defaultValuesString.put("prf_pref_applicationDisableNotificationScanning", "0");
-        defaultValuesString.put("prf_pref_generateNotification", "0|0||");
-        defaultValuesString.put("prf_pref_cameraFlash", "0");
-        defaultValuesString.put("prf_pref_deviceNetworkTypeSIM1", "0");
-        defaultValuesString.put("prf_pref_deviceNetworkTypeSIM2", "0");
-        defaultValuesString.put("prf_pref_deviceMobileDataSIM1", "0");
-        defaultValuesString.put("prf_pref_deviceMobileDataSIM2", "0");
-        defaultValuesString.put("prf_pref_deviceDefaultSIMCards", "0|0|0");
-        defaultValuesString.put("prf_pref_deviceOnOffSIM1", "0");
-        defaultValuesString.put("prf_pref_deviceOnOffSIM2", "0");
-        defaultValuesString.put("prf_pref_soundRingtoneChangeSIM1", "0");
-        defaultValuesString.put("prf_pref_soundRingtoneSIM1", "");
-        defaultValuesString.put("prf_pref_soundRingtoneChangeSIM2", "0");
-        defaultValuesString.put("prf_pref_soundRingtoneSIM2", "");
-        defaultValuesString.put("prf_pref_soundNotificationChangeSIM1", "0");
-        defaultValuesString.put("prf_pref_soundNotificationSIM1", "");
-        defaultValuesString.put("prf_pref_soundNotificationChangeSIM2", "0");
-        defaultValuesString.put("prf_pref_soundNotificationSIM2", "");
-        defaultValuesString.put("prf_pref_soundSameRingtoneForBothSIMCards", "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_AUTOROTATE, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_POWER_SAVE_MODE, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "-");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER, "-");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_NETWORK_TYPE, "0");
+        defaultValuesString.put(PREF_PROFILE_NOTIFICATION_LED, "0");
+        defaultValuesString.put(PREF_PROFILE_VIBRATE_WHEN_RINGING, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0");
+        defaultValuesString.put(PREF_PROFILE_LOCK_DEVICE, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, "^just_any^");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_WIFI_AP_PREFS, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_HEADS_UP_NOTIFICATIONS, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, "-");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, "0");
+        defaultValuesString.put(PREF_PROFILE_SCREEN_DARK_MODE, "0");
+        defaultValuesString.put(PREF_PROFILE_DTMF_TONE_WHEN_DIALING, "0");
+        defaultValuesString.put(PREF_PROFILE_SOUND_ON_TOUCH, "0");
+        defaultValuesString.put(PREF_PROFILE_VOLUME_DTMF, "-1|1|0");
+        defaultValuesString.put(PREF_PROFILE_VOLUME_ACCESSIBILITY, "-1|1|0");
+        defaultValuesString.put(PREF_PROFILE_VOLUME_BLUETOOTH_SCO, "-1|1|0");
+        defaultValuesString.put(PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(PROFILE_NO_ACTIVATE));
+        defaultValuesString.put(PREF_PROFILE_ALWAYS_ON_DISPLAY, "0");
+        defaultValuesString.put(PREF_PROFILE_SCREEN_ON_PERMANENT, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_LOCATION_MODE, "0");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, "0");
+        defaultValuesString.put(PREF_PROFILE_GENERATE_NOTIFICATION, "0|0||");
+        defaultValuesString.put(PREF_PROFILE_CAMERA_FLASH, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_ONOFF_SIM1, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_ONOFF_SIM2, "0");
+        defaultValuesString.put(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, "0");
+        defaultValuesString.put(PREF_PROFILE_SOUND_RINGTONE_SIM1, "");
+        defaultValuesString.put(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, "0");
+        defaultValuesString.put(PREF_PROFILE_SOUND_RINGTONE_SIM2, "");
+        defaultValuesString.put(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, "0");
+        defaultValuesString.put(PREF_PROFILE_SOUND_NOTIFICATION_SIM1, "");
+        defaultValuesString.put(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, "0");
+        defaultValuesString.put(PREF_PROFILE_SOUND_NOTIFICATION_SIM2, "");
+        defaultValuesString.put(PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_LIVE_WALLPAPER, "");
+        defaultValuesString.put(PREF_PROFILE_VIBRATE_NOTIFICATIONS, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, "-");
+        defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, "0");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -337,6 +349,7 @@ public class Profile {
     static final int AFTER_DURATION_DO_DEFAULT_PROFILE = 2;
     static final int AFTER_DURATION_DO_RESTART_EVENTS = 3;
     static final int AFTER_DURATION_DO_SPECIFIC_PROFILE = 4;
+    static final int AFTER_DURATION_DO_SPECIFIC_PROFILE_THEN_RESTART_EVENTS = 5;
 
     static final int BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET = -99;
 
@@ -456,6 +469,108 @@ public class Profile {
             0xff1ea0df, 0xff1ea0df
     };
 
+    static final String ic_profile_home = "ic_profile_home";
+    static final String ic_profile_home_2 = "ic_profile_home_2";
+    static final String ic_profile_home_3 = "ic_profile_home_3";
+    static final String ic_profile_home_4 = "ic_profile_home_4";
+    static final String ic_profile_home_5 = "ic_profile_home_5";
+    static final String ic_profile_home_6 = "ic_profile_home_6";
+    static final String ic_profile_outdoors_1 = "ic_profile_outdoors_1";
+    static final String ic_profile_outdoors_2 = "ic_profile_outdoors_2";
+    static final String ic_profile_outdoors_3 = "ic_profile_outdoors_3";
+    static final String ic_profile_outdoors_4 = "ic_profile_outdoors_4";
+    static final String ic_profile_outdoors_5 = "ic_profile_outdoors_5";
+    static final String ic_profile_outdoors_6 = "ic_profile_outdoors_6";
+    static final String ic_profile_outdoors_7 = "ic_profile_outdoors_7";
+    static final String ic_profile_outdoors_8 = "ic_profile_outdoors_8";
+    static final String ic_profile_outdoors_9 = "ic_profile_outdoors_9";
+    static final String ic_profile_running_1 = "ic_profile_running_1";
+    static final String ic_profile_meeting = "ic_profile_meeting";
+    static final String ic_profile_meeting_2 = "ic_profile_meeting_2";
+    static final String ic_profile_meeting_3 = "ic_profile_meeting_3";
+    static final String ic_profile_meeting_4 = "ic_profile_meeting_4";
+    static final String ic_profile_mute = "ic_profile_mute";
+    static final String ic_profile_mute_2 = "ic_profile_mute_2";
+    static final String ic_profile_volume_4 = "ic_profile_volume_4";
+    static final String ic_profile_volume_1 = "ic_profile_volume_1";
+    static final String ic_profile_volume_2 = "ic_profile_volume_2";
+    static final String ic_profile_volume_3 = "ic_profile_volume_3";
+    static final String ic_profile_vibrate_1 = "ic_profile_vibrate_1";
+    static final String ic_profile_work_1 = "ic_profile_work_1";
+    static final String ic_profile_work_2 = "ic_profile_work_2";
+    static final String ic_profile_work_12 = "ic_profile_work_12";
+    static final String ic_profile_work_3 = "ic_profile_work_3";
+    static final String ic_profile_work_4 = "ic_profile_work_4";
+    static final String ic_profile_work_5 = "ic_profile_work_5";
+    static final String ic_profile_work_6 = "ic_profile_work_6";
+    static final String ic_profile_work_7 = "ic_profile_work_7";
+    static final String ic_profile_work_8 = "ic_profile_work_8";
+    static final String ic_profile_work_9 = "ic_profile_work_9";
+    static final String ic_profile_work_10 = "ic_profile_work_10";
+    static final String ic_profile_work_11 = "ic_profile_work_11";
+    static final String ic_profile_work_13 = "ic_profile_work_13";
+    static final String ic_profile_work_14 = "ic_profile_work_14";
+    static final String ic_profile_work_15 = "ic_profile_work_15";
+    static final String ic_profile_work_16 = "ic_profile_work_16";
+    static final String ic_profile_work_17 = "ic_profile_work_17";
+    static final String ic_profile_work_18 = "ic_profile_work_18";
+    static final String ic_profile_sleep = "ic_profile_sleep";
+    static final String ic_profile_sleep_2 = "ic_profile_sleep_2";
+    static final String ic_profile_sleep_3 = "ic_profile_sleep_3";
+    static final String ic_profile_night = "ic_profile_night";
+    static final String ic_profile_call_1 = "ic_profile_call_1";
+    static final String ic_profile_food_1 = "ic_profile_food_1";
+    static final String ic_profile_food_2 = "ic_profile_food_2";
+    static final String ic_profile_food_3 = "ic_profile_food_3";
+    static final String ic_profile_food_4 = "ic_profile_food_4";
+    static final String ic_profile_food_5 = "ic_profile_food_5";
+    static final String ic_profile_alarm = "ic_profile_alarm";
+    static final String ic_profile_car_1 = "ic_profile_car_1";
+    static final String ic_profile_car_2 = "ic_profile_car_2";
+    static final String ic_profile_car_3 = "ic_profile_car_3";
+    static final String ic_profile_car_4 = "ic_profile_car_4";
+    static final String ic_profile_car_5 = "ic_profile_car_5";
+    static final String ic_profile_car_6 = "ic_profile_car_6";
+    static final String ic_profile_car_7 = "ic_profile_car_7";
+    static final String ic_profile_car_8 = "ic_profile_car_8";
+    static final String ic_profile_car_9 = "ic_profile_car_9";
+    static final String ic_profile_car_10 = "ic_profile_car_10";
+    static final String ic_profile_car_11 = "ic_profile_car_11";
+    static final String ic_profile_steering_1 = "ic_profile_steering_1";
+    static final String ic_profile_airplane_1 = "ic_profile_airplane_1";
+    static final String ic_profile_airplane_2 = "ic_profile_airplane_2";
+    static final String ic_profile_airplane_3 = "ic_profile_airplane_3";
+    static final String ic_profile_ship_1 = "ic_profile_ship_1";
+    static final String ic_profile_ship_2 = "ic_profile_ship_2";
+    static final String ic_profile_ship_3 = "ic_profile_ship_3";
+    static final String ic_profile_tram_1 = "ic_profile_tram_1";
+    static final String ic_profile_tickets_1 = "ic_profile_tickets_1";
+    static final String ic_profile_tickets_2 = "ic_profile_tickets_2";
+    static final String ic_profile_travel_1 = "ic_profile_travel_1";
+    static final String ic_profile_culture_1 = "ic_profile_culture_1";
+    static final String ic_profile_culture_6 = "ic_profile_culture_6";
+    static final String ic_profile_culture_7 = "ic_profile_culture_7";
+    static final String ic_profile_culture_2 = "ic_profile_culture_2";
+    static final String ic_profile_culture_8 = "ic_profile_culture_8";
+    static final String ic_profile_culture_9 = "ic_profile_culture_9";
+    static final String ic_profile_culture_3 = "ic_profile_culture_3";
+    static final String ic_profile_culture_10 = "ic_profile_culture_10";
+    static final String ic_profile_culture_11 = "ic_profile_culture_11";
+    static final String ic_profile_culture_12 = "ic_profile_culture_12";
+    static final String ic_profile_culture_13 = "ic_profile_culture_13";
+    static final String ic_profile_culture_5 = "ic_profile_culture_5";
+    static final String ic_profile_culture_14 = "ic_profile_culture_14";
+    static final String ic_profile_culture_4 = "ic_profile_culture_4";
+    static final String ic_profile_culture_15 = "ic_profile_culture_15";
+    static final String ic_profile_culture_16 = "ic_profile_culture_16";
+    static final String ic_profile_culture_17 = "ic_profile_culture_17";
+    static final String ic_profile_battery_1 = "ic_profile_battery_1";
+    static final String ic_profile_battery_2 = "ic_profile_battery_2";
+    static final String ic_profile_battery_3 = "ic_profile_battery_3";
+    static final String ic_profile_lock = "ic_profile_lock";
+    static final String ic_profile_wifi = "ic_profile_wifi";
+    static final String ic_profile_mobile_data = "ic_profile_mobile_data";
+
     static final HashMap<String, Integer> profileIconIdMap;
     static {
         profileIconIdMap = new HashMap<>();
@@ -463,321 +578,321 @@ public class Profile {
         profileIconIdMap.put("ic_list_item_events_restart_color_filled", R.drawable.ic_list_item_events_restart_color_filled);
 
         profileIconIdMap.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default);
-        profileIconIdMap.put("ic_profile_home", R.drawable.ic_profile_home);
-        profileIconIdMap.put("ic_profile_home_2", R.drawable.ic_profile_home_2);
-        profileIconIdMap.put("ic_profile_home_3", R.drawable.ic_profile_home_3);
-        profileIconIdMap.put("ic_profile_home_4", R.drawable.ic_profile_home_4);
-        profileIconIdMap.put("ic_profile_home_5", R.drawable.ic_profile_home_5);
-        profileIconIdMap.put("ic_profile_home_6", R.drawable.ic_profile_home_6);
-        profileIconIdMap.put("ic_profile_outdoors_1", R.drawable.ic_profile_outdoors_1);
-        profileIconIdMap.put("ic_profile_outdoors_2", R.drawable.ic_profile_outdoors_2);
-        profileIconIdMap.put("ic_profile_outdoors_3", R.drawable.ic_profile_outdoors_3);
-        profileIconIdMap.put("ic_profile_outdoors_4", R.drawable.ic_profile_outdoors_4);
-        profileIconIdMap.put("ic_profile_outdoors_5", R.drawable.ic_profile_outdoors_5);
-        profileIconIdMap.put("ic_profile_outdoors_6", R.drawable.ic_profile_outdoors_6);
-        profileIconIdMap.put("ic_profile_outdoors_7", R.drawable.ic_profile_outdoors_7);
-        profileIconIdMap.put("ic_profile_outdoors_8", R.drawable.ic_profile_outdoors_8);
-        profileIconIdMap.put("ic_profile_outdoors_9", R.drawable.ic_profile_outdoors_9);
-        profileIconIdMap.put("ic_profile_running_1", R.drawable.ic_profile_running_1);
-        profileIconIdMap.put("ic_profile_meeting", R.drawable.ic_profile_meeting);
-        profileIconIdMap.put("ic_profile_meeting_2", R.drawable.ic_profile_meeting_2);
-        profileIconIdMap.put("ic_profile_meeting_3", R.drawable.ic_profile_meeting_3);
-        profileIconIdMap.put("ic_profile_meeting_4", R.drawable.ic_profile_meeting_4);
-        profileIconIdMap.put("ic_profile_mute", R.drawable.ic_profile_mute);
-        profileIconIdMap.put("ic_profile_mute_2", R.drawable.ic_profile_mute_2);
-        profileIconIdMap.put("ic_profile_volume_4", R.drawable.ic_profile_volume_4);
-        profileIconIdMap.put("ic_profile_volume_1", R.drawable.ic_profile_volume_1);
-        profileIconIdMap.put("ic_profile_volume_2", R.drawable.ic_profile_volume_2);
-        profileIconIdMap.put("ic_profile_volume_3", R.drawable.ic_profile_volume_3);
-        profileIconIdMap.put("ic_profile_vibrate_1", R.drawable.ic_profile_vibrate_1);
-        profileIconIdMap.put("ic_profile_work_1", R.drawable.ic_profile_work_1);
-        profileIconIdMap.put("ic_profile_work_2", R.drawable.ic_profile_work_2);
-        profileIconIdMap.put("ic_profile_work_12", R.drawable.ic_profile_work_12);
-        profileIconIdMap.put("ic_profile_work_3", R.drawable.ic_profile_work_3);
-        profileIconIdMap.put("ic_profile_work_4", R.drawable.ic_profile_work_4);
-        profileIconIdMap.put("ic_profile_work_5", R.drawable.ic_profile_work_5);
-        profileIconIdMap.put("ic_profile_work_6", R.drawable.ic_profile_work_6);
-        profileIconIdMap.put("ic_profile_work_7", R.drawable.ic_profile_work_7);
-        profileIconIdMap.put("ic_profile_work_8", R.drawable.ic_profile_work_8);
-        profileIconIdMap.put("ic_profile_work_9", R.drawable.ic_profile_work_9);
-        profileIconIdMap.put("ic_profile_work_10", R.drawable.ic_profile_work_10);
-        profileIconIdMap.put("ic_profile_work_11", R.drawable.ic_profile_work_11);
-        profileIconIdMap.put("ic_profile_work_13", R.drawable.ic_profile_work_13);
-        profileIconIdMap.put("ic_profile_work_14", R.drawable.ic_profile_work_14);
-        profileIconIdMap.put("ic_profile_work_15", R.drawable.ic_profile_work_15);
-        profileIconIdMap.put("ic_profile_work_16", R.drawable.ic_profile_work_16);
-        profileIconIdMap.put("ic_profile_work_17", R.drawable.ic_profile_work_17);
-        profileIconIdMap.put("ic_profile_work_18", R.drawable.ic_profile_work_18);
-        profileIconIdMap.put("ic_profile_sleep", R.drawable.ic_profile_sleep);
-        profileIconIdMap.put("ic_profile_sleep_2", R.drawable.ic_profile_sleep_2);
-        profileIconIdMap.put("ic_profile_sleep_3", R.drawable.ic_profile_sleep_3);
-        profileIconIdMap.put("ic_profile_night", R.drawable.ic_profile_night);
-        profileIconIdMap.put("ic_profile_call_1", R.drawable.ic_profile_call_1);
-        profileIconIdMap.put("ic_profile_food_1", R.drawable.ic_profile_food_1);
-        profileIconIdMap.put("ic_profile_food_2", R.drawable.ic_profile_food_2);
-        profileIconIdMap.put("ic_profile_food_3", R.drawable.ic_profile_food_3);
-        profileIconIdMap.put("ic_profile_food_4", R.drawable.ic_profile_food_4);
-        profileIconIdMap.put("ic_profile_food_5", R.drawable.ic_profile_food_5);
-        profileIconIdMap.put("ic_profile_alarm", R.drawable.ic_profile_alarm);
-        profileIconIdMap.put("ic_profile_car_1", R.drawable.ic_profile_car_1);
-        profileIconIdMap.put("ic_profile_car_2", R.drawable.ic_profile_car_2);
-        profileIconIdMap.put("ic_profile_car_3", R.drawable.ic_profile_car_3);
-        profileIconIdMap.put("ic_profile_car_4", R.drawable.ic_profile_car_4);
-        profileIconIdMap.put("ic_profile_car_5", R.drawable.ic_profile_car_5);
-        profileIconIdMap.put("ic_profile_car_6", R.drawable.ic_profile_car_6);
-        profileIconIdMap.put("ic_profile_car_7", R.drawable.ic_profile_car_7);
-        profileIconIdMap.put("ic_profile_car_8", R.drawable.ic_profile_car_8);
-        profileIconIdMap.put("ic_profile_car_9", R.drawable.ic_profile_car_9);
-        profileIconIdMap.put("ic_profile_car_10", R.drawable.ic_profile_car_10);
-        profileIconIdMap.put("ic_profile_car_11", R.drawable.ic_profile_car_11);
-        profileIconIdMap.put("ic_profile_steering_1", R.drawable.ic_profile_steering_1);
-        profileIconIdMap.put("ic_profile_airplane_1", R.drawable.ic_profile_airplane_1);
-        profileIconIdMap.put("ic_profile_airplane_2", R.drawable.ic_profile_airplane_2);
-        profileIconIdMap.put("ic_profile_airplane_3", R.drawable.ic_profile_airplane_3);
-        profileIconIdMap.put("ic_profile_ship_1", R.drawable.ic_profile_ship_1);
-        profileIconIdMap.put("ic_profile_ship_2", R.drawable.ic_profile_ship_2);
-        profileIconIdMap.put("ic_profile_ship_3", R.drawable.ic_profile_ship_3);
-        profileIconIdMap.put("ic_profile_tram_1", R.drawable.ic_profile_tram_1);
-        profileIconIdMap.put("ic_profile_tickets_1", R.drawable.ic_profile_tickets_1);
-        profileIconIdMap.put("ic_profile_tickets_2", R.drawable.ic_profile_tickets_2);
-        profileIconIdMap.put("ic_profile_travel_1", R.drawable.ic_profile_travel_1);
-        profileIconIdMap.put("ic_profile_culture_1", R.drawable.ic_profile_culture_1);
-        profileIconIdMap.put("ic_profile_culture_6", R.drawable.ic_profile_culture_6);
-        profileIconIdMap.put("ic_profile_culture_7", R.drawable.ic_profile_culture_7);
-        profileIconIdMap.put("ic_profile_culture_2", R.drawable.ic_profile_culture_2);
-        profileIconIdMap.put("ic_profile_culture_8", R.drawable.ic_profile_culture_8);
-        profileIconIdMap.put("ic_profile_culture_9", R.drawable.ic_profile_culture_9);
-        profileIconIdMap.put("ic_profile_culture_3", R.drawable.ic_profile_culture_3);
-        profileIconIdMap.put("ic_profile_culture_10", R.drawable.ic_profile_culture_10);
-        profileIconIdMap.put("ic_profile_culture_11", R.drawable.ic_profile_culture_11);
-        profileIconIdMap.put("ic_profile_culture_12", R.drawable.ic_profile_culture_12);
-        profileIconIdMap.put("ic_profile_culture_13", R.drawable.ic_profile_culture_13);
-        profileIconIdMap.put("ic_profile_culture_5", R.drawable.ic_profile_culture_5);
-        profileIconIdMap.put("ic_profile_culture_14", R.drawable.ic_profile_culture_14);
-        profileIconIdMap.put("ic_profile_culture_4", R.drawable.ic_profile_culture_4);
-        profileIconIdMap.put("ic_profile_culture_15", R.drawable.ic_profile_culture_15);
-        profileIconIdMap.put("ic_profile_culture_16", R.drawable.ic_profile_culture_16);
-        profileIconIdMap.put("ic_profile_culture_17", R.drawable.ic_profile_culture_17);
-        profileIconIdMap.put("ic_profile_battery_1", R.drawable.ic_profile_battery_1);
-        profileIconIdMap.put("ic_profile_battery_2", R.drawable.ic_profile_battery_2);
-        profileIconIdMap.put("ic_profile_battery_3", R.drawable.ic_profile_battery_3);
-        profileIconIdMap.put("ic_profile_lock", R.drawable.ic_profile_lock);
-        profileIconIdMap.put("ic_profile_wifi", R.drawable.ic_profile_wifi);
-        profileIconIdMap.put("ic_profile_mobile_data", R.drawable.ic_profile_mobile_data);
+        profileIconIdMap.put(ic_profile_home, R.drawable.ic_profile_home);
+        profileIconIdMap.put(ic_profile_home_2, R.drawable.ic_profile_home_2);
+        profileIconIdMap.put(ic_profile_home_3, R.drawable.ic_profile_home_3);
+        profileIconIdMap.put(ic_profile_home_4, R.drawable.ic_profile_home_4);
+        profileIconIdMap.put(ic_profile_home_5, R.drawable.ic_profile_home_5);
+        profileIconIdMap.put(ic_profile_home_6, R.drawable.ic_profile_home_6);
+        profileIconIdMap.put(ic_profile_outdoors_1, R.drawable.ic_profile_outdoors_1);
+        profileIconIdMap.put(ic_profile_outdoors_2, R.drawable.ic_profile_outdoors_2);
+        profileIconIdMap.put(ic_profile_outdoors_3, R.drawable.ic_profile_outdoors_3);
+        profileIconIdMap.put(ic_profile_outdoors_4, R.drawable.ic_profile_outdoors_4);
+        profileIconIdMap.put(ic_profile_outdoors_5, R.drawable.ic_profile_outdoors_5);
+        profileIconIdMap.put(ic_profile_outdoors_6, R.drawable.ic_profile_outdoors_6);
+        profileIconIdMap.put(ic_profile_outdoors_7, R.drawable.ic_profile_outdoors_7);
+        profileIconIdMap.put(ic_profile_outdoors_8, R.drawable.ic_profile_outdoors_8);
+        profileIconIdMap.put(ic_profile_outdoors_9, R.drawable.ic_profile_outdoors_9);
+        profileIconIdMap.put(ic_profile_running_1, R.drawable.ic_profile_running_1);
+        profileIconIdMap.put(ic_profile_meeting, R.drawable.ic_profile_meeting);
+        profileIconIdMap.put(ic_profile_meeting_2, R.drawable.ic_profile_meeting_2);
+        profileIconIdMap.put(ic_profile_meeting_3, R.drawable.ic_profile_meeting_3);
+        profileIconIdMap.put(ic_profile_meeting_4, R.drawable.ic_profile_meeting_4);
+        profileIconIdMap.put(ic_profile_mute, R.drawable.ic_profile_mute);
+        profileIconIdMap.put(ic_profile_mute_2, R.drawable.ic_profile_mute_2);
+        profileIconIdMap.put(ic_profile_volume_4, R.drawable.ic_profile_volume_4);
+        profileIconIdMap.put(ic_profile_volume_1, R.drawable.ic_profile_volume_1);
+        profileIconIdMap.put(ic_profile_volume_2, R.drawable.ic_profile_volume_2);
+        profileIconIdMap.put(ic_profile_volume_3, R.drawable.ic_profile_volume_3);
+        profileIconIdMap.put(ic_profile_vibrate_1, R.drawable.ic_profile_vibrate_1);
+        profileIconIdMap.put(ic_profile_work_1, R.drawable.ic_profile_work_1);
+        profileIconIdMap.put(ic_profile_work_2, R.drawable.ic_profile_work_2);
+        profileIconIdMap.put(ic_profile_work_12, R.drawable.ic_profile_work_12);
+        profileIconIdMap.put(ic_profile_work_3, R.drawable.ic_profile_work_3);
+        profileIconIdMap.put(ic_profile_work_4, R.drawable.ic_profile_work_4);
+        profileIconIdMap.put(ic_profile_work_5, R.drawable.ic_profile_work_5);
+        profileIconIdMap.put(ic_profile_work_6, R.drawable.ic_profile_work_6);
+        profileIconIdMap.put(ic_profile_work_7, R.drawable.ic_profile_work_7);
+        profileIconIdMap.put(ic_profile_work_8, R.drawable.ic_profile_work_8);
+        profileIconIdMap.put(ic_profile_work_9, R.drawable.ic_profile_work_9);
+        profileIconIdMap.put(ic_profile_work_10, R.drawable.ic_profile_work_10);
+        profileIconIdMap.put(ic_profile_work_11, R.drawable.ic_profile_work_11);
+        profileIconIdMap.put(ic_profile_work_13, R.drawable.ic_profile_work_13);
+        profileIconIdMap.put(ic_profile_work_14, R.drawable.ic_profile_work_14);
+        profileIconIdMap.put(ic_profile_work_15, R.drawable.ic_profile_work_15);
+        profileIconIdMap.put(ic_profile_work_16, R.drawable.ic_profile_work_16);
+        profileIconIdMap.put(ic_profile_work_17, R.drawable.ic_profile_work_17);
+        profileIconIdMap.put(ic_profile_work_18, R.drawable.ic_profile_work_18);
+        profileIconIdMap.put(ic_profile_sleep, R.drawable.ic_profile_sleep);
+        profileIconIdMap.put(ic_profile_sleep_2, R.drawable.ic_profile_sleep_2);
+        profileIconIdMap.put(ic_profile_sleep_3, R.drawable.ic_profile_sleep_3);
+        profileIconIdMap.put(ic_profile_night, R.drawable.ic_profile_night);
+        profileIconIdMap.put(ic_profile_call_1, R.drawable.ic_profile_call_1);
+        profileIconIdMap.put(ic_profile_food_1, R.drawable.ic_profile_food_1);
+        profileIconIdMap.put(ic_profile_food_2, R.drawable.ic_profile_food_2);
+        profileIconIdMap.put(ic_profile_food_3, R.drawable.ic_profile_food_3);
+        profileIconIdMap.put(ic_profile_food_4, R.drawable.ic_profile_food_4);
+        profileIconIdMap.put(ic_profile_food_5, R.drawable.ic_profile_food_5);
+        profileIconIdMap.put(ic_profile_alarm, R.drawable.ic_profile_alarm);
+        profileIconIdMap.put(ic_profile_car_1, R.drawable.ic_profile_car_1);
+        profileIconIdMap.put(ic_profile_car_2, R.drawable.ic_profile_car_2);
+        profileIconIdMap.put(ic_profile_car_3, R.drawable.ic_profile_car_3);
+        profileIconIdMap.put(ic_profile_car_4, R.drawable.ic_profile_car_4);
+        profileIconIdMap.put(ic_profile_car_5, R.drawable.ic_profile_car_5);
+        profileIconIdMap.put(ic_profile_car_6, R.drawable.ic_profile_car_6);
+        profileIconIdMap.put(ic_profile_car_7, R.drawable.ic_profile_car_7);
+        profileIconIdMap.put(ic_profile_car_8, R.drawable.ic_profile_car_8);
+        profileIconIdMap.put(ic_profile_car_9, R.drawable.ic_profile_car_9);
+        profileIconIdMap.put(ic_profile_car_10, R.drawable.ic_profile_car_10);
+        profileIconIdMap.put(ic_profile_car_11, R.drawable.ic_profile_car_11);
+        profileIconIdMap.put(ic_profile_steering_1, R.drawable.ic_profile_steering_1);
+        profileIconIdMap.put(ic_profile_airplane_1, R.drawable.ic_profile_airplane_1);
+        profileIconIdMap.put(ic_profile_airplane_2, R.drawable.ic_profile_airplane_2);
+        profileIconIdMap.put(ic_profile_airplane_3, R.drawable.ic_profile_airplane_3);
+        profileIconIdMap.put(ic_profile_ship_1, R.drawable.ic_profile_ship_1);
+        profileIconIdMap.put(ic_profile_ship_2, R.drawable.ic_profile_ship_2);
+        profileIconIdMap.put(ic_profile_ship_3, R.drawable.ic_profile_ship_3);
+        profileIconIdMap.put(ic_profile_tram_1, R.drawable.ic_profile_tram_1);
+        profileIconIdMap.put(ic_profile_tickets_1, R.drawable.ic_profile_tickets_1);
+        profileIconIdMap.put(ic_profile_tickets_2, R.drawable.ic_profile_tickets_2);
+        profileIconIdMap.put(ic_profile_travel_1, R.drawable.ic_profile_travel_1);
+        profileIconIdMap.put(ic_profile_culture_1, R.drawable.ic_profile_culture_1);
+        profileIconIdMap.put(ic_profile_culture_6, R.drawable.ic_profile_culture_6);
+        profileIconIdMap.put(ic_profile_culture_7, R.drawable.ic_profile_culture_7);
+        profileIconIdMap.put(ic_profile_culture_2, R.drawable.ic_profile_culture_2);
+        profileIconIdMap.put(ic_profile_culture_8, R.drawable.ic_profile_culture_8);
+        profileIconIdMap.put(ic_profile_culture_9, R.drawable.ic_profile_culture_9);
+        profileIconIdMap.put(ic_profile_culture_3, R.drawable.ic_profile_culture_3);
+        profileIconIdMap.put(ic_profile_culture_10, R.drawable.ic_profile_culture_10);
+        profileIconIdMap.put(ic_profile_culture_11, R.drawable.ic_profile_culture_11);
+        profileIconIdMap.put(ic_profile_culture_12, R.drawable.ic_profile_culture_12);
+        profileIconIdMap.put(ic_profile_culture_13, R.drawable.ic_profile_culture_13);
+        profileIconIdMap.put(ic_profile_culture_5, R.drawable.ic_profile_culture_5);
+        profileIconIdMap.put(ic_profile_culture_14, R.drawable.ic_profile_culture_14);
+        profileIconIdMap.put(ic_profile_culture_4, R.drawable.ic_profile_culture_4);
+        profileIconIdMap.put(ic_profile_culture_15, R.drawable.ic_profile_culture_15);
+        profileIconIdMap.put(ic_profile_culture_16, R.drawable.ic_profile_culture_16);
+        profileIconIdMap.put(ic_profile_culture_17, R.drawable.ic_profile_culture_17);
+        profileIconIdMap.put(ic_profile_battery_1, R.drawable.ic_profile_battery_1);
+        profileIconIdMap.put(ic_profile_battery_2, R.drawable.ic_profile_battery_2);
+        profileIconIdMap.put(ic_profile_battery_3, R.drawable.ic_profile_battery_3);
+        profileIconIdMap.put(ic_profile_lock, R.drawable.ic_profile_lock);
+        profileIconIdMap.put(ic_profile_wifi, R.drawable.ic_profile_wifi);
+        profileIconIdMap.put(ic_profile_mobile_data, R.drawable.ic_profile_mobile_data);
     }
     
     static final HashMap<String, Integer> profileIconNotifyId;
     static {
         profileIconNotifyId = new HashMap<>();
         profileIconNotifyId.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify);
-        profileIconNotifyId.put("ic_profile_home", R.drawable.ic_profile_home_notify);
-        profileIconNotifyId.put("ic_profile_home_2", R.drawable.ic_profile_home_2_notify);
-        profileIconNotifyId.put("ic_profile_home_3", R.drawable.ic_profile_home_3_notify);
-        profileIconNotifyId.put("ic_profile_home_4", R.drawable.ic_profile_home_4_notify);
-        profileIconNotifyId.put("ic_profile_home_5", R.drawable.ic_profile_home_5_notify);
-        profileIconNotifyId.put("ic_profile_home_6", R.drawable.ic_profile_home_6_notify);
-        profileIconNotifyId.put("ic_profile_outdoors_1", R.drawable.ic_profile_outdoors_1_notify);
-        profileIconNotifyId.put("ic_profile_outdoors_2", R.drawable.ic_profile_outdoors_2_notify);
-        profileIconNotifyId.put("ic_profile_outdoors_3", R.drawable.ic_profile_outdoors_3_notify);
-        profileIconNotifyId.put("ic_profile_outdoors_4", R.drawable.ic_profile_outdoors_4_notify);
-        profileIconNotifyId.put("ic_profile_outdoors_5", R.drawable.ic_profile_outdoors_5_notify);
-        profileIconNotifyId.put("ic_profile_outdoors_6", R.drawable.ic_profile_outdoors_6_notify);
-        profileIconNotifyId.put("ic_profile_outdoors_7", R.drawable.ic_profile_outdoors_7_notify);
-        profileIconNotifyId.put("ic_profile_outdoors_8", R.drawable.ic_profile_outdoors_8_notify);
-        profileIconNotifyId.put("ic_profile_outdoors_9", R.drawable.ic_profile_outdoors_9_notify);
-        profileIconNotifyId.put("ic_profile_running_1", R.drawable.ic_profile_running_1_notify);
-        profileIconNotifyId.put("ic_profile_meeting", R.drawable.ic_profile_meeting_notify);
-        profileIconNotifyId.put("ic_profile_meeting_2", R.drawable.ic_profile_meeting_2_notify);
-        profileIconNotifyId.put("ic_profile_meeting_3", R.drawable.ic_profile_meeting_3_notify);
-        profileIconNotifyId.put("ic_profile_meeting_4", R.drawable.ic_profile_meeting_4_notify);
-        profileIconNotifyId.put("ic_profile_mute", R.drawable.ic_profile_mute_notify);
-        profileIconNotifyId.put("ic_profile_mute_2", R.drawable.ic_profile_mute_2_notify);
-        profileIconNotifyId.put("ic_profile_volume_4", R.drawable.ic_profile_volume_4_notify);
-        profileIconNotifyId.put("ic_profile_volume_1", R.drawable.ic_profile_volume_1_notify);
-        profileIconNotifyId.put("ic_profile_volume_2", R.drawable.ic_profile_volume_2_notify);
-        profileIconNotifyId.put("ic_profile_volume_3", R.drawable.ic_profile_volume_3_notify);
-        profileIconNotifyId.put("ic_profile_vibrate_1", R.drawable.ic_profile_vibrate_1_notify);
-        profileIconNotifyId.put("ic_profile_work_1", R.drawable.ic_profile_work_1_notify);
-        profileIconNotifyId.put("ic_profile_work_2", R.drawable.ic_profile_work_2_notify);
-        profileIconNotifyId.put("ic_profile_work_12", R.drawable.ic_profile_work_12_notify);
-        profileIconNotifyId.put("ic_profile_work_3", R.drawable.ic_profile_work_3_notify);
-        profileIconNotifyId.put("ic_profile_work_4", R.drawable.ic_profile_work_4_notify);
-        profileIconNotifyId.put("ic_profile_work_5", R.drawable.ic_profile_work_5_notify);
-        profileIconNotifyId.put("ic_profile_work_6", R.drawable.ic_profile_work_6_notify);
-        profileIconNotifyId.put("ic_profile_work_7", R.drawable.ic_profile_work_7_notify);
-        profileIconNotifyId.put("ic_profile_work_8", R.drawable.ic_profile_work_8_notify);
-        profileIconNotifyId.put("ic_profile_work_9", R.drawable.ic_profile_work_9_notify);
-        profileIconNotifyId.put("ic_profile_work_10", R.drawable.ic_profile_work_10_notify);
-        profileIconNotifyId.put("ic_profile_work_11", R.drawable.ic_profile_work_11_notify);
-        profileIconNotifyId.put("ic_profile_work_13", R.drawable.ic_profile_work_13_notify);
-        profileIconNotifyId.put("ic_profile_work_14", R.drawable.ic_profile_work_14_notify);
-        profileIconNotifyId.put("ic_profile_work_15", R.drawable.ic_profile_work_15_notify);
-        profileIconNotifyId.put("ic_profile_work_16", R.drawable.ic_profile_work_16_notify);
-        profileIconNotifyId.put("ic_profile_work_17", R.drawable.ic_profile_work_17_notify);
-        profileIconNotifyId.put("ic_profile_work_18", R.drawable.ic_profile_work_18_notify);
-        profileIconNotifyId.put("ic_profile_sleep", R.drawable.ic_profile_sleep_notify);
-        profileIconNotifyId.put("ic_profile_sleep_2", R.drawable.ic_profile_sleep_2_notify);
-        profileIconNotifyId.put("ic_profile_sleep_3", R.drawable.ic_profile_sleep_3_notify);
-        profileIconNotifyId.put("ic_profile_night", R.drawable.ic_profile_night_notify);
-        profileIconNotifyId.put("ic_profile_call_1", R.drawable.ic_profile_call_1_notify);
-        profileIconNotifyId.put("ic_profile_food_1", R.drawable.ic_profile_food_1_notify);
-        profileIconNotifyId.put("ic_profile_food_2", R.drawable.ic_profile_food_2_notify);
-        profileIconNotifyId.put("ic_profile_food_3", R.drawable.ic_profile_food_3_notify);
-        profileIconNotifyId.put("ic_profile_food_4", R.drawable.ic_profile_food_4_notify);
-        profileIconNotifyId.put("ic_profile_food_5", R.drawable.ic_profile_food_5_notify);
-        profileIconNotifyId.put("ic_profile_alarm", R.drawable.ic_profile_alarm_notify);
-        profileIconNotifyId.put("ic_profile_car_1", R.drawable.ic_profile_car_1_notify);
-        profileIconNotifyId.put("ic_profile_car_2", R.drawable.ic_profile_car_2_notify);
-        profileIconNotifyId.put("ic_profile_car_3", R.drawable.ic_profile_car_3_notify);
-        profileIconNotifyId.put("ic_profile_car_4", R.drawable.ic_profile_car_4_notify);
-        profileIconNotifyId.put("ic_profile_car_5", R.drawable.ic_profile_car_5_notify);
-        profileIconNotifyId.put("ic_profile_car_6", R.drawable.ic_profile_car_6_notify);
-        profileIconNotifyId.put("ic_profile_car_7", R.drawable.ic_profile_car_7_notify);
-        profileIconNotifyId.put("ic_profile_car_8", R.drawable.ic_profile_car_8_notify);
-        profileIconNotifyId.put("ic_profile_car_9", R.drawable.ic_profile_car_9_notify);
-        profileIconNotifyId.put("ic_profile_car_10", R.drawable.ic_profile_car_10_notify);
-        profileIconNotifyId.put("ic_profile_car_11", R.drawable.ic_profile_car_11_notify);
-        profileIconNotifyId.put("ic_profile_steering_1", R.drawable.ic_profile_steering_1_notify);
-        profileIconNotifyId.put("ic_profile_airplane_1", R.drawable.ic_profile_airplane_1_notify);
-        profileIconNotifyId.put("ic_profile_airplane_2", R.drawable.ic_profile_airplane_2_notify);
-        profileIconNotifyId.put("ic_profile_airplane_3", R.drawable.ic_profile_airplane_3_notify);
-        profileIconNotifyId.put("ic_profile_ship_1", R.drawable.ic_profile_ship_1_notify);
-        profileIconNotifyId.put("ic_profile_ship_2", R.drawable.ic_profile_ship_2_notify);
-        profileIconNotifyId.put("ic_profile_ship_3", R.drawable.ic_profile_ship_3_notify);
-        profileIconNotifyId.put("ic_profile_tram_1", R.drawable.ic_profile_tram_1_notify);
-        profileIconNotifyId.put("ic_profile_tickets_1", R.drawable.ic_profile_tickets_1_notify);
-        profileIconNotifyId.put("ic_profile_tickets_2", R.drawable.ic_profile_tickets_2_notify);
-        profileIconNotifyId.put("ic_profile_travel_1", R.drawable.ic_profile_travel_1_notify);
-        profileIconNotifyId.put("ic_profile_culture_1", R.drawable.ic_profile_culture_1_notify);
-        profileIconNotifyId.put("ic_profile_culture_6", R.drawable.ic_profile_culture_6_notify);
-        profileIconNotifyId.put("ic_profile_culture_7", R.drawable.ic_profile_culture_7_notify);
-        profileIconNotifyId.put("ic_profile_culture_2", R.drawable.ic_profile_culture_2_notify);
-        profileIconNotifyId.put("ic_profile_culture_8", R.drawable.ic_profile_culture_8_notify);
-        profileIconNotifyId.put("ic_profile_culture_9", R.drawable.ic_profile_culture_9_notify);
-        profileIconNotifyId.put("ic_profile_culture_3", R.drawable.ic_profile_culture_3_notify);
-        profileIconNotifyId.put("ic_profile_culture_10", R.drawable.ic_profile_culture_10_notify);
-        profileIconNotifyId.put("ic_profile_culture_11", R.drawable.ic_profile_culture_11_notify);
-        profileIconNotifyId.put("ic_profile_culture_12", R.drawable.ic_profile_culture_12_notify);
-        profileIconNotifyId.put("ic_profile_culture_13", R.drawable.ic_profile_culture_13_notify);
-        profileIconNotifyId.put("ic_profile_culture_5", R.drawable.ic_profile_culture_5_notify);
-        profileIconNotifyId.put("ic_profile_culture_14", R.drawable.ic_profile_culture_14_notify);
-        profileIconNotifyId.put("ic_profile_culture_4", R.drawable.ic_profile_culture_4_notify);
-        profileIconNotifyId.put("ic_profile_culture_15", R.drawable.ic_profile_culture_15_notify);
-        profileIconNotifyId.put("ic_profile_culture_16", R.drawable.ic_profile_culture_16_notify);
-        profileIconNotifyId.put("ic_profile_culture_17", R.drawable.ic_profile_culture_17_notify);
-        profileIconNotifyId.put("ic_profile_battery_1", R.drawable.ic_profile_battery_1_notify);
-        profileIconNotifyId.put("ic_profile_battery_2", R.drawable.ic_profile_battery_2_notify);
-        profileIconNotifyId.put("ic_profile_battery_3", R.drawable.ic_profile_battery_3_notify);
-        profileIconNotifyId.put("ic_profile_lock", R.drawable.ic_profile_lock_notify);
-        profileIconNotifyId.put("ic_profile_wifi", R.drawable.ic_profile_wifi_notify);
-        profileIconNotifyId.put("ic_profile_mobile_data", R.drawable.ic_profile_mobile_data_notify);
+        profileIconNotifyId.put(ic_profile_home, R.drawable.ic_profile_home_notify);
+        profileIconNotifyId.put(ic_profile_home_2, R.drawable.ic_profile_home_2_notify);
+        profileIconNotifyId.put(ic_profile_home_3, R.drawable.ic_profile_home_3_notify);
+        profileIconNotifyId.put(ic_profile_home_4, R.drawable.ic_profile_home_4_notify);
+        profileIconNotifyId.put(ic_profile_home_5, R.drawable.ic_profile_home_5_notify);
+        profileIconNotifyId.put(ic_profile_home_6, R.drawable.ic_profile_home_6_notify);
+        profileIconNotifyId.put(ic_profile_outdoors_1, R.drawable.ic_profile_outdoors_1_notify);
+        profileIconNotifyId.put(ic_profile_outdoors_2, R.drawable.ic_profile_outdoors_2_notify);
+        profileIconNotifyId.put(ic_profile_outdoors_3, R.drawable.ic_profile_outdoors_3_notify);
+        profileIconNotifyId.put(ic_profile_outdoors_4, R.drawable.ic_profile_outdoors_4_notify);
+        profileIconNotifyId.put(ic_profile_outdoors_5, R.drawable.ic_profile_outdoors_5_notify);
+        profileIconNotifyId.put(ic_profile_outdoors_6, R.drawable.ic_profile_outdoors_6_notify);
+        profileIconNotifyId.put(ic_profile_outdoors_7, R.drawable.ic_profile_outdoors_7_notify);
+        profileIconNotifyId.put(ic_profile_outdoors_8, R.drawable.ic_profile_outdoors_8_notify);
+        profileIconNotifyId.put(ic_profile_outdoors_9, R.drawable.ic_profile_outdoors_9_notify);
+        profileIconNotifyId.put(ic_profile_running_1, R.drawable.ic_profile_running_1_notify);
+        profileIconNotifyId.put(ic_profile_meeting, R.drawable.ic_profile_meeting_notify);
+        profileIconNotifyId.put(ic_profile_meeting_2, R.drawable.ic_profile_meeting_2_notify);
+        profileIconNotifyId.put(ic_profile_meeting_3, R.drawable.ic_profile_meeting_3_notify);
+        profileIconNotifyId.put(ic_profile_meeting_4, R.drawable.ic_profile_meeting_4_notify);
+        profileIconNotifyId.put(ic_profile_mute, R.drawable.ic_profile_mute_notify);
+        profileIconNotifyId.put(ic_profile_mute_2, R.drawable.ic_profile_mute_2_notify);
+        profileIconNotifyId.put(ic_profile_volume_4, R.drawable.ic_profile_volume_4_notify);
+        profileIconNotifyId.put(ic_profile_volume_1, R.drawable.ic_profile_volume_1_notify);
+        profileIconNotifyId.put(ic_profile_volume_2, R.drawable.ic_profile_volume_2_notify);
+        profileIconNotifyId.put(ic_profile_volume_3, R.drawable.ic_profile_volume_3_notify);
+        profileIconNotifyId.put(ic_profile_vibrate_1, R.drawable.ic_profile_vibrate_1_notify);
+        profileIconNotifyId.put(ic_profile_work_1, R.drawable.ic_profile_work_1_notify);
+        profileIconNotifyId.put(ic_profile_work_2, R.drawable.ic_profile_work_2_notify);
+        profileIconNotifyId.put(ic_profile_work_12, R.drawable.ic_profile_work_12_notify);
+        profileIconNotifyId.put(ic_profile_work_3, R.drawable.ic_profile_work_3_notify);
+        profileIconNotifyId.put(ic_profile_work_4, R.drawable.ic_profile_work_4_notify);
+        profileIconNotifyId.put(ic_profile_work_5, R.drawable.ic_profile_work_5_notify);
+        profileIconNotifyId.put(ic_profile_work_6, R.drawable.ic_profile_work_6_notify);
+        profileIconNotifyId.put(ic_profile_work_7, R.drawable.ic_profile_work_7_notify);
+        profileIconNotifyId.put(ic_profile_work_8, R.drawable.ic_profile_work_8_notify);
+        profileIconNotifyId.put(ic_profile_work_9, R.drawable.ic_profile_work_9_notify);
+        profileIconNotifyId.put(ic_profile_work_10, R.drawable.ic_profile_work_10_notify);
+        profileIconNotifyId.put(ic_profile_work_11, R.drawable.ic_profile_work_11_notify);
+        profileIconNotifyId.put(ic_profile_work_13, R.drawable.ic_profile_work_13_notify);
+        profileIconNotifyId.put(ic_profile_work_14, R.drawable.ic_profile_work_14_notify);
+        profileIconNotifyId.put(ic_profile_work_15, R.drawable.ic_profile_work_15_notify);
+        profileIconNotifyId.put(ic_profile_work_16, R.drawable.ic_profile_work_16_notify);
+        profileIconNotifyId.put(ic_profile_work_17, R.drawable.ic_profile_work_17_notify);
+        profileIconNotifyId.put(ic_profile_work_18, R.drawable.ic_profile_work_18_notify);
+        profileIconNotifyId.put(ic_profile_sleep, R.drawable.ic_profile_sleep_notify);
+        profileIconNotifyId.put(ic_profile_sleep_2, R.drawable.ic_profile_sleep_2_notify);
+        profileIconNotifyId.put(ic_profile_sleep_3, R.drawable.ic_profile_sleep_3_notify);
+        profileIconNotifyId.put(ic_profile_night, R.drawable.ic_profile_night_notify);
+        profileIconNotifyId.put(ic_profile_call_1, R.drawable.ic_profile_call_1_notify);
+        profileIconNotifyId.put(ic_profile_food_1, R.drawable.ic_profile_food_1_notify);
+        profileIconNotifyId.put(ic_profile_food_2, R.drawable.ic_profile_food_2_notify);
+        profileIconNotifyId.put(ic_profile_food_3, R.drawable.ic_profile_food_3_notify);
+        profileIconNotifyId.put(ic_profile_food_4, R.drawable.ic_profile_food_4_notify);
+        profileIconNotifyId.put(ic_profile_food_5, R.drawable.ic_profile_food_5_notify);
+        profileIconNotifyId.put(ic_profile_alarm, R.drawable.ic_profile_alarm_notify);
+        profileIconNotifyId.put(ic_profile_car_1, R.drawable.ic_profile_car_1_notify);
+        profileIconNotifyId.put(ic_profile_car_2, R.drawable.ic_profile_car_2_notify);
+        profileIconNotifyId.put(ic_profile_car_3, R.drawable.ic_profile_car_3_notify);
+        profileIconNotifyId.put(ic_profile_car_4, R.drawable.ic_profile_car_4_notify);
+        profileIconNotifyId.put(ic_profile_car_5, R.drawable.ic_profile_car_5_notify);
+        profileIconNotifyId.put(ic_profile_car_6, R.drawable.ic_profile_car_6_notify);
+        profileIconNotifyId.put(ic_profile_car_7, R.drawable.ic_profile_car_7_notify);
+        profileIconNotifyId.put(ic_profile_car_8, R.drawable.ic_profile_car_8_notify);
+        profileIconNotifyId.put(ic_profile_car_9, R.drawable.ic_profile_car_9_notify);
+        profileIconNotifyId.put(ic_profile_car_10, R.drawable.ic_profile_car_10_notify);
+        profileIconNotifyId.put(ic_profile_car_11, R.drawable.ic_profile_car_11_notify);
+        profileIconNotifyId.put(ic_profile_steering_1, R.drawable.ic_profile_steering_1_notify);
+        profileIconNotifyId.put(ic_profile_airplane_1, R.drawable.ic_profile_airplane_1_notify);
+        profileIconNotifyId.put(ic_profile_airplane_2, R.drawable.ic_profile_airplane_2_notify);
+        profileIconNotifyId.put(ic_profile_airplane_3, R.drawable.ic_profile_airplane_3_notify);
+        profileIconNotifyId.put(ic_profile_ship_1, R.drawable.ic_profile_ship_1_notify);
+        profileIconNotifyId.put(ic_profile_ship_2, R.drawable.ic_profile_ship_2_notify);
+        profileIconNotifyId.put(ic_profile_ship_3, R.drawable.ic_profile_ship_3_notify);
+        profileIconNotifyId.put(ic_profile_tram_1, R.drawable.ic_profile_tram_1_notify);
+        profileIconNotifyId.put(ic_profile_tickets_1, R.drawable.ic_profile_tickets_1_notify);
+        profileIconNotifyId.put(ic_profile_tickets_2, R.drawable.ic_profile_tickets_2_notify);
+        profileIconNotifyId.put(ic_profile_travel_1, R.drawable.ic_profile_travel_1_notify);
+        profileIconNotifyId.put(ic_profile_culture_1, R.drawable.ic_profile_culture_1_notify);
+        profileIconNotifyId.put(ic_profile_culture_6, R.drawable.ic_profile_culture_6_notify);
+        profileIconNotifyId.put(ic_profile_culture_7, R.drawable.ic_profile_culture_7_notify);
+        profileIconNotifyId.put(ic_profile_culture_2, R.drawable.ic_profile_culture_2_notify);
+        profileIconNotifyId.put(ic_profile_culture_8, R.drawable.ic_profile_culture_8_notify);
+        profileIconNotifyId.put(ic_profile_culture_9, R.drawable.ic_profile_culture_9_notify);
+        profileIconNotifyId.put(ic_profile_culture_3, R.drawable.ic_profile_culture_3_notify);
+        profileIconNotifyId.put(ic_profile_culture_10, R.drawable.ic_profile_culture_10_notify);
+        profileIconNotifyId.put(ic_profile_culture_11, R.drawable.ic_profile_culture_11_notify);
+        profileIconNotifyId.put(ic_profile_culture_12, R.drawable.ic_profile_culture_12_notify);
+        profileIconNotifyId.put(ic_profile_culture_13, R.drawable.ic_profile_culture_13_notify);
+        profileIconNotifyId.put(ic_profile_culture_5, R.drawable.ic_profile_culture_5_notify);
+        profileIconNotifyId.put(ic_profile_culture_14, R.drawable.ic_profile_culture_14_notify);
+        profileIconNotifyId.put(ic_profile_culture_4, R.drawable.ic_profile_culture_4_notify);
+        profileIconNotifyId.put(ic_profile_culture_15, R.drawable.ic_profile_culture_15_notify);
+        profileIconNotifyId.put(ic_profile_culture_16, R.drawable.ic_profile_culture_16_notify);
+        profileIconNotifyId.put(ic_profile_culture_17, R.drawable.ic_profile_culture_17_notify);
+        profileIconNotifyId.put(ic_profile_battery_1, R.drawable.ic_profile_battery_1_notify);
+        profileIconNotifyId.put(ic_profile_battery_2, R.drawable.ic_profile_battery_2_notify);
+        profileIconNotifyId.put(ic_profile_battery_3, R.drawable.ic_profile_battery_3_notify);
+        profileIconNotifyId.put(ic_profile_lock, R.drawable.ic_profile_lock_notify);
+        profileIconNotifyId.put(ic_profile_wifi, R.drawable.ic_profile_wifi_notify);
+        profileIconNotifyId.put(ic_profile_mobile_data, R.drawable.ic_profile_mobile_data_notify);
     }
 
     static final HashMap<String, Integer> profileIconNotifyColorId;
     static {
         profileIconNotifyColorId = new HashMap<>();
         profileIconNotifyColorId.put(PROFILE_ICON_DEFAULT, R.drawable.ic_profile_default_notify_color);
-        profileIconNotifyColorId.put("ic_profile_home", R.drawable.ic_profile_home_notify_color);
-        profileIconNotifyColorId.put("ic_profile_home_2", R.drawable.ic_profile_home_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_home_3", R.drawable.ic_profile_home_3_notify_color);
-        profileIconNotifyColorId.put("ic_profile_home_4", R.drawable.ic_profile_home_4_notify_color);
-        profileIconNotifyColorId.put("ic_profile_home_5", R.drawable.ic_profile_home_5_notify_color);
-        profileIconNotifyColorId.put("ic_profile_home_6", R.drawable.ic_profile_home_6_notify_color);
-        profileIconNotifyColorId.put("ic_profile_outdoors_1", R.drawable.ic_profile_outdoors_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_outdoors_2", R.drawable.ic_profile_outdoors_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_outdoors_3", R.drawable.ic_profile_outdoors_3_notify_color);
-        profileIconNotifyColorId.put("ic_profile_outdoors_4", R.drawable.ic_profile_outdoors_4_notify_color);
-        profileIconNotifyColorId.put("ic_profile_outdoors_5", R.drawable.ic_profile_outdoors_5_notify_color);
-        profileIconNotifyColorId.put("ic_profile_outdoors_6", R.drawable.ic_profile_outdoors_6_notify_color);
-        profileIconNotifyColorId.put("ic_profile_outdoors_7", R.drawable.ic_profile_outdoors_7_notify_color);
-        profileIconNotifyColorId.put("ic_profile_outdoors_8", R.drawable.ic_profile_outdoors_8_notify_color);
-        profileIconNotifyColorId.put("ic_profile_outdoors_9", R.drawable.ic_profile_outdoors_9_notify_color);
-        profileIconNotifyColorId.put("ic_profile_running_1", R.drawable.ic_profile_running_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_meeting", R.drawable.ic_profile_meeting_notify_color);
-        profileIconNotifyColorId.put("ic_profile_meeting_2", R.drawable.ic_profile_meeting_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_meeting_3", R.drawable.ic_profile_meeting_3_notify_color);
-        profileIconNotifyColorId.put("ic_profile_meeting_4", R.drawable.ic_profile_meeting_4_notify_color);
-        profileIconNotifyColorId.put("ic_profile_mute", R.drawable.ic_profile_mute_notify_color);
-        profileIconNotifyColorId.put("ic_profile_mute_2", R.drawable.ic_profile_mute_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_volume_4", R.drawable.ic_profile_volume_4_notify_color);
-        profileIconNotifyColorId.put("ic_profile_volume_1", R.drawable.ic_profile_volume_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_volume_2", R.drawable.ic_profile_volume_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_volume_3", R.drawable.ic_profile_volume_3_notify_color);
-        profileIconNotifyColorId.put("ic_profile_vibrate_1", R.drawable.ic_profile_vibrate_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_1", R.drawable.ic_profile_work_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_2", R.drawable.ic_profile_work_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_12", R.drawable.ic_profile_work_12_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_3", R.drawable.ic_profile_work_3_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_4", R.drawable.ic_profile_work_4_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_5", R.drawable.ic_profile_work_5_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_6", R.drawable.ic_profile_work_6_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_7", R.drawable.ic_profile_work_7_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_8", R.drawable.ic_profile_work_8_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_9", R.drawable.ic_profile_work_9_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_10", R.drawable.ic_profile_work_10_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_11", R.drawable.ic_profile_work_11_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_13", R.drawable.ic_profile_work_13_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_14", R.drawable.ic_profile_work_14_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_15", R.drawable.ic_profile_work_15_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_16", R.drawable.ic_profile_work_16_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_17", R.drawable.ic_profile_work_17_notify_color);
-        profileIconNotifyColorId.put("ic_profile_work_18", R.drawable.ic_profile_work_18_notify_color);
-        profileIconNotifyColorId.put("ic_profile_sleep", R.drawable.ic_profile_sleep_notify_color);
-        profileIconNotifyColorId.put("ic_profile_sleep_2", R.drawable.ic_profile_sleep_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_sleep_3", R.drawable.ic_profile_sleep_3_notify_color);
-        profileIconNotifyColorId.put("ic_profile_night", R.drawable.ic_profile_night_notify_color);
-        profileIconNotifyColorId.put("ic_profile_call_1", R.drawable.ic_profile_call_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_food_1", R.drawable.ic_profile_food_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_food_2", R.drawable.ic_profile_food_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_food_3", R.drawable.ic_profile_food_3_notify_color);
-        profileIconNotifyColorId.put("ic_profile_food_4", R.drawable.ic_profile_food_4_notify_color);
-        profileIconNotifyColorId.put("ic_profile_food_5", R.drawable.ic_profile_food_5_notify_color);
-        profileIconNotifyColorId.put("ic_profile_alarm", R.drawable.ic_profile_alarm_notify_color);
-        profileIconNotifyColorId.put("ic_profile_car_1", R.drawable.ic_profile_car_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_car_2", R.drawable.ic_profile_car_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_car_3", R.drawable.ic_profile_car_3_notify_color);
-        profileIconNotifyColorId.put("ic_profile_car_4", R.drawable.ic_profile_car_4_notify_color);
-        profileIconNotifyColorId.put("ic_profile_car_5", R.drawable.ic_profile_car_5_notify_color);
-        profileIconNotifyColorId.put("ic_profile_car_6", R.drawable.ic_profile_car_6_notify_color);
-        profileIconNotifyColorId.put("ic_profile_car_7", R.drawable.ic_profile_car_7_notify_color);
-        profileIconNotifyColorId.put("ic_profile_car_8", R.drawable.ic_profile_car_8_notify_color);
-        profileIconNotifyColorId.put("ic_profile_car_9", R.drawable.ic_profile_car_9_notify_color);
-        profileIconNotifyColorId.put("ic_profile_car_10", R.drawable.ic_profile_car_10_notify_color);
-        profileIconNotifyColorId.put("ic_profile_car_11", R.drawable.ic_profile_car_11_notify_color);
-        profileIconNotifyColorId.put("ic_profile_steering_1", R.drawable.ic_profile_steering_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_airplane_1", R.drawable.ic_profile_airplane_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_airplane_2", R.drawable.ic_profile_airplane_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_airplane_3", R.drawable.ic_profile_airplane_3_notify_color);
-        profileIconNotifyColorId.put("ic_profile_ship_1", R.drawable.ic_profile_ship_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_ship_2", R.drawable.ic_profile_ship_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_ship_3", R.drawable.ic_profile_ship_3_notify_color);
-        profileIconNotifyColorId.put("ic_profile_tram_1", R.drawable.ic_profile_tram_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_tickets_1", R.drawable.ic_profile_tickets_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_tickets_2", R.drawable.ic_profile_tickets_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_travel_1", R.drawable.ic_profile_travel_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_1", R.drawable.ic_profile_culture_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_6", R.drawable.ic_profile_culture_6_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_7", R.drawable.ic_profile_culture_7_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_2", R.drawable.ic_profile_culture_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_8", R.drawable.ic_profile_culture_8_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_9", R.drawable.ic_profile_culture_9_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_3", R.drawable.ic_profile_culture_3_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_10", R.drawable.ic_profile_culture_10_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_11", R.drawable.ic_profile_culture_11_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_12", R.drawable.ic_profile_culture_12_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_13", R.drawable.ic_profile_culture_13_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_5", R.drawable.ic_profile_culture_5_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_14", R.drawable.ic_profile_culture_14_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_4", R.drawable.ic_profile_culture_4_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_15", R.drawable.ic_profile_culture_15_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_16", R.drawable.ic_profile_culture_16_notify_color);
-        profileIconNotifyColorId.put("ic_profile_culture_17", R.drawable.ic_profile_culture_17_notify_color);
-        profileIconNotifyColorId.put("ic_profile_battery_1", R.drawable.ic_profile_battery_1_notify_color);
-        profileIconNotifyColorId.put("ic_profile_battery_2", R.drawable.ic_profile_battery_2_notify_color);
-        profileIconNotifyColorId.put("ic_profile_battery_3", R.drawable.ic_profile_battery_3_notify_color);
-        profileIconNotifyColorId.put("ic_profile_lock", R.drawable.ic_profile_lock_notify_color);
-        profileIconNotifyColorId.put("ic_profile_wifi", R.drawable.ic_profile_wifi_notify_color);
-        profileIconNotifyColorId.put("ic_profile_mobile_data", R.drawable.ic_profile_mobile_data_notify_color);
+        profileIconNotifyColorId.put(ic_profile_home, R.drawable.ic_profile_home_notify_color);
+        profileIconNotifyColorId.put(ic_profile_home_2, R.drawable.ic_profile_home_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_home_3, R.drawable.ic_profile_home_3_notify_color);
+        profileIconNotifyColorId.put(ic_profile_home_4, R.drawable.ic_profile_home_4_notify_color);
+        profileIconNotifyColorId.put(ic_profile_home_5, R.drawable.ic_profile_home_5_notify_color);
+        profileIconNotifyColorId.put(ic_profile_home_6, R.drawable.ic_profile_home_6_notify_color);
+        profileIconNotifyColorId.put(ic_profile_outdoors_1, R.drawable.ic_profile_outdoors_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_outdoors_2, R.drawable.ic_profile_outdoors_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_outdoors_3, R.drawable.ic_profile_outdoors_3_notify_color);
+        profileIconNotifyColorId.put(ic_profile_outdoors_4, R.drawable.ic_profile_outdoors_4_notify_color);
+        profileIconNotifyColorId.put(ic_profile_outdoors_5, R.drawable.ic_profile_outdoors_5_notify_color);
+        profileIconNotifyColorId.put(ic_profile_outdoors_6, R.drawable.ic_profile_outdoors_6_notify_color);
+        profileIconNotifyColorId.put(ic_profile_outdoors_7, R.drawable.ic_profile_outdoors_7_notify_color);
+        profileIconNotifyColorId.put(ic_profile_outdoors_8, R.drawable.ic_profile_outdoors_8_notify_color);
+        profileIconNotifyColorId.put(ic_profile_outdoors_9, R.drawable.ic_profile_outdoors_9_notify_color);
+        profileIconNotifyColorId.put(ic_profile_running_1, R.drawable.ic_profile_running_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_meeting, R.drawable.ic_profile_meeting_notify_color);
+        profileIconNotifyColorId.put(ic_profile_meeting_2, R.drawable.ic_profile_meeting_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_meeting_3, R.drawable.ic_profile_meeting_3_notify_color);
+        profileIconNotifyColorId.put(ic_profile_meeting_4, R.drawable.ic_profile_meeting_4_notify_color);
+        profileIconNotifyColorId.put(ic_profile_mute, R.drawable.ic_profile_mute_notify_color);
+        profileIconNotifyColorId.put(ic_profile_mute_2, R.drawable.ic_profile_mute_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_volume_4, R.drawable.ic_profile_volume_4_notify_color);
+        profileIconNotifyColorId.put(ic_profile_volume_1, R.drawable.ic_profile_volume_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_volume_2, R.drawable.ic_profile_volume_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_volume_3, R.drawable.ic_profile_volume_3_notify_color);
+        profileIconNotifyColorId.put(ic_profile_vibrate_1, R.drawable.ic_profile_vibrate_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_1, R.drawable.ic_profile_work_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_2, R.drawable.ic_profile_work_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_12, R.drawable.ic_profile_work_12_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_3, R.drawable.ic_profile_work_3_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_4, R.drawable.ic_profile_work_4_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_5, R.drawable.ic_profile_work_5_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_6, R.drawable.ic_profile_work_6_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_7, R.drawable.ic_profile_work_7_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_8, R.drawable.ic_profile_work_8_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_9, R.drawable.ic_profile_work_9_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_10, R.drawable.ic_profile_work_10_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_11, R.drawable.ic_profile_work_11_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_13, R.drawable.ic_profile_work_13_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_14, R.drawable.ic_profile_work_14_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_15, R.drawable.ic_profile_work_15_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_16, R.drawable.ic_profile_work_16_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_17, R.drawable.ic_profile_work_17_notify_color);
+        profileIconNotifyColorId.put(ic_profile_work_18, R.drawable.ic_profile_work_18_notify_color);
+        profileIconNotifyColorId.put(ic_profile_sleep, R.drawable.ic_profile_sleep_notify_color);
+        profileIconNotifyColorId.put(ic_profile_sleep_2, R.drawable.ic_profile_sleep_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_sleep_3, R.drawable.ic_profile_sleep_3_notify_color);
+        profileIconNotifyColorId.put(ic_profile_night, R.drawable.ic_profile_night_notify_color);
+        profileIconNotifyColorId.put(ic_profile_call_1, R.drawable.ic_profile_call_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_food_1, R.drawable.ic_profile_food_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_food_2, R.drawable.ic_profile_food_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_food_3, R.drawable.ic_profile_food_3_notify_color);
+        profileIconNotifyColorId.put(ic_profile_food_4, R.drawable.ic_profile_food_4_notify_color);
+        profileIconNotifyColorId.put(ic_profile_food_5, R.drawable.ic_profile_food_5_notify_color);
+        profileIconNotifyColorId.put(ic_profile_alarm, R.drawable.ic_profile_alarm_notify_color);
+        profileIconNotifyColorId.put(ic_profile_car_1, R.drawable.ic_profile_car_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_car_2, R.drawable.ic_profile_car_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_car_3, R.drawable.ic_profile_car_3_notify_color);
+        profileIconNotifyColorId.put(ic_profile_car_4, R.drawable.ic_profile_car_4_notify_color);
+        profileIconNotifyColorId.put(ic_profile_car_5, R.drawable.ic_profile_car_5_notify_color);
+        profileIconNotifyColorId.put(ic_profile_car_6, R.drawable.ic_profile_car_6_notify_color);
+        profileIconNotifyColorId.put(ic_profile_car_7, R.drawable.ic_profile_car_7_notify_color);
+        profileIconNotifyColorId.put(ic_profile_car_8, R.drawable.ic_profile_car_8_notify_color);
+        profileIconNotifyColorId.put(ic_profile_car_9, R.drawable.ic_profile_car_9_notify_color);
+        profileIconNotifyColorId.put(ic_profile_car_10, R.drawable.ic_profile_car_10_notify_color);
+        profileIconNotifyColorId.put(ic_profile_car_11, R.drawable.ic_profile_car_11_notify_color);
+        profileIconNotifyColorId.put(ic_profile_steering_1, R.drawable.ic_profile_steering_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_airplane_1, R.drawable.ic_profile_airplane_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_airplane_2, R.drawable.ic_profile_airplane_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_airplane_3, R.drawable.ic_profile_airplane_3_notify_color);
+        profileIconNotifyColorId.put(ic_profile_ship_1, R.drawable.ic_profile_ship_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_ship_2, R.drawable.ic_profile_ship_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_ship_3, R.drawable.ic_profile_ship_3_notify_color);
+        profileIconNotifyColorId.put(ic_profile_tram_1, R.drawable.ic_profile_tram_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_tickets_1, R.drawable.ic_profile_tickets_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_tickets_2, R.drawable.ic_profile_tickets_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_travel_1, R.drawable.ic_profile_travel_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_1, R.drawable.ic_profile_culture_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_6, R.drawable.ic_profile_culture_6_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_7, R.drawable.ic_profile_culture_7_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_2, R.drawable.ic_profile_culture_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_8, R.drawable.ic_profile_culture_8_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_9, R.drawable.ic_profile_culture_9_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_3, R.drawable.ic_profile_culture_3_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_10, R.drawable.ic_profile_culture_10_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_11, R.drawable.ic_profile_culture_11_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_12, R.drawable.ic_profile_culture_12_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_13, R.drawable.ic_profile_culture_13_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_5, R.drawable.ic_profile_culture_5_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_14, R.drawable.ic_profile_culture_14_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_4, R.drawable.ic_profile_culture_4_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_15, R.drawable.ic_profile_culture_15_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_16, R.drawable.ic_profile_culture_16_notify_color);
+        profileIconNotifyColorId.put(ic_profile_culture_17, R.drawable.ic_profile_culture_17_notify_color);
+        profileIconNotifyColorId.put(ic_profile_battery_1, R.drawable.ic_profile_battery_1_notify_color);
+        profileIconNotifyColorId.put(ic_profile_battery_2, R.drawable.ic_profile_battery_2_notify_color);
+        profileIconNotifyColorId.put(ic_profile_battery_3, R.drawable.ic_profile_battery_3_notify_color);
+        profileIconNotifyColorId.put(ic_profile_lock, R.drawable.ic_profile_lock_notify_color);
+        profileIconNotifyColorId.put(ic_profile_wifi, R.drawable.ic_profile_wifi_notify_color);
+        profileIconNotifyColorId.put(ic_profile_mobile_data, R.drawable.ic_profile_mobile_data_notify_color);
     }
 
     static final int PARAMETER_TYPE_WIFI = 1;
@@ -887,8 +1002,12 @@ public class Profile {
                    String soundNotificationSIM1,
                    int soundNotificationChangeSIM2,
                    String soundNotificationSIM2,
-                   int soundSameRingtoneForBothSIMCards
-    )
+                   int soundSameRingtoneForBothSIMCards,
+                   String deviceLiveWallpaper,
+                   int vibrateNotifications,
+                   String deviceWallpaperFolder,
+                   int applicationDisableGlobalEventsRun
+            )
     {
         this._id = id;
         this._name = name;
@@ -984,6 +1103,10 @@ public class Profile {
         this._soundNotificationChangeSIM2 = soundNotificationChangeSIM2;
         this._soundNotificationSIM2 = soundNotificationSIM2;
         this._soundSameRingtoneForBothSIMCards = soundSameRingtoneForBothSIMCards;
+        this._deviceLiveWallpaper = deviceLiveWallpaper;
+        this._vibrateNotifications = vibrateNotifications;
+        this._deviceWallpaperFolder = deviceWallpaperFolder;
+        this._applicationDisableGloabalEventsRun = applicationDisableGlobalEventsRun;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1084,7 +1207,11 @@ public class Profile {
                    String soundNotificationSIM1,
                    int soundNotificationChangeSIM2,
                    String soundNotificationSIM2,
-                   int soundSameRingtoneForBothSIMCards
+                   int soundSameRingtoneForBothSIMCards,
+                   String deviceLiveWallpaper,
+                   int vibrateNotifications,
+                   String deviceWallpaperFolder,
+                   int applicationDisableGlobalEventsRun
     )
     {
         this._name = name;
@@ -1180,6 +1307,10 @@ public class Profile {
         this._soundNotificationChangeSIM2 = soundNotificationChangeSIM2;
         this._soundNotificationSIM2 = soundNotificationSIM2;
         this._soundSameRingtoneForBothSIMCards = soundSameRingtoneForBothSIMCards;
+        this._deviceLiveWallpaper = deviceLiveWallpaper;
+        this._vibrateNotifications = vibrateNotifications;
+        this._deviceWallpaperFolder = deviceWallpaperFolder;
+        this._applicationDisableGloabalEventsRun = applicationDisableGlobalEventsRun;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1282,6 +1413,10 @@ public class Profile {
         this._soundNotificationChangeSIM2 = profile._soundNotificationChangeSIM2;
         this._soundNotificationSIM2 = profile._soundNotificationSIM2;
         this._soundSameRingtoneForBothSIMCards = profile._soundSameRingtoneForBothSIMCards;
+        this._deviceLiveWallpaper = profile._deviceLiveWallpaper;
+        this._vibrateNotifications = profile._vibrateNotifications;
+        this._deviceWallpaperFolder = profile._deviceWallpaperFolder;
+        this._applicationDisableGloabalEventsRun = profile._applicationDisableGloabalEventsRun;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1343,13 +1478,17 @@ public class Profile {
                     // also look at ProfilesPrefsFragment.disableDependedPref()
                     if (withProfile._volumeZenMode != 0) {
                         this._volumeZenMode = withProfile._volumeZenMode;
-                    /*if ((this._volumeRingerMode == 5) && ((this._volumeZenMode == 1) || (this._volumeZenMode == 2))){
-                        if (withProfile._vibrateWhenRinging != 0)
-                            this._vibrateWhenRinging = withProfile._vibrateWhenRinging;
-                    }*/
+                        /*if ((this._volumeRingerMode == 5) && ((this._volumeZenMode == 1) || (this._volumeZenMode == 2))){
+                            if (withProfile._vibrateWhenRinging != 0)
+                                this._vibrateWhenRinging = withProfile._vibrateWhenRinging;
+                            if (withProfile._vibrateNotifications != 0)
+                                this._vibrateNotifications = withProfile._vibrateNotifications;
+                        }*/
                     }
                     if (withProfile._vibrateWhenRinging != 0)
                         this._vibrateWhenRinging = withProfile._vibrateWhenRinging;
+                    if (withProfile._vibrateNotifications != 0)
+                        this._vibrateNotifications = withProfile._vibrateNotifications;
                 }
                 if (withProfile.getVolumeRingtoneChange())
                     this._volumeRingtone = withProfile._volumeRingtone;
@@ -1454,9 +1593,11 @@ public class Profile {
                                 withProfile._deviceRunApplicationPackageName;
                 }
                 if (withProfile._deviceWallpaperChange != 0) {
-                    this._deviceWallpaperChange = 1;
+                    this._deviceWallpaperChange = withProfile._deviceWallpaperChange;
                     this._deviceWallpaper = withProfile._deviceWallpaper;
+                    this._deviceLiveWallpaper = withProfile._deviceLiveWallpaper;
                     this._deviceWallpaperFor = withProfile._deviceWallpaperFor;
+                    this._deviceWallpaperFolder = withProfile._deviceWallpaperFolder;
                 }
                 if (withProfile._volumeSpeakerPhone != 0)
                     this._volumeSpeakerPhone = withProfile._volumeSpeakerPhone;
@@ -1614,7 +1755,8 @@ public class Profile {
                 }
                 if (withProfile._soundSameRingtoneForBothSIMCards != 0)
                     this._soundSameRingtoneForBothSIMCards = withProfile._soundSameRingtoneForBothSIMCards;
-
+                if (withProfile._applicationDisableGloabalEventsRun != 0)
+                    this._applicationDisableGloabalEventsRun = withProfile._applicationDisableGloabalEventsRun;
 
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
@@ -1677,10 +1819,18 @@ public class Profile {
                     //PPApplication.logE("$$$ compareProfiles","_vibrateWhenRinging 1");
                     return false;
                 }
+                if (this._vibrateNotifications != withProfile._vibrateNotifications) {
+                    //PPApplication.logE("$$$ compareProfiles","_vibrateNotifications 1");
+                    return false;
+                }
             }
             if ((this._volumeRingerMode == 5) && ((this._volumeZenMode == 1) || (this._volumeZenMode == 2))){
                 if (this._vibrateWhenRinging != withProfile._vibrateWhenRinging) {
                     //PPApplication.logE("$$$ compareProfiles","_vibrateWhenRinging 2");
+                    return false;
+                }
+                if (this._vibrateNotifications != withProfile._vibrateNotifications) {
+                    //PPApplication.logE("$$$ compareProfiles","_vibrateNotifications 2");
                     return false;
                 }
             }
@@ -1785,8 +1935,16 @@ public class Profile {
                     //PPApplication.logE("$$$ compareProfiles","_deviceWallpaper");
                     return false;
                 }
+                if (!this._deviceLiveWallpaper.equals(withProfile._deviceLiveWallpaper)) {
+                    //PPApplication.logE("$$$ compareProfiles","_deviceLiveWallpaper");
+                    return false;
+                }
                 if (this._deviceWallpaperFor != withProfile._deviceWallpaperFor) {
                     //PPApplication.logE("$$$ compareProfiles","_deviceWallpaperFor");
+                    return false;
+                }
+                if (!this._deviceWallpaperFolder.equals(withProfile._deviceWallpaperFolder)) {
+                    //PPApplication.logE("$$$ compareProfiles","_deviceWallpaperFolder");
                     return false;
                 }
             }
@@ -2017,6 +2175,12 @@ public class Profile {
                 //PPApplication.logE("$$$ compareProfiles","_soundSameRingtoneForBothSIMCards");
                 return false;
             }
+            if (this._applicationDisableGloabalEventsRun != withProfile._applicationDisableGloabalEventsRun) {
+                //PPApplication.logE("$$$ compareProfiles","_applicationDisableGloabalEventsRun");
+                return false;
+            }
+
+
             return true;
         }
         return false;
@@ -3278,479 +3442,6 @@ public class Profile {
         return timeDate.concat(AmPm);
     }
 
-    /*
-    private static String getVolumeLevelString(int percentage, int maxValue)
-    {
-        //noinspection WrapperTypeMayBePrimitive
-        Double dValue = maxValue / 100.0 * percentage;
-        return String.valueOf(dValue.intValue());
-    }
-    */
-
-    /*
-    static Profile getProfileFromSharedPreferences(Context context)
-    {
-        AudioManager audioManager = (AudioManager)context.getSystemService(Context.AUDIO_SERVICE);
-
-        int maximumValueRing = 7;
-        int maximumValueNotification = 7;
-        int maximumValueMusic = 15;
-        int maximumValueAlarm = 7;
-        int maximumValueSystem = 7;
-        int maximumValueVoiceCall = 7;
-        int maximumValueDTMF = 7;
-        int maximumValueAccessibility = 7;
-        int maximumValueBluetoothSCO = 7;
-        if (audioManager != null) {
-            maximumValueRing = audioManager.getStreamMaxVolume(AudioManager.STREAM_RING);
-            maximumValueNotification = audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION);
-            maximumValueMusic = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-            maximumValueAlarm = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
-            maximumValueSystem = audioManager.getStreamMaxVolume(AudioManager.STREAM_SYSTEM);
-            maximumValueVoiceCall = audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL);
-            maximumValueDTMF = audioManager.getStreamMaxVolume(AudioManager.STREAM_DTMF);
-            if (Build.VERSION.SDK_INT >= 26)
-                maximumValueAccessibility = audioManager.getStreamMaxVolume(AudioManager.STREAM_ACCESSIBILITY);
-            maximumValueBluetoothSCO = audioManager.getStreamMaxVolume(ActivateProfileHelper.STREAM_BLUETOOTH_SCO);
-        }
-
-        SharedPreferences preferences = context.getSharedPreferences("profile_preferences_default_profile", Context.MODE_PRIVATE);
-
-        Profile profile = new Profile();
-
-        //if (prefsName.equals(PPApplication.SHARED_PROFILE_PREFS_NAME)) {
-        //    profile._id = SHARED_PROFILE_ID;
-        //    profile._name = context.getResources().getString(R.string.default_profile_name);
-        //    profile._icon = PROFILE_ICON_DEFAULT+"1|0|0";
-        //    profile._checked = false;
-        //}
-        //else {
-            profile._id = preferences.getLong(PREF_PROFILE_ID, 0);
-            profile._name = preferences.getString(PREF_PROFILE_NAME, context.getResources().getString(R.string.profile_name_default));
-            profile._icon = preferences.getString(PREF_PROFILE_ICON, PROFILE_ICON_DEFAULT+"1|0|0");
-            profile._checked = preferences.getBoolean(PREF_PROFILE_CHECKED, false);
-        //}
-
-        profile._porder = 0;
-        profile._duration = 0;
-        //profile._afterDurationDo = AFTER_DURATION_DO_RESTART_EVENTS;
-        profile._afterDurationDo = preferences.getInt(PREF_PROFILE_AFTER_DURATION_DO, AFTER_DURATION_DO_RESTART_EVENTS);
-        profile._afterDurationProfile = PROFILE_NO_ACTIVATE;
-        profile._durationNotificationSound = "";
-        profile._durationNotificationVibrate = false;
-        profile._activationByUserCount = 0;
-        profile._volumeRingerMode = Integer.parseInt(preferences.getString(PREF_PROFILE_VOLUME_RINGER_MODE, "1")); // ring
-        profile._volumeZenMode = Integer.parseInt(preferences.getString(PREF_PROFILE_VOLUME_ZEN_MODE, "1")); // all
-        profile._volumeRingtone = preferences.getString(PREF_PROFILE_VOLUME_RINGTONE, getVolumeLevelString(71, maximumValueRing) + "|0|0");
-        profile._volumeNotification = preferences.getString(PREF_PROFILE_VOLUME_NOTIFICATION, getVolumeLevelString(86, maximumValueNotification)+"|0|0");
-        profile._volumeMedia = preferences.getString(PREF_PROFILE_VOLUME_MEDIA, getVolumeLevelString(80, maximumValueMusic)+"|0|0");
-        profile._volumeAlarm = preferences.getString(PREF_PROFILE_VOLUME_ALARM, getVolumeLevelString(100, maximumValueAlarm)+"|0|0");
-        profile._volumeSystem = preferences.getString(PREF_PROFILE_VOLUME_SYSTEM, getVolumeLevelString(70, maximumValueSystem)+"|0|0");
-        profile._volumeVoice = preferences.getString(PREF_PROFILE_VOLUME_VOICE, getVolumeLevelString(70, maximumValueVoiceCall)+"|0|0");
-        profile._soundRingtoneChange = Integer.parseInt(preferences.getString(PREF_PROFILE_SOUND_RINGTONE_CHANGE, "0"));
-        profile._soundRingtone = preferences.getString(PREF_PROFILE_SOUND_RINGTONE, Settings.System.DEFAULT_RINGTONE_URI.toString());
-        profile._soundNotificationChange = Integer.parseInt(preferences.getString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, "0"));
-        profile._soundNotification = preferences.getString(PREF_PROFILE_SOUND_NOTIFICATION, Settings.System.DEFAULT_NOTIFICATION_URI.toString());
-        profile._soundAlarmChange = Integer.parseInt(preferences.getString(PREF_PROFILE_SOUND_ALARM_CHANGE, "0"));
-        profile._soundAlarm = preferences.getString(PREF_PROFILE_SOUND_ALARM, Settings.System.DEFAULT_ALARM_ALERT_URI.toString());
-        profile._deviceAirplaneMode = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_AIRPLANE_MODE, "2")); // OFF
-        profile._deviceWiFi = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WIFI, "2")); // OFF
-        profile._deviceBluetooth = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_BLUETOOTH, "2")); //OFF
-        profile._deviceScreenTimeout = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, "2")); // 30 seconds
-        profile._deviceBrightness = preferences.getString(PREF_PROFILE_DEVICE_BRIGHTNESS, BRIGHTNESS_ADAPTIVE_BRIGHTNESS_NOT_SET + "|0|1|0");  // automatic on
-        profile._deviceWallpaperChange = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, "0"));
-        profile._deviceWallpaper = preferences.getString(PREF_PROFILE_DEVICE_WALLPAPER, "-");
-        profile._deviceMobileData = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_MOBILE_DATA, "1")); //ON
-        profile._deviceMobileDataPrefs = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, "0"));
-        profile._deviceGPS = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_GPS, "2")); //OFF
-        profile._deviceRunApplicationChange = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, "0"));
-        profile._deviceRunApplicationPackageName = preferences.getString(PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, "-");
-        profile._deviceAutoSync = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_AUTOSYNC, "1")); // ON
-        profile._deviceAutoRotate = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_AUTOROTATE, "1")); // ON
-        profile._deviceLocationServicePrefs = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, "0"));
-        profile._volumeSpeakerPhone = Integer.parseInt(preferences.getString(PREF_PROFILE_VOLUME_SPEAKER_PHONE, "0"));
-        profile._deviceNFC = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_NFC, "0"));
-        profile._deviceKeyguard = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_KEYGUARD, "0"));
-        profile._vibrationOnTouch = Integer.parseInt(preferences.getString(PREF_PROFILE_VIBRATION_ON_TOUCH, "0"));
-        profile._deviceWiFiAP = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WIFI_AP, "2")); // OFF
-        profile._devicePowerSaveMode = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_POWER_SAVE_MODE, "0"));
-        profile._deviceNetworkType = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_NETWORK_TYPE, "0"));
-        profile._notificationLed = Integer.parseInt(preferences.getString(PREF_PROFILE_NOTIFICATION_LED, "0"));
-        profile._vibrateWhenRinging = Integer.parseInt(preferences.getString(PREF_PROFILE_VIBRATE_WHEN_RINGING, "0"));
-        profile._deviceWallpaperFor = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WALLPAPER_FOR, "0"));
-        profile._lockDevice = Integer.parseInt(preferences.getString(PREF_PROFILE_LOCK_DEVICE, "0"));
-        profile._deviceConnectToSSID = preferences.getString(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, CONNECTTOSSID_JUSTANY);
-        profile._applicationDisableWifiScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, "0"));
-        profile._applicationDisableBluetoothScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, "0"));
-        profile._deviceWiFiAPPrefs = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_WIFI_AP_PREFS, "0"));
-        profile._applicationDisableLocationScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, "0"));
-        profile._applicationDisableMobileCellScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, "0"));
-        profile._applicationDisableOrientationScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, "0"));
-        profile._headsUpNotifications = Integer.parseInt(preferences.getString(PREF_PROFILE_HEADS_UP_NOTIFICATIONS, "0"));
-        profile._deviceForceStopApplicationChange = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, "0"));
-        profile._deviceForceStopApplicationPackageName = preferences.getString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, "-");
-        profile._deviceNetworkTypePrefs = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, "0"));
-        profile._deviceCloseAllApplications = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, "0"));
-        profile._screenDarkMode = Integer.parseInt(preferences.getString(PREF_PROFILE_SCREEN_DARK_MODE, "0"));
-        profile._dtmfToneWhenDialing = Integer.parseInt(preferences.getString(PREF_PROFILE_DTMF_TONE_WHEN_DIALING, "0"));
-        profile._soundOnTouch = Integer.parseInt(preferences.getString(PREF_PROFILE_SOUND_ON_TOUCH, "0"));
-        profile._volumeDTMF = preferences.getString(PREF_PROFILE_VOLUME_DTMF, getVolumeLevelString(70, maximumValueDTMF)+"|0|0");
-        profile._volumeAccessibility = preferences.getString(PREF_PROFILE_VOLUME_ACCESSIBILITY, getVolumeLevelString(80, maximumValueAccessibility)+"|0|0");
-        profile._volumeBluetoothSCO = preferences.getString(PREF_PROFILE_VOLUME_BLUETOOTH_SCO, getVolumeLevelString(80, maximumValueBluetoothSCO)+"|0|0");
-        profile._alwaysOnDisplay = Integer.parseInt(preferences.getString(PREF_PROFILE_ALWAYS_ON_DISPLAY, "0"));
-        profile._screenOnPermanent = Integer.parseInt(preferences.getString(PREF_PROFILE_SCREEN_ON_PERMANENT, "0"));
-        profile._volumeMuteSound = preferences.getBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, false);
-        profile._deviceLocationMode = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_LOCATION_MODE, "0"));
-        profile._applicationDisableNotificationScanning = Integer.parseInt(preferences.getString(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, "0"));
-        profile._generateNotification = preferences.getString(PREF_PROFILE_GENERATE_NOTIFICATION, "0|0||");
-        profile._cameraFlash = Integer.parseInt(preferences.getString(PREF_PROFILE_CAMERA_FLASH, "0"));
-        profile._deviceNetworkTypeSIM1 = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, "0"));
-        profile._deviceNetworkTypeSIM2 = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, "0"));
-        profile._deviceMobileDataSIM1 = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, "1")); //ON
-        profile._deviceMobileDataSIM2 = Integer.parseInt(preferences.getString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, "1")); //ON
-        profile._deviceDefaultSIMCards = preferences.getString(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
-
-        return profile;
-    }
-    */
-    /*
-    static void saveProfileToSharedPreferences(Profile profile, Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(PPApplication.ACTIVATED_PROFILE_PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        editor.putLong(PREF_PROFILE_ID, profile._id);
-        editor.putString(PREF_PROFILE_NAME, profile._name);
-        editor.putString(PREF_PROFILE_ICON, profile._icon);
-        editor.putBoolean(PREF_PROFILE_CHECKED, profile._checked);
-        editor.putInt(PREF_PROFILE_AFTER_DURATION_DO, profile._afterDurationDo);
-        editor.putString(PREF_PROFILE_VOLUME_RINGER_MODE, String.valueOf(profile._volumeRingerMode));
-        editor.putString(PREF_PROFILE_VOLUME_ZEN_MODE, String.valueOf(profile._volumeZenMode));
-        editor.putString(PREF_PROFILE_VOLUME_RINGTONE, profile._volumeRingtone);
-        editor.putString(PREF_PROFILE_VOLUME_NOTIFICATION, profile._volumeNotification);
-        editor.putString(PREF_PROFILE_VOLUME_MEDIA, profile._volumeMedia);
-        editor.putString(PREF_PROFILE_VOLUME_ALARM, profile._volumeAlarm);
-        editor.putString(PREF_PROFILE_VOLUME_SYSTEM, profile._volumeSystem);
-        editor.putString(PREF_PROFILE_VOLUME_VOICE, profile._volumeVoice);
-        editor.putString(PREF_PROFILE_SOUND_RINGTONE_CHANGE, String.valueOf(profile._soundRingtoneChange));
-        editor.putString(PREF_PROFILE_SOUND_RINGTONE, profile._soundRingtone);
-        editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE, String.valueOf(profile._soundNotificationChange));
-        editor.putString(PREF_PROFILE_SOUND_NOTIFICATION, profile._soundNotification);
-        editor.putString(PREF_PROFILE_SOUND_ALARM_CHANGE, String.valueOf(profile._soundAlarmChange));
-        editor.putString(PREF_PROFILE_SOUND_ALARM, profile._soundAlarm);
-        editor.putString(PREF_PROFILE_DEVICE_AIRPLANE_MODE, String.valueOf(profile._deviceAirplaneMode));
-        editor.putString(PREF_PROFILE_DEVICE_WIFI, String.valueOf(profile._deviceWiFi));
-        editor.putString(PREF_PROFILE_DEVICE_BLUETOOTH, String.valueOf(profile._deviceBluetooth));
-        editor.putString(PREF_PROFILE_DEVICE_SCREEN_TIMEOUT, String.valueOf(profile._deviceScreenTimeout));
-        editor.putString(PREF_PROFILE_DEVICE_BRIGHTNESS, profile._deviceBrightness);
-        editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_CHANGE, String.valueOf(profile._deviceWallpaperChange));
-        editor.putString(PREF_PROFILE_DEVICE_WALLPAPER, profile._deviceWallpaper);
-        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA, String.valueOf(profile._deviceMobileData));
-        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS, String.valueOf(profile._deviceMobileDataPrefs));
-        editor.putString(PREF_PROFILE_DEVICE_GPS, String.valueOf(profile._deviceGPS));
-        editor.putString(PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE, String.valueOf(profile._deviceRunApplicationChange));
-        editor.putString(PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME, profile._deviceRunApplicationPackageName);
-        editor.putString(PREF_PROFILE_DEVICE_AUTOSYNC, String.valueOf(profile._deviceAutoSync));
-        editor.putString(PREF_PROFILE_DEVICE_AUTOROTATE, String.valueOf(profile._deviceAutoRotate));
-        editor.putString(PREF_PROFILE_DEVICE_LOCATION_SERVICE_PREFS, String.valueOf(profile._deviceLocationServicePrefs));
-        editor.putString(PREF_PROFILE_VOLUME_SPEAKER_PHONE, String.valueOf(profile._volumeSpeakerPhone));
-        editor.putString(PREF_PROFILE_DEVICE_NFC, String.valueOf(profile._deviceNFC));
-        editor.putString(PREF_PROFILE_DEVICE_KEYGUARD, String.valueOf(profile._deviceKeyguard));
-        editor.putString(PREF_PROFILE_VIBRATION_ON_TOUCH, String.valueOf(profile._vibrationOnTouch));
-        editor.putString(PREF_PROFILE_DEVICE_WIFI_AP, String.valueOf(profile._deviceWiFiAP));
-        editor.putString(PREF_PROFILE_DEVICE_POWER_SAVE_MODE, String.valueOf(profile._devicePowerSaveMode));
-        editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE, String.valueOf(profile._deviceNetworkType));
-        editor.putString(PREF_PROFILE_NOTIFICATION_LED, String.valueOf(profile._notificationLed));
-        editor.putString(PREF_PROFILE_VIBRATE_WHEN_RINGING, String.valueOf(profile._vibrateWhenRinging));
-        editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_FOR, String.valueOf(profile._deviceWallpaperFor));
-        editor.putString(PREF_PROFILE_LOCK_DEVICE, String.valueOf(profile._lockDevice));
-        editor.putString(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, profile._deviceConnectToSSID);
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING, String.valueOf(profile._applicationDisableWifiScanning));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING, String.valueOf(profile._applicationDisableBluetoothScanning));
-        editor.putString(PREF_PROFILE_DEVICE_WIFI_AP_PREFS, String.valueOf(profile._deviceWiFiAPPrefs));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_LOCATION_SCANNING, String.valueOf(profile._applicationDisableLocationScanning));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING, String.valueOf(profile._applicationDisableMobileCellScanning));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING, String.valueOf(profile._applicationDisableOrientationScanning));
-        editor.putString(PREF_PROFILE_HEADS_UP_NOTIFICATIONS, String.valueOf(profile._headsUpNotifications));
-        editor.putString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE, String.valueOf(profile._deviceForceStopApplicationChange));
-        editor.putString(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_PACKAGE_NAME, profile._deviceForceStopApplicationPackageName);
-        editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS, String.valueOf(profile._deviceNetworkTypePrefs));
-        editor.putString(PREF_PROFILE_DEVICE_CLOSE_ALL_APPLICATIONS, String.valueOf(profile._deviceCloseAllApplications));
-        editor.putString(PREF_PROFILE_SCREEN_DARK_MODE, String.valueOf(profile._screenDarkMode));
-        editor.putString(PREF_PROFILE_DTMF_TONE_WHEN_DIALING, String.valueOf(profile._dtmfToneWhenDialing));
-        editor.putString(PREF_PROFILE_SOUND_ON_TOUCH, String.valueOf(profile._soundOnTouch));
-        editor.putString(PREF_PROFILE_VOLUME_DTMF, profile._volumeDTMF);
-        editor.putString(PREF_PROFILE_VOLUME_ACCESSIBILITY, profile._volumeAccessibility);
-        editor.putString(PREF_PROFILE_VOLUME_BLUETOOTH_SCO, profile._volumeBluetoothSCO);
-        editor.putString(PREF_PROFILE_ALWAYS_ON_DISPLAY, String.valueOf(profile._alwaysOnDisplay));
-        editor.putString(PREF_PROFILE_SCREEN_ON_PERMANENT, String.valueOf(profile._screenOnPermanent));
-        editor.putBoolean(PREF_PROFILE_VOLUME_MUTE_SOUND, profile._volumeMuteSound);
-        editor.putString(PREF_PROFILE_DEVICE_LOCATION_MODE, String.valueOf(profile._deviceLocationMode));
-        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_NOTIFICATION_SCANNING, String.valueOf(profile._applicationDisableNotificationScanning));
-        editor.putString(PREF_PROFILE_GENERATE_NOTIFICATION, profile._generateNotification);
-        editor.putString(PREF_PROFILE_CAMERA_FLASH, String.valueOf(profile._cameraFlash));
-        editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1, String.valueOf(profile._deviceNetworkTypeSIM1));
-        editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2, String.valueOf(profile._deviceNetworkTypeSIM2));
-        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1, String.valueOf(profile._deviceMobileDataSIM1));
-        editor.putString(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2, String.valueOf(profile._deviceMobileDataSIM2));
-
-        editor.apply();
-    }
-    */
-    /*
-    static Profile getMappedProfile(Profile profile, Profile sharedProfile)
-    {
-        final int SHARED_PROFILE_VALUE = 99;
-        final String CONNECTTOSSID_SHAREDPROFILE = "^default_profile^";
-
-        if (profile != null)
-        {
-            Profile sharedProfile = getProfileFromSharedPreferences(context, PPApplication.SHARED_PROFILE_PREFS_NAME);
-
-            Profile mappedProfile = new Profile(
-                    profile._id,
-                    profile._name,
-                    profile._icon,
-                    profile._checked,
-                    profile._porder,
-                    profile._volumeRingerMode,
-                    profile._volumeRingtone,
-                    profile._volumeNotification,
-                    profile._volumeMedia,
-                    profile._volumeAlarm,
-                    profile._volumeSystem,
-                    profile._volumeVoice,
-                    profile._soundRingtoneChange,
-                    profile._soundRingtone,
-                    profile._soundNotificationChange,
-                    profile._soundNotification,
-                    profile._soundAlarmChange,
-                    profile._soundAlarm,
-                    profile._deviceAirplaneMode,
-                    profile._deviceWiFi,
-                    profile._deviceBluetooth,
-                    profile._deviceScreenTimeout,
-                    profile._deviceBrightness,
-                    profile._deviceWallpaperChange,
-                    profile._deviceWallpaper,
-                    profile._deviceMobileData,
-                    profile._deviceMobileDataPrefs,
-                    profile._deviceGPS,
-                    profile._deviceRunApplicationChange,
-                    profile._deviceRunApplicationPackageName,
-                    profile._deviceAutoSync,
-                    profile._showInActivator,
-                    profile._deviceAutoRotate,
-                    profile._deviceLocationServicePrefs,
-                    profile._volumeSpeakerPhone,
-                    profile._deviceNFC,
-                    profile._duration,
-                    profile._afterDurationDo,
-                    profile._volumeZenMode,
-                    profile._deviceKeyguard,
-                    profile._vibrationOnTouch,
-                    profile._deviceWiFiAP,
-                    profile._devicePowerSaveMode,
-                    profile._askForDuration,
-                    profile._deviceNetworkType,
-                    profile._notificationLed,
-                    profile._vibrateWhenRinging,
-                    profile._deviceWallpaperFor,
-                    profile._hideStatusBarIcon,
-                    profile._lockDevice,
-                    profile._deviceConnectToSSID,
-                    profile._applicationDisableWifiScanning,
-                    profile._applicationDisableBluetoothScanning,
-                    profile._durationNotificationSound,
-                    profile._durationNotificationVibrate,
-                    profile._deviceWiFiAPPrefs,
-                    profile._applicationDisableLocationScanning,
-                    profile._applicationDisableMobileCellScanning,
-                    profile._applicationDisableOrientationScanning,
-                    profile._headsUpNotifications,
-                    profile._deviceForceStopApplicationChange,
-                    profile._deviceForceStopApplicationPackageName,
-                    profile._activationByUserCount,
-                    profile._deviceNetworkTypePrefs,
-                    profile._deviceCloseAllApplications,
-                    profile._screenDarkMode,
-                    profile._dtmfToneWhenDialing,
-                    profile._soundOnTouch,
-                    profile._volumeDTMF,
-                    profile._volumeAccessibility,
-                    profile._volumeBluetoothSCO,
-                    profile._afterDurationProfile,
-                    profile._alwaysOnDisplay,
-                    profile._screenOnPermanent,
-                    profile._volumeMuteSound,
-                    profile._deviceLocationMode,
-                    profile._applicationDisableNotificationScanning,
-                    profile._generateNotification,
-                    profile._cameraFlash,
-                    profile._deviceNetworkTypeSIM1,
-                    profile._deviceNetworkTypeSIM2,
-                    profile._deviceMobileDataSIM1,
-                    profile._deviceMobileDataSIM2,
-                    profile._deviceDefaultSIMCards
-                    );
-
-            boolean zenModeMapped = false;
-            if (profile._volumeRingerMode == SHARED_PROFILE_VALUE) {
-                mappedProfile._volumeRingerMode = sharedProfile._volumeRingerMode;
-                if (mappedProfile._volumeRingerMode == RINGERMODE_ZENMODE) {
-                    mappedProfile._volumeZenMode = sharedProfile._volumeZenMode;
-                    zenModeMapped = true;
-                }
-            }
-            if ((profile._volumeZenMode == SHARED_PROFILE_VALUE) && (!zenModeMapped))
-                mappedProfile._volumeZenMode = sharedProfile._volumeZenMode;
-            if (profile.getVolumeRingtoneSharedProfile())
-                mappedProfile._volumeRingtone = sharedProfile._volumeRingtone;
-            if (profile.getVolumeNotificationSharedProfile())
-                mappedProfile._volumeNotification = sharedProfile._volumeNotification;
-            if (profile.getVolumeAlarmSharedProfile())
-                mappedProfile._volumeAlarm = sharedProfile._volumeAlarm;
-            if (profile.getVolumeMediaSharedProfile())
-                mappedProfile._volumeMedia = sharedProfile._volumeMedia;
-            if (profile.getVolumeSystemSharedProfile())
-                mappedProfile._volumeSystem = sharedProfile._volumeSystem;
-            if (profile.getVolumeVoiceSharedProfile())
-                mappedProfile._volumeVoice = sharedProfile._volumeVoice;
-            if (profile._soundRingtoneChange == SHARED_PROFILE_VALUE)
-            {
-                mappedProfile._soundRingtoneChange = sharedProfile._soundRingtoneChange;
-                mappedProfile._soundRingtone = sharedProfile._soundRingtone;
-            }
-            if (profile._soundNotificationChange == SHARED_PROFILE_VALUE)
-            {
-                mappedProfile._soundNotificationChange = sharedProfile._soundNotificationChange;
-                mappedProfile._soundNotification = sharedProfile._soundNotification;
-            }
-            if (profile._soundAlarmChange == SHARED_PROFILE_VALUE)
-            {
-                mappedProfile._soundAlarmChange = sharedProfile._soundAlarmChange;
-                mappedProfile._soundAlarm = sharedProfile._soundAlarm;
-            }
-            if (profile._deviceAirplaneMode == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceAirplaneMode = sharedProfile._deviceAirplaneMode;
-            if (profile._deviceAutoSync == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceAutoSync = sharedProfile._deviceAutoSync;
-            if (profile._deviceMobileData == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceMobileData = sharedProfile._deviceMobileData;
-            if (profile._deviceMobileDataPrefs == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceMobileDataPrefs = sharedProfile._deviceMobileDataPrefs;
-            if (profile._deviceWiFi == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceWiFi = sharedProfile._deviceWiFi;
-            if (profile._deviceBluetooth == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceBluetooth = sharedProfile._deviceBluetooth;
-            if (profile._deviceGPS == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceGPS = sharedProfile._deviceGPS;
-            if (profile._deviceLocationServicePrefs == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceLocationServicePrefs = sharedProfile._deviceLocationServicePrefs;
-            if (profile._deviceScreenTimeout == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceScreenTimeout = sharedProfile._deviceScreenTimeout;
-            if (profile.getDeviceBrightnessSharedProfile())
-                mappedProfile._deviceBrightness = sharedProfile._deviceBrightness;
-            if (profile._deviceAutoRotate == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceAutoRotate = sharedProfile._deviceAutoRotate;
-            if (profile._deviceRunApplicationChange == SHARED_PROFILE_VALUE)
-            {
-                mappedProfile._deviceRunApplicationChange = sharedProfile._deviceRunApplicationChange;
-                mappedProfile._deviceRunApplicationPackageName = sharedProfile._deviceRunApplicationPackageName;
-            }
-            if (profile._deviceWallpaperChange == SHARED_PROFILE_VALUE)
-            {
-                mappedProfile._deviceWallpaperChange = sharedProfile._deviceWallpaperChange;
-                mappedProfile._deviceWallpaper = sharedProfile._deviceWallpaper;
-                mappedProfile._deviceWallpaperFor = sharedProfile._deviceWallpaperFor;
-            }
-            if (profile._volumeSpeakerPhone == SHARED_PROFILE_VALUE)
-                mappedProfile._volumeSpeakerPhone = sharedProfile._volumeSpeakerPhone;
-            if (profile._deviceNFC == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceNFC = sharedProfile._deviceNFC;
-            if (profile._deviceKeyguard == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceKeyguard = sharedProfile._deviceKeyguard;
-            if (profile._vibrationOnTouch == SHARED_PROFILE_VALUE)
-                mappedProfile._vibrationOnTouch = sharedProfile._vibrationOnTouch;
-            if (profile._deviceWiFiAP == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceWiFiAP = sharedProfile._deviceWiFiAP;
-            if (profile._devicePowerSaveMode == SHARED_PROFILE_VALUE)
-                mappedProfile._devicePowerSaveMode = sharedProfile._devicePowerSaveMode;
-            if (profile._deviceNetworkType == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceNetworkType = sharedProfile._deviceNetworkType;
-            if (profile._notificationLed == SHARED_PROFILE_VALUE)
-                mappedProfile._notificationLed = sharedProfile._notificationLed;
-            if (profile._vibrateWhenRinging == SHARED_PROFILE_VALUE)
-                mappedProfile._vibrateWhenRinging = sharedProfile._vibrateWhenRinging;
-            if (profile._lockDevice == SHARED_PROFILE_VALUE)
-                mappedProfile._lockDevice = sharedProfile._lockDevice;
-            if ((profile._deviceConnectToSSID != null) && (profile._deviceConnectToSSID.equals(CONNECTTOSSID_SHAREDPROFILE)))
-                mappedProfile._deviceConnectToSSID = sharedProfile._deviceConnectToSSID;
-            if (profile._applicationDisableWifiScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableWifiScanning = sharedProfile._applicationDisableWifiScanning;
-            if (profile._applicationDisableBluetoothScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableBluetoothScanning = sharedProfile._applicationDisableBluetoothScanning;
-            if (profile._deviceWiFiAPPrefs == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceWiFiAPPrefs = sharedProfile._deviceWiFiAPPrefs;
-            if (profile._applicationDisableLocationScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableLocationScanning = sharedProfile._applicationDisableLocationScanning;
-            if (profile._applicationDisableMobileCellScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableMobileCellScanning = sharedProfile._applicationDisableMobileCellScanning;
-            if (profile._applicationDisableOrientationScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableOrientationScanning = sharedProfile._applicationDisableOrientationScanning;
-            if (profile._headsUpNotifications == SHARED_PROFILE_VALUE)
-                mappedProfile._headsUpNotifications = sharedProfile._headsUpNotifications;
-            if (profile._deviceForceStopApplicationChange == SHARED_PROFILE_VALUE)
-            {
-                mappedProfile._deviceForceStopApplicationChange = sharedProfile._deviceForceStopApplicationChange;
-                mappedProfile._deviceForceStopApplicationPackageName = sharedProfile._deviceForceStopApplicationPackageName;
-            }
-            if (profile._deviceNetworkTypePrefs == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceNetworkTypePrefs = sharedProfile._deviceNetworkTypePrefs;
-            if (profile._deviceCloseAllApplications == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceCloseAllApplications = sharedProfile._deviceCloseAllApplications;
-            if (profile._screenDarkMode == SHARED_PROFILE_VALUE)
-                mappedProfile._screenDarkMode = sharedProfile._screenDarkMode;
-            if (profile._dtmfToneWhenDialing == SHARED_PROFILE_VALUE)
-                mappedProfile._dtmfToneWhenDialing = sharedProfile._dtmfToneWhenDialing;
-            if (profile._soundOnTouch == SHARED_PROFILE_VALUE)
-                mappedProfile._soundOnTouch = sharedProfile._soundOnTouch;
-            if (profile.getVolumeDTMFSharedProfile())
-                mappedProfile._volumeDTMF = sharedProfile._volumeDTMF;
-            if (profile.getVolumeAccessibilitySharedProfile())
-                mappedProfile._volumeAccessibility = sharedProfile._volumeAccessibility;
-            if (profile.getVolumeBluetoothSCOSharedProfile())
-                mappedProfile._volumeBluetoothSCO = sharedProfile._volumeBluetoothSCO;
-            if (profile._alwaysOnDisplay == SHARED_PROFILE_VALUE)
-                mappedProfile._alwaysOnDisplay = sharedProfile._alwaysOnDisplay;
-            if (profile._screenOnPermanent == SHARED_PROFILE_VALUE)
-                mappedProfile._screenOnPermanent = sharedProfile._screenOnPermanent;
-            if (profile._deviceLocationMode == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceLocationMode = sharedProfile._deviceLocationMode;
-            if (profile._applicationDisableNotificationScanning == SHARED_PROFILE_VALUE)
-                mappedProfile._applicationDisableNotificationScanning = sharedProfile._applicationDisableNotificationScanning;
-            if (profile.getGenerateNotificationSharedProfile())
-                mappedProfile._generateNotification = sharedProfile._generateNotification;
-            if (profile._cameraFlash == SHARED_PROFILE_VALUE)
-                mappedProfile._cameraFlash = sharedProfile._cameraFlash;
-            if (profile._deviceNetworkTypeSIM1 == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceNetworkTypeSIM1 = sharedProfile._deviceNetworkTypeSIM1;
-            if (profile._deviceNetworkTypeSIM2 == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceNetworkTypeSIM2 = sharedProfile._deviceNetworkTypeSIM2;
-            if (profile._deviceMobileDataSIM1 == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceMobileDataSIM1 = sharedProfile._deviceMobileDataSIM1;
-            if (profile._deviceMobileDataSIM2 == SHARED_PROFILE_VALUE)
-                mappedProfile._deviceMobileDataSIM2 = sharedProfile._deviceMobileDataSIM2;
-
-            mappedProfile._iconBitmap = profile._iconBitmap;
-            mappedProfile._preferencesIndicator = profile._preferencesIndicator;
-
-            return mappedProfile;
-        }
-        else
-            return null;
-    }
-    */
-
     static Profile removeSharedProfileParameters(Profile profile)
     {
         final int SHARED_PROFILE_VALUE = 99;
@@ -3855,7 +3546,11 @@ public class Profile {
                     profile._soundNotificationSIM1,
                     profile._soundNotificationChangeSIM2,
                     profile._soundNotificationSIM2,
-                    profile._soundSameRingtoneForBothSIMCards
+                    profile._soundSameRingtoneForBothSIMCards,
+                    profile._deviceLiveWallpaper,
+                    profile._vibrateNotifications,
+                    profile._deviceWallpaperFolder,
+                    profile._applicationDisableGloabalEventsRun
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -3924,6 +3619,8 @@ public class Profile {
                 mappedProfile._notificationLed = 0;
             if (profile._vibrateWhenRinging == SHARED_PROFILE_VALUE)
                 mappedProfile._vibrateWhenRinging = 0;
+            if (profile._vibrateNotifications == SHARED_PROFILE_VALUE)
+                mappedProfile._vibrateNotifications = 0;
             if (profile._lockDevice == SHARED_PROFILE_VALUE)
                 mappedProfile._lockDevice = 0;
             if ((profile._deviceConnectToSSID != null) && (profile._deviceConnectToSSID.equals(CONNECTTOSSID_SHAREDPROFILE)))
@@ -4044,6 +3741,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_DEVICE_NETWORK_TYPE, Integer.toString(this._deviceNetworkType));
         editor.putString(PREF_PROFILE_NOTIFICATION_LED, Integer.toString(this._notificationLed));
         editor.putString(PREF_PROFILE_VIBRATE_WHEN_RINGING, Integer.toString(this._vibrateWhenRinging));
+        editor.putString(PREF_PROFILE_VIBRATE_NOTIFICATIONS, Integer.toString(this._vibrateNotifications));
         editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_FOR, Integer.toString(this._deviceWallpaperFor));
         editor.putString(PREF_PROFILE_LOCK_DEVICE, Integer.toString(this._lockDevice));
         editor.putString(PREF_PROFILE_DEVICE_CONNECT_TO_SSID, this._deviceConnectToSSID);
@@ -4079,22 +3777,22 @@ public class Profile {
         editor.putString(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, this._deviceDefaultSIMCards);
         editor.putString(PREF_PROFILE_DEVICE_ONOFF_SIM1, Integer.toString(this._deviceOnOffSIM1));
         editor.putString(PREF_PROFILE_DEVICE_ONOFF_SIM2, Integer.toString(this._deviceOnOffSIM2));
-
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, Integer.toString(this._soundRingtoneChangeSIM1));
         splits = this._soundRingtoneSIM1.split("\\|");
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_SIM1, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, Integer.toString(this._soundNotificationChangeSIM1));
         splits = this._soundNotificationSIM1.split("\\|");
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_SIM1, splits[0]);
-
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, Integer.toString(this._soundRingtoneChangeSIM2));
         splits = this._soundRingtoneSIM2.split("\\|");
         editor.putString(PREF_PROFILE_SOUND_RINGTONE_SIM2, splits[0]);
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, Integer.toString(this._soundNotificationChangeSIM2));
         splits = this._soundNotificationSIM2.split("\\|");
         editor.putString(PREF_PROFILE_SOUND_NOTIFICATION_SIM2, splits[0]);
-
         editor.putString(PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, Integer.toString(this._soundSameRingtoneForBothSIMCards));
+        editor.putString(PREF_PROFILE_DEVICE_LIVE_WALLPAPER, this._deviceLiveWallpaper);
+        editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, this._deviceWallpaperFolder);
+        editor.putString(PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, Integer.toString(this._applicationDisableGloabalEventsRun));
 
         editor.apply();
     }
@@ -4153,6 +3851,9 @@ public class Profile {
                     break;
                 case PREF_PROFILE_VIBRATE_WHEN_RINGING:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, null, sharedPreferences, fromUIThread);
+                    break;
+                case PREF_PROFILE_VIBRATE_NOTIFICATIONS:
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
                 case PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS:
                     // !!! test this only for preference key !!!
@@ -4266,6 +3967,11 @@ public class Profile {
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING(preferenceAllowed, profile, sharedPreferences, fromUIThread);
 //            if (profile._name.equals("Laut"))
 //                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_WHEN_RINGING] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+            if (Build.VERSION.SDK_INT >= 28) {
+                PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
+//                if (profile._name.equals("Laut"))
+//                    PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_VIBRATE_NOTIFICATIONS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
+            }
             PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
 //                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_POWER_SAVE_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
@@ -4318,1738 +4024,41 @@ public class Profile {
             return preferenceAllowed;
         }
     }
-/*
-    static PreferenceAllowed isProfilePreferenceAllowedOld(String preferenceKey, Profile profile,
-                                                        SharedPreferences sharedPreferences,
-                                                        boolean fromUIThread, Context context)
-    {
-//        if (profile != null)
-//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "profile != null - START");
 
-        Context appContext = context.getApplicationContext();
-
-        if ((profile != null) && (!preferenceKey.equals("-")) && (sharedPreferences == null)) {
-            sharedPreferences = context.getApplicationContext().getSharedPreferences("temp_isProfilePreferenceAllowed", Context.MODE_PRIVATE);
-            profile.saveProfileToSharedPreferences(sharedPreferences);
-            profile = null;
-        }
-
-        PreferenceAllowed preferenceAllowed = new PreferenceAllowed();
-
-        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-        preferenceAllowed.notAllowedRoot = false;
-        preferenceAllowed.notAllowedG1 = false;
-
-        boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
-
-        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_DEVICE_AIRPLANE_MODE)) {
-            if (PPApplication.isRooted(fromUIThread)) {
-                // device is rooted
-
-                if (profile != null) {
-                    // test if grant root is disabled
-                    if (profile._deviceAirplaneMode != 0) {
-                        if (applicationNeverAskForGrantRoot) {
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                        }
-                    }
-                } else if (sharedPreferences != null) {
-                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                        if (applicationNeverAskForGrantRoot) {
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            // not needed to test all parameters
-                            return preferenceAllowed;
-                        }
-                    }
-                }
-
-                if (PPApplication.settingsBinaryExists(fromUIThread)) {
-                    if (profile != null) {
-                        if (profile._deviceAirplaneMode != 0)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-            } else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
-                    preferenceAllowed.notAllowedRoot = true;
-                    //Log.e("isProfilePreferenceAllowed", "_deviceAirplaneMode");
-                }
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_WIFI))
-        {
-            if (PPApplication.HAS_FEATURE_WIFI)
-                // device has Wifi
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_BLUETOOTH))
-        {
-            if (PPApplication.HAS_FEATURE_BLUETOOTH)
-                // device has bluetooth
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) ||
-                preferenceKey.equals(PREF_PROFILE_DEVICE_MOBILE_DATA) ||
-                preferenceKey.equals(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM1) ||
-                preferenceKey.equals(PREF_PROFILE_DEVICE_MOBILE_DATA_SIM2))
-        {
-            boolean mobileDataSupported = false;
-            if (!PPApplication.HAS_FEATURE_TELEPHONY) {
-                // check mobile data capability for devices without phone call hardware (for example tablets)
-
-                ConnectivityManager connManager = null;
-                try {
-                    connManager = (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-                } catch (Exception e) {
-                    // java.lang.NullPointerException: missing IConnectivityManager
-                    // Dual SIM?? Bug in Android ???
-                    PPApplication.recordException(e);
-                }
-
-                if (connManager != null) {
-                    //if (android.os.Build.VERSION.SDK_INT >= 21) {
-                    Network[] networks = connManager.getAllNetworks();
-                    if ((networks != null) && (networks.length > 0)) {
-                        for (Network network : networks) {
-                            try {
-//                                if (Build.VERSION.SDK_INT < 28) {
-//                                    NetworkInfo ntkInfo = connManager.getNetworkInfo(network);
-//                                    if (ntkInfo != null) {
-//                                        if (ntkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
-//                                            mobileDataSupported = true;
-//                                            PPApplication.logE("[DUAL_SIM] isProfilePreferenceAllowed", "mobileDataSupported=true");
-//                                            break;
-//                                        }
-//                                    }
-//                                }
-//                                else {
-                                    NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
-                                    if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                                        mobileDataSupported = true;
-                                        break;
-                                    }
-                                //}
-                            } catch (Exception ee) {
-                                PPApplication.recordException(ee);
-                            }
-                        }
-                    }
-//                    } else {
-//                        NetworkInfo ni = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-//                        mobileDataSupported = ni != null;
-//                    }
-                }
-                //else
-                //    mobileDataSupported = false;
-            }
-            else
-                mobileDataSupported = true;
-            if (mobileDataSupported)
-            {
-                //Log.d("isProfilePreferenceAllowed", "mobile data supported");
-                // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.MODIFY_PHONE_STATE
-                // not working :-/
-                if (Permissions.hasPermission(appContext, Manifest.permission.MODIFY_PHONE_STATE)) {
-                    if (ActivateProfileHelper.canSetMobileData(appContext))
-                        if (profile != null) {
-                            if ((profile._deviceMobileData != 0) ||
-                                    (profile._deviceMobileDataSIM1 != 0) ||
-                                    (profile._deviceMobileDataSIM2 != 0))
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        }
-                        else
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                if (PPApplication.isRooted(fromUIThread)) {
-                    // device is rooted
-
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (Build.VERSION.SDK_INT < 26) {
-                            if ((profile._deviceMobileData != 0)) {
-                                if (applicationNeverAskForGrantRoot) {
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                }
-                            }
-                        }
-                        else {
-                            if ((profile._deviceMobileData != 0) ||
-                                    (profile._deviceMobileDataSIM1 != 0) ||
-                                    (profile._deviceMobileDataSIM2 != 0)) {
-                                if (applicationNeverAskForGrantRoot) {
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    if (sharedPreferences != null) {
-                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return preferenceAllowed;
-                            }
-                        }
-                    }
-
-                    if (ActivateProfileHelper.telephonyServiceExists(PREF_PROFILE_DEVICE_MOBILE_DATA)) {
-                        if (PPApplication.serviceBinaryExists(fromUIThread)) {
-                            if (profile != null) {
-                                if ((profile._deviceMobileData != 0) ||
-                                        (profile._deviceMobileDataSIM1 != 0) ||
-                                        (profile._deviceMobileDataSIM2 != 0))
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                            }
-                            else
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        }
-                        else
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
-                    } else {
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                    }
-
-                    final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        if (Build.VERSION.SDK_INT >= 26) {
-                            int phoneCount = telephonyManager.getPhoneCount();
-                            if (phoneCount > 1) {
-                                if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                                }
-                                if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                                }
-                            }
-                        }
-                        if (!PhoneProfilesService.hasSIMCard(appContext, 0, true)) {
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                        }
-                    } else {
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                    }
-                }
-                else {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                    if (Build.VERSION.SDK_INT < 26) {
-                        if ((profile != null) &&
-                                (profile._deviceMobileData != 0)) {
-                            preferenceAllowed.notAllowedRoot = true;
-                            //Log.e("isProfilePreferenceAllowed", "_deviceMobileData");
-                        }
-                    }
-                    else {
-                        if ((profile != null) &&
-                                ((profile._deviceMobileData != 0) ||
-                                        (profile._deviceMobileDataSIM1 != 0) ||
-                                        (profile._deviceMobileDataSIM2 != 0))) {
-                            preferenceAllowed.notAllowedRoot = true;
-                            //Log.e("isProfilePreferenceAllowed", "_deviceMobileData");
-                        }
-                    }
-                }
-            }
-            else {
-                //Log.d("isProfilePreferenceAllowed", "mobile data not supported");
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_MOBILE_DATA_PREFS))
-        {
-            if (PPApplication.HAS_FEATURE_TELEPHONY)
-            {
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_DEVICE_GPS))
-        {
-            if (PPApplication.HAS_FEATURE_LOCATION_GPS)
-            {
-                // device has gps
-                // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
-                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                    if (profile != null) {
-                        if (profile._deviceGPS!= 0)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                if (PPApplication.isRooted(fromUIThread))
-                {
-                    // device is rooted
-
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile._deviceGPS != 0) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            }
-                        }
-                    }
-                    else
-                    if (sharedPreferences != null) {
-                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return preferenceAllowed;
-                            }
-                        }
-                    }
-
-                    if (PPApplication.settingsBinaryExists(fromUIThread)) {
-                        if (profile != null) {
-                            if (profile._deviceGPS!= 0)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        }
-                        else
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-                }
-//                else
-//                if (ActivateProfileHelper.canExploitGPS(appContext))
-//                {
-//                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-//                }
-                else {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-//                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "- profile._deviceGPS=" + profile._deviceGPS);
-                    if ((profile != null) && (profile._deviceGPS != 0)) {
-                        //return preferenceAllowed;
-//                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "_deviceGPS");
-                        //preferenceAllowed.notAllowedRoot = true;
-                        preferenceAllowed.notAllowedG1 = true;
-                    }
-                }
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-//            if ((profile != null) && (profile._name.equals("Low battery"))) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [IN PREF_PROFILE_DEVICE_GPS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_DEVICE_LOCATION_MODE))
-        {
-            // adb shell pm grant sk.henrichg.phoneprofilesplus android.permission.WRITE_SECURE_SETTINGS
-            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                if (profile != null) {
-                    if (profile._deviceLocationMode != 0)
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-//            else
-//            if (PPApplication.isRooted(fromUIThread))
-//            {
-//                // device is rooted - NOT WORKING
-//
-//                if (profile != null) {
-//                    // test if grant root is disabled
-//                    if (profile._deviceLocationMode != 0) {
-//                        if (applicationNeverAskForGrantRoot) {
-//                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-//                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-//                            // not needed to test all parameters
-//                            //return preferenceAllowed;
-//                        }
-//                    }
-//                }
-//                else
-//                if (sharedPreferences != null) {
-//                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-//                        if (applicationNeverAskForGrantRoot) {
-//                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-//                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-//                            // not needed to test all parameters
-//                            return preferenceAllowed;
-//                        }
-//                    }
-//                }
-//
-//                if (PPApplication.settingsBinaryExists(fromUIThread))
-//                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-//                else
-//                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-//            }
-            else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-//                if (profile != null)
-//                    PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "- profile._deviceLocationMode=" + profile._deviceLocationMode);
-                if ((profile != null) && (profile._deviceLocationMode != 0)) {
-                    //return preferenceAllowed;
-//                    if (profile._name.equals("Low battery"))
-//                        PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "_deviceLocationMode");
-                    //preferenceAllowed.notAllowedRoot = true;
-                    preferenceAllowed.notAllowedG1 = true;
-                }
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_DEVICE_NFC))
-        {
-            if (PPApplication.HAS_FEATURE_NFC)
-            {
-                //PPApplication.logE("PPApplication.hardwareCheck","NFC=presented");
-
-                // device has nfc
-                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                    if (profile != null) {
-                        if (profile._deviceNFC != 0)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                if (PPApplication.isRooted(fromUIThread)) {
-
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile._deviceNFC != 0) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            }
-                        }
-                    }
-                    else
-                    if (sharedPreferences != null) {
-                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return preferenceAllowed;
-                            }
-                        }
-                    }
-
-                    if (profile != null) {
-                        if (profile._deviceNFC != 0)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-//                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "- profile._deviceNFC=" + profile._deviceNFC);
-                    if ((profile != null) && (profile._deviceNFC != 0)) {
-                        //return preferenceAllowed;
-//                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "_deviceNFC");
-                        //preferenceAllowed.notAllowedRoot = true;
-                        preferenceAllowed.notAllowedG1 = true;
-                    }
-                }
-            }
-            else
-            {
-                //PPApplication.logE("PPApplication.hardwareCheck","NFC=not presented");
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            }
-
-//            if ((profile != null) && (profile._name.equals("Low battery"))) {
-//                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [IN PREF_PROFILE_DEVICE_NFC] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-//        if ((profile != null) && (profile._name.equals("Low battery"))) {
-//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [PREF_PROFILE_DEVICE_WIFI_AP] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//        }
-
-        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_DEVICE_WIFI_AP))
-        {
-            if (Build.VERSION.SDK_INT < 30) {
-                if (PPApplication.HAS_FEATURE_WIFI) {
-                    // device has Wifi
-                    if (android.os.Build.VERSION.SDK_INT < 26) {
-                        if (WifiApManager.canExploitWifiAP(appContext)) {
-                            if (profile != null) {
-                                if (profile._deviceWiFiAP != 0)
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                            }
-                            else
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        }
-                        else {
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                            preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                        }
-                    } else if (Build.VERSION.SDK_INT < 28) {
-                        if (WifiApManager.canExploitWifiTethering(appContext)) {
-                            if (profile != null) {
-                                if (profile._deviceWiFiAP != 0)
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                            }
-                            else
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        }
-                        else if (PPApplication.isRooted(fromUIThread)) {
-                            // device is rooted
-
-                            if (profile != null) {
-                                // test if grant root is disabled
-                                if (profile._deviceWiFiAP != 0) {
-                                    if (applicationNeverAskForGrantRoot) {
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                    }
-                                }
-                            } else if (sharedPreferences != null) {
-                                if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                                    if (applicationNeverAskForGrantRoot) {
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                        // not needed to test all parameters
-                                        return preferenceAllowed;
-                                    }
-                                }
-                            }
-
-                            if (ActivateProfileHelper.wifiServiceExists(PREF_PROFILE_DEVICE_WIFI_AP)) {
-                                if (PPApplication.serviceBinaryExists(fromUIThread)) {
-                                    if (profile != null) {
-                                        if (profile._deviceWiFiAP != 0)
-                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                                    }
-                                    else
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                                }
-                                else
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
-                            } else {
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                            }
-                        } else {
-                            if ((profile != null) && (profile._deviceWiFiAP != 0)) {
-                                preferenceAllowed.notAllowedRoot = true;
-                                //Log.e("isProfilePreferenceAllowed", "_deviceWiFiAP");
-                            }
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                        }
-                    } else {
-                        if (profile != null) {
-                            if (profile._deviceWiFiAP != 0)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        }
-                        else
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                } else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            }
-            else {
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_android_version);
-            }
-
-//            if (PPApplication.logEnabled()) {
-//                PPApplication.logE("$$$ WifiAP", "isProfilePreferenceAllowed-preferenceAllowed.allowed=" + preferenceAllowed.allowed);
-//                PPApplication.logE("$$$ WifiAP", "isProfilePreferenceAllowed-preferenceAllowed.notAllowedReason=" + preferenceAllowed.notAllowedReason);
-//            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-//        if ((profile != null) && (profile._name.equals("Low battery"))) {
-//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [PREF_PROFILE_VIBRATE_WHEN_RINGING] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//        }
-
-        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_VIBRATE_WHEN_RINGING))
-        {
-            if (android.os.Build.VERSION.SDK_INT == 23 ||
-                    (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI)) {
-                if (PPApplication.isRooted(fromUIThread)) {
-                    // device is rooted
-
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile._vibrateWhenRinging != 0) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            }
-                        }
-                    }
-                    else
-                    if (sharedPreferences != null) {
-                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return preferenceAllowed;
-                            }
-                        }
-                    }
-
-                    if (PPApplication.settingsBinaryExists(fromUIThread)) {
-                        if (profile != null) {
-                            if (profile._vibrateWhenRinging != 0)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        }
-                        else
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-                }
-                else {
-                    if ((profile != null) && (profile._vibrateWhenRinging != 0)) {
-                        preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("isProfilePreferenceAllowed", "_vibrateWhenRinging");
-                    }
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                }
-            }
-            else {
-                if (profile != null) {
-                    if (profile._vibrateWhenRinging != 0)
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-//        if ((profile != null) && (profile._name.equals("Low battery"))) {
-//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//        }
-
-        // !!! test this only for preference key !!!
-        if ((profile == null) && preferenceKey.equals(PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS))
-        {
-            if (PPApplication.isRooted(fromUIThread)) {
-                // device is rooted
-
-                if (sharedPreferences != null) {
-                    String value = sharedPreferences.getString(PREF_PROFILE_DEVICE_BRIGHTNESS, defaultValuesString.get(PREF_PROFILE_DEVICE_BRIGHTNESS));
-                    if (getDeviceBrightnessChange(value) && getDeviceBrightnessAutomatic(value)) {
-                        if (applicationNeverAskForGrantRoot) {
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            // not needed to test all parameters
-                            return preferenceAllowed;
-                        }
-                    }
-                }
-
-                if (PPApplication.settingsBinaryExists(fromUIThread)) {
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-            } else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-            }
-
-            return preferenceAllowed;
-        }
-
-        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_DEVICE_POWER_SAVE_MODE))
-        {
-            if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                if (profile != null) {
-                    if (profile._devicePowerSaveMode != 0)
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            else
-            if (PPApplication.isRooted(fromUIThread)) {
-                // device is rooted
-
-                if (profile != null) {
-                    // test if grant root is disabled
-                    if (profile._devicePowerSaveMode != 0) {
-                        if (applicationNeverAskForGrantRoot) {
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                        }
-                    }
-                }
-                else
-                if (sharedPreferences != null) {
-                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                        if (applicationNeverAskForGrantRoot) {
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            // not needed to test all parameters
-                            return preferenceAllowed;
-                        }
-                    }
-                }
-
-                if (PPApplication.settingsBinaryExists(fromUIThread)) {
-                    if (profile != null) {
-                        if (profile._devicePowerSaveMode != 0)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-            }
-            else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-//                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "- profile._devicePowerSaveMode=" + profile._devicePowerSaveMode);
-                if ((profile != null) && (profile._devicePowerSaveMode != 0)) {
-//                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "_devicePowerSaveMode");
-                    //preferenceAllowed.notAllowedRoot = true;
-                    preferenceAllowed.notAllowedG1 = true;
-                }
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) ||
-                preferenceKey.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
-                preferenceKey.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM1) ||
-                preferenceKey.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE_SIM2))
-        {
-            if (PPApplication.HAS_FEATURE_TELEPHONY)
-            {
-                final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null) {
-                    int phoneCount = 1;
-                    if (Build.VERSION.SDK_INT >= 26)
-                        phoneCount = telephonyManager.getPhoneCount();
-//                    PPApplication.logE("[DUAL_SIM] isProfilePreferenceAllowed", "phoneCount="+phoneCount);
-
-                    final int phoneType = telephonyManager.getPhoneType();
-                    if ((phoneType == TelephonyManager.PHONE_TYPE_GSM) || (phoneType == TelephonyManager.PHONE_TYPE_CDMA)) {
-                        if (PPApplication.isRooted(fromUIThread)) {
-                            // device is rooted
-
-                            if (profile != null) {
-                                // test if grant root is disabled
-                                if (Build.VERSION.SDK_INT < 26) {
-                                    if ((profile._deviceNetworkType != 0)) {
-                                        if (applicationNeverAskForGrantRoot) {
-                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                        }
-                                    }
-                                }
-                                else {
-                                    if ((profile._deviceNetworkType != 0) ||
-                                            (profile._deviceNetworkTypeSIM1 != 0) ||
-                                            (profile._deviceNetworkTypeSIM2 != 0)
-                                    ) {
-                                        if (applicationNeverAskForGrantRoot) {
-                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            if (sharedPreferences != null) {
-                                if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                                    if (applicationNeverAskForGrantRoot) {
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                        // not needed to test all parameters
-                                        return preferenceAllowed;
-                                    }
-                                }
-                            }
-
-                            if (ActivateProfileHelper.telephonyServiceExists(PREF_PROFILE_DEVICE_NETWORK_TYPE)) {
-                                if (PPApplication.serviceBinaryExists(fromUIThread)) {
-                                    if (profile == null)
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                                    else {
-                                        if (Build.VERSION.SDK_INT < 26) {
-                                            if (profile._deviceNetworkType != 0)
-                                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                                        } else {
-                                            if ((profile._deviceNetworkType != 0) ||
-                                                    (profile._deviceNetworkTypeSIM1 != 0) ||
-                                                    (profile._deviceNetworkTypeSIM2 != 0))
-                                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                                        }
-                                    }
-                                }
-                                else
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
-                            } else {
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
-                            }
-
-                            if (Build.VERSION.SDK_INT >= 26) {
-                                if (phoneCount > 1) {
-                                    if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                                    }
-                                    if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                                    }
-                                }
-                            }
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 0, true)) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                            }
-                        } else {
-                            if (Build.VERSION.SDK_INT < 26) {
-                                if ((profile != null) &&
-                                        (profile._deviceNetworkType != 0)
-                                ) {
-                                    preferenceAllowed.notAllowedRoot = true;
-                                    //Log.e("isProfilePreferenceAllowed", "_deviceNetworkType");
-                                }
-                            }
-                            else {
-                                if ((profile != null) &&
-                                        ((profile._deviceNetworkType != 0) ||
-                                                (profile._deviceNetworkTypeSIM1 != 0) ||
-                                                (profile._deviceNetworkTypeSIM2 != 0))
-                                ) {
-                                    preferenceAllowed.notAllowedRoot = true;
-                                    //Log.e("isProfilePreferenceAllowed", "_deviceNetworkType");
-                                }
-                            }
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                        }
-                    } else {
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
-                    }
-                }
-                else {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_network_type);
-                }
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_NOTIFICATION_LED))
-        {
-            int value = Settings.System.getInt(appContext.getContentResolver(), "notification_light_pulse", -10);
-            if (value != -10) {
-//                 not working (private secure settings) :-/
-//                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-//                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-//                }
-//                else
-                if (PPApplication.isRooted(fromUIThread)) {
-                    // device is rooted
-
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile._notificationLed != 0) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            }
-                        }
-                    }
-                    else
-                    if (sharedPreferences != null) {
-                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return preferenceAllowed;
-                            }
-                        }
-                    }
-
-                    if (PPApplication.settingsBinaryExists(fromUIThread)) {
-                        if (profile != null) {
-                            if (profile._notificationLed != 0)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        }
-                        else
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-                }
-                else {
-                    if ((profile != null) && (profile._notificationLed != 0)) {
-                        preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("isProfilePreferenceAllowed", "_notificationLed");
-                    }
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                }
-            }
-            else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_KEYGUARD))
-        {
-            boolean secureKeyguard;
-            KeyguardManager keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
-            if (keyguardManager != null) {
-                secureKeyguard = keyguardManager.isKeyguardSecure();
-                if (secureKeyguard) {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_APPLICATION;
-                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_secure_lock);
-                } else
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
-        {
-            if (PPApplication.HAS_FEATURE_WIFI)
-                // device has Wifi
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING))
-        {
-            if (PPApplication.HAS_FEATURE_WIFI)
-                // device has Wifi
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_APPLICATION_DISABLE_BLUETOOTH_SCANNING))
-        {
-            if (PPApplication.HAS_FEATURE_BLUETOOTH)
-                // device has bluetooth
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_WIFI_AP_PREFS))
-        {
-            if (PPApplication.HAS_FEATURE_WIFI)
-            {
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_APPLICATION_DISABLE_MOBILE_CELL_SCANNING))
-        {
-            if (PPApplication.HAS_FEATURE_TELEPHONY)
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_APPLICATION_DISABLE_ORIENTATION_SCANNING))
-        {
-            if (PPApplication.sensorManager != null) {
-                boolean hasAccelerometer = PPApplication.accelerometerSensor != null;
-                //boolean hasMagneticField = PPApplication.magneticFieldSensor != null;
-                boolean hasProximity = PPApplication.proximitySensor != null;
-                boolean hasLight = PPApplication.lightSensor != null;
-
-                if (hasAccelerometer || hasProximity || hasLight)
-                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                else
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_HEADS_UP_NOTIFICATIONS))
-        {
-            int value = Settings.Global.getInt(appContext.getContentResolver(), "heads_up_notifications_enabled", -10);
-            if (value != -10) {
-                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                    if (profile != null) {
-                        if (profile._headsUpNotifications != 0)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                if (PPApplication.isRooted(fromUIThread)) {
-                    // device is rooted
-
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile._headsUpNotifications != 0) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            }
-                        }
-                    }
-                    else
-                    if (sharedPreferences != null) {
-                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return preferenceAllowed;
-                            }
-                        }
-                    }
-
-                    if (PPApplication.settingsBinaryExists(fromUIThread)) {
-                        if (profile != null) {
-                            if (profile._headsUpNotifications != 0)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        }
-                        else
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-                }
-                else {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-//                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "- profile._headsUpNotifications=" + profile._headsUpNotifications);
-                    if ((profile != null) && (profile._headsUpNotifications != 0)) {
-                        //return preferenceAllowed;
-//                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "_headsUpNotifications");
-                        //preferenceAllowed.notAllowedRoot = true;
-                        preferenceAllowed.notAllowedG1 = true;
-                    }
-                }
-            }
-            else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-//
-//        if (preferenceKey.equals(PREF_PROFILE_DEVICE_RUN_APPLICATION_CHANGE))
-//        {
-//            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-//
-//            if (profile == null)
-//                return preferenceAllowed;
-//        }
-//
-//
-//        if (preferenceKey.equals(PREF_PROFILE_DEVICE_FORCE_STOP_APPLICATION_CHANGE))
-//        {
-//            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-//
-//            if (profile == null)
-//                return preferenceAllowed;
-//        }
-//
-//
-//        if (preferenceKey.equals(PREF_PROFILE_LOCK_DEVICE))
-//        {
-//            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-//
-//            if (profile == null)
-//                return preferenceAllowed;
-//        }
-//
-
-        if (preferenceKey.equals(PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS))
-        {
-            if (PPApplication.HAS_FEATURE_TELEPHONY)
-            {
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_VOLUME_ACCESSIBILITY))
-        {
-            if (android.os.Build.VERSION.SDK_INT >= 26) {
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_ALWAYS_ON_DISPLAY))
-        {
-            if (android.os.Build.VERSION.SDK_INT >= 26) {
-                if (PPApplication.isRooted(fromUIThread)) {
-                    // device is rooted
-
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile._alwaysOnDisplay != 0) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                            }
-                        }
-                    }
-                    else
-                    if (sharedPreferences != null) {
-                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                // not needed to test all parameters
-                                return preferenceAllowed;
-                            }
-                        }
-                    }
-
-                    if (PPApplication.settingsBinaryExists(fromUIThread)) {
-                        if (profile != null) {
-                            if (profile._alwaysOnDisplay != 0)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        }
-                        else
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-                }
-                else {
-                    if ((profile != null) && (profile._alwaysOnDisplay != 0)) {
-                        preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("isProfilePreferenceAllowed", "_alwaysOnDisplay");
-                    }
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                }
-            }
-            else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) || preferenceKey.equals(PREF_PROFILE_SCREEN_DARK_MODE))
-        {
-            if (android.os.Build.VERSION.SDK_INT >= 29) {
-                if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
-                    if (profile != null) {
-                        if (profile._screenDarkMode != 0)
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                }
-                else
-                if (PPApplication.isRooted(fromUIThread))
-                {
-                    // device is rooted
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if (profile._screenDarkMode != 0) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            }
-                        }
-                    }
-                    else
-                    if (sharedPreferences != null) {
-                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return preferenceAllowed;
-                            }
-                        }
-                    }
-
-                    if (PPApplication.settingsBinaryExists(fromUIThread)) {
-                        if (profile != null) {
-                            if (profile._screenDarkMode != 0)
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        }
-                        else
-                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                    }
-                    else
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-                }
-                else {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION;
-//                    if (profile != null)
-//                        PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "- profile._screenDarkMode=" + profile._screenDarkMode);
-                    if ((profile != null) && (profile._screenDarkMode != 0)) {
-                        //return preferenceAllowed;
-//                        if (profile._name.equals("Low battery"))
-//                            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "_screenDarkMode");
-                        preferenceAllowed.notAllowedG1 = true;
-                    }
-                }
-            }
-            else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_old_android);
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_VOLUME_SPEAKER_PHONE))
-        {
-            if (Build.VERSION.SDK_INT < 29) {
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            else {
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_android_version);
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (preferenceKey.equals(PREF_PROFILE_CAMERA_FLASH))
-        {
-            if (PPApplication.HAS_FEATURE_CAMERA_FLASH)
-            {
-                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-            }
-            else
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) ||
-                preferenceKey.equals(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS))
-        {
-            if (Build.VERSION.SDK_INT >= 26) {
-                //if (PPApplication.HAS_FEATURE_TELEPHONY) {
-                    final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-//                        PPApplication.logE("[DUAL_SIM] isProfilePreferenceAllowed", "phoneCount="+phoneCount);
-
-                        if (PPApplication.isRooted(fromUIThread)) {
-                            // device is rooted
-                            if (profile != null) {
-                                // test if grant root is disabled
-                                if (!profile._deviceDefaultSIMCards.equals("0|0|0")) {
-                                    if (applicationNeverAskForGrantRoot) {
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                    }
-                                }
-                            } else if (sharedPreferences != null) {
-                                if (!sharedPreferences.getString(preferenceKey, "0|0|0").equals("0|0|0")) {
-                                    if (applicationNeverAskForGrantRoot) {
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                        // not needed to test all parameters
-                                        return preferenceAllowed;
-                                    }
-                                }
-                            }
-
-                            if (ActivateProfileHelper.telephonyServiceExists(PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS) && (phoneCount > 1)) {
-                                if (PPApplication.serviceBinaryExists(fromUIThread)) {
-                                    if (profile != null) {
-                                        if (!profile._deviceDefaultSIMCards.equals("0|0|0"))
-                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                                    }
-                                    else
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                                }
-                                else
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
-                            } else {
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                            }
-
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
-//                                PPApplication.logE("[DUAL_SIM] isProfilePreferenceAllowed", "not has sim 1");
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                            }
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
-//                                PPApplication.logE("[DUAL_SIM] isProfilePreferenceAllowed", "not has sim 2");
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                            }
-
-                        } else {
-                            if ((profile != null) &&
-                                    (!profile._deviceDefaultSIMCards.equals("0|0|0"))
-                            ) {
-                                preferenceAllowed.notAllowedRoot = true;
-                                //Log.e("isProfilePreferenceAllowed", "_deviceNetworkType");
-                            }
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                        }
-                    } else {
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                    }
-                //} else
-                //    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_HARDWARE;
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) ||
-                preferenceKey.equals(PREF_PROFILE_DEVICE_ONOFF_SIM1) ||
-                preferenceKey.equals(PREF_PROFILE_DEVICE_ONOFF_SIM2)) {
-            if (Build.VERSION.SDK_INT >= 26) {
-                if (PPApplication.isRooted(fromUIThread)) {
-                    // device is rooted
-
-                    if (profile != null) {
-                        // test if grant root is disabled
-                        if ((profile._deviceOnOffSIM1 != 0) ||
-                                (profile._deviceOnOffSIM2 != 0)) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                            }
-                        }
-                    } else if (sharedPreferences != null) {
-                        if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                            if (applicationNeverAskForGrantRoot) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                // not needed to test all parameters
-                                return preferenceAllowed;
-                            }
-                        }
-                    }
-
-                    if (ActivateProfileHelper.telephonyServiceExists(PREF_PROFILE_DEVICE_ONOFF_SIM1)) {
-                        if (PPApplication.serviceBinaryExists(fromUIThread)) {
-                            if (profile != null) {
-                                if ((profile._deviceOnOffSIM1 != 0) ||
-                                        (profile._deviceOnOffSIM2 != 0))
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                            }
-                            else
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                        }
-                        else
-                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SERVICE_NOT_FOUND;
-                    } else {
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                    }
-
-                    final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                            }
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                            }
-                        }
-                    } else {
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                    }
-                } else {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                    if ((profile != null) &&
-                            ((profile._deviceOnOffSIM1 != 0) ||
-                             (profile._deviceOnOffSIM2 != 0))) {
-                        preferenceAllowed.notAllowedRoot = true;
-                        //Log.e("isProfilePreferenceAllowed", "_deviceOnOffSIM");
-                    }
-                }
-            } else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) ||
-                preferenceKey.equals(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1) ||
-                preferenceKey.equals(PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2)) {
-            if (Build.VERSION.SDK_INT >= 26) {
-                if (PPApplication.deviceIsSamsung ||
-                     (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) ||
-                     (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
-                    final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-                            if (profile != null) {
-                                if ((profile._soundRingtoneChangeSIM1 != 0) ||
-                                        (profile._soundRingtoneChangeSIM2 != 0))
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                            }
-                            else
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                            }
-                            if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
-                                preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                            }
-                        }
-                    } else {
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                    }
-                }
-                else {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
-                }
-            }
-            else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) ||
-                preferenceKey.equals(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1) ||
-                preferenceKey.equals(PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2)) {
-            if (Build.VERSION.SDK_INT >= 26) {
-                if ((PPApplication.deviceIsSamsung ||
-                    (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI))) {
-                    final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-
-                            if (PPApplication.isRooted(fromUIThread)) {
-                                // device is rooted
-
-                                if (profile != null) {
-                                    // test if grant root is disabled
-                                    if ((profile._soundNotificationChangeSIM1 != 0) ||
-                                        (profile._soundNotificationChangeSIM2 != 0)) {
-                                        if (applicationNeverAskForGrantRoot) {
-                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                        }
-                                    }
-                                } else if (sharedPreferences != null) {
-                                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                                        if (applicationNeverAskForGrantRoot) {
-                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                            // not needed to test all parameters
-                                            return preferenceAllowed;
-                                        }
-                                    }
-                                }
-
-                                if (PPApplication.settingsBinaryExists(fromUIThread)) {
-                                    if (profile != null) {
-                                        if ((profile._soundNotificationChangeSIM1 != 0) ||
-                                                (profile._soundNotificationChangeSIM2 != 0))
-                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                                    }
-                                    else
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                                }
-                                else
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-
-                                if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                                }
-                                if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                                }
-
-                            } else {
-                                if ((profile != null) &&
-                                        ((profile._soundNotificationChangeSIM1 != 0) ||
-                                        (profile._soundNotificationChangeSIM2 != 0))
-                                ) {
-                                    preferenceAllowed.notAllowedRoot = true;
-                                    //Log.e("isProfilePreferenceAllowed", "_deviceNetworkType");
-                                }
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                            }
-                        }
-                    } else {
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                    }
-                }
-                else
-                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported);
-                }
-                else {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported_by_ppp);
-                }
-            } else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if ((profile != null) ||
-                preferenceKey.equals(PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)) {
-            if (Build.VERSION.SDK_INT >= 26) {
-                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                    final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-
-                            if (PPApplication.isRooted(fromUIThread)) {
-                                // device is rooted
-
-                                if (profile != null) {
-                                    // test if grant root is disabled
-                                    if ((profile._soundSameRingtoneForBothSIMCards != 0)) {
-                                        if (applicationNeverAskForGrantRoot) {
-                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                        }
-                                    }
-                                } else if (sharedPreferences != null) {
-                                    if (!sharedPreferences.getString(preferenceKey, "0").equals("0")) {
-                                        if (applicationNeverAskForGrantRoot) {
-                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                            preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED;
-                                            // not needed to test all parameters
-                                            return preferenceAllowed;
-                                        }
-                                    }
-                                }
-
-                                if (PPApplication.settingsBinaryExists(fromUIThread)) {
-                                    if (profile != null) {
-                                        if (profile._soundSameRingtoneForBothSIMCards != 0)
-                                            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                                    }
-                                    else
-                                        preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-                                }
-                                else
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
-
-                                if (!PhoneProfilesService.hasSIMCard(appContext, 1, true)) {
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                                }
-                                if (!PhoneProfilesService.hasSIMCard(appContext, 2, true)) {
-                                    preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
-                                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NO_SIM_CARD;
-                                }
-
-                            } else {
-                                if ((profile != null) &&
-                                        (profile._soundSameRingtoneForBothSIMCards != 0)
-                                ) {
-                                    preferenceAllowed.notAllowedRoot = true;
-                                    //Log.e("isProfilePreferenceAllowed", "_deviceNetworkType");
-                                }
-                                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-                            }
-                        }
-                    } else {
-                        preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                    }
-                } else {
-                    preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                    preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_not_supported);
-                }
-            } else {
-                preferenceAllowed.notAllowedReason = PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
-                preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-            }
-
-            if (profile == null)
-                return preferenceAllowed;
-        }
-
-        if (profile == null)
-            preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_ALLOWED;
-
-//        if ((profile != null) && (profile._name.equals("Low battery"))) {
-//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
-//        }
-
-//        if (profile != null)
-//            PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "profile != null - END");
-
-        return preferenceAllowed;
-    }
-*/
     public int isAccessibilityServiceEnabled(Context context) {
-        int accessibilityEnabled;
+        int accessibilityEnabled = -99;
+
         int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(context);
         if (extenderVersion == 0)
+            // not installed
             accessibilityEnabled = -2;
         else
-        if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context))
-            //noinspection ConstantConditions
+        if ((this._deviceForceStopApplicationChange != 0) ||
+            (this._lockDevice != 0)) {
+            if (this._deviceForceStopApplicationChange != 0) {
+                if ((extenderVersion > 0) &&
+                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2))
+                    // old version
+                    accessibilityEnabled = -1;
+            }
+            if (this._lockDevice == 3) {
+                if ((extenderVersion > 0) &&
+                        (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1_2))
+                    // old version
+                    accessibilityEnabled = -1;
+            }
+            if (accessibilityEnabled == -99) {
+                // Extender is in right version
+                if (PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(context, true))
+                    // accessibility enabled
+                    accessibilityEnabled = 1;
+                else
+                    // accessibility disabled
+                    accessibilityEnabled = 0;
+            }
+        }
+        if (accessibilityEnabled == -99)
             accessibilityEnabled = 1;
-        else
-            accessibilityEnabled = 0;
-
-        /*
-        if (this._deviceForceStopApplicationChange != 0) {
-            if ((extenderVersion > 0) &&
-                    (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1))
-                accessibilityEnabled = -1;
-        }
-        if (this._lockDevice == 3) {
-            if ((extenderVersion > 0) &&
-                    (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_6_1))
-                accessibilityEnabled = -1;
-        }
-        */
 
         return accessibilityEnabled;
     }

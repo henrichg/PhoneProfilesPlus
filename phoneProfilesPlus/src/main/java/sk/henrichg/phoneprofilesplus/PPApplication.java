@@ -17,6 +17,7 @@ import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -89,8 +90,9 @@ public class PPApplication extends Application
     //static final int VERSION_CODE_EXTENDER_5_1_3_1 = 540;
     //static final int VERSION_CODE_EXTENDER_5_1_4_1 = 600;
     //static final int VERSION_CODE_EXTENDER_6_0 = 620;
-    static final int VERSION_CODE_EXTENDER_6_1 = 660;
-    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_6_1;
+    static final int VERSION_CODE_EXTENDER_6_1_2 = 670;
+    static final int VERSION_CODE_EXTENDER_LATEST = VERSION_CODE_EXTENDER_6_1_2;
+    static final String VERSION_NAME_EXTENDER_LATEST = "6.1.2";
 
     static final int pid = Process.myPid();
     static final int uid = Process.myUid();
@@ -117,11 +119,17 @@ public class PPApplication extends Application
     static final String PRIVACY_POLICY_URL = "https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html";
 
     static final String GITHUB_PPP_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlus/releases";
+    static final String GITHUB_PPP_DOWNLOAD_URL_1 = "https://github.com/henrichg/PhoneProfilesPlus/releases/download/";
+    static final String GITHUB_PPP_DOWNLOAD_URL_2 = "/PhoneProfilesPlus.apk";
+
+    static final String GITHUB_PPPE_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
+    static final String GITHUB_PPPE_DOWNLOAD_URL_1 = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases/download/";
+    static final String GITHUB_PPPE_DOWNLOAD_URL_2 = "/PhoneProfilesPlusExtender.apk";
+
     static final String GITHUB_PPP_URL = "https://github.com/henrichg/PhoneProfilesPlus";
     static final String GITHUB_PPPE_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender";
     static final String XDA_DEVELOPERS_PPP_URL = "https://forum.xda-developers.com/android/apps-games/phone-profile-plus-t3799429";
     static final String PAYPAL_DONATION_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=AF5QK49DMAL2U";
-    static final String GITHUB_PPPE_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
 
     // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases_debug.md
     // This is file: https://github.com/henrichg/PhoneProfilesPlus/blob/master/docs/releases.md
@@ -132,6 +140,7 @@ public class PPApplication extends Application
     static final String FDROID_APPLICATION_URL = "https://www.f-droid.org/";
     static final String FDROID_REPOSITORY_URL = "https://apt.izzysoft.de/fdroid/index/info";
     static final String AMAZON_APPSTORE_APPLICATION_URL = "https://www.amazon.com/gp/mas/get/amazonapp";
+    static final String APKPURE_PPP_RELEASES_URL = "https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus";
 
 
     //static final boolean gitHubRelease = true;
@@ -185,12 +194,14 @@ public class PPApplication extends Application
                                                 +"|DatabaseHandler.onUpgrade"
                                                 //+"|IgnoreBatteryOptimizationNotification"
                                                 //+"|LauncherActivity.startPPServiceWhenNotStarted"
+                                                //+"|PPApplication.updateGUI"
 
                                                 //+"|DatabaseHandler.onCreate"
                                                 //+"|DatabaseHandler.createTableColumsWhenNotExists"
 
                                                 //+"|%%%%% MobileCellsScanner.doAutoRegistration"
                                                 //+"|CmdWifiAP.isEnabled"
+                                                //+"|WifiApManager.isWifiAPEnabled"
                                                 //+"|CmdWifiAP.setWifiAP"
                                                 //+"|WifiApManager.setWifiApState"
 
@@ -226,6 +237,7 @@ public class PPApplication extends Application
 //                                                +"|[EVENTS_HANDLER_CALL]"
 //                                                +"|[TEST BATTERY]"
 //                                                +"|[APP_START]"
+//                                                +"|[HANDLER]"
                                                 //+"|[SHEDULE_WORK]"
                                                 //+"|[SHEDULE_SCANNER]"
                                                 //+"|[TEST MEDIA VOLUME]"
@@ -237,88 +249,12 @@ public class PPApplication extends Application
                                                 //+"|[BACKGROUND_ACTIVITY]"
                                                 //+"|[START_PP_SERVICE]"
                                                 //+"|[BRS]"
+                                                //+"|[CONNECTIVITY_TEST]"
 
-                                                //+"|PhoneProfilesService.registerReceiverForCalendarSensor"
-                                                //+"|EventPreferencesCalendar"
-                                                //+"|CalendarEventExistsCheckBroadcastReceiver"
-                                                //+"|ActivateProfileHelper.setScreenTimeout"
-                                                //+"|ContactGroupsCache"
-                                                //+"|EventsPrefsFragment"
-                                                //+"|PPWifiNetworkCallback"
-                                                //+"|EventsHandler.handleEvents"
+                                                //+"|PApplication.getReleaseData"
+                                                //+"|CheckGitHubReleasesActivity"
 
-                                                //+"|ContactsContentObserver.onChange"
-                                                //+"|ContactsContentObserverWorker.doWork"
-                                                //+"|ContactsCache.getContactList"
-                                                //+"|ContactGroupsCache.getContactGroupListX"
-
-                                                //+"|LocationGeofenceEditorActivityOSM"
-                                                //+"|TimeChangedReceiver"
-                                                //+"|MainWorker.doWork"
-                                                //+"|LocationScannerSwitchGPSBroadcastReceiver.onReceive"
-                                                //+"|LocationScannerSwitchGPSBroadcastReceiver.doWork"
-                                                //+"|LocationScanner"
-                                                //+"|LocationSensorWorker"
-
-                                                //+"|CheckCriticalGitHubReleasesBroadcastReceiver"
-                                                //+"|CheckGitHubReleasesBroadcastReceiver"
-                                                //+"|DonationBroadcastReceiver"
-                                                //+"|PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers"
-
-                                                //+"|ActivateProfileHelper.setMobileData"
-                                                //+"|[DUAL_SIM]"
-                                                //+"|WifiNetworkCallback"
-                                                //+"|MobileDataNetworkCallback"
-                                                //+"|EventPreferencesRadioSwitch.doHandleEvent"
-                                                //+"|BluetoothConnectionBroadcastReceiver"
-
-                                                //+"|ActivateProfileHelper.setDefaultSimCard"
-
-                                                //+"|ActivateProfileHelper.setTones"
-                                                //+"|PPApplication.getServicesList"
-                                                //+"|[DEFAULT_SIM]"
-                                                //+"|[ROOT]"
-
-                                                //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
-                                                //+"|PhoneCallsListener"
-                                                //+"|PPPExtenderBroadcastReceiver"
-
-                                                //+"|PhoneProfilesService.doSimulatingRingingCall"
-                                                //+"|PhoneProfilesService.startSimulatingRingingCall"
-                                                //+"|PhoneProfilesService.stopSimulatingRingingCall"
-                                                //+"|EventsHandler.doEndHandler"
-                                                //+"|PPApplication.getCallState"
-
-                                                //+"|EventPreferencesCall.doHandleEvent"
-                                                //+"|EventPreferencesSMS"
-
-                                                //+"|MobileCellsScanner"
-                                                //+"|MobileCellsListener"
-                                                //+"|MobileCellsPreferenceFragmentX"
-                                                //+"|EventPreferencesMobileCells"
-
-                                                //+"|EventPreferencesTime"
-
-                                                //+"|BrightnessDialogPreferenceFragmentX"
-
-                                                //+"|PPTileService"
-                                                //+"|TileChooserListFragment"
-                                                //+"|LongClickTileChooserActivity"
-                                                //+"|QuickTileChooseTileBroadcastReceiver"
-
-                                                //+"|------ EventsPrefsFragment.isRedTextNotificationRequired"
-                                                //+"|OneRowWidgetProvider"
-
-                                                //+"|ScreenOnOffBroadcastReceiver"
-                                                //+"|LockDeviceAfterScreenOffBroadcastReceiver"
-
-                                                //+"|PPPExtenderBroadcastReceiver.onReceive"
-                                                //+"|PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled"
-
-                                                //+"|CheckCriticalGitHubReleasesBroadcastReceiver._doWork"
-
-                                                //+"|PhoneProfilesPrefsActivity"
-                                                //+"|EditorProfilesActivity"
+                                                //+"|WifiApManager._startTethering30"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -425,7 +361,7 @@ public class PPApplication extends Application
     static final SIMCardsMutex simCardsMutext = new SIMCardsMutex();
     static final ServiceListMutex serviceListMutex = new ServiceListMutex();
     //static final RadioChangeStateMutex radioChangeStateMutex = new RadioChangeStateMutex();
-    //static final NotificationsChangeMutex notificationsChangeMutex = new NotificationsChangeMutex();
+    static final ShowPPPNotificationMutex showPPPNotificationMutex = new ShowPPPNotificationMutex();
     static final LocationScannerLastLocationMutex locationScannerLastLocationMutex = new LocationScannerLastLocationMutex();
     static final LocationScannerMutex locationScannerMutex = new LocationScannerMutex();
     static final WifiScannerMutex wifiScannerMutex = new WifiScannerMutex();
@@ -452,6 +388,7 @@ public class PPApplication extends Application
     static final boolean deviceIsOppo = isOppo();
     static final boolean deviceIsRealme = isRealme();
     static final boolean deviceIsLenovo = isLenovo();
+    static final boolean deviceIsPixel = isPixel();
     static final boolean romIsMIUI = isMIUIROM();
     static final boolean romIsEMUI = isEMUIROM();
 
@@ -566,6 +503,8 @@ public class PPApplication extends Application
     static final String PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_WIFI_AP_ERROR_NOTIFICATION";
     static final int PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_ID = 133;
     static final String PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION";
+    static final int EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_ID = 134;
+    static final String EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_TAG = PACKAGE_NAME+"EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION";
 
     // notifications have also tag, in it is tag name + profile/event/mobile cells id
     static final int PROFILE_ID_NOTIFICATION_ID = 1000;
@@ -611,6 +550,7 @@ public class PPApplication extends Application
     //private static final String PREF_WIDGET_PROFILE_NAME = "widget_profile_name";
     //private static final String PREF_ACTIVITY_PROFILE_NAME = "activity_profile_name";
     private static final String PREF_LAST_ACTIVATED_PROFILE = "last_activated_profile";
+    private static final String PREF_WALLPAPER_CHANGE_TIME = "wallpaper_change_time";
 
     // WorkManager tags
     static final String AFTER_FIRST_START_WORK_TAG = "afterFirstStartWork";
@@ -643,7 +583,7 @@ public class PPApplication extends Application
     //static final int SCANNER_START_TWILIGHT_SCANNER = 17;
     //static final int SCANNER_STOP_TWILIGHT_SCANNER = 18;
     static final int SCANNER_RESTART_TWILIGHT_SCANNER = 19;
-    static final int SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER = 20;
+    static final int SCANNER_RESTART_PERIODIC_SCANNING_SCANNER = 20;
     static final int SCANNER_RESTART_NOTIFICATION_SCANNER = 21;
 
     static final int SCANNER_RESTART_ALL_SCANNERS = 50;
@@ -651,8 +591,7 @@ public class PPApplication extends Application
     //static final String EXTENDER_ACCESSIBILITY_SERVICE_ID = "sk.henrichg.phoneprofilesplusextender/.PPPEAccessibilityService";
     static final String EXTENDER_ACCESSIBILITY_PACKAGE_NAME = "sk.henrichg.phoneprofilesplusextender";
 
-    static final String ACTION_PPPEXTENDER_IS_RUNNING = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_PPPEXTENDER_IS_RUNNING";
-    static final String ACTION_PPPEXTENDER_IS_RUNNING_ANSWER = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_PPPEXTENDER_IS_RUNNING_ANSWER";
+    static final String ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_IS_CONNECTED";
     static final String ACTION_ACCESSIBILITY_SERVICE_CONNECTED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_CONNECTED";
     static final String ACTION_ACCESSIBILITY_SERVICE_UNBIND = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ACCESSIBILITY_SERVICE_UNBIND";
     static final String ACTION_FOREGROUND_APPLICATION_CHANGED = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_FOREGROUND_APPLICATION_CHANGED";
@@ -731,7 +670,10 @@ public class PPApplication extends Application
     static LockDeviceActivity lockDeviceActivity = null;
     static int screenTimeoutBeforeDeviceLock = 0;
 
-    static boolean accessibilityServiceForPPPExtenderConnected = false;
+    // 0 = wait for answer from Extender;
+    // 1 = Extender is connected,
+    // 2 = Extender is disconnected
+    static int accessibilityServiceForPPPExtenderConnected = 2;
 
     //boolean willBeDoRestartEvents = false;
 
@@ -790,7 +732,6 @@ public class PPApplication extends Application
     static BluetoothScanBroadcastReceiver bluetoothScanReceiver = null;
     static BluetoothLEScanBroadcastReceiver bluetoothLEScanReceiver = null;
     static PPPExtenderBroadcastReceiver pppExtenderBroadcastReceiver = null;
-    static PPPExtenderBroadcastReceiver pppExtenderPPPExtenderIsRunningBroadcastReceiver = null;
     static PPPExtenderBroadcastReceiver pppExtenderForceStopApplicationBroadcastReceiver = null;
     static PPPExtenderBroadcastReceiver pppExtenderForegroundApplicationBroadcastReceiver = null;
     static PPPExtenderBroadcastReceiver pppExtenderSMSBroadcastReceiver = null;
@@ -816,6 +757,7 @@ public class PPApplication extends Application
     static DeviceIdleModeBroadcastReceiver deviceIdleModeReceiver = null;
     static DeviceBootEventEndBroadcastReceiver deviceBootEventEndBroadcastReceiver = null;
     static CalendarEventExistsCheckBroadcastReceiver calendarEventExistsCheckBroadcastReceiver = null;
+    static PeriodicEventEndBroadcastReceiver periodicEventEndBroadcastReceiver = null;
 
     static SettingsContentObserver settingsContentObserver = null;
     static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
@@ -1040,6 +982,7 @@ public class PPApplication extends Application
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsOnePlus=" + deviceIsOnePlus);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsOppo=" + deviceIsOppo);
             PPApplication.logE("##### PPApplication.onCreate", "deviceIsRealme=" + deviceIsRealme);
+            PPApplication.logE("##### PPApplication.onCreate", "deviceIsPixel=" + deviceIsPixel);
 
             PPApplication.logE("##### PPApplication.onCreate", "romIsMIUI=" + romIsMIUI);
             PPApplication.logE("##### PPApplication.onCreate", "romIsEMUI=" + romIsEMUI);
@@ -1056,7 +999,7 @@ public class PPApplication extends Application
             PPApplication.logE("##### PPApplication.onCreate", "modVersion=" + getReadableModVersion());
             PPApplication.logE("##### PPApplication.onCreate", "osVersion=" + System.getProperty("os.version"));
 
-            PPApplication.logE("##### PPApplication.onCreate", "deviceName="+ Settings.System.getString(getContentResolver(), "device_name"));
+            PPApplication.logE("##### PPApplication.onCreate", "deviceName="+ Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME));
             PPApplication.logE("##### PPApplication.onCreate", "release="+ Build.VERSION.RELEASE);
 
             PPApplication.logE("##### PPApplication.onCreate", "board="+ Build.BOARD);
@@ -1253,6 +1196,30 @@ public class PPApplication extends Application
             return;
         }
 
+        String packageVersion = "";
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+            packageVersion = " - v" + pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
+        } catch (Exception e) {
+            PPApplication.recordException(e);
+        }
+
+        String body;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1)
+            body = getString(R.string.important_info_email_body_device) + " " +
+                    Settings.Global.getString(getContentResolver(), Settings.Global.DEVICE_NAME) +
+                    " (" + Build.MODEL + ")" + " \n";
+        else {
+            String manufacturer = Build.MANUFACTURER;
+            String model = Build.MODEL;
+            if (model.startsWith(manufacturer))
+                body = getString(R.string.important_info_email_body_device) + " " + model + " \n";
+            else
+                body = getString(R.string.important_info_email_body_device) + " " + manufacturer + " " + model + " \n";
+        }
+        body = body + getString(R.string.important_info_email_body_android_version) + " " + Build.VERSION.RELEASE + " \n\n";
+        body = body + getString(R.string.acra_email_body_text);
+
         PPApplication.logE("##### PPApplication.attachBaseContext", "ACRA inittialization");
         CoreConfigurationBuilder builder = new CoreConfigurationBuilder(this)
                 .withBuildConfigClass(BuildConfig.class)
@@ -1262,7 +1229,7 @@ public class PPApplication extends Application
         //        .setEnabled(true);
         builder.getPluginConfigurationBuilder(NotificationConfigurationBuilder.class)
                 .withResChannelName(R.string.notification_channel_crash_report)
-                .withResChannelImportance(NotificationManager.IMPORTANCE_DEFAULT)
+                .withResChannelImportance(NotificationManager.IMPORTANCE_HIGH)
                 .withResIcon(R.drawable.ic_exclamation_notify)
                 .withResTitle(R.string.acra_notification_title)
                 .withResText(R.string.acra_notification_text)
@@ -1272,8 +1239,8 @@ public class PPApplication extends Application
                 .withEnabled(true);
         builder.getPluginConfigurationBuilder(MailSenderConfigurationBuilder.class)
                 .withMailTo("henrich.gron@gmail.com")
-                .withResSubject(R.string.acra_email_subject_text)
-                .withResBody(R.string.acra_email_body_text)
+                .withSubject("PhoneProfilesPlus" + packageVersion + " - " + getString(R.string.acra_email_subject_text))
+                .withBody(body)
                 .withReportAsFile(true)
                 .withReportFileName("crash_report.txt")
                 .withEnabled(true);
@@ -1464,7 +1431,10 @@ public class PPApplication extends Application
 
         final Context appContext = context.getApplicationContext();
 
-        updateGUI(0, appContext/*, true, true*/);
+        if (!oldApplicationFullyStarted) {
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=PPApplication.setApplicationFullyStarted");
+            updateGUI(true, false, appContext);
+        }
 
         if (!oldApplicationFullyStarted && normalServiceStart && showToastForProfileActivation) {
             // it is not restart of application by system
@@ -1796,110 +1766,28 @@ public class PPApplication extends Application
         TileService.requestListeningState(context, new ComponentName(context, PPTileService5.class));
 
         if (alsoNotification) {
-/*            // KEEP IT AS WORK !!!
-            // update immediate (without initialDelay())
-            OneTimeWorkRequest worker =
-                    new OneTimeWorkRequest.Builder(ShowProfileNotificationWorker.class)
-                            .addTag(ShowProfileNotificationWorker.WORK_TAG)
-                            .build();
-            try {
-                if (PPApplication.getApplicationStarted(true)) {
-                    WorkManager workManager = PPApplication.getWorkManagerInstance();
-                    if (workManager != null) {
-
-//                        //if (PPApplication.logEnabled()) {
-//                        ListenableFuture<List<WorkInfo>> statuses;
-//                        statuses = workManager.getWorkInfosForUniqueWork(ShowProfileNotificationWorker.WORK_TAG);
-//                        try {
-//                            List<WorkInfo> workInfoList = statuses.get();
-//                            PPApplication.logE("[TEST BATTERY] PPApplication.forceUpdateGUI", "for=" + ShowProfileNotificationWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                        } catch (Exception ignored) {
-//                        }
-//                        //}
-
-//                        PPApplication.logE("[WORKER_CALL] PPApplication.forceUpdateGUI", "PPP notification");
-                        workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                    }
-                }
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
- */
-            PhoneProfilesService.drawProfileNotification(200, context);
+            PhoneProfilesService.drawProfileNotification(true, context);
         }
     }
 
-    static void updateGUI(int delay, Context context/*, boolean alsoEditor, boolean refresh*/)
+    static void updateGUI(final boolean drawImmediattely, final boolean longDelay, final Context context)
     {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("PPApplication.updateGUI", "lockRefresh=" + lockRefresh);
-            PPApplication.logE("PPApplication.updateGUI", "doImport=" + EditorProfilesActivity.doImport);
-            PPApplication.logE("PPApplication.updateGUI", "alsoEditor=" + alsoEditor);
-            PPApplication.logE("PPApplication.updateGUI", "refresh=" + refresh);
-        }*/
-
-        /*
-        if (!refresh) {
-            if (lockRefresh || EditorProfilesActivity.doImport)
-                // no refresh widgets
-                return;
-        }
-
-        //PPApplication.logE("PPApplication.updateGUI", "send broadcast");
-        Intent intent5 = new Intent(PPApplication.ACTION_UPDATE_GUI);
-        intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH, refresh);
-        intent5.putExtra(UpdateGUIBroadcastReceiver.EXTRA_REFRESH_ALSO_EDITOR, alsoEditor);
-        context.sendBroadcast(intent5);
-        */
-
-//        PPApplication.logE("------- PPApplication.updateGUI", "delay=" + delay);
-
-/*
-        OneTimeWorkRequest worker;
-        if (delay == 0) {
-            worker =
-                    new OneTimeWorkRequest.Builder(UpdateGUIWorker.class)
-                            .addTag(UpdateGUIWorker.WORK_TAG)
-                            .build();
-        }
-        else {
-            worker =
-                    new OneTimeWorkRequest.Builder(UpdateGUIWorker.class)
-                            .addTag(UpdateGUIWorker.WORK_TAG)
-                            .setInitialDelay(delay, TimeUnit.SECONDS)
-                            .build();
-        }
-        try {
-            if (PPApplication.getApplicationStarted(true)) {
-                WorkManager workManager = PPApplication.getWorkManagerInstance();
-                if (workManager != null) {
-//                    //if (PPApplication.logEnabled()) {
-//                    ListenableFuture<List<WorkInfo>> statuses;
-//                    statuses = workManager.getWorkInfosForUniqueWork(UpdateGUIWorker.WORK_TAG);
-//                    try {
-//                        List<WorkInfo> workInfoList = statuses.get();
-//                        PPApplication.logE("[TEST BATTERY] PPApplication.updateGUI", "for=" + UpdateGUIWorker.WORK_TAG + " workInfoList.size()=" + workInfoList.size());
-//                    } catch (Exception ignored) {
-//                    }
-//                    //}
-
-//                    PPApplication.logE("[WORKER_CALL] PPApplication.updateGUI", "xxx");
-                    workManager.enqueueUniqueWork(UpdateGUIWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
-                }
-            }
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
-*/
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("PPApplication.updateGUI", "drawImmediattely=" + drawImmediattely);
+//            PPApplication.logE("PPApplication.updateGUI", "longDelay=" + longDelay);
+//        }
 
         try {
             final Context appContext = context.getApplicationContext();
 
-            if (delay == 0) {
+            if (drawImmediattely) {
                 PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
                 return;
             }
 
+            int delay = 1;
+            if (longDelay)
+                delay = 10;
             PPApplication.startHandlerThread(/*"ActionForExternalApplicationActivity.onStart.1"*/);
             final Handler __handler = new Handler(PPApplication.handlerThread.getLooper());
             //__handler.postDelayed(new PPApplication.PPHandlerThreadRunnable(
@@ -1918,7 +1806,10 @@ public class PPApplication extends Application
                         }
 
     //                    PPApplication.logE("PPApplication.updateGUI", "call of forceUpdateGUI");
-                        PPApplication.forceUpdateGUI(appContext, true, true/*, true*/);
+
+                        // for longDelay=true, redraw also notiification
+                        // for longDelay=false, notification redraw is called after this postDelayed()
+                        PPApplication.forceUpdateGUI(appContext, true, longDelay/*, true*/);
 
     //                PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.updateGUI");
                     } catch (Exception e) {
@@ -1934,6 +1825,9 @@ public class PPApplication extends Application
                     }
                 //}
             }, delay * 1000L);
+
+            if (!longDelay)
+                PhoneProfilesService.drawProfileNotification(false, context);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -1986,6 +1880,7 @@ public class PPApplication extends Application
         //getWidgetProfileName(context);
         //getActivityProfileName(context);
         getLastActivatedProfile(context);
+        getWallpaperChangeTime(context);
         Event.getEventsBlocked(context);
         Event.getForceRunEventRunning(context);
         PPPExtenderBroadcastReceiver.getApplicationInForeground(context);
@@ -2160,10 +2055,10 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationWidgetIconShowProfileDuration(context);
             ApplicationPreferences.notificationNotificationStyle(context);
             ApplicationPreferences.notificationShowProfileIcon(context);
-            ApplicationPreferences.applicationEventBackgroundScanningEnableScanning(context);
-            ApplicationPreferences.applicationEventBackgroundScanningScanInterval(context);
-            ApplicationPreferences.applicationEventBackgroundScanningScanInPowerSaveMode(context);
-            ApplicationPreferences.applicationEventBackgroundScanningScanOnlyWhenScreenIsOn(context);
+            ApplicationPreferences.applicationEventPeriodicScanningEnableScanning(context);
+            ApplicationPreferences.applicationEventPeriodicScanningScanInterval(context);
+            ApplicationPreferences.applicationEventPeriodicScanningScanInPowerSaveMode(context);
+            ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn(context);
             ApplicationPreferences.applicationEventWifiScanIgnoreHotspot(context);
             ApplicationPreferences.applicationEventNotificationEnableScanning(context);
             ApplicationPreferences.applicationEventNotificationScanInPowerSaveMode(context);
@@ -2177,9 +2072,9 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList(context);
             ApplicationPreferences.applicationActivatorIncreaseBrightness(context);
 
-            ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyFrom(context);
-            ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiplyTo(context);
-            ApplicationPreferences.applicationEventBackgroundScanningScanInTimeMultiply(context);
+            ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
+            ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);
+            ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiply(context);
             ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventBluetoothScanInTimeMultiplyTo(context);
             ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply(context);
@@ -2388,6 +2283,27 @@ public class PPApplication extends Application
             editor.putLong(PREF_LAST_ACTIVATED_PROFILE, profileId);
             editor.apply();
             prefLastActivatedProfile = profileId;
+        }
+    }
+
+    static long wallpaperChangeTime;
+    private static void getWallpaperChangeTime(Context context)
+    {
+        synchronized (applicationGlobalPreferencesMutex) {
+            wallpaperChangeTime = ApplicationPreferences.
+                    getSharedPreferences(context).getLong(PREF_WALLPAPER_CHANGE_TIME, 0);
+            //return prefLastActivatedProfile;
+        }
+    }
+    static public void setWallpaperChangeTime(Context context)
+    {
+        synchronized (applicationGlobalPreferencesMutex) {
+            Calendar now = Calendar.getInstance();
+            long _time = now.getTimeInMillis();
+            Editor editor = ApplicationPreferences.getEditor(context);
+            editor.putLong(PREF_WALLPAPER_CHANGE_TIME, _time);
+            editor.apply();
+            wallpaperChangeTime = _time;
         }
     }
 
@@ -2920,15 +2836,15 @@ public class PPApplication extends Application
         }
 
         try {
-            //PPApplication.logE("PPApplication._isRooted", "start isRootAvailable");
+            //PPApplication.logE("[ROOT] PPApplication._isRooted", "start isRootAvailable");
             //if (roottools.isRootAvailable()) {
             //noinspection RedundantIfStatement
             if (RootToolsSmall.isRooted()) {
                 // device is rooted
-                //PPApplication.logE("PPApplication._isRooted", "root available");
+                //PPApplication.logE("[ROOT] PPApplication._isRooted", "root available");
                 rootMutex.rooted = true;
             } else {
-                //PPApplication.logE("PPApplication._isRooted", "root NOT available");
+                //PPApplication.logE("[ROOT] PPApplication._isRooted", "root NOT available");
                 rootMutex.rooted = false;
                 //rootMutex.settingsBinaryExists = false;
                 //rootMutex.settingsBinaryChecked = false;
@@ -2970,6 +2886,9 @@ public class PPApplication extends Application
     }
 
     static boolean isRooted(boolean fromUIThread) {
+//        PPApplication.logE("[ROOT] PPApplication.isRooted", "rootMutex.rootChecked="+rootMutex.rootChecked);
+//        PPApplication.logE("[ROOT] PPApplication.isRooted", "rootMutex.rooted="+rootMutex.rooted);
+
         if (rootMutex.rootChecked)
             return rootMutex.rooted;
 
@@ -3522,19 +3441,19 @@ public class PPApplication extends Application
         }
     }
 
-    public static void restartBackgroundScanningScanner(Context context/*, boolean forScreenOn*/) {
+    public static void restartPeriodicScanningScanner(Context context/*, boolean forScreenOn*/) {
         try {
             //PPApplication.logE("[RJS] PPApplication.restartWifiScanner", "xxx");
             /*Intent serviceIntent = new Intent(context.getApplicationContext(), PhoneProfilesService.class);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER);
+            serviceIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PERIODIC_SCANNING_SCANNER);
             serviceIntent.putExtra(PhoneProfilesService.EXTRA_FOR_SCREEN_ON, forScreenOn);
             PPApplication.startPPService(context, serviceIntent);*/
             Intent commandIntent = new Intent(PhoneProfilesService.ACTION_COMMAND);
             //commandIntent.putExtra(PhoneProfilesService.EXTRA_ONLY_START, false);
             commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER, true);
-            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_BACKGROUND_SCANNING_SCANNER);
+            commandIntent.putExtra(PhoneProfilesService.EXTRA_START_STOP_SCANNER_TYPE, SCANNER_RESTART_PERIODIC_SCANNING_SCANNER);
             PPApplication.runCommand(context, commandIntent);
         } catch (Exception e) {
             PPApplication.recordException(e);
@@ -4012,6 +3931,12 @@ public class PPApplication extends Application
                 Build.FINGERPRINT.toLowerCase().contains("lenovo");
     }
 
+    private static boolean isPixel() {
+        return Build.BRAND.equalsIgnoreCase("google") ||
+                Build.MANUFACTURER.equalsIgnoreCase("google") ||
+                Build.FINGERPRINT.toLowerCase().contains("google");
+    }
+
     private static String getReadableModVersion() {
         String modVer = getSystemProperty(SYS_PROP_MOD_VERSION);
         return (modVer == null || modVer.length() == 0 ? "Unknown" : modVer);
@@ -4124,7 +4049,7 @@ public class PPApplication extends Application
                 if (dataWrapper != null) {
                     synchronized (PPApplication.profileActivationMutex) {
                         List<String> activateProfilesFIFO = new ArrayList<>();
-                        dataWrapper.saveActivatedProfilesFIFO(activateProfilesFIFO);
+                        dataWrapper.fifoSaveProfiles(activateProfilesFIFO);
                     }
                 }
             }
@@ -4509,6 +4434,43 @@ public class PPApplication extends Application
 //        }
     }
 
+    // ----------------------
+
+    static String getRealPath(Uri treeUri)
+    {
+        if (treeUri == null)
+            return "";
+        String path1 = treeUri.getPath();
+        if (path1.startsWith("/tree/"))
+        {
+            String path2 = path1.substring("/tree/".length());
+//            Log.e("PPApplication.getRealPath", "path2="+path2);
+            if (path2.startsWith("primary:"))
+            {
+                String primary = path2.substring(0, "primary:".length());
+//                Log.e("PPApplication.getRealPath", "primary="+primary);
+                if (primary.contains(":"))
+                {
+                    String storeName = "/storage/emulated/0/";
+                    String[] splits = path2.split(":");
+                    String last = splits[splits.length-1];
+                    return storeName + last;
+                }
+            }
+            else
+            {
+                if (path2.contains(":"))
+                {
+                    String[] splits = path2.split(":");
+                    String storeName = splits[0];
+                    String last = splits[splits.length-1];
+                    return  "/" + storeName + "/" + last;
+                }
+            }
+        }
+        return path1;
+    }
+
 
 /*    //-----------------------------
 
@@ -4725,6 +4687,88 @@ public class PPApplication extends Application
         }
         else
             return false;
+    }
+
+    // get PPP version from relases.md ----------------------------------------------
+
+    static class PPPReleaseData {
+        String versionNameInReleases = "";
+        int versionCodeInReleases = 0;
+        boolean critical = true;
+    }
+
+    static PPPReleaseData getReleaseData(String contents, boolean forceDoData, Context appContext) {
+        // this must be added when you tests debug branch
+//        if (DebugVersion.enabled)
+//            contents = "@@@ppp-release:5.1.1.1b:6651:normal***@@@";
+//
+//        PPApplication.logE("CheckCriticalGitHubReleasesBroadcastReceiver.doWork", "contents="+contents);
+
+        boolean doData = false;
+        try {
+            PPPReleaseData pppReleaseData = new PPPReleaseData();
+
+            if (!contents.isEmpty()) {
+                int startIndex = contents.indexOf("@@@ppp-release:");
+                int endIndex = contents.indexOf("***@@@");
+                if ((startIndex >= 0) && (endIndex > startIndex)) {
+                    String version = contents.substring(startIndex, endIndex);
+                    startIndex = version.indexOf(":");
+                    version = version.substring(startIndex + 1);
+//                    PPApplication.logE("PPApplication.getReleaseData", "version="+version);
+                    String[] splits = version.split(":");
+                    if (splits.length >= 2) {
+//                        PPApplication.logE("PPApplication.getReleaseData", "newVersionName=" + splits[0]);
+//                        PPApplication.logE("PPApplication.getReleaseData", "newVersionCode=" + splits[1]);
+                        int versionCode = 0;
+                        try {
+                            PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+                            versionCode = PPApplication.getVersionCode(pInfo);
+                        } catch (Exception ignored) {
+                        }
+                        pppReleaseData.versionNameInReleases = splits[0];
+                        pppReleaseData.versionCodeInReleases = Integer.parseInt(splits[1]);
+//                        PPApplication.logE("PPApplication.getReleaseData", "versionCode=" + versionCode);
+//                        PPApplication.logE("PPApplication.getReleaseData", "versionCodeInReleases=" + pppReleaseData.versionCodeInReleases);
+//                        PPApplication.logE("PPApplication.getReleaseData", "ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification=" + ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification);
+                        if (forceDoData)
+                            doData = true;
+                        else {
+                            if (ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification < pppReleaseData.versionCodeInReleases) {
+                                if ((versionCode > 0) && (versionCode < pppReleaseData.versionCodeInReleases))
+                                    doData = true;
+                            }
+                        }
+                    }
+                    /*if (splits.length == 2) {
+                        // old check, always critical update
+                        PPApplication.logE("PPApplication.getReleaseData", "OLD CHECK");
+                        //critical = true;
+                    }*/
+                    if (splits.length == 3) {
+                        // new, better check
+//                        PPApplication.logE("PPApplication.getReleaseData", "NEW CHECK");
+                        // last parameter:
+                        //  "normal" - normal update
+                        //  "critical" - critical update
+                        pppReleaseData.critical = splits[2].equals("critical");
+                    }
+                }
+            }
+
+//            PPApplication.logE("PPApplication.getReleaseData", "doData=" + doData);
+//            PPApplication.logE("PPApplication.getReleaseData", "critical=" + pppReleaseData.critical);
+//            PPApplication.logE("PPApplication.getReleaseData", "versionNameInReleases=" + pppReleaseData.versionNameInReleases);
+//            PPApplication.logE("PPApplication.getReleaseData", "versionCodeInReleases=" + pppReleaseData.versionCodeInReleases);
+
+            if (doData)
+                return pppReleaseData;
+            else
+                return null;
+        } catch (Exception e) {
+//            PPApplication.logE("PPApplication.getReleaseData", Log.getStackTraceString(e));
+            return null;
+        }
     }
 
     // ACRA -------------------------------------------------------------------------

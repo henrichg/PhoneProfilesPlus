@@ -15,6 +15,6 @@
         android:icon="@drawable/ic_action_profiles_view"/>
     <item android:id="@+id/menu_events_view"
         android:title="@string/editor_drawer_title_events"
-        android:orderInCategory="101"
+        android:orderInCategory="110"
         android:icon="@drawable/ic_action_events_view" />
 </menu>

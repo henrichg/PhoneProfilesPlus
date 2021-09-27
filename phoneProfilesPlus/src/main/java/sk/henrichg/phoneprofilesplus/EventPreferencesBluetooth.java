@@ -194,18 +194,18 @@ class EventPreferencesBluetooth extends EventPreferences {
                 if (!ApplicationPreferences.applicationEventBluetoothEnableScanning) {
                     if (!ApplicationPreferences.applicationEventBluetoothDisabledScannigByProfile) {
                         summary = "* " + context.getString(R.string.array_pref_applicationDisableScanning_disabled) + "! *\n\n" +
-                                context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
+                                context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                         titleColor = Color.RED; //0xFFffb000;
                     }
                     else {
-                        summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
-                                context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
+                        summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                                context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                         titleColor = 0;
                     }
                 }
                 else {
-                    summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
-                            context.getResources().getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
+                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                            context.getString(R.string.phone_profiles_pref_eventBluetoothAppSettings_summary);
                     titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
@@ -243,8 +243,8 @@ class EventPreferencesBluetooth extends EventPreferences {
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
                 //if (!ApplicationPreferences.applicationEventBluetoothEnableScanning(context.getApplicationContext())) {
-                //    preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
-                //            ": "+context.getResources().getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
+                //    preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
+                //            ": "+context.getString(R.string.preference_not_allowed_reason_not_enabled_scanning));
                 //}
                 //else {
                     String[] splits = value.split("\\|");
@@ -380,7 +380,7 @@ class EventPreferencesBluetooth extends EventPreferences {
         else {
             Preference preference = prefMng.findPreference(PREF_EVENT_BLUETOOTH_CATEGORY);
             if (preference != null) {
-                preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }

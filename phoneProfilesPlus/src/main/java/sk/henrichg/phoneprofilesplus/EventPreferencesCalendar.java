@@ -54,7 +54,7 @@ class EventPreferencesCalendar extends EventPreferences {
     private static final String PREF_EVENT_CALENDAR_AVAILABILITY = "eventCalendarAvailability";
     //private static final String PREF_EVENT_CALENDAR_IGNORE_ALL_DAY_EVENTS = "eventCalendarIgnoreAllDayEvents";
     private static final String PREF_EVENT_CALENDAR_START_BEFORE_EVENT = "eventCalendarStartBeforeEvent";
-    static final String PREF_EVENT_CALENDAR_APP_SETTINGS = "eventCalendarBackgroundScanningAppSettings";
+    static final String PREF_EVENT_CALENDAR_APP_SETTINGS = "eventCalendarPeriodicScanningAppSettings";
     private static final String PREF_EVENT_CALENDAR_STATUS = "eventCalendarStatus";
     private static final String PREF_EVENT_CALENDAR_DAY_CONTAINS_EVENT = "eventCalendarDayContainsEvent";
     private static final String PREF_EVENT_CALENDAR_ALL_DAY_EVENTS = "eventCalendarAllDayEvents";
@@ -257,7 +257,7 @@ class EventPreferencesCalendar extends EventPreferences {
                             //}
                         } else {
                             descr = descr + "<br>"; //'\n';
-                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + context.getResources().getString(R.string.event_preferences_calendar_no_event);
+                            descr = descr + "&nbsp;&nbsp;&nbsp;-> " + context.getString(R.string.event_preferences_calendar_no_event);
                         }
                     }
                 }
@@ -284,21 +284,21 @@ class EventPreferencesCalendar extends EventPreferences {
             if (preference != null) {
                 String summary;
                 //int titleColor;
-                if (!ApplicationPreferences.applicationEventBackgroundScanningEnableScanning) {
-                    //if (!ApplicationPreferences.applicationEventBackgroundScanningDisabledScannigByProfile) {
+                if (!ApplicationPreferences.applicationEventPeriodicScanningEnableScanning) {
+                    //if (!ApplicationPreferences.applicationEventPeriodicScanningDisabledScannigByProfile) {
                     summary = context.getString(R.string.array_pref_applicationDisableScanning_disabled) + ".\n\n" +
-                            context.getResources().getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                            context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     //titleColor = Color.RED; //0xFFffb000;
                     //}
                     //else {
-                    //    summary = context.getResources().getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
-                    //            context.getResources().getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    //    summary = context.getString(R.string.phone_profiles_pref_applicationEventScanningDisabledByProfile) + "\n\n" +
+                    //            context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     //    titleColor = 0;
                     //}
                 }
                 else {
-                    summary = context.getResources().getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
-                            context.getResources().getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
+                    summary = context.getString(R.string.array_pref_applicationDisableScanning_enabled) + ".\n\n" +
+                            context.getString(R.string.phone_profiles_pref_eventBackgroundScanningAppSettings_summary);
                     //titleColor = 0;
                 }
                 CharSequence sTitle = preference.getTitle();
@@ -462,7 +462,7 @@ class EventPreferencesCalendar extends EventPreferences {
         else {
             Preference preference = prefMng.findPreference(PREF_EVENT_CALENDAR_CATEGORY);
             if (preference != null) {
-                preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }

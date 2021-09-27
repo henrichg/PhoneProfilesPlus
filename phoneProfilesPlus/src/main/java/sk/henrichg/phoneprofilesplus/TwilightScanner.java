@@ -13,6 +13,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
 import android.text.format.DateUtils;
@@ -47,7 +48,7 @@ class TwilightScanner {
 
         mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        mLocationHandler = new LocationHandler();
+        mLocationHandler = new LocationHandler(null);
     }
 
     void start() {
@@ -216,6 +217,10 @@ class TwilightScanner {
         private long mLastNetworkRegisterTime = -MIN_LOCATION_UPDATE_MS;
         private long mLastUpdateInterval;
         private Location mLocation;
+
+        @SuppressWarnings({"deprecation", "unused"})
+        LocationHandler(Looper looper) {
+        }
 
         void processNewLocation(Location location) {
             Message msg = obtainMessage(MSG_PROCESS_NEW_LOCATION, location);

@@ -89,7 +89,7 @@ public class ActivityLogActivity extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         /*MenuItem menuItem = menu.findItem(R.id.menu_settingsX);
-        menuItem.setTitle(getResources().getString(R.string.menu_settings) + "  >");*/
+        menuItem.setTitle(getString(R.string.menu_settings) + "  >");*/
         MenuItem menuItem = menu.findItem(R.id.menu_activity_log_play_pause);
 
         int theme = GlobalGUIRoutines.getTheme(false, false, /*false,*/ false, false, getApplicationContext());

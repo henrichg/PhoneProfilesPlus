@@ -6,7 +6,9 @@ import android.net.ConnectivityManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Handler;
 import android.os.ResultReceiver;
+import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -123,6 +125,7 @@ final class WifiApManager {
     boolean isWifiAPEnabled() {
         try {
             wifiApEnabled.setAccessible(true);
+//            PPApplication.logE("WifiApManager.isWifiAPEnabled", "enabled="+wifiApEnabled.invoke(mWifiManager));
             //noinspection ConstantConditions
             return (Boolean) wifiApEnabled.invoke(mWifiManager);
         } catch (Exception e) {
@@ -141,8 +144,29 @@ final class WifiApManager {
                     // 11 => AP OFF
                     // 13 => AP ON
                     canScan = wifiApState == 11;*/
+//            PPApplication.logE("WifiApManager.isWifiAPEnabled", "enabled="+wifiApManager.isWifiAPEnabled());
             return wifiApManager.isWifiAPEnabled();
         } catch (NoSuchMethodException e) {
+            return false;
+        }
+    }
+
+    static boolean isWifiAPEnabledA30(Context context) {
+//        PPApplication.logE("CmdWifiAP.isEnabled", "xxx");
+        try {
+            //boolean enabled;
+            /*IWifiManager adapter = IWifiManager.Stub.asInterface(ServiceManager.getService("wifi"));  // service list | grep IWifiManager
+            //PPApplication.logE("CmdWifiAP.isEnabled", "adapter="+adapter);
+            enabled = adapter.getWifiApEnabledState() == WifiManager.WIFI_AP_STATE_ENABLED;
+            //PPApplication.logE("CmdWifiAP.isEnabled", "enabled="+enabled);
+            return enabled;*/
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//            PPApplication.logE("CmdWifiAP.isEnabled", "enabled="+wifiManager.isWifiApEnabled());
+            return wifiManager.isWifiApEnabled();
+        } catch (Throwable e) {
+            //Log.e("CmdWifiAP.isEnabled", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+            //PPApplication.logE("CmdWifiAP.isEnabled", Log.getStackTraceString(e));
             return false;
         }
     }
@@ -267,6 +291,100 @@ final class WifiApManager {
             return true;
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    // Tnank to author of MacroDroid application.
+    // It is used as source of this implenetation.
+    static class MyOnStartTetheringCallback extends MyOnStartTetheringCallbackAbstract {
+        MyOnStartTetheringCallback() {
+        }
+    }
+
+    // Tnank to author of MacroDroid application.
+    // It is used as source of this implenetation.
+    static void startTethering30(Context context, boolean doNotChangeWifi) {
+        if (!doNotChangeWifi) {
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if (wifiManager != null) {
+                int wifiState = wifiManager.getWifiState();
+                boolean isWifiEnabled = ((wifiState == WifiManager.WIFI_STATE_ENABLED) || (wifiState == WifiManager.WIFI_STATE_ENABLING));
+                //PPApplication.logE("WifiApManager.startTethering", "isWifiEnabled="+isWifiEnabled);
+                if (isWifiEnabled) {
+                    //PPApplication.logE("#### setWifiEnabled", "from WifiAPManager.startTethering");
+                    //if (Build.VERSION.SDK_INT >= 29)
+                    //    CmdWifi.setWifi(false);
+                    //else
+//                        PPApplication.logE("[WIFI_ENABLED] WifiApManager.startTethering", "false");
+                    //noinspection deprecation
+                    wifiManager.setWifiEnabled(false);
+                }
+            }
+        }
+
+        MyOnStartTetheringCallback callback = new MyOnStartTetheringCallback();
+        _startTethering30(context, callback, new Handler());
+    }
+
+    // Thanks to author of MacroDroid application.
+    // It is used as source of this implenetation.
+    @SuppressWarnings("RedundantArrayCreation")
+    @SuppressLint("PrivateApi")
+    static private void _startTethering30(Context context,
+                                   MyOnStartTetheringCallbackAbstract myOnStartTetheringCallbackAbstract,
+                                   Handler handler) {
+        Object myOnStartTetheringCallbackAbstractObj;
+        Class<?> myOnStartTetheringCallbackAbstractObjCls;// = null;
+        try {
+            myOnStartTetheringCallbackAbstractObj =
+                    new WifiTetheringCallbackMaker(context, myOnStartTetheringCallbackAbstract)
+                    .getTtetheringCallback().getDeclaredConstructor(new Class[]{Integer.TYPE}).newInstance(new Object[]{0});
+        } catch (Exception e) {
+            //Log.e("WifiApManager._startTethering30 (1)", Log.getStackTraceString(e));
+            myOnStartTetheringCallbackAbstractObj = null;
+        }
+        //if (myOnStartTetheringCallbackAbstractObj != null) {
+            ConnectivityManager connectivityManager = context.getApplicationContext().getSystemService(ConnectivityManager.class);
+            try {
+                myOnStartTetheringCallbackAbstractObjCls = Class.forName("android.net.ConnectivityManager$OnStartTetheringCallback");
+            } catch (Exception e2) {
+                //Log.e("WifiApManager._startTethering30 (2)", Log.getStackTraceString(e2));
+                PPApplication.recordException(e2);
+                return;
+            }
+            try {
+                Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("startTethering",
+                        new Class[]{Integer.TYPE, Boolean.TYPE, myOnStartTetheringCallbackAbstractObjCls, Handler.class});
+                //noinspection ConstantConditions
+                if (declaredMethod == null) {
+                    //Log.e("WifiApManager._startTethering30", "startTetheringMethod is null");
+                    return;
+                }
+                declaredMethod.invoke(connectivityManager, new Object[]{0, Boolean.FALSE, myOnStartTetheringCallbackAbstractObj, handler});
+            } catch (Exception e) {
+                //Log.e("WifiApManager._startTethering30 (3)", Log.getStackTraceString(e));
+                PPApplication.recordException(e);
+            }
+        //}
+        //else
+        //    Log.e("WifiApManager._startTethering30", "myOnStartTetheringCallbackAbstractObj is null");
+    }
+
+    // Thanks to author of MacroDroid application.
+    // It is used as source of this implenetation.
+    @SuppressWarnings("RedundantArrayCreation")
+    static void stopTethering30(Context context) {
+        ConnectivityManager connectivityManager = context.getApplicationContext().getSystemService(ConnectivityManager.class);
+        try {
+            Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("stopTethering", new Class[]{Integer.TYPE});
+            //noinspection ConstantConditions
+            if (declaredMethod == null) {
+                Log.e("WifiApManager.stopTethering30", "stopTetheringMethod is null");
+                return;
+            }
+            declaredMethod.invoke(connectivityManager, new Object[]{0});
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

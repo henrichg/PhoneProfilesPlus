@@ -152,7 +152,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/editor_list_bottom_bar"
-        android:layout_height="48dp"
+        android:layout_height="55dp"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:background="?attr/colorPrimary"

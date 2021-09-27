@@ -17,11 +17,14 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -73,6 +76,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_TIME_SCANNING_APP_SETTINGS = 1995;
     private static final int RESULT_CALENDAR_SCANNING_APP_SETTINGS = 1995;
     private static final int RESULT_NOTIFICATION_SCANNING_APP_SETTINGS = 1997;
+    private static final int RESULT_PERIODIC_SCANNING_APP_SETTINGS = 1997;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -355,9 +359,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference -> {
-                installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                installExtender();
                 return false;
             });
         }
@@ -641,9 +643,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference110 -> {
-                installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                installExtender();
                 return false;
             });
         }
@@ -715,7 +715,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference114 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "backgroundScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "periodicScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 //noinspection deprecation
                 startActivityForResult(intent, RESULT_TIME_SCANNING_APP_SETTINGS);
@@ -728,10 +728,23 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             preference.setOnPreferenceClickListener(preference115 -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "backgroundScanningCategoryRoot");
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "periodicScanningCategoryRoot");
                 //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
                 //noinspection deprecation
                 startActivityForResult(intent, RESULT_CALENDAR_SCANNING_APP_SETTINGS);
+                return false;
+            });
+        }
+        preference = prefMng.findPreference(EventPreferencesPeriodic.PREF_EVENT_PERIODIC_APP_SETTINGS);
+        if (preference != null) {
+            //locationPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            preference.setOnPreferenceClickListener(preference13 -> {
+                Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "periodicScanningCategoryRoot");
+                //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                //noinspection deprecation
+                startActivityForResult(intent, RESULT_PERIODIC_SCANNING_APP_SETTINGS);
                 return false;
             });
         }
@@ -779,9 +792,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference118 -> {
-                installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                installExtender();
                 return false;
             });
         }
@@ -797,7 +808,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (smsPreference != null) {
             //smsPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             smsPreference.setOnPreferenceClickListener(preference120 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1_2) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -840,9 +851,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (extenderPreference != null) {
             //extenderPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             extenderPreference.setOnPreferenceClickListener(preference121 -> {
-                installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                        getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                installExtender();
                 return false;
             });
         }
@@ -858,7 +867,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (callPreference != null) {
             //callPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             callPreference.setOnPreferenceClickListener(preference123 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1_2) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -900,7 +909,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference124 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1_2) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -942,7 +951,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         if (accessibilityPreference != null) {
             //accessibilityPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
             accessibilityPreference.setOnPreferenceClickListener(preference125 -> {
-                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1) {
+                if (PPPExtenderBroadcastReceiver.isExtenderInstalled(context) >= PPApplication.VERSION_CODE_EXTENDER_6_1_2) {
                     PackageManager packageManager = context.getPackageManager();
                     Intent intent = packageManager.getLaunchIntentForPackage(PPApplication.PACKAGE_NAME_EXTENDER);
                     if (intent != null) {
@@ -1066,9 +1075,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
             event._eventPreferencesCall.checkPreferences(prefMng, context);
             event._eventPreferencesNotification.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.onResume");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.onResume");
-            PPApplication.updateGUI(0, context/*, true, true*/);
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.onResume");
+            PPApplication.updateGUI(true, false, context);
         }
     }
 
@@ -1170,9 +1178,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                     EventPreferencesCall.PREF_EVENT_CALL_ENABLED, preferences, context);
 
             setRedTextToPreferences();
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (1)");
-            PPApplication.updateGUI(0, context/*.getApplicationContext(), true, true*/);
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (1)");
+            PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_SCANNING_APP_SETTINGS) {
             event._eventPreferencesTime.checkPreferences(prefMng, context);
@@ -1191,6 +1198,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         }
         if (requestCode == RESULT_LOCATION_APP_SETTINGS) {
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
+        }
+        if (requestCode == RESULT_PERIODIC_SCANNING_APP_SETTINGS) {
+            event._eventPreferencesPeriodic.checkPreferences(prefMng, context);
         }
         if (requestCode == LocationGeofencePreferenceX.RESULT_GEOFENCE_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
@@ -1225,9 +1235,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesWifi.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (2)");
-            PPApplication.updateGUI(0, context/*.getApplicationContext(), true, true*/);
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (2)");
+            PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_BLUETOOTH_LOCATION_SYSTEM_SETTINGS) {
             BluetoothNamePreferenceX preference = prefMng.findPreference(EventPreferencesBluetooth.PREF_EVENT_BLUETOOTH_ADAPTER_NAME);
@@ -1237,9 +1246,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesBluetooth.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (3)");
-            PPApplication.updateGUI(0, context/*.getApplicationContext(), true, true*/);
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (3)");
+            PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_LOCATION_LOCATION_SYSTEM_SETTINGS) {
             LocationGeofencePreferenceX preference = prefMng.findPreference(EventPreferencesLocation.PREF_EVENT_LOCATION_GEOFENCES);
@@ -1249,9 +1257,8 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesLocation.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (4)");
-            PPApplication.updateGUI(0, context/*.getApplicationContext(), true, true*/);
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (4)");
+            PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_MOBILE_CELLS_LOCATION_SYSTEM_SETTINGS) {
             MobileCellsPreferenceX preference = prefMng.findPreference(EventPreferencesMobileCells.PREF_EVENT_MOBILE_CELLS_CELLS);
@@ -1261,18 +1268,16 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             event._eventPreferencesMobileCells.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (5)");
-            PPApplication.updateGUI(0, context/*.getApplicationContext(), true, true*/);
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (5)");
+            PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_TIME_LOCATION_SYSTEM_SETTINGS) {
             PPApplication.restartTwilightScanner(context);
 
             event._eventPreferencesTime.checkPreferences(prefMng, context);
             setRedTextToPreferences();
-            //PPApplication.logE("ActivateProfileHelper.updateGUI", "from EventsPrefsFragment.doOnActivityResult");
-            //PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (6)");
-            PPApplication.updateGUI(0, context/*.getApplicationContext(), true, true*/);
+//            PPApplication.logE("###### PPApplication.updateGUI", "from=EventsPrefsFragment.doOnActivityResult (6)");
+            PPApplication.updateGUI(true, false, context);
         }
         if (requestCode == RESULT_USE_PRIORITY_SETTINGS) {
 
@@ -1528,6 +1533,9 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
 
             // not enabled accessibility service
             int accessibilityEnabled = event.isAccessibilityServiceEnabled(context, false);
+            if ((accessibilityEnabled == 1) &&
+                    (PPApplication.accessibilityServiceForPPPExtenderConnected == 0))
+                accessibilityEnabled = 0;
             Preference preference = prefMng.findPreference(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
             if (accessibilityEnabled == 1) {
                 if (preference != null) {
@@ -1569,9 +1577,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
                         preference.setSummary(summary);
 
                         preference.setOnPreferenceClickListener(preference12 -> {
-                            installExtender(getString(R.string.event_preferences_PPPExtenderInstallInfo_summary) + "\n\n" +
-                                    getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_2) + " " +
-                                    getString(R.string.event_preferences_PPPExtenderInstallInfo_summary_3));
+                            installExtender();
                             return false;
                         });
                     }
@@ -1673,7 +1679,7 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
     }
 
     @SuppressLint("SetTextI18n")
-    private void installExtender(String dialogText) {
+    private void installExtender() {
         if (getActivity() == null)
             return;
 
@@ -1686,18 +1692,64 @@ public class EventsPrefsFragment extends PreferenceFragmentCompat
         dialogBuilder.setView(layout);
 
         TextView text = layout.findViewById(R.id.install_extender_dialog_info_text);
+
+        String dialogText = "";
+        int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(getActivity().getApplicationContext());
+        if (extenderVersion != 0) {
+            String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(getActivity().getApplicationContext());
+            dialogText = dialogText + getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
+        }
+        dialogText = dialogText + getString(R.string.install_extender_required_version) +
+                " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")\n\n";
+        dialogText = dialogText + getString(R.string.install_extender_text1) + " \"" + getString(R.string.alert_button_install) + "\"\n";
+        dialogText = dialogText + getString(R.string.install_extender_text2) + "\n";
+        dialogText = dialogText + getString(R.string.install_extender_text3);
+
         text.setText(dialogText);
 
-        Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
-        button.setText(getActivity().getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
-        button.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), GitHubAssetsScreenshotActivity.class);
-            intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplusextender_assets_screenshot);
-            startActivity(intent);
-        });
+        text = layout.findViewById(R.id.install_extender_dialog_github_releases);
+        CharSequence str1 = getString(R.string.install_extender_github_releases);
+        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL;
+        Spannable sbt = new SpannableString(str2);
+        sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setColor(ds.linkColor);    // you can use custom color
+                ds.setUnderlineText(false);    // this remove the underline
+            }
+
+            @Override
+            public void onClick(@NonNull View textView) {
+                String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    if (getActivity() != null)
+                        getActivity().startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
+        };
+        sbt.setSpan(clickableSpan, str1.length()+1, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //sbt.setSpan(new UnderlineSpan(), str1.length()+1, str2.length(), 0);
+        text.setText(sbt);
+        text.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+//        Button button = layout.findViewById(R.id.install_extender_dialog_showAssets);
+//        button.setText(getActivity().getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
+//        button.setOnClickListener(v -> {
+//            Intent intent = new Intent(getActivity(), GitHubAssetsScreenshotActivity.class);
+//            intent.putExtra(GitHubAssetsScreenshotActivity.EXTRA_IMAGE, R.drawable.phoneprofilesplusextender_assets_screenshot);
+//            startActivity(intent);
+//        });
 
         dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-            String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
+            //String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
+            String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
+
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
             try {

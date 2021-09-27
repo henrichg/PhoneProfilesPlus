@@ -36,6 +36,7 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.provider.DocumentsContract;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.telephony.SubscriptionInfo;
@@ -62,7 +63,10 @@ import com.stericson.roottools.RootTools;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static android.app.Notification.DEFAULT_VIBRATE;
@@ -395,7 +399,7 @@ class ActivateProfileHelper {
         if (profile._deviceWiFiAP != 0) {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI_AP, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFiAP");
-                if (Build.VERSION.SDK_INT < 28) {
+                if (Build.VERSION.SDK_INT < 30) {
                     WifiApManager wifiApManager = null;
                     try {
                         wifiApManager = new WifiApManager(appContext);
@@ -444,11 +448,10 @@ class ActivateProfileHelper {
                         }
                     }
                 }
-                else if (Build.VERSION.SDK_INT < 30) {
-                    // not working in Android 11+
+                else {
                     boolean setWifiAPState = false;
                     boolean doNotChangeWifi = false;
-                    boolean isWifiAPEnabled = CmdWifiAP.isEnabled();
+                    boolean isWifiAPEnabled = WifiApManager.isWifiAPEnabledA30(context);
                     switch (profile._deviceWiFiAP) {
                         case 1:
                         case 4:
@@ -482,7 +485,8 @@ class ActivateProfileHelper {
                     }
                     if (setWifiAPState) {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "CmdWifiAP.setWifiAP()");
-                        CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi, context, profile._name);
+                        //CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi, context, profile._name);
+                        setWifiAP(null, isWifiAPEnabled, doNotChangeWifi, appContext);
                         PPApplication.sleep(1000);
                     }
                 }
@@ -495,10 +499,11 @@ class ActivateProfileHelper {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_WIFI, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 //                    PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "_deviceWiFi");
                     boolean isWifiAPEnabled;
-                    if (Build.VERSION.SDK_INT < 28)
+                    if (Build.VERSION.SDK_INT < 30)
                         isWifiAPEnabled = WifiApManager.isWifiAPEnabled(appContext);
                     else
-                        isWifiAPEnabled = CmdWifiAP.isEnabled();
+                        //isWifiAPEnabled = CmdWifiAP.isEnabled(context);
+                        isWifiAPEnabled = WifiApManager.isWifiAPEnabledA30(appContext);
 //                    PPApplication.logE("[WIFI] ActivateProfileHelper.doExecuteForRadios", "isWifiAPEnabled="+isWifiAPEnabled);
                     if ((!isWifiAPEnabled) || (profile._deviceWiFi >= 4)) { // only when wifi AP is not enabled, change wifi
                         WifiManager wifiManager = (WifiManager) appContext.getSystemService(Context.WIFI_SERVICE);
@@ -1587,63 +1592,57 @@ class ActivateProfileHelper {
             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING, null, executedProfileSharedPreferences, false, appContext).allowed
                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
                 if (Permissions.checkVibrateWhenRinging(appContext)) {
-                    /*if (android.os.Build.VERSION.SDK_INT < 23) {    // Not working in Android M (exception)
-                        Settings.System.putInt(appContext.getContentResolver(), "vibrate_when_ringing", lValue);
-                        //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API < 23)");
+                    /*if (PPApplication.romIsMIUI) {
+                        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging",
+                                "vibrate_in_normal="+Settings.System.getInt(context.getContentResolver(), "vibrate_in_normal",-1));
+                        PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging",
+                                "vibrate_in_silent="+Settings.System.getInt(context.getContentResolver(), "vibrate_in_silent",-1));
                     }
-                    else {*/
-                        /*if (PPApplication.romIsMIUI) {
-                            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging",
-                                    "vibrate_in_normal="+Settings.System.getInt(context.getContentResolver(), "vibrate_in_normal",-1));
-                            PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging",
-                                    "vibrate_in_silent="+Settings.System.getInt(context.getContentResolver(), "vibrate_in_silent",-1));
-                        }
-                        else*/ {
-                            try {
-                                Settings.System.putInt(appContext.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
-                                if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                                    //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "Xiaomi");
-                                    Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_normal", lValue);
-                                    Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_silent", lValue);
-                                }
-                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23)");
-                            } catch (Exception ee) {
-                                // java.lang.IllegalArgumentException: You cannot change private secure settings.
-                                //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
-                                //PPApplication.recordException(ee);
+                    else*/ {
+                        try {
+                            Settings.System.putInt(appContext.getContentResolver(), Settings.System.VIBRATE_WHEN_RINGING, lValue);
+                            if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "Xiaomi");
+                                Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_normal", lValue);
+                                Settings.System.putInt(appContext.getContentResolver(), "vibrate_in_silent", lValue);
+                            }
+                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set");
+                        } catch (Exception ee) {
+                            // java.lang.IllegalArgumentException: You cannot change private secure settings.
+                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(ee));
+                            //PPApplication.recordException(ee);
 
-                                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                                        (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
-                                    synchronized (PPApplication.rootMutex) {
-                                        String command1;
-                                        Command command;
-                                        if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
-                                            command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
-                                            String command2 = "settings put system " + "vibrate_in_normal" + " " + lValue;
-                                            String command3 = "settings put system " + "vibrate_in_silent" + " " + lValue;
-                                            command = new Command(0, false, command1, command2, command3);
-                                        } else {
-                                            command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
-                                            //if (PPApplication.isSELinuxEnforcing())
-                                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                                            command = new Command(0, false, command1); //, command2);
-                                        }
-                                        try {
-                                            RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                                            PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
-                                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (API >= 23 with root)");
-                                        } catch (Exception e) {
-                                            // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                            //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
-                                            //PPApplication.recordException(e);
-                                        }
+                            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                    (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                                synchronized (PPApplication.rootMutex) {
+                                    String command1;
+                                    Command command;
+                                    if (PPApplication.deviceIsXiaomi && PPApplication.romIsMIUI) {
+                                        command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                        String command2 = "settings put system " + "vibrate_in_normal" + " " + lValue;
+                                        String command3 = "settings put system " + "vibrate_in_silent" + " " + lValue;
+                                        command = new Command(0, false, command1, command2, command3);
+                                    } else {
+                                        command1 = "settings put system " + Settings.System.VIBRATE_WHEN_RINGING + " " + lValue;
+                                        //if (PPApplication.isSELinuxEnforcing())
+                                        //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                        command = new Command(0, false, command1); //, command2);
+                                    }
+                                    try {
+                                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                        PPApplication.commandWait(command, "ActivateProfileHelper.setVibrationWhenRinging");
+                                        //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "vibrate when ringing set (with root)");
+                                    } catch (Exception e) {
+                                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                        //Log.e("ActivateProfileHelper.setVibrateWhenRinging", Log.getStackTraceString(e));
+                                        //PPApplication.recordException(e);
                                     }
                                 }
-                                //else
-                                //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not rooted");
                             }
+                            //else
+                            //PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not rooted");
                         }
-                    //}
+                    }
                 }
                 //else
                 //    PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not permission granted");
@@ -1652,6 +1651,92 @@ class ActivateProfileHelper {
             //    PPApplication.logE("ActivateProfileHelper.setVibrateWhenRinging", "not profile preferences allowed");
         }
     }
+
+    private static void setVibrateNotification(Context context, Profile profile, int value, SharedPreferences executedProfileSharedPreferences) {
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "profile=" + profile);
+//            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "value=" + value);
+//        }
+        int lValue = value;
+        if (profile != null) {
+            switch (profile._vibrateNotifications) {
+                case 1:
+                    if (Build.VERSION.SDK_INT >= 31)
+                        lValue = 3;
+                    else
+                        lValue = 2;
+                    break;
+                case 2:
+                    lValue = 0;
+                    break;
+            }
+        }
+        else {
+            switch (value) {
+                case 1:
+                    if (Build.VERSION.SDK_INT >= 31)
+                        lValue = 3;
+                    else
+                        lValue = 2;
+                    break;
+                case 2:
+                    lValue = 0;
+                    break;
+            }
+        }
+//        PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "lValue="+lValue);
+
+        if (lValue != -1) {
+            Context appContext = context.getApplicationContext();
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, executedProfileSharedPreferences, false, appContext).allowed
+                    == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (Permissions.checkVibrateNotifications(appContext)) {
+                    /*try {
+                        Settings.System.putInt(appContext.getContentResolver(), "notification_vibration_intensity", lValue);
+                        PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate notifications set");
+                    } catch (Exception ee) {*/
+                        // java.lang.IllegalArgumentException: You cannot change private secure settings.
+                        //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(ee));
+                        //PPApplication.recordException(ee);
+
+                        if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                                (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
+                            synchronized (PPApplication.rootMutex) {
+                                String command1;
+                                Command command;
+                                if (PPApplication.deviceIsPixel) {
+                                    command1 = "settings put system " + "vibrate_on" + " 1";
+                                    String command2 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
+                                    command = new Command(0, false, command1, command2);
+                                } else {
+                                    command1 = "settings put system " + "notification_vibration_intensity" + " " + lValue;
+                                    //if (PPApplication.isSELinuxEnforcing())
+                                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                    command = new Command(0, false, command1);
+                                }
+                                try {
+                                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    PPApplication.commandWait(command, "ActivateProfileHelper.setVibrateNotification");
+//                                    PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "vibrate notifications set (with root)");
+                                } catch (Exception e) {
+                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                    //Log.e("ActivateProfileHelper.setVibrateNotification", Log.getStackTraceString(e));
+                                    //PPApplication.recordException(e);
+                                }
+                            }
+                        }
+//                        else
+//                            PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not rooted");
+                    //}
+                }
+//                else
+//                    PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not permission granted");
+            }
+//            else
+//                PPApplication.logE("ActivateProfileHelper.setVibrateNotification", "not profile preferences allowed");
+        }
+    }
+
 
     private static boolean setTones(Context context, Profile profile, SharedPreferences executedProfileSharedPreferences) {
         boolean noError = true;
@@ -3203,7 +3288,9 @@ class ActivateProfileHelper {
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_NORMAL);
 
+                    // set it by profile
                     setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
+                    setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_RING_AND_VIBRATE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=RING & VIBRATE");
@@ -3220,7 +3307,9 @@ class ActivateProfileHelper {
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                     //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_NORMAL);
 
+                    // force vbration
                     setVibrateWhenRinging(appContext, null, 1, executedProfileSharedPreferences);
+                    setVibrateNotification(appContext, null, 1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_VIBRATE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=VIBRATE");
@@ -3237,7 +3326,9 @@ class ActivateProfileHelper {
                     //audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                     //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
 
+                    // force vbration
                     setVibrateWhenRinging(appContext, null, 1, executedProfileSharedPreferences);
+                    setVibrateNotification(appContext, null, 1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_SILENT:
 
@@ -3264,7 +3355,9 @@ class ActivateProfileHelper {
                         InterruptionFilterChangedBroadcastReceiver.requestInterruptionFilter(appContext, ZENMODE_ALARMS);
                     }
 
+                    // set it by profile
                     setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
+                    setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);
                     break;
                 case Profile.RINGERMODE_ZENMODE:
                     //PPApplication.logE("ActivateProfileHelper.setRingerMode", "ringer mode=ZEN MODE");
@@ -3283,7 +3376,9 @@ class ActivateProfileHelper {
 
                             //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, /*AudioManager.RINGER_MODE_NORMAL*/profile._ringerModeForZenMode);
 
+                            // set it by profile
                             setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
+                            setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_PRIORITY:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY");
@@ -3300,7 +3395,9 @@ class ActivateProfileHelper {
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
                             //setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, profile._ringerModeForZenMode);
 
+                            // set it by profile
                             setVibrateWhenRinging(appContext, profile, -1, executedProfileSharedPreferences);
+                            setVibrateNotification(appContext, profile, -1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_NONE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=NONE");
@@ -3332,7 +3429,9 @@ class ActivateProfileHelper {
                             //audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
                             //setZenMode(appContext, ZENMODE_ALL, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
 
+                            // force vbration
                             setVibrateWhenRinging(appContext, null, 1, executedProfileSharedPreferences);
+                            setVibrateNotification(appContext, null, 1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_PRIORITY_AND_VIBRATE:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=PRIORITY & VIBRATE");
@@ -3384,7 +3483,9 @@ class ActivateProfileHelper {
                             //setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
                             //setZenMode(appContext, ZENMODE_PRIORITY, audioManager, systemZenMode, AudioManager.RINGER_MODE_VIBRATE);
 
+                            // force vbration
                             setVibrateWhenRinging(appContext, null, 1, executedProfileSharedPreferences);
+                            setVibrateNotification(appContext, null, 1, executedProfileSharedPreferences);
                             break;
                         case Profile.ZENMODE_ALARMS:
                             //PPApplication.logE("ActivateProfileHelper.setRingerMode", "zen mode=ALARMS");
@@ -3406,9 +3507,123 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void executeForWallpaper(Profile profile, Context context) {
-        if (profile._deviceWallpaperChange == 1)
-        {
+    private static void _changeImageWallpaper(Profile profile, String wallpaperUri, Context appContext) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        WindowManager wm = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
+        if (wm != null) {
+            Display display = wm.getDefaultDisplay();
+            //if (android.os.Build.VERSION.SDK_INT >= 17)
+            display.getRealMetrics(displayMetrics);
+            //else
+            //    display.getMetrics(displayMetrics);
+            int height = displayMetrics.heightPixels;
+            int width = displayMetrics.widthPixels;
+            if (appContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                //noinspection SuspiciousNameCombination
+                height = displayMetrics.widthPixels;
+                //noinspection SuspiciousNameCombination
+                width = displayMetrics.heightPixels;
+            }
+            //PPApplication.logE("ActivateProfileHelper._changeImageWallpaper", "height="+height);
+            //PPApplication.logE("ActivateProfileHelper._changeImageWallpaper", "width="+width);
+
+            // for lock screen no double width
+            if (/*(Build.VERSION.SDK_INT < 24) ||*/ (profile._deviceWallpaperFor != 2))
+                width = width << 1; // best wallpaper width is twice screen width
+            //PPApplication.logE("ActivateProfileHelper._changeImageWallpaper", "width (2)="+width);
+
+            Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(wallpaperUri, width, height, false, true, appContext);
+            if (decodedSampleBitmap != null) {
+                // set wallpaper
+                WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
+                try {
+                    //if (Build.VERSION.SDK_INT >= 24) {
+                    int flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
+                    Rect visibleCropHint = null;
+                    if (profile._deviceWallpaperFor == 1)
+                        flags = WallpaperManager.FLAG_SYSTEM;
+                    if (profile._deviceWallpaperFor == 2) {
+                        flags = WallpaperManager.FLAG_LOCK;
+                        int left = 0;
+                        int right = decodedSampleBitmap.getWidth();
+                        if (decodedSampleBitmap.getWidth() > width) {
+                            left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
+                            right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
+                        }
+                        visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
+                    }
+                    //noinspection WrongConstant
+                    wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
+                    //} else
+                    //    wallpaperManager.setBitmap(decodedSampleBitmap);
+
+                    PPApplication.setWallpaperChangeTime(appContext);
+                } catch (IOException e) {
+                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
+                            profile._name, profile._icon, 0, "");
+                    //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } catch (Exception e) {
+                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
+                            profile._name, profile._icon, 0, "");
+                    //PPApplication.recordException(e);
+                }
+            } else {
+                PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
+                        profile._name, profile._icon, 0, "");
+            }
+        }
+    }
+
+    private static void changeImageWallpaper(Profile profile, Context context) {
+        final Context appContext = context.getApplicationContext();
+        PPApplication.startHandlerThreadWallpaper();
+        final Handler __handler = new Handler(PPApplication.handlerThreadWallpaper.getLooper());
+        //__handler.post(new PPHandlerThreadRunnable(
+        //        context.getApplicationContext(), profile, null) {
+        __handler.post(() -> {
+//                    PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThreadWallpaper", "START run - from=ActivateProfileHelper.executeForWallpaper");
+
+            //Context appContext= appContextWeakRef.get();
+            //Profile profile = profileWeakRef.get();
+            //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
+
+            //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_executeForWallpaper");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    _changeImageWallpaper(profile, profile._deviceWallpaper, appContext);
+                } catch (Exception e) {
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
+                        }
+                    }
+                }
+            //}
+        });
+    }
+
+    private static void changeWallpaperFromFolder(Profile profile, Context context) {
+        Calendar now = Calendar.getInstance();
+        int gmtOffset = 0; //TimeZone.getDefault().getRawOffset();
+
+        // next allowed wallpaper change is 50 seconds after last chaange of wallpaper
+        final long _time = now.getTimeInMillis() + gmtOffset - (50 * 1000);
+
+        if (PPApplication.applicationFullyStarted &&
+                ((PPApplication.wallpaperChangeTime == 0) ||
+                 (PPApplication.wallpaperChangeTime <= _time))) {
+
             final Context appContext = context.getApplicationContext();
             PPApplication.startHandlerThreadWallpaper();
             final Handler __handler = new Handler(PPApplication.handlerThreadWallpaper.getLooper());
@@ -3422,88 +3637,81 @@ class ActivateProfileHelper {
                 //SharedPreferences executedProfileSharedPreferences = executedProfileSharedPreferencesWeakRef.get();
 
                 //if ((appContext != null) && (profile != null) /*&& (executedProfileSharedPreferences != null)*/) {
-                    PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                    PowerManager.WakeLock wakeLock = null;
+                PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                PowerManager.WakeLock wakeLock = null;
+                try {
+                    if (powerManager != null) {
+                        wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_executeForWallpaper");
+                        wakeLock.acquire(10 * 60 * 1000);
+                    }
+
+                    //----------
+                    // test get list of files from folder
+
+                    Uri folderUri = Uri.parse(profile._deviceWallpaperFolder);
+
+                    List<Uri> uriList = new ArrayList<>();
+
+                    Cursor cursor = null;
                     try {
-                        if (powerManager != null) {
-                            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":ActivateProfileHelper_executeForWallpaper");
-                            wakeLock.acquire(10 * 60 * 1000);
-                        }
+                        appContext.grantUriPermission(PPApplication.PACKAGE_NAME, folderUri,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION /* | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION*/);
+                        // persistent permissions
+                        final int takeFlags = //data.getFlags() &
+                                (Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        appContext.getContentResolver().takePersistableUriPermission(folderUri, takeFlags);
 
-                        DisplayMetrics displayMetrics = new DisplayMetrics();
-                        WindowManager wm = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
-                        if (wm != null) {
-                            Display display = wm.getDefaultDisplay();
-                            //if (android.os.Build.VERSION.SDK_INT >= 17)
-                            display.getRealMetrics(displayMetrics);
-                            //else
-                            //    display.getMetrics(displayMetrics);
-                            int height = displayMetrics.heightPixels;
-                            int width = displayMetrics.widthPixels;
-                            if (appContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                                //noinspection SuspiciousNameCombination
-                                height = displayMetrics.widthPixels;
-                                //noinspection SuspiciousNameCombination
-                                width = displayMetrics.heightPixels;
-                            }
-                            //PPApplication.logE("PPApplication.startHandlerThreadWallpaper", "height="+height);
-                            //PPApplication.logE("PPApplication.startHandlerThreadWallpaper", "width="+width);
+                        // the uri from which we query the files
+                        Uri uriFolder = DocumentsContract.buildChildDocumentsUriUsingTree(folderUri, DocumentsContract.getTreeDocumentId(folderUri));
 
-                            // for lock screen no double width
-                            if (/*(Build.VERSION.SDK_INT < 24) ||*/ (profile._deviceWallpaperFor != 2))
-                                width = width << 1; // best wallpaper width is twice screen width
-                            //PPApplication.logE("PPApplication.startHandlerThreadWallpaper", "width (2)="+width);
+                        // let's query the files
+                        ContentResolver contentResolver = appContext.getContentResolver();
+                        cursor = contentResolver.query(uriFolder,
+                                new String[]{DocumentsContract.Document.COLUMN_DOCUMENT_ID},
+                                null, null, null);
 
-                            Bitmap decodedSampleBitmap = BitmapManipulator.resampleBitmapUri(profile._deviceWallpaper, width, height, false, true, appContext);
-                            if (decodedSampleBitmap != null) {
-                                // set wallpaper
-                                WallpaperManager wallpaperManager = WallpaperManager.getInstance(appContext);
-                                try {
-                                    //if (Build.VERSION.SDK_INT >= 24) {
-                                    int flags = WallpaperManager.FLAG_SYSTEM | WallpaperManager.FLAG_LOCK;
-                                    Rect visibleCropHint = null;
-                                    if (profile._deviceWallpaperFor == 1)
-                                        flags = WallpaperManager.FLAG_SYSTEM;
-                                    if (profile._deviceWallpaperFor == 2) {
-                                        flags = WallpaperManager.FLAG_LOCK;
-                                        int left = 0;
-                                        int right = decodedSampleBitmap.getWidth();
-                                        if (decodedSampleBitmap.getWidth() > width) {
-                                            left = (decodedSampleBitmap.getWidth() / 2) - (width / 2);
-                                            right = (decodedSampleBitmap.getWidth() / 2) + (width / 2);
-                                        }
-                                        visibleCropHint = new Rect(left, 0, right, decodedSampleBitmap.getHeight());
-                                    }
-                                    //noinspection WrongConstant
-                                    wallpaperManager.setBitmap(decodedSampleBitmap, visibleCropHint, true, flags);
-                                    //} else
-                                    //    wallpaperManager.setBitmap(decodedSampleBitmap);
-                                } catch (IOException e) {
-                                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
-                                            profile._name, profile._icon, 0, "");
-                                    //Log.e("ActivateProfileHelper.executeForWallpaper", Log.getStackTraceString(e));
-                                    PPApplication.recordException(e);
-                                } catch (Exception e) {
-                                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
-                                            profile._name, profile._icon, 0, "");
-                                    //PPApplication.recordException(e);
+                        if (cursor != null && cursor.moveToFirst()) {
+                            do {
+                                // build the uri for the file
+                                Uri uriFile = DocumentsContract.buildDocumentUriUsingTree(folderUri, cursor.getString(0));
+                                if (contentResolver.getType(uriFile).startsWith("image/")) {
+                                    //add to the list
+                                    uriList.add(uriFile);
                                 }
-                            } else {
-                                PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
-                                        profile._name, profile._icon, 0, "");
-                            }
+
+                            } while (cursor.moveToNext());
                         }
                     } catch (Exception e) {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                        PPApplication.recordException(e);
+//                        Log.e("ActivateProfileHelper.changeWallpaperFromFolder", Log.getStackTraceString(e));
                     } finally {
-                        if ((wakeLock != null) && wakeLock.isHeld()) {
-                            try {
-                                wakeLock.release();
-                            } catch (Exception ignored) {
-                            }
+                        if (cursor != null) cursor.close();
+                    }
+
+                    if (uriList.size() > 0) {
+                        Uri wallpaperUri = uriList.get(new Random().nextInt(uriList.size()));
+
+//                        if (PPApplication.logEnabled()) {
+//                            DocumentFile documentFile = DocumentFile.fromSingleUri(appContext, wallpaperUri);
+//                            if (documentFile != null)
+//                                PPApplication.logE("ActivateProfileHelper.changeWallpaperFromFolder", "documentFile=" + documentFile.getName());
+//                        }
+
+                        _changeImageWallpaper(profile, wallpaperUri.toString(), appContext);
+                    }
+
+                    //----------------
+
+                } catch (Exception e) {
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    if ((wakeLock != null) && wakeLock.isHeld()) {
+                        try {
+                            wakeLock.release();
+                        } catch (Exception ignored) {
                         }
                     }
+                }
                 //}
             });
         }
@@ -4004,6 +4212,20 @@ class ActivateProfileHelper {
                 }
             }
         }
+
+        if ((profile._deviceWallpaperChange == 2) && (!profile._deviceLiveWallpaper.isEmpty()))
+        {
+            try {
+                ComponentName componentName = ComponentName.unflattenFromString(profile._deviceLiveWallpaper);
+                Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
+                context.startActivity(intent);
+                PPApplication.setWallpaperChangeTime(appContext);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        }
     }
 
     static void execute(final Context context, final Profile profile/*, boolean merged, *//*boolean _interactive*/)
@@ -4026,49 +4248,55 @@ class ActivateProfileHelper {
                 true, appContext, executedProfileSharedPreferences);
 
         // set vibration on touch
-        if (Permissions.checkProfileVibrationOnTouch(appContext, profile, null)) {
-            switch (profile._vibrationOnTouch) {
-                case 1:
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_vibrationOnTouch 1");
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
-                    //Settings.System.putInt(context.getContentResolver(), Settings.Global.CHARGING_SOUNDS_ENABLED, 1);
-                    // Settings.System.DTMF_TONE_WHEN_DIALING - working
-                    // Settings.System.SOUND_EFFECTS_ENABLED - working
-                    // Settings.System.LOCKSCREEN_SOUNDS_ENABLED - private secure settings :-(
-                    // Settings.Global.CHARGING_SOUNDS_ENABLED - java.lang.IllegalArgumentException: You cannot keep your settings in the secure settings. :-/
-                    //                                           (G1) not working :-/
-                    break;
-                case 2:
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_vibrationOnTouch 2");
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0);
-                    //Settings.System.putInt(context.getContentResolver(), Settings.Global.CHARGING_SOUNDS_ENABLED, 0);
-                    break;
+        if (profile._vibrationOnTouch != 0) {
+            if (Permissions.checkProfileVibrationOnTouch(appContext, profile, null)) {
+                switch (profile._vibrationOnTouch) {
+                    case 1:
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_vibrationOnTouch 1");
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 1);
+                        //Settings.System.putInt(context.getContentResolver(), Settings.Global.CHARGING_SOUNDS_ENABLED, 1);
+                        // Settings.System.DTMF_TONE_WHEN_DIALING - working
+                        // Settings.System.SOUND_EFFECTS_ENABLED - working
+                        // Settings.System.LOCKSCREEN_SOUNDS_ENABLED - private secure settings :-(
+                        // Settings.Global.CHARGING_SOUNDS_ENABLED - java.lang.IllegalArgumentException: You cannot keep your settings in the secure settings. :-/
+                        //                                           (G1) not working :-/
+                        break;
+                    case 2:
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_vibrationOnTouch 2");
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED, 0);
+                        //Settings.System.putInt(context.getContentResolver(), Settings.Global.CHARGING_SOUNDS_ENABLED, 0);
+                        break;
+                }
             }
         }
         // set dtmf tone when dialing
-        if (Permissions.checkProfileDtmfToneWhenDialing(appContext, profile, null)) {
-            switch (profile._dtmfToneWhenDialing) {
-                case 1:
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_dtmfToneWhenDialing 1");
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING, 1);
-                    break;
-                case 2:
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_dtmfToneWhenDialing 2");
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING, 0);
-                    break;
+        if (profile._dtmfToneWhenDialing != 0) {
+            if (Permissions.checkProfileDtmfToneWhenDialing(appContext, profile, null)) {
+                switch (profile._dtmfToneWhenDialing) {
+                    case 1:
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_dtmfToneWhenDialing 1");
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING, 1);
+                        break;
+                    case 2:
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_dtmfToneWhenDialing 2");
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.DTMF_TONE_WHEN_DIALING, 0);
+                        break;
+                }
             }
         }
         // set sound on touch
-        if (Permissions.checkProfileSoundOnTouch(appContext, profile, null)) {
-            switch (profile._soundOnTouch) {
-                case 1:
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_soundOnTouch 1");
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 1);
-                    break;
-                case 2:
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_soundOnTouch 2");
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 0);
-                    break;
+        if (profile._soundOnTouch != 0) {
+            if (Permissions.checkProfileSoundOnTouch(appContext, profile, null)) {
+                switch (profile._soundOnTouch) {
+                    case 1:
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_soundOnTouch 1");
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 1);
+                        break;
+                    case 2:
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_soundOnTouch 2");
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.SOUND_EFFECTS_ENABLED, 0);
+                        break;
+                }
             }
         }
 
@@ -4186,8 +4414,8 @@ class ActivateProfileHelper {
         }
 
         // setup display brightness
-        if (Permissions.checkProfileScreenBrightness(appContext, profile, null)) {
-            if (profile.getDeviceBrightnessChange()) {
+        if (profile.getDeviceBrightnessChange()) {
+            if (Permissions.checkProfileScreenBrightness(appContext, profile, null)) {
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("----- ActivateProfileHelper.execute", "set brightness: profile=" + profile._name);
                     PPApplication.logE("----- ActivateProfileHelper.execute", "set brightness: _deviceBrightness=" + profile._deviceBrightness);
@@ -4272,48 +4500,50 @@ class ActivateProfileHelper {
         }
 
         // setup rotation
-        if (Permissions.checkProfileAutoRotation(appContext, profile, null)) {
-            switch (profile._deviceAutoRotate) {
-                case 1:
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 1");
-                    // set autorotate on
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
-                    //Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
-                    break;
-                case 6:
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 6");
-                    // set autorotate off
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                    //Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
-                    break;
-                case 2:
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 2");
-                    // set autorotate off
-                    // degree 0
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
-                    break;
-                case 3:
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 3");
-                    // set autorotate off
-                    // degree 90
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_90);
-                    break;
-                case 4:
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 4");
-                    // set autorotate off
-                    // degree 180
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_180);
-                    break;
-                case 5:
-                    //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 5");
-                    // set autorotate off
-                    // degree 270
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-                    Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_270);
-                    break;
+        if (profile._deviceAutoRotate != 0) {
+            if (Permissions.checkProfileAutoRotation(appContext, profile, null)) {
+                switch (profile._deviceAutoRotate) {
+                    case 1:
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 1");
+                        // set autorotate on
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
+                        //Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
+                        break;
+                    case 6:
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 6");
+                        // set autorotate off
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                        //Settings.System.putInt(context.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
+                        break;
+                    case 2:
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 2");
+                        // set autorotate off
+                        // degree 0
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_0);
+                        break;
+                    case 3:
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 3");
+                        // set autorotate off
+                        // degree 90
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_90);
+                        break;
+                    case 4:
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 4");
+                        // set autorotate off
+                        // degree 180
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_180);
+                        break;
+                    case 5:
+                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_deviceAutoRotate 5");
+                        // set autorotate off
+                        // degree 270
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+                        Settings.System.putInt(appContext.getContentResolver(), Settings.System.USER_ROTATION, Surface.ROTATION_270);
+                        break;
+                }
             }
         }
 
@@ -4333,19 +4563,26 @@ class ActivateProfileHelper {
             //}
         }
 
-        // setup wallpaper
-        if (Permissions.checkProfileWallpaper(appContext, profile, null)) {
-            if (profile._deviceWallpaperChange == 1) {
+        // setup image wallpaper
+        if (profile._deviceWallpaperChange == 1) {
+            if (Permissions.checkProfileImageWallpaper(appContext, profile, null)) {
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForWallpaper()");
-                ActivateProfileHelper.executeForWallpaper(profile, appContext);
+                ActivateProfileHelper.changeImageWallpaper(profile, appContext);
+            }
+        }
+        // setup random image wallpaper
+        if (profile._deviceWallpaperChange == 3) {
+            if (Permissions.checkProfileWallpaperFolder(appContext, profile, null)) {
+                //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForWallpaper()");
+                ActivateProfileHelper.changeWallpaperFromFolder(profile, appContext);
             }
         }
 
         // set power save mode
         ActivateProfileHelper.setPowerSaveMode(profile, appContext, executedProfileSharedPreferences);
 
-        if (Permissions.checkProfileLockDevice(appContext, profile, null)) {
-            if (profile._lockDevice != 0) {
+        if (profile._lockDevice != 0) {
+            if (Permissions.checkProfileLockDevice(appContext, profile, null)) {
                 boolean keyguardLocked;
                 KeyguardManager kgMgr = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
                 if (kgMgr != null) {
@@ -4615,9 +4852,15 @@ class ActivateProfileHelper {
             }
         }
 
+        if (profile._applicationDisableGloabalEventsRun != 0) {
+//            PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_applicationDisableGloabalEventsRun");
+            DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0);
+            dataWrapper.globalRunStopEvents(profile._applicationDisableGloabalEventsRun == 1);
+        }
+
         if (profile._deviceForceStopApplicationChange == 1) {
             boolean enabled;
-            enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_6_1);
+            enabled = PPPExtenderBroadcastReceiver.isEnabled(appContext, PPApplication.VERSION_CODE_EXTENDER_6_1_2);
             if (enabled) {
                 // executeForInteractivePreferences() is called from broadcast receiver PPPExtenderBroadcastReceiver
                 //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForForceStopApplications()");
@@ -5716,12 +5959,14 @@ class ActivateProfileHelper {
         //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-enable="+enable);
 
         if (Build.VERSION.SDK_INT < 26) {
+            // for Android 7
             //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 26");
             wifiApManager.setWifiApState(enable, doNotChangeWifi);
         }
         else
         if (Build.VERSION.SDK_INT < 28) {
-            //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API >= 26");
+            // for Android 8
+            //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 28");
             Context appContext = context.getApplicationContext();
             if (WifiApManager.canExploitWifiTethering(appContext)) {
                 if (enable)
@@ -5783,11 +6028,21 @@ class ActivateProfileHelper {
                 }
             }
         }
+        else if (Build.VERSION.SDK_INT < 30) {
+            // for Android 9, 10
+            //Context appContext = context.getApplicationContext();
+            //if (WifiApManager.canExploitWifiTethering(appContext)) {
+                if (enable)
+                    wifiApManager.startTethering(doNotChangeWifi);
+                else
+                    wifiApManager.stopTethering();
+            //}
+        }
         else {
             if (enable)
-                wifiApManager.startTethering(doNotChangeWifi);
+                WifiApManager.startTethering30(context, doNotChangeWifi);
             else
-                wifiApManager.stopTethering();
+                WifiApManager.stopTethering30(context);
         }
     }
 
@@ -6272,11 +6527,13 @@ class ActivateProfileHelper {
                     if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_NORMAL) {
                         uiModeManager.enableCarMode(0);
                         PPApplication.sleep(200);
-                        uiModeManager.disableCarMode(0);
+                        //uiModeManager.disableCarMode(0);
+                        uiModeManager.disableCarMode(UiModeManager.DISABLE_CAR_MODE_GO_HOME);
                     }
                     else
                     if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_CAR) {
-                        uiModeManager.disableCarMode(0);
+                        //uiModeManager.disableCarMode(0);
+                        uiModeManager.disableCarMode(UiModeManager.DISABLE_CAR_MODE_GO_HOME);
                         PPApplication.sleep(200);
                         uiModeManager.enableCarMode(0);
                     }

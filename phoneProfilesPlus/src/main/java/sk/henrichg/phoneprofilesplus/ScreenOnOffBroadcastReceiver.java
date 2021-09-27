@@ -98,7 +98,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                 restart = true;
                             else if (ApplicationPreferences.applicationEventOrientationEnableScanning)
                                 restart = true;
-                            else if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning)
+                            else if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning)
                                 restart = true;
                             if (restart) {
                                 //PPApplication.logE("[RJS] ScreenOnOffBroadcastReceiver.onReceive", "restart all scanners for SCREEN_ON");
@@ -150,8 +150,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                             // for screen off restart scanners only when it is required for any scanner
                             boolean restart = false;
-                            if (ApplicationPreferences.applicationEventBackgroundScanningEnableScanning &&
-                                    ApplicationPreferences.applicationEventBackgroundScanningScanOnlyWhenScreenIsOn)
+                            if (ApplicationPreferences.applicationEventPeriodicScanningEnableScanning &&
+                                    ApplicationPreferences.applicationEventPeriodicScanningScanOnlyWhenScreenIsOn)
                                 restart = true;
                             if (ApplicationPreferences.applicationEventLocationEnableScanning &&
                                     ApplicationPreferences.applicationEventLocationScanOnlyWhenScreenIsOn)

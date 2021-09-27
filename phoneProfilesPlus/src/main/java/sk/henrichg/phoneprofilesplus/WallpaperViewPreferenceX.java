@@ -35,10 +35,7 @@ public class WallpaperViewPreferenceX extends Preference {
 
         prefContext = context;
 
-        //preferenceTitle = getTitle();
-
         setWidgetLayoutResource(R.layout.widget_imageview_preference);
-        //setLayoutResource(R.layout.widget_imageview_preference);
     }
 
     //@Override
@@ -50,16 +47,13 @@ public class WallpaperViewPreferenceX extends Preference {
 
         imageView = (ImageView) holder.findViewById(R.id.imageview_pref_imageview);
 
-        //imageTitle = view.findViewById(R.id.imageview_pref_label);
-        //imageTitle.setText(preferenceTitle);
-
         new BindViewAsyncTask(this).execute();
     }
 
     @Override
     protected void onClick()
     {
-        if (Permissions.grantWallpaperPermissions(prefContext))
+        if (Permissions.grantImageWallpaperPermissions(prefContext))
             startGallery();
     }
 
@@ -139,13 +133,10 @@ public class WallpaperViewPreferenceX extends Preference {
     {
         Intent intent;
         try {
-            //if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-                intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
-                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-            //}else
-            //    intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
             intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.setType("image/*");
@@ -156,18 +147,6 @@ public class WallpaperViewPreferenceX extends Preference {
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
-        /*} catch (ActivityNotFoundException e) {
-            try {
-                intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, false);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                intent.setType("image/*");
-
-                // is not possible to get activity from preference, used is static method
-                ProfilesPrefsFragment.setChangedWallpaperViewPreference(this);
-                ((Activity) prefContext).startActivityForResult(intent, RESULT_LOAD_IMAGE);
-            } catch (Exception ignored) {}
-        }*/
     }
 
 

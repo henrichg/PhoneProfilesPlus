@@ -21,6 +21,7 @@
 <!--            <corners android:radius="@dimen/popup_menu_corner_radius" />-->
 <!--        </shape>-->
 <!--    </item>-->
+
     <item>
         <shape android:shape="rectangle">
             <padding
@@ -38,6 +39,12 @@
     <!-- Background -->
     <item>
         <shape android:shape="rectangle">
+            <padding
+                android:bottom="@dimen/popup_menu_transparent_padding_height"
+                android:left="@dimen/popup_menu_transparent_padding_width"
+                android:right="@dimen/popup_menu_transparent_padding_width"
+                android:top="@dimen/popup_menu_transparent_padding_height" />
+
             <solid android:color="@color/activityPopupMenuBackgroundColor" />
 
             <corners android:radius="@dimen/popup_menu_corner_radius" />

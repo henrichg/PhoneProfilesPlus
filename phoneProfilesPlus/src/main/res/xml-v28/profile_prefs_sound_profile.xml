@@ -11,9 +11,9 @@
         app:widgetLayout="@layout/widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
-        app:key="prf_pref_volumeVibrateWhenRingingRootInfo"
-        app:title="@string/profile_preferences_volumeVibrateWhenRingingRootInfo_title"
-        app:summary="@string/profile_preferences_volumeVibrateWhenRingingRootInfoM_summary"
+        app:key="prf_pref_volumeSoundModeVibrationInfo"
+        app:title="@string/profile_preferences_vvolumeSoundModeVibrationInfo_title"
+        app:summary="@string/profile_preferences_volumeSoundModeVibrationInfo_summary"
         app:widgetLayout="@layout/widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
@@ -51,6 +51,14 @@
         app:defaultValue="0"
         app:entries="@array/vibrateWhenRingingArray"
         app:entryValues="@array/vibrateWhenRingingValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_vibrateNotifications"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_vibrateNotifications"
+        app:defaultValue="0"
+        app:entries="@array/vibrateNotificationsArray"
+        app:entryValues="@array/vibrateNotificationsValues"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

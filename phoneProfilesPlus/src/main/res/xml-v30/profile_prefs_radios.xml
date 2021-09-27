@@ -82,11 +82,10 @@
         app:summary="@string/connect_to_ssid_pref_dlg_summary_text_just_any"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <!--
     <Preference
         app:key="prf_pref_deviceWiFiAPInfo"
         app:title="@string/profile_preferences_deviceWiFiAP"
-        app:summary="@string/profile_preferences_deviceWiFiAPInfo30_summary"
+        app:summary="@string/profile_preferences_deviceWiFiAPInfo_summary"
         app:widgetLayout="@layout/widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
@@ -97,7 +96,6 @@
         app:entries="@array/wifiAPArray"
         app:entryValues="@array/wifiAPValues"
         app:layout="@layout/mp_preference_material_widget" />
-    -->
 
     <ListPreference
         app:title="@string/profile_preferences_deviceWiFiAPPrefs"

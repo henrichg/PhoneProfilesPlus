@@ -126,6 +126,14 @@
             app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsTimeParameters" />
 
         <Preference
+            app:title="@string/event_preferences_category_eventPeriodicParameters"
+            app:summary="@string/event_preference_sensor_periodic_summary"
+            app:key="eventPeriodicCategoryRoot"
+            app:widgetLayout="@layout/widget_start_activity_preference"
+            app:layout="@layout/mp_preference_material_widget"
+            app:fragment="sk.henrichg.phoneprofilesplus.EventsPrefsActivity$EventsPrefsPeriodicParameters" />
+
+        <Preference
             app:title="@string/event_preferences_category_eventCalendarParameters"
             app:summary="@string/event_preference_sensor_calendar_summary"
             app:key="eventCalendarCategoryRoot"

@@ -6,13 +6,13 @@
     <item android:id="@+id/menu_restart_events"
           android:title="@string/menu_restart_events"
           android:orderInCategory="100"
-          app:showAsAction="always"
+          app:showAsAction="always|withText"
           android:icon="?attr/actionEventsRestartIcon"
           tools:ignore="AlwaysShowAction"/>
     <item android:id="@+id/menu_edit_profiles"
           android:title="@string/menu_edit_profiles"
           android:orderInCategory="110"
-          app:showAsAction="always"
+          app:showAsAction="always|withText"
           android:icon="?attr/actionEditProfilesIcon"
           tools:ignore="AlwaysShowAction" />
 </menu>

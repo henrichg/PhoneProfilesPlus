@@ -277,8 +277,8 @@ public class LocationGeofencePreferenceFragmentX extends PreferenceDialogFragmen
             if (itemId == R.id.location_geofence_pref_item_menu_delete) {
                 if (getActivity() != null) {
                     AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-                    dialogBuilder.setTitle(getResources().getString(R.string.event_preferences_locations_cant_delete_location_title));
-                    dialogBuilder.setMessage(getResources().getString(R.string.delete_geofence_name_alert_message));
+                    dialogBuilder.setTitle(getString(R.string.event_preferences_locations_cant_delete_location_title));
+                    dialogBuilder.setMessage(getString(R.string.delete_geofence_name_alert_message));
                     //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
                     dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                         if (geofenceId > 0) {

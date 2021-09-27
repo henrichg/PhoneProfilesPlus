@@ -4,6 +4,6 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textSize="15sp"
-          android:ellipsize="marquee"
-          android:singleLine="true"/>
+          android:ellipsize="none"
+          android:singleLine="false"/>
 <!--    android:textColor="@color/editorFilterTitleColor"-->

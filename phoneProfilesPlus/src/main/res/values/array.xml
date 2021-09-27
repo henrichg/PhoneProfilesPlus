@@ -179,10 +179,12 @@
     <string-array name="notificationIconStyleArray">
         <item>@string/phone_profiles_pref_notificationStatusBarStyle_color</item>
         <item>@string/phone_profiles_pref_notificationStatusBarStyle_android</item>
+        <item>@string/phone_profiles_pref_notificationStatusBarStyle_force_android</item>
     </string-array>
     <string-array name="notificationIconStyleValues">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
     </string-array>
     <string-array name="themeArray">
         <item>@string/phone_profiles_pref_applicationTheme_white</item>
@@ -296,11 +298,15 @@
     </string-array>
     <string-array name="changeWallpaperArray">
         <item>@string/array_pref_no_change</item>
-        <item>@string/array_pref_change</item>
+        <item>@string/array_pref_change_image_wallpaper</item>
+        <item>@string/array_pref_change_live_wallpaper</item>
+        <item>@string/array_pref_change_random_image_wallpaper</item>
     </string-array>
     <string-array name="changeWallpaperValues">
         <item>0</item>
         <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 
     <string-array name="launcherArray">
@@ -430,6 +436,7 @@
         <item>@string/array_pref_afterProfileDurationDo_undoProfile</item>
         <item>@string/array_pref_afterProfileDurationDo_backgroundProfile</item>
         <item>@string/array_pref_afterProfileDurationDo_activateProfile</item>
+        <item>@string/array_pref_afterProfileDurationDo_activateProfileThenRestartEvents</item>
         <item>@string/array_pref_afterProfileDurationDo_nothing</item>
     </string-array>
     <string-array name="afterProfileDurationDoValues">
@@ -437,6 +444,7 @@
         <item>1</item>
         <item>2</item>
         <item>4</item>
+        <item>5</item>
         <item>0</item>
     </string-array>
     <string-array name="eventBluetoothConnectionTypeArray">
@@ -750,6 +758,16 @@
         <item>@string/array_pref_hardwareModeArray_off</item>
     </string-array>
     <string-array name="vibrateWhenRingingValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="vibrateNotificationsArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_hardwareModeArray_on</item>
+        <item>@string/array_pref_hardwareModeArray_off</item>
+    </string-array>
+    <string-array name="vibrateNotificationsValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -1402,6 +1420,16 @@
         <item>4</item>
         <item>5</item>
         <item>6</item>
+    </string-array>
+    <string-array name="applicationDisableGlobalEventsRunArray">
+        <item>@string/array_pref_no_change</item>
+        <item>@string/array_pref_applicationDisableGlobalEventsRun_disabled</item>
+        <item>@string/array_pref_applicationDisableGlobalEventsRun_enabled</item>
+    </string-array>
+    <string-array name="applicationDisableGlobalEventsRunValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 
 </resources>

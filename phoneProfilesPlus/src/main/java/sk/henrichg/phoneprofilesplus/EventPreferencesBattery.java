@@ -299,7 +299,7 @@ class EventPreferencesBattery extends EventPreferences {
         else {
             Preference preference = prefMng.findPreference(PREF_EVENT_BATTERY_CATEGORY);
             if (preference != null) {
-                preference.setSummary(context.getResources().getString(R.string.profile_preferences_device_not_allowed)+
+                preference.setSummary(context.getString(R.string.profile_preferences_device_not_allowed)+
                         ": "+ preferenceAllowed.getNotAllowedPreferenceReasonString(context));
                 preference.setEnabled(false);
             }
@@ -337,8 +337,8 @@ class EventPreferencesBattery extends EventPreferences {
 
                 if (!OK) {
                     PPApplication.showToast(_context.getApplicationContext(),
-                            _context.getResources().getString(R.string.event_preferences_battery_level_low) + ": " +
-                                    _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
+                            _context.getString(R.string.event_preferences_battery_level_low) + ": " +
+                                    _context.getString(R.string.event_preferences_battery_level_bad_value),
                             Toast.LENGTH_SHORT);
                 }
 
@@ -366,8 +366,8 @@ class EventPreferencesBattery extends EventPreferences {
 
                 if (!OK) {
                     PPApplication.showToast(_context.getApplicationContext(),
-                            _context.getResources().getString(R.string.event_preferences_battery_level_hight) + ": " +
-                                    _context.getResources().getString(R.string.event_preferences_battery_level_bad_value),
+                            _context.getString(R.string.event_preferences_battery_level_hight) + ": " +
+                                    _context.getString(R.string.event_preferences_battery_level_bad_value),
                             Toast.LENGTH_SHORT);
                 }
 

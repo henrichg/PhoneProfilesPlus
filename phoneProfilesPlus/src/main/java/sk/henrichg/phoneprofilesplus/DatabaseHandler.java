@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2466;
+    private static final int DATABASE_VERSION = 2473;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -106,6 +106,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM1 = 32;
     static final int ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM2 = 33;
     static final int ETYPE_SOUND_PROFILE = 36;
+    static final int ETYPE_PERIODIC = 37;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";
@@ -157,6 +158,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DEVICE_NETWORK_TYPE = "deviceNetworkType";
     private static final String KEY_NOTIFICATION_LED = "notificationLed";
     private static final String KEY_VIBRATE_WHEN_RINGING = "vibrateWhenRinging";
+    private static final String KEY_VIBRATE_NOTIFICATIONS = "vibrateNotifications";
     private static final String KEY_DEVICE_WALLPAPER_FOR = "deviceWallpaperFor";
     private static final String KEY_HIDE_STATUS_BAR_ICON = "hideStatusBarIcon";
     private static final String KEY_LOCK_DEVICE = "lockDevice";
@@ -203,6 +205,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_SOUND_NOTIFICATION_CHANGE_SIM2 = "soundNotificationChangeSIM2";
     private static final String KEY_SOUND_NOTIFICATION_SIM2 = "soundNotificationSIM2";
     private static final String KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS = "soundSameRingtoneForBothSIMCards";
+    private static final String KEY_DEVICE_LIVE_WALLPAPER = "deviceLiveWallpaper";
+    private static final String KEY_CHANGE_WALLPAPER_TIME = "deviceChangeWallpapaerTime";
+    private static final String KEY_DEVICE_WALLPAPER_FOLDER = "deviceWallpaperFolder";
+    private static final String KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN = "applicationDisableGlobalEventsRun";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -374,6 +380,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_SOUND_PROFILE_RINGER_MODES = "soundProfileRingerModes";
     private static final String KEY_E_SOUND_PROFILE_ZEN_MODES = "soundProfileZenModes";
     private static final String KEY_E_SOUND_PROFILE_SENSOR_PASSED = "soundProfileSensorPassed";
+    private static final String KEY_E_PERIODIC_ENABLED = "periodicEnabled";
+    private static final String KEY_E_PERIODIC_MULTIPLY_INTERVAL = "periodicMultiplyInterval";
+    private static final String KEY_E_PERIODIC_DURATION = "periodicDuration";
+    private static final String KEY_E_PERIODIC_START_TIME = "periodicStartTime";
+    private static final String KEY_E_PERIODIC_COUNTER = "periodicCounter";
+    private static final String KEY_E_PERIODIC_SENSOR_PASSED = "periodicSensorPassed";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -613,7 +625,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_SOUND_NOTIFICATION_SIM1 + " " + TEXT_TYPE + ","
                 + KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + " " + INTEGER_TYPE + ","
                 + KEY_SOUND_NOTIFICATION_SIM2 + " " + TEXT_TYPE + ","
-                + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + " " + INTEGER_TYPE
+                + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_LIVE_WALLPAPER + " " + TEXT_TYPE + ","
+                + KEY_VIBRATE_NOTIFICATIONS + " " + INTEGER_TYPE + ","
+                + KEY_CHANGE_WALLPAPER_TIME + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_WALLPAPER_FOLDER + " " + TEXT_TYPE + ","
+                + KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN + " " + INTEGER_TYPE
                 + ")";
     }
 
@@ -791,7 +808,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_SOUND_PROFILE_ENABLED + " " + INTEGER_TYPE + ","
                 + KEY_E_SOUND_PROFILE_RINGER_MODES + " " + TEXT_TYPE + ","
                 + KEY_E_SOUND_PROFILE_ZEN_MODES + " " + TEXT_TYPE + ","
-                + KEY_E_SOUND_PROFILE_SENSOR_PASSED + " " + INTEGER_TYPE
+                + KEY_E_SOUND_PROFILE_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIODIC_ENABLED + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIODIC_MULTIPLY_INTERVAL + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIODIC_DURATION + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIODIC_START_TIME + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIODIC_COUNTER + " " + INTEGER_TYPE + ","
+                + KEY_E_PERIODIC_SENSOR_PASSED + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -937,6 +960,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__ALARM_CLOCK_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_ALARM_CLOCK_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__DEVICE_BOOT_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_DEVICE_BOOT_ENABLED + ")");
         db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__SOUND_PROFILE_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_SOUND_PROFILE_ENABLED + ")");
+        db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__PERIODIC_ENABLED ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_PERIODIC_ENABLED + ")");
 
         //db.execSQL("CREATE INDEX IF NOT EXISTS IDX_STATUS__MOBILE_CELLS_ENABLED_WHEN_OUTSIDE ON " + TABLE_EVENTS + " (" + KEY_E_STATUS + "," + KEY_E_MOBILE_CELLS_ENABLED + "," + KEY_E_MOBILE_CELLS_WHEN_OUTSIDE + ")");
 
@@ -1067,6 +1091,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION_CHANGE_SIM2, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_SOUND_NOTIFICATION_SIM2, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_LIVE_WALLPAPER, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_VIBRATE_NOTIFICATIONS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_CHANGE_WALLPAPER_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER_FOLDER, TEXT_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, KEY_E_NAME, TEXT_TYPE, columns);
@@ -1233,6 +1262,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_SOUND_PROFILE_RINGER_MODES, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_SOUND_PROFILE_ZEN_MODES, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_SOUND_PROFILE_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIODIC_ENABLED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIODIC_MULTIPLY_INTERVAL, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIODIC_DURATION, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIODIC_START_TIME, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIODIC_COUNTER, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_PERIODIC_SENSOR_PASSED, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -2769,6 +2804,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 "",
                                 0,
                                 "",
+                                0,
+                                "",
+                                0,
+                                "-",
                                 0
                         );
 
@@ -2824,6 +2863,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
                             values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
                             values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
+                            values.put(KEY_VIBRATE_NOTIFICATIONS, profile._vibrateNotifications);
                             values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
                             values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
                             values.put(KEY_LOCK_DEVICE, profile._lockDevice);
@@ -2862,6 +2902,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM2, profile._soundNotificationChangeSIM2);
                             values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
                             values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
+                            values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
+                            values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
+                            values.put(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, profile._applicationDisableGloabalEventsRun);
 
                             // updating row
                             db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -2892,8 +2935,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion < 2340)
         {
             try {
-                //if (android.os.Build.VERSION.SDK_INT >= 21) // for Android 5.0: adaptive brightness
-                //{
                 final String selectQuery = "SELECT " + KEY_ID + "," +
                         KEY_VOLUME_RINGER_MODE +
                         " FROM " + TABLE_PROFILES;
@@ -2918,7 +2959,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 }
 
                 cursor.close();
-                //}
             } catch (Exception ignored) {}
         }
 
@@ -3363,6 +3403,79 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SOUND_PROFILE_SENSOR_PASSED + "=0");
         }
 
+        if (oldVersion < 2467)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_LIVE_WALLPAPER + "=\"\"");
+        }
+
+        if (oldVersion < 2468)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_VIBRATE_NOTIFICATIONS + "=0");
+
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_LIVE_WALLPAPER + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_VIBRATE_NOTIFICATIONS + "=0");
+        }
+
+        if (oldVersion < 2469)
+        {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_ENABLED + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_START_TIME + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_COUNTER + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_DURATION + "=5");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_MULTIPLY_INTERVAL + "=1");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_PERIODIC_SENSOR_PASSED + "=0");
+        }
+
+        if (oldVersion < 2470)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_CHANGE_WALLPAPER_TIME + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_CHANGE_WALLPAPER_TIME + "=0");
+        }
+
+        if (oldVersion < 2471)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_WALLPAPER_FOLDER + "='-'");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_WALLPAPER_FOLDER + "='-'");
+        }
+
+        if (oldVersion < 2472) {
+            try {
+                final String selectQuery = "SELECT " + KEY_E_ID + "," +
+                        KEY_E_PERIODIC_DURATION + "," +
+                        KEY_E_PERIODIC_MULTIPLY_INTERVAL +
+                        " FROM " + TABLE_EVENTS;
+
+                Cursor cursor = db.rawQuery(selectQuery, null);
+
+                if (cursor.moveToFirst()) {
+                    do {
+                        ContentValues values = new ContentValues();
+
+                        int multipleInterval = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_MULTIPLY_INTERVAL));
+                        int duration = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_DURATION));
+
+                        if ((multipleInterval == 0) || (duration == 0)) {
+                            if (multipleInterval == 0)
+                                values.put(KEY_E_PERIODIC_MULTIPLY_INTERVAL, 1);
+                            if (duration == 0)
+                                values.put(KEY_E_PERIODIC_DURATION, 5);
+
+                            db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?", new String[]{cursor.getString(cursor.getColumnIndex(KEY_E_ID))});
+                        }
+
+                    } while (cursor.moveToNext());
+                }
+
+                cursor.close();
+            } catch (Exception ignored) {}
+        }
+
+        if (oldVersion < 2473)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN + "=0");
+        }
+
     }
 
     @Override
@@ -3484,6 +3597,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
                 values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
                 values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
+                values.put(KEY_VIBRATE_NOTIFICATIONS, profile._vibrateNotifications);
                 values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
                 values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
                 values.put(KEY_LOCK_DEVICE, profile._lockDevice);
@@ -3530,6 +3644,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM2, profile._soundNotificationChangeSIM2);
                 values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
                 values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
+                values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
+                values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
+                values.put(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, profile._applicationDisableGloabalEventsRun);
 
                 // Insert Row
                 if (!merged) {
@@ -3549,6 +3666,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     // Getting single profile
+    @SuppressWarnings("ConstantConditions")
     Profile getProfile(long profile_id, boolean merged) {
         importExportLock.lock();
         try {
@@ -3614,6 +3732,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_NETWORK_TYPE,
                                 KEY_NOTIFICATION_LED,
                                 KEY_VIBRATE_WHEN_RINGING,
+                                KEY_VIBRATE_NOTIFICATIONS,
                                 KEY_DEVICE_WALLPAPER_FOR,
                                 KEY_HIDE_STATUS_BAR_ICON,
                                 KEY_LOCK_DEVICE,
@@ -3659,7 +3778,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_NOTIFICATION_SIM1,
                                 KEY_SOUND_NOTIFICATION_CHANGE_SIM2,
                                 KEY_SOUND_NOTIFICATION_SIM2,
-                                KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS
+                                KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
+                                KEY_DEVICE_LIVE_WALLPAPER,
+                                KEY_DEVICE_WALLPAPER_FOLDER,
+                                KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3762,7 +3884,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM1)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM2)),
                                 cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS))
+                                cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS)),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN))
                         );
                     }
 
@@ -3840,6 +3966,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_NETWORK_TYPE + "," +
                         KEY_NOTIFICATION_LED + "," +
                         KEY_VIBRATE_WHEN_RINGING + "," +
+                        KEY_VIBRATE_NOTIFICATIONS + "," +
                         KEY_DEVICE_WALLPAPER_FOR + "," +
                         KEY_HIDE_STATUS_BAR_ICON + "," +
                         KEY_LOCK_DEVICE + "," +
@@ -3885,7 +4012,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_SOUND_NOTIFICATION_SIM1 + "," +
                         KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + "," +
                         KEY_SOUND_NOTIFICATION_SIM2 + "," +
-                        KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS +
+                        KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "," +
+                        KEY_DEVICE_LIVE_WALLPAPER + "," +
+                        KEY_DEVICE_WALLPAPER_FOLDER + "," +
+                        KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -3946,6 +4076,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._deviceNetworkType = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_NETWORK_TYPE));
                         profile._notificationLed = cursor.getInt(cursor.getColumnIndex(KEY_NOTIFICATION_LED));
                         profile._vibrateWhenRinging = cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_WHEN_RINGING));
+                        profile._vibrateNotifications = cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS));
                         profile._deviceWallpaperFor = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOR));
                         profile._hideStatusBarIcon = cursor.getInt(cursor.getColumnIndex(KEY_HIDE_STATUS_BAR_ICON)) == 1;
                         profile._lockDevice = cursor.getInt(cursor.getColumnIndex(KEY_LOCK_DEVICE));
@@ -3992,6 +4123,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._soundNotificationChangeSIM2 = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM2));
                         profile._soundNotificationSIM2 = cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2));
                         profile._soundSameRingtoneForBothSIMCards = cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS));
+                        profile._deviceLiveWallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER));
+                        profile._deviceWallpaperFolder = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER));
+                        profile._applicationDisableGloabalEventsRun = cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -4070,6 +4204,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_NETWORK_TYPE, profile._deviceNetworkType);
                 values.put(KEY_NOTIFICATION_LED, profile._notificationLed);
                 values.put(KEY_VIBRATE_WHEN_RINGING, profile._vibrateWhenRinging);
+                values.put(KEY_VIBRATE_NOTIFICATIONS, profile._vibrateNotifications);
                 values.put(KEY_DEVICE_WALLPAPER_FOR, profile._deviceWallpaperFor);
                 values.put(KEY_HIDE_STATUS_BAR_ICON, (profile._hideStatusBarIcon) ? 1 : 0);
                 values.put(KEY_LOCK_DEVICE, profile._lockDevice);
@@ -4116,6 +4251,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_SOUND_NOTIFICATION_CHANGE_SIM2, profile._soundNotificationChangeSIM2);
                 values.put(KEY_SOUND_NOTIFICATION_SIM2, profile._soundNotificationSIM2);
                 values.put(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, profile._soundSameRingtoneForBothSIMCards);
+                values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
+                values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
+                values.put(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, profile._applicationDisableGloabalEventsRun);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -4390,6 +4528,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         doActivateProfile(null, false);
     }
 
+    @SuppressWarnings("ConstantConditions")
     Profile getActivatedProfile()
     {
         importExportLock.lock();
@@ -4451,6 +4590,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_NETWORK_TYPE,
                                 KEY_NOTIFICATION_LED,
                                 KEY_VIBRATE_WHEN_RINGING,
+                                KEY_VIBRATE_NOTIFICATIONS,
                                 KEY_DEVICE_WALLPAPER_FOR,
                                 KEY_HIDE_STATUS_BAR_ICON,
                                 KEY_LOCK_DEVICE,
@@ -4496,7 +4636,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_NOTIFICATION_SIM1,
                                 KEY_SOUND_NOTIFICATION_CHANGE_SIM2,
                                 KEY_SOUND_NOTIFICATION_SIM2,
-                                KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS
+                                KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
+                                KEY_DEVICE_LIVE_WALLPAPER,
+                                KEY_DEVICE_WALLPAPER_FOLDER,
+                                KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -4601,7 +4744,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM1)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_CHANGE_SIM2)),
                                 cursor.getString(cursor.getColumnIndex(KEY_SOUND_NOTIFICATION_SIM2)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS))
+                                cursor.getInt(cursor.getColumnIndex(KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS)),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS)),
+                                cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN))
                         );
                     }
 
@@ -5176,6 +5323,47 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+
+    /*
+    void updateChangeWallpaperTime(Profile profile)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_CHANGE_WALLPAPER_TIME, profile._changeWallpaperTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                            new String[]{String.valueOf(profile._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandler.updatePeriodicStartTime", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+    */
 
 // EVENTS --------------------------------------------------------------------------------
 
@@ -5760,6 +5948,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         getEventPreferencesAlarmClock(event, db);
         getEventPreferencesDeviceBoot(event, db);
         getEventPreferencesSoundProfile(event, db);
+        getEventPreferencesPeriodic(event, db);
     }
 
     private void getEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -6417,6 +6606,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    private void getEventPreferencesPeriodic(Event event, SQLiteDatabase db) {
+        Cursor cursor = db.query(TABLE_EVENTS,
+                new String[]{KEY_E_PERIODIC_ENABLED,
+                        KEY_E_PERIODIC_START_TIME,
+                        KEY_E_PERIODIC_COUNTER,
+                        KEY_E_PERIODIC_DURATION,
+                        KEY_E_PERIODIC_MULTIPLY_INTERVAL,
+                        KEY_E_PERIODIC_SENSOR_PASSED
+                },
+                KEY_E_ID + "=?",
+                new String[]{String.valueOf(event._id)}, null, null, null, null);
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+
+            if (cursor.getCount() > 0)
+            {
+                EventPreferencesPeriodic eventPreferences = event._eventPreferencesPeriodic;
+
+                eventPreferences._enabled = (cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_ENABLED)) == 1);
+                eventPreferences._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_PERIODIC_START_TIME));
+                eventPreferences._counter = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_COUNTER));
+                eventPreferences._multipleInterval = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_MULTIPLY_INTERVAL));
+                eventPreferences._duration = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_DURATION));
+                eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_SENSOR_PASSED)));
+            }
+            cursor.close();
+        }
+    }
+
 
     // this is called only from addEvent and updateEvent.
     // for this is not needed to calling importExportLock.lock();
@@ -6440,6 +6659,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         updateEventPreferencesAlarmClock(event, db);
         updateEventPreferencesDeviceBoot(event, db);
         updateEventPreferencesSoundProfile(event, db);
+        updateEventPreferencesPeriodic(event, db);
     }
 
     private void updateEventPreferencesTime(Event event, SQLiteDatabase db) {
@@ -6799,6 +7019,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] { String.valueOf(event._id) });
     }
 
+    private void updateEventPreferencesPeriodic(Event event, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+
+        EventPreferencesPeriodic eventPreferences = event._eventPreferencesPeriodic;
+
+        values.put(KEY_E_PERIODIC_ENABLED, (eventPreferences._enabled) ? 1 : 0);
+        values.put(KEY_E_PERIODIC_START_TIME, eventPreferences._startTime);
+        values.put(KEY_E_PERIODIC_COUNTER, eventPreferences._counter);
+        values.put(KEY_E_PERIODIC_DURATION, eventPreferences._duration);
+        values.put(KEY_E_PERIODIC_MULTIPLY_INTERVAL, eventPreferences._multipleInterval);
+        values.put(KEY_E_PERIODIC_SENSOR_PASSED, eventPreferences.getSensorPassed());
+
+        // updating row
+        db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                new String[] { String.valueOf(event._id) });
+    }
+
     int getEventStatus(Event event)
     {
         importExportLock.lock();
@@ -7104,6 +7341,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         case ETYPE_SOUND_PROFILE:
                             sensorPassedField = KEY_E_SOUND_PROFILE_SENSOR_PASSED;
                             break;
+                        case ETYPE_PERIODIC:
+                            sensorPassedField = KEY_E_PERIODIC_SENSOR_PASSED;
+                            break;
                     }
 
                     Cursor cursor = db.query(TABLE_EVENTS,
@@ -7226,6 +7466,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         sensorPassed = event._eventPreferencesSoundProfile.getSensorPassed();
                         sensorPassedField = KEY_E_SOUND_PROFILE_SENSOR_PASSED;
                         break;
+                    case ETYPE_PERIODIC:
+                        sensorPassed = event._eventPreferencesPeriodic.getSensorPassed();
+                        sensorPassedField = KEY_E_PERIODIC_SENSOR_PASSED;
+                        break;
                 }
                 ContentValues values = new ContentValues();
                 values.put(sensorPassedField, sensorPassed);
@@ -7286,6 +7530,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, event._eventPreferencesAlarmClock.getSensorPassed());
                 values.put(KEY_E_DEVICE_BOOT_SENSOR_PASSED, event._eventPreferencesDeviceBoot.getSensorPassed());
                 values.put(KEY_E_SOUND_PROFILE_SENSOR_PASSED, event._eventPreferencesSoundProfile.getSensorPassed());
+                values.put(KEY_E_PERIODIC_SENSOR_PASSED, event._eventPreferencesPeriodic.getSensorPassed());
 
                 db.beginTransaction();
 
@@ -7343,6 +7588,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_E_ALARM_CLOCK_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_DEVICE_BOOT_SENSOR_PASSED, sensorPassed);
                 values.put(KEY_E_SOUND_PROFILE_SENSOR_PASSED, sensorPassed);
+                values.put(KEY_E_PERIODIC_SENSOR_PASSED, sensorPassed);
 
                 db.beginTransaction();
 
@@ -7461,6 +7707,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         eventTypeChecked = eventTypeChecked + KEY_E_DEVICE_BOOT_ENABLED + "=1";
                     else if (eventType == ETYPE_SOUND_PROFILE)
                         eventTypeChecked = eventTypeChecked + KEY_E_SOUND_PROFILE_ENABLED + "=1";
+                    else if (eventType == ETYPE_PERIODIC)
+                        eventTypeChecked = eventTypeChecked + KEY_E_PERIODIC_ENABLED + "=1";
                 }
 
                 countQuery = "SELECT  count(*) FROM " + TABLE_EVENTS +
@@ -8365,6 +8613,129 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                     if (cursor.getCount() > 0) {
                         event._eventPreferencesDeviceBoot._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_DEVICE_BOOT_START_TIME));
+                    }
+
+                    cursor.close();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updatePeriodicCounter(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_PERIODIC_COUNTER, event._eventPreferencesPeriodic._counter);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandler.updatePeriodicStartTime", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void updatePeriodicStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getWritableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                ContentValues values = new ContentValues();
+                values.put(KEY_E_PERIODIC_START_TIME, event._eventPreferencesPeriodic._startTime);
+
+                db.beginTransaction();
+
+                try {
+                    // updating row
+                    db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
+                            new String[]{String.valueOf(event._id)});
+
+                    db.setTransactionSuccessful();
+
+                } catch (Exception e) {
+                    //Error in between database transaction
+                    //Log.e("DatabaseHandler.updatePeriodicStartTime", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                } finally {
+                    db.endTransaction();
+                }
+
+                //db.close();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        } finally {
+            stopRunningCommand();
+        }
+    }
+
+    void getPeriodicStartTime(Event event)
+    {
+        importExportLock.lock();
+        try {
+            try {
+                startRunningCommand();
+
+                //SQLiteDatabase db = this.getReadableDatabase();
+                SQLiteDatabase db = getMyWritableDatabase();
+
+                Cursor cursor = db.query(TABLE_EVENTS,
+                        new String[]{
+                                KEY_E_PERIODIC_COUNTER,
+                                KEY_E_PERIODIC_MULTIPLY_INTERVAL,
+                                KEY_E_PERIODIC_START_TIME
+                        },
+                        KEY_E_ID + "=?",
+                        new String[]{String.valueOf(event._id)}, null, null, null, null);
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    if (cursor.getCount() > 0) {
+                        int multiplyInterval = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_MULTIPLY_INTERVAL));
+
+                        event._eventPreferencesPeriodic._counter = cursor.getInt(cursor.getColumnIndex(KEY_E_PERIODIC_COUNTER));
+                        if (event._eventPreferencesPeriodic._counter >=
+                                ApplicationPreferences.applicationEventPeriodicScanningScanInterval * multiplyInterval)
+                            event._eventPreferencesPeriodic._startTime = cursor.getLong(cursor.getColumnIndex(KEY_E_PERIODIC_START_TIME));
+                        else
+                            event._eventPreferencesPeriodic._startTime = 0;
+
                     }
 
                     cursor.close();
@@ -10983,6 +11354,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_NETWORK_TYPE_PREFS + "," +
                         KEY_NOTIFICATION_LED + "," +
                         KEY_VIBRATE_WHEN_RINGING + "," +
+                        KEY_VIBRATE_NOTIFICATIONS + "," +
                         KEY_DEVICE_CONNECT_TO_SSID + "," +
                         KEY_APPLICATION_DISABLE_WIFI_SCANNING + "," +
                         KEY_APPLICATION_DISABLE_BLUETOOTH_SCANNING + "," +
@@ -11264,6 +11636,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
                                     values.clear();
                                     values.put(KEY_VIBRATE_WHEN_RINGING, 0);
+                                    db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
+                                            new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
+                                }
+                            }
+
+                            if (profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS)) != 0) {
+                                PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS, null, sharedPreferences, false, context);
+                                if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
+                                        (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
+                                    values.clear();
+                                    values.put(KEY_VIBRATE_NOTIFICATIONS, 0);
                                     db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndex(KEY_ID)))});
                                 }

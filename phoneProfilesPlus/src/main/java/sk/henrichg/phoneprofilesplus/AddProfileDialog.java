@@ -80,7 +80,7 @@ class AddProfileDialog
                 boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
                 Profile profile;
                 profile = DataWrapper.getNonInitializedProfile(
-                        activity.getResources().getString(R.string.profile_name_default),
+                        activity.getString(R.string.profile_name_default),
                         Profile.PROFILE_ICON_DEFAULT, 0);
                 profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
                 if (applicationEditorPrefIndicator)
@@ -154,7 +154,7 @@ class AddProfileDialog
                 boolean applicationEditorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
                 Profile profile;
                 profile = DataWrapper.getNonInitializedProfile(
-                        activity.getResources().getString(R.string.profile_name_default),
+                        activity.getString(R.string.profile_name_default),
                         Profile.PROFILE_ICON_DEFAULT, 0);
                 profile.generateIconBitmap(activity.getApplicationContext(), false, 0xFF, false);
                 if (applicationEditorPrefIndicator)
