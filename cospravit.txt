@@ -418,30 +418,29 @@ Skus spravit tie images vektorove.
 
 ------------
 
-- Better handling ob Extender version for profile.
-- Change: Used is Volley to read releases files from GitHub.
-- Fixed bad working Screen sensor.
+- Added "Vibrate notifications" as addition to "Vibrate when ringing".
+- Added "Periodic sensor" into events.
 - Added support for live wallpapers.
-- Added "debug" string for debug version of PPP into "About application".
-- Fixed grant of background location.
-- Added PPP, system informations to crash report.
+- Added "Random image from folder" into profile "Change wallpaper".
+- Added "[M] Activate specific profile, then restart events" into "After duration do" for profile activation with duration.
+- Added "Disable events run" into profile "Application functions".
+- Added PPP notification type "Force native (for custom icons)".
+- Added preference for grant "Display pop-up windows while running in background" in MIUI.
 - Added check releases in APKPure from Editor.
+- Added description of widgets for Android 12.
+- Added PPP, system informations to crash report.
+- Added help about grant (G1) permission into README.md.
+- Added WiFi Hotspot for Android 11+.
+- Better handling of Extender version for profile.
 - Better large screens support.
 - Display toolbars menu icons with texts if possible.
 - Change: Use dominant color in custom profile icon for PPP notification.
-- Added PPP notification type "Force native (for custom icons)".
-- Added preference for grant "Display pop-up windows while running in background" in MIUI.
-- Added "Vibrate notifications" as addition to "Vibrate when ringing".
-- Fixed bad working check of Extender Accessibility service.
-- Added "Periodic sensor" into events.
-- Changed importance of ACRA notification to HIGH.
-- Change: Use WiFiAPManager for Android 10.
-- Added "Random image from folder" into profile "Change wallpaper".
 - Better rounded corners for menus and spinner popups.
-- Added "[M] Activate specific profile, then restart events" into "After duration do" for profile activation with duration.
-- Added "Disable events run" into profile "Application functions".
-- Added description of widgets for Android 12.
 - Direct download of PhoneProfilesPlus.apk from Github.
 - Direct download of PhoneProfilesPlusExtender.apk from Github.
-- WiFi Hotspot for Android 11+.
-- Added help about grant (G1) permission into README.md.
+- Fixed bad working Screen sensor.
+- Fixed grant of background location.
+- Fixed bad working check of Extender Accessibility service.
+- Other fixes.
+- Updated translations.
+
