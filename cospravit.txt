@@ -426,11 +426,11 @@ Skus spravit tie images vektorove.
 - Added "Disable events run" into profile "Application functions".
 - Added PPP notification type "Force native (for custom icons)".
 - Added preference for grant "Display pop-up windows while running in background" in MIUI.
+- Added WiFi Hotspot for Android 11+.
 - Added check releases in APKPure from Editor.
 - Added description of widgets for Android 12.
 - Added PPP, system informations to crash report.
 - Added help about grant (G1) permission into README.md.
-- Added WiFi Hotspot for Android 11+.
 - Better handling of Extender version for profile.
 - Better large screens support.
 - Display toolbars menu icons with texts if possible.
