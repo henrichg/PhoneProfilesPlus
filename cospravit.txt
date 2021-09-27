@@ -416,105 +416,32 @@ Ako zobrazovat nepriesvitnost a svetlost:
 
 Skus spravit tie images vektorove.
 
-----------
+------------
 
-WiFi Hotspot v MacroDroide:
-
-/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/p160jm/C3624a.java
-- toto cez DexMaker robi reflection nad OnStartTetheringCallback
-
-/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/p160jm/C3626c.java
-- tu je pouzivany C3624a.java
-- vypada, ze je to class, ktory robi startTethering() a stopTethering()
-  - startTethering() -> mo13440a()
-    - ma parameter C3625b
-    - volane takto: cVar.mo13440a(aVar, new Handler());
-  - stopTethering() -> mo13441b()
-
-/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/p160jm/C3625b.java
-- vypada ako abstract class, asi MyOnStartTetheringCallback
-
-/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/services/WifiHotspotService.java
-- toto este cele prezri, je tam kopa kodu na tethering
-
-- m19030d() -> vypada, ze robi samotne zapnutioe/vypnutie - zakaldna funkcia
-  Je tam test na ali level:
-
-      int Mechanizm, boolean ForceLegacy - su parametre
-
-      int api_level = Build.VERSION.SDK_INT;
-        if (api_level >= 26 && !ForceLegacy && Mechanizm == 0) {
-            m19032f(z); ==> VYPADA, ZE TOTO MAM NAKONFIGUROVANE V MacroDroid
-        } else if (api_level < 25 || (ForceLegacy && Mechanizm != 1)) {
-            m19033g(z);
-            this.f8799a = -1;
-        } else {
-            m19031e(z);
-        }
-
-   -----
-   class C4018a extends C3625b {
-       C4018a() {
-       }
-   }
-
-   private int m19032f(boolean z) {
-        C4018a aVar = new C4018a();
-        C3626c cVar = new C3626c(this);
-        if (z) {
-            cVar.mo13440a(aVar, new Handler()); --> zapnutie AP
-        } else {
-            cVar.mo13441b(); --> vypnutie AP
-        }
-        try {
-            Thread.sleep(2000);
-        } catch (Exception unused) {
-        }
-        if (m19029c() == z) {
-            return 0;
-        }
-        m19031e(z);
-        return 0;
-    }
-   -----
-
-- onHandleIntent()
-  - tu je volane m19030d():
-
-     public void onHandleIntent(Intent intent) {
-        this.f8800c = (WifiManager) getApplicationContext().getSystemService("wifi");
-        boolean z = false;
-        boolean booleanExtra = intent.getBooleanExtra("ForceLegacy", false);
-        int intExtra = intent.getIntExtra("WifiAPState", 0);
-        int intExtra2 = intent.getIntExtra("Mechanism", 0);
-        this.f8801d = intent.getBooleanExtra("TurnOnWifi", false);
-        this.f8802f = intent.getStringExtra("com.arlosoft.macrodroid.MACRO_NAME");
-        if (intExtra == 0) {
-            m19030d(true, intExtra2, booleanExtra);
-        } else if (intExtra == 1) {
-            m19030d(false, intExtra2, booleanExtra);
-        } else if (intExtra == 2) {
-            int b = m19028b();
-            if (!(b == 2 || b == 3)) {
-                z = true;
-            }
-            m19030d(z, intExtra2, booleanExtra);
-        }
-    }
-
-/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid/action/SetHotspotAction.java
-- tu sa spusta WifiHotspotService nahadzuju sa mu parametre. Pozri samotny MacroDroid, co mam pre akciu, ake parametre:
-   public void mo11681y2(TriggerContextInfo triggerContextInfo) {
-        try {
-            Intent intent = new Intent(mo15668c0(), WifiHotspotService.class);
-            intent.putExtra("ForceLegacy", this.m_useLegacyMechanism);
-            intent.putExtra("WifiAPState", this.m_state);
-            intent.putExtra("TurnOnWifi", this.m_turnWifiOn);
-            intent.putExtra("Mechanism", this.mechanism);
-            intent.putExtra("com.arlosoft.macrodroid.MACRO_NAME", mo15683p0().mo17334C());
-            mo15668c0().startService(intent);
-        } catch (IllegalStateException e) {
-            SystemLog.m25369h("Could not start hotspot service - foreground service not enabled? " + e.toString(), mo15684q0().longValue());
-        }
-    }
-
+- Better handling ob Extender version for profile.
+- Change: Used is Volley to read releases files from GitHub.
+- Fixed bad working Screen sensor.
+- Added support for live wallpapers.
+- Added "debug" string for debug version of PPP into "About application".
+- Fixed grant of background location.
+- Added PPP, system informations to crash report.
+- Added check releases in APKPure from Editor.
+- Better large screens support.
+- Display toolbars menu icons with texts if possible.
+- Change: Use dominant color in custom profile icon for PPP notification.
+- Added PPP notification type "Force native (for custom icons)".
+- Added preference for grant "Display pop-up windows while running in background" in MIUI.
+- Added "Vibrate notifications" as addition to "Vibrate when ringing".
+- Fixed bad working check of Extender Accessibility service.
+- Added "Periodic sensor" into events.
+- Changed importance of ACRA notification to HIGH.
+- Change: Use WiFiAPManager for Android 10.
+- Added "Random image from folder" into profile "Change wallpaper".
+- Better rounded corners for menus and spinner popups.
+- Added "[M] Activate specific profile, then restart events" into "After duration do" for profile activation with duration.
+- Added "Disable events run" into profile "Application functions".
+- Added description of widgets for Android 12.
+- Direct download of PhoneProfilesPlus.apk from Github.
+- Direct download of PhoneProfilesPlusExtender.apk from Github.
+- WiFi Hotspot for Android 11+.
+- Added help about grant (G1) permission into README.md.
