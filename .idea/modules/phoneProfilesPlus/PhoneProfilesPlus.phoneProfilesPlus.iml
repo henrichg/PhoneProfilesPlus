@@ -4,7 +4,7 @@
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
         <option name="GRADLE_PROJECT_PATH" value=":phoneProfilesPlus" />
-        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" value="7.0.1" />
+        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" value="7.0.2" />
         <option name="LAST_KNOWN_AGP_VERSION" value="7.0.2" />
       </configuration>
     </facet>
@@ -39,7 +39,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/out" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 30 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: ./phoneProfilesPlus/libs/sdk-v1.0.0.jar" level="project" />
     <orderEntry type="library" name="Gradle: ./phoneProfilesPlus/libs/slook_v1.4.0.jar" level="project" />
@@ -56,6 +56,7 @@
     <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.8" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.apps.dashclock:dashclock-api:2.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.linkedin.dexmaker:dexmaker:2.28.1" level="project" />
     <orderEntry type="library" name="Gradle: ch.acra:acra-mail:5.8.4@aar" level="project" />
     <orderEntry type="library" name="Gradle: ch.acra:acra-notification:5.8.4@aar" level="project" />
     <orderEntry type="library" name="Gradle: ch.acra:acra-core:5.8.4@aar" level="project" />
@@ -68,6 +69,7 @@
     <orderEntry type="library" name="Gradle: androidx.activity:activity:1.2.4@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.recyclerview:recyclerview:1.2.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.gridlayout:gridlayout:1.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.palette:palette:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.appcompat:appcompat-resources:1.3.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.legacy:legacy-support-core-ui:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.viewpager:viewpager:1.0.0@aar" level="project" />
@@ -105,6 +107,7 @@
     <orderEntry type="library" name="Gradle: org.osmdroid:osmdroid-android:6.1.11@aar" level="project" />
     <orderEntry type="library" name="Gradle: dev.doubledot.doki:library:0.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: dev.doubledot.doki:api:0.0.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.volley:volley:1.2.1@aar" level="project" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.common" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.ToastCompat" />
     <orderEntry type="module" module-name="PhoneProfilesPlus.RootShell" />
