@@ -20,6 +20,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         textView.setOnClickListener(v -> {
             Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
             intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
+            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 2);
             intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_event_not_started);
             activity.startActivity(intentLaunch);
 

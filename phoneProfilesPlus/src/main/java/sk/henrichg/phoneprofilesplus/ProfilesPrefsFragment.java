@@ -622,7 +622,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (infoDialogPreference != null) {
             infoDialogPreference.setInfoText(
                     "• " + getString(R.string.important_info_profile_grant)+"\n\n"+
-                    "<II0 [0,"+R.id.activity_info_notification_profile_grant_1_howTo_1+"]>"+
+                    "<II0 [0,1,"+R.id.activity_info_notification_profile_grant_1_howTo_1+"]>"+
                         getString(R.string.profile_preferences_types_G1_show_info)+
                     "<II0/>"+
                     "\n\n"+

@@ -30,7 +30,6 @@ import com.skydoves.expandablelayout.ExpandableLayout;
 @SuppressWarnings("WeakerAccess")
 public class ImportantInfoHelpFragment extends Fragment {
 
-    //int scrollTo = 0;
     boolean firstInstallation = false;
 
     ExpandableLayout expandableLayoutSystem;
@@ -155,27 +154,6 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoTextNews.setVisibility(View.GONE);
         }
 
-        /*
-        if ((scrollTo == 0) && (savedInstanceState == null)) {
-            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (1)");
-                expandableLayoutSystem.expand();
-                expandableLayoutProfiles.collapse();
-                expandableLayoutEvents.collapse();
-            }, 500);
-        }
-
-        if ((scrollTo != 0) && (savedInstanceState == null)) {
-            final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);
-            final View viewToScroll = view.findViewById(scrollTo);
-            if ((scrollView != null) && (viewToScroll != null)) {
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (2)");
-                    scrollView.scrollTo(0, viewToScroll.getTop());
-                }, 2000);
-            }
-        }
-        */
     }
 
     @SuppressLint("SetTextI18n")

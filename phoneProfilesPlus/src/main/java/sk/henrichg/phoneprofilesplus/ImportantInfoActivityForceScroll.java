@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 public class ImportantInfoActivityForceScroll extends AppCompatActivity {
 
     static final String EXTRA_SCROLL_TO = "extra_important_info_activity_scroll_to";
+    static final String EXTRA_SHOW_FRAGMENT = "extra_important_info_activity_show_fragmenbt";
 
     @SuppressLint("InlinedApi")
     @Override
@@ -37,11 +38,13 @@ public class ImportantInfoActivityForceScroll extends AppCompatActivity {
 
         Intent intent = getIntent();
         boolean showQuickGuide = intent.getBooleanExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
+        int showFragment = intent.getIntExtra(EXTRA_SHOW_FRAGMENT, 0);
         int scrollTo = intent.getIntExtra(EXTRA_SCROLL_TO, 0);
 
         Fragment fragment = new ImportantInfoActivityForceScrollFragment();
         Bundle arguments = new Bundle();
         arguments.putBoolean(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, showQuickGuide);
+        arguments.putInt(EXTRA_SHOW_FRAGMENT, showFragment);
         arguments.putInt(EXTRA_SCROLL_TO, scrollTo);
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()

@@ -2795,6 +2795,7 @@ class Permissions {
 
             Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
             intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
+            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
             intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_grant_1_howTo_1);
             activity.startActivity(intentLaunch);
         });
