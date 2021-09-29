@@ -97,9 +97,9 @@ dependencies {
     }
 
     implementation 'com.android.volley:volley:1.2.1'
-
-    //implementation 'com.linkedin.dexmaker:dexmaker-mockito:2.28.1'
     implementation 'com.linkedin.dexmaker:dexmaker:2.28.1'
+
+    implementation "com.github.skydoves:expandablelayout:1.0.7"
 
     implementation project(':common')
     implementation project(':ToastCompat')

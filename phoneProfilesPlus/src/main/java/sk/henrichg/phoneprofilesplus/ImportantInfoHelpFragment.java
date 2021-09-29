@@ -28,6 +28,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.skydoves.expandablelayout.ExpandableLayout;
+
 @SuppressWarnings("WeakerAccess")
 public class ImportantInfoHelpFragment extends Fragment {
 
@@ -43,7 +45,8 @@ public class ImportantInfoHelpFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.important_info_fragment_important_info, container, false);
+        //return inflater.inflate(R.layout.important_info_fragment_important_info, container, false);
+        return inflater.inflate(R.layout.important_info_fragment_important_info_expandable, container, false);
     }
 
     @SuppressLint({"SetTextI18n", "BatteryLife"})
@@ -52,11 +55,37 @@ public class ImportantInfoHelpFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
+
         final Activity activity = getActivity();
         if (activity == null)
             return;
 
         final Context context = activity.getApplicationContext();
+
+        ExpandableLayout expandableLayoutSystem = view.findViewById(R.id.fragment_important_info_expandable_system);
+        ExpandableLayout expandableLayoutProfiles = view.findViewById(R.id.fragment_important_info_expandable_profiles);
+        ExpandableLayout expandableLayoutEvents = view.findViewById(R.id.fragment_important_info_expandable_events);
+        expandableLayoutSystem.setOnClickListener(v -> {
+            if (!expandableLayoutSystem.isExpanded()) {
+                expandableLayoutProfiles.collapse();
+                expandableLayoutEvents.collapse();
+            }
+            expandableLayoutSystem.toggleLayout();
+        });
+        expandableLayoutProfiles.setOnClickListener(v -> {
+            if (!expandableLayoutProfiles.isExpanded()) {
+                expandableLayoutSystem.collapse();
+                expandableLayoutEvents.collapse();
+            }
+            expandableLayoutProfiles.toggleLayout();
+        });
+        expandableLayoutEvents.setOnClickListener(v -> {
+            if (!expandableLayoutEvents.isExpanded()) {
+                expandableLayoutSystem.collapse();
+                expandableLayoutProfiles.collapse();
+            }
+            expandableLayoutEvents.toggleLayout();
+        });
 
         int versionCode = 0;
 
