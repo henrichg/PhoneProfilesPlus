@@ -229,6 +229,7 @@
             app:expandable_spinner_margin="0dp"
             app:expandable_spinner_gravity="end"
             app:expandable_spinner_size="32dp"
+            app:expandable_spinner_color="@color/accent"
             />
 
         <!-- PROFILES -->
@@ -240,7 +241,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             app:expandable_duration="300"
-            app:expandable_isExpanded="false"
+            app:expandable_isExpanded="true"
             app:expandable_parentLayout="@layout/important_info_fragment_expandable_profiles_parent"
             app:expandable_secondLayout="@layout/important_info_fragment_expandable_profiles_second"
             app:expandable_showSpinner="true"
@@ -249,6 +250,7 @@
             app:expandable_spinner_margin="0dp"
             app:expandable_spinner_gravity="end"
             app:expandable_spinner_size="32dp"
+            app:expandable_spinner_color="@color/accent"
             />
 
         <!-- EVENTS -->
@@ -260,7 +262,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             app:expandable_duration="300"
-            app:expandable_isExpanded="false"
+            app:expandable_isExpanded="true"
             app:expandable_parentLayout="@layout/important_info_fragment_expandable_events_parent"
             app:expandable_secondLayout="@layout/important_info_fragment_expandable_events_second"
             app:expandable_showSpinner="true"
@@ -269,6 +271,7 @@
             app:expandable_spinner_margin="0dp"
             app:expandable_spinner_gravity="end"
             app:expandable_spinner_size="32dp"
+            app:expandable_spinner_color="@color/accent"
             />
 
     </LinearLayout>

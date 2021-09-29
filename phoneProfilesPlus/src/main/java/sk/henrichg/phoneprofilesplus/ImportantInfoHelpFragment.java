@@ -36,6 +36,10 @@ public class ImportantInfoHelpFragment extends Fragment {
     int scrollTo = 0;
     boolean firstInstallation = false;
 
+    ExpandableLayout expandableLayoutSystem;
+    ExpandableLayout expandableLayoutProfiles;
+    ExpandableLayout expandableLayoutEvents;
+
     public ImportantInfoHelpFragment() {
         // Required empty public constructor
     }
@@ -54,17 +58,15 @@ public class ImportantInfoHelpFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
         final Activity activity = getActivity();
         if (activity == null)
             return;
 
         final Context context = activity.getApplicationContext();
 
-        ExpandableLayout expandableLayoutSystem = view.findViewById(R.id.fragment_important_info_expandable_system);
-        ExpandableLayout expandableLayoutProfiles = view.findViewById(R.id.fragment_important_info_expandable_profiles);
-        ExpandableLayout expandableLayoutEvents = view.findViewById(R.id.fragment_important_info_expandable_events);
+        expandableLayoutSystem = view.findViewById(R.id.fragment_important_info_expandable_system);
+        expandableLayoutProfiles = view.findViewById(R.id.fragment_important_info_expandable_profiles);
+        expandableLayoutEvents = view.findViewById(R.id.fragment_important_info_expandable_events);
         expandableLayoutSystem.setOnClickListener(v -> {
             if (!expandableLayoutSystem.isExpanded()) {
                 expandableLayoutProfiles.collapse();
@@ -1037,14 +1039,23 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoTextNews.setVisibility(View.GONE);
         }
 
+        if ((scrollTo == 0) && (savedInstanceState == null)) {
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (1)");
+                expandableLayoutSystem.expand();
+                expandableLayoutProfiles.collapse();
+                expandableLayoutEvents.collapse();
+            }, 500);
+        }
+
         if ((scrollTo != 0) && (savedInstanceState == null)) {
             final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);
             final View viewToScroll = view.findViewById(scrollTo);
             if ((scrollView != null) && (viewToScroll != null)) {
                 new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated");
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (2)");
                     scrollView.scrollTo(0, viewToScroll.getTop());
-                }, 200);
+                }, 2000);
             }
         }
     }
