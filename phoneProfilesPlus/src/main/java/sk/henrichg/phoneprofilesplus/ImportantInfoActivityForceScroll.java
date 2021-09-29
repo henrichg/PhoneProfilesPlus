@@ -5,9 +5,7 @@ import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -27,7 +25,7 @@ public class ImportantInfoActivityForceScroll extends AppCompatActivity {
         setContentView(R.layout.activity_important_info_force_scroll);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
-        Toolbar toolbar = findViewById(R.id.activity_important_info_toolbar);
+        Toolbar toolbar = findViewById(R.id.activity_important_info_force_scroll_toolbar);
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
@@ -38,10 +36,12 @@ public class ImportantInfoActivityForceScroll extends AppCompatActivity {
         }
 
         Intent intent = getIntent();
+        boolean showQuickGuide = intent.getBooleanExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
         int scrollTo = intent.getIntExtra(EXTRA_SCROLL_TO, 0);
 
         Fragment fragment = new ImportantInfoActivityForceScrollFragment();
         Bundle arguments = new Bundle();
+        arguments.putBoolean(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, showQuickGuide);
         arguments.putInt(EXTRA_SCROLL_TO, scrollTo);
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()

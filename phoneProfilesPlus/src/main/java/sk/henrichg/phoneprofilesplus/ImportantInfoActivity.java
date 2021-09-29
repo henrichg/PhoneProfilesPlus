@@ -17,7 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 public class ImportantInfoActivity extends AppCompatActivity {
 
     static final String EXTRA_SHOW_QUICK_GUIDE = "extra_important_info_activity_show_quick_guide";
-    static final String EXTRA_SCROLL_TO = "extra_important_info_activity_scroll_to";
+    //static final String EXTRA_SCROLL_TO = "extra_important_info_activity_scroll_to";
 
     @SuppressLint("InlinedApi")
     @Override
@@ -90,16 +90,16 @@ public class ImportantInfoActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         boolean firstInstallation = intent.getBooleanExtra(ImportantInfoNotification.EXTRA_FIRST_INSTALLATION, false);
-        int scrollTo = intent.getIntExtra(EXTRA_SCROLL_TO, 0);
+        //int scrollTo = intent.getIntExtra(EXTRA_SCROLL_TO, 0);
 
         // add Fragments in your ViewPagerFragmentAdapter class
         ImportantInfoHelpFragment importantInfoHelpFragment = new ImportantInfoHelpFragment();
-        importantInfoHelpFragment.scrollTo = scrollTo;
+        //importantInfoHelpFragment.scrollTo = scrollTo;
         importantInfoHelpFragment.firstInstallation = firstInstallation;
         adapter.addFragment(importantInfoHelpFragment);
 
         QuickGuideHelpFragment quickGuideHelpFragment = new QuickGuideHelpFragment();
-        quickGuideHelpFragment.scrollTo = scrollTo;
+        //quickGuideHelpFragment.scrollTo = scrollTo;
         adapter.addFragment(quickGuideHelpFragment);
 
         viewPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);

@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 @SuppressWarnings("WeakerAccess")
 public class QuickGuideHelpFragment extends Fragment {
 
-    int scrollTo = 0;
+    //int scrollTo = 0;
 
     public QuickGuideHelpFragment() {
         // Required empty public constructor
@@ -108,7 +108,7 @@ public class QuickGuideHelpFragment extends Fragment {
                 AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
                 true, activity);*/
 
-        if ((scrollTo != 0) && (savedInstanceState == null)) {
+        /*if ((scrollTo != 0) && (savedInstanceState == null)) {
             final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);
             final View viewToScroll = view.findViewById(scrollTo);
             if ((scrollView != null) && (viewToScroll != null)) {
@@ -117,7 +117,7 @@ public class QuickGuideHelpFragment extends Fragment {
                     scrollView.scrollTo(0, viewToScroll.getTop());
                 }, 200);
             }
-        }
+        }*/
     }
 
 }

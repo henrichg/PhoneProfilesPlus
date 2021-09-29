@@ -302,6 +302,10 @@
             android:label="@string/important_info_activity_title">
         </activity>
         <activity
+            android:name=".ImportantInfoActivityForceScroll"
+            android:label="@string/important_info_activity_title">
+        </activity>
+        <activity
             android:name=".GrantPermissionActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_important_info_force_scroll_system_scroll_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/fragment_important_info_force_scroll_system_liLa1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/important_info_left_margin"
+        android:paddingEnd="@dimen/important_info_right_margin"
+        android:paddingTop="@dimen/important_info_top_margin"
+        android:paddingBottom="@dimen/important_info_bottom_margin" >
+
+        <include
+            layout="@layout/important_info_fragment_expandable_system_second"
+            android:id="@+id/fragment_important_info_force_scroll_system_second" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -107,9 +107,9 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
                     }*/
 
                     if (_tagType.equals("II")) {
-                        Intent intentLaunch = new Intent(context, ImportantInfoActivity.class);
+                        Intent intentLaunch = new Intent(context, ImportantInfoActivityForceScroll.class);
                         intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, page == 1);
-                        intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, resource);
+                        intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, resource);
                         startActivity(intentLaunch);
                     }
 

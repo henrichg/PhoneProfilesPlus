@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/fragment_important_info_expandable_system_txt_empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/empty_string"/>

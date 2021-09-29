@@ -1377,9 +1377,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         preference = findPreference("applicationUnlinkRingerNotificationVolumesImportantInfo");
         if (preference != null) {
             preference.setOnPreferenceClickListener(preference115 -> {
-                Intent intentLaunch = new Intent(getActivity(), ImportantInfoActivity.class);
+                Intent intentLaunch = new Intent(getActivity(), ImportantInfoActivityForceScroll.class);
                 intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
-                intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, R.id.activity_info_notification_how_does_volume_separation_work_title);
+                intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_how_does_volume_separation_work_title);
                 startActivity(intentLaunch);
                 return false;
             });
