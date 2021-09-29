@@ -1738,40 +1738,30 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="check_github_releases_install_info_app_stores_release">"In application stores will be new version soon."</string>
     <string name="show_dialog_about_red_text_show_profile_preferences">Show profile preferences</string>
     <string name="show_dialog_about_red_text_show_editor">Show Editor</string>
-
     <string name="array_pref_change_image_wallpaper">Change to image</string>
     <string name="array_pref_change_live_wallpaper">(I) Change to live wallpaper</string>
     <string name="profile_preferences_deviceImageWallpaper">Image wallpaper</string>
     <string name="profile_preferences_deviceLiveWallpaper">(I) Live wallpaper</string>
     <string name="live_wallpapers_pref_dlg_summary_text_not_selected">Not selected</string>
-
     <string name="menu_check_releases_apkpure">Check in APKPure</string>
     <string name="check_releases_go_to_apkpure">Go to APKPure</string>
-
     <string name="phone_profiles_pref_notificationStatusBarStyle_force_android">Force native (for custom icons)</string>
-
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI">Run applications, shortcuts, intents for \"MIUI\"</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIUI_info">For \"MIUI\" must be granted some permissions. Click this, to show how.</string>
     <string name="profile_preferences_deviceRunApplicationsShortcutsForMIU_dialod_message">In device Settings\/Apps\/Manage apps\/PhoneProfilesPlus\/Other permissions: \"Display pop-up windows while running in background\" and \"Show on Lock screen\" set to \"Accept\".</string>
-
     <string name="miui_permissions_alert_dialog_show">Show permissions</string>
-
     <string name="profile_preferences_vibrateWhenRingingOrNotifications">Vibrate when ringing\/Vibrate notifications</string>
     <string name="profile_preferences_vibrateNotifications">Vibrate notifications</string>
-
     <string name="profile_preferences_vvolumeSoundModeVibrationInfo_title">Sound mode and vibration</string>
     <string name="profile_preferences_volumeSoundModeVibrationInfo_summary">To properly working vibration for ringing and notifications when \"Sound Mode\" is configured to some vibration type, is recommended to enable in device Settings: \"Sound &amp; vibration\"\/\"Vibration &amp; haptic\" and in it \"Notification vibration\".</string>
-
     <string name="preference_not_allowed_reason_state_of_accessibility_setting_for_extender_is_determined">Accessibility service for PhoneProfilesPlusExtender is not enabled, but it is determined</string>
     <string name="extender_accessibility_setting_not_enabled_title">Accessibility service not enabled</string>
     <string name="extender_accessibility_setting_not_enabled_text">Accessibility service for PhoneProfilesPlusExtender is not enabled. Click here to enable it.</string>
-
     <string name="event_preference_sensor_periodic_summary">This sensor is for periodical profile activation. Parameters: Multiple of scanning interval, Duration (event run duration).</string>
     <string name="event_type_periodic">Periodic</string>
     <string name="pref_event_periodic_multiple_interval">Multiple of scanning interval</string>
     <string name="event_preferences_category_eventPeriodicParameters">Periodic sensor</string>
     <string name="pref_event_periodic_resulting_interval">Resulting interval (minutes)</string>
-
     <string name="phone_profiles_pref_category_background_scanning">Periodic scanning</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanning_info">These settings are for periodic scanning. Is used for Periodic event sensor.\nIs also useful when Time or Calendar event sensor not working good.</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningEnableScanning">Enable periodic scanning</string>
@@ -1782,23 +1772,18 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyFrom">From</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanTimeMultiplyTo">To</string>
     <string name="phone_profiles_pref_applicationEventBackgroundScanningScanIntervalCategory">Periodic scan interval</string>
-
     <string name="array_pref_change_random_image_wallpaper">Change to random image from folder</string>
     <string name="permissions_for_wallpaper_folder_text1">Selecting folder for random wallpaper requires some permissions.</string>
     <string name="permissions_for_wallpaper_folder_text2">Please grant them in the next dialog. You can then select folder for random wallpaper from the folder picker.</string>
     <string name="profile_preferences_deviceWallpaperFolder">Folder of images</string>
-
     <string name="array_pref_afterProfileDurationDo_activateProfileThenRestartEvents">[M] Activate specific profile, then restart events</string>
-
     <string name="profile_preferences_applicationDisableScanning">Disable scanning</string>
     <string name="profile_preferences_applicationDisableGlobalEventsRun">Disable events run</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_disabled">Events run disabled</string>
     <string name="array_pref_applicationDisableGlobalEventsRun_enabled">Events run enabled</string>
-
     <string name="icon_widget_description">Displays activated profile icon.</string>
     <string name="one_row_widget_description">Displays activated profile and \"Restart events\" button.</string>
     <string name="profile_list_widget_description">Displays activated profile, \"Restart events\" button and list of configured profiles as in Activator.</string>
-
     <string name="install_extender_installed_version">Installed version:</string>
     <string name="install_extender_required_version">Required version:</string>
     <string name="install_extender_text1">Install required version of PhoneProfilesPlusExtender by clicking button</string>
@@ -1806,16 +1791,18 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="install_extender_text3">Then install this APK by clicking notification about downloaded APK.</string>
     <string name="install_extender_github_releases">GitHub Releases:</string>
     <string name="preferences_old_version_PPPExtender_title">PhoneProfilesPlusExtender is not in required version!</string>
-
     <string name="event_preferences_PPPExtenderInstallInfo_summary_3" translatable="false">\"Assets\".</string>
     <string name="install_extender_where_is_assets_button">Where is</string>
-
     <string name="check_github_releases_released_version">Released version:</string>
     <string name="check_github_releases_version_checking">… detection …</string>
     <string name="check_github_releases_version_critical">! CRITICAL !</string>
-
     <string name="important_info_profile_grant_1_howTo_0">This help is better to open it in computer in his Internet browser. It is in PhoneProfilesPlus GitHub README.md, marked as</string>
     <string name="important_info_profile_grant_1_howTo_0_1" translatable="false">\"(HELP) How to grant (G1) permission\"</string>
+
+    <string name="important_info_event_event_sensors">Each event has sensors. All configured sensors must be \"passed\" to start running of event. Running event ends, when any sensor is not \"passed\".\n\n\"Pass\" status is indicated with color of sensor name in Editor:"</string>
+    <string name="important_info_event_event_sensors_waiting">Blue: sensor is in waiting state. \"Pass\" status is determined.</string>
+    <string name="important_info_event_event_sensors_passed">Green: sensor is \"passed\".</string>
+    <string name="important_info_event_event_sensors_not_pased">Orange: sensor is not \"passed\".</string>
 
     <!-- **************************************************************************************** -->
 

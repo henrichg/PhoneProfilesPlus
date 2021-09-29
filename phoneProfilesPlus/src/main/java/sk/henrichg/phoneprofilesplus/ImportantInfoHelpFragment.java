@@ -478,7 +478,6 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 4, 17));
         }
 
-
         infoText100 = view.findViewById(R.id.activity_info_notification_event_not_started_1);
         if (infoText100 != null) {
             String text = "<ol>" +
@@ -488,6 +487,17 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "<li>" + fragment.getString(R.string.info_notification_event_priority_new) +
                     "</ol>"
             ;
+            infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
+        }
+
+        infoText100 = view.findViewById(R.id.activity_info_notification_event_event_sensors_2);
+        if (infoText100 != null) {
+            String text = "<ol>" +
+                    "<li>" + fragment.getString(R.string.important_info_event_event_sensors_waiting) + "</li>" +
+                    "<li>" + fragment.getString(R.string.important_info_event_event_sensors_passed) + "</li>" +
+                    "<li>" + fragment.getString(R.string.important_info_event_event_sensors_not_pased) + "</li>" +
+                    "</ol>"
+                    ;
             infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
         }
 
