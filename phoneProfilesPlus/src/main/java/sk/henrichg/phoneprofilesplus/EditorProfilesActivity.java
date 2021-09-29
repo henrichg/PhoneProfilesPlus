@@ -168,7 +168,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     //private String[] drawerItemsSubtitle;
     //private Integer[] drawerItemsIcon;
 
-    private int editorSelectedView = 0;
+    int editorSelectedView = 0;
     private int filterProfilesSelectedItem = 0;
     private int filterEventsSelectedItem = 0;
 

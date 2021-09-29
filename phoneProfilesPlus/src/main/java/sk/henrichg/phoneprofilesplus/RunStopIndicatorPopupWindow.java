@@ -20,8 +20,21 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         textView.setOnClickListener(v -> {
             Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
             intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
-            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 2);
-            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_event_not_started);
+            if (activity instanceof ActivateProfileActivity) {
+                intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
+                intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_profile_activation8);
+            }
+            else {
+                EditorProfilesActivity editorProfilesActivity = (EditorProfilesActivity) activity;
+                if (editorProfilesActivity.editorSelectedView == 0) {
+                    intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
+                    intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_profile_activation8);
+                }
+                else {
+                    intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 2);
+                    intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_event_not_started);
+                }
+            }
             activity.startActivity(intentLaunch);
 
             dismiss();
