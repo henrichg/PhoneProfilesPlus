@@ -136,7 +136,59 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         }
 
-/*        if (news4550) {
+        doOnViewCreated(view, this);
+
+        if ((!firstInstallation) && (extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
+            news = true;
+            TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
+            infoText1.setVisibility(View.VISIBLE);
+            infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
+            infoText1.setVisibility(View.VISIBLE);
+            infoText1.setOnClickListener(v -> installExtender());
+        }
+        else {
+            TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
+            infoText1.setVisibility(View.GONE);
+            infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
+            infoText1.setVisibility(View.GONE);
+        }
+
+        if (!news) {
+            TextView infoTextNews = view.findViewById(R.id.activity_info_notification_news);
+            infoTextNews.setVisibility(View.GONE);
+        }
+
+        if ((scrollTo == 0) && (savedInstanceState == null)) {
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (1)");
+                expandableLayoutSystem.expand();
+                expandableLayoutProfiles.collapse();
+                expandableLayoutEvents.collapse();
+            }, 500);
+        }
+
+        if ((scrollTo != 0) && (savedInstanceState == null)) {
+            final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);
+            final View viewToScroll = view.findViewById(scrollTo);
+            if ((scrollView != null) && (viewToScroll != null)) {
+                new Handler(Looper.getMainLooper()).postDelayed(() -> {
+//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (2)");
+                    scrollView.scrollTo(0, viewToScroll.getTop());
+                }, 2000);
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    static void doOnViewCreated(@NonNull View view, Fragment fragment) {
+
+        final Activity activity = fragment.getActivity();
+        if (activity == null)
+            return;
+
+        final Context context = activity.getApplicationContext();
+
+        /*        if (news4550) {
             if (Build.VERSION.SDK_INT >= 28) {
                 TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
                 infoText21.setOnClickListener(new View.OnClickListener() {
@@ -183,28 +235,28 @@ public class ImportantInfoHelpFragment extends Fragment {
             }
         }
         else {*/
-            TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
-            if (Build.VERSION.SDK_INT >= 28) {
-                //TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
-                //infoText21.setVisibility(View.GONE);
-                infoText22.setOnClickListener(v -> {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivity(intent);
-                            ok = true;
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
+        TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
+        if (Build.VERSION.SDK_INT >= 28) {
+            //TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
+            //infoText21.setVisibility(View.GONE);
+            infoText22.setOnClickListener(v -> {
+                boolean ok = false;
+                if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
+                    try {
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                        fragment.startActivity(intent);
+                        ok = true;
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
                     }
-                    if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
+                }
+                if (!ok) {
+                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                    dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -216,16 +268,16 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                                }
 //                            });
 
-                        if (!activity.isFinishing())
-                            dialog.show();
-                    }
-                });
-            }
-            else {
+                    if (!activity.isFinishing())
+                        dialog.show();
+                }
+            });
+        }
+        else {
             infoText22.setVisibility(View.GONE);
-                //TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
-                //infoText21.setVisibility(View.GONE);
-            }
+            //TextView infoText21 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location_news);
+            //infoText21.setVisibility(View.GONE);
+        }
         //}
 
         /*if (news4340) {
@@ -398,32 +450,32 @@ public class ImportantInfoHelpFragment extends Fragment {
             }
         }
         else {*/
-            //TextView infoText15 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root_news);
-            //infoText15.setVisibility(View.GONE);
-            //TextView infoText17 = view.findViewById(R.id.activity_info_notification_profile_adaptiveBrightness_root_news);
-            //infoText17.setVisibility(View.GONE);
-            //TextView infoText19 = view.findViewById(R.id.activity_info_notification_wifiScanning_location_news);
-            //infoText19.setVisibility(View.GONE);
-            //if (Build.VERSION.SDK_INT >= 23) {
-                TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
-                infoText20.setOnClickListener(v -> {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivity(intent);
-                            ok = true;
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
-                    }
-                    if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
+        //TextView infoText15 = view.findViewById(R.id.activity_info_notification_profile_ringerMode_root_news);
+        //infoText15.setVisibility(View.GONE);
+        //TextView infoText17 = view.findViewById(R.id.activity_info_notification_profile_adaptiveBrightness_root_news);
+        //infoText17.setVisibility(View.GONE);
+        //TextView infoText19 = view.findViewById(R.id.activity_info_notification_wifiScanning_location_news);
+        //infoText19.setVisibility(View.GONE);
+        //if (Build.VERSION.SDK_INT >= 23) {
+        TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
+        infoText20.setOnClickListener(v -> {
+            boolean ok = false;
+            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    fragment.startActivity(intent);
+                    ok = true;
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
+            if (!ok) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -435,31 +487,31 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                                }
 //                            });
 
-                        if (!activity.isFinishing())
-                            dialog.show();
-                    }
-                });
-                //TextView infoText21 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location_news);
-                //infoText21.setVisibility(View.GONE);
-                infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
-                infoText22.setOnClickListener(v -> {
-                    boolean ok = false;
-                    if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
-                        try {
-                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                            startActivity(intent);
-                            ok = true;
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
-                    }
-                    if (!ok) {
-                        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                        dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                        //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                        dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                        AlertDialog dialog = dialogBuilder.create();
+                if (!activity.isFinishing())
+                    dialog.show();
+            }
+        });
+        //TextView infoText21 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location_news);
+        //infoText21.setVisibility(View.GONE);
+        infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
+        infoText22.setOnClickListener(v -> {
+            boolean ok = false;
+            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    fragment.startActivity(intent);
+                    ok = true;
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
+            if (!ok) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = dialogBuilder.create();
 
 //                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -471,35 +523,35 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                                }
 //                            });
 
-                        if (!activity.isFinishing())
-                            dialog.show();
-                    }
-                });
+                if (!activity.isFinishing())
+                    dialog.show();
+            }
+        });
 
-                TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
-                infoText10a.setOnClickListener(v -> {
+        TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
+        infoText10a.setOnClickListener(v -> {
 //                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 //                    String packageName = PPApplication.PACKAGE_NAME;
 //                    if (pm.isIgnoringBatteryOptimizations(packageName)// ||
 //                        //(!GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context))
 //                    ) {
-                        boolean ok = false;
-                        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context)) {
-                            try {
-                                Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-                                //intent.addCategory(Intent.CATEGORY_DEFAULT);
-                                startActivity(intent);
-                                ok = true;
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        }
-                        if (!ok) {
-                            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
-                            dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
-                            //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                            dialogBuilder.setPositiveButton(android.R.string.ok, null);
-                            AlertDialog dialog = dialogBuilder.create();
+            boolean ok = false;
+            if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS, context)) {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                    //intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    fragment.startActivity(intent);
+                    ok = true;
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            }
+            if (!ok) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
+                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = dialogBuilder.create();
 
 //                                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                    @Override
@@ -511,9 +563,9 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                                    }
 //                                });
 
-                            if (!activity.isFinishing())
-                                dialog.show();
-                        }
+                if (!activity.isFinishing())
+                    dialog.show();
+            }
 //                    } else {
 //                        DO NOT USE IT, CHANGE IS NOT DISPLAYED IN SYSTEM SETTINGS
 //                        boolean ok = false;
@@ -556,8 +608,8 @@ public class ImportantInfoHelpFragment extends Fragment {
 //                                dialog.show();
 //                        }
 //                    }
-                });
-            //}
+        });
+        //}
         //}
 
         /*if (news1772) {
@@ -611,8 +663,8 @@ public class ImportantInfoHelpFragment extends Fragment {
             //}
         }
         else {*/
-            //TextView infoText13 = view.findViewById(R.id.activity_info_notification_profile_zenMode_news);
-            //infoText13.setVisibility(View.GONE);
+        //TextView infoText13 = view.findViewById(R.id.activity_info_notification_profile_zenMode_news);
+        //infoText13.setVisibility(View.GONE);
 
 /*
             //boolean a60 =
@@ -751,10 +803,10 @@ public class ImportantInfoHelpFragment extends Fragment {
         */
 
         TextView infoText670 = view.findViewById(R.id.activity_info_notification_do_not_kill_my_app);
-        infoText670.setText(getString(R.string.important_info_do_not_kill_my_app1) + " " +
-                getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
-                getString(R.string.important_info_do_not_kill_my_app2));
-        infoText670.setOnClickListener(v -> PPApplication.showDoNotKillMyAppDialog(getActivity()));
+        infoText670.setText(fragment.getString(R.string.important_info_do_not_kill_my_app1) + " " +
+                fragment.getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
+                fragment.getString(R.string.important_info_do_not_kill_my_app2));
+        infoText670.setOnClickListener(v -> PPApplication.showDoNotKillMyAppDialog(activity));
 
         TextView infoText40 = view.findViewById(R.id.activity_info_default_profile);
         infoText40.setOnClickListener(v -> {
@@ -762,7 +814,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
             //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-            startActivity(intent);
+            fragment.startActivity(intent);
         });
 
 
@@ -772,67 +824,67 @@ public class ImportantInfoHelpFragment extends Fragment {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "profileActivationCategoryRoot");
             //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
-            startActivity(intent);
+            fragment.startActivity(intent);
         });
 
         TextView infoText100 = view.findViewById(R.id.activity_info_profile_activation2);
         String text = "<ol>"+
-                        "<li>"+getString(R.string.important_info_profile_activation_text2) + "</li>" +
-                        "<li>"+getString(R.string.important_info_profile_activation_text3) + "</li>" +
-                      "</ol>"
+                "<li>"+fragment.getString(R.string.important_info_profile_activation_text2) + "</li>" +
+                "<li>"+fragment.getString(R.string.important_info_profile_activation_text3) + "</li>" +
+                "</ol>"
                 ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
         infoText100 = view.findViewById(R.id.activity_info_profile_activation3);
         text =
-                getString(R.string.important_info_profile_activation_text4) + "\n" +
-                getString(R.string.important_info_profile_activation_text5) + "\n\n" +
-                getString(R.string.important_info_profile_activation_text6)
-                ;
+                fragment.getString(R.string.important_info_profile_activation_text4) + "\n" +
+                        fragment.getString(R.string.important_info_profile_activation_text5) + "\n\n" +
+                        fragment.getString(R.string.important_info_profile_activation_text6)
+        ;
         infoText100.setText(text);
 
         infoText100.setText(text);
         infoText100 = view.findViewById(R.id.activity_info_profile_activation9);
         text =  "<ul>"+
-                "<li>" + getString(R.string.important_info_profile_activation_text9) + "</li>" +
-                "<li>" + getString(R.string.important_info_profile_activation_text10) + "</li>" +
-                "<li>" + getString(R.string.important_info_profile_activation_text11) + "</li>" +
+                "<li>" + fragment.getString(R.string.important_info_profile_activation_text9) + "</li>" +
+                "<li>" + fragment.getString(R.string.important_info_profile_activation_text10) + "</li>" +
+                "<li>" + fragment.getString(R.string.important_info_profile_activation_text11) + "</li>" +
                 "</ul>"
-                ;
+        ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
         text =  "<ul>"+
-                "<li>" + getString(R.string.important_info_profile_grant) + "</li>" +
-                "<li>" + getString(R.string.important_info_profile_root) + "</li>" +
-                "<li>" + getString(R.string.important_info_profile_settings) + "</li>" +
-                "<li>" + getString(R.string.important_info_profile_interactive) +
+                "<li>" + fragment.getString(R.string.important_info_profile_grant) + "</li>" +
+                "<li>" + fragment.getString(R.string.important_info_profile_root) + "</li>" +
+                "<li>" + fragment.getString(R.string.important_info_profile_settings) + "</li>" +
+                "<li>" + fragment.getString(R.string.important_info_profile_interactive) +
                 "</ul>"
         ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_3);
         text =  "<ol>" +
-                "<li>" + getString(R.string.important_info_profile_grant_1_howTo_3) + "</li>" +
+                "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_3) + "</li>" +
                 "</ol>"
         ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_4);
         text =  "<ol>" +
-                "<li>" + getString(R.string.important_info_profile_grant_1_howTo_4) + "</li>" +
+                "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_4) + "</li>" +
                 "</ol>"
         ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 2, 17));
 
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_6);
         text =  "<ol>" +
-                "<li>" + getString(R.string.important_info_profile_grant_1_howTo_6) + "</li>" +
-                "<li>" + getString(R.string.important_info_profile_grant_1_howTo_7) + "</li>" +
-                "<li>" + getString(R.string.important_info_profile_grant_1_howTo_8) +
+                "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_6) + "</li>" +
+                "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_7) + "</li>" +
+                "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_8) +
                 "</ol>"
         ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_10);
         text =  "<ol>" +
-                "<li>" + getString(R.string.important_info_profile_grant_1_howTo_10) + "</li>" +
+                "<li>" + fragment.getString(R.string.important_info_profile_grant_1_howTo_10) + "</li>" +
                 "</ol>"
         ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 4, 17));
@@ -840,10 +892,10 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         infoText100 = view.findViewById(R.id.activity_info_notification_event_not_started_1);
         text =  "<ol>" +
-                "<li>" + getString(R.string.info_notification_event_not_started_2) + "</li>" +
-                "<li>" + getString(R.string.info_notification_event_not_started_3) + "</li>" +
-                "<li>" + getString(R.string.info_notification_event_not_started_4) + "</li>" +
-                "<li>" + getString(R.string.info_notification_event_priority_new) +
+                "<li>" + fragment.getString(R.string.info_notification_event_not_started_2) + "</li>" +
+                "<li>" + fragment.getString(R.string.info_notification_event_not_started_3) + "</li>" +
+                "<li>" + fragment.getString(R.string.info_notification_event_not_started_4) + "</li>" +
+                "<li>" + fragment.getString(R.string.info_notification_event_priority_new) +
                 "</ol>"
         ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, false, true, 1, 17));
@@ -857,25 +909,25 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_1);
         text =  "<ul>"+
-                "<li>" + getString(R.string.info_notification_manage_events_from_tasker_restart_events) + "</li>" +
+                "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_restart_events) + "</li>" +
                 "</ul>"
         ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_2);
         text =  "<ul>"+
-                "<li>" + getString(R.string.info_notification_manage_events_from_tasker_enable_run_for_event) + "</li>" +
+                "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_enable_run_for_event) + "</li>" +
                 "</ul>"
         ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_3);
         text =  "<ul>"+
-                "<li>" + getString(R.string.info_notification_manage_events_from_tasker_pause_event) + "</li>" +
+                "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_pause_event) + "</li>" +
                 "</ul>"
         ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
         infoText100 = view.findViewById(R.id.activity_info_manage_events_from_tasker_params_4);
         text =  "<ul>"+
-                "<li>" + getString(R.string.info_notification_manage_events_from_tasker_stop_event) + "</li>" +
+                "<li>" + fragment.getString(R.string.info_notification_manage_events_from_tasker_stop_event) + "</li>" +
                 "</ul>"
         ;
         infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
@@ -935,20 +987,20 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoTextGrant1Command = view.findViewById(R.id.activity_info_notification_dialog_info_grant_1_command);
         str = "adb\u00A0shell\u00A0pm\u00A0grant\u00A0"+PPApplication.PACKAGE_NAME+"\u00A0" +
-                                "android.permission.WRITE_SECURE_SETTINGS";
+                "android.permission.WRITE_SECURE_SETTINGS";
         spannable = new SpannableString(str);
         spannable.setSpan(new BackgroundColorSpan(GlobalGUIRoutines.getThemeCommandBackgroundColor(activity)), 0, str.length(),
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         infoTextGrant1Command.setText(spannable);
 
         AboutApplicationActivity.emailMe(view.findViewById(R.id.activity_info_notification_contact),
-                getString(R.string.important_info_contact),
-                "", getString(R.string.about_application_support_subject),
+                fragment.getString(R.string.important_info_contact),
+                "", fragment.getString(R.string.about_application_support_subject),
                 AboutApplicationActivity.getEmailBodyText(/*AboutApplicationActivity.EMAIL_BODY_SUPPORT, */activity),
                 /*true,*/ activity);
 
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
-        String str1 = getString(R.string.about_application_translations);
+        String str1 = fragment.getString(R.string.about_application_translations);
         String str2 = str1 + " " + PPApplication.CROWDIN_URL;
         spannable = new SpannableString(str2);
         //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -965,7 +1017,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
-                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                    fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -983,8 +1035,8 @@ public class ImportantInfoHelpFragment extends Fragment {
                 true, activity);*/
 
         TextView helpForG1TextView = view.findViewById(R.id.activity_info_notification_profile_grant_1_howTo_0);
-        str1 = getString(R.string.important_info_profile_grant_1_howTo_0) + " " +
-                getString(R.string.important_info_profile_grant_1_howTo_0_1) + ":";
+        str1 = fragment.getString(R.string.important_info_profile_grant_1_howTo_0) + " " +
+                fragment.getString(R.string.important_info_profile_grant_1_howTo_0_1) + ":";
         str2 = str1 + " " + PPApplication.GITHUB_PPP_URL;
         spannable = new SpannableString(str2);
         //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -1001,7 +1053,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
-                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                    fragment.startActivity(Intent.createChooser(i, fragment.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -1017,47 +1069,6 @@ public class ImportantInfoHelpFragment extends Fragment {
                 getString(R.string.about_application_translations_subject),
                 AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
                 true, activity);*/
-
-
-        if ((!firstInstallation) && (extenderVersion != 0) && (extenderVersion < PPApplication.VERSION_CODE_EXTENDER_LATEST)) {
-            news = true;
-            TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
-            infoText1.setVisibility(View.VISIBLE);
-            infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
-            infoText1.setVisibility(View.VISIBLE);
-            infoText1.setOnClickListener(v -> installExtender());
-        }
-        else {
-            TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
-            infoText1.setVisibility(View.GONE);
-            infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
-            infoText1.setVisibility(View.GONE);
-        }
-
-        if (!news) {
-            TextView infoTextNews = view.findViewById(R.id.activity_info_notification_news);
-            infoTextNews.setVisibility(View.GONE);
-        }
-
-        if ((scrollTo == 0) && (savedInstanceState == null)) {
-            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (1)");
-                expandableLayoutSystem.expand();
-                expandableLayoutProfiles.collapse();
-                expandableLayoutEvents.collapse();
-            }, 500);
-        }
-
-        if ((scrollTo != 0) && (savedInstanceState == null)) {
-            final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);
-            final View viewToScroll = view.findViewById(scrollTo);
-            if ((scrollView != null) && (viewToScroll != null)) {
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-//                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=ImportantInfoHelpFragment.onViewCreated (2)");
-                    scrollView.scrollTo(0, viewToScroll.getTop());
-                }, 2000);
-            }
-        }
     }
 
     @SuppressLint("SetTextI18n")

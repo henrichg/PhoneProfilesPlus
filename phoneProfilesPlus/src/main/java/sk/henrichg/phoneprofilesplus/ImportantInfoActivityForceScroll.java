@@ -5,7 +5,9 @@ import android.app.ActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -38,28 +40,12 @@ public class ImportantInfoActivityForceScroll extends AppCompatActivity {
         Intent intent = getIntent();
         int scrollTo = intent.getIntExtra(EXTRA_SCROLL_TO, 0);
 
-        Fragment fragment = new ImportantInfoActivityForceScrollSystemFragment();
+        Fragment fragment = new ImportantInfoActivityForceScrollFragment();
         Bundle arguments = new Bundle();
         arguments.putInt(EXTRA_SCROLL_TO, scrollTo);
         fragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.activity_important_info_force_scroll_container, fragment, "ImportantInfoActivityForceScrollSystemFragment")
-                .commitAllowingStateLoss();
-
-        Fragment fragment = new ImportantInfoActivityForceScrollProfilesFragment();
-        Bundle arguments = new Bundle();
-        arguments.putInt(EXTRA_SCROLL_TO, scrollTo);
-        fragment.setArguments(arguments);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.activity_important_info_force_scroll_container, fragment, "ImportantInfoActivityForceScrollProfilesFragment")
-                .commitAllowingStateLoss();
-
-        Fragment fragment = new ImportantInfoActivityForceScrollEventsFragment();
-        Bundle arguments = new Bundle();
-        arguments.putInt(EXTRA_SCROLL_TO, scrollTo);
-        fragment.setArguments(arguments);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.activity_important_info_force_scroll_container, fragment, "ImportantInfoActivityForceScrollEventsFragment")
+                .replace(R.id.activity_important_info_force_scroll_container, fragment, "ImportantInfoActivityForceScrollFragment")
                 .commitAllowingStateLoss();
 
     }
