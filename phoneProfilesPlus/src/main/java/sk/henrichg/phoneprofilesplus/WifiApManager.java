@@ -384,7 +384,7 @@ final class WifiApManager {
             }
             declaredMethod.invoke(connectivityManager, new Object[]{0});
         } catch (Exception e) {
-            e.printStackTrace();
+            PPApplication.recordException(e);
         }
     }
 
