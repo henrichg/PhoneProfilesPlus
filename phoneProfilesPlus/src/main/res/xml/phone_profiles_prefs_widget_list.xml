@@ -20,26 +20,24 @@
         app:title="@string/phone_profiles_pref_applicationGridLayout"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetBackground"
         app:summary="25%%"
         app:key="applicationWidgetListBackground"
         app:defaultValue="25"
-        app:entries="@array/widgetBackgroundArray"
-        app:entryValues="@array/widgetBackgroundValues"
+        app:showLighting="false"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetListBackgroundType"
         app:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
         app:summary="0%%"
         app:key="applicationWidgetListLightnessB"
         app:defaultValue="0"
-        app:entries="@array/widgetLightnessArray"
-        app:entryValues="@array/widgetLightnessValues"
+        app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ColorChooserPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetColorB"
@@ -51,13 +49,12 @@
         app:title="@string/phone_profiles_pref_applicationWidgetShowBorder"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessBorder"
         app:summary="100%%"
         app:key="applicationWidgetListLightnessBorder"
         app:defaultValue="100"
-        app:entries="@array/widgetLightnessArray"
-        app:entryValues="@array/widgetLightnessValues"
+        app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
 
     <SwitchPreferenceCompat
@@ -75,13 +72,12 @@
         app:dependency="applicationWidgetListRoundedCorners"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
         app:summary="100%%"
         app:key="applicationWidgetListLightnessT"
         app:defaultValue="100"
-        app:entries="@array/widgetLightnessArray"
-        app:entryValues="@array/widgetLightnessValues"
+        app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
 
     <ListPreference
@@ -92,13 +88,12 @@
         app:entries="@array/widgetColorArray"
         app:entryValues="@array/widgetColorValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
         app:summary="100%%"
         app:key="applicationWidgetListIconLightness"
         app:defaultValue="100"
-        app:entries="@array/widgetLightnessArray"
-        app:entryValues="@array/widgetLightnessValues"
+        app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetListCustomIconLightness"
@@ -112,13 +107,12 @@
         app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForWidget_summary"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
         app:summary="50%%"
         app:key="applicationWidgetListPrefIndicatorLightness"
         app:defaultValue="50"
-        app:entries="@array/widgetLightnessArray"
-        app:entryValues="@array/widgetLightnessValues"
+        app:showLighting="true"
         app:dependency="applicationWidgetListPrefIndicator"
         app:layout="@layout/mp_preference_material_widget" />
 

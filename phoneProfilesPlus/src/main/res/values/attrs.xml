@@ -66,6 +66,9 @@
         <attr name="gnNotificationTitle" format="string" />
         <attr name="gnNotificationBody" format="string" />
     </declare-styleable>
+    <declare-styleable name="OpaquenessLightingPference">
+        <attr name="showLighting" format="boolean" />
+    </declare-styleable>
 
     <!-- theme dependent drawables -->
     <attr name="colorAccentDisabled" format="reference" />

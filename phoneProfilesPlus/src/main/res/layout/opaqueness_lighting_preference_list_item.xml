@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/opaqueness_lighting_pref_dlg_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="48dp" >
+
+    <RadioButton
+        android:id="@+id/opaqueness_lighting_pref_dlg_item_radiobtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:checked="false"
+        android:focusable="false"
+        android:text="@string/empty_string" />
+
+    <ImageView
+        android:id="@+id/opaqueness_lighting_pref_dlg_item_icon"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/opaqueness_lighting_pref_dlg_item_radiobtn"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/empty_string"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_empty" />
+
+    <LinearLayout
+        android:id="@+id/opaqueness_lighting_pref_dlg_item_liLa1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/opaqueness_lighting_pref_dlg_item_icon"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/opaqueness_lighting_pref_dlg_item_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:text="@string/empty_string"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+</RelativeLayout>

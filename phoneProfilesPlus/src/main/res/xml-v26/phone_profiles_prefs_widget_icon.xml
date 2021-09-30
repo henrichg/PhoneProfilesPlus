@@ -10,26 +10,24 @@
         app:summary="@string/phone_profiles_pref_widget_not_working_miui_info_summary"
         app:widgetLayout="@layout/widget_exclamation_preference"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetIconBackground"
         app:summary="0%%"
         app:key="applicationWidgetIconBackground"
         app:defaultValue="0"
-        app:entries="@array/widgetBackgroundArray"
-        app:entryValues="@array/widgetBackgroundValues"
+        app:showLighting="false"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetIconBackgroundType"
         app:title="@string/phone_profiles_pref_applicationWidgetIconBackgroundType"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetIconLightnessB"
         app:summary="0%%"
         app:key="applicationWidgetIconLightnessB"
         app:defaultValue="0"
-        app:entries="@array/widgetLightnessArray"
-        app:entryValues="@array/widgetLightnessValues"
+        app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ColorChooserPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetIconColorB"
@@ -41,13 +39,12 @@
         app:title="@string/phone_profiles_pref_applicationWidgetIconShowBorder"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetIconLightnessBorder"
         app:summary="100%%"
         app:key="applicationWidgetIconLightnessBorder"
         app:defaultValue="100"
-        app:entries="@array/widgetLightnessArray"
-        app:entryValues="@array/widgetLightnessValues"
+        app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
 
     <SwitchPreferenceCompat
@@ -71,13 +68,12 @@
         app:defaultValue="false"
         app:disableDependentsState="true"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetIconLightnessT"
         app:summary="100%%"
         app:key="applicationWidgetIconLightnessT"
         app:defaultValue="100"
-        app:entries="@array/widgetLightnessArray"
-        app:entryValues="@array/widgetLightnessValues"
+        app:showLighting="true"
         app:dependency="applicationWidgetIconHideProfileName"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
@@ -94,13 +90,12 @@
         app:entries="@array/widgetColorArray"
         app:entryValues="@array/widgetColorValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
         app:summary="100%%"
         app:key="applicationWidgetIconLightness"
         app:defaultValue="100"
-        app:entries="@array/widgetLightnessArray"
-        app:entryValues="@array/widgetLightnessValues"
+        app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetIconCustomIconLightness"
