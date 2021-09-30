@@ -68,6 +68,8 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.android.internal.telephony.TelephonyIntents;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -1127,8 +1129,9 @@ public class PhoneProfilesService extends Service
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "REGISTER simStateChangedBroadcastReceiver");
                 PPApplication.simStateChangedBroadcastReceiver = new SimStateChangedBroadcastReceiver();
                 IntentFilter intentFilter10 = new IntentFilter();
-                //noinspection deprecation
-                intentFilter10.addAction("android.intent.action.SIM_STATE_CHANGED");
+                // https://android.googlesource.com/platform/frameworks/base/+/84303f5/telephony/java/com/android/internal/telephony/TelephonyIntents.java
+                // this requires READ_PHONE_STATE
+                intentFilter10.addAction(TelephonyIntents.ACTION_SIM_STATE_CHANGED); //"android.intent.action.SIM_STATE_CHANGED");
                 appContext.registerReceiver(PPApplication.simStateChangedBroadcastReceiver, intentFilter10);
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER simStateChangedBroadcastReceiver");
             }
