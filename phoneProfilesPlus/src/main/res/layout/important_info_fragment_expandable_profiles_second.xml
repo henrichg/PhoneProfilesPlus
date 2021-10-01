@@ -63,7 +63,8 @@
         android:id="@+id/activity_info_profile_activation7a"
         android:textStyle="bold"
         app:drawableEndCompat="?attr/importantInfoEventsRestartIcon"
-        android:drawablePadding="4dp" />
+        android:drawablePadding="4dp"
+        android:paddingBottom="10dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -421,6 +421,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             ;
             infoText100.setText(text);
         }
+
         infoText100 = view.findViewById(R.id.activity_info_profile_activation9);
         if (infoText100 != null) {
             String text = "<ul>" +
@@ -430,6 +431,16 @@ public class ImportantInfoHelpFragment extends Fragment {
                     "</ul>";
             infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
         }
+        infoText100 = view.findViewById(R.id.activity_info_event_activation9);
+        if (infoText100 != null) {
+            String text = "<ul>" +
+                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text9) + "</li>" +
+                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text10) + "</li>" +
+                    "<li>" + fragment.getString(R.string.important_info_profile_activation_text11) + "</li>" +
+                    "</ul>";
+            infoText100.setText(GlobalGUIRoutines.fromHtml(text, true, false, 0, 0));
+        }
+
         infoText100 = view.findViewById(R.id.activity_info_notification_profile_preference_types);
         if (infoText100 != null) {
             String text = "<ul>" +

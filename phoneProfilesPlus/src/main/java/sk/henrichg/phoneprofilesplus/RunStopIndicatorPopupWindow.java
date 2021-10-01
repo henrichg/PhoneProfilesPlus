@@ -32,7 +32,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
                 }
                 else {
                     intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 2);
-                    intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_event_not_started);
+                    intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_event_activation8);
                 }
             }
             activity.startActivity(intentLaunch);
