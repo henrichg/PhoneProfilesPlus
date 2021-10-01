@@ -119,7 +119,7 @@ class AutoStartPermissionHelper  {
 
     boolean getAutoStartPermission(Context context) {
 
-        String brand = Build.BRAND.toLowerCase(Locale.ENGLISH);
+        String brand = Build.BRAND.toLowerCase(Locale.ROOT);
         switch (brand) {
             case BRAND_ASUS:
                 return autoStartAsus(context);
