@@ -783,12 +783,21 @@ class PreferenceAllowed {
                         preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                     }
                 } else {
-                    if (profile != null) {
-                        if (profile._deviceWiFiAP != 0)
+                    if (WifiApManager.canExploitWifiTethering30(appContext)) {
+                        if (profile != null) {
+                            if (profile._deviceWiFiAP != 0)
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                     }
-                    else
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    else {
+                        if ((profile != null) && (profile._deviceWiFiAP != 0)) {
+                            preferenceAllowed.notAllowedRoot = true;
+                            //Log.e("Profile.isProfilePreferenceAllowed", "_deviceWiFiAP");
+                        }
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                    }
                 }
             } else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;

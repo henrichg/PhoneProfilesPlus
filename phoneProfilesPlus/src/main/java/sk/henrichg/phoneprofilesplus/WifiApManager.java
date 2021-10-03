@@ -301,6 +301,53 @@ final class WifiApManager {
         }
     }
 
+    @SuppressWarnings("RedundantArrayCreation")
+    @SuppressLint("PrivateApi")
+    static boolean canExploitWifiTethering30(Context context) {
+        MyOnStartTetheringCallback callback = new MyOnStartTetheringCallback();
+        Object myOnStartTetheringCallbackAbstractObj;
+        Class<?> myOnStartTetheringCallbackAbstractObjCls;// = null;
+        try {
+            myOnStartTetheringCallbackAbstractObj =
+                    new WifiTetheringCallbackMaker(context, callback)
+                            .getTtetheringCallback().getDeclaredConstructor(new Class[]{Integer.TYPE}).newInstance(new Object[]{0});
+        } catch (Exception e) {
+            myOnStartTetheringCallbackAbstractObj = null;
+        }
+        if (myOnStartTetheringCallbackAbstractObj == null)
+            return false;
+
+        ConnectivityManager connectivityManager = context.getApplicationContext().getSystemService(ConnectivityManager.class);
+        try {
+            myOnStartTetheringCallbackAbstractObjCls = Class.forName("android.net.ConnectivityManager$OnStartTetheringCallback");
+        } catch (Exception e2) {
+            return false;
+        }
+
+        try {
+            Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("startTethering",
+                    new Class[]{Integer.TYPE, Boolean.TYPE, myOnStartTetheringCallbackAbstractObjCls, Handler.class});
+            //noinspection ConstantConditions
+            if (declaredMethod == null) {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+
+        try {
+            Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("stopTethering", new Class[]{Integer.TYPE});
+            //noinspection ConstantConditions
+            if (declaredMethod == null) {
+                return false;
+            }
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
     // Tnank to author of MacroDroid application.
     // It is used as source of this implenetation.
     static void startTethering30(Context context, boolean doNotChangeWifi) {
