@@ -24,7 +24,7 @@ class AddEventDialog
     private final Activity activity;
 
     final LinearLayout linlaProgress;
-    final RelativeLayout rellaData;
+    final LinearLayout rellaData;
     final ListView listView;
     final TextView help;
 

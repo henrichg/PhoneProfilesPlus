@@ -20,10 +20,11 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/event_pref_dlg_rella_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <View
@@ -32,15 +33,28 @@
             android:layout_height="1dp"
             android:background="?attr/dialogDivider"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_alignParentTop="true" />
+            android:layout_marginEnd="15dp" />
+
+        <ListView
+            android:id="@+id/event_pref_dlg_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:gravity="center"
+            android:clipToPadding="false"
+            android:choiceMode="singleChoice"
+            android:scrollbarStyle="outsideOverlay"
+            android:divider="@android:color/transparent" />
 
         <LinearLayout
             android:id="@+id/event_pref_dlg_help_linla"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true" >
+            android:orientation="vertical" >
 
             <View
                 android:id="@+id/event_pref_dlg_buttonBarDivider"
@@ -63,21 +77,6 @@
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/event_pref_dlg_listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/event_pref_dlg_help_linla"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:gravity="center"
-            android:clipToPadding="false"
-            android:choiceMode="singleChoice"
-            android:scrollbarStyle="outsideOverlay"
-            android:divider="@android:color/transparent" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

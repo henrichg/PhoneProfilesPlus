@@ -20,7 +20,7 @@ public class ProfileMultiSelectPreferenceFragmentX extends PreferenceDialogFragm
 
     private LinearLayout linlaProgress;
     private ListView listView;
-    private RelativeLayout listViewRoot;
+    private LinearLayout listViewRoot;
     private ProfileMultiSelectPreferenceAdapterX profilePreferenceAdapter;
 
     private Context prefContext;

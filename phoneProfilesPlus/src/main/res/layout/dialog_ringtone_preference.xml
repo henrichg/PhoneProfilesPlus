@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ringtone_pref_dlg_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingTop="@dimen/alert_dialog_top_padding" >
 
     <View
@@ -11,22 +12,13 @@
         android:layout_height="1dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:background="?attr/dialogDivider"
-        android:layout_alignParentTop="true" />
-
-    <View
-        android:id="@+id/ringtone_pref_dlg_bottomBarDivider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:background="?attr/dialogDivider"
-        android:layout_alignParentBottom="true" />
+        android:background="?attr/dialogDivider" />
 
     <ListView
         android:id="@+id/ringtone_pref_dlg_listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:paddingTop="7dp"
@@ -36,4 +28,12 @@
         android:scrollbarStyle="outsideOverlay"
         android:divider="@android:color/transparent" />
 
-</RelativeLayout>
+    <View
+        android:id="@+id/ringtone_pref_dlg_bottomBarDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="?attr/dialogDivider" />
+
+</LinearLayout>
