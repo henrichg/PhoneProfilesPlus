@@ -271,24 +271,26 @@ final class WifiApManager {
     @SuppressWarnings({"unchecked", "JavaReflectionMemberAccess", "DiscouragedPrivateApi", "SoonBlockedPrivateApi"})
     static boolean canExploitWifiTethering(Context context) {
         try {
-            canExploitWifiAP(context);
-            ConnectivityManager.class.getDeclaredField("mService");
-            //noinspection rawtypes
-            Class internalConnectivityManagerClass = Class.forName("android.net.IConnectivityManager");
-            try {
-                internalConnectivityManagerClass.getDeclaredMethod("startTethering",
-                        int.class,
-                        ResultReceiver.class,
-                        boolean.class);
-            } catch (NoSuchMethodException e) {
-                internalConnectivityManagerClass.getDeclaredMethod("startTethering",
-                        int.class,
-                        ResultReceiver.class,
-                        boolean.class,
-                        String.class);
-            }
-            ConnectivityManager.class.getDeclaredMethod("stopTethering", int.class);
-            return true;
+            if (canExploitWifiAP(context)) {
+                ConnectivityManager.class.getDeclaredField("mService");
+                //noinspection rawtypes
+                Class internalConnectivityManagerClass = Class.forName("android.net.IConnectivityManager");
+                try {
+                    internalConnectivityManagerClass.getDeclaredMethod("startTethering",
+                            int.class,
+                            ResultReceiver.class,
+                            boolean.class);
+                } catch (NoSuchMethodException e) {
+                    internalConnectivityManagerClass.getDeclaredMethod("startTethering",
+                            int.class,
+                            ResultReceiver.class,
+                            boolean.class,
+                            String.class);
+                }
+                ConnectivityManager.class.getDeclaredMethod("stopTethering", int.class);
+                return true;
+            } else
+                return false;
         } catch (Exception e) {
             return false;
         }
@@ -304,6 +306,13 @@ final class WifiApManager {
     @SuppressWarnings("RedundantArrayCreation")
     @SuppressLint("PrivateApi")
     static boolean canExploitWifiTethering30(Context context) {
+        try {
+            WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            wifiManager.isWifiApEnabled();
+        } catch (Throwable e) {
+            return false;
+        }
+
         MyOnStartTetheringCallback callback = new MyOnStartTetheringCallback();
         Object myOnStartTetheringCallbackAbstractObj;
         Class<?> myOnStartTetheringCallbackAbstractObjCls;// = null;
