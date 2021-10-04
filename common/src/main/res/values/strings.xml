@@ -1804,6 +1804,8 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="important_info_event_event_sensors_passed">Green: sensor is \"passed\".</string>
     <string name="important_info_event_event_sensors_not_pased">Orange: sensor is not \"passed\".</string>
 
+    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

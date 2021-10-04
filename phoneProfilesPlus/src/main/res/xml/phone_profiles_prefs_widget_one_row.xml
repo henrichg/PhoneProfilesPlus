@@ -10,6 +10,11 @@
         app:summary="@string/phone_profiles_pref_widget_not_working_miui_info_summary"
         app:widgetLayout="@layout/widget_exclamation_preference"
         app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetOneRowHigherLayout"
+        app:title="@string/phone_profiles_pref_applicationWidgetHigherLayout"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetBackground"
         app:summary="25%%"

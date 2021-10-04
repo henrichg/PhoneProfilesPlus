@@ -2071,6 +2071,7 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate(context);
             ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList(context);
             ApplicationPreferences.applicationActivatorIncreaseBrightness(context);
+            ApplicationPreferences.applicationWidgetOneRowHigherLayout(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);

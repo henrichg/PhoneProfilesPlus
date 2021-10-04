@@ -67,6 +67,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetOneRowRoundedCorners;
         String applicationWidgetOneRowLightnessT;
         int applicationWidgetOneRowRoundedCornersRadius;
+        boolean applicationWidgetOneRowHigherLayout;
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             if (PPApplication.isPixelLauncherDefault(context)) {
@@ -94,6 +95,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT;
             applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
             applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
+            applicationWidgetOneRowHigherLayout = ApplicationPreferences.applicationWidgetOneRowHigherLayout;
         }
 
         //PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowShowBorder="+applicationWidgetOneRowShowBorder);
@@ -357,10 +359,18 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 //                PPApplication.logE("OneRowWidgetProvider._onUpdate", "info.updatePeriodMillis="+info.updatePeriodMillis);
 
                 RemoteViews remoteViews;
-                if (applicationWidgetOneRowPrefIndicator)
-                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget);
-                else
-                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator);
+                if (applicationWidgetOneRowHigherLayout) {
+                    if (applicationWidgetOneRowPrefIndicator)
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget);
+                    else
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator);
+                }
+                else {
+                    if (applicationWidgetOneRowPrefIndicator)
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
+                    else
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator);
+                }
 
 //                PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCornersRadius="+applicationWidgetOneRowRoundedCornersRadius);
                 int roundedBackground = 0;
