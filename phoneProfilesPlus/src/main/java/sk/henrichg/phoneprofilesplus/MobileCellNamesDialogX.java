@@ -33,7 +33,7 @@ class MobileCellNamesDialogX {
     private final EditText cellName;
 
     private final LinearLayout linlaProgress;
-    private final RelativeLayout rellaDialog;
+    private final LinearLayout rellaDialog;
 
     private final MobileCellNamesDialogAdapterX listAdapter;
 

@@ -22,7 +22,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
 
     // Layout widgets.
     private LinearLayout linlaProgress;
-    private RelativeLayout rellaData;
+    private LinearLayout rellaData;
 
     private ContactGroupsMultiSelectPreferenceAdapterX listAdapter;
 

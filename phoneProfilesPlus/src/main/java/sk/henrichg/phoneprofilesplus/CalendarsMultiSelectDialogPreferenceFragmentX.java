@@ -29,7 +29,7 @@ public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDia
     // Layout widgets.
     private ListView listView = null;
     private LinearLayout linlaProgress;
-    private RelativeLayout rellaData;
+    private LinearLayout rellaData;
 
     private CalendarsMultiSelectPreferenceAdapterX listAdapter;
 
