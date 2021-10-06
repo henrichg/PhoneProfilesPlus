@@ -1164,7 +1164,7 @@ class ApplicationPreferences {
     }
 
     static void notificationShowProfileIcon(Context context) {
-        notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+        notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, !PPApplication.deviceIsPixel);
     }
 
     static void applicationEventPeriodicScanningEnableScanning(Context context) {

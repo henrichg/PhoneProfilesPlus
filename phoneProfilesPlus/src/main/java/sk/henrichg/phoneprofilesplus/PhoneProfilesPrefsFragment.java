@@ -2482,7 +2482,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     _preference.setEnabled(true);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
                 if (_preference != null)
-                    _preference.setEnabled(false);
+                    _preference.setEnabled(useDecoration);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS);
                 SwitchPreferenceCompat __preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
                 if ((_preference != null) && (__preference != null)) {

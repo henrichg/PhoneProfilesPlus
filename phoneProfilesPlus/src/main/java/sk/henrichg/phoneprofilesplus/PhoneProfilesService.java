@@ -5938,7 +5938,7 @@ public class PhoneProfilesService extends Service
                                                      profile,
                                                      isIconResourceID, iconBitmap,
                                                      iconIdentifier, profileIconExists,
-                                                     decoratorColor,
+                                                     useDecorator, decoratorColor,
                                                      appContext);
 
         notificationBuilder.setColor(decoratorColor);
@@ -6287,7 +6287,7 @@ public class PhoneProfilesService extends Service
                                                         Profile profile,
                                                         boolean isIconResourceID, Bitmap iconBitmap,
                                                         String iconIdentifier, boolean profileIconExists,
-                                                        int decoratorColor,
+                                                        boolean useDecorator, int decoratorColor,
                                                         Context appContext) {
         if (!forFirstStart) {
             if (isIconResourceID) {
@@ -6320,6 +6320,8 @@ public class PhoneProfilesService extends Service
                     if (notificationNotificationStyle.equals("0")) {
                         try {
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                            if ((!notificationShowProfileIcon) && useDecorator)
+                                contentViewLarge.setViewVisibility(R.id.notification_activated_profile_icon, View.GONE);
                             if (profileIconExists) {
                                 //noinspection ConstantConditions
                                 if (contentView != null)
@@ -6368,6 +6370,8 @@ public class PhoneProfilesService extends Service
                     if (notificationNotificationStyle.equals("0")) {
                         try {
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                            if ((!notificationShowProfileIcon) && useDecorator)
+                                contentViewLarge.setViewVisibility(R.id.notification_activated_profile_icon, View.GONE);
                             if (profileIconExists) {
                                 if (contentView != null)
                                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
@@ -6415,6 +6419,8 @@ public class PhoneProfilesService extends Service
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                         else
                             contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
+                        if ((!notificationShowProfileIcon) && useDecorator)
+                            contentViewLarge.setViewVisibility(R.id.notification_activated_profile_icon, View.GONE);
                         if (profileIconExists) {
                             if (contentView != null) {
                                 if (iconBitmap != null)
@@ -6456,6 +6462,8 @@ public class PhoneProfilesService extends Service
             if (notificationNotificationStyle.equals("0")) {
                 try {
                     contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_empty);
+                    if ((!notificationShowProfileIcon) && useDecorator)
+                        contentViewLarge.setViewVisibility(R.id.notification_activated_profile_icon, View.GONE);
                     if (profileIconExists) {
                         //noinspection ConstantConditions
                         if (contentView != null)
