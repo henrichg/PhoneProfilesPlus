@@ -157,6 +157,22 @@ class ContactGroupsCache {
     }
 */
 
+    static String translateContactGroup(String name, Context context) {
+        if (name.equals("My Contacts"))
+            name = context.getString(R.string.contact_group_name_myContacts);
+        if (name.equals("Family"))
+            name = context.getString(R.string.contact_group_name_family);
+        if (name.equals("Friends"))
+            name = context.getString(R.string.contact_group_name_friends);
+        if (name.equals("Coworkers"))
+            name = context.getString(R.string.contact_group_name_coworkers);
+        if (name.equals("Starred in Android"))
+            name = context.getString(R.string.contact_group_name_starred);
+        if (name.equals("Starred"))
+            name = context.getString(R.string.contact_group_name_starred);
+        return name;
+    }
+
     void getContactGroupListX(Context context) {
         if (cached || caching) return;
 
@@ -218,18 +234,7 @@ class ContactGroupsCache {
 
                         String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
                         if (name != null) {
-                            if (name.equals("My Contacts"))
-                                name = context.getString(R.string.contact_group_name_myContacts);
-                            if (name.equals("Family"))
-                                name = context.getString(R.string.contact_group_name_family);
-                            if (name.equals("Friends"))
-                                name = context.getString(R.string.contact_group_name_friends);
-                            if (name.equals("Coworkers"))
-                                name = context.getString(R.string.contact_group_name_coworkers);
-                            if (name.equals("Starred in Android"))
-                                name = context.getString(R.string.contact_group_name_starred);
-                            if (name.equals("Starred"))
-                                name = context.getString(R.string.contact_group_name_starred);
+                            name = translateContactGroup(name, context);
 
                             String accountType = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.ACCOUNT_TYPE));
 
