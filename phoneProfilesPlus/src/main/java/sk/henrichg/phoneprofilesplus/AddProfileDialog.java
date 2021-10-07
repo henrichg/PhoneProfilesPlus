@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -54,7 +55,13 @@ class AddProfileDialog
 
         listView = layout.findViewById(R.id.profile_pref_dlg_listview);
 
-        listView.setOnItemClickListener((parent, v, position, id) -> doOnItemSelected(position));
+        listView.setOnItemClickListener((parent, item, position, id) -> {
+            AddProfileAdapter.ViewHolder viewHolder = (AddProfileAdapter.ViewHolder) item.getTag();
+            if (viewHolder != null)
+                viewHolder.radioButton.setChecked(true);
+            Handler handler = new Handler(activity.getMainLooper());
+            handler.postDelayed(() -> doOnItemSelected(position), 200);
+        });
 
     }
 

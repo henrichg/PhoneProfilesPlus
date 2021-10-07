@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,7 +139,9 @@ class AddProfileAdapter extends BaseAdapter {
         holder.radioButton.setTag(position);
         holder.radioButton.setOnClickListener(v -> {
             RadioButton rb = (RadioButton) v;
-            dialog.doOnItemSelected((Integer)rb.getTag());
+            rb.setChecked(true);
+            Handler handler = new Handler(context.getMainLooper());
+            handler.postDelayed(() -> dialog.doOnItemSelected((Integer)rb.getTag()), 200);
         });
 
         return vi;
