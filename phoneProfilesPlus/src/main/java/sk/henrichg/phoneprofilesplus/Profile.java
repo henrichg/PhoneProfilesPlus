@@ -3455,6 +3455,7 @@ public class Profile {
         return timeDate.concat(AmPm);
     }
 
+    // this change old, no longer used SHARED_PROFILE_VALUE to "Not used" value
     static Profile removeSharedProfileParameters(Profile profile)
     {
         final int SHARED_PROFILE_VALUE = 99;
