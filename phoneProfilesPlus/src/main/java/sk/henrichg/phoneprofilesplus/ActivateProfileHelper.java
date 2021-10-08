@@ -29,7 +29,6 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.Uri;
-import android.net.VpnManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -4216,36 +4215,138 @@ class ActivateProfileHelper {
 
         if ((profile._deviceWallpaperChange == 2) && (!profile._deviceLiveWallpaper.isEmpty()))
         {
-            try {
-                ComponentName componentName = ComponentName.unflattenFromString(profile._deviceLiveWallpaper);
+            if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                try {
+                    ComponentName componentName = ComponentName.unflattenFromString(profile._deviceLiveWallpaper);
+                    Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
+                    context.startActivity(intent);
+                    PPApplication.setWallpaperChangeTime(appContext);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            } else {
                 Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
-                context.startActivity(intent);
-                PPApplication.setWallpaperChangeTime(appContext);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
+                if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
+                    ComponentName componentName = ComponentName.unflattenFromString(profile._deviceLiveWallpaper);
+                    intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                    String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                            appContext.getString(R.string.profile_preferences_deviceLiveWallpaper);
+                    showNotificationForInteractiveParameters(appContext, title, text, intent,
+                            PPApplication.PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_ID,
+                            PPApplication.PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_TAG);
+                }
             }
         }
 
         if (profile._deviceVPNSettingsPrefs == 1)
         {
-            try {
+            if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                try {
+                    /*String PACKAGE_PREFIX =
+                            VpnManager.class.getPackage().getName() + ".";
+                    String ACTION_VPN_SETTINGS =
+                            PACKAGE_PREFIX + "SETTINGS";*/
+                    String ACTION_VPN_SETTINGS = "android.net.vpn.SETTINGS";
+                    Intent intent = new Intent(ACTION_VPN_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            } else {
                 /*String PACKAGE_PREFIX =
                         VpnManager.class.getPackage().getName() + ".";
                 String ACTION_VPN_SETTINGS =
                         PACKAGE_PREFIX + "SETTINGS";*/
                 String ACTION_VPN_SETTINGS = "android.net.vpn.SETTINGS";
                 Intent intent = new Intent(ACTION_VPN_SETTINGS);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
+                if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                    String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                            appContext.getString(R.string.profile_preferences_deviceVPNSettingsPrefs);
+                    showNotificationForInteractiveParameters(appContext, title, text, intent,
+                            PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_ID,
+                            PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_TAG);
+                }
             }
         }
     }
 
-    static void execute(final Context context, final Profile profile/*, boolean merged, *//*boolean _interactive*/)
+    static void cancelNotificationsForInteractiveParameters(Context context) {
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.cancel(
+                PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_TAG,
+                PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID);
+
+        notificationManager.cancel(
+                PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_TAG,
+                PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID);
+
+        notificationManager.cancel(
+                PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_TAG,
+                PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID);
+
+        notificationManager.cancel(
+                PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_TAG,
+                PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID);
+
+        notificationManager.cancel(
+                PPApplication.PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_TAG,
+                PPApplication.PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_ID);
+
+        notificationManager.cancel(
+                PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_TAG,
+                PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_ID);
+    }
+
+    private static void showNotificationForInteractiveParameters(Context context, String title, String text, Intent intent, int notificationId, String notificationTag) {
+        Context appContext = context.getApplicationContext();
+
+        //noinspection UnnecessaryLocalVariable
+        String nTitle = title;
+        //noinspection UnnecessaryLocalVariable
+        String nText = text;
+//        if (android.os.Build.VERSION.SDK_INT < 24) {
+//            nTitle = appContext.getString(R.string.ppp_app_name);
+//            nText = title+": "+text;
+//        }
+        PPApplication.createInformationNotificationChannel(appContext);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setContentTitle(nTitle) // title for notification
+                .setContentText(nText) // message for notification
+                .setAutoCancel(true); // clear notification after click
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+        @SuppressLint("UnspecifiedImmutableFlag")
+        PendingIntent pi = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        //if (android.os.Build.VERSION.SDK_INT >= 21)
+        //{
+        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        //}
+
+        Notification notification = mBuilder.build();
+        notification.vibrate = null;
+        notification.defaults &= ~DEFAULT_VIBRATE;
+
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+        try {
+            mNotificationManager.notify(notificationTag, notificationId, notification);
+        } catch (Exception e) {
+            //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+        }
+    }
+
+    static void execute(final Context context, final Profile profile)
     {
         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "xxx");
 
@@ -4887,48 +4988,6 @@ class ActivateProfileHelper {
         else {
             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeForInteractivePreferences()");
             executeForInteractivePreferences(profile, appContext, executedProfileSharedPreferences);
-        }
-    }
-
-    private static void showNotificationForInteractiveParameters(Context context, String title, String text, Intent intent, int notificationId, String notificationTag) {
-        Context appContext = context.getApplicationContext();
-
-        //noinspection UnnecessaryLocalVariable
-        String nTitle = title;
-        //noinspection UnnecessaryLocalVariable
-        String nText = text;
-//        if (android.os.Build.VERSION.SDK_INT < 24) {
-//            nTitle = appContext.getString(R.string.ppp_app_name);
-//            nText = title+": "+text;
-//        }
-        PPApplication.createInformationNotificationChannel(appContext);
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                .setContentTitle(nTitle) // title for notification
-                .setContentText(nText) // message for notification
-                .setAutoCancel(true); // clear notification after click
-        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
-        @SuppressLint("UnspecifiedImmutableFlag")
-        PendingIntent pi = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(pi);
-        mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
-            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
-
-        Notification notification = mBuilder.build();
-        notification.vibrate = null;
-        notification.defaults &= ~DEFAULT_VIBRATE;
-
-        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
-        try {
-            mNotificationManager.notify(notificationTag, notificationId, notification);
-        } catch (Exception e) {
-            //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
         }
     }
 

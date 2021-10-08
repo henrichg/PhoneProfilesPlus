@@ -645,9 +645,13 @@ public class DataWrapper {
             notificationManager.cancel(
                     PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id,
                     PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
+            notificationManager.cancel(
+                    PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
+                    PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile._id);
 
             profileList.remove(profile);
         }
+        ActivateProfileHelper.cancelNotificationsForInteractiveParameters(context);
         synchronized (eventList) {
             fillEventList();
             // unlink profile from events
@@ -697,11 +701,15 @@ public class DataWrapper {
                     notificationManager.cancel(
                             PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id,
                             PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
+                    notificationManager.cancel(
+                            PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
+                            PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile._id);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
             }
             profileList.clear();
+            ActivateProfileHelper.cancelNotificationsForInteractiveParameters(context);
         }
         synchronized (eventList) {
             fillEventList();

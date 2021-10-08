@@ -69,6 +69,7 @@ import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
@@ -505,6 +506,11 @@ public class PPApplication extends Application
     static final String PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION";
     static final int EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_ID = 134;
     static final String EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_TAG = PACKAGE_NAME+"EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION";
+
+    static final int PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_ID = 135;
+    static final String PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_TAG = PACKAGE_NAME+"PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION";
+    static final int PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_ID = 136;
+    static final String PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_TAG = PACKAGE_NAME+"PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_";
 
     // notifications have also tag, in it is tag name + profile/event/mobile cells id
     static final int PROFILE_ID_NOTIFICATION_ID = 1000;
@@ -3988,7 +3994,7 @@ public class PPApplication extends Application
     }
 
     private static void _exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
-                               final boolean shutdown/*, final boolean killProcess*//*, final boolean removeAlarmClock*/) {
+                               final boolean shutdown, final boolean removeNotifications) {
         try {
             PPApplication.logE("PPApplication._exitApp", "shutdown="+shutdown);
 
@@ -4005,6 +4011,27 @@ public class PPApplication extends Application
                 DrawOverAppsPermissionNotification.removeNotification(context);
                 IgnoreBatteryOptimizationNotification.removeNotification(context);
                 Permissions.removeNotifications(context);
+
+                if (removeNotifications) {
+                    if (dataWrapper != null) {
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                        //noinspection ForLoopReplaceableByForEach
+                        for (Iterator<Profile> it = dataWrapper.profileList.iterator(); it.hasNext(); ) {
+                            Profile profile = it.next();
+                            try {
+                                notificationManager.cancel(
+                                        PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG + "_" + profile._id,
+                                        PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
+                                notificationManager.cancel(
+                                        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
+                                        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile._id);
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        }
+                    }
+                    ActivateProfileHelper.cancelNotificationsForInteractiveParameters(context);
+                }
 
                 addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, null, 0, "");
 
@@ -4112,7 +4139,7 @@ public class PPApplication extends Application
     }
 
     static void exitApp(final boolean useHandler, final Context context, final DataWrapper dataWrapper, final Activity activity,
-                                 final boolean shutdown/*, final boolean killProcess*//*, final boolean removeAlarmClock*/) {
+                                 final boolean shutdown, boolean removeNotifications) {
         try {
             if (useHandler) {
                 PPApplication.startHandlerThread(/*"PPApplication.exitApp"*/);
@@ -4140,7 +4167,7 @@ public class PPApplication extends Application
                                 } catch (Exception ignored) {
                                 }
                             }
-                            _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
+                            _exitApp(context, dataWrapper, activity, shutdown, removeNotifications);
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.exitApp");
                         } catch (Exception e) {
@@ -4158,7 +4185,7 @@ public class PPApplication extends Application
                 });
             }
             else
-                _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
+                _exitApp(context, dataWrapper, activity, shutdown, removeNotifications);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }

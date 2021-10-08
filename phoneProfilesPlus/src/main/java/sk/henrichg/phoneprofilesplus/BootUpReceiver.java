@@ -108,7 +108,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 }
                             }
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
-                            PPApplication.exitApp(false, appContext, dataWrapper, null, false/*, true, true*/);
+                            PPApplication.exitApp(false, appContext, dataWrapper, null, false, true);
                         }
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BootUpReceiver.onReceive2");
