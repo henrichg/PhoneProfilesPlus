@@ -2808,6 +2808,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 "",
                                 0,
                                 "-",
+                                0,
                                 0
                         );
 

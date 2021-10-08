@@ -377,7 +377,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._deviceLiveWallpaper,
                         origProfile._vibrateNotifications,
                         origProfile._deviceWallpaperFolder,
-                        origProfile._applicationDisableGloabalEventsRun
+                        origProfile._applicationDisableGloabalEventsRun,
+                        origProfile._deviceVPNSettingsPrefs
                 );
                 showSaveMenu = true;
             }
@@ -546,7 +547,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._deviceDefaultSIMCards = preferences.getString(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, "");
             profile._deviceOnOffSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM1, ""));
             profile._deviceOnOffSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_ONOFF_SIM2, ""));
-
             profile._soundRingtoneChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM1, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM1, "");
             splits = toneString.split("\\|");
@@ -556,7 +556,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             else*/
             profile._soundRingtoneSIM1 = splits[0];//+"|0";
             //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundRingtoneSIM1=" + profile._soundRingtoneSIM1);
-
             profile._soundNotificationChangeSIM1 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM1, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM1, "");
             splits = toneString.split("\\|");
@@ -566,7 +565,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             else*/
             profile._soundNotificationSIM1 = splits[0];//+"|0";
             //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotificationSIM1=" + profile._soundNotificationSIM1);
-
             profile._soundRingtoneChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_CHANGE_SIM2, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_RINGTONE_SIM2, "");
             splits = toneString.split("\\|");
@@ -576,7 +574,6 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             else*/
             profile._soundRingtoneSIM2 = splits[0];//+"|0";
             //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundRingtoneSIM2=" + profile._soundRingtoneSIM2);
-
             profile._soundNotificationChangeSIM2 = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_CHANGE_SIM2, ""));
             toneString = preferences.getString(Profile.PREF_PROFILE_SOUND_NOTIFICATION_SIM2, "");
             splits = toneString.split("\\|");
@@ -586,10 +583,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             else*/
             profile._soundNotificationSIM2 = splits[0];//+"|0";
             //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "profile._soundNotificationSIM2=" + profile._soundNotificationSIM2);
-
             profile._soundSameRingtoneForBothSIMCards = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS, ""));
             profile._applicationDisableGloabalEventsRun = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, ""));
-
+            profile._deviceVPNSettingsPrefs = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, ""));
         }
 
         //PPApplication.logE("ProfilesPrefsActivity.getProfileFromPreferences", "END");
