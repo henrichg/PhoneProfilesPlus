@@ -143,5 +143,13 @@
         app:entries="@array/hardwareModeArray"
         app:entryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_deviceVPNSettingsPrefs"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceVPNSettingsPrefs"
+        app:defaultValue="0"
+        app:entries="@array/vpnSettingsPrefsArray"
+        app:entryValues="@array/vpnSettingsPrefsValues"
+        app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>
