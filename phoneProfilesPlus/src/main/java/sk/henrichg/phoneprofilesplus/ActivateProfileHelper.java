@@ -3759,8 +3759,8 @@ class ActivateProfileHelper {
                                 RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
                             } else {
                                 doExecuteForRunApplications(appContext, profile._name, profile._icon, split);
+                                PPApplication.sleep(1000);
                             }
-                            PPApplication.sleep(1000);
                         }
                     } catch (Exception e) {
 //                        PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
