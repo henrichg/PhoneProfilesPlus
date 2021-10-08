@@ -1205,7 +1205,7 @@ class ProfilePreferencesIndicator {
                     if (fillPreferences)
                         preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceVPNSettingsPrefs);
                     if (fillStrings)
-                        strings[countDrawables++] = "vpnp";
+                        strings[countDrawables++] = "vpns";
                     else {
                         disabled[countDrawables] = false;
                         drawables[countDrawables++] = R.drawable.ic_profile_pref_vpn_settings_pref;

@@ -1806,7 +1806,7 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
     <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>
 
-    <string name="profile_preferences_deviceVPNSettingsPrefs">VPN Settings</string>
+    <string name="profile_preferences_deviceVPNSettingsPrefs">(I) VPN Settings</string>
 
     <!-- **************************************************************************************** -->
 

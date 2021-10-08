@@ -29,6 +29,7 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.Uri;
+import android.net.VpnManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -4222,6 +4223,22 @@ class ActivateProfileHelper {
                 intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
                 context.startActivity(intent);
                 PPApplication.setWallpaperChangeTime(appContext);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        }
+
+        if (profile._deviceVPNSettingsPrefs == 1)
+        {
+            try {
+                /*String PACKAGE_PREFIX =
+                        VpnManager.class.getPackage().getName() + ".";
+                String ACTION_VPN_SETTINGS =
+                        PACKAGE_PREFIX + "SETTINGS";*/
+                String ACTION_VPN_SETTINGS = "android.net.vpn.SETTINGS";
+                Intent intent = new Intent(ACTION_VPN_SETTINGS);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             } catch (Exception e) {
                 PPApplication.recordException(e);
             }
