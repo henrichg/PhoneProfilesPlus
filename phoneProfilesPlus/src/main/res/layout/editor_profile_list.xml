@@ -8,7 +8,7 @@
     android:animateLayoutChanges="true" >
 
     <RelativeLayout
-        android:id="@+id/activated_profile_header"
+        android:id="@+id/editor_profiles_activated_profile_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
@@ -19,13 +19,13 @@
         android:layout_alignParentTop="true">
 
         <RelativeLayout
-            android:id="@+id/activated_profile_header_subgroup"
+            android:id="@+id/editor_profiles_activated_profile_header_subgroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
             <ImageView
-                android:id="@+id/activated_profile_icon"
+                android:id="@+id/editor_profiles_activated_profile_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="1dp"
@@ -37,16 +37,16 @@
                 android:src="@drawable/ic_empty" />
 
             <LinearLayout
-                android:id="@+id/activated_profile_header_liLa1"
+                android:id="@+id/editor_profiles_activated_profile_header_liLa1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-1dp"
                 android:orientation="vertical"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/activated_profile_icon" >
+                android:layout_toEndOf="@id/editor_profiles_activated_profile_icon" >
 
                 <TextView
-                    android:id="@+id/activated_profile_name"
+                    android:id="@+id/editor_profiles_activated_profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="12dp"
@@ -59,7 +59,7 @@
                     android:textColor="?attr/colorAccent" />
 
                 <ImageView
-                    android:id="@+id/activated_profile_pref_indicator"
+                    android:id="@+id/editor_profiles_activated_profile_pref_indicator"
                     android:layout_width="match_parent"
                     android:layout_height="14dp"
                     android:layout_marginTop="2dp"
@@ -75,12 +75,12 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/activated_profile_red_text"
+            android:id="@+id/editor_profiles_activated_profile_red_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginTop="5dp"
-            android:layout_below="@id/activated_profile_header_subgroup"
+            android:layout_below="@id/editor_profiles_activated_profile_header_subgroup"
             android:text="@string/profile_preferences_red_texts_in_header"
             android:textColor="@color/error_in_preferences"
             android:visibility="gone" />
@@ -91,8 +91,8 @@
         android:id="@+id/editor_profiles_list_drLa1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/activated_profile_header"
-        android:layout_above="@id/editor_list_bottom_bar">
+        android:layout_below="@id/editor_profiles_activated_profile_header"
+        android:layout_above="@id/editor_profiles_list_bottom_bar">
 
         <View
             android:id="@+id/editor_profiles_list_divider1"
@@ -151,7 +151,7 @@
     </FrameLayout>
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/editor_list_bottom_bar"
+        android:id="@+id/editor_profiles_list_bottom_bar"
         android:layout_height="55dp"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"

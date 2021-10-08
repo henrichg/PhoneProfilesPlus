@@ -2945,7 +2945,134 @@ public class DataWrapper {
         else
             return "?";
     }
+/*
+    static String _getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile)
+    {
 
+        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false))
+        {
+            if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
+                Log.e("DataWrapper._getLastStartedEventName", "1");
+                List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
+                if (eventTimelineList.size() > 0)
+                {
+                    Log.e("DataWrapper._getLastStartedEventName", "2");
+
+                    EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size()-1);
+                    long event_id = eventTimeLine._fkEvent;
+                    Event event = dataWrapper.getEventById(event_id);
+                    if (event != null)
+                    {
+                        Log.e("DataWrapper._getLastStartedEventName", "3");
+
+                        //if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
+                        if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._ignoreManualActivation))
+                        {
+                            Log.e("DataWrapper._getLastStartedEventName", "4");
+
+                            //Profile profile;
+                            //profile = dataWrapper.getActivatedProfile(false, false);
+                            //if ((profile != null) && (event._fkProfileStart == profile._id))
+                            // last started event activates activated profile
+                            return event._name;
+                            //else
+                            //    return "?";
+                        }
+                        else {
+                            Log.e("DataWrapper._getLastStartedEventName", "5");
+                            return "?";
+                        }
+                    }
+                    else {
+                        Log.e("DataWrapper._getLastStartedEventName", "6");
+                        return "?";
+                    }
+                }
+                else
+                {
+                    Log.e("DataWrapper._getLastStartedEventName", "7");
+                    long profileId = ApplicationPreferences.applicationDefaultProfile;
+                    //if ((!ApplicationPreferences.prefEventsBlocked) &&
+                    if ((!Event.getEventsBlocked(dataWrapper.context)) &&
+                            (profileId != Profile.PROFILE_NO_ACTIVATE) &&
+                            (profileId == forProfile._id))
+                    {
+                        Log.e("DataWrapper._getLastStartedEventName", "8");
+                        //Profile profile;
+                        //profile = dataWrapper.getActivatedProfile(false, false);
+                        //if ((profile != null) && (profile._id == profileId))
+                        return dataWrapper.context.getString(R.string.event_name_background_profile);
+                        //else
+                        //    return "?";
+                    }
+                    else {
+                        Log.e("DataWrapper._getLastStartedEventName", "9");
+                        return "?";
+                    }
+                }
+            }
+            else {
+                Log.e("DataWrapper._getLastStartedEventName", "10");
+                String eventName = DatabaseHandler.getInstance(dataWrapper.context).getLastStartedEventName();
+                if (!eventName.equals("?")) {
+                    Log.e("DataWrapper._getLastStartedEventName", "11");
+                    return eventName;
+                }
+//                List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(true);
+//                if (eventTimelineList.size() > 0)
+//                {
+//                    EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size()-1);
+//                    long event_id = eventTimeLine._fkEvent;
+//                    Event event = dataWrapper.getEventById(event_id);
+//                    if (event != null)
+//                    {
+//                        if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
+//                        {
+//                            //Profile profile;
+//                            //profile = dataWrapper.getActivatedProfileFromDB(false, false);
+//                            //if ((profile != null) && (event._fkProfileStart == profile._id))
+//                                // last started event activates activated profile
+//                                return event._name;
+//                            //else
+//                            //    return "?";
+//                        }
+//                        else
+//                            return "?";
+//                    }
+//                    else
+//                        return "?";
+//                }
+                else
+                {
+                    Log.e("DataWrapper._getLastStartedEventName", "12");
+                    long profileId = ApplicationPreferences.applicationDefaultProfile;
+                    //if ((!ApplicationPreferences.prefEventsBlocked) &&
+                    if ((!Event.getEventsBlocked(dataWrapper.context)) &&
+                            (profileId != Profile.PROFILE_NO_ACTIVATE) &&
+                            (profileId == forProfile._id))
+                    {
+                        Log.e("DataWrapper._getLastStartedEventName", "13");
+                        //Profile profile;
+                        //profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                        //if ((profile != null) && (profile._id == profileId))
+                        return dataWrapper.context.getString(R.string.event_name_background_profile);
+                        //else
+                        //    return "?";
+                    }
+                    else {
+                        Log.e("DataWrapper._getLastStartedEventName", "14");
+                        return "?";
+                    }
+                }
+            }
+
+        }
+        else {
+            Log.e("DataWrapper._getLastStartedEventName", "15");
+            return "?";
+        }
+    }
+*/
     private void resetAllEventsInDelayStart(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
