@@ -263,7 +263,6 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             return;
 
         ActivateProfileHelper.doExecuteForRunApplications(context, profileName, null, runApplicationData);
-        PPApplication.sleep(1000);
     }
 
 }
