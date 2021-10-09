@@ -256,6 +256,8 @@ public class PPApplication extends Application
                                                 //+"|CheckGitHubReleasesActivity"
 
                                                 //+"|WifiApManager._startTethering30"
+
+                                                +"|NextAlarmClockBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

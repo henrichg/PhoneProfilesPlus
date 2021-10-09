@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
@@ -17,7 +18,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
+        PPApplication.logE("[IN_BROADCAST] NextAlarmClockBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "NextAlarmClockBroadcastReceiver.onReceive", "NextAlarmClockBroadcastReceiver_onReceive");
 
@@ -30,16 +31,15 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         //if (android.os.Build.VERSION.SDK_INT >= 21) {
             String action = intent.getAction();
             if ((action != null) && action.equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
+                PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "action ok");
+
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 if (alarmManager != null) {
                     AlarmManager.AlarmClockInfo alarmClockInfo = alarmManager.getNextAlarmClock();
                     if (alarmClockInfo != null) {
+                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo != null");
+
                         long _time = alarmClockInfo.getTriggerTime();
-                        /*if (PPApplication.logEnabled()) {
-                            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
-                            String result = sdf.format(_time);
-                            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "_time=" + result);
-                        }*/
 
                         PendingIntent infoPendingIntent = alarmClockInfo.getShowIntent();
                         // infoPendingIntent == null - Xiaomi Clock :-/
@@ -48,9 +48,15 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
 
                         if (infoPendingIntent != null) {
                             String packageName = infoPendingIntent.getCreatorPackage();
-                            //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
+                            PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
                             if (packageName != null) {
                                 if (!packageName.equals(PPApplication.PACKAGE_NAME)) {
+                                    if (PPApplication.logEnabled()) {
+                                        SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
+                                        String result = sdf.format(_time);
+                                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "_time=" + result);
+                                    }
+
                                     //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "packageName=" + packageName);
 
                                     // com.google.android.deskclock - Google Clock
@@ -95,10 +101,13 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                             setAlarm(_time, "", alarmManager, context);
                         }*/
                     }
-                    //else {
-                        //PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo == null");
-                        //removeAlarm(alarmManager, context);
-                    //}
+                    else {
+                        PPApplication.logE("NextAlarmClockBroadcastReceiver.onReceive", "alarmClockInfo == null");
+
+                        setEventAlarmClockTime(context, 0);
+                        setEventAlarmClockPackageName(context, "");
+                        removeAlarm(alarmManager, context);
+                    }
                 }
             }
         //}
