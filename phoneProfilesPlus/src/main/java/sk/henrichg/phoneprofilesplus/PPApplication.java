@@ -1907,6 +1907,10 @@ public class PPApplication extends Application
         WifiScanWorker.getWifiEnabledForScan(context);
         WifiScanWorker.getScanRequest(context);
         WifiScanWorker.getWaitForResults(context);
+
+        NextAlarmClockBroadcastReceiver.getEventAlarmClockTime(context);
+        NextAlarmClockBroadcastReceiver.getEventAlarmClockPackageName(context);
+
         ApplicationPreferences.loadStartTargetHelps(context);
     }
 

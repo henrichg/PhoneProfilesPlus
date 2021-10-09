@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -4218,6 +4219,16 @@ public class PhoneProfilesService extends Service
                 EventPreferencesCall.setEventCallEventTime(appContext, 0);
                 EventPreferencesCall.setEventCallPhoneNumber(appContext, "");
                 EventPreferencesCall.setEventCallFromSIMSlot(appContext, 0);
+
+                // set alarm for Alarm clock sensor from last saved time in
+                // NextAlarmClockBroadcastReceiver.onReceived()
+                AlarmManager alarmManager = (AlarmManager) appContext.getSystemService(Context.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    NextAlarmClockBroadcastReceiver.setAlarm(
+                            ApplicationPreferences.prefEventAlarmClockTime,
+                            ApplicationPreferences.prefEventAlarmClockPackageName,
+                            alarmManager, appContext);
+                }
 
                 //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "5");
 

@@ -44,6 +44,8 @@ class ApplicationPreferences {
     static boolean prefEventWifiEnabledForScan;
     //static boolean prefShowCriticalGitHubReleasesNotificationNotification;
     static int prefShowCriticalGitHubReleasesCodeNotification;
+    static long prefEventAlarmClockTime;
+    static String prefEventAlarmClockPackageName;
 
     static boolean applicationEventNeverAskForEnableRun;
     static boolean applicationNeverAskForGrantRoot;

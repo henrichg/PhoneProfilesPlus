@@ -6,8 +6,14 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+
+import java.util.Calendar;
 
 public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
+
+    static final String PREF_EVENT_ALARM_CLOCK_TIME = "eventAlarmClockTime";
+    static final String PREF_EVENT_ALARM_CLOCK_PACKAGE_NAME = "eventAlarmClockPackageName";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -75,6 +81,9 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
                                         packageName.equals("ch.bitspin.timely") ||
                                         packageName.equals("com.angrydoughnuts.android.alarmclock"))*/
 
+                                        setEventAlarmClockTime(context, _time);
+                                        setEventAlarmClockPackageName(context, packageName);
+
                                         setAlarm(_time, packageName, alarmManager, context);
                                 }
                             } /*else {
@@ -95,7 +104,7 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
         //}
     }
 
-    private void removeAlarm(AlarmManager alarmManager, Context context) {
+    private static void removeAlarm(AlarmManager alarmManager, Context context) {
         //Intent intent = new Intent(context, AlarmClockBroadcastReceiver.class);
         Intent intent = new Intent();
         intent.setAction(PhoneProfilesService.ACTION_ALARM_CLOCK_BROADCAST_RECEIVER);
@@ -112,16 +121,18 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
     }
 
     //@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setAlarm(long alarmTime, String alarmPackageName, AlarmManager alarmManager, Context context) {
+    static void setAlarm(long alarmTime, String alarmPackageName, AlarmManager alarmManager, Context context) {
         removeAlarm(alarmManager, context);
 
-        //PhoneProfilesService instance = PhoneProfilesService.getInstance();
-        //if (instance == null)
-        //    return;
+        Calendar now = Calendar.getInstance();
+        if ((alarmTime >= now.getTimeInMillis()) && (!alarmPackageName.isEmpty())) {
+            //PhoneProfilesService instance = PhoneProfilesService.getInstance();
+            //if (instance == null)
+            //    return;
 
-        // !!! Keep disabled "if", next alarm my be received before registering
-        // AlarmClockBroadcastReceiver for example from Editor
-        //if (instance.alarmClockBroadcastReceiver != null) {
+            // !!! Keep disabled "if", next alarm my be received before registering
+            // AlarmClockBroadcastReceiver for example from Editor
+            //if (instance.alarmClockBroadcastReceiver != null) {
             //long alarmTime = time;// - Event.EVENT_ALARM_TIME_SOFT_OFFSET;
 
             /*if (PPApplication.logEnabled()) {
@@ -142,11 +153,35 @@ public class NextAlarmClockBroadcastReceiver extends BroadcastReceiver {
             @SuppressLint("UnspecifiedImmutableFlag")
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 9998, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             //if (android.os.Build.VERSION.SDK_INT >= 23)
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             //else //if (android.os.Build.VERSION.SDK_INT >= 19)
             //    alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime, pendingIntent);
             //else
             //    alarmManager.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
-        //}
+            //}
+        }
     }
+
+    static void getEventAlarmClockTime(Context context) {
+        ApplicationPreferences.prefEventAlarmClockTime = ApplicationPreferences.
+                getSharedPreferences(context).getLong(PREF_EVENT_ALARM_CLOCK_TIME, 0L);
+    }
+    static void setEventAlarmClockTime(Context context, long time) {
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+        editor.putLong(PREF_EVENT_ALARM_CLOCK_TIME, time);
+        editor.apply();
+        ApplicationPreferences.prefEventAlarmClockTime = time;
+    }
+
+    static void getEventAlarmClockPackageName(Context context) {
+        ApplicationPreferences.prefEventAlarmClockPackageName = ApplicationPreferences.
+                getSharedPreferences(context).getString(PREF_EVENT_ALARM_CLOCK_PACKAGE_NAME, "");
+    }
+    static void setEventAlarmClockPackageName(Context context, String packageName) {
+        SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+        editor.putString(PREF_EVENT_ALARM_CLOCK_PACKAGE_NAME, packageName);
+        editor.apply();
+        ApplicationPreferences.prefEventAlarmClockPackageName = packageName;
+    }
+
 }
