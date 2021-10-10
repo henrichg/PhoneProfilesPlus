@@ -17,7 +17,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
