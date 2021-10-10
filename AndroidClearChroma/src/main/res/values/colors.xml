@@ -4,5 +4,5 @@
     <color name="acch_fill_color_dark">#000000</color>
 
     <color name="acch_stroke_color_light">#858585</color>
-    <color name="acch_stroke_color_dark">#858585</color>
+    <color name="acch_stroke_color_dark">#454545</color>
 </resources>
