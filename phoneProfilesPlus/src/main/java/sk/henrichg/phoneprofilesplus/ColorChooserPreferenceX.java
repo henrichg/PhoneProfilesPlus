@@ -157,13 +157,13 @@ public class ColorChooserPreferenceX extends DialogPreference {
             //if (position == 2) // dark gray color
             //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
             //else
-                coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
+                coloredCircle.setStroke(1, Color.parseColor("#6E6E6E"));
         }
         else {
             //if (position == 0) // white color
             //    coloredCircle.setStroke(2, Color.parseColor("#AEAEAE"));
             //else
-                coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
+                coloredCircle.setStroke(1, Color.parseColor("#6E6E6E"));
         }
 
         GradientDrawable darkerCircle = new GradientDrawable();
