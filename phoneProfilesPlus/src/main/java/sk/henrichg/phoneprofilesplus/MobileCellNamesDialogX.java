@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.DialogPreference;

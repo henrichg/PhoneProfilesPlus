@@ -257,7 +257,7 @@ public class PPApplication extends Application
 
                                                 //+"|WifiApManager._startTethering30"
 
-                                                +"|NextAlarmClockBroadcastReceiver"
+                                                //+"|NextAlarmClockBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
