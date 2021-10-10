@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
 
-    <solid android:color="@color/acch_fill_color_light"/>
-    <stroke android:width="@dimen/acch_shape_stroke_preference_width" android:color="@color/acch_stroke_color_light" />
+    <solid android:color="@color/acch_fill_color_dark"/>
+    <stroke android:width="@dimen/acch_shape_stroke_preference_width" android:color="@color/acch_stroke_color_dark" />
     <size android:width="@dimen/acch_shape_preference_width" android:height="@dimen/acch_shape_preference_width"/>
 
 </shape>

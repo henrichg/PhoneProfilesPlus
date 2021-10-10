@@ -2,8 +2,11 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
@@ -135,28 +138,48 @@ public class ColorChooserPreferenceX extends DialogPreference {
             }
         }
 
-        String applicationTheme = ApplicationPreferences.applicationTheme(context, true);
+        String applicationTheme = "white";// = ApplicationPreferences.applicationTheme(context, true);
+        int nightModeFlags =
+                context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                applicationTheme = "dark";
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                applicationTheme = "white";
+                break;
+        }
 
         GradientDrawable coloredCircle = new GradientDrawable();
         coloredCircle.setColor(color);
         coloredCircle.setShape(GradientDrawable.OVAL);
-        if (applicationTheme.equals("dark")) {
-            if (position == 2) // dark gray color
+        if (applicationTheme.equals("white")) {
+            //if (position == 2) // dark gray color
+            //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
+            //else
                 coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
         }
         else {
-            if (position == 0) // white color
+            //if (position == 0) // white color
+            //    coloredCircle.setStroke(2, Color.parseColor("#AEAEAE"));
+            //else
                 coloredCircle.setStroke(2, Color.parseColor("#AEAEAE"));
         }
+
         GradientDrawable darkerCircle = new GradientDrawable();
         darkerCircle.setColor(shiftColor(color));
         darkerCircle.setShape(GradientDrawable.OVAL);
-        if (applicationTheme.equals("dark")) {
-            if (position == 2) // dark gray color
+        if (applicationTheme.equals("white")) {
+            //if (position == 2) // dark gray color
+            //    coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
+            //else
                 coloredCircle.setStroke(2, Color.parseColor("#6E6E6E"));
         }
         else {
-            if (position == 0) // white color
+            //if (position == 0) // white color
+            //    darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
+            //else
                 darkerCircle.setStroke(2, Color.parseColor("#AEAEAE"));
         }
 
