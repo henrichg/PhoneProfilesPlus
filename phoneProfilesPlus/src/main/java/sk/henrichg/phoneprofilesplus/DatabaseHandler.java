@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2475;
+    private static final int DATABASE_VERSION = 2476;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -3493,6 +3493,76 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion < 2475)
         {
             db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_DO_NOT_DELETE + "=0");
+        }
+
+        if (oldVersion < 2476) {
+            ContentValues values = new ContentValues();
+
+            values.put(KEY_IN_NAME, "[OpenVPN Connect - connect URL profile]");
+            values.put(KEY_IN_ACTION, "net.openvpn.openvpn.CONNECT");
+            //values.put(KEY_IN_ACTION, "android.intent.action.VIEW");
+            values.put(KEY_IN_PACKAGE_NAME, "net.openvpn.openvpn");
+            values.put(KEY_IN_CLASS_NAME, "net.openvpn.unified.MainActivity");
+            values.put(KEY_IN_EXTRA_KEY_1, "net.openvpn.openvpn.AUTOSTART_PROFILE_NAME");
+            values.put(KEY_IN_EXTRA_VALUE_1, "AS {your_profile_name}");
+            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+            values.put(KEY_IN_EXTRA_KEY_2, "net.openvpn.openvpn.AUTOCONNECT");
+            values.put(KEY_IN_EXTRA_VALUE_2, "true");
+            values.put(KEY_IN_EXTRA_TYPE_2, 0); // string
+            values.put(KEY_IN_INTENT_TYPE, 0); // activity
+            values.put(KEY_IN_DO_NOT_DELETE, "1");
+            db.insert(TABLE_INTENTS, null, values);
+
+            values.clear();
+            values.put(KEY_IN_NAME, "[OpenVPN Connect - connect file profile]");
+            values.put(KEY_IN_ACTION, "net.openvpn.openvpn.CONNECT");
+            //values.put(KEY_IN_ACTION, "android.intent.action.VIEW");
+            values.put(KEY_IN_PACKAGE_NAME, "net.openvpn.openvpn");
+            values.put(KEY_IN_CLASS_NAME, "net.openvpn.unified.MainActivity");
+            values.put(KEY_IN_EXTRA_KEY_1, "net.openvpn.openvpn.AUTOSTART_PROFILE_NAME");
+            values.put(KEY_IN_EXTRA_VALUE_1, "PC {your_profile_name}");
+            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+            values.put(KEY_IN_EXTRA_KEY_2, "net.openvpn.openvpn.AUTOCONNECT");
+            values.put(KEY_IN_EXTRA_VALUE_2, "true");
+            values.put(KEY_IN_EXTRA_TYPE_2, 0); // string
+            values.put(KEY_IN_INTENT_TYPE, 0); // activity
+            values.put(KEY_IN_DO_NOT_DELETE, "1");
+            db.insert(TABLE_INTENTS, null, values);
+
+            values.clear();
+            values.put(KEY_IN_NAME, "[OpenVPN Connect - disconnect]");
+            values.put(KEY_IN_ACTION, "net.openvpn.openvpn.DISCONNECT");
+            values.put(KEY_IN_PACKAGE_NAME, "net.openvpn.openvpn");
+            values.put(KEY_IN_CLASS_NAME, "net.openvpn.unified.MainActivity");
+            values.put(KEY_IN_EXTRA_KEY_1, "net.openvpn.openvpn.STOP");
+            values.put(KEY_IN_EXTRA_VALUE_1, "true");
+            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+            values.put(KEY_IN_INTENT_TYPE, 0); // activity
+            values.put(KEY_IN_DO_NOT_DELETE, "1");
+            db.insert(TABLE_INTENTS, null, values);
+
+            values.put(KEY_IN_NAME, "[OpenVPN for Android - connect]");
+            values.put(KEY_IN_ACTION, "android.intent.action.MAIN");
+            values.put(KEY_IN_PACKAGE_NAME, "de.blinkt.openvpn");
+            values.put(KEY_IN_CLASS_NAME, "de.blinkt.openvpn.api.ConnectVPN");
+            values.put(KEY_IN_EXTRA_KEY_1, "de.blinkt.openvpn.api.profileName");
+            values.put(KEY_IN_EXTRA_VALUE_1, "{your_profile_name}");
+            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+            values.put(KEY_IN_INTENT_TYPE, 0); // activity
+            values.put(KEY_IN_DO_NOT_DELETE, "1");
+            db.insert(TABLE_INTENTS, null, values);
+
+            values.put(KEY_IN_NAME, "[OpenVPN for Android - disconnect]");
+            values.put(KEY_IN_ACTION, "android.intent.action.MAIN");
+            values.put(KEY_IN_PACKAGE_NAME, "de.blinkt.openvpn");
+            values.put(KEY_IN_CLASS_NAME, "de.blinkt.openvpn.api.DisconnectVPN");
+            values.put(KEY_IN_EXTRA_KEY_1, "de.blinkt.openvpn.api.profileName");
+            values.put(KEY_IN_EXTRA_VALUE_1, "{your_profile_name}");
+            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+            values.put(KEY_IN_INTENT_TYPE, 0); // activity
+            values.put(KEY_IN_DO_NOT_DELETE, "1");
+            db.insert(TABLE_INTENTS, null, values);
+
         }
 
     }
