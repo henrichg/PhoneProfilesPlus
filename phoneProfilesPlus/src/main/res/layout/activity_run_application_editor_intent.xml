@@ -8,7 +8,7 @@
     android:layout_marginStart="@dimen/activity_margin_start"
     android:layout_marginEnd="@dimen/activity_margin_end"
     android:fitsSystemWindows="false"
-    tools:context=".ApplicationEditorIntentActivityX">
+    tools:context=".RunApplicationEditorIntentActivityX">
 
     <RelativeLayout
         android:id="@+id/application_editor_intent_buttons"
@@ -142,7 +142,7 @@
                 android:layout_marginEnd="18dp"
                 android:layout_marginTop="5dp"
                 android:popupElevation="0dp"
-                android:entries="@array/applicationEditorIntentIntentTypeArray"
+                android:entries="@array/runApplicationEditorIntentIntentTypeArray"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
             <View
@@ -217,7 +217,7 @@
                 android:layout_marginEnd="18dp"
                 android:layout_marginTop="5dp"
                 android:popupElevation="0dp"
-                android:entries="@array/applicationEditorIntentActionArray"
+                android:entries="@array/runApplicationEditorIntentActionArray"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
             <EditText
                 android:id="@+id/application_editor_intent_action_edit"
@@ -429,7 +429,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="18dp"
                         android:popupElevation="0dp"
-                        android:entries="@array/applicationEditorIntentExtraTypeArray"
+                        android:entries="@array/runApplicationEditorIntentExtraTypeArray"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                 </LinearLayout>
             </LinearLayout>
@@ -476,7 +476,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="18dp"
                         android:popupElevation="0dp"
-                        android:entries="@array/applicationEditorIntentExtraTypeArray"
+                        android:entries="@array/runApplicationEditorIntentExtraTypeArray"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                 </LinearLayout>
             </LinearLayout>
@@ -523,7 +523,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="18dp"
                         android:popupElevation="0dp"
-                        android:entries="@array/applicationEditorIntentExtraTypeArray"
+                        android:entries="@array/runApplicationEditorIntentExtraTypeArray"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                 </LinearLayout>
             </LinearLayout>
@@ -570,7 +570,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="18dp"
                         android:popupElevation="0dp"
-                        android:entries="@array/applicationEditorIntentExtraTypeArray"
+                        android:entries="@array/runApplicationEditorIntentExtraTypeArray"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                 </LinearLayout>
             </LinearLayout>
@@ -617,7 +617,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="18dp"
                         android:popupElevation="0dp"
-                        android:entries="@array/applicationEditorIntentExtraTypeArray"
+                        android:entries="@array/runApplicationEditorIntentExtraTypeArray"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
                 </LinearLayout>
             </LinearLayout>

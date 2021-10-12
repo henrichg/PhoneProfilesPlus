@@ -9,30 +9,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
-class ApplicationEditorDialogAdapterX extends RecyclerView.Adapter<ApplicationEditorDialogViewHolderX>
+class RunApplicationEditorDialogAdapterX extends RecyclerView.Adapter<RunApplicationEditorDialogViewHolderX>
                                                 implements FastScrollRecyclerView.SectionedAdapter
 {
-    private final ApplicationEditorDialogX dialog;
+    private final RunApplicationEditorDialogX dialog;
 
-    ApplicationEditorDialogAdapterX(ApplicationEditorDialogX dialog)
+    RunApplicationEditorDialogAdapterX(RunApplicationEditorDialogX dialog)
     {
         this.dialog = dialog;
     }
 
     @NonNull
     @Override
-    public ApplicationEditorDialogViewHolderX onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RunApplicationEditorDialogViewHolderX onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         int resId;
         if (dialog.selectedFilter == 2)
-            resId = R.layout.applications_editor_dialog_list_item_intent;
+            resId = R.layout.run_applications_editor_dialog_list_item_intent;
         else
-            resId = R.layout.applications_editor_dialog_list_item;
+            resId = R.layout.run_applications_editor_dialog_list_item;
         View view = LayoutInflater.from(parent.getContext()).inflate(resId, parent, false);
-        return new ApplicationEditorDialogViewHolderX(view, /*context,*/ dialog);
+        return new RunApplicationEditorDialogViewHolderX(view, /*context,*/ dialog);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ApplicationEditorDialogViewHolderX holder, int position) {
+    public void onBindViewHolder(@NonNull RunApplicationEditorDialogViewHolderX holder, int position) {
         // Application to display
         //PPApplication.logE("ApplicationEditorDialogAdapter.onCreateViewHolder", "dialog.applicationList.size="+dialog.applicationList.size());
         Application application = dialog.applicationList.get(position);

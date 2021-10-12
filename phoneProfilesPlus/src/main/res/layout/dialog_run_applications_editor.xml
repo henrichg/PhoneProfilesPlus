@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/applications_editor_dialog_filter"
+    android:id="@+id/run_applications_editor_dialog_filter"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/alert_dialog_top_padding">
 
     <LinearLayout
-        android:id="@+id/applications_editor_dialog_filter_root"
+        android:id="@+id/run_applications_editor_dialog_filter_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,25 +18,25 @@
         android:paddingBottom="10dp" >
 
         <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/applications_editor_dialog_filter_spinner"
+            android:id="@+id/run_applications_editor_dialog_filter_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:popupElevation="0dp"
-            android:entries="@array/applicationsEditorDialogFilterArray"
+            android:entries="@array/runApplicationsEditorDialogFilterArray"
             style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
 
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/applications_editor_dialog_listView"
+        android:id="@+id/run_applications_editor_dialog_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/applications_editor_dialog_bottomViews_root"
-        android:layout_below="@id/applications_editor_dialog_filter_root">
+        android:layout_above="@id/run_applications_editor_dialog_bottomViews_root"
+        android:layout_below="@id/run_applications_editor_dialog_filter_root">
 
         <View
-            android:id="@+id/applications_editor_dialog_titleBarDivider"
+            android:id="@+id/run_applications_editor_dialog_titleBarDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="15dp"
@@ -45,7 +45,7 @@
             android:layout_alignParentTop="true" />
 
         <View
-            android:id="@+id/applications_editor_dialog_buttonBarDivider"
+            android:id="@+id/run_applications_editor_dialog_buttonBarDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginStart="15dp"
@@ -54,13 +54,13 @@
             android:layout_alignParentBottom="true" />
 
         <RelativeLayout
-            android:id="@+id/applications_editor_dialog_reLa1"
+            android:id="@+id/run_applications_editor_dialog_reLa1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center" >
 
             <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-                android:id="@+id/applications_editor_dialog_listview"
+                android:id="@+id/run_applications_editor_dialog_listview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
@@ -85,7 +85,7 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/applications_editor_dialog_bottomViews_root"
+        android:id="@+id/run_applications_editor_dialog_bottomViews_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -93,7 +93,7 @@
         android:paddingTop="10dp" >
 
         <LinearLayout
-            android:id="@+id/applications_editor_dialog_liLa1"
+            android:id="@+id/run_applications_editor_dialog_liLa1"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
@@ -102,7 +102,7 @@
             android:layout_marginBottom="7dp">
 
             <ImageView
-                android:id="@+id/applications_editor_dialog_selectedIcon"
+                android:id="@+id/run_applications_editor_dialog_selectedIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="7dp"
@@ -112,7 +112,7 @@
                 android:src="@drawable/ic_empty" />
 
             <TextView
-                android:id="@+id/applications_editor_dialog_selectedAppName"
+                android:id="@+id/run_applications_editor_dialog_selectedAppName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
@@ -125,14 +125,14 @@
         </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/applications_editor_dialog_reLa2"
+            android:id="@+id/run_applications_editor_dialog_reLa2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="15dp"
             android:paddingEnd="15dp">
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/applications_editor_dialog_addIntent"
+                android:id="@+id/run_applications_editor_dialog_addIntent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -142,18 +142,18 @@
                 android:background="?attr/selectableItemBackground" />
 
             <LinearLayout
-                android:id="@+id/applications_editor_dialog_startApplicationDelay_root"
+                android:id="@+id/run_applications_editor_dialog_startApplicationDelay_root"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_alignParentStart="true"
-                android:layout_toStartOf="@id/applications_editor_dialog_addIntent"
+                android:layout_toStartOf="@id/run_applications_editor_dialog_addIntent"
                 android:orientation="vertical"
                 android:clickable="true"
                 android:focusable="true">
 
                 <TextView
-                    android:id="@+id/applications_editor_dialog_startApplicationDelay_label"
+                    android:id="@+id/run_applications_editor_dialog_startApplicationDelay_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
@@ -161,7 +161,7 @@
                     android:text="@string/applications_editor_dialog_startApplicationDelay" />
 
                 <TextView
-                    android:id="@+id/applications_editor_dialog_startApplicationDelay"
+                    android:id="@+id/run_applications_editor_dialog_startApplicationDelay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -179,7 +179,7 @@
         </RelativeLayout>
 
         <View
-            android:id="@+id/applications_editor_dialog_buttonBarDivider2"
+            android:id="@+id/run_applications_editor_dialog_buttonBarDivider2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"

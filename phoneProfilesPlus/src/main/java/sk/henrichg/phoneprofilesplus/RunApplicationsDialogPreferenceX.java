@@ -24,9 +24,9 @@ import androidx.preference.PreferenceViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApplicationsDialogPreferenceX extends DialogPreference {
+public class RunApplicationsDialogPreferenceX extends DialogPreference {
 
-    ApplicationsDialogPreferenceFragmentX fragment;
+    RunApplicationsDialogPreferenceFragmentX fragment;
 
     final Context context;
 
@@ -40,7 +40,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
 
     //PPIntent editedPPIntent = null;
 
-    ApplicationEditorDialogX mEditorDialog;
+    RunApplicationEditorDialogX mEditorDialog;
 
     private ImageView packageIcon;
     private RelativeLayout packageIcons;
@@ -51,7 +51,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
 
     static final int RESULT_APPLICATIONS_EDITOR = 2100;
 
-    public ApplicationsDialogPreferenceX(Context context, AttributeSet attrs) {
+    public RunApplicationsDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         /*
@@ -655,7 +655,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
         if (fragment != null) {
             if (fragment.getActivity() != null)
                 if (!fragment.getActivity().isFinishing()) {
-                    mEditorDialog = new ApplicationEditorDialogX(fragment.getActivity(), this, application);
+                    mEditorDialog = new RunApplicationEditorDialogX(fragment.getActivity(), this, application);
                     mEditorDialog.show();
                 }
         }
@@ -827,7 +827,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
             return superState;
         }*/
 
-        final ApplicationsDialogPreferenceX.SavedState myState = new ApplicationsDialogPreferenceX.SavedState(superState);
+        final RunApplicationsDialogPreferenceX.SavedState myState = new RunApplicationsDialogPreferenceX.SavedState(superState);
         myState.value = getValue();
         myState.defaultValue = defaultValue;
         return myState;
@@ -836,7 +836,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
     @Override
     protected void onRestoreInstanceState(Parcelable state)
     {
-        if (!state.getClass().equals(ApplicationsDialogPreferenceX.SavedState.class)) {
+        if (!state.getClass().equals(RunApplicationsDialogPreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
             getValueAMSDP();
@@ -845,7 +845,7 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
         }
 
         // restore instance state
-        ApplicationsDialogPreferenceX.SavedState myState = (ApplicationsDialogPreferenceX.SavedState)state;
+        RunApplicationsDialogPreferenceX.SavedState myState = (RunApplicationsDialogPreferenceX.SavedState)state;
         super.onRestoreInstanceState(myState.getSuperState());
         value = myState.value;
         defaultValue = myState.defaultValue;
@@ -882,15 +882,15 @@ public class ApplicationsDialogPreferenceX extends DialogPreference {
             super(superState);
         }
 
-        public static final Creator<ApplicationsDialogPreferenceX.SavedState> CREATOR =
-                new Creator<ApplicationsDialogPreferenceX.SavedState>() {
-                    public ApplicationsDialogPreferenceX.SavedState createFromParcel(Parcel in)
+        public static final Creator<RunApplicationsDialogPreferenceX.SavedState> CREATOR =
+                new Creator<RunApplicationsDialogPreferenceX.SavedState>() {
+                    public RunApplicationsDialogPreferenceX.SavedState createFromParcel(Parcel in)
                     {
-                        return new ApplicationsDialogPreferenceX.SavedState(in);
+                        return new RunApplicationsDialogPreferenceX.SavedState(in);
                     }
-                    public ApplicationsDialogPreferenceX.SavedState[] newArray(int size)
+                    public RunApplicationsDialogPreferenceX.SavedState[] newArray(int size)
                     {
-                        return new ApplicationsDialogPreferenceX.SavedState[size];
+                        return new RunApplicationsDialogPreferenceX.SavedState[size];
                     }
 
                 };

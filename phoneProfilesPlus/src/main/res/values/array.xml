@@ -922,20 +922,20 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <!--    <string-array name="applicationsEditorDialogFilterArray">
+    <!--    <string-array name="runApplicationsEditorDialogFilterArray">
             <item>@string/array_pref_applicationsEditorDialogFilter_applications</item>
             <item>@string/array_pref_applicationsEditorDialogFilter_shortcuts</item>
         </string-array>
-        <string-array name="applicationsEditorDialogFilterValues">
+        <string-array name="runApplicationsEditorDialogFilterValues">
             <item>0</item>
             <item>1</item>
         </string-array> -->
-    <string-array name="applicationsEditorDialogFilterArray">
+    <string-array name="runApplicationsEditorDialogFilterArray">
         <item>@string/array_pref_applicationsEditorDialogFilter_applications</item>
         <item>@string/array_pref_applicationsEditorDialogFilter_shortcuts</item>
         <item>@string/array_pref_applicationsEditorDialogFilter_intents</item>
     </string-array>
-    <string-array name="applicationsEditorDialogFilterValues">
+    <string-array name="runApplicationsEditorDialogFilterValues">
         <item>0</item>
         <item>1</item>
         <item>2</item>
@@ -976,7 +976,7 @@
         <item>2</item>
         <item>3</item>
     </string-array>
-    <string-array name="applicationEditorIntentActionArray">
+    <string-array name="runApplicationEditorIntentActionArray">
         <item>[None]</item>
         <item>[Custom]</item>
         <item>ACTION_ALL_APPS</item>
@@ -1025,7 +1025,7 @@
         <item>ACTION_VOICE_COMMAND</item>
         <item>ACTION_WEB_SEARCH</item>
     </string-array>
-    <string-array name="applicationEditorIntentCategoryArray">
+    <string-array name="runApplicationEditorIntentCategoryArray">
         <item>CATEGORY_ALTERNATIVE</item>
         <item>CATEGORY_APP_BROWSER</item>
         <item>CATEGORY_APP_CALCULATOR</item>
@@ -1063,7 +1063,7 @@
         <item>CATEGORY_VOICE</item>
         <item>CATEGORY_VR_HOME</item>
     </string-array>
-    <string-array name="applicationEditorIntentFlagArray">
+    <string-array name="runApplicationEditorIntentFlagArray">
         <item>FLAG_ACTIVITY_BROUGHT_TO_FRONT</item>
         <item>FLAG_ACTIVITY_CLEAR_TASK</item>
         <item>FLAG_ACTIVITY_CLEAR_TOP</item>
@@ -1099,7 +1099,7 @@
         <item>FLAG_RECEIVER_REPLACE_PENDING</item>
         <item>FLAG_RECEIVER_VISIBLE_TO_INSTANT_APPS</item>
     </string-array>
-    <string-array name="applicationEditorIntentExtraTypeArray">
+    <string-array name="runApplicationEditorIntentExtraTypeArray">
         <item>string</item>
         <item>int</item>
         <item>long</item>
@@ -1107,7 +1107,7 @@
         <item>double</item>
         <item>boolean</item>
     </string-array>
-    <string-array name="applicationEditorIntentIntentTypeArray">
+    <string-array name="runApplicationEditorIntentIntentTypeArray">
         <item>@string/array_intent_type_activity</item>
         <item>@string/array_intent_type_broadcast</item>
     </string-array>

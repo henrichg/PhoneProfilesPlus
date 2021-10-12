@@ -193,10 +193,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof ApplicationsDialogPreferenceX)
+        if (preference instanceof RunApplicationsDialogPreferenceX)
         {
-            ((ApplicationsDialogPreferenceX)preference).fragment = new ApplicationsDialogPreferenceFragmentX();
-            dialogFragment = ((ApplicationsDialogPreferenceX)preference).fragment;
+            ((RunApplicationsDialogPreferenceX)preference).fragment = new RunApplicationsDialogPreferenceFragmentX();
+            dialogFragment = ((RunApplicationsDialogPreferenceX)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -1351,9 +1351,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             final String sZenModeType = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "");
             setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, sZenModeType);
         }
-        if (requestCode == ApplicationsDialogPreferenceX.RESULT_APPLICATIONS_EDITOR && resultCode == Activity.RESULT_OK && data != null)
+        if (requestCode == RunApplicationsDialogPreferenceX.RESULT_APPLICATIONS_EDITOR && resultCode == Activity.RESULT_OK && data != null)
         {
-            ApplicationsDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+            RunApplicationsDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
             if (preference != null) {
                 preference.updateShortcut(
                         data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
@@ -1373,13 +1373,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 ProfilesPrefsFragment.applicationsDialogPreference = null;
             }*/
         }
-        if (requestCode == ApplicationEditorDialogX.RESULT_INTENT_EDITOR) {
+        if (requestCode == RunApplicationEditorDialogX.RESULT_INTENT_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
-                ApplicationsDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+                RunApplicationsDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
                 if ((preference != null) && (data != null)) {
-                    preference.updateIntent(data.getParcelableExtra(ApplicationEditorDialogX.EXTRA_PP_INTENT),
-                            data.getParcelableExtra(ApplicationEditorDialogX.EXTRA_APPLICATION),
-                            data.getIntExtra(ApplicationEditorIntentActivityX.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0));
+                    preference.updateIntent(data.getParcelableExtra(RunApplicationEditorDialogX.EXTRA_PP_INTENT),
+                            data.getParcelableExtra(RunApplicationEditorDialogX.EXTRA_APPLICATION),
+                            data.getIntExtra(RunApplicationEditorIntentActivityX.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0));
                 }
             }
         }

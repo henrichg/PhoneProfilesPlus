@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ApplicationEditorIntentActivityX extends AppCompatActivity {
+public class RunApplicationEditorIntentActivityX extends AppCompatActivity {
 
     private Application application = null;
     private PPIntent ppIntent = null;
@@ -79,7 +79,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_application_editor_intent);
+        setContentView(R.layout.activity_run_application_editor_intent);
         setTaskDescription(new ActivityManager.TaskDescription(getString(R.string.ppp_app_name)));
 
         /*
@@ -116,13 +116,13 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             Intent intent = getIntent();
-            application = intent.getParcelableExtra(ApplicationEditorDialogX.EXTRA_APPLICATION);
-            ppIntent = intent.getParcelableExtra(ApplicationEditorDialogX.EXTRA_PP_INTENT);
+            application = intent.getParcelableExtra(RunApplicationEditorDialogX.EXTRA_APPLICATION);
+            ppIntent = intent.getParcelableExtra(RunApplicationEditorDialogX.EXTRA_PP_INTENT);
             startApplicationDelay = getIntent().getIntExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0);
         }
         else {
-            application = savedInstanceState.getParcelable(ApplicationEditorDialogX.EXTRA_APPLICATION);
-            ppIntent = savedInstanceState.getParcelable(ApplicationEditorDialogX.EXTRA_PP_INTENT);
+            application = savedInstanceState.getParcelable(RunApplicationEditorDialogX.EXTRA_APPLICATION);
+            ppIntent = savedInstanceState.getParcelable(RunApplicationEditorDialogX.EXTRA_PP_INTENT);
             startApplicationDelay = savedInstanceState.getInt(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0);
         }
         /*if (ppIntent == null)
@@ -153,7 +153,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
                 R.layout.highlighted_spinner,
-                getResources().getStringArray(R.array.applicationEditorIntentIntentTypeArray));
+                getResources().getStringArray(R.array.runApplicationEditorIntentIntentTypeArray));
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentIntentTypeSpinner.setAdapter(spinnerAdapter);
         intentIntentTypeSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
@@ -178,7 +178,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
                 R.layout.highlighted_spinner,
-                getResources().getStringArray(R.array.applicationEditorIntentActionArray));
+                getResources().getStringArray(R.array.runApplicationEditorIntentActionArray));
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentActionSpinner.setAdapter(spinnerAdapter);
         intentActionSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
@@ -211,7 +211,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         final Activity activity = this;
 
         categoryTextView = findViewById(R.id.application_editor_intent_category_value);
-        categoryArray = getResources().getStringArray(R.array.applicationEditorIntentCategoryArray);
+        categoryArray = getResources().getStringArray(R.array.runApplicationEditorIntentCategoryArray);
         categoryIndices = new boolean[categoryArray.length];
         AppCompatImageButton intentCategoryButton = findViewById(R.id.application_editor_intent_category_btn);
         TooltipCompat.setTooltipText(intentCategoryButton, getString(R.string.application_editor_intent_edit_category_button_tooltip));
@@ -220,7 +220,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
                     new AlertDialog.Builder(activity)
                             .setTitle(R.string.application_editor_intent_categories_dlg_title)
                             //.setIcon(getDialogIcon())
-                            .setMultiChoiceItems(R.array.applicationEditorIntentCategoryArray, categoryIndices,
+                            .setMultiChoiceItems(R.array.runApplicationEditorIntentCategoryArray, categoryIndices,
                                     (dialog, which, isChecked) -> categoryIndices[which] = isChecked);
             builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 intentNameEditText.clearFocus();
@@ -270,7 +270,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         });
 
         flagsTextView = findViewById(R.id.application_editor_intent_flags_value);
-        flagArray = getResources().getStringArray(R.array.applicationEditorIntentFlagArray);
+        flagArray = getResources().getStringArray(R.array.runApplicationEditorIntentFlagArray);
         flagIndices = new boolean[flagArray.length];
         AppCompatImageButton intentFlagsButton = findViewById(R.id.application_editor_intent_flags_btn);
         TooltipCompat.setTooltipText(intentFlagsButton, getString(R.string.application_editor_intent_edit_flags_button_tooltip));
@@ -279,7 +279,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
                     new AlertDialog.Builder(activity)
                             .setTitle(R.string.application_editor_intent_flags_dlg_title)
                             //.setIcon(getDialogIcon())
-                            .setMultiChoiceItems(R.array.applicationEditorIntentFlagArray, flagIndices, (dialog, which, isChecked) -> flagIndices[which] = isChecked);
+                            .setMultiChoiceItems(R.array.runApplicationEditorIntentFlagArray, flagIndices, (dialog, which, isChecked) -> flagIndices[which] = isChecked);
             builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
                 intentNameEditText.clearFocus();
                 intentPackageName.clearFocus();
@@ -333,7 +333,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
                 R.layout.highlighted_spinner,
-                getResources().getStringArray(R.array.applicationEditorIntentExtraTypeArray));
+                getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentExtraSpinner1.setAdapter(spinnerAdapter);
         intentExtraSpinner1.setPopupBackgroundResource(R.drawable.popupmenu_background);
@@ -355,7 +355,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
                 R.layout.highlighted_spinner,
-                getResources().getStringArray(R.array.applicationEditorIntentExtraTypeArray));
+                getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentExtraSpinner2.setAdapter(spinnerAdapter);
         intentExtraSpinner2.setPopupBackgroundResource(R.drawable.popupmenu_background);
@@ -377,7 +377,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
                 R.layout.highlighted_spinner,
-                getResources().getStringArray(R.array.applicationEditorIntentExtraTypeArray));
+                getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentExtraSpinner3.setAdapter(spinnerAdapter);
         intentExtraSpinner3.setPopupBackgroundResource(R.drawable.popupmenu_background);
@@ -399,7 +399,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
                 R.layout.highlighted_spinner,
-                getResources().getStringArray(R.array.applicationEditorIntentExtraTypeArray));
+                getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentExtraSpinner4.setAdapter(spinnerAdapter);
         intentExtraSpinner4.setPopupBackgroundResource(R.drawable.popupmenu_background);
@@ -421,7 +421,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 this,
                 R.layout.highlighted_spinner,
-                getResources().getStringArray(R.array.applicationEditorIntentExtraTypeArray));
+                getResources().getStringArray(R.array.runApplicationEditorIntentExtraTypeArray));
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         intentExtraSpinner5.setAdapter(spinnerAdapter);
         intentExtraSpinner5.setPopupBackgroundResource(R.drawable.popupmenu_background);
@@ -436,7 +436,7 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
             }
         });
 
-        actionsArray = getResources().getStringArray(R.array.applicationEditorIntentActionArray);
+        actionsArray = getResources().getStringArray(R.array.runApplicationEditorIntentActionArray);
         if (ppIntent != null) {
             intentNameEditText.setText(ppIntent._name);
             intentIntentTypeSpinner.setSelection(ppIntent._intentType);
@@ -526,8 +526,8 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
         okButton.setOnClickListener(v -> {
             saveIntent();
             Intent returnIntent = new Intent();
-            returnIntent.putExtra(ApplicationEditorDialogX.EXTRA_PP_INTENT, ppIntent);
-            returnIntent.putExtra(ApplicationEditorDialogX.EXTRA_APPLICATION, application);
+            returnIntent.putExtra(RunApplicationEditorDialogX.EXTRA_PP_INTENT, ppIntent);
+            returnIntent.putExtra(RunApplicationEditorDialogX.EXTRA_APPLICATION, application);
             returnIntent.putExtra(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
             setResult(Activity.RESULT_OK, returnIntent);
             finish();
@@ -633,8 +633,8 @@ public class ApplicationEditorIntentActivityX extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putParcelable(ApplicationEditorDialogX.EXTRA_APPLICATION, application);
-        savedInstanceState.putParcelable(ApplicationEditorDialogX.EXTRA_PP_INTENT, ppIntent);
+        savedInstanceState.putParcelable(RunApplicationEditorDialogX.EXTRA_APPLICATION, application);
+        savedInstanceState.putParcelable(RunApplicationEditorDialogX.EXTRA_PP_INTENT, ppIntent);
         savedInstanceState.putInt(EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
     }
 

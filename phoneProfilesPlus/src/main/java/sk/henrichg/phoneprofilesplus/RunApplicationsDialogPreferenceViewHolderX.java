@@ -15,7 +15,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-class ApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder implements View.OnClickListener {
+class RunApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     final DragHandle dragHandle;
     private final ImageView imageViewIcon;
@@ -27,21 +27,21 @@ class ApplicationsDialogPreferenceViewHolderX extends RecyclerView.ViewHolder im
     private Application application;
 
     private final Context context;
-    private final ApplicationsDialogPreferenceX preference;
+    private final RunApplicationsDialogPreferenceX preference;
 
-    ApplicationsDialogPreferenceViewHolderX(View itemView, Context context, ApplicationsDialogPreferenceX preference)
+    RunApplicationsDialogPreferenceViewHolderX(View itemView, Context context, RunApplicationsDialogPreferenceX preference)
     {
         super(itemView);
 
         this.context = context;
         this.preference = preference;
 
-        dragHandle = itemView.findViewById(R.id.applications_pref_dlg_item_drag_handle);
-        imageViewIcon = itemView.findViewById(R.id.applications_pref_dlg_item_icon);
-        textViewAppName = itemView.findViewById(R.id.applications_pref_dlg_item_app_name);
-        textViewAppType = itemView.findViewById(R.id.applications_pref_dlg_item_app_type);
-        imageViewMenu = itemView.findViewById(R.id.applications_pref_dlg_item_edit_menu);
-        textViewStartApplicationDelay = itemView.findViewById(R.id.applications_pref_dlg_item_startApplicationDelay);
+        dragHandle = itemView.findViewById(R.id.run_applications_pref_dlg_item_drag_handle);
+        imageViewIcon = itemView.findViewById(R.id.run_applications_pref_dlg_item_icon);
+        textViewAppName = itemView.findViewById(R.id.run_applications_pref_dlg_item_app_name);
+        textViewAppType = itemView.findViewById(R.id.run_applications_pref_dlg_item_app_type);
+        imageViewMenu = itemView.findViewById(R.id.run_applications_pref_dlg_item_edit_menu);
+        textViewStartApplicationDelay = itemView.findViewById(R.id.run_applications_pref_dlg_item_startApplicationDelay);
 
         itemView.setOnClickListener(this);
     }

@@ -10,31 +10,31 @@ import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-class ApplicationEditorDialogViewHolderX extends RecyclerView.ViewHolder implements View.OnClickListener {
+class RunApplicationEditorDialogViewHolderX extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private final ImageView imageViewIcon;
     private final TextView textViewAppName;
     private final RadioButton radioBtn;
     private final AppCompatImageButton imageViewMenu;
 
-    private final ApplicationEditorDialogX dialog;
+    private final RunApplicationEditorDialogX dialog;
 
     private Application application;
 
-    ApplicationEditorDialogViewHolderX(View itemView, /*Context context,*/ ApplicationEditorDialogX d)
+    RunApplicationEditorDialogViewHolderX(View itemView, /*Context context,*/ RunApplicationEditorDialogX d)
     {
         super(itemView);
 
         this.dialog = d;
 
         if (dialog.selectedFilter != 2)
-            imageViewIcon = itemView.findViewById(R.id.applications_editor_dialog_item_icon);
+            imageViewIcon = itemView.findViewById(R.id.run_applications_editor_dialog_item_icon);
         else
             imageViewIcon = null;
-        textViewAppName = itemView.findViewById(R.id.applications_editor_dialog_item_app_name);
-        radioBtn = itemView.findViewById(R.id.applications_editor_dialog_item_radiobutton);
+        textViewAppName = itemView.findViewById(R.id.run_applications_editor_dialog_item_app_name);
+        radioBtn = itemView.findViewById(R.id.run_applications_editor_dialog_item_radiobutton);
         if (dialog.selectedFilter == 2)
-            imageViewMenu = itemView.findViewById(R.id.applications_editor_dlg_item_edit_menu);
+            imageViewMenu = itemView.findViewById(R.id.run_applications_editor_dlg_item_edit_menu);
         else
             imageViewMenu = null;
 

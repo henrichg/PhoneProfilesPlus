@@ -11,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Collections;
 
-class ApplicationsDialogPreferenceAdapterX extends RecyclerView.Adapter<ApplicationsDialogPreferenceViewHolderX>
+class RunApplicationsDialogPreferenceAdapterX extends RecyclerView.Adapter<RunApplicationsDialogPreferenceViewHolderX>
                                             implements ItemTouchHelperAdapter
 {
     private final Context context;
 
-    private final ApplicationsDialogPreferenceX preference;
+    private final RunApplicationsDialogPreferenceX preference;
 
     private final OnStartDragItemListener mDragStartListener;
 
-    ApplicationsDialogPreferenceAdapterX(Context context, ApplicationsDialogPreferenceX preference,
-                                         OnStartDragItemListener dragStartListener)
+    RunApplicationsDialogPreferenceAdapterX(Context context, RunApplicationsDialogPreferenceX preference,
+                                            OnStartDragItemListener dragStartListener)
     {
         this.context = context;
         this.preference = preference;
@@ -30,14 +30,14 @@ class ApplicationsDialogPreferenceAdapterX extends RecyclerView.Adapter<Applicat
 
     @NonNull
     @Override
-    public ApplicationsDialogPreferenceViewHolderX onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RunApplicationsDialogPreferenceViewHolderX onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.applications_preference_list_item, parent, false);
-        return new ApplicationsDialogPreferenceViewHolderX(view, context, preference);
+                .inflate(R.layout.run_applications_preference_list_item, parent, false);
+        return new RunApplicationsDialogPreferenceViewHolderX(view, context, preference);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ApplicationsDialogPreferenceViewHolderX holder, int position) {
+    public void onBindViewHolder(@NonNull final RunApplicationsDialogPreferenceViewHolderX holder, int position) {
         Application application = preference.applicationsList.get(position);
         holder.bindApplication(application);
 

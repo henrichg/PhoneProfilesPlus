@@ -3831,7 +3831,7 @@ class ActivateProfileHelper {
             if (intentId > 0) {
                 PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);
                 if (ppIntent != null) {
-                    appIntent = ApplicationEditorIntentActivityX.createIntent(ppIntent);
+                    appIntent = RunApplicationEditorIntentActivityX.createIntent(ppIntent);
                     if (appIntent != null) {
                         if (ppIntent._intentType == 0) {
                             //noinspection TryWithIdenticalCatches

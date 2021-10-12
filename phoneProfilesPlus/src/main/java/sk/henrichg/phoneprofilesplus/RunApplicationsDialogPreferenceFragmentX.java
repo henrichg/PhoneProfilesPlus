@@ -18,16 +18,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
+public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         implements OnStartDragItemListener {
 
     private Context prefContext;
-    private ApplicationsDialogPreferenceX preference;
+    private RunApplicationsDialogPreferenceX preference;
 
     private RecyclerView applicationsListView;
     private ItemTouchHelper itemTouchHelper;
 
-    private ApplicationsDialogPreferenceAdapterX listAdapter;
+    private RunApplicationsDialogPreferenceAdapterX listAdapter;
 
     private LinearLayout linlaProgress;
     private RelativeLayout rellaDialog;
@@ -40,32 +40,32 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
     protected View onCreateDialogView(Context context)
     {
         prefContext = context;
-        preference = (ApplicationsDialogPreferenceX) getPreference();
+        preference = (RunApplicationsDialogPreferenceX) getPreference();
 
         //PPApplication.logE("ApplicationsDialogPreferenceFragmentX.onCreateDialogView", "xxx");
         preference.fragment = this;
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        return inflater.inflate(R.layout.dialog_applications_preference, null, false);
+        return inflater.inflate(R.layout.dialog_run_applications_preference, null, false);
     }
 
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
-        AppCompatImageButton addButton = view.findViewById(R.id.applications_pref_dlg_add);
+        AppCompatImageButton addButton = view.findViewById(R.id.run_applications_pref_dlg_add);
         TooltipCompat.setTooltipText(addButton, getString(R.string.applications_pref_dlg_add_button_tooltip));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        applicationsListView = view.findViewById(R.id.applications_pref_dlg_listview);
+        applicationsListView = view.findViewById(R.id.run_applications_pref_dlg_listview);
         //applicationsListView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         applicationsListView.setLayoutManager(layoutManager);
         applicationsListView.setHasFixedSize(true);
 
-        linlaProgress = view.findViewById(R.id.applications_pref_dlg_linla_progress);
-        rellaDialog = view.findViewById(R.id.applications_pref_dlg_rella_dialog);
+        linlaProgress = view.findViewById(R.id.run_applications_pref_dlg_linla_progress);
+        rellaDialog = view.findViewById(R.id.run_applications_pref_dlg_rella_dialog);
 
-        listAdapter = new ApplicationsDialogPreferenceAdapterX(prefContext, preference, this);
+        listAdapter = new RunApplicationsDialogPreferenceAdapterX(prefContext, preference, this);
 
         // added touch helper for drag and drop items
         ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(listAdapter, false, false);
@@ -119,13 +119,13 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
     private static class RefreshListViewAsyncTask extends AsyncTask<Void, Integer, Void> {
 
         final boolean afterEdit;
-        private final WeakReference<ApplicationsDialogPreferenceX> preferenceWeakRef;
-        private final WeakReference<ApplicationsDialogPreferenceFragmentX> fragmentWeakRef;
+        private final WeakReference<RunApplicationsDialogPreferenceX> preferenceWeakRef;
+        private final WeakReference<RunApplicationsDialogPreferenceFragmentX> fragmentWeakRef;
         private final WeakReference<Context> prefContextWeakRef;
 
         public RefreshListViewAsyncTask(final boolean afterEdit,
-                                        ApplicationsDialogPreferenceX preference,
-                                        ApplicationsDialogPreferenceFragmentX fragment,
+                                        RunApplicationsDialogPreferenceX preference,
+                                        RunApplicationsDialogPreferenceFragmentX fragment,
                                         Context prefContext) {
             this.afterEdit = afterEdit;
             this.preferenceWeakRef = new WeakReference<>(preference);
@@ -138,7 +138,7 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
         {
             super.onPreExecute();
 
-            ApplicationsDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            RunApplicationsDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
             if (fragment != null) {
                 fragment.rellaDialog.setVisibility(View.GONE);
                 fragment.linlaProgress.setVisibility(View.VISIBLE);
@@ -147,8 +147,8 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
 
         @Override
         protected Void doInBackground(Void... params) {
-            ApplicationsDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
-            ApplicationsDialogPreferenceX preference = preferenceWeakRef.get();
+            RunApplicationsDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            RunApplicationsDialogPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 if (EditorProfilesActivity.getApplicationsCache() != null)
@@ -177,8 +177,8 @@ public class ApplicationsDialogPreferenceFragmentX extends PreferenceDialogFragm
         {
             super.onPostExecute(result);
 
-            ApplicationsDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
-            ApplicationsDialogPreferenceX preference = preferenceWeakRef.get();
+            RunApplicationsDialogPreferenceFragmentX fragment = fragmentWeakRef.get();
+            RunApplicationsDialogPreferenceX preference = preferenceWeakRef.get();
             Context prefContext = prefContextWeakRef.get();
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
 

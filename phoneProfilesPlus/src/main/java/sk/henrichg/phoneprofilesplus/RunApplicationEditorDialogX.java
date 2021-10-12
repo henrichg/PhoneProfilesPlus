@@ -34,11 +34,11 @@ import java.util.List;
 import mobi.upod.timedurationpicker.TimeDurationPicker;
 import mobi.upod.timedurationpicker.TimeDurationPickerDialog;
 
-class ApplicationEditorDialogX
+class RunApplicationEditorDialogX
 {
 
-    private final ApplicationsDialogPreferenceX preference;
-    private final ApplicationEditorDialogAdapterX listAdapter;
+    private final RunApplicationsDialogPreferenceX preference;
+    private final RunApplicationEditorDialogAdapterX listAdapter;
     final Activity activity;
 
     private final AlertDialog mDialog;
@@ -69,8 +69,8 @@ class ApplicationEditorDialogX
     static final String EXTRA_APPLICATION = "application";
     static final String EXTRA_PP_INTENT = "ppIntent";
 
-    ApplicationEditorDialogX(Activity activity, ApplicationsDialogPreferenceX preference,
-                             final Application application)
+    RunApplicationEditorDialogX(Activity activity, RunApplicationsDialogPreferenceX preference,
+                                final Application application)
     {
         this.preference = preference;
         this.activity = activity;
@@ -87,25 +87,25 @@ class ApplicationEditorDialogX
         dialogBuilder.setCancelable(true);
         dialogBuilder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
             //if (cachedApplicationList != null) {
-                ApplicationEditorDialogX.this.preference.updateApplication(editedApplication, selectedApplication, startApplicationDelay);
+                RunApplicationEditorDialogX.this.preference.updateApplication(editedApplication, selectedApplication, startApplicationDelay);
             //}
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
         LayoutInflater inflater = activity.getLayoutInflater();
         @SuppressLint("InflateParams")
-        View layout = inflater.inflate(R.layout.dialog_applications_editor, null);
+        View layout = inflater.inflate(R.layout.dialog_run_applications_editor, null);
         dialogBuilder.setView(layout);
 
         mDialog = dialogBuilder.create();
 
-        mDelayValue = layout.findViewById(R.id.applications_editor_dialog_startApplicationDelay);
+        mDelayValue = layout.findViewById(R.id.run_applications_editor_dialog_startApplicationDelay);
         mDelayValue.setText(GlobalGUIRoutines.getDurationString(startApplicationDelay));
 
-        mSelectedAppIcon = layout.findViewById(R.id.applications_editor_dialog_selectedIcon);
-        mSelectedAppName = layout.findViewById(R.id.applications_editor_dialog_selectedAppName);
+        mSelectedAppIcon = layout.findViewById(R.id.run_applications_editor_dialog_selectedIcon);
+        mSelectedAppName = layout.findViewById(R.id.run_applications_editor_dialog_selectedAppName);
 
-        LinearLayout delayValueRoot = layout.findViewById(R.id.applications_editor_dialog_startApplicationDelay_root);
+        LinearLayout delayValueRoot = layout.findViewById(R.id.run_applications_editor_dialog_startApplicationDelay_root);
         TooltipCompat.setTooltipText(delayValueRoot, activity.getString(R.string.applications_editor_dialog_edit_delay_tooltip));
         mDelayValueDialog = new TimeDurationPickerDialog(activity, (view, duration) -> {
             int iValue = (int) duration / 1000;
@@ -122,7 +122,7 @@ class ApplicationEditorDialogX
         GlobalGUIRoutines.setThemeTimeDurationPickerDisplay(mDelayValueDialog.getDurationInput(), activity);
         delayValueRoot.setOnClickListener(view -> {
             mDelayValueDialog.setDuration(startApplicationDelay * 1000L);
-            if (!ApplicationEditorDialogX.this.activity.isFinishing())
+            if (!RunApplicationEditorDialogX.this.activity.isFinishing())
                     mDelayValueDialog.show();
         }
         );
@@ -140,11 +140,11 @@ class ApplicationEditorDialogX
             }
         });
 
-        filterSpinner = layout.findViewById(R.id.applications_editor_dialog_filter_spinner);
+        filterSpinner = layout.findViewById(R.id.run_applications_editor_dialog_filter_spinner);
         GlobalGUIRoutines.HighlightedSpinnerAdapter spinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
                 activity,
                 R.layout.highlighted_spinner,
-                activity.getResources().getStringArray(R.array.applicationsEditorDialogFilterArray));
+                activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterArray));
         spinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
         filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background);
         filterSpinner.setBackgroundTintList(ContextCompat.getColorStateList(activity/*.getBaseContext()*/, R.color.highlighted_spinner_all));
@@ -164,7 +164,7 @@ class ApplicationEditorDialogX
         }*/
         filterSpinner.setAdapter(spinnerAdapter);
 
-        filterValues= activity.getResources().getStringArray(R.array.applicationsEditorDialogFilterValues);
+        filterValues= activity.getResources().getStringArray(R.array.runApplicationsEditorDialogFilterValues);
 
         if (editedApplication != null) {
             switch (editedApplication.type) {
@@ -213,12 +213,12 @@ class ApplicationEditorDialogX
             }
         });
 
-        addButton  = layout.findViewById(R.id.applications_editor_dialog_addIntent);
+        addButton  = layout.findViewById(R.id.run_applications_editor_dialog_addIntent);
         TooltipCompat.setTooltipText(addButton, activity.getString(R.string.applications_editor_dialog_add_button_tooltip));
         addButton.setOnClickListener(view -> startEditor(null));
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
-        listView = layout.findViewById(R.id.applications_editor_dialog_listview);
+        listView = layout.findViewById(R.id.run_applications_editor_dialog_listview);
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
@@ -230,7 +230,7 @@ class ApplicationEditorDialogX
         fillApplicationList();
         updateSelectedAppViews();
 
-        listAdapter = new ApplicationEditorDialogAdapterX(this);
+        listAdapter = new RunApplicationEditorDialogAdapterX(this);
         listView.setAdapter(listAdapter);
 
         if (selectedPosition > -1) {
@@ -486,7 +486,7 @@ class ApplicationEditorDialogX
     }
 
     private void startEditor(Application application) {
-        Intent intent = new Intent(activity, ApplicationEditorIntentActivityX.class);
+        Intent intent = new Intent(activity, RunApplicationEditorIntentActivityX.class);
         intent.putExtra(EXTRA_APPLICATION, application);
         PPIntent ppIntent;
         if ((application != null) && application.intentId > 0) {
@@ -497,7 +497,7 @@ class ApplicationEditorDialogX
         else
             ppIntent = new PPIntent();
         intent.putExtra(EXTRA_PP_INTENT, ppIntent);
-        intent.putExtra(ApplicationEditorIntentActivityX.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
+        intent.putExtra(RunApplicationEditorIntentActivityX.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, startApplicationDelay);
 
         activity.startActivityForResult(intent, RESULT_INTENT_EDITOR);
     }
@@ -586,7 +586,7 @@ class ApplicationEditorDialogX
         listView.getRecycledViewPool().clear();
         listAdapter.notifyDataSetChanged();
 
-        ApplicationEditorDialogX.this.preference.updateGUI();
+        RunApplicationEditorDialogX.this.preference.updateGUI();
     }
 
     public void show() {
