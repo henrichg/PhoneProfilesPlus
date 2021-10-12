@@ -452,7 +452,7 @@ class RunApplicationEditorDialogX
                 startEditor(newApplication);
                 return true;
             }
-            else
+            /*else
             if (itemId == R.id.applications_intent_editor_dlg_item_menu_delete) {
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
                 dialogBuilder.setTitle(activity.getString(R.string.profile_context_item_delete));
@@ -478,11 +478,11 @@ class RunApplicationEditorDialogX
 //                    }
 //                });
 
-                if (/*(activity != null) &&*/ (!activity.isFinishing()))
+                if (!activity.isFinishing())
                     dialog.show();
 
                 return true;
-            }
+            }*/
             else {
                 return false;
             }
@@ -554,6 +554,7 @@ class RunApplicationEditorDialogX
         return newApplication;
     }
 
+    /*
     @SuppressLint("NotifyDataSetChanged")
     private void deleteIntent(Application application) {
         if (application == null)
@@ -595,6 +596,7 @@ class RunApplicationEditorDialogX
 
         RunApplicationEditorDialogX.this.preference.updateGUI();
     }
+    */
 
     public void show() {
         if (!activity.isFinishing())

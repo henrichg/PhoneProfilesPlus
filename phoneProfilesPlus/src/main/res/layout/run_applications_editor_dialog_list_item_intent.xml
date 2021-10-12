@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/run_applications_editor_dlg_item_root"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:paddingTop="3dp"
-    android:paddingBottom="3dp">
+    android:layout_height="wrap_content"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/run_applications_editor_dlg_item_edit_menu"
@@ -33,18 +33,6 @@
             android:checked="false"
             android:focusable="false" />
 
-        <!--<ImageView
-            android:id="@+id/run_applications_editor_dialog_item_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="3dp"
-            android:layout_toEndOf="@id/run_applications_editor_dialog_item_radiobutton"
-            android:contentDescription="@string/run_applications_editor_dialog_item_icon"
-            android:padding="3dp"
-            android:scaleType="fitCenter"
-            android:src="@mipmap/ic_launcher" /> -->
-
         <TextView
             android:id="@+id/run_applications_editor_dialog_item_app_name"
             android:layout_width="wrap_content"
@@ -53,9 +41,7 @@
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/run_applications_editor_dialog_item_radiobutton"
             android:text="@string/empty_string"
-            android:textSize="16sp"
-            android:ellipsize="end"
-            android:maxLines="1"/>
+            android:textSize="16sp"/>
 
     </RelativeLayout>
 

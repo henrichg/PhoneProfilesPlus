@@ -29,7 +29,7 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/run_applications_editor_dialog_listView"
+        android:id="@+id/run_applications_editor_dialog_listView_rella"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/run_applications_editor_dialog_bottomViews_root"
