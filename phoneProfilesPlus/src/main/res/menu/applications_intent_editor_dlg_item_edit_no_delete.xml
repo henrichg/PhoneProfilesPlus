@@ -6,4 +6,7 @@
     <item android:id="@+id/applications_intent_editor_dlg_item_menu_duplicate"
           android:title="@string/profile_list_item_menu_duplicate"
           android:orderInCategory="102" />
+<!--    <item android:id="@+id/applications_intent_editor_dlg_item_menu_delete"-->
+<!--        android:title="@string/profile_context_item_delete"-->
+<!--        android:orderInCategory="103" />-->
 </menu>

@@ -384,19 +384,25 @@ class RunApplicationEditorDialogX
             Button positive = mDialog.getButton(DialogInterface.BUTTON_POSITIVE);
             positive.setEnabled(true);
 
-
-            Application application = applicationList.get(position);
-
-            if ((application != null) && (application.type == Application.TYPE_INTENT)) {
+            /*
+            // decrease PPIntent._usedCount for current selected Application
+            Application selectedApplication = getSelectedApplication();
+            if ((selectedApplication != null) && (selectedApplication.type == Application.TYPE_INTENT)) {
                 if (selectedPosition != -1) {
                     PPIntent ppIntent = preference.intentDBList.get(selectedPosition);
                     if (ppIntent != null)
                         --ppIntent._usedCount;
                 }
+            }
+
+            // increase PPIntent._usedCount for new selected Application
+            Application application = applicationList.get(position);
+            if ((application != null) && (application.type == Application.TYPE_INTENT)) {
                 PPIntent ppIntent = preference.intentDBList.get(position);
                 if (ppIntent != null)
                     ++ppIntent._usedCount;
             }
+            */
 
             selectedPosition = position;
 
@@ -419,18 +425,19 @@ class RunApplicationEditorDialogX
         int position = (int) view.getTag();
         final Application application = applicationList.get(position);
 
-        boolean canDelete = true;
-        if (/*(application != null) &&*/ (application.type == Application.TYPE_INTENT)) {
+        /*boolean canDelete = true;
+        if (application.type == Application.TYPE_INTENT) {
             for (PPIntent ppIntent : preference.intentDBList) {
                 if (ppIntent._id == application.intentId) {
-                    canDelete = ppIntent._usedCount == 0;
+                    //Log.e("RunApplicationEditorDialogX.showEditMenu", "ppIntent._usedCount="+ppIntent._usedCount);
+                    canDelete = (ppIntent._usedCount == 0) && (!ppIntent._doNotDelete);
                     break;
                 }
             }
         }
         if (canDelete)
             new MenuInflater(context).inflate(R.menu.applications_intent_editor_dlg_item_edit, popup.getMenu());
-        else
+        else*/
             new MenuInflater(context).inflate(R.menu.applications_intent_editor_dlg_item_edit_no_delete, popup.getMenu());
 
         popup.setOnMenuItemClickListener(item -> {

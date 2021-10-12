@@ -31,10 +31,11 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
     final Context context;
 
     private String value = "";
+    //private String oldValue = "";
     private String defaultValue;
     private boolean savedInstanceState;
 
-    final List<Application> oldApplicationsList;
+    //final List<Application> oldApplicationsList;
     final List<Application> applicationsList;
     final List<PPIntent> intentDBList;
 
@@ -65,7 +66,7 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
 
         this.context = context;
 
-        oldApplicationsList = new ArrayList<>();
+        //oldApplicationsList = new ArrayList<>();
         applicationsList = new ArrayList<>();
         intentDBList = new ArrayList<>();
 
@@ -96,23 +97,32 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
     {
         // Get the persistent value
         value = getPersistedString((String)defaultValue);
+        //oldValue = value;
         this.defaultValue = (String)defaultValue;
-        getValueAMSDP();
+        getValueAMSDP(/*false*/);
+        //getValueAMSDP(true);
         setSummaryAMSDP();
     }
 
-    void getValueAMSDP()
+    void getValueAMSDP(/*boolean forOldValue*/)
     {
         //PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP","value="+value);
 
-        applicationsList.clear();
+        String _value;
+        //if (forOldValue)
+        //    _value = oldValue;
+        //else
+            _value = value;
+        //Log.e("RunApplicationsDialogPreferenceX.getValueAMSDP", "_value="+_value);
+
+        final List<Application> _applicationsList = new ArrayList<>();
 
         if (EditorProfilesActivity.getApplicationsCache() != null) {
             List<Application> cachedApplicationList = EditorProfilesActivity.getApplicationsCache().getApplicationList(false);
 
             String notPassedIntents = "";
 
-            String[] splits = value.split("\\|");
+            String[] splits = _value.split("\\|");
             for (String split : splits) {
                 boolean applicationPassed = false;
 
@@ -219,7 +229,7 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
 
                                 _application.checked = true;
 
-                                applicationsList.add(_application);
+                                _applicationsList.add(_application);
 
                                 /*if (PPApplication.logEnabled()) {
                                     PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "packageName=" + packageName);
@@ -284,7 +294,7 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
 
                             _application.checked = true;
 
-                            applicationsList.add(_application);
+                            _applicationsList.add(_application);
 
                             /*if (PPApplication.logEnabled()) {
                                 PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "shortcutIntent=" + shortcutIntent);
@@ -341,12 +351,21 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
                         _application.startApplicationDelay = 0;
                         _application.checked = true;
 
-                        applicationsList.add(_application);
+                        _applicationsList.add(_application);
                     }
                 }
                 //PPApplication.logE("ApplicationsDialogPreference.getValueAMSDP", "added not passed intent");
             }
         }
+
+        //if (forOldValue) {
+        //    oldApplicationsList.clear();
+        //    oldApplicationsList.addAll(_applicationsList);
+        //}
+        //else {
+            applicationsList.clear();
+            applicationsList.addAll(_applicationsList);
+        //}
     }
 
     private void setSummaryAMSDP()
@@ -447,9 +466,14 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
     void persistValue() {
         if (shouldPersist())
         {
-            DatabaseHandler.getInstance(context.getApplicationContext()).updatePPIntentUsageCount(oldApplicationsList, applicationsList);
             // fill with application strings separated with |
             value = getValue();
+            //oldValue = value;
+            //oldApplicationsList.clear();
+            //oldApplicationsList.addAll(applicationsList);
+
+            //if (!value.equals(oldValue))
+            //    DatabaseHandler.getInstance(context.getApplicationContext()).updatePPIntentUsageCount(oldApplicationsList, applicationsList);
 
             persistString(value);
 
@@ -674,7 +698,7 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
 
         applicationsList.remove(application);
 
-        DatabaseHandler.getInstance(context.getApplicationContext()).updatePPIntentUsageCount(oldApplicationsList, applicationsList);
+        //DatabaseHandler.getInstance(context.getApplicationContext()).updatePPIntentUsageCount(oldApplicationsList, applicationsList);
 
         if (fragment != null)
             fragment.updateGUI();
@@ -838,7 +862,8 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
         if (!state.getClass().equals(RunApplicationsDialogPreferenceX.SavedState.class)) {
             // Didn't save state for us in onSaveInstanceState
             super.onRestoreInstanceState(state);
-            getValueAMSDP();
+            getValueAMSDP(/*false*/);
+            //getValueAMSDP(true);
             setSummaryAMSDP();
             return;
         }
@@ -849,7 +874,8 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
         value = myState.value;
         defaultValue = myState.defaultValue;
 
-        getValueAMSDP();
+        getValueAMSDP(/*false*/);
+        //getValueAMSDP(true);
         setSummaryAMSDP();
     }
 

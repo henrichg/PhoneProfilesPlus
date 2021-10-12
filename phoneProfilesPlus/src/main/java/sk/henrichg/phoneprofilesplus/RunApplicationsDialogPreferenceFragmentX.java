@@ -161,12 +161,16 @@ public class RunApplicationsDialogPreferenceFragmentX extends PreferenceDialogFr
 
                 //PPApplication.logE("ApplicationsDialogPreference.refreshListView", "intentDBList.size="+preference.intentDBList.size());
 
-                preference.getValueAMSDP();
+                preference.getValueAMSDP(/*false*/);
+                //preference.getValueAMSDP(true);
 
+                /*
                 if (!afterEdit) {
+                    Log.e("RunApplicationsDialogPreferenceFragmentX.refreshListView", "fill oldApplicationsList");
                     preference.oldApplicationsList.clear();
                     preference.oldApplicationsList.addAll(preference.applicationsList);
                 }
+                */
             }
 
             return null;

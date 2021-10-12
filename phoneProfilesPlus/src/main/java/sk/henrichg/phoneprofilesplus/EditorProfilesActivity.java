@@ -4597,7 +4597,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                                 intentForImport.KEY_IN_EXTRA_TYPE_10,
                                                 intentForImport.KEY_IN_CATEGORIES,
                                                 intentForImport.KEY_IN_FLAGS,
-                                                intentForImport.KEY_IN_USED_COUNT,
+                                                //intentForImport.KEY_IN_USED_COUNT,
                                                 intentForImport.KEY_IN_INTENT_TYPE,
                                                 false
                                         );
