@@ -11,6 +11,8 @@
 
     <dimen name="activator_min_width_minor">65%</dimen>
     <dimen name="activator_min_width_major">65%</dimen>
+    <dimen name="activator_transparent_padding_top_bottom">15dp</dimen>
+    <dimen name="activator_transparent_padding_left_right">0dp</dimen>
 
     <dimen name="dialog_corner_radius">10dp</dimen>
     <dimen name="dialog_transparent_padding">15dp</dimen>
