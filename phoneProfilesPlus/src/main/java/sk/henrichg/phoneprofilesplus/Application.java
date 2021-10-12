@@ -24,7 +24,10 @@ class Application  implements Parcelable {
 
     @NonNull
     public String toString() {
-        return appLabel;
+        if (type == TYPE_INTENT)
+            return String.valueOf(intentId);
+        else
+            return appLabel;
     }
 
     void toggleChecked() {

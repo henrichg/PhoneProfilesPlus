@@ -253,12 +253,11 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
                                 shortcutIntent = intentIdDelay[0].substring(0, 3);
 
                             if ("(i)".equals(shortcutIntent)) {// intent
-                                if (intentIdDelay.length > 3) {
+                                if (intentIdDelay.length == 2) {
                                     intentId = intentIdDelay[0].substring(3);
                                     startApplicationDelay = intentIdDelay[1];
                                 } else {
-                                    if (split.length() > 3)
-                                        intentId = split.substring(3);
+                                    intentId = split.substring(3);
                                 }
 
                                 intentPassed = intentId.equals(String.valueOf(ppIntent._id));

@@ -4598,7 +4598,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                                                 intentForImport.KEY_IN_CATEGORIES,
                                                 intentForImport.KEY_IN_FLAGS,
                                                 intentForImport.KEY_IN_USED_COUNT,
-                                                intentForImport.KEY_IN_INTENT_TYPE
+                                                intentForImport.KEY_IN_INTENT_TYPE,
+                                                false
                                         );
 
                                         DatabaseHandler.getInstance(_dataWrapper.context).addIntent(ppIntent);

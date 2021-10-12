@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2474;
+    private static final int DATABASE_VERSION = 2475;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -475,6 +475,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_IN_FLAGS = "flags";
     private static final String KEY_IN_USED_COUNT = "usedCount";
     private static final String KEY_IN_INTENT_TYPE = "intentType";
+    private static final String KEY_IN_DO_NOT_DELETE = "doNotDelete";
 
     private static final String TEXT_TYPE = "TEXT";
     private static final String INTEGER_TYPE = "INTEGER";
@@ -918,7 +919,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_IN_FLAGS + " " + TEXT_TYPE + ","
                 + KEY_IN_NAME + " " + TEXT_TYPE + ","
                 + KEY_IN_USED_COUNT + " " + INTEGER_TYPE + ","
-                + KEY_IN_INTENT_TYPE + " " + INTEGER_TYPE
+                + KEY_IN_INTENT_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_IN_DO_NOT_DELETE + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_INTENTS_TABLE);
     }
@@ -1352,6 +1354,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_IN_NAME, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_IN_USED_COUNT, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_IN_INTENT_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_DO_NOT_DELETE, INTEGER_TYPE, columns);
                 break;
         }
     }
@@ -3485,6 +3488,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         {
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_VPN_SETTINGS_PREFS + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_VPN_SETTINGS_PREFS + "=0");
+        }
+
+        if (oldVersion < 2475)
+        {
+            db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_DO_NOT_DELETE + "=0");
         }
 
     }
@@ -10879,6 +10887,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_INTENT_TYPE, intent._intentType);
 
                 values.put(KEY_IN_USED_COUNT, intent._usedCount);
+                values.put(KEY_IN_DO_NOT_DELETE, intent._doNotDelete);
 
                 db.beginTransaction();
 
@@ -10953,8 +10962,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_IN_FLAGS + ", " +
                         KEY_IN_INTENT_TYPE + ", " +
 
-                        KEY_IN_USED_COUNT +
-                        " FROM " + TABLE_INTENTS;
+                        KEY_IN_USED_COUNT + ", " +
+                        KEY_IN_DO_NOT_DELETE +
+
+                        " FROM " + TABLE_INTENTS +
+                        " ORDER BY " + KEY_IN_NAME;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
@@ -11005,7 +11017,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_CATEGORIES)),
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_FLAGS)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_IN_USED_COUNT)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_IN_INTENT_TYPE))
+                                cursor.getInt(cursor.getColumnIndex(KEY_IN_INTENT_TYPE)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_IN_DO_NOT_DELETE))  == 1
                         );
                         intentList.add(ppIntent);
                     } while (cursor.moveToNext());
@@ -11075,6 +11088,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_INTENT_TYPE, intent._intentType);
 
                 values.put(KEY_IN_USED_COUNT, intent._usedCount);
+                values.put(KEY_IN_DO_NOT_DELETE, intent._doNotDelete);
 
                 db.beginTransaction();
 
@@ -11155,7 +11169,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_IN_FLAGS,
                                 KEY_IN_INTENT_TYPE,
 
-                                KEY_IN_USED_COUNT
+                                KEY_IN_USED_COUNT,
+                                KEY_IN_DO_NOT_DELETE
                         },
                         KEY_IN_ID + "=?",
                         new String[]{String.valueOf(intentId)}, null, null, null, null);
@@ -11205,7 +11220,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_CATEGORIES)),
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_FLAGS)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_IN_USED_COUNT)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_IN_INTENT_TYPE))
+                                cursor.getInt(cursor.getColumnIndex(KEY_IN_INTENT_TYPE)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_IN_DO_NOT_DELETE)) == 1
                         );
                     }
 
