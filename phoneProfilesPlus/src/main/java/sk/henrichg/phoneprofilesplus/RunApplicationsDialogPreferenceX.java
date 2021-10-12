@@ -316,7 +316,7 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
                 // add not passed intents
                 splits = notPassedIntents.split("\\|");
                 for (String split : splits) {
-                    String[] packageNameActivity = split.split("/"); // package name/activity
+                    String[] packageNameActivity = split.split("/"); // (shortcut)package name/activity
                     if (split.length() > 2) {
                         String shortcutIntent = "";
                         if (packageNameActivity[0].length() > 2)
@@ -543,7 +543,7 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
                             }
                         }
                         else
-                        if (Application.isIntent(splits[0])) {
+                        if (Application.isIntent(splits[i])) {
                             packIcon.setImageResource(R.drawable.ic_profile_pref_run_application);
                         } else {
                             String activityName = Application.getActivityName(splits[i]);
