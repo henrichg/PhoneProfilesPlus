@@ -30,11 +30,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            consumerProguardFiles 'proguard-rules.pro'
             /*firebaseCrashlytics {
                 mappingFileUploadEnabled true
             }*/
         }
         debug {
+            minifyEnabled false
             debuggable true
             /*firebaseCrashlytics {
                 mappingFileUploadEnabled true
