@@ -1807,6 +1807,9 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>
 
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) VPN Settings</string>
+    <string name="profile_preferences_deviceVPNInfo">VPN</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Click here to show information about connect\/disconnect VPN configured in OpenVPN application.</string>
+    <string name="profile_preferences_deviceVPNInfo_infoText">In Profile parameter \"Others\"\/\"Run applications, shortcuts, intents\" exists predefined Intents for two applications: \"OpenVPN Connect\" and \"OpenVPN for Android\". For more informations visit:</string>
 
     <!-- **************************************************************************************** -->
 

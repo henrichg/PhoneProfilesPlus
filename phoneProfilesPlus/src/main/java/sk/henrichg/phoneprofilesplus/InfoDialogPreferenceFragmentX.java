@@ -133,8 +133,11 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
             infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
         else {
-            if (preference.isHtml)
+            if (preference.isHtml) {
                 infoTextView.setText(GlobalGUIRoutines.fromHtml(preference.infoText, true, false, 0, 0));
+                infoTextView.setClickable(true);
+                infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
+            }
             else
                 infoTextView.setText(preference.infoText);
         }

@@ -1153,6 +1153,20 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        infoDialogPreference = prefMng.findPreference("prf_pref_deviceVPNInfo");
+        if (infoDialogPreference != null) {
+            String url1 = "https://openvpn.net/vpn-server-resources/faq-regarding-openvpn-connect-android/#how-do-i-use-tasker-with-openvpn-connect-for-android";
+            String url2 = "https://github.com/schwabe/ics-openvpn#controlling-from-external-apps";
+
+            String infoText =
+                    getString(R.string.profile_preferences_deviceVPNInfo_infoText)+"<br><br>"+
+                            "<a href=" + url1 + ">OpenVPN Connect</a>"+"<br><br>"+
+                            "<a href=" + url2 + ">OpenVPN for Android</a>";
+
+            infoDialogPreference.setInfoText(infoText);
+            infoDialogPreference.setIsHtml(true);
+        }
+
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
 
