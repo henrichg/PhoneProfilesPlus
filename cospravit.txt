@@ -437,5 +437,35 @@ Ide to spravit pre 3 rozne typy:
                             }
 Ale nemam broadcast, listener zmenu default sim. Hladaj.
 
+Ze by toto?
+
+PhoneServiceStateListener listener = new PhoneServiceStateListener(this);
+tm.listen(listener, PhoneStateListener.LISTEN_SERVICE_STATE);
+
+
+class PhoneServiceStateListener extends PhoneStateListener {
+Context context = null;
+
+public PhoneServiceStateListener(Context context) {
+    this.context = context;
+}
+
+public PhoneServiceStateListener() {
+}
+
+@Override
+public void onServiceStateChanged(ServiceState serviceState) {
+
+    if (serviceState.getState() == ServiceState.STATE_IN_SERVICE) {
+        //You get this event when your SIM is in service.
+        //If you get this event twice, chances are more that your phone is Dual SIM.
+        //Alternatively, you can toggle Flight Mode programmatically twice so
+        //that you'll get service state changed event.
+    }
+    super.onServiceStateChanged(serviceState);
+}
+
+}
+
 
 
