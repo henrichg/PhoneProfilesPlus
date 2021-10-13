@@ -399,48 +399,43 @@ MobileCellsRegistrationService:
 
 -----
 
-Ako zobrazovat nepriesvitnost a svetlost:
+Zmena default sim karty a zapnutie/vypnutie sim karty
 
-1. nepriesvitnost - sprav 9 images, ktore budu reprezentovat nepriesvitnost:
-   - gulaty nech je image
-   - na pozadi nech je image so stvorcekmi ako som to uz 100x videl
-   - nad tym nech je biely image s prislusnyou nepriesvitnostou
-   - preference nech je moj custom, ktory zobrazi vybraty image nepreisvotnosti
-     dialog zasa nech zobrazuje okrem percent aj prislusne images pre kazdy item
+Takto zistujem ci je mobil dual sim:
 
-2. svetlost - sprav 9 images, ktore budu reprezentovat svetlost:
-   - gulaty nech je image
-   - nad tym nech je biely image s prislusnyou svetlostou, cize od ciernej po bielu
-   - preference nech je moj custom, ktory zobrazi vybraty image svetlosti
-     dialog zasa nech zobrazuje okrem percent aj prislusne images pre kazdy item
+        int phoneCount = 1;
+        TelephonyManager telephonyManager = null;
+        if (Build.VERSION.SDK_INT >= 26) {
+            telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                phoneCount = telephonyManager.getPhoneCount();
+            }
+        }
 
-Skus spravit tie images vektorove.
+        boolean isDualSIM = true;
+        if (telephonyManager != null) {
+            if (phoneCount < 2) {
+                preferenceScreen.setVisible(false);
+                isDualSIM = false;
+            }
 
-------------
+Zapnutie/vypnutie sim:
+SimStateChangedBroadcastReceiver. Ten zistuje stav sim kariet. Toto by mohlo byt ono. Testni.
 
-- Added "Vibrate notifications" as addition to "Vibrate when ringing".
-- Added "Periodic sensor" into events.
-- Added support for live wallpapers.
-- Added "Random image from folder" into profile "Change wallpaper".
-- Added "[M] Activate specific profile, then restart events" into "After duration do" for profile activation with duration.
-- Added "Disable events run" into profile "Application functions".
-- Added PPP notification type "Force native (for custom icons)".
-- Added preference for grant "Display pop-up windows while running in background" in MIUI.
-- Added WiFi Hotspot for Android 11+.
-- Added check releases in APKPure from Editor.
-- Added description of widgets for Android 12.
-- Added PPP, system informations to crash report.
-- Added help about grant (G1) permission into README.md.
-- Better handling of Extender version for profile.
-- Better large screens support.
-- Display toolbars menu icons with texts if possible.
-- Change: Use dominant color in custom profile icon for PPP notification.
-- Better rounded corners for menus and spinner popups.
-- Direct download of PhoneProfilesPlus.apk from Github.
-- Direct download of PhoneProfilesPlusExtender.apk from Github.
-- Fixed bad working Screen sensor.
-- Fixed grant of background location.
-- Fixed bad working check of Extender Accessibility service.
-- Other fixes.
-- Updated translations.
+Zmena default sim karty:
+Ide to spravit pre 3 rozne typy:
+                            switch (subscriptionType) {
+                                case SUBSCRIPTRION_VOICE:
+                                    defaultSubscriptionId = SubscriptionManager.getDefaultVoiceSubscriptionId();
+                                    break;
+                                case SUBSCRIPTRION_SMS:
+                                    defaultSubscriptionId = SubscriptionManager.getDefaultSmsSubscriptionId();
+                                    break;
+                                case SUBSCRIPTRION_DATA:
+                                    defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
+                                    break;
+                            }
+Ale nemam broadcast, listener zmenu default sim. Hladaj.
+
+
 
