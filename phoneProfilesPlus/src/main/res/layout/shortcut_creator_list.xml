@@ -40,6 +40,8 @@
             android:layout_height="wrap_content"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
             android:drawSelectorOnTop="true"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
