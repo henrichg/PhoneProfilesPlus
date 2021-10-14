@@ -77,7 +77,15 @@ public class ShortcutCreatorListFragment extends Fragment {
         textViewNoData = view.findViewById(R.id.shortcut_profiles_list_empty);
         progressBar = view.findViewById(R.id.shortcut_profiles_list_linla_progress);
 
-        listView.setOnItemClickListener((parent, view1, position, id) -> createShortcut(position));
+        listView.setOnItemClickListener((parent, item, position, id) -> {
+            if (getActivity() != null) {
+                ShortcutCreatorListAdapter.ViewHolder viewHolder = (ShortcutCreatorListAdapter.ViewHolder) item.getTag();
+                if (viewHolder != null)
+                    viewHolder.radioButton.setChecked(true);
+                Handler handler = new Handler(getActivity().getMainLooper());
+                handler.postDelayed(() -> createShortcut(position), 200);
+            }
+        });
 
         if (!activityDataWrapper.profileListFilled)
         {
@@ -204,7 +212,7 @@ public class ShortcutCreatorListFragment extends Fragment {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void createShortcut(final int position)
+    void createShortcut(final int position)
     {
         new CreateShortcutAsyncTask(position, this).execute();
     }

@@ -70,7 +70,15 @@ public class TileChooserListFragment extends Fragment {
         textViewNoData = view.findViewById(R.id.tile_chooser_profiles_list_empty);
         progressBar = view.findViewById(R.id.tile_chooser_profiles_list_linla_progress);
 
-        listView.setOnItemClickListener((parent, view1, position, id) -> chooseTile(position));
+        listView.setOnItemClickListener((parent, item, position, id) -> {
+            if (getActivity() != null) {
+                TileChooserListAdapter.ViewHolder viewHolder = (TileChooserListAdapter.ViewHolder) item.getTag();
+                if (viewHolder != null)
+                    viewHolder.radioButton.setChecked(true);
+                Handler handler = new Handler(getActivity().getMainLooper());
+                handler.postDelayed(() -> chooseTile(position), 200);
+            }
+        });
 
         if (!activityDataWrapper.profileListFilled)
         {
@@ -197,7 +205,7 @@ public class TileChooserListFragment extends Fragment {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void chooseTile(final int position)
+    void chooseTile(final int position)
     {
         if (getActivity() != null) {
 //            PPApplication.logE("TileChooserListFragment.chooseTile", "position=" + position);
