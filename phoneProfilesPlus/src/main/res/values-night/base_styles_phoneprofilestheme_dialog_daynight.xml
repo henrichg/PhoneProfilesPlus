@@ -5,6 +5,7 @@
 
         <!-- disable initial empty screen - useful for dark theme -->
         <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowTitleStyle">@style/DialogTitleStyle</item>
 
         <!-- customize the color palette -->
         <item name="colorPrimary">@color/primary</item>

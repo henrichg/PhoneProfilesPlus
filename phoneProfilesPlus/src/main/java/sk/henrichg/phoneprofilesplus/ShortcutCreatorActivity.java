@@ -85,10 +85,12 @@ public class ShortcutCreatorActivity extends AppCompatActivity {
 
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
-        if (getSupportActionBar() != null) {
+        /*if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.title_activity_shortcut_creator);
-            getSupportActionBar().setElevation(0/*GlobalGUIRoutines.dpToPx(1)*/);
-        }
+            getSupportActionBar().setElevation(0);
+        }*/
+
+        setTitle(R.string.title_activity_shortcut_creator);
 
         //databaseHandler = new DatabaseHandler(this);
 
