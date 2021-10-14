@@ -87,7 +87,8 @@ public class ChannelView extends RelativeLayout {
 
     private void setProgress(TextView view, int progress) {
         view.setText(indicatorMode == IndicatorMode.HEX
-                ? Integer.toHexString(progress).toUpperCase()
+                //? Integer.toHexString(progress).toUpperCase()
+                ? String.format("%02X", (0xFF & progress))
                 : String.valueOf(progress));
     }
 
