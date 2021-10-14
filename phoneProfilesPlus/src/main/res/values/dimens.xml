@@ -14,6 +14,9 @@
     <dimen name="activator_transparent_padding_top_bottom">15dp</dimen>
     <dimen name="activator_transparent_padding_left_right">0dp</dimen>
 
+    <dimen name="dialog_min_width_minor">75%</dimen>
+    <dimen name="dialog_min_width_major">75%</dimen>
+
     <dimen name="dialog_corner_radius">10dp</dimen>
     <dimen name="dialog_transparent_padding">15dp</dimen>
     <dimen name="dialog_background_padding">3dp</dimen>

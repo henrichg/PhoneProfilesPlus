@@ -9,4 +9,7 @@
     <dimen name="activator_min_width_minor">40%</dimen>
     <dimen name="activator_min_width_major">40%</dimen>
 
+    <dimen name="dialog_min_width_minor">50%</dimen>
+    <dimen name="dialog_min_width_major">50%</dimen>
+
 </resources>

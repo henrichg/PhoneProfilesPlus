@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class TileChooserListFragment extends Fragment {
     private ListView listView;
     TextView textViewNoData;
     private LinearLayout progressBar;
+    private Button cancelButton;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
@@ -69,6 +71,7 @@ public class TileChooserListFragment extends Fragment {
         listView = view.findViewById(R.id.tile_chooser_profiles_list);
         textViewNoData = view.findViewById(R.id.tile_chooser_profiles_list_empty);
         progressBar = view.findViewById(R.id.tile_chooser_profiles_list_linla_progress);
+        cancelButton = view.findViewById(R.id.tile_chooser_profiles_list_cancel);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             if (getActivity() != null) {
@@ -78,6 +81,11 @@ public class TileChooserListFragment extends Fragment {
                 Handler handler = new Handler(getActivity().getMainLooper());
                 handler.postDelayed(() -> chooseTile(position), 200);
             }
+        });
+
+        cancelButton.setOnClickListener(v -> {
+            if (getActivity() != null)
+                getActivity().finish();
         });
 
         if (!activityDataWrapper.profileListFilled)
