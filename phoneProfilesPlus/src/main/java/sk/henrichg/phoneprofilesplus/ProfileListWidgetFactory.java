@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
@@ -94,6 +95,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
 
             if (Build.VERSION.SDK_INT >= 31) {
+                if (PPApplication.isPixelLauncherDefault(context)) {
+                    ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                            String.valueOf(ApplicationPreferences.applicationWidgetChangeColorsByNightMode));
+                    editor.apply();
+                    applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+                }
                 if (PPApplication.isPixelLauncherDefault(context) ||
                         applicationWidgetChangeColorsByNightMode) {
                     int nightModeFlags =
@@ -353,6 +362,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
 
             if (Build.VERSION.SDK_INT >= 31) {
+                if (PPApplication.isPixelLauncherDefault(context)) {
+                    ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                            String.valueOf(ApplicationPreferences.applicationWidgetChangeColorsByNightMode));
+                    editor.apply();
+                    applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+                }
                 if (PPApplication.isPixelLauncherDefault(context) ||
                         applicationWidgetChangeColorsByNightMode) {
                     int nightModeFlags =
