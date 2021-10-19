@@ -2,6 +2,7 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -87,6 +88,20 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
+
+            if (PPApplication.isPixelLauncherDefault(context)) {
+                int nightModeFlags =
+                        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                switch (nightModeFlags) {
+                    case Configuration.UI_MODE_NIGHT_YES:
+                        applicationWidgetListLightnessT = "100"; // lightness of text = white
+                        break;
+                    case Configuration.UI_MODE_NIGHT_NO:
+                    case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                        applicationWidgetListLightnessT = "0"; // lightness of text = black
+                        break;
+                }
+            }
         }
 
         if (!applicationWidgetListGridLayout)
@@ -327,6 +342,22 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
             applicationWidgetListPrefIndicatorLightness = ApplicationPreferences.applicationWidgetListPrefIndicatorLightness;
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
+
+            if (PPApplication.isPixelLauncherDefault(context)) {
+                int nightModeFlags =
+                        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                switch (nightModeFlags) {
+                    case Configuration.UI_MODE_NIGHT_YES:
+                        applicationWidgetListIconColor = "0"; // icon type = colorful
+                        applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
+                        break;
+                    case Configuration.UI_MODE_NIGHT_NO:
+                    case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                        applicationWidgetListIconColor = "0"; // icon type = colorful
+                        applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
+                        break;
+                }
+            }
         }
 
         DataWrapper _dataWrapper = createProfilesDataWrapper(true,
