@@ -212,6 +212,7 @@ class ApplicationPreferences {
     static boolean applicationActivatorAddRestartEventsIntoProfileList;
     static boolean applicationActivatorIncreaseBrightness;
     static boolean applicationWidgetOneRowHigherLayout;
+    static boolean applicationWidgetChangeColorsByNightMode;
 
     static String applicationEventPeriodicScanningScanInTimeMultiply;
     static int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -456,8 +457,10 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY = "applicationEventWifiScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventWifiScanInTimeMultiplyFrom";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventWifiScanInTimeMultiplyTo";
+
     static final String PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON = "notificationShowRestartEventsAsButton";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT = "applicationWidgetOneRowHigherLayout";
+    static final String PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetChangeColorsByNightMode";
 
     static final String PREF_QUICK_TILE_PROFILE_ID = "quickTileProfileId";
 
@@ -1325,6 +1328,11 @@ class ApplicationPreferences {
 
     static void applicationWidgetOneRowHigherLayout(Context context) {
         applicationWidgetOneRowHigherLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, false);
+    }
+
+    static void applicationWidgetChangeColorsByNightMode(Context context) {
+        applicationWidgetChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                PPApplication.isPixelLauncherDefault(context));
     }
 
     static void loadStartTargetHelps(Context context) {

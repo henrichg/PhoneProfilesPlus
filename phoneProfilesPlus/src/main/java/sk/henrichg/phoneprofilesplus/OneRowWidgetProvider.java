@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -70,6 +71,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         String applicationWidgetOneRowLightnessT;
         int applicationWidgetOneRowRoundedCornersRadius;
         boolean applicationWidgetOneRowHigherLayout;
+        boolean applicationWidgetChangeColorsByNightMode;
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
@@ -87,41 +89,46 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
             applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
             applicationWidgetOneRowHigherLayout = ApplicationPreferences.applicationWidgetOneRowHigherLayout;
+            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
 
-            if (PPApplication.isPixelLauncherDefault(context)) {
-                ApplicationPreferences.applicationWidgetOneRowRoundedCorners = true;
-                ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius = 15;
-                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS,
-                        ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
-                editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS,
-                        String.valueOf(ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius));
-                editor.apply();
-                applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
-                applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
-
-                int nightModeFlags =
-                        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                switch (nightModeFlags) {
-                    case Configuration.UI_MODE_NIGHT_YES:
-                        applicationWidgetOneRowBackground = "100"; // fully opaque
-                        applicationWidgetOneRowBackgroundType = true; // background type = color
-                        applicationWidgetOneRowBackgroundColor = String.valueOf(0x2f2f2f); // color of background
-                        applicationWidgetOneRowShowBorder = false; // do not show border
-                        applicationWidgetOneRowLightnessT = "100"; // lightness of text = white
-                        applicationWidgetOneRowIconColor = "0"; // icon type = colorful
-                        applicationWidgetOneRowPrefIndicatorLightness = "62"; // lightness of preference indicators
-                        break;
-                    case Configuration.UI_MODE_NIGHT_NO:
-                    case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                        applicationWidgetOneRowBackground = "100"; // fully opaque
-                        applicationWidgetOneRowBackgroundType = true; // background type = color
-                        applicationWidgetOneRowBackgroundColor = String.valueOf(0xf0f0f0); // color of background
-                        applicationWidgetOneRowShowBorder = false; // do not show border
-                        applicationWidgetOneRowLightnessT = "0"; // lightness of text = black
-                        applicationWidgetOneRowIconColor = "0"; // icon type = colorful
-                        applicationWidgetOneRowPrefIndicatorLightness = "50"; // lightness of preference indicators
-                        break;
+            if (Build.VERSION.SDK_INT >= 31) {
+                if (PPApplication.isPixelLauncherDefault(context)) {
+                    ApplicationPreferences.applicationWidgetOneRowRoundedCorners = true;
+                    ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius = 15;
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS,
+                            ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS,
+                            String.valueOf(ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius));
+                    editor.apply();
+                    applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
+                    applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
+                }
+                if (PPApplication.isPixelLauncherDefault(context) ||
+                        applicationWidgetChangeColorsByNightMode) {
+                    int nightModeFlags =
+                            context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    switch (nightModeFlags) {
+                        case Configuration.UI_MODE_NIGHT_YES:
+                            applicationWidgetOneRowBackground = "100"; // fully opaque
+                            applicationWidgetOneRowBackgroundType = true; // background type = color
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(0x2f2f2f); // color of background
+                            applicationWidgetOneRowShowBorder = false; // do not show border
+                            applicationWidgetOneRowLightnessT = "100"; // lightness of text = white
+                            applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                            applicationWidgetOneRowPrefIndicatorLightness = "62"; // lightness of preference indicators
+                            break;
+                        case Configuration.UI_MODE_NIGHT_NO:
+                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                            applicationWidgetOneRowBackground = "100"; // fully opaque
+                            applicationWidgetOneRowBackgroundType = true; // background type = color
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(0xf0f0f0); // color of background
+                            applicationWidgetOneRowShowBorder = false; // do not show border
+                            applicationWidgetOneRowLightnessT = "0"; // lightness of text = black
+                            applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                            applicationWidgetOneRowPrefIndicatorLightness = "50"; // lightness of preference indicators
+                            break;
+                    }
                 }
             }
         }

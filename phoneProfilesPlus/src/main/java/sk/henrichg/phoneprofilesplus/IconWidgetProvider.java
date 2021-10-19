@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -60,6 +61,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         String applicationWidgetIconLightnessT;
         boolean applicationWidgetIconShowProfileDuration;
         int applicationWidgetIconRoundedCornersRadius;
+        boolean applicationWidgetChangeColorsByNightMode;
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
@@ -76,43 +78,46 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconShowProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;
             applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
             applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
+            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
 
-            if (PPApplication.isPixelLauncherDefault(context)) {
-                ApplicationPreferences.applicationWidgetIconRoundedCorners = true;
-                ApplicationPreferences.applicationWidgetIconRoundedCornersRadius = 15;
-                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS,
-                        ApplicationPreferences.applicationWidgetIconRoundedCorners);
-                editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS,
-                        String.valueOf(ApplicationPreferences.applicationWidgetIconRoundedCornersRadius));
-                editor.apply();
-                applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
-                applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
-
-                int nightModeFlags =
-                        context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-                switch (nightModeFlags) {
-                    case Configuration.UI_MODE_NIGHT_YES:
-                        applicationWidgetIconBackground = "100"; // fully opaque
-                        applicationWidgetIconBackgroundType = true; // background type = color
-                        applicationWidgetIconBackgroundColor = String.valueOf(0x2f2f2f); // color of background
-                        applicationWidgetIconShowBorder = false; // do not show border
-                        applicationWidgetIconLightnessT = "100"; // lightness of text = white
-                        applicationWidgetIconColor = "0"; // icon type = colorful
-                        break;
-                    case Configuration.UI_MODE_NIGHT_NO:
-                    case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                        applicationWidgetIconBackground = "100"; // fully opaque
-                        applicationWidgetIconBackgroundType = true; // background type = color
-                        applicationWidgetIconBackgroundColor = String.valueOf(0xf0f0f0); // color of background
-                        applicationWidgetIconShowBorder = false; // do not show border
-                        applicationWidgetIconLightnessT = "0"; // lightness of text = black
-                        applicationWidgetIconColor = "0"; // icon type = colorful
-                        break;
+            if (Build.VERSION.SDK_INT >= 31) {
+                if (PPApplication.isPixelLauncherDefault(context)) {
+                    ApplicationPreferences.applicationWidgetIconRoundedCorners = true;
+                    ApplicationPreferences.applicationWidgetIconRoundedCornersRadius = 15;
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS,
+                            ApplicationPreferences.applicationWidgetIconRoundedCorners);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS,
+                            String.valueOf(ApplicationPreferences.applicationWidgetIconRoundedCornersRadius));
+                    editor.apply();
+                    applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
+                    applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
                 }
-
+                if (PPApplication.isPixelLauncherDefault(context) ||
+                        applicationWidgetChangeColorsByNightMode) {
+                    int nightModeFlags =
+                            context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    switch (nightModeFlags) {
+                        case Configuration.UI_MODE_NIGHT_YES:
+                            applicationWidgetIconBackground = "100"; // fully opaque
+                            applicationWidgetIconBackgroundType = true; // background type = color
+                            applicationWidgetIconBackgroundColor = String.valueOf(0x2f2f2f); // color of background
+                            applicationWidgetIconShowBorder = false; // do not show border
+                            applicationWidgetIconLightnessT = "100"; // lightness of text = white
+                            applicationWidgetIconColor = "0"; // icon type = colorful
+                            break;
+                        case Configuration.UI_MODE_NIGHT_NO:
+                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                            applicationWidgetIconBackground = "100"; // fully opaque
+                            applicationWidgetIconBackgroundType = true; // background type = color
+                            applicationWidgetIconBackgroundColor = String.valueOf(0xf0f0f0); // color of background
+                            applicationWidgetIconShowBorder = false; // do not show border
+                            applicationWidgetIconLightnessT = "0"; // lightness of text = black
+                            applicationWidgetIconColor = "0"; // icon type = colorful
+                            break;
+                    }
+                }
             }
-
         }
 
         //PPApplication.logE("IconWidgetProvider.onUpdate", "ApplicationPreferences.applicationWidgetIconLightness="+ApplicationPreferences.applicationWidgetIconLightness);
