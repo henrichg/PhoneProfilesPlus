@@ -77,7 +77,6 @@
         app:defaultValue="5"
         app:min="1"
         app:max="15"
-        app:dependency="applicationWidgetListRoundedCorners"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
@@ -121,7 +120,6 @@
         app:key="applicationWidgetListPrefIndicatorLightness"
         app:defaultValue="50"
         app:showLighting="true"
-        app:dependency="applicationWidgetListPrefIndicator"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

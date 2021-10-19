@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -2514,6 +2515,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         */
 
+        ////////////////////
+
         boolean changeWidgetColorsByNightMode = false;
         if (Build.VERSION.SDK_INT >= 31) {
             if (PPApplication.isPixelLauncherDefault(getActivity())) {
@@ -2524,6 +2527,25 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 changeWidgetColorsByNightMode = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE, false);
             }
         }
+
+        boolean roundedCornersListEnabled =
+                preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, true);
+        boolean preferenceIndicatorsListEnabled =
+                preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR, true);
+        boolean monochromeIconList =
+                preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR, "0").equals("1");
+        boolean roundedCornersOneRowEnabled =
+                preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS, true);
+        boolean preferenceIndicatorsOneRowEnabled =
+                preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR, true);
+        boolean monochromeIconOneRow =
+                preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR, "0").equals("1");
+        boolean roundedCornersIconEnabled =
+                preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS, true);
+        boolean monochromeIconIcon =
+                preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, "0").equals("1");
+        boolean hideProfileNameIcon =
+                preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, false);
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE)) {
             if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, false)) {
@@ -2597,46 +2619,108 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS);
             if (_preference != null) {
-                boolean colorful = preferences.getString(key, "0").equals("1");
-                _preference.setEnabled(colorful);
+                _preference.setEnabled(monochromeIconIcon);
             }
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
             if (_preference != null) {
-                boolean colorful = preferences.getString(key, "0").equals("1");
-                _preference.setEnabled(colorful);
+                _preference.setEnabled(monochromeIconIcon);
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR)) {
-            boolean colorful = preferences.getString(key, "0").equals("1");
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS);
             if (_preference != null) {
-                _preference.setEnabled(colorful);
+                _preference.setEnabled(monochromeIconOneRow);
             }
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS);
             if (_preference != null) {
-                _preference.setEnabled(colorful);
+                _preference.setEnabled(monochromeIconOneRow);
             }
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
-                _preference.setEnabled(!colorful);
+                if (preferenceIndicatorsOneRowEnabled)
+                    _preference.setEnabled(!monochromeIconOneRow);
+                else
+                    _preference.setEnabled(false);
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR)) {
-            boolean colorful = preferences.getString(key, "0").equals("1");
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
             if (_preference != null) {
-                _preference.setEnabled(colorful);
+                _preference.setEnabled(monochromeIconList);
             }
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS);
             if (_preference != null) {
-                _preference.setEnabled(colorful);
+                _preference.setEnabled(monochromeIconList);
             }
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
-                _preference.setEnabled(!colorful);
+                if (preferenceIndicatorsListEnabled)
+                    _preference.setEnabled(!monochromeIconList);
+                else
+                    _preference.setEnabled(false);
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS)) {
+            Preference _preference = prefMng.findPreference(key);
+            if (_preference != null) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS);
+                if (_preference != null)
+                    _preference.setEnabled(roundedCornersListEnabled);
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR)) {
+            Preference _preference = prefMng.findPreference(key);
+            if (_preference != null) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
+                if (_preference != null) {
+                    if (preferenceIndicatorsListEnabled)
+                        _preference.setEnabled(!monochromeIconList);
+                    else
+                        _preference.setEnabled(false);
+                }
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS)) {
+            Preference _preference = prefMng.findPreference(key);
+            if (_preference != null) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS);
+                if (_preference != null)
+                    _preference.setEnabled(roundedCornersOneRowEnabled);
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR)) {
+            Preference _preference = prefMng.findPreference(key);
+            if (_preference != null) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
+                if (_preference != null) {
+                    if (preferenceIndicatorsOneRowEnabled)
+                        _preference.setEnabled(!monochromeIconOneRow);
+                    else
+                        _preference.setEnabled(false);
+                }
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS)) {
+            Preference _preference = prefMng.findPreference(key);
+            if (_preference != null) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS);
+                if (_preference != null)
+                    _preference.setEnabled(roundedCornersIconEnabled);
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME)) {
+            Preference _preference = prefMng.findPreference(key);
+            if (_preference != null) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T);
+                if (_preference != null)
+                    _preference.setEnabled(!hideProfileNameIcon);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION);
+                if (_preference != null)
+                    _preference.setEnabled(!hideProfileNameIcon);
             }
         }
 
+        ////////////////////
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
