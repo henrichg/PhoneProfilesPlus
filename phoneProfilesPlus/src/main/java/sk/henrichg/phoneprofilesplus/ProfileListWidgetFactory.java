@@ -85,7 +85,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         String applicationWidgetListLightnessT;
         boolean applicationWidgetListHeader;
         boolean applicationWidgetListPrefIndicator;
-        boolean applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+        boolean applicationWidgetChangeColorsByNightMode;
 
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;

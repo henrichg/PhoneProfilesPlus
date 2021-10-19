@@ -467,5 +467,40 @@ public void onServiceStateChanged(ServiceState serviceState) {
 
 }
 
+------------------
+
+Ak PPApplication.isPixelLauncherDefault(context)
+  - disabluj applicationWidgetChangeColorsByNightMode, bude nastavene natvrdo na true
+
+Ak je Android 12 a ApplicationPreferences.applicationWidgetChangeColorsByNightMode == true
+  - disabluj:
+
+    Pre icon:
+    - applicationWidgetIconBackground
+    - applicationWidgetIconBackgroundType
+    - applicationWidgetIconBackgroundColor
+    - applicationWidgetIconShowBorder
+    - applicationWidgetIconLightnessT
+    - applicationWidgetIconColor
+
+    Pre one row:
+    - applicationWidgetOneRowBackground
+    - applicationWidgetOneRowBackgroundType
+    - applicationWidgetOneRowBackgroundColor
+    - applicationWidgetOneRowShowBorder
+    - applicationWidgetOneRowLightnessT
+    - applicationWidgetOneRowIconColor
+    - applicationWidgetOneRowPrefIndicatorLightness
+
+    Pre List:
+    - applicationWidgetListBackground
+    - applicationWidgetListBackgroundType
+    - applicationWidgetListBackgroundColor
+    - applicationWidgetListShowBorder
+    - applicationWidgetListLightnessT
+    - applicationWidgetListIconColor
+    - applicationWidgetListPrefIndicatorLightness
+
+
 
 
