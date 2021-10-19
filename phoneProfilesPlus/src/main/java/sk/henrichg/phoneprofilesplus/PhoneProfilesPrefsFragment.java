@@ -2517,6 +2517,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         ////////////////////
 
+        boolean keyIsChangeColorByNightMode = false;
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE)) {
+            //Log.e("PhoneProfilesPreferencesFragment.setSummary", "ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE="+
+            //        preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE, false));
+            keyIsChangeColorByNightMode = true;
+        }
+
         boolean changeWidgetColorsByNightMode = false;
         if (Build.VERSION.SDK_INT >= 31) {
             if (PPApplication.isPixelLauncherDefault(getActivity())) {
@@ -2547,150 +2554,227 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         boolean hideProfileNameIcon =
                 preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, false);
 
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE)) {
-            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, false)) {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_T);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+            if (changeWidgetColorsByNightMode) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
                 if (_preference != null)
-                    _preference.setEnabled(true);
+                    _preference.setEnabled(false);
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
                 if (_preference != null)
                     _preference.setEnabled(false);
-            } else {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(true);
             }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE)) {
-            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, false)) {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-            } else {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE)) {
-            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, false)) {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-            } else {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER)) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER);
-            if (_preference != null) {
-                _preference.setEnabled(preferences.getBoolean(key, false));
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER)) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER);
-            if (_preference != null) {
-                _preference.setEnabled(preferences.getBoolean(key, false));
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER)) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER);
-            if (_preference != null) {
-                _preference.setEnabled(preferences.getBoolean(key, false));
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR)) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS);
-            if (_preference != null) {
-                _preference.setEnabled(monochromeIconIcon);
-            }
-            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
-            if (_preference != null) {
-                _preference.setEnabled(monochromeIconIcon);
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR)) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS);
-            if (_preference != null) {
-                _preference.setEnabled(monochromeIconOneRow);
-            }
-            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS);
-            if (_preference != null) {
-                _preference.setEnabled(monochromeIconOneRow);
-            }
-            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
-            if (_preference != null) {
-                if (preferenceIndicatorsOneRowEnabled)
-                    _preference.setEnabled(!monochromeIconOneRow);
-                else
-                    _preference.setEnabled(false);
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR)) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
-            if (_preference != null) {
-                _preference.setEnabled(monochromeIconList);
-            }
-            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS);
-            if (_preference != null) {
-                _preference.setEnabled(monochromeIconList);
-            }
-            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
-            if (_preference != null) {
-                if (preferenceIndicatorsListEnabled)
-                    _preference.setEnabled(!monochromeIconList);
-                else
-                    _preference.setEnabled(false);
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS)) {
-            Preference _preference = prefMng.findPreference(key);
-            if (_preference != null) {
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS);
-                if (_preference != null)
-                    _preference.setEnabled(roundedCornersListEnabled);
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR)) {
-            Preference _preference = prefMng.findPreference(key);
-            if (_preference != null) {
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
-                if (_preference != null) {
-                    if (preferenceIndicatorsListEnabled)
-                        _preference.setEnabled(!monochromeIconList);
-                    else
+            else {
+                if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, false)) {
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
+                    if (_preference != null)
+                        _preference.setEnabled(true);
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
+                    if (_preference != null)
                         _preference.setEnabled(false);
+                } else {
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
+                    if (_preference != null)
+                        _preference.setEnabled(false);
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
+                    if (_preference != null)
+                        _preference.setEnabled(true);
                 }
             }
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS)) {
-            Preference _preference = prefMng.findPreference(key);
-            if (_preference != null) {
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS);
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+            if (changeWidgetColorsByNightMode) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR);
                 if (_preference != null)
-                    _preference.setEnabled(roundedCornersOneRowEnabled);
+                    _preference.setEnabled(false);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+            }
+            else {
+                if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, false)) {
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR);
+                    if (_preference != null)
+                        _preference.setEnabled(true);
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
+                    if (_preference != null)
+                        _preference.setEnabled(false);
+                } else {
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR);
+                    if (_preference != null)
+                        _preference.setEnabled(false);
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
+                    if (_preference != null)
+                        _preference.setEnabled(true);
+                }
             }
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR)) {
-            Preference _preference = prefMng.findPreference(key);
-            if (_preference != null) {
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+            if (changeWidgetColorsByNightMode) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+            }
+            else {
+                if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, false)) {
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR);
+                    if (_preference != null)
+                        _preference.setEnabled(true);
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
+                    if (_preference != null)
+                        _preference.setEnabled(false);
+                } else {
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR);
+                    if (_preference != null)
+                        _preference.setEnabled(false);
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
+                    if (_preference != null)
+                        _preference.setEnabled(true);
+                }
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+            if (changeWidgetColorsByNightMode) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER);
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            }
+            else {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER);
+                if (_preference != null) {
+                    _preference.setEnabled(preferences.getBoolean(key, false));
+                }
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+            if (changeWidgetColorsByNightMode) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER);
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            }
+            else {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER);
+                if (_preference != null) {
+                    _preference.setEnabled(preferences.getBoolean(key, false));
+                }
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+            if (changeWidgetColorsByNightMode) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER);
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+
+            } else {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER);
+                if (_preference != null) {
+                    _preference.setEnabled(preferences.getBoolean(key, false));
+                }
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+            if (changeWidgetColorsByNightMode) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconIcon);
+                }
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconIcon);
+                }
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+            if (changeWidgetColorsByNightMode) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconOneRow);
+                }
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconOneRow);
+                }
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
                 if (_preference != null) {
                     if (preferenceIndicatorsOneRowEnabled)
@@ -2700,24 +2784,94 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS)) {
-            Preference _preference = prefMng.findPreference(key);
-            if (_preference != null) {
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS);
-                if (_preference != null)
-                    _preference.setEnabled(roundedCornersIconEnabled);
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR);
+            if (_preference != null)
+                _preference.setEnabled(!changeWidgetColorsByNightMode);
+            if (changeWidgetColorsByNightMode) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconList);
+                }
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconList);
+                }
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
+                if (_preference != null) {
+                    if (preferenceIndicatorsListEnabled)
+                        _preference.setEnabled(!monochromeIconList);
+                    else
+                        _preference.setEnabled(false);
+                }
             }
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME)) {
-            Preference _preference = prefMng.findPreference(key);
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS);
+            if (_preference != null)
+                _preference.setEnabled(roundedCornersListEnabled);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
             if (_preference != null) {
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T);
-                if (_preference != null)
-                    _preference.setEnabled(!hideProfileNameIcon);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION);
-                if (_preference != null)
-                    _preference.setEnabled(!hideProfileNameIcon);
+                if (changeWidgetColorsByNightMode) {
+                    _preference.setEnabled(false);
+                } else {
+                    if (preferenceIndicatorsListEnabled)
+                        _preference.setEnabled(!monochromeIconList);
+                    else
+                        _preference.setEnabled(false);
+                }
             }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS);
+            if (_preference != null)
+                _preference.setEnabled(roundedCornersOneRowEnabled);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
+            if (_preference != null) {
+                if (changeWidgetColorsByNightMode) {
+                    _preference.setEnabled(false);
+                } else {
+                    if (preferenceIndicatorsOneRowEnabled)
+                        _preference.setEnabled(!monochromeIconOneRow);
+                    else
+                        _preference.setEnabled(false);
+                }
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS);
+            if (_preference != null)
+                _preference.setEnabled(roundedCornersIconEnabled);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME) || keyIsChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_T);
+            if (_preference != null) {
+                if (changeWidgetColorsByNightMode) {
+                    _preference.setEnabled(false);
+                } else {
+                    _preference.setEnabled(!hideProfileNameIcon);
+                }
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION);
+            if (_preference != null)
+                _preference.setEnabled(!hideProfileNameIcon);
         }
 
         ////////////////////
