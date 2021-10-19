@@ -77,20 +77,20 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                 if (PPApplication.isPixelLauncherDefault(context)) {
                     ApplicationPreferences.applicationWidgetListRoundedCorners = true;
                     ApplicationPreferences.applicationWidgetListRoundedCornersRadius = 15;
-                    ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
+                    //ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
                     editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS,
                             ApplicationPreferences.applicationWidgetListRoundedCorners);
                     editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS,
                             String.valueOf(ApplicationPreferences.applicationWidgetListRoundedCornersRadius));
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
-                            ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
+                    //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                    //        ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
                     editor.apply();
                     applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
                     applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
-                    applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+                    //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
-                if (PPApplication.isPixelLauncherDefault(context) ||
+                if (//PPApplication.isPixelLauncherDefault(context) ||
                         applicationWidgetChangeColorsByNightMode) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;

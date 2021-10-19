@@ -1527,6 +1527,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
 
         /////////////////
+        /*
         if (Build.VERSION.SDK_INT >= 31) {
             if (PPApplication.isPixelLauncherDefault(getActivity())) {
                 // Pixel Launcher is default
@@ -1543,6 +1544,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setEnabled(true);
             }
         }
+        */
 
         if (Build.VERSION.SDK_INT >= 31) {
             if (PPApplication.isPixelLauncherDefault(getActivity())) {
@@ -2526,11 +2528,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         boolean changeWidgetColorsByNightMode = false;
         if (Build.VERSION.SDK_INT >= 31) {
-            if (PPApplication.isPixelLauncherDefault(getActivity())) {
+            /*if (PPApplication.isPixelLauncherDefault(getActivity())) {
                 // Pixel Launcher is default
                 changeWidgetColorsByNightMode = true;
             }
-            else {
+            else*/ {
                 changeWidgetColorsByNightMode = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE, false);
             }
         }
