@@ -90,8 +90,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             ApplicationPreferences.applicationWidgetIconRoundedCorners);
                     editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS,
                             String.valueOf(ApplicationPreferences.applicationWidgetIconRoundedCornersRadius));
-                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
-                            String.valueOf(ApplicationPreferences.applicationWidgetChangeColorsByNightMode));
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                            ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
                     editor.apply();
                     applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
                     applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;

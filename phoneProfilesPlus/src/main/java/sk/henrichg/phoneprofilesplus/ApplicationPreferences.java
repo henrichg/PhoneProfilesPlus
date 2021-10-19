@@ -1331,6 +1331,13 @@ class ApplicationPreferences {
     }
 
     static void applicationWidgetChangeColorsByNightMode(Context context) {
+        /*if (DebugVersion.enabled) {
+            SharedPreferences mySPrefs = getSharedPreferences(context);
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.remove(PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE);
+            editor.apply();
+        }*/
+
         applicationWidgetChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
                 PPApplication.isPixelLauncherDefault(context));
     }

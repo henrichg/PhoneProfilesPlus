@@ -1083,83 +1083,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     getString(R.string.phone_profiles_pref_applicationEventScanIntervalInfo_summary3);
             preference.setSummary(summary);
         }
-        Preference _preference;
-        preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE);
-        if (preference != null) {
-            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, false)) {
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-            }
-            else {
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-            }
-        }
-        preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE);
-        if (preference != null) {
-            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, false)) {
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-            }
-            else {
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-            }
-        }
-        preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE);
-        if (preference != null) {
-            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, false)) {
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-            }
-            else {
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-            }
-        }
-        preference = findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE);
-        if (preference != null) {
-            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, false)) {
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-            }
-            else {
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-            }
-        }
         if (Build.VERSION.SDK_INT >= 27) {
             preference = findPreference(PREF_WIFI_KEEP_ON_SYSTEM_SETTINGS);
             if (preference != null) {
@@ -1601,12 +1524,30 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+
+        /////////////////
         if (Build.VERSION.SDK_INT >= 31) {
             if (PPApplication.isPixelLauncherDefault(getActivity())) {
                 // Pixel Launcher is default
-                // TODO Maybe rounded corners will be also in another launchers
-                // TODO But currently is checked only Pixel launcher
-                // TODO because Android 12 is in beta (29.7.2021)
+                // TODO Maybe change color of widgets by night mode will be forced
+                //      also in another launchers.
+                //      But currently is checked only Pixel launcher.
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE);
+                if (preference != null)
+                    preference.setEnabled(false);
+            }
+            else {
+                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE);
+                if (preference != null)
+                    preference.setEnabled(true);
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= 31) {
+            if (PPApplication.isPixelLauncherDefault(getActivity())) {
+                // Pixel Launcher is default
+                // TODO Maybe rounded corners will be also in another launchers.
+                //      But currently is checked only Pixel launcher.
                 preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS);
                 if (preference != null)
                     preference.setVisible(false);
@@ -1629,6 +1570,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     preference.setVisible(false);
             }
         }
+
     }
 
     private void doOnActivityCreatedBatterySaver(String key) {
@@ -2335,58 +2277,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     _preference.setEnabled(show);
             }
         }
-
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE)) {
-            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, false)) {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-            } else {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE)) {
-            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, false)) {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-            } else {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE)) {
-            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, false)) {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-            } else {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-            }
-        }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE)) {
             if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, false)) {
                 Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR);
@@ -2402,25 +2292,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B);
                 if (_preference != null)
                     _preference.setEnabled(true);
-            }
-        }
-
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER)) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER);
-            if (_preference != null) {
-                _preference.setEnabled(preferences.getBoolean(key, false));
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER)) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER);
-            if (_preference != null) {
-                _preference.setEnabled(preferences.getBoolean(key, false));
-            }
-        }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER)) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER);
-            if (_preference != null) {
-                _preference.setEnabled(preferences.getBoolean(key, false));
             }
         }
 
@@ -2643,96 +2514,84 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         */
 
-        // Do not bind toggles.
-        if (preference instanceof CheckBoxPreference || preference instanceof SwitchPreferenceCompat) {
-            return;
-        }
-
-        // Do not bind toggles.
-        if (preference instanceof TimeDialogPreferenceX) {
-            return;
-        }
-
-        String stringValue = preferences.getString(key, "");
-
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE)) {
-            long lProfileId;
-            try {
-                lProfileId = Long.parseLong(stringValue);
-            } catch (Exception e) {
-                lProfileId = 0;
-            }
-            ProfilePreferenceX profilePreference = (ProfilePreferenceX) preference;
-            profilePreference.setSummary(lProfileId);
-
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND);
-            if (_preference != null)
-                _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
-
-            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE);
-            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            boolean hasVibrator = (vibrator != null) && vibrator.hasVibrator();
-            if (hasVibrator) {
-                if (_preference != null) {
-                    _preference.setVisible(true);
-                    _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
-                }
+        boolean changeWidgetColorsByNightMode = false;
+        if (Build.VERSION.SDK_INT >= 31) {
+            if (PPApplication.isPixelLauncherDefault(getActivity())) {
+                // Pixel Launcher is default
+                changeWidgetColorsByNightMode = true;
             }
             else {
+                changeWidgetColorsByNightMode = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE, false);
+            }
+        }
+
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE)) {
+            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_TYPE, false)) {
+                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
                 if (_preference != null)
-                    _preference.setVisible(false);
-            }
-
-            //_preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE);
-            //if (_preference != null)
-            //    _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
-        } else if (preference instanceof ListPreference) {
-            // For list preferences, look up the correct display value in
-            // the preference's 'entries' list.
-            ListPreference listPreference = (ListPreference) preference;
-            int index = listPreference.findIndexOfValue(stringValue);
-
-            // Set the summary to reflect the new value.
-            // added support for "%" in list items
-            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
-            if (summary != null) {
-                String sSummary = summary.toString();
-                sSummary = sSummary.replace("%", "%%");
-                preference.setSummary(sSummary);
-            } else
-                preference.setSummary(null);
-
-            //if (key.equals(PPApplication.PREF_APPLICATION_LANGUAGE))
-            //    setTitleStyle(preference, true, false);
-        } else
-        //noinspection StatementWithEmptyBody
-        if (preference instanceof RingtonePreferenceX) {
-            // keep summary from preference
-        }
-        else
-        //noinspection StatementWithEmptyBody
-        if (preference instanceof ColorChooserPreferenceX) {
-            // keep summary from preference
-        }
-        else {
-            if (!stringValue.isEmpty()) {
-                // For all other preferences, set the summary to the value's
-                // simple string representation.
-                //preference.setSummary(preference.toString());
-                preference.setSummary(stringValue);
+                    _preference.setEnabled(true);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+            } else {
+                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(true);
             }
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES)) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE)) {
+            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_TYPE, false)) {
+                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+            } else {
+                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE)) {
+            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_TYPE, false)) {
+                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+            } else {
+                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER);
             if (_preference != null) {
-                boolean enabled;
-                String value = preferences.getString(key, "0");
-                if (!value.equals("0"))
-                    enabled = value.equals("1");
-                else
-                    enabled = ApplicationPreferences.prefMergedRingNotificationVolumes;
-                //Log.d("PhoneProfilesPrefsFragment.setSummary","enabled="+enabled);
-                _preference.setEnabled(enabled);
+                _preference.setEnabled(preferences.getBoolean(key, false));
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER);
+            if (_preference != null) {
+                _preference.setEnabled(preferences.getBoolean(key, false));
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER);
+            if (_preference != null) {
+                _preference.setEnabled(preferences.getBoolean(key, false));
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR)) {
@@ -2777,6 +2636,23 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference.setEnabled(!colorful);
             }
         }
+
+
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES)) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);
+            if (_preference != null) {
+                boolean enabled;
+                String value = preferences.getString(key, "0");
+                if (!value.equals("0"))
+                    enabled = value.equals("1");
+                else
+                    enabled = ApplicationPreferences.prefMergedRingNotificationVolumes;
+                //Log.d("PhoneProfilesPrefsFragment.setSummary","enabled="+enabled);
+                _preference.setEnabled(enabled);
+            }
+        }
+
+
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS);
             if (_preference != null) {
@@ -2803,16 +2679,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             /*if (key.equals(PREF_APPLICATION_PERMISSIONS)) {
                 // not possible to get granted runtime permission groups :-(
             }*/
-            if (key.equals(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS)) {
-                String summary;
-                if (Settings.System.canWrite(context))
-                    summary = getString(R.string.permission_granted);
-                else {
-                    summary = getString(R.string.permission_not_granted);
-                    //summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_writeSystemSettingPermissions_summary);
-                }
-                preference.setSummary(summary);
+        if (key.equals(PREF_WRITE_SYSTEM_SETTINGS_PERMISSIONS)) {
+            String summary;
+            if (Settings.System.canWrite(context))
+                summary = getString(R.string.permission_granted);
+            else {
+                summary = getString(R.string.permission_not_granted);
+                //summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_writeSystemSettingPermissions_summary);
             }
+            preference.setSummary(summary);
+        }
             /*if (key.equals(PREF_ACCESS_NOTIFICATION_POLICY_PERMISSIONS)) {
                 String summary;
                 if (Permissions.checkAccessNotificationPolicy(context))
@@ -2823,26 +2699,26 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 preference.setSummary(summary);
             }*/
-            if (key.equals(PREF_DRAW_OVERLAYS_PERMISSIONS)) {
-                String summary;
-                if (Settings.canDrawOverlays(context))
-                    summary = getString(R.string.permission_granted);
-                else {
-                    summary = getString(R.string.permission_not_granted);
-                    //summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_drawOverlaysPermissions_summary);
-                }
-                preference.setSummary(summary);
+        if (key.equals(PREF_DRAW_OVERLAYS_PERMISSIONS)) {
+            String summary;
+            if (Settings.canDrawOverlays(context))
+                summary = getString(R.string.permission_granted);
+            else {
+                summary = getString(R.string.permission_not_granted);
+                //summary = summary + "\n\n" + getString(R.string.phone_profiles_pref_drawOverlaysPermissions_summary);
             }
-            if (key.equals(PREF_GRANT_G1_PERMISSION)) {
-                String summary;
-                if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
-                    summary = getString(R.string.permission_granted);
-                else
-                    summary = getString(R.string.permission_not_granted);
-                summary = summary + "\n\n" + getString(R.string.important_info_profile_grant) + " " +
-                        getString(R.string.profile_preferences_types_G1_show_info);
-                preference.setSummary(summary);
-            }
+            preference.setSummary(summary);
+        }
+        if (key.equals(PREF_GRANT_G1_PERMISSION)) {
+            String summary;
+            if (Permissions.hasPermission(context, Manifest.permission.WRITE_SECURE_SETTINGS))
+                summary = getString(R.string.permission_granted);
+            else
+                summary = getString(R.string.permission_not_granted);
+            summary = summary + "\n\n" + getString(R.string.important_info_profile_grant) + " " +
+                    getString(R.string.profile_preferences_types_G1_show_info);
+            preference.setSummary(summary);
+        }
             /*if (key.equals(PREF_APPLICATION_PERMISSIONS)) {
                 String summary = getString(R.string.permission_granted);
 
@@ -2927,6 +2803,88 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                         summary;
             }
             preference.setSummary(summary);
+        }
+
+
+
+        // Do not bind toggles.
+        if (preference instanceof CheckBoxPreference || preference instanceof SwitchPreferenceCompat) {
+            return;
+        }
+
+        // Do not bind toggles.
+        if (preference instanceof TimeDialogPreferenceX) {
+            return;
+        }
+
+        String stringValue = preferences.getString(key, "");
+
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE)) {
+            long lProfileId;
+            try {
+                lProfileId = Long.parseLong(stringValue);
+            } catch (Exception e) {
+                lProfileId = 0;
+            }
+            ProfilePreferenceX profilePreference = (ProfilePreferenceX) preference;
+            profilePreference.setSummary(lProfileId);
+
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_SOUND);
+            if (_preference != null)
+                _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
+
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_NOTIFICATION_VIBRATE);
+            Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            boolean hasVibrator = (vibrator != null) && vibrator.hasVibrator();
+            if (hasVibrator) {
+                if (_preference != null) {
+                    _preference.setVisible(true);
+                    _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
+                }
+            }
+            else {
+                if (_preference != null)
+                    _preference.setVisible(false);
+            }
+
+            //_preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_DEFAULT_PROFILE_USAGE);
+            //if (_preference != null)
+            //    _preference.setEnabled(lProfileId != Profile.PROFILE_NO_ACTIVATE);
+        } else if (preference instanceof ListPreference) {
+            // For list preferences, look up the correct display value in
+            // the preference's 'entries' list.
+            ListPreference listPreference = (ListPreference) preference;
+            int index = listPreference.findIndexOfValue(stringValue);
+
+            // Set the summary to reflect the new value.
+            // added support for "%" in list items
+            CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+            if (summary != null) {
+                String sSummary = summary.toString();
+                sSummary = sSummary.replace("%", "%%");
+                preference.setSummary(sSummary);
+            } else
+                preference.setSummary(null);
+
+            //if (key.equals(PPApplication.PREF_APPLICATION_LANGUAGE))
+            //    setTitleStyle(preference, true, false);
+        } else
+        //noinspection StatementWithEmptyBody
+        if (preference instanceof RingtonePreferenceX) {
+            // keep summary from preference
+        }
+        else
+        //noinspection StatementWithEmptyBody
+        if (preference instanceof ColorChooserPreferenceX) {
+            // keep summary from preference
+        }
+        else {
+            if (!stringValue.isEmpty()) {
+                // For all other preferences, set the summary to the value's
+                // simple string representation.
+                //preference.setSummary(preference.toString());
+                preference.setSummary(stringValue);
+            }
         }
     }
 

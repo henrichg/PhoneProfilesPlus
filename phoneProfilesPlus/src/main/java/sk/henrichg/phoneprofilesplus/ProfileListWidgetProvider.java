@@ -83,8 +83,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             ApplicationPreferences.applicationWidgetListRoundedCorners);
                     editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS,
                             String.valueOf(ApplicationPreferences.applicationWidgetListRoundedCornersRadius));
-                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
-                            String.valueOf(ApplicationPreferences.applicationWidgetChangeColorsByNightMode));
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                            ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
                     editor.apply();
                     applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
                     applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;

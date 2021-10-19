@@ -98,8 +98,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 if (PPApplication.isPixelLauncherDefault(context)) {
                     ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
-                            String.valueOf(ApplicationPreferences.applicationWidgetChangeColorsByNightMode));
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                            ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
                     editor.apply();
                     applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
@@ -365,8 +365,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                 if (PPApplication.isPixelLauncherDefault(context)) {
                     ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
                     SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
-                            String.valueOf(ApplicationPreferences.applicationWidgetChangeColorsByNightMode));
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                            ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
                     editor.apply();
                     applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
