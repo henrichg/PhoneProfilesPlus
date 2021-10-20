@@ -103,19 +103,21 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationWidgetIconBackground = "100"; // fully opaque
+                            //applicationWidgetIconBackground = "100"; // fully opaque
                             applicationWidgetIconBackgroundType = true; // background type = color
                             applicationWidgetIconBackgroundColor = String.valueOf(0x2f2f2f); // color of background
-                            applicationWidgetIconShowBorder = false; // do not show border
+                            //applicationWidgetIconShowBorder = false; // do not show border
+                            applicationWidgetIconLightnessBorder = "0";
                             applicationWidgetIconLightnessT = "100"; // lightness of text = white
                             applicationWidgetIconColor = "0"; // icon type = colorful
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationWidgetIconBackground = "100"; // fully opaque
+                            //applicationWidgetIconBackground = "100"; // fully opaque
                             applicationWidgetIconBackgroundType = true; // background type = color
                             applicationWidgetIconBackgroundColor = String.valueOf(0xf0f0f0); // color of background
-                            applicationWidgetIconShowBorder = false; // do not show border
+                            //applicationWidgetIconShowBorder = false; // do not show border
+                            applicationWidgetIconLightnessBorder = "100";
                             applicationWidgetIconLightnessT = "0"; // lightness of text = black
                             applicationWidgetIconColor = "0"; // icon type = colorful
                             break;

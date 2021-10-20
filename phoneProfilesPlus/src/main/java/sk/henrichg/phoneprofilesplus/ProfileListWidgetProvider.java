@@ -96,20 +96,22 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationWidgetListBackground = "100"; // fully opaque
+                            //applicationWidgetListBackground = "100"; // fully opaque
                             applicationWidgetListBackgroundType = true; // background type = color
                             applicationWidgetListBackgroundColor = String.valueOf(0x2f2f2f); // color of background
-                            applicationWidgetListShowBorder = false; // do not show border
+                            //applicationWidgetListShowBorder = false; // do not show border
+                            applicationWidgetListLightnessBorder = "0";
                             applicationWidgetListLightnessT = "100"; // lightness of text = white
                             applicationWidgetListIconColor = "0"; // icon type = colorful
                             applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationWidgetListBackground = "100"; // fully opaque
+                            //applicationWidgetListBackground = "100"; // fully opaque
                             applicationWidgetListBackgroundType = true; // background type = color
                             applicationWidgetListBackgroundColor = String.valueOf(0xf0f0f0); // color of background
-                            applicationWidgetListShowBorder = false; // do not show border
+                            //applicationWidgetListShowBorder = false; // do not show border
+                            applicationWidgetListLightnessBorder = "100";
                             applicationWidgetListLightnessT = "0"; // lightness of text = black
                             applicationWidgetListIconColor = "0"; // icon type = colorful
                             applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators

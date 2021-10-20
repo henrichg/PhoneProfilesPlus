@@ -113,20 +113,22 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationWidgetOneRowBackground = "100"; // fully opaque
+                            //applicationWidgetOneRowBackground = "100"; // fully opaque
                             applicationWidgetOneRowBackgroundType = true; // background type = color
                             applicationWidgetOneRowBackgroundColor = String.valueOf(0x2f2f2f); // color of background
-                            applicationWidgetOneRowShowBorder = false; // do not show border
+                            //applicationWidgetOneRowShowBorder = false; // do not show border
+                            applicationWidgetOneRowLightnessBorder = "0";
                             applicationWidgetOneRowLightnessT = "100"; // lightness of text = white
                             applicationWidgetOneRowIconColor = "0"; // icon type = colorful
                             applicationWidgetOneRowPrefIndicatorLightness = "62"; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationWidgetOneRowBackground = "100"; // fully opaque
+                            //applicationWidgetOneRowBackground = "100"; // fully opaque
                             applicationWidgetOneRowBackgroundType = true; // background type = color
                             applicationWidgetOneRowBackgroundColor = String.valueOf(0xf0f0f0); // color of background
-                            applicationWidgetOneRowShowBorder = false; // do not show border
+                            //applicationWidgetOneRowShowBorder = false; // do not show border
+                            applicationWidgetOneRowLightnessBorder = "100";
                             applicationWidgetOneRowLightnessT = "0"; // lightness of text = black
                             applicationWidgetOneRowIconColor = "0"; // icon type = colorful
                             applicationWidgetOneRowPrefIndicatorLightness = "50"; // lightness of preference indicators
