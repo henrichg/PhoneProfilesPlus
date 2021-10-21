@@ -705,7 +705,6 @@ class EventsHandler {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only pause events
-                        // pause only running events
 
                         /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "state PAUSE");
@@ -718,6 +717,8 @@ class EventsHandler {
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
+                            // pause only running events
+
                             if (startProfileMerged)
                                 mergedProfilesCount++;
                             if (endProfileMerged)
@@ -770,7 +771,6 @@ class EventsHandler {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only start events
-                        // start only paused events
 
                         /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "state RUNNING");
@@ -783,6 +783,8 @@ class EventsHandler {
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
+                            // start only paused events
+
                             if (startProfileMerged)
                                 mergedProfilesCount++;
                             if (endProfileMerged)
