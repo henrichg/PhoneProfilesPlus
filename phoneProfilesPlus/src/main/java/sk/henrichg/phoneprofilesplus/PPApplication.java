@@ -3431,6 +3431,46 @@ public class PPApplication extends Application
         return false;
     }
 
+   static int getSIMCardFromSubscriptionId(Context appContext, int subscriptionId) {
+       TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+       if (telephonyManager != null) {
+           if (Build.VERSION.SDK_INT < 26) {
+               return 0;
+           } else {
+               if (Permissions.checkPhone(appContext)) {
+                   SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                   //SubscriptionManager.from(context);
+                   if (mSubscriptionManager != null) {
+                       List<SubscriptionInfo> subscriptionList = null;
+                       try {
+                           // Loop through the subscription list i.e. SIM list.
+                           subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                       } catch (SecurityException e) {
+                           PPApplication.recordException(e);
+                       }
+                       if (subscriptionList != null) {
+                           int simCard = 0;
+                           for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                               // Get the active subscription ID for a given SIM card.
+                               SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                               if ((subscriptionInfo != null) &&
+                                       (subscriptionInfo.getSubscriptionId() == subscriptionId)) {
+                                   simCard = subscriptionInfo.getSimSlotIndex() + 1;
+                                   break;
+                               }
+                           }
+                           return simCard;
+                       } else
+                           return 0;
+                   } else
+                       return 0;
+               } else
+                   return -1;
+           }
+       }
+       return -1;
+   }
+
     //------------------------------------------------------
 
     // scanners ------------------------------------------
