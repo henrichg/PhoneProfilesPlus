@@ -1359,10 +1359,12 @@ public class PhoneProfilesService extends Service
                 }
             }
             if (PPApplication.mobileDataConnectionCallback == null) {
+//                PPApplication.logE("PhoneProfilesService.registerAllTheTimeCallbacks", "mobileDataConnectionCallback (1)");
                 try {
                     ConnectivityManager connectivityManager =
                             (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
                     if (connectivityManager != null) {
+//                        PPApplication.logE("PhoneProfilesService.registerAllTheTimeCallbacks", "mobileDataConnectionCallback (2)");
                         NetworkRequest networkRequest = new NetworkRequest.Builder()
                                 .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
                                 .build();
@@ -1374,6 +1376,7 @@ public class PhoneProfilesService extends Service
                             connectivityManager.registerNetworkCallback(networkRequest, PPApplication.mobileDataConnectionCallback);
                     }
                 } catch (Exception e) {
+//                    PPApplication.logE("PhoneProfilesService.registerAllTheTimeCallbacks", Log.getStackTraceString(e));
                     PPApplication.mobileDataConnectionCallback = null;
                     //PPApplication.recordException(e);
                 }

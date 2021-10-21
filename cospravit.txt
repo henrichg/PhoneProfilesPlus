@@ -443,7 +443,6 @@ Ide to spravit pre 3 rozne typy:
                             }
 Ale nemam broadcast, listener zmenu default sim. Hladaj.
 
-Ze by toto?
 SubscriptionManager#ACTION_DEFAULT_SMS_SUBSCRIPTION_CHANGED
 Toto je len na sms.
 SubscriptionManager#ACTION_DEFAULT_SUBSCRIPTION_CHANGED
@@ -451,7 +450,13 @@ Toto je len na hovory
 SubscriptionManager#EXTRA_SUBSCRIPTION_INDEX - urcuje, ktory subscription index  je default
 
 Co s mobilnymi datami?
-
+PPP.MobileDataNetworkCallback
+Viem zistit, ked sa pripoji, na akej karte je. Cez SubscriptionManager.getDefaultDataSubscriptionId();
+Cize pre mobilne data to sprav tak, ze budem testovat, ci je nakonektnuty na SIM 1 alebo 2.
+Cize len tam pridas este dve moznosti:
+- Connected -> je jedno aka karta, toto tam uz je, len to uprav, ze ti je jedon ake je default subscriton
+- Connected to SIM 1
+- Connected to SIM 2
 
 PhoneServiceStateListener listener = new PhoneServiceStateListener(this);
 tm.listen(listener, PhoneStateListener.LISTEN_SERVICE_STATE);
