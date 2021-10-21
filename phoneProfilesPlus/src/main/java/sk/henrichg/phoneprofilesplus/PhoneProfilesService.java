@@ -1136,6 +1136,17 @@ public class PhoneProfilesService extends Service
                 appContext.registerReceiver(PPApplication.simStateChangedBroadcastReceiver, intentFilter10);
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER simStateChangedBroadcastReceiver");
             }
+
+            if (PPApplication.defaultSIMChangedBroadcastReceiver == null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers->REGISTER", "PhoneProfilesService_registerAllTheTimeRequiredSystemReceivers");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "REGISTER defaultSIMChangedBroadcastReceiver");
+                PPApplication.defaultSIMChangedBroadcastReceiver = new DefaultSIMChangedBroadcastReceiver();
+                IntentFilter intentFilter10 = new IntentFilter();
+                intentFilter10.addAction(SubscriptionManager.ACTION_DEFAULT_SUBSCRIPTION_CHANGED);
+                intentFilter10.addAction(SubscriptionManager.ACTION_DEFAULT_SMS_SUBSCRIPTION_CHANGED);
+                appContext.registerReceiver(PPApplication.defaultSIMChangedBroadcastReceiver, intentFilter10);
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER defaultSIMChangedBroadcastReceiver");
+            }
         }
     }
 

@@ -255,10 +255,11 @@ public class PPApplication extends Application
 
                                                 //+"|PApplication.getReleaseData"
                                                 //+"|CheckGitHubReleasesActivity"
-
                                                 //+"|WifiApManager._startTethering30"
-
                                                 //+"|NextAlarmClockBroadcastReceiver"
+
+                                                +"|SimStateChangedBroadcastReceiver"
+                                                +"|DefaultSIMChangedBroadcastReceiver"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -720,6 +721,7 @@ public class PPApplication extends Application
     static CheckCriticalPPPReleasesBroadcastReceiver checkCriticalPPPReleasesBroadcastReceiver = null;
     static CheckOnlineStatusBroadcastReceiver checkOnlineStatusBroadcastReceiver = null;
     static SimStateChangedBroadcastReceiver simStateChangedBroadcastReceiver = null;
+    static DefaultSIMChangedBroadcastReceiver defaultSIMChangedBroadcastReceiver = null;
 
     static BatteryChargingChangedBroadcastReceiver batteryChargingChangedReceiver = null;
     static BatteryLevelChangedBroadcastReceiver batteryLevelChangedReceiver = null;
