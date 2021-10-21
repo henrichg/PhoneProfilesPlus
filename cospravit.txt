@@ -441,15 +441,15 @@ Ide to spravit pre 3 rozne typy:
                                     defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
                                     break;
                             }
-Ale nemam broadcast, listener zmenu default sim. Hladaj.
 
+Pridal som DefaultSIMChangedBroadcastReceiver:
 SubscriptionManager#ACTION_DEFAULT_SMS_SUBSCRIPTION_CHANGED
 Toto je len na sms.
 SubscriptionManager#ACTION_DEFAULT_SUBSCRIPTION_CHANGED
 Toto je len na hovory
 SubscriptionManager#EXTRA_SUBSCRIPTION_INDEX - urcuje, ktory subscription index  je default
 
-Co s mobilnymi datami?
+Mobilne data:
 PPP.MobileDataNetworkCallback
 Viem zistit, ked sa pripoji, na akej karte je. Cez SubscriptionManager.getDefaultDataSubscriptionId();
 Cize pre mobilne data to sprav tak, ze budem testovat, ci je nakonektnuty na SIM 1 alebo 2.
