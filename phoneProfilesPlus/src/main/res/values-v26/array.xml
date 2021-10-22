@@ -12,5 +12,23 @@
         <item>4</item>
         <item>2</item>
     </string-array>
+    <string-array name="eventRadioSwitchMobileDataDualSIMArray">
+        <item>@string/array_pref_radioSwitch_notDetect</item>
+        <item>@string/array_pref_radioSwitch_on</item>
+        <item>@string/array_pref_radioSwitch_off</item>
+        <item>@string/array_pref_radioSwitch_connected_any_sim_cards</item>
+        <item>@string/array_pref_radioSwitch_connected_sim1</item>
+        <item>@string/array_pref_radioSwitch_connected_sim2</item>
+        <item>@string/array_pref_radioSwitch_disconnected</item>
+    </string-array>
+    <string-array name="eventRadioSwitchhMobileDataDualSIMValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>6</item>
+        <item>4</item>
+    </string-array>
 
 </resources>

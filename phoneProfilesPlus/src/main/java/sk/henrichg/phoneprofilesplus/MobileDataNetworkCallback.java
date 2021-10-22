@@ -6,7 +6,6 @@ import android.net.Network;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.telephony.SubscriptionManager;
 
 @SuppressWarnings("WeakerAccess")
 public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallback {
@@ -127,7 +126,7 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
     }
 
     private void _doConnection(Context appContext) {
-        PPApplication.logE("$$$ MobileDataNetworkCallback._doConnection", "isConnected=" + connected);
+//        PPApplication.logE("$$$ MobileDataNetworkCallback._doConnection", "isConnected=" + connected);
 
         if (Event.getGlobalEventsRunning()) {
             //if ((info.getState() == NetworkInfo.State.CONNECTED) ||
@@ -137,10 +136,10 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 
                 if (PhoneProfilesService.getInstance() != null) {
 
-                    if (connected) {
-                        int defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
-                        PPApplication.logE("$$$ MobileDataNetworkCallback._doConnection", "defaultSubscriptionId=" + defaultSubscriptionId);
-                    }
+//                    if (connected) {
+//                        int defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
+//                        PPApplication.logE("$$$ MobileDataNetworkCallback._doConnection", "defaultSubscriptionId=" + defaultSubscriptionId);
+//                    }
 
 
                     // start events handler

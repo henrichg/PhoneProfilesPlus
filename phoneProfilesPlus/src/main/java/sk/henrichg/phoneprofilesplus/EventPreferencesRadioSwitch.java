@@ -11,8 +11,8 @@ import android.net.NetworkCapabilities;
 import android.net.wifi.WifiManager;
 import android.nfc.NfcAdapter;
 import android.os.Build;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -136,12 +136,25 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             phoneCount = telephonyManager.getPhoneCount();
                         }
                     }
-                    String[] fields;
-                    if (phoneCount > 1)
-                        fields = context.getResources().getStringArray(R.array.eventRadioSwitchMobileDataDualSIMArray);
-                    else
-                        fields = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
-                    descr = descr + "<b>" + fields[this._mobileData] + "</b>";
+                    String[] fieldArray;
+                    String[] fieldValues;
+                    if (phoneCount > 1) {
+                        fieldArray = context.getResources().getStringArray(R.array.eventRadioSwitchMobileDataDualSIMArray);
+                        fieldValues = context.getResources().getStringArray(R.array.eventRadioSwitchhMobileDataDualSIMValues);
+                    }
+                    else {
+                        fieldArray = context.getResources().getStringArray(R.array.eventRadioSwitchWithConnectionArray);
+                        fieldValues = context.getResources().getStringArray(R.array.eventRadioSwitchhWithConnectionValues);
+                    }
+                    int index = -1;
+                    for (int i = 0; i < fieldValues.length; i++) {
+                        if (fieldValues[i].equals(String.valueOf(this._mobileData))) {
+                            index = i;
+                            break;
+                        }
+                    }
+                    if (index != -1)
+                        descr = descr + "<b>" + fieldArray[index] + "</b>";
                     _addBullet = true;
                 }
                 if (this._gps != 0) {
@@ -658,187 +671,34 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                     else
                     if (_mobileData == 4)
                         eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
-                }
-
-/*                if ((Build.VERSION.SDK_INT >= 26) && PPApplication.HAS_FEATURE_TELEPHONY) {
-                    final TelephonyManager telephonyManager = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
-                    if (telephonyManager != null) {
-                        int phoneCount = telephonyManager.getPhoneCount();
-                        if (phoneCount > 1) {
-                            boolean enabled = false;
-                            boolean connected = false;
-
-                            if ((_mobileDataSIM1 == 1) || (_mobileDataSIM1 == 2)) {
-                                enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 1);
-//                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM1 enabled=" + enabled);
+                    else
+                    if ((_mobileData == 5) || (_mobileData == 6)) {
+                        if (Build.VERSION.SDK_INT >= 26) {
+                            int phoneCount = 1;
+                            TelephonyManager telephonyManager = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
+                            if (telephonyManager != null) {
+                                phoneCount = telephonyManager.getPhoneCount();
                             }
-                            if ((_mobileDataSIM1 == 3) || (_mobileDataSIM1 == 4)) {
-                                boolean defaultIsSIM1 = false;
-                                SubscriptionManager mSubscriptionManager = (SubscriptionManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                                //SubscriptionManager.from(context);
-                                if (mSubscriptionManager != null) {
-                                    //noinspection ConstantConditions
-                                    //if (Build.VERSION.SDK_INT > 23) {
-                                        int defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
-
-                                        List<SubscriptionInfo> subscriptionList = null;
-                                        try {
-                                            // Loop through the subscription list i.e. SIM list.
-                                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                                        } catch (SecurityException e) {
-                                            PPApplication.recordException(e);
-                                        }
-                                        if (subscriptionList != null) {
-                                            for (int i = 0; i < subscriptionList.size(); i++) {
-                                                // Get the active subscription ID for a given SIM card.
-                                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                                if (subscriptionInfo != null) {
-                                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                                    if (1 == (slotIndex + 1)) {
-                                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                                        if (subscriptionId == defaultDataId) {
-                                                            defaultIsSIM1 = true;
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    //}
-                                }
-
-                                if (defaultIsSIM1) {
-                                    ConnectivityManager connManager = null;
-                                    try {
-                                        connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                                    } catch (Exception e) {
-                                        // java.lang.NullPointerException: missing IConnectivityManager
-                                        // Dual SIM?? Bug in Android ???
-                                        PPApplication.recordException(e);
-                                    }
-                                    if (connManager != null) {
-                                        Network[] networks = connManager.getAllNetworks();
-                                        if ((networks != null) && (networks.length > 0)) {
-                                            for (Network network : networks) {
-                                                try {
-                                                    NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
-                                                    if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                                                        connected = MobileDataNetworkCallback.connected;
-                                                        break;
-                                                    }
-                                                } catch (Exception e) {
-//                                                Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
-                                                    PPApplication.recordException(e);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-//                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM1 connected=" + connected);
+                            if (phoneCount > 1) {
+                                if (connected) {
+                                    int defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
+                                    int defaultSIM = PPApplication.getSIMCardFromSubscriptionId(eventsHandler.context, defaultSubscriptionId);
+//                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "defaultSubscriptionId=" + defaultSubscriptionId);
+                                    if (_mobileData == 5)
+                                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (defaultSIM == 1);
+                                    else
+                                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (defaultSIM == 2);
+                                } else
+                                    eventsHandler.radioSwitchPassed = false;
                             }
-
-                            if (_mobileDataSIM1 != 0)
-                                tested = true;
-                            if (_mobileDataSIM1 == 1)
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
                             else
-                            if (_mobileDataSIM1 == 2)
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!enabled);
-                            else
-                            if (_mobileDataSIM1 == 3)
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
-                            else
-                            if (_mobileDataSIM1 == 4)
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
-
-                            enabled = false;
-                            connected = false;
-                            if ((_mobileDataSIM2 == 1) || (_mobileDataSIM2 == 2)) {
-                                enabled = ActivateProfileHelper.isMobileData(eventsHandler.context, 2);
-//                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM2 enabled=" + enabled);
-                            }
-                            if ((_mobileDataSIM2 == 3) || (_mobileDataSIM2 == 4)) {
-                                boolean defaultIsSIM2 = false;
-                                SubscriptionManager mSubscriptionManager = (SubscriptionManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
-                                //SubscriptionManager.from(context);
-                                if (mSubscriptionManager != null) {
-                                    //noinspection ConstantConditions
-                                    //if (Build.VERSION.SDK_INT > 23) {
-                                        int defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
-
-                                        List<SubscriptionInfo> subscriptionList = null;
-                                        try {
-                                            // Loop through the subscription list i.e. SIM list.
-                                            subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
-                                        } catch (SecurityException e) {
-                                            PPApplication.recordException(e);
-                                        }
-                                        if (subscriptionList != null) {
-                                            for (int i = 0; i < subscriptionList.size(); i++) {
-                                                // Get the active subscription ID for a given SIM card.
-                                                SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
-                                                if (subscriptionInfo != null) {
-                                                    int slotIndex = subscriptionInfo.getSimSlotIndex();
-                                                    if (2 == (slotIndex + 1)) {
-                                                        int subscriptionId = subscriptionInfo.getSubscriptionId();
-                                                        if (subscriptionId == defaultDataId) {
-                                                            defaultIsSIM2 = true;
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    //}
-                                }
-
-                                if (defaultIsSIM2) {
-                                    ConnectivityManager connManager = null;
-                                    try {
-                                        connManager = (ConnectivityManager) eventsHandler.context.getSystemService(Context.CONNECTIVITY_SERVICE);
-                                    } catch (Exception e) {
-                                        // java.lang.NullPointerException: missing IConnectivityManager
-                                        // Dual SIM?? Bug in Android ???
-                                        PPApplication.recordException(e);
-                                    }
-                                    if (connManager != null) {
-                                        Network[] networks = connManager.getAllNetworks();
-                                        if ((networks != null) && (networks.length > 0)) {
-                                            for (Network network : networks) {
-                                                try {
-                                                    NetworkCapabilities networkCapabilities = connManager.getNetworkCapabilities(network);
-                                                    if ((networkCapabilities != null) && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
-                                                        connected = MobileDataNetworkCallback.connected;
-                                                        break;
-                                                    }
-                                                } catch (Exception e) {
-//                                                Log.e("EventPreferencesWifi.doHandleEvent", Log.getStackTraceString(e));
-                                                    PPApplication.recordException(e);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-//                                PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "mobileDataSIM1 connected=" + connected);
-                            }
-
-                            if (_mobileDataSIM2 != 0)
-                                tested = true;
-                            if (_mobileDataSIM2 == 1)
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
-                            else
-                            if (_mobileDataSIM2 == 2)
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!enabled);
-                            else
-                            if (_mobileDataSIM2 == 3)
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
-                            else
-                            if (_mobileDataSIM2 == 4)
-                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (!connected);
                         }
+                        else
+                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
                     }
                 }
-*/
+
                 if ((_gps != 0) && PPApplication.HAS_FEATURE_LOCATION_GPS) {
 
                     boolean enabled;

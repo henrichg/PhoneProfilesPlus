@@ -260,7 +260,8 @@ public class PPApplication extends Application
 
                                                 //+"|SimStateChangedBroadcastReceiver"
                                                 //+"|DefaultSIMChangedBroadcastReceiver"
-                                                +"|MobileDataNetworkCallback"
+                                                //+"|MobileDataNetworkCallback"
+                                                +"|EventPreferencesRadioSwitch"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
