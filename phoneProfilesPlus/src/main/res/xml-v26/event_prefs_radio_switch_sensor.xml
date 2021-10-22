@@ -35,6 +35,13 @@
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <Preference
+        app:key="eventRadioSwitchMobileDataDualSIMInfo"
+        app:title="@string/event_preferences_radioSwitch_mobileData_dualSIM"
+        app:summary="@string/event_preferences_radioSwitch_mobileData_dualSIM_summary"
+        app:dependency="eventRadioSwitchEnabled"
+        app:widgetLayout="@layout/widget_info_preference"
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/event_preferences_radioSwitch_mobileData"
         app:summary="@string/array_pref_radioSwitch_notDetect"
@@ -44,33 +51,7 @@
         app:entryValues="@array/eventRadioSwitchhWithConnectionValues"
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
-<!--
-    <Preference
-        app:key="eventRadioSwitchMobileDataDualSIMInfo"
-        app:title="@string/event_preferences_radioSwitch_mobileData_dualSIM"
-        app:summary="@string/event_preferences_radioSwitch_mobileData_dualSIM_summary"
-        app:dependency="eventRadioSwitchEnabled"
-        app:widgetLayout="@layout/widget_info_preference"
-        app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/event_preferences_radioSwitch_mobileData_SIM1"
-        app:summary="@string/array_pref_radioSwitch_notDetect"
-        app:key="eventRadioSwitchMobileDataSIM1"
-        app:defaultValue="0"
-        app:entries="@array/eventRadioSwitchWithConnectionArray"
-        app:entryValues="@array/eventRadioSwitchhWithConnectionValues"
-        app:dependency="eventRadioSwitchEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
-        app:title="@string/event_preferences_radioSwitch_mobileData_SIM2"
-        app:summary="@string/array_pref_radioSwitch_notDetect"
-        app:key="eventRadioSwitchMobileDataSIM2"
-        app:defaultValue="0"
-        app:entries="@array/eventRadioSwitchWithConnectionArray"
-        app:entryValues="@array/eventRadioSwitchhWithConnectionValues"
-        app:dependency="eventRadioSwitchEnabled"
-        app:layout="@layout/mp_preference_material_widget" />
--->
+
     <ListPreference
         app:title="@string/event_preferences_radioSwitch_gps"
         app:summary="@string/array_pref_radioSwitch_notDetect"
