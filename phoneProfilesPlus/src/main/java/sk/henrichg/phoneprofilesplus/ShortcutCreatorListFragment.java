@@ -36,7 +36,6 @@ public class ShortcutCreatorListFragment extends Fragment {
     private ListView listView;
     TextView textViewNoData;
     private LinearLayout progressBar;
-    private Button cancelButton;
 
     private WeakReference<LoadProfileListAsyncTask> asyncTaskContext;
 
@@ -78,7 +77,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         listView = view.findViewById(R.id.shortcut_profiles_list);
         textViewNoData = view.findViewById(R.id.shortcut_profiles_list_empty);
         progressBar = view.findViewById(R.id.shortcut_profiles_list_linla_progress);
-        cancelButton = view.findViewById(R.id.shortcut_profiles_list_cancel);
+        Button cancelButton = view.findViewById(R.id.shortcut_profiles_list_cancel);
 
         listView.setOnItemClickListener((parent, item, position, id) -> {
             if (getActivity() != null) {

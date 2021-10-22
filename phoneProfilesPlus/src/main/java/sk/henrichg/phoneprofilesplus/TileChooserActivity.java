@@ -1,11 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 

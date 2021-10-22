@@ -684,10 +684,12 @@ public class RunApplicationsDialogPreferenceX extends DialogPreference {
         }
     }
 
+    /*
     void updateGUI() {
         if (fragment != null)
             fragment.updateGUI();
     }
+    */
 
     private void deleteApplication(Application application) {
         if (application == null)
