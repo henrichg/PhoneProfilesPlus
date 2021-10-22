@@ -3,7 +3,6 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -39,7 +38,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        final Intent _intent = intent;
+//        final Intent _intent = intent;
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
