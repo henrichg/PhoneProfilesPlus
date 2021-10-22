@@ -259,7 +259,7 @@ public class PPApplication extends Application
                                                 //+"|NextAlarmClockBroadcastReceiver"
 
                                                 //+"|SimStateChangedBroadcastReceiver"
-                                                //+"|DefaultSIMChangedBroadcastReceiver"
+                                                +"|DefaultSIMChangedBroadcastReceiver"
                                                 //+"|MobileDataNetworkCallback"
                                                 +"|EventPreferencesRadioSwitch"
                                                 ;
@@ -723,7 +723,6 @@ public class PPApplication extends Application
     static CheckCriticalPPPReleasesBroadcastReceiver checkCriticalPPPReleasesBroadcastReceiver = null;
     static CheckOnlineStatusBroadcastReceiver checkOnlineStatusBroadcastReceiver = null;
     static SimStateChangedBroadcastReceiver simStateChangedBroadcastReceiver = null;
-    static DefaultSIMChangedBroadcastReceiver defaultSIMChangedBroadcastReceiver = null;
 
     static BatteryChargingChangedBroadcastReceiver batteryChargingChangedReceiver = null;
     static BatteryLevelChangedBroadcastReceiver batteryLevelChangedReceiver = null;
@@ -771,6 +770,7 @@ public class PPApplication extends Application
     static DeviceBootEventEndBroadcastReceiver deviceBootEventEndBroadcastReceiver = null;
     static CalendarEventExistsCheckBroadcastReceiver calendarEventExistsCheckBroadcastReceiver = null;
     static PeriodicEventEndBroadcastReceiver periodicEventEndBroadcastReceiver = null;
+    static DefaultSIMChangedBroadcastReceiver defaultSIMChangedBroadcastReceiver = null;
 
     static SettingsContentObserver settingsContentObserver = null;
     static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;

@@ -35,13 +35,25 @@
         app:dependency="eventRadioSwitchEnabled"
         app:layout="@layout/mp_preference_material_widget" />
 
-    <Preference
-        app:key="eventRadioSwitchMobileDataDualSIMInfo"
-        app:title="@string/event_preferences_radioSwitch_mobileData_dualSIM"
-        app:summary="@string/event_preferences_radioSwitch_mobileData_dualSIM_summary"
+    <ListPreference
+        app:title="@string/event_preferences_radioSwitch_defaultSIMForCalls"
+        app:summary="@string/array_pref_radioSwitch_notDetect"
+        app:key="eventRadioSwitchDefaultSIMForCalls"
+        app:defaultValue="0"
+        app:entries="@array/eventRadioSwitchDefaultSIMArray"
+        app:entryValues="@array/eventRadioSwitchDefaultSIMValues"
         app:dependency="eventRadioSwitchEnabled"
-        app:widgetLayout="@layout/widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/event_preferences_radioSwitch_defaultSIMForSMS"
+        app:summary="@string/array_pref_radioSwitch_notDetect"
+        app:key="eventRadioSwitchDefaultSIMForSMS"
+        app:defaultValue="0"
+        app:entries="@array/eventRadioSwitchDefaultSIMArray"
+        app:entryValues="@array/eventRadioSwitchDefaultSIMValues"
+        app:dependency="eventRadioSwitchEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
     <ListPreference
         app:title="@string/event_preferences_radioSwitch_mobileData"
         app:summary="@string/array_pref_radioSwitch_notDetect"

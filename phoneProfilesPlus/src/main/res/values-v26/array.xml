@@ -30,5 +30,14 @@
         <item>6</item>
         <item>4</item>
     </string-array>
-
+    <string-array name="eventRadioSwitchDefaultSIMArray">
+        <item>@string/array_pref_radioSwitch_notDetect</item>
+        <item>@string/array_pref_radioSwitch_defaultSIM1</item>
+        <item>@string/array_pref_radioSwitch_defaultSIM2</item>
+    </string-array>
+    <string-array name="eventRadioSwitchDefaultSIMValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

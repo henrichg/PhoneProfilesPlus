@@ -1814,12 +1814,14 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Change colors by Night mode</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">If nabled, widget colors will be set by system Night mode (as in Pixel launcher)</string>
 
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>
-    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>
     <string name="array_pref_radioSwitch_connected_any_sim_cards">Connected (any SIM card)</string>
     <string name="array_pref_radioSwitch_connected_sim1">Connected SIM 1</string>
     <string name="array_pref_radioSwitch_connected_sim2">Connected SIM 2</string>
-    <string name="permission_why_event_radio_switch_preferences">for check mobile data connect/disconnect in dual SIM devices</string>
+    <string name="permission_why_event_radio_switch_preferences">for check mobile data connect for dial SIM cards, check default SIM card</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForCalls">Default SIM for calls</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForSMS">Default SIM for SMS</string>
+    <string name="array_pref_radioSwitch_defaultSIM1">SIM 1</string>
+    <string name="array_pref_radioSwitch_defaultSIM2">SIM 2</string>
 
     <!-- **************************************************************************************** -->
 

@@ -16,7 +16,7 @@ public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-//        final Intent _intent = intent;
+        final Intent _intent = intent;
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -40,13 +40,13 @@ public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-//                    PPApplication.logE("DefaultSIMChangedBroadcastReceiver.onReceive", "action="+_intent.getAction());
-//                    Bundle extras = _intent.getExtras();
-//                    if (extras != null) {
-//                        for (String key : extras.keySet()) {
-//                            PPApplication.logE("DefaultSIMChangedBroadcastReceiver.onReceive", key + " : " + (extras.get(key) != null ? extras.get(key) : "NULL"));
-//                        }
-//                    }
+                    PPApplication.logE("DefaultSIMChangedBroadcastReceiver.onReceive", "action="+_intent.getAction());
+                    Bundle extras = _intent.getExtras();
+                    if (extras != null) {
+                        for (String key : extras.keySet()) {
+                            PPApplication.logE("DefaultSIMChangedBroadcastReceiver.onReceive", key + " : " + (extras.get(key) != null ? extras.get(key) : "NULL"));
+                        }
+                    }
 
                 } catch (Exception e) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));

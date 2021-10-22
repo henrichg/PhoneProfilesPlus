@@ -1136,17 +1136,6 @@ public class PhoneProfilesService extends Service
                 appContext.registerReceiver(PPApplication.simStateChangedBroadcastReceiver, intentFilter10);
                 //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER simStateChangedBroadcastReceiver");
             }
-
-            if (PPApplication.defaultSIMChangedBroadcastReceiver == null) {
-                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers->REGISTER", "PhoneProfilesService_registerAllTheTimeRequiredSystemReceivers");
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers", "REGISTER defaultSIMChangedBroadcastReceiver");
-                PPApplication.defaultSIMChangedBroadcastReceiver = new DefaultSIMChangedBroadcastReceiver();
-                IntentFilter intentFilter10 = new IntentFilter();
-                intentFilter10.addAction(SubscriptionManager.ACTION_DEFAULT_SUBSCRIPTION_CHANGED);
-                intentFilter10.addAction(SubscriptionManager.ACTION_DEFAULT_SMS_SUBSCRIPTION_CHANGED);
-                appContext.registerReceiver(PPApplication.defaultSIMChangedBroadcastReceiver, intentFilter10);
-                //PPApplication.logE("[RJS] PhoneProfilesService.registerPowerSaveModeReceiver", "REGISTER defaultSIMChangedBroadcastReceiver");
-            }
         }
     }
 
@@ -1892,10 +1881,6 @@ public class PhoneProfilesService extends Service
             dataWrapper.fillEventList();
             boolean allowed = false;
             boolean eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA/*, false*/);
-            if (Build.VERSION.SDK_INT >= 26) {
-                eventsExists = eventsExists || dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM1/*, false*/);
-                eventsExists = eventsExists || dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM2/*, false*/);
-            }
             if (eventsExists)
                 allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
                     PreferenceAllowed.PREFERENCE_ALLOWED;
@@ -1911,6 +1896,54 @@ public class PhoneProfilesService extends Service
             }
             else
                 registerReceiverForRadioSwitchMobileDataSensor(false, dataWrapper);
+        }
+    }
+
+    private void registerReceiverForRadioSwitchDefaultSIMSensor(boolean register, DataWrapper dataWrapper) {
+        Context appContext = getApplicationContext();
+        //CallsCounter.logCounter(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchDefaultSIMSensor", "PhoneProfilesService_registerReceiverForRadioSwitchDefaultSIMSensor");
+        //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchMobileDataSensor", "xxx");
+        if (!register) {
+            if (PPApplication.defaultSIMChangedBroadcastReceiver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchDefaultSIMSensor->UNREGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchDefaultSIMSensor");
+                try {
+                    appContext.unregisterReceiver(PPApplication.defaultSIMChangedBroadcastReceiver);
+                    PPApplication.defaultSIMChangedBroadcastReceiver = null;
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchDefaultSIMSensor", "UNREGISTER");
+                } catch (Exception e) {
+                    PPApplication.defaultSIMChangedBroadcastReceiver = null;
+                }
+            }
+            //else
+            //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchDefaultSIMSensor", "not registered");
+        }
+        if (register) {
+            //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchDefaultSIMSensor", "REGISTER");
+            dataWrapper.fillEventList();
+            boolean allowed = false;
+            boolean eventsExists = false;
+            if (Build.VERSION.SDK_INT >= 26) {
+                eventsExists = dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS/*, false*/);
+                eventsExists = eventsExists || dataWrapper.eventTypeExists(DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS/*, false*/);
+            }
+            if (eventsExists)
+                allowed = Event.isEventPreferenceAllowed(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, appContext).allowed ==
+                        PreferenceAllowed.PREFERENCE_ALLOWED;
+            if (allowed) {
+                if (PPApplication.defaultSIMChangedBroadcastReceiver == null) {
+                    //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerReceiverForRadioSwitchDefaultSIMSensor->REGISTER", "PhoneProfilesService_registerReceiverForRadioSwitchDefaultSIMSensor");
+                    PPApplication.defaultSIMChangedBroadcastReceiver = new DefaultSIMChangedBroadcastReceiver();
+                    IntentFilter intentFilter10 = new IntentFilter();
+                    intentFilter10.addAction(SubscriptionManager.ACTION_DEFAULT_SUBSCRIPTION_CHANGED);
+                    intentFilter10.addAction(SubscriptionManager.ACTION_DEFAULT_SMS_SUBSCRIPTION_CHANGED);
+                    appContext.registerReceiver(PPApplication.defaultSIMChangedBroadcastReceiver, intentFilter10);
+                    //PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchDefaultSIMSensor", "REGISTER registerReceiverForRadioSwitchDefaultSIMSensor");
+                }
+                //else
+                //    PPApplication.logE("[RJS] PhoneProfilesService.registerReceiverForRadioSwitchDefaultSIMSensor", "registered");
+            }
+            else
+                registerReceiverForRadioSwitchDefaultSIMSensor(false, dataWrapper);
         }
     }
 
@@ -3778,6 +3811,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchMobileDataSensor(true, dataWrapper);
         registerReceiverForRadioSwitchNFCSensor(true, dataWrapper);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, dataWrapper);
+        registerReceiverForRadioSwitchDefaultSIMSensor(true, dataWrapper);
 
         // required for alarm clock event
         registerReceiverForAlarmClockSensor(true, dataWrapper);
@@ -3904,6 +3938,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchMobileDataSensor(false, null);
         registerReceiverForRadioSwitchNFCSensor(false, null);
         registerReceiverForRadioSwitchAirplaneModeSensor(false, null);
+        registerReceiverForRadioSwitchDefaultSIMSensor(false, null);
         registerReceiverForAlarmClockSensor(false, null);
         registerReceiverForDeviceBootSensor(false, null);
         registerReceiverForPeriodicSensor(false, null);
@@ -3962,6 +3997,7 @@ public class PhoneProfilesService extends Service
         registerReceiverForRadioSwitchMobileDataSensor(true, dataWrapper);
         registerReceiverForRadioSwitchNFCSensor(true, dataWrapper);
         registerReceiverForRadioSwitchAirplaneModeSensor(true, dataWrapper);
+        registerReceiverForRadioSwitchDefaultSIMSensor(true, dataWrapper);
         registerReceiverForAlarmClockSensor(true, dataWrapper);
         registerReceiverForDeviceBootSensor(true, dataWrapper);
         registerReceiverForPeriodicSensor(true, dataWrapper);

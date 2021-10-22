@@ -3425,16 +3425,16 @@ public class DataWrapper {
                             sensorEnabled = sensorEnabled &&
                                     (_event._eventPreferencesRadioSwitch._mobileData != 0);
                             break;
-/*                        case DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM1:
+                        case DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS:
                             sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
                             sensorEnabled = sensorEnabled &&
-                                    (_event._eventPreferencesRadioSwitch._mobileDataSIM1 != 0);
+                                    (_event._eventPreferencesRadioSwitch._defaultSIMForCalls != 0);
                             break;
-                        case DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM2:
+                        case DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS:
                             sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
                             sensorEnabled = sensorEnabled &&
-                                    (_event._eventPreferencesRadioSwitch._mobileDataSIM2 != 0);
-                            break;*/
+                                    (_event._eventPreferencesRadioSwitch._defaultSIMForSMS != 0);
+                            break;
                         case DatabaseHandler.ETYPE_RADIO_SWITCH_GPS:
                             sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
                             sensorEnabled = sensorEnabled &&

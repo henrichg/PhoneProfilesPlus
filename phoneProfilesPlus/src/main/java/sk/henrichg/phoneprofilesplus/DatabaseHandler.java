@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2476;
+    private static final int DATABASE_VERSION = 2477;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -103,10 +103,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_BATTERY_WITH_LEVEL = 29;
     static final int ETYPE_ALL_SCANNER_SENSORS = 30;
     static final int ETYPE_DEVICE_BOOT = 31;
-    static final int ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM1 = 32;
-    static final int ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM2 = 33;
     static final int ETYPE_SOUND_PROFILE = 36;
     static final int ETYPE_PERIODIC = 37;
+    static final int ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = 38;
+    static final int ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = 39;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";
@@ -370,8 +370,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_CALENDAR_DAY_CONTAINS_EVENT = "calendarDayContainsEvent";
     private static final String KEY_E_CALENDAR_ALL_DAY_EVENTS = "calendarAllDayEvents";
     private static final String KEY_E_ACCESSORY_TYPE = "accessoryType";
-    //private static final String KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1 = "radioSwitchMobileDataSIM1";
-    //private static final String KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2 = "radioSwitchMobileDataSIM2";
     private static final String KEY_E_CALL_FROM_SIM_SLOT = "callFromSIMSlot";
     private static final String KEY_E_CALL_FOR_SIM_CARD = "callForSIMCard";
     private static final String KEY_E_SMS_FROM_SIM_SLOT = "smsFromSIMSlot";
@@ -387,6 +385,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_PERIODIC_START_TIME = "periodicStartTime";
     private static final String KEY_E_PERIODIC_COUNTER = "periodicCounter";
     private static final String KEY_E_PERIODIC_SENSOR_PASSED = "periodicSensorPassed";
+    private static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = "radioSwitchDefaultSIMForCalls";
+    private static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = "radioSwitchDefaultSIMForSMS";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -801,8 +801,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_CALENDAR_DAY_CONTAINS_EVENT + " " + INTEGER_TYPE + ","
                 + KEY_E_CALENDAR_ALL_DAY_EVENTS + " " + INTEGER_TYPE + ","
                 + KEY_E_ACCESSORY_TYPE + " " + TEXT_TYPE + ","
-                //+ KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1 + " " + INTEGER_TYPE + ","
-                //+ KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2 + " " + INTEGER_TYPE + ","
                 + KEY_E_CALL_FROM_SIM_SLOT + " " + INTEGER_TYPE + ","
                 + KEY_E_CALL_FOR_SIM_CARD + " " + INTEGER_TYPE + ","
                 + KEY_E_SMS_FROM_SIM_SLOT + " " + INTEGER_TYPE + ","
@@ -817,7 +815,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_PERIODIC_DURATION + " " + INTEGER_TYPE + ","
                 + KEY_E_PERIODIC_START_TIME + " " + INTEGER_TYPE + ","
                 + KEY_E_PERIODIC_COUNTER + " " + INTEGER_TYPE + ","
-                + KEY_E_PERIODIC_SENSOR_PASSED + " " + INTEGER_TYPE
+                + KEY_E_PERIODIC_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1256,8 +1256,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_DAY_CONTAINS_EVENT, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_ALL_DAY_EVENTS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_ACCESSORY_TYPE, TEXT_TYPE, columns);
-                //createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1, INTEGER_TYPE, columns);
-                //createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALL_FROM_SIM_SLOT, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALL_FOR_SIM_CARD, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_SMS_FROM_SIM_SLOT, INTEGER_TYPE, columns);
@@ -1273,6 +1271,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_PERIODIC_START_TIME, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_PERIODIC_COUNTER, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_PERIODIC_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -3331,13 +3331,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_MOBILE_DATA_SIM1 + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_MOBILE_DATA_SIM2 + "=0");
         }
-/*
-        if (oldVersion < 2452)
-        {
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1 + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2 + "=0");
-        }
-*/
+
         if (oldVersion < 2453)
         {
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_DEFAULT_SIM_CARDS + "=\"0|0|0\"");
@@ -3563,6 +3557,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             values.put(KEY_IN_DO_NOT_DELETE, "1");
             db.insert(TABLE_INTENTS, null, values);
 
+        }
+
+        if (oldVersion < 2477) {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + "=0");
         }
 
     }
@@ -6588,9 +6587,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_RADIO_SWITCH_GPS,
                         KEY_E_RADIO_SWITCH_NFC,
                         KEY_E_RADIO_SWITCH_AIRPLANE_MODE,
-                        KEY_E_RADIO_SWITCH_SENSOR_PASSED/*,
-                        KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1,
-                        KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2*/
+                        KEY_E_RADIO_SWITCH_SENSOR_PASSED,
+                        KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS,
+                        KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -6609,8 +6608,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._gps = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_GPS));
                 eventPreferences._nfc = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_NFC));
                 eventPreferences._airplaneMode = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_AIRPLANE_MODE));
-                //eventPreferences._mobileDataSIM1 = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1));
-                //eventPreferences._mobileDataSIM2 = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2));
+                eventPreferences._defaultSIMForCalls = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS));
+                eventPreferences._defaultSIMForSMS = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_SENSOR_PASSED)));
             }
             cursor.close();
@@ -7059,8 +7058,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_RADIO_SWITCH_NFC, eventPreferences._nfc);
         values.put(KEY_E_RADIO_SWITCH_AIRPLANE_MODE, eventPreferences._airplaneMode);
         values.put(KEY_E_RADIO_SWITCH_SENSOR_PASSED, eventPreferences.getSensorPassed());
-        //values.put(KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1, eventPreferences._mobileDataSIM1);
-        //values.put(KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2, eventPreferences._mobileDataSIM2);
+        values.put(KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, eventPreferences._defaultSIMForCalls);
+        values.put(KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, eventPreferences._defaultSIMForSMS);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -7780,12 +7779,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     else if (eventType == ETYPE_RADIO_SWITCH_MOBILE_DATA)
                         eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
                                 KEY_E_RADIO_SWITCH_MOBILE_DATA + "!=0";
-/*                    else if (eventType == ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM1)
+                    else if (eventType == ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS)
                         eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                                KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1 + "!=0";
-                    else if (eventType == ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM2)
+                                KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + "!=0";
+                    else if (eventType == ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS)
                         eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                                KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2 + "!=0";*/
+                                KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + "!=0";
                     else if (eventType == ETYPE_RADIO_SWITCH_GPS)
                         eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
                                 KEY_E_RADIO_SWITCH_GPS + "!=0";
