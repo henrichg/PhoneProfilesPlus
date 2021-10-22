@@ -76,10 +76,10 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                         PPApplication.simCardsMutext.sim1Exists = PPApplication.hasSIMCard(appContext, 1);
                         PPApplication.simCardsMutext.sim2Exists = PPApplication.hasSIMCard(appContext, 2);
                         PPApplication.simCardsMutext.simCardsDetected = true;
-                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim0Exists="+PPApplication.simCardsMutext.sim0Exists);
-                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim1Exists="+PPApplication.simCardsMutext.sim1Exists);
-                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim2Exists="+PPApplication.simCardsMutext.sim2Exists);
-                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.simCardsDetected="+PPApplication.simCardsMutext.simCardsDetected);
+//                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim0Exists="+PPApplication.simCardsMutext.sim0Exists);
+//                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim1Exists="+PPApplication.simCardsMutext.sim1Exists);
+//                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.sim2Exists="+PPApplication.simCardsMutext.sim2Exists);
+//                        PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", "PPApplication.simCardsMutext.simCardsDetected="+PPApplication.simCardsMutext.simCardsDetected);
                     }
 
                     PhoneProfilesService.registerPhoneCallsListener(false, appContext);

@@ -3,11 +3,8 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.telephony.SubscriptionManager;
-import android.telephony.TelephonyManager;
 
 public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
 
@@ -18,7 +15,7 @@ public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-        final Intent _intent = intent;
+//        final Intent _intent = intent;
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -49,16 +46,9 @@ public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
 //                        }
 //                    }
 
-                    PPApplication.logE("DefaultSIMChangedBroadcastReceiver.onReceive", "action="+_intent.getAction());
-                    int subscriptionIdx = _intent.getIntExtra(SubscriptionManager.EXTRA_SUBSCRIPTION_INDEX, -1);
-                    PPApplication.logE("DefaultSIMChangedBroadcastReceiver.onReceive", "subscriptionIdx="+subscriptionIdx);
-                    /*String action = _intent.getAction();
-                    if (action.equals(SubscriptionManager.ACTION_DEFAULT_SUBSCRIPTION_CHANGED)) {
-                        // default sim for calls changed
-                    }
-                    if (action.equals(SubscriptionManager.ACTION_DEFAULT_SMS_SUBSCRIPTION_CHANGED)) {
-                        // default sim for sms changed
-                    }*/
+//                    PPApplication.logE("DefaultSIMChangedBroadcastReceiver.onReceive", "action="+_intent.getAction());
+//                    int subscriptionIdx = _intent.getIntExtra(SubscriptionManager.EXTRA_SUBSCRIPTION_INDEX, -1);
+//                    PPApplication.logE("DefaultSIMChangedBroadcastReceiver.onReceive", "subscriptionIdx="+subscriptionIdx);
 
                     if (Event.getGlobalEventsRunning()) {
                         if (PhoneProfilesService.getInstance() != null) {
