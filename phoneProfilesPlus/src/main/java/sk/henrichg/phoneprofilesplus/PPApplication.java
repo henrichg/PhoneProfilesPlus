@@ -258,10 +258,10 @@ public class PPApplication extends Application
                                                 //+"|WifiApManager._startTethering30"
                                                 //+"|NextAlarmClockBroadcastReceiver"
 
-                                                +"|SimStateChangedBroadcastReceiver"
-                                                +"|DefaultSIMChangedBroadcastReceiver"
+                                                //+"|SimStateChangedBroadcastReceiver"
+                                                //+"|DefaultSIMChangedBroadcastReceiver"
                                                 //+"|MobileDataNetworkCallback"
-                                                +"|EventPreferencesRadioSwitch"
+                                                //+"|EventPreferencesRadioSwitch"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
