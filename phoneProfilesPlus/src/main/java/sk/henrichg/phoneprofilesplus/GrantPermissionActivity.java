@@ -710,9 +710,9 @@ public class GrantPermissionActivity extends AppCompatActivity {
                     case Permissions.PERMISSION_EVENT_SMS_PREFERENCES:
                         s = getString(R.string.permission_why_event_sms_preferences);
                         break;
-//                    case Permissions.PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES:
-//                        s = getString(R.string.permission_why_event_radio_switch_preferences);
-//                        break;
+                    case Permissions.PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES:
+                        s = getString(R.string.permission_why_event_radio_switch_preferences);
+                        break;
                     case Permissions.PERMISSION_EVENT_LOCATION_PREFERENCES:
                         s = getString(R.string.permission_why_event_location_preferences);
                         break;

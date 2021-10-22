@@ -681,13 +681,17 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             }
                             if (phoneCount > 1) {
                                 if (connected) {
-                                    int defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
-                                    int defaultSIM = PPApplication.getSIMCardFromSubscriptionId(eventsHandler.context, defaultSubscriptionId);
-//                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "defaultSubscriptionId=" + defaultSubscriptionId);
-                                    if (_mobileData == 5)
-                                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (defaultSIM == 1);
+                                    if (Permissions.checkPhone(eventsHandler.context.getApplicationContext())) {
+                                        int defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
+                                        int defaultSIM = PPApplication.getSIMCardFromSubscriptionId(eventsHandler.context, defaultSubscriptionId);
+//                                        PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "defaultSubscriptionId=" + defaultSubscriptionId);
+                                        if (_mobileData == 5)
+                                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (defaultSIM == 1);
+                                        else
+                                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (defaultSIM == 2);
+                                    }
                                     else
-                                        eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (defaultSIM == 2);
+                                        eventsHandler.radioSwitchPassed = false;
                                 } else
                                     eventsHandler.radioSwitchPassed = false;
                             }
