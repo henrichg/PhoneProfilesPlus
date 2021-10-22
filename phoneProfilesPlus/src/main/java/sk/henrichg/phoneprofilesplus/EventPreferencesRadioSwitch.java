@@ -679,21 +679,32 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             if (telephonyManager != null) {
                                 phoneCount = telephonyManager.getPhoneCount();
                             }
+                            boolean twoSimCards = false;
+                            synchronized (PPApplication.simCardsMutext) {
+                                if (phoneCount == 2) {
+                                    twoSimCards = PPApplication.simCardsMutext.sim1Exists &&
+                                                    PPApplication.simCardsMutext.sim2Exists;
+                                }
+                            }
+
                             if (phoneCount > 1) {
-                                if (connected) {
-                                    if (Permissions.checkPhone(eventsHandler.context.getApplicationContext())) {
-                                        int defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
-                                        int defaultSIM = PPApplication.getSIMCardFromSubscriptionId(eventsHandler.context, defaultSubscriptionId);
+                                if (twoSimCards) {
+                                    if (connected) {
+                                        if (Permissions.checkPhone(eventsHandler.context.getApplicationContext())) {
+                                            int defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
+                                            int defaultSIM = PPApplication.getSIMCardFromSubscriptionId(eventsHandler.context, defaultSubscriptionId);
 //                                        PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "defaultSubscriptionId=" + defaultSubscriptionId);
-                                        if (_mobileData == 5)
-                                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (defaultSIM == 1);
-                                        else
-                                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (defaultSIM == 2);
-                                    }
-                                    else
+                                            if (_mobileData == 5)
+                                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (defaultSIM == 1);
+                                            else
+                                                eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && (defaultSIM == 2);
+                                        } else
+                                            eventsHandler.radioSwitchPassed = false;
+                                    } else
                                         eventsHandler.radioSwitchPassed = false;
                                 } else
-                                    eventsHandler.radioSwitchPassed = false;
+                                    // only one sim card is inserted
+                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
                             }
                             else
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
