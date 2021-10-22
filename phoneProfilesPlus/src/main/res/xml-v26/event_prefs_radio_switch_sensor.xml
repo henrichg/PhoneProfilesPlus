@@ -36,6 +36,16 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <ListPreference
+        app:title="@string/event_preferences_radioSwitch_simOnOff"
+        app:summary="@string/array_pref_radioSwitch_notDetect"
+        app:key="eventRadioSwitchSIMOnOff"
+        app:defaultValue="0"
+        app:entries="@array/eventRadioSwitchSIMOnOffArray"
+        app:entryValues="@array/eventRadioSwitchSIMOnOffValues"
+        app:dependency="eventRadioSwitchEnabled"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <ListPreference
         app:title="@string/event_preferences_radioSwitch_defaultSIMForCalls"
         app:summary="@string/array_pref_radioSwitch_notDetect"
         app:key="eventRadioSwitchDefaultSIMForCalls"

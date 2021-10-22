@@ -66,7 +66,7 @@ public class DefaultSIMChangedBroadcastReceiver extends BroadcastReceiver {
                             // start events handler
                             //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=DefaultSIMChangedBroadcastReceiver.onReceive");
 
-//                            PPApplication.logE("[EVENTS_HANDLER_CALL] MDefaultSIMChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+//                            PPApplication.logE("[EVENTS_HANDLER_CALL] DefaultSIMChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
                             EventsHandler eventsHandler = new EventsHandler(appContext);
                             eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
 

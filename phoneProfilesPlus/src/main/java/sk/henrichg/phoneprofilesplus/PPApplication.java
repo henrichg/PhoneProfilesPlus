@@ -258,7 +258,7 @@ public class PPApplication extends Application
                                                 //+"|WifiApManager._startTethering30"
                                                 //+"|NextAlarmClockBroadcastReceiver"
 
-                                                //+"|SimStateChangedBroadcastReceiver"
+                                                +"|SimStateChangedBroadcastReceiver"
                                                 +"|DefaultSIMChangedBroadcastReceiver"
                                                 //+"|MobileDataNetworkCallback"
                                                 +"|EventPreferencesRadioSwitch"

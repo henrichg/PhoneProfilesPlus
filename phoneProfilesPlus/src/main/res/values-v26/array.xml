@@ -40,4 +40,22 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string-array name="eventRadioSwitchSIMOnOffArray">
+        <item>@string/array_pref_radioSwitch_notDetect</item>
+        <item>@string/array_pref_radioSwitch_any_SIM_on</item>
+        <item>@string/array_pref_radioSwitch_any_SIM_off</item>
+        <item>@string/array_pref_radioSwitch_SIM1_on</item>
+        <item>@string/array_pref_radioSwitch_SIM1_off</item>
+        <item>@string/array_pref_radioSwitch_SIM2_on</item>
+        <item>@string/array_pref_radioSwitch_SIM2_off</item>
+    </string-array>
+    <string-array name="eventRadioSwitchSIMOnOffValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
 </resources>

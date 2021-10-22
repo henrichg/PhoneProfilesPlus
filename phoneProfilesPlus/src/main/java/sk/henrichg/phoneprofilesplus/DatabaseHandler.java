@@ -37,7 +37,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2477;
+    private static final int DATABASE_VERSION = 2478;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -107,6 +107,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_PERIODIC = 37;
     static final int ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = 38;
     static final int ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = 39;
+    static final int ETYPE_RADIO_SWITCH_SIM_ON_OFF = 40;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";
@@ -387,6 +388,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_PERIODIC_SENSOR_PASSED = "periodicSensorPassed";
     private static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = "radioSwitchDefaultSIMForCalls";
     private static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = "radioSwitchDefaultSIMForSMS";
+    private static final String KEY_E_RADIO_SWITCH_SIM_ON_OFF = "radioSwitchSIMOnOff";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -817,7 +819,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_PERIODIC_COUNTER + " " + INTEGER_TYPE + ","
                 + KEY_E_PERIODIC_SENSOR_PASSED + " " + INTEGER_TYPE + ","
                 + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + " " + INTEGER_TYPE + ","
-                + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + " " + INTEGER_TYPE
+                + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_SIM_ON_OFF + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -1273,6 +1276,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_PERIODIC_SENSOR_PASSED, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_SIM_ON_OFF, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -3562,6 +3566,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion < 2477) {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + "=0");
+        }
+
+        if (oldVersion < 2478) {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_SIM_ON_OFF + "=0");
         }
 
     }
@@ -6589,7 +6597,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_RADIO_SWITCH_AIRPLANE_MODE,
                         KEY_E_RADIO_SWITCH_SENSOR_PASSED,
                         KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS,
-                        KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS
+                        KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS,
+                        KEY_E_RADIO_SWITCH_SIM_ON_OFF
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -6610,6 +6619,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._airplaneMode = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_AIRPLANE_MODE));
                 eventPreferences._defaultSIMForCalls = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS));
                 eventPreferences._defaultSIMForSMS = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS));
+                eventPreferences._simOnOff = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_SIM_ON_OFF));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_SENSOR_PASSED)));
             }
             cursor.close();
@@ -7060,6 +7070,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_RADIO_SWITCH_SENSOR_PASSED, eventPreferences.getSensorPassed());
         values.put(KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, eventPreferences._defaultSIMForCalls);
         values.put(KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, eventPreferences._defaultSIMForSMS);
+        values.put(KEY_E_RADIO_SWITCH_SIM_ON_OFF, eventPreferences._simOnOff);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -7794,6 +7805,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     else if (eventType == ETYPE_RADIO_SWITCH_AIRPLANE_MODE)
                         eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
                                 KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "!=0";
+                    else if (eventType == ETYPE_RADIO_SWITCH_SIM_ON_OFF)
+                        eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                                KEY_E_RADIO_SWITCH_SIM_ON_OFF + "!=0";
                     else if (eventType == ETYPE_ALARM_CLOCK)
                         eventTypeChecked = eventTypeChecked + KEY_E_ALARM_CLOCK_ENABLED + "=1";
                     else if (eventType == ETYPE_TIME_TWILIGHT)

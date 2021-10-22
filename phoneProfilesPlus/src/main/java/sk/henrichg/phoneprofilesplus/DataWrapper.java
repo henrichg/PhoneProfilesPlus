@@ -3450,6 +3450,11 @@ public class DataWrapper {
                             sensorEnabled = sensorEnabled &&
                                     (_event._eventPreferencesRadioSwitch._airplaneMode != 0);
                             break;
+                        case DatabaseHandler.ETYPE_RADIO_SWITCH_SIM_ON_OFF:
+                            sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
+                            sensorEnabled = sensorEnabled &&
+                                    (_event._eventPreferencesRadioSwitch._simOnOff != 0);
+                            break;
                         case DatabaseHandler.ETYPE_ALARM_CLOCK:
                             sensorEnabled = _event._eventPreferencesAlarmClock._enabled;
                             break;

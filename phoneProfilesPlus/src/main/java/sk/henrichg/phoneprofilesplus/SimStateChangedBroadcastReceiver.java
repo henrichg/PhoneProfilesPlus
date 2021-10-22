@@ -3,6 +3,7 @@ package sk.henrichg.phoneprofilesplus;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
 
@@ -38,7 +39,7 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
         if (intent == null)
             return;
 
-//        final Intent _intent = intent;
+        final Intent _intent = intent;
 
         if (!PPApplication.getApplicationStarted(true))
             // application is not started
@@ -62,12 +63,12 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
                         wakeLock.acquire(10 * 60 * 1000);
                     }
 
-//                    Bundle extras = _intent.getExtras();
-//                    if (extras != null) {
-//                        for (String key : extras.keySet()) {
-//                            PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", key + " : " + (extras.get(key) != null ? extras.get(key) : "NULL"));
-//                        }
-//                    }
+                    Bundle extras = _intent.getExtras();
+                    if (extras != null) {
+                        for (String key : extras.keySet()) {
+                            PPApplication.logE("SimStateChangedBroadcastReceiver.onReceive", key + " : " + (extras.get(key) != null ? extras.get(key) : "NULL"));
+                        }
+                    }
 
                     PPApplication.initSIMCards();
                     synchronized (PPApplication.simCardsMutext) {
@@ -87,6 +88,19 @@ public class SimStateChangedBroadcastReceiver extends BroadcastReceiver {
 
                     PPApplication.restartMobileCellsScanner(appContext);
 
+                    if (Event.getGlobalEventsRunning()) {
+                        if (PhoneProfilesService.getInstance() != null) {
+
+                            // start events handler
+                            //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=SimStateChangedBroadcastReceiver.onReceive");
+
+//                            PPApplication.logE("[EVENTS_HANDLER_CALL] SimStateChangedBroadcastReceiver.onReceive", "sensorType=SENSOR_TYPE_RADIO_SWITCH");
+                            EventsHandler eventsHandler = new EventsHandler(appContext);
+                            eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_RADIO_SWITCH);
+
+                            //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=SimStateChangedBroadcastReceiver.onReceive");
+                        }
+                    }
 
                 } catch (Exception e) {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));

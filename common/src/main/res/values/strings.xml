@@ -1822,6 +1822,13 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="event_preferences_radioSwitch_defaultSIMForSMS">Default SIM for SMS</string>
     <string name="array_pref_radioSwitch_defaultSIM1">SIM 1</string>
     <string name="array_pref_radioSwitch_defaultSIM2">SIM 2</string>
+    <string name="event_preferences_radioSwitch_simOnOff">SIM on/off</string>
+    <string name="array_pref_radioSwitch_any_SIM_on">Any SIM On</string>
+    <string name="array_pref_radioSwitch_any_SIM_off">Any SIM Off</string>
+    <string name="array_pref_radioSwitch_SIM1_on">SIM 1 On</string>
+    <string name="array_pref_radioSwitch_SIM1_off">SIM 1 Off</string>
+    <string name="array_pref_radioSwitch_SIM2_on">SIM 2 On</string>
+    <string name="array_pref_radioSwitch_SIM2_off">SIM 2 Off</string>
 
     <!-- **************************************************************************************** -->
 
