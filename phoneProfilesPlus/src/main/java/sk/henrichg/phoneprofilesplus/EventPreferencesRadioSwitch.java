@@ -822,8 +822,6 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                             else
                                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
                         }
-                        else
-                            eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && connected;
                     }
                 }
 
@@ -871,6 +869,64 @@ class EventPreferencesRadioSwitch extends EventPreferences {
                         eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && enabled;
                     else
                         eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && !enabled;
+                }
+
+                if ((_defaultSIMForCalls != 0) || (_defaultSIMForSMS != 0)) {
+                    if (Build.VERSION.SDK_INT >= 26) {
+                        int phoneCount = 1;
+                        TelephonyManager telephonyManager = (TelephonyManager) eventsHandler.context.getSystemService(Context.TELEPHONY_SERVICE);
+                        if (telephonyManager != null) {
+                            phoneCount = telephonyManager.getPhoneCount();
+                        }
+                        boolean twoSimCards = false;
+                        synchronized (PPApplication.simCardsMutext) {
+                            if (phoneCount == 2) {
+                                twoSimCards = PPApplication.simCardsMutext.sim1Exists &&
+                                        PPApplication.simCardsMutext.sim2Exists;
+                            }
+                        }
+
+                        if ((phoneCount > 1) && twoSimCards) {
+                            tested = true;
+                            if (Permissions.checkPhone(eventsHandler.context.getApplicationContext())) {
+                                if (_defaultSIMForCalls != 0) {
+                                    int defaultSubscriptionId = SubscriptionManager.getDefaultSubscriptionId();
+                                    int simCard = PPApplication.getSIMCardFromSubscriptionId(eventsHandler.context, defaultSubscriptionId);
+                                    int configuredSIMCard = 1;
+                                    if (_defaultSIMForCalls == 2)
+                                        configuredSIMCard = 2;
+
+                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "CALLS");
+                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "defaultSubscriptionId=" + defaultSubscriptionId);
+                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "simCard=" + simCard);
+                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "configuredSIMCard=" + configuredSIMCard);
+                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "eventsHandler.radioSwitchPassed=" + eventsHandler.radioSwitchPassed);
+
+                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                            (simCard == configuredSIMCard);
+                                }
+                                if (_defaultSIMForSMS != 0) {
+                                    int defaultSubscriptionId = SubscriptionManager.getDefaultSmsSubscriptionId();
+                                    int simCard = PPApplication.getSIMCardFromSubscriptionId(eventsHandler.context, defaultSubscriptionId);
+                                    int configuredSIMCard = 1;
+                                    if (_defaultSIMForSMS == 2)
+                                        configuredSIMCard = 2;
+
+                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "SMS");
+                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "defaultSubscriptionId=" + defaultSubscriptionId);
+                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "simCard=" + simCard);
+                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "configuredSIMCard=" + configuredSIMCard);
+                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "configuredSIMCard=" + configuredSIMCard);
+                                    PPApplication.logE("-###- EventPreferencesRadioSwitch.doHandleEvent", "eventsHandler.radioSwitchPassed=" + eventsHandler.radioSwitchPassed);
+
+                                    eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed &&
+                                            (simCard == configuredSIMCard);
+                                }
+                            }
+                            else
+                                eventsHandler.radioSwitchPassed = false;
+                        }
+                    }
                 }
 
                 eventsHandler.radioSwitchPassed = eventsHandler.radioSwitchPassed && tested;
