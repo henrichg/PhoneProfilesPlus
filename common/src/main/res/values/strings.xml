@@ -1812,7 +1812,7 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="profile_preferences_deviceVPNInfo_infoText">In Profile parameter \"Others\"\/\"Run applications, shortcuts, intents\" exists predefined Intents for two applications: \"OpenVPN Connect\" and \"OpenVPN for Android\". For more informations visit:</string>
 
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Change colors by Night mode</string>
-    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">If nabled, widget colors will be set by system Night mode (as in Pixel launcher)</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Night mode (as in Pixel launcher)</string>
 
     <string name="array_pref_radioSwitch_connected_any_sim_cards">Connected (any SIM card)</string>
     <string name="array_pref_radioSwitch_connected_sim1">Connected SIM 1</string>
