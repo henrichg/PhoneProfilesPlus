@@ -399,94 +399,64 @@ MobileCellsRegistrationService:
 
 -----
 
-Zmena default sim karty a zapnutie/vypnutie sim karty
+ActivateProfileHelper.setScreenTimeout()
+- disableScreenTimeoutInternalChange = true;
+- pre kazdy timeout z parametra:
+	if (PPApplication.lockDeviceActivity != null)
+	    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
+	    PPApplication.screenTimeoutBeforeDeviceLock = 15000;
+	else {
+      	    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, xxx);
+      	}
+- nerobi 6, 8. Preco?
+- zavola:
+        setActivatedProfileScreenTimeout(appContext, 0);
+- zavola work:
+	DisableScreenTimeoutInternalChangeWorker.class
 
-Takto zistujem ci je mobil dual sim:
+Cize to vypada, ze ak lockDeviceActivity != null, tak si len zapamata hodnotu.
+Pozri, co robi potom v lockDeviceActivity s nou.
+- volane z:
+  - ActivateProfileHelper.execute() - aktivacia profilu ak je obrazovka zapnuta
+  - LockDeviceActivity.onDestroy() - na nastavenie timeoutu, ak sa este nenastavil
+  - ScreenOnOffBroadcastReceiver.onReceive() na ACTION_USER_PRESENT
 
-        int phoneCount = 1;
-        TelephonyManager telephonyManager = null;
-        if (Build.VERSION.SDK_INT >= 26) {
-            telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            if (telephonyManager != null) {
-                phoneCount = telephonyManager.getPhoneCount();
+ActivateProfileHelper.setActivatedProfileScreenTimeout()
+- ulozi do shared preferences timeout.
+- ulozi to aj do ApplicationPreferences.prefActivatedProfileScreenTimeout
+- pouzije to v ScreenOnOffBroadcastReceiver.onReceive() na ACTION_USER_PRESENT
+- pouzije to aj v LockDeviceActivity.onDestroy() na vratenie timeoutu
+
+- volane je z:
+  - ActivateProfileHelper.setScreenTimeout() - nastvi 0
+  - ActivateProfileHelper.execute - nastavi profile parameter _deviceScreenTimeout
+  - SettingsContentObserver.onChange() - nastvi 0 ak posledny zapamatany tiemout je iny ako aktualny. a  nie je to internalChange
+                                                  ActivateProfileHelper.disableScreenTimeoutInternalChange
+
+premenna PPApplication.screenTimeoutBeforeDeviceLock:
+- tu si pamatam, aky timeout je pred spustenim LockDeviceActivity.
+- na onCreate() ho zistuje
+- na onDestroy() nastavi spat timeout na tuto odpamatanu hodnotu
+- na onDestroy() potom nastavi timeot na hodnotu ApplicationPreferences.prefActivatedProfileScreenTimeout.
+
+
+Takto sa nastavuje tiemout pri aktivacii profilu:
+        // screen timeout
+        if (Permissions.checkProfileScreenTimeout(appContext, profile, null)) {
+            if (PPApplication.isScreenOn) {
+                if (PPApplication.screenTimeoutHandler != null) {
+                    PPApplication.screenTimeoutHandler.post(() -> {
+                        setScreenTimeout(profile._deviceScreenTimeout, appContext);
+                    });
+            }
+            else {
+                setActivatedProfileScreenTimeout(appContext, profile._deviceScreenTimeout);
             }
         }
-
-        boolean isDualSIM = true;
-        if (telephonyManager != null) {
-            if (phoneCount < 2) {
-                preferenceScreen.setVisible(false);
-                isDualSIM = false;
-            }
-
-Zapnutie/vypnutie sim:
-SimStateChangedBroadcastReceiver. Ten zistuje stav sim kariet. Toto by mohlo byt ono.
-Toto sa meni zapinanim a vypinanim SIM kariet v SimStateChangedBroadcastReceiver.
-Reaguje to aj na zapinanie/vypinanie cez device Settings.
-PPApplication.simCardsMutext.sim0Exists=true
-PPApplication.simCardsMutext.sim1Exists=true
-PPApplication.simCardsMutext.sim2Exists=true
-PPApplication.simCardsMutext.simCardsDetected=true
-
-Zmena default sim karty:
-Ide to spravit pre 3 rozne typy:
-                            switch (subscriptionType) {
-                                case SUBSCRIPTRION_VOICE:
-                                    defaultSubscriptionId = SubscriptionManager.getDefaultVoiceSubscriptionId();
-                                    break;
-                                case SUBSCRIPTRION_SMS:
-                                    defaultSubscriptionId = SubscriptionManager.getDefaultSmsSubscriptionId();
-                                    break;
-                                case SUBSCRIPTRION_DATA:
-                                    defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
-                                    break;
-                            }
-
-Pridal som DefaultSIMChangedBroadcastReceiver:
-SubscriptionManager#ACTION_DEFAULT_SMS_SUBSCRIPTION_CHANGED
-Toto je len na sms.
-SubscriptionManager#ACTION_DEFAULT_SUBSCRIPTION_CHANGED
-Toto je len na hovory
-SubscriptionManager#EXTRA_SUBSCRIPTION_INDEX - urcuje, ktory subscription index  je default
-
-Mobilne data:
-PPP.MobileDataNetworkCallback
-Viem zistit, ked sa pripoji, na akej karte je. Cez SubscriptionManager.getDefaultDataSubscriptionId();
-Cize pre mobilne data to sprav tak, ze budem testovat, ci je nakonektnuty na SIM 1 alebo 2.
-Cize len tam pridas este dve moznosti:
-- Connected -> je jedno aka karta, toto tam uz je, len to uprav, ze ti je jedon ake je default subscriton
-- Connected to SIM 1
-- Connected to SIM 2
-
-PhoneServiceStateListener listener = new PhoneServiceStateListener(this);
-tm.listen(listener, PhoneStateListener.LISTEN_SERVICE_STATE);
-
-
-class PhoneServiceStateListener extends PhoneStateListener {
-Context context = null;
-
-public PhoneServiceStateListener(Context context) {
-    this.context = context;
-}
-
-public PhoneServiceStateListener() {
-}
-
-@Override
-public void onServiceStateChanged(ServiceState serviceState) {
-
-    if (serviceState.getState() == ServiceState.STATE_IN_SERVICE) {
-        //You get this event when your SIM is in service.
-        //If you get this event twice, chances are more that your phone is Dual SIM.
-        //Alternatively, you can toggle Flight Mode programmatically twice so
-        //that you'll get service state changed event.
-    }
-    super.onServiceStateChanged(serviceState);
-}
-
-}
-
-------------------
+- cize ak je screen on, nastavi sa timeount hned.
+- ak je screen off, nastavi sa timeount az v ScreenOnOffBroadcastReceiver.onReceive() na ACTION_USER_PRESENT
+  cize len sa hodnota ulozi do ApplicationPreferences.prefActivatedProfileScreenTimeout.
+Toto cele chapem.
 
 
 
