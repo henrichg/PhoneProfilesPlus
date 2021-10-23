@@ -117,11 +117,7 @@ public class LockDeviceActivity extends AppCompatActivity {
 
         final Context appContext = getApplicationContext();
 
-        boolean canWriteSettings;// = true;
-        //if (android.os.Build.VERSION.SDK_INT >= 23)
-            canWriteSettings = Settings.System.canWrite(appContext);
-
-        if (displayed && (PhoneProfilesService.getInstance() != null) && canWriteSettings) {
+        if (displayed) {
             displayed = false;
 
             if (view != null)
@@ -135,48 +131,50 @@ public class LockDeviceActivity extends AppCompatActivity {
 
             LockDeviceActivityFinishBroadcastReceiver.removeAlarm(appContext);
 
-            PPApplication.lockDeviceActivity = null;
-
-            /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
-                if (PPApplication.screenTimeoutHandler != null) {
-                    PPApplication.screenTimeoutHandler.post(() -> {
-                        synchronized (PPApplication.rootMutex) {
-                            PPApplication.logE("LockDeviceActivity.onDestroy", "" + PPApplication.screenTimeoutBeforeDeviceLock);
-                            String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " " + PPApplication.screenTimeoutBeforeDeviceLock;
-                            //if (PPApplication.isSELinuxEnforcing())
-                            //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                            Command command = new Command(0, false, command1); //, command2);
-                            try {
-                                RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
-                                PPApplication.commandWait(command, "LockDeviceActivity.onDestroy");
-                            } catch (Exception e) {
-                                // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                                //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
-                                //PPApplication.recordException(e);
+            if (Settings.System.canWrite(appContext)) {
+                /*if (PPApplication.deviceIsOppo || PPApplication.deviceIsRealme) {
+                    if (PPApplication.screenTimeoutHandler != null) {
+                        PPApplication.screenTimeoutHandler.post(() -> {
+                            synchronized (PPApplication.rootMutex) {
+                                PPApplication.logE("LockDeviceActivity.onDestroy", "" + PPApplication.screenTimeoutBeforeDeviceLock);
+                                String command1 = "settings put system " + Settings.System.SCREEN_OFF_TIMEOUT + " " + PPApplication.screenTimeoutBeforeDeviceLock;
+                                //if (PPApplication.isSELinuxEnforcing())
+                                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                                Command command = new Command(0, false, command1); //, command2);
+                                try {
+                                    RootTools.getShell(false, Shell.ShellContext.SYSTEM_APP).add(command);
+                                    PPApplication.commandWait(command, "LockDeviceActivity.onDestroy");
+                                } catch (Exception e) {
+                                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                                    //Log.e("ActivateProfileHelper.setScreenTimeout", Log.getStackTraceString(e));
+                                    //PPApplication.recordException(e);
+                                }
                             }
-                        }
-                    });
-                }
-            } else*/
+                        });
+                    }
+                } else*/
                 Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, PPApplication.screenTimeoutBeforeDeviceLock);
 
-            // change screen timeout
-            //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
-            final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeout;
-            //PPApplication.logE("LockDeviceActivity.onDestroy", "screenTimeout="+screenTimeout);
-            if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
-                //PPApplication.logE("LockDeviceActivity.onDestroy", "permission ok");
-                if (PPApplication.screenTimeoutHandler != null) {
-                    PPApplication.screenTimeoutHandler.post(() -> {
-                        //PPApplication.logE("LockDeviceActivity.onDestroy", "call ActivateProfileHelper.setScreenTimeout");
-                        ActivateProfileHelper.setScreenTimeout(screenTimeout, appContext);
-                    });
-                }/* else {
+                // change screen timeout
+                //final DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false);
+                final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeout;
+                //PPApplication.logE("LockDeviceActivity.onDestroy", "screenTimeout="+screenTimeout);
+                if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
+                    //PPApplication.logE("LockDeviceActivity.onDestroy", "permission ok");
+                    if (PPApplication.screenTimeoutHandler != null) {
+                        PPApplication.screenTimeoutHandler.post(() -> {
+                            //PPApplication.logE("LockDeviceActivity.onDestroy", "call ActivateProfileHelper.setScreenTimeout");
+                            ActivateProfileHelper.setScreenTimeout(screenTimeout, appContext);
+                        });
+                    }/* else {
                     dataWrapper.getActivateProfileHelper().setScreenTimeout(screenTimeout);
-                }*/
+                    }*/
+                }
             }
             //dataWrapper.invalidateDataWrapper();
         }
+
+        PPApplication.lockDeviceActivity = null;
     }
 
     @Override

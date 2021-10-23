@@ -414,8 +414,6 @@ ActivateProfileHelper.setScreenTimeout()
 - zavola work:
 	DisableScreenTimeoutInternalChangeWorker.class
 
-Cize to vypada, ze ak lockDeviceActivity != null, tak si len zapamata hodnotu.
-Pozri, co robi potom v lockDeviceActivity s nou.
 - volane z:
   - ActivateProfileHelper.execute() - aktivacia profilu ak je obrazovka zapnuta
   - LockDeviceActivity.onDestroy() - na nastavenie timeoutu, ak sa este nenastavil
@@ -428,10 +426,11 @@ ActivateProfileHelper.setActivatedProfileScreenTimeout()
 - pouzije to aj v LockDeviceActivity.onDestroy() na vratenie timeoutu
 
 - volane je z:
-  - ActivateProfileHelper.setScreenTimeout() - nastvi 0
-  - ActivateProfileHelper.execute - nastavi profile parameter _deviceScreenTimeout
-  - SettingsContentObserver.onChange() - nastvi 0 ak posledny zapamatany tiemout je iny ako aktualny. a  nie je to internalChange
+  - ActivateProfileHelper.setScreenTimeout() - nastavi 0, lebo netreba nastavovat na screen On ACTION_USER_PRESENT
+  - ActivateProfileHelper.execute - nastavi profile parameter _deviceScreenTimeout, ak je screen off
+  - SettingsContentObserver.onChange() - nastvi 0 ak posledny zapamatany timeout je iny ako aktualny. a  nie je to internalChange
                                                   ActivateProfileHelper.disableScreenTimeoutInternalChange
+                                         to aby sa nepouzila na ten screen On ACTION_USER_PRESENT. Tu sa predpoklada, ze zmena prisla z vonka.
 
 premenna PPApplication.screenTimeoutBeforeDeviceLock:
 - tu si pamatam, aky timeout je pred spustenim LockDeviceActivity.
