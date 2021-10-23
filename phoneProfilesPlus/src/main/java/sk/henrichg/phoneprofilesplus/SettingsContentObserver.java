@@ -230,17 +230,9 @@ class SettingsContentObserver  extends ContentObserver {
         int screenTimeout = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 0);
         if (!ActivateProfileHelper.disableScreenTimeoutInternalChange) {
             if (previousScreenTimeout != screenTimeout) {
-                if (Permissions.checkScreenTimeout(context)) {
+                //if (Permissions.checkScreenTimeout(context)) {
                     ActivateProfileHelper.setActivatedProfileScreenTimeout(context, 0);
-                    /*if (PPApplication.screenTimeoutHandler != null) {
-                        PPApplication.screenTimeoutHandler.post(new Runnable() {
-                            public void run() {
-                                ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
-                            }
-                        });
-                    }*/// else
-                    //    ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
-                }
+                //}
             }
         }
         previousScreenTimeout = screenTimeout;
