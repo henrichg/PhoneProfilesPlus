@@ -76,6 +76,9 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
     //                            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "isScreenOn="+PPApplication.isScreenOn);
     //                        }
 
+                            // change screen timeout
+                            setScreenTimeout(appContext);
+
                             /*
                             Profile profile = DatabaseHandler.getInstance(appContext).getActivatedProfile();
                             //if (profile != null)
@@ -197,6 +200,8 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         case Intent.ACTION_USER_PRESENT:
                             //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screen unlock");
 
+                            PPApplication.isScreenOn = true;
+
                             /*if (Build.VERSION.SDK_INT < 26) {
                                 if (ApplicationPreferences.notificationShowInStatusBar &&
                                         ApplicationPreferences.notificationHideInLockScreen) {
@@ -206,13 +211,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             }*/
 
                             // change screen timeout
-                            final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeout;
-                            //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screenTimeout=" + screenTimeout);
-                            if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
-                                if (PPApplication.screenTimeoutHandler != null) {
-                                    PPApplication.screenTimeoutHandler.post(() -> ActivateProfileHelper.setScreenTimeout(screenTimeout, appContext));
-                                }
-                            }
+                            setScreenTimeout(appContext);
 
                             // enable/disable keyguard
                             try {
@@ -280,6 +279,16 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
             //}
         });
         //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "after start handler");
+    }
+
+    private void setScreenTimeout(Context appContext) {
+        final int screenTimeout = ApplicationPreferences.prefActivatedProfileScreenTimeout;
+        //PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "screenTimeout=" + screenTimeout);
+        if ((screenTimeout > 0) && (Permissions.checkScreenTimeout(appContext))) {
+            if (PPApplication.screenTimeoutHandler != null) {
+                PPApplication.screenTimeoutHandler.post(() -> ActivateProfileHelper.setScreenTimeout(screenTimeout, appContext));
+            }
+        }
     }
 
 }
