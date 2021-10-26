@@ -12,6 +12,8 @@ import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12178,6 +12180,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private void afterImportDb(SQLiteDatabase db) {
         Cursor cursorImportDB = null;
+
+        // update volumes by device max value
         try {
             cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_PROFILES, null);
 
@@ -12401,6 +12405,67 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } finally {
             if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
                 cursorImportDB.close();
+        }
+
+        // clear dual sim parameters for device without dual sim support
+        int phoneCount = 1;
+        if (Build.VERSION.SDK_INT >= 26) {
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                phoneCount = telephonyManager.getPhoneCount();
+            }
+        }
+        if (phoneCount < 2) {
+            Log.e("DatabaseHandler.afterImportDb", "not dual SIM");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_NETWORK_TYPE_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_NETWORK_TYPE_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_NETWORK_TYPE_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_NETWORK_TYPE_SIM2 + "=0");
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_MOBILE_DATA_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_MOBILE_DATA_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_MOBILE_DATA_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_MOBILE_DATA_SIM2 + "=0");
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_DEFAULT_SIM_CARDS + "=\"0|0|0\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_DEFAULT_SIM_CARDS + "=\"0|0|0\"");
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_ONOFF_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_ONOFF_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_ONOFF_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_ONOFF_SIM2 + "=0");
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_RINGTONE_CHANGE_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_RINGTONE_CHANGE_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_NOTIFICATION_CHANGE_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_RINGTONE_SIM1 + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_RINGTONE_SIM2 + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_NOTIFICATION_SIM1 + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_NOTIFICATION_SIM2 + "=\"\"");
+
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_RINGTONE_CHANGE_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_RINGTONE_CHANGE_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_NOTIFICATION_CHANGE_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_RINGTONE_SIM1 + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_RINGTONE_SIM2 + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_NOTIFICATION_SIM1 + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_NOTIFICATION_SIM2 + "=\"\"");
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "=0");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_FROM_SIM_SLOT + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_FOR_SIM_CARD + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_FROM_SIM_SLOT + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_FOR_SIM_CARD + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_FOR_SIM_CARD + "=0");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + "=0");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_SIM_ON_OFF + "=0");
         }
     }
 
