@@ -669,7 +669,10 @@ class ApplicationPreferences {
     }
 
     static void applicationWidgetListBackground(Context context) {
-        applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, "25");
+       if (PPApplication.isPixelLauncherDefault(context))
+           applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, "100");
+       else
+           applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, "25");
     }
 
     static void applicationWidgetListLightnessB(Context context) {
@@ -840,7 +843,10 @@ class ApplicationPreferences {
     }
 
     static void applicationWidgetIconBackground(Context context) {
-        applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, "25");
+        if (PPApplication.isPixelLauncherDefault(context))
+            applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, "100");
+        else
+            applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, "25");
     }
 
     static void applicationWidgetIconLightnessB(Context context) {
@@ -1039,7 +1045,10 @@ class ApplicationPreferences {
     }
 
     static void applicationWidgetOneRowBackground(Context context) {
-        applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, "25");
+        if (PPApplication.isPixelLauncherDefault(context))
+            applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, "100");
+        else
+            applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, "25");
     }
 
     static void applicationWidgetOneRowLightnessB(Context context) {

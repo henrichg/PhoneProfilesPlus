@@ -12416,7 +12416,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             }
         }
         if (phoneCount < 2) {
-            Log.e("DatabaseHandler.afterImportDb", "not dual SIM");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_NETWORK_TYPE_SIM1 + "=0");
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_NETWORK_TYPE_SIM2 + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_NETWORK_TYPE_SIM1 + "=0");
