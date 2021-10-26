@@ -46,6 +46,7 @@ class ApplicationPreferences {
     static int prefShowCriticalGitHubReleasesCodeNotification;
     static long prefEventAlarmClockTime;
     static String prefEventAlarmClockPackageName;
+    static boolean keepScreenOnPermanent;
 
     static boolean applicationEventNeverAskForEnableRun;
     static boolean applicationNeverAskForGrantRoot;

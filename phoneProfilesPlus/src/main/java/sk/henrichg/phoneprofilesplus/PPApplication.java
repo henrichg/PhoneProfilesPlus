@@ -2123,6 +2123,7 @@ public class PPApplication extends Application
         ActivateProfileHelper.getZenMode(context);
         ActivateProfileHelper.getLockScreenDisabled(context);
         ActivateProfileHelper.getActivatedProfileScreenTimeout(context);
+        ActivateProfileHelper.getKeepScreenOnPermanent(context);
         ActivateProfileHelper.getMergedRingNotificationVolumes(context);
         //Profile.getActivatedProfileForDuration(context);
         Profile.getActivatedProfileEndDurationTime(context);

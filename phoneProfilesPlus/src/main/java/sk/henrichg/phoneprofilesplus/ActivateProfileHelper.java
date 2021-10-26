@@ -107,6 +107,7 @@ class ActivateProfileHelper {
     private static final String PREF_ZEN_MODE = "zen_mode";
     private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
     private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT = "activated_profile_screen_timeout";
+    private static final String PREF_KEEP_SCREEN_ON_PERMANENT = "keep_screen_on_permanent";
     static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 
     static final String EXTRA_PROFILE_NAME = "profile_name";
@@ -5405,7 +5406,7 @@ class ActivateProfileHelper {
     }
     */
 
-    private static void createKeepScreenOnView(Context context) {
+    static void createKeepScreenOnView(Context context) {
         //removeKeepScreenOnView();
 
         final Context appContext = context.getApplicationContext();
@@ -5468,8 +5469,10 @@ class ActivateProfileHelper {
             PPApplication.keepScreenOnView = new BrightnessView(appContext);
             try {
                 windowManager.addView(PPApplication.keepScreenOnView, params);
+                setKeepScreenOnPermanent(context, true);
             } catch (Exception e) {
                 PPApplication.keepScreenOnView = null;
+                setKeepScreenOnPermanent(context, false);
             }
         }
     }
@@ -5501,6 +5504,7 @@ class ActivateProfileHelper {
                     } catch (Exception ignored) {
                     }
                     PPApplication.keepScreenOnView = null;
+                    setKeepScreenOnPermanent(context, false);
                 }
             }
         //}
@@ -7142,6 +7146,25 @@ class ActivateProfileHelper {
             ApplicationPreferences.prefActivatedProfileScreenTimeout = timeout;
         }
     }
+
+    static void getKeepScreenOnPermanent(Context context)
+    {
+        synchronized (PPApplication.profileActivationMutex) {
+            ApplicationPreferences.keepScreenOnPermanent = ApplicationPreferences.
+                    getSharedPreferences(context).getBoolean(PREF_KEEP_SCREEN_ON_PERMANENT, false);
+            //return prefLockScreenDisabled;
+        }
+    }
+    static void setKeepScreenOnPermanent(Context context, boolean keepOnPermanent)
+    {
+        synchronized (PPApplication.profileActivationMutex) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+            editor.putBoolean(PREF_KEEP_SCREEN_ON_PERMANENT, keepOnPermanent);
+            editor.apply();
+            ApplicationPreferences.keepScreenOnPermanent = keepOnPermanent;
+        }
+    }
+
 
     @SuppressWarnings("SameParameterValue")
     static void showError(Context context, String profileName, int parameterType) {

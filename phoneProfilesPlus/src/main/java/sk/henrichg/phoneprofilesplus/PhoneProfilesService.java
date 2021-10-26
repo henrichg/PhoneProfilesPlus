@@ -4242,6 +4242,9 @@ public class PhoneProfilesService extends Service
 
                 ActivateProfileHelper.setLockScreenDisabled(appContext, false);
 
+                if (ApplicationPreferences.keepScreenOnPermanent)
+                    ActivateProfileHelper.createKeepScreenOnView(appContext);
+
                 //PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "3");
 
                 AudioManager audioManager = (AudioManager) appContext.getSystemService(Context.AUDIO_SERVICE);
