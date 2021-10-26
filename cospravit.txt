@@ -1,7 +1,4 @@
 ------------------------
-Ak sa spravi reboot, onDestrou PPService nastavi, ze nie je spustena aplikacia.
-Takze po boote sa PPService nespusti z PPApplication. Treba cakat na BOOT_COMPLETED.
-------------------------
 funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
 
 nastavení-aplikace- aplikace-PPP-podrobnosti o spotřebě energie-spouštění aplikací:
@@ -13,35 +10,18 @@ Spravovat ručně 3x ano
 ------------------------
 
 Ulohy, ktore su spravene [x] a ktore nie [ ]:
-[x] location event (when at point X, radius Y)
-[x] app event (when app X is started)
-[x] Notification event lasts until notification is gone
-[x] expand/shrink event and profile preferences, maybe with a checkbox instead of an arrow and all active preferences are expanded – PPP use Android standard preference screens. Than I can only use subscreens. - Yes! If I understand you right, that was my idea.
-[x] profile event (only when profile X is active, can't end event)
-[x] notification event
-[x] Seconds in profile duration
-[x] 5 minutes as settable screen timeout
 [ ] Priority Notification Event
-[x] Restart events at boot option
-[x] Restart events shortcut for launcher
 [ ] Normal media volume, headphone media volume, Bluetooth media volume
 [ ] Sony's "Stamina" mode as profile preference - skor Power save change senzor
 [ ] USB connection to PC as storage device, USB connection to PC as camera, connection to USB stick in accessories parameter for events
-[x] Option to delete logs after x days
-[ ] Resizable grid in Activator
 [ ] option to hide PPP from Launcher
-[x] Not started/not shown option for app event/notification event (like WiFi and Bluetooth) (aka "Not in front/Not connected")
 [ ] Set min and max CPU frequency
 [ ] Open a website with profile
-[x] once and never again event (creatable with an additional button in starter, only start time, end time, start battery, gets deleted after end)
-[ ] toggle torch
 [ ] profile/event search
-[ ] "change wallpapper"->live wallpappers
 [ ] Persistent profile/event: sets its options every x minutes - asi periodic sensor
 [ ] Android Wear support?
 [ ] (AND, OR, XOR, NOT. Or at least NOT.)<-NOT is already available in most preferences. If that stays, that does the same.
 [ ] a plugin system? (very small core app, ability to install additional event preferences, maybe only time event preinstalled)
-[ ] PP&PPP for PC?
 
 ------------------------
 
@@ -194,52 +174,12 @@ Direct boot:
 
 ----------------------------------------
 
-Optimalizacia Editora a priprava na ViewPager:
-
-- Mozes pre Editor pouzit pre profily jeden jediny layout. Lisia sa len indikatorom v headeri.
-  Ten mozes krasne schovavat, ak su vypnute indikatory
-- Potom uz nie je problem vytvorit jeden jediny fragment pre profily a jeden jediny pre udalosti.
-  Netreba pri zmene fiktra vytvarat nanovo cely fragment.
-  Na zmenu filtra len do prislusneho fragmentu posles nove parametre, ktore teraz davas ago argumenty pri vytvarani fragmentu.
-- Ked toto budes mat, nebude sa pri kasdej zmene filtra znova nacitatavat zoznam profilov a udalosti z databazy.
-  Lebo adapter ich filtruje sam, podla nastaveneho filtra v aktivite.
-  Treba akurat vyriesit zmenu poradia profilov a udalosti.
-  Totizto v AsyncTasku ich sortujem.
-- Potom bude omnoho jednoduchsie spravit ten ViewPager pre Editor.
-
---------------------------------------
-
 Extender:
-- Skus spravit tak, ze zavolas Intent na download apk. V URL je cislo verzie, ale typu 5.1.2.1.
-  Cize toto by som musel pouzivat v PPP.
-- Ako stiahnut apk:
-  https://stackoverflow.com/questions/48130430/download-a-file-in-background-without-opening-browser-with-intent
-  https://stackoverflow.com/questions/525204/android-download-intent
-- Testni to a zisti, co sa stane, ked kilknes na tu notifikaciu po stiahnuti.
-- Hlavne pozri na nazov apk po stiahnuti. Ci tam neda cislo, napr. (1), (2) atd.
-- Kliknutie na notifikaciu pos tiahnuti by mala zavolat dalsi Intent na instalaciu apk.
-- Tymto by som mal vyriesenu instalaciu Extendera, ci uz noveho alebo upgrade.
-
 - Vypada to, ze parametrov, ktore pouzivaju Extender je stale viac.
 - Co tak spravit daky dialog, z ktoreho sa bude dat Extender managovat?
 - Aby nemuseli byt pri kazdom profil/event parametri 3 dalsie kvoli Extenderu.
 - Pridaj dakde v Editore daku indikaciu, ze je Extender vyzadovany v novej verzii.
   Nieco uz o tom mas v Important info, notifikacia o tom sa zobrazi po upgrade PPP.
-
-- Zatial pridaj aspon upozornenie, ze je stary Extender. Mozno to uz mam, kukni.
-  Sprav to ako pri pravach a podobne. Pis aj verziu, ktora je vyzadovana.
-
-Kde je treba Extender:
-
-Profily:
-- Force stop application
-- Lock device
-
-Eventy:
-- Call sensor
-- SMS/MMS sensor
-- Application sensor
-- Orientation sensor
 
 ----------------------------------------
 
@@ -262,22 +202,6 @@ Koniec udalosti:
 Vysledok je, ze pocas delay je stale RUNNING az po delay je PAUSE.
 
 -----------------
-
-Aktivacia profilu vyvola onUpdate, je jedno ci je to z 4x1 alebo 4x4 widgetu.
-
-Uz vem preco:
-Problem je vo WorkMangeri. Ten resheduleruje receivre a to sposobi, ze sa zavola onUpdate widgetov.
-Najdolezitejsie je, ze NESMIES equeueovat worky priamo vo widgetoch! Lebo to sposobi nekonecnu slucku!
-Ale ako zabranit zavolaniu onUpdate?
-
-Skus toto (z linku 2): One other thing you could do is to schedule another WorkRequest really far out into the future.
-So, you could create a OneTimeWorkRequest with an initial delay of 10 years.
-
-Linky:
-https://commonsware.com/blog/2018/11/24/workmanager-app-widgets-side-effects.html
-https://issuetracker.google.com/issues/115575872#comment4
-
-----------------------
 
 Battery historian:
 1. sudo apt install docker.io
@@ -341,63 +265,7 @@ Spravovat ručně 3x ano
 -Spustit na ozadí
 třeba se to bude hodit.
 
---------------------------
-
-PPApplication.STARTUP_SOURCE_SERVICE_MANUAL
-- nastavi sa pri manualnej aktivacii z udalosti
-
-Duration ignorujem:
-- pri nemanualnej aktivacii z udalosti
-- pri boote
-
-Duration neignorujem, ak na koniec duration sa ma aktivovat specificky profil, je jedno odkial je aktivacia volana.
-
-Pri manualnej aktivacii z udalosti nerobim Undo po konci duration, ostatne robim. Proste aktivuje ten isty profil.
-To aby zostal manulane aktivovany profil. Ostatne "after duration" robim.
-
-Cize duration robim pri aktivacii od hociakeho zdroja + pri manualnej aktivacii z udalosti.
-Cize musi byt profil aktivovany manualne.
-
-Nova funkcia predlzovania duration nech ignoruje:
-- manualnu aktivaciu profilu z udalosti, cize PPApplication.STARTUP_SOURCE_SERVICE_MANUAL
-- nemanualnu aktivaciu z udalosti, cize PPApplication.STARTUP_SOURCE_SERVICE
-- boot, cize PPApplication.STARTUP_SOURCE_BOOT
-
-----------------------------------
-
-Broadcast, Service z notifikacie, intentu:
-Pre Android 12 vraj nefunguje, len aktivita. Pozri to.
-
-Pre notifikacie tu mam toto (action buttony):
-GrantPermissionActivity:
-                Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
-                PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setDeleteIntent(deletePendingIntent);
-
-MobileCellsListener:
-                        Intent deleteIntent = new Intent(MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
-                        deleteIntent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, _registeredCell);
-                        PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, _registeredCell, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        mBuilder.setDeleteIntent(deletePendingIntent);
-
-                        // add action button to disable not used cells detection
-                        Intent disableDetectionIntent = new Intent(MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION);
-                        disableDetectionIntent.putExtra("notificationId", _registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID);
-                        PendingIntent pDisableDetectionIntent = PendingIntent.getBroadcast(context, 0, disableDetectionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
-                                R.drawable.ic_action_exit_app_white,
-                                context.getString(R.string.notification_not_used_mobile_cell_disable),
-                                pDisableDetectionIntent);
-                        mBuilder.addAction(actionBuilder.build());
-
-MobileCellsRegistrationService:
-            Intent stopRegistrationIntent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
-            PendingIntent stopRegistrationPendingIntent = PendingIntent.getBroadcast(context, 0, stopRegistrationIntent, 0);
-            mBuilder.addAction(R.drawable.ic_action_stop,
-                    context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_stop),
-                    stopRegistrationPendingIntent);
-
------
+-------------------------
 
 ActivateProfileHelper.setScreenTimeout()
 - disableScreenTimeoutInternalChange = true;
