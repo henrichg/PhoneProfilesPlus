@@ -1830,6 +1830,13 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="array_pref_radioSwitch_SIM2_on">SIM 2 On</string>
     <string name="array_pref_radioSwitch_SIM2_off">SIM 2 Off</string>
 
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">and</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">Active</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Not active</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">do not disable</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">You must configure also parameter</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">to disable it.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

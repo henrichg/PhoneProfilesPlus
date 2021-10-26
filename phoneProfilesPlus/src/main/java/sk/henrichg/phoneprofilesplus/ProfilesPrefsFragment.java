@@ -1167,6 +1167,28 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             infoDialogPreference.setIsHtml(true);
         }
 
+        preference = findPreference("prf_pref_deviceScreenTimeoutAndKeeepScreenOnInfo");
+        if (preference != null) {
+            String title = "\"" + getString(R.string.profile_preferences_deviceScreenTimeout) + "\" " +
+                    getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title) +
+                    " \"" + getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"";
+            preference.setTitle(title);
+            String summary = getString(R.string.profile_preferences_deviceScreenOnPermanent) + ": ";
+            if (ApplicationPreferences.keepScreenOnPermanent)
+                summary = summary + getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On);
+            else
+                summary = summary + getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off);
+            summary = summary + "\n\n";
+            summary = summary + "\"" + getString(R.string.profile_preferences_deviceScreenTimeout) + "\" " +
+                    getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1) +
+                    " \"" + getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\". " +
+                    getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2) +
+                    " \"" + getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
+                    "\"" + getString(R.string.array_pref_hardwareModeArray_off) + "\" " +
+                    getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3);
+            preference.setSummary(summary);
+        }
+
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
 

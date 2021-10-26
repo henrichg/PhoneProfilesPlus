@@ -4,14 +4,12 @@
     app:title="@string/profile_preferences_category_screen"
     app:key="prf_pref_screenCategory" >
 
-    <!--<Preference
-        app:key="prf_pref_deviceScreenTimeoutInfo"
-        app:title="@string/profile_preferences_deviceScreenTimeout"
-        app:summary="@string/profile_preferences_deviceScreenTimeoutInfo_summary"
-        app:shouldDisableView="false"
-        app:enabled="false"
+    <Preference
+        app:key="prf_pref_deviceScreenTimeoutAndKeeepScreenOnInfo"
+        app:title="@string/empty_string"
+        app:summary="@string/empty_string"
         app:widgetLayout="@layout/widget_info_preference"
-        app:layout="@layout/mp_preference_material_widget" />-->
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceScreenTimeout"
         app:summary="@string/array_pref_no_change"
