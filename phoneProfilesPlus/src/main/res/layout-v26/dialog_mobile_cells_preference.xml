@@ -61,7 +61,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_add"
-                    android:background="?attr/selectableItemBackground" />
+                    android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
                     android:id="@+id/mobile_cells_pref_dlg_connectedCell_simDefault"
@@ -90,7 +90,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_add"
-                    android:background="?attr/selectableItemBackground" />
+                    android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
                     android:id="@+id/mobile_cells_pref_dlg_connectedCell_sim1"
@@ -120,7 +120,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_add"
-                    android:background="?attr/selectableItemBackground" />
+                    android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
                     android:id="@+id/mobile_cells_pref_dlg_connectedCell_sim2"
@@ -150,7 +150,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_settings"
-                    android:background="?attr/selectableItemBackground" />
+                    android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
                     android:id="@+id/mobile_cells_pref_dlg_locationEnableStatus"
@@ -191,7 +191,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_button_help"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/menu_help"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton
@@ -203,7 +203,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_helpIcon"
                     android:src="@drawable/ic_button_select"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/pref_dlg_change_selection_title"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton
@@ -215,7 +215,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/mobile_cells_pref_dlg_changeSelection"
                     android:src="@drawable/ic_button_edit"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/mobile_cells_pref_dlg_rename_icon"/>
 
                 <TextView
@@ -274,7 +274,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_sort"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/mobile_cells_pref_dlg_sort_icon"/>
 
                 <TextView

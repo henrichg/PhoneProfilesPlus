@@ -58,7 +58,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_button_add"
-                    android:background="?attr/selectableItemBackground" />
+                    android:background="?attr/selectableItemBackgroundBorderless" />
 
             </RelativeLayout>
 

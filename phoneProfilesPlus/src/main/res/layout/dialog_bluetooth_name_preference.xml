@@ -60,7 +60,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_settings"
-                    android:background="?attr/selectableItemBackground" />
+                    android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
                     android:id="@+id/bluetooth_name_pref_dlg_locationEnableStatus"
@@ -101,7 +101,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_button_help"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/menu_help"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton
@@ -113,7 +113,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/bluetooth_name_pref_dlg_helpIcon"
                     android:src="@drawable/ic_button_select"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/pref_dlg_change_selection_title"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton
@@ -125,7 +125,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/bluetooth_name_pref_dlg_changeSelection"
                     android:src="@drawable/ic_button_add"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/bluetooth_name_pref_dlg_add_bt_name_icon"/>
 
                 <EditText

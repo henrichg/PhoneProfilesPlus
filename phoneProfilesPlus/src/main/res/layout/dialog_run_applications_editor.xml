@@ -139,7 +139,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_add"
-                android:background="?attr/selectableItemBackground" />
+                android:background="?attr/selectableItemBackgroundBorderless" />
 
             <LinearLayout
                 android:id="@+id/run_applications_editor_dialog_startApplicationDelay_root"

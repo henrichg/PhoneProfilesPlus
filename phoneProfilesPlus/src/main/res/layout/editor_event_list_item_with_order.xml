@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:padding="5dp"
-            android:background="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/preference_item_edit_menu"
             android:src="?attr/editItemMenuIcon"/>
 
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:background="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/event_preferences_ForceRun"
             android:src="@drawable/ic_ignore_manual_activation"/>
 
@@ -90,7 +90,7 @@
                 android:contentDescription="@string/editor_event_list_item_event_status"
                 android:scaleType="centerCrop"
                 android:src="?attr/eventStopStatusIndicator"
-                android:background="?attr/selectableItemBackground" />
+                android:background="?attr/selectableItemBackgroundBorderless" />
 
             <TextView
                 android:id="@+id/event_list_item_event_name"

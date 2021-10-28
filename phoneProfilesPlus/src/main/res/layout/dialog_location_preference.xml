@@ -60,7 +60,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_settings"
-                    android:background="?attr/selectableItemBackground" />
+                    android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
                     android:id="@+id/location_pref_dlg_locationEnableStatus"
@@ -102,7 +102,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_button_add"
-                    android:background="?attr/selectableItemBackground" />
+                    android:background="?attr/selectableItemBackgroundBorderless" />
 
             </RelativeLayout>
 
