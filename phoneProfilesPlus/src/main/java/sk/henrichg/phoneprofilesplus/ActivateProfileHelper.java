@@ -444,7 +444,7 @@ class ActivateProfileHelper {
                         }
                         if (setWifiAPState) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setWifiAP()");
-                            setWifiAP(wifiApManager, isWifiAPEnabled, doNotChangeWifi, appContext);
+                            setWifiAP(wifiApManager, isWifiAPEnabled, doNotChangeWifi, profile, appContext);
                             PPApplication.sleep(3000);
                         }
                     }
@@ -487,7 +487,7 @@ class ActivateProfileHelper {
                     if (setWifiAPState) {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "CmdWifiAP.setWifiAP()");
                         //CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi, context, profile._name);
-                        setWifiAP(null, isWifiAPEnabled, doNotChangeWifi, appContext);
+                        setWifiAP(null, isWifiAPEnabled, doNotChangeWifi, profile, appContext);
                         PPApplication.sleep(1000);
                     }
                 }
@@ -6028,30 +6028,32 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void setWifiAP(WifiApManager wifiApManager, boolean enable, boolean doNotChangeWifi, Context context) {
+    private static void setWifiAP(WifiApManager wifiApManager, boolean enable, boolean doNotChangeWifi,
+                                  Profile profile, Context context) {
         //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-enable="+enable);
 
-        if (Build.VERSION.SDK_INT < 26) {
-            // for Android 7
-            //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 26");
-            wifiApManager.setWifiApState(enable, doNotChangeWifi);
-        }
-        else
-        if (Build.VERSION.SDK_INT < 28) {
-            // for Android 8
-            //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 28");
-            Context appContext = context.getApplicationContext();
-            if (WifiApManager.canExploitWifiTethering(appContext)) {
-                if (enable)
-                    wifiApManager.startTethering(doNotChangeWifi);
-                else
-                    wifiApManager.stopTethering();
+        try {
+
+            if (Build.VERSION.SDK_INT < 26) {
+                // for Android 7
+                //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 26");
+                wifiApManager.setWifiApState(enable, doNotChangeWifi);
             }
             else
-            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                    (PPApplication.isRooted(false) && PPApplication.serviceBinaryExists(false))) {
-                //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-rooted");
-                try {
+            if (Build.VERSION.SDK_INT < 28) {
+                // for Android 8
+                //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 28");
+                Context appContext = context.getApplicationContext();
+                if (WifiApManager.canExploitWifiTethering(appContext)) {
+                    if (enable)
+                        wifiApManager.startTethering(doNotChangeWifi);
+                    else
+                        wifiApManager.stopTethering();
+                }
+                else
+                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                        (PPApplication.isRooted(false) && PPApplication.serviceBinaryExists(false))) {
+                    //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-rooted");
                     int transactionCode = PPApplication.rootMutex.transactionCode_setWifiApEnabled;
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-serviceManager=" + serviceManager);
@@ -6094,28 +6096,31 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                } catch (Exception e) {
-                    //Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                    //PPApplication.logE("$$$ WifiAP", Log.getStackTraceString(e));
                 }
             }
-        }
-        else if (Build.VERSION.SDK_INT < 30) {
-            // for Android 9, 10
-            //Context appContext = context.getApplicationContext();
-            //if (WifiApManager.canExploitWifiTethering(appContext)) {
+            else if (Build.VERSION.SDK_INT < 30) {
+                // for Android 9, 10
+                //Context appContext = context.getApplicationContext();
+                //if (WifiApManager.canExploitWifiTethering(appContext)) {
+                    if (enable)
+                        wifiApManager.startTethering(doNotChangeWifi);
+                    else
+                        wifiApManager.stopTethering();
+                //}
+            }
+            else {
                 if (enable)
-                    wifiApManager.startTethering(doNotChangeWifi);
+                    WifiApManager.startTethering30(context, doNotChangeWifi);
                 else
-                    wifiApManager.stopTethering();
-            //}
-        }
-        else {
-            if (enable)
-                WifiApManager.startTethering30(context, doNotChangeWifi);
-            else
-                WifiApManager.stopTethering30(context);
+                    WifiApManager.stopTethering30(context);
+            }
+
+        } catch (SecurityException e) {
+            showError(context, profile._name, Profile.PARAMETER_TYPE_WIFIAP);
+        } catch (Exception e) {
+            //Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+            //PPApplication.logE("$$$ WifiAP", Log.getStackTraceString(e));
         }
     }
 
