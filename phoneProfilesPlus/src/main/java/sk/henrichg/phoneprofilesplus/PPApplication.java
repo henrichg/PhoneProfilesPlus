@@ -448,10 +448,11 @@ public class PPApplication extends Application
     static final String GRANT_PERMISSION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_grant_permission";
     static final String NOTIFY_EVENT_START_NOTIFICATION_CHANNEL = "phoneProfilesPlus_repeat_notify_event_start";
     static final String NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL = "phoneProfilesPlus_new_mobile_cell";
-    static final String DONATION_CHANNEL = "phoneProfilesPlus_donation";
-    static final String NEW_RELEASE_CHANNEL = "phoneProfilesPlus_newRelease";
+    static final String DONATION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_donation";
+    static final String NEW_RELEASE_NOTIFICATION_CHANNEL = "phoneProfilesPlus_newRelease";
     //static final String CRASH_REPORT_NOTIFICATION_CHANNEL = "phoneProfilesPlus_crash_report";
     static final String GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL = "phoneProfilesPlus_generatedByProfile";
+    static final String KEEP_SCREEN_ON_NOTIFICATION_CHANNEL = "phoneProfilesPlus_keepScreenOn";
 
     static final int PROFILE_NOTIFICATION_ID = 100;
     static final int PROFILE_NOTIFICATION_NATIVE_ID = 500;
@@ -517,6 +518,8 @@ public class PPApplication extends Application
     static final String PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_TAG = PACKAGE_NAME+"PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION";
     static final int PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_ID = 141;
     static final String PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_TAG = PACKAGE_NAME+"PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION";
+    static final int KEEP_SCREEN_ON_NOTIFICATION_ID = 142;
+    static final String KEEP_SCREEN_ON_NOTIFICATION_TAG = PACKAGE_NAME+"_KEEP_SCREEN_ON_NOTIFICATION";
 
     // notifications have also tag, in it is tag name + profile/event/mobile cells id
     static final int PROFILE_ID_NOTIFICATION_ID = 1000;
@@ -2652,7 +2655,7 @@ public class PPApplication extends Application
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(DONATION_CHANNEL) != null)
+                if (notificationManager.getNotificationChannel(DONATION_NOTIFICATION_CHANNEL) != null)
                     return;
 
                 // The user-visible name of the channel.
@@ -2660,7 +2663,7 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.empty_string);
 
-                NotificationChannel channel = new NotificationChannel(DONATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+                NotificationChannel channel = new NotificationChannel(DONATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
 
                 // Configure the notification channel.
                 //channel.setImportance(importance);
@@ -2684,7 +2687,7 @@ public class PPApplication extends Application
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(NEW_RELEASE_CHANNEL) != null)
+                if (notificationManager.getNotificationChannel(NEW_RELEASE_NOTIFICATION_CHANNEL) != null)
                     return;
 
                 // The user-visible name of the channel.
@@ -2692,7 +2695,7 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_new_release_description);
 
-                NotificationChannel channel = new NotificationChannel(NEW_RELEASE_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationChannel channel = new NotificationChannel(NEW_RELEASE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
                 //channel.setImportance(importance);
@@ -2711,6 +2714,7 @@ public class PPApplication extends Application
             }
         }
     }
+
 
     /*
     static void createCrashReportNotificationChannel(Context context) {
@@ -2778,6 +2782,40 @@ public class PPApplication extends Application
         }
     }
 
+    static void createKeepScreenOnNotificationChannel(Context context) {
+        if (Build.VERSION.SDK_INT >= 26) {
+            try {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                if (notificationManager.getNotificationChannel(KEEP_SCREEN_ON_NOTIFICATION_CHANNEL) != null)
+                    return;
+
+                // The user-visible name of the channel.
+                String name = context.getString(R.string.profile_preferences_deviceScreenOnPermanent);
+
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.notification_channel_keep_screen_on_description) +
+                        " \"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\".";
+
+                NotificationChannel channel = new NotificationChannel(KEEP_SCREEN_ON_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+
+                // Configure the notification channel.
+                //channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(false);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(false);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                channel.setBypassDnd(false);
+
+                notificationManager.createNotificationChannel(channel);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        }
+    }
+
     static void createNotificationChannels(Context appContext) {
         PPApplication.createProfileNotificationChannel(appContext);
         PPApplication.createMobileCellsRegistrationNotificationChannel(appContext);
@@ -2790,6 +2828,7 @@ public class PPApplication extends Application
         PPApplication.createNewReleaseNotificationChannel(appContext);
         //PPApplication.createCrashReportNotificationChannel(appContext);
         PPApplication.createGeneratedByProfileNotificationChannel(appContext);
+        PPApplication.createKeepScreenOnNotificationChannel(appContext);
     }
 
     /*

@@ -5406,6 +5406,13 @@ class ActivateProfileHelper {
     }
     */
 
+    static private void removeKeepScreenOnNotification(Context context) {
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.cancel(
+                PPApplication.KEEP_SCREEN_ON_NOTIFICATION_TAG,
+                PPApplication.KEEP_SCREEN_ON_NOTIFICATION_ID);
+    }
+
     static void createKeepScreenOnView(Context context) {
         //removeKeepScreenOnView();
 
@@ -5470,9 +5477,44 @@ class ActivateProfileHelper {
             try {
                 windowManager.addView(PPApplication.keepScreenOnView, params);
                 setKeepScreenOnPermanent(context, true);
+
+                String nTitle = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\" " +
+                                context.getString(R.string.keep_screen_on_active_notification_title);
+                String nText = context.getString(R.string.keep_screen_on_active_notification_decription) +
+                                " \"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
+                                "\"" + context.getString(R.string.array_pref_hardwareModeArray_off) + "\"";
+
+                PPApplication.createKeepScreenOnNotificationChannel(appContext);
+                NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)
+                        .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                        .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                        .setContentTitle(nTitle) // title for notification
+                        .setContentText(nText) // message for notification
+                        .setAutoCancel(true); // clear notification after click
+                mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+                mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                mBuilder.setOngoing(true);
+
+                Notification notification = mBuilder.build();
+                notification.vibrate = null;
+                notification.defaults &= ~DEFAULT_VIBRATE;
+
+                NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+                try {
+                    mNotificationManager.notify(
+                            PPApplication.KEEP_SCREEN_ON_NOTIFICATION_TAG,
+                            PPApplication.KEEP_SCREEN_ON_NOTIFICATION_ID, notification);
+                } catch (Exception e) {
+                    //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                }
+
             } catch (Exception e) {
                 PPApplication.keepScreenOnView = null;
                 setKeepScreenOnPermanent(context, false);
+                removeKeepScreenOnNotification(appContext);
             }
         }
     }
@@ -5505,6 +5547,7 @@ class ActivateProfileHelper {
                     }
                     PPApplication.keepScreenOnView = null;
                     setKeepScreenOnPermanent(context, false);
+                    removeKeepScreenOnNotification(appContext);
                 }
             }
         //}

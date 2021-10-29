@@ -1836,6 +1836,9 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">do not disable</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">You must configure also parameter</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">to disable it.</string>
+    <string name="notification_channel_keep_screen_on_description">Shows notification abont activate status of</string>
+    <string name="keep_screen_on_active_notification_title">is active</string>
+    <string name="keep_screen_on_active_notification_decription">To deactivate it, configure and activate profile with</string>
 
     <!-- **************************************************************************************** -->
 
