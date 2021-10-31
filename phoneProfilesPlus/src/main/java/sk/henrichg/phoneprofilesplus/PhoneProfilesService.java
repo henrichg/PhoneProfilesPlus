@@ -4207,8 +4207,10 @@ public class PhoneProfilesService extends Service
                     __applicationStart = true;
                 }
 
-                PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "__applicationStart=" + __applicationStart);
-                PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "__activateProfiles=" + __activateProfiles);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "__applicationStart=" + __applicationStart);
+                    PPApplication.logE("PhoneProflesService.doForFirstStart - handler", "__activateProfiles=" + __activateProfiles);
+                }
 
             /*if (PPApplication.logEnabled()) {
                 // get list of TRANSACTIONS for "phone"
@@ -4595,8 +4597,10 @@ public class PhoneProfilesService extends Service
         //MobileCellsScanner.setShowEnableLocationNotification(appContext, true);
         //ActivateProfileHelper.setScreenUnlocked(appContext, true);
 
-        PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "----- oldVersionCode=" + oldVersionCode);
-        PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "----- actualVersionCode=" + actualVersionCode);
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "----- oldVersionCode=" + oldVersionCode);
+            PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "----- actualVersionCode=" + actualVersionCode);
+        }
         try {
             if (oldVersionCode < actualVersionCode) {
                 PPApplication.logE("PhoneProfilesService.doForPackageReplaced", "is new version");
