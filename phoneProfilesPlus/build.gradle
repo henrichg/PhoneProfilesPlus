@@ -65,11 +65,14 @@ dependencies {
     //noinspection GradleDependency
     implementation 'androidx.work:work-runtime:2.6.0'  // must be minCompileSDK=31 for 2.7.0+
 
-    implementation 'androidx.core:core:1.6.0'
+    //noinspection GradleDependency
+    implementation 'androidx.core:core:1.6.0'  // must be minCompileSDK=31 for 1.7.0+
+
     implementation 'androidx.exifinterface:exifinterface:1.3.3'
     implementation 'androidx.fragment:fragment:1.3.6'
 
-    implementation 'androidx.activity:activity:1.3.1'
+    //noinspection GradleDependency
+    implementation 'androidx.activity:activity:1.3.1'  // must be minCompileSDK=31 for 1.4.0+
 
     implementation "androidx.recyclerview:recyclerview:$ppVersions.recyclerView"
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
