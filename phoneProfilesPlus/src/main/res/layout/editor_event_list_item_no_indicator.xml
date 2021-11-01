@@ -4,8 +4,8 @@
     android:id="@+id/event_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="3dp"
-    android:paddingEnd="3dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
     android:paddingTop="1dp"
     android:paddingBottom="1dp"
     android:orientation="horizontal"
@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:padding="5dp"
+            android:layout_marginEnd="5dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/preference_item_edit_menu"
             android:src="?attr/editItemMenuIcon"/>
@@ -37,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
+            android:layout_marginEnd="5dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/event_preferences_ForceRun"
             android:src="@drawable/ic_ignore_manual_activation"/>
