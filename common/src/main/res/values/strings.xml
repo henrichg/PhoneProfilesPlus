@@ -1831,14 +1831,15 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="array_pref_radioSwitch_SIM2_off">SIM 2 Off</string>
 
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">and</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">Active</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Not active</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">do not disable</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">You must configure also parameter</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">to disable it.</string>
-    <string name="notification_channel_keep_screen_on_description">Shows notification abont activate status of</string>
-    <string name="keep_screen_on_active_notification_title">is active</string>
-    <string name="keep_screen_on_active_notification_decription">To deactivate it, configure and activate profile with</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">On</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Off</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">do not set</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">parameter</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">You must configure also</string>
+    <string name="notification_channel_keep_screen_on_description">Shows notification about status of</string>
+    <string name="keep_screen_on_active_notification_title_1">is</string>
+    <string name="keep_screen_on_active_notification_decription_1">To set it</string>
+    <string name="keep_screen_on_active_notification_decription_2">configure and activate profile with</string>
 
     <!-- **************************************************************************************** -->
 

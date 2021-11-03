@@ -1784,6 +1784,32 @@
     <string name="check_github_releases_version_checking">… detección …</string>
     <string name="check_github_releases_version_critical">!CRÍTICO!</string>
     <string name="important_info_profile_grant_1_howTo_0">Esta ayuda es mejor abrirla en tu navegador de Internet. Está en el README.md de PhoneProfilesPlus en GitHub, marcada como</string>
+    <string name="important_info_event_event_sensors">Cada evento tiene sensores. Todos los sensores con \"Activar ejecución\" habilitado deben ser \"pasados\" para que comience la ejecución del evento. El evento en ejecución termina cuando alguno de los sensores no se ha \"pasado\".\n\nel estado \"Pasado\" se indica con el color del nombre del sensor en el Editor:</string>
+    <string name="important_info_event_event_sensors_waiting">Azul: el sensor está en estado de espera. El estado \"Pasado\" está por determinar.</string>
+    <string name="important_info_event_event_sensors_passed">Verde: el sensor está \"pasado\".</string>
+    <string name="important_info_event_event_sensors_not_pased">Amarillo: el sensor no está \"pasado\".</string>
+    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Diseño más alto</string>
+    <string name="profile_preferences_deviceVPNSettingsPrefs">(I) Ajustes de VPN</string>
+    <string name="profile_preferences_deviceVPNInfo">VPN</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Haz clic aquí para mostrar información sobre conectar\/desconectar la VPN configurada en la aplicación OpenVPN.</string>
+    <string name="profile_preferences_deviceVPNInfo_infoText">En el parámetro de perfil \"Otros\"\/\"Ejecutar aplicaciones, atajos, intentos\" existen Intentos predefinidos para dos aplicaciones: \"OpenVPN Connect\" y \"OpenVPN para Android\". Para más información visita:</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Cambiar colores por modo nocturno</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">Si se activa, los colores de los widgets se establecerán por el modo nocturno del sistema (como en el Pixel launcher)</string>
+    <string name="array_pref_radioSwitch_connected_any_sim_cards">Conectado (cualquier tarjeta SIM)</string>
+    <string name="array_pref_radioSwitch_connected_sim1">SIM 1 conectada</string>
+    <string name="array_pref_radioSwitch_connected_sim2">SIM 2 conectada</string>
+    <string name="permission_why_event_radio_switch_preferences">para comprobar la conexión de datos móviles para tarjetas SIM duales, comprueba la tarjeta SIM predeterminada</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForCalls">SIM por defecto para llamadas</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForSMS">SIM por defecto para SMS</string>
+    <string name="array_pref_radioSwitch_defaultSIM1">SIM 1</string>
+    <string name="array_pref_radioSwitch_defaultSIM2">SIM 2</string>
+    <string name="event_preferences_radioSwitch_simOnOff">SIM on/off</string>
+    <string name="array_pref_radioSwitch_any_SIM_on">Any SIM On</string>
+    <string name="array_pref_radioSwitch_any_SIM_off">Any SIM Off</string>
+    <string name="array_pref_radioSwitch_SIM1_on">SIM 1 On</string>
+    <string name="array_pref_radioSwitch_SIM1_off">SIM 1 Off</string>
+    <string name="array_pref_radioSwitch_SIM2_on">SIM 2 On</string>
+    <string name="array_pref_radioSwitch_SIM2_off">SIM 2 Off</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>
@@ -1833,8 +1859,6 @@
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->

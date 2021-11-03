@@ -1784,6 +1784,32 @@
     <string name="check_github_releases_version_checking">… tesbit …</string>
     <string name="check_github_releases_version_critical">! CİDDİ !</string>
     <string name="important_info_profile_grant_1_howTo_0">Bu yardım, bilgisayardaki İnternet tarayıcısında açmak daha iyidir. PhoneProfilesPlus GitHub README.md\'de olarak işaretlenmiştir</string>
+    <string name="important_info_event_event_sensors">Each event has sensors. All sensors with enabled \"Enable run\", must be \"passed\" to start running of event. Running event ends, when any sensor is not \"passed\".\n\n\"Pass\" status is indicated with color of sensor name in Editor:</string>
+    <string name="important_info_event_event_sensors_waiting">Blue: sensor is in waiting state. \"Pass\" status is determined.</string>
+    <string name="important_info_event_event_sensors_passed">Green: sensor is \"passed\".</string>
+    <string name="important_info_event_event_sensors_not_pased">Yellow: sensor is not \"passed\".</string>
+    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>
+    <string name="profile_preferences_deviceVPNSettingsPrefs">(I) VPN Settings</string>
+    <string name="profile_preferences_deviceVPNInfo">VPN</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Click here to show information about connect\/disconnect VPN configured in OpenVPN application.</string>
+    <string name="profile_preferences_deviceVPNInfo_infoText">İki uygulama için tercih şartı: \"Diğer\"\/\"Uygulamalar, kısayollar, intent\'leri çalıştır\"da önceden tanımlanmış Intent\'ler bulunur: \"OpenVPN Connect\" ve \"Android için OpenVPN\". Daha fazla malumat için ziyaret edin:</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Renkleri Gece Modu\'na göre değiştirin</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">Faal ise, widget renkleri sistem Gece Modu tarafından ayarlanır (Pixel başlatıcıda olduğu gibi)</string>
+    <string name="array_pref_radioSwitch_connected_any_sim_cards">İrtibattaki (bütün SIM kartları)</string>
+    <string name="array_pref_radioSwitch_connected_sim1">SIM 1 irtibatta</string>
+    <string name="array_pref_radioSwitch_connected_sim2">SIM 2 irtibatta</string>
+    <string name="permission_why_event_radio_switch_preferences">çift SIM kartta mobil veri bağlantısını kontrol etmek için varsayılan SIM kartı kontrol edin</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForCalls">Aramalar için varsayılan SIM</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForSMS">SMS için varsayılan SIM</string>
+    <string name="array_pref_radioSwitch_defaultSIM1">SIM 1</string>
+    <string name="array_pref_radioSwitch_defaultSIM2">SIM 2</string>
+    <string name="event_preferences_radioSwitch_simOnOff">SIM\'i Aç/Kapa</string>
+    <string name="array_pref_radioSwitch_any_SIM_on">Bütün SIM\'ler açık</string>
+    <string name="array_pref_radioSwitch_any_SIM_off">Bütün SIM\'ler kapalı</string>
+    <string name="array_pref_radioSwitch_SIM1_on">SIM 1 açık</string>
+    <string name="array_pref_radioSwitch_SIM1_off">SIM 1 kapalı</string>
+    <string name="array_pref_radioSwitch_SIM2_on">SIM 2 açık</string>
+    <string name="array_pref_radioSwitch_SIM2_off">SIM 2 kapalı</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• Tercih değeri \"Zorla durdurulan uygulamalar\"\n• Durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1833,8 +1859,6 @@
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->

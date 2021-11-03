@@ -5478,11 +5478,14 @@ class ActivateProfileHelper {
                 windowManager.addView(PPApplication.keepScreenOnView, params);
                 setKeepScreenOnPermanent(context, true);
 
-                String nTitle = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\" " +
-                                context.getString(R.string.keep_screen_on_active_notification_title);
-                String nText = context.getString(R.string.keep_screen_on_active_notification_decription) +
+                String nTitle = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"" +
+                                " " + context.getString(R.string.keep_screen_on_active_notification_title_1) + " " +
+                                "\"" +context.getString(R.string.array_pref_hardwareModeArray_on) + "\"";
+                String nText = context.getString(R.string.keep_screen_on_active_notification_decription_1) +
+                                " \"" +context.getString(R.string.array_pref_hardwareModeArray_off) + "\", " +
+                                context.getString(R.string.keep_screen_on_active_notification_decription_2) +
                                 " \"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
-                                "\"" + context.getString(R.string.array_pref_hardwareModeArray_off) + "\"";
+                                "\"" + context.getString(R.string.array_pref_hardwareModeArray_off) + "\".";
 
                 PPApplication.createKeepScreenOnNotificationChannel(appContext);
                 NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)

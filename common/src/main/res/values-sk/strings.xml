@@ -1784,6 +1784,32 @@
     <string name="check_github_releases_version_checking">… zisťovanie …</string>
     <string name="check_github_releases_version_critical">! KRITICKÉ !</string>
     <string name="important_info_profile_grant_1_howTo_0">Túto pomoc je lepšie otvoriť v počítači v jeho internetovom prehliadači. Je v PhoneProfilesPlus GitHub README.md, označený ako</string>
+    <string name="important_info_event_event_sensors">Každá udalosť má senzory. Všetky senzory s povoleným \"Povoľ beh\", musia byť \"splnené\", aby sa spustil beh udalosti. Spustená udalosť skončí, keď niektorý senzor nie je \"splnený\".\n\nStav \"splnený\" je indikovaný farbou názvu senzora v Editore:</string>
+    <string name="important_info_event_event_sensors_waiting">Modrá: senzor je v stave čakania. Určuje sa stav \"splnený\".</string>
+    <string name="important_info_event_event_sensors_passed">Zelená: senzor je \"splnený\".</string>
+    <string name="important_info_event_event_sensors_not_pased">Žltá: senzor nie je \"splnený\".</string>
+    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Vyššie rozloženie</string>
+    <string name="profile_preferences_deviceVPNSettingsPrefs">(I) Nastavenia VPN</string>
+    <string name="profile_preferences_deviceVPNInfo">VPN</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Kliknite sem pre zobrazenie informácie o pripojení\/odpojení VPN nakonfigurovanej v aplikácii OpenVPN.</string>
+    <string name="profile_preferences_deviceVPNInfo_infoText">V parametri Profilu \"Ostatné\"\/\"Spustiť aplikácie, odkazy, intenty\" existujú preddefinované intenty pre dve aplikácie: \"OpenVPN Connect\" a \"OpenVPN pre Android\". Pre viac informácií navštívte:</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Meniť farby podľa nočného režimu</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">Ak je zapnuté, farby miniaplikácií sa nastavia podľa systémového nočného režimu (ako v Pixel Launcher)</string>
+    <string name="array_pref_radioSwitch_connected_any_sim_cards">Pripojené (akákoľvek SIM karta)</string>
+    <string name="array_pref_radioSwitch_connected_sim1">Pripojená SIM 1</string>
+    <string name="array_pref_radioSwitch_connected_sim2">Pripojená SIM 2</string>
+    <string name="permission_why_event_radio_switch_preferences">pre kontrolu mobilného dátového pripojenia pre dual SIM, kontrolu predvolenej SIM karty</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForCalls">Predvolená SIM pre hovory</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForSMS">Predvolená SIM pre SMS</string>
+    <string name="array_pref_radioSwitch_defaultSIM1">SIM 1</string>
+    <string name="array_pref_radioSwitch_defaultSIM2">SIM 2</string>
+    <string name="event_preferences_radioSwitch_simOnOff">Zapnutá/vypnutá SIM</string>
+    <string name="array_pref_radioSwitch_any_SIM_on">Akákoľvek SIM zapnutá</string>
+    <string name="array_pref_radioSwitch_any_SIM_off">Nejaká SIM vypnutá</string>
+    <string name="array_pref_radioSwitch_SIM1_on">SIM 1 zapnutá</string>
+    <string name="array_pref_radioSwitch_SIM1_off">SIM 1 vypnutá</string>
+    <string name="array_pref_radioSwitch_SIM2_on">SIM 2 zapnutá</string>
+    <string name="array_pref_radioSwitch_SIM2_off">SIM 2 vypnutá</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1833,8 +1859,6 @@
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->

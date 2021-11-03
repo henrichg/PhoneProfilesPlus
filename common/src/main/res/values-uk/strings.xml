@@ -1784,6 +1784,32 @@
     <string name="check_github_releases_version_checking">… виявлення …</string>
     <string name="check_github_releases_version_critical">❗ВАЖЛИВА❗</string>
     <string name="important_info_profile_grant_1_howTo_0">Цю допомогу краще переглядати браузером на комп\'ютері. В PhoneProfilesPlus GitHub README.md вона позначена як</string>
+    <string name="important_info_event_event_sensors">Кожна подія має датчики. Для запуску події мають бути виконані умови всіх датчиків. Якщо не виконана умова хоча би одного датчика-подія зупиняється.\n\nВ Редакторі кольором назви датчику показаний його статус:</string>
+    <string name="important_info_event_event_sensors_waiting">Синій: датчик у стані очікування, перевірка умови.</string>
+    <string name="important_info_event_event_sensors_passed">Зелений: умова виконана.</string>
+    <string name="important_info_event_event_sensors_not_pased">Жовтий: умова не виконана.</string>
+    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Вищій рівень</string>
+    <string name="profile_preferences_deviceVPNSettingsPrefs">(I) Налаштування VPN</string>
+    <string name="profile_preferences_deviceVPNInfo">VPN</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Натисніть тут, щоб показати інформацію про з\'єднання\/відключення VPN, налаштованого в додатку OpenVPN.</string>
+    <string name="profile_preferences_deviceVPNInfo_infoText">У параметрі профілю \"Інші\"\/\"Запустити додатки, ярлики, intents\" існує попередньо налаштовані Intents для двох додатків: \"OpenVPN Connect\" та \"OpenVPN Connect\" для Android\". Для отримання додаткової інформації відвідайте:</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Кольори по нічному режиму</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">Якщо ввімкнено, кольори віджетів будуть встановлені системним нічним режимом (як у Pixel launcher)</string>
+    <string name="array_pref_radioSwitch_connected_any_sim_cards">Підключено (будь-яка SIM-картка)</string>
+    <string name="array_pref_radioSwitch_connected_sim1">SIM1 підключено</string>
+    <string name="array_pref_radioSwitch_connected_sim2">SIM2 підключено</string>
+    <string name="permission_why_event_radio_switch_preferences">для перевірки підключення мобільних даних для телефона з двома SIM, перевірте SIM за замовчуванням</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForCalls">SIM для викликів за замовчуванням</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForSMS">SIM за умовчанням для SMS</string>
+    <string name="array_pref_radioSwitch_defaultSIM1">SIM 1</string>
+    <string name="array_pref_radioSwitch_defaultSIM2">SIM 2</string>
+    <string name="event_preferences_radioSwitch_simOnOff">SIM увімк/вимк</string>
+    <string name="array_pref_radioSwitch_any_SIM_on">Будь-яка SIM увімкнена</string>
+    <string name="array_pref_radioSwitch_any_SIM_off">Будь-яка SIM вимкнута</string>
+    <string name="array_pref_radioSwitch_SIM1_on">SIM 1 увімкнено</string>
+    <string name="array_pref_radioSwitch_SIM1_off">SIM 1 вимкнено</string>
+    <string name="array_pref_radioSwitch_SIM2_on">SIM 2 увімкнено</string>
+    <string name="array_pref_radioSwitch_SIM2_off">SIM 2 вимкнено</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1833,8 +1859,6 @@
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->

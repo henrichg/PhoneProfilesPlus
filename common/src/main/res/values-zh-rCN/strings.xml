@@ -1783,7 +1783,33 @@
     <string name="check_github_releases_released_version">已发布版本：</string>
     <string name="check_github_releases_version_checking">… 检测 …</string>
     <string name="check_github_releases_version_critical">! 关键 !</string>
-    <string name="important_info_profile_grant_1_howTo_0">This help is better to open it in computer in his Internet browser. It is in PhoneProfilesPlus GitHub README.md, marked as</string>
+    <string name="important_info_profile_grant_1_howTo_0">此帮助可以更好地在计算机网络浏览器中打开, 已在 PhoneProfilesPlus GitHub README.md 中标记为</string>
+    <string name="important_info_event_event_sensors">每个事件都有传感器。所有已启用\"允许运行\"的传感器必须“传递”才能开始运行事件。 当任何传感器没有“传递”时，运行事件将结束。\n\n\"传递\"状态用传感器名称的颜色表示在编辑器中：</string>
+    <string name="important_info_event_event_sensors_waiting">蓝：传感器处于等待状态，\"传递\"状态已确定。</string>
+    <string name="important_info_event_event_sensors_passed">绿色：传感器是“已传递”。</string>
+    <string name="important_info_event_event_sensors_not_pased">黄色：传感器非\"传递\"。</string>
+    <string name="phone_profiles_pref_applicationWidgetHigherLayout">更高布局</string>
+    <string name="profile_preferences_deviceVPNSettingsPrefs">(I) VPN 设置</string>
+    <string name="profile_preferences_deviceVPNInfo">VPN</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">点击这里显示在 OpenVPN 应用程序中配置的连接信息\/断开连接 VPN</string>
+    <string name="profile_preferences_deviceVPNInfo_infoText">在配置文件参数“Others”\/\"运行应用，快捷方式，intents”存在两个应用程序的预先定义的帐篷：“OpenVPN 连接”和“OpenVPN for Android”。欲了解更多信息访问：</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">随夜晚模式更改颜色</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">如果不可用，小部件颜色将按系统夜晚模式设置(类似 Pixel launcher)</string>
+    <string name="array_pref_radioSwitch_connected_any_sim_cards">已连接 (任意 SIM 卡)</string>
+    <string name="array_pref_radioSwitch_connected_sim1">已连接 SIM 卡 1</string>
+    <string name="array_pref_radioSwitch_connected_sim2">已连接 SIM 卡 2</string>
+    <string name="permission_why_event_radio_switch_preferences">为双卡检查移动数据连接，请检查默认的 SIM 卡</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForCalls">默认通话SIM卡</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForSMS">默认短信SIM卡</string>
+    <string name="array_pref_radioSwitch_defaultSIM1">SIM 卡 1</string>
+    <string name="array_pref_radioSwitch_defaultSIM2">SIM 卡 2</string>
+    <string name="event_preferences_radioSwitch_simOnOff">SIM卡开/关</string>
+    <string name="array_pref_radioSwitch_any_SIM_on">任意 SIM 卡开启</string>
+    <string name="array_pref_radioSwitch_any_SIM_off">任意 SIM 卡关闭</string>
+    <string name="array_pref_radioSwitch_SIM1_on">SIM 卡 1 开启</string>
+    <string name="array_pref_radioSwitch_SIM1_off">SIM 卡 1 关闭</string>
+    <string name="array_pref_radioSwitch_SIM2_on">SIM 卡 2 开启</string>
+    <string name="array_pref_radioSwitch_SIM2_off">SIM 卡 2 关闭</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1833,8 +1859,6 @@
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
