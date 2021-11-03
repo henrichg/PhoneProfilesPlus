@@ -1571,6 +1571,17 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (preference != null)
                     preference.setVisible(false);
             }
+            if (PPApplication.deviceIsPixel) {
+                ListPreference listPreference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_STATUS_BAR_STYLE);
+                if (listPreference != null) {
+                    String value = listPreference.getValue();
+                    if (value.equals("0"))
+                        value = "1";
+                    listPreference.setEntries(R.array.notificationIconStylePixelA12Array);
+                    listPreference.setEntryValues(R.array.notificationIconStylePixelA12Values);
+                    listPreference.setValue(value);
+                }
+            }
         }
 
     }

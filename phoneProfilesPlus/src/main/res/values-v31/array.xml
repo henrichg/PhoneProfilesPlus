@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string-array name="notificationIconStylePixelA12Array">
+        <item>@string/phone_profiles_pref_notificationStatusBarStyle_android</item>
+        <item>@string/phone_profiles_pref_notificationStatusBarStyle_force_android</item>
+    </string-array>
+    <string-array name="notificationIconStylePixelA12Values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

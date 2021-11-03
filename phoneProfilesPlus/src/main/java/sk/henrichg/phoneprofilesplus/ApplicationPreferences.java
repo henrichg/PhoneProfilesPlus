@@ -635,6 +635,15 @@ class ApplicationPreferences {
 
     static void notificationStatusBarStyle(Context context) {
         notificationStatusBarStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_STATUS_BAR_STYLE, "1");
+        // Native (1) is OK, becuse in Pixel 5 with Android 12, Colorful (0) not working, icon is not displayed.
+        // But by me, it is bug in Pixel 5, because in my Pizel 3a working also Colorful.
+        if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31) &&
+                notificationStatusBarStyle.equals("0")) {
+            SharedPreferences prefs = getSharedPreferences(context);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString(PREF_NOTIFICATION_STATUS_BAR_STYLE, "1");
+            editor.apply();
+        }
     }
 
     static void notificationShowInStatusBar(Context context) {
