@@ -5998,7 +5998,8 @@ public class PhoneProfilesService extends Service
         int decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
 
         //decoratorColor =
-                _addProfileIconToProfileNotification(forFirstStart,
+        //noinspection ConstantConditions
+        _addProfileIconToProfileNotification(forFirstStart,
                                                      contentView, contentViewLarge,
                                                      notificationBuilder,
                                                      notificationNotificationStyle, notificationStatusBarStyle,
@@ -6347,16 +6348,17 @@ public class PhoneProfilesService extends Service
         }
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     private int _addProfileIconToProfileNotification(boolean forFirstStart,
-                                                        RemoteViews contentView, RemoteViews contentViewLarge,
-                                                        NotificationCompat.Builder notificationBuilder,
-                                                        String notificationNotificationStyle, String notificationStatusBarStyle,
-                                                        boolean notificationShowProfileIcon,
-                                                        Profile profile,
-                                                        boolean isIconResourceID, Bitmap iconBitmap,
-                                                        String iconIdentifier, boolean profileIconExists,
-                                                        boolean useDecorator, int decoratorColor,
-                                                        Context appContext) {
+                                                     RemoteViews contentView, RemoteViews contentViewLarge,
+                                                     NotificationCompat.Builder notificationBuilder,
+                                                     String notificationNotificationStyle, String notificationStatusBarStyle,
+                                                     boolean notificationShowProfileIcon,
+                                                     Profile profile,
+                                                     boolean isIconResourceID, Bitmap iconBitmap,
+                                                     String iconIdentifier, boolean profileIconExists,
+                                                     boolean useDecorator, int decoratorColor,
+                                                     Context appContext) {
         if (!forFirstStart) {
             if (isIconResourceID) {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is internal resource");

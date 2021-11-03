@@ -13,7 +13,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
