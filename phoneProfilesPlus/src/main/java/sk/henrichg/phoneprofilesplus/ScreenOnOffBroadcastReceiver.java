@@ -248,7 +248,7 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                         //PPApplication.logE("****** EventsHandler.handleEvents", "END run - from=ScreenOnOffBroadcastReceiver.onReceive");
                     }
 
-                    if (action.equals(Intent.ACTION_SCREEN_ON) || action.equals(Intent.ACTION_USER_PRESENT)) {
+                    //if (action.equals(Intent.ACTION_SCREEN_ON) || action.equals(Intent.ACTION_USER_PRESENT)) {
                         /*if (Build.VERSION.SDK_INT < 26) {
                             if (ApplicationPreferences.notificationShowInStatusBar &&
                                     ApplicationPreferences.notificationHideInLockScreen) {
@@ -256,10 +256,12 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                     PhoneProfilesService.getInstance().showProfileNotification(false/);
                             }
                         } else {*/
-                        if (PhoneProfilesService.getInstance() != null)
-                            PhoneProfilesService.getInstance().showProfileNotification(false, true, false);
+                        //if (PhoneProfilesService.getInstance() != null)
+                            //PhoneProfilesService.getInstance().showProfileNotification(false, true, false);
+                            PhoneProfilesService.drawProfileNotification(false, appContext);
+                            //Log.e("ScreenOnOffBroadcastReceiver.onReceive", "draw notification");
                         //}
-                    }
+                    //}
 
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("@@@ ScreenOnOffBroadcastReceiver.onReceive", "end of handler post");

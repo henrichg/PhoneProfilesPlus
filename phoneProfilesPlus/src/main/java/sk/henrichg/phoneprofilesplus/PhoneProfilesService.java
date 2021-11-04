@@ -63,6 +63,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.palette.graphics.Palette;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -6460,15 +6461,15 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-//                if ((profile != null) && (profile.getUseCustomColorForIcon()))
-//                    decoratorColor = profile.getIconCustomColor();
-//                else {
-//                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-//                        decoratorColor = ProfileIconPreferenceAdapterX.getIconColor(iconIdentifier/*, prefContext*/);
-//                    }
-//                }
+                if ((profile != null) && (profile.getUseCustomColorForIcon()))
+                    decoratorColor = profile.getIconCustomColor();
+                else {
+                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+                        decoratorColor = ProfileIconPreferenceAdapterX.getIconColor(iconIdentifier/*, prefContext*/);
+                    }
+                }
 //                if (PPApplication.isScreenOn)
-                    decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
+//                    decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
 
             } else {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is custom - external picture");
@@ -6522,10 +6523,10 @@ public class PhoneProfilesService extends Service
                 if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
                     if (iconBitmap != null) {
 //                        if (PPApplication.isScreenOn)
-                            decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
+//                            decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
 //                        else {
-//                            Palette palette = Palette.from(iconBitmap).generate();
-//                            decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
+                            Palette palette = Palette.from(iconBitmap).generate();
+                            decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
 //                        }
                     }
                 }
@@ -6621,6 +6622,7 @@ public class PhoneProfilesService extends Service
                                 synchronized (PPApplication.showPPPNotificationMutex) {
                                     DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0f);
                                     PhoneProfilesService.getInstance()._showProfileNotification(/*profile,*/ dataWrapper, false/*, clear*/);
+                                    //Log.e("PhoneProfilesService.drawProfileNotification", "(1)");
                                 }
                             }
                         }
@@ -6665,6 +6667,7 @@ public class PhoneProfilesService extends Service
 
 //                    PPApplication.logE("[WORKER_CALL] PhoneProfilesService.showProfileNotification", "xxx");
                         workManager.enqueueUniqueWork(ShowProfileNotificationWorker.WORK_TAG, ExistingWorkPolicy.REPLACE, worker);
+                        //Log.e("PhoneProfilesService.drawProfileNotification", "(2)");
                     }
                 }
             } catch (Exception e) {
