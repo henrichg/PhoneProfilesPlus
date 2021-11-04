@@ -63,7 +63,6 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.palette.graphics.Palette;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -5997,9 +5996,8 @@ public class PhoneProfilesService extends Service
 
         int decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
 
-        //decoratorColor =
         //noinspection ConstantConditions
-        _addProfileIconToProfileNotification(forFirstStart,
+        decoratorColor = _addProfileIconToProfileNotification(forFirstStart,
                                                      contentView, contentViewLarge,
                                                      notificationBuilder,
                                                      notificationNotificationStyle, notificationStatusBarStyle,
@@ -6354,7 +6352,7 @@ public class PhoneProfilesService extends Service
                                                      NotificationCompat.Builder notificationBuilder,
                                                      String notificationNotificationStyle, String notificationStatusBarStyle,
                                                      boolean notificationShowProfileIcon,
-                                                     Profile profile,
+                                                     @SuppressWarnings("unused") Profile profile,
                                                      boolean isIconResourceID, Bitmap iconBitmap,
                                                      String iconIdentifier, boolean profileIconExists,
                                                      boolean useDecorator, int decoratorColor,
@@ -6462,13 +6460,15 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                if ((profile != null) && (profile.getUseCustomColorForIcon()))
-                    decoratorColor = profile.getIconCustomColor();
-                else {
-                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                        decoratorColor = ProfileIconPreferenceAdapterX.getIconColor(iconIdentifier/*, prefContext*/);
-                    }
-                }
+//                if ((profile != null) && (profile.getUseCustomColorForIcon()))
+//                    decoratorColor = profile.getIconCustomColor();
+//                else {
+//                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+//                        decoratorColor = ProfileIconPreferenceAdapterX.getIconColor(iconIdentifier/*, prefContext*/);
+//                    }
+//                }
+//                if (PPApplication.isScreenOn)
+                    decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
 
             } else {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is custom - external picture");
@@ -6521,8 +6521,12 @@ public class PhoneProfilesService extends Service
 
                 if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
                     if (iconBitmap != null) {
-                        Palette palette = Palette.from(iconBitmap).generate();
-                        decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.accent));
+//                        if (PPApplication.isScreenOn)
+                            decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
+//                        else {
+//                            Palette palette = Palette.from(iconBitmap).generate();
+//                            decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
+//                        }
                     }
                 }
 
