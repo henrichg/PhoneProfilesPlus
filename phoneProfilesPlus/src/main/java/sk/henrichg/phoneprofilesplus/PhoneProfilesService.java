@@ -6461,15 +6461,15 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                if ((profile != null) && (profile.getUseCustomColorForIcon()))
-                    decoratorColor = profile.getIconCustomColor();
-                else {
-                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
-                        decoratorColor = ProfileIconPreferenceAdapterX.getIconColor(iconIdentifier/*, prefContext*/);
-                    }
-                }
+//                if ((profile != null) && (profile.getUseCustomColorForIcon()))
+//                    decoratorColor = profile.getIconCustomColor();
+//                else {
+//                    if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
+//                        decoratorColor = ProfileIconPreferenceAdapterX.getIconColor(iconIdentifier/*, prefContext*/);
+//                    }
+//                }
 //                if (PPApplication.isScreenOn)
-//                    decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
+                    decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
 
             } else {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is custom - external picture");
@@ -6523,10 +6523,10 @@ public class PhoneProfilesService extends Service
                 if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
                     if (iconBitmap != null) {
 //                        if (PPApplication.isScreenOn)
-//                            decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
+                            decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
 //                        else {
-                            Palette palette = Palette.from(iconBitmap).generate();
-                            decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
+//                            Palette palette = Palette.from(iconBitmap).generate();
+//                            decoratorColor = palette.getDominantColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor));
 //                        }
                     }
                 }
