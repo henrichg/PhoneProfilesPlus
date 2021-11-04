@@ -28,8 +28,8 @@ public class RingerModeChangeReceiver extends BroadcastReceiver {
             synchronized (PPApplication.notUnlinkVolumesMutex) {
                 notUnlinkVolumes = true;
             }
-            final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            setRingerMode(context, audioManager/*, "PringerModeChangeReceiver.onReceive"*/);
+            final AudioManager audioManager = (AudioManager) context.getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+            setRingerMode(context.getApplicationContext(), audioManager/*, "PringerModeChangeReceiver.onReceive"*/);
         }
 
         //setAlarmForDisableInternalChange(context);
