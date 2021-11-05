@@ -167,6 +167,16 @@
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/ask_for_duration_dlg_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:background="?attr/dialogDivider" />
+
         <TextView
             android:id="@+id/ask_for_duration_dlg_after_do_label"
             android:layout_width="wrap_content"
@@ -256,6 +266,7 @@
 
         </RelativeLayout>
 
+<!--
         <Button
             android:id="@+id/ask_for_duration_dlg_activate_without"
             android:layout_width="wrap_content"
@@ -270,6 +281,7 @@
             android:textStyle="bold"
             android:background="?attr/buttonBackground"
             style="?android:attr/borderlessButtonStyle"/>
+-->
 
     </LinearLayout>
 

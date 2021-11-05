@@ -139,6 +139,39 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             updateEndsTimer = null;
             mDataWrapper.finishActivity(mStartupSource, false, mActivity);
         });
+
+        dialogBuilder.setNeutralButton(R.string.ask_for_duration_without_duration_button, (dialog, which) -> {
+            updateEndsTimer = null;
+
+            mProfile._duration = 0;
+            DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
+
+            //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
+            //        /*true, mMonochrome, mMonochromeValue,*/
+            //        mStartupSource, true, true, false))
+            if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
+                //PPApplication.logE("&&&&&&& AskForDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
+
+                if ((mStartupSource == PPApplication.STARTUP_SOURCE_SHORTCUT) ||
+                        (mStartupSource == PPApplication.STARTUP_SOURCE_WIDGET) ||
+                        (mStartupSource == PPApplication.STARTUP_SOURCE_ACTIVATOR) ||
+                        (mStartupSource == PPApplication.STARTUP_SOURCE_EDITOR) ||
+                        (mStartupSource == PPApplication.STARTUP_SOURCE_QUICK_TILE)) {
+                    if (!ApplicationPreferences.applicationApplicationInterfaceNotificationSound.isEmpty() || ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate) {
+                        if (PhoneProfilesService.getInstance() != null) {
+                            //PPApplication.logE("ProfileDurationAlarmBroadcastReceiver._doWork", "play notification");
+                            PhoneProfilesService.getInstance().playNotificationSound(ApplicationPreferences.applicationApplicationInterfaceNotificationSound, ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate);
+                            //PPApplication.sleep(500);
+                        }
+                    }
+                }
+
+                mDataWrapper.activateProfileFromMainThread(mProfile, false, mStartupSource, true, mActivity, false);
+            }
+            else
+                mDataWrapper.finishActivity(mStartupSource, true, mActivity);
+        });
+
         dialogBuilder.setOnDismissListener(dialog -> {
             updateEndsTimer = null;
             mDataWrapper.finishActivity(mStartupSource, false, mActivity);
@@ -324,6 +357,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
         mAfterDoProfile = mProfile._afterDurationProfile;
         updateProfileView();
 
+/*
         final Button activateWithoutButton = layout.findViewById(R.id.ask_for_duration_dlg_activate_without);
         activateWithoutButton.setOnClickListener(v -> {
             updateEndsTimer = null;
@@ -332,7 +366,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
             DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
 
             //if (Permissions.grantProfilePermissions(mActivity, mProfile, false, true,
-            //        /*true, mMonochrome, mMonochromeValue,*/
+            //        true, mMonochrome, mMonochromeValue,
             //        mStartupSource, true, true, false))
             if (!PhoneProfilesService.displayPreferencesErrorNotification(mProfile, null, mActivity.getApplicationContext())) {
                 //PPApplication.logE("&&&&&&& AskForDurationDialog.onClick", "(2) called is DataWrapper.activateProfileFromMainThread");
@@ -358,7 +392,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
 
             mDialog.dismiss();
         });
-
+*/
     }
 
 

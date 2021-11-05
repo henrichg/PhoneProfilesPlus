@@ -885,7 +885,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Disable mobile cell scanning</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Disable orientation scanning</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Pop-up notifications</string>
-    <string name="fast_access_duration_activate_without_button_2">Activate without duration</string>
     <string name="profileicon_pref_dlg_customIconButton">Custom icon</string>
     <string name="mobile_cells_registration_cell_name_hint">Click to set cell name</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">May not working connection into hotspot from another devices.</string>
@@ -1840,6 +1839,8 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="keep_screen_on_active_notification_title_1">is</string>
     <string name="keep_screen_on_active_notification_decription_1">To set it</string>
     <string name="keep_screen_on_active_notification_decription_2">configure and activate profile with</string>
+
+    <string name="ask_for_duration_without_duration_button">Without duration</string>
 
     <!-- **************************************************************************************** -->
 
