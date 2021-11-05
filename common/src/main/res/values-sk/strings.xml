@@ -1810,6 +1810,16 @@
     <string name="array_pref_radioSwitch_SIM1_off">SIM 1 vypnutá</string>
     <string name="array_pref_radioSwitch_SIM2_on">SIM 2 zapnutá</string>
     <string name="array_pref_radioSwitch_SIM2_off">SIM 2 vypnutá</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">a</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">Zapnuté</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Vypnuté</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">nenastavý</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">pre parameter</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">Musíte tiež nakonfigurovať</string>
+    <string name="notification_channel_keep_screen_on_description">Zobrazuje notifikáciu o stave</string>
+    <string name="keep_screen_on_active_notification_title_1">je</string>
+    <string name="keep_screen_on_active_notification_decription_1">Ak ho chcete nastaviť na</string>
+    <string name="keep_screen_on_active_notification_decription_2">nakonfigurujte a aktivujte profil s</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

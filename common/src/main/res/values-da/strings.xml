@@ -1810,6 +1810,16 @@
     <string name="array_pref_radioSwitch_SIM1_off">SIM 1 Off</string>
     <string name="array_pref_radioSwitch_SIM2_on">SIM 2 On</string>
     <string name="array_pref_radioSwitch_SIM2_off">SIM 2 Off</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">and</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">On</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Off</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">do not set</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">for parameter</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">You must configure also</string>
+    <string name="notification_channel_keep_screen_on_description">Shows notification about status of</string>
+    <string name="keep_screen_on_active_notification_title_1">is</string>
+    <string name="keep_screen_on_active_notification_decription_1">To set it</string>
+    <string name="keep_screen_on_active_notification_decription_2">configure and activate profile with</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>
