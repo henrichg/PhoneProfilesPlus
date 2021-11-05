@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
-        android:paddingStart="23dp"
-        android:paddingEnd="28dp">
+        android:paddingStart="15dp"
+        android:paddingEnd="20dp">
 
         <TextView
             android:id="@+id/duration_pref_dlg_range"
