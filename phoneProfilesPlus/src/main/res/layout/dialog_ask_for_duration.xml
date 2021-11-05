@@ -11,9 +11,9 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
+        android:paddingBottom="0dp"
         android:paddingStart="15dp"
-        android:paddingEnd="20dp">
+        android:paddingEnd="15dp">
 
         <TextView
             android:id="@+id/duration_pref_dlg_range"
@@ -36,7 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginStart="5dp">
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp">
 
                 <TextView
                     android:id="@+id/duration_pref_dlg_value_label"
@@ -94,6 +95,7 @@
                     android:id="@+id/duration_pref_dlg_ends"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:gravity="end"
                     android:text="00:00:00"
@@ -209,8 +211,6 @@
             android:id="@+id/ask_for_duration_dlg_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:paddingTop="5dp"
