@@ -378,7 +378,9 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
                         origProfile._vibrateNotifications,
                         origProfile._deviceWallpaperFolder,
                         origProfile._applicationDisableGloabalEventsRun,
-                        origProfile._deviceVPNSettingsPrefs
+                        origProfile._deviceVPNSettingsPrefs,
+                        origProfile._endOfActivationType,
+                        origProfile._endOfActivationTime
                 );
                 showSaveMenu = true;
             }
@@ -430,6 +432,8 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._afterDurationDo = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO, ""));
             profile._afterDurationProfile = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, ""));
             profile._askForDuration = preferences.getBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
+            profile._endOfActivationType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE, ""));
+            profile._endOfActivationTime = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME, ""));
             profile._durationNotificationSound = preferences.getString(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND, "");
             profile._durationNotificationVibrate = preferences.getBoolean(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, false);
 

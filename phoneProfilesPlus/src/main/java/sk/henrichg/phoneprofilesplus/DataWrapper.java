@@ -264,7 +264,9 @@ public class DataWrapper {
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN)),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS))
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME))
             );
     }
 
@@ -1764,7 +1766,8 @@ public class DataWrapper {
                     PPApplication.logE("$$$ DataWrapper._activateProfile", "duration=" + mappedProfile._duration);
                     PPApplication.logE("$$$ DataWrapper._activateProfile", "afterDurationDo=" + mappedProfile._afterDurationDo);
                 }*/
-                if ((_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
+                if ((_profile._endOfActivationType == 0) &&
+                        (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
                         (_profile._duration > 0)) {
                     profileDuration = _profile._duration;
                 }

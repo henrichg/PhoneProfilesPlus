@@ -43,8 +43,9 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         if (profile == null)
             return;
 
-        if ((profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
-            (profile._duration > 0))
+        if ((profile._endOfActivationType == 0) &&
+                (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
+                (profile._duration > 0))
         {
             // duration for start is > 0
             // set alarm
