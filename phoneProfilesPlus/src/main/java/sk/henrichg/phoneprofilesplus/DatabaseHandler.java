@@ -38,7 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2478;
+    private static final int DATABASE_VERSION = 2479;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -212,6 +212,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DEVICE_WALLPAPER_FOLDER = "deviceWallpaperFolder";
     private static final String KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN = "applicationDisableGlobalEventsRun";
     private static final String KEY_DEVICE_VPN_SETTINGS_PREFS = "deviceVPNSettingsPrefs";
+    private static final String KEY_END_OF_ACTIVATION_TYPE = "endOfActivationType";
+    private static final String KEY_END_OF_ACTIVATION_TIME = "endOfActivationTime";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -636,7 +638,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_CHANGE_WALLPAPER_TIME + " " + INTEGER_TYPE + ","
                 + KEY_DEVICE_WALLPAPER_FOLDER + " " + TEXT_TYPE + ","
                 + KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN + " " + INTEGER_TYPE + ","
-                + KEY_DEVICE_VPN_SETTINGS_PREFS + " " + INTEGER_TYPE
+                + KEY_DEVICE_VPN_SETTINGS_PREFS + " " + INTEGER_TYPE + ","
+                + KEY_END_OF_ACTIVATION_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_END_OF_ACTIVATION_TIME + " " + INTEGER_TYPE
                 + ")";
     }
 
@@ -1105,6 +1109,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER_FOLDER, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_DEVICE_VPN_SETTINGS_PREFS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_END_OF_ACTIVATION_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_END_OF_ACTIVATION_TIME, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, KEY_E_NAME, TEXT_TYPE, columns);
@@ -2820,6 +2826,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 0,
                                 "-",
                                 0,
+                                0,
+                                0,
                                 0
                         );
 
@@ -3573,6 +3581,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_SIM_ON_OFF + "=0");
         }
 
+        if (oldVersion < 2479)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_END_OF_ACTIVATION_TYPE + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_END_OF_ACTIVATION_TIME + "=0");
+
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_END_OF_ACTIVATION_TYPE + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_END_OF_ACTIVATION_TIME + "=0");
+        }
+
     }
 
     @Override
@@ -3745,6 +3762,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
                 values.put(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, profile._applicationDisableGloabalEventsRun);
                 values.put(KEY_DEVICE_VPN_SETTINGS_PREFS, profile._deviceVPNSettingsPrefs);
+                values.put(KEY_END_OF_ACTIVATION_TYPE, profile._endOfActivationType);
+                values.put(KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
 
                 // Insert Row
                 if (!merged) {
@@ -3880,7 +3899,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_LIVE_WALLPAPER,
                                 KEY_DEVICE_WALLPAPER_FOLDER,
                                 KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN,
-                                KEY_DEVICE_VPN_SETTINGS_PREFS
+                                KEY_DEVICE_VPN_SETTINGS_PREFS,
+                                KEY_END_OF_ACTIVATION_TYPE,
+                                KEY_END_OF_ACTIVATION_TIME
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3988,7 +4009,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS)),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_VPN_SETTINGS_PREFS))
+                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_VPN_SETTINGS_PREFS)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_END_OF_ACTIVATION_TYPE)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_END_OF_ACTIVATION_TIME))
                         );
                     }
 
@@ -4116,7 +4139,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_DEVICE_LIVE_WALLPAPER + "," +
                         KEY_DEVICE_WALLPAPER_FOLDER + "," +
                         KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN + "," +
-                        KEY_DEVICE_VPN_SETTINGS_PREFS +
+                        KEY_DEVICE_VPN_SETTINGS_PREFS + "," +
+                        KEY_END_OF_ACTIVATION_TYPE + "," +
+                        KEY_END_OF_ACTIVATION_TIME +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -4228,6 +4253,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._deviceWallpaperFolder = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER));
                         profile._applicationDisableGloabalEventsRun = cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN));
                         profile._deviceVPNSettingsPrefs = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_VPN_SETTINGS_PREFS));
+                        profile._endOfActivationType = cursor.getInt(cursor.getColumnIndex(KEY_END_OF_ACTIVATION_TYPE));
+                        profile._endOfActivationTime = cursor.getInt(cursor.getColumnIndex(KEY_END_OF_ACTIVATION_TIME));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -4357,6 +4384,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
                 values.put(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, profile._applicationDisableGloabalEventsRun);
                 values.put(KEY_DEVICE_VPN_SETTINGS_PREFS, profile._deviceVPNSettingsPrefs);
+                values.put(KEY_END_OF_ACTIVATION_TYPE, profile._endOfActivationType);
+                values.put(KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -4744,6 +4773,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_DEVICE_WALLPAPER_FOLDER,
                                 KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN,
                                 KEY_DEVICE_VPN_SETTINGS_PREFS,
+                                KEY_END_OF_ACTIVATION_TYPE,
+                                KEY_END_OF_ACTIVATION_TIME
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -4853,7 +4884,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS)),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_VPN_SETTINGS_PREFS))
+                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_VPN_SETTINGS_PREFS)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_END_OF_ACTIVATION_TYPE)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_END_OF_ACTIVATION_TIME))
                         );
                     }
 
