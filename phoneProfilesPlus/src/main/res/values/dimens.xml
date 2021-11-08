@@ -46,4 +46,7 @@
 
     <dimen name="design_bottom_navigation_height" tools:override="true">52dp</dimen>
 
+    <dimen name="fastScrollTrackWidth">10dp</dimen>
+    <dimen name="fastScrollThumbWidth">8dp</dimen>
+
 </resources>
