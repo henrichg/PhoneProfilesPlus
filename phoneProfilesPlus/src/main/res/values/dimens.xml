@@ -44,6 +44,7 @@
 
 <!--    <dimen name="editor_bottom_bar_height">67dp</dimen>-->
 
+    <!-- this is height of BottomNavigationView -->
     <dimen name="design_bottom_navigation_height" tools:override="true">52dp</dimen>
 
     <dimen name="fastScrollTrackWidth">10dp</dimen>
