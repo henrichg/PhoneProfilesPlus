@@ -106,6 +106,7 @@ class AskForDurationDialog implements SeekBar.OnSeekBarChangeListener{
                 if (mAfterDo != -1)
                     mProfile._afterDurationDo = mAfterDo;
                 mProfile._afterDurationProfile = mAfterDoProfile;
+                mProfile._endOfActivationType = 0;  // force duration
 
                 DatabaseHandler.getInstance(mDataWrapper.context).updateProfile(mProfile);
 
