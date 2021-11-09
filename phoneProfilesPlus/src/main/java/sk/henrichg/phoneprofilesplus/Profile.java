@@ -3446,7 +3446,7 @@ public class Profile {
                     }
                 }
                 if (!showEndTime) {
-                    durationString = "[" + GlobalGUIRoutines.getDurationString(_duration) + "]";
+                    durationString = "[" + context.getString(R.string.end_of_activation_duration_acronym) + ": " + GlobalGUIRoutines.getDurationString(_duration) + "]";
                 }
             }
         }
@@ -3455,16 +3455,12 @@ public class Profile {
             if (_afterDurationDo != AFTER_DURATION_DO_NOTHING) {
                 boolean showEndTime = false;
                 if (_checked) {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.set(Calendar.HOUR_OF_DAY, _endOfActivationTime / 60);
-                    calendar.set(Calendar.MINUTE, _endOfActivationTime % 60);
-                    String time = android.text.format.DateFormat.getTimeFormat(context).format(new java.sql.Date(calendar.getTimeInMillis()));
-                    durationString = "(" + context.getString(R.string.duration_end_acronym) + ": " +
-                            time + ")";
+                    durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + ": " +
+                            GlobalGUIRoutines.getTimeString(_endOfActivationTime) + ")";
                     showEndTime = true;
                 }
                 if (!showEndTime) {
-                    durationString = "[" + GlobalGUIRoutines.getDurationString(_duration) + "]";
+                    durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + ": " + GlobalGUIRoutines.getTimeString(_endOfActivationTime) + "]";
                 }
             }
         }
