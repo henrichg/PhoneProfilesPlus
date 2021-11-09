@@ -608,7 +608,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = prefMng.findPreference(Profile.PREF_PROFILE_ASK_FOR_DURATION);
         if (preference != null) {
-            preference.setTitle("[M] " + getString(R.string.profile_preferences_askForEndOfActivation));
+            preference.setTitle("[M] " + getString(R.string.profile_preferences_askForDuration));
         }
 
         preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
@@ -1638,7 +1638,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                                          Preference preferenceScreen,
                                                          CattegorySummaryData cattegorySummaryData) {
         String title;
-        String askForDurationTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ASK_FOR_DURATION, R.string.profile_preferences_askForEndOfActivation, false, context);
+        String askForDurationTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ASK_FOR_DURATION, R.string.profile_preferences_askForDuration, false, context);
         if (askForDurationTitle.isEmpty()) {
             String value = preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE));
             if (value.equals("0")) {
