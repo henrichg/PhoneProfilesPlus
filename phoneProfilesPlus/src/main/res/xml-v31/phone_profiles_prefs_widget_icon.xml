@@ -83,7 +83,7 @@
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationWidgetIconShowProfileDuration"
-        app:title="@string/phone_profiles_pref_applicationWidgetIconShowProfileDuration"
+        app:title="@string/phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation"
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference

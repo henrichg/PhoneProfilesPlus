@@ -377,6 +377,11 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             (applicationWidgetIconShowProfileDuration)) {
                         //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
                         remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget);
+                    } else
+                    if ((profile._endOfActivationType == 1) &&
+                            (applicationWidgetIconShowProfileDuration)) {
+                        //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget");
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.icon_widget);
                     }
                     else {
                         //PPApplication.logE("IconWidgetProvider.onUpdate", "R.layout.icon_widget_one_line_text");
