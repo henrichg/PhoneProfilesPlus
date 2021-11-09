@@ -3786,7 +3786,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(this._afterDurationDo));
         editor.putBoolean(PREF_PROFILE_ASK_FOR_DURATION, this._askForDuration);
         editor.putString(PREF_PROFILE_END_OF_ACTIVATION_TYPE, Integer.toString(this._endOfActivationType));
-        editor.putString(PREF_PROFILE_END_OF_ACTIVATION_TIME, Integer.toString(this._endOfActivationTime));
+        editor.putInt(PREF_PROFILE_END_OF_ACTIVATION_TIME, this._endOfActivationTime);
         editor.putString(PREF_PROFILE_DURATION_NOTIFICATION_SOUND, this._durationNotificationSound);
         editor.putBoolean(PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, this._durationNotificationVibrate);
         editor.putBoolean(PREF_PROFILE_HIDE_STATUS_BAR_ICON, this._hideStatusBarIcon);

@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:title="@string/profile_preferences_category_activation_duration"
+    app:title="@string/profile_preferences_category_end_of_activation"
     app:key="prf_pref_activationDurationCategory" >
 
     <Preference
         app:key="prf_pref_durationInfo"
         app:title="@string/preferences_durationInfo_summary"
         app:summary="@string/empty_string"
+        app:layout="@layout/mp_preference_material_widget" />
+    <ListPreference
+        app:title="@string/profile_preferences_endOfActivationType"
+        app:summary="@string/array_pref_aendOfActivationType_duration"
+        app:key="prf_pref_endOfActivationType"
+        app:defaultValue="0"
+        app:entries="@array/endOfProfileActivationTypeArray"
+        app:entryValues="@array/endOfProfileActivationTypeValues"
+        app:dependency="prf_pref_askForDuration"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX
         app:key="prf_pref_duration"
@@ -18,6 +27,12 @@
         app:dMin="0"
         app:dMax="86400"
         app:dependency="prf_pref_askForDuration" />
+    <sk.henrichg.phoneprofilesplus.TimeDialogPreferenceX
+        app:key="prf_pref_endOfActivationTime"
+        app:defaultValue="0"
+        app:title="@string/profile_preferences_exactTime"
+        app:dependency="prf_pref_askForDuration"
+        app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_afterDurationDo"
         app:summary="@string/array_pref_afterProfileDurationDo_nothing"
@@ -35,13 +50,13 @@
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="prf_pref_askForDuration"
-        app:title="@string/profile_preferences_askForDuration"
+        app:title="@string/profile_preferences_askForEndOfActivation"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget"
         app:disableDependentsState="true"/>
     <PreferenceCategory
         app:key="prf_pref_durationEndCategory"
-        app:title="@string/profile_preferences_durationEndCategory"
+        app:title="@string/profile_preferences_endOfActivationCategory"
         app:layout="@layout/mp_preference_category" >
 <!--        <Preference-->
 <!--            app:key="prf_pref_durationNotificationSoundInfo"-->

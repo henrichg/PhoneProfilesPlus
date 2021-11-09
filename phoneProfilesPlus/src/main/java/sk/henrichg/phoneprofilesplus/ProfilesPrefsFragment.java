@@ -136,6 +136,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
+        if (preference instanceof TimeDialogPreferenceX)
+        {
+            ((TimeDialogPreferenceX)preference).fragment = new TimeDialogPreferenceFragmentX();
+            dialogFragment = ((TimeDialogPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
         if (preference instanceof RingtonePreferenceX)
         {
             ((RingtonePreferenceX)preference).fragment = new RingtonePreferenceFragmentX();
@@ -600,7 +608,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         preference = prefMng.findPreference(Profile.PREF_PROFILE_ASK_FOR_DURATION);
         if (preference != null) {
-            preference.setTitle("[M] " + getString(R.string.profile_preferences_askForDuration));
+            preference.setTitle("[M] " + getString(R.string.profile_preferences_askForEndOfActivation));
         }
 
         preference = prefMng.findPreference(Profile.PREF_PROFILE_VOLUME_UNLINK_VOLUMES_APP_SETTINGS);
@@ -1262,6 +1270,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             boolean bValue = sharedPreferences.getBoolean(key, false);
             value = Boolean.toString(bValue);
         }
+        else
+        if (key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)) {
+            value = String.valueOf(sharedPreferences.getInt(key, 0));
+        }
         else {
             if (prefMng.findPreference(key) != null)
                 value = sharedPreferences.getString(key, "");
@@ -1549,8 +1561,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     title = getString(preferenceTitleId);
                     notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                 }
-            }
-            else {
+            } else if (key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)) {
+                title = context.getString(R.string.profile_preferences_exactTime);
+            } else {
                 /*String defaultValue =
                         getResources().getString(
                                 GlobalGUIRoutines.getResourceId(key, "string", context));*/
@@ -1625,39 +1638,75 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                                          Preference preferenceScreen,
                                                          CattegorySummaryData cattegorySummaryData) {
         String title;
-        String askForDurationTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ASK_FOR_DURATION, R.string.profile_preferences_askForDuration, false, context);
+        String askForDurationTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ASK_FOR_DURATION, R.string.profile_preferences_askForEndOfActivation, false, context);
         if (askForDurationTitle.isEmpty()) {
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION, R.string.profile_preferences_duration, false, context);
-            String afterDurationDoTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_DO, R.string.profile_preferences_afterDurationDo, false, context);
-            if (!title.isEmpty()) {
-                cattegorySummaryData.bold = true;
-                String value = preferences.getString(Profile.PREF_PROFILE_DURATION, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION));
-                if (value != null) {
-                    value = GlobalGUIRoutines.getDurationString(Integer.parseInt(value));
-                    cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b> • ";
+            String value = preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE));
+            if (value.equals("0")) {
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION, R.string.profile_preferences_duration, false, context);
+                String afterDurationDoTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_DO, R.string.profile_preferences_afterDurationDo, false, context);
+                if (!title.isEmpty()) {
+                    cattegorySummaryData.bold = true;
+                    value = preferences.getString(Profile.PREF_PROFILE_DURATION, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION));
+                    if (value != null) {
+                        value = GlobalGUIRoutines.getDurationString(Integer.parseInt(value));
+                        cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b> • ";
 
-                    String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
-                    value = GlobalGUIRoutines.getListPreferenceString(afterDurationDoValue,
-                            R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
-                    cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle + ": <b>" + value + "</b>";
+                        String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
+                        value = GlobalGUIRoutines.getListPreferenceString(afterDurationDoValue,
+                                R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
+                        cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle + ": <b>" + value + "</b>";
 
-                    if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
-                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
-                        long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
-                        Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
-                        if (profile != null)
-                            value = profile._name;
-                        else {
-                            if (profileId == Profile.PROFILE_NO_ACTIVATE)
-                                value = context.getString(R.string.profile_preference_profile_end_no_activate);
+                        if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
+                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                            long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
+                            Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                            if (profile != null)
+                                value = profile._name;
+                            else {
+                                if (profileId == Profile.PROFILE_NO_ACTIVATE)
+                                    value = context.getString(R.string.profile_preference_profile_end_no_activate);
+                            }
+                            String _title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, R.string.profile_preferences_afterDurationProfile, false, context);
+                            cattegorySummaryData.summary = cattegorySummaryData.summary + " • " + _title + ": <b>" + value + "</b>";
                         }
-                        String _title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, R.string.profile_preferences_afterDurationProfile, false, context);
-                        cattegorySummaryData.summary = cattegorySummaryData.summary + " • " + _title + ": <b>" + value + "</b>";
-                    }
+                    } else
+                        cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle;
                 }
-                else
-                    cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle;
+            } else {
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME, R.string.profile_preferences_exactTime, false, context);
+                String afterDurationDoTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_DO, R.string.profile_preferences_afterExactTimeDo, false, context);
+                if (!title.isEmpty()) {
+                    cattegorySummaryData.bold = true;
+                    //noinspection ConstantConditions
+                    int iValue = preferences.getInt(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME, Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)));
+                    value = String.valueOf(iValue);
+                    //if (value != null) {
+                        value = GlobalGUIRoutines.getTimeString(Integer.parseInt(value));
+                        cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b> • ";
+
+                        String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
+                        value = GlobalGUIRoutines.getListPreferenceString(afterDurationDoValue,
+                                R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
+                        cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle + ": <b>" + value + "</b>";
+
+                        if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
+                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                            long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
+                            Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                            if (profile != null)
+                                value = profile._name;
+                            else {
+                                if (profileId == Profile.PROFILE_NO_ACTIVATE)
+                                    value = context.getString(R.string.profile_preference_profile_end_no_activate);
+                            }
+                            String _title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, R.string.profile_preferences_afterDurationProfile, false, context);
+                            cattegorySummaryData.summary = cattegorySummaryData.summary + " • " + _title + ": <b>" + value + "</b>";
+                        }
+                    //} else
+                    //    cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle;
+                }
             }
         }
         else {
@@ -4266,6 +4315,34 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        if (key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE))
+        {
+            String sValue = value.toString();
+            ListPreference listPreference = prefMng.findPreference(key);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(sValue);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+//                String durationDefaultValue = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION);
+//                String durationValue = preferences.getString(Profile.PREF_PROFILE_DURATION, durationDefaultValue);
+//                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true,
+//                        (durationValue != null) && (!durationValue.equals(durationDefaultValue)),
+//                        false, false, false);
+            }
+
+            listPreference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_DO);
+            if (listPreference != null) {
+                sValue = value.toString();
+                if (sValue.equals("1")) {
+                    listPreference.setTitle(R.string.profile_preferences_afterExactTimeDo);
+                    listPreference.setDialogTitle(R.string.profile_preferences_afterExactTimeDo);
+                }
+                else {
+                    listPreference.setTitle(R.string.profile_preferences_afterDurationDo);
+                    listPreference.setDialogTitle(R.string.profile_preferences_afterDurationDo);
+                }
+            }
+        }
 
     }
 
@@ -4845,6 +4922,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
         setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN);
         setSummary(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS);
+
+        setSummary(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
@@ -5082,12 +5161,25 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (key.equals(Profile.PREF_PROFILE_DURATION) ||
             key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO) ||
-            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION)) {
+            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+            key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)) {
+
+            String endOfActivationType = preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE, "0");
+            Preference durationPreference = prefMng.findPreference(Profile.PREF_PROFILE_DURATION);
+            Preference endOfActivationTimePreference = prefMng.findPreference(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME);
+            if (durationPreference != null)
+                durationPreference.setEnabled(endOfActivationType.equals("0"));
+            if (endOfActivationTimePreference != null)
+                endOfActivationTimePreference.setEnabled(endOfActivationType.equals("1"));
 
             String duration = preferences.getString(Profile.PREF_PROFILE_DURATION, "0");
             boolean askForDuration = preferences.getBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
 
-            boolean enable = (!askForDuration) && (!duration.equals("0"));
+            boolean enable = false;
+            if (endOfActivationType.equals("0"))
+                enable = (!askForDuration) && (!duration.equals("0"));
+            else
+                enable = true;
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_DO);
             if (preference != null)

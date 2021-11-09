@@ -433,7 +433,7 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
             profile._afterDurationProfile = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, ""));
             profile._askForDuration = preferences.getBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
             profile._endOfActivationType = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE, ""));
-            profile._endOfActivationTime = Integer.parseInt(preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME, ""));
+            profile._endOfActivationTime = preferences.getInt(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME, 0);
             profile._durationNotificationSound = preferences.getString(Profile.PREF_PROFILE_DURATION_NOTIFICATION_SOUND, "");
             profile._durationNotificationVibrate = preferences.getBoolean(Profile.PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, false);
 
