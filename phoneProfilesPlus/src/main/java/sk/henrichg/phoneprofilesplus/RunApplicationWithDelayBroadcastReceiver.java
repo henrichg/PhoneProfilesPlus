@@ -260,7 +260,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             // application is not started
             return;
 
-        ActivateProfileHelper.doExecuteForRunApplications(context, profileName, null, runApplicationData);
+        ActivateProfileHelper.doExecuteForRunApplications(context, profileName, runApplicationData);
     }
 
 }

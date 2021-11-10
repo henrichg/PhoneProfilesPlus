@@ -5175,7 +5175,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             String duration = preferences.getString(Profile.PREF_PROFILE_DURATION, "0");
             boolean askForDuration = preferences.getBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
 
-            boolean enable = false;
+            boolean enable;
             if (endOfActivationType.equals("0"))
                 enable = (!askForDuration) && (!duration.equals("0"));
             else

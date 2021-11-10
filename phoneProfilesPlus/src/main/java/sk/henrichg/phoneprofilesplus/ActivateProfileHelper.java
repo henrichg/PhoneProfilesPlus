@@ -3759,7 +3759,7 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","run with delay");
                                 RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
                             } else {
-                                doExecuteForRunApplications(appContext, profile._name, profile._icon, split);
+                                doExecuteForRunApplications(appContext, profile._name, split);
                             }
                             PPApplication.sleep(1000);
                         }
@@ -3779,7 +3779,7 @@ class ActivateProfileHelper {
         }
     }
 
-    static void doExecuteForRunApplications(Context context, String profileName, String profileIcon, String runApplicationData) {
+    static void doExecuteForRunApplications(Context context, String profileName, String runApplicationData) {
         Intent appIntent;
         PackageManager packageManager = context.getPackageManager();
 

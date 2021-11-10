@@ -9328,7 +9328,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_AL_LOG_TYPE + "," +
                         KEY_AL_EVENT_NAME + "," +
                         KEY_AL_PROFILE_NAME + "," +
-                        KEY_AL_PROFILE_ICON + "," +
+                        //KEY_AL_PROFILE_ICON + "," +
                         //KEY_AL_DURATION_DELAY + "," +
                         KEY_AL_PROFILE_EVENT_COUNT +
                         " FROM " + TABLE_ACTIVITY_LOG +

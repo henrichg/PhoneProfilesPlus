@@ -1758,11 +1758,8 @@ public class DataWrapper {
 
             //PPApplication.logE("$$$ DataWrapper._activateProfile","after activation");
 
-            String profileIcon = "";
             boolean profileDuration = false;
             if (_profile != null) {
-                profileIcon = _profile._icon;
-
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("$$$ DataWrapper._activateProfile", "duration=" + mappedProfile._duration);
                     PPApplication.logE("$$$ DataWrapper._activateProfile", "afterDurationDo=" + mappedProfile._afterDurationDo);
