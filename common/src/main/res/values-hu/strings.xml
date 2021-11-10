@@ -253,7 +253,6 @@
     <string name="event_preferences_screen_event_type">Esemény típusa</string>
     <string name="event_preferences_delayStart">Késleltetés</string>
     <string name="profile_preferences_duration">Időtartam</string>
-    <string name="profile_preferences_afterDurationDo">Időtartam után csinálja</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Semmi</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">[M] A profil visszavonása</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Alapértelmezett üzemmód bekapcsolása</string>
@@ -419,7 +418,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE vizsgálat időtartama (mp)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-Fi keresés</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth keresés</string>
-    <string name="profile_preferences_category_activation_duration">Aktiválás időtartama</string>
     <string name="profile_preferences_category_sound_profile">Hang profil</string>
     <string name="profile_preferences_category_radios">Vezeték nélküli kapcsolatok</string>
     <string name="profile_preferences_category_screen">Kijelző</string>
@@ -879,7 +877,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Mobil cellák ellenőrzés letiltása</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Tájolás vizsgálat letiltása</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) felugró értesítések</string>
-    <string name="fast_access_duration_activate_without_button_2">Aktiválás időtartam nélkül</string>
     <string name="profileicon_pref_dlg_customIconButton">Egyéni ikon</string>
     <string name="mobile_cells_registration_cell_name_hint">Ide kattintva adhatja meg a cella nevét</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Még nem működik a kapcsolat hotspot-on keresztül másik készülékekkel.</string>
@@ -1326,7 +1323,6 @@
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Fejléc vagy lábléc elrejtése</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Fejléc vagy lábléc elrejtésének engedélyezése a lista görgetése közben</string>
     <string name="preferences_durationInfo_summary">Az [M] jelzésű paraméterek csak a profil kézi aktiválása esetén jutnak érvényre. Az események általi aktiválás figyelmen kívül hagyja őket.</string>
-    <string name="profile_preferences_durationEndCategory">Időtartam vége</string>
     <string name="profile_event_name_ask_for_duration">rákérdez</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">A widget-re nem lehet rákattintani</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Ha a PhoneProfilesPlus widget nem működik (rákattintva), akkor engedélyezze az eszköz beállításainál: Settings / Apps / Manage apps / PhoneProfilesPlus / Other permissions / Display pop-up windows while running in the background.</string>
@@ -1334,7 +1330,6 @@
     <string name="array_pref_37_percent" formatted="false">38%</string>
     <string name="array_pref_62_percent" formatted="false">63%</string>
     <string name="array_pref_87_percent" formatted="false">88%</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Profil időtartamának megjelenítése (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Lehet, hogy egyáltalán nem működik ezen az eszközön.</string>
     <string name="application_is_starting_toast">indul…</string>
     <string name="application_is_started_toast">elindult</string>
@@ -1820,6 +1815,25 @@
     <string name="keep_screen_on_active_notification_title_1">is</string>
     <string name="keep_screen_on_active_notification_decription_1">To set it</string>
     <string name="keep_screen_on_active_notification_decription_2">configure and activate profile with</string>
+    <string name="ask_for_duration_without_duration_button">Without duration</string>
+    <string name="profile_preferences_endOfActivationType">Type of activation end</string>
+    <string name="array_pref_aendOfActivationType_duration">Duration</string>
+    <string name="array_pref_aendOfActivationType_exactTime">Exact time</string>
+    <string name="profile_preferences_endOfActivationCategory">End of activation</string>
+    <string name="profile_preferences_afterDurationDo">Időtartam után csinálja</string>
+    <string name="profile_preferences_afterExactTimeDo">When exact time reaches</string>
+    <string name="profile_preferences_exactTime">Exact time</string>
+    <string name="profile_preferences_category_end_of_activation">End of activation</string>
+    <string name="end_of_activation_time_end_acronym">te</string>
+    <string name="end_of_activation_duration_acronym">d</string>
+    <string name="end_of_activation_time_acronym">t</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Show end of profile activation (widget)</string>
+    <string name="event_delay_start_acronym">ds</string>
+    <string name="event_delay_end_acronym">de</string>
+    <string name="altype_afterEndOfActivationTime_undoProfile">after exact time reaches - undo profile</string>
+    <string name="altype_afterEndOfActivationTime_defaultProfile">after exact time reaches - default profile</string>
+    <string name="altype_afterEndOfActivationTime_restartEvents">after exact time reaches - restart events</string>
+    <string name="altype_afterEndOfActivationTime_specificProfile">after exact time reaches - specific profile</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Engedélyezze a PhoneProfilesPlusExtender alkalmazását:\n• profilparaméter \"Alkalmazások eröltetett leállítása\"\n• eseményparaméterek: \"Alkalmazás-érzékelő\", \"Tájolás-érzékelő\", \"SMS / MMS-érzékelő\", \"Hívásérzékelő\".</string>
@@ -1888,4 +1902,8 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
+    <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
+    <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
 </resources>

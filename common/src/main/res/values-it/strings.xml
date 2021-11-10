@@ -253,7 +253,6 @@
     <string name="event_preferences_screen_event_type">Tipo di evento</string>
     <string name="event_preferences_delayStart">Ritardo</string>
     <string name="profile_preferences_duration">Durata</string>
-    <string name="profile_preferences_afterDurationDo">Dopo una durata fai</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Niente</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">Annulla il profilo</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Attiva il profilo predefinito</string>
@@ -419,7 +418,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Durata scansione Bluetooth in modalità LE (sec)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Scansione Wi-Fi</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Scansione bluetooth</string>
-    <string name="profile_preferences_category_activation_duration">Durata attivazione</string>
     <string name="profile_preferences_category_sound_profile">Profilo audio</string>
     <string name="profile_preferences_category_radios">Radio</string>
     <string name="profile_preferences_category_screen">Schermo</string>
@@ -879,7 +877,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Disbilita scansione delle celle mobili</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Disabilita scansione orientamento</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) notifiche pop-up</string>
-    <string name="fast_access_duration_activate_without_button_2">Attiva senza durata</string>
     <string name="profileicon_pref_dlg_customIconButton">Icona personalizzata</string>
     <string name="mobile_cells_registration_cell_name_hint">Clicca per impostare nome cella</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Potrebbe non funzionare la connessione in hotspot da altri dispositivi.</string>
@@ -1326,7 +1323,6 @@
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Nascondi intestazione o barra inferiore</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Consenti di nascondere l\'intestazione o la barra inferiore durante lo scorrimento dell\'elenco</string>
     <string name="preferences_durationInfo_summary">I parametri contrassegnati con [M] sono usati solo quando questo profilo viene attivato manualmente. L\'attivazione dagli eventi ignora questi parametri.</string>
-    <string name="profile_preferences_durationEndCategory">Fine durata</string>
     <string name="profile_event_name_ask_for_duration">chiedi</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Il widget non è cliccabile</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Se il widget di PhoneProfilesPlus non funziona (clicca sul widget), abilita il permesso nelle impostazioni del dispositivo: Impostazioni / App / Gestisci app / PhoneProfilesPlus / Altri permessi / Mostra finestre pop-up durante l\'esecuzione in background.</string>
@@ -1334,7 +1330,6 @@
     <string name="array_pref_37_percent" formatted="false">38%</string>
     <string name="array_pref_62_percent" formatted="false">63%</string>
     <string name="array_pref_87_percent" formatted="false">88%</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Mostra durata del profilo (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Potrebbe non funzionare affatto nel tuo dispositivo.</string>
     <string name="application_is_starting_toast">si sta avviando…</string>
     <string name="application_is_started_toast">è avviato</string>
@@ -1810,16 +1805,35 @@
     <string name="array_pref_radioSwitch_SIM1_off">SIM 1 disattivata</string>
     <string name="array_pref_radioSwitch_SIM2_on">SIM 2 attiva</string>
     <string name="array_pref_radioSwitch_SIM2_off">SIM 2 disattivata</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">and</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">On</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">e</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">Acceso</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Off</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">do not set</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">for parameter</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">You must configure also</string>
-    <string name="notification_channel_keep_screen_on_description">Shows notification about status of</string>
-    <string name="keep_screen_on_active_notification_title_1">is</string>
-    <string name="keep_screen_on_active_notification_decription_1">To set it</string>
-    <string name="keep_screen_on_active_notification_decription_2">configure and activate profile with</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">non impostato</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">per parametro</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">È necessario configurare anche</string>
+    <string name="notification_channel_keep_screen_on_description">Mostra la notifica sullo stato di</string>
+    <string name="keep_screen_on_active_notification_title_1">è</string>
+    <string name="keep_screen_on_active_notification_decription_1">Per impostarlo</string>
+    <string name="keep_screen_on_active_notification_decription_2">configurare e attivare il profilo con</string>
+    <string name="ask_for_duration_without_duration_button">Without duration</string>
+    <string name="profile_preferences_endOfActivationType">Type of activation end</string>
+    <string name="array_pref_aendOfActivationType_duration">Duration</string>
+    <string name="array_pref_aendOfActivationType_exactTime">Exact time</string>
+    <string name="profile_preferences_endOfActivationCategory">End of activation</string>
+    <string name="profile_preferences_afterDurationDo">Dopo una durata fai</string>
+    <string name="profile_preferences_afterExactTimeDo">When exact time reaches</string>
+    <string name="profile_preferences_exactTime">Exact time</string>
+    <string name="profile_preferences_category_end_of_activation">End of activation</string>
+    <string name="end_of_activation_time_end_acronym">te</string>
+    <string name="end_of_activation_duration_acronym">d</string>
+    <string name="end_of_activation_time_acronym">t</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Show end of profile activation (widget)</string>
+    <string name="event_delay_start_acronym">ds</string>
+    <string name="event_delay_end_acronym">de</string>
+    <string name="altype_afterEndOfActivationTime_undoProfile">after exact time reaches - undo profile</string>
+    <string name="altype_afterEndOfActivationTime_defaultProfile">after exact time reaches - default profile</string>
+    <string name="altype_afterEndOfActivationTime_restartEvents">after exact time reaches - restart events</string>
+    <string name="altype_afterEndOfActivationTime_specificProfile">after exact time reaches - specific profile</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Consenti a PhoneProfilesPlusExtender per:\n• parametro del profilo \"Forza interruzione applicazioni\"\n• parametri evento \"Sensore dell\'applicazione\", \"Sensore di orientamento\", \"sensore SMS/MMS\", \"Sensore di chiamata\".</string>
@@ -1888,4 +1902,8 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
+    <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
+    <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
 </resources>

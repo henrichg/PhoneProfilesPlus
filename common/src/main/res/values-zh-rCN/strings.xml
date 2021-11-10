@@ -253,7 +253,6 @@
     <string name="event_preferences_screen_event_type">事件类型</string>
     <string name="event_preferences_delayStart">延迟</string>
     <string name="profile_preferences_duration">持续时间</string>
-    <string name="profile_preferences_afterDurationDo">结束后操作</string>
     <string name="array_pref_afterProfileDurationDo_nothing">无</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">[M] 撤销</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] 激活默认</string>
@@ -419,7 +418,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">蓝牙 LE 扫描持续时间(秒)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-Fi 扫描</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">蓝牙扫描</string>
-    <string name="profile_preferences_category_activation_duration">激活时间</string>
     <string name="profile_preferences_category_sound_profile">声音情景</string>
     <string name="profile_preferences_category_radios">无线射频</string>
     <string name="profile_preferences_category_screen">屏幕</string>
@@ -879,7 +877,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">禁用移动基站扫描</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">禁用手机方向扫描</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) 弹出通知</string>
-    <string name="fast_access_duration_activate_without_button_2">激活没有持续时间</string>
     <string name="profileicon_pref_dlg_customIconButton">自定义图标</string>
     <string name="mobile_cells_registration_cell_name_hint">单击以设置基站名称</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">可能无法连接到其他设备的热点。</string>
@@ -1326,7 +1323,6 @@
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">隐藏顶部或底部栏</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">允许在滚动列表中隐藏顶部或底部栏</string>
     <string name="preferences_durationInfo_summary">只在手动激活此情景时才使用带有 [M] 的参数。从事件中激活忽略了这些参数。</string>
-    <string name="profile_preferences_durationEndCategory">持续时间结束</string>
     <string name="profile_event_name_ask_for_duration">询问</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">小部件不可点击</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">如果PhoneProfilesPlus 小部件不起作用(点击小部件)， 在设备设置中启用权限：设置/应用/管理应用 / PhoneProfilesPlus / 其他权限/在后台运行时显示弹出窗口。</string>
@@ -1334,7 +1330,6 @@
     <string name="array_pref_37_percent" formatted="false">38%</string>
     <string name="array_pref_62_percent" formatted="false">63%</string>
     <string name="array_pref_87_percent" formatted="false">88%</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">显示情景持续时间(小部件)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">也许在您的设备上根本不工作。</string>
     <string name="application_is_starting_toast">正在启动…</string>
     <string name="application_is_started_toast">已启动</string>
@@ -1810,16 +1805,35 @@
     <string name="array_pref_radioSwitch_SIM1_off">SIM 卡 1 关闭</string>
     <string name="array_pref_radioSwitch_SIM2_on">SIM 卡 2 开启</string>
     <string name="array_pref_radioSwitch_SIM2_off">SIM 卡 2 关闭</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">and</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">On</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Off</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">do not set</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">for parameter</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">You must configure also</string>
-    <string name="notification_channel_keep_screen_on_description">Shows notification about status of</string>
-    <string name="keep_screen_on_active_notification_title_1">is</string>
-    <string name="keep_screen_on_active_notification_decription_1">To set it</string>
-    <string name="keep_screen_on_active_notification_decription_2">configure and activate profile with</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">和</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">开</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">关</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">不设置</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">用于参数</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">您还必须配置</string>
+    <string name="notification_channel_keep_screen_on_description">显示关于状态的通知</string>
+    <string name="keep_screen_on_active_notification_title_1">是</string>
+    <string name="keep_screen_on_active_notification_decription_1">设置它</string>
+    <string name="keep_screen_on_active_notification_decription_2">配置并激活配置文件</string>
+    <string name="ask_for_duration_without_duration_button">Without duration</string>
+    <string name="profile_preferences_endOfActivationType">Type of activation end</string>
+    <string name="array_pref_aendOfActivationType_duration">Duration</string>
+    <string name="array_pref_aendOfActivationType_exactTime">Exact time</string>
+    <string name="profile_preferences_endOfActivationCategory">End of activation</string>
+    <string name="profile_preferences_afterDurationDo">结束后操作</string>
+    <string name="profile_preferences_afterExactTimeDo">When exact time reaches</string>
+    <string name="profile_preferences_exactTime">Exact time</string>
+    <string name="profile_preferences_category_end_of_activation">End of activation</string>
+    <string name="end_of_activation_time_end_acronym">te</string>
+    <string name="end_of_activation_duration_acronym">d</string>
+    <string name="end_of_activation_time_acronym">t</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Show end of profile activation (widget)</string>
+    <string name="event_delay_start_acronym">ds</string>
+    <string name="event_delay_end_acronym">de</string>
+    <string name="altype_afterEndOfActivationTime_undoProfile">after exact time reaches - undo profile</string>
+    <string name="altype_afterEndOfActivationTime_defaultProfile">after exact time reaches - default profile</string>
+    <string name="altype_afterEndOfActivationTime_restartEvents">after exact time reaches - restart events</string>
+    <string name="altype_afterEndOfActivationTime_specificProfile">after exact time reaches - specific profile</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>
@@ -1888,4 +1902,8 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
+    <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
+    <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
 </resources>

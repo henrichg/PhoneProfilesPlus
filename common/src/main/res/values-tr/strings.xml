@@ -253,7 +253,6 @@
     <string name="event_preferences_screen_event_type">Durum türü</string>
     <string name="event_preferences_delayStart">Gecikme</string>
     <string name="profile_preferences_duration">Süre</string>
-    <string name="profile_preferences_afterDurationDo">Müddet bittince yapılacaklar</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Hiçbiri</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Tercihi geri al</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Varsayılan Tercihi faaliyete geçir</string>
@@ -419,7 +418,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE tarama süresi (sn)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi taraması</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth Taraması</string>
-    <string name="profile_preferences_category_activation_duration">Faaliyete geçirme müddeti</string>
     <string name="profile_preferences_category_sound_profile">Ses Tercihi</string>
     <string name="profile_preferences_category_radios">Radyolar</string>
     <string name="profile_preferences_category_screen">Ekran</string>
@@ -879,7 +877,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Şebeke hücre taramasını kapat</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Döndürme şartı taramasını kapat</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) açılan bildirimler</string>
-    <string name="fast_access_duration_activate_without_button_2">Süresiz faaliyete geçir</string>
     <string name="profileicon_pref_dlg_customIconButton">Özel simge</string>
     <string name="mobile_cells_registration_cell_name_hint">Hücre ismi vermek için buraya dokunun</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Başka bir cihazdan hotspot\'a yapılan bağlantı çalışmayabilir.</string>
@@ -1326,7 +1323,6 @@
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Üst veya alt çubuğu gizle</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Listeyi kaydırırken üst veya alt çubuğun gizlenmesi için izin verin</string>
     <string name="preferences_durationInfo_summary">[M] ile is işaretlenmiş değerler sadece bu Tercih el ile faaliyete geçirildiğinde kullanılır. Durum vasıtasıyla faaliyete geçirme bu değerleri yoksayar.</string>
-    <string name="profile_preferences_durationEndCategory">Müddet nihayeti</string>
     <string name="profile_event_name_ask_for_duration">sor</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Widget dokunulanabilir değil</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">PhoneProfilesPlus widget\'ı çalışmıyorsa (widget\' dokunmalar), izinleri cihaz ayarlarında verin: Ayarlar / Uygulamalar / Uygulamaları Yönet / PhoneProfilesPlus / Diğer izinler/ Arka planda çalışırken açılır pencereleri göster.</string>
@@ -1334,7 +1330,6 @@
     <string name="array_pref_37_percent" formatted="false">38%</string>
     <string name="array_pref_62_percent" formatted="false">63%</string>
     <string name="array_pref_87_percent" formatted="false">88%</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Tercih ismini göster (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Her cihazınızda çalışmayabilir.</string>
     <string name="application_is_starting_toast">başlıyor…</string>
     <string name="application_is_started_toast">başladı</string>
@@ -1820,6 +1815,25 @@
     <string name="keep_screen_on_active_notification_title_1">is</string>
     <string name="keep_screen_on_active_notification_decription_1">To set it</string>
     <string name="keep_screen_on_active_notification_decription_2">configure and activate profile with</string>
+    <string name="ask_for_duration_without_duration_button">Without duration</string>
+    <string name="profile_preferences_endOfActivationType">Type of activation end</string>
+    <string name="array_pref_aendOfActivationType_duration">Duration</string>
+    <string name="array_pref_aendOfActivationType_exactTime">Exact time</string>
+    <string name="profile_preferences_endOfActivationCategory">End of activation</string>
+    <string name="profile_preferences_afterDurationDo">Müddet bittince yapılacaklar</string>
+    <string name="profile_preferences_afterExactTimeDo">When exact time reaches</string>
+    <string name="profile_preferences_exactTime">Exact time</string>
+    <string name="profile_preferences_category_end_of_activation">End of activation</string>
+    <string name="end_of_activation_time_end_acronym">te</string>
+    <string name="end_of_activation_duration_acronym">d</string>
+    <string name="end_of_activation_time_acronym">t</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Show end of profile activation (widget)</string>
+    <string name="event_delay_start_acronym">ds</string>
+    <string name="event_delay_end_acronym">de</string>
+    <string name="altype_afterEndOfActivationTime_undoProfile">after exact time reaches - undo profile</string>
+    <string name="altype_afterEndOfActivationTime_defaultProfile">after exact time reaches - default profile</string>
+    <string name="altype_afterEndOfActivationTime_restartEvents">after exact time reaches - restart events</string>
+    <string name="altype_afterEndOfActivationTime_specificProfile">after exact time reaches - specific profile</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender\'a aşağıdakiler için izin verin:\n• Tercih değeri \"Zorla durdurulan uygulamalar\"\n• Durum değerleri \"Uygulama şartı\" ve \"Ekran döndürme şartı\", \"SMS/MMS şartı\", \"Çağrı şartı\".</string>
@@ -1888,4 +1902,8 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
+    <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
+    <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
 </resources>

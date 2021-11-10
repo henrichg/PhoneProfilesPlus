@@ -253,7 +253,6 @@
     <string name="event_preferences_screen_event_type">Ereignistyp</string>
     <string name="event_preferences_delayStart">Verzögerung</string>
     <string name="profile_preferences_duration">Dauer</string>
-    <string name="profile_preferences_afterDurationDo">Ausführung nach Dauer</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Nichts</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Profil widerrufen</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Standard-Profil aktivieren</string>
@@ -419,7 +418,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth-Scan-Dauer (sek)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">WLAN-Suche</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth-Suche</string>
-    <string name="profile_preferences_category_activation_duration">Dauer der Aktivierung</string>
     <string name="profile_preferences_category_sound_profile">Audioprofil</string>
     <string name="profile_preferences_category_radios">Verbindungen</string>
     <string name="profile_preferences_category_screen">Bildschirm</string>
@@ -879,7 +877,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Suche nach Mobilfunkzellen deaktivieren</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Bestimmung der Geräteausrichtung deaktivieren</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Popup-Benachrichtigungen</string>
-    <string name="fast_access_duration_activate_without_button_2">Aktivieren ohne Verzögerung</string>
     <string name="profileicon_pref_dlg_customIconButton">Benutzerdefiniertes Symbol</string>
     <string name="mobile_cells_registration_cell_name_hint">Hier klicken, um den Zellnamen festzulegen</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Verbindung könnte eventuell nicht funktionieren mit anderen Geräte HotSpots.</string>
@@ -1326,7 +1323,6 @@
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Kopf- oder Fußleiste ausblenden</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Erlaubt das Ausblenden der Kopf- oder Fußleiste während des Blättern in der Liste</string>
     <string name="preferences_durationInfo_summary">Die mit [M] gekennzeichneten Parameter werden nur verwendet, wenn dieses Profil manuell aktiviert wurde. Bei der Aktivierung durch Ereignis werden diese Parameter ignoriert.</string>
-    <string name="profile_preferences_durationEndCategory">Ende der Laufzeit</string>
     <string name="profile_event_name_ask_for_duration">fragen</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Widget ist nicht anklickbar</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Wenn das PhoneProfilesPlus Widget nicht funktioniert (Klick auf Widget), aktivieren Sie die Berechtigung in den Geräteeinstellungen: „Einstellungen” ➜ „Apps” ➜ „Apps verwalten” ➜ „PhoneProfilesPlus” ➜ „Weitere Berechtigungen” ➜ „Pop-up-Fenster im Hintergrund anzeigen”</string>
@@ -1334,7 +1330,6 @@
     <string name="array_pref_37_percent" formatted="false">38%</string>
     <string name="array_pref_62_percent" formatted="false">63%</string>
     <string name="array_pref_87_percent" formatted="false">88%</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Profildauer anzeigen (Widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Möglicherweise funktioniert es mit Ihrem Gerät überhaupt nicht.</string>
     <string name="application_is_starting_toast">wird gestartet …</string>
     <string name="application_is_started_toast">gestartet</string>
@@ -1814,12 +1809,31 @@
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">An</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Aus</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">Nicht festgelegt</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">for parameter</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">You must configure also</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">für Parameter</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">Sie müssen zudem konfigurieren</string>
     <string name="notification_channel_keep_screen_on_description">Zeigt Benachrichtigung über den Status von</string>
-    <string name="keep_screen_on_active_notification_title_1">is</string>
+    <string name="keep_screen_on_active_notification_title_1">ist</string>
     <string name="keep_screen_on_active_notification_decription_1">Um es festzulegen</string>
     <string name="keep_screen_on_active_notification_decription_2">Profil einrichten und aktivieren mit</string>
+    <string name="ask_for_duration_without_duration_button">Ohne Dauer</string>
+    <string name="profile_preferences_endOfActivationType">Art des Aktivierungsendes</string>
+    <string name="array_pref_aendOfActivationType_duration">Dauer</string>
+    <string name="array_pref_aendOfActivationType_exactTime">Genauer Zeitpunkt</string>
+    <string name="profile_preferences_endOfActivationCategory">Aktivierungsende</string>
+    <string name="profile_preferences_afterDurationDo">Ausführung nach Dauer</string>
+    <string name="profile_preferences_afterExactTimeDo">Wenn exakter Zeitpunkt erreicht ist</string>
+    <string name="profile_preferences_exactTime">Genauer Zeitpunkt</string>
+    <string name="profile_preferences_category_end_of_activation">Aktivierungsende</string>
+    <string name="end_of_activation_time_end_acronym">te</string>
+    <string name="end_of_activation_duration_acronym">d</string>
+    <string name="end_of_activation_time_acronym">t</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Ende der Profilaktivierung anzeigen (Widget)</string>
+    <string name="event_delay_start_acronym">ds</string>
+    <string name="event_delay_end_acronym">de</string>
+    <string name="altype_afterEndOfActivationTime_undoProfile">nach Erreichen des exakten Zeitpunkts ➜ Profil widerrufen</string>
+    <string name="altype_afterEndOfActivationTime_defaultProfile">nach Erreichen des exakten Zeitpunkts ➜ zurück zum Standardprofil</string>
+    <string name="altype_afterEndOfActivationTime_restartEvents">nach Erreichen des exakten Zeitpunkts ➜ Ereignisse neu starten</string>
+    <string name="altype_afterEndOfActivationTime_specificProfile">nach Erreichen des exakten Zeitpunkts ➜ zu speziellem Profil wechseln</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>
@@ -1888,4 +1902,8 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
+    <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
+    <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
 </resources>

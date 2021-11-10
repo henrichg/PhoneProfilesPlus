@@ -253,7 +253,6 @@
     <string name="event_preferences_screen_event_type">Vrsta događaja</string>
     <string name="event_preferences_delayStart">Kašnjenje</string>
     <string name="profile_preferences_duration">Trajanje</string>
-    <string name="profile_preferences_afterDurationDo">Kada trajanje istekne</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Ništa ne radi</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Poništi promene profila</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Aktiviraj podrazumevani profil</string>
@@ -419,7 +418,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE trajanje skeniranja ( u sekundama)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-Fi skeniranje</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth skeniranje</string>
-    <string name="profile_preferences_category_activation_duration">Trajanje aktivacije</string>
     <string name="profile_preferences_category_sound_profile">Profil za zvuk</string>
     <string name="profile_preferences_category_radios">Radio</string>
     <string name="profile_preferences_category_screen">Ekran</string>
@@ -879,7 +877,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Onemogući skeniranje mobilne ćelije</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Onemogući skeniranje orijentacije</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Iskačuća obaveštenja</string>
-    <string name="fast_access_duration_activate_without_button_2">Aktivacija bez trajanja</string>
     <string name="profileicon_pref_dlg_customIconButton">Proizvoljna ikona</string>
     <string name="mobile_cells_registration_cell_name_hint">Klikni za izbor imena ćelije</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Moguće da neće raditi Hotspot sa drugim uređajima.</string>
@@ -1326,7 +1323,6 @@
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Sakri zaglavlje ili donji bar</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Dopustite skrivanje zaglavlja ili donjeg bara tokom skrolovanja liste</string>
     <string name="preferences_durationInfo_summary">Parametri označeni sa [M] koriste se samo ako se ovaj profil aktivira ručno. Aktivacija iz događaja zanemaruje ove parametre.</string>
-    <string name="profile_preferences_durationEndCategory">Trajanje završetka</string>
     <string name="profile_event_name_ask_for_duration">pitaj</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Nije moguće kliknuti na vidžet</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Ako PhoneProfilesPlus widget ne radi (klik na widget), omogućite dozvolu u podešavanjima uređaja: Podešavanja / Aplikacije / Upravljanje aplikacijama / PhoneProfilesPlus / Ostale dozvole / Prikazivanje iskočnih prozora tokom rada u pozadini.</string>
@@ -1334,7 +1330,6 @@
     <string name="array_pref_37_percent" formatted="false">38%</string>
     <string name="array_pref_62_percent" formatted="false">63%</string>
     <string name="array_pref_87_percent" formatted="false">88%</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Prikaži trajanje profila (vidžet)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Neće da radi uopšte sa vašim uređajem.</string>
     <string name="application_is_starting_toast">pokretanje u toku…</string>
     <string name="application_is_started_toast">pokrenuto</string>
@@ -1820,6 +1815,25 @@
     <string name="keep_screen_on_active_notification_title_1">is</string>
     <string name="keep_screen_on_active_notification_decription_1">To set it</string>
     <string name="keep_screen_on_active_notification_decription_2">configure and activate profile with</string>
+    <string name="ask_for_duration_without_duration_button">Without duration</string>
+    <string name="profile_preferences_endOfActivationType">Type of activation end</string>
+    <string name="array_pref_aendOfActivationType_duration">Duration</string>
+    <string name="array_pref_aendOfActivationType_exactTime">Exact time</string>
+    <string name="profile_preferences_endOfActivationCategory">End of activation</string>
+    <string name="profile_preferences_afterDurationDo">Kada trajanje istekne</string>
+    <string name="profile_preferences_afterExactTimeDo">When exact time reaches</string>
+    <string name="profile_preferences_exactTime">Exact time</string>
+    <string name="profile_preferences_category_end_of_activation">End of activation</string>
+    <string name="end_of_activation_time_end_acronym">te</string>
+    <string name="end_of_activation_duration_acronym">d</string>
+    <string name="end_of_activation_time_acronym">t</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Show end of profile activation (widget)</string>
+    <string name="event_delay_start_acronym">ds</string>
+    <string name="event_delay_end_acronym">de</string>
+    <string name="altype_afterEndOfActivationTime_undoProfile">after exact time reaches - undo profile</string>
+    <string name="altype_afterEndOfActivationTime_defaultProfile">after exact time reaches - default profile</string>
+    <string name="altype_afterEndOfActivationTime_restartEvents">after exact time reaches - restart events</string>
+    <string name="altype_afterEndOfActivationTime_specificProfile">after exact time reaches - specific profile</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1888,4 +1902,8 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
+    <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
+    <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
 </resources>

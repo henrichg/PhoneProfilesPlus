@@ -253,7 +253,6 @@
     <string name="event_preferences_screen_event_type">Typ udalosti</string>
     <string name="event_preferences_delayStart">Pozdržanie</string>
     <string name="profile_preferences_duration">Trvanie</string>
-    <string name="profile_preferences_afterDurationDo">Po uplynutí trvania urob</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Nič</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Vráť späť profil</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Aktivuj predvolený profil</string>
@@ -419,7 +418,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Trvanie skenovania Bluetooth LE (sek.)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-Fi skenovanie</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth skenovanie</string>
-    <string name="profile_preferences_category_activation_duration">Trvanie aktivácie</string>
     <string name="profile_preferences_category_sound_profile">Zvukový profil</string>
     <string name="profile_preferences_category_radios">Rádiá</string>
     <string name="profile_preferences_category_screen">Obrazovka</string>
@@ -879,7 +877,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Zakázať skenovanie mobilných buniek</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Zakázať skenovanie orientácie</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) Vyskakovacie notifikácie</string>
-    <string name="fast_access_duration_activate_without_button_2">Aktivovať bez trvania</string>
     <string name="profileicon_pref_dlg_customIconButton">Vlastná ikona</string>
     <string name="mobile_cells_registration_cell_name_hint">Kliknite pre nastavenie názvu bunky</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Nemusí fungovať pripojenie do prístupového bodu z iných zariadení.</string>
@@ -1326,7 +1323,6 @@
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Skryť hlavičku alebo spodnú lištu</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Povolí schovávanie hlavičky alebo spodnej lišty počas posúvania zoznamu</string>
     <string name="preferences_durationInfo_summary">Parametre označené symbolom [M] sa používajú iba vtedy, keď je tento profil aktivovaný manuálne. Aktivácia z udalosti tieto parametre ignoruje.</string>
-    <string name="profile_preferences_durationEndCategory">Koniec trvania</string>
     <string name="profile_event_name_ask_for_duration">pýtať</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Na miniaplikáciu nie je možné kliknúť</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Ak miniaplikácia PhoneProfilesPlus nefunguje (kliknutia na miniaplikáciu), povoľte povolenie v nastaveniach zariadenia: Nastavenia / Aplikácie / Spravovať aplikácie / PhoneProfilesPlus / Iné povolenia / Zobraziť kontextové okná pri behu na pozadí.</string>
@@ -1334,7 +1330,6 @@
     <string name="array_pref_37_percent" formatted="false">38%</string>
     <string name="array_pref_62_percent" formatted="false">63%</string>
     <string name="array_pref_87_percent" formatted="false">88%</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Zobrazovať trvanie profilu (miniaplikácia)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Vo vašom zariadení nemusí fungovať vôbec.</string>
     <string name="application_is_starting_toast">štartuje…</string>
     <string name="application_is_started_toast">je spustený</string>
@@ -1813,13 +1808,32 @@
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">a</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">Zapnuté</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Vypnuté</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">nenastavý</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">nenastaví</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">pre parameter</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">Musíte tiež nakonfigurovať</string>
     <string name="notification_channel_keep_screen_on_description">Zobrazuje notifikáciu o stave</string>
     <string name="keep_screen_on_active_notification_title_1">je</string>
     <string name="keep_screen_on_active_notification_decription_1">Ak ho chcete nastaviť na</string>
     <string name="keep_screen_on_active_notification_decription_2">nakonfigurujte a aktivujte profil s</string>
+    <string name="ask_for_duration_without_duration_button">Bez trvania</string>
+    <string name="profile_preferences_endOfActivationType">Typ konca aktivácie</string>
+    <string name="array_pref_aendOfActivationType_duration">Trvanie</string>
+    <string name="array_pref_aendOfActivationType_exactTime">Presný čas</string>
+    <string name="profile_preferences_endOfActivationCategory">Koniec aktivácie</string>
+    <string name="profile_preferences_afterDurationDo">Po uplynutí trvania urob</string>
+    <string name="profile_preferences_afterExactTimeDo">Keď bude dosiahnutý presný čas</string>
+    <string name="profile_preferences_exactTime">Presný čas</string>
+    <string name="profile_preferences_category_end_of_activation">Koniec aktivácie</string>
+    <string name="end_of_activation_time_end_acronym">kč</string>
+    <string name="end_of_activation_duration_acronym">t</string>
+    <string name="end_of_activation_time_acronym">č</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Zobraziť koniec aktivácie profilu (widget)</string>
+    <string name="event_delay_start_acronym">šp</string>
+    <string name="event_delay_end_acronym">kp</string>
+    <string name="altype_afterEndOfActivationTime_undoProfile">po dosiahnutí presného času - vrátiť späť profil</string>
+    <string name="altype_afterEndOfActivationTime_defaultProfile">po dosiahnutí presného času - predvolený profil</string>
+    <string name="altype_afterEndOfActivationTime_restartEvents">po dosiahnutí presného času - reštart udalostí</string>
+    <string name="altype_afterEndOfActivationTime_specificProfile">po dosiahnutí presného času - aktivácia špecifického profilu</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>
@@ -1888,4 +1902,8 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
+    <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
+    <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
 </resources>

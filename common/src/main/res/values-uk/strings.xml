@@ -253,7 +253,6 @@
     <string name="event_preferences_screen_event_type">Тип подій</string>
     <string name="event_preferences_delayStart">Затримка</string>
     <string name="profile_preferences_duration">Тривалість</string>
-    <string name="profile_preferences_afterDurationDo">По завершені терміну</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Нічого</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Скасувати профіль</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Активувати профіль за замовч</string>
@@ -419,7 +418,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Тривалість сканування Bluetooth LE (сек)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-fi сканування</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth сканування</string>
-    <string name="profile_preferences_category_activation_duration">Тривалість активації</string>
     <string name="profile_preferences_category_sound_profile">Звуковий профіль</string>
     <string name="profile_preferences_category_radios">Радіомодулі</string>
     <string name="profile_preferences_category_screen">Екран</string>
@@ -879,7 +877,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Вимкнути сканування мобільних вишок</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Вимкнути сканування орієнтації</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Спливаючі сповіщення</string>
-    <string name="fast_access_duration_activate_without_button_2">Активувати назавжди</string>
     <string name="profileicon_pref_dlg_customIconButton">Власна іконка</string>
     <string name="mobile_cells_registration_cell_name_hint">Натисніть, щоб встановити ім\'я вишки</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Підключення до точки доступу з інших пристроїв може не працювати.</string>
@@ -1326,7 +1323,6 @@
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Приховати заголовок або нижню панель</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Дозволити приховування заголовка або нижньої панелі під час прокручування списку</string>
     <string name="preferences_durationInfo_summary">Параметри, відмічені [M] використовуються тільки тоді, коли профіль активовано вручну. Активація з події ігнорує ці параметри.</string>
-    <string name="profile_preferences_durationEndCategory">Завершення тривалості дії</string>
     <string name="profile_event_name_ask_for_duration">запитати</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Віджет не спрацьовує при натисканні</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Якщо віджет PhoneProfilesPlus не працює (при натисканні), увімкніть дозвіл у налаштуваннях пристрою: Налаштування / Додатки / Керування програмами / PhoneProfilesPlus / Інші дозволи / Відображати спливаючі вікна під час роботи у фоні.</string>
@@ -1334,7 +1330,6 @@
     <string name="array_pref_37_percent" formatted="false">38%</string>
     <string name="array_pref_62_percent" formatted="false">63%</string>
     <string name="array_pref_87_percent" formatted="false">88%</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Показати тривалість профілю (віджет)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Взагалі може не працювати у вашому пристрої.</string>
     <string name="application_is_starting_toast">запускається…</string>
     <string name="application_is_started_toast">запущений</string>
@@ -1810,16 +1805,35 @@
     <string name="array_pref_radioSwitch_SIM1_off">SIM 1 вимкнено</string>
     <string name="array_pref_radioSwitch_SIM2_on">SIM 2 увімкнено</string>
     <string name="array_pref_radioSwitch_SIM2_off">SIM 2 вимкнено</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">and</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">On</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Off</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">do not set</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">for parameter</string>
-    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">You must configure also</string>
-    <string name="notification_channel_keep_screen_on_description">Shows notification about status of</string>
-    <string name="keep_screen_on_active_notification_title_1">is</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">та</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">Увімк</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Вимк</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">не встановлено</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">для параметра</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">Ви повинні також налаштувати</string>
+    <string name="notification_channel_keep_screen_on_description">Показує сповіщення про стан</string>
+    <string name="keep_screen_on_active_notification_title_1">є</string>
     <string name="keep_screen_on_active_notification_decription_1">To set it</string>
-    <string name="keep_screen_on_active_notification_decription_2">configure and activate profile with</string>
+    <string name="keep_screen_on_active_notification_decription_2">налаштувати та активувати профіль з</string>
+    <string name="ask_for_duration_without_duration_button">Without duration</string>
+    <string name="profile_preferences_endOfActivationType">Type of activation end</string>
+    <string name="array_pref_aendOfActivationType_duration">Duration</string>
+    <string name="array_pref_aendOfActivationType_exactTime">Exact time</string>
+    <string name="profile_preferences_endOfActivationCategory">End of activation</string>
+    <string name="profile_preferences_afterDurationDo">По завершені терміну</string>
+    <string name="profile_preferences_afterExactTimeDo">When exact time reaches</string>
+    <string name="profile_preferences_exactTime">Exact time</string>
+    <string name="profile_preferences_category_end_of_activation">End of activation</string>
+    <string name="end_of_activation_time_end_acronym">te</string>
+    <string name="end_of_activation_duration_acronym">d</string>
+    <string name="end_of_activation_time_acronym">t</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Show end of profile activation (widget)</string>
+    <string name="event_delay_start_acronym">ds</string>
+    <string name="event_delay_end_acronym">de</string>
+    <string name="altype_afterEndOfActivationTime_undoProfile">after exact time reaches - undo profile</string>
+    <string name="altype_afterEndOfActivationTime_defaultProfile">after exact time reaches - default profile</string>
+    <string name="altype_afterEndOfActivationTime_restartEvents">after exact time reaches - restart events</string>
+    <string name="altype_afterEndOfActivationTime_specificProfile">after exact time reaches - specific profile</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1888,4 +1902,8 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
+    <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
+    <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
 </resources>
