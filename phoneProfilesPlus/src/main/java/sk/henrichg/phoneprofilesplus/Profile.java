@@ -3456,13 +3456,25 @@ public class Profile {
                     // (look at ProfileDurationAlarmBroadcastReceiver.setAlarm())
                     int endOfActivationTime = (int)ApplicationPreferences.prefActivatedProfileEndDurationTime;
                     if (endOfActivationTime > 0) {
-                        durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + ": " +
-                                GlobalGUIRoutines.getTimeString(endOfActivationTime) + ")";
-                        showEndTime = true;
+                        Calendar now = Calendar.getInstance();
+
+                        Calendar configuredTime = Calendar.getInstance();
+                        configuredTime.set(Calendar.HOUR_OF_DAY, endOfActivationTime / 60);
+                        configuredTime.set(Calendar.MINUTE, endOfActivationTime % 60);
+                        configuredTime.set(Calendar.SECOND, 0);
+                        configuredTime.set(Calendar.MILLISECOND, 0);
+
+                        if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
+                            // configured time is not expired
+                            durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + ": " +
+                                    GlobalGUIRoutines.getTimeString(endOfActivationTime) + ")";
+                            showEndTime = true;
+                        }
                     }
                 }
                 if (!showEndTime) {
-                    durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + ": " + GlobalGUIRoutines.getTimeString(_endOfActivationTime) + "]";
+                    if (!_checked)
+                        durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + ": " + GlobalGUIRoutines.getTimeString(_endOfActivationTime) + "]";
                 }
             }
         }

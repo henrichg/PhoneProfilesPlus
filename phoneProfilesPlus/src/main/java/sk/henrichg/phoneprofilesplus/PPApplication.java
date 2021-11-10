@@ -303,6 +303,10 @@ public class PPApplication extends Application
     static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE = 54;
     static final int ALTYPE_EVENT_END_RESTART_EVENTS = 55;
     static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS = 56;
+    static final int ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE = 57;
+    static final int ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE = 58;
+    static final int ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS = 59;
+    static final int ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE = 60;
 
     static final int ALTYPE_RESTART_EVENTS = 6;
     static final int ALTYPE_RUN_EVENTS_DISABLE = 7;
