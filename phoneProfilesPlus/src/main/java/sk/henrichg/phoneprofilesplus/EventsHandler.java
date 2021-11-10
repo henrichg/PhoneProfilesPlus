@@ -1074,9 +1074,10 @@ class EventsHandler {
                 if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
 
                     // log only when merged profile is not the same as last activated or for restart events
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, null,
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION,
+                            null,
                             DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
-                            mergedProfile._icon, 0, mergedProfilesCount + " [" + usedEventsCount + "]");
+                            mergedProfilesCount + " [" + usedEventsCount + "]");
 
 //                    if (isRestart)
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "called is DataWrapper.activateProfileFromEvent");

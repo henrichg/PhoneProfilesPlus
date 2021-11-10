@@ -48,7 +48,7 @@ public class RestartEventsWithDelayWorker extends Worker {
 
             DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0f);
             if (logType != PPApplication.ALTYPE_UNDEFINED)
-                PPApplication.addActivityLog(context, logType, null, null, null, 0, "");
+                PPApplication.addActivityLog(context, logType, null, null, "");
             //dataWrapper.restartEvents(unblockEventsRun, true, true, false);
 //            PPApplication.logE("[APP_START] RestartEventsWithDelayWorker.doWork", "xxx");
             dataWrapper.restartEventsWithRescan(alsoRescan, unblockEventsRun, false, false, true, false);

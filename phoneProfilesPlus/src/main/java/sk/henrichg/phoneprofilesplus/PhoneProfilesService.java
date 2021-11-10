@@ -4068,7 +4068,7 @@ public class PhoneProfilesService extends Service
             startForExternalAppDataValue = serviceIntent.getStringExtra(EXTRA_START_FOR_EXTERNAL_APP_DATA_VALUE);
         }
         else {
-            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_SYSTEM_RESTART, null, null, null, 0, "");
+            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_SYSTEM_RESTART, null, null, "");
         }
 
         if (PPApplication.logEnabled()) {
@@ -4402,12 +4402,12 @@ public class PhoneProfilesService extends Service
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application started");
 
                 if ((!_deviceBoot) && (_applicationStart)) {
-                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START, null, null, null, 0, "");
+                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START, null, null, "");
                     if (newVersion) {
                         try {
                             PackageInfo pInfo = appContext.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
                             String version = pInfo.versionName + " (" + PPApplication.getVersionCode(pInfo) + ")";
-                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_UPGRADE, version, null, null, 0, "");
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_UPGRADE, version, null, "");
                         } catch (Exception e) {
                             PPApplication.recordException(e);
                         }

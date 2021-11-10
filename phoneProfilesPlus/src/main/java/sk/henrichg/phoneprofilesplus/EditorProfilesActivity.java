@@ -4198,7 +4198,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
                     //}
 
-                    PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, null, 0, "");
+                    PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, "");
 
                     // toast notification
                     if (!activity.isFinishing())
@@ -4855,7 +4855,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
                         //}
 
-                        PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, null, null, null, 0, "");
+                        PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, null, null, "");
 
                         // toast notification
                         if (!activity.isFinishing())
@@ -4990,7 +4990,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ret = 0;
                     }
 
-                    PPApplication.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, null, 0, "");
+                    PPApplication.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, "");
 
                     //Event.setGlobalEventsRunning(this.dataWrapper.context, runStopEvents);
                     PPApplication.setApplicationStarted(activity.getApplicationContext(), true);

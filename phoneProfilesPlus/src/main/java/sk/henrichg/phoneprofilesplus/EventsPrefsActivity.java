@@ -518,7 +518,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))
         {
-            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_ADDED, event._name, null, null, 0, "");
+            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_ADDED, event._name, null, "");
 
             // add event into DB
             DatabaseHandler.getInstance(dataWrapper.context).addEvent(event);
@@ -535,7 +535,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
         else
         if (event_id > 0)
         {
-            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, null, 0, "");
+            PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_EVENT_PREFERENCES_CHANGED, event._name, null, "");
 
             // update event in DB
             DatabaseHandler.getInstance(dataWrapper.context).updateEvent(event);

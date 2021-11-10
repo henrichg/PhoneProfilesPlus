@@ -1464,8 +1464,7 @@ public class PPApplication extends Application
     //--------------------------------------------------------------
 
     static void addActivityLog(Context context, final int logType, final String eventName,
-                               final String profileName, final String profileIcon,
-                               final int durationDelay, final String profilesEventsCount) {
+                               final String profileName, final String profilesEventsCount) {
         if (PPApplication.prefActivityLogEnabled) {
             final Context appContext = context;
             PPApplication.startHandlerThread(/*"AlarmClockBroadcastReceiver.onReceive"*/);
@@ -1480,7 +1479,7 @@ public class PPApplication extends Application
                     //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                     //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
                     DatabaseHandler.getInstance(appContext).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
-                            logType, eventName, profileName, profileIcon, durationDelay, profilesEventsCount);
+                            logType, eventName, profileName, profilesEventsCount);
                 }
             });
         }
@@ -4125,7 +4124,7 @@ public class PPApplication extends Application
                     ActivateProfileHelper.cancelNotificationsForInteractiveParameters(context);
                 }
 
-                addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, null, 0, "");
+                addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, "");
 
                 /*if (PPApplication.brightnessHandler != null) {
                     PPApplication.brightnessHandler.post(new Runnable() {

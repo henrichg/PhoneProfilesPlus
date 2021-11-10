@@ -612,14 +612,14 @@ public class ProfilesPrefsActivity extends AppCompatActivity {
 
             if ((new_profile_mode == EditorProfileListFragment.EDIT_MODE_INSERT) ||
                     (new_profile_mode == EditorProfileListFragment.EDIT_MODE_DUPLICATE)) {
-                PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_ADDED, null, profile._name, profile._icon, 0, "");
+                PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_ADDED, null, profile._name, "");
 
                 // add profile into DB
                 DatabaseHandler.getInstance(getApplicationContext()).addProfile(profile, false);
                 profile_id = profile._id;
 
             } else if (profile_id > 0) {
-                PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, null, profile._name, profile._icon, 0, "");
+                PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_PROFILE_PREFERENCES_CHANGED, null, profile._name, "");
 
                 DatabaseHandler.getInstance(getApplicationContext()).updateProfile(profile);
 

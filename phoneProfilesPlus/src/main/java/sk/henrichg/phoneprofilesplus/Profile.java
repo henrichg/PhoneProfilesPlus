@@ -1857,7 +1857,7 @@ public class Profile {
                     configuredTime.set(Calendar.MILLISECOND, 0);
 
                     if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
-                        // configured time not expires
+                        // configured time is not expired
                         if (this._afterDurationDo != withProfile._afterDurationDo) {
                             //PPApplication.logE("$$$ compareProfiles","_afterDurationDo");
                             return false;

@@ -1773,8 +1773,8 @@ class ActivateProfileHelper {
                     }
                     catch (Exception e){
                         //Log.e("ActivateProfileHelper.setTones (3)", Log.getStackTraceString(e));
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE, null,
-                                profile._name, profile._icon, 0, "");
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE,
+                                null, profile._name, "");
                         noError = false;
                         /*String[] splits = profile._soundRingtone.split("\\|");
                         if (!splits[0].isEmpty()) {
@@ -1844,8 +1844,8 @@ class ActivateProfileHelper {
                         //PPApplication.recordException(e);
                     }
                     catch (Exception e){
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION, null,
-                                profile._name, profile._icon, 0, "");
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION,
+                                null, profile._name, "");
                         noError = false;
                         /*String[] splits = profile._soundNotification.split("\\|");
                         if (!splits[0].isEmpty()) {
@@ -1915,8 +1915,8 @@ class ActivateProfileHelper {
                         //PPApplication.recordException(e);
                     }
                     catch (Exception e){
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM, null,
-                                profile._name, profile._icon, 0, "");
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM,
+                                null, profile._name, "");
                         noError = false;
                         /*String[] splits = profile._soundAlarm.split("\\|");
                         if (!splits[0].isEmpty()) {
@@ -2019,8 +2019,8 @@ class ActivateProfileHelper {
                         }
                         catch (Exception e) {
                             //Log.e("ActivateProfileHelper.setTones (3)", Log.getStackTraceString(e));
-                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE, null,
-                                    profile._name, profile._icon, 0, "");
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE,
+                                    null, profile._name, "");
                             noError = false;
                             /*String[] splits = profile._soundRingtone.split("\\|");
                             if (!splits[0].isEmpty()) {
@@ -2137,8 +2137,8 @@ class ActivateProfileHelper {
                         }
                         catch (Exception e) {
                             //Log.e("ActivateProfileHelper.setTones (3)", Log.getStackTraceString(e));
-                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE, null,
-                                    profile._name, profile._icon, 0, "");
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE,
+                                    null, profile._name, "");
                             noError = false;
                             /*String[] splits = profile._soundRingtone.split("\\|");
                             if (!splits[0].isEmpty()) {
@@ -2283,8 +2283,8 @@ class ActivateProfileHelper {
                             //PPApplication.recordException(e);
                         }
                         catch (Exception e){
-                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION, null,
-                                    profile._name, profile._icon, 0, "");
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION,
+                                    null, profile._name, "");
                             noError = false;
                             /*String[] splits = profile._soundNotification.split("\\|");
                             if (!splits[0].isEmpty()) {
@@ -2465,8 +2465,8 @@ class ActivateProfileHelper {
                             //PPApplication.recordException(e);
                         }
                         catch (Exception e){
-                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION, null,
-                                    profile._name, profile._icon, 0, "");
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION,
+                                    null, profile._name, "");
                             noError = false;
                             /*String[] splits = profile._soundNotification.split("\\|");
                             if (!splits[0].isEmpty()) {
@@ -3560,18 +3560,18 @@ class ActivateProfileHelper {
 
                     PPApplication.setWallpaperChangeTime(appContext);
                 } catch (IOException e) {
-                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
-                            profile._name, profile._icon, 0, "");
+                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
+                            null, profile._name, "");
                     //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } catch (Exception e) {
-                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
-                            profile._name, profile._icon, 0, "");
+                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
+                            null, profile._name, "");
                     //PPApplication.recordException(e);
                 }
             } else {
-                PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
-                        profile._name, profile._icon, 0, "");
+                PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
+                        null, profile._name, "");
             }
         }
     }
@@ -3798,32 +3798,32 @@ class ActivateProfileHelper {
                                 context.startActivity(appIntent);
                             } catch (ActivityNotFoundException ee) {
                                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","shortcut - ERROR (01)");
-                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                                        profileName, profileIcon, 0, "");
+                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT,
+                                        null, profileName, "");
                             } catch (SecurityException e) {
                                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","shortcut - ERROR (02)");
-                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                                        profileName, profileIcon, 0, "");
+                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT,
+                                        null, profileName, "");
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
                         } else {
                             //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","shortcut - ERROR (1)");
-                            PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                                    profileName, profileIcon, 0, "");
+                            PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT,
+                                    null, profileName, "");
                         }
                     } catch (Exception e) {
                         PPApplication.recordException(e);
                     }
                 } else {
                     //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","shortcut - ERROR (2)");
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                            profileName, profileIcon, 0, "");
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT,
+                            null, profileName, "");
                 }
             } else {
                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","shortcut - ERROR (3)");
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                        profileName, profileIcon, 0, "");
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT,
+                        null, profileName, "");
             }
         } else
         if (Application.isIntent(runApplicationData)) {
@@ -3841,12 +3841,12 @@ class ActivateProfileHelper {
                                 context.startActivity(appIntent);
                             } catch (ActivityNotFoundException ee) {
                                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (01)");
-                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                                        profileName, profileIcon, 0, "");
+                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
+                                        null, profileName, "");
                             } catch (SecurityException e) {
                                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (02)");
-                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                                        profileName, profileIcon, 0, "");
+                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
+                                        null, profileName, "");
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
@@ -3860,18 +3860,18 @@ class ActivateProfileHelper {
                         }
                     } else {
                         //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (1)");
-                        PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                                profileName, profileIcon, 0, "");
+                        PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
+                                null, profileName, "");
                     }
                 } else {
                     //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (2)");
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                            profileName, profileIcon, 0, "");
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
+                            null, profileName, "");
                 }
             } else {
                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (3)");
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                        profileName, profileIcon, 0, "");
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
+                        null, profileName, "");
             }
         } else {
             String packageName = Application.getPackageName(runApplicationData);
@@ -3885,19 +3885,19 @@ class ActivateProfileHelper {
                     context.startActivity(appIntent);
                 } catch (ActivityNotFoundException ee) {
                     //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","application - ERROR (01)");
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, null,
-                            profileName, profileIcon, 0, "");
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION,
+                            null, profileName, "");
                 } catch (SecurityException e) {
                     //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","application - ERROR (02)");
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, null,
-                            profileName, profileIcon, 0, "");
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION,
+                            null, profileName, "");
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
             } else {
                 //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","application - ERROR (1)");
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, null,
-                        profileName, profileIcon, 0, "");
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION,
+                        null, profileName, "");
             }
         }
     }

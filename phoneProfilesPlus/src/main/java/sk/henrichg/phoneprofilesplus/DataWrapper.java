@@ -31,6 +31,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -1758,7 +1759,7 @@ public class DataWrapper {
             //PPApplication.logE("$$$ DataWrapper._activateProfile","after activation");
 
             String profileIcon = "";
-            int profileDuration = 0;
+            boolean profileDuration = false;
             if (_profile != null) {
                 profileIcon = _profile._icon;
 
@@ -1769,7 +1770,25 @@ public class DataWrapper {
                 if ((_profile._endOfActivationType == 0) &&
                         (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
                         (_profile._duration > 0)) {
-                    profileDuration = _profile._duration;
+                    profileDuration = true;
+                }
+                else
+                if (_profile._endOfActivationType == 1) {
+                    Calendar now = Calendar.getInstance();
+
+                    Calendar configuredTime = Calendar.getInstance();
+                    configuredTime.set(Calendar.HOUR_OF_DAY, _profile._endOfActivationTime / 60);
+                    configuredTime.set(Calendar.MINUTE, _profile._endOfActivationTime % 60);
+                    configuredTime.set(Calendar.DAY_OF_MONTH, 0);
+                    configuredTime.set(Calendar.MONTH, 0);
+                    configuredTime.set(Calendar.YEAR, 0);
+                    configuredTime.set(Calendar.SECOND, 0);
+                    configuredTime.set(Calendar.MILLISECOND, 0);
+
+                    if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
+                        // configured time is not expired
+                        profileDuration = true;
+                    }
                 }
 
                 //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
@@ -1791,19 +1810,6 @@ public class DataWrapper {
                         // manual profile activation
                         PPApplication.logE("$$$ DataWrapper._activateProfile","manual profile activation");*/
 
-                    //// set profile duration alarm
-
-                    // save before activated profile
-                    //if (oldActivatedProfile != null) {
-                        //long profileId = oldActivatedProfile._id;
-//                        if (PPApplication.logEnabled()) {
-//                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration profileId=" + profileId);
-//                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
-//                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
-//                        }
-                        //Profile.setActivatedProfileForDuration(context, profileId);
-                    //}
-
                     if (startupSource != PPApplication.STARTUP_SOURCE_EVENT_MANUAL) {
                         long profileId = _profile._id;
 //                        PPApplication.logE("[FIFO_TEST] DataWrapper._activateProfile", "#### add profileId=" + profileId);
@@ -1814,7 +1820,7 @@ public class DataWrapper {
                     ///////////
                 } else {
 //                    PPApplication.logE("----------- $$$ DataWrapper._activateProfile","setActivatedProfileForDuration NO manual profile activation");
-                    profileDuration = 0;
+                    profileDuration = false;
 
                 }
 
@@ -1832,9 +1838,10 @@ public class DataWrapper {
 
             if (/*(mappedProfile != null) &&*/ (!merged)) {
                 //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "add log");
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION, null,
-                        getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration > 0, false, false, this),
-                        profileIcon, profileDuration, "");
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION,
+                        null,
+                        getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration, false, false, this),
+                        "");
             }
 
             //if (mappedProfile != null)
@@ -2283,9 +2290,9 @@ public class DataWrapper {
 
             if (logRestart) {
                 if (manualRestart)
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, null, 0, "");
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, "");
                 else
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_RESTART_EVENTS, null, null, null, 0, "");
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_RESTART_EVENTS, null, null, "");
             }
 
             //if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
@@ -3169,7 +3176,7 @@ public class DataWrapper {
     boolean globalRunStopEvents(boolean stop) {
         if (stop) {
             if (Event.getGlobalEventsRunning()) {
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_DISABLE, null, null, null, 0, "");
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_DISABLE, null, null, "");
 
                 // no setup for next start
                 resetAllEventsInDelayStart(false);
@@ -3193,7 +3200,7 @@ public class DataWrapper {
         }
         else {
             if (!Event.getGlobalEventsRunning()) {
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_ENABLE, null, null, null, 0, "");
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_ENABLE, null, null, "");
 
                 Event.setGlobalEventsRunning(context, true);
 

@@ -9240,8 +9240,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 // ACTIVITY LOG -------------------------------------------------------------------
 
     // Adding activity log
-    void addActivityLog(int deleteOldActivityLogs, int logType, String eventName, String profileName, String profileIcon,
-                        int durationDelay, String profileEventsCount) {
+    void addActivityLog(int deleteOldActivityLogs,
+                        int logType, String eventName, String profileName, String profileEventsCount) {
         importExportLock.lock();
         try {
             try {
@@ -9254,9 +9254,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_AL_LOG_TYPE, logType);
                 values.put(KEY_AL_EVENT_NAME, eventName);
                 values.put(KEY_AL_PROFILE_NAME, profileName);
-                values.put(KEY_AL_PROFILE_ICON, profileIcon);
-                if (durationDelay > 0)
-                    values.put(KEY_AL_DURATION_DELAY, durationDelay);
                 values.put(KEY_AL_PROFILE_EVENT_COUNT, profileEventsCount);
 
                 db.beginTransaction();
@@ -9332,7 +9329,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_AL_EVENT_NAME + "," +
                         KEY_AL_PROFILE_NAME + "," +
                         KEY_AL_PROFILE_ICON + "," +
-                        KEY_AL_DURATION_DELAY + "," +
+                        //KEY_AL_DURATION_DELAY + "," +
                         KEY_AL_PROFILE_EVENT_COUNT +
                         " FROM " + TABLE_ACTIVITY_LOG +
                         " ORDER BY " + KEY_AL_ID + " DESC";

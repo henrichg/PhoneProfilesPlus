@@ -1849,6 +1849,8 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="end_of_activation_duration_acronym">d</string>
     <string name="end_of_activation_time_acronym">t</string>
     <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Show profile end of activation (widget)</string>
+    <string name="event_delay_start_acronym">ds</string>
+    <string name="event_delay_end_acronym">de</string>
 
     <!-- **************************************************************************************** -->
 

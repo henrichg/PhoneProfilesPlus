@@ -871,7 +871,7 @@ public class EditorEventListFragment extends Fragment
             // event not exists
             return;
 
-        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_EVENT_DELETED, event._name, null, null, 0, "");
+        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_EVENT_DELETED, event._name, null, "");
 
         listView.getRecycledViewPool().clear();
 
@@ -1002,7 +1002,7 @@ public class EditorEventListFragment extends Fragment
             dialogBuilder.setMessage(getString(R.string.alert_message_delete_all_events));
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, null, 0, "");
+                PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, "");
 
                 listView.getRecycledViewPool().clear();
 
