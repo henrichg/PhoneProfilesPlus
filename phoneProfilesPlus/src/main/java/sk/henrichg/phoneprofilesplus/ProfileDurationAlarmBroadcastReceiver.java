@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.util.Log;
 
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -43,17 +44,22 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
         if (profile == null)
             return;
 
+        Log.e("sk.henrichg.phoneprofilesplus.ProfileDurationAlarmBroadcastReceiver.setAlarm", "xxx");
+
         if ((profile._endOfActivationType == 0) &&
                 (profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
-                (profile._duration > 0))
-        {
+                (profile._duration > 0)) {
+
             // duration for start is > 0
             // set alarm
+
+            Log.e("sk.henrichg.phoneprofilesplus.ProfileDurationAlarmBroadcastReceiver.setAlarm", "duration");
 
             Calendar now = Calendar.getInstance();
             now.add(Calendar.SECOND, profile._duration);
             long alarmTime = now.getTimeInMillis();// + 1000 * 60 * profile._duration;
 
+            // save alarm for generator of profile name with duration
             Profile.setActivatedProfileEndDurationTime(context, alarmTime);
 
             if (!PPApplication.isIgnoreBatteryOptimizationEnabled(context)) {
@@ -165,11 +171,65 @@ public class ProfileDurationAlarmBroadcastReceiver extends BroadcastReceiver {
                 }
             }
         }
-        //else
-        //	this._isInDelay = false;
+        else
+        if (profile._endOfActivationType == 1) {
 
-        //dataWrapper.getDatabaseHandler().updateEventInDelay(this);
+            Log.e("sk.henrichg.phoneprofilesplus.ProfileDurationAlarmBroadcastReceiver.setAlarm", "time (1)");
 
+            Calendar now = Calendar.getInstance();
+
+            Calendar configuredTime = Calendar.getInstance();
+            configuredTime.set(Calendar.HOUR_OF_DAY, profile._endOfActivationTime / 60);
+            configuredTime.set(Calendar.MINUTE, profile._endOfActivationTime % 60);
+            configuredTime.set(Calendar.SECOND, 0);
+            configuredTime.set(Calendar.MILLISECOND, 0);
+
+            if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
+                // configured time is not expired
+                // set alarm
+
+                Log.e("sk.henrichg.phoneprofilesplus.ProfileDurationAlarmBroadcastReceiver.setAlarm", "time (2)");
+
+                long alarmTime = configuredTime.getTimeInMillis();
+
+                // save configured end of activation time for generator of profile name with duration
+                Profile.setActivatedProfileEndDurationTime(context, profile._endOfActivationTime);
+
+                //Intent intent = new Intent(_context, ProfileDurationAlarmBroadcastReceiver.class);
+                Intent intent = new Intent();
+                intent.setAction(PhoneProfilesService.ACTION_PROFILE_DURATION_BROADCAST_RECEIVER);
+                //intent.setClass(context, ProfileDurationAlarmBroadcastReceiver.class);
+
+                intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
+                intent.putExtra(EXTRA_FOR_RESTART_EVENTS, forRestartEvents);
+                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, startupSource);
+
+                @SuppressLint("UnspecifiedImmutableFlag")
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) profile._id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                if (alarmManager != null) {
+                    if (ApplicationPreferences.applicationUseAlarmClock) {
+                        Intent editorIntent = new Intent(context, EditorProfilesActivity.class);
+                        editorIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        @SuppressLint("UnspecifiedImmutableFlag")
+                        PendingIntent infoPendingIntent = PendingIntent.getActivity(context, 1000, editorIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        AlarmManager.AlarmClockInfo clockInfo = new AlarmManager.AlarmClockInfo(alarmTime, infoPendingIntent);
+                        alarmManager.setAlarmClock(clockInfo, pendingIntent);
+                    } else {
+                        alarmTime = SystemClock.elapsedRealtime() + profile._duration * 1000L;
+
+                        //if (android.os.Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        //else //if (android.os.Build.VERSION.SDK_INT >= 19)
+                        //    alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                        //else
+                        //    alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, alarmTime, pendingIntent);
+                    }
+                    //this._isInDelay = true;
+                }
+            }
+        }
     }
 
     /*

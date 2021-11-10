@@ -1779,9 +1779,6 @@ public class DataWrapper {
                     Calendar configuredTime = Calendar.getInstance();
                     configuredTime.set(Calendar.HOUR_OF_DAY, _profile._endOfActivationTime / 60);
                     configuredTime.set(Calendar.MINUTE, _profile._endOfActivationTime % 60);
-                    configuredTime.set(Calendar.DAY_OF_MONTH, 0);
-                    configuredTime.set(Calendar.MONTH, 0);
-                    configuredTime.set(Calendar.YEAR, 0);
                     configuredTime.set(Calendar.SECOND, 0);
                     configuredTime.set(Calendar.MILLISECOND, 0);
 
