@@ -263,74 +263,71 @@ class SettingsContentObserver  extends ContentObserver {
                     PPApplication.startHandlerThreadBroadcast(/*"ScreenOnOffBroadcastReceiver.onReceive"*/);
                     final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                     //__handler.post(new PPApplication.PPHandlerThreadRunnable(context.getApplicationContext()) {
-                    __handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
-                            PowerManager.WakeLock wakeLock = null;
-                            try {
-                                if (powerManager != null) {
-                                    wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":SettingsContentObserver_onReceive");
-                                    wakeLock.acquire(10 * 60 * 1000);
-                                }
+                    __handler.postDelayed(() -> {
+                        PowerManager powerManager = (PowerManager) appContext.getSystemService(Context.POWER_SERVICE);
+                        PowerManager.WakeLock wakeLock = null;
+                        try {
+                            if (powerManager != null) {
+                                wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, PPApplication.PACKAGE_NAME + ":SettingsContentObserver_onReceive");
+                                wakeLock.acquire(10 * 60 * 1000);
+                            }
 
-                                // reset brightness
-                                try {
-                                    if (SettingsContentObserver.savedBrightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
-                                        Settings.System.putInt(context.getContentResolver(),
-                                                Settings.System.SCREEN_BRIGHTNESS_MODE,
-                                                Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
-                                        if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, false, context).allowed
-                                                == PreferenceAllowed.PREFERENCE_ALLOWED) {
-                                            Settings.System.putInt(context.getContentResolver(),
-                                                    Settings.System.SCREEN_BRIGHTNESS,
-                                                    SettingsContentObserver.savedBrightness);
-                                            try {
-                                                Settings.System.putFloat(context.getContentResolver(),
-                                                        Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
-                                                        SettingsContentObserver.savedAdaptiveBrightness);
-                                            } catch (Exception ee) {
-                                                ActivateProfileHelper.executeRootForAdaptiveBrightness(
-                                                        SettingsContentObserver.savedAdaptiveBrightness,
-                                                        context);
-                                            }
-                                        }
-                                    } else {
-                                        Settings.System.putInt(context.getContentResolver(),
-                                                Settings.System.SCREEN_BRIGHTNESS_MODE,
-                                                Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+                            // reset brightness
+                            try {
+                                if (SettingsContentObserver.savedBrightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+                                    Settings.System.putInt(context.getContentResolver(),
+                                            Settings.System.SCREEN_BRIGHTNESS_MODE,
+                                            Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+                                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, false, context).allowed
+                                            == PreferenceAllowed.PREFERENCE_ALLOWED) {
                                         Settings.System.putInt(context.getContentResolver(),
                                                 Settings.System.SCREEN_BRIGHTNESS,
                                                 SettingsContentObserver.savedBrightness);
+                                        try {
+                                            Settings.System.putFloat(context.getContentResolver(),
+                                                    Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
+                                                    SettingsContentObserver.savedAdaptiveBrightness);
+                                        } catch (Exception ee) {
+                                            ActivateProfileHelper.executeRootForAdaptiveBrightness(
+                                                    SettingsContentObserver.savedAdaptiveBrightness,
+                                                    context);
+                                        }
                                     }
-                                } catch (Exception ignored) {
+                                } else {
+                                    Settings.System.putInt(context.getContentResolver(),
+                                            Settings.System.SCREEN_BRIGHTNESS_MODE,
+                                            Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+                                    Settings.System.putInt(context.getContentResolver(),
+                                            Settings.System.SCREEN_BRIGHTNESS,
+                                            SettingsContentObserver.savedBrightness);
                                 }
-
-                                savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
-                                savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-                                savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
-                                if (PPApplication.logEnabled()) {
-                                    PPApplication.logE("[BRSD] SettingsContentObserver.onChange (2)", "brightness mode=" + savedBrightnessMode);
-                                    PPApplication.logE("[BRSD] SettingsContentObserver.onChange (2)", "manual brightness value=" + savedBrightness);
-                                    PPApplication.logE("[BRSD] SettingsContentObserver.onChange (2)", "adaptive brightness value=" + savedAdaptiveBrightness);
-                                }
-                                previousIsScreenOn = true;
-
-                            } catch (Exception e) {
-//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
-                                PPApplication.recordException(e);
-                            } finally {
-                                previousIsScreenOn = true;
-
-                                if ((wakeLock != null) && wakeLock.isHeld()) {
-                                    try {
-                                        wakeLock.release();
-                                    } catch (Exception ignored) {
-                                    }
-                                }
+                            } catch (Exception ignored) {
                             }
 
+                            savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+                            savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+                            savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+                            if (PPApplication.logEnabled()) {
+                                PPApplication.logE("[BRSD] SettingsContentObserver.onChange (2)", "brightness mode=" + savedBrightnessMode);
+                                PPApplication.logE("[BRSD] SettingsContentObserver.onChange (2)", "manual brightness value=" + savedBrightness);
+                                PPApplication.logE("[BRSD] SettingsContentObserver.onChange (2)", "adaptive brightness value=" + savedAdaptiveBrightness);
+                            }
+                            previousIsScreenOn = true;
+
+                        } catch (Exception e) {
+//                            PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", Log.getStackTraceString(e));
+                            PPApplication.recordException(e);
+                        } finally {
+                            previousIsScreenOn = true;
+
+                            if ((wakeLock != null) && wakeLock.isHeld()) {
+                                try {
+                                    wakeLock.release();
+                                } catch (Exception ignored) {
+                                }
+                            }
                         }
+
                     }, 200);
                 }
                 if (!isScreenOn)
