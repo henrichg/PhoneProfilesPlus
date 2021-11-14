@@ -4580,6 +4580,9 @@ class ActivateProfileHelper {
                                     profile.getDeviceBrightnessManualValue(appContext));
                         }
                     }
+                    SettingsContentObserver.savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+                    SettingsContentObserver.savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+                    SettingsContentObserver.savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
 
                     /*
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start BackgroundBrightnessActivity");
