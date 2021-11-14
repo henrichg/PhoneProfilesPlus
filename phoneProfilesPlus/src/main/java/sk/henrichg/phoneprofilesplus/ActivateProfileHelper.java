@@ -3973,7 +3973,7 @@ class ActivateProfileHelper {
         //}
     }
 
-    private static void executeRootForAdaptiveBrightness(Profile profile, Context context) {
+    static void executeRootForAdaptiveBrightness(float adaptiveValue, Context context) {
         /* not working (private secure settings) :-/
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
             Settings.System.putFloat(appContext.getContentResolver(), ADAPTIVE_BRIGHTNESS_SETTING_NAME,
@@ -4005,7 +4005,7 @@ class ActivateProfileHelper {
                             (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                         synchronized (PPApplication.rootMutex) {
                             String command1 = "settings put system " + Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ + " " +
-                                    profile.getDeviceBrightnessAdaptiveValue(appContext);
+                                    adaptiveValue;
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
@@ -4528,18 +4528,18 @@ class ActivateProfileHelper {
         // setup display brightness
         if (profile.getDeviceBrightnessChange()) {
             if (Permissions.checkProfileScreenBrightness(appContext, profile, null)) {
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("----- ActivateProfileHelper.execute", "set brightness: profile=" + profile._name);
-                    PPApplication.logE("----- ActivateProfileHelper.execute", "set brightness: _deviceBrightness=" + profile._deviceBrightness);
-                }*/
+//                if (PPApplication.logEnabled()) {
+//                    PPApplication.logE("[BRIGHTNESS]  ActivateProfileHelper.execute", "set brightness: profile=" + profile._name);
+//                    PPApplication.logE("[BRIGHTNESS]  ActivateProfileHelper.execute", "set brightness: _deviceBrightness=" + profile._deviceBrightness);
+//                }
                 try {
                     if (profile.getDeviceBrightnessAutomatic()) {
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set automatic brightness");
+//                        PPApplication.logE("[BRIGHTNESS] ActivateProfileHelper.execute", "set automatic brightness");
                         Settings.System.putInt(appContext.getContentResolver(),
                                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                         if (profile.getDeviceBrightnessChangeLevel()) {
-                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set brightness 1");
+//                            PPApplication.logE("[BRIGHTNESS] ActivateProfileHelper.execute", "set brightness 1");
                             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, executedProfileSharedPreferences, true, appContext).allowed
                                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
@@ -4554,25 +4554,27 @@ class ActivateProfileHelper {
                                             profile.getDeviceBrightnessAdaptiveValue(appContext));
                                 } else*/ {
                                     try {
-                                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set adaptive brightness 2");
+//                                        PPApplication.logE("[BRIGHTNESS] ActivateProfileHelper.execute", "set adaptive brightness 2");
                                         Settings.System.putFloat(appContext.getContentResolver(),
                                                 Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
                                                 profile.getDeviceBrightnessAdaptiveValue(appContext));
                                     } catch (Exception ee) {
                                         // run service for execute radios
                                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeRootForAdaptiveBrightness()");
-                                        ActivateProfileHelper.executeRootForAdaptiveBrightness(profile, appContext);
+                                        ActivateProfileHelper.executeRootForAdaptiveBrightness(
+                                                profile.getDeviceBrightnessAdaptiveValue(appContext),
+                                                appContext);
                                     }
                                 }
                             }
                         }
                     } else {
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set manual brightness");
+//                        PPApplication.logE("[BRIGHTNESS] ActivateProfileHelper.execute", "set manual brightness");
                         Settings.System.putInt(appContext.getContentResolver(),
                                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                                 Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
                         if (profile.getDeviceBrightnessChangeLevel()) {
-                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set brightness 2");
+//                            PPApplication.logE("[BRIGHTNESS] ActivateProfileHelper.execute", "set brightness 2");
                             Settings.System.putInt(appContext.getContentResolver(),
                                     Settings.System.SCREEN_BRIGHTNESS,
                                     profile.getDeviceBrightnessManualValue(appContext));
@@ -7217,7 +7219,6 @@ class ActivateProfileHelper {
             ApplicationPreferences.keepScreenOnPermanent = keepOnPermanent;
         }
     }
-
 
     @SuppressWarnings("SameParameterValue")
     static void showError(Context context, String profileName, int parameterType) {

@@ -76,6 +76,39 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
     //                            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "isScreenOn="+PPApplication.isScreenOn);
     //                        }
 
+                            /*
+                            // reset brightness
+                            try {
+                                if (SettingsContentObserver.savedBrightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+                                    Settings.System.putInt(appContext.getContentResolver(),
+                                            Settings.System.SCREEN_BRIGHTNESS_MODE,
+                                            Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+                                    if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, null, false, appContext).allowed
+                                            == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                                        Settings.System.putInt(appContext.getContentResolver(),
+                                                Settings.System.SCREEN_BRIGHTNESS,
+                                                SettingsContentObserver.savedBrightness);
+                                        try {
+                                            Settings.System.putFloat(appContext.getContentResolver(),
+                                                    Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
+                                                    SettingsContentObserver.savedAdaptiveBrightness);
+                                        } catch (Exception ee) {
+                                            ActivateProfileHelper.executeRootForAdaptiveBrightness(
+                                                    SettingsContentObserver.savedAdaptiveBrightness,
+                                                    appContext);
+                                        }
+                                    }
+                                } else {
+                                    Settings.System.putInt(appContext.getContentResolver(),
+                                            Settings.System.SCREEN_BRIGHTNESS_MODE,
+                                            Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+                                    Settings.System.putInt(appContext.getContentResolver(),
+                                            Settings.System.SCREEN_BRIGHTNESS,
+                                            SettingsContentObserver.savedBrightness);
+                                }
+                            } catch (Exception ignored) {}
+                            */
+
                             // change screen timeout
                             setScreenTimeout(appContext);
 

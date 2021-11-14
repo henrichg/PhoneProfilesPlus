@@ -151,7 +151,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -231,7 +231,7 @@ public class PPApplication extends Application
 //                                                +"|[IN_WORKER]"
 //                                                +"|[WORKER_CALL]"
 //                                                +"|[IN_THREAD_HANDLER]"
-//                                                +"|[IN_BROADCAST]"
+                                                +"|[IN_BROADCAST]"
 //                                                +"|[LOCAL_BROADCAST_CALL]"
 //                                                +"|[IN_OBSERVER]"
 //                                                +"|[IN_LISTENER]"
@@ -252,6 +252,8 @@ public class PPApplication extends Application
                                                 //+"|[START_PP_SERVICE]"
                                                 //+"|[BRS]"
                                                 //+"|[CONNECTIVITY_TEST]"
+                                                +"|[BRIGHTNESS]"
+                                                +"|[BRSD]"
 
                                                 //+"|PApplication.getReleaseData"
                                                 //+"|CheckGitHubReleasesActivity"
