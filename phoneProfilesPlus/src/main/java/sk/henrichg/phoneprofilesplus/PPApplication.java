@@ -1086,6 +1086,7 @@ public class PPApplication extends Application
             isScreenOn = pm.isInteractive();
         else
             isScreenOn = false;
+        SettingsContentObserver.previousIsScreenOn = isScreenOn;
         /*DisplayManager displayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
         if (displayManager == null)
             isScreenOn = false;

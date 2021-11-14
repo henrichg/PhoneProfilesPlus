@@ -22,7 +22,7 @@ class SettingsContentObserver  extends ContentObserver {
     //private int defaultRingerMode = 0;
     private static int previousScreenTimeout = 0;
 
-    private static boolean previousIsScreenOn = false;
+    static boolean previousIsScreenOn = false;
     static int savedBrightness;
     static float savedAdaptiveBrightness;
     static int savedBrightnessMode;
