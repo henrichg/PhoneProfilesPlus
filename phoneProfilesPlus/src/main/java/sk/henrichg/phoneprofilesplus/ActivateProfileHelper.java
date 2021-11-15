@@ -4580,9 +4580,14 @@ class ActivateProfileHelper {
                                     profile.getDeviceBrightnessManualValue(appContext));
                         }
                     }
-                    SettingsContentObserver.savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
-                    SettingsContentObserver.savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-                    SettingsContentObserver.savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+                    PPApplication.brightnessModeBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+                    PPApplication.brightnessBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+                    PPApplication.adaptiveBrightnessBeforeScreenOff = Settings.System.getFloat(appContext.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+                    if (PPApplication.logEnabled()) {
+                        PPApplication.logE("ActivateProfileHelper.execute", "brightness mode=" + PPApplication.brightnessModeBeforeScreenOff);
+                        PPApplication.logE("ActivateProfileHelper.execute", "manual brightness value=" + PPApplication.brightnessBeforeScreenOff);
+                        PPApplication.logE("ActivateProfileHelper.execute", "adaptive brightness value=" + PPApplication.adaptiveBrightnessBeforeScreenOff);
+                    }
 
                     /*
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start BackgroundBrightnessActivity");

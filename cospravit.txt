@@ -325,6 +325,12 @@ Takto sa nastavuje tiemout pri aktivacii profilu:
   cize len sa hodnota ulozi do ApplicationPreferences.prefActivatedProfileScreenTimeout.
 Toto cele chapem.
 
+-----
+
+Inac spravit ten brightness
+1. zapamatat si hodnoty na screen off
+2. obnovit ich na screen on
+3. aktivacia profilu nech tie hodnoty tiez nastavuje
 
 
 

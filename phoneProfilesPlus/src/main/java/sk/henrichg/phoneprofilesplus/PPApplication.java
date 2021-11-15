@@ -264,6 +264,8 @@ public class PPApplication extends Application
                                                 //+"|DefaultSIMChangedBroadcastReceiver"
                                                 //+"|MobileDataNetworkCallback"
                                                 //+"|EventPreferencesRadioSwitch"
+
+                                                +"|ActivateProfileHelper.execute"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -691,6 +693,10 @@ public class PPApplication extends Application
     static LockDeviceActivity lockDeviceActivity = null;
     static int screenTimeoutBeforeDeviceLock = 0;
 
+    static int brightnessBeforeScreenOff;
+    static float adaptiveBrightnessBeforeScreenOff;
+    static int brightnessModeBeforeScreenOff;
+
     // 0 = wait for answer from Extender;
     // 1 = Extender is connected,
     // 2 = Extender is disconnected
@@ -1086,7 +1092,6 @@ public class PPApplication extends Application
             isScreenOn = pm.isInteractive();
         else
             isScreenOn = false;
-        SettingsContentObserver.previousIsScreenOn = isScreenOn;
         /*DisplayManager displayManager = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
         if (displayManager == null)
             isScreenOn = false;
@@ -1100,6 +1105,10 @@ public class PPApplication extends Application
                     isScreenOn = true;
             }
         }*/
+        brightnessModeBeforeScreenOff = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+        brightnessBeforeScreenOff = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+        adaptiveBrightnessBeforeScreenOff = Settings.System.getFloat(getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+
 
         //isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
 

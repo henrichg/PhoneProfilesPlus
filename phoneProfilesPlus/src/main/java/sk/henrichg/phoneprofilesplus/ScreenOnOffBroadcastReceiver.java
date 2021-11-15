@@ -12,10 +12,10 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        if (intent != null)
-//            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
-//        else
-//            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
+        if (intent != null)
+            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "intent.getAction()="+intent.getAction());
+        else
+            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "xxx");
 
         //CallsCounter.logCounter(context, "ScreenOnOffBroadcastReceiver.onReceive", "ScreenOnOffBroadcastReceiver_onReceive");
 
@@ -78,8 +78,13 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
 
                             /*
                             // reset brightness
+                            if (PPApplication.logEnabled()) {
+                                PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (2)", "brightness mode=" + PPApplication.brightnessModeBeforeScreenOff);
+                                PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (2)", "manual brightness value=" + PPApplication.brightnessBeforeScreenOff);
+                                PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (2)", "adaptive brightness value=" + PPApplication.adaptiveBrightnessBeforeScreenOff);
+                            }
                             try {
-                                if (SettingsContentObserver.savedBrightnessMode == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
+                                if (PPApplication.brightnessModeBeforeScreenOff == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC) {
                                     Settings.System.putInt(appContext.getContentResolver(),
                                             Settings.System.SCREEN_BRIGHTNESS_MODE,
                                             Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
@@ -87,14 +92,14 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                             == PreferenceAllowed.PREFERENCE_ALLOWED) {
                                         Settings.System.putInt(appContext.getContentResolver(),
                                                 Settings.System.SCREEN_BRIGHTNESS,
-                                                SettingsContentObserver.savedBrightness);
+                                                PPApplication.brightnessBeforeScreenOff);
                                         try {
                                             Settings.System.putFloat(appContext.getContentResolver(),
                                                     Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
-                                                    SettingsContentObserver.savedAdaptiveBrightness);
+                                                    PPApplication.adaptiveBrightnessBeforeScreenOff);
                                         } catch (Exception ee) {
                                             ActivateProfileHelper.executeRootForAdaptiveBrightness(
-                                                    SettingsContentObserver.savedAdaptiveBrightness,
+                                                    PPApplication.adaptiveBrightnessBeforeScreenOff,
                                                     appContext);
                                         }
                                     }
@@ -104,9 +109,17 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                                             Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
                                     Settings.System.putInt(appContext.getContentResolver(),
                                             Settings.System.SCREEN_BRIGHTNESS,
-                                            SettingsContentObserver.savedBrightness);
+                                            PPApplication.brightnessBeforeScreenOff);
                                 }
                             } catch (Exception ignored) {}
+                            if (PPApplication.logEnabled()) {
+                                int brightnessMode = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+                                int brightness = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+                                float adaptiveBrightness = Settings.System.getFloat(appContext.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+                                PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (3)", "brightness mode=" + brightnessMode);
+                                PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (3)", "manual brightness value=" + brightness);
+                                PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (3)", "adaptive brightness value=" + adaptiveBrightness);
+                            }
                             */
 
                             // change screen timeout
@@ -159,6 +172,15 @@ public class ScreenOnOffBroadcastReceiver extends BroadcastReceiver {
                             PPApplication.isScreenOn = false;
 //                            PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive", "isScreenOn="+PPApplication.isScreenOn);
 //                        }
+
+                            PPApplication.brightnessModeBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+                            PPApplication.brightnessBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+                            PPApplication.adaptiveBrightnessBeforeScreenOff = Settings.System.getFloat(appContext.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+                            if (PPApplication.logEnabled()) {
+                                PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "brightness mode=" + PPApplication.brightnessModeBeforeScreenOff);
+                                PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "manual brightness value=" + PPApplication.brightnessBeforeScreenOff);
+                                PPApplication.logE("[IN_BROADCAST] ScreenOnOffBroadcastReceiver.onReceive (1)", "adaptive brightness value=" + PPApplication.adaptiveBrightnessBeforeScreenOff);
+                            }
 
                             // call this, because device may not be locked immediately after screen off
                             KeyguardManager keyguardManager = (KeyguardManager) appContext.getSystemService(Context.KEYGUARD_SERVICE);
