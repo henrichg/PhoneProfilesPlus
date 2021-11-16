@@ -202,6 +202,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
     private void checkInGitHub(final Activity activity, final boolean refresh) {
+        int pppVersionCode = 0;
+        try {
+            PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+            pppVersionCode = PPApplication.getVersionCode(pInfo);
+        } catch (Exception ignored) {
+        }
         newVersionDataExists = (!newVersionName.isEmpty()) && (newVersionCode > 0);
 
         AlertDialog.Builder dialogBuilder = null;
@@ -225,6 +231,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
         else
             message = message + activity.getString(R.string.check_github_releases_released_version) + " " + getString(R.string.check_github_releases_version_checking);
+
+        newVersionDataExists = newVersionDataExists && (newVersionCode > pppVersionCode);
 
         message = message + "\n\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_1);
