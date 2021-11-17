@@ -4580,14 +4580,14 @@ class ActivateProfileHelper {
                                     profile.getDeviceBrightnessManualValue(appContext));
                         }
                     }
-                    PPApplication.brightnessModeBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
-                    PPApplication.brightnessBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-                    PPApplication.adaptiveBrightnessBeforeScreenOff = Settings.System.getFloat(appContext.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
-                    if (PPApplication.logEnabled()) {
-                        PPApplication.logE("ActivateProfileHelper.execute", "brightness mode=" + PPApplication.brightnessModeBeforeScreenOff);
-                        PPApplication.logE("ActivateProfileHelper.execute", "manual brightness value=" + PPApplication.brightnessBeforeScreenOff);
-                        PPApplication.logE("ActivateProfileHelper.execute", "adaptive brightness value=" + PPApplication.adaptiveBrightnessBeforeScreenOff);
-                    }
+//                    PPApplication.brightnessModeBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+//                    PPApplication.brightnessBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+//                    PPApplication.adaptiveBrightnessBeforeScreenOff = Settings.System.getFloat(appContext.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+//                    if (PPApplication.logEnabled()) {
+//                        PPApplication.logE("ActivateProfileHelper.execute", "brightness mode=" + PPApplication.brightnessModeBeforeScreenOff);
+//                        PPApplication.logE("ActivateProfileHelper.execute", "manual brightness value=" + PPApplication.brightnessBeforeScreenOff);
+//                        PPApplication.logE("ActivateProfileHelper.execute", "adaptive brightness value=" + PPApplication.adaptiveBrightnessBeforeScreenOff);
+//                    }
 
                     /*
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start BackgroundBrightnessActivity");
@@ -4603,7 +4603,6 @@ class ActivateProfileHelper {
 
                     appContext.startActivity(intent);
                     */
-
                     /*
                     if (PPApplication.brightnessHandler != null) {
                         PPApplication.brightnessHandler.post(new Runnable() {
@@ -4612,8 +4611,8 @@ class ActivateProfileHelper {
                                 createBrightnessView(profile, context);
                             }
                         });
-                    }// else
-                    //    createBrightnessView(context);
+                    } else
+                        createBrightnessView(profile, context);
                     */
                 } catch (Exception e) {
                     PPApplication.recordException(e);
@@ -5336,30 +5335,30 @@ class ActivateProfileHelper {
 
     /*
     @SuppressLint("RtlHardcoded")
-    private static void createBrightnessView(Profile profile, Context context)
+    static void createBrightnessView(Profile profile, Context context)
     {
         PPApplication.logE("ActivateProfileHelper.createBrightnessView", "xxx");
 
-        if (PhoneProfilesService.getInstance() != null) {
+        //if (PhoneProfilesService.getInstance() != null) {
             final Context appContext = context.getApplicationContext();
 
             WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
             if (windowManager != null) {
-                if (PhoneProfilesService.getInstance().brightnessView != null) {
+                if (PPApplication.brightnessView != null) {
                     try {
-                        windowManager.removeView(PhoneProfilesService.getInstance().brightnessView);
+                        windowManager.removeView(PPApplication.brightnessView);
                     } catch (Exception ignored) {
                     }
-                    PhoneProfilesService.getInstance().brightnessView = null;
+                    PPApplication.brightnessView = null;
                 }
                 int type;
                 //if (android.os.Build.VERSION.SDK_INT < 25)
                 //    type = WindowManager.LayoutParams.TYPE_TOAST;
                 //else
                 if (android.os.Build.VERSION.SDK_INT < 26)
-                    type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                    type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
                 else
-                    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                    type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
                 WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                         1, 1,
                         type,
@@ -5367,14 +5366,14 @@ class ActivateProfileHelper {
                         PixelFormat.TRANSLUCENT
                 );
                 if (profile.getDeviceBrightnessAutomatic() || (!profile.getDeviceBrightnessChangeLevel()))
-                    params.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+                    params.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
                 else
                     params.screenBrightness = profile.getDeviceBrightnessManualValue(appContext) / (float) 255;
-                PhoneProfilesService.getInstance().brightnessView = new BrightnessView(appContext);
+                PPApplication.brightnessView = new BrightnessView(appContext);
                 try {
-                    windowManager.addView(PhoneProfilesService.getInstance().brightnessView, params);
+                    windowManager.addView(PPApplication.brightnessView, params);
                 } catch (Exception e) {
-                    PhoneProfilesService.getInstance().brightnessView = null;
+                    PPApplication.brightnessView = null;
                 }
 
                 final Handler handler = new Handler(appContext.getMainLooper());
@@ -5385,34 +5384,34 @@ class ActivateProfileHelper {
 
                         WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
                         if (windowManager != null) {
-                            if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().brightnessView != null)) {
+                            if (PPApplication.brightnessView != null) {
                                 try {
-                                    windowManager.removeView(PhoneProfilesService.getInstance().brightnessView);
+                                    windowManager.removeView(PPApplication.brightnessView);
                                 } catch (Exception ignored) {
                                 }
-                                PhoneProfilesService.getInstance().brightnessView = null;
+                                PPApplication.brightnessView = null;
                             }
                         }
                     }
                 }, 5000);
 //                PostDelayedBroadcastReceiver.setAlarm(PostDelayedBroadcastReceiver.ACTION_REMOVE_BRIGHTNESS_VIEW,5, context);
             }
-        }
+        //}
     }
 
     static void removeBrightnessView(Context context) {
-        if (PhoneProfilesService.getInstance() != null) {
-            if (PhoneProfilesService.getInstance().brightnessView != null) {
+        //if (PhoneProfilesService.getInstance() != null) {
+            if (PPApplication.brightnessView != null) {
                 WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
                 if (windowManager != null) {
                     try {
-                        windowManager.removeView(PhoneProfilesService.getInstance().brightnessView);
+                        windowManager.removeView(PPApplication.brightnessView);
                     } catch (Exception ignored) {
                     }
-                    PhoneProfilesService.getInstance().brightnessView = null;
+                    PPApplication.brightnessView = null;
                 }
             }
-        }
+        //}
     }
     */
 

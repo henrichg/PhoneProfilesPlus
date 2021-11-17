@@ -266,6 +266,8 @@ public class PPApplication extends Application
                                                 //+"|EventPreferencesRadioSwitch"
 
                                                 +"|ActivateProfileHelper.execute"
+                                                +"|ActivateProfileHelper.createBrightnessView"
+                                                +"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -693,9 +695,9 @@ public class PPApplication extends Application
     static LockDeviceActivity lockDeviceActivity = null;
     static int screenTimeoutBeforeDeviceLock = 0;
 
-    static int brightnessBeforeScreenOff;
-    static float adaptiveBrightnessBeforeScreenOff;
-    static int brightnessModeBeforeScreenOff;
+//    static int brightnessBeforeScreenOff;
+//    static float adaptiveBrightnessBeforeScreenOff;
+//    static int brightnessModeBeforeScreenOff;
 
     // 0 = wait for answer from Extender;
     // 1 = Extender is connected,
@@ -1105,9 +1107,9 @@ public class PPApplication extends Application
                     isScreenOn = true;
             }
         }*/
-        brightnessModeBeforeScreenOff = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
-        brightnessBeforeScreenOff = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
-        adaptiveBrightnessBeforeScreenOff = Settings.System.getFloat(getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+//        brightnessModeBeforeScreenOff = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+//        brightnessBeforeScreenOff = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+//        adaptiveBrightnessBeforeScreenOff = Settings.System.getFloat(getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
 
 
         //isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
@@ -4142,13 +4144,13 @@ public class PPApplication extends Application
 
                 addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, "");
 
-                /*if (PPApplication.brightnessHandler != null) {
-                    PPApplication.brightnessHandler.post(new Runnable() {
-                        public void run() {
-                            ActivateProfileHelper.removeBrightnessView(context);
-                        }
-                    });
-                }*/
+                //if (PPApplication.brightnessHandler != null) {
+                //    PPApplication.brightnessHandler.post(new Runnable() {
+                //        public void run() {
+                //            ActivateProfileHelper.removeBrightnessView(context);
+                //        }
+                //    });
+                //}
                 //if (PPApplication.screenTimeoutHandler != null) {
                 //    PPApplication.screenTimeoutHandler.post(new Runnable() {
                 //        public void run() {
