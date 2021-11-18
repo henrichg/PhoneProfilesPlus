@@ -285,12 +285,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
                 setCategorySummary(preferenceCategoryScreen);
             }
-            preferenceCategoryScreen = findPreference("specialProfileParametersCategoryRoot");
-            if (preferenceCategoryScreen != null) {
-                String title = "<b>" + preferenceCategoryScreen.getTitle() + "</b>";
-                preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
-                setCategorySummary(preferenceCategoryScreen);
-            }
             preferenceCategoryScreen = findPreference("eventRunCategoryRoot");
             if (preferenceCategoryScreen != null) {
                 String title = "<b>" + preferenceCategoryScreen.getTitle() + "</b>";
@@ -298,6 +292,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 setCategorySummary(preferenceCategoryScreen);
             }
             preferenceCategoryScreen = findPreference("categoryNotificationsRoot");
+            if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
+            preferenceCategoryScreen = findPreference("specialProfileParametersCategoryRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
             preferenceCategoryScreen = findPreference("periodicScanningCategoryRoot");
             if (preferenceCategoryScreen != null) setCategorySummary(preferenceCategoryScreen);
@@ -1590,6 +1586,24 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        if (!(PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)) {
+            preference = findPreference(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("specialProfileParametersCategory");
+                if (preferenceCategory != null) {
+                    preferenceCategory.removePreference(preference);
+                    /*if (getActivity() != null) {
+                        preference = new Preference(getActivity().getApplicationContext());
+                        preference.setKey("specialProfileParameters_noParameters");
+                        preference.setIconSpaceReserved(false);
+                        preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                        preference.setOrder(-100);
+                        preferenceCategory.addPreference(preference);
+                    }*/
+                }
+            }
+        }
     }
 
     private void doOnActivityCreatedBatterySaver(String key) {
@@ -3260,8 +3274,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (key.equals("specialProfileParametersCategoryRoot")) {
             //TODO special profile parameters
-            summary = summary + getString(R.string.phone_profiles_pref_applicationForceSetBrightnessAtScreenOn);
-            //if (!summary.isEmpty()) summary = summary + " • ";
+            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                summary = summary + getString(R.string.phone_profiles_pref_applicationForceSetBrightnessAtScreenOn);
+                //if (!summary.isEmpty()) summary = summary + " • ";
+            }
         }
         if (key.equals("eventRunCategoryRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_eventRunUsePriority);

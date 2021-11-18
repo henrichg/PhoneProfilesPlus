@@ -2,7 +2,7 @@
 <androidx.preference.PreferenceScreen
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:key="specialProfileParametersCategory"
-    app:title="@string/phone_profiles_pref_category_activation">
+    app:title="@string/phone_profiles_pref_category_special_profile_parameters">
 
 <!-- TODO special profile parameters -->
     <SwitchPreferenceCompat

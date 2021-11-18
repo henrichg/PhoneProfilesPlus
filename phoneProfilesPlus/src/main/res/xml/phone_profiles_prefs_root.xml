@@ -26,13 +26,6 @@
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsProfileActivation" />
 
     <Preference
-        app:title="@string/phone_profiles_pref_category_special_profile_parameters"
-        app:key="specialProfileParametersCategoryRoot"
-        app:widgetLayout="@layout/widget_start_activity_preference"
-        app:layout="@layout/mp_preference_material_widget"
-        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsSpecialProfileParameters" />
-
-    <Preference
         app:title="@string/phone_profiles_pref_category_eventRun"
         app:key="eventRunCategoryRoot"
         app:widgetLayout="@layout/widget_start_activity_preference"
@@ -45,6 +38,13 @@
         app:widgetLayout="@layout/widget_start_activity_preference"
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsNotifications" />
+
+    <Preference
+        app:title="@string/phone_profiles_pref_category_special_profile_parameters"
+        app:key="specialProfileParametersCategoryRoot"
+        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:layout="@layout/mp_preference_material_widget"
+        app:fragment="sk.henrichg.phoneprofilesplus.PhoneProfilesPrefsActivity$PhoneProfilesPrefsSpecialProfileParameters" />
 
     <Preference
         app:key="periodicScanningCategoryRoot"
