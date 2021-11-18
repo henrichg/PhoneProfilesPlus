@@ -214,6 +214,7 @@ class ApplicationPreferences {
     static boolean applicationActivatorIncreaseBrightness;
     static boolean applicationWidgetOneRowHigherLayout;
     static boolean applicationWidgetChangeColorsByNightMode;
+    static boolean applicationForceSetBrightnessAtScreenOn;
 
     static String applicationEventPeriodicScanningScanInTimeMultiply;
     static int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -436,6 +437,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE = "applicationApplicationInterfaceNotificationVibrate";
     static final String PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST = "applicationActivatorAddRestartEventsIntoProfileList";
     static final String PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS = "applicationActivatorIncreaseBrightness";
+    static final String PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "applicationForceSetBrightnessAtScreenOn";
 
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
@@ -1255,7 +1257,11 @@ class ApplicationPreferences {
         applicationActivatorIncreaseBrightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS, false);
     }
 
+    static void applicationForceSetBrightnessAtScreenOn(Context context) {
+        applicationForceSetBrightnessAtScreenOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, false);
+    }
 
+    //---
     static void applicationEventPeriodicScanningScanInTimeMultiply(Context context) {
         applicationEventPeriodicScanningScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY, "0");
     }

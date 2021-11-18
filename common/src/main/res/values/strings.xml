@@ -1858,6 +1858,9 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
     <string name="check_releases_open_apkpure">Open APKPure</string>
 
+    <string name="phone_profiles_pref_category_special_profile_parameters">Special profile parameters</string>
+    <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn">Force set brightness at screen on</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

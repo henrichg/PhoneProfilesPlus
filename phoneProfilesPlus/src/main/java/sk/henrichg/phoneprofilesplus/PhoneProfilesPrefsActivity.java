@@ -145,6 +145,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 case "profileActivationCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsProfileActivation();
                     break;
+                case "specialProfileParametersCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsSpecialProfileParameters();
+                    break;
                 case "eventRunCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsEventRun();
                     break;
@@ -837,6 +840,31 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, fromPreference.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_TOAST, true));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_SOUND, ""));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE, false));
+        }
+
+    }
+
+    static public class PhoneProfilesPrefsSpecialProfileParameters extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsSpecialProfileParameters");
+
+            PreferenceManager prefMng = getPreferenceManager();
+            SharedPreferences preferences = prefMng.getSharedPreferences();
+            if (getContext() != null) {
+                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+                loadSharedPreferences(preferences, applicationPreferences);
+            }
+
+            setPreferencesFromResource(R.xml.phone_profiles_prefs_special_profile_parameters, rootKey);
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsProfileActivation");
+            // TODO special profile parameters
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, false));
         }
 
     }

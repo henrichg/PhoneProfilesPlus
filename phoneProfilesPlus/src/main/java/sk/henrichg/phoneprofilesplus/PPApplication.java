@@ -2110,6 +2110,7 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationActivatorIncreaseBrightness(context);
             ApplicationPreferences.applicationWidgetOneRowHigherLayout(context);
             ApplicationPreferences.applicationWidgetChangeColorsByNightMode(context);
+            ApplicationPreferences.applicationForceSetBrightnessAtScreenOn(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);

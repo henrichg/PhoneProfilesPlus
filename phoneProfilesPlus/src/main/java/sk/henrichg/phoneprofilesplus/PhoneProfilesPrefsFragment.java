@@ -285,6 +285,12 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
                 setCategorySummary(preferenceCategoryScreen);
             }
+            preferenceCategoryScreen = findPreference("specialProfileParametersCategoryRoot");
+            if (preferenceCategoryScreen != null) {
+                String title = "<b>" + preferenceCategoryScreen.getTitle() + "</b>";
+                preferenceCategoryScreen.setTitle(GlobalGUIRoutines.fromHtml(title, false, false, 0, 0));
+                setCategorySummary(preferenceCategoryScreen);
+            }
             preferenceCategoryScreen = findPreference("eventRunCategoryRoot");
             if (preferenceCategoryScreen != null) {
                 String title = "<b>" + preferenceCategoryScreen.getTitle() + "</b>";
@@ -3251,6 +3257,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_applicationAlert);
             if (!summary.isEmpty()) summary = summary + " • ";
             summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
+        }
+        if (key.equals("specialProfileParametersCategoryRoot")) {
+            //TODO special profile parameters
+            summary = summary + getString(R.string.phone_profiles_pref_applicationForceSetBrightnessAtScreenOn);
+            //if (!summary.isEmpty()) summary = summary + " • ";
         }
         if (key.equals("eventRunCategoryRoot")) {
             summary = summary + getString(R.string.phone_profiles_pref_eventRunUsePriority);
