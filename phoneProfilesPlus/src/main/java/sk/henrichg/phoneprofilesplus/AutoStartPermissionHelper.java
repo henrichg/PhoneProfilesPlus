@@ -89,6 +89,7 @@ class AutoStartPermissionHelper  {
     /***
      * Samsung
      */
+    @SuppressWarnings("unused")
     private final String BRAND_SAMSUNG = "samsung";
     private final String PACKAGE_SAMSUNG_MAIN = "com.samsung.android.lool";
     private final String PACKAGE_SAMSUNG_COMPONENT = "com.samsung.android.sm.ui.battery.BatteryActivity";
@@ -114,7 +115,7 @@ class AutoStartPermissionHelper  {
             PACKAGE_VIVO_FALLBACK,
             PACKAGE_NOKIA_MAIN,
             PACKAGE_HUAWEI_MAIN,
-            PACKAGE_SAMSUNG_MAIN,
+//            PACKAGE_SAMSUNG_MAIN,
             PACKAGE_ONE_PLUS_MAIN);
 
     boolean getAutoStartPermission(Context context) {
@@ -139,8 +140,8 @@ class AutoStartPermissionHelper  {
                 return autoStartVivo(context);
             case BRAND_NOKIA:
                 return autoStartNokia(context);
-            case BRAND_SAMSUNG:
-                return autoStartSamsung(context);
+//            case BRAND_SAMSUNG:
+//                return autoStartSamsung(context);
             case BRAND_ONE_PLUS:
                 return autoStartOnePlus(context);
             default:
@@ -333,6 +334,7 @@ class AutoStartPermissionHelper  {
         return true;
     }
 
+    @SuppressWarnings("unused")
     private boolean autoStartSamsung(Context context) {
         if (isPackageExists(context, PACKAGE_SAMSUNG_MAIN)) {
             try {
