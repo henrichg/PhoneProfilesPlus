@@ -63,8 +63,8 @@
 <!--    <color name="alertButtonBorderColor">#FFAAAAAA</color>-->
     <color name="buttonBackgroundColor">#FFFAFAFA</color>
     <color name="buttonClickedBackgroundColor">#FFDADADA</color>
-    <color name="popupMenuBorderColor">#FFCCCCCC</color>
-    <color name="profileIconBorderColor">#FFCCCCCC</color>
+    <color name="popupMenuBorderColor">#FFBBBBBB</color>
+    <color name="profileIconBorderColor">#FFBBBBBB</color>
 <!--    <color name="cardViewBorderColor">#FFFFFFFF</color>-->
 
     <color name="altype_profile">#FF0000FF</color>
