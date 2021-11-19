@@ -2637,35 +2637,41 @@ class Permissions {
                            final Activity activity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.phone_profiles_pref_grantRootPermission);
-        dialogBuilder.setMessage(R.string.phone_profiles_pref_grantRootPermission_summary);
+        String message = activity.getString(R.string.phone_profiles_pref_grantRootPermission_summary) + "\n";
+        dialogBuilder.setMessage(message);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         //dialogBuilder.setView(doNotShowAgain);
 
-        if (profilesFragment != null) {
-            final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
-            FrameLayout container = new FrameLayout(activity);
-            container.addView(doNotShowAgain);
-            FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT);
-            containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
-            container.setLayoutParams(containerParams);
+        final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
+        FrameLayout container = new FrameLayout(activity);
+        container.addView(doNotShowAgain);
+        FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
+        containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
+        container.setLayoutParams(containerParams);
 
-            FrameLayout superContainer = new FrameLayout(activity);
-            superContainer.addView(container);
+        FrameLayout superContainer = new FrameLayout(activity);
+        superContainer.addView(container);
 
-            dialogBuilder.setView(superContainer);
+        dialogBuilder.setView(superContainer);
 
-            doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
+        doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
+        if (profilesFragment == null) {
+            doNotShowAgain.setEnabled(false);
+            doNotShowAgain.setChecked(false);
+        }
+        else
             doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantRoot);
-            doNotShowAgain.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        doNotShowAgain.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (profilesFragment != null) {
                 SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
                 editor.apply();
                 ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
-            });
-        }
+            }
+        });
 
         dialogBuilder.setPositiveButton(R.string.alert_button_grant, (dialog, which) -> {
             if (profilesFragment == null) {
