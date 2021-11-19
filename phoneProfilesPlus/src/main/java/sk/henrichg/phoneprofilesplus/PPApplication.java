@@ -254,6 +254,7 @@ public class PPApplication extends Application
                                                 //+"|[CONNECTIVITY_TEST]"
                                                 +"|[BRIGHTNESS]"
                                                 +"|[BRSD]"
+                                                +"|[ROOT]"
 
                                                 //+"|PApplication.getReleaseData"
                                                 //+"|CheckGitHubReleasesActivity"
@@ -2884,7 +2885,7 @@ public class PPApplication extends Application
         }
     }
 
-    private static boolean _isRooted()
+    static boolean _isRooted()
     {
         RootShell.debugMode = rootToolsDebug;
 
@@ -2913,15 +2914,15 @@ public class PPApplication extends Application
         }
 
         try {
-            //PPApplication.logE("[ROOT] PPApplication._isRooted", "start isRootAvailable");
+//            PPApplication.logE("[ROOT] PPApplication._isRooted", "start RootToolsSmall.isRooted()");
             //if (roottools.isRootAvailable()) {
             //noinspection RedundantIfStatement
             if (RootToolsSmall.isRooted()) {
                 // device is rooted
-                //PPApplication.logE("[ROOT] PPApplication._isRooted", "root available");
+//                PPApplication.logE("[ROOT] PPApplication._isRooted", "root available");
                 rootMutex.rooted = true;
             } else {
-                //PPApplication.logE("[ROOT] PPApplication._isRooted", "root NOT available");
+//                PPApplication.logE("[ROOT] PPApplication._isRooted", "root NOT available");
                 rootMutex.rooted = false;
                 //rootMutex.settingsBinaryExists = false;
                 //rootMutex.settingsBinaryChecked = false;
@@ -2962,15 +2963,15 @@ public class PPApplication extends Application
         return rootMutex.rooted;
     }
 
-    static boolean isRooted(boolean fromUIThread) {
+    static boolean isRooted(@SuppressWarnings("unused") boolean fromUIThread) {
 //        PPApplication.logE("[ROOT] PPApplication.isRooted", "rootMutex.rootChecked="+rootMutex.rootChecked);
 //        PPApplication.logE("[ROOT] PPApplication.isRooted", "rootMutex.rooted="+rootMutex.rooted);
 
         if (rootMutex.rootChecked)
             return rootMutex.rooted;
 
-        if (fromUIThread)
-            return false;
+        //if (fromUIThread)
+        //    return false;
 
         synchronized (PPApplication.rootMutex) {
 //            PPApplication.logE("[ROOT] PPApplication.isRooted", "start check");

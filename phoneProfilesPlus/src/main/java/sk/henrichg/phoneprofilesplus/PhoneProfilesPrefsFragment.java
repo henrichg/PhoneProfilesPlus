@@ -932,7 +932,13 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferenceCategory2.removePreference(preference);
         }*/
 
-        if (PPApplication.isRooted(true)) {
+        // force check root
+        boolean rooted;
+        synchronized (PPApplication.rootMutex) {
+            PPApplication.rootMutex.rootChecked = false;
+            rooted = PPApplication._isRooted();
+        }
+        if (rooted) {
             preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference19 -> {
