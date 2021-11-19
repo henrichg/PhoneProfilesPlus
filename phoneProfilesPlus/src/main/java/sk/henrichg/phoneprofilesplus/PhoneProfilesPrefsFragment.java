@@ -51,7 +51,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
     //private static final int RESULT_ACCESS_NOTIFICATION_POLICY_PERMISSIONS = 1997;
     private static final String PREF_DRAW_OVERLAYS_PERMISSIONS = "permissionsDrawOverlaysPermissions";
     private static final int RESULT_DRAW_OVERLAYS_POLICY_PERMISSIONS = 1998;
-    private static final String PREF_GRANT_ROOT_PERMISSION = "permissionsGrantRootPermission";
+    static final String PREF_GRANT_ROOT_PERMISSION = "permissionsGrantRootPermission";
     private static final String PREF_GRANT_G1_PERMISSION = "permissionsGrantG1Permission";
 
     private static final String PREF_WIFI_LOCATION_SYSTEM_SETTINGS = "applicationEventWiFiLocationSystemSettings";
@@ -229,8 +229,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         if (!((PhoneProfilesPrefsActivity)getActivity()).activityStarted)
             return;
 
-        // must be used handler for rewrite toolbar title/subtitle
         final PhoneProfilesPrefsFragment fragment = this;
+
+        // must be used handler for rewrite toolbar title/subtitle
         Handler handler = new Handler(getActivity().getMainLooper());
         handler.postDelayed(() -> {
 //                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=PhoneProfilesPreferencesFragment.onActivityCreated");
@@ -936,6 +937,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             if (preference != null) {
                 preference.setOnPreferenceClickListener(preference19 -> {
                     Permissions.grantRootX(null, getActivity());
+                    setSummary(PREF_GRANT_ROOT_PERMISSION);
                     return false;
                 });
             }
@@ -3072,6 +3074,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 summary = getString(R.string.phone_profiles_pref_applicationEventScanningNotificationAccessSettingsEnabled_summary) + ".\n\n" +
                         summary;
             }
+            preference.setSummary(summary);
+        }
+        if (key.equals(PREF_GRANT_ROOT_PERMISSION)) {
+            String summary = getString(R.string.phone_profiles_pref_grantRootPermission_summary);
+            if (ApplicationPreferences.applicationNeverAskForGrantRoot)
+                summary = getString(R.string.phone_profiles_pref_grantRootPermission_neverAsk_set_summary) + "\n\n" +
+                        summary;
+            else
+                summary = getString(R.string.phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2) + "\n\n" +
+                        summary;
             preference.setSummary(summary);
         }
 

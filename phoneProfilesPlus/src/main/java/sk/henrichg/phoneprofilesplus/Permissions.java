@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.preference.Preference;
 
 import java.util.ArrayList;
 
@@ -2632,14 +2633,15 @@ class Permissions {
 
     //---------------------
 
-    static void grantRootX(final ProfilesPrefsFragment fragment, final Activity activity) {
+    static void grantRootX(final ProfilesPrefsFragment profilesFragment,
+                           final Activity activity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.phone_profiles_pref_grantRootPermission);
         dialogBuilder.setMessage(R.string.phone_profiles_pref_grantRootPermission_summary);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         //dialogBuilder.setView(doNotShowAgain);
 
-        if (fragment != null) {
+        if (profilesFragment != null) {
             final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
             FrameLayout container = new FrameLayout(activity);
             container.addView(doNotShowAgain);
@@ -2666,7 +2668,7 @@ class Permissions {
         }
 
         dialogBuilder.setPositiveButton(R.string.alert_button_grant, (dialog, which) -> {
-            if (fragment == null) {
+            if (profilesFragment == null) {
                 // always ask for grant root, when grant is invocked from PPP Settings
                 SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
                 SharedPreferences.Editor editor = settings.edit();
@@ -2675,7 +2677,7 @@ class Permissions {
                 ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
             } else {
                 grantRootChanged = true;
-                fragment.setRedTextToPreferences();
+                profilesFragment.setRedTextToPreferences();
             }
 
             boolean ok = false;
@@ -2731,9 +2733,9 @@ class Permissions {
             }
         });
         dialogBuilder.setNegativeButton(R.string.alert_button_not_grant, (dialog, which) -> {
-            if (fragment != null) {
+            if (profilesFragment != null) {
                 grantRootChanged = true;
-                fragment.setRedTextToPreferences();
+                profilesFragment.setRedTextToPreferences();
             }
         });
         AlertDialog dialog = dialogBuilder.create();
