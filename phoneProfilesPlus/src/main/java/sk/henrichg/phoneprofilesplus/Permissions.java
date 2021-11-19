@@ -2639,9 +2639,8 @@ class Permissions {
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         //dialogBuilder.setView(doNotShowAgain);
 
+        final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
         if (fragment != null) {
-            AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
-
             FrameLayout container = new FrameLayout(activity);
             container.addView(doNotShowAgain);
             FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
@@ -2668,39 +2667,26 @@ class Permissions {
 
         dialogBuilder.setPositiveButton(R.string.alert_button_grant, (dialog, which) -> {
             if (fragment != null) {
-                SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
-                editor.apply();
-                ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
-
+                if (!doNotShowAgain.isChecked()) {
+                    SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
+                    editor.apply();
+                    ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
+                }
                 grantRootChanged = true;
                 fragment.setRedTextToPreferences();
             }
 
-            boolean ok = false;
-            PackageManager packageManager = activity.getPackageManager();
-            // SuperSU
-            Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
-            if (intent != null) {
-                intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                try {
-                    // startActivityForResult not working, it is external application
-                    activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
-                    PPApplication.initRoot();
-                    ok = true;
-                } catch (Exception ignore) {
-                }
-            }
-            if (!ok) {
-                // MAGISK
-                intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
+            if (!doNotShowAgain.isChecked()) {
+                boolean ok = false;
+                PackageManager packageManager = activity.getPackageManager();
+                // SuperSU
+                Intent intent = packageManager.getLaunchIntentForPackage("eu.chainfire.supersu");
                 if (intent != null) {
                     intent.addCategory(Intent.CATEGORY_LAUNCHER);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     try {
-                        intent.putExtra("section", "superuser");
                         // startActivityForResult not working, it is external application
                         activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
                         PPApplication.initRoot();
@@ -2708,13 +2694,28 @@ class Permissions {
                     } catch (Exception ignore) {
                     }
                 }
-            }
-            if (!ok) {
-                AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(activity);
-                dialogBuilder1.setMessage(R.string.phone_profiles_pref_grantRootPermission_otherManagers);
-                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
-                dialogBuilder1.setPositiveButton(android.R.string.ok, null);
-                AlertDialog dialog2 = dialogBuilder1.create();
+                if (!ok) {
+                    // MAGISK
+                    intent = packageManager.getLaunchIntentForPackage("com.topjohnwu.magisk");
+                    if (intent != null) {
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        try {
+                            intent.putExtra("section", "superuser");
+                            // startActivityForResult not working, it is external application
+                            activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
+                            PPApplication.initRoot();
+                            ok = true;
+                        } catch (Exception ignore) {
+                        }
+                    }
+                }
+                if (!ok) {
+                    AlertDialog.Builder dialogBuilder1 = new AlertDialog.Builder(activity);
+                    dialogBuilder1.setMessage(R.string.phone_profiles_pref_grantRootPermission_otherManagers);
+                    //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder1.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog2 = dialogBuilder1.create();
 
 //                    dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
 //                        @Override
@@ -2726,8 +2727,9 @@ class Permissions {
 //                        }
 //                    });
 
-                if (!activity.isFinishing())
-                    dialog2.show();
+                    if (!activity.isFinishing())
+                        dialog2.show();
+                }
             }
         });
         dialogBuilder.setNegativeButton(R.string.alert_button_not_grant, (dialog, which) -> {
