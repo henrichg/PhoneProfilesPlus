@@ -138,7 +138,7 @@ public class BluetoothNamePreferenceFragmentX extends PreferenceDialogFragmentCo
                     getString(R.string.bluetooth_name_pref_dlg_info_about_wildcards) + " " +
                     getString(R.string.pref_dlg_info_about_wildcards_3);
 
-            DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, getDialog(), helpString);
+            DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ helpString);
         });
 
 

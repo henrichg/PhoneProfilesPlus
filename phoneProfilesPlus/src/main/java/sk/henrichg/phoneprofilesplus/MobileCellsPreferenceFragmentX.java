@@ -275,7 +275,7 @@ public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentComp
 
         final AppCompatImageButton helpIcon = view.findViewById(R.id.mobile_cells_pref_dlg_helpIcon);
         TooltipCompat.setTooltipText(helpIcon, getString(R.string.help_button_tooltip));
-        helpIcon.setOnClickListener(v -> DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, getDialog(), R.string.mobile_cells_pref_dlg_help));
+        helpIcon.setOnClickListener(v -> DialogHelpPopupWindowX.showPopup(helpIcon, R.string.menu_help, (Activity)prefContext, /*getDialog(),*/ R.string.mobile_cells_pref_dlg_help));
 
         rescanButton = view.findViewById(R.id.mobile_cells_pref_dlg_rescanButton);
         if (PPApplication.HAS_FEATURE_TELEPHONY) {
