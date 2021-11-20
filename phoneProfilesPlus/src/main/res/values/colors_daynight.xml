@@ -13,7 +13,7 @@
     <color name="activitySecondaryTextColor">#BF000000</color>
     <color name="activityDisabledTextColor">#42000000</color>
     <color name="activityCommandBackgroundColor">#1F000000</color>
-    <color name="activityPopupMenuBackgroundColor">#FFFAFAFA</color>
+    <color name="activityPopupMenuBackgroundColor">#FFF7F7F7</color>
 
     <color name="notificationDecorationColor">#DC8160</color>
 
@@ -61,10 +61,10 @@
     <color name="dialogBorderColor">#FFFFFFFF</color>
     <color name="buttonBorderColor">#FFAAAAAA</color>
 <!--    <color name="alertButtonBorderColor">#FFAAAAAA</color>-->
-    <color name="buttonBackgroundColor">#FFFAFAFA</color>
+    <color name="buttonBackgroundColor">#FFF7F7F7</color>
     <color name="buttonClickedBackgroundColor">#FFDADADA</color>
-    <color name="popupMenuBorderColor">#FFBBBBBB</color>
-    <color name="profileIconBorderColor">#FFBBBBBB</color>
+    <color name="popupMenuBorderColor">#FFCCCCCC</color>
+    <color name="profileIconBorderColor">#FFCCCCCC</color>
 <!--    <color name="cardViewBorderColor">#FFFFFFFF</color>-->
 
     <color name="altype_profile">#FF0000FF</color>
