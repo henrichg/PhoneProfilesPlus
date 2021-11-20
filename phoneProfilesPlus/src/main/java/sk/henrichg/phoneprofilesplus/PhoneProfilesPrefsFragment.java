@@ -2384,6 +2384,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null)
                     _preference.setEnabled(backgroundColor.equals("5"));
 
+                _preference = findPreference("notificationBackgroundColorInfo");
+                if (_preference != null)
+                    _preference.setEnabled(true);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(true);
@@ -2410,6 +2413,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null)
                     _preference.setEnabled(false);
 
+                _preference = findPreference("notificationBackgroundColorInfo");
+                if (_preference != null)
+                    _preference.setEnabled(false);
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(false);
