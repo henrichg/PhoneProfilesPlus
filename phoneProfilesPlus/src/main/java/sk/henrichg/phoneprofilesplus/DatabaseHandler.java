@@ -33,12 +33,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // singleton fields
     private static volatile DatabaseHandler instance;
-    private SQLiteDatabase writableDb;
+    //private SQLiteDatabase writableDb;
 
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2479;
+    private static final int DATABASE_VERSION = 2484;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -65,6 +65,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int IMPORT_ERROR_BUG = 0;
     static final int IMPORT_ERROR_NEVER_VERSION = -999;
     static final int IMPORT_OK = 1;
+
+//    // create, upgrade, downgrade
+//    private final Condition runningUpgradeCondition = importExportLock.newCondition();
+//    private boolean runningUpgrade = false;
 
     // profile type
     static final int PTYPE_CONNECT_TO_SSID = 1;
@@ -505,20 +509,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     
     SQLiteDatabase getMyWritableDatabase() {
-        if ((writableDb == null) || (!writableDb.isOpen())) {
-            writableDb = this.getWritableDatabase();
-        }
-        return writableDb;
+        //if ((writableDb == null) || (!writableDb.isOpen())) {
+        //    writableDb = this.getWritableDatabase();
+        //}
+        //return writableDb;
+        return this.getWritableDatabase();
     }
  
-    @Override
-    public synchronized void close() {
-        super.close();
-        if (writableDb != null) {
-            writableDb.close();
-            writableDb = null;
-        }
-    }
+//    @Override
+//    public synchronized void close() {
+//        super.close();
+//        if (writableDb != null) {
+//            writableDb.close();
+//            writableDb = null;
+//        }
+//    }
 
     /*
     // be sure to call this method by: DatabaseHandler.getInstance().closeConnection()
@@ -1390,10 +1395,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        PPApplication.logE("[IN_LISTENER] DatabaseHandler.onCreate", "xxx");
-        //PPApplication.logE("DatabaseHandler.onCreate", "xxx");
-        createTables(db);
-        createIndexes(db);
+//        importExportLock.lock();
+//        try {
+//            try {
+//                startRunningUpgrade();
+
+//                PPApplication.logE("[IN_LISTENER] DatabaseHandler.onCreate", "xxx");
+
+                createTables(db);
+                createIndexes(db);
+
+//            } catch (Exception e) {
+//                //PPApplication.recordException(e);
+//            }
+//        } finally {
+//            stopRunningUpgrade();
+//        }
     }
 
     /*@Override
@@ -1404,26 +1421,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onDowngrade (SQLiteDatabase db, int oldVersion, int newVersion) {
-//        PPApplication.logE("[IN_LISTENER] DatabaseHandler.onDowngrade", "xxx");
+//        importExportLock.lock();
+//        try {
+//            try {
+//                startRunningUpgrade();
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("DatabaseHandler.onDowngrade", "oldVersion=" + oldVersion);
-            PPApplication.logE("DatabaseHandler.onDowngrade", "newVersion=" + newVersion);
-        }*/
+//                PPApplication.logE("[IN_LISTENER] DatabaseHandler.onDowngrade", "xxx");
 
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MERGED_PROFILE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_TIMELINE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITY_LOG);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GEOFENCES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHORTCUTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOBILE_CELLS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NFC_TAGS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_INTENTS);
+                /*if (PPApplication.logEnabled()) {
+                    PPApplication.logE("DatabaseHandler.onDowngrade", "oldVersion=" + oldVersion);
+                    PPApplication.logE("DatabaseHandler.onDowngrade", "newVersion=" + newVersion);
+                }*/
 
-        createTables(db);
-        createIndexes(db);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_MERGED_PROFILE);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_TIMELINE);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITY_LOG);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_GEOFENCES);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHORTCUTS);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOBILE_CELLS);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_NFC_TAGS);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_INTENTS);
+
+                createTables(db);
+                createIndexes(db);
+
+//            } catch (Exception e) {
+//                //PPApplication.recordException(e);
+//            }
+//        } finally {
+//            stopRunningUpgrade();
+//        }
     }
 
     private void updateDb(SQLiteDatabase db, int oldVersion) {
@@ -3594,58 +3623,145 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        PPApplication.logE("[IN_LISTENER] DatabaseHandler.onUpgrade", "xxx");
+//        importExportLock.lock();
+//        try {
+//            try {
+//                startRunningUpgrade();
 
-        if (PPApplication.logEnabled()) {
-            PPApplication.logE("DatabaseHandler.onUpgrade", "--------- START");
-            PPApplication.logE("DatabaseHandler.onUpgrade", "oldVersion=" + oldVersion);
-            PPApplication.logE("DatabaseHandler.onUpgrade", "newVersion=" + newVersion);
-        }
+//                PPApplication.logE("[IN_LISTENER] DatabaseHandler.onUpgrade", "xxx");
 
-        /*
-        // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("DatabaseHandler.onUpgrade", "--------- START");
+                    PPApplication.logE("DatabaseHandler.onUpgrade", "oldVersion=" + oldVersion);
+                    PPApplication.logE("DatabaseHandler.onUpgrade", "newVersion=" + newVersion);
+                }
 
-        // Create tables again
-        onCreate(db);
-        */
+                /*
+                // Drop older table if existed
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
 
-        createTables(db);
-        createTableColumsWhenNotExists(db, TABLE_PROFILES);
-        createTableColumsWhenNotExists(db, TABLE_MERGED_PROFILE);
-        createTableColumsWhenNotExists(db, TABLE_EVENTS);
-        createTableColumsWhenNotExists(db, TABLE_EVENT_TIMELINE);
-        createTableColumsWhenNotExists(db, TABLE_ACTIVITY_LOG);
-        createTableColumsWhenNotExists(db, TABLE_GEOFENCES);
-        createTableColumsWhenNotExists(db, TABLE_SHORTCUTS);
-        createTableColumsWhenNotExists(db, TABLE_MOBILE_CELLS);
-        createTableColumsWhenNotExists(db, TABLE_NFC_TAGS);
-        createTableColumsWhenNotExists(db, TABLE_INTENTS);
-        createIndexes(db);
+                // Create tables again
+                onCreate(db);
+                */
 
-        updateDb(db, oldVersion);
+                createTables(db);
+                createTableColumsWhenNotExists(db, TABLE_PROFILES);
+                createTableColumsWhenNotExists(db, TABLE_MERGED_PROFILE);
+                createTableColumsWhenNotExists(db, TABLE_EVENTS);
+                createTableColumsWhenNotExists(db, TABLE_EVENT_TIMELINE);
+                createTableColumsWhenNotExists(db, TABLE_ACTIVITY_LOG);
+                createTableColumsWhenNotExists(db, TABLE_GEOFENCES);
+                createTableColumsWhenNotExists(db, TABLE_SHORTCUTS);
+                createTableColumsWhenNotExists(db, TABLE_MOBILE_CELLS);
+                createTableColumsWhenNotExists(db, TABLE_NFC_TAGS);
+                createTableColumsWhenNotExists(db, TABLE_INTENTS);
+                createIndexes(db);
 
-        DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0f);
-//        PPApplication.logE("[APP_START] DatabaseHandler.onUpgrade", "xxx");
-        dataWrapper.restartEventsWithRescan(true, true, true, false, false, false);
+                updateDb(db, oldVersion);
 
-        //PPApplication.sleep(10000); // for test only
+                DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0f);
+//                PPApplication.logE("[APP_START] DatabaseHandler.onUpgrade", "xxx");
+                dataWrapper.restartEventsWithRescan(true, true, true, false, false, false);
 
-        PPApplication.logE("DatabaseHandler.onUpgrade", " --------- END");
+                //PPApplication.sleep(10000); // for test only
 
+                PPApplication.logE("DatabaseHandler.onUpgrade", " --------- END");
+
+//            } catch (Exception e) {
+//                //PPApplication.recordException(e);
+//            }
+//        } finally {
+//            stopRunningUpgrade();
+//        }
     }
 
     private void startRunningCommand() throws Exception {
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "lock");
+//            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningCommand=" + runningCommand);
+//            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningImportExport=" + runningImportExport);
+//            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningUpgrade=" + runningUpgrade);
+//        }
+
+//        if (runningUpgrade)
+//            runningUpgradeCondition.await();
         if (runningImportExport)
             runningImportExportCondition.await();
         runningCommand = true;
     }
 
     private void stopRunningCommand() {
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "unlock");
+//            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningCommand=" + runningCommand);
+//            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningImportExport=" + runningImportExport);
+//            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningUpgrade=" + runningUpgrade);
+//        }
+
         runningCommand = false;
         runningCommandCondition.signalAll();
         importExportLock.unlock();
     }
+
+    private void startRunningImportExport() throws Exception {
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "lock");
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "runningCommand=" + runningCommand);
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "runningImportExport=" + runningImportExport);
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "runningUpgrade=" + runningUpgrade);
+//        }
+
+//        if (runningUpgrade)
+//            runningUpgradeCondition.await();
+        if (runningCommand)
+            runningCommandCondition.await();
+        //PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "continue");
+        runningImportExport = true;
+    }
+
+    private void stopRunningImportExport() {
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "unlock");
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "runningCommand=" + runningCommand);
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "runningImportExport=" + runningImportExport);
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "runningUpgrade=" + runningUpgrade);
+//        }
+
+        runningImportExport = false;
+        runningImportExportCondition.signalAll();
+        importExportLock.unlock();
+        //PPApplication.logE("----------- DatabaseHandler.stopRunningImportExport", "unlock");
+    }
+
+/*
+    private void startRunningUpgrade() throws Exception {
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "lock");
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "runningCommand=" + runningCommand);
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "runningImportExport=" + runningImportExport);
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "runningUpgrade=" + runningUpgrade);
+        }
+
+        if (runningImportExport)
+            runningImportExportCondition.await();
+        if (runningCommand)
+            runningCommandCondition.await();
+        runningUpgrade = true;
+    }
+
+    private void stopRunningUpgrade() {
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "unlock");
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "runningCommand=" + runningCommand);
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "runningImportExport=" + runningImportExport);
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "runningUpgrade=" + runningUpgrade);
+        }
+
+        runningUpgrade = false;
+        runningUpgradeCondition.signalAll();
+        importExportLock.unlock();
+    }
+ */
 
 // PROFILES --------------------------------------------------------------------------------
 
@@ -12105,24 +12221,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } finally {
             stopRunningCommand();
         }
-    }
-
-    private void startRunningImportExport() throws Exception {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "lock");
-            PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "runningCommand=" + runningCommand);
-        }*/
-        if (runningCommand)
-            runningCommandCondition.await();
-        //PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "continue");
-        runningImportExport = true;
-    }
-
-    private void stopRunningImportExport() {
-        runningImportExport = false;
-        runningImportExportCondition.signalAll();
-        importExportLock.unlock();
-        //PPApplication.logE("----------- DatabaseHandler.stopRunningImportExport", "unlock");
     }
 
     private boolean tableExists(String tableName, SQLiteDatabase db)

@@ -435,7 +435,7 @@ final class WifiApManager {
             Method declaredMethod = connectivityManager.getClass().getDeclaredMethod("stopTethering", new Class[]{Integer.TYPE});
             //noinspection ConstantConditions
             if (declaredMethod == null) {
-                Log.e("WifiApManager.stopTethering30", "stopTetheringMethod is null");
+//                Log.e("WifiApManager.stopTethering30", "stopTetheringMethod is null");
                 return;
             }
             declaredMethod.invoke(connectivityManager, new Object[]{0});

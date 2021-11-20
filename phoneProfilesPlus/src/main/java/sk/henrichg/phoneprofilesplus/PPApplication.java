@@ -252,9 +252,10 @@ public class PPApplication extends Application
                                                 //+"|[START_PP_SERVICE]"
                                                 //+"|[BRS]"
                                                 //+"|[CONNECTIVITY_TEST]"
-                                                +"|[BRIGHTNESS]"
-                                                +"|[BRSD]"
-                                                +"|[ROOT]"
+                                                //+"|[BRIGHTNESS]"
+                                                //+"|[BRSD]"
+                                                //+"|[ROOT]"
+                                                //+"|[DB_LOCK]"
 
                                                 //+"|PApplication.getReleaseData"
                                                 //+"|CheckGitHubReleasesActivity"
@@ -266,9 +267,9 @@ public class PPApplication extends Application
                                                 //+"|MobileDataNetworkCallback"
                                                 //+"|EventPreferencesRadioSwitch"
 
-                                                +"|ActivateProfileHelper.execute"
-                                                +"|ActivateProfileHelper.createBrightnessView"
-                                                +"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
+                                                //+"|ActivateProfileHelper.execute"
+                                                //+"|ActivateProfileHelper.createBrightnessView"
+                                                //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
