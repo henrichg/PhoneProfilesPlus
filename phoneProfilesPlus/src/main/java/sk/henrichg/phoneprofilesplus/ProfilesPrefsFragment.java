@@ -59,9 +59,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "prf_pref_notEnabledAccessibilityService";
 
     //private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
-    private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
-
-    private static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 1981;
+    private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 2980;
+    private static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 2981;
+    private static final int RESULT_ACCESSIBILITY_SETTINGS = 2983;
+    private static final int RESULT_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_SETTINGS = 2984;
 
     private static final String PREF_VOLUME_NOTIFICATION_VOLUME0 = "prf_pref_volumeNotificationVolume0";
 
@@ -72,7 +73,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY = "prf_pref_forceStopApplicationsCategoryRoot";
     private static final String PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER = "prf_pref_deviceForceStopApplicationInstallExtender";
     private static final String PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS = "prf_pref_deviceForceStopApplicationAccessibilitySettings";
-    private static final int RESULT_ACCESSIBILITY_SETTINGS = 1983;
     //private static final String PREF_INSTALL_SILENT_TONE = "prf_pref_soundInstallSilentTone";
     private static final String PREF_LOCK_DEVICE_CATEGORY = "prf_pref_lockDeviceCategoryRoot";
     private static final String PREF_LOCK_DEVICE_INSTALL_EXTENDER = "prf_pref_lockDeviceInstallExtender";
@@ -86,6 +86,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_soundsDualSIMSupportCategoryRoot";
     private static final String PREF_DEVICE_WALLPAPER_CATEGORY = "prf_pref_deviceWallpaperCategoryRoot";
     private static final String PREF_PROFILE_DEVICE_RUN_APPLICATION_MIUI_PERMISSIONS = "prf_pref_deviceRunApplicationMIUIPermissions";
+    private static final String PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "prf_pref_deviceBrightness_forceSetBrightnessAtScreenOn";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1198,6 +1199,30 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setSummary(summary);
         }
 
+        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+            preference = prefMng.findPreference(PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON);
+            if (preference != null) {
+                //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                preference.setOnPreferenceClickListener(preference116 -> {
+                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "specialProfileParametersCategoryRoot");
+                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                    //noinspection deprecation
+                    startActivityForResult(intent, RESULT_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_SETTINGS);
+                    return false;
+                });
+            }
+        }
+        else {
+            preference = findPreference(PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("prf_pref_screenCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
+
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
 
@@ -1484,6 +1509,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ConnectToSSIDDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);
             if (preference != null)
                 preference.refreshListView();
+        }
+        if (requestCode == RESULT_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_SETTINGS) {
+            setSummary(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS);
         }
     }
 
@@ -4058,6 +4086,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 boolean _permissionGranted = permissions.size() == 0;
 
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, change, false, !_permissionGranted, false);
+
+                if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                    preference = prefMng.findPreference(PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON);
+                    if (preference != null) {
+                        boolean forceSetBrightnessAtScreenOn = ApplicationPreferences.applicationForceSetBrightnessAtScreenOn;
+                        String summary = context.getString(R.string.profile_preferences_forceSetBrightnessAtScreenOn_summary);
+                        if (forceSetBrightnessAtScreenOn)
+                            summary = context.getString(R.string.profile_preferences_enabled) + "\n\n" + summary;
+                        else {
+                            summary = context.getString(R.string.profile_preferences_disabled) + "\n\n" + summary;
+                        }
+                        preference.setSummary(summary);
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, forceSetBrightnessAtScreenOn, false, false, false);
+                    }
+                }
+
             }
         }
         if (key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING) ||

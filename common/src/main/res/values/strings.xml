@@ -1860,7 +1860,10 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
     <string name="phone_profiles_pref_category_special_profile_parameters">Special profile parameters</string>
     <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn">Force set brightness at screen on</string>
+    <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn_summary">Enable, if you want to reset screen brightness parameters at screen on.</string>
     <string name="phone_profiles_pref_applicationSpecialPreferencesNotAny">There is no special parameter</string>
+    <string name="profile_preferences_forceSetBrightnessAtScreenOn_summary">Enable \"Force set brightness at screen on\" in application settings, if you want to reset screen brightness parameters at screen on.</string>
+    <string name="profile_preferences_disabled">Disabled</string>
 
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"Never ask again\" for grant root is set</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"Never ask again\" for grant root is not set</string>
