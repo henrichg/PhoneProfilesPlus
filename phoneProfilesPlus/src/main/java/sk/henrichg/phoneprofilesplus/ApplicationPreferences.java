@@ -737,6 +737,8 @@ class ApplicationPreferences {
                 editor.apply();
                 notificationPrefIndicator = false;
             }
+            else
+                notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, false);
         }
         else
             notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, true);
@@ -1211,6 +1213,8 @@ class ApplicationPreferences {
                 editor.apply();
                 notificationNotificationStyle = "1";
             }
+            else
+                notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "1");
         }
         else
             // default value for Pixel (Android 12) -> 0 (custom)
