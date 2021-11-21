@@ -6000,7 +6000,7 @@ public class PhoneProfilesService extends Service
         int decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
 
         //noinspection ConstantConditions
-        decoratorColor = _addProfileIconToProfileNotification(forFirstStart,
+        /*decoratorColor =*/ _addProfileIconToProfileNotification(forFirstStart,
                                                      contentView, contentViewLarge,
                                                      notificationBuilder,
                                                      notificationNotificationStyle, notificationStatusBarStyle,
@@ -6150,6 +6150,7 @@ public class PhoneProfilesService extends Service
         }
         else {
             notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(indicators));
+            //notificationBuilder.setStyle(null);
         }
 
         if ((notificationShowButtonExit) && useDecorator) {
@@ -6478,7 +6479,8 @@ public class PhoneProfilesService extends Service
 
                 if (iconBitmap != null) {
 //                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon from picture");
-                    if (notificationStatusBarStyle.equals("2"))
+                    if (notificationStatusBarStyle.equals("2") /*||
+                            PPApplication.deviceIsSamsung*/)
                         notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
                     else
                         notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
