@@ -654,7 +654,7 @@ class ApplicationPreferences {
     }
 
     static void notificationTextColor(Context context) {
-        // default value for Pixel (Android 12) -> 0 (native)
+        // default value for Pixel (Android 12+) -> 0 (native)
         notificationTextColor = getSharedPreferences(context).getString(PREF_NOTIFICATION_TEXT_COLOR, "0");
     }
 
@@ -1143,17 +1143,17 @@ class ApplicationPreferences {
     */
 
     static void notificationUseDecoration(Context context) {
-        // default value for Pixel (Android 12) -> true
+        // default value for Pixel (Android 12+) -> true
         notificationUseDecoration = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, true);
     }
 
     static void notificationLayoutType(Context context) {
-        // default value for Pixel (Android 12) -> 0 (expandable)
+        // default value for Pixel (Android 12+) -> 0 (expandable)
         notificationLayoutType = getSharedPreferences(context).getString(PREF_NOTIFICATION_LAYOUT_TYPE, "0");
     }
 
     static void notificationBackgroundColor(Context context) {
-        // default value for Pixel (Android 12) -> 0 (native)
+        // default value for Pixel (Android 12+) -> 0 (native)
         notificationBackgroundColor = getSharedPreferences(context).getString(PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
     }
 
@@ -1189,12 +1189,27 @@ class ApplicationPreferences {
     }
 
     static void notificationNotificationStyle(Context context) {
-        // default value for Pixel (Android 12) -> 0 (custom)
-        notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "0");
+        if (PPApplication.deviceIsSamsung && (Build.VERSION.SDK_INT >= 31)) {
+            // default value for One UI 4 is better 1 (native)
+            notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "-1");
+            if (notificationNotificationStyle.equals("-1")) {
+                // it is default value (not saved to shared preferences), change it
+                SharedPreferences prefs = getSharedPreferences(context);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "1");
+                editor.apply();
+                notificationNotificationStyle = "1";
+            }
+        }
+        else
+            // default value for Pixel (Android 12) -> 0 (custom)
+            notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "0");
     }
 
     static void notificationShowProfileIcon(Context context) {
-        notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, !PPApplication.deviceIsPixel);
+        // show profile icon for Android 12+ is better false
+        notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                Build.VERSION.SDK_INT < 31);
     }
 
     static void applicationEventPeriodicScanningEnableScanning(Context context) {
