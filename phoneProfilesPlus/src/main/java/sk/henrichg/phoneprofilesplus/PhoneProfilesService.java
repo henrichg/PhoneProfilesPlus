@@ -4212,14 +4212,16 @@ public class PhoneProfilesService extends Service
                     PPApplication.logE("PhoneProflesService.doForFirstStart - handler", "__activateProfiles=" + __activateProfiles);
                 }
 
-            /*if (PPApplication.logEnabled()) {
-                // get list of TRANSACTIONS for "phone"
-                Object serviceManager = PPApplication.getServiceManager("phone");
-                if (serviceManager != null) {
-                    // only log it
-                    PPApplication.getTransactionCode(String.valueOf(serviceManager), "");
-                }
-            }*/
+                /*if (PPApplication.logEnabled()) {
+                    // get list of TRANSACTIONS for "phone"
+                    Object serviceManager = PPApplication.getServiceManager("phone");
+                    if (serviceManager != null) {
+                        // only log it
+                        PPApplication.getTransactionCode(String.valueOf(serviceManager), "");
+                    }
+                }*/
+
+                PPPExtenderBroadcastReceiver.isAccessibilityServiceEnabled(appContext, true);
 
                 //GlobalGUIRoutines.setLanguage(appContext);
                 GlobalGUIRoutines.switchNightMode(appContext, true);
