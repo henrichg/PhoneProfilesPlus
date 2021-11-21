@@ -440,6 +440,8 @@ public class PPPExtenderBroadcastReceiver extends BroadcastReceiver {
         boolean enabled = false;
         AccessibilityManager manager = (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
         if (manager != null) {
+            // feedback type must be the same as in PPPE accessibilityservice.xml
+            // android:accessibilityFeedbackType="feedbackGeneric"
             List<AccessibilityServiceInfo> runningServices =
                     manager.getEnabledAccessibilityServiceList(AccessibilityServiceInfo.FEEDBACK_GENERIC);
 
