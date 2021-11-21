@@ -681,7 +681,8 @@ class ApplicationPreferences {
     }
 
     static void applicationWidgetListBackground(Context context) {
-       if (PPApplication.isPixelLauncherDefault(context))
+       if (PPApplication.isPixelLauncherDefault(context) ||
+               PPApplication.isOneUILauncherDefault(context))
            applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, "100");
        else
            applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, "25");
@@ -855,7 +856,8 @@ class ApplicationPreferences {
     }
 
     static void applicationWidgetIconBackground(Context context) {
-        if (PPApplication.isPixelLauncherDefault(context))
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
             applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, "100");
         else
             applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, "25");
@@ -1057,7 +1059,8 @@ class ApplicationPreferences {
     }
 
     static void applicationWidgetOneRowBackground(Context context) {
-        if (PPApplication.isPixelLauncherDefault(context))
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
             applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, "100");
         else
             applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, "25");
@@ -1364,7 +1367,8 @@ class ApplicationPreferences {
         }*/
 
         applicationWidgetChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
-                PPApplication.isPixelLauncherDefault(context));
+                PPApplication.isPixelLauncherDefault(context) ||
+                        PPApplication.isOneUILauncherDefault(context));
     }
 
     static void loadStartTargetHelps(Context context) {

@@ -4804,7 +4804,7 @@ public class PPApplication extends Application
         return TelephonyManager.CALL_STATE_IDLE;
     }
 
-    // Is Pixel Launcher installed --------------------------------------------------
+    // check if Pixel Launcher is default --------------------------------------------------
 
     static boolean isPixelLauncherDefault(Context context) {
         if (Build.VERSION.SDK_INT >= 31) {
@@ -4816,9 +4816,28 @@ public class PPApplication extends Application
                     return defaultLauncher.activityInfo.packageName.toLowerCase().contains(
                                     "com.google.android.apps.nexuslauncher");
                 } catch (Exception e) {
-                    // extender is not installed = package not found
-                    //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
-                    //PPApplication.recordException(e);
+                    return false;
+                }
+            }
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+
+    // check if One UI 4 Samsung Launcher is default --------------------------------------------------
+
+    static boolean isOneUILauncherDefault(Context context) {
+        if (Build.VERSION.SDK_INT >= 31) {
+            if (context != null) {
+                try {
+                    Intent intent= new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    return defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                            "com.sec.android.app.launcher");
+                } catch (Exception e) {
                     return false;
                 }
             }

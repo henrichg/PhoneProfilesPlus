@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -1556,7 +1557,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         */
 
         if (Build.VERSION.SDK_INT >= 31) {
-            if (PPApplication.isPixelLauncherDefault(getActivity())) {
+            if (PPApplication.isPixelLauncherDefault(getActivity()) ||
+                    PPApplication.isOneUILauncherDefault(getActivity())) {
                 // Pixel Launcher is default
                 // TODO Maybe rounded corners will be also in another launchers.
                 //      But currently is checked only Pixel launcher.
@@ -2565,8 +2567,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
         boolean keyIsChangeColorByNightMode = false;
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE)) {
-            //Log.e("PhoneProfilesPreferencesFragment.setSummary", "ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE="+
-            //        preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE, false));
             keyIsChangeColorByNightMode = true;
         }
 
@@ -2580,6 +2580,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 changeWidgetColorsByNightMode = preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE, false);
             }
         }
+        Log.e("PhoneProfilesPrefsFragment.setSummary", "changeWidgetColorsByNightMode="+changeWidgetColorsByNightMode);
+        Log.e("PhoneProfilesPrefsFragment.setSummary", "keyIsChangeColorByNightMode="+keyIsChangeColorByNightMode);
 
         boolean roundedCornersListEnabled =
                 preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS, true);
@@ -2733,7 +2735,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             else {
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS_BORDER);
                 if (_preference != null) {
-                    _preference.setEnabled(preferences.getBoolean(key, false));
+                    _preference.setEnabled(
+                            preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_BORDER, false));
                 }
             }
         }
@@ -2750,7 +2753,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             else {
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_LIGHTNESS_BORDER);
                 if (_preference != null) {
-                    _preference.setEnabled(preferences.getBoolean(key, false));
+                    _preference.setEnabled(
+                            preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_SHOW_BORDER, false));
                 }
             }
         }
@@ -2767,7 +2771,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             } else {
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_BORDER);
                 if (_preference != null) {
-                    _preference.setEnabled(preferences.getBoolean(key, false));
+                    _preference.setEnabled(
+                            preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_SHOW_BORDER, false));
                 }
             }
         }
