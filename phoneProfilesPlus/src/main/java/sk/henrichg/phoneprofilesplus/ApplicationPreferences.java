@@ -727,7 +727,19 @@ class ApplicationPreferences {
     */
 
     static void notificationPrefIndicator(Context context) {
-        notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, true);
+        if (PPApplication.deviceIsSamsung && (Build.VERSION.SDK_INT >= 31)) {
+            // default value for One UI 4 is better 1 (native)
+            if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_PREF_INDICATOR)) {
+                // not contains this preference set to false
+                SharedPreferences prefs = getSharedPreferences(context);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean(PREF_NOTIFICATION_PREF_INDICATOR, false);
+                editor.apply();
+                notificationPrefIndicator = false;
+            }
+        }
+        else
+            notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, true);
     }
 
     static void notificationPrefIndicatorLightness(Context context) {
@@ -1191,9 +1203,8 @@ class ApplicationPreferences {
     static void notificationNotificationStyle(Context context) {
         if (PPApplication.deviceIsSamsung && (Build.VERSION.SDK_INT >= 31)) {
             // default value for One UI 4 is better 1 (native)
-            notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "-1");
-            if (notificationNotificationStyle.equals("-1")) {
-                // it is default value (not saved to shared preferences), change it
+            if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_NOTIFICATION_STYLE)) {
+                // not contains this preference set to 1
                 SharedPreferences prefs = getSharedPreferences(context);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "1");
