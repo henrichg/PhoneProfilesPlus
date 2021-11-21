@@ -1602,15 +1602,18 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 PreferenceScreen preferenceCategory = findPreference("specialProfileParametersCategory");
                 if (preferenceCategory != null) {
                     preferenceCategory.removePreference(preference);
-                    /*if (getActivity() != null) {
-                        preference = new Preference(getActivity().getApplicationContext());
-                        preference.setKey("specialProfileParameters_noParameters");
-                        preference.setIconSpaceReserved(false);
-                        preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
-                        preference.setLayoutResource(R.layout.mp_preference_material_widget);
-                        preference.setOrder(-100);
-                        preferenceCategory.addPreference(preference);
-                    }*/
+                    if (preferenceCategory.getPreferenceCount() == 0) {
+                        if (getActivity() != null) {
+                            preference = new Preference(getActivity().getApplicationContext());
+                            preference.setKey("specialProfileParameters_noParameters");
+                            preference.setIconSpaceReserved(false);
+                            preference.setLayoutResource(R.layout.mp_preference_material_widget);
+                            preference.setOrder(-100);
+                            preference.setTitle(R.string.phone_profiles_pref_applicationSpecialPreferencesNotAny);
+                            preference.setEnabled(false);
+                            preferenceCategory.addPreference(preference);
+                        }
+                    }
                 }
             }
         }
