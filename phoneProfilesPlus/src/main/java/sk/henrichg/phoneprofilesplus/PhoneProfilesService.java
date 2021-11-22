@@ -6483,8 +6483,11 @@ public class PhoneProfilesService extends Service
                 if (iconBitmap != null) {
 //                    PPApplication.logE("PhoneProfilesService._showProfileNotification", "create icon from picture");
                     if (notificationStatusBarStyle.equals("2") /*||
-                            PPApplication.deviceIsSamsung*/)
-                        notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
+                            PPApplication.deviceIsSamsung*/) {
+                        Bitmap _iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, 0xFF);
+                        notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(_iconBitmap));
+                        //notificationBuilder.setSmallIcon(R.drawable.ic_profile_default_notify);
+                    }
                     else
                         notificationBuilder.setSmallIcon(IconCompat.createWithBitmap(iconBitmap));
                 } else {
