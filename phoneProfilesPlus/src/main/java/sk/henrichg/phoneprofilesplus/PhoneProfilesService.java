@@ -5998,6 +5998,8 @@ public class PhoneProfilesService extends Service
 
         int decoratorColor = ContextCompat.getColor(appContext, R.color.notificationDecorationColor);
 
+        // decorator colot change by iocn is removed, becouse this cause problems with
+        // custom icons.
         /*decoratorColor =*/
         _addProfileIconToProfileNotification(forFirstStart,
                                                      contentView, contentViewLarge,
