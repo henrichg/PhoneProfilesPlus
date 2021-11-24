@@ -246,6 +246,8 @@ class PreferenceAllowed {
                     preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
                 }*/
 
+                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
                     boolean sim0Exists;
