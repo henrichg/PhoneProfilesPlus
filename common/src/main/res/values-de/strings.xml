@@ -1834,6 +1834,15 @@
     <string name="altype_afterEndOfActivationTime_defaultProfile">nach Erreichen des exakten Zeitpunkts ➜ zurück zum Standardprofil</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">nach Erreichen des exakten Zeitpunkts ➜ Ereignisse neu starten</string>
     <string name="altype_afterEndOfActivationTime_specificProfile">nach Erreichen des exakten Zeitpunkts ➜ zu speziellem Profil wechseln</string>
+    <string name="check_releases_open_apkpure">Open APKPure</string>
+    <string name="phone_profiles_pref_category_special_profile_parameters">Special profile parameters</string>
+    <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn">Festgelegte Helligkeit beim Einschalten des Bildschirms erzwingen</string>
+    <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn_summary">Aktivieren Sie diese Option, wenn Sie die Helligkeitsparameter des aktivierten Profils beim Einschalten des Bildschirms zurücksetzen möchten.</string>
+    <string name="phone_profiles_pref_applicationSpecialPreferencesNotAny">Es gibt keinen speziellen Parameter</string>
+    <string name="profile_preferences_forceSetBrightnessAtScreenOn_summary">Aktivieren Sie in den Anwendungseinstellungen die Option „Helligkeit beim Einschalten des Bildschirms erzwingen”, wenn Sie die Parameter für die Bildschirmhelligkeit beim Einschalten des Bildschirms aus dem aktivierten Profil zurücksetzen möchten.</string>
+    <string name="profile_preferences_disabled">Deaktiviert</string>
+    <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">„Nicht erneut nachfragen” wenn Root-Zugriff aktiviert ist</string>
+    <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">„Nicht erneut nachfragen” wenn Root-Zugriff nicht aktiviert ist</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

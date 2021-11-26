@@ -1834,6 +1834,15 @@
     <string name="altype_afterEndOfActivationTime_defaultProfile">after exact time reaches - default profile</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">after exact time reaches - restart events</string>
     <string name="altype_afterEndOfActivationTime_specificProfile">after exact time reaches - specific profile</string>
+    <string name="check_releases_open_apkpure">Open APKPure</string>
+    <string name="phone_profiles_pref_category_special_profile_parameters">Special profile parameters</string>
+    <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn">Force set brightness at screen on</string>
+    <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn_summary">Enable, if you want to reset screen brightness parameters from activated profile at screen on.</string>
+    <string name="phone_profiles_pref_applicationSpecialPreferencesNotAny">There is no special parameter</string>
+    <string name="profile_preferences_forceSetBrightnessAtScreenOn_summary">Enable \"Force set brightness at screen on\" in application settings, if you want to reset screen brightness parameters from activated profile at screen on.</string>
+    <string name="profile_preferences_disabled">Disabled</string>
+    <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"Never ask again\" for grant root is turned on</string>
+    <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"Never ask again\" for grant root is not turned on</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir PhoneProfilesPlusExtender por:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

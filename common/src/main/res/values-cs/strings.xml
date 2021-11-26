@@ -1834,6 +1834,15 @@
     <string name="altype_afterEndOfActivationTime_defaultProfile">po dosažení přesného času - výchozí profil</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">po dosažení přesného času - restartovat události</string>
     <string name="altype_afterEndOfActivationTime_specificProfile">po dosažení přesného času - aktivace specifického profilu</string>
+    <string name="check_releases_open_apkpure">Otevřít APKPure</string>
+    <string name="phone_profiles_pref_category_special_profile_parameters">Speciální parametry profilu</string>
+    <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn">Vynutit nastavení jasu při zapnutí obrazovky</string>
+    <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn_summary">Aktivujte, chcete-li resetovat parametry jasu obrazovky z aktivovaného profilu při zapnutí obrazovky.</string>
+    <string name="phone_profiles_pref_applicationSpecialPreferencesNotAny">Neexistuje žádný speciální parametr</string>
+    <string name="profile_preferences_forceSetBrightnessAtScreenOn_summary">Povolte v nastavení aplikace „Vynutit nastavení jasu při zapnutí obrazovky“, chcete-li obnovit parametry jasu obrazovky z aktivovaného profilu při zapnutí obrazovky.</string>
+    <string name="profile_preferences_disabled">Zakázáno</string>
+    <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"Příště se již neptat\" pro udělení root práva je zapnuto</string>
+    <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"Příště se již neptat\" pro udělení root práva je vypnuto</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>
