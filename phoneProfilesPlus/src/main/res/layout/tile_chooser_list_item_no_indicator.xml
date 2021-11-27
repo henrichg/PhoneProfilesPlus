@@ -12,17 +12,16 @@
         android:id="@+id/tile_chooser_list_item_radiobtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:layout_centerVertical="true"
         android:checked="false"
-        android:focusable="false"
-        android:text="@string/empty_string" />
+        android:focusable="false" />
 
     <ImageView
         android:id="@+id/tile_chooser_list_item_profile_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
-        android:layout_marginStart="3dp"
         android:layout_toEndOf="@id/tile_chooser_list_item_radiobtn"
         android:adjustViewBounds="true"
         android:contentDescription="@string/profile_preferences_profileIcon"

@@ -10,16 +10,15 @@
         android:id="@+id/ringtone_pref_dlg_item_radiobtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
         android:checked="false"
-        android:focusable="false"
-        android:text="@string/empty_string" />
+        android:focusable="false" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@id/ringtone_pref_dlg_item_radiobtn"

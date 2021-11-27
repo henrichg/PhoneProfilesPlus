@@ -10,17 +10,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_centerVertical="true"
         android:checked="false"
-        android:focusable="false"
-        android:text="@string/empty_string" />
+        android:focusable="false" />
 
     <ImageView
         android:id="@+id/applications_multiselect_pref_dlg_item_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
-        android:layout_marginStart="3dp"
         android:layout_toEndOf="@id/applications_multiselect_pref_dlg_item_checkbox"
         android:contentDescription="@string/applications_editor_dialog_item_icon"
         android:padding="3dp"

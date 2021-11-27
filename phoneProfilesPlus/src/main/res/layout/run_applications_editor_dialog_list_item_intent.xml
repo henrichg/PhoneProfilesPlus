@@ -30,6 +30,7 @@
             android:id="@+id/run_applications_editor_dialog_item_radiobutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:layout_centerVertical="true"
             android:checked="false"
             android:focusable="false" />
@@ -39,7 +40,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
             android:layout_toEndOf="@id/run_applications_editor_dialog_item_radiobutton"
             android:text="@string/empty_string"
             android:textSize="16sp"/>

@@ -8,17 +8,16 @@
         android:id="@+id/opaqueness_lighting_pref_dlg_item_radiobtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:layout_centerVertical="true"
         android:checked="false"
-        android:focusable="false"
-        android:text="@string/empty_string" />
+        android:focusable="false" />
 
     <ImageView
         android:id="@+id/opaqueness_lighting_pref_dlg_item_icon"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_centerVertical="true"
-        android:layout_marginStart="10dp"
         android:layout_toEndOf="@id/opaqueness_lighting_pref_dlg_item_radiobtn"
         android:adjustViewBounds="true"
         android:contentDescription="@string/empty_string"

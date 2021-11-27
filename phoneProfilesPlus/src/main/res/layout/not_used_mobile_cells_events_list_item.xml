@@ -9,18 +9,16 @@
         android:id="@+id/not_used_mobile_cells_events_list_item_checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
+        android:layout_marginEnd="10dp"
         android:layout_centerVertical="true"
         android:checked="false"
-        android:focusable="false"
-        android:text="@string/empty_string" />
+        android:focusable="false" />
 
     <TextView
         android:id="@+id/not_used_mobile_cells_events_list_item_event_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="3dp"
         android:layout_toEndOf="@id/not_used_mobile_cells_events_list_item_checkBox"
         android:text="@string/empty_string"
         android:textSize="17sp"

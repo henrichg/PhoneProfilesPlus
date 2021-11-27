@@ -10,17 +10,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_centerVertical="true"
         android:checked="false"
-        android:focusable="false"
-        android:text="@string/empty_string" />
+        android:focusable="false" />
 
     <LinearLayout 
         android:id="@+id/calendars_multiselect_pref_dlg_item_color"
         android:orientation="vertical"
         android:layout_width="5dp"
         android:layout_height="20dp"
-        android:layout_marginStart="5dp"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/calendars_multiselect_pref_dlg_item_checkbox"
         android:background="#FFFF0000"

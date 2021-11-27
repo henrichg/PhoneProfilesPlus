@@ -38,10 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="7dp"
             android:layout_centerVertical="true"
             android:checked="false"
-            android:focusable="false"
-            android:text="@string/empty_string" />
+            android:focusable="false" />
 
         <TextView
             android:id="@+id/location_pref_dlg_item_name"
