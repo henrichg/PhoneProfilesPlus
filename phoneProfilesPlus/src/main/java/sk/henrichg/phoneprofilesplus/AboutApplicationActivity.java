@@ -124,6 +124,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
             @Override
             public void updateDrawState(TextPaint ds) {
                 ds.setColor(ds.linkColor);    // you can use custom color
+                //ds.bgColor = Color.GRAY;
                 ds.setUnderlineText(false);    // this remove the underline
             }
 
