@@ -5845,15 +5845,51 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 //        });
 
         dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-            String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
-
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplication.recordException(e);
+            /*boolean exist = false;
+            if (PPApplication.deviceIsSamsung) {
+                if (getActivity() != null) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
+                    exist = GlobalGUIRoutines.activityIntentExists(intent, getActivity());
+                    Log.e("ProfilesPrefsFragment.installExtender", "exist="+exist);
+                    if (exist) {
+                        try {
+                            getActivity().startActivity(intent);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                            exist = false;
+                        }
+                    }
+                }
             }
+            else
+            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                if (getActivity() != null) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("appmarket://details?id=sk.henrichg.phoneprofilesplusextender"));
+                    exist = GlobalGUIRoutines.activityIntentExists(intent, getActivity());
+                    Log.e("ProfilesPrefsFragment.installExtender", "exist="+exist);
+                    if (exist) {
+                        try {
+                            getActivity().startActivity(intent);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                            exist = false;
+                        }
+                    }
+                }
+            }
+            if (!exist) {*/
+                String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            //}
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         AlertDialog dialog = dialogBuilder.create();
