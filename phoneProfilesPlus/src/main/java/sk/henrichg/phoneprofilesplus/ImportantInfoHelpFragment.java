@@ -139,6 +139,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
             infoText1.setVisibility(View.VISIBLE);
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
+            infoText1.setText(getString(R.string.important_info_accessibility_service_new_version_2) +  " \u21D2");
             infoText1.setVisibility(View.VISIBLE);
             infoText1.setOnClickListener(v -> installExtender());
         }
@@ -220,6 +221,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         TextView infoText22 = view.findViewById(R.id.activity_info_notification_mobileCellsScanning_location);
         if (infoText22 != null) {
             if (Build.VERSION.SDK_INT >= 28) {
+                infoText22.setText(context.getString(R.string.important_info_profile_mobileCellsScanning_location) +  " \u21D2");
                 infoText22.setOnClickListener(v -> {
                     boolean ok = false;
                     if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
@@ -261,6 +263,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoText20 = view.findViewById(R.id.activity_info_notification_wifiScanning_location);
         if (infoText20 != null) {
+            infoText20.setText(context.getString(R.string.important_info_profile_wifiScanning_location) +  " \u21D2");
             infoText20.setOnClickListener(v -> {
                 boolean ok = false;
                 if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
@@ -297,6 +300,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         }
         infoText22 = view.findViewById(R.id.activity_info_notification_bluetoothScanning_location);
         if (infoText22 != null) {
+            infoText22.setText(context.getString(R.string.important_info_profile_bluetoothScanning_location) +  " \u21D2");
             infoText22.setOnClickListener(v -> {
                 boolean ok = false;
                 if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_LOCATION_SOURCE_SETTINGS, context)) {
@@ -334,6 +338,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         TextView infoText10a = view.findViewById(R.id.activity_info_notification_app_standby);
         if (infoText10a != null) {
+            infoText10a.setText(context.getString(R.string.important_info_android_doze_mode) +  " \u21D2");
             infoText10a.setOnClickListener(v -> {
 //                    PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
 //                    String packageName = PPApplication.PACKAGE_NAME;
@@ -378,12 +383,13 @@ public class ImportantInfoHelpFragment extends Fragment {
         if (infoText670 != null) {
             infoText670.setText(fragment.getString(R.string.important_info_do_not_kill_my_app1) + " " +
                     fragment.getString(R.string.phone_profiles_pref_applicationDoNotKillMyApp_webSiteName) + " " +
-                    fragment.getString(R.string.important_info_do_not_kill_my_app2));
+                    fragment.getString(R.string.important_info_do_not_kill_my_app2) + " \u21D2");
             infoText670.setOnClickListener(v -> PPApplication.showDoNotKillMyAppDialog(activity));
         }
 
         TextView infoText40 = view.findViewById(R.id.activity_info_default_profile);
         if (infoText40 != null) {
+            infoText40.setText(context.getString(R.string.important_info_default_profile) +  " \u21D2");
             infoText40.setOnClickListener(v -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -395,6 +401,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         infoText10a = view.findViewById(R.id.activity_info_notification_application_settings);
         if (infoText10a != null) {
+            infoText10a.setText(context.getString(R.string.important_info_android_look_application_settings) +  " \u21D2");
             infoText10a.setOnClickListener(v -> {
                 Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -637,7 +644,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
         if (translationTextView != null) {
             String str1 = fragment.getString(R.string.about_application_translations);
-            String str2 = str1 + " " + PPApplication.CROWDIN_URL;
+            String str2 = str1 + " " + PPApplication.CROWDIN_URL + " \u21D2";
             Spannable spannable = new SpannableString(str2);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -675,7 +682,7 @@ public class ImportantInfoHelpFragment extends Fragment {
         if (helpForG1TextView != null) {
             String str1 = fragment.getString(R.string.important_info_profile_grant_1_howTo_0) + " " +
                     fragment.getString(R.string.important_info_profile_grant_1_howTo_0_1) + ":";
-            String str2 = str1 + " " + PPApplication.HELP_HOW_TO_GRANT_G1_URL;
+            String str2 = str1 + " " + PPApplication.HELP_HOW_TO_GRANT_G1_URL + " \u21D2";
             Spannable spannable = new SpannableString(str2);
             //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -747,7 +754,7 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         text = layout.findViewById(R.id.install_extender_dialog_github_releases);
         CharSequence str1 = getString(R.string.install_extender_github_releases);
-        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL;
+        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + " \u21D2";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {

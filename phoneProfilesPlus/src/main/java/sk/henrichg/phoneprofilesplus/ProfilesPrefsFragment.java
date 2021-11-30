@@ -632,7 +632,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             infoDialogPreference.setInfoText(
                     "• " + getString(R.string.important_info_profile_grant)+"\n\n"+
                     "<II0 [0,1,"+R.id.activity_info_notification_profile_grant_1_howTo_1+"]>"+
-                        getString(R.string.profile_preferences_types_G1_show_info)+
+                        getString(R.string.profile_preferences_types_G1_show_info)+ " \u21D2"+
                     "<II0/>"+
                     "\n\n"+
                     "• " + getString(R.string.important_info_profile_root)+"\n\n"+
@@ -1169,8 +1169,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
             String infoText =
                     getString(R.string.profile_preferences_deviceVPNInfo_infoText)+"<br><br>"+
-                            "<a href=" + url1 + ">OpenVPN Connect</a>"+"<br><br>"+
-                            "<a href=" + url2 + ">OpenVPN for Android</a>";
+                            "<a href=" + url1 + ">OpenVPN Connect &#8658;</a>"+"<br><br>"+
+                            "<a href=" + url2 + ">OpenVPN for Android &#8658;</a>";
 
             infoDialogPreference.setInfoText(infoText);
             infoDialogPreference.setIsHtml(true);
@@ -5807,7 +5807,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         text = layout.findViewById(R.id.install_extender_dialog_github_releases);
         CharSequence str1 = getString(R.string.install_extender_github_releases);
-        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL;
+        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + " \u21D2";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
