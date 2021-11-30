@@ -176,7 +176,7 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.getServiceInfo"
                                                 //+"|PhoneProfilesService.isServiceRunning"
                                                 +"|PackageReplacedReceiver.onReceive"
-                                                +"|PhoneProfilesService.doCommand"
+                                                //+"|PhoneProfilesService.doCommand"
                                                 //+"|PhoneProfilesService.showProfileNotification"
                                                 //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|ShowProfileNotificationBroadcastReceiver"

@@ -8,7 +8,6 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.ResultReceiver;
-import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
