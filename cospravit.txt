@@ -370,5 +370,13 @@ Toto cele chapem.
 - Updated translations
 - Fixed other bugs
 
+----------------
+
+Extender v obchode:
+
+*** IMPORTANT ***
+- It is "plugin", so does NOT work standalone!
+- Designed for co-working with 'PhoneProfilesPlus' application. Without it, this application do nothing.
+
 
 
