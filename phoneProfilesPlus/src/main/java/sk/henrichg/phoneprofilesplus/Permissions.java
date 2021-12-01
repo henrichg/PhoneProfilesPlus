@@ -12,6 +12,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.Settings;
 import android.service.notification.StatusBarNotification;
+import android.telephony.TelephonyManager;
 import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -69,7 +70,7 @@ class Permissions {
     static final int PERMISSION_PROFILE_CONNECT_TO_SSID_PREFERENCE = 41;
     static final int PERMISSION_PROFILE_SCREEN_ON_PERMANENT = 42;
     static final int PERMISSION_PROFILE_CAMERA_FLASH = 43;
-    //static final int PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES = 44;
+    static final int PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES = 44;
     static final int PERMISSION_BACGROUND_LOCATION = 45;
     static final int PERMISSION_PROFILE_VIBRATE_NOTIFICATIONS = 46;
     static final int PERMISSION_PROFILE_WALLPAPER_FOLDER = 47;
@@ -1466,19 +1467,23 @@ class Permissions {
                                         permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_PHONE_STATE));
                                 }
                             }
-                            /*if (event._eventPreferencesRadioSwitch._enabled) {
-                                final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                                if (telephonyManager != null) {
-                                    int phoneCount = telephonyManager.getPhoneCount();
-                                    if (phoneCount > 1) {
-                                        //noinspection DuplicateExpressions
-                                        if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_SMS)) {
-                                            if (!grantedPhoneState)
-                                                permissions.add(new PermissionType(PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES, permission.READ_PHONE_STATE));
+                            if (event._eventPreferencesRadioSwitch._enabled) {
+                                if ((event._eventPreferencesRadioSwitch._mobileData != 0) ||
+                                        (event._eventPreferencesRadioSwitch._defaultSIMForCalls != 0) ||
+                                        (event._eventPreferencesRadioSwitch._defaultSIMForSMS != 0)) {
+                                    final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+                                    if (telephonyManager != null) {
+                                        int phoneCount = telephonyManager.getPhoneCount();
+                                        if (phoneCount > 1) {
+                                            //noinspection DuplicateExpressions
+                                            if (sensorType.equals(EventsHandler.SENSOR_TYPE_ALL) || sensorType.equals(EventsHandler.SENSOR_TYPE_RADIO_SWITCH)) {
+                                                if (!grantedPhoneState)
+                                                    permissions.add(new PermissionType(PERMISSION_EVENT_RADIO_SWITCH_PREFERENCES, permission.READ_PHONE_STATE));
+                                            }
                                         }
                                     }
                                 }
-                            }*/
+                            }
                         }
                     }
                 }
@@ -1514,7 +1519,7 @@ class Permissions {
                                     permissions.add(new PermissionType(PERMISSION_EVENT_SMS_PREFERENCES, permission.READ_PHONE_STATE));
                             }
                         }
-                        /*if (preferences.getBoolean(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, false)) {
+                        if (preferences.getBoolean(EventPreferencesRadioSwitch.PREF_EVENT_RADIO_SWITCH_ENABLED, false)) {
                             final TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                             if (telephonyManager != null) {
                                 int phoneCount = telephonyManager.getPhoneCount();
@@ -1526,7 +1531,7 @@ class Permissions {
                                     }
                                 }
                             }
-                        }*/
+                        }
                     }
                 }
             }
@@ -2627,50 +2632,57 @@ class Permissions {
 
     //---------------------
 
-    static void grantRootX(final ProfilesPrefsFragment fragment, final Activity activity) {
+    static void grantRootX(final ProfilesPrefsFragment profilesFragment,
+                           final Activity activity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.phone_profiles_pref_grantRootPermission);
-        dialogBuilder.setMessage(R.string.phone_profiles_pref_grantRootPermission_summary);
+        String message = activity.getString(R.string.phone_profiles_pref_grantRootPermission_summary) + "\n";
+        dialogBuilder.setMessage(message);
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         //dialogBuilder.setView(doNotShowAgain);
 
-        if (fragment != null) {
-            AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
+        final AppCompatCheckBox doNotShowAgain = new AppCompatCheckBox(activity);
+        FrameLayout container = new FrameLayout(activity);
+        container.addView(doNotShowAgain);
+        FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT);
+        containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
+        container.setLayoutParams(containerParams);
 
-            FrameLayout container = new FrameLayout(activity);
-            container.addView(doNotShowAgain);
-            FrameLayout.LayoutParams containerParams = new FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT);
-            containerParams.leftMargin = GlobalGUIRoutines.dpToPx(20);
-            container.setLayoutParams(containerParams);
+        FrameLayout superContainer = new FrameLayout(activity);
+        superContainer.addView(container);
 
-            FrameLayout superContainer = new FrameLayout(activity);
-            superContainer.addView(container);
+        dialogBuilder.setView(superContainer);
 
-            dialogBuilder.setView(superContainer);
-
-            doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
+        doNotShowAgain.setText(R.string.alert_message_enable_event_check_box);
+        if (profilesFragment == null) {
+            doNotShowAgain.setEnabled(false);
+            doNotShowAgain.setChecked(false);
+        }
+        else
             doNotShowAgain.setChecked(ApplicationPreferences.applicationNeverAskForGrantRoot);
-            doNotShowAgain.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        doNotShowAgain.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (profilesFragment != null) {
                 SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, isChecked);
                 editor.apply();
                 ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
-            });
-        }
+            }
+        });
 
         dialogBuilder.setPositiveButton(R.string.alert_button_grant, (dialog, which) -> {
-            if (fragment != null) {
+            if (profilesFragment == null) {
+                // always ask for grant root, when grant is invocked from PPP Settings
                 SharedPreferences settings = ApplicationPreferences.getSharedPreferences(activity);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_NEVER_ASK_FOR_GRANT_ROOT, false);
                 editor.apply();
                 ApplicationPreferences.applicationNeverAskForGrantRoot(activity.getApplicationContext());
-
+            } else {
                 grantRootChanged = true;
-                fragment.setRedTextToPreferences();
+                profilesFragment.setRedTextToPreferences();
             }
 
             boolean ok = false;
@@ -2683,7 +2695,10 @@ class Permissions {
                 try {
                     // startActivityForResult not working, it is external application
                     activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
-                    PPApplication.initRoot();
+                    //PPApplication.initRoot();
+                    synchronized (PPApplication.rootMutex) {
+                        PPApplication.rootMutex.rootChecked = false;
+                    }
                     ok = true;
                 } catch (Exception ignore) {
                 }
@@ -2698,7 +2713,10 @@ class Permissions {
                         intent.putExtra("section", "superuser");
                         // startActivityForResult not working, it is external application
                         activity.startActivity(intent/*, Permissions.REQUEST_CODE + Permissions.GRANT_TYPE_GRANT_ROOT*/);
-                        PPApplication.initRoot();
+                        //PPApplication.initRoot();
+                        synchronized (PPApplication.rootMutex) {
+                            PPApplication.rootMutex.rootChecked = false;
+                        }
                         ok = true;
                     } catch (Exception ignore) {
                     }
@@ -2726,9 +2744,9 @@ class Permissions {
             }
         });
         dialogBuilder.setNegativeButton(R.string.alert_button_not_grant, (dialog, which) -> {
-            if (fragment != null) {
+            if (profilesFragment != null) {
                 grantRootChanged = true;
-                fragment.setRedTextToPreferences();
+                profilesFragment.setRedTextToPreferences();
             }
         });
         AlertDialog dialog = dialogBuilder.create();
@@ -2793,9 +2811,10 @@ class Permissions {
                 fragment.setRedTextToPreferences();
             }
 
-            Intent intentLaunch = new Intent(activity, ImportantInfoActivity.class);
-            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, 0);
-            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_grant_1_howTo_1);
+            Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
+            intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
+            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 1);
+            intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_profile_grant_1_howTo_1);
             activity.startActivity(intentLaunch);
         });
         dialogBuilder.setNegativeButton(R.string.alert_button_not_grant, (dialog, which) -> {

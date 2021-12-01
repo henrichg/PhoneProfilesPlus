@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:background="?attr/selectableItemBackground"
+            android:layout_marginEnd="5dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/preference_item_edit_menu"
             android:src="?attr/editItemMenuIcon"/>
 
@@ -27,6 +28,8 @@
         android:id="@+id/bluetooth_name_pref_dlg_item_reLa1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_toStartOf="@id/bluetooth_name_pref_dlg_item_buttons_root"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true" >
@@ -35,11 +38,10 @@
             android:id="@+id/bluetooth_name_pref_dlg_item_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginEnd="@dimen/chackBox_radioButton_spacing_for_list_items"
             android:layout_centerVertical="true"
             android:checked="false"
-            android:focusable="false"
-            android:text="@string/empty_string" />
+            android:focusable="false" />
 
         <TextView
             android:id="@+id/bluetooth_name_pref_dlg_item_label"
@@ -47,8 +49,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/bluetooth_name_pref_dlg_item_checkbox"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             android:text="@string/empty_string"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 

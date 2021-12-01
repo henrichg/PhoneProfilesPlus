@@ -48,6 +48,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 <!--    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />-->
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.TETHER_PRIVILEGED" tools:ignore="ProtectedPermissions" />
 
     <uses-permission android:name="sk.henrichg.phoneprofiles.EXPORT_PP_DATA_PERMISSION" />
     <uses-permission android:name="sk.henrichg.phoneprofilesplusextender.ACCESSIBILITY_SERVICE_PERMISSION"/>
@@ -302,6 +303,10 @@
             android:label="@string/important_info_activity_title">
         </activity>
         <activity
+            android:name=".ImportantInfoActivityForceScroll"
+            android:label="@string/important_info_activity_title">
+        </activity>
+        <activity
             android:name=".GrantPermissionActivity"
             android:excludeFromRecents="true"
             android:label="@string/empty_string"
@@ -390,7 +395,7 @@
             android:theme="@style/EmptyAppCompatActivity">
         </activity>
         <activity
-            android:name=".ApplicationEditorIntentActivityX"
+            android:name=".RunApplicationEditorIntentActivityX"
             android:label="@string/intent_editor_title"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>

@@ -705,7 +705,6 @@ class EventsHandler {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only pause events
-                        // pause only running events
 
                         /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "state PAUSE");
@@ -718,6 +717,8 @@ class EventsHandler {
                         boolean paused = _event.getStatus() == Event.ESTATUS_PAUSE;
 
                         if (running && paused) {
+                            // pause only running events
+
                             if (startProfileMerged)
                                 mergedProfilesCount++;
                             if (endProfileMerged)
@@ -770,7 +771,6 @@ class EventsHandler {
 
                     if (_event.getStatus() != Event.ESTATUS_STOP) {
                         // only start events
-                        // start only paused events
 
                         /*if (PPApplication.logEnabled()) {
                             PPApplication.logE("[DEFPROF] EventsHandler.handleEvents", "state RUNNING");
@@ -783,6 +783,8 @@ class EventsHandler {
                         boolean running = _event.getStatus() == Event.ESTATUS_RUNNING;
 
                         if (running && paused) {
+                            // start only paused events
+
                             if (startProfileMerged)
                                 mergedProfilesCount++;
                             if (endProfileMerged)
@@ -1072,9 +1074,10 @@ class EventsHandler {
                 if (profileChanged || (usedEventsCount > 0) || isRestart /*sensorType.equals(SENSOR_TYPE_MANUAL_RESTART_EVENTS)*/) {
 
                     // log only when merged profile is not the same as last activated or for restart events
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION, null,
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_MERGED_PROFILE_ACTIVATION,
+                            null,
                             DataWrapper.getProfileNameWithManualIndicatorAsString(mergedProfile, true, "", false, false, false, dataWrapper),
-                            mergedProfile._icon, 0, mergedProfilesCount + " [" + usedEventsCount + "]");
+                            mergedProfilesCount + " [" + usedEventsCount + "]");
 
 //                    if (isRestart)
 //                        PPApplication.logE("[FIFO_TEST] EventsHandler.handleEvents", "called is DataWrapper.activateProfileFromEvent");

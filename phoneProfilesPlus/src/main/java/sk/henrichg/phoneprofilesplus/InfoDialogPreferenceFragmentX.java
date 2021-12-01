@@ -99,7 +99,13 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
 
                     String[] splits = _importantInfoTagDataString.split(",");
                     int page = Integer.parseInt(splits[0]);
-                    int resource = Integer.parseInt(splits[1]);
+
+                    int fragment = Integer.parseInt(splits[1]);
+                    // 0 = System
+                    // 1 = Profiles
+                    // 2 = Events
+
+                    int resource = Integer.parseInt(splits[2]);
 
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("InfoDialogPreferenceFragmentX.onBindDialogView.onClick", "page=" + page);
@@ -107,9 +113,10 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
                     }*/
 
                     if (_tagType.equals("II")) {
-                        Intent intentLaunch = new Intent(context, ImportantInfoActivity.class);
+                        Intent intentLaunch = new Intent(context, ImportantInfoActivityForceScroll.class);
                         intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, page == 1);
-                        intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, resource);
+                        intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, fragment);
+                        intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, resource);
                         startActivity(intentLaunch);
                     }
 
@@ -126,8 +133,11 @@ public class InfoDialogPreferenceFragmentX extends PreferenceDialogFragmentCompa
             infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
         }
         else {
-            if (preference.isHtml)
+            if (preference.isHtml) {
                 infoTextView.setText(GlobalGUIRoutines.fromHtml(preference.infoText, true, false, 0, 0));
+                infoTextView.setClickable(true);
+                infoTextView.setMovementMethod(LinkMovementMethod.getInstance());
+            }
             else
                 infoTextView.setText(preference.infoText);
         }

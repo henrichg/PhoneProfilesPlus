@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/shortcut_profiles_list_root"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -20,10 +20,11 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/shortcut_profiles_list2_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <View
             android:id="@+id/shortcut_profiles_list_titleBarDivider"
@@ -31,15 +32,17 @@
             android:layout_height="1dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
-            android:background="?attr/dialogDivider"
-            android:layout_alignParentTop="true" />
+            android:background="?attr/dialogDivider" />
 
         <ListView
             android:id="@+id/shortcut_profiles_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
             android:drawSelectorOnTop="true"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"
@@ -47,13 +50,38 @@
 
         <TextView
             android:id="@+id/shortcut_profiles_list_empty"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="@string/profile_list_empty"
             android:gravity="center"
             android:textSize="15sp"
             android:visibility="gone" />
 
-    </RelativeLayout>
+        <View
+            android:id="@+id/shortcut_profiles_list_bottomDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="?attr/dialogDivider"/>
 
-</FrameLayout>
+        <Button
+            android:id="@+id/shortcut_profiles_list_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginEnd="15dp"
+            android:minHeight="40dp"
+            android:textColor="@color/action_button_text_color"
+            android:textStyle="bold"
+            android:background="?attr/buttonBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@android:string/cancel"
+            style="?android:attr/borderlessButtonStyle"/>
+
+    </LinearLayout>
+
+</LinearLayout>

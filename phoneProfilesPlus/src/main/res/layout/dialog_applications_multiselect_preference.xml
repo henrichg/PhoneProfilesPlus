@@ -60,7 +60,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/applications_pref_dlg_linla_listview"
+            android:id="@+id/run_applications_pref_dlg_linla_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -68,7 +68,7 @@
             android:layout_alignParentTop="true" >
 
             <View
-                android:id="@+id/applications_pref_dlg_titleBarDivider"
+                android:id="@+id/run_applications_pref_dlg_titleBarDivider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="15dp"
@@ -83,8 +83,8 @@
                 android:scrollbars="none"
                 android:clipToPadding="false"
                 app:fastScrollAutoHide="false"
-                app:fastScrollThumbWidth="13dp"
-                app:fastScrollTrackWidth="15dp"
+                app:fastScrollThumbWidth="@dimen/fastScrollThumbWidth"
+                app:fastScrollTrackWidth="@dimen/fastScrollTrackWidth"
                 app:fastScrollPopupTextSize="44sp"
                 app:fastScrollPopupBackgroundSize="70dp"
                 app:fastScrollPopupBgColor="?attr/fastScrollPopupBackgroundPP"

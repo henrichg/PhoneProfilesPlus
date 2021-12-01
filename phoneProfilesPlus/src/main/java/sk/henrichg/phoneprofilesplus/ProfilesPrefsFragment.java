@@ -59,9 +59,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE = "prf_pref_notEnabledAccessibilityService";
 
     //private static final String PREF_NOTIFICATION_ACCESS = "prf_pref_volumeNotificationsAccessSettings";
-    private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 1980;
-
-    private static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 1981;
+    private static final int RESULT_NOTIFICATION_ACCESS_SETTINGS = 2980;
+    private static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 2981;
+    private static final int RESULT_ACCESSIBILITY_SETTINGS = 2983;
+    private static final int RESULT_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_SETTINGS = 2984;
 
     private static final String PREF_VOLUME_NOTIFICATION_VOLUME0 = "prf_pref_volumeNotificationVolume0";
 
@@ -72,7 +73,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_FORCE_STOP_APPLICATIONS_CATEGORY = "prf_pref_forceStopApplicationsCategoryRoot";
     private static final String PREF_FORCE_STOP_APPLICATIONS_INSTALL_EXTENDER = "prf_pref_deviceForceStopApplicationInstallExtender";
     private static final String PREF_FORCE_STOP_APPLICATIONS_ACCESSIBILITY_SETTINGS = "prf_pref_deviceForceStopApplicationAccessibilitySettings";
-    private static final int RESULT_ACCESSIBILITY_SETTINGS = 1983;
     //private static final String PREF_INSTALL_SILENT_TONE = "prf_pref_soundInstallSilentTone";
     private static final String PREF_LOCK_DEVICE_CATEGORY = "prf_pref_lockDeviceCategoryRoot";
     private static final String PREF_LOCK_DEVICE_INSTALL_EXTENDER = "prf_pref_lockDeviceInstallExtender";
@@ -86,6 +86,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_PROFILE_SOUNDS_DUAL_SIM_SUPPORT_CATEGORY_ROOT = "prf_pref_soundsDualSIMSupportCategoryRoot";
     private static final String PREF_DEVICE_WALLPAPER_CATEGORY = "prf_pref_deviceWallpaperCategoryRoot";
     private static final String PREF_PROFILE_DEVICE_RUN_APPLICATION_MIUI_PERMISSIONS = "prf_pref_deviceRunApplicationMIUIPermissions";
+    private static final String PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "prf_pref_deviceBrightness_forceSetBrightnessAtScreenOn";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -132,6 +133,14 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         {
             ((DurationDialogPreferenceX)preference).fragment = new DurationDialogPreferenceFragmentX();
             dialogFragment = ((DurationDialogPreferenceX)preference).fragment;
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+        }
+        if (preference instanceof TimeDialogPreferenceX)
+        {
+            ((TimeDialogPreferenceX)preference).fragment = new TimeDialogPreferenceFragmentX();
+            dialogFragment = ((TimeDialogPreferenceX)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -193,10 +202,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
         }
-        if (preference instanceof ApplicationsDialogPreferenceX)
+        if (preference instanceof RunApplicationsDialogPreferenceX)
         {
-            ((ApplicationsDialogPreferenceX)preference).fragment = new ApplicationsDialogPreferenceFragmentX();
-            dialogFragment = ((ApplicationsDialogPreferenceX)preference).fragment;
+            ((RunApplicationsDialogPreferenceX)preference).fragment = new RunApplicationsDialogPreferenceFragmentX();
+            dialogFragment = ((RunApplicationsDialogPreferenceX)preference).fragment;
             Bundle bundle = new Bundle(1);
             bundle.putString("key", preference.getKey());
             dialogFragment.setArguments(bundle);
@@ -622,8 +631,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (infoDialogPreference != null) {
             infoDialogPreference.setInfoText(
                     "• " + getString(R.string.important_info_profile_grant)+"\n\n"+
-                    "<II0 [0,"+R.id.activity_info_notification_profile_grant_1_howTo_1+"]>"+
-                        getString(R.string.profile_preferences_types_G1_show_info)+
+                    "<II0 [0,1,"+R.id.activity_info_notification_profile_grant_1_howTo_1+"]>"+
+                        getString(R.string.profile_preferences_types_G1_show_info)+ " \u21D2"+
                     "<II0/>"+
                     "\n\n"+
                     "• " + getString(R.string.important_info_profile_root)+"\n\n"+
@@ -1153,6 +1162,67 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        infoDialogPreference = prefMng.findPreference("prf_pref_deviceVPNInfo");
+        if (infoDialogPreference != null) {
+            String url1 = "https://openvpn.net/vpn-server-resources/faq-regarding-openvpn-connect-android/#how-do-i-use-tasker-with-openvpn-connect-for-android";
+            String url2 = "https://github.com/schwabe/ics-openvpn#controlling-from-external-apps";
+
+            String infoText =
+                    getString(R.string.profile_preferences_deviceVPNInfo_infoText)+"<br><br>"+
+                            "<a href=" + url1 + ">OpenVPN Connect &#8658;</a>"+"<br><br>"+
+                            "<a href=" + url2 + ">OpenVPN for Android &#8658;</a>";
+
+            infoDialogPreference.setInfoText(infoText);
+            infoDialogPreference.setIsHtml(true);
+        }
+
+        preference = findPreference("prf_pref_deviceScreenTimeoutAndKeeepScreenOnInfo");
+        if (preference != null) {
+            String title = "\"" + getString(R.string.profile_preferences_deviceScreenTimeout) + "\" " +
+                    getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title) +
+                    " \"" + getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"";
+            preference.setTitle(title);
+            String summary = getString(R.string.profile_preferences_deviceScreenOnPermanent) + ": ";
+            if (ApplicationPreferences.keepScreenOnPermanent)
+                summary = summary + getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On);
+            else
+                summary = summary + getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off);
+            summary = summary + "\n\n";
+            summary = summary + "\"" + getString(R.string.profile_preferences_deviceScreenTimeout) + "\" " +
+                    getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1) +
+                    " \"" + getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off) + "\" " +
+                    getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2) +
+                    " \"" + getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\". " +
+                    getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3) +
+                    " \"" + getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
+                    "\"" + getString(R.string.array_pref_hardwareModeArray_off) + "\".";
+            preference.setSummary(summary);
+        }
+
+        if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+            preference = prefMng.findPreference(PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON);
+            if (preference != null) {
+                //preference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                preference.setOnPreferenceClickListener(preference116 -> {
+                    Intent intent = new Intent(context, PhoneProfilesPrefsActivity.class);
+                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO, "specialProfileParametersCategoryRoot");
+                    //intent.putExtra(PhoneProfilesPrefsActivity.EXTRA_SCROLL_TO_TYPE, "screen");
+                    //noinspection deprecation
+                    startActivityForResult(intent, RESULT_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_SETTINGS);
+                    return false;
+                });
+            }
+        }
+        else {
+            preference = findPreference(PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON);
+            if (preference != null) {
+                PreferenceScreen preferenceCategory = findPreference("prf_pref_screenCategory");
+                if (preferenceCategory != null)
+                    preferenceCategory.removePreference(preference);
+            }
+        }
+
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
 
@@ -1224,6 +1294,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.endsWith(Profile.PREF_PROFILE_VOLUME_MUTE_SOUND)) {
             boolean bValue = sharedPreferences.getBoolean(key, false);
             value = Boolean.toString(bValue);
+        }
+        else
+        if (key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)) {
+            value = String.valueOf(sharedPreferences.getInt(key, 0));
         }
         else {
             if (prefMng.findPreference(key) != null)
@@ -1351,9 +1425,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             final String sZenModeType = preferences.getString(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, "");
             setSummary(Profile.PREF_PROFILE_VOLUME_ZEN_MODE, sZenModeType);
         }
-        if (requestCode == ApplicationsDialogPreferenceX.RESULT_APPLICATIONS_EDITOR && resultCode == Activity.RESULT_OK && data != null)
+        if (requestCode == RunApplicationsDialogPreferenceX.RESULT_APPLICATIONS_EDITOR && resultCode == Activity.RESULT_OK && data != null)
         {
-            ApplicationsDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+            RunApplicationsDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
             if (preference != null) {
                 preference.updateShortcut(
                         data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT),
@@ -1373,13 +1447,13 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 ProfilesPrefsFragment.applicationsDialogPreference = null;
             }*/
         }
-        if (requestCode == ApplicationEditorDialogX.RESULT_INTENT_EDITOR) {
+        if (requestCode == RunApplicationEditorDialogX.RESULT_INTENT_EDITOR) {
             if (resultCode == Activity.RESULT_OK) {
-                ApplicationsDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
+                RunApplicationsDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_RUN_APPLICATION_PACKAGE_NAME);
                 if ((preference != null) && (data != null)) {
-                    preference.updateIntent(data.getParcelableExtra(ApplicationEditorDialogX.EXTRA_PP_INTENT),
-                            data.getParcelableExtra(ApplicationEditorDialogX.EXTRA_APPLICATION),
-                            data.getIntExtra(ApplicationEditorIntentActivityX.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0));
+                    preference.updateIntent(data.getParcelableExtra(RunApplicationEditorDialogX.EXTRA_PP_INTENT),
+                            data.getParcelableExtra(RunApplicationEditorDialogX.EXTRA_APPLICATION),
+                            data.getIntExtra(RunApplicationEditorIntentActivityX.EXTRA_DIALOG_PREFERENCE_START_APPLICATION_DELAY, 0));
                 }
             }
         }
@@ -1435,6 +1509,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             ConnectToSSIDDialogPreferenceX preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID);
             if (preference != null)
                 preference.refreshListView();
+        }
+        if (requestCode == RESULT_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_SETTINGS) {
+            setSummary(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS);
         }
     }
 
@@ -1512,8 +1589,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     title = getString(preferenceTitleId);
                     notGrantedG1Permission = notGrantedG1Permission || _notGrantedG1Permission;
                 }
-            }
-            else {
+            } else if (key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)) {
+                title = context.getString(R.string.profile_preferences_exactTime);
+            } else {
                 /*String defaultValue =
                         getResources().getString(
                                 GlobalGUIRoutines.getResourceId(key, "string", context));*/
@@ -1590,37 +1668,73 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         String title;
         String askForDurationTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_ASK_FOR_DURATION, R.string.profile_preferences_askForDuration, false, context);
         if (askForDurationTitle.isEmpty()) {
-            title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION, R.string.profile_preferences_duration, false, context);
-            String afterDurationDoTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_DO, R.string.profile_preferences_afterDurationDo, false, context);
-            if (!title.isEmpty()) {
-                cattegorySummaryData.bold = true;
-                String value = preferences.getString(Profile.PREF_PROFILE_DURATION, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION));
-                if (value != null) {
-                    value = GlobalGUIRoutines.getDurationString(Integer.parseInt(value));
-                    cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b> • ";
+            String value = preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE, Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE));
+            if (value.equals("0")) {
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DURATION, R.string.profile_preferences_duration, false, context);
+                String afterDurationDoTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_DO, R.string.profile_preferences_afterDurationDo, false, context);
+                if (!title.isEmpty()) {
+                    cattegorySummaryData.bold = true;
+                    value = preferences.getString(Profile.PREF_PROFILE_DURATION, Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION));
+                    if (value != null) {
+                        value = GlobalGUIRoutines.getDurationString(Integer.parseInt(value));
+                        cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b> • ";
 
-                    String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
-                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
-                    value = GlobalGUIRoutines.getListPreferenceString(afterDurationDoValue,
-                            R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
-                    cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle + ": <b>" + value + "</b>";
+                        String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
+                        value = GlobalGUIRoutines.getListPreferenceString(afterDurationDoValue,
+                                R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
+                        cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle + ": <b>" + value + "</b>";
 
-                    if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
-                        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
-                        long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
-                        Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
-                        if (profile != null)
-                            value = profile._name;
-                        else {
-                            if (profileId == Profile.PROFILE_NO_ACTIVATE)
-                                value = context.getString(R.string.profile_preference_profile_end_no_activate);
+                        if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
+                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                            long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
+                            Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                            if (profile != null)
+                                value = profile._name;
+                            else {
+                                if (profileId == Profile.PROFILE_NO_ACTIVATE)
+                                    value = context.getString(R.string.profile_preference_profile_end_no_activate);
+                            }
+                            String _title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, R.string.profile_preferences_afterDurationProfile, false, context);
+                            cattegorySummaryData.summary = cattegorySummaryData.summary + " • " + _title + ": <b>" + value + "</b>";
                         }
-                        String _title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, R.string.profile_preferences_afterDurationProfile, false, context);
-                        cattegorySummaryData.summary = cattegorySummaryData.summary + " • " + _title + ": <b>" + value + "</b>";
-                    }
+                    } else
+                        cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle;
                 }
-                else
-                    cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle;
+            } else {
+                title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME, R.string.profile_preferences_exactTime, false, context);
+                String afterDurationDoTitle = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_DO, R.string.profile_preferences_afterExactTimeDo, false, context);
+                if (!title.isEmpty()) {
+                    cattegorySummaryData.bold = true;
+                    //noinspection ConstantConditions
+                    int iValue = preferences.getInt(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME, Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME)));
+                    value = String.valueOf(iValue);
+                    //if (value != null) {
+                        value = GlobalGUIRoutines.getTimeString(Integer.parseInt(value));
+                        cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b> • ";
+
+                        String afterDurationDoValue = preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_DO,
+                                Profile.defaultValuesString.get(Profile.PREF_PROFILE_AFTER_DURATION_DO));
+                        value = GlobalGUIRoutines.getListPreferenceString(afterDurationDoValue,
+                                R.array.afterProfileDurationDoValues, R.array.afterProfileDurationDoArray, context);
+                        cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle + ": <b>" + value + "</b>";
+
+                        if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
+                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                            long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
+                            Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
+                            if (profile != null)
+                                value = profile._name;
+                            else {
+                                if (profileId == Profile.PROFILE_NO_ACTIVATE)
+                                    value = context.getString(R.string.profile_preference_profile_end_no_activate);
+                            }
+                            String _title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, R.string.profile_preferences_afterDurationProfile, false, context);
+                            cattegorySummaryData.summary = cattegorySummaryData.summary + " • " + _title + ": <b>" + value + "</b>";
+                        }
+                    //} else
+                    //    cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle;
+                }
             }
         }
         else {
@@ -2423,6 +2537,19 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                     preferences.getString(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS,
                             Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS)),
                     R.array.networkTypePrefsValues, R.array.networkTypePrefsArray, context);
+
+            cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
+        }
+        title = getCategoryTitleWhenPreferenceChanged(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, R.string.profile_preferences_deviceVPNSettingsPrefs, false, context);
+//            Log.e("ProfilesPrefsFragment.setCategorySummary", "PREF_PROFILE_DEVICE_VPN_SETTINGS_PREF - notGrantedG1Permission="+notGrantedG1Permission);
+        if (!title.isEmpty()) {
+            cattegorySummaryData.bold = true;
+            if (!cattegorySummaryData.summary.isEmpty()) cattegorySummaryData.summary = cattegorySummaryData.summary +" • ";
+
+            String value = GlobalGUIRoutines.getListPreferenceString(
+                    preferences.getString(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS,
+                            Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS)),
+                    R.array.vpnSettingsPrefsValues, R.array.vpnSettingsPrefsArray, context);
 
             cattegorySummaryData.summary = cattegorySummaryData.summary + title + ": <b>" + value + "</b>";
         }
@@ -3760,7 +3887,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_LOCK_DEVICE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WIFI_AP_PREFS) ||
                 key.equals(Profile.PREF_PROFILE_DTMF_TONE_WHEN_DIALING) ||
-                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH))
+                key.equals(Profile.PREF_PROFILE_SOUND_ON_TOUCH) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS))
         {
             PreferenceAllowed preferenceAllowed;
             if (key.equals(Profile.PREF_PROFILE_VIBRATE_WHEN_RINGING)) {
@@ -3958,6 +4086,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 boolean _permissionGranted = permissions.size() == 0;
 
                 GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, change, false, !_permissionGranted, false);
+
+                if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                    preference = prefMng.findPreference(PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON);
+                    if (preference != null) {
+                        boolean forceSetBrightnessAtScreenOn = ApplicationPreferences.applicationForceSetBrightnessAtScreenOn;
+                        String summary = context.getString(R.string.profile_preferences_forceSetBrightnessAtScreenOn_summary);
+                        if (forceSetBrightnessAtScreenOn)
+                            summary = context.getString(R.string.profile_preferences_enabled) + "\n\n" + summary;
+                        else {
+                            summary = context.getString(R.string.profile_preferences_disabled) + "\n\n" + summary;
+                        }
+                        preference.setSummary(summary);
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, forceSetBrightnessAtScreenOn, false, false, false);
+                    }
+                }
+
             }
         }
         if (key.equals(Profile.PREF_PROFILE_APPLICATION_DISABLE_WIFI_SCANNING) ||
@@ -4215,6 +4359,34 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        if (key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE))
+        {
+            String sValue = value.toString();
+            ListPreference listPreference = prefMng.findPreference(key);
+            if (listPreference != null) {
+                int index = listPreference.findIndexOfValue(sValue);
+                CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                listPreference.setSummary(summary);
+//                String durationDefaultValue = Profile.defaultValuesString.get(Profile.PREF_PROFILE_DURATION);
+//                String durationValue = preferences.getString(Profile.PREF_PROFILE_DURATION, durationDefaultValue);
+//                GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true,
+//                        (durationValue != null) && (!durationValue.equals(durationDefaultValue)),
+//                        false, false, false);
+            }
+
+            listPreference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_DO);
+            if (listPreference != null) {
+                sValue = value.toString();
+                if (sValue.equals("1")) {
+                    listPreference.setTitle(R.string.profile_preferences_afterExactTimeDo);
+                    listPreference.setDialogTitle(R.string.profile_preferences_afterExactTimeDo);
+                }
+                else {
+                    listPreference.setTitle(R.string.profile_preferences_afterDurationDo);
+                    listPreference.setDialogTitle(R.string.profile_preferences_afterDurationDo);
+                }
+            }
+        }
 
     }
 
@@ -4434,7 +4606,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID))
+                key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID) ||
+                key.equals(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS))
         {
             PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
             if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED)
@@ -4792,6 +4965,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER);
         setSummary(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER);
         setSummary(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN);
+        setSummary(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS);
+
+        setSummary(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE);
     }
 
     private boolean getEnableVolumeNotificationByRingtone(String ringtoneValue) {
@@ -5029,12 +5205,25 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         if (key.equals(Profile.PREF_PROFILE_DURATION) ||
             key.equals(Profile.PREF_PROFILE_AFTER_DURATION_DO) ||
-            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION)) {
+            key.equals(Profile.PREF_PROFILE_ASK_FOR_DURATION) ||
+            key.equals(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)) {
+
+            String endOfActivationType = preferences.getString(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE, "0");
+            Preference durationPreference = prefMng.findPreference(Profile.PREF_PROFILE_DURATION);
+            Preference endOfActivationTimePreference = prefMng.findPreference(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME);
+            if (durationPreference != null)
+                durationPreference.setEnabled(endOfActivationType.equals("0"));
+            if (endOfActivationTimePreference != null)
+                endOfActivationTimePreference.setEnabled(endOfActivationType.equals("1"));
 
             String duration = preferences.getString(Profile.PREF_PROFILE_DURATION, "0");
             boolean askForDuration = preferences.getBoolean(Profile.PREF_PROFILE_ASK_FOR_DURATION, false);
 
-            boolean enable = (!askForDuration) && (!duration.equals("0"));
+            boolean enable;
+            if (endOfActivationType.equals("0"))
+                enable = (!askForDuration) && (!duration.equals("0"));
+            else
+                enable = true;
 
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_AFTER_DURATION_DO);
             if (preference != null)
@@ -5618,7 +5807,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
         text = layout.findViewById(R.id.install_extender_dialog_github_releases);
         CharSequence str1 = getString(R.string.install_extender_github_releases);
-        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL;
+        CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + " \u21D2";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -5656,15 +5845,51 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 //        });
 
         dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-            String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
-
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            try {
-                startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplication.recordException(e);
+            /*boolean exist = false;
+            if (PPApplication.deviceIsSamsung) {
+                if (getActivity() != null) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
+                    exist = GlobalGUIRoutines.activityIntentExists(intent, getActivity());
+                    Log.e("ProfilesPrefsFragment.installExtender", "exist="+exist);
+                    if (exist) {
+                        try {
+                            getActivity().startActivity(intent);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                            exist = false;
+                        }
+                    }
+                }
             }
+            else
+            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+                if (getActivity() != null) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("appmarket://details?id=sk.henrichg.phoneprofilesplusextender"));
+                    exist = GlobalGUIRoutines.activityIntentExists(intent, getActivity());
+                    Log.e("ProfilesPrefsFragment.installExtender", "exist="+exist);
+                    if (exist) {
+                        try {
+                            getActivity().startActivity(intent);
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
+                            exist = false;
+                        }
+                    }
+                }
+            }
+            if (!exist) {*/
+                String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
+
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    startActivity(Intent.createChooser(i, getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            //}
         });
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         AlertDialog dialog = dialogBuilder.create();

@@ -24,12 +24,14 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.style.BulletSpan;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.StyleSpan;
+import android.text.style.URLSpan;
 import android.text.style.UnderlineSpan;
 import android.util.TypedValue;
 import android.view.View;
@@ -606,6 +608,8 @@ class GlobalGUIRoutines {
         //        htmlSpanned = Html.fromHtml(source);
         //}
 
+        htmlSpanned = removeUnderline(htmlSpanned);
+
         if (forBullets)
             return addBullets(htmlSpanned);
         else
@@ -614,6 +618,30 @@ class GlobalGUIRoutines {
         else
             return  htmlSpanned;
 
+    }
+
+    private static class URLSpanline_none extends URLSpan {
+        public URLSpanline_none(String url) {
+            super(url);
+        }
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            super.updateDrawState(ds);
+            ds.setUnderlineText(false);
+        }
+    }
+
+    private static SpannableStringBuilder removeUnderline(Spanned htmlSpanned) {
+        SpannableStringBuilder spannableBuilder = new SpannableStringBuilder(htmlSpanned);
+        URLSpan[] spans = spannableBuilder.getSpans(0, spannableBuilder.length(), URLSpan.class);
+        for (URLSpan span: spans) {
+            int start = spannableBuilder.getSpanStart(span);
+            int end = spannableBuilder.getSpanEnd(span);
+            spannableBuilder.removeSpan(span);
+            span = new URLSpanline_none(span.getURL());
+            spannableBuilder.setSpan(span, start, end, 0);
+        }
+        return spannableBuilder;
     }
 
     private static SpannableStringBuilder addBullets(Spanned htmlSpanned) {

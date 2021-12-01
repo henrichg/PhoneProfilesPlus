@@ -889,11 +889,13 @@ class EventPreferencesOrientation extends EventPreferences {
                                     if (!foregroundApplication.isEmpty()) {
                                         String[] splits = _ignoredApplications.split("\\|");
                                         for (String split : splits) {
-                                            String packageName = Application.getPackageName(split);
+                                            if (!split.isEmpty()) {
+                                                String packageName = Application.getPackageName(split);
 
-                                            if (foregroundApplication.equals(packageName)) {
-                                                lApplicationPassed = true;
-                                                break;
+                                                if (foregroundApplication.equals(packageName)) {
+                                                    lApplicationPassed = true;
+                                                    break;
+                                                }
                                             }
                                         }
                                     }
@@ -919,19 +921,22 @@ class EventPreferencesOrientation extends EventPreferences {
                                             configuredDisplay = true;
                                             //lDisplayPassed = false;
                                             for (String split : splits) {
-                                                try {
-                                                    int side = -1;
+                                                if (!split.isEmpty()) {
                                                     try {
-                                                        side = Integer.parseInt(split);
-                                                    } catch (NumberFormatException ignored) {}
-                                                    if (side > -1) {
-                                                        if (side == PPApplication.handlerThreadOrientationScanner.resultDisplayUp) {
-                                                            lDisplayPassed = true;
-                                                            break;
+                                                        int side = -1;
+                                                        try {
+                                                            side = Integer.parseInt(split);
+                                                        } catch (NumberFormatException ignored) {
                                                         }
+                                                        if (side > -1) {
+                                                            if (side == PPApplication.handlerThreadOrientationScanner.resultDisplayUp) {
+                                                                lDisplayPassed = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                    } catch (Exception e) {
+                                                        PPApplication.recordException(e);
                                                     }
-                                                } catch (Exception e) {
-                                                    PPApplication.recordException(e);
                                                 }
                                             }
                                         }
@@ -946,26 +951,29 @@ class EventPreferencesOrientation extends EventPreferences {
                                             configuredSide = true;
                                             //lSidePassed = false;
                                             for (String split : splits) {
-                                                try {
-                                                    int side = -1;
+                                                if (!split.isEmpty()) {
                                                     try {
-                                                        side = Integer.parseInt(split);
-                                                    } catch (NumberFormatException ignored) {}
-                                                    if (side > -1) {
-                                                        if (side == OrientationScannerHandlerThread.DEVICE_ORIENTATION_HORIZONTAL) {
-                                                            if (PPApplication.handlerThreadOrientationScanner.resultSideUp == PPApplication.handlerThreadOrientationScanner.resultDisplayUp) {
-                                                                lSidePassed = true;
-                                                                break;
-                                                            }
-                                                        } else {
-                                                            if (side == PPApplication.handlerThreadOrientationScanner.resultSideUp) {
-                                                                lSidePassed = true;
-                                                                break;
+                                                        int side = -1;
+                                                        try {
+                                                            side = Integer.parseInt(split);
+                                                        } catch (NumberFormatException ignored) {
+                                                        }
+                                                        if (side > -1) {
+                                                            if (side == OrientationScannerHandlerThread.DEVICE_ORIENTATION_HORIZONTAL) {
+                                                                if (PPApplication.handlerThreadOrientationScanner.resultSideUp == PPApplication.handlerThreadOrientationScanner.resultDisplayUp) {
+                                                                    lSidePassed = true;
+                                                                    break;
+                                                                }
+                                                            } else {
+                                                                if (side == PPApplication.handlerThreadOrientationScanner.resultSideUp) {
+                                                                    lSidePassed = true;
+                                                                    break;
+                                                                }
                                                             }
                                                         }
+                                                    } catch (Exception e) {
+                                                        PPApplication.recordException(e);
                                                     }
-                                                } catch (Exception e) {
-                                                    PPApplication.recordException(e);
                                                 }
                                             }
                                         }

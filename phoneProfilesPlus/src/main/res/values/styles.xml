@@ -169,4 +169,10 @@
 <!--        <item name="contentInsetEnd">0dp</item>-->
     </style>
 
+    <style name="DialogActivityTitleStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textSize">18sp</item>
+<!--        <item name="android:singleLine">false</item>-->
+<!--        <item name="android:maxLines">2</item>-->
+    </style>
+
 </resources>

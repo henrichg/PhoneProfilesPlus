@@ -44,6 +44,9 @@ class ApplicationPreferences {
     static boolean prefEventWifiEnabledForScan;
     //static boolean prefShowCriticalGitHubReleasesNotificationNotification;
     static int prefShowCriticalGitHubReleasesCodeNotification;
+    static long prefEventAlarmClockTime;
+    static String prefEventAlarmClockPackageName;
+    static boolean keepScreenOnPermanent;
 
     static boolean applicationEventNeverAskForEnableRun;
     static boolean applicationNeverAskForGrantRoot;
@@ -209,6 +212,9 @@ class ApplicationPreferences {
     static boolean applicationApplicationInterfaceNotificationVibrate;
     static boolean applicationActivatorAddRestartEventsIntoProfileList;
     static boolean applicationActivatorIncreaseBrightness;
+    static boolean applicationWidgetOneRowHigherLayout;
+    static boolean applicationWidgetChangeColorsByNightMode;
+    static boolean applicationForceSetBrightnessAtScreenOn;
 
     static String applicationEventPeriodicScanningScanInTimeMultiply;
     static int applicationEventPeriodicScanningScanInTimeMultiplyFrom;
@@ -431,6 +437,7 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_APPLICATION_INTERFACE_NOTIFICATION_VIBRATE = "applicationApplicationInterfaceNotificationVibrate";
     static final String PREF_APPLICATION_ACTIVATOR_ADD_RESTART_EVENTS_INTO_PROFILE_LIST = "applicationActivatorAddRestartEventsIntoProfileList";
     static final String PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS = "applicationActivatorIncreaseBrightness";
+    static final String PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "applicationForceSetBrightnessAtScreenOn";
 
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY = "applicationEventPeriodicScanningScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventPeriodicScanningScanInTimeMultiplyFrom";
@@ -453,7 +460,10 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY = "applicationEventWifiScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventWifiScanInTimeMultiplyFrom";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventWifiScanInTimeMultiplyTo";
+
     static final String PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON = "notificationShowRestartEventsAsButton";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT = "applicationWidgetOneRowHigherLayout";
+    static final String PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetChangeColorsByNightMode";
 
     static final String PREF_QUICK_TILE_PROFILE_ID = "quickTileProfileId";
 
@@ -627,6 +637,16 @@ class ApplicationPreferences {
 
     static void notificationStatusBarStyle(Context context) {
         notificationStatusBarStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_STATUS_BAR_STYLE, "1");
+        // Native (1) is OK, becuse in Pixel 5 with Android 12, Colorful (0) not working, icon is not displayed.
+        // But by me, it is bug in Pixel 5, because in my Pixel 3a working also Colorful.
+        if (PPApplication.deviceIsPixel && (Build.VERSION.SDK_INT >= 31) &&
+                notificationStatusBarStyle.equals("0")) {
+            SharedPreferences prefs = getSharedPreferences(context);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString(PREF_NOTIFICATION_STATUS_BAR_STYLE, "1");
+            editor.apply();
+            notificationStatusBarStyle = "1";
+        }
     }
 
     static void notificationShowInStatusBar(Context context) {
@@ -634,7 +654,7 @@ class ApplicationPreferences {
     }
 
     static void notificationTextColor(Context context) {
-        // default value for Pixel (Android 12) -> 0 (native)
+        // default value for Pixel (Android 12+) -> 0 (native)
         notificationTextColor = getSharedPreferences(context).getString(PREF_NOTIFICATION_TEXT_COLOR, "0");
     }
 
@@ -662,7 +682,11 @@ class ApplicationPreferences {
     }
 
     static void applicationWidgetListBackground(Context context) {
-        applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, "25");
+       if (PPApplication.isPixelLauncherDefault(context) ||
+               PPApplication.isOneUILauncherDefault(context))
+           applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, "100");
+       else
+           applicationWidgetListBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_LIST_BACKGROUND, "25");
     }
 
     static void applicationWidgetListLightnessB(Context context) {
@@ -703,7 +727,21 @@ class ApplicationPreferences {
     */
 
     static void notificationPrefIndicator(Context context) {
-        notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, true);
+        if (PPApplication.deviceIsSamsung && (Build.VERSION.SDK_INT >= 31)) {
+            // default value for One UI 4 is better 1 (native)
+            if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_PREF_INDICATOR)) {
+                // not contains this preference set to false
+                SharedPreferences prefs = getSharedPreferences(context);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean(PREF_NOTIFICATION_PREF_INDICATOR, false);
+                editor.apply();
+                notificationPrefIndicator = false;
+            }
+            else
+                notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, false);
+        }
+        else
+            notificationPrefIndicator = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_PREF_INDICATOR, true);
     }
 
     static void notificationPrefIndicatorLightness(Context context) {
@@ -833,7 +871,11 @@ class ApplicationPreferences {
     }
 
     static void applicationWidgetIconBackground(Context context) {
-        applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, "25");
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
+            applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, "100");
+        else
+            applicationWidgetIconBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ICON_BACKGROUND, "25");
     }
 
     static void applicationWidgetIconLightnessB(Context context) {
@@ -1032,7 +1074,11 @@ class ApplicationPreferences {
     }
 
     static void applicationWidgetOneRowBackground(Context context) {
-        applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, "25");
+        if (PPApplication.isPixelLauncherDefault(context) ||
+                PPApplication.isOneUILauncherDefault(context))
+            applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, "100");
+        else
+            applicationWidgetOneRowBackground = getSharedPreferences(context).getString(PREF_APPLICATION_WIDGET_ONE_ROW_BACKGROUND, "25");
     }
 
     static void applicationWidgetOneRowLightnessB(Context context) {
@@ -1111,17 +1157,17 @@ class ApplicationPreferences {
     */
 
     static void notificationUseDecoration(Context context) {
-        // default value for Pixel (Android 12) -> true
+        // default value for Pixel (Android 12+) -> true
         notificationUseDecoration = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_USE_DECORATION, true);
     }
 
     static void notificationLayoutType(Context context) {
-        // default value for Pixel (Android 12) -> 0 (expandable)
+        // default value for Pixel (Android 12+) -> 0 (expandable)
         notificationLayoutType = getSharedPreferences(context).getString(PREF_NOTIFICATION_LAYOUT_TYPE, "0");
     }
 
     static void notificationBackgroundColor(Context context) {
-        // default value for Pixel (Android 12) -> 0 (native)
+        // default value for Pixel (Android 12+) -> 0 (native)
         notificationBackgroundColor = getSharedPreferences(context).getString(PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
     }
 
@@ -1157,12 +1203,28 @@ class ApplicationPreferences {
     }
 
     static void notificationNotificationStyle(Context context) {
-        // default value for Pixel (Android 12) -> 0 (custom)
-        notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "0");
+        if (PPApplication.deviceIsSamsung && (Build.VERSION.SDK_INT >= 31)) {
+            // default value for One UI 4 is better 1 (native)
+            if (!getSharedPreferences(context).contains(PREF_NOTIFICATION_NOTIFICATION_STYLE)) {
+                // not contains this preference set to 1
+                SharedPreferences prefs = getSharedPreferences(context);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "1");
+                editor.apply();
+                notificationNotificationStyle = "1";
+            }
+            else
+                notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "1");
+        }
+        else
+            // default value for Pixel (Android 12) -> 0 (custom)
+            notificationNotificationStyle = getSharedPreferences(context).getString(PREF_NOTIFICATION_NOTIFICATION_STYLE, "0");
     }
 
     static void notificationShowProfileIcon(Context context) {
-        notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON, true);
+        // show profile icon for Android 12+ is better false
+        notificationShowProfileIcon = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                Build.VERSION.SDK_INT < 31);
     }
 
     static void applicationEventPeriodicScanningEnableScanning(Context context) {
@@ -1229,7 +1291,11 @@ class ApplicationPreferences {
         applicationActivatorIncreaseBrightness = getSharedPreferences(context).getBoolean(PREF_APPLICATION_ACTIVATOR_INCREASE_BRIGHTNESS, false);
     }
 
+    static void applicationForceSetBrightnessAtScreenOn(Context context) {
+        applicationForceSetBrightnessAtScreenOn = getSharedPreferences(context).getBoolean(PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, false);
+    }
 
+    //---
     static void applicationEventPeriodicScanningScanInTimeMultiply(Context context) {
         applicationEventPeriodicScanningScanInTimeMultiply = getSharedPreferences(context).getString(PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY, "0");
     }
@@ -1317,6 +1383,23 @@ class ApplicationPreferences {
     static void notificationShowRestartEventsAsButton(Context context) {
         notificationShowRestartEventsAsButton = getSharedPreferences(context).getBoolean(PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON,
                 Build.VERSION.SDK_INT >= 31);
+    }
+
+    static void applicationWidgetOneRowHigherLayout(Context context) {
+        applicationWidgetOneRowHigherLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, false);
+    }
+
+    static void applicationWidgetChangeColorsByNightMode(Context context) {
+        /*if (DebugVersion.enabled) {
+            SharedPreferences mySPrefs = getSharedPreferences(context);
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.remove(PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE);
+            editor.apply();
+        }*/
+
+        applicationWidgetChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                PPApplication.isPixelLauncherDefault(context) ||
+                        PPApplication.isOneUILauncherDefault(context));
     }
 
     static void loadStartTargetHelps(Context context) {

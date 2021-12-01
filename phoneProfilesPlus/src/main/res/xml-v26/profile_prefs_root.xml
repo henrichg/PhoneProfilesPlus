@@ -34,7 +34,7 @@
         app:layout="@layout/mp_preference_category" >
 
         <Preference
-            app:title="@string/profile_preferences_category_activation_duration"
+            app:title="@string/profile_preferences_category_end_of_activation"
             app:key="prf_pref_activationDurationCategoryRoot"
             app:widgetLayout="@layout/widget_start_activity_preference"
             app:layout="@layout/mp_preference_material_widget"

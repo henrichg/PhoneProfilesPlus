@@ -73,7 +73,7 @@ public class BootUpReceiver extends BroadcastReceiver {
 
                             PPApplication.deviceBoot = true;
 
-                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, null, 0, "");
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_APPLICATION_START_ON_BOOT, null, null, "");
 
                             boolean serviceStarted = PhoneProfilesService.isServiceRunning(appContext, PhoneProfilesService.class, false);
                             PPApplication.logE("BootUpReceiver.onReceive", "serviceStarted=" + serviceStarted);
@@ -108,7 +108,7 @@ public class BootUpReceiver extends BroadcastReceiver {
                                 }
                             }
                             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
-                            PPApplication.exitApp(false, appContext, dataWrapper, null, false/*, true, true*/);
+                            PPApplication.exitApp(false, appContext, dataWrapper, null, false, true);
                         }
 
                         //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=BootUpReceiver.onReceive2");

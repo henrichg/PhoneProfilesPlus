@@ -3,19 +3,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/shortcut_list_item_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="48dp"
     android:paddingStart="5dp"
     android:paddingEnd="5dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
     android:orientation="horizontal" >
+
+    <RadioButton
+        android:id="@+id/shortcut_list_item_radiobtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/chackBox_radioButton_spacing_for_list_items"
+        android:layout_centerVertical="true"
+        android:checked="false"
+        android:focusable="false" />
 
     <ImageView
         android:id="@+id/shortcut_list_item_profile_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="3dp"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/shortcut_list_item_radiobtn"
         android:adjustViewBounds="true"
         android:contentDescription="@string/profile_preferences_profileIcon"
         android:scaleType="fitCenter"

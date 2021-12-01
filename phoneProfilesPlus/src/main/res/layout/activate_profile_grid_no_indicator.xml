@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_activator_list_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:animateLayoutChanges="true" >
+    android:animateLayoutChanges="true"
+    tools:context=".ActivateProfileActivity" >
 
     <RelativeLayout
         android:id="@+id/act_prof_header"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_marginBottom="5dp"
         android:padding="6dp" >
 
@@ -21,8 +22,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
+            android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default" />
 
@@ -64,11 +65,11 @@
             android:id="@+id/act_prof_profiles_grid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:columnWidth="100dp"
+            android:columnWidth="60dp"
             android:gravity="center"
             android:horizontalSpacing="@dimen/gridView_horizontalSpacing"
             android:verticalSpacing="1dp"
-            android:numColumns="4"
+            android:numColumns="3"
             android:stretchMode="columnWidth"
             android:clipToPadding="false"
             android:scrollbarStyle="outsideOverlay"

@@ -51,7 +51,7 @@ public class ExitApplicationActivity extends AppCompatActivity {
 
             DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
             //PPApplication.logE("PPApplication.exitApp", "from ExitApplicationActivity.onStart shutdown=false");
-            PPApplication.exitApp(true, appContext, dataWrapper, ExitApplicationActivity.this, false/*, true, true*/);
+            PPApplication.exitApp(true, appContext, dataWrapper, ExitApplicationActivity.this, false, true);
 
             // close activities
             Intent intent = new Intent(PPApplication.ACTION_FINISH_ACTIVITY);

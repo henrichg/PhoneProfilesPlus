@@ -211,13 +211,13 @@ public class EditorEventListFragment extends Fragment
     @SuppressLint({"AlwaysShowAction", "SetTextI18n"})
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
-        profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
+        profilePrefIndicatorImageView = view.findViewById(R.id.editor_events_activated_profile_pref_indicator);
         if (!ApplicationPreferences.applicationEditorPrefIndicator)
             profilePrefIndicatorImageView.setVisibility(GONE);
 
 
-        activeProfileName = view.findViewById(R.id.activated_profile_name);
-        activeProfileIcon = view.findViewById(R.id.activated_profile_icon);
+        activeProfileName = view.findViewById(R.id.editor_events_activated_profile_name);
+        activeProfileIcon = view.findViewById(R.id.editor_events_activated_profile_icon);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_events_list);
@@ -225,8 +225,8 @@ public class EditorEventListFragment extends Fragment
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
-        activatedProfileHeader = view.findViewById(R.id.activated_profile_header);
-        bottomToolbar = view.findViewById(R.id.editor_list_bottom_bar);
+        activatedProfileHeader = view.findViewById(R.id.editor_events_activated_profile_header);
+        bottomToolbar = view.findViewById(R.id.editor_events_list_bottom_bar);
 
         //noinspection ConstantConditions
         if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
@@ -408,20 +408,20 @@ public class EditorEventListFragment extends Fragment
 
         orderSelectedItem = ApplicationPreferences.editorOrderSelectedItem;
 
-        LinearLayout bottomBarOrderRoot = view.findViewById(R.id.editor_list_bottom_bar_order_root);
+        LinearLayout bottomBarOrderRoot = view.findViewById(R.id.editor_events_list_bottom_bar_order_root);
         if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
             bottomBarOrderRoot.setVisibility(View.INVISIBLE); // MUST BE INVISIBLE, required for showTargetHelps().
         else
             bottomBarOrderRoot.setVisibility(VISIBLE);
 
-        orderSpinner = view.findViewById(R.id.editor_list_bottom_bar_order);
+        orderSpinner = view.findViewById(R.id.editor_events_list_bottom_bar_order);
 
 //        if (filterType == EditorEventListFragment.FILTER_TYPE_START_ORDER)
 //            orderSpinner.setVisibility(View.INVISIBLE); // MUST BE INVISIBLE, required for shoTargetHelps().
 //        else
 //            orderSpinner.setVisibility(VISIBLE);
 
-        TextView orderLabel = view.findViewById(R.id.editor_list_bottom_bar_order_title);
+        TextView orderLabel = view.findViewById(R.id.editor_events_list_bottom_bar_order_title);
         orderLabel.setText(getString(R.string.editor_drawer_title_events_order) + ":");
 
         String[] orderItems = new String[] {
@@ -871,7 +871,7 @@ public class EditorEventListFragment extends Fragment
             // event not exists
             return;
 
-        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_EVENT_DELETED, event._name, null, null, 0, "");
+        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_EVENT_DELETED, event._name, null, "");
 
         listView.getRecycledViewPool().clear();
 
@@ -1002,7 +1002,7 @@ public class EditorEventListFragment extends Fragment
             dialogBuilder.setMessage(getString(R.string.alert_message_delete_all_events));
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, null, 0, "");
+                PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_EVENTS_DELETED, null, null, "");
 
                 listView.getRecycledViewPool().clear();
 
@@ -1081,6 +1081,10 @@ public class EditorEventListFragment extends Fragment
         else
         {
             Spannable profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, false, false, activityDataWrapper);
+            //Log.e("EditorEventListFragment.updateHeader", "profileName="+profileName);
+            //Log.e("EditorEventListFragment.updateHeader", "activityDataWrapper="+activityDataWrapper);
+            //String eventName1 = DataWrapper._getLastStartedEventName(activityDataWrapper, profile);
+            //Log.e("EditorEventListFragment.updateHeader", "eventName1="+eventName1);
             Spannable sbt = new SpannableString(profileName);
             Object[] spansToRemove = sbt.getSpans(0, profileName.length(), Object.class);
             for (Object span : spansToRemove) {
@@ -2048,6 +2052,12 @@ public class EditorEventListFragment extends Fragment
                     profileFromDB = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
                     dataWrapper.getEventTimelineList(true);
 
+                    // must be refreshed timelinelist for fragment.activityDataWrapper
+                    EditorEventListFragment fragment = fragmentWeakRef.get();
+                    if (fragment != null) {
+                        fragment.activityDataWrapper.getEventTimelineList(true);
+                    }
+
                     if (profileFromDB != null) {
                         profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, true,
                                 ApplicationPreferences.applicationEditorPrefIndicator, false);
@@ -2178,7 +2188,7 @@ public class EditorEventListFragment extends Fragment
                 if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
                     try {
                         //if (activatedProfileHeader.isVisibleToUser()) {
-                        TextView redText = fragment.activatedProfileHeader.findViewById(R.id.activated_profile_red_text);
+                        TextView redText = fragment.activatedProfileHeader.findViewById(R.id.editor_events_activated_profile_red_text);
                         if (redTextVisible)
                             redText.setVisibility(View.VISIBLE);
                         else

@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,9 +39,12 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
     private int defaultValue;
     private boolean savedInstanceState;
 
+    private final Context prefContext;
 
     public CustomColorDialogPreferenceX(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        prefContext = context;
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs,
                 R.styleable.ChromaPreference);
@@ -103,8 +107,19 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
                 colorPreview.setImageResource(R.drawable.acch_circle);
 
                 // Update color
-                colorPreview.getDrawable()
-                        .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
+                int nightModeFlags =
+                        prefContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                switch (nightModeFlags) {
+                    case Configuration.UI_MODE_NIGHT_YES:
+                        colorPreview.getDrawable()
+                                .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.ADD));
+                        break;
+                    case Configuration.UI_MODE_NIGHT_NO:
+                    case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                        colorPreview.getDrawable()
+                                .setColorFilter(new PorterDuffColorFilter(color, PorterDuff.Mode.MULTIPLY));
+                        break;
+                }
 
                 // Bitmap to crop for background
                 Bitmap draughtboard = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.acch_draughtboard);

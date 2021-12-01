@@ -117,6 +117,9 @@ public class Profile {
     int _vibrateNotifications;
     String _deviceWallpaperFolder;
     int _applicationDisableGloabalEventsRun;
+    int _deviceVPNSettingsPrefs;
+    int _endOfActivationType;
+    int _endOfActivationTime;
 
     Bitmap _iconBitmap;
     Bitmap _preferencesIndicator;
@@ -223,6 +226,9 @@ public class Profile {
     static final String PREF_PROFILE_DEVICE_LIVE_WALLPAPER = "prf_pref_deviceLiveWallpaper";
     static final String PREF_PROFILE_DEVICE_WALLPAPER_FOLDER = "prf_pref_deviceWallpaperFolder";
     static final String PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN = "prf_pref_applicationDisableGloabalEventsRun";
+    static final String PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS = "prf_pref_deviceVPNSettingsPrefs";
+    static final String PREF_PROFILE_END_OF_ACTIVATION_TYPE = "prf_pref_endOfActivationType";
+    static final String PREF_PROFILE_END_OF_ACTIVATION_TIME = "prf_pref_endOfActivationTime";
 
     static final HashMap<String, Boolean> defaultValuesBoolean;
     static {
@@ -329,6 +335,9 @@ public class Profile {
         defaultValuesString.put(PREF_PROFILE_VIBRATE_NOTIFICATIONS, "0");
         defaultValuesString.put(PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, "-");
         defaultValuesString.put(PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, "0");
+        defaultValuesString.put(PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, "0");
+        defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TYPE, "0");
+        defaultValuesString.put(PREF_PROFILE_END_OF_ACTIVATION_TIME, "0");
     }
 
     static final int RINGERMODE_RING = 1;
@@ -1006,7 +1015,10 @@ public class Profile {
                    String deviceLiveWallpaper,
                    int vibrateNotifications,
                    String deviceWallpaperFolder,
-                   int applicationDisableGlobalEventsRun
+                   int applicationDisableGlobalEventsRun,
+                   int deviceVPNSettingsPrefs,
+                   int endOfActivationType,
+                   int endOfActivationTime
             )
     {
         this._id = id;
@@ -1107,6 +1119,9 @@ public class Profile {
         this._vibrateNotifications = vibrateNotifications;
         this._deviceWallpaperFolder = deviceWallpaperFolder;
         this._applicationDisableGloabalEventsRun = applicationDisableGlobalEventsRun;
+        this._deviceVPNSettingsPrefs = deviceVPNSettingsPrefs;
+        this._endOfActivationType = endOfActivationType;
+        this._endOfActivationTime = endOfActivationTime;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1211,7 +1226,10 @@ public class Profile {
                    String deviceLiveWallpaper,
                    int vibrateNotifications,
                    String deviceWallpaperFolder,
-                   int applicationDisableGlobalEventsRun
+                   int applicationDisableGlobalEventsRun,
+                   int deviceVPNSettingsPrefs,
+                   int endOfActivationType,
+                   int endOfActivationTime
     )
     {
         this._name = name;
@@ -1311,6 +1329,9 @@ public class Profile {
         this._vibrateNotifications = vibrateNotifications;
         this._deviceWallpaperFolder = deviceWallpaperFolder;
         this._applicationDisableGloabalEventsRun = applicationDisableGlobalEventsRun;
+        this._deviceVPNSettingsPrefs = deviceVPNSettingsPrefs;
+        this._endOfActivationType = endOfActivationType;
+        this._endOfActivationTime = endOfActivationTime;
 
         this._iconBitmap = null;
         this._preferencesIndicator = null;
@@ -1417,6 +1438,9 @@ public class Profile {
         this._vibrateNotifications = profile._vibrateNotifications;
         this._deviceWallpaperFolder = profile._deviceWallpaperFolder;
         this._applicationDisableGloabalEventsRun = profile._applicationDisableGloabalEventsRun;
+        this._deviceVPNSettingsPrefs = profile._deviceVPNSettingsPrefs;
+        this._endOfActivationType = profile._endOfActivationType;
+        this._endOfActivationTime = profile._endOfActivationTime;
 
         this._iconBitmap = profile._iconBitmap;
         this._preferencesIndicator = profile._preferencesIndicator;
@@ -1462,13 +1486,19 @@ public class Profile {
                     this._duration = withProfile._duration;
                     this._afterDurationDo = withProfile._afterDurationDo;
                     this._afterDurationProfile = withProfile._afterDurationProfile;
+                    this._endOfActivationType = withProfile._endOfActivationType;
+                    this._endOfActivationTime = withProfile._endOfActivationTime;
                 } else {
                     this._duration = 0;
                     this._afterDurationDo = AFTER_DURATION_DO_RESTART_EVENTS;
                     this._afterDurationProfile = PROFILE_NO_ACTIVATE;
+                    this._endOfActivationType = 0; // default is duration
+                    this._endOfActivationTime = 0;
                 }
+
                 this._durationNotificationSound = withProfile._durationNotificationSound;
                 this._durationNotificationVibrate = withProfile._durationNotificationVibrate;
+
                 this._hideStatusBarIcon = withProfile._hideStatusBarIcon;
                 this._deviceConnectToSSID = withProfile._deviceConnectToSSID;
                 this._activationByUserCount = withProfile._activationByUserCount;
@@ -1757,6 +1787,8 @@ public class Profile {
                     this._soundSameRingtoneForBothSIMCards = withProfile._soundSameRingtoneForBothSIMCards;
                 if (withProfile._applicationDisableGloabalEventsRun != 0)
                     this._applicationDisableGloabalEventsRun = withProfile._applicationDisableGloabalEventsRun;
+                if (withProfile._deviceVPNSettingsPrefs != 0)
+                    this._deviceVPNSettingsPrefs = withProfile._deviceVPNSettingsPrefs;
 
                 if (withProfile._volumeMuteSound)
                     this._volumeMuteSound = true;
@@ -1784,6 +1816,9 @@ public class Profile {
         }
     }
 
+    // compare profies for check if withProfile has any change
+    // used for profilie activation by event
+    // return: false = compared profiles are not the same
     @SuppressWarnings("RedundantIfStatement")
     boolean compareProfile(Profile withProfile)
     {
@@ -1798,10 +1833,32 @@ public class Profile {
             }
 
             if (this._afterDurationDo == AFTER_DURATION_DO_SPECIFIC_PROFILE) {
-                if (this._duration > 0) {
-                    if (this._afterDurationDo != withProfile._afterDurationDo) {
-                        //PPApplication.logE("$$$ compareProfiles","_afterDurationDo");
-                        return false;
+                if (this._endOfActivationType == 0) {
+                    // duration
+                    if (this._duration > 0) {
+                        if (this._afterDurationDo != withProfile._afterDurationDo) {
+                            //PPApplication.logE("$$$ compareProfiles","_afterDurationDo");
+                            return false;
+                        }
+                    }
+                }
+                else
+                if (this._endOfActivationType == 1) {
+                    // exact time
+                    Calendar now = Calendar.getInstance();
+
+                    Calendar configuredTime = Calendar.getInstance();
+                    configuredTime.set(Calendar.HOUR_OF_DAY, this._endOfActivationTime / 60);
+                    configuredTime.set(Calendar.MINUTE, this._endOfActivationTime % 60);
+                    configuredTime.set(Calendar.SECOND, 0);
+                    configuredTime.set(Calendar.MILLISECOND, 0);
+
+                    if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
+                        // configured time is not expired
+                        if (this._afterDurationDo != withProfile._afterDurationDo) {
+                            //PPApplication.logE("$$$ compareProfiles","_afterDurationDo");
+                            return false;
+                        }
                     }
                 }
             }
@@ -2179,7 +2236,10 @@ public class Profile {
                 //PPApplication.logE("$$$ compareProfiles","_applicationDisableGloabalEventsRun");
                 return false;
             }
-
+            if (this._deviceVPNSettingsPrefs != withProfile._deviceVPNSettingsPrefs) {
+                //PPApplication.logE("$$$ compareProfiles","_deviceVPNSettingsPrefs");
+                return false;
+            }
 
             return true;
         }
@@ -3371,17 +3431,51 @@ public class Profile {
                 durationString = "[ " + context.getString(R.string.profile_event_name_ask_for_duration) + " ]";
         }
         else
-        if ((_duration > 0) && (_afterDurationDo != AFTER_DURATION_DO_NOTHING)) {
-            boolean showEndTime = false;
-            if (_checked) {
-                long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
-                if (endDurationTime > 0) {
-                    durationString = "(" + context.getString(R.string.duration_end_acronym) +": " + timeDateStringFromTimestamp(context, endDurationTime) + ")";
-                    showEndTime = true;
+        if (_endOfActivationType == 0) {
+            if ((_duration > 0) && (_afterDurationDo != AFTER_DURATION_DO_NOTHING)) {
+                boolean showEndTime = false;
+                if (_checked) {
+                    long endDurationTime = ApplicationPreferences.prefActivatedProfileEndDurationTime;
+                    if (endDurationTime > 0) {
+                        durationString = "(" + context.getString(R.string.duration_end_acronym) + ": " +
+                                timeDateStringFromTimestamp(context, endDurationTime) + ")";
+                        showEndTime = true;
+                    }
+                }
+                if (!showEndTime) {
+                    durationString = "[" + context.getString(R.string.end_of_activation_duration_acronym) + ": " + GlobalGUIRoutines.getDurationString(_duration) + "]";
                 }
             }
-            if (!showEndTime) {
-                durationString = "[" + GlobalGUIRoutines.getDurationString(_duration) + "]";
+        }
+        else
+        if (_endOfActivationType == 1) {
+            if (_afterDurationDo != AFTER_DURATION_DO_NOTHING) {
+                boolean showEndTime = false;
+                if (_checked) {
+                    // saved was configured ond of activation time
+                    // (look at ProfileDurationAlarmBroadcastReceiver.setAlarm())
+                    int endOfActivationTime = (int)ApplicationPreferences.prefActivatedProfileEndDurationTime;
+                    if (endOfActivationTime > 0) {
+                        Calendar now = Calendar.getInstance();
+
+                        Calendar configuredTime = Calendar.getInstance();
+                        configuredTime.set(Calendar.HOUR_OF_DAY, endOfActivationTime / 60);
+                        configuredTime.set(Calendar.MINUTE, endOfActivationTime % 60);
+                        configuredTime.set(Calendar.SECOND, 0);
+                        configuredTime.set(Calendar.MILLISECOND, 0);
+
+                        if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
+                            // configured time is not expired
+                            durationString = "(" + context.getString(R.string.end_of_activation_time_end_acronym) + ": " +
+                                    GlobalGUIRoutines.getTimeString(endOfActivationTime) + ")";
+                            showEndTime = true;
+                        }
+                    }
+                }
+                if (!showEndTime) {
+                    if (!_checked)
+                        durationString = "[" + context.getString(R.string.end_of_activation_time_acronym) + ": " + GlobalGUIRoutines.getTimeString(_endOfActivationTime) + "]";
+                }
             }
         }
         int startSpan = profileName.length();
@@ -3442,6 +3536,7 @@ public class Profile {
         return timeDate.concat(AmPm);
     }
 
+    // this change old, no longer used SHARED_PROFILE_VALUE to "Not used" value
     static Profile removeSharedProfileParameters(Profile profile)
     {
         final int SHARED_PROFILE_VALUE = 99;
@@ -3550,7 +3645,10 @@ public class Profile {
                     profile._deviceLiveWallpaper,
                     profile._vibrateNotifications,
                     profile._deviceWallpaperFolder,
-                    profile._applicationDisableGloabalEventsRun
+                    profile._applicationDisableGloabalEventsRun,
+                    profile._deviceVPNSettingsPrefs,
+                    profile._endOfActivationType,
+                    profile._endOfActivationTime
             );
 
             if (profile._volumeRingerMode == SHARED_PROFILE_VALUE)
@@ -3697,6 +3795,8 @@ public class Profile {
         editor.putString(PREF_PROFILE_DURATION, Integer.toString(this._duration));
         editor.putString(PREF_PROFILE_AFTER_DURATION_DO, Integer.toString(this._afterDurationDo));
         editor.putBoolean(PREF_PROFILE_ASK_FOR_DURATION, this._askForDuration);
+        editor.putString(PREF_PROFILE_END_OF_ACTIVATION_TYPE, Integer.toString(this._endOfActivationType));
+        editor.putInt(PREF_PROFILE_END_OF_ACTIVATION_TIME, this._endOfActivationTime);
         editor.putString(PREF_PROFILE_DURATION_NOTIFICATION_SOUND, this._durationNotificationSound);
         editor.putBoolean(PREF_PROFILE_DURATION_NOTIFICATION_VIBRATE, this._durationNotificationVibrate);
         editor.putBoolean(PREF_PROFILE_HIDE_STATUS_BAR_ICON, this._hideStatusBarIcon);
@@ -3793,6 +3893,7 @@ public class Profile {
         editor.putString(PREF_PROFILE_DEVICE_LIVE_WALLPAPER, this._deviceLiveWallpaper);
         editor.putString(PREF_PROFILE_DEVICE_WALLPAPER_FOLDER, this._deviceWallpaperFolder);
         editor.putString(PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, Integer.toString(this._applicationDisableGloabalEventsRun));
+        editor.putString(PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, Integer.toString(this._deviceVPNSettingsPrefs));
 
         editor.apply();
     }

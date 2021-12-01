@@ -15,7 +15,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_button_help"
-        android:background="?attr/selectableItemBackground"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/menu_help"/>
 
     <EditText

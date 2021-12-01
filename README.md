@@ -3,7 +3,7 @@
 PhoneProfilesPlus
 =================
 
-[![version](https://img.shields.io/badge/version-5.1.2-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.1.2)
+[![version](https://img.shields.io/badge/version-5.1.3-blue)](https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.1.3)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![License](https://img.shields.io/hexpm/l/plug.svg)](https://github.com/henrichg/PhoneProfilesPlus/blob/master/LICENSE)
 [![Crowdin](https://badges.crowdin.net/phoneprofilesplus/localized.svg)](https://crowdin.com/project/phoneprofilesplus)
@@ -46,17 +46,19 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - minSdkVersion = 24
 - targetSdkVersion = 28
 
-##### Required external libs
+##### Required external libs - open-source
 
-- AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager
-- Google Material library
+- AndroidX library: appcompat, preferences, gridlayout, cardview, recyclerview, viewpager2, constraintlayout, workmanager - https://developer.android.com/jetpack/androidx/versions
+- Google Material components - https://github.com/material-components/material-components-android
 - google-gson - https://code.google.com/p/google-gson/
 - ACRA - https://github.com/ACRA/acra
 - osmdroid - https://github.com/osmdroid/osmdroid
 - TapTargetView - https://github.com/KeepSafe/TapTargetView
 - doki - https://github.com/DoubleDotLabs/doki
-- Samsung Look - http://developer.samsung.com/galaxy/edge
 - dashclock - https://github.com/romannurik/dashclock
+- DexMaker - https://github.com/linkedin/dexmaker
+- volley - https://github.com/google/volley
+- ExpandableLayout - https://github.com/skydoves/ExpandableLayout  
 - RootTools (as module, code modified) - https://github.com/Stericson/RootTools
 - RootShell (as module, code modified) - https://github.com/Stericson/RootShell
 - time-duration-picker (as module, code modified) - https://github.com/svenwiegand/time-duration-picker
@@ -70,3 +72,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
 - ToastCompat (as module, code modified) - https://github.com/PureWriter/ToastCompat
+
+##### Required external libs - not open-source
+
+- Samsung Look - http://developer.samsung.com/galaxy/edge

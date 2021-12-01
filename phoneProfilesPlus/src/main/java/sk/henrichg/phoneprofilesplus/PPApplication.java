@@ -69,6 +69,7 @@ import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
@@ -142,6 +143,7 @@ public class PPApplication extends Application
     static final String AMAZON_APPSTORE_APPLICATION_URL = "https://www.amazon.com/gp/mas/get/amazonapp";
     static final String APKPURE_PPP_RELEASES_URL = "https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus";
 
+    static final String HELP_HOW_TO_GRANT_G1_URL = "https://github.com/henrichg/PhoneProfilesPlus#help-how-to-grant-g1-permission";
 
     //static final boolean gitHubRelease = true;
     //static boolean googlePlayInstaller = false;
@@ -149,7 +151,7 @@ public class PPApplication extends Application
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean logIntoLogCat = true && DebugVersion.enabled;
     //TODO change it back to not log crash for releases
-    static final boolean logIntoFile = false;
+    static final boolean logIntoFile = true;
     @SuppressWarnings("PointlessBooleanExpression")
     static final boolean crashIntoFile = false && DebugVersion.enabled;
     private static final boolean rootToolsDebug = false;
@@ -174,7 +176,7 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.getServiceInfo"
                                                 //+"|PhoneProfilesService.isServiceRunning"
                                                 +"|PackageReplacedReceiver.onReceive"
-                                                +"|PhoneProfilesService.doCommand"
+                                                //+"|PhoneProfilesService.doCommand"
                                                 //+"|PhoneProfilesService.showProfileNotification"
                                                 //+"|PhoneProfilesService._showProfileNotification"
                                                 //+"|ShowProfileNotificationBroadcastReceiver"
@@ -250,11 +252,24 @@ public class PPApplication extends Application
                                                 //+"|[START_PP_SERVICE]"
                                                 //+"|[BRS]"
                                                 //+"|[CONNECTIVITY_TEST]"
+                                                //+"|[BRIGHTNESS]"
+                                                //+"|[BRSD]"
+                                                //+"|[ROOT]"
+                                                //+"|[DB_LOCK]"
 
                                                 //+"|PApplication.getReleaseData"
                                                 //+"|CheckGitHubReleasesActivity"
-
                                                 //+"|WifiApManager._startTethering30"
+                                                //+"|NextAlarmClockBroadcastReceiver"
+
+                                                //+"|SimStateChangedBroadcastReceiver"
+                                                //+"|DefaultSIMChangedBroadcastReceiver"
+                                                //+"|MobileDataNetworkCallback"
+                                                //+"|EventPreferencesRadioSwitch"
+
+                                                //+"|ActivateProfileHelper.execute"
+                                                //+"|ActivateProfileHelper.createBrightnessView"
+                                                //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
@@ -296,6 +311,10 @@ public class PPApplication extends Application
     static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE_UNDO_PROFILE = 54;
     static final int ALTYPE_EVENT_END_RESTART_EVENTS = 55;
     static final int ALTYPE_EVENT_END_ACTIVATE_PROFILE_RESTART_EVENTS = 56;
+    static final int ALTYPE_AFTER_END_OF_ACTIVATION_UNDO_PROFILE = 57;
+    static final int ALTYPE_AFTER_END_OF_ACTIVATION_DEFAULT_PROFILE = 58;
+    static final int ALTYPE_AFTER_END_OF_ACTIVATION_RESTART_EVENTS = 59;
+    static final int ALTYPE_AFTER_END_OF_ACTIVATION_SPECIFIC_PROFILE = 60;
 
     static final int ALTYPE_RESTART_EVENTS = 6;
     static final int ALTYPE_RUN_EVENTS_DISABLE = 7;
@@ -441,10 +460,11 @@ public class PPApplication extends Application
     static final String GRANT_PERMISSION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_grant_permission";
     static final String NOTIFY_EVENT_START_NOTIFICATION_CHANNEL = "phoneProfilesPlus_repeat_notify_event_start";
     static final String NOT_USED_MOBILE_CELL_NOTIFICATION_CHANNEL = "phoneProfilesPlus_new_mobile_cell";
-    static final String DONATION_CHANNEL = "phoneProfilesPlus_donation";
-    static final String NEW_RELEASE_CHANNEL = "phoneProfilesPlus_newRelease";
+    static final String DONATION_NOTIFICATION_CHANNEL = "phoneProfilesPlus_donation";
+    static final String NEW_RELEASE_NOTIFICATION_CHANNEL = "phoneProfilesPlus_newRelease";
     //static final String CRASH_REPORT_NOTIFICATION_CHANNEL = "phoneProfilesPlus_crash_report";
     static final String GENERATED_BY_PROFILE_NOTIFICATION_CHANNEL = "phoneProfilesPlus_generatedByProfile";
+    static final String KEEP_SCREEN_ON_NOTIFICATION_CHANNEL = "phoneProfilesPlus_keepScreenOn";
 
     static final int PROFILE_NOTIFICATION_ID = 100;
     static final int PROFILE_NOTIFICATION_NATIVE_ID = 500;
@@ -505,6 +525,13 @@ public class PPApplication extends Application
     static final String PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION_TAG = PACKAGE_NAME+"_PROFILE_ACTIVATION_CLOSE_ALL_APPLICATIONS_ERROR_NOTIFICATION";
     static final int EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_ID = 134;
     static final String EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION_TAG = PACKAGE_NAME+"EXTENDER_ACCESSIBILITY_SERVICE_NOT_ENABLED_NOTIFICATION";
+
+    static final int PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_ID = 140;
+    static final String PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_TAG = PACKAGE_NAME+"PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION";
+    static final int PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_ID = 141;
+    static final String PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_TAG = PACKAGE_NAME+"PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION";
+    static final int KEEP_SCREEN_ON_NOTIFICATION_ID = 142;
+    static final String KEEP_SCREEN_ON_NOTIFICATION_TAG = PACKAGE_NAME+"_KEEP_SCREEN_ON_NOTIFICATION";
 
     // notifications have also tag, in it is tag name + profile/event/mobile cells id
     static final int PROFILE_ID_NOTIFICATION_ID = 1000;
@@ -670,6 +697,10 @@ public class PPApplication extends Application
     static LockDeviceActivity lockDeviceActivity = null;
     static int screenTimeoutBeforeDeviceLock = 0;
 
+//    static int brightnessBeforeScreenOff;
+//    static float adaptiveBrightnessBeforeScreenOff;
+//    static int brightnessModeBeforeScreenOff;
+
     // 0 = wait for answer from Extender;
     // 1 = Extender is connected,
     // 2 = Extender is disconnected
@@ -758,6 +789,7 @@ public class PPApplication extends Application
     static DeviceBootEventEndBroadcastReceiver deviceBootEventEndBroadcastReceiver = null;
     static CalendarEventExistsCheckBroadcastReceiver calendarEventExistsCheckBroadcastReceiver = null;
     static PeriodicEventEndBroadcastReceiver periodicEventEndBroadcastReceiver = null;
+    static DefaultSIMChangedBroadcastReceiver defaultSIMChangedBroadcastReceiver = null;
 
     static SettingsContentObserver settingsContentObserver = null;
     static MobileDataStateChangedContentObserver mobileDataStateChangedContentObserver = null;
@@ -1077,6 +1109,10 @@ public class PPApplication extends Application
                     isScreenOn = true;
             }
         }*/
+//        brightnessModeBeforeScreenOff = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+//        brightnessBeforeScreenOff = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+//        adaptiveBrightnessBeforeScreenOff = Settings.System.getFloat(getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+
 
         //isPowerSaveMode = DataWrapper.isPowerSaveMode(getApplicationContext());
 
@@ -1448,8 +1484,7 @@ public class PPApplication extends Application
     //--------------------------------------------------------------
 
     static void addActivityLog(Context context, final int logType, final String eventName,
-                               final String profileName, final String profileIcon,
-                               final int durationDelay, final String profilesEventsCount) {
+                               final String profileName, final String profilesEventsCount) {
         if (PPApplication.prefActivityLogEnabled) {
             final Context appContext = context;
             PPApplication.startHandlerThread(/*"AlarmClockBroadcastReceiver.onReceive"*/);
@@ -1464,7 +1499,7 @@ public class PPApplication extends Application
                     //    ApplicationPreferences.preferences = context.getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Context.MODE_PRIVATE);
                     //ApplicationPreferences.setApplicationDeleteOldActivityLogs(context, Integer.valueOf(preferences.getString(ApplicationPreferences.PREF_APPLICATION_DELETE_OLD_ACTIVITY_LOGS, "7")));
                     DatabaseHandler.getInstance(appContext).addActivityLog(ApplicationPreferences.applicationDeleteOldActivityLogs,
-                            logType, eventName, profileName, profileIcon, durationDelay, profilesEventsCount);
+                            logType, eventName, profileName, profilesEventsCount);
                 }
             });
         }
@@ -1901,6 +1936,10 @@ public class PPApplication extends Application
         WifiScanWorker.getWifiEnabledForScan(context);
         WifiScanWorker.getScanRequest(context);
         WifiScanWorker.getWaitForResults(context);
+
+        NextAlarmClockBroadcastReceiver.getEventAlarmClockTime(context);
+        NextAlarmClockBroadcastReceiver.getEventAlarmClockPackageName(context);
+
         ApplicationPreferences.loadStartTargetHelps(context);
     }
 
@@ -2071,6 +2110,9 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationApplicationInterfaceNotificationVibrate(context);
             ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList(context);
             ApplicationPreferences.applicationActivatorIncreaseBrightness(context);
+            ApplicationPreferences.applicationWidgetOneRowHigherLayout(context);
+            ApplicationPreferences.applicationWidgetChangeColorsByNightMode(context);
+            ApplicationPreferences.applicationForceSetBrightnessAtScreenOn(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);
@@ -2104,6 +2146,7 @@ public class PPApplication extends Application
         ActivateProfileHelper.getZenMode(context);
         ActivateProfileHelper.getLockScreenDisabled(context);
         ActivateProfileHelper.getActivatedProfileScreenTimeout(context);
+        ActivateProfileHelper.getKeepScreenOnPermanent(context);
         ActivateProfileHelper.getMergedRingNotificationVolumes(context);
         //Profile.getActivatedProfileForDuration(context);
         Profile.getActivatedProfileEndDurationTime(context);
@@ -2632,7 +2675,7 @@ public class PPApplication extends Application
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(DONATION_CHANNEL) != null)
+                if (notificationManager.getNotificationChannel(DONATION_NOTIFICATION_CHANNEL) != null)
                     return;
 
                 // The user-visible name of the channel.
@@ -2640,7 +2683,7 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.empty_string);
 
-                NotificationChannel channel = new NotificationChannel(DONATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
+                NotificationChannel channel = new NotificationChannel(DONATION_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_LOW);
 
                 // Configure the notification channel.
                 //channel.setImportance(importance);
@@ -2664,7 +2707,7 @@ public class PPApplication extends Application
         if (Build.VERSION.SDK_INT >= 26) {
             try {
                 NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
-                if (notificationManager.getNotificationChannel(NEW_RELEASE_CHANNEL) != null)
+                if (notificationManager.getNotificationChannel(NEW_RELEASE_NOTIFICATION_CHANNEL) != null)
                     return;
 
                 // The user-visible name of the channel.
@@ -2672,7 +2715,7 @@ public class PPApplication extends Application
                 // The user-visible description of the channel.
                 String description = context.getString(R.string.notification_channel_new_release_description);
 
-                NotificationChannel channel = new NotificationChannel(NEW_RELEASE_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationChannel channel = new NotificationChannel(NEW_RELEASE_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
 
                 // Configure the notification channel.
                 //channel.setImportance(importance);
@@ -2691,6 +2734,7 @@ public class PPApplication extends Application
             }
         }
     }
+
 
     /*
     static void createCrashReportNotificationChannel(Context context) {
@@ -2758,6 +2802,40 @@ public class PPApplication extends Application
         }
     }
 
+    static void createKeepScreenOnNotificationChannel(Context context) {
+        if (Build.VERSION.SDK_INT >= 26) {
+            try {
+                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context.getApplicationContext());
+                if (notificationManager.getNotificationChannel(KEEP_SCREEN_ON_NOTIFICATION_CHANNEL) != null)
+                    return;
+
+                // The user-visible name of the channel.
+                String name = context.getString(R.string.profile_preferences_deviceScreenOnPermanent);
+
+                // The user-visible description of the channel.
+                String description = context.getString(R.string.notification_channel_keep_screen_on_description) +
+                        " \"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\".";
+
+                NotificationChannel channel = new NotificationChannel(KEEP_SCREEN_ON_NOTIFICATION_CHANNEL, name, NotificationManager.IMPORTANCE_DEFAULT);
+
+                // Configure the notification channel.
+                //channel.setImportance(importance);
+                channel.setDescription(description);
+                channel.enableLights(false);
+                // Sets the notification light color for notifications posted to this
+                // channel, if the device supports this feature.
+                //channel.setLightColor(Color.RED);
+                channel.enableVibration(false);
+                //channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                channel.setBypassDnd(false);
+
+                notificationManager.createNotificationChannel(channel);
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        }
+    }
+
     static void createNotificationChannels(Context appContext) {
         PPApplication.createProfileNotificationChannel(appContext);
         PPApplication.createMobileCellsRegistrationNotificationChannel(appContext);
@@ -2770,6 +2848,7 @@ public class PPApplication extends Application
         PPApplication.createNewReleaseNotificationChannel(appContext);
         //PPApplication.createCrashReportNotificationChannel(appContext);
         PPApplication.createGeneratedByProfileNotificationChannel(appContext);
+        PPApplication.createKeepScreenOnNotificationChannel(appContext);
     }
 
     /*
@@ -2807,7 +2886,7 @@ public class PPApplication extends Application
         }
     }
 
-    private static boolean _isRooted()
+    static boolean _isRooted()
     {
         RootShell.debugMode = rootToolsDebug;
 
@@ -2836,15 +2915,15 @@ public class PPApplication extends Application
         }
 
         try {
-            //PPApplication.logE("[ROOT] PPApplication._isRooted", "start isRootAvailable");
+//            PPApplication.logE("[ROOT] PPApplication._isRooted", "start RootToolsSmall.isRooted()");
             //if (roottools.isRootAvailable()) {
             //noinspection RedundantIfStatement
             if (RootToolsSmall.isRooted()) {
                 // device is rooted
-                //PPApplication.logE("[ROOT] PPApplication._isRooted", "root available");
+//                PPApplication.logE("[ROOT] PPApplication._isRooted", "root available");
                 rootMutex.rooted = true;
             } else {
-                //PPApplication.logE("[ROOT] PPApplication._isRooted", "root NOT available");
+//                PPApplication.logE("[ROOT] PPApplication._isRooted", "root NOT available");
                 rootMutex.rooted = false;
                 //rootMutex.settingsBinaryExists = false;
                 //rootMutex.settingsBinaryChecked = false;
@@ -2885,15 +2964,15 @@ public class PPApplication extends Application
         return rootMutex.rooted;
     }
 
-    static boolean isRooted(boolean fromUIThread) {
+    static boolean isRooted(@SuppressWarnings("unused") boolean fromUIThread) {
 //        PPApplication.logE("[ROOT] PPApplication.isRooted", "rootMutex.rootChecked="+rootMutex.rootChecked);
 //        PPApplication.logE("[ROOT] PPApplication.isRooted", "rootMutex.rooted="+rootMutex.rooted);
 
         if (rootMutex.rootChecked)
             return rootMutex.rooted;
 
-        if (fromUIThread)
-            return false;
+        //if (fromUIThread)
+        //    return false;
 
         synchronized (PPApplication.rootMutex) {
 //            PPApplication.logE("[ROOT] PPApplication.isRooted", "start check");
@@ -3412,6 +3491,46 @@ public class PPApplication extends Application
         }
         return false;
     }
+
+   static int getSIMCardFromSubscriptionId(Context appContext, int subscriptionId) {
+       TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
+       if (telephonyManager != null) {
+           if (Build.VERSION.SDK_INT < 26) {
+               return 0;
+           } else {
+               if (Permissions.checkPhone(appContext)) {
+                   SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                   //SubscriptionManager.from(context);
+                   if (mSubscriptionManager != null) {
+                       List<SubscriptionInfo> subscriptionList = null;
+                       try {
+                           // Loop through the subscription list i.e. SIM list.
+                           subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                       } catch (SecurityException e) {
+                           PPApplication.recordException(e);
+                       }
+                       if (subscriptionList != null) {
+                           int simCard = 0;
+                           for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                               // Get the active subscription ID for a given SIM card.
+                               SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                               if ((subscriptionInfo != null) &&
+                                       (subscriptionInfo.getSubscriptionId() == subscriptionId)) {
+                                   simCard = subscriptionInfo.getSimSlotIndex() + 1;
+                                   break;
+                               }
+                           }
+                           return simCard;
+                       } else
+                           return 0;
+                   } else
+                       return 0;
+               } else
+                   return -1;
+           }
+       }
+       return -1;
+   }
 
     //------------------------------------------------------
 
@@ -3987,7 +4106,7 @@ public class PPApplication extends Application
     }
 
     private static void _exitApp(final Context context, final DataWrapper dataWrapper, final Activity activity,
-                               final boolean shutdown/*, final boolean killProcess*//*, final boolean removeAlarmClock*/) {
+                               final boolean shutdown, final boolean removeNotifications) {
         try {
             PPApplication.logE("PPApplication._exitApp", "shutdown="+shutdown);
 
@@ -4005,15 +4124,36 @@ public class PPApplication extends Application
                 IgnoreBatteryOptimizationNotification.removeNotification(context);
                 Permissions.removeNotifications(context);
 
-                addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, null, 0, "");
-
-                /*if (PPApplication.brightnessHandler != null) {
-                    PPApplication.brightnessHandler.post(new Runnable() {
-                        public void run() {
-                            ActivateProfileHelper.removeBrightnessView(context);
+                if (removeNotifications) {
+                    if (dataWrapper != null) {
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                        //noinspection ForLoopReplaceableByForEach
+                        for (Iterator<Profile> it = dataWrapper.profileList.iterator(); it.hasNext(); ) {
+                            Profile profile = it.next();
+                            try {
+                                notificationManager.cancel(
+                                        PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG + "_" + profile._id,
+                                        PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
+                                notificationManager.cancel(
+                                        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
+                                        PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile._id);
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
                         }
-                    });
-                }*/
+                    }
+                    ActivateProfileHelper.cancelNotificationsForInteractiveParameters(context);
+                }
+
+                addActivityLog(context, PPApplication.ALTYPE_APPLICATION_EXIT, null, null, "");
+
+                //if (PPApplication.brightnessHandler != null) {
+                //    PPApplication.brightnessHandler.post(new Runnable() {
+                //        public void run() {
+                //            ActivateProfileHelper.removeBrightnessView(context);
+                //        }
+                //    });
+                //}
                 //if (PPApplication.screenTimeoutHandler != null) {
                 //    PPApplication.screenTimeoutHandler.post(new Runnable() {
                 //        public void run() {
@@ -4111,7 +4251,7 @@ public class PPApplication extends Application
     }
 
     static void exitApp(final boolean useHandler, final Context context, final DataWrapper dataWrapper, final Activity activity,
-                                 final boolean shutdown/*, final boolean killProcess*//*, final boolean removeAlarmClock*/) {
+                                 final boolean shutdown, boolean removeNotifications) {
         try {
             if (useHandler) {
                 PPApplication.startHandlerThread(/*"PPApplication.exitApp"*/);
@@ -4139,7 +4279,7 @@ public class PPApplication extends Application
                                 } catch (Exception ignored) {
                                 }
                             }
-                            _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
+                            _exitApp(context, dataWrapper, activity, shutdown, removeNotifications);
 
                             //PPApplication.logE("PPApplication.startHandlerThread", "END run - from=PPApplication.exitApp");
                         } catch (Exception e) {
@@ -4157,7 +4297,7 @@ public class PPApplication extends Application
                 });
             }
             else
-                _exitApp(context, dataWrapper, activity, shutdown/*, killProcess*/);
+                _exitApp(context, dataWrapper, activity, shutdown, removeNotifications);
         } catch (Exception e) {
             PPApplication.recordException(e);
         }
@@ -4664,7 +4804,7 @@ public class PPApplication extends Application
         return TelephonyManager.CALL_STATE_IDLE;
     }
 
-    // Is Pixel Launcher installed --------------------------------------------------
+    // check if Pixel Launcher is default --------------------------------------------------
 
     static boolean isPixelLauncherDefault(Context context) {
         if (Build.VERSION.SDK_INT >= 31) {
@@ -4676,9 +4816,28 @@ public class PPApplication extends Application
                     return defaultLauncher.activityInfo.packageName.toLowerCase().contains(
                                     "com.google.android.apps.nexuslauncher");
                 } catch (Exception e) {
-                    // extender is not installed = package not found
-                    //Log.e("PPPExtenderBroadcastReceiver.isExtenderInstalled", Log.getStackTraceString(e));
-                    //PPApplication.recordException(e);
+                    return false;
+                }
+            }
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+
+    // check if One UI 4 Samsung Launcher is default --------------------------------------------------
+
+    static boolean isOneUILauncherDefault(Context context) {
+        if (Build.VERSION.SDK_INT >= 31) {
+            if (context != null) {
+                try {
+                    Intent intent= new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    ResolveInfo defaultLauncher = context.getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    return defaultLauncher.activityInfo.packageName.toLowerCase().contains(
+                            "com.sec.android.app.launcher");
+                } catch (Exception e) {
                     return false;
                 }
             }

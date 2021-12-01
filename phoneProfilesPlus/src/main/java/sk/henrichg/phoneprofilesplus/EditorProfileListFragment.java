@@ -179,12 +179,12 @@ public class EditorProfileListFragment extends Fragment
     @SuppressLint({"InflateParams", "NotifyDataSetChanged"})
     private void doOnViewCreated(View view, boolean fromOnViewCreated)
     {
-        profilePrefIndicatorImageView = view.findViewById(R.id.activated_profile_pref_indicator);
+        profilePrefIndicatorImageView = view.findViewById(R.id.editor_profiles_activated_profile_pref_indicator);
         if (!ApplicationPreferences.applicationEditorPrefIndicator)
             profilePrefIndicatorImageView.setVisibility(GONE);
 
-        activeProfileName = view.findViewById(R.id.activated_profile_name);
-        activeProfileIcon = view.findViewById(R.id.activated_profile_icon);
+        activeProfileName = view.findViewById(R.id.editor_profiles_activated_profile_name);
+        activeProfileIcon = view.findViewById(R.id.editor_profiles_activated_profile_icon);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         listView = view.findViewById(R.id.editor_profiles_list);
@@ -192,8 +192,8 @@ public class EditorProfileListFragment extends Fragment
         listView.setLayoutManager(layoutManager);
         listView.setHasFixedSize(true);
 
-        activatedProfileHeader = view.findViewById(R.id.activated_profile_header);
-        bottomToolbar = view.findViewById(R.id.editor_list_bottom_bar);
+        activatedProfileHeader = view.findViewById(R.id.editor_profiles_activated_profile_header);
+        bottomToolbar = view.findViewById(R.id.editor_profiles_list_bottom_bar);
 
         //noinspection ConstantConditions
         if (GlobalGUIRoutines.areSystemAnimationsEnabled(getActivity().getApplicationContext())) {
@@ -648,7 +648,7 @@ public class EditorProfileListFragment extends Fragment
             // profile not exists
             return;
 
-        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_PROFILE_DELETED, null, profile._name, profile._icon, 0, "");
+        PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_PROFILE_DELETED, null, profile._name, "");
 
         Profile activatedProfile = activityDataWrapper.getActivatedProfile(false, false);
         if ((activatedProfile != null) && (activatedProfile._id == profile._id)) {
@@ -797,7 +797,7 @@ public class EditorProfileListFragment extends Fragment
             //final Activity activity = getActivity();
 
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
-                PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_PROFILES_DELETED, null, null, null, 0, "");
+                PPApplication.addActivityLog(activityDataWrapper.context, PPApplication.ALTYPE_ALL_PROFILES_DELETED, null, null, "");
 
                 // remove alarm for profile duration
                 synchronized (activityDataWrapper.profileList) {
@@ -1615,6 +1615,15 @@ public class EditorProfileListFragment extends Fragment
             if (fragmentWeakRef.get() != null) {
                 try {
                     profileFromDB = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
+
+                    dataWrapper.getEventTimelineList(true);
+
+                    // must be refreshed timelinelist for fragment.activityDataWrapper
+                    EditorProfileListFragment fragment = fragmentWeakRef.get();
+                    if (fragment != null) {
+                        fragment.activityDataWrapper.getEventTimelineList(true);
+                    }
+
                     if (profileFromDB != null) {
                         profileFromDataWrapper = dataWrapper.getProfileById(profileFromDB._id, true,
                                 ApplicationPreferences.applicationEditorPrefIndicator, false);
@@ -1730,7 +1739,7 @@ public class EditorProfileListFragment extends Fragment
                 if ((fragment.getActivity() != null) && (!fragment.getActivity().isFinishing())) {
                     try {
                         //if (activatedProfileHeader.isVisibleToUser()) {
-                        TextView redText = fragment.activatedProfileHeader.findViewById(R.id.activated_profile_red_text);
+                        TextView redText = fragment.activatedProfileHeader.findViewById(R.id.editor_profiles_activated_profile_red_text);
                         if (redTextVisible)
                             redText.setVisibility(View.VISIBLE);
                         else

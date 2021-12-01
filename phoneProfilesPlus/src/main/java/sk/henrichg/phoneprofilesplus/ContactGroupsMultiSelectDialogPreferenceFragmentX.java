@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
@@ -22,7 +21,7 @@ public class ContactGroupsMultiSelectDialogPreferenceFragmentX extends Preferenc
 
     // Layout widgets.
     private LinearLayout linlaProgress;
-    private RelativeLayout rellaData;
+    private LinearLayout rellaData;
 
     private ContactGroupsMultiSelectPreferenceAdapterX listAdapter;
 

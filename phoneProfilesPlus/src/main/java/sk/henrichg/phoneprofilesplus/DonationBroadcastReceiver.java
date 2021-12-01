@@ -309,7 +309,7 @@ public class DonationBroadcastReceiver extends BroadcastReceiver {
 //                    nText = appContext.getString(R.string.about_application_donate_button) + ": " +
 //                            appContext.getString(R.string.donation_description);
 //                }
-                mBuilder = new NotificationCompat.Builder(appContext, PPApplication.DONATION_CHANNEL)
+                mBuilder = new NotificationCompat.Builder(appContext, PPApplication.DONATION_NOTIFICATION_CHANNEL)
                         .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
                         .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                         .setContentTitle(nTitle) // title for notification

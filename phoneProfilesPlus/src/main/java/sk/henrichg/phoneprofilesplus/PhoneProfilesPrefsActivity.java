@@ -145,6 +145,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
                 case "profileActivationCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsProfileActivation();
                     break;
+                case "specialProfileParametersCategoryRoot":
+                    preferenceFragment = new PhoneProfilesPrefsSpecialProfileParameters();
+                    break;
                 case "eventRunCategoryRoot":
                     preferenceFragment = new PhoneProfilesPrefsEventRun();
                     break;
@@ -841,6 +844,31 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
 
     }
 
+    static public class PhoneProfilesPrefsSpecialProfileParameters extends PhoneProfilesPrefsFragment {
+
+        @Override
+        public void onCreatePreferences(Bundle bundle, String rootKey) {
+            //PPApplication.logE("PhoneProfilesPrefsFragment.onCreatePreferences", "from PhoneProfilesPrefsSpecialProfileParameters");
+
+            PreferenceManager prefMng = getPreferenceManager();
+            SharedPreferences preferences = prefMng.getSharedPreferences();
+            if (getContext() != null) {
+                SharedPreferences applicationPreferences = getContext().getApplicationContext().getSharedPreferences(PPApplication.APPLICATION_PREFS_NAME, Activity.MODE_PRIVATE);
+                loadSharedPreferences(preferences, applicationPreferences);
+            }
+
+            setPreferencesFromResource(R.xml.phone_profiles_prefs_special_profile_parameters, rootKey);
+        }
+
+        @Override
+        void updateSharedPreferences(SharedPreferences.Editor editor, SharedPreferences fromPreference) {
+            //PPApplication.logE("PhoneProfilesPrefsFragment.updateSharedPreferences", "from PhoneProfilesPrefsProfileActivation");
+            // TODO special profile parameters
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON, false));
+        }
+
+    }
+
     static public class PhoneProfilesPrefsEventRun extends PhoneProfilesPrefsFragment {
 
         @Override
@@ -1171,6 +1199,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS, "100"));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS, false));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ROUNDED_CORNERS_RADIUS, "5"));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                    PPApplication.isPixelLauncherDefault(getContext()) ||
+                            PPApplication.isOneUILauncherDefault(getContext())));
         }
     }
 
@@ -1208,6 +1239,10 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS, "100"));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS, false));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS, "5"));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, false));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                    PPApplication.isPixelLauncherDefault(getContext()) ||
+                            PPApplication.isOneUILauncherDefault(getContext())));
         }
     }
 
@@ -1245,6 +1280,9 @@ public class PhoneProfilesPrefsActivity extends AppCompatActivity {
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_EMBLEM, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_SHORTCUT_EMBLEM, true));
             editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_SHOW_PROFILE_DURATION, true));
             editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, fromPreference.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_ROUNDED_CORNERS_RADIUS, "5"));
+            editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE, fromPreference.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                    PPApplication.isPixelLauncherDefault(getContext()) ||
+                            PPApplication.isOneUILauncherDefault(getContext())));
         }
     }
 

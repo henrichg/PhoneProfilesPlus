@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="categoryWidgetOneRow"
+    app:title="@string/phone_profiles_pref_category_widget_one_row">
+
+    <Preference
+        app:key="applicationWidgetOneRowNotWorkingMIUIInfo"
+        app:title="@string/phone_profiles_pref_widget_not_working_miui_info"
+        app:summary="@string/phone_profiles_pref_widget_not_working_miui_info_summary"
+        app:widgetLayout="@layout/widget_exclamation_preference"
+        app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetOneRowHigherLayout"
+        app:title="@string/phone_profiles_pref_applicationWidgetHigherLayout"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetChangeColorsByNightMode"
+        app:title="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode"
+        app:summary="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+        app:title="@string/phone_profiles_pref_applicationWidgetBackground"
+        app:summary="25%%"
+        app:key="applicationWidgetOneRowBackground"
+        app:defaultValue="25"
+        app:showLighting="false"
+        app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetOneRowBackgroundType"
+        app:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+        app:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
+        app:summary="0%%"
+        app:key="applicationWidgetOneRowLightnessB"
+        app:defaultValue="0"
+        app:showLighting="true"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.ColorChooserPreferenceX
+        app:title="@string/phone_profiles_pref_applicationWidgetColorB"
+        app:key="applicationWidgetOneRowBackgroundColor"
+        app:defaultValue="-1"
+        app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetOneRowShowBorder"
+        app:title="@string/phone_profiles_pref_applicationWidgetShowBorder"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+        app:title="@string/phone_profiles_pref_applicationWidgetLightnessBorder"
+        app:summary="100%%"
+        app:key="applicationWidgetOneRowLightnessBorder"
+        app:defaultValue="100"
+        app:showLighting="true"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetOneRowRoundedCorners"
+        app:title="@string/phone_profiles_pref_applicationWidgetRoundedCorners"
+        app:defaultValue="true"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
+        app:key="applicationWidgetOneRowRoundedCornersRadius"
+        app:summary="@string/phone_profiles_pref_applicationWidgetCornerRadius"
+        app:title="@string/phone_profiles_pref_applicationWidgetCornerRadius"
+        app:defaultValue="5"
+        app:min="1"
+        app:max="15"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+        app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
+        app:summary="100%%"
+        app:key="applicationWidgetOneRowLightnessT"
+        app:defaultValue="100"
+        app:showLighting="true"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <ListPreference
+        app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
+        app:summary="0"
+        app:key="applicationWidgetOneRowIconColor"
+        app:defaultValue="0"
+        app:entries="@array/widgetColorArray"
+        app:entryValues="@array/widgetColorValues"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+        app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
+        app:summary="100%%"
+        app:key="applicationWidgetOneRowIconLightness"
+        app:defaultValue="100"
+        app:showLighting="true"
+        app:layout="@layout/mp_preference_material_widget" />
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetOneRowCustomIconLightness"
+        app:title="@string/phone_profiles_pref_applicationWidgetIconCustomIconLightness"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <SwitchPreferenceCompat
+        app:key="applicationWidgetOneRowPrefIndicator"
+        app:title="@string/phone_profiles_pref_applicationPrefIndicator"
+        app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForWidget_summary"
+        app:defaultValue="true"
+        app:layout="@layout/mp_preference_material_widget" />
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+        app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
+        app:summary="50%%"
+        app:key="applicationWidgetOneRowPrefIndicatorLightness"
+        app:defaultValue="50"
+        app:showLighting="true"
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

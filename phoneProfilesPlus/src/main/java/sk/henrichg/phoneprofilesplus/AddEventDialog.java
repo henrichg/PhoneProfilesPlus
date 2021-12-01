@@ -3,11 +3,11 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -24,7 +24,7 @@ class AddEventDialog
     private final Activity activity;
 
     final LinearLayout linlaProgress;
-    final RelativeLayout rellaData;
+    final LinearLayout rellaData;
     final ListView listView;
     final TextView help;
 
@@ -60,7 +60,13 @@ class AddEventDialog
         listView = layout.findViewById(R.id.event_pref_dlg_listview);
         help = layout.findViewById(R.id.event_pref_dlg_help);
 
-        listView.setOnItemClickListener((parent, v, position, id) -> doOnItemSelected(position));
+        listView.setOnItemClickListener((parent, item, position, id) -> {
+            AddEventAdapter.ViewHolder viewHolder = (AddEventAdapter.ViewHolder) item.getTag();
+            if (viewHolder != null)
+                viewHolder.radioButton.setChecked(true);
+            Handler handler = new Handler(activity.getMainLooper());
+            handler.postDelayed(() -> doOnItemSelected(position), 200);
+        });
 
     }
 

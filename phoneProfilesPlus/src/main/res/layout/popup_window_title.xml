@@ -36,7 +36,7 @@
             android:layout_centerVertical="true"
             android:padding="5dp"
             android:layout_gravity="end"
-            android:background="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/ic_button_close"
             app:textAllCaps="true" />
 

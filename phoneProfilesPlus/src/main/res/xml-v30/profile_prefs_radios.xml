@@ -146,4 +146,21 @@
         app:entryValues="@array/hardwareModeValues"
         app:layout="@layout/mp_preference_material_widget" />
 
+    <sk.henrichg.phoneprofilesplus.InfoDialogPreferenceX
+        app:key="prf_pref_deviceVPNInfo"
+        app:title="@string/profile_preferences_deviceVPNInfo"
+        app:summary="@string/profile_preferences_deviceVPNInfo_summary"
+        app:infoText="@string/empty_string"
+        app:widgetLayout="@layout/widget_info_preference_clickable"
+        app:layout="@layout/mp_preference_material_widget" />
+
+    <ListPreference
+        app:title="@string/profile_preferences_deviceVPNSettingsPrefs"
+        app:summary="@string/array_pref_no_change"
+        app:key="prf_pref_deviceVPNSettingsPrefs"
+        app:defaultValue="0"
+        app:entries="@array/vpnSettingsPrefsArray"
+        app:entryValues="@array/vpnSettingsPrefsValues"
+        app:layout="@layout/mp_preference_material_widget" />
+
 </androidx.preference.PreferenceScreen>

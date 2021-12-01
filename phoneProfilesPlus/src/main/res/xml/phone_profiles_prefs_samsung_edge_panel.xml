@@ -31,39 +31,36 @@
         app:defaultValue="true"
         app:layout="@layout/mp_preference_material_widget" />
     -->
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetBackground"
         app:summary="25%%"
         app:key="applicationSamsungEdgeBackground"
         app:defaultValue="25"
-        app:entries="@array/widgetBackgroundArray"
-        app:entryValues="@array/widgetBackgroundValues"
+        app:showLighting="false"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationSamsungEdgeBackgroundType"
         app:title="@string/phone_profiles_pref_applicationWidgetBackgroundType"
         app:defaultValue="false"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessB"
         app:summary="0%%"
         app:key="applicationSamsungEdgeLightnessB"
         app:defaultValue="0"
-        app:entries="@array/widgetLightnessArray"
-        app:entryValues="@array/widgetLightnessValues"
+        app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
     <sk.henrichg.phoneprofilesplus.ColorChooserPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetColorB"
         app:key="applicationSamsungEdgeBackgroundColor"
         app:defaultValue="-1"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessT"
         app:summary="100%%"
         app:key="applicationSamsungEdgeLightnessT"
         app:defaultValue="100"
-        app:entries="@array/widgetLightnessArray"
-        app:entryValues="@array/widgetLightnessValues"
+        app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/phone_profiles_pref_applicationWidgetIconColor"
@@ -73,13 +70,12 @@
         app:entries="@array/widgetColorArray"
         app:entryValues="@array/widgetColorValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <ListPreference
+    <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
         app:title="@string/phone_profiles_pref_applicationWidgetLightnessI"
         app:summary="100%%"
         app:key="applicationSamsungEdgeIconLightness"
         app:defaultValue="100"
-        app:entries="@array/widgetLightnessArray"
-        app:entryValues="@array/widgetLightnessValues"
+        app:showLighting="true"
         app:layout="@layout/mp_preference_material_widget" />
     <SwitchPreferenceCompat
         app:key="applicationSamsungEdgeCustomIconLightness"

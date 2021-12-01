@@ -117,13 +117,14 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_translations);
         str1 = getString(R.string.about_application_translations);
-        str2 = str1 + " " + PPApplication.CROWDIN_URL;
+        str2 = str1 + " " + PPApplication.CROWDIN_URL + " \u21D2";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void updateDrawState(TextPaint ds) {
                 ds.setColor(ds.linkColor);    // you can use custom color
+                //ds.bgColor = Color.GRAY;
                 ds.setUnderlineText(false);    // this remove the underline
             }
 
@@ -152,7 +153,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_privacy_policy);
         str1 = getString(R.string.about_application_privacy_policy);
-        str2 = str1 + " " + PPApplication.PRIVACY_POLICY_URL;
+        str2 = str1 + " " + PPApplication.PRIVACY_POLICY_URL + " \u21D2";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str2.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         /*ClickableSpan*/ clickableSpan = new ClickableSpan() {
@@ -181,7 +182,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_releases);
         str1 = getString(R.string.about_application_releases);
-        str2 = str1 + " " + PPApplication.GITHUB_PPP_RELEASES_URL;
+        str2 = str1 + " " + PPApplication.GITHUB_PPP_RELEASES_URL + " \u21D2";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -210,7 +211,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_source_code);
         str1 = getString(R.string.about_application_source_code);
-        str2 = str1 + " " + PPApplication.GITHUB_PPP_URL;
+        str2 = str1 + " " + PPApplication.GITHUB_PPP_URL + " \u21D2";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -239,7 +240,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_extender_source_code);
         str1 = getString(R.string.about_application_extender_source_code);
-        str2 = str1 + " " + PPApplication.GITHUB_PPPE_URL;
+        str2 = str1 + " " + PPApplication.GITHUB_PPPE_URL + " \u21D2";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -268,7 +269,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
 
         text = findViewById(R.id.about_application_xda_developers_community);
         str1 = getString(R.string.about_application_xda_developers_community);
-        str2 = str1 + " " + PPApplication.XDA_DEVELOPERS_PPP_URL;
+        str2 = str1 + " " + PPApplication.XDA_DEVELOPERS_PPP_URL + " \u21D2";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -298,7 +299,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
         /*
         text = findViewById(R.id.about_application_google_plus_community);
         str1 = getString(R.string.about_application_google_plus_community);
-        str2 = str1 + " https://plus.google.com/communities/100282006628784777672";
+        str2 = str1 + " https://plus.google.com/communities/100282006628784777672" + " \u21D2";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -457,7 +458,7 @@ public class AboutApplicationActivity extends AppCompatActivity {
     static void emailMe(final TextView textView, final String text, final String linkText, final String subjectText,
                         final String bodyText, /*final boolean boldLink,*/ final Context context) {
         String strNoLink = text + " " + linkText;
-        String str2 = strNoLink + " henrich.gron@gmail.com";
+        String str2 = strNoLink + " henrich.gron@gmail.com" + " \u21D2";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, strNoLink.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {

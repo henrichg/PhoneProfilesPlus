@@ -136,6 +136,12 @@ public class MobileDataNetworkCallback extends ConnectivityManager.NetworkCallba
 
                 if (PhoneProfilesService.getInstance() != null) {
 
+//                    if (connected) {
+//                        int defaultSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId();
+//                        PPApplication.logE("$$$ MobileDataNetworkCallback._doConnection", "defaultSubscriptionId=" + defaultSubscriptionId);
+//                    }
+
+
                     // start events handler
                     //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=MobileDataNetworkCallback._doConnection");
 

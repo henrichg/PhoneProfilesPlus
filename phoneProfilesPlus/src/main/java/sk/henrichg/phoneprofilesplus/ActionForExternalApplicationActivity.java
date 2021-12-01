@@ -133,7 +133,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
             switch (action) {
                 case ACTION_ACTIVATE_PROFILE:
                     PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PROFILE_ACTIVATION,
-                            null, profileName, null, 0, "");
+                            null, profileName, "");
 
                     if (profile_id != 0) {
                         Profile profile = dataWrapper.getProfileById(profile_id, false, false, false);
@@ -158,7 +158,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     break;
                 case ACTION_RESTART_EVENTS:
                     PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_RESTART_EVENTS,
-                            null, null, null, 0, "");
+                            null, null, "");
 
 //                    PPApplication.logE("ActionForExternalApplicationActivity.onStart", "restart events");
 //                    PPApplication.logE("[APP_START] ActionForExternalApplicationActivity", "(1)");
@@ -167,7 +167,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     break;
                 case ACTION_ENABLE_RUN_FOR_EVENT:
                     PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_ENABLE_RUN_FOR_EVENT,
-                            eventName, null, null, 0, "");
+                            eventName, null, "");
 
                     if (event_id != 0) {
                         final Event event = dataWrapper.getEventById(event_id);
@@ -230,7 +230,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     break;
                 case ACTION_PAUSE_EVENT:
                     PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_PAUSE_EVENT,
-                            eventName, null, null, 0, "");
+                            eventName, null, "");
 
                     if (event_id != 0) {
                         final Event event = dataWrapper.getEventById(event_id);
@@ -289,7 +289,7 @@ public class ActionForExternalApplicationActivity extends AppCompatActivity {
                     break;
                 case ACTION_STOP_EVENT:
                     PPApplication.addActivityLog(getApplicationContext(), PPApplication.ALTYPE_ACTION_FROM_EXTERNAL_APP_STOP_EVENT,
-                            eventName, null, null, 0, "");
+                            eventName, null, "");
 
                     if (event_id != 0) {
                         final Event event = dataWrapper.getEventById(event_id);

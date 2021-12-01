@@ -107,6 +107,7 @@ class ActivateProfileHelper {
     private static final String PREF_ZEN_MODE = "zen_mode";
     private static final String PREF_LOCKSCREEN_DISABLED = "lockscreenDisabled";
     private static final String PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT = "activated_profile_screen_timeout";
+    private static final String PREF_KEEP_SCREEN_ON_PERMANENT = "keep_screen_on_permanent";
     static final String PREF_MERGED_RING_NOTIFICATION_VOLUMES = "merged_ring_notification_volumes";
 
     static final String EXTRA_PROFILE_NAME = "profile_name";
@@ -443,7 +444,7 @@ class ActivateProfileHelper {
                         }
                         if (setWifiAPState) {
                             //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "setWifiAP()");
-                            setWifiAP(wifiApManager, isWifiAPEnabled, doNotChangeWifi, appContext);
+                            setWifiAP(wifiApManager, isWifiAPEnabled, doNotChangeWifi, profile, appContext);
                             PPApplication.sleep(3000);
                         }
                     }
@@ -486,7 +487,7 @@ class ActivateProfileHelper {
                     if (setWifiAPState) {
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.doExecuteForRadios", "CmdWifiAP.setWifiAP()");
                         //CmdWifiAP.setWifiAP(isWifiAPEnabled, doNotChangeWifi, context, profile._name);
-                        setWifiAP(null, isWifiAPEnabled, doNotChangeWifi, appContext);
+                        setWifiAP(null, isWifiAPEnabled, doNotChangeWifi, profile, appContext);
                         PPApplication.sleep(1000);
                     }
                 }
@@ -1772,8 +1773,8 @@ class ActivateProfileHelper {
                     }
                     catch (Exception e){
                         //Log.e("ActivateProfileHelper.setTones (3)", Log.getStackTraceString(e));
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE, null,
-                                profile._name, profile._icon, 0, "");
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE,
+                                null, profile._name, "");
                         noError = false;
                         /*String[] splits = profile._soundRingtone.split("\\|");
                         if (!splits[0].isEmpty()) {
@@ -1843,8 +1844,8 @@ class ActivateProfileHelper {
                         //PPApplication.recordException(e);
                     }
                     catch (Exception e){
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION, null,
-                                profile._name, profile._icon, 0, "");
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION,
+                                null, profile._name, "");
                         noError = false;
                         /*String[] splits = profile._soundNotification.split("\\|");
                         if (!splits[0].isEmpty()) {
@@ -1914,8 +1915,8 @@ class ActivateProfileHelper {
                         //PPApplication.recordException(e);
                     }
                     catch (Exception e){
-                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM, null,
-                                profile._name, profile._icon, 0, "");
+                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_ALARM,
+                                null, profile._name, "");
                         noError = false;
                         /*String[] splits = profile._soundAlarm.split("\\|");
                         if (!splits[0].isEmpty()) {
@@ -2018,8 +2019,8 @@ class ActivateProfileHelper {
                         }
                         catch (Exception e) {
                             //Log.e("ActivateProfileHelper.setTones (3)", Log.getStackTraceString(e));
-                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE, null,
-                                    profile._name, profile._icon, 0, "");
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE,
+                                    null, profile._name, "");
                             noError = false;
                             /*String[] splits = profile._soundRingtone.split("\\|");
                             if (!splits[0].isEmpty()) {
@@ -2136,8 +2137,8 @@ class ActivateProfileHelper {
                         }
                         catch (Exception e) {
                             //Log.e("ActivateProfileHelper.setTones (3)", Log.getStackTraceString(e));
-                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE, null,
-                                    profile._name, profile._icon, 0, "");
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE,
+                                    null, profile._name, "");
                             noError = false;
                             /*String[] splits = profile._soundRingtone.split("\\|");
                             if (!splits[0].isEmpty()) {
@@ -2282,8 +2283,8 @@ class ActivateProfileHelper {
                             //PPApplication.recordException(e);
                         }
                         catch (Exception e){
-                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION, null,
-                                    profile._name, profile._icon, 0, "");
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION,
+                                    null, profile._name, "");
                             noError = false;
                             /*String[] splits = profile._soundNotification.split("\\|");
                             if (!splits[0].isEmpty()) {
@@ -2464,8 +2465,8 @@ class ActivateProfileHelper {
                             //PPApplication.recordException(e);
                         }
                         catch (Exception e){
-                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION, null,
-                                    profile._name, profile._icon, 0, "");
+                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION,
+                                    null, profile._name, "");
                             noError = false;
                             /*String[] splits = profile._soundNotification.split("\\|");
                             if (!splits[0].isEmpty()) {
@@ -3559,18 +3560,18 @@ class ActivateProfileHelper {
 
                     PPApplication.setWallpaperChangeTime(appContext);
                 } catch (IOException e) {
-                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
-                            profile._name, profile._icon, 0, "");
+                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
+                            null, profile._name, "");
                     //Log.e("ActivateProfileHelper._changeImageWallpaper", Log.getStackTraceString(e));
                     PPApplication.recordException(e);
                 } catch (Exception e) {
-                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
-                            profile._name, profile._icon, 0, "");
+                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
+                            null, profile._name, "");
                     //PPApplication.recordException(e);
                 }
             } else {
-                PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER, null,
-                        profile._name, profile._icon, 0, "");
+                PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_WALLPAPER,
+                        null, profile._name, "");
             }
         }
     }
@@ -3746,8 +3747,6 @@ class ActivateProfileHelper {
                         }
 
                         String[] splits = profile._deviceRunApplicationPackageName.split("\\|");
-                        Intent intent;
-                        PackageManager packageManager = appContext.getPackageManager();
 
                         //ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
                         //List<ActivityManager.RunningAppProcessInfo> procInfo = activityManager.getRunningAppProcesses();
@@ -3760,135 +3759,7 @@ class ActivateProfileHelper {
                                 //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","run with delay");
                                 RunApplicationWithDelayBroadcastReceiver.setDelayAlarm(appContext, startApplicationDelay, profile._name, split);
                             } else {
-                                if (Application.isShortcut(split)) {
-                                    long shortcutId = Application.getShortcutId(split);
-                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut - shortcutId="+shortcutId);
-                                    if (shortcutId > 0) {
-                                        //Shortcut shortcut = dataWrapper.getDatabaseHandler().getShortcut(shortcutId);
-                                        Shortcut shortcut = DatabaseHandler.getInstance(appContext).getShortcut(shortcutId);
-                                        if (shortcut != null) {
-                                            try {
-                                                intent = Intent.parseUri(shortcut._intent, 0);
-                                                if (intent != null) {
-                                                    //String packageName = intent.getPackage();
-                                                    //if (!isRunning(procInfo, packageName)) {
-                                                    //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": not running");
-                                                    //Log.d("ActivateProfileHelper.executeForRunApplications","intent="+intent);
-                                                    //noinspection TryWithIdenticalCatches
-                                                    try {
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                        appContext.startActivity(intent);
-                                                    } catch (ActivityNotFoundException e) {
-                                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut - ERROR (01)");
-                                                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                                                                profile._name, profile._icon, 0, "");
-                                                    } catch (SecurityException e) {
-                                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut - ERROR (02)");
-                                                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                                                                profile._name, profile._icon, 0, "");
-                                                    } catch (Exception e) {
-                                                        PPApplication.recordException(e);
-                                                    }
-                                                    //} else
-                                                    //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName + ": running");
-                                                } else {
-                                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut - ERROR (1)");
-                                                    PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                                                            profile._name, profile._icon, 0, "");
-                                                }
-                                            } catch (Exception ee) {
-                                                PPApplication.recordException(ee);
-                                            }
-                                        } else {
-                                            //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut - ERROR (2)");
-                                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                                                    profile._name, profile._icon, 0, "");
-                                        }
-                                    } else {
-                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","shortcut - ERROR (3)");
-                                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                                                profile._name, profile._icon, 0, "");
-                                    }
-                                } else if (Application.isIntent(split)) {
-                                    long intentId = Application.getIntentId(split);
-                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent - intentId="+intentId);
-                                    if (intentId > 0) {
-                                        PPIntent ppIntent = DatabaseHandler.getInstance(appContext).getIntent(intentId);
-                                        if (ppIntent != null) {
-                                            intent = ApplicationEditorIntentActivityX.createIntent(ppIntent);
-                                            if (intent != null) {
-                                                if (ppIntent._intentType == 0) {
-                                                    //noinspection TryWithIdenticalCatches
-                                                    try {
-                                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                        appContext.startActivity(intent);
-                                                    } catch (ActivityNotFoundException e) {
-                                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent - ERROR (01)");
-                                                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                                                                profile._name, profile._icon, 0, "");
-                                                    } catch (SecurityException e) {
-                                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent - ERROR (02)");
-                                                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                                                                profile._name, profile._icon, 0, "");
-                                                    } catch (Exception e) {
-                                                        PPApplication.recordException(e);
-                                                    }
-                                                } else {
-                                                    try {
-                                                        appContext.sendBroadcast(intent);
-                                                    } catch (Exception e) {
-                                                        //PPApplication.recordException(e);
-                                                    }
-                                                }
-                                            } else {
-                                                //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent - ERROR (1)");
-                                                PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                                                        profile._name, profile._icon, 0, "");
-                                            }
-                                        } else {
-                                            //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent - ERROR (2)");
-                                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                                                    profile._name, profile._icon, 0, "");
-                                        }
-                                    } else {
-                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent - ERROR (3)");
-                                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                                                profile._name, profile._icon, 0, "");
-                                    }
-                                } else {
-                                    String packageName = Application.getPackageName(split);
-                                    intent = packageManager.getLaunchIntentForPackage(packageName);
-                                    //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application - intent="+intent);
-                                    if (intent != null) {
-                                        //if (!isRunning(procInfo, packageName)) {
-                                        //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": not running");
-                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","intent="+intent);
-                                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                                        //noinspection TryWithIdenticalCatches
-                                        try {
-                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                            appContext.startActivity(intent);
-                                            //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application started");
-                                        } catch (ActivityNotFoundException e) {
-                                            //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application - ERROR (01)");
-                                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, null,
-                                                    profile._name, profile._icon, 0, "");
-                                        } catch (SecurityException e) {
-                                            //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application - ERROR (02)");
-                                            PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, null,
-                                                    profile._name, profile._icon, 0, "");
-                                        } catch (Exception e) {
-                                            //Log.e("ActivateProfileHelper.executeForRunApplications", Log.getStackTraceString(e));
-                                        }
-                                        //}
-                                        //else
-                                        //    PPApplication.logE("ActivateProfileHelper.executeForRunApplications", packageName+": running");
-                                    } else {
-                                        //PPApplication.logE("ActivateProfileHelper.executeForRunApplications","application - ERROR (1)");
-                                        PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, null,
-                                                profile._name, profile._icon, 0, "");
-                                    }
-                                }
+                                doExecuteForRunApplications(appContext, profile._name, split);
                             }
                             PPApplication.sleep(1000);
                         }
@@ -3905,6 +3776,129 @@ class ActivateProfileHelper {
                     }
                 //}
             });
+        }
+    }
+
+    static void doExecuteForRunApplications(Context context, String profileName, String runApplicationData) {
+        Intent appIntent;
+        PackageManager packageManager = context.getPackageManager();
+
+        if (Application.isShortcut(runApplicationData)) {
+            long shortcutId = Application.getShortcutId(runApplicationData);
+            //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","shortcut - shortcutId="+shortcutId);
+            if (shortcutId > 0) {
+                Shortcut shortcut = DatabaseHandler.getInstance(context).getShortcut(shortcutId);
+                if (shortcut != null) {
+                    try {
+                        appIntent = Intent.parseUri(shortcut._intent, 0);
+                        if (appIntent != null) {
+                            //noinspection TryWithIdenticalCatches
+                            try {
+                                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(appIntent);
+                            } catch (ActivityNotFoundException ee) {
+                                //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","shortcut - ERROR (01)");
+                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT,
+                                        null, profileName, "");
+                            } catch (SecurityException e) {
+                                //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","shortcut - ERROR (02)");
+                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT,
+                                        null, profileName, "");
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        } else {
+                            //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","shortcut - ERROR (1)");
+                            PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT,
+                                    null, profileName, "");
+                        }
+                    } catch (Exception e) {
+                        PPApplication.recordException(e);
+                    }
+                } else {
+                    //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","shortcut - ERROR (2)");
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT,
+                            null, profileName, "");
+                }
+            } else {
+                //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","shortcut - ERROR (3)");
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT,
+                        null, profileName, "");
+            }
+        } else
+        if (Application.isIntent(runApplicationData)) {
+            long intentId = Application.getIntentId(runApplicationData);
+            //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - intentId="+intentId);
+            if (intentId > 0) {
+                PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);
+                if (ppIntent != null) {
+                    appIntent = RunApplicationEditorIntentActivityX.createIntent(ppIntent);
+                    if (appIntent != null) {
+                        if (ppIntent._intentType == 0) {
+                            //noinspection TryWithIdenticalCatches
+                            try {
+                                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(appIntent);
+                            } catch (ActivityNotFoundException ee) {
+                                //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (01)");
+                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
+                                        null, profileName, "");
+                            } catch (SecurityException e) {
+                                //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (02)");
+                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
+                                        null, profileName, "");
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        }
+                        else {
+                            try {
+                                context.sendBroadcast(appIntent);
+                            } catch (Exception e) {
+                                //PPApplication.recordException(e);
+                            }
+                        }
+                    } else {
+                        //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (1)");
+                        PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
+                                null, profileName, "");
+                    }
+                } else {
+                    //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (2)");
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
+                            null, profileName, "");
+                }
+            } else {
+                //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (3)");
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
+                        null, profileName, "");
+            }
+        } else {
+            String packageName = Application.getPackageName(runApplicationData);
+            appIntent = packageManager.getLaunchIntentForPackage(packageName);
+            //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","application - intent="+intent);
+            if (appIntent != null) {
+                appIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+                //noinspection TryWithIdenticalCatches
+                try {
+                    appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(appIntent);
+                } catch (ActivityNotFoundException ee) {
+                    //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","application - ERROR (01)");
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION,
+                            null, profileName, "");
+                } catch (SecurityException e) {
+                    //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","application - ERROR (02)");
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION,
+                            null, profileName, "");
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            } else {
+                //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","application - ERROR (1)");
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION,
+                        null, profileName, "");
+            }
         }
     }
 
@@ -3979,7 +3973,7 @@ class ActivateProfileHelper {
         //}
     }
 
-    private static void executeRootForAdaptiveBrightness(Profile profile, Context context) {
+    static void executeRootForAdaptiveBrightness(float adaptiveValue, Context context) {
         /* not working (private secure settings) :-/
         if (Permissions.hasPermission(appContext, Manifest.permission.WRITE_SECURE_SETTINGS)) {
             Settings.System.putFloat(appContext.getContentResolver(), ADAPTIVE_BRIGHTNESS_SETTING_NAME,
@@ -4011,7 +4005,7 @@ class ActivateProfileHelper {
                             (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
                         synchronized (PPApplication.rootMutex) {
                             String command1 = "settings put system " + Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ + " " +
-                                    profile.getDeviceBrightnessAdaptiveValue(appContext);
+                                    adaptiveValue;
                             //if (PPApplication.isSELinuxEnforcing())
                             //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
                             Command command = new Command(0, false, command1); //, command2);
@@ -4215,20 +4209,138 @@ class ActivateProfileHelper {
 
         if ((profile._deviceWallpaperChange == 2) && (!profile._deviceLiveWallpaper.isEmpty()))
         {
-            try {
-                ComponentName componentName = ComponentName.unflattenFromString(profile._deviceLiveWallpaper);
+            if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                try {
+                    ComponentName componentName = ComponentName.unflattenFromString(profile._deviceLiveWallpaper);
+                    Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
+                    context.startActivity(intent);
+                    PPApplication.setWallpaperChangeTime(appContext);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            } else {
                 Intent intent = new Intent(WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
-                context.startActivity(intent);
-                PPApplication.setWallpaperChangeTime(appContext);
-            } catch (Exception e) {
-                PPApplication.recordException(e);
+                if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
+                    ComponentName componentName = ComponentName.unflattenFromString(profile._deviceLiveWallpaper);
+                    intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT, componentName);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                    String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                            appContext.getString(R.string.profile_preferences_deviceLiveWallpaper);
+                    showNotificationForInteractiveParameters(appContext, title, text, intent,
+                            PPApplication.PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_ID,
+                            PPApplication.PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_TAG);
+                }
+            }
+        }
+
+        if (profile._deviceVPNSettingsPrefs == 1)
+        {
+            if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                try {
+                    /*String PACKAGE_PREFIX =
+                            VpnManager.class.getPackage().getName() + ".";
+                    String ACTION_VPN_SETTINGS =
+                            PACKAGE_PREFIX + "SETTINGS";*/
+                    String ACTION_VPN_SETTINGS = "android.net.vpn.SETTINGS";
+                    Intent intent = new Intent(ACTION_VPN_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            } else {
+                /*String PACKAGE_PREFIX =
+                        VpnManager.class.getPackage().getName() + ".";
+                String ACTION_VPN_SETTINGS =
+                        PACKAGE_PREFIX + "SETTINGS";*/
+                String ACTION_VPN_SETTINGS = "android.net.vpn.SETTINGS";
+                Intent intent = new Intent(ACTION_VPN_SETTINGS);
+                if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                    String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                            appContext.getString(R.string.profile_preferences_deviceVPNSettingsPrefs);
+                    showNotificationForInteractiveParameters(appContext, title, text, intent,
+                            PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_ID,
+                            PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_TAG);
+                }
             }
         }
     }
 
-    static void execute(final Context context, final Profile profile/*, boolean merged, *//*boolean _interactive*/)
+    static void cancelNotificationsForInteractiveParameters(Context context) {
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.cancel(
+                PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_TAG,
+                PPApplication.PROFILE_ACTIVATION_MOBILE_DATA_PREFS_NOTIFICATION_ID);
+
+        notificationManager.cancel(
+                PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_TAG,
+                PPApplication.PROFILE_ACTIVATION_NETWORK_TYPE_PREFS_NOTIFICATION_ID);
+
+        notificationManager.cancel(
+                PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_TAG,
+                PPApplication.PROFILE_ACTIVATION_LOCATION_PREFS_NOTIFICATION_ID);
+
+        notificationManager.cancel(
+                PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_TAG,
+                PPApplication.PROFILE_ACTIVATION_WIFI_AP_PREFS_NOTIFICATION_ID);
+
+        notificationManager.cancel(
+                PPApplication.PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_TAG,
+                PPApplication.PROFILE_ACTIVATION_LIVE_WALLPAPER_NOTIFICATION_ID);
+
+        notificationManager.cancel(
+                PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_TAG,
+                PPApplication.PROFILE_ACTIVATION_VPN_SETTINGS_PREFS_NOTIFICATION_ID);
+    }
+
+    private static void showNotificationForInteractiveParameters(Context context, String title, String text, Intent intent, int notificationId, String notificationTag) {
+        Context appContext = context.getApplicationContext();
+
+        //noinspection UnnecessaryLocalVariable
+        String nTitle = title;
+        //noinspection UnnecessaryLocalVariable
+        String nText = text;
+//        if (android.os.Build.VERSION.SDK_INT < 24) {
+//            nTitle = appContext.getString(R.string.ppp_app_name);
+//            nText = title+": "+text;
+//        }
+        PPApplication.createInformationNotificationChannel(appContext);
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
+                .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
+                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
+                .setContentTitle(nTitle) // title for notification
+                .setContentText(nText) // message for notification
+                .setAutoCancel(true); // clear notification after click
+        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+        @SuppressLint("UnspecifiedImmutableFlag")
+        PendingIntent pi = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        //if (android.os.Build.VERSION.SDK_INT >= 21)
+        //{
+        mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
+        mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+        //}
+
+        Notification notification = mBuilder.build();
+        notification.vibrate = null;
+        notification.defaults &= ~DEFAULT_VIBRATE;
+
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
+        try {
+            mNotificationManager.notify(notificationTag, notificationId, notification);
+        } catch (Exception e) {
+            //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+        }
+    }
+
+    static void execute(final Context context, final Profile profile)
     {
         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "xxx");
 
@@ -4416,18 +4528,18 @@ class ActivateProfileHelper {
         // setup display brightness
         if (profile.getDeviceBrightnessChange()) {
             if (Permissions.checkProfileScreenBrightness(appContext, profile, null)) {
-                /*if (PPApplication.logEnabled()) {
-                    PPApplication.logE("----- ActivateProfileHelper.execute", "set brightness: profile=" + profile._name);
-                    PPApplication.logE("----- ActivateProfileHelper.execute", "set brightness: _deviceBrightness=" + profile._deviceBrightness);
-                }*/
+//                if (PPApplication.logEnabled()) {
+//                    PPApplication.logE("[BRIGHTNESS]  ActivateProfileHelper.execute", "set brightness: profile=" + profile._name);
+//                    PPApplication.logE("[BRIGHTNESS]  ActivateProfileHelper.execute", "set brightness: _deviceBrightness=" + profile._deviceBrightness);
+//                }
                 try {
                     if (profile.getDeviceBrightnessAutomatic()) {
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set automatic brightness");
+//                        PPApplication.logE("[BRIGHTNESS] ActivateProfileHelper.execute", "set automatic brightness");
                         Settings.System.putInt(appContext.getContentResolver(),
                                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                                 Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
                         if (profile.getDeviceBrightnessChangeLevel()) {
-                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set brightness 1");
+//                            PPApplication.logE("[BRIGHTNESS] ActivateProfileHelper.execute", "set brightness 1");
                             if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_ADAPTIVE_BRIGHTNESS, null, executedProfileSharedPreferences, true, appContext).allowed
                                     == PreferenceAllowed.PREFERENCE_ALLOWED) {
 
@@ -4442,30 +4554,40 @@ class ActivateProfileHelper {
                                             profile.getDeviceBrightnessAdaptiveValue(appContext));
                                 } else*/ {
                                     try {
-                                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set adaptive brightness 2");
+//                                        PPApplication.logE("[BRIGHTNESS] ActivateProfileHelper.execute", "set adaptive brightness 2");
                                         Settings.System.putFloat(appContext.getContentResolver(),
                                                 Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ,
                                                 profile.getDeviceBrightnessAdaptiveValue(appContext));
                                     } catch (Exception ee) {
                                         // run service for execute radios
                                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "executeRootForAdaptiveBrightness()");
-                                        ActivateProfileHelper.executeRootForAdaptiveBrightness(profile, appContext);
+                                        ActivateProfileHelper.executeRootForAdaptiveBrightness(
+                                                profile.getDeviceBrightnessAdaptiveValue(appContext),
+                                                appContext);
                                     }
                                 }
                             }
                         }
                     } else {
-                        //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set manual brightness");
+//                        PPApplication.logE("[BRIGHTNESS] ActivateProfileHelper.execute", "set manual brightness");
                         Settings.System.putInt(appContext.getContentResolver(),
                                 Settings.System.SCREEN_BRIGHTNESS_MODE,
                                 Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
                         if (profile.getDeviceBrightnessChangeLevel()) {
-                            //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "set brightness 2");
+//                            PPApplication.logE("[BRIGHTNESS] ActivateProfileHelper.execute", "set brightness 2");
                             Settings.System.putInt(appContext.getContentResolver(),
                                     Settings.System.SCREEN_BRIGHTNESS,
                                     profile.getDeviceBrightnessManualValue(appContext));
                         }
                     }
+//                    PPApplication.brightnessModeBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
+//                    PPApplication.brightnessBeforeScreenOff = Settings.System.getInt(appContext.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
+//                    PPApplication.adaptiveBrightnessBeforeScreenOff = Settings.System.getFloat(appContext.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
+//                    if (PPApplication.logEnabled()) {
+//                        PPApplication.logE("ActivateProfileHelper.execute", "brightness mode=" + PPApplication.brightnessModeBeforeScreenOff);
+//                        PPApplication.logE("ActivateProfileHelper.execute", "manual brightness value=" + PPApplication.brightnessBeforeScreenOff);
+//                        PPApplication.logE("ActivateProfileHelper.execute", "adaptive brightness value=" + PPApplication.adaptiveBrightnessBeforeScreenOff);
+//                    }
 
                     /*
                     //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "start BackgroundBrightnessActivity");
@@ -4481,7 +4603,6 @@ class ActivateProfileHelper {
 
                     appContext.startActivity(intent);
                     */
-
                     /*
                     if (PPApplication.brightnessHandler != null) {
                         PPApplication.brightnessHandler.post(new Runnable() {
@@ -4490,8 +4611,8 @@ class ActivateProfileHelper {
                                 createBrightnessView(profile, context);
                             }
                         });
-                    }// else
-                    //    createBrightnessView(context);
+                    } else
+                        createBrightnessView(profile, context);
                     */
                 } catch (Exception e) {
                     PPApplication.recordException(e);
@@ -4873,48 +4994,6 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void showNotificationForInteractiveParameters(Context context, String title, String text, Intent intent, int notificationId, String notificationTag) {
-        Context appContext = context.getApplicationContext();
-
-        //noinspection UnnecessaryLocalVariable
-        String nTitle = title;
-        //noinspection UnnecessaryLocalVariable
-        String nText = text;
-//        if (android.os.Build.VERSION.SDK_INT < 24) {
-//            nTitle = appContext.getString(R.string.ppp_app_name);
-//            nText = title+": "+text;
-//        }
-        PPApplication.createInformationNotificationChannel(appContext);
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(appContext, PPApplication.INFORMATION_NOTIFICATION_CHANNEL)
-                .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
-                .setSmallIcon(R.drawable.ic_exclamation_notify) // notification icon
-                .setContentTitle(nTitle) // title for notification
-                .setContentText(nText) // message for notification
-                .setAutoCancel(true); // clear notification after click
-        mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
-        @SuppressLint("UnspecifiedImmutableFlag")
-        PendingIntent pi = PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(pi);
-        mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        //if (android.os.Build.VERSION.SDK_INT >= 21)
-        //{
-            mBuilder.setCategory(NotificationCompat.CATEGORY_RECOMMENDATION);
-            mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-        //}
-
-        Notification notification = mBuilder.build();
-        notification.vibrate = null;
-        notification.defaults &= ~DEFAULT_VIBRATE;
-
-        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
-        try {
-            mNotificationManager.notify(notificationTag, notificationId, notification);
-        } catch (Exception e) {
-            //Log.e("ActivateProfileHelper.showNotificationForInteractiveParameters", Log.getStackTraceString(e));
-            PPApplication.recordException(e);
-        }
-    }
-
     static void setScreenTimeout(int screenTimeout, Context context) {
         //PPApplication.logE("ActivateProfileHelper.setScreenTimeout", "xxx");
 
@@ -5256,30 +5335,30 @@ class ActivateProfileHelper {
 
     /*
     @SuppressLint("RtlHardcoded")
-    private static void createBrightnessView(Profile profile, Context context)
+    static void createBrightnessView(Profile profile, Context context)
     {
         PPApplication.logE("ActivateProfileHelper.createBrightnessView", "xxx");
 
-        if (PhoneProfilesService.getInstance() != null) {
+        //if (PhoneProfilesService.getInstance() != null) {
             final Context appContext = context.getApplicationContext();
 
             WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
             if (windowManager != null) {
-                if (PhoneProfilesService.getInstance().brightnessView != null) {
+                if (PPApplication.brightnessView != null) {
                     try {
-                        windowManager.removeView(PhoneProfilesService.getInstance().brightnessView);
+                        windowManager.removeView(PPApplication.brightnessView);
                     } catch (Exception ignored) {
                     }
-                    PhoneProfilesService.getInstance().brightnessView = null;
+                    PPApplication.brightnessView = null;
                 }
                 int type;
                 //if (android.os.Build.VERSION.SDK_INT < 25)
                 //    type = WindowManager.LayoutParams.TYPE_TOAST;
                 //else
                 if (android.os.Build.VERSION.SDK_INT < 26)
-                    type = LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                    type = WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
                 else
-                    type = LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
+                    type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY; // add show ACTION_MANAGE_OVERLAY_PERMISSION to Permissions app Settings
                 WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                         1, 1,
                         type,
@@ -5287,14 +5366,14 @@ class ActivateProfileHelper {
                         PixelFormat.TRANSLUCENT
                 );
                 if (profile.getDeviceBrightnessAutomatic() || (!profile.getDeviceBrightnessChangeLevel()))
-                    params.screenBrightness = LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
+                    params.screenBrightness = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE;
                 else
                     params.screenBrightness = profile.getDeviceBrightnessManualValue(appContext) / (float) 255;
-                PhoneProfilesService.getInstance().brightnessView = new BrightnessView(appContext);
+                PPApplication.brightnessView = new BrightnessView(appContext);
                 try {
-                    windowManager.addView(PhoneProfilesService.getInstance().brightnessView, params);
+                    windowManager.addView(PPApplication.brightnessView, params);
                 } catch (Exception e) {
-                    PhoneProfilesService.getInstance().brightnessView = null;
+                    PPApplication.brightnessView = null;
                 }
 
                 final Handler handler = new Handler(appContext.getMainLooper());
@@ -5305,38 +5384,45 @@ class ActivateProfileHelper {
 
                         WindowManager windowManager = (WindowManager) appContext.getSystemService(Context.WINDOW_SERVICE);
                         if (windowManager != null) {
-                            if ((PhoneProfilesService.getInstance() != null) && (PhoneProfilesService.getInstance().brightnessView != null)) {
+                            if (PPApplication.brightnessView != null) {
                                 try {
-                                    windowManager.removeView(PhoneProfilesService.getInstance().brightnessView);
+                                    windowManager.removeView(PPApplication.brightnessView);
                                 } catch (Exception ignored) {
                                 }
-                                PhoneProfilesService.getInstance().brightnessView = null;
+                                PPApplication.brightnessView = null;
                             }
                         }
                     }
                 }, 5000);
 //                PostDelayedBroadcastReceiver.setAlarm(PostDelayedBroadcastReceiver.ACTION_REMOVE_BRIGHTNESS_VIEW,5, context);
             }
-        }
+        //}
     }
 
     static void removeBrightnessView(Context context) {
-        if (PhoneProfilesService.getInstance() != null) {
-            if (PhoneProfilesService.getInstance().brightnessView != null) {
+        //if (PhoneProfilesService.getInstance() != null) {
+            if (PPApplication.brightnessView != null) {
                 WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
                 if (windowManager != null) {
                     try {
-                        windowManager.removeView(PhoneProfilesService.getInstance().brightnessView);
+                        windowManager.removeView(PPApplication.brightnessView);
                     } catch (Exception ignored) {
                     }
-                    PhoneProfilesService.getInstance().brightnessView = null;
+                    PPApplication.brightnessView = null;
                 }
             }
-        }
+        //}
     }
     */
 
-    private static void createKeepScreenOnView(Context context) {
+    static private void removeKeepScreenOnNotification(Context context) {
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        notificationManager.cancel(
+                PPApplication.KEEP_SCREEN_ON_NOTIFICATION_TAG,
+                PPApplication.KEEP_SCREEN_ON_NOTIFICATION_ID);
+    }
+
+    static void createKeepScreenOnView(Context context) {
         //removeKeepScreenOnView();
 
         final Context appContext = context.getApplicationContext();
@@ -5399,8 +5485,50 @@ class ActivateProfileHelper {
             PPApplication.keepScreenOnView = new BrightnessView(appContext);
             try {
                 windowManager.addView(PPApplication.keepScreenOnView, params);
+                setKeepScreenOnPermanent(context, true);
+
+                String nTitle = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
+                                "\"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On) + "\"";
+                String nText = "\"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"" +
+                                " " + context.getString(R.string.keep_screen_on_active_notification_title_1) + " " +
+                                "\"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On) + "\". " +
+                                context.getString(R.string.keep_screen_on_active_notification_decription_1) +
+                                " \"" +context.getString(R.string.profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off) + "\", " +
+                                context.getString(R.string.keep_screen_on_active_notification_decription_2) +
+                                " \"" + context.getString(R.string.profile_preferences_deviceScreenOnPermanent) + "\"=" +
+                                "\"" + context.getString(R.string.array_pref_hardwareModeArray_off) + "\".";
+
+                PPApplication.createKeepScreenOnNotificationChannel(appContext);
+                NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(context, PPApplication.KEEP_SCREEN_ON_NOTIFICATION_CHANNEL)
+                        .setColor(ContextCompat.getColor(context, R.color.notificationDecorationColor))
+                        .setSmallIcon(R.drawable.ic_information_notify) // notification icon
+                        .setContentTitle(nTitle) // title for notification
+                        .setContentText(nText) // message for notification
+                        .setAutoCancel(true); // clear notification after click
+                mBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(nText));
+                mBuilder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                mBuilder.setCategory(NotificationCompat.CATEGORY_EVENT);
+                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                mBuilder.setOngoing(true);
+
+                Notification notification = mBuilder.build();
+                notification.vibrate = null;
+                notification.defaults &= ~DEFAULT_VIBRATE;
+
+                NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+                try {
+                    mNotificationManager.notify(
+                            PPApplication.KEEP_SCREEN_ON_NOTIFICATION_TAG,
+                            PPApplication.KEEP_SCREEN_ON_NOTIFICATION_ID, notification);
+                } catch (Exception e) {
+                    //Log.e("ActionForExternalApplicationActivity.showNotification", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                }
+
             } catch (Exception e) {
                 PPApplication.keepScreenOnView = null;
+                setKeepScreenOnPermanent(context, false);
+                removeKeepScreenOnNotification(appContext);
             }
         }
     }
@@ -5432,6 +5560,8 @@ class ActivateProfileHelper {
                     } catch (Exception ignored) {
                     }
                     PPApplication.keepScreenOnView = null;
+                    setKeepScreenOnPermanent(context, false);
+                    removeKeepScreenOnNotification(appContext);
                 }
             }
         //}
@@ -5955,30 +6085,32 @@ class ActivateProfileHelper {
         }
     }
 
-    private static void setWifiAP(WifiApManager wifiApManager, boolean enable, boolean doNotChangeWifi, Context context) {
+    private static void setWifiAP(WifiApManager wifiApManager, boolean enable, boolean doNotChangeWifi,
+                                  Profile profile, Context context) {
         //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-enable="+enable);
 
-        if (Build.VERSION.SDK_INT < 26) {
-            // for Android 7
-            //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 26");
-            wifiApManager.setWifiApState(enable, doNotChangeWifi);
-        }
-        else
-        if (Build.VERSION.SDK_INT < 28) {
-            // for Android 8
-            //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 28");
-            Context appContext = context.getApplicationContext();
-            if (WifiApManager.canExploitWifiTethering(appContext)) {
-                if (enable)
-                    wifiApManager.startTethering(doNotChangeWifi);
-                else
-                    wifiApManager.stopTethering();
+        try {
+
+            if (Build.VERSION.SDK_INT < 26) {
+                // for Android 7
+                //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 26");
+                wifiApManager.setWifiApState(enable, doNotChangeWifi);
             }
             else
-            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-                    (PPApplication.isRooted(false) && PPApplication.serviceBinaryExists(false))) {
-                //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-rooted");
-                try {
+            if (Build.VERSION.SDK_INT < 28) {
+                // for Android 8
+                //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-API < 28");
+                Context appContext = context.getApplicationContext();
+                if (WifiApManager.canExploitWifiTethering(appContext)) {
+                    if (enable)
+                        wifiApManager.startTethering(doNotChangeWifi);
+                    else
+                        wifiApManager.stopTethering();
+                }
+                else
+                if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+                        (PPApplication.isRooted(false) && PPApplication.serviceBinaryExists(false))) {
+                    //PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-rooted");
                     int transactionCode = PPApplication.rootMutex.transactionCode_setWifiApEnabled;
                     /*if (PPApplication.logEnabled()) {
                         PPApplication.logE("$$$ WifiAP", "ActivateProfileHelper.setWifiAP-serviceManager=" + serviceManager);
@@ -6021,28 +6153,31 @@ class ActivateProfileHelper {
                             }
                         }
                     }
-                } catch (Exception e) {
-                    //Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
-                    PPApplication.recordException(e);
-                    //PPApplication.logE("$$$ WifiAP", Log.getStackTraceString(e));
                 }
             }
-        }
-        else if (Build.VERSION.SDK_INT < 30) {
-            // for Android 9, 10
-            //Context appContext = context.getApplicationContext();
-            //if (WifiApManager.canExploitWifiTethering(appContext)) {
+            else if (Build.VERSION.SDK_INT < 30) {
+                // for Android 9, 10
+                //Context appContext = context.getApplicationContext();
+                //if (WifiApManager.canExploitWifiTethering(appContext)) {
+                    if (enable)
+                        wifiApManager.startTethering(doNotChangeWifi);
+                    else
+                        wifiApManager.stopTethering();
+                //}
+            }
+            else {
                 if (enable)
-                    wifiApManager.startTethering(doNotChangeWifi);
+                    WifiApManager.startTethering30(context, doNotChangeWifi);
                 else
-                    wifiApManager.stopTethering();
-            //}
-        }
-        else {
-            if (enable)
-                WifiApManager.startTethering30(context, doNotChangeWifi);
-            else
-                WifiApManager.stopTethering30(context);
+                    WifiApManager.stopTethering30(context);
+            }
+
+        } catch (SecurityException e) {
+            showError(context, profile._name, Profile.PARAMETER_TYPE_WIFIAP);
+        } catch (Exception e) {
+            //Log.e("ActivateProfileHelper.setWifiAP", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+            //PPApplication.logE("$$$ WifiAP", Log.getStackTraceString(e));
         }
     }
 
@@ -7071,6 +7206,24 @@ class ActivateProfileHelper {
             editor.putInt(PREF_ACTIVATED_PROFILE_SCREEN_TIMEOUT, timeout);
             editor.apply();
             ApplicationPreferences.prefActivatedProfileScreenTimeout = timeout;
+        }
+    }
+
+    static void getKeepScreenOnPermanent(Context context)
+    {
+        synchronized (PPApplication.profileActivationMutex) {
+            ApplicationPreferences.keepScreenOnPermanent = ApplicationPreferences.
+                    getSharedPreferences(context).getBoolean(PREF_KEEP_SCREEN_ON_PERMANENT, false);
+            //return prefLockScreenDisabled;
+        }
+    }
+    static void setKeepScreenOnPermanent(Context context, boolean keepOnPermanent)
+    {
+        synchronized (PPApplication.profileActivationMutex) {
+            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+            editor.putBoolean(PREF_KEEP_SCREEN_ON_PERMANENT, keepOnPermanent);
+            editor.apply();
+            ApplicationPreferences.keepScreenOnPermanent = keepOnPermanent;
         }
     }
 

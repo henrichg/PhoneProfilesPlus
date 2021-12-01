@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/run_applications_pref_dlg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/alert_dialog_top_padding">
+
+    <LinearLayout 
+        android:id="@+id/run_applications_pref_dlg_linla_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+        
+        <ProgressBar
+            android:id="@+id/run_applications_pref_dlg_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        
+    </LinearLayout>
+
+    <RelativeLayout 
+        android:id="@+id/run_applications_pref_dlg_rella_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start" >
+
+        <LinearLayout
+            android:id="@+id/run_applications_pref_dlg_et_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical" >
+
+            <View
+                android:id="@+id/run_applications_pref_dlg_buttonBarDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?attr/dialogDivider" />
+
+            <RelativeLayout
+                android:id="@+id/run_applications_pref_dlg_et_btn2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/run_applications_pref_dlg_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_button_add"
+                    android:background="?attr/selectableItemBackgroundBorderless" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/run_applications_pref_dlg_linla_listview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_above="@id/run_applications_pref_dlg_et_btn"
+            android:layout_alignParentTop="true" >
+
+            <View
+                android:id="@+id/run_applications_pref_dlg_titleBarDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="?attr/dialogDivider" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/run_applications_pref_dlg_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                android:scrollbarStyle="outsideOverlay" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

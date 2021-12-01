@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.DialogPreference;
@@ -33,7 +32,7 @@ class MobileCellNamesDialogX {
     private final EditText cellName;
 
     private final LinearLayout linlaProgress;
-    private final RelativeLayout rellaDialog;
+    private final LinearLayout rellaDialog;
 
     private final MobileCellNamesDialogAdapterX listAdapter;
 

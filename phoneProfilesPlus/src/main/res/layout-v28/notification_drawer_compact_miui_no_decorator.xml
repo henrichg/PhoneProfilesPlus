@@ -29,12 +29,12 @@
 
         <ImageView
             android:id="@+id/notification_activated_profile_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="6dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default" />
 

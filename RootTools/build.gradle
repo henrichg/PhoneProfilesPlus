@@ -26,6 +26,9 @@ android {
 
 dependencies {
     implementation project(':RootShell')
+
+    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat:$ppVersions.appcompatXLib"
+    //noinspection GradleDependency
     implementation "androidx.appcompat:appcompat-resources:$ppVersions.appcompatXLib"
 }

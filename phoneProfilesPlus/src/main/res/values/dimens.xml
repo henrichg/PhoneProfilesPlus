@@ -11,6 +11,11 @@
 
     <dimen name="activator_min_width_minor">65%</dimen>
     <dimen name="activator_min_width_major">65%</dimen>
+    <dimen name="activator_transparent_padding_top_bottom">15dp</dimen>
+    <dimen name="activator_transparent_padding_left_right">0dp</dimen>
+
+    <dimen name="dialog_min_width_minor">85%</dimen>
+    <dimen name="dialog_min_width_major">85%</dimen>
 
     <dimen name="dialog_corner_radius">10dp</dimen>
     <dimen name="dialog_transparent_padding">15dp</dimen>
@@ -39,6 +44,11 @@
 
 <!--    <dimen name="editor_bottom_bar_height">67dp</dimen>-->
 
+    <!-- this is height of BottomNavigationView -->
     <dimen name="design_bottom_navigation_height" tools:override="true">52dp</dimen>
 
+    <dimen name="fastScrollTrackWidth">10dp</dimen>
+    <dimen name="fastScrollThumbWidth">8dp</dimen>
+
+    <dimen name="chackBox_radioButton_spacing_for_list_items">10dp</dimen>
 </resources>

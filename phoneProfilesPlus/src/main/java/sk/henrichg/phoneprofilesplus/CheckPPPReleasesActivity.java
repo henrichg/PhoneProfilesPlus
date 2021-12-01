@@ -202,6 +202,12 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
     private void checkInGitHub(final Activity activity, final boolean refresh) {
+        int pppVersionCode = 0;
+        try {
+            PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
+            pppVersionCode = PPApplication.getVersionCode(pInfo);
+        } catch (Exception ignored) {
+        }
         newVersionDataExists = (!newVersionName.isEmpty()) && (newVersionCode > 0);
 
         AlertDialog.Builder dialogBuilder = null;
@@ -225,6 +231,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         }
         else
             message = message + activity.getString(R.string.check_github_releases_released_version) + " " + getString(R.string.check_github_releases_version_checking);
+
+        newVersionDataExists = newVersionDataExists && (newVersionCode > pppVersionCode);
 
         message = message + "\n\n";
         message = message + activity.getString(R.string.check_github_releases_install_info_1);
@@ -257,7 +265,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             button.setVisibility(View.GONE);
 
             CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
-            CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPP_RELEASES_URL;
+            CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPP_RELEASES_URL + " \u21D2";
             Spannable sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -392,7 +400,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         text = layout.findViewById(R.id.dialog_for_fdroid_fdroid_application);
         CharSequence str1 = activity.getString(R.string.check_releases_fdroid_application);
-        CharSequence str2 = str1 + " " + PPApplication.FDROID_APPLICATION_URL;
+        CharSequence str2 = str1 + " " + PPApplication.FDROID_APPLICATION_URL + " \u21D2";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -421,7 +429,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         text = layout.findViewById(R.id.dialog_for_fdroid_repository_with_ppp_to_configure);
         str1 = activity.getString(R.string.check_releases_fdroid_repository_with_ppp);
-        str2 = str1 + " " + PPApplication.FDROID_REPOSITORY_URL;
+        str2 = str1 + " " + PPApplication.FDROID_REPOSITORY_URL + " \u21D2";
         sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         clickableSpan = new ClickableSpan() {
@@ -451,7 +459,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         text = layout.findViewById(R.id.dialog_for_fdroid_go_to_repository_with_ppp);
         if (text != null) {
             str1 = activity.getString(R.string.check_releases_fdroid_go_to_repository_with_ppp);
-            str2 = str1 + " " + PPApplication.FDROID_PPP_RELEASES_URL;
+            str2 = str1 + " " + PPApplication.FDROID_PPP_RELEASES_URL + " \u21D2";
             sbt = new SpannableString(str2);
             sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             clickableSpan = new ClickableSpan() {
@@ -490,6 +498,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             if (_fdroidInstalled) {
                 Intent intent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("market://details?id=sk.henrichg.phoneprofilesplus"));
+                intent.setPackage("org.fdroid.fdroid");
                 try {
                     activity.startActivity(intent);
                 } catch (Exception e) {
@@ -607,7 +616,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
         text = layout.findViewById(R.id.dialog_for_amazon_appstore_amazon_appstore_application);
         CharSequence str1 = activity.getString(R.string.check_releases_amazon_appstore_application);
-        CharSequence str2 = str1 + " " + PPApplication.AMAZON_APPSTORE_APPLICATION_URL;
+        CharSequence str2 = str1 + " " + PPApplication.AMAZON_APPSTORE_APPLICATION_URL + " \u21D2";
         Spannable sbt = new SpannableString(str2);
         sbt.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -637,17 +646,21 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
 
-        dialogBuilder.setPositiveButton(R.string.check_releases_open_amazon_appstore, (dialog, which) -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("amzn://apps/android?p=sk.henrichg.phoneprofilesplus"));
-            try {
-                activity.startActivity(intent);
-            } catch (Exception e) {
-                AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(activity);
-                dialogBuilder2.setMessage(R.string.check_releases_install_amazon_appstore);
-                //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
-                dialogBuilder2.setPositiveButton(android.R.string.ok, null);
-                AlertDialog dialog2 = dialogBuilder2.create();
+        PackageManager packageManager = activity.getPackageManager();
+        Intent _intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
+        if (_intent != null) {
+            dialogBuilder.setPositiveButton(R.string.check_releases_open_amazon_appstore, (dialog, which) -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("amzn://apps/android?p=sk.henrichg.phoneprofilesplus"));
+                intent.setPackage("com.amazon.venezia");
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception e) {
+                    AlertDialog.Builder dialogBuilder2 = new AlertDialog.Builder(activity);
+                    dialogBuilder2.setMessage(R.string.check_releases_install_amazon_appstore);
+                    //dialogBuilder2.setIcon(android.R.drawable.ic_dialog_alert);
+                    dialogBuilder2.setPositiveButton(android.R.string.ok, null);
+                    AlertDialog dialog2 = dialogBuilder2.create();
 
 //                            dialog2.setOnShowListener(new DialogInterface.OnShowListener() {
 //                                @Override
@@ -659,9 +672,9 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //                                }
 //                            });
 
-                if (!activity.isFinishing())
-                    dialog2.show();
-            }
+                    if (!activity.isFinishing())
+                        dialog2.show();
+                }
 /*
                 PackageManager packageManager = activity.getPackageManager();
                 Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
@@ -692,8 +705,9 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
                     }
                 }
  */
-            activity.finish();
-        });
+                activity.finish();
+            });
+        }
         dialogBuilder.setNegativeButton(android.R.string.cancel, null);
         dialogBuilder.setOnCancelListener(dialog -> activity.finish());
         dialogBuilder.setOnDismissListener(dialog -> activity.finish());
@@ -807,14 +821,38 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
         dialogBuilder.setCancelable(true);
 
-        dialogBuilder.setPositiveButton(R.string.check_releases_go_to_apkpure, (dialog, which) -> {
-            String url = PPApplication.APKPURE_PPP_RELEASES_URL;
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            try {
-                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplication.recordException(e);
+        boolean apkPureInstalled = false;
+        PackageManager pm = activity.getPackageManager();
+        try {
+            pm.getPackageInfo("com.apkpure.aegon", PackageManager.GET_ACTIVITIES);
+            apkPureInstalled = true;
+        } catch (Exception ignored) {}
+
+        final boolean _apkPureInstalled = apkPureInstalled;
+        int buttonRes = R.string.check_releases_go_to_apkpure;
+        if (apkPureInstalled)
+            buttonRes = R.string.check_releases_open_apkpure;
+        dialogBuilder.setPositiveButton(buttonRes, (dialog, which) -> {
+            if (_apkPureInstalled) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("market://details?id=sk.henrichg.phoneprofilesplus"));
+                intent.setPackage("com.apkpure.aegon");
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception e) {
+                    //Log.e("CheckGitHubReleasesActivity.showDialog", Log.getStackTraceString(e));
+                    PPApplication.recordException(e);
+                }
+            }
+            else {
+                String url = PPApplication.APKPURE_PPP_RELEASES_URL;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                try {
+                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
             }
             activity.finish();
         });

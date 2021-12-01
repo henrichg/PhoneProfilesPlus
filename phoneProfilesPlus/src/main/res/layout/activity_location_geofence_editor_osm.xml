@@ -168,7 +168,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_location_my_location"
-                android:background="?attr/selectableItemBackground" />
+                android:background="?attr/selectableItemBackgroundBorderless" />
 
             <androidx.appcompat.widget.AppCompatImageButton
                 android:id="@+id/location_editor_address_btn"
@@ -179,7 +179,7 @@
                 android:layout_toStartOf = "@id/location_editor_my_location"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_button_location_address"
-                android:background="?attr/selectableItemBackground" />
+                android:background="?attr/selectableItemBackgroundBorderless" />
 
             <EditText
                 android:id="@+id/location_editor_geofence_name"

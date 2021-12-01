@@ -2,7 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -82,11 +84,39 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         String applicationWidgetListLightnessT;
         boolean applicationWidgetListHeader;
         boolean applicationWidgetListPrefIndicator;
+        boolean applicationWidgetChangeColorsByNightMode;
+
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
             applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
+            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+
+            if (Build.VERSION.SDK_INT >= 31) {
+                /*if (PPApplication.isPixelLauncherDefault(context)) {
+                    ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                            ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
+                    editor.apply();
+                    applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+                }*/
+                if (//PPApplication.isPixelLauncherDefault(context) ||
+                        applicationWidgetChangeColorsByNightMode) {
+                    int nightModeFlags =
+                            context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    switch (nightModeFlags) {
+                        case Configuration.UI_MODE_NIGHT_YES:
+                            applicationWidgetListLightnessT = "100"; // lightness of text = white
+                            break;
+                        case Configuration.UI_MODE_NIGHT_NO:
+                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                            applicationWidgetListLightnessT = "0"; // lightness of text = black
+                            break;
+                    }
+                }
+            }
         }
 
         if (!applicationWidgetListGridLayout)
@@ -320,6 +350,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         boolean applicationWidgetListPrefIndicator;
         String applicationWidgetListPrefIndicatorLightness;
         boolean applicationWidgetListHeader;
+        boolean applicationWidgetChangeColorsByNightMode;
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
             applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
@@ -327,6 +358,34 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
             applicationWidgetListPrefIndicatorLightness = ApplicationPreferences.applicationWidgetListPrefIndicatorLightness;
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
+            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+
+            if (Build.VERSION.SDK_INT >= 31) {
+                /*if (PPApplication.isPixelLauncherDefault(context)) {
+                    ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                            ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
+                    editor.apply();
+                    applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+                }*/
+                if (//PPApplication.isPixelLauncherDefault(context) ||
+                        applicationWidgetChangeColorsByNightMode) {
+                    int nightModeFlags =
+                            context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    switch (nightModeFlags) {
+                        case Configuration.UI_MODE_NIGHT_YES:
+                            applicationWidgetListIconColor = "0"; // icon type = colorful
+                            applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
+                            break;
+                        case Configuration.UI_MODE_NIGHT_NO:
+                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                            applicationWidgetListIconColor = "0"; // icon type = colorful
+                            applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
+                            break;
+                    }
+                }
+            }
         }
 
         DataWrapper _dataWrapper = createProfilesDataWrapper(true,

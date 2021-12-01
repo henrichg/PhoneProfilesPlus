@@ -5,8 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
@@ -15,7 +13,6 @@ import android.text.style.ClickableSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,7 +21,7 @@ import androidx.fragment.app.Fragment;
 @SuppressWarnings("WeakerAccess")
 public class QuickGuideHelpFragment extends Fragment {
 
-    int scrollTo = 0;
+    //int scrollTo = 0;
 
     public QuickGuideHelpFragment() {
         // Required empty public constructor
@@ -75,7 +72,7 @@ public class QuickGuideHelpFragment extends Fragment {
 
         TextView translationTextView = view.findViewById(R.id.activity_info_translations);
         String str1 = getString(R.string.about_application_translations);
-        String str2 = str1 + " " + PPApplication.CROWDIN_URL;
+        String str2 = str1 + " " + PPApplication.CROWDIN_URL + " \u21D2";
         Spannable spannable = new SpannableString(str2);
         //spannable.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, str1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -108,7 +105,7 @@ public class QuickGuideHelpFragment extends Fragment {
                 AboutApplicationActivity.getEmailBodyText(AboutApplicationActivity.EMAIL_BODY_TRANSLATIONS, activity),
                 true, activity);*/
 
-        if ((scrollTo != 0) && (savedInstanceState == null)) {
+        /*if ((scrollTo != 0) && (savedInstanceState == null)) {
             final ScrollView scrollView = view.findViewById(R.id.fragment_important_info_scroll_view);
             final View viewToScroll = view.findViewById(scrollTo);
             if ((scrollView != null) && (viewToScroll != null)) {
@@ -117,7 +114,7 @@ public class QuickGuideHelpFragment extends Fragment {
                     scrollView.scrollTo(0, viewToScroll.getTop());
                 }, 200);
             }
-        }
+        }*/
     }
 
 }

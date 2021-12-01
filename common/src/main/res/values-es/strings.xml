@@ -253,7 +253,6 @@
     <string name="event_preferences_screen_event_type">Tipo de evento</string>
     <string name="event_preferences_delayStart">Retardo</string>
     <string name="profile_preferences_duration">Duración</string>
-    <string name="profile_preferences_afterDurationDo">Después de la duración hacer</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Nada</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Deshacer el perfil</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Activar perfil predeterminado</string>
@@ -419,7 +418,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Duración del escaneo de Bluetooth LE (segundos)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Escaneo de Wi-Fi</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Escaneo de Bluetooth</string>
-    <string name="profile_preferences_category_activation_duration">Duración de la activación</string>
     <string name="profile_preferences_category_sound_profile">Perfil de sonido</string>
     <string name="profile_preferences_category_radios">Radios</string>
     <string name="profile_preferences_category_screen">Pantalla</string>
@@ -879,7 +877,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Deshabilitar el escaneo de celdas móviles</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Deshabilitar el escaneo de orientación</string>
     <string name="profile_preferences_headsUpNotifications">(G1)(R) Notificaciones emergentes</string>
-    <string name="fast_access_duration_activate_without_button_2">Activar sin duración</string>
     <string name="profileicon_pref_dlg_customIconButton">Icono personalizado</string>
     <string name="mobile_cells_registration_cell_name_hint">Haz clic para establecer el nombre de la celda</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Puede que la conexión a Punto de Acceso no funcione desde otros dispositivos.</string>
@@ -1326,7 +1323,6 @@
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Ocultar la barra superior o inferior</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Permitir que se oculte las barras superior o inferior durante el desplazamiento de la lista</string>
     <string name="preferences_durationInfo_summary">Los parámetros marcados con [M] se utilizan sólo cuando este perfil se activa manualmente. La activación desde el evento ignora estos parámetros.</string>
-    <string name="profile_preferences_durationEndCategory">Fin de la duración</string>
     <string name="profile_event_name_ask_for_duration">preguntar</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">No se puede hacer clic en el widget</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Si el widget PhoneProfilesPlus no funciona (clics en el widget), habilita el permiso en los ajustes del dispositivo: Ajustes / Aplicaciones / Gestionar aplicaciones / PhoneProfilesPlus / Otros permisos / Mostrar ventanas emergentes mientras se ejecuta en segundo plano.</string>
@@ -1334,7 +1330,6 @@
     <string name="array_pref_37_percent" formatted="false">38%</string>
     <string name="array_pref_62_percent" formatted="false">63%</string>
     <string name="array_pref_87_percent" formatted="false">88%</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Mostrar la duración del perfil (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Podría no funcionar en tu dispositivo en absoluto.</string>
     <string name="application_is_starting_toast">se está iniciando…</string>
     <string name="application_is_started_toast">se ha iniciado</string>
@@ -1784,6 +1779,70 @@
     <string name="check_github_releases_version_checking">… detección …</string>
     <string name="check_github_releases_version_critical">!CRÍTICO!</string>
     <string name="important_info_profile_grant_1_howTo_0">Esta ayuda es mejor abrirla en tu navegador de Internet. Está en el README.md de PhoneProfilesPlus en GitHub, marcada como</string>
+    <string name="important_info_event_event_sensors">Cada evento tiene sensores. Todos los sensores con \"Activar ejecución\" habilitado deben ser \"pasados\" para que comience la ejecución del evento. El evento en ejecución termina cuando alguno de los sensores no se ha \"pasado\".\n\nel estado \"Pasado\" se indica con el color del nombre del sensor en el Editor:</string>
+    <string name="important_info_event_event_sensors_waiting">Azul: el sensor está en estado de espera. El estado \"Pasado\" está por determinar.</string>
+    <string name="important_info_event_event_sensors_passed">Verde: el sensor está \"pasado\".</string>
+    <string name="important_info_event_event_sensors_not_pased">Amarillo: el sensor no está \"pasado\".</string>
+    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Diseño más alto</string>
+    <string name="profile_preferences_deviceVPNSettingsPrefs">(I) Ajustes de VPN</string>
+    <string name="profile_preferences_deviceVPNInfo">VPN</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Haz clic aquí para mostrar información sobre conectar\/desconectar la VPN configurada en la aplicación OpenVPN.</string>
+    <string name="profile_preferences_deviceVPNInfo_infoText">En el parámetro de perfil \"Otros\"\/\"Ejecutar aplicaciones, atajos, intentos\" existen Intentos predefinidos para dos aplicaciones: \"OpenVPN Connect\" y \"OpenVPN para Android\". Para más información visita:</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Cambiar colores por modo nocturno</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">Si se activa, los colores de los widgets se establecerán por el modo nocturno del sistema (como en el Pixel launcher)</string>
+    <string name="array_pref_radioSwitch_connected_any_sim_cards">Conectado (cualquier tarjeta SIM)</string>
+    <string name="array_pref_radioSwitch_connected_sim1">SIM 1 conectada</string>
+    <string name="array_pref_radioSwitch_connected_sim2">SIM 2 conectada</string>
+    <string name="permission_why_event_radio_switch_preferences">para comprobar la conexión de datos móviles para tarjetas SIM duales, comprueba la tarjeta SIM predeterminada</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForCalls">SIM por defecto para llamadas</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForSMS">SIM por defecto para SMS</string>
+    <string name="array_pref_radioSwitch_defaultSIM1">SIM 1</string>
+    <string name="array_pref_radioSwitch_defaultSIM2">SIM 2</string>
+    <string name="event_preferences_radioSwitch_simOnOff">SIM on/off</string>
+    <string name="array_pref_radioSwitch_any_SIM_on">Any SIM On</string>
+    <string name="array_pref_radioSwitch_any_SIM_off">Any SIM Off</string>
+    <string name="array_pref_radioSwitch_SIM1_on">SIM 1 On</string>
+    <string name="array_pref_radioSwitch_SIM1_off">SIM 1 Off</string>
+    <string name="array_pref_radioSwitch_SIM2_on">SIM 2 On</string>
+    <string name="array_pref_radioSwitch_SIM2_off">SIM 2 Off</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">y</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">Encendido</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Apagado</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">no establecer</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">para el parámetro</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">También debes configurar</string>
+    <string name="notification_channel_keep_screen_on_description">Muestra una notificación sobre el estado de</string>
+    <string name="keep_screen_on_active_notification_title_1">es</string>
+    <string name="keep_screen_on_active_notification_decription_1">Para establecerlo</string>
+    <string name="keep_screen_on_active_notification_decription_2">configurar y activar perfil con</string>
+    <string name="ask_for_duration_without_duration_button">Sin duración</string>
+    <string name="profile_preferences_endOfActivationType">Tipo de fin de activación</string>
+    <string name="array_pref_aendOfActivationType_duration">Duración</string>
+    <string name="array_pref_aendOfActivationType_exactTime">Tiempo exacto</string>
+    <string name="profile_preferences_endOfActivationCategory">Fin de la activación</string>
+    <string name="profile_preferences_afterDurationDo">Después de la duración hacer</string>
+    <string name="profile_preferences_afterExactTimeDo">Cuando el tiempo exacto sea</string>
+    <string name="profile_preferences_exactTime">Tiempo exacto</string>
+    <string name="profile_preferences_category_end_of_activation">Fin de la activación</string>
+    <string name="end_of_activation_time_end_acronym">te</string>
+    <string name="end_of_activation_duration_acronym">d</string>
+    <string name="end_of_activation_time_acronym">t</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Mostrar fin de la activación del perfil (widget)</string>
+    <string name="event_delay_start_acronym">ds</string>
+    <string name="event_delay_end_acronym">de</string>
+    <string name="altype_afterEndOfActivationTime_undoProfile">después de que pase el tiempo exacto - deshacer perfil</string>
+    <string name="altype_afterEndOfActivationTime_defaultProfile">después de que pase el tiempo exacto - perfil por defecto</string>
+    <string name="altype_afterEndOfActivationTime_restartEvents">después de que pase el tiempo exacto - reiniciar eventos</string>
+    <string name="altype_afterEndOfActivationTime_specificProfile">después de que pase el tiempo exacto - perfil específico</string>
+    <string name="check_releases_open_apkpure">Abrir APKPure</string>
+    <string name="phone_profiles_pref_category_special_profile_parameters">Parámetros especiales de perfil</string>
+    <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn">Forzar el brillo al encenderse la pantalla</string>
+    <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn_summary">Habilitar, si deseas restablecer los parámetros de brillo de la pantalla desde el perfil activado al encenderse la pantalla.</string>
+    <string name="phone_profiles_pref_applicationSpecialPreferencesNotAny">No hay ningún parámetro especial</string>
+    <string name="profile_preferences_forceSetBrightnessAtScreenOn_summary">Activa \"Forzar el ajuste de brillo en la pantalla\" en los ajustes de la aplicación si deseas restablecer los parámetros de brillo de la pantalla cuando se encienda.</string>
+    <string name="profile_preferences_disabled">Deshabilitado</string>
+    <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"No volver a pedir\" permisos de root está activado</string>
+    <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"No volver a pedir\" permisos de root no está activado</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>
@@ -1833,8 +1892,6 @@
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
@@ -1854,4 +1911,8 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
+    <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
+    <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
 </resources>

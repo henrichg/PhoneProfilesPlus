@@ -30,7 +30,7 @@ class SettingsContentObserver  extends ContentObserver {
     SettingsContentObserver(Context c, Handler handler) {
         super(handler);
 
-        context=c;
+        context=c.getApplicationContext();
 
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         if (audioManager != null) {
@@ -230,17 +230,9 @@ class SettingsContentObserver  extends ContentObserver {
         int screenTimeout = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, 0);
         if (!ActivateProfileHelper.disableScreenTimeoutInternalChange) {
             if (previousScreenTimeout != screenTimeout) {
-                if (Permissions.checkScreenTimeout(context)) {
+                //if (Permissions.checkScreenTimeout(context)) {
                     ActivateProfileHelper.setActivatedProfileScreenTimeout(context, 0);
-                    /*if (PPApplication.screenTimeoutHandler != null) {
-                        PPApplication.screenTimeoutHandler.post(new Runnable() {
-                            public void run() {
-                                ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
-                            }
-                        });
-                    }*/// else
-                    //    ActivateProfileHelper.removeScreenTimeoutAlwaysOnView(context);
-                }
+                //}
             }
         }
         previousScreenTimeout = screenTimeout;
@@ -249,11 +241,11 @@ class SettingsContentObserver  extends ContentObserver {
             savedBrightnessMode = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS_MODE, -1);
             savedBrightness = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, -1);
             savedAdaptiveBrightness = Settings.System.getFloat(context.getContentResolver(), Settings.System.SCREEN_AUTO_BRIGHTNESS_ADJ, -1);
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("[BRSD] SettingsContentObserver.onChange", "brightness mode=" + savedBrightnessMode);
-                PPApplication.logE("[BRSD] SettingsContentObserver.onChange", "manual brightness value=" + savedBrightness);
-                PPApplication.logE("[BRSD] SettingsContentObserver.onChange", "adaptive brightness value=" + savedAdaptiveBrightness);
-            }*/
+//            if (PPApplication.logEnabled()) {
+//                PPApplication.logE("[BRSD] SettingsContentObserver.onChange (1)", "brightness mode=" + savedBrightnessMode);
+//                PPApplication.logE("[BRSD] SettingsContentObserver.onChange (1)", "manual brightness value=" + savedBrightness);
+//                PPApplication.logE("[BRSD] SettingsContentObserver.onChange (1)", "adaptive brightness value=" + savedAdaptiveBrightness);
+//            }
         }
 
 //        if (PPApplication.logEnabled()) {

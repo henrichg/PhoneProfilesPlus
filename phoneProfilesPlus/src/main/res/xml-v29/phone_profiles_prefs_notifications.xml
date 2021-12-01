@@ -117,13 +117,12 @@
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <ListPreference
+        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
             app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
             app:summary="50%%"
             app:key="notificationPrefIndicatorLightness"
             app:defaultValue="50"
-            app:entries="@array/widgetLightnessArray"
-            app:entryValues="@array/widgetLightnessValues"
+            app:showLighting="true"
             app:dependency="notificationPrefIndicator"
             app:layout="@layout/mp_preference_material_widget" />
 

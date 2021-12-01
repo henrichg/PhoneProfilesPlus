@@ -253,7 +253,6 @@
     <string name="event_preferences_screen_event_type">Eventtype</string>
     <string name="event_preferences_delayStart">Vertraging</string>
     <string name="profile_preferences_duration">Tijdsduur</string>
-    <string name="profile_preferences_afterDurationDo">Bij einde tijdsduur doe</string>
     <string name="array_pref_afterProfileDurationDo_nothing">Niets</string>
     <string name="array_pref_afterProfileDurationDo_undoProfile">[M] Profiel ongedaan maken</string>
     <string name="array_pref_afterProfileDurationDo_backgroundProfile">[M] Standaardprofiel activeren</string>
@@ -419,7 +418,6 @@
     <string name="phone_profiles_pref_applicationEventBluetoothLEScanDuration">Bluetooth LE scan tijdsduur (sec)</string>
     <string name="phone_profiles_pref_category_wifi_scanning">Wi-Fi scannen</string>
     <string name="phone_profiles_pref_category_bluetooth_scanning">Bluetooth scannen</string>
-    <string name="profile_preferences_category_activation_duration">Activatie tijdsduur</string>
     <string name="profile_preferences_category_sound_profile">Geluidsprofiel</string>
     <string name="profile_preferences_category_radios">Radio\'s</string>
     <string name="profile_preferences_category_screen">Scherm</string>
@@ -811,7 +809,7 @@
     <string name="phone_profiles_pref_applicationStartEvents">Start events bij opstarten</string>
     <string name="phone_profiles_pref_applicationEventScanOnlyWhenScreenIsOn">Scan alleen als het scherm aan is</string>
     <string name="phone_profiles_pref_applicationRestartEventsAlert">Bevestig herstart events</string>
-    <string name="applications_editor_dialog_startApplicationDelay">Opstartvertraging:</string>
+    <string name="applications_editor_dialog_startApplicationDelay">Startvertraging:</string>
     <string name="number_picker_min_error">Voer een getal is groter of gelijk aan %1$s</string>
     <string name="number_picker_max_error">Voer een getal in kleiner of gelijk aan %1$s</string>
     <string name="number_picker_min_max_error">Voer een getal in tussen %1$s en %2$s</string>
@@ -879,7 +877,6 @@
     <string name="profile_preferences_applicationDisableMobileCellScanning">Zendmast cel scannen uitschakelen</string>
     <string name="profile_preferences_applicationDisableOrientationScanning">Oriëntatie scannen uitschakelen</string>
     <string name="profile_preferences_headsUpNotifications">(G1) (R) Pop-up meldingen</string>
-    <string name="fast_access_duration_activate_without_button_2">Activeer zonder tijdsduur</string>
     <string name="profileicon_pref_dlg_customIconButton">Aangepast icoon</string>
     <string name="mobile_cells_registration_cell_name_hint">Klik om celnaam in te stellen</string>
     <string name="profile_preferences_deviceWiFiAPInfo_summary">Werkt mogelijk niet bij hotspot connectie van andere apparaten.</string>
@@ -1326,7 +1323,6 @@
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar">Verberg kop- of onderste balk</string>
     <string name="phone_profiles_pref_applicationHideHeaderOrBottomBar_summary">Sta verbergen van kop- of onderste balk toe tijdens scrollen</string>
     <string name="preferences_durationInfo_summary">Parameters gemarkeerd met [M] worden alleen gebruikt bij handmatig activeren van dit profiel. Activeren vanuit even negeert deze parameters.</string>
-    <string name="profile_preferences_durationEndCategory">Einde duur</string>
     <string name="profile_event_name_ask_for_duration">vraag</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info">Widget is niet klikbaar</string>
     <string name="phone_profiles_pref_widget_not_working_miui_info_summary">Als PhoneProfilesPlus widget niet werkt (klik op de widget), activeer dan toestemming in apparaat instellingen: Instellingen / Apps en meldingen / Alle Apps / PhoneProfilesPlus / Menu - Alle machtigingen / Toon pop-up vensters tijdens uitvoeren op de achtergrond.</string>
@@ -1334,7 +1330,6 @@
     <string name="array_pref_37_percent" formatted="false">38%</string>
     <string name="array_pref_62_percent" formatted="false">63%</string>
     <string name="array_pref_87_percent" formatted="false">88%</string>
-    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Toon tijdsduur profiel (widget)</string>
     <string name="profile_preferences_deviceWiFiAPInfo2_summary">Werkt mogelijk niet helemaal op je apparaat.</string>
     <string name="application_is_starting_toast">start…</string>
     <string name="application_is_started_toast">is gestart</string>
@@ -1784,6 +1779,70 @@
     <string name="check_github_releases_version_checking">… detectie …</string>
     <string name="check_github_releases_version_critical">! KRITIEK !</string>
     <string name="important_info_profile_grant_1_howTo_0">Deze help is beter te openen op een computer met een browser. Het is in PhoneProfilesPlus GitHub README.md, gemarkeerd als</string>
+    <string name="important_info_event_event_sensors">Elk event heeft sensoren. Alle sensoren die \"Uitvoeren inschakelen\" hebben moeten \"geslaagd\" zijn om te werken. Een lopende gebeurtenis eindigt wanneer een sensor niet \"geslaagd\" is.\n\n\"Geslaagd\" status wordt aangegeven met de kleur van de sensornaam in de editor:</string>
+    <string name="important_info_event_event_sensors_waiting">Blauw: sensor is in wachtstand. De status \"Geslaagd\" is bepaald.</string>
+    <string name="important_info_event_event_sensors_passed">Groen: sensor is \"Geslaagd\".</string>
+    <string name="important_info_event_event_sensors_not_pased">Geel: sensor is niet \"geslaagd\".</string>
+    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Hogere lay-out</string>
+    <string name="profile_preferences_deviceVPNSettingsPrefs">(I) VPN-instellingen</string>
+    <string name="profile_preferences_deviceVPNInfo">VPN</string>
+    <string name="profile_preferences_deviceVPNInfo_summary">Klik hier voor informatie over de connectie\/verbroken connectie VPN die geconfigureerd is in de OpenVPN-programma.</string>
+    <string name="profile_preferences_deviceVPNInfo_infoText">In profiel parameters \"Andere\"\/\"Programma\'s, snelkoppelingen, intents\" zijn voorgedefinieerde Intents voor twee toepassingen: \"OpenVPN Connect\" en \"OpenVPN voor Android\". Voor meer informatie ga naar:</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Kleuren in nachtmodus wijzigen</string>
+    <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">Als aangezet, worden widgetkleuren ingesteld door de systeem Nachtmodus (zoals in Pixel launcher)</string>
+    <string name="array_pref_radioSwitch_connected_any_sim_cards">Verbonden (elke simkaart)</string>
+    <string name="array_pref_radioSwitch_connected_sim1">Verbonden SIM 1</string>
+    <string name="array_pref_radioSwitch_connected_sim2">Verbonden SIM 2</string>
+    <string name="permission_why_event_radio_switch_preferences">voor het controleren van verbinding met mobiele gegevens voor meerdere simkaarten, controleer de standaard simkaart</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForCalls">Standaard simkaart voor oproepen</string>
+    <string name="event_preferences_radioSwitch_defaultSIMForSMS">Standaard simkaart voor SMS</string>
+    <string name="array_pref_radioSwitch_defaultSIM1">SIM 1</string>
+    <string name="array_pref_radioSwitch_defaultSIM2">SIM 2</string>
+    <string name="event_preferences_radioSwitch_simOnOff">Simkaart aan/uit</string>
+    <string name="array_pref_radioSwitch_any_SIM_on">Elke simkaart aan</string>
+    <string name="array_pref_radioSwitch_any_SIM_off">Elke simkaart uit</string>
+    <string name="array_pref_radioSwitch_SIM1_on">Simkaart 1 Aan</string>
+    <string name="array_pref_radioSwitch_SIM1_off">Simkaart 1 uit</string>
+    <string name="array_pref_radioSwitch_SIM2_on">Simkaart 2 Aan</string>
+    <string name="array_pref_radioSwitch_SIM2_off">Simkaart 2 uit</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">en</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">Aan</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Uit</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_1">niet instellen</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_2">voor parameter</string>
+    <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_3">Je configureert ook</string>
+    <string name="notification_channel_keep_screen_on_description">Toont notificatie over status van</string>
+    <string name="keep_screen_on_active_notification_title_1">is</string>
+    <string name="keep_screen_on_active_notification_decription_1">Om in te stellen</string>
+    <string name="keep_screen_on_active_notification_decription_2">configureer an activeer profiel met</string>
+    <string name="ask_for_duration_without_duration_button">Zonder tijdsduur</string>
+    <string name="profile_preferences_endOfActivationType">Soort activatie einde</string>
+    <string name="array_pref_aendOfActivationType_duration">Tijdsduur</string>
+    <string name="array_pref_aendOfActivationType_exactTime">Exacte tijd</string>
+    <string name="profile_preferences_endOfActivationCategory">Einde van activering</string>
+    <string name="profile_preferences_afterDurationDo">Bij einde tijdsduur doe</string>
+    <string name="profile_preferences_afterExactTimeDo">Wanneer exacte tijd bereikt</string>
+    <string name="profile_preferences_exactTime">Exacte tijd</string>
+    <string name="profile_preferences_category_end_of_activation">Einde van activering</string>
+    <string name="end_of_activation_time_end_acronym">te</string>
+    <string name="end_of_activation_duration_acronym">d</string>
+    <string name="end_of_activation_time_acronym">t</string>
+    <string name="phone_profiles_pref_applicationWidgetIconShowProfileEndOfActivation">Toon einde van profiel activatie (widget)</string>
+    <string name="event_delay_start_acronym">sv</string>
+    <string name="event_delay_end_acronym">ev</string>
+    <string name="altype_afterEndOfActivationTime_undoProfile">na bereiken exacte tijd - Profiel ongedaan maken</string>
+    <string name="altype_afterEndOfActivationTime_defaultProfile">na bereiken exacte tijd - standaardprofiel</string>
+    <string name="altype_afterEndOfActivationTime_restartEvents">na bereiken exacte tijd - events herstarten</string>
+    <string name="altype_afterEndOfActivationTime_specificProfile">na exacte tijd - specifiek profiel</string>
+    <string name="check_releases_open_apkpure">APKPure openen</string>
+    <string name="phone_profiles_pref_category_special_profile_parameters">Speciale profiel parameters</string>
+    <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn">Stel helderheid in bij aanzetten scherm</string>
+    <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn_summary">Ingeschakelen als je de helderheidsparameters van het geactiveerde profiel bij scherm aanzetten wilt resetten.</string>
+    <string name="phone_profiles_pref_applicationSpecialPreferencesNotAny">Er is geen speciale parameter</string>
+    <string name="profile_preferences_forceSetBrightnessAtScreenOn_summary">Schakel \"Stel helderheid in bij aanzetten scherm\" in bij programma-instellingen, als je de schermhelderheid opnieuw wilt instellen vanaf geactiveerd profiel bij scherm aanzetten.</string>
+    <string name="profile_preferences_disabled">Uitgeschakeld</string>
+    <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"Nooit meer vragen\" om inschakelen van root</string>
+    <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"Nooit meer vragen\" om niet inschakelen van root</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Sta PhoneProfilesPlusExtender toe voor:\n• profiel parameter \"Forceer stoppen applicaties\"\n• event parameters \"Applicatie sensor\", \"Oriëntatie sensor\", \"SMS/MMS sensor\", \"Oproepsensor\".</string>
@@ -1833,8 +1892,6 @@
     <!--    <string name="profile_preferences_deviceOnOffDualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM1">Mobile data for SIM 1</string>-->
     <!--    <string name="event_preferences_radioSwitch_mobileData_SIM2">Mobile data for SIM 2</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM">Mobile data for dual SIM devices</string>-->
-    <!--    <string name="event_preferences_radioSwitch_mobileData_dualSIM_summary">Experimental. It may not work on your device.</string>-->
     <!--    <string name="permission_why_event_radio_switch_preferences">for check mobile data switch change in dual SIM devices</string>-->
     <!--    <string name="about_application_rate_in_googlePlay">Please rate this application on Google Play</string>-->
     <!--    <string name="extender_acra_notification_send_button">Send</string>-->
@@ -1854,4 +1911,8 @@
     <!--    <string name="profile_preferences_volumeSpeakerPhoneInfo29_summary">Not working in Android 10+</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary">Download latest version of PhoneProfilesPlusExtender.apk from it\'s GitHub. Then click to notification about downloaded apk and install it.</string>-->
     <!--    <string name="event_preferences_PPPExtenderInstallInfo_summary_2">PhoneProfilesPlusExtender.apk is located in</string>-->
+    <!--    <string name="profile_preferences_durationEndCategory">Duration end</string>-->
+    <!--    <string name="profile_preferences_askForDuration">Ask for Duration</string>-->
+    <!--    <string name="profile_preferences_category_activation_duration">Activation duration</string>-->
+    <!--    <string name="phone_profiles_pref_applicationWidgetIconShowProfileDuration">Show profile duration (widget)</string>-->
 </resources>

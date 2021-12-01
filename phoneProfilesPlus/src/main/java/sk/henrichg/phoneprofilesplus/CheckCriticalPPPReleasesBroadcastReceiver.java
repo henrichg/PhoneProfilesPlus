@@ -264,7 +264,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                     nTitle = appContext.getString(R.string.normal_github_release);
                                     nText = appContext.getString(R.string.normal_github_release_notification);
                                 }
-                                mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_CHANNEL)
+                                mBuilder = new NotificationCompat.Builder(appContext, PPApplication.NEW_RELEASE_NOTIFICATION_CHANNEL)
                                         .setColor(ContextCompat.getColor(appContext, R.color.notificationDecorationColor))
                                         .setSmallIcon(R.drawable.ic_information_notify) // notification icon
                                         .setContentTitle(nTitle) // title for notification

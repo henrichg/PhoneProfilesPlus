@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -76,8 +77,22 @@ public class ShortcutCreatorListFragment extends Fragment {
         listView = view.findViewById(R.id.shortcut_profiles_list);
         textViewNoData = view.findViewById(R.id.shortcut_profiles_list_empty);
         progressBar = view.findViewById(R.id.shortcut_profiles_list_linla_progress);
+        Button cancelButton = view.findViewById(R.id.shortcut_profiles_list_cancel);
 
-        listView.setOnItemClickListener((parent, view1, position, id) -> createShortcut(position));
+        listView.setOnItemClickListener((parent, item, position, id) -> {
+            if (getActivity() != null) {
+                ShortcutCreatorListAdapter.ViewHolder viewHolder = (ShortcutCreatorListAdapter.ViewHolder) item.getTag();
+                if (viewHolder != null)
+                    viewHolder.radioButton.setChecked(true);
+                Handler handler = new Handler(getActivity().getMainLooper());
+                handler.postDelayed(() -> createShortcut(position), 200);
+            }
+        });
+
+        cancelButton.setOnClickListener(v -> {
+            if (getActivity() != null)
+                getActivity().finish();
+        });
 
         if (!activityDataWrapper.profileListFilled)
         {
@@ -204,7 +219,7 @@ public class ShortcutCreatorListFragment extends Fragment {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void createShortcut(final int position)
+    void createShortcut(final int position)
     {
         new CreateShortcutAsyncTask(position, this).execute();
     }

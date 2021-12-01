@@ -4,7 +4,7 @@
     android:id="@+id/dialog_color_chooser_pref_root"
     android:layout_width="45dp"
     android:layout_height="45dp"
-    android:padding="4dp" >
+    android:padding="6dp" >
 
     <FrameLayout
         android:id="@+id/dialog_color_chooser_pref_color"

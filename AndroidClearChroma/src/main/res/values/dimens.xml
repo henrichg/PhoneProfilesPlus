@@ -16,8 +16,8 @@
   -->
 
 <resources>
-    <dimen name="acch_shape_preference_width">32dp</dimen>
-    <dimen name="acch_shape_stroke_preference_width">1dp</dimen>
+    <dimen name="acch_shape_preference_width">33dp</dimen>
+    <dimen name="acch_shape_stroke_preference_width">1px</dimen>
 
     <dimen name="acch_color_view_height">250dp</dimen>
     <dimen name="acch_color_view_width">180dp</dimen>

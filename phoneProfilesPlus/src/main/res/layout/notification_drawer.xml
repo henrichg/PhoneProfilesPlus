@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="true"
             android:contentDescription="@string/profile_preferences_profileIcon"
-            android:layout_marginEnd="3dp"
+            android:layout_marginEnd="8dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_profile_default" />
 
@@ -47,7 +47,6 @@
                 android:id="@+id/notification_activated_profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
                 android:text="@string/profile_name_default"
                 style="@style/TextAppearance.Compat.Notification.Title"
                 android:ellipsize="end"
@@ -58,7 +57,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="14dp"
                 android:layout_marginTop="2dp"
-                android:layout_marginStart="5dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/empty_string"
                 android:scaleType="@integer/profilePrefIndicatorScaleType"

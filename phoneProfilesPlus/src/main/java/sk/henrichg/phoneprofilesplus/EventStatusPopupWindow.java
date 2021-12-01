@@ -20,9 +20,10 @@ class EventStatusPopupWindow extends GuiInfoPopupWindow {
         textView.setClickable(true);
         textView.setOnClickListener(v -> {
             if (fragment.getActivity() != null) {
-                Intent intentLaunch = new Intent(fragment.getActivity(), ImportantInfoActivity.class);
+                Intent intentLaunch = new Intent(fragment.getActivity(), ImportantInfoActivityForceScroll.class);
                 intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SHOW_QUICK_GUIDE, false);
-                intentLaunch.putExtra(ImportantInfoActivity.EXTRA_SCROLL_TO, R.id.activity_info_notification_events);
+                intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SHOW_FRAGMENT, 2);
+                intentLaunch.putExtra(ImportantInfoActivityForceScroll.EXTRA_SCROLL_TO, R.id.activity_info_notification_event_states);
                 fragment.getActivity().startActivity(intentLaunch);
             }
 

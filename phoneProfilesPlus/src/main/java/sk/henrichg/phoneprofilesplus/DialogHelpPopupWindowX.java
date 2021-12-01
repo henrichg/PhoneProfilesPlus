@@ -1,7 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,37 +8,37 @@ import android.widget.TextView;
 
 class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
 
-    private final Dialog dialog;
+    //private final Dialog dialog;
 
-    private DialogHelpPopupWindowX(int titleStringId, final Activity activity, final Dialog _dialog, String helpString) {
+    private DialogHelpPopupWindowX(int titleStringId, final Activity activity, /*final Dialog _dialog,*/ String helpString) {
         super(R.layout.popup_window_dialog_help, titleStringId, activity);
 
-        dialog = _dialog;
+        //dialog = _dialog;
 
         // Disable default animation
         //setAnimationStyle(0);
 
-        if (dialog.getWindow() != null) {
-            ViewGroup root = (ViewGroup) dialog.getWindow().getDecorView().getRootView();
-            applyDim(root);
-        }
+//        if (dialog.getWindow() != null) {
+//            ViewGroup root = (ViewGroup) dialog.getWindow().getDecorView().getRootView();
+//            applyDim(root);
+//        }
 
         TextView textView = popupView.findViewById(R.id.dialog_help_popup_window_text);
         textView.setText(helpString);
 
-        setOnDismissListener(() -> {
-            if (dialog.getWindow() != null) {
-                ViewGroup root = (ViewGroup) dialog.getWindow().getDecorView().getRootView();
-                clearDim(root);
-            }
-            ViewGroup root = (ViewGroup) activity.getWindow().getDecorView().getRootView();
-            clearDim(root);
-        });
+//        setOnDismissListener(() -> {
+//            if (dialog.getWindow() != null) {
+//                ViewGroup root = (ViewGroup) dialog.getWindow().getDecorView().getRootView();
+//                clearDim(root);
+//            }
+//            ViewGroup root = (ViewGroup) activity.getWindow().getDecorView().getRootView();
+//            clearDim(root);
+//        });
     }
 
-    static void showPopup(ImageView helpIcon, int titleStringId, Activity activity, final Dialog dialog, String helpString) {
+    static void showPopup(ImageView helpIcon, int titleStringId, Activity activity, /*final Dialog dialog,*/ String helpString) {
         if (!activity.isFinishing()) {
-            DialogHelpPopupWindowX popup = new DialogHelpPopupWindowX(titleStringId, activity, dialog, helpString);
+            DialogHelpPopupWindowX popup = new DialogHelpPopupWindowX(titleStringId, activity, /*dialog,*/ helpString);
 
             View contentView = popup.getContentView();
             contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
@@ -88,8 +87,8 @@ class DialogHelpPopupWindowX extends GuiInfoPopupWindow {
     }
 
     @SuppressWarnings("SameParameterValue")
-    static void showPopup(ImageView helpIcon, int titleStringId, Activity activity, final Dialog dialog, int helpTextResource) {
+    static void showPopup(ImageView helpIcon, int titleStringId, Activity activity, /*final Dialog dialog,*/ int helpTextResource) {
         String helpString = activity.getString(helpTextResource);
-        showPopup(helpIcon, titleStringId, activity, dialog, helpString);
+        showPopup(helpIcon, titleStringId, activity, /*dialog,*/ helpString);
     }
 }

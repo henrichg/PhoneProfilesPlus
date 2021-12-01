@@ -102,6 +102,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
                         if (mCursor.moveToFirst()) {
                             found = true;
                             summary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
+                            summary = ContactGroupsCache.translateContactGroup(summary, context);
                             //break;
                         }
                         mCursor.close();

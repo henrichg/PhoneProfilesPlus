@@ -12,6 +12,7 @@ import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
+import android.telephony.TelephonyManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,12 +33,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // singleton fields
     private static volatile DatabaseHandler instance;
-    private SQLiteDatabase writableDb;
+    //private SQLiteDatabase writableDb;
 
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2473;
+    private static final int DATABASE_VERSION = 2484;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -64,6 +65,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int IMPORT_ERROR_BUG = 0;
     static final int IMPORT_ERROR_NEVER_VERSION = -999;
     static final int IMPORT_OK = 1;
+
+//    // create, upgrade, downgrade
+//    private final Condition runningUpgradeCondition = importExportLock.newCondition();
+//    private boolean runningUpgrade = false;
 
     // profile type
     static final int PTYPE_CONNECT_TO_SSID = 1;
@@ -103,10 +108,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     static final int ETYPE_BATTERY_WITH_LEVEL = 29;
     static final int ETYPE_ALL_SCANNER_SENSORS = 30;
     static final int ETYPE_DEVICE_BOOT = 31;
-    static final int ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM1 = 32;
-    static final int ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM2 = 33;
     static final int ETYPE_SOUND_PROFILE = 36;
     static final int ETYPE_PERIODIC = 37;
+    static final int ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = 38;
+    static final int ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = 39;
+    static final int ETYPE_RADIO_SWITCH_SIM_ON_OFF = 40;
 
     // Profiles Table Columns names
     private static final String KEY_ID = "id";
@@ -209,6 +215,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_CHANGE_WALLPAPER_TIME = "deviceChangeWallpapaerTime";
     private static final String KEY_DEVICE_WALLPAPER_FOLDER = "deviceWallpaperFolder";
     private static final String KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN = "applicationDisableGlobalEventsRun";
+    private static final String KEY_DEVICE_VPN_SETTINGS_PREFS = "deviceVPNSettingsPrefs";
+    private static final String KEY_END_OF_ACTIVATION_TYPE = "endOfActivationType";
+    private static final String KEY_END_OF_ACTIVATION_TIME = "endOfActivationTime";
 
     // Events Table Columns names
     private static final String KEY_E_ID = "id";
@@ -369,8 +378,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_CALENDAR_DAY_CONTAINS_EVENT = "calendarDayContainsEvent";
     private static final String KEY_E_CALENDAR_ALL_DAY_EVENTS = "calendarAllDayEvents";
     private static final String KEY_E_ACCESSORY_TYPE = "accessoryType";
-    //private static final String KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1 = "radioSwitchMobileDataSIM1";
-    //private static final String KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2 = "radioSwitchMobileDataSIM2";
     private static final String KEY_E_CALL_FROM_SIM_SLOT = "callFromSIMSlot";
     private static final String KEY_E_CALL_FOR_SIM_CARD = "callForSIMCard";
     private static final String KEY_E_SMS_FROM_SIM_SLOT = "smsFromSIMSlot";
@@ -386,6 +393,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_E_PERIODIC_START_TIME = "periodicStartTime";
     private static final String KEY_E_PERIODIC_COUNTER = "periodicCounter";
     private static final String KEY_E_PERIODIC_SENSOR_PASSED = "periodicSensorPassed";
+    private static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS = "radioSwitchDefaultSIMForCalls";
+    private static final String KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS = "radioSwitchDefaultSIMForSMS";
+    private static final String KEY_E_RADIO_SWITCH_SIM_ON_OFF = "radioSwitchSIMOnOff";
 
     // EventTimeLine Table Columns names
     private static final String KEY_ET_ID = "id";
@@ -472,8 +482,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_IN_EXTRA_TYPE_10 = "extraType10";
     private static final String KEY_IN_CATEGORIES = "categories";
     private static final String KEY_IN_FLAGS = "flags";
-    private static final String KEY_IN_USED_COUNT = "usedCount";
+    //private static final String KEY_IN_USED_COUNT = "usedCount";
     private static final String KEY_IN_INTENT_TYPE = "intentType";
+    private static final String KEY_IN_DO_NOT_DELETE = "doNotDelete";
 
     private static final String TEXT_TYPE = "TEXT";
     private static final String INTEGER_TYPE = "INTEGER";
@@ -498,20 +509,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
     
     SQLiteDatabase getMyWritableDatabase() {
-        if ((writableDb == null) || (!writableDb.isOpen())) {
-            writableDb = this.getWritableDatabase();
-        }
-        return writableDb;
+        //if ((writableDb == null) || (!writableDb.isOpen())) {
+        //    writableDb = this.getWritableDatabase();
+        //}
+        //return writableDb;
+        return this.getWritableDatabase();
     }
  
-    @Override
-    public synchronized void close() {
-        super.close();
-        if (writableDb != null) {
-            writableDb.close();
-            writableDb = null;
-        }
-    }
+//    @Override
+//    public synchronized void close() {
+//        super.close();
+//        if (writableDb != null) {
+//            writableDb.close();
+//            writableDb = null;
+//        }
+//    }
 
     /*
     // be sure to call this method by: DatabaseHandler.getInstance().closeConnection()
@@ -630,7 +642,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_VIBRATE_NOTIFICATIONS + " " + INTEGER_TYPE + ","
                 + KEY_CHANGE_WALLPAPER_TIME + " " + INTEGER_TYPE + ","
                 + KEY_DEVICE_WALLPAPER_FOLDER + " " + TEXT_TYPE + ","
-                + KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN + " " + INTEGER_TYPE
+                + KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN + " " + INTEGER_TYPE + ","
+                + KEY_DEVICE_VPN_SETTINGS_PREFS + " " + INTEGER_TYPE + ","
+                + KEY_END_OF_ACTIVATION_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_END_OF_ACTIVATION_TIME + " " + INTEGER_TYPE
                 + ")";
     }
 
@@ -798,8 +813,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_CALENDAR_DAY_CONTAINS_EVENT + " " + INTEGER_TYPE + ","
                 + KEY_E_CALENDAR_ALL_DAY_EVENTS + " " + INTEGER_TYPE + ","
                 + KEY_E_ACCESSORY_TYPE + " " + TEXT_TYPE + ","
-                //+ KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1 + " " + INTEGER_TYPE + ","
-                //+ KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2 + " " + INTEGER_TYPE + ","
                 + KEY_E_CALL_FROM_SIM_SLOT + " " + INTEGER_TYPE + ","
                 + KEY_E_CALL_FOR_SIM_CARD + " " + INTEGER_TYPE + ","
                 + KEY_E_SMS_FROM_SIM_SLOT + " " + INTEGER_TYPE + ","
@@ -814,7 +827,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_E_PERIODIC_DURATION + " " + INTEGER_TYPE + ","
                 + KEY_E_PERIODIC_START_TIME + " " + INTEGER_TYPE + ","
                 + KEY_E_PERIODIC_COUNTER + " " + INTEGER_TYPE + ","
-                + KEY_E_PERIODIC_SENSOR_PASSED + " " + INTEGER_TYPE
+                + KEY_E_PERIODIC_SENSOR_PASSED + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + " " + INTEGER_TYPE + ","
+                + KEY_E_RADIO_SWITCH_SIM_ON_OFF + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_EVENTS_TABLE);
 
@@ -915,8 +931,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_IN_CATEGORIES + " " + TEXT_TYPE + ","
                 + KEY_IN_FLAGS + " " + TEXT_TYPE + ","
                 + KEY_IN_NAME + " " + TEXT_TYPE + ","
-                + KEY_IN_USED_COUNT + " " + INTEGER_TYPE + ","
-                + KEY_IN_INTENT_TYPE + " " + INTEGER_TYPE
+                //+ KEY_IN_USED_COUNT + " " + INTEGER_TYPE + ","
+                + KEY_IN_INTENT_TYPE + " " + INTEGER_TYPE + ","
+                + KEY_IN_DO_NOT_DELETE + " " + INTEGER_TYPE
                 + ")";
         db.execSQL(CREATE_INTENTS_TABLE);
     }
@@ -1096,6 +1113,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_CHANGE_WALLPAPER_TIME, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_DEVICE_WALLPAPER_FOLDER, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_DEVICE_VPN_SETTINGS_PREFS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_END_OF_ACTIVATION_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_END_OF_ACTIVATION_TIME, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENTS:
                 createColumnWhenNotExists(db, table, KEY_E_NAME, TEXT_TYPE, columns);
@@ -1251,8 +1271,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_DAY_CONTAINS_EVENT, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALENDAR_ALL_DAY_EVENTS, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_ACCESSORY_TYPE, TEXT_TYPE, columns);
-                //createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1, INTEGER_TYPE, columns);
-                //createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALL_FROM_SIM_SLOT, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_CALL_FOR_SIM_CARD, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_SMS_FROM_SIM_SLOT, INTEGER_TYPE, columns);
@@ -1268,6 +1286,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_E_PERIODIC_START_TIME, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_PERIODIC_COUNTER, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_E_PERIODIC_SENSOR_PASSED, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_E_RADIO_SWITCH_SIM_ON_OFF, INTEGER_TYPE, columns);
                 break;
             case TABLE_EVENT_TIMELINE:
                 createColumnWhenNotExists(db, table, KEY_ET_EORDER, INTEGER_TYPE, columns);
@@ -1347,8 +1368,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createColumnWhenNotExists(db, table, KEY_IN_CATEGORIES, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_IN_FLAGS, TEXT_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_IN_NAME, TEXT_TYPE, columns);
-                createColumnWhenNotExists(db, table, KEY_IN_USED_COUNT, INTEGER_TYPE, columns);
+                //createColumnWhenNotExists(db, table, KEY_IN_USED_COUNT, INTEGER_TYPE, columns);
                 createColumnWhenNotExists(db, table, KEY_IN_INTENT_TYPE, INTEGER_TYPE, columns);
+                createColumnWhenNotExists(db, table, KEY_IN_DO_NOT_DELETE, INTEGER_TYPE, columns);
                 break;
         }
     }
@@ -1373,10 +1395,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        PPApplication.logE("[IN_LISTENER] DatabaseHandler.onCreate", "xxx");
-        //PPApplication.logE("DatabaseHandler.onCreate", "xxx");
-        createTables(db);
-        createIndexes(db);
+//        importExportLock.lock();
+//        try {
+//            try {
+//                startRunningUpgrade();
+
+//                PPApplication.logE("[IN_LISTENER] DatabaseHandler.onCreate", "xxx");
+
+                createTables(db);
+                createIndexes(db);
+
+//            } catch (Exception e) {
+//                //PPApplication.recordException(e);
+//            }
+//        } finally {
+//            stopRunningUpgrade();
+//        }
     }
 
     /*@Override
@@ -1387,26 +1421,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onDowngrade (SQLiteDatabase db, int oldVersion, int newVersion) {
-//        PPApplication.logE("[IN_LISTENER] DatabaseHandler.onDowngrade", "xxx");
+//        importExportLock.lock();
+//        try {
+//            try {
+//                startRunningUpgrade();
 
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("DatabaseHandler.onDowngrade", "oldVersion=" + oldVersion);
-            PPApplication.logE("DatabaseHandler.onDowngrade", "newVersion=" + newVersion);
-        }*/
+//                PPApplication.logE("[IN_LISTENER] DatabaseHandler.onDowngrade", "xxx");
 
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MERGED_PROFILE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_TIMELINE);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITY_LOG);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_GEOFENCES);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHORTCUTS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOBILE_CELLS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NFC_TAGS);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_INTENTS);
+                /*if (PPApplication.logEnabled()) {
+                    PPApplication.logE("DatabaseHandler.onDowngrade", "oldVersion=" + oldVersion);
+                    PPApplication.logE("DatabaseHandler.onDowngrade", "newVersion=" + newVersion);
+                }*/
 
-        createTables(db);
-        createIndexes(db);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_MERGED_PROFILE);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENTS);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_EVENT_TIMELINE);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITY_LOG);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_GEOFENCES);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHORTCUTS);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOBILE_CELLS);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_NFC_TAGS);
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_INTENTS);
+
+                createTables(db);
+                createIndexes(db);
+
+//            } catch (Exception e) {
+//                //PPApplication.recordException(e);
+//            }
+//        } finally {
+//            stopRunningUpgrade();
+//        }
     }
 
     private void updateDb(SQLiteDatabase db, int oldVersion) {
@@ -2689,10 +2735,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             } catch (Exception ignored) {}
         }
 
-        if (oldVersion < 2280)
+        /*if (oldVersion < 2280)
         {
             db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_USED_COUNT + "=0");
-        }
+        }*/
 
         if (oldVersion < 2290)
         {
@@ -2808,9 +2854,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 "",
                                 0,
                                 "-",
+                                0,
+                                0,
+                                0,
                                 0
                         );
 
+                        // this change old, no longer used SHARED_PROFILE_VALUE to "Not used" value
                         //profile = Profile.getMappedProfile(profile, sharedProfile);
                         profile = Profile.removeSharedProfileParameters(profile);
                         if (profile != null) {
@@ -3323,13 +3373,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_MOBILE_DATA_SIM1 + "=0");
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_MOBILE_DATA_SIM2 + "=0");
         }
-/*
-        if (oldVersion < 2452)
-        {
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1 + "=0");
-            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2 + "=0");
-        }
-*/
+
         if (oldVersion < 2453)
         {
             db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_DEFAULT_SIM_CARDS + "=\"0|0|0\"");
@@ -3476,62 +3520,248 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN + "=0");
         }
 
+        if (oldVersion < 2474)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_VPN_SETTINGS_PREFS + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_VPN_SETTINGS_PREFS + "=0");
+        }
+
+        if (oldVersion < 2475)
+        {
+            db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_DO_NOT_DELETE + "=0");
+        }
+
+        if (oldVersion < 2476) {
+            ContentValues values = new ContentValues();
+
+            values.put(KEY_IN_NAME, "[OpenVPN Connect - connect URL profile]");
+            values.put(KEY_IN_ACTION, "net.openvpn.openvpn.CONNECT");
+            //values.put(KEY_IN_ACTION, "android.intent.action.VIEW");
+            values.put(KEY_IN_PACKAGE_NAME, "net.openvpn.openvpn");
+            values.put(KEY_IN_CLASS_NAME, "net.openvpn.unified.MainActivity");
+            values.put(KEY_IN_EXTRA_KEY_1, "net.openvpn.openvpn.AUTOSTART_PROFILE_NAME");
+            values.put(KEY_IN_EXTRA_VALUE_1, "AS {your_profile_name}");
+            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+            values.put(KEY_IN_EXTRA_KEY_2, "net.openvpn.openvpn.AUTOCONNECT");
+            values.put(KEY_IN_EXTRA_VALUE_2, "true");
+            values.put(KEY_IN_EXTRA_TYPE_2, 0); // string
+            values.put(KEY_IN_INTENT_TYPE, 0); // activity
+            values.put(KEY_IN_DO_NOT_DELETE, "1");
+            db.insert(TABLE_INTENTS, null, values);
+
+            values.clear();
+            values.put(KEY_IN_NAME, "[OpenVPN Connect - connect file profile]");
+            values.put(KEY_IN_ACTION, "net.openvpn.openvpn.CONNECT");
+            //values.put(KEY_IN_ACTION, "android.intent.action.VIEW");
+            values.put(KEY_IN_PACKAGE_NAME, "net.openvpn.openvpn");
+            values.put(KEY_IN_CLASS_NAME, "net.openvpn.unified.MainActivity");
+            values.put(KEY_IN_EXTRA_KEY_1, "net.openvpn.openvpn.AUTOSTART_PROFILE_NAME");
+            values.put(KEY_IN_EXTRA_VALUE_1, "PC {your_profile_name}");
+            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+            values.put(KEY_IN_EXTRA_KEY_2, "net.openvpn.openvpn.AUTOCONNECT");
+            values.put(KEY_IN_EXTRA_VALUE_2, "true");
+            values.put(KEY_IN_EXTRA_TYPE_2, 0); // string
+            values.put(KEY_IN_INTENT_TYPE, 0); // activity
+            values.put(KEY_IN_DO_NOT_DELETE, "1");
+            db.insert(TABLE_INTENTS, null, values);
+
+            values.clear();
+            values.put(KEY_IN_NAME, "[OpenVPN Connect - disconnect]");
+            values.put(KEY_IN_ACTION, "net.openvpn.openvpn.DISCONNECT");
+            values.put(KEY_IN_PACKAGE_NAME, "net.openvpn.openvpn");
+            values.put(KEY_IN_CLASS_NAME, "net.openvpn.unified.MainActivity");
+            values.put(KEY_IN_EXTRA_KEY_1, "net.openvpn.openvpn.STOP");
+            values.put(KEY_IN_EXTRA_VALUE_1, "true");
+            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+            values.put(KEY_IN_INTENT_TYPE, 0); // activity
+            values.put(KEY_IN_DO_NOT_DELETE, "1");
+            db.insert(TABLE_INTENTS, null, values);
+
+            values.put(KEY_IN_NAME, "[OpenVPN for Android - connect]");
+            values.put(KEY_IN_ACTION, "android.intent.action.MAIN");
+            values.put(KEY_IN_PACKAGE_NAME, "de.blinkt.openvpn");
+            values.put(KEY_IN_CLASS_NAME, "de.blinkt.openvpn.api.ConnectVPN");
+            values.put(KEY_IN_EXTRA_KEY_1, "de.blinkt.openvpn.api.profileName");
+            values.put(KEY_IN_EXTRA_VALUE_1, "{your_profile_name}");
+            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+            values.put(KEY_IN_INTENT_TYPE, 0); // activity
+            values.put(KEY_IN_DO_NOT_DELETE, "1");
+            db.insert(TABLE_INTENTS, null, values);
+
+            values.put(KEY_IN_NAME, "[OpenVPN for Android - disconnect]");
+            values.put(KEY_IN_ACTION, "android.intent.action.MAIN");
+            values.put(KEY_IN_PACKAGE_NAME, "de.blinkt.openvpn");
+            values.put(KEY_IN_CLASS_NAME, "de.blinkt.openvpn.api.DisconnectVPN");
+            values.put(KEY_IN_EXTRA_KEY_1, "de.blinkt.openvpn.api.profileName");
+            values.put(KEY_IN_EXTRA_VALUE_1, "{your_profile_name}");
+            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+            values.put(KEY_IN_INTENT_TYPE, 0); // activity
+            values.put(KEY_IN_DO_NOT_DELETE, "1");
+            db.insert(TABLE_INTENTS, null, values);
+
+        }
+
+        if (oldVersion < 2477) {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + "=0");
+        }
+
+        if (oldVersion < 2478) {
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_SIM_ON_OFF + "=0");
+        }
+
+        if (oldVersion < 2479)
+        {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_END_OF_ACTIVATION_TYPE + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_END_OF_ACTIVATION_TIME + "=0");
+
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_END_OF_ACTIVATION_TYPE + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_END_OF_ACTIVATION_TIME + "=0");
+        }
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-//        PPApplication.logE("[IN_LISTENER] DatabaseHandler.onUpgrade", "xxx");
+//        importExportLock.lock();
+//        try {
+//            try {
+//                startRunningUpgrade();
 
-        if (PPApplication.logEnabled()) {
-            PPApplication.logE("DatabaseHandler.onUpgrade", "--------- START");
-            PPApplication.logE("DatabaseHandler.onUpgrade", "oldVersion=" + oldVersion);
-            PPApplication.logE("DatabaseHandler.onUpgrade", "newVersion=" + newVersion);
-        }
+//                PPApplication.logE("[IN_LISTENER] DatabaseHandler.onUpgrade", "xxx");
 
-        /*
-        // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
+                if (PPApplication.logEnabled()) {
+                    PPApplication.logE("DatabaseHandler.onUpgrade", "--------- START");
+                    PPApplication.logE("DatabaseHandler.onUpgrade", "oldVersion=" + oldVersion);
+                    PPApplication.logE("DatabaseHandler.onUpgrade", "newVersion=" + newVersion);
+                }
 
-        // Create tables again
-        onCreate(db);
-        */
+                /*
+                // Drop older table if existed
+                db.execSQL("DROP TABLE IF EXISTS " + TABLE_PROFILES);
 
-        createTables(db);
-        createTableColumsWhenNotExists(db, TABLE_PROFILES);
-        createTableColumsWhenNotExists(db, TABLE_MERGED_PROFILE);
-        createTableColumsWhenNotExists(db, TABLE_EVENTS);
-        createTableColumsWhenNotExists(db, TABLE_EVENT_TIMELINE);
-        createTableColumsWhenNotExists(db, TABLE_ACTIVITY_LOG);
-        createTableColumsWhenNotExists(db, TABLE_GEOFENCES);
-        createTableColumsWhenNotExists(db, TABLE_SHORTCUTS);
-        createTableColumsWhenNotExists(db, TABLE_MOBILE_CELLS);
-        createTableColumsWhenNotExists(db, TABLE_NFC_TAGS);
-        createTableColumsWhenNotExists(db, TABLE_INTENTS);
-        createIndexes(db);
+                // Create tables again
+                onCreate(db);
+                */
 
-        updateDb(db, oldVersion);
+                createTables(db);
+                createTableColumsWhenNotExists(db, TABLE_PROFILES);
+                createTableColumsWhenNotExists(db, TABLE_MERGED_PROFILE);
+                createTableColumsWhenNotExists(db, TABLE_EVENTS);
+                createTableColumsWhenNotExists(db, TABLE_EVENT_TIMELINE);
+                createTableColumsWhenNotExists(db, TABLE_ACTIVITY_LOG);
+                createTableColumsWhenNotExists(db, TABLE_GEOFENCES);
+                createTableColumsWhenNotExists(db, TABLE_SHORTCUTS);
+                createTableColumsWhenNotExists(db, TABLE_MOBILE_CELLS);
+                createTableColumsWhenNotExists(db, TABLE_NFC_TAGS);
+                createTableColumsWhenNotExists(db, TABLE_INTENTS);
+                createIndexes(db);
 
-        DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0f);
-//        PPApplication.logE("[APP_START] DatabaseHandler.onUpgrade", "xxx");
-        dataWrapper.restartEventsWithRescan(true, true, true, false, false, false);
+                updateDb(db, oldVersion);
 
-        //PPApplication.sleep(10000); // for test only
+                DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0f);
+//                PPApplication.logE("[APP_START] DatabaseHandler.onUpgrade", "xxx");
+                dataWrapper.restartEventsWithRescan(true, true, true, false, false, false);
 
-        PPApplication.logE("DatabaseHandler.onUpgrade", " --------- END");
+                //PPApplication.sleep(10000); // for test only
 
+                PPApplication.logE("DatabaseHandler.onUpgrade", " --------- END");
+
+//            } catch (Exception e) {
+//                //PPApplication.recordException(e);
+//            }
+//        } finally {
+//            stopRunningUpgrade();
+//        }
     }
 
     private void startRunningCommand() throws Exception {
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "lock");
+//            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningCommand=" + runningCommand);
+//            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningImportExport=" + runningImportExport);
+//            PPApplication.logE("[DB_LOCK] ----------- DatabaseHandler.startRunningCommand", "runningUpgrade=" + runningUpgrade);
+//        }
+
+//        if (runningUpgrade)
+//            runningUpgradeCondition.await();
         if (runningImportExport)
             runningImportExportCondition.await();
         runningCommand = true;
     }
 
     private void stopRunningCommand() {
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "unlock");
+//            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningCommand=" + runningCommand);
+//            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningImportExport=" + runningImportExport);
+//            PPApplication.logE("[DB_LOCK] =========== DatabaseHandler.stopRunningCommand", "runningUpgrade=" + runningUpgrade);
+//        }
+
         runningCommand = false;
         runningCommandCondition.signalAll();
         importExportLock.unlock();
     }
+
+    private void startRunningImportExport() throws Exception {
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "lock");
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "runningCommand=" + runningCommand);
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "runningImportExport=" + runningImportExport);
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.startRunningImportExport", "runningUpgrade=" + runningUpgrade);
+//        }
+
+//        if (runningUpgrade)
+//            runningUpgradeCondition.await();
+        if (runningCommand)
+            runningCommandCondition.await();
+        //PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "continue");
+        runningImportExport = true;
+    }
+
+    private void stopRunningImportExport() {
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "unlock");
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "runningCommand=" + runningCommand);
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "runningImportExport=" + runningImportExport);
+//            PPApplication.logE("[DB_LOCK] *********** DatabaseHandler.stopRunningImportExport", "runningUpgrade=" + runningUpgrade);
+//        }
+
+        runningImportExport = false;
+        runningImportExportCondition.signalAll();
+        importExportLock.unlock();
+        //PPApplication.logE("----------- DatabaseHandler.stopRunningImportExport", "unlock");
+    }
+
+/*
+    private void startRunningUpgrade() throws Exception {
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "lock");
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "runningCommand=" + runningCommand);
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "runningImportExport=" + runningImportExport);
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.startRunningUpgrade", "runningUpgrade=" + runningUpgrade);
+        }
+
+        if (runningImportExport)
+            runningImportExportCondition.await();
+        if (runningCommand)
+            runningCommandCondition.await();
+        runningUpgrade = true;
+    }
+
+    private void stopRunningUpgrade() {
+        if (PPApplication.logEnabled()) {
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "unlock");
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "runningCommand=" + runningCommand);
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "runningImportExport=" + runningImportExport);
+            PPApplication.logE("[DB_LOCK] xxxxxxxxxxx DatabaseHandler.stopRunningUpgrade", "runningUpgrade=" + runningUpgrade);
+        }
+
+        runningUpgrade = false;
+        runningUpgradeCondition.signalAll();
+        importExportLock.unlock();
+    }
+ */
 
 // PROFILES --------------------------------------------------------------------------------
 
@@ -3647,6 +3877,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
                 values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
                 values.put(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, profile._applicationDisableGloabalEventsRun);
+                values.put(KEY_DEVICE_VPN_SETTINGS_PREFS, profile._deviceVPNSettingsPrefs);
+                values.put(KEY_END_OF_ACTIVATION_TYPE, profile._endOfActivationType);
+                values.put(KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
 
                 // Insert Row
                 if (!merged) {
@@ -3781,7 +4014,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
                                 KEY_DEVICE_LIVE_WALLPAPER,
                                 KEY_DEVICE_WALLPAPER_FOLDER,
-                                KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN
+                                KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN,
+                                KEY_DEVICE_VPN_SETTINGS_PREFS,
+                                KEY_END_OF_ACTIVATION_TYPE,
+                                KEY_END_OF_ACTIVATION_TIME
                         },
                         KEY_ID + "=?",
                         new String[]{String.valueOf(profile_id)}, null, null, null, null);
@@ -3888,7 +4124,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS)),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN))
+                                cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_VPN_SETTINGS_PREFS)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_END_OF_ACTIVATION_TYPE)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_END_OF_ACTIVATION_TIME))
                         );
                     }
 
@@ -4015,7 +4254,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "," +
                         KEY_DEVICE_LIVE_WALLPAPER + "," +
                         KEY_DEVICE_WALLPAPER_FOLDER + "," +
-                        KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN +
+                        KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN + "," +
+                        KEY_DEVICE_VPN_SETTINGS_PREFS + "," +
+                        KEY_END_OF_ACTIVATION_TYPE + "," +
+                        KEY_END_OF_ACTIVATION_TIME +
                 " FROM " + TABLE_PROFILES;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
@@ -4126,6 +4368,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._deviceLiveWallpaper = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER));
                         profile._deviceWallpaperFolder = cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER));
                         profile._applicationDisableGloabalEventsRun = cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN));
+                        profile._deviceVPNSettingsPrefs = cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_VPN_SETTINGS_PREFS));
+                        profile._endOfActivationType = cursor.getInt(cursor.getColumnIndex(KEY_END_OF_ACTIVATION_TYPE));
+                        profile._endOfActivationTime = cursor.getInt(cursor.getColumnIndex(KEY_END_OF_ACTIVATION_TIME));
                         // Adding profile to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
@@ -4254,6 +4499,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_DEVICE_LIVE_WALLPAPER, profile._deviceLiveWallpaper);
                 values.put(KEY_DEVICE_WALLPAPER_FOLDER, profile._deviceWallpaperFolder);
                 values.put(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN, profile._applicationDisableGloabalEventsRun);
+                values.put(KEY_DEVICE_VPN_SETTINGS_PREFS, profile._deviceVPNSettingsPrefs);
+                values.put(KEY_END_OF_ACTIVATION_TYPE, profile._endOfActivationType);
+                values.put(KEY_END_OF_ACTIVATION_TIME, profile._endOfActivationTime);
 
                 // updating row
                 db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
@@ -4639,7 +4887,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS,
                                 KEY_DEVICE_LIVE_WALLPAPER,
                                 KEY_DEVICE_WALLPAPER_FOLDER,
-                                KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN
+                                KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN,
+                                KEY_DEVICE_VPN_SETTINGS_PREFS,
+                                KEY_END_OF_ACTIVATION_TYPE,
+                                KEY_END_OF_ACTIVATION_TIME
                         },
                         KEY_CHECKED + "=?",
                         new String[]{"1"}, null, null, null, null);
@@ -4748,7 +4999,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_LIVE_WALLPAPER)),
                                 cursor.getInt(cursor.getColumnIndex(KEY_VIBRATE_NOTIFICATIONS)),
                                 cursor.getString(cursor.getColumnIndex(KEY_DEVICE_WALLPAPER_FOLDER)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN))
+                                cursor.getInt(cursor.getColumnIndex(KEY_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_DEVICE_VPN_SETTINGS_PREFS)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_END_OF_ACTIVATION_TYPE)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_END_OF_ACTIVATION_TIME))
                         );
                     }
 
@@ -6491,9 +6745,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_E_RADIO_SWITCH_GPS,
                         KEY_E_RADIO_SWITCH_NFC,
                         KEY_E_RADIO_SWITCH_AIRPLANE_MODE,
-                        KEY_E_RADIO_SWITCH_SENSOR_PASSED/*,
-                        KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1,
-                        KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2*/
+                        KEY_E_RADIO_SWITCH_SENSOR_PASSED,
+                        KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS,
+                        KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS,
+                        KEY_E_RADIO_SWITCH_SIM_ON_OFF
                 },
                 KEY_E_ID + "=?",
                 new String[]{String.valueOf(event._id)}, null, null, null, null);
@@ -6512,8 +6767,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 eventPreferences._gps = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_GPS));
                 eventPreferences._nfc = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_NFC));
                 eventPreferences._airplaneMode = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_AIRPLANE_MODE));
-                //eventPreferences._mobileDataSIM1 = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1));
-                //eventPreferences._mobileDataSIM2 = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2));
+                eventPreferences._defaultSIMForCalls = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS));
+                eventPreferences._defaultSIMForSMS = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS));
+                eventPreferences._simOnOff = cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_SIM_ON_OFF));
                 eventPreferences.setSensorPassed(cursor.getInt(cursor.getColumnIndex(KEY_E_RADIO_SWITCH_SENSOR_PASSED)));
             }
             cursor.close();
@@ -6962,8 +7218,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_E_RADIO_SWITCH_NFC, eventPreferences._nfc);
         values.put(KEY_E_RADIO_SWITCH_AIRPLANE_MODE, eventPreferences._airplaneMode);
         values.put(KEY_E_RADIO_SWITCH_SENSOR_PASSED, eventPreferences.getSensorPassed());
-        //values.put(KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1, eventPreferences._mobileDataSIM1);
-        //values.put(KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2, eventPreferences._mobileDataSIM2);
+        values.put(KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS, eventPreferences._defaultSIMForCalls);
+        values.put(KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS, eventPreferences._defaultSIMForSMS);
+        values.put(KEY_E_RADIO_SWITCH_SIM_ON_OFF, eventPreferences._simOnOff);
 
         // updating row
         db.update(TABLE_EVENTS, values, KEY_E_ID + " = ?",
@@ -7683,12 +7940,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     else if (eventType == ETYPE_RADIO_SWITCH_MOBILE_DATA)
                         eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
                                 KEY_E_RADIO_SWITCH_MOBILE_DATA + "!=0";
-/*                    else if (eventType == ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM1)
+                    else if (eventType == ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS)
                         eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                                KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM1 + "!=0";
-                    else if (eventType == ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM2)
+                                KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + "!=0";
+                    else if (eventType == ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS)
                         eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
-                                KEY_E_RADIO_SWITCH_MOBILE_DATA_SIM2 + "!=0";*/
+                                KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + "!=0";
                     else if (eventType == ETYPE_RADIO_SWITCH_GPS)
                         eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
                                 KEY_E_RADIO_SWITCH_GPS + "!=0";
@@ -7698,6 +7955,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     else if (eventType == ETYPE_RADIO_SWITCH_AIRPLANE_MODE)
                         eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
                                 KEY_E_RADIO_SWITCH_AIRPLANE_MODE + "!=0";
+                    else if (eventType == ETYPE_RADIO_SWITCH_SIM_ON_OFF)
+                        eventTypeChecked = eventTypeChecked + KEY_E_RADIO_SWITCH_ENABLED + "=1" + " AND " +
+                                KEY_E_RADIO_SWITCH_SIM_ON_OFF + "!=0";
                     else if (eventType == ETYPE_ALARM_CLOCK)
                         eventTypeChecked = eventTypeChecked + KEY_E_ALARM_CLOCK_ENABLED + "=1";
                     else if (eventType == ETYPE_TIME_TWILIGHT)
@@ -9096,8 +9356,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 // ACTIVITY LOG -------------------------------------------------------------------
 
     // Adding activity log
-    void addActivityLog(int deleteOldActivityLogs, int logType, String eventName, String profileName, String profileIcon,
-                        int durationDelay, String profileEventsCount) {
+    void addActivityLog(int deleteOldActivityLogs,
+                        int logType, String eventName, String profileName, String profileEventsCount) {
         importExportLock.lock();
         try {
             try {
@@ -9110,9 +9370,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_AL_LOG_TYPE, logType);
                 values.put(KEY_AL_EVENT_NAME, eventName);
                 values.put(KEY_AL_PROFILE_NAME, profileName);
-                values.put(KEY_AL_PROFILE_ICON, profileIcon);
-                if (durationDelay > 0)
-                    values.put(KEY_AL_DURATION_DELAY, durationDelay);
                 values.put(KEY_AL_PROFILE_EVENT_COUNT, profileEventsCount);
 
                 db.beginTransaction();
@@ -9187,8 +9444,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_AL_LOG_TYPE + "," +
                         KEY_AL_EVENT_NAME + "," +
                         KEY_AL_PROFILE_NAME + "," +
-                        KEY_AL_PROFILE_ICON + "," +
-                        KEY_AL_DURATION_DELAY + "," +
+                        //KEY_AL_PROFILE_ICON + "," +
+                        //KEY_AL_DURATION_DELAY + "," +
                         KEY_AL_PROFILE_EVENT_COUNT +
                         " FROM " + TABLE_ACTIVITY_LOG +
                         " ORDER BY " + KEY_AL_ID + " DESC";
@@ -10859,7 +11116,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_FLAGS, intent._flags);
                 values.put(KEY_IN_INTENT_TYPE, intent._intentType);
 
-                values.put(KEY_IN_USED_COUNT, intent._usedCount);
+                //values.put(KEY_IN_USED_COUNT, intent._usedCount);
+                values.put(KEY_IN_DO_NOT_DELETE, intent._doNotDelete);
 
                 db.beginTransaction();
 
@@ -10934,8 +11192,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         KEY_IN_FLAGS + ", " +
                         KEY_IN_INTENT_TYPE + ", " +
 
-                        KEY_IN_USED_COUNT +
-                        " FROM " + TABLE_INTENTS;
+                        //KEY_IN_USED_COUNT + ", " +
+                        KEY_IN_DO_NOT_DELETE +
+
+                        " FROM " + TABLE_INTENTS +
+                        " ORDER BY " + KEY_IN_NAME;
 
                 //SQLiteDatabase db = this.getReadableDatabase();
                 SQLiteDatabase db = getMyWritableDatabase();
@@ -10985,8 +11246,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_10)),
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_CATEGORIES)),
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_FLAGS)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_IN_USED_COUNT)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_IN_INTENT_TYPE))
+                                //cursor.getInt(cursor.getColumnIndex(KEY_IN_USED_COUNT)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_IN_INTENT_TYPE)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_IN_DO_NOT_DELETE))  == 1
                         );
                         intentList.add(ppIntent);
                     } while (cursor.moveToNext());
@@ -11055,7 +11317,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 values.put(KEY_IN_FLAGS, intent._flags);
                 values.put(KEY_IN_INTENT_TYPE, intent._intentType);
 
-                values.put(KEY_IN_USED_COUNT, intent._usedCount);
+                //values.put(KEY_IN_USED_COUNT, intent._usedCount);
+                values.put(KEY_IN_DO_NOT_DELETE, intent._doNotDelete);
 
                 db.beginTransaction();
 
@@ -11136,7 +11399,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 KEY_IN_FLAGS,
                                 KEY_IN_INTENT_TYPE,
 
-                                KEY_IN_USED_COUNT
+                                //KEY_IN_USED_COUNT,
+                                KEY_IN_DO_NOT_DELETE
                         },
                         KEY_IN_ID + "=?",
                         new String[]{String.valueOf(intentId)}, null, null, null, null);
@@ -11185,8 +11449,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndex(KEY_IN_EXTRA_TYPE_10)),
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_CATEGORIES)),
                                 cursor.getString(cursor.getColumnIndex(KEY_IN_FLAGS)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_IN_USED_COUNT)),
-                                cursor.getInt(cursor.getColumnIndex(KEY_IN_INTENT_TYPE))
+                                //cursor.getInt(cursor.getColumnIndex(KEY_IN_USED_COUNT)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_IN_INTENT_TYPE)),
+                                cursor.getInt(cursor.getColumnIndex(KEY_IN_DO_NOT_DELETE)) == 1
                         );
                     }
 
@@ -11204,6 +11469,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    /*
     // Deleting single intent
     void deleteIntent(long intentId) {
         importExportLock.lock();
@@ -11239,7 +11505,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+    */
 
+    /*
     void updatePPIntentUsageCount(final List<Application> oldApplicationsList,
                                    final List<Application> applicationsList) {
         importExportLock.lock();
@@ -11270,6 +11538,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     if (usedCount > 0) {
                                         --usedCount;
 
+                                        Log.e("DatabaseHandler.updatePPIntentUsageCount", "usedCount (old)="+usedCount);
                                         ContentValues values = new ContentValues();
                                         values.put(KEY_IN_USED_COUNT, usedCount);
                                         db.update(TABLE_INTENTS, values, KEY_IN_ID + " = ?",
@@ -11298,6 +11567,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                     int usedCount = cursor.getInt(cursor.getColumnIndex(KEY_IN_USED_COUNT));
                                     ++usedCount;
 
+                                    Log.e("DatabaseHandler.updatePPIntentUsageCount", "usedCount (new)="+usedCount);
                                     ContentValues values = new ContentValues();
                                     values.put(KEY_IN_USED_COUNT, usedCount);
                                     db.update(TABLE_INTENTS, values, KEY_IN_ID + " = ?",
@@ -11327,6 +11597,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             stopRunningCommand();
         }
     }
+    */
 
 // OTHERS -------------------------------------------------------------------------
 
@@ -11952,24 +12223,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
-    private void startRunningImportExport() throws Exception {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "lock");
-            PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "runningCommand=" + runningCommand);
-        }*/
-        if (runningCommand)
-            runningCommandCondition.await();
-        //PPApplication.logE("----------- DatabaseHandler.startRunningImportExport", "continue");
-        runningImportExport = true;
-    }
-
-    private void stopRunningImportExport() {
-        runningImportExport = false;
-        runningImportExportCondition.signalAll();
-        importExportLock.unlock();
-        //PPApplication.logE("----------- DatabaseHandler.stopRunningImportExport", "unlock");
-    }
-
     private boolean tableExists(String tableName, SQLiteDatabase db)
     {
         //boolean tableExists = false;
@@ -12054,6 +12307,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private void afterImportDb(SQLiteDatabase db) {
         Cursor cursorImportDB = null;
+
+        // update volumes by device max value
         try {
             cursorImportDB = db.rawQuery("SELECT * FROM " + TABLE_PROFILES, null);
 
@@ -12277,6 +12532,66 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         } finally {
             if ((cursorImportDB != null) && (!cursorImportDB.isClosed()))
                 cursorImportDB.close();
+        }
+
+        // clear dual sim parameters for device without dual sim support
+        int phoneCount = 1;
+        if (Build.VERSION.SDK_INT >= 26) {
+            TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            if (telephonyManager != null) {
+                phoneCount = telephonyManager.getPhoneCount();
+            }
+        }
+        if (phoneCount < 2) {
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_NETWORK_TYPE_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_NETWORK_TYPE_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_NETWORK_TYPE_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_NETWORK_TYPE_SIM2 + "=0");
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_MOBILE_DATA_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_MOBILE_DATA_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_MOBILE_DATA_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_MOBILE_DATA_SIM2 + "=0");
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_DEFAULT_SIM_CARDS + "=\"0|0|0\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_DEFAULT_SIM_CARDS + "=\"0|0|0\"");
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_ONOFF_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_DEVICE_ONOFF_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_ONOFF_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_DEVICE_ONOFF_SIM2 + "=0");
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_RINGTONE_CHANGE_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_RINGTONE_CHANGE_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_NOTIFICATION_CHANGE_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_RINGTONE_SIM1 + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_RINGTONE_SIM2 + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_NOTIFICATION_SIM1 + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_NOTIFICATION_SIM2 + "=\"\"");
+
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_RINGTONE_CHANGE_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_RINGTONE_CHANGE_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_NOTIFICATION_CHANGE_SIM1 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_NOTIFICATION_CHANGE_SIM2 + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_RINGTONE_SIM1 + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_RINGTONE_SIM2 + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_NOTIFICATION_SIM1 + "=\"\"");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_NOTIFICATION_SIM2 + "=\"\"");
+
+            db.execSQL("UPDATE " + TABLE_PROFILES + " SET " + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "=0");
+            db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_SOUND_SAME_RINGTONE_FOR_BOTH_SIM_CARDS + "=0");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_FROM_SIM_SLOT + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_CALL_FOR_SIM_CARD + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_FROM_SIM_SLOT + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_SMS_FOR_SIM_CARD + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_MOBILE_CELLS_FOR_SIM_CARD + "=0");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + "=0");
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + "=0");
+
+            db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_SIM_ON_OFF + "=0");
         }
     }
 

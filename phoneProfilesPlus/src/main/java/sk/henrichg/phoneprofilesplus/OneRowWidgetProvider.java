@@ -8,8 +8,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -67,18 +69,9 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetOneRowRoundedCorners;
         String applicationWidgetOneRowLightnessT;
         int applicationWidgetOneRowRoundedCornersRadius;
+        boolean applicationWidgetOneRowHigherLayout;
+        boolean applicationWidgetChangeColorsByNightMode;
         synchronized (PPApplication.applicationPreferencesMutex) {
-
-            if (PPApplication.isPixelLauncherDefault(context)) {
-                ApplicationPreferences.applicationWidgetOneRowRoundedCorners = true;
-                ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius = 15;
-                SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS,
-                        ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
-                editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS,
-                        String.valueOf(ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius));
-                editor.apply();
-            }
 
             applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
             applicationWidgetOneRowIconColor = ApplicationPreferences.applicationWidgetOneRowIconColor;
@@ -94,6 +87,56 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowLightnessT = ApplicationPreferences.applicationWidgetOneRowLightnessT;
             applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
             applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
+            applicationWidgetOneRowHigherLayout = ApplicationPreferences.applicationWidgetOneRowHigherLayout;
+            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+
+            if (Build.VERSION.SDK_INT >= 31) {
+                if (PPApplication.isPixelLauncherDefault(context) ||
+                        PPApplication.isOneUILauncherDefault(context)) {
+                    ApplicationPreferences.applicationWidgetOneRowRoundedCorners = true;
+                    ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius = 15;
+                    //ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
+                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS,
+                            ApplicationPreferences.applicationWidgetOneRowRoundedCorners);
+                    editor.putString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ROUNDED_CORNERS_RADIUS,
+                            String.valueOf(ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius));
+                    //editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+                    //        ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
+                    editor.apply();
+                    applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
+                    applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
+                    //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+                }
+                if (//PPApplication.isPixelLauncherDefault(context) ||
+                        applicationWidgetChangeColorsByNightMode) {
+                    int nightModeFlags =
+                            context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    switch (nightModeFlags) {
+                        case Configuration.UI_MODE_NIGHT_YES:
+                            //applicationWidgetOneRowBackground = "100"; // fully opaque
+                            applicationWidgetOneRowBackgroundType = true; // background type = color
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(0x2f2f2f); // color of background
+                            //applicationWidgetOneRowShowBorder = false; // do not show border
+                            applicationWidgetOneRowLightnessBorder = "100";
+                            applicationWidgetOneRowLightnessT = "100"; // lightness of text = white
+                            applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                            applicationWidgetOneRowPrefIndicatorLightness = "62"; // lightness of preference indicators
+                            break;
+                        case Configuration.UI_MODE_NIGHT_NO:
+                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                            //applicationWidgetOneRowBackground = "100"; // fully opaque
+                            applicationWidgetOneRowBackgroundType = true; // background type = color
+                            applicationWidgetOneRowBackgroundColor = String.valueOf(0xf0f0f0); // color of background
+                            //applicationWidgetOneRowShowBorder = false; // do not show border
+                            applicationWidgetOneRowLightnessBorder = "0";
+                            applicationWidgetOneRowLightnessT = "0"; // lightness of text = black
+                            applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                            applicationWidgetOneRowPrefIndicatorLightness = "50"; // lightness of preference indicators
+                            break;
+                    }
+                }
+            }
         }
 
         //PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowShowBorder="+applicationWidgetOneRowShowBorder);
@@ -357,75 +400,94 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
 //                PPApplication.logE("OneRowWidgetProvider._onUpdate", "info.updatePeriodMillis="+info.updatePeriodMillis);
 
                 RemoteViews remoteViews;
-                if (applicationWidgetOneRowPrefIndicator)
-                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
-                else
-                    remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator);
+                if (applicationWidgetOneRowHigherLayout) {
+                    if (applicationWidgetOneRowPrefIndicator)
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget);
+                    else
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_higher_widget_no_indicator);
+                }
+                else {
+                    if (applicationWidgetOneRowPrefIndicator)
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget);
+                    else
+                        remoteViews = new RemoteViews(PPApplication.PACKAGE_NAME, R.layout.one_row_widget_no_indicator);
+                }
 
 //                PPApplication.logE("OneRowWidgetProvider.onUpdate", "applicationWidgetOneRowRoundedCornersRadius="+applicationWidgetOneRowRoundedCornersRadius);
                 int roundedBackground = 0;
                 int roundedBorder = 0;
-                switch (applicationWidgetOneRowRoundedCornersRadius) {
-                    case 1:
-                        roundedBackground = R.drawable.rounded_widget_background_1;
-                        roundedBorder = R.drawable.rounded_widget_border_1;
-                        break;
-                    case 2:
-                        roundedBackground = R.drawable.rounded_widget_background_2;
-                        roundedBorder = R.drawable.rounded_widget_border_2;
-                        break;
-                    case 3:
-                        roundedBackground = R.drawable.rounded_widget_background_3;
-                        roundedBorder = R.drawable.rounded_widget_border_3;
-                        break;
-                    case 4:
-                        roundedBackground = R.drawable.rounded_widget_background_4;
-                        roundedBorder = R.drawable.rounded_widget_border_4;
-                        break;
-                    case 5:
-                        roundedBackground = R.drawable.rounded_widget_background_5;
-                        roundedBorder = R.drawable.rounded_widget_border_5;
-                        break;
-                    case 6:
-                        roundedBackground = R.drawable.rounded_widget_background_6;
-                        roundedBorder = R.drawable.rounded_widget_border_6;
-                        break;
-                    case 7:
-                        roundedBackground = R.drawable.rounded_widget_background_7;
-                        roundedBorder = R.drawable.rounded_widget_border_7;
-                        break;
-                    case 8:
-                        roundedBackground = R.drawable.rounded_widget_background_8;
-                        roundedBorder = R.drawable.rounded_widget_border_8;
-                        break;
-                    case 9:
-                        roundedBackground = R.drawable.rounded_widget_background_9;
-                        roundedBorder = R.drawable.rounded_widget_border_9;
-                        break;
-                    case 10:
-                        roundedBackground = R.drawable.rounded_widget_background_10;
-                        roundedBorder = R.drawable.rounded_widget_border_10;
-                        break;
-                    case 11:
-                        roundedBackground = R.drawable.rounded_widget_background_11;
-                        roundedBorder = R.drawable.rounded_widget_border_11;
-                        break;
-                    case 12:
-                        roundedBackground = R.drawable.rounded_widget_background_12;
-                        roundedBorder = R.drawable.rounded_widget_border_12;
-                        break;
-                    case 13:
-                        roundedBackground = R.drawable.rounded_widget_background_13;
-                        roundedBorder = R.drawable.rounded_widget_border_13;
-                        break;
-                    case 14:
-                        roundedBackground = R.drawable.rounded_widget_background_14;
-                        roundedBorder = R.drawable.rounded_widget_border_14;
-                        break;
-                    case 15:
-                        roundedBackground = R.drawable.rounded_widget_background_15;
-                        roundedBorder = R.drawable.rounded_widget_border_15;
-                        break;
+                if (PPApplication.isPixelLauncherDefault(context)) {
+                    roundedBackground = R.drawable.rounded_widget_background_pixel_launcher;
+                    roundedBorder = R.drawable.rounded_widget_border_pixel_launcher;
+                }
+                else
+                if (PPApplication.isOneUILauncherDefault(context)) {
+                    roundedBackground = R.drawable.rounded_widget_background_oneui_launcher;
+                    roundedBorder = R.drawable.rounded_widget_border_oneui_launcher;
+                }
+                else {
+                    switch (applicationWidgetOneRowRoundedCornersRadius) {
+                        case 1:
+                            roundedBackground = R.drawable.rounded_widget_background_1;
+                            roundedBorder = R.drawable.rounded_widget_border_1;
+                            break;
+                        case 2:
+                            roundedBackground = R.drawable.rounded_widget_background_2;
+                            roundedBorder = R.drawable.rounded_widget_border_2;
+                            break;
+                        case 3:
+                            roundedBackground = R.drawable.rounded_widget_background_3;
+                            roundedBorder = R.drawable.rounded_widget_border_3;
+                            break;
+                        case 4:
+                            roundedBackground = R.drawable.rounded_widget_background_4;
+                            roundedBorder = R.drawable.rounded_widget_border_4;
+                            break;
+                        case 5:
+                            roundedBackground = R.drawable.rounded_widget_background_5;
+                            roundedBorder = R.drawable.rounded_widget_border_5;
+                            break;
+                        case 6:
+                            roundedBackground = R.drawable.rounded_widget_background_6;
+                            roundedBorder = R.drawable.rounded_widget_border_6;
+                            break;
+                        case 7:
+                            roundedBackground = R.drawable.rounded_widget_background_7;
+                            roundedBorder = R.drawable.rounded_widget_border_7;
+                            break;
+                        case 8:
+                            roundedBackground = R.drawable.rounded_widget_background_8;
+                            roundedBorder = R.drawable.rounded_widget_border_8;
+                            break;
+                        case 9:
+                            roundedBackground = R.drawable.rounded_widget_background_9;
+                            roundedBorder = R.drawable.rounded_widget_border_9;
+                            break;
+                        case 10:
+                            roundedBackground = R.drawable.rounded_widget_background_10;
+                            roundedBorder = R.drawable.rounded_widget_border_10;
+                            break;
+                        case 11:
+                            roundedBackground = R.drawable.rounded_widget_background_11;
+                            roundedBorder = R.drawable.rounded_widget_border_11;
+                            break;
+                        case 12:
+                            roundedBackground = R.drawable.rounded_widget_background_12;
+                            roundedBorder = R.drawable.rounded_widget_border_12;
+                            break;
+                        case 13:
+                            roundedBackground = R.drawable.rounded_widget_background_13;
+                            roundedBorder = R.drawable.rounded_widget_border_13;
+                            break;
+                        case 14:
+                            roundedBackground = R.drawable.rounded_widget_background_14;
+                            roundedBorder = R.drawable.rounded_widget_border_14;
+                            break;
+                        case 15:
+                            roundedBackground = R.drawable.rounded_widget_background_15;
+                            roundedBorder = R.drawable.rounded_widget_border_15;
+                            break;
+                    }
                 }
                 if (roundedBackground != 0)
                     remoteViews.setImageViewResource(R.id.widget_one_row_background, roundedBackground);

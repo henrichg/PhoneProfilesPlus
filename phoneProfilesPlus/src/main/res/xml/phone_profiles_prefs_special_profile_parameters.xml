@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:key="specialProfileParametersCategory"
+    app:title="@string/phone_profiles_pref_category_special_profile_parameters">
+
+<!-- TODO special profile parameters -->
+    <SwitchPreferenceCompat
+        app:key="applicationForceSetBrightnessAtScreenOn"
+        app:title="@string/phone_profiles_pref_applicationForceSetBrightnessAtScreenOn"
+        app:summary="@string/phone_profiles_pref_applicationForceSetBrightnessAtScreenOn_summary"
+        app:defaultValue="false"
+        app:layout="@layout/mp_preference_material_widget" />
+
+</androidx.preference.PreferenceScreen>

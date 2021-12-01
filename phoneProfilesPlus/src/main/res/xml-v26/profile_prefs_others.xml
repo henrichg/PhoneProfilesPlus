@@ -21,7 +21,7 @@
         app:entries="@array/runApplicationArray"
         app:entryValues="@array/runApplicationValues"
         app:layout="@layout/mp_preference_material_widget" />
-    <sk.henrichg.phoneprofilesplus.ApplicationsDialogPreferenceX
+    <sk.henrichg.phoneprofilesplus.RunApplicationsDialogPreferenceX
         app:defaultValue="-"
         app:key="prf_pref_deviceRunApplicationPackageName"
         app:title="@string/profile_preferences_deviceRunApplicationsShortcutsPackageName"

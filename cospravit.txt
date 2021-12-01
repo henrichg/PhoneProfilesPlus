@@ -1,7 +1,4 @@
 ------------------------
-Ak sa spravi reboot, onDestrou PPService nastavi, ze nie je spustena aplikacia.
-Takze po boote sa PPService nespusti z PPApplication. Treba cakat na BOOT_COMPLETED.
-------------------------
 funkční nastavení pro Huawei P30 s Androidem 10 a EMUI 10.
 
 nastavení-aplikace- aplikace-PPP-podrobnosti o spotřebě energie-spouštění aplikací:
@@ -13,35 +10,18 @@ Spravovat ručně 3x ano
 ------------------------
 
 Ulohy, ktore su spravene [x] a ktore nie [ ]:
-[x] location event (when at point X, radius Y)
-[x] app event (when app X is started)
-[x] Notification event lasts until notification is gone
-[x] expand/shrink event and profile preferences, maybe with a checkbox instead of an arrow and all active preferences are expanded – PPP use Android standard preference screens. Than I can only use subscreens. - Yes! If I understand you right, that was my idea.
-[x] profile event (only when profile X is active, can't end event)
-[x] notification event
-[x] Seconds in profile duration
-[x] 5 minutes as settable screen timeout
 [ ] Priority Notification Event
-[x] Restart events at boot option
-[x] Restart events shortcut for launcher
 [ ] Normal media volume, headphone media volume, Bluetooth media volume
 [ ] Sony's "Stamina" mode as profile preference - skor Power save change senzor
 [ ] USB connection to PC as storage device, USB connection to PC as camera, connection to USB stick in accessories parameter for events
-[x] Option to delete logs after x days
-[ ] Resizable grid in Activator
 [ ] option to hide PPP from Launcher
-[x] Not started/not shown option for app event/notification event (like WiFi and Bluetooth) (aka "Not in front/Not connected")
 [ ] Set min and max CPU frequency
 [ ] Open a website with profile
-[x] once and never again event (creatable with an additional button in starter, only start time, end time, start battery, gets deleted after end)
-[ ] toggle torch
 [ ] profile/event search
-[ ] "change wallpapper"->live wallpappers
 [ ] Persistent profile/event: sets its options every x minutes - asi periodic sensor
 [ ] Android Wear support?
 [ ] (AND, OR, XOR, NOT. Or at least NOT.)<-NOT is already available in most preferences. If that stays, that does the same.
 [ ] a plugin system? (very small core app, ability to install additional event preferences, maybe only time event preinstalled)
-[ ] PP&PPP for PC?
 
 ------------------------
 
@@ -194,52 +174,12 @@ Direct boot:
 
 ----------------------------------------
 
-Optimalizacia Editora a priprava na ViewPager:
-
-- Mozes pre Editor pouzit pre profily jeden jediny layout. Lisia sa len indikatorom v headeri.
-  Ten mozes krasne schovavat, ak su vypnute indikatory
-- Potom uz nie je problem vytvorit jeden jediny fragment pre profily a jeden jediny pre udalosti.
-  Netreba pri zmene fiktra vytvarat nanovo cely fragment.
-  Na zmenu filtra len do prislusneho fragmentu posles nove parametre, ktore teraz davas ago argumenty pri vytvarani fragmentu.
-- Ked toto budes mat, nebude sa pri kasdej zmene filtra znova nacitatavat zoznam profilov a udalosti z databazy.
-  Lebo adapter ich filtruje sam, podla nastaveneho filtra v aktivite.
-  Treba akurat vyriesit zmenu poradia profilov a udalosti.
-  Totizto v AsyncTasku ich sortujem.
-- Potom bude omnoho jednoduchsie spravit ten ViewPager pre Editor.
-
---------------------------------------
-
 Extender:
-- Skus spravit tak, ze zavolas Intent na download apk. V URL je cislo verzie, ale typu 5.1.2.1.
-  Cize toto by som musel pouzivat v PPP.
-- Ako stiahnut apk:
-  https://stackoverflow.com/questions/48130430/download-a-file-in-background-without-opening-browser-with-intent
-  https://stackoverflow.com/questions/525204/android-download-intent
-- Testni to a zisti, co sa stane, ked kilknes na tu notifikaciu po stiahnuti.
-- Hlavne pozri na nazov apk po stiahnuti. Ci tam neda cislo, napr. (1), (2) atd.
-- Kliknutie na notifikaciu pos tiahnuti by mala zavolat dalsi Intent na instalaciu apk.
-- Tymto by som mal vyriesenu instalaciu Extendera, ci uz noveho alebo upgrade.
-
 - Vypada to, ze parametrov, ktore pouzivaju Extender je stale viac.
 - Co tak spravit daky dialog, z ktoreho sa bude dat Extender managovat?
 - Aby nemuseli byt pri kazdom profil/event parametri 3 dalsie kvoli Extenderu.
 - Pridaj dakde v Editore daku indikaciu, ze je Extender vyzadovany v novej verzii.
   Nieco uz o tom mas v Important info, notifikacia o tom sa zobrazi po upgrade PPP.
-
-- Zatial pridaj aspon upozornenie, ze je stary Extender. Mozno to uz mam, kukni.
-  Sprav to ako pri pravach a podobne. Pis aj verziu, ktora je vyzadovana.
-
-Kde je treba Extender:
-
-Profily:
-- Force stop application
-- Lock device
-
-Eventy:
-- Call sensor
-- SMS/MMS sensor
-- Application sensor
-- Orientation sensor
 
 ----------------------------------------
 
@@ -262,22 +202,6 @@ Koniec udalosti:
 Vysledok je, ze pocas delay je stale RUNNING az po delay je PAUSE.
 
 -----------------
-
-Aktivacia profilu vyvola onUpdate, je jedno ci je to z 4x1 alebo 4x4 widgetu.
-
-Uz vem preco:
-Problem je vo WorkMangeri. Ten resheduleruje receivre a to sposobi, ze sa zavola onUpdate widgetov.
-Najdolezitejsie je, ze NESMIES equeueovat worky priamo vo widgetoch! Lebo to sposobi nekonecnu slucku!
-Ale ako zabranit zavolaniu onUpdate?
-
-Skus toto (z linku 2): One other thing you could do is to schedule another WorkRequest really far out into the future.
-So, you could create a OneTimeWorkRequest with an initial delay of 10 years.
-
-Linky:
-https://commonsware.com/blog/2018/11/24/workmanager-app-widgets-side-effects.html
-https://issuetracker.google.com/issues/115575872#comment4
-
-----------------------
 
 Battery historian:
 1. sudo apt install docker.io
@@ -341,106 +265,110 @@ Spravovat ručně 3x ano
 -Spustit na ozadí
 třeba se to bude hodit.
 
---------------------------
+-------------------------
 
-PPApplication.STARTUP_SOURCE_SERVICE_MANUAL
-- nastavi sa pri manualnej aktivacii z udalosti
+ActivateProfileHelper.setScreenTimeout()
+- disableScreenTimeoutInternalChange = true;
+- pre kazdy timeout z parametra:
+	if (PPApplication.lockDeviceActivity != null)
+	    // in LockDeviceActivity.onDestroy() will be used this value to revert back system screen timeout
+	    PPApplication.screenTimeoutBeforeDeviceLock = 15000;
+	else {
+      	    Settings.System.putInt(appContext.getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, xxx);
+      	}
+- nerobi 6, 8. Preco?
+- zavola:
+        setActivatedProfileScreenTimeout(appContext, 0);
+- zavola work:
+	DisableScreenTimeoutInternalChangeWorker.class
 
-Duration ignorujem:
-- pri nemanualnej aktivacii z udalosti
-- pri boote
+- volane z:
+  - ActivateProfileHelper.execute() - aktivacia profilu ak je obrazovka zapnuta
+  - LockDeviceActivity.onDestroy() - na nastavenie timeoutu, ak sa este nenastavil
+  - ScreenOnOffBroadcastReceiver.onReceive() na ACTION_USER_PRESENT
 
-Duration neignorujem, ak na koniec duration sa ma aktivovat specificky profil, je jedno odkial je aktivacia volana.
+ActivateProfileHelper.setActivatedProfileScreenTimeout()
+- ulozi do shared preferences timeout.
+- ulozi to aj do ApplicationPreferences.prefActivatedProfileScreenTimeout
+- pouzije to v ScreenOnOffBroadcastReceiver.onReceive() na ACTION_USER_PRESENT
+- pouzije to aj v LockDeviceActivity.onDestroy() na vratenie timeoutu
 
-Pri manualnej aktivacii z udalosti nerobim Undo po konci duration, ostatne robim. Proste aktivuje ten isty profil.
-To aby zostal manulane aktivovany profil. Ostatne "after duration" robim.
+- volane je z:
+  - ActivateProfileHelper.setScreenTimeout() - nastavi 0, lebo netreba nastavovat na screen On ACTION_USER_PRESENT
+  - ActivateProfileHelper.execute - nastavi profile parameter _deviceScreenTimeout, ak je screen off
+  - SettingsContentObserver.onChange() - nastvi 0 ak posledny zapamatany timeout je iny ako aktualny. a  nie je to internalChange
+                                                  ActivateProfileHelper.disableScreenTimeoutInternalChange
+                                         to aby sa nepouzila na ten screen On ACTION_USER_PRESENT. Tu sa predpoklada, ze zmena prisla z vonka.
 
-Cize duration robim pri aktivacii od hociakeho zdroja + pri manualnej aktivacii z udalosti.
-Cize musi byt profil aktivovany manualne.
+premenna PPApplication.screenTimeoutBeforeDeviceLock:
+- tu si pamatam, aky timeout je pred spustenim LockDeviceActivity.
+- na onCreate() ho zistuje
+- na onDestroy() nastavi spat timeout na tuto odpamatanu hodnotu
+- na onDestroy() potom nastavi timeot na hodnotu ApplicationPreferences.prefActivatedProfileScreenTimeout.
 
-Nova funkcia predlzovania duration nech ignoruje:
-- manualnu aktivaciu profilu z udalosti, cize PPApplication.STARTUP_SOURCE_SERVICE_MANUAL
-- nemanualnu aktivaciu z udalosti, cize PPApplication.STARTUP_SOURCE_SERVICE
-- boot, cize PPApplication.STARTUP_SOURCE_BOOT
 
-----------------------------------
-
-Broadcast, Service z notifikacie, intentu:
-Pre Android 12 vraj nefunguje, len aktivita. Pozri to.
-
-Pre notifikacie tu mam toto (action buttony):
-GrantPermissionActivity:
-                Intent deleteIntent = new Intent(NOTIFICATION_DELETED_ACTION);
-                PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, grantType, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                mBuilder.setDeleteIntent(deletePendingIntent);
-
-MobileCellsListener:
-                        Intent deleteIntent = new Intent(MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DELETED_ACTION);
-                        deleteIntent.putExtra(NotUsedMobileCellsDetectedActivity.EXTRA_MOBILE_CELL_ID, _registeredCell);
-                        PendingIntent deletePendingIntent = PendingIntent.getBroadcast(context, _registeredCell, deleteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        mBuilder.setDeleteIntent(deletePendingIntent);
-
-                        // add action button to disable not used cells detection
-                        Intent disableDetectionIntent = new Intent(MobileCellsScanner.NEW_MOBILE_CELLS_NOTIFICATION_DISABLE_ACTION);
-                        disableDetectionIntent.putExtra("notificationId", _registeredCell + PPApplication.NEW_MOBILE_CELLS_NOTIFICATION_ID);
-                        PendingIntent pDisableDetectionIntent = PendingIntent.getBroadcast(context, 0, disableDetectionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                        NotificationCompat.Action.Builder actionBuilder = new NotificationCompat.Action.Builder(
-                                R.drawable.ic_action_exit_app_white,
-                                context.getString(R.string.notification_not_used_mobile_cell_disable),
-                                pDisableDetectionIntent);
-                        mBuilder.addAction(actionBuilder.build());
-
-MobileCellsRegistrationService:
-            Intent stopRegistrationIntent = new Intent(ACTION_MOBILE_CELLS_REGISTRATION_STOP_BUTTON);
-            PendingIntent stopRegistrationPendingIntent = PendingIntent.getBroadcast(context, 0, stopRegistrationIntent, 0);
-            mBuilder.addAction(R.drawable.ic_action_stop,
-                    context.getString(R.string.phone_profiles_pref_applicationEventMobileCellsRegistration_stop),
-                    stopRegistrationPendingIntent);
+Takto sa nastavuje tiemout pri aktivacii profilu:
+        // screen timeout
+        if (Permissions.checkProfileScreenTimeout(appContext, profile, null)) {
+            if (PPApplication.isScreenOn) {
+                if (PPApplication.screenTimeoutHandler != null) {
+                    PPApplication.screenTimeoutHandler.post(() -> {
+                        setScreenTimeout(profile._deviceScreenTimeout, appContext);
+                    });
+            }
+            else {
+                setActivatedProfileScreenTimeout(appContext, profile._deviceScreenTimeout);
+            }
+        }
+- cize ak je screen on, nastavi sa timeount hned.
+- ak je screen off, nastavi sa timeount az v ScreenOnOffBroadcastReceiver.onReceive() na ACTION_USER_PRESENT
+  cize len sa hodnota ulozi do ApplicationPreferences.prefActivatedProfileScreenTimeout.
+Toto cele chapem.
 
 -----
 
-Ako zobrazovat nepriesvitnost a svetlost:
-
-1. nepriesvitnost - sprav 9 images, ktore budu reprezentovat nepriesvitnost:
-   - gulaty nech je image
-   - na pozadi nech je image so stvorcekmi ako som to uz 100x videl
-   - nad tym nech je biely image s prislusnyou nepriesvitnostou
-   - preference nech je moj custom, ktory zobrazi vybraty image nepreisvotnosti
-     dialog zasa nech zobrazuje okrem percent aj prislusne images pre kazdy item
-
-2. svetlost - sprav 9 images, ktore budu reprezentovat svetlost:
-   - gulaty nech je image
-   - nad tym nech je biely image s prislusnyou svetlostou, cize od ciernej po bielu
-   - preference nech je moj custom, ktory zobrazi vybraty image svetlosti
-     dialog zasa nech zobrazuje okrem percent aj prislusne images pre kazdy item
-
-Skus spravit tie images vektorove.
-
-------------
-
-- Added "Vibrate notifications" as addition to "Vibrate when ringing".
-- Added "Periodic sensor" into events.
-- Added support for live wallpapers.
-- Added "Random image from folder" into profile "Change wallpaper".
-- Added "[M] Activate specific profile, then restart events" into "After duration do" for profile activation with duration.
-- Added "Disable events run" into profile "Application functions".
-- Added PPP notification type "Force native (for custom icons)".
-- Added preference for grant "Display pop-up windows while running in background" in MIUI.
+- Added expandable layout into "Important informations". System, Profiles, Events sections are expandable.
+- Added help texts about event sensors into "Important information".
 - Added WiFi Hotspot for Android 11+.
-- Added check releases in APKPure from Editor.
-- Added description of widgets for Android 12.
-- Added PPP, system informations to crash report.
+- Added icons representing values for opaqueness and lighting preferences.
+- Added One row widget higher version.
+- Added ability to hide profile icon in PPP notification when style is "Custom" and enabled is decoration.
+- Added "(I) VPN" profile preference.
+- Added predefined Intents for connect/disconnect OpenVPN profile into "Run applications, shortcuts, intents".
 - Added help about grant (G1) permission into README.md.
-- Better handling of Extender version for profile.
-- Better large screens support.
-- Display toolbars menu icons with texts if possible.
-- Change: Use dominant color in custom profile icon for PPP notification.
-- Better rounded corners for menus and spinner popups.
-- Direct download of PhoneProfilesPlus.apk from Github.
-- Direct download of PhoneProfilesPlusExtender.apk from Github.
-- Fixed bad working Screen sensor.
-- Fixed grant of background location.
-- Fixed bad working check of Extender Accessibility service.
-- Other fixes.
-- Updated translations.
+- Added change colors of widgets by night mode for Android 12.
+- Added event sensor for check of default sim change, sim on/off.
+- Added exact time to configure profile activation end (addition to profile duration).
+- Added forced rounded corners in widgets for Samsung Une UI 4 launcher.
+- Added double arrow into clickable texts.
+- Added workaround for Huawei devices and screen brightness reset after screen on by system.
+
+- Change: Opaque=100 for all widgets for devices with Android 12 and Pixel Launcher as default home launcher.
+- Change: Display error notification for set WiFI hotspot. This is error about not granted android.permission.TETHER_PRIVILEGED.
+- Change: selectable background changed to rounded for all image buttons.
+- Change: Displayed profile icon also for collapsed notification.
+- Change: Color of decoration set back to accent color, because it is not true icon color, is changed by system.
+- Change: Displayed is custom icon to monochrome when is set status bar icon to "Force native".
+- Change: Better configuration of Intents for application stores. This opens app store application directly.
+
+- Fixed WiFi Hotspot for Android 9, 10.
+- Fixed height of some AlertDialogs.
+- Fixed translation of system contact group names.
+- Fixed not displayed correct event in Editor header after Restart events.
+- Fixed Alarm clock sensor for situation, when PPP is restarted by system.
+- Fixed set screen timeout when is used profile parameter "Screen"/"Lock device"/"Lock device"="Use quick screen off".
+- Fixed profile parameter "Keep screen on".
+- Fixed not displayed notification icon (bug in Pixel 5?) for Pixel devices with Android 12.
+- Fixed change of brightness values when screen gets on.
+- Fixed Permission.grantRootX() when grant root was revoked.
+- Fixed bad dark rectangle outside border, when is displayed popup window.
+- Fixed accessibility service not enabled" notification after restart of PPService.
+- Fixed mobile data enable/disable for Android 12+.
+- Fix: Clear all dual sim parameters when data import is performed in non-dual sim device.
+- Fix: Do not show notification about not enabled accessibility service, when Extender is not installed.
+
+- Updated translations
+- Fixed other bugs
+
+
 

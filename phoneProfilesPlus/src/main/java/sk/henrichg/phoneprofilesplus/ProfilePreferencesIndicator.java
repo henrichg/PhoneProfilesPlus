@@ -1199,6 +1199,21 @@ class ProfilePreferencesIndicator {
                         countItems[countPreferences++] = 1;
                 }
             }
+            // VPN Settings preferences
+            if (profile._deviceVPNSettingsPrefs == 1) {
+                if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS, null, sharedPreferences, true, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    if (fillPreferences)
+                        preferences[countPreferences] = appContext.getString(R.string.profile_preferences_deviceVPNSettingsPrefs);
+                    if (fillStrings)
+                        strings[countDrawables++] = "vpns";
+                    else {
+                        disabled[countDrawables] = false;
+                        drawables[countDrawables++] = R.drawable.ic_profile_pref_vpn_settings_pref;
+                    }
+                    if (fillPreferences)
+                        countItems[countPreferences++] = 1;
+                }
+            }
 
             // screen timeout
             if (profile._deviceScreenTimeout != 0) {

@@ -41,6 +41,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.documentfile.provider.DocumentFile;
@@ -168,7 +169,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     //private String[] drawerItemsSubtitle;
     //private Integer[] drawerItemsIcon;
 
-    private int editorSelectedView = 0;
+    int editorSelectedView = 0;
     private int filterProfilesSelectedItem = 0;
     private int filterEventsSelectedItem = 0;
 
@@ -1171,7 +1172,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                 ApplicationPreferences.applicationNeverAskForGrantRoot(getApplicationContext());
                 ApplicationPreferences.applicationNeverAskForGrantG1Permission(getApplicationContext());
 
-                PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),EditorProfilesActivity.this, false/*, true, true*/);
+                PPApplication.exitApp(true, getApplicationContext(), EditorProfilesActivity.this.getDataWrapper(),EditorProfilesActivity.this, false, true);
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
             AlertDialog dialog = dialogBuilder.create();
@@ -1679,6 +1680,15 @@ public class EditorProfilesActivity extends AppCompatActivity
 
                 if (profile_id > 0)
                 {
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+                    notificationManager.cancel(
+                            PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile_id,
+                            PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile_id);
+                    notificationManager.cancel(
+                            PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
+                            PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile_id);
+                    ActivateProfileHelper.cancelNotificationsForInteractiveParameters(getApplicationContext());
+
                     Profile profile = DatabaseHandler.getInstance(getApplicationContext()).getProfile(profile_id, false);
                     if (profile != null) {
                         // generate bitmaps
@@ -4063,7 +4073,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             EditorProfilesActivity activity = activityWeakRef.get();
             if (activity != null) {
                 if (_dataWrapper != null) {
-                    PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
+                    PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false, true);
 
                     //File sd = Environment.getExternalStorageDirectory();
                     //File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
@@ -4188,7 +4198,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
                     //}
 
-                    PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, null, 0, "");
+                    PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT, null, null, "");
 
                     // toast notification
                     if (!activity.isFinishing())
@@ -4345,7 +4355,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     } while (SystemClock.uptimeMillis() - start < 30 * 1000);
 
                     if (!importFromPPStopped) {
-                        PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false/*, false, true*/);
+                        PPApplication.exitApp(false, _dataWrapper.context, _dataWrapper, null, false, true);
 
                         if (importPPDataBroadcastReceiver.importStarted &&
                                 importPPDataBroadcastReceiver.importEndeed) {
@@ -4587,8 +4597,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                                 intentForImport.KEY_IN_EXTRA_TYPE_10,
                                                 intentForImport.KEY_IN_CATEGORIES,
                                                 intentForImport.KEY_IN_FLAGS,
-                                                intentForImport.KEY_IN_USED_COUNT,
-                                                intentForImport.KEY_IN_INTENT_TYPE
+                                                //intentForImport.KEY_IN_USED_COUNT,
+                                                intentForImport.KEY_IN_INTENT_TYPE,
+                                                false
                                         );
 
                                         DatabaseHandler.getInstance(_dataWrapper.context).addIntent(ppIntent);
@@ -4701,6 +4712,9 @@ public class EditorProfilesActivity extends AppCompatActivity
                                                 "",
                                                 0,
                                                 "-",
+                                                0,
+                                                0,
+                                                0,
                                                 0
                                         );
 
@@ -4841,7 +4855,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         //    this.dataWrapper.restartEventsWithDelay(3, false, false, DatabaseHandler.ALTYPE_UNDEFINED);
                         //}
 
-                        PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, null, null, null, 0, "");
+                        PPApplication.addActivityLog(_dataWrapper.context, PPApplication.ALTYPE_DATA_IMPORT_FROM_PP, null, null, "");
 
                         // toast notification
                         if (!activity.isFinishing())
@@ -4936,7 +4950,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             if (activity != null) {
                 if (this.dataWrapper != null) {
                     //dataWrapper.globalRunStopEvents(true);
-                    PPApplication.exitApp(false, activity.getApplicationContext(), this.dataWrapper, null, false);
+                    PPApplication.exitApp(false, activity.getApplicationContext(), this.dataWrapper, null, false, false);
 
                     // wait for end of PPService
                     PPApplication.sleep(3000);
@@ -4976,7 +4990,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             ret = 0;
                     }
 
-                    PPApplication.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, null, 0, "");
+                    PPApplication.addActivityLog(this.dataWrapper.context, PPApplication.ALTYPE_DATA_EXPORT, null, null, "");
 
                     //Event.setGlobalEventsRunning(this.dataWrapper.context, runStopEvents);
                     PPApplication.setApplicationStarted(activity.getApplicationContext(), true);

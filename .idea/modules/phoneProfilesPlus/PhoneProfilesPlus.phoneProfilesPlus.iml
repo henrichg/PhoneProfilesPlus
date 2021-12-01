@@ -4,7 +4,7 @@
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
         <option name="GRADLE_PROJECT_PATH" value=":phoneProfilesPlus" />
-        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" value="7.0.2" />
+        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" value="7.0.3" />
         <option name="LAST_KNOWN_AGP_VERSION" value="7.0.3" />
       </configuration>
     </facet>
@@ -31,6 +31,10 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/src/debug/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/src/main/res" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../../phoneProfilesPlus/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
@@ -66,7 +70,7 @@
     <orderEntry type="library" name="Gradle: com.getkeepsafe.taptargetview:taptargetview:1.13.3@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.appcompat:appcompat:1.3.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.fragment:fragment:1.3.6@aar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.activity:activity:1.2.4@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.activity:activity:1.3.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.recyclerview:recyclerview:1.2.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.gridlayout:gridlayout:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.palette:palette:1.0.0@aar" level="project" />
@@ -93,7 +97,9 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-viewmodel:2.3.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.savedstate:savedstate:1.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.cursoradapter:cursoradapter:1.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.work:work-runtime:2.5.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.skydoves:expandablelayout:1.0.7@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.databinding:viewbinding:4.1.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.work:work-runtime:2.6.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata:2.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-runtime:2.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata-core:2.3.1@aar" level="project" />
@@ -102,8 +108,9 @@
     <orderEntry type="library" name="Gradle: androidx.localbroadcastmanager:localbroadcastmanager:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.print:print:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation-experimental:1.1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.startup:startup-runtime:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.exifinterface:exifinterface:1.3.3@aar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout:2.1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.constraintlayout:constraintlayout:2.1.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: org.osmdroid:osmdroid-android:6.1.11@aar" level="project" />
     <orderEntry type="library" name="Gradle: dev.doubledot.doki:library:0.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: dev.doubledot.doki:api:0.0.1@aar" level="project" />

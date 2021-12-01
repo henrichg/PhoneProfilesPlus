@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fragment_important_info_expandable_system_second"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/fragment_important_info_expandable_system_txt_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_string"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="@string/important_info_android_look_application_settings"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_application_settings"
+        android:textStyle="bold"
+        android:textColor="?attr/colorAccent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="@string/important_info_android_doze_mode"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_app_standby"
+        android:textStyle="bold"
+        android:textColor="?attr/colorAccent" />
+
+    <!--
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="@string/important_info_power_manager"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_power_manager"
+        android:textStyle="bold"
+        android:textColor="?attr/colorAccent" />
+    -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="@string/important_info_do_not_kill_my_app1"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_do_not_kill_my_app"
+        android:textStyle="bold"
+        android:textColor="?attr/colorAccent" />
+
+    <!--
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:text="@string/important_into_samsung_no_save_power"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_dialog_info_text10b"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:text="@string/important_into_sony_stamina_mode"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_dialog_info_text10c"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:text="@string/important_into_huawei_protected_apps"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_dialog_info_text10d"
+        android:textStyle="bold" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="@string/important_into_xiaomi_no_restrictions"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_dialog_info_text10e"
+        android:textStyle="bold" />
+    -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:text="@string/important_info_useAlarmClock"
+        android:textSize="@dimen/important_info_text_size"
+        android:id="@+id/activity_info_notification_useAlarmClock" />
+
+</LinearLayout>

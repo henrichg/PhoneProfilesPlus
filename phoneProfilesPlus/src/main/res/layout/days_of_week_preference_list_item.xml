@@ -10,17 +10,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="@dimen/chackBox_radioButton_spacing_for_list_items"
         android:layout_centerVertical="true"
         android:checked="false"
-        android:focusable="false"
-        android:text="@string/empty_string" />
+        android:focusable="false" />
 
     <TextView
         android:id="@+id/days_of_week_pref_dlg_item_display_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginStart="3dp"
         android:layout_toEndOf="@id/days_of_week_pref_dlg_item_checkbox"
         android:text="@string/empty_string"
         android:textSize="17sp"

@@ -31,6 +31,7 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -263,7 +264,10 @@ public class DataWrapper {
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_LIVE_WALLPAPER),
                 Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_VIBRATE_NOTIFICATIONS)),
                 Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOLDER),
-                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN))
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_APPLICATION_DISABLE_GLOBAL_EVENTS_RUN)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TYPE)),
+                Integer.parseInt(Profile.defaultValuesString.get(Profile.PREF_PROFILE_END_OF_ACTIVATION_TIME))
             );
     }
 
@@ -644,9 +648,13 @@ public class DataWrapper {
             notificationManager.cancel(
                     PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id,
                     PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
+            notificationManager.cancel(
+                    PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
+                    PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile._id);
 
             profileList.remove(profile);
         }
+        ActivateProfileHelper.cancelNotificationsForInteractiveParameters(context);
         synchronized (eventList) {
             fillEventList();
             // unlink profile from events
@@ -696,11 +704,15 @@ public class DataWrapper {
                     notificationManager.cancel(
                             PPApplication.DISPLAY_PREFERENCES_PROFILE_ERROR_NOTIFICATION_TAG+"_"+profile._id,
                             PPApplication.PROFILE_ID_NOTIFICATION_ID + (int) profile._id);
+                    notificationManager.cancel(
+                            PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_TAG,
+                            PPApplication.GENERATED_BY_PROFILE_NOTIFICATION_ID + (int) profile._id);
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
             }
             profileList.clear();
+            ActivateProfileHelper.cancelNotificationsForInteractiveParameters(context);
         }
         synchronized (eventList) {
             fillEventList();
@@ -1746,18 +1758,31 @@ public class DataWrapper {
 
             //PPApplication.logE("$$$ DataWrapper._activateProfile","after activation");
 
-            String profileIcon = "";
-            int profileDuration = 0;
+            boolean profileDuration = false;
             if (_profile != null) {
-                profileIcon = _profile._icon;
-
                 /*if (PPApplication.logEnabled()) {
                     PPApplication.logE("$$$ DataWrapper._activateProfile", "duration=" + mappedProfile._duration);
                     PPApplication.logE("$$$ DataWrapper._activateProfile", "afterDurationDo=" + mappedProfile._afterDurationDo);
                 }*/
-                if ((_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
+                if ((_profile._endOfActivationType == 0) &&
+                        (_profile._afterDurationDo != Profile.AFTER_DURATION_DO_NOTHING) &&
                         (_profile._duration > 0)) {
-                    profileDuration = _profile._duration;
+                    profileDuration = true;
+                }
+                else
+                if (_profile._endOfActivationType == 1) {
+                    Calendar now = Calendar.getInstance();
+
+                    Calendar configuredTime = Calendar.getInstance();
+                    configuredTime.set(Calendar.HOUR_OF_DAY, _profile._endOfActivationTime / 60);
+                    configuredTime.set(Calendar.MINUTE, _profile._endOfActivationTime % 60);
+                    configuredTime.set(Calendar.SECOND, 0);
+                    configuredTime.set(Calendar.MILLISECOND, 0);
+
+                    if (now.getTimeInMillis() < configuredTime.getTimeInMillis()) {
+                        // configured time is not expired
+                        profileDuration = true;
+                    }
                 }
 
                 //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "profileDuration="+profileDuration);
@@ -1779,19 +1804,6 @@ public class DataWrapper {
                         // manual profile activation
                         PPApplication.logE("$$$ DataWrapper._activateProfile","manual profile activation");*/
 
-                    //// set profile duration alarm
-
-                    // save before activated profile
-                    //if (oldActivatedProfile != null) {
-                        //long profileId = oldActivatedProfile._id;
-//                        if (PPApplication.logEnabled()) {
-//                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration profileId=" + profileId);
-//                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration duration=" + profileDuration);
-//                            PPApplication.logE("----------- $$$ DataWrapper._activateProfile", "setActivatedProfileForDuration forRestartEvents=" + forRestartEvents);
-//                        }
-                        //Profile.setActivatedProfileForDuration(context, profileId);
-                    //}
-
                     if (startupSource != PPApplication.STARTUP_SOURCE_EVENT_MANUAL) {
                         long profileId = _profile._id;
 //                        PPApplication.logE("[FIFO_TEST] DataWrapper._activateProfile", "#### add profileId=" + profileId);
@@ -1802,7 +1814,7 @@ public class DataWrapper {
                     ///////////
                 } else {
 //                    PPApplication.logE("----------- $$$ DataWrapper._activateProfile","setActivatedProfileForDuration NO manual profile activation");
-                    profileDuration = 0;
+                    profileDuration = false;
 
                 }
 
@@ -1820,9 +1832,10 @@ public class DataWrapper {
 
             if (/*(mappedProfile != null) &&*/ (!merged)) {
                 //PPApplication.logE("[ACTIVATOR] DataWrapper._activateProfile", "add log");
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION, null,
-                        getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration > 0, false, false, this),
-                        profileIcon, profileDuration, "");
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ACTIVATION,
+                        null,
+                        getProfileNameWithManualIndicatorAsString(_profile, true, "", profileDuration, false, false, this),
+                        "");
             }
 
             //if (mappedProfile != null)
@@ -2271,9 +2284,9 @@ public class DataWrapper {
 
             if (logRestart) {
                 if (manualRestart)
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, null, 0, "");
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_MANUAL_RESTART_EVENTS, null, null, "");
                 else
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_RESTART_EVENTS, null, null, null, 0, "");
+                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_RESTART_EVENTS, null, null, "");
             }
 
             //if ((ApplicationPreferences.prefEventsBlocked && (!unblockEventsRun)) /*|| (!reactivateProfile)*/) {
@@ -2944,7 +2957,134 @@ public class DataWrapper {
         else
             return "?";
     }
+/*
+    static String _getLastStartedEventName(DataWrapper dataWrapper, Profile forProfile)
+    {
 
+        if (Event.getGlobalEventsRunning() && PPApplication.getApplicationStarted(false))
+        {
+            if (dataWrapper.eventListFilled && dataWrapper.eventTimelineListFilled) {
+                Log.e("DataWrapper._getLastStartedEventName", "1");
+                List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(false);
+                if (eventTimelineList.size() > 0)
+                {
+                    Log.e("DataWrapper._getLastStartedEventName", "2");
+
+                    EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size()-1);
+                    long event_id = eventTimeLine._fkEvent;
+                    Event event = dataWrapper.getEventById(event_id);
+                    if (event != null)
+                    {
+                        Log.e("DataWrapper._getLastStartedEventName", "3");
+
+                        //if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
+                        if ((!Event.getEventsBlocked(dataWrapper.context)) || (event._ignoreManualActivation))
+                        {
+                            Log.e("DataWrapper._getLastStartedEventName", "4");
+
+                            //Profile profile;
+                            //profile = dataWrapper.getActivatedProfile(false, false);
+                            //if ((profile != null) && (event._fkProfileStart == profile._id))
+                            // last started event activates activated profile
+                            return event._name;
+                            //else
+                            //    return "?";
+                        }
+                        else {
+                            Log.e("DataWrapper._getLastStartedEventName", "5");
+                            return "?";
+                        }
+                    }
+                    else {
+                        Log.e("DataWrapper._getLastStartedEventName", "6");
+                        return "?";
+                    }
+                }
+                else
+                {
+                    Log.e("DataWrapper._getLastStartedEventName", "7");
+                    long profileId = ApplicationPreferences.applicationDefaultProfile;
+                    //if ((!ApplicationPreferences.prefEventsBlocked) &&
+                    if ((!Event.getEventsBlocked(dataWrapper.context)) &&
+                            (profileId != Profile.PROFILE_NO_ACTIVATE) &&
+                            (profileId == forProfile._id))
+                    {
+                        Log.e("DataWrapper._getLastStartedEventName", "8");
+                        //Profile profile;
+                        //profile = dataWrapper.getActivatedProfile(false, false);
+                        //if ((profile != null) && (profile._id == profileId))
+                        return dataWrapper.context.getString(R.string.event_name_background_profile);
+                        //else
+                        //    return "?";
+                    }
+                    else {
+                        Log.e("DataWrapper._getLastStartedEventName", "9");
+                        return "?";
+                    }
+                }
+            }
+            else {
+                Log.e("DataWrapper._getLastStartedEventName", "10");
+                String eventName = DatabaseHandler.getInstance(dataWrapper.context).getLastStartedEventName();
+                if (!eventName.equals("?")) {
+                    Log.e("DataWrapper._getLastStartedEventName", "11");
+                    return eventName;
+                }
+//                List<EventTimeline> eventTimelineList = dataWrapper.getEventTimelineList(true);
+//                if (eventTimelineList.size() > 0)
+//                {
+//                    EventTimeline eventTimeLine = eventTimelineList.get(eventTimelineList.size()-1);
+//                    long event_id = eventTimeLine._fkEvent;
+//                    Event event = dataWrapper.getEventById(event_id);
+//                    if (event != null)
+//                    {
+//                        if ((!ApplicationPreferences.prefEventsBlocked) || (event._forceRun))
+//                        {
+//                            //Profile profile;
+//                            //profile = dataWrapper.getActivatedProfileFromDB(false, false);
+//                            //if ((profile != null) && (event._fkProfileStart == profile._id))
+//                                // last started event activates activated profile
+//                                return event._name;
+//                            //else
+//                            //    return "?";
+//                        }
+//                        else
+//                            return "?";
+//                    }
+//                    else
+//                        return "?";
+//                }
+                else
+                {
+                    Log.e("DataWrapper._getLastStartedEventName", "12");
+                    long profileId = ApplicationPreferences.applicationDefaultProfile;
+                    //if ((!ApplicationPreferences.prefEventsBlocked) &&
+                    if ((!Event.getEventsBlocked(dataWrapper.context)) &&
+                            (profileId != Profile.PROFILE_NO_ACTIVATE) &&
+                            (profileId == forProfile._id))
+                    {
+                        Log.e("DataWrapper._getLastStartedEventName", "13");
+                        //Profile profile;
+                        //profile = dataWrapper.getActivatedProfileFromDB(false, false);
+                        //if ((profile != null) && (profile._id == profileId))
+                        return dataWrapper.context.getString(R.string.event_name_background_profile);
+                        //else
+                        //    return "?";
+                    }
+                    else {
+                        Log.e("DataWrapper._getLastStartedEventName", "14");
+                        return "?";
+                    }
+                }
+            }
+
+        }
+        else {
+            Log.e("DataWrapper._getLastStartedEventName", "15");
+            return "?";
+        }
+    }
+*/
     private void resetAllEventsInDelayStart(boolean onlyFromDb)
     {
         if (!onlyFromDb) {
@@ -3030,7 +3170,7 @@ public class DataWrapper {
     boolean globalRunStopEvents(boolean stop) {
         if (stop) {
             if (Event.getGlobalEventsRunning()) {
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_DISABLE, null, null, null, 0, "");
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_DISABLE, null, null, "");
 
                 // no setup for next start
                 resetAllEventsInDelayStart(false);
@@ -3054,7 +3194,7 @@ public class DataWrapper {
         }
         else {
             if (!Event.getGlobalEventsRunning()) {
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_ENABLE, null, null, null, 0, "");
+                PPApplication.addActivityLog(context, PPApplication.ALTYPE_RUN_EVENTS_ENABLE, null, null, "");
 
                 Event.setGlobalEventsRunning(context, true);
 
@@ -3289,16 +3429,16 @@ public class DataWrapper {
                             sensorEnabled = sensorEnabled &&
                                     (_event._eventPreferencesRadioSwitch._mobileData != 0);
                             break;
-/*                        case DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM1:
+                        case DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS:
                             sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
                             sensorEnabled = sensorEnabled &&
-                                    (_event._eventPreferencesRadioSwitch._mobileDataSIM1 != 0);
+                                    (_event._eventPreferencesRadioSwitch._defaultSIMForCalls != 0);
                             break;
-                        case DatabaseHandler.ETYPE_RADIO_SWITCH_MOBILE_DATA_SIM2:
+                        case DatabaseHandler.ETYPE_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS:
                             sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
                             sensorEnabled = sensorEnabled &&
-                                    (_event._eventPreferencesRadioSwitch._mobileDataSIM2 != 0);
-                            break;*/
+                                    (_event._eventPreferencesRadioSwitch._defaultSIMForSMS != 0);
+                            break;
                         case DatabaseHandler.ETYPE_RADIO_SWITCH_GPS:
                             sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
                             sensorEnabled = sensorEnabled &&
@@ -3313,6 +3453,11 @@ public class DataWrapper {
                             sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
                             sensorEnabled = sensorEnabled &&
                                     (_event._eventPreferencesRadioSwitch._airplaneMode != 0);
+                            break;
+                        case DatabaseHandler.ETYPE_RADIO_SWITCH_SIM_ON_OFF:
+                            sensorEnabled = _event._eventPreferencesRadioSwitch._enabled;
+                            sensorEnabled = sensorEnabled &&
+                                    (_event._eventPreferencesRadioSwitch._simOnOff != 0);
                             break;
                         case DatabaseHandler.ETYPE_ALARM_CLOCK:
                             sensorEnabled = _event._eventPreferencesAlarmClock._enabled;

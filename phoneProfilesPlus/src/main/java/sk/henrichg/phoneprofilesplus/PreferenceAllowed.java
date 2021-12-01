@@ -226,7 +226,8 @@ class PreferenceAllowed {
                     }
                 }
 
-                if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
+                // not needed, used is "svc data enable/disable"
+                /*if (ActivateProfileHelper.telephonyServiceExists(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA)) {
                     if (PPApplication.serviceBinaryExists(fromUIThread)) {
                         if (profile != null) {
                             if (profile._deviceMobileData != 0)
@@ -243,7 +244,9 @@ class PreferenceAllowed {
                     preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                     preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
                     preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
-                }
+                }*/
+
+                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
 
                 final TelephonyManager telephonyManager = (TelephonyManager) appContext.getSystemService(Context.TELEPHONY_SERVICE);
                 if (telephonyManager != null) {
@@ -765,13 +768,41 @@ class PreferenceAllowed {
                         preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
                         preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
                     }
-                } else {
-                    if (profile != null) {
-                        if (profile._deviceWiFiAP != 0)
+                } else if (Build.VERSION.SDK_INT < 30) {
+                    if (WifiApManager.canExploitWifiTethering(appContext)) {
+                        if (profile != null) {
+                            if (profile._deviceWiFiAP != 0)
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        }
+                        else
                             preferenceAllowed.allowed = PREFERENCE_ALLOWED;
                     }
-                    else
-                        preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    else {
+                        if ((profile != null) && (profile._deviceWiFiAP != 0)) {
+                            preferenceAllowed.notAllowedRoot = true;
+                            //Log.e("Profile.isProfilePreferenceAllowed", "_deviceWiFiAP");
+                        }
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                    }
+                } else {
+                    if (WifiApManager.canExploitWifiTethering30(appContext)) {
+                        if (profile != null) {
+                            if (profile._deviceWiFiAP != 0)
+                                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                        } else
+                            preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+                    }
+                    else {
+                        if ((profile != null) && (profile._deviceWiFiAP != 0)) {
+                            preferenceAllowed.notAllowedRoot = true;
+                            //Log.e("Profile.isProfilePreferenceAllowed", "_deviceWiFiAP");
+                        }
+                        preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                        preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SUPPORTED_BY_SYSTEM;
+                        preferenceAllowed.notAllowedReasonDetail = appContext.getString(R.string.preference_not_allowed_reason_detail_cant_be_change);
+                    }
                 }
             } else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;

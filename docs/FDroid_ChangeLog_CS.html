@@ -7,32 +7,46 @@
 
 <h1 id="changelog">PhoneProfilesPlus Seznam změn</h1>
 
-<h2 id="version2">Verze: 5.1.2</h2>
+<h2 id="version2">Verze: 5.1.3</h2>
 
 <ul>
-    <li>Added "Vibrate notifications" as addition to "Vibrate when ringing".</li>
-    <li>Added "Periodic sensor" into events.</li>
-    <li>Added support for live wallpapers.</li>
-    <li>Added "Random image from folder" into profile "Change wallpaper".</li>
-    <li>Added "[M] Activate specific profile, then restart events" into "After duration do" for profile activation with duration.</li>
-    <li>Added "Disable events run" into profile "Application functions".</li>
-    <li>Added PPP notification type "Force native (for custom icons)".</li>
-    <li>Added preference for grant "Display pop-up windows while running in background" in MIUI.</li>
+    <li>Added expandable layout into "Important informations". System, Profiles, Events sections are expandable.</li>
+    <li>Added help texts about event sensors into "Important information".</li>
     <li>Added WiFi Hotspot for Android 11+.</li>
-    <li>Added check releases in APKPure from Editor.</li>
-    <li>Added description of widgets for Android 12.</li>
-    <li>Added PPP, system informations to crash report.</li>
+    <li>Added icons representing values for opaqueness and lighting preferences.</li>
+    <li>Added One row widget higher version.</li>
+    <li>Added ability to hide profile icon in PPP notification when style is "Custom" and enabled is decoration.</li>
+    <li>Added "(I) VPN" profile preference.</li>
+    <li>Added predefined Intents for connect/disconnect OpenVPN profile into "Run applications, shortcuts, intents".</li>
     <li>Added help about grant (G1) permission into README.md.</li>
-    <li>Better handling of Extender version for profile.</li>
-    <li>Better large screens support.</li>
-    <li>Display toolbars menu icons with texts if possible.</li>
-    <li>Change: Use dominant color in custom profile icon for PPP notification.</li>
-    <li>Better rounded corners for menus and spinner popups.</li>
-    <li>Direct download of PhoneProfilesPlus.apk from Github.</li>
-    <li>Direct download of PhoneProfilesPlusExtender.apk from Github.</li>
-    <li>Fixed bad working Screen sensor.</li>
-    <li>Fixed grant of background location.</li>
-    <li>Fixed bad working check of Extender Accessibility service.</li>
+    <li>Added change colors of widgets by night mode for Android 12.</li>
+    <li>Added event sensor for check of default sim change, sim on/off.</li>
+    <li>Added exact time to configure profile activation end (addition to profile duration).</li>
+    <li>Added forced rounded corners in widgets for Samsung Une UI 4 launcher.</li>
+    <li>Added double arrow into clickable texts.</li>
+    <li>Added workaround for Huawei devices and screen brightness reset after screen on by system.</li>
+    <li>Change: Opaque=100 for all widgets for devices with Android 12 and Pixel Launcher as default home launcher.</li>
+    <li>Change: Display error notification for set WiFI hotspot. This is error about not granted android.permission.TETHER_PRIVILEGED.</li>
+    <li>Change: selectable background changed to rounded for all image buttons.</li>
+    <li>Change: Displayed profile icon also for collapsed notification.</li>
+    <li>Change: Color of decoration set back to accent color, because it is not true icon color, is changed by system.</li>
+    <li>Change: Displayed is custom icon to monochrome when is set status bar icon to "Force native".</li>
+    <li>Change: Better configuration of Intents for application stores. This opens app store application directly.</li>
+    <li>Fixed WiFi Hotspot for Android 9, 10.</li>
+    <li>Fixed height of some AlertDialogs.</li>
+    <li>Fixed translation of system contact group names.</li>
+    <li>Fixed not displayed correct event in Editor header after Restart events.</li>
+    <li>Fixed Alarm clock sensor for situation, when PPP is restarted by system.</li>
+    <li>Fixed set screen timeout when is used profile parameter "Screen"/"Lock device"/"Lock device"="Use quick screen off".</li>
+    <li>Fixed profile parameter "Keep screen on".</li>
+    <li>Fixed not displayed notification icon (bug in Pixel 5?) for Pixel devices with Android 12.</li>
+    <li>Fixed change of brightness values when screen gets on.</li>
+    <li>Fixed Permission.grantRootX() when grant root was revoked.</li>
+    <li>Fixed bad dark rectangle outside border, when is displayed popup window.</li>
+    <li>Fixed accessibility service not enabled" notification after restart of PPService.</li>
+    <li>Fixed mobile data enable/disable for Android 12+.</li>
+    <li>Fix: Clear all dual sim parameters when data import is performed in non-dual sim device.</li>
+    <li>Fix: Do not show notification about not enabled accessibility service, when Extender is not installed.</li>
 </ul>
 
 <ul>
@@ -44,7 +58,7 @@
 </ul>
 
 <p>
-    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.1.2">Kompletní seznam změn je v GitHub</a>
+    <a href="https://github.com/henrichg/PhoneProfilesPlus/releases/tag/5.1.3">Kompletní seznam změn je v GitHub</a>
 </p>
 
 </body>

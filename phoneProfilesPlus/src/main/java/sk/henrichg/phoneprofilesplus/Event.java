@@ -386,7 +386,7 @@ class Event {
 
     private void createEventPreferencesRadioSwitch()
     {
-        this._eventPreferencesRadioSwitch = new EventPreferencesRadioSwitch(this, false, 0, 0, 0, 0, 0, 0/*, 0,0*/);
+        this._eventPreferencesRadioSwitch = new EventPreferencesRadioSwitch(this, false, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     private void createEventPreferencesAlarmClock()
@@ -1654,7 +1654,7 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventStatus(this);
 
         if (/*log && */(status != this._status)) {
-            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START, _name, null, null, 0, "");
+            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START, _name, null, "");
         }
 
 //        if (PPApplication.logEnabled()) {
@@ -2129,7 +2129,7 @@ class Event {
         else if (_fkProfileEnd != Profile.PROFILE_NO_ACTIVATE)
             alType = PPApplication.ALTYPE_EVENT_END_ACTIVATE_PROFILE;
 
-        PPApplication.addActivityLog(context.getApplicationContext(), alType, _name, null, null, 0, "");
+        PPApplication.addActivityLog(context.getApplicationContext(), alType, _name, null, "");
     }
 
     void stopEvent(DataWrapper dataWrapper,
@@ -2173,7 +2173,7 @@ class Event {
             DatabaseHandler.getInstance(dataWrapper.context).updateAllEventSensorsPassed(this);
 
         if (log && (status != this._status)) {
-            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_STOP, _name, null, null, 0, "");
+            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_STOP, _name, null, "");
         }
 
         //return;
@@ -2571,7 +2571,9 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayStart(this);
 
         if (_isInDelayStart) {
-            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START_DELAY, _name, null, null, _delayStart, "");
+            String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_start_acronym) +
+                    ": " + GlobalGUIRoutines.getDurationString(_delayStart) +")";
+            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_START_DELAY, evenName, null, "");
         }
 
         //return;
@@ -2837,7 +2839,9 @@ class Event {
         DatabaseHandler.getInstance(dataWrapper.context).updateEventInDelayEnd(this);
 
         if (_isInDelayEnd) {
-            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_END_DELAY, _name, null, null, _delayEnd, "");
+            String evenName = _name + " (" + dataWrapper.context.getString(R.string.event_delay_end_acronym) +
+                    ": " + GlobalGUIRoutines.getDurationString(_delayEnd) +")";
+            PPApplication.addActivityLog(dataWrapper.context, PPApplication.ALTYPE_EVENT_END_DELAY, evenName, null, "");
         }
 
         //return;

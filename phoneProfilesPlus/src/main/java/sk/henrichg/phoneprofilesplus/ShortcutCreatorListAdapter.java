@@ -1,11 +1,13 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.os.Handler;
 import android.text.Spannable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 class ShortcutCreatorListAdapter extends BaseAdapter {
@@ -47,11 +49,12 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-          ImageView profileIcon;
-          TextView profileName;
-          ImageView profileIndicator;
-          //int position;
-        }
+        RadioButton radioButton;
+        ImageView profileIcon;
+        TextView profileName;
+        ImageView profileIndicator;
+        //int position;
+    }
 
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
@@ -69,6 +72,7 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
             else
                 vi = inflater.inflate(R.layout.shortcut_list_item_no_indicator, parent, false);
             holder = new ViewHolder();
+            holder.radioButton = vi.findViewById(R.id.shortcut_list_item_radiobtn);
             holder.profileName = vi.findViewById(R.id.shortcut_list_item_profile_name);
             holder.profileIcon = vi.findViewById(R.id.shortcut_list_item_profile_icon);
             if (applicationActivatorPrefIndicator)
@@ -123,6 +127,15 @@ class ShortcutCreatorListAdapter extends BaseAdapter {
                     }
                 }
             }
+
+            holder.radioButton.setTag(position);
+            holder.radioButton.setOnClickListener(v -> {
+                RadioButton rb = (RadioButton) v;
+                rb.setChecked(true);
+                Handler handler = new Handler(activityDataWrapper.context.getMainLooper());
+                handler.postDelayed(() -> fragment.createShortcut((Integer)rb.getTag()), 200);
+            });
+
         }
         
         return vi;

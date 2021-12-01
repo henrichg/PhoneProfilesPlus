@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Drop Shadow Stack -->
+    <item>
+        <shape android:shape="rectangle">
+            <padding
+                android:bottom="1dp"
+                android:left="1dp"
+                android:right="1dp"
+                android:top="1dp" />
+
+            <solid android:color="@color/popupMenuBorderColor" />
+
+            <corners android:radius="@dimen/popup_window_corner_radius" />
+        </shape>
+    </item>
+
+    <!-- Background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/activityPopupMenuBackgroundColor" />
+
+            <corners android:radius="@dimen/popup_window_corner_radius" />
+        </shape>
+    </item>
+
+</layer-list>

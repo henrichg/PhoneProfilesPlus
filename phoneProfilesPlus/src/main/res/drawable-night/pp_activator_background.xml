@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<!--
     <item>
         <shape android:shape="rectangle">
             <padding
-                android:bottom="@dimen/activatior_transparent_padding"
-                android:left="@dimen/activatior_transparent_padding"
-                android:right="@dimen/activatior_transparent_padding"
-                android:top="@dimen/activatior_transparent_padding" />
+                android:bottom="@dimen/activator_transparent_padding_top_bottom"
+                android:left="@dimen/activator_transparent_padding_left_right"
+                android:right="@dimen/activator_transparent_padding_left_right"
+                android:top="@dimen/activator_transparent_padding_top_bottom" />
 
             <solid android:color="#00000000" />
         </shape>
     </item>
--->
+
     <item>
         <shape android:shape="rectangle">
             <padding

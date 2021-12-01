@@ -3,11 +3,9 @@ package sk.henrichg.phoneprofilesplus;
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.SystemClock;
@@ -262,128 +260,7 @@ public class RunApplicationWithDelayBroadcastReceiver extends BroadcastReceiver 
             // application is not started
             return;
 
-        Intent appIntent;
-        PackageManager packageManager = context.getPackageManager();
-
-        //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","profileName="+profileName);
-        if (Application.isShortcut(runApplicationData)) {
-            long shortcutId = Application.getShortcutId(runApplicationData);
-            //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","shortcut - shortcutId="+shortcutId);
-            if (shortcutId > 0) {
-                Shortcut shortcut = DatabaseHandler.getInstance(context).getShortcut(shortcutId);
-                if (shortcut != null) {
-                    try {
-                        appIntent = Intent.parseUri(shortcut._intent, 0);
-                        if (appIntent != null) {
-                            //noinspection TryWithIdenticalCatches
-                            try {
-                                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                context.startActivity(appIntent);
-                            } catch (ActivityNotFoundException ee) {
-                                //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","shortcut - ERROR (01)");
-                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                                        profileName, null, 0, "");
-                            } catch (SecurityException e) {
-                                //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","shortcut - ERROR (02)");
-                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                                        profileName, null, 0, "");
-                            } catch (Exception ee) {
-                                PPApplication.recordException(ee);
-                            }
-                        } else {
-                            //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","shortcut - ERROR (1)");
-                            PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                                    profileName, null, 0, "");
-                        }
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
-                } else {
-                    //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","shortcut - ERROR (2)");
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                            profileName, null, 0, "");
-                }
-            } else {
-                //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","shortcut - ERROR (3)");
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_SHORTCUT, null,
-                        profileName, null, 0, "");
-            }
-        }
-        else
-        if (Application.isIntent(runApplicationData)) {
-            long intentId = Application.getIntentId(runApplicationData);
-            //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","intent - intentId="+intentId);
-            if (intentId > 0) {
-                PPIntent ppIntent = DatabaseHandler.getInstance(context).getIntent(intentId);
-                if (ppIntent != null) {
-                    appIntent = ApplicationEditorIntentActivityX.createIntent(ppIntent);
-                    if (appIntent != null) {
-                        if (ppIntent._intentType == 0) {
-                            //noinspection TryWithIdenticalCatches
-                            try {
-                                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                context.startActivity(appIntent);
-                            } catch (ActivityNotFoundException ee) {
-                                //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","intent - ERROR (01)");
-                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                                        profileName, null, 0, "");
-                            } catch (SecurityException e) {
-                                //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","intent - ERROR (02)");
-                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                                        profileName, null, 0, "");
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
-                            }
-                        }
-                        else {
-                            try {
-                                context.sendBroadcast(appIntent);
-                            } catch (Exception e) {
-                                //PPApplication.recordException(e);
-                            }
-                        }
-                    } else {
-                        //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","intent - ERROR (1)");
-                        PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                                profileName, null, 0, "");
-                    }
-                } else {
-                    //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","intent - ERROR (2)");
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                            profileName, null, 0, "");
-                }
-            } else {
-                //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","intent - ERROR (3)");
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT, null,
-                        profileName, null, 0, "");
-            }
-        } else {
-            String packageName = Application.getPackageName(runApplicationData);
-            appIntent = packageManager.getLaunchIntentForPackage(packageName);
-            //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","application - appIntent="+appIntent);
-            if (appIntent != null) {
-                appIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-                //noinspection TryWithIdenticalCatches
-                try {
-                    appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(appIntent);
-                } catch (ActivityNotFoundException ee) {
-                    //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","application - ERROR (01)");
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, null,
-                            profileName, null, 0, "");
-                } catch (SecurityException e) {
-                    //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","application - ERROR (02)");
-                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, null,
-                            profileName, null, 0, "");
-                } catch (Exception e) {
-                    PPApplication.recordException(e);
-                }
-            } else {
-                //PPApplication.logE("RunApplicationWithDelayBroadcastReceiver.doWork","application - ERROR (1)");
-                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_APPLICATION, null,
-                        profileName, null, 0, "");
-            }
-        }
+        ActivateProfileHelper.doExecuteForRunApplications(context, profileName, runApplicationData);
     }
 
 }

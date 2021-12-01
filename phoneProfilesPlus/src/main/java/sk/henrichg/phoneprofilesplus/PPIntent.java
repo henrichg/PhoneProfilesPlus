@@ -45,7 +45,8 @@ class PPIntent implements Parcelable {
     String _flags;
     int _intentType;
 
-    int _usedCount;
+    //int _usedCount;
+    boolean _doNotDelete;
 
     PPIntent() {}
 
@@ -89,8 +90,9 @@ class PPIntent implements Parcelable {
         int extraType10,
         String categories,
         String flags,
-        int usedCount,
-        int intentType
+        //int usedCount,
+        int intentType,
+        boolean doNotDelete
     )
     {
         this._id = id;
@@ -134,7 +136,8 @@ class PPIntent implements Parcelable {
         this._flags = flags;
         this._intentType = intentType;
 
-        this._usedCount = usedCount;
+        //this._usedCount = usedCount;
+        this._doNotDelete = doNotDelete;
     }
 
     private PPIntent(Parcel in) {
@@ -179,7 +182,8 @@ class PPIntent implements Parcelable {
         this._flags = in.readString();
         this._intentType = in.readInt();
 
-        this._usedCount = in.readInt();
+        //this._usedCount = in.readInt();
+        this._doNotDelete = in.readInt() == 1;
     }
 
     @Override
@@ -230,7 +234,8 @@ class PPIntent implements Parcelable {
         dest.writeString(this._flags);
         dest.writeInt(this._intentType);
 
-        dest.writeInt(this._usedCount);
+        //dest.writeInt(this._usedCount);
+        dest.writeInt(this._doNotDelete ? 1 : 0);
     }
 
     PPIntent duplicate() {
@@ -274,6 +279,8 @@ class PPIntent implements Parcelable {
         newPPIntent._categories = _categories;
         newPPIntent._flags = _flags;
         newPPIntent._intentType = _intentType;
+
+        newPPIntent._doNotDelete = _doNotDelete;
 
         return newPPIntent;
     }

@@ -67,7 +67,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_button_help"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/menu_help"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton
@@ -79,7 +79,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/nfc_tag_pref_dlg_helpIcon"
                     android:src="@drawable/ic_button_select"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/pref_dlg_change_selection_title"/>
 
                 <androidx.appcompat.widget.AppCompatImageButton
@@ -91,7 +91,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toStartOf = "@id/nfc_tag_pref_dlg_changeSelection"
                     android:src="@drawable/ic_button_add"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/nfc_tag_pref_dlg_add_icon"/>
 
                 <EditText

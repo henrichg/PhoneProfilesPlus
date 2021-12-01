@@ -4,8 +4,8 @@
     android:id="@+id/profile_list_item_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="0dp"
-    android:paddingEnd="0dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
     android:paddingTop="9dp"
     android:paddingBottom="9dp"
     android:orientation="horizontal"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:layout_marginEnd="3dp"
-            android:background="?attr/selectableItemBackground"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/profile_preferences_showInActivator"
             android:src="@drawable/ic_show_in_activator"/>
 
@@ -36,7 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:background="?attr/selectableItemBackground"
+            android:layout_marginEnd="5dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/preference_item_edit_menu"
             android:src="?attr/editItemMenuIcon"/>
         

@@ -21,17 +21,36 @@
         
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/calendars_multiselect_pref_dlg_rella_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         android:gravity="center" >
+
+        <View
+            android:id="@+id/calendars_pref_dlg_titleBarDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:background="?attr/dialogDivider" />
+
+        <ListView
+            android:id="@+id/calendars_multiselect_pref_dlg_listview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:gravity="center"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:divider="@android:color/transparent" />
 
         <LinearLayout
             android:id="@+id/calendars_multiselect_pref_dlg_et_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:orientation="vertical" >
 
             <View
@@ -58,34 +77,6 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/calendars_pref_dlg_linla_listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_above="@id/calendars_multiselect_pref_dlg_et_btn"
-            android:layout_alignParentTop="true" >
-
-            <View
-                android:id="@+id/calendars_pref_dlg_titleBarDivider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:background="?attr/dialogDivider" />
-
-            <ListView
-                android:id="@+id/calendars_multiselect_pref_dlg_listview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:gravity="center"
-                android:clipToPadding="false"
-                android:scrollbarStyle="outsideOverlay"
-                android:divider="@android:color/transparent" />
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

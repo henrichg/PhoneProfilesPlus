@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_important_info_force_scroll_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/activity_margin_start"
+    android:layout_marginEnd="@dimen/activity_margin_end"
+    android:fitsSystemWindows="false" >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_important_info_force_scroll_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:elevation="0dp"
+        android:theme="?attr/toolbarTheme"
+        app:popupTheme="?attr/toolbarPopupMenu"/>
+
+    <FrameLayout
+        android:id="@+id/activity_important_info_force_scroll_frLa1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/activity_important_info_force_scroll_toolbar" >
+
+        <FrameLayout
+            android:id="@+id/activity_important_info_force_scroll_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ImportantInfoActivityForceScroll"  />
+
+    </FrameLayout>
+
+</RelativeLayout>
