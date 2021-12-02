@@ -121,6 +121,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 
                             try {
                                 if (updateReleasedVersion && (alertDialog != null)) {
+                                    // Dialog is opened by showDialog() called before this download
+                                    // of PPP_RELEASES_URL. Refresh views in it only.
                                     checkInGitHub(activity, true);
                                 }
                             } catch (Exception e) {
@@ -201,7 +203,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     }
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
-    private void checkInGitHub(final Activity activity, final boolean refresh) {
+    private void checkInGitHub(final Activity activity, final boolean refreshOpenedDialog) {
         int pppVersionCode = 0;
         try {
             PackageInfo pInfo = activity.getPackageManager().getPackageInfo(PPApplication.PACKAGE_NAME, 0);
@@ -211,7 +213,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         newVersionDataExists = (!newVersionName.isEmpty()) && (newVersionCode > 0);
 
         AlertDialog.Builder dialogBuilder = null;
-        if (!refresh) {
+        if (!refreshOpenedDialog) {
             dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(R.string.menu_check_github_releases);
         }
@@ -248,19 +250,19 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             message = message + activity.getString(R.string.check_github_releases_install_info_app_stores_release);
         }
 
-        if (!refresh) {
+        if (!refreshOpenedDialog) {
             LayoutInflater inflater = activity.getLayoutInflater();
-            alertDialogLayout = inflater.inflate(R.layout.dialog_install_extender, null);
+            alertDialogLayout = inflater.inflate(R.layout.dialog_install_ppp_pppe_from_github, null);
             dialogBuilder.setView(alertDialogLayout);
         }
 
         TextView text;
-        text = alertDialogLayout.findViewById(R.id.install_extender_dialog_info_text);
+        text = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_info_text);
         text.setText(message);
 
-        text = alertDialogLayout.findViewById(R.id.install_extender_dialog_github_releases);
+        text = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
         if (newVersionDataExists) {
-            Button button = alertDialogLayout.findViewById(R.id.install_extender_dialog_showAssets);
+            Button button = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_showAssets);
             button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
             button.setVisibility(View.GONE);
 
@@ -297,7 +299,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         else {
             text.setVisibility(View.GONE);
 
-            Button button = alertDialogLayout.findViewById(R.id.install_extender_dialog_showAssets);
+            Button button = alertDialogLayout.findViewById(R.id.install_ppp_pppe_from_github_dialog_showAssets);
             button.setText(activity.getString(R.string.install_extender_where_is_assets_button) + " \"Assets\"?");
             button.setVisibility(View.VISIBLE);
             button.setOnClickListener(v -> {
@@ -307,7 +309,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             });
         }
 
-        if (!refresh) {
+        if (!refreshOpenedDialog) {
             //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
             dialogBuilder.setCancelable(true);
         }
@@ -316,7 +318,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
         if (newVersionDataExists)
             buttonText = R.string.alert_button_install;
 
-        if (!refresh) {
+        if (!refreshOpenedDialog) {
             dialogBuilder.setPositiveButton(buttonText, (dialog, which) -> {
                 String url;
                 if (newVersionDataExists)
@@ -360,7 +362,7 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
 //            }
 //        });
 
-        if ((!activity.isFinishing()) && (!refresh))
+        if ((!activity.isFinishing()) && (!refreshOpenedDialog))
             alertDialog.show();
 
     }

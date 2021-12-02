@@ -1793,22 +1793,17 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="check_github_releases_version_critical">! CRITICAL !</string>
     <string name="important_info_profile_grant_1_howTo_0">This help is better to open it in computer in his Internet browser. It is in PhoneProfilesPlus GitHub README.md, marked as</string>
     <string name="important_info_profile_grant_1_howTo_0_1" translatable="false">\"(HELP) How to grant (G1) permission\"</string>
-
     <string name="important_info_event_event_sensors">Each event has sensors. All sensors with enabled \"Enable run\", must be \"passed\" to start running of event. Running event ends, when any sensor is not \"passed\".\n\n\"Pass\" status is indicated with color of sensor name in Editor:</string>
     <string name="important_info_event_event_sensors_waiting">Blue: sensor is in waiting state. \"Pass\" status is determined.</string>
     <string name="important_info_event_event_sensors_passed">Green: sensor is \"passed\".</string>
     <string name="important_info_event_event_sensors_not_pased">Yellow: sensor is not \"passed\".</string>
-
     <string name="phone_profiles_pref_applicationWidgetHigherLayout">Higher layout</string>
-
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) VPN Settings</string>
     <string name="profile_preferences_deviceVPNInfo">VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary">Click here to show information about connect\/disconnect VPN configured in OpenVPN application.</string>
     <string name="profile_preferences_deviceVPNInfo_infoText">In Profile parameter \"Others\"\/\"Run applications, shortcuts, intents\" exists predefined Intents for two applications: \"OpenVPN Connect\" and \"OpenVPN for Android\". For more informations visit:</string>
-
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode">Change colors by Night mode</string>
     <string name="phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary">If enabled, widget colors will be set by system Night mode (as in Pixel launcher)</string>
-
     <string name="array_pref_radioSwitch_connected_any_sim_cards">Connected (any SIM card)</string>
     <string name="array_pref_radioSwitch_connected_sim1">Connected SIM 1</string>
     <string name="array_pref_radioSwitch_connected_sim2">Connected SIM 2</string>
@@ -1824,7 +1819,6 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="array_pref_radioSwitch_SIM1_off">SIM 1 Off</string>
     <string name="array_pref_radioSwitch_SIM2_on">SIM 2 On</string>
     <string name="array_pref_radioSwitch_SIM2_off">SIM 2 Off</string>
-
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOn_title">and</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_On">On</string>
     <string name="profile_preferences_deviceScreenTimeoutAndKeepScreenOnInfo_summary_0_Off">Off</string>
@@ -1835,7 +1829,6 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="keep_screen_on_active_notification_title_1">is</string>
     <string name="keep_screen_on_active_notification_decription_1">To set it</string>
     <string name="keep_screen_on_active_notification_decription_2">configure and activate profile with</string>
-
     <string name="ask_for_duration_without_duration_button">Without duration</string>
     <string name="profile_preferences_endOfActivationType">Type of activation end</string>
     <string name="array_pref_aendOfActivationType_duration">Duration</string>
@@ -1855,18 +1848,17 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="altype_afterEndOfActivationTime_defaultProfile">after exact time reaches - default profile</string>
     <string name="altype_afterEndOfActivationTime_restartEvents">after exact time reaches - restart events</string>
     <string name="altype_afterEndOfActivationTime_specificProfile">after exact time reaches - specific profile</string>
-
     <string name="check_releases_open_apkpure">Open APKPure</string>
-
     <string name="phone_profiles_pref_category_special_profile_parameters">Special profile parameters</string>
     <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn">Force set brightness at screen on</string>
     <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn_summary">Enable, if you want to reset screen brightness parameters from activated profile at screen on.</string>
     <string name="phone_profiles_pref_applicationSpecialPreferencesNotAny">There is no special parameter</string>
     <string name="profile_preferences_forceSetBrightnessAtScreenOn_summary">Enable \"Force set brightness at screen on\" in application settings, if you want to reset screen brightness parameters from activated profile at screen on.</string>
     <string name="profile_preferences_disabled">Disabled</string>
-
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"Never ask again\" for grant root is turned on</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"Never ask again\" for grant root is not turned on</string>
+
+    <string name="alert_button_install_extender_from_github">Install from GitHub</string>
 
     <!-- **************************************************************************************** -->
 
