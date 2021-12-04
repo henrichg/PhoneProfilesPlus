@@ -152,6 +152,11 @@
             android:name="android.max_aspect"
             android:value="2.4"/>
 
+        <!-- for Galaxy Store - added Edge specials -->
+        <meta-data
+            android:name="com.samsung.android.cocktail.mode"
+            android:value="edge_single_plus" />
+
 <!--        <provider-->
 <!--            android:name="androidx.work.impl.WorkManagerInitializer"-->
 <!--            android:authorities="${applicationId}.workmanager-init"-->
