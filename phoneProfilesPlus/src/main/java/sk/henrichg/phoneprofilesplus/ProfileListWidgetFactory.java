@@ -94,14 +94,6 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
 
             if (Build.VERSION.SDK_INT >= 31) {
-                /*if (PPApplication.isPixelLauncherDefault(context)) {
-                    ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
-                            ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
-                    editor.apply();
-                    applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
-                }*/
                 if (//PPApplication.isPixelLauncherDefault(context) ||
                         applicationWidgetListChangeColorsByNightMode) {
                     int nightModeFlags =
@@ -361,16 +353,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
 
             if (Build.VERSION.SDK_INT >= 31) {
-                /*if (PPApplication.isPixelLauncherDefault(context)) {
-                    ApplicationPreferences.applicationWidgetChangeColorsByNightMode = true;
-                    SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                    editor.putBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
-                            ApplicationPreferences.applicationWidgetChangeColorsByNightMode);
-                    editor.apply();
-                    applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
-                }*/
-                if (//PPApplication.isPixelLauncherDefault(context) ||
-                        applicationWidgetListChangeColorsByNightMode) {
+                if (applicationWidgetListChangeColorsByNightMode) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {

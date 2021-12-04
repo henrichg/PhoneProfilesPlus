@@ -2,7 +2,9 @@ package sk.henrichg.phoneprofilesplus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -128,11 +130,32 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         Profile profile = getItem(position);
 
         if (profile != null) {
-            String applicationWidgetListLightnessT;
+            String applicationSamsungEdgeLightnessT;
             boolean applicationSamsungEdgeHeader;
+            boolean applicationSamsungEdgeChangeColorsByNightMode;
+
             synchronized (PPApplication.applicationPreferencesMutex) {
-                applicationWidgetListLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
+                applicationSamsungEdgeLightnessT = ApplicationPreferences.applicationSamsungEdgeLightnessT;
                 applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
+                applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+
+                if (Build.VERSION.SDK_INT >= 31) {
+                    if (applicationSamsungEdgeChangeColorsByNightMode) {
+                        int nightModeFlags =
+                                context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                        switch (nightModeFlags) {
+                            case Configuration.UI_MODE_NIGHT_YES:
+                                applicationSamsungEdgeLightnessT = "100"; // lightness of text = white
+                                break;
+                            case Configuration.UI_MODE_NIGHT_NO:
+                            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                                //applicationSamsungEdgeLightnessT = "0"; // lightness of text = black
+                                //noinspection DuplicateBranchesInSwitch
+                                applicationSamsungEdgeLightnessT = "100"; // lightness of text = white
+                                break;
+                        }
+                    }
+                }
             }
 
             if (profile.getIsIconResourceID()) {
@@ -149,14 +172,14 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
             int red = 0xFF;
             int green;
             int blue;
-            if (applicationWidgetListLightnessT.equals("0")) red = 0x00;
-            if (applicationWidgetListLightnessT.equals("12")) red = 0x20;
-            if (applicationWidgetListLightnessT.equals("25")) red = 0x40;
-            if (applicationWidgetListLightnessT.equals("37")) red = 0x60;
-            if (applicationWidgetListLightnessT.equals("50")) red = 0x80;
-            if (applicationWidgetListLightnessT.equals("62")) red = 0xA0;
-            if (applicationWidgetListLightnessT.equals("75")) red = 0xC0;
-            if (applicationWidgetListLightnessT.equals("87")) red = 0xE0;
+            if (applicationSamsungEdgeLightnessT.equals("0")) red = 0x00;
+            if (applicationSamsungEdgeLightnessT.equals("12")) red = 0x20;
+            if (applicationSamsungEdgeLightnessT.equals("25")) red = 0x40;
+            if (applicationSamsungEdgeLightnessT.equals("37")) red = 0x60;
+            if (applicationSamsungEdgeLightnessT.equals("50")) red = 0x80;
+            if (applicationSamsungEdgeLightnessT.equals("62")) red = 0xA0;
+            if (applicationSamsungEdgeLightnessT.equals("75")) red = 0xC0;
+            if (applicationSamsungEdgeLightnessT.equals("87")) red = 0xE0;
             //if (applicationWidgetListLightnessT.equals("100")) red = 0xFF;
             green = red;
             blue = red;
