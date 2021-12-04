@@ -917,7 +917,11 @@ class ApplicationPreferences {
     }
 
     static void applicationSamsungEdgeBackground(Context context) {
-        applicationSamsungEdgeBackground = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, "25");
+        if (Build.VERSION.SDK_INT >= 30)
+            // change by night mode is by default enabled, and for this reason set also opaqueness of background to 75
+            applicationSamsungEdgeBackground = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, "75");
+        else
+            applicationSamsungEdgeBackground = getSharedPreferences(context).getString(PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND, "50");
     }
 
     static void applicationSamsungEdgeLightnessB(Context context) {
