@@ -2297,23 +2297,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     _preference.setEnabled(show);
             }
         }
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE)) {
-            if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, false)) {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-            } else {
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-            }
-        }
 
         if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR) ||
@@ -2795,6 +2778,64 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference.setEnabled(!hideProfileNameIcon);
         }
 
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T) || keyIsSamsungEdgeChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_T);
+            if (_preference != null)
+                _preference.setEnabled(!changeSamsungEdgeColorsByNightMode);
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE) || keyIsSamsungEdgeChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE);
+            if (_preference != null)
+                _preference.setEnabled(!changeSamsungEdgeColorsByNightMode);
+            if (changeSamsungEdgeColorsByNightMode) {
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+            } else {
+                if (preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_TYPE, false)) {
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR);
+                    if (_preference != null)
+                        _preference.setEnabled(true);
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B);
+                    if (_preference != null)
+                        _preference.setEnabled(false);
+                } else {
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_BACKGROUND_COLOR);
+                    if (_preference != null)
+                        _preference.setEnabled(false);
+                    _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_LIGHTNESS_B);
+                    if (_preference != null)
+                        _preference.setEnabled(true);
+                }
+            }
+        }
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR) || keyIsSamsungEdgeChangeColorByNightMode) {
+            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR);
+            if (_preference != null)
+                _preference.setEnabled(!changeSamsungEdgeColorsByNightMode);
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS);
+            if (changeSamsungEdgeColorsByNightMode) {
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(false);
+                }
+            } else {
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconList);
+                }
+                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS);
+                if (_preference != null) {
+                    _preference.setEnabled(monochromeIconList);
+                }
+            }
+        }
+
         ////////////////////
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES)) {
@@ -2808,20 +2849,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     enabled = ApplicationPreferences.prefMergedRingNotificationVolumes;
                 //Log.d("PhoneProfilesPrefsFragment.setSummary","enabled="+enabled);
                 _preference.setEnabled(enabled);
-            }
-        }
-
-
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR)) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS);
-            if (_preference != null) {
-                boolean colorful = preferences.getString(key, "0").equals("1");
-                _preference.setEnabled(colorful);
-            }
-            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS);
-            if (_preference != null) {
-                boolean colorful = preferences.getString(key, "0").equals("1");
-                _preference.setEnabled(colorful);
             }
         }
 
