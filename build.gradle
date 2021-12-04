@@ -6,9 +6,9 @@ buildscript {
         google()
         maven { url "https://maven.google.com" }
         mavenCentral()
-        flatDir {
-            dirs 'libs'
-        }
+//        flatDir {
+//            dirs 'libs'
+//        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.3'
@@ -23,9 +23,9 @@ allprojects {
         mavenCentral()
         maven { url "https://maven.google.com" }
         maven { url 'https://jitpack.io' } // required for doki
-        flatDir {
-            dirs 'libs'
-        }
+//        flatDir {
+//            dirs 'libs'
+//        }
     }
     tasks.withType(JavaCompile) {
         options.compilerArgs << "-Xlint:deprecation" << "-Xlint:unchecked"
