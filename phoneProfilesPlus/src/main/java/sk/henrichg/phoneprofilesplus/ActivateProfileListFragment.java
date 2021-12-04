@@ -67,7 +67,7 @@ public class ActivateProfileListFragment extends Fragment {
         setRetainInstance(true);
 
         //noinspection ConstantConditions
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
     }
 
     @Override
@@ -261,7 +261,7 @@ public class ActivateProfileListFragment extends Fragment {
         private LoadProfileListAsyncTask (ActivateProfileListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
             //noinspection ConstantConditions
-            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
             //applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator;
             applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;

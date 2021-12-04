@@ -111,7 +111,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             applicationWidgetIconLightnessBorder = "100";
                             applicationWidgetIconLightnessT = "100"; // lightness of text = white
                             //applicationWidgetIconColor = "0"; // icon type = colorful
-                            applicationWidgetIconLightness = "62";
+                            applicationWidgetIconLightness = "75";
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -122,7 +122,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             applicationWidgetIconLightnessBorder = "0";
                             applicationWidgetIconLightnessT = "0"; // lightness of text = black
                             //applicationWidgetIconColor = "0"; // icon type = colorful
-                            applicationWidgetIconLightness = "50";
+                            applicationWidgetIconLightness = "62";
                             break;
                     }
                 }
@@ -170,7 +170,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     applicationWidgetIconColor.equals("1"),
                     monochromeValue,
                     applicationWidgetIconCustomIconLightness,
-                    DataWrapper.IT_FOR_WIDGET, 0f);
+                    DataWrapper.IT_FOR_WIDGET, 0, 0f);
 
         Profile profile;
         //boolean fullyStarted = PPApplication.applicationFullyStarted;

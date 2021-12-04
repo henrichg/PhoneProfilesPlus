@@ -3789,7 +3789,7 @@ public class PhoneProfilesService extends Service
 
         registerContactsContentObservers(true);
 
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0f);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
         dataWrapper.fillEventList();
         //dataWrapper.fillProfileList(false, false);
 
@@ -3980,7 +3980,7 @@ public class PhoneProfilesService extends Service
     private void reregisterEventsReceiversAndWorkers() {
 //        PPApplication.logE("[FIFO_TEST] PhoneProfilesService.reregisterReceiversAndWorkers", "xxx");
 
-        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0f);
+        DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, 0, 0, 0f);
         dataWrapper.fillEventList();
         //dataWrapper.fillProfileList(false, false);
 
@@ -4225,7 +4225,7 @@ public class PhoneProfilesService extends Service
                 //GlobalGUIRoutines.setLanguage(appContext);
                 GlobalGUIRoutines.switchNightMode(appContext, true);
 
-                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
                 dataWrapper.setDynamicLauncherShortcuts();
 
@@ -5161,7 +5161,7 @@ public class PhoneProfilesService extends Service
                                 ppService.unregisterEventsReceiversAndWorkers();
                             } else if (intent.getBooleanExtra(EXTRA_REREGISTER_RECEIVERS_AND_WORKERS, false)) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_REREGISTER_RECEIVERS_AND_WORKERS");
-                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 ppService.registerPPPPExtenderReceiver(true, dataWrapper);
                                 ppService.reregisterEventsReceiversAndWorkers();
                             } else if (intent.getBooleanExtra(EXTRA_REGISTER_CONTENT_OBSERVERS, false)) {
@@ -5181,7 +5181,7 @@ public class PhoneProfilesService extends Service
                                         PPApplication.locationScanner.updateTransitionsByLastKnownLocation();
                                 }
 
-                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 boolean eventsFilled = false;
                                 if (ApplicationPreferences.applicationEventWifiEnableScanning) {
                                     dataWrapper.fillEventList();
@@ -5258,7 +5258,7 @@ public class PhoneProfilesService extends Service
                             //    doSimulatingNotificationTone(intent);
                             else if (intent.getBooleanExtra(EXTRA_START_STOP_SCANNER, false)) {
 //                                PPApplication.logE("[IN_THREAD_HANDLER] PhoneProfilesService.doCommand", "EXTRA_START_STOP_SCANNER");
-                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
+                                DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
                                 dataWrapper.fillEventList();
                                 //dataWrapper.fillProfileList(false, false);
                                 switch (intent.getIntExtra(EXTRA_START_STOP_SCANNER_TYPE, 0)) {
@@ -6631,7 +6631,7 @@ public class PhoneProfilesService extends Service
 
                             if (PhoneProfilesService.getInstance() != null) {
                                 synchronized (PPApplication.showPPPNotificationMutex) {
-                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0f);
+                                    DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
                                     PhoneProfilesService.getInstance()._showProfileNotification(/*profile,*/ dataWrapper, false/*, clear*/);
                                     //Log.e("PhoneProfilesService.drawProfileNotification", "(1)");
                                 }
@@ -6700,7 +6700,7 @@ public class PhoneProfilesService extends Service
         //if (!runningInForeground) {
             if (drawEmpty) {
                 //if (!isServiceRunningInForeground(appContext, PhoneProfilesService.class)) {
-                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0f);
+                DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_NOTIFICATION, 0, 0f);
 //                PPApplication.logE("[APP_START] PhoneProfilesService.showProfileNotification", "drawEmptyFirst="+drawEmptyFirst);
                 _showProfileNotification(/*null,*/ dataWrapper, true/*, true*/);
                 //dataWrapper.invalidateDataWrapper();

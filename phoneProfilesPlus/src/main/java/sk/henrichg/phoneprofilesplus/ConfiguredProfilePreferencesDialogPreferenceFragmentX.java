@@ -103,7 +103,7 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
             if ((fragment != null) && (preference != null) && (prefContext != null)) {
                 try {
 
-                    DataWrapper dataWrapper = new DataWrapper(prefContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                    DataWrapper dataWrapper = new DataWrapper(prefContext.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                     Profile profile = dataWrapper.getProfileById(preference.profile_id, false, false, false);
                     if (profile != null) {
                         //Log.e("----------- ConfiguredProfilePreferencesDialogPreferenceFragmentX.refreshListView", "profile._name="+profile._name);

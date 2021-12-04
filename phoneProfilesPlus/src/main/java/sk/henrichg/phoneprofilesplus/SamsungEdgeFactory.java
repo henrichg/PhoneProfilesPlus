@@ -49,11 +49,11 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationSamsungEdgeIconLightness = "50";
+                            applicationSamsungEdgeIconLightness = "75";
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationSamsungEdgeIconLightness = "50";
+                            applicationSamsungEdgeIconLightness = "62";
                             break;
                     }
                 }
@@ -74,17 +74,17 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         if (local) {
             return new DataWrapper(context.getApplicationContext(), applicationSamsungEdgeIconColor.equals("1"),
                     monochromeValue, applicationSamsungEdgeCustomIconLightness,
-                    DataWrapper.IT_FOR_WIDGET, 0f);
+                    DataWrapper.IT_FOR_WIDGET, 0, 0f);
         }
         else {
             if (dataWrapper == null) {
                 dataWrapper = new DataWrapper(context.getApplicationContext(), applicationSamsungEdgeIconColor.equals("1"),
                         monochromeValue, applicationSamsungEdgeCustomIconLightness,
-                        DataWrapper.IT_FOR_WIDGET, 0f);
+                        DataWrapper.IT_FOR_WIDGET, 0, 0f);
             } else {
                 dataWrapper.setParameters(applicationSamsungEdgeIconColor.equals("1"),
                         monochromeValue, applicationSamsungEdgeCustomIconLightness,
-                        DataWrapper.IT_FOR_WIDGET, 0f);
+                        DataWrapper.IT_FOR_WIDGET, 0, 0f);
             }
             return dataWrapper;
         }
@@ -296,14 +296,17 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
         //noinspection Java8ListSort
         Collections.sort(newProfileList, new ProfileComparator());
 
+        Profile restartEvents = null;
         if (Event.getGlobalEventsRunning()) {
-            Profile restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
+            restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
             restartEvents._showInActivator = true;
             newProfileList.add(0, restartEvents);
         }
 
         createProfilesDataWrapper(false);
         //dataWrapper.invalidateProfileList();
+        if (restartEvents != null)
+            dataWrapper.generateProfileIcon(restartEvents, true, false);
         dataWrapper.setProfileList(newProfileList);
         //profileList = newProfileList;
     }

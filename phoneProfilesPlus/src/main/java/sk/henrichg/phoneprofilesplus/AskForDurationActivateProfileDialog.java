@@ -31,7 +31,7 @@ class AskForDurationActivateProfileDialog
         this.askForDurationDialog = askForDurationDialog;
         this.activity = activity;
 
-        dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        dataWrapper = new DataWrapper(activity.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
         dialogBuilder.setTitle(R.string.profile_preferences_afterDurationProfile);

@@ -69,7 +69,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                             applicationSamsungEdgeLightnessB = "12";  // lighting  of backgroud = 12%
                             applicationSamsungEdgeLightnessT = "100"; // lightness of text = white
                             //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
-                            applicationSamsungEdgeIconLightness = "62";
+                            applicationSamsungEdgeIconLightness = "75";
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -79,7 +79,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                             applicationSamsungEdgeLightnessB = "87"; // lighting  of backgroud = 87%
                             applicationSamsungEdgeLightnessT = "0"; // lightness of text = black
                             //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
-                            applicationSamsungEdgeIconLightness = "50";
+                            applicationSamsungEdgeIconLightness = "62";
                             break;
                     }
                 }
@@ -165,7 +165,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             if (applicationSamsungEdgeIconLightness.equals("87")) monochromeValue = 0xE0;
             //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
 
-            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0f);
+            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_WIDGET, 0, 0f);
             Profile profile = DatabaseHandler.getInstance(dataWrapper.context).getActivatedProfile();
 
             //boolean fullyStarted = false;
@@ -185,9 +185,6 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                         applicationSamsungEdgeIconColor.equals("1"),
                         monochromeValue,
                         applicationSamsungEdgeCustomIconLightness);
-                /*profile.generatePreferencesIndicator(context,
-                        applicationSamsungEdgeIconColor.equals("1"),
-                        monochromeValue);*/
                 isIconResourceID = profile.getIsIconResourceID();
                 iconIdentifier = profile.getIconIdentifier();
                 profileName = DataWrapper.getProfileNameWithManualIndicator(profile, true, "", true, true, true, dataWrapper);

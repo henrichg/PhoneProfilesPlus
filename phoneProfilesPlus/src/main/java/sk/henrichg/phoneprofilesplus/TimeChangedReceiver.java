@@ -105,7 +105,7 @@ public class TimeChangedReceiver extends BroadcastReceiver {
     static void doWork(Context appContext, boolean logRestart/*, boolean forceRestart*/) {
 //        PPApplication.logE("TimeChangedReceiver.doWork", "xxx");
 
-        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0f);
+        DataWrapper dataWrapper = new DataWrapper(appContext, false, 0, false, 0, 0, 0f);
 
         dataWrapper.fillProfileList(false, false);
         for (Profile profile : dataWrapper.profileList) {

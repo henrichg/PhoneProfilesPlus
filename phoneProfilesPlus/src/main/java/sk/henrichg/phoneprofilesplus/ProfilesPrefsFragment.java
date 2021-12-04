@@ -1687,7 +1687,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle + ": <b>" + value + "</b>";
 
                         if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
-                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                             long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
                             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
                             if (profile != null)
@@ -1721,7 +1721,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         cattegorySummaryData.summary = cattegorySummaryData.summary + afterDurationDoTitle + ": <b>" + value + "</b>";
 
                         if ((afterDurationDoValue != null) && afterDurationDoValue.equals(String.valueOf(Profile.AFTER_DURATION_DO_SPECIFIC_PROFILE))) {
-                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+                            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
                             long profileId = Long.parseLong(preferences.getString(Profile.PREF_PROFILE_AFTER_DURATION_PROFILE, String.valueOf(Profile.PROFILE_NO_ACTIVATE)));
                             Profile profile = dataWrapper.getProfileById(profileId, false, false, false);
                             if (profile != null)

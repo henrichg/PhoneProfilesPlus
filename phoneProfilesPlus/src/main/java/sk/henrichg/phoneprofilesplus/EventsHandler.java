@@ -353,7 +353,7 @@ class EventsHandler {
 
             //restartAtEndOfEvent = false;
 
-            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0f);
+            DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, 0, 0, 0f);
             dataWrapper.fillEventList();
             dataWrapper.fillEventTimelineList();
             dataWrapper.fillProfileList(false, false);

@@ -35,7 +35,7 @@ public class RestartEventsFromGUIActivity extends AppCompatActivity
         Intent it = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         sendBroadcast(it);
 
-        dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
     }
 
     @Override

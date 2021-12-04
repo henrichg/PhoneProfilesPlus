@@ -85,7 +85,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         if (getIntent().getBooleanExtra(PhoneProfilesService.EXTRA_FROM_RED_TEXT_PREFERENCES_NOTIFICATION, false)) {
             // check if profile exists in db
-            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+            DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
             if (dataWrapper.getEventById(event_id) == null) {
                 PPApplication.showToast(getApplicationContext(),
                         getString(R.string.event_preferences_event_not_found),
@@ -329,7 +329,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
     private Event createEvent(Context context, long event_id, int new_event_mode, int predefinedEventIndex,
                               boolean leaveSaveMenu) {
         Event event;
-        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        DataWrapper dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         if (!leaveSaveMenu)
             showSaveMenu = false;
@@ -513,7 +513,7 @@ public class EventsPrefsActivity extends AppCompatActivity {
 
         event.setSensorsWaiting();
 
-        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        final DataWrapper dataWrapper = new DataWrapper(getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
         if ((new_event_mode == EditorEventListFragment.EDIT_MODE_INSERT) ||
                 (new_event_mode == EditorEventListFragment.EDIT_MODE_DUPLICATE))

@@ -279,50 +279,60 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         }
 
         float prefIndicatorLightnessValue = 0f;
+        int prefIndicatorMonochromeValue = 0x00;
         switch (applicationWidgetListPrefIndicatorLightness) {
             case "0":
                 prefIndicatorLightnessValue = -128f;
+                prefIndicatorMonochromeValue = 0x00;
                 break;
             case "12":
                 prefIndicatorLightnessValue = -96f;
+                prefIndicatorMonochromeValue = 0x20;
                 break;
             case "25":
                 prefIndicatorLightnessValue = -64f;
+                prefIndicatorMonochromeValue = 0x40;
                 break;
             case "37":
                 prefIndicatorLightnessValue = -32f;
+                prefIndicatorMonochromeValue = 0x60;
                 break;
             case "50":
                 prefIndicatorLightnessValue = 0f;
+                prefIndicatorMonochromeValue = 0x80;
                 break;
             case "62":
                 prefIndicatorLightnessValue = 32f;
+                prefIndicatorMonochromeValue = 0xA0;
                 break;
             case "75":
                 prefIndicatorLightnessValue = 64f;
+                prefIndicatorMonochromeValue = 0xC0;
                 break;
             case "87":
                 prefIndicatorLightnessValue = 96f;
+                prefIndicatorMonochromeValue = 0xE0;
                 break;
             case "100":
                 prefIndicatorLightnessValue = 128f;
+                prefIndicatorMonochromeValue = 0xFF;
                 break;
         }
 
         if (local) {
             return new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
                     monochromeValue, applicationWidgetListCustomIconLightness,
-                    DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
+                    DataWrapper.IT_FOR_WIDGET, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
         }
         else {
             if (dataWrapper == null) {
                 dataWrapper = new DataWrapper(context.getApplicationContext(), applicationWidgetListIconColor.equals("1"),
                         monochromeValue, applicationWidgetListCustomIconLightness,
-                        DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
+                        DataWrapper.IT_FOR_WIDGET, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
             } else {
                 dataWrapper.setParameters(applicationWidgetListIconColor.equals("1"),
                         monochromeValue, applicationWidgetListCustomIconLightness,
-                        DataWrapper.IT_FOR_WIDGET, prefIndicatorLightnessValue);
+                        DataWrapper.IT_FOR_WIDGET, prefIndicatorMonochromeValue, prefIndicatorLightnessValue);
             }
             return dataWrapper;
         }
@@ -359,13 +369,13 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
-                            applicationWidgetListIconLightness = "62";
+                            applicationWidgetListIconLightness = "75";
                             applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
                             //applicationWidgetListIconColor = "0"; // icon type = colorful
-                            applicationWidgetListIconLightness = "50";
+                            applicationWidgetListIconLightness = "62";
                             applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
                             break;
                     }
@@ -396,9 +406,10 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         //noinspection Java8ListSort
         Collections.sort(newProfileList, new ProfileComparator());
 
+        Profile restartEvents = null;
         if ((!applicationWidgetListHeader) &&
                 Event.getGlobalEventsRunning()) {
-            Profile restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
+            restartEvents = DataWrapper.getNonInitializedProfile(context.getString(R.string.menu_restart_events), "ic_list_item_events_restart_color_filled|1|0|0", 0);
             restartEvents._showInActivator = true;
             newProfileList.add(0, restartEvents);
         }
@@ -410,6 +421,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                                     applicationWidgetListPrefIndicatorLightness);
         //if (dataWrapper != null) {
             //dataWrapper.invalidateProfileList();
+            if (restartEvents != null)
+                dataWrapper.generateProfileIcon(restartEvents, true, false);
             dataWrapper.setProfileList(newProfileList);
             //profileList = newProfileList;
         //}

@@ -53,7 +53,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         setRetainInstance(true);
 
         //noinspection ConstantConditions
-        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+        activityDataWrapper = new DataWrapper(getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
     }
 
@@ -129,7 +129,7 @@ public class ShortcutCreatorListFragment extends Fragment {
         public LoadProfileListAsyncTask (ShortcutCreatorListFragment fragment) {
             this.fragmentWeakRef = new WeakReference<>(fragment);
             //noinspection ConstantConditions
-            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0f);
+            this.dataWrapper = new DataWrapper(fragment.getActivity().getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
             //applicationActivatorPrefIndicator = ApplicationPreferences.applicationActivatorPrefIndicator(this.dataWrapper.context);
             applicationActivatorPrefIndicator = ApplicationPreferences.applicationEditorPrefIndicator;
