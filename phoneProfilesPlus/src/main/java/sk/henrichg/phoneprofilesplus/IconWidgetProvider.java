@@ -110,7 +110,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetIconShowBorder = false; // do not show border
                             applicationWidgetIconLightnessBorder = "100";
                             applicationWidgetIconLightnessT = "100"; // lightness of text = white
-                            applicationWidgetIconColor = "0"; // icon type = colorful
+                            //applicationWidgetIconColor = "0"; // icon type = colorful
+                            applicationWidgetIconLightness = "62";
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -120,7 +121,8 @@ public class IconWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetIconShowBorder = false; // do not show border
                             applicationWidgetIconLightnessBorder = "0";
                             applicationWidgetIconLightnessT = "0"; // lightness of text = black
-                            applicationWidgetIconColor = "0"; // icon type = colorful
+                            //applicationWidgetIconColor = "0"; // icon type = colorful
+                            applicationWidgetIconLightness = "50";
                             break;
                     }
                 }

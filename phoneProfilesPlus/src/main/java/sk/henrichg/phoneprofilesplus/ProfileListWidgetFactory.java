@@ -336,8 +336,8 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         the old data will be displayed within the widget.
     */
     public void onDataSetChanged() {
-        String applicationWidgetListIconLightness;
         String applicationWidgetListIconColor;
+        String applicationWidgetListIconLightness;
         boolean applicationWidgetListCustomIconLightness;
         boolean applicationWidgetListPrefIndicator;
         String applicationWidgetListPrefIndicatorLightness;
@@ -358,12 +358,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationWidgetListIconColor = "0"; // icon type = colorful
+                            //applicationWidgetListIconColor = "0"; // icon type = colorful
+                            applicationWidgetListIconLightness = "62";
                             applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationWidgetListIconColor = "0"; // icon type = colorful
+                            //applicationWidgetListIconColor = "0"; // icon type = colorful
+                            applicationWidgetListIconLightness = "50";
                             applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
                             break;
                     }

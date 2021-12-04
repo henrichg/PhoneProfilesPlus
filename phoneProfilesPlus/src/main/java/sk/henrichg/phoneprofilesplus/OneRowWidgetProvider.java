@@ -120,7 +120,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = "100";
                             applicationWidgetOneRowLightnessT = "100"; // lightness of text = white
-                            applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                            //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                            applicationWidgetOneRowIconLightness = "62";
                             applicationWidgetOneRowPrefIndicatorLightness = "62"; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
@@ -131,7 +132,8 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetOneRowShowBorder = false; // do not show border
                             applicationWidgetOneRowLightnessBorder = "0";
                             applicationWidgetOneRowLightnessT = "0"; // lightness of text = black
-                            applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                            //applicationWidgetOneRowIconColor = "0"; // icon type = colorful
+                            applicationWidgetOneRowIconLightness = "50";
                             applicationWidgetOneRowPrefIndicatorLightness = "50"; // lightness of preference indicators
                             break;
                     }

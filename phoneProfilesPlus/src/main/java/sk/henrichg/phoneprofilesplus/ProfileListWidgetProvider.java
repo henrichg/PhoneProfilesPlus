@@ -103,7 +103,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetListShowBorder = false; // do not show border
                             applicationWidgetListLightnessBorder = "100";
                             applicationWidgetListLightnessT = "100"; // lightness of text = white
-                            applicationWidgetListIconColor = "0"; // icon type = colorful
+                            //applicationWidgetListIconColor = "0"; // icon type = colorful
+                            applicationWidgetListIconLightness = "62";
                             applicationWidgetListPrefIndicatorLightness = "62"; // lightness of preference indicators
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
@@ -114,7 +115,8 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                             //applicationWidgetListShowBorder = false; // do not show border
                             applicationWidgetListLightnessBorder = "0";
                             applicationWidgetListLightnessT = "0"; // lightness of text = black
-                            applicationWidgetListIconColor = "0"; // icon type = colorful
+                            //applicationWidgetListIconColor = "0"; // icon type = colorful
+                            applicationWidgetListIconLightness = "50";
                             applicationWidgetListPrefIndicatorLightness = "50"; // lightness of preference indicators
                             break;
                     }

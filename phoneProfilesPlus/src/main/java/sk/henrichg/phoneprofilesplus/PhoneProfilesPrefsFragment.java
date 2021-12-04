@@ -2637,9 +2637,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR) || keyIsWidgetIconChangeColorByNightMode) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR);
-            if (_preference != null)
-                _preference.setEnabled(!changeWidgetIconColorsByNightMode);
+            Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR);
+            //if (_preference != null)
+            //    _preference.setEnabled(!changeWidgetIconColorsByNightMode);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_LIGHTNESS);
             if (changeWidgetIconColorsByNightMode) {
                 if (_preference != null) {
@@ -2647,7 +2647,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
                 if (_preference != null) {
-                    _preference.setEnabled(false);
+                    _preference.setEnabled(monochromeIconIcon);
                 }
             } else {
                 if (_preference != null) {
@@ -2660,9 +2660,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR) || keyIsWidgetOneRowChangeColorByNightMode) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR);
-            if (_preference != null)
-                _preference.setEnabled(!changeWidgetOneRowColorsByNightMode);
+            Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR);
+            //if (_preference != null)
+            //    _preference.setEnabled(!changeWidgetOneRowColorsByNightMode);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_LIGHTNESS);
             if (changeWidgetOneRowColorsByNightMode) {
                 if (_preference != null) {
@@ -2670,7 +2670,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CUSTOM_ICON_LIGHTNESS);
                 if (_preference != null) {
-                    _preference.setEnabled(false);
+                    _preference.setEnabled(monochromeIconOneRow);
                 }
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
                 if (_preference != null) {
@@ -2694,9 +2694,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR) || keyIsWidgetIconChangeColorByNightMode) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR);
-            if (_preference != null)
-                _preference.setEnabled(!changeWidgetListColorsByNightMode);
+            Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_COLOR);
+            //if (_preference != null)
+            //    _preference.setEnabled(!changeWidgetListColorsByNightMode);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_ICON_LIGHTNESS);
             if (changeWidgetListColorsByNightMode) {
                 if (_preference != null) {
@@ -2704,7 +2704,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CUSTOM_ICON_LIGHTNESS);
                 if (_preference != null) {
-                    _preference.setEnabled(false);
+                    _preference.setEnabled(monochromeIconList);
                 }
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
                 if (_preference != null) {
@@ -2817,9 +2817,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR) || keyIsSamsungEdgeChangeColorByNightMode) {
-            Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR);
-            if (_preference != null)
-                _preference.setEnabled(!changeSamsungEdgeColorsByNightMode);
+            Preference _preference;// = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR);
+            //if (_preference != null)
+            //    _preference.setEnabled(!changeSamsungEdgeColorsByNightMode);
             _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_LIGHTNESS);
             if (changeSamsungEdgeColorsByNightMode) {
                 if (_preference != null) {
@@ -2827,7 +2827,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS);
                 if (_preference != null) {
-                    _preference.setEnabled(false);
+                    //_preference.setEnabled(false);
+                    _preference.setEnabled(monochromeIconSamsungEdge);
                 }
             } else {
                 if (_preference != null) {

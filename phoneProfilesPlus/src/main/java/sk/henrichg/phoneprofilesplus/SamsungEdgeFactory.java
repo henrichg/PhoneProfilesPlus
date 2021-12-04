@@ -33,25 +33,43 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
   
     private DataWrapper createProfilesDataWrapper(boolean local)
     {
-        String applicationWidgetListIconLightness;
         String applicationSamsungEdgeIconColor;
+        String applicationSamsungEdgeIconLightness;
         boolean applicationSamsungEdgeCustomIconLightness;
+        boolean applicationSamsungEdgeChangeColorsByNightMode;
         synchronized (PPApplication.applicationPreferencesMutex) {
-            applicationWidgetListIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness;
             applicationSamsungEdgeIconColor = ApplicationPreferences.applicationSamsungEdgeIconColor;
+            applicationSamsungEdgeIconLightness = ApplicationPreferences.applicationSamsungEdgeIconLightness;
             applicationSamsungEdgeCustomIconLightness = ApplicationPreferences.applicationSamsungEdgeCustomIconLightness;
+            applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
+
+            if (Build.VERSION.SDK_INT >= 30) {
+                if (applicationSamsungEdgeChangeColorsByNightMode) {
+                    int nightModeFlags =
+                            context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                    switch (nightModeFlags) {
+                        case Configuration.UI_MODE_NIGHT_YES:
+                            applicationSamsungEdgeIconLightness = "50";
+                            break;
+                        case Configuration.UI_MODE_NIGHT_NO:
+                        case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                            applicationSamsungEdgeIconLightness = "50";
+                            break;
+                    }
+                }
+            }
         }
 
         int monochromeValue = 0xFF;
-        if (applicationWidgetListIconLightness.equals("0")) monochromeValue = 0x00;
-        if (applicationWidgetListIconLightness.equals("12")) monochromeValue = 0x20;
-        if (applicationWidgetListIconLightness.equals("25")) monochromeValue = 0x40;
-        if (applicationWidgetListIconLightness.equals("37")) monochromeValue = 0x60;
-        if (applicationWidgetListIconLightness.equals("50")) monochromeValue = 0x80;
-        if (applicationWidgetListIconLightness.equals("62")) monochromeValue = 0xA0;
-        if (applicationWidgetListIconLightness.equals("75")) monochromeValue = 0xC0;
-        if (applicationWidgetListIconLightness.equals("87")) monochromeValue = 0xE0;
-        //if (applicationWidgetListIconLightness.equals("100")) monochromeValue = 0xFF;
+        if (applicationSamsungEdgeIconLightness.equals("0")) monochromeValue = 0x00;
+        if (applicationSamsungEdgeIconLightness.equals("12")) monochromeValue = 0x20;
+        if (applicationSamsungEdgeIconLightness.equals("25")) monochromeValue = 0x40;
+        if (applicationSamsungEdgeIconLightness.equals("37")) monochromeValue = 0x60;
+        if (applicationSamsungEdgeIconLightness.equals("50")) monochromeValue = 0x80;
+        if (applicationSamsungEdgeIconLightness.equals("62")) monochromeValue = 0xA0;
+        if (applicationSamsungEdgeIconLightness.equals("75")) monochromeValue = 0xC0;
+        if (applicationSamsungEdgeIconLightness.equals("87")) monochromeValue = 0xE0;
+        //if (applicationSamsungEdgeIconLightness.equals("100")) monochromeValue = 0xFF;
 
         if (local) {
             return new DataWrapper(context.getApplicationContext(), applicationSamsungEdgeIconColor.equals("1"),

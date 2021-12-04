@@ -68,7 +68,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                             //applicationSamsungEdgeBackgroundColor = String.valueOf(0x2f2f2f); // color of background
                             applicationSamsungEdgeLightnessB = "12";  // lighting  of backgroud = 12%
                             applicationSamsungEdgeLightnessT = "100"; // lightness of text = white
-                            applicationSamsungEdgeIconColor = "0"; // icon type = colorful
+                            //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
+                            applicationSamsungEdgeIconLightness = "62";
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
@@ -77,7 +78,8 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                             //applicationSamsungEdgeBackgroundColor = String.valueOf(0xf0f0f0); // color of background
                             applicationSamsungEdgeLightnessB = "87"; // lighting  of backgroud = 87%
                             applicationSamsungEdgeLightnessT = "0"; // lightness of text = black
-                            applicationSamsungEdgeIconColor = "0"; // icon type = colorful
+                            //applicationSamsungEdgeIconColor = "0"; // icon type = colorful
+                            applicationSamsungEdgeIconLightness = "50";
                             break;
                     }
                 }
