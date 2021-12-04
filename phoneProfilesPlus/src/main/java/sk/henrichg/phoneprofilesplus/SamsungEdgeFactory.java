@@ -139,7 +139,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                 applicationSamsungEdgeHeader = ApplicationPreferences.applicationSamsungEdgeHeader;
                 applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
 
-                if (Build.VERSION.SDK_INT >= 31) {
+                if (Build.VERSION.SDK_INT >= 30) {
                     if (applicationSamsungEdgeChangeColorsByNightMode) {
                         int nightModeFlags =
                                 context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -149,9 +149,7 @@ class SamsungEdgeFactory implements RemoteViewsService.RemoteViewsFactory {
                                 break;
                             case Configuration.UI_MODE_NIGHT_NO:
                             case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                                //applicationSamsungEdgeLightnessT = "0"; // lightness of text = black
-                                //noinspection DuplicateBranchesInSwitch
-                                applicationSamsungEdgeLightnessT = "100"; // lightness of text = white
+                                applicationSamsungEdgeLightnessT = "0"; // lightness of text = black
                                 break;
                         }
                     }

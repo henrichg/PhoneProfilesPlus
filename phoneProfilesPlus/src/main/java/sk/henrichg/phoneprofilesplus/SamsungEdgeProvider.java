@@ -56,28 +56,27 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             applicationSamsungEdgeVerticalPosition = ApplicationPreferences.applicationSamsungEdgeVerticalPosition;
             applicationSamsungEdgeChangeColorsByNightMode = ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode;
 
-            if (Build.VERSION.SDK_INT >= 31) {
+            if (Build.VERSION.SDK_INT >= 30) {
 
                 if (applicationSamsungEdgeChangeColorsByNightMode) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationSamsungEdgeBackground = "50"; // 50% opaque
+                            applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
                             applicationSamsungEdgeBackgroundType = false; // background type = not color
                             //applicationSamsungEdgeBackgroundColor = String.valueOf(0x2f2f2f); // color of background
-                            applicationSamsungEdgeLightnessB = "50";
+                            applicationSamsungEdgeLightnessB = "12";  // lighting  of backgroud = 12%
                             applicationSamsungEdgeLightnessT = "100"; // lightness of text = white
                             applicationSamsungEdgeIconColor = "0"; // icon type = colorful
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationSamsungEdgeBackground = "50"; // 50% opaque
+                            applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
                             applicationSamsungEdgeBackgroundType = false; // background type = not color
                             //applicationSamsungEdgeBackgroundColor = String.valueOf(0xf0f0f0); // color of background
-                            applicationSamsungEdgeLightnessB = "12";
-                            //applicationSamsungEdgeLightnessT = "0"; // lightness of text = black
-                            applicationSamsungEdgeLightnessT = "100"; // lightness of text = white
+                            applicationSamsungEdgeLightnessB = "87"; // lighting  of backgroud = 87%
+                            applicationSamsungEdgeLightnessT = "0"; // lightness of text = black
                             applicationSamsungEdgeIconColor = "0"; // icon type = colorful
                             break;
                     }
