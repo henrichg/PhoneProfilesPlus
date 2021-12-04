@@ -136,11 +136,12 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
             green = red;
             blue = red;
         }
-        int alpha = 0x40;
+        int alpha = 0x80;
+        if (applicationSamsungEdgeBackground.equals("0")) alpha = 0x00;
         if (applicationSamsungEdgeBackground.equals("12")) alpha = 0x20;
-        //if (applicationSamsungEdgeBackground.equals("25")) alpha = 0x40;
+        if (applicationSamsungEdgeBackground.equals("25")) alpha = 0x40;
         if (applicationSamsungEdgeBackground.equals("37")) alpha = 0x60;
-        if (applicationSamsungEdgeBackground.equals("50")) alpha = 0x80;
+        //if (applicationSamsungEdgeBackground.equals("50")) alpha = 0x80;
         if (applicationSamsungEdgeBackground.equals("62")) alpha = 0xA0;
         if (applicationSamsungEdgeBackground.equals("75")) alpha = 0xC0;
         if (applicationSamsungEdgeBackground.equals("87")) alpha = 0xE0;
