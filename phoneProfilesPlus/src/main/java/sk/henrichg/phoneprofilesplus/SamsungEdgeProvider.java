@@ -63,7 +63,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
                         case Configuration.UI_MODE_NIGHT_YES:
-                            applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
+                            //applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
                             applicationSamsungEdgeBackgroundType = false; // background type = not color
                             //applicationSamsungEdgeBackgroundColor = String.valueOf(0x2f2f2f); // color of background
                             applicationSamsungEdgeLightnessB = "12";  // lighting  of backgroud = 12%
@@ -72,7 +72,7 @@ public class SamsungEdgeProvider extends SlookCocktailProvider {
                             break;
                         case Configuration.UI_MODE_NIGHT_NO:
                         case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                            applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
+                            //applicationSamsungEdgeBackground = "75"; // opaque of backgroud = 75%
                             applicationSamsungEdgeBackgroundType = false; // background type = not color
                             //applicationSamsungEdgeBackgroundColor = String.valueOf(0xf0f0f0); // color of background
                             applicationSamsungEdgeLightnessB = "87"; // lighting  of backgroud = 87%

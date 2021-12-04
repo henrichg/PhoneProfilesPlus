@@ -1471,8 +1471,7 @@ class ApplicationPreferences {
         }*/
 
         applicationSamsungEdgeChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE,
-                PPApplication.isPixelLauncherDefault(context) ||
-                        PPApplication.isOneUILauncherDefault(context));
+                Build.VERSION.SDK_INT >= 30);
     }
 
     static void deleteBadPreferences(Context context) {
