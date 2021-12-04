@@ -22,7 +22,7 @@
         app:layout="@layout/mp_preference_material_widget" />
 
     <SwitchPreferenceCompat
-        app:key="applicationWidgetChangeColorsByNightMode"
+        app:key="applicationWidgetListChangeColorsByNightMode"
         app:title="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode"
         app:summary="@string/phone_profiles_pref_applicationWidgetChangeColorsByNightMode_summary"
         app:defaultValue="false"
