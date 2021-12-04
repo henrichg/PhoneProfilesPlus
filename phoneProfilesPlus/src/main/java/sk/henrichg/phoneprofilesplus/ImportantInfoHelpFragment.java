@@ -819,10 +819,10 @@ public class ImportantInfoHelpFragment extends Fragment {
 
             LayoutInflater inflater = getActivity().getLayoutInflater();
             @SuppressLint("InflateParams")
-            View layout = inflater.inflate(R.layout.dialog_install_pppe_from_galaxy_store, null);
+            View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
             dialogBuilder.setView(layout);
 
-            TextView text = layout.findViewById(R.id.install_pppe_from_galaxy_store_dialog_info_text);
+            TextView text = layout.findViewById(R.id.install_pppe_from_store_dialog_info_text);
 
             String dialogText = "";
 
@@ -848,11 +848,69 @@ public class ImportantInfoHelpFragment extends Fragment {
             });
             dialogBuilder.setNegativeButton(android.R.string.cancel, null);
 
-            Button button = layout.findViewById(R.id.install_pppe_from_galaxy_store_dialog_installFromGitHub);
+            Button button = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
 
             final AlertDialog dialog = dialogBuilder.create();
 
             button.setText(getActivity().getString(R.string.alert_button_install_extender_from_github));
+            button.setOnClickListener(v -> {
+                dialog.cancel();
+                installExtenderFromGitHub();
+            });
+
+//        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//            @Override
+//            public void onShow(DialogInterface dialog) {
+//                Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                if (positive != null) positive.setAllCaps(false);
+//                Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                if (negative != null) negative.setAllCaps(false);
+//            }
+//        });
+
+            if ((getActivity() != null) && (!getActivity().isFinishing()))
+                dialog.show();
+        }
+        else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+            dialogBuilder.setTitle(R.string.install_extender_dialog_title);
+
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            @SuppressLint("InflateParams")
+            View layout = inflater.inflate(R.layout.dialog_install_pppe_from_store, null);
+            dialogBuilder.setView(layout);
+
+            TextView text = layout.findViewById(R.id.install_pppe_from_store_dialog_info_text);
+
+            String dialogText = "";
+
+            int extenderVersion = PPPExtenderBroadcastReceiver.isExtenderInstalled(getActivity().getApplicationContext());
+            if (extenderVersion != 0) {
+                String extenderVersionName = PPPExtenderBroadcastReceiver.getExtenderVersionName(getActivity().getApplicationContext());
+                dialogText = dialogText + getString(R.string.install_extender_installed_version) + " " + extenderVersionName + " (" + extenderVersion + ")\n";
+            }
+            dialogText = dialogText + getString(R.string.install_extender_required_version) +
+                    " " + PPApplication.VERSION_NAME_EXTENDER_LATEST + " (" + PPApplication.VERSION_CODE_EXTENDER_LATEST + ")\n\n";
+            dialogText = dialogText + getString(R.string.install_extender_text1) + " \"" + getString(R.string.alert_button_install) + "\".\n\n";
+
+            text.setText(dialogText);
+
+            dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("appmarket://details?id=sk.henrichg.phoneprofilesplusextender"));
+                try {
+                    startActivity(intent);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            });
+            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+
+            Button button = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
+
+            final AlertDialog dialog = dialogBuilder.create();
+
+            //button.setText(getActivity().getString(R.string.alert_button_install_extender_from_github));
             button.setOnClickListener(v -> {
                 dialog.cancel();
                 installExtenderFromGitHub();
