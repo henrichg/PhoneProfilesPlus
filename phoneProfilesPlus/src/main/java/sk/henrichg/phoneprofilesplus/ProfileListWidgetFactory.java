@@ -84,14 +84,14 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         String applicationWidgetListLightnessT;
         boolean applicationWidgetListHeader;
         boolean applicationWidgetListPrefIndicator;
-        boolean applicationWidgetChangeColorsByNightMode;
+        boolean applicationWidgetListChangeColorsByNightMode;
 
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetListGridLayout = ApplicationPreferences.applicationWidgetListGridLayout;
             applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
-            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+            applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
 
             if (Build.VERSION.SDK_INT >= 31) {
                 /*if (PPApplication.isPixelLauncherDefault(context)) {
@@ -103,7 +103,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }*/
                 if (//PPApplication.isPixelLauncherDefault(context) ||
-                        applicationWidgetChangeColorsByNightMode) {
+                        applicationWidgetListChangeColorsByNightMode) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
@@ -350,7 +350,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         boolean applicationWidgetListPrefIndicator;
         String applicationWidgetListPrefIndicatorLightness;
         boolean applicationWidgetListHeader;
-        boolean applicationWidgetChangeColorsByNightMode;
+        boolean applicationWidgetListChangeColorsByNightMode;
         synchronized (PPApplication.applicationPreferencesMutex) {
             applicationWidgetListIconLightness = ApplicationPreferences.applicationWidgetListIconLightness;
             applicationWidgetListIconColor = ApplicationPreferences.applicationWidgetListIconColor;
@@ -358,7 +358,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
             applicationWidgetListPrefIndicator = ApplicationPreferences.applicationWidgetListPrefIndicator;
             applicationWidgetListPrefIndicatorLightness = ApplicationPreferences.applicationWidgetListPrefIndicatorLightness;
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
-            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+            applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
 
             if (Build.VERSION.SDK_INT >= 31) {
                 /*if (PPApplication.isPixelLauncherDefault(context)) {
@@ -370,7 +370,7 @@ class ProfileListWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
                     applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }*/
                 if (//PPApplication.isPixelLauncherDefault(context) ||
-                        applicationWidgetChangeColorsByNightMode) {
+                        applicationWidgetListChangeColorsByNightMode) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {

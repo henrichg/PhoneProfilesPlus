@@ -52,7 +52,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
         boolean applicationWidgetListCustomIconLightness;
         String applicationWidgetListLightnessT;
         int applicationWidgetListRoundedCornersRadius;
-        boolean applicationWidgetChangeColorsByNightMode;
+        boolean applicationWidgetListChangeColorsByNightMode;
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetListHeader = ApplicationPreferences.applicationWidgetListHeader;
@@ -71,7 +71,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
             applicationWidgetListLightnessT = ApplicationPreferences.applicationWidgetListLightnessT;
             applicationWidgetListRoundedCorners = ApplicationPreferences.applicationWidgetListRoundedCorners;
             applicationWidgetListRoundedCornersRadius = ApplicationPreferences.applicationWidgetListRoundedCornersRadius;
-            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+            applicationWidgetListChangeColorsByNightMode = ApplicationPreferences.applicationWidgetListChangeColorsByNightMode;
 
             if (Build.VERSION.SDK_INT >= 31) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
@@ -92,7 +92,7 @@ public class ProfileListWidgetProvider extends AppWidgetProvider {
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
                 if (//PPApplication.isPixelLauncherDefault(context) ||
-                        applicationWidgetChangeColorsByNightMode) {
+                        applicationWidgetListChangeColorsByNightMode) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {

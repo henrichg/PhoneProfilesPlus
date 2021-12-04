@@ -70,7 +70,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
         String applicationWidgetOneRowLightnessT;
         int applicationWidgetOneRowRoundedCornersRadius;
         boolean applicationWidgetOneRowHigherLayout;
-        boolean applicationWidgetChangeColorsByNightMode;
+        boolean applicationWidgetOneRowChangeColorsByNightMode;
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetOneRowIconLightness = ApplicationPreferences.applicationWidgetOneRowIconLightness;
@@ -88,7 +88,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
             applicationWidgetOneRowRoundedCorners = ApplicationPreferences.applicationWidgetOneRowRoundedCorners;
             applicationWidgetOneRowRoundedCornersRadius = ApplicationPreferences.applicationWidgetOneRowRoundedCornersRadius;
             applicationWidgetOneRowHigherLayout = ApplicationPreferences.applicationWidgetOneRowHigherLayout;
-            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+            applicationWidgetOneRowChangeColorsByNightMode = ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode;
 
             if (Build.VERSION.SDK_INT >= 31) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
@@ -109,7 +109,7 @@ public class OneRowWidgetProvider extends AppWidgetProvider {
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
                 if (//PPApplication.isPixelLauncherDefault(context) ||
-                        applicationWidgetChangeColorsByNightMode) {
+                        applicationWidgetOneRowChangeColorsByNightMode) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {

@@ -213,7 +213,10 @@ class ApplicationPreferences {
     static boolean applicationActivatorAddRestartEventsIntoProfileList;
     static boolean applicationActivatorIncreaseBrightness;
     static boolean applicationWidgetOneRowHigherLayout;
-    static boolean applicationWidgetChangeColorsByNightMode;
+    static boolean applicationWidgetIconChangeColorsByNightMode;
+    static boolean applicationWidgetOneRowChangeColorsByNightMode;
+    static boolean applicationWidgetListChangeColorsByNightMode;
+    static boolean applicationSamsungEdgeChangeColorsByNightMode;
     static boolean applicationForceSetBrightnessAtScreenOn;
 
     static String applicationEventPeriodicScanningScanInTimeMultiply;
@@ -460,10 +463,13 @@ class ApplicationPreferences {
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY = "applicationEventWifiScanInTimeMultiply";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_FROM = "applicationEventWifiScanInTimeMultiplyFrom";
     static final String PREF_APPLICATION_EVENT_WIFI_SCAN_IN_TIME_MULTIPLY_TO = "applicationEventWifiScanInTimeMultiplyTo";
-
     static final String PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON = "notificationShowRestartEventsAsButton";
     static final String PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT = "applicationWidgetOneRowHigherLayout";
-    static final String PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetChangeColorsByNightMode";
+
+    static final String PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetIconChangeColorsByNightMode";
+    static final String PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetOneRowChangeColorsByNightMode";
+    static final String PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE = "applicationWidgetListChangeColorsByNightMode";
+    static final String PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE = "applicationSamsungEdgeChangeColorsByNightMode";
 
     static final String PREF_QUICK_TILE_PROFILE_ID = "quickTileProfileId";
 
@@ -1389,17 +1395,87 @@ class ApplicationPreferences {
         applicationWidgetOneRowHigherLayout = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_HIGHER_LAYOUT, false);
     }
 
-    static void applicationWidgetChangeColorsByNightMode(Context context) {
+    static void applicationWidgetIconChangeColorsByNightMode(Context context) {
+        // copy bad preference into ok preference
+        SharedPreferences mySPrefs = getSharedPreferences(context);
+        if (mySPrefs.contains("applicationWidgetChangeColorsByNightMode")) {
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.putBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE,
+                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", false));
+            editor.apply();
+        }
+
         /*if (DebugVersion.enabled) {
             SharedPreferences mySPrefs = getSharedPreferences(context);
             SharedPreferences.Editor editor = mySPrefs.edit();
-            editor.remove(PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE);
+            editor.remove(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE);
             editor.apply();
         }*/
 
-        applicationWidgetChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE,
+        applicationWidgetIconChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE,
                 PPApplication.isPixelLauncherDefault(context) ||
                         PPApplication.isOneUILauncherDefault(context));
+    }
+    static void applicationWidgetOneRowChangeColorsByNightMode(Context context) {
+        // copy bad preference into ok preference
+        SharedPreferences mySPrefs = getSharedPreferences(context);
+        if (mySPrefs.contains("applicationWidgetChangeColorsByNightMode")) {
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.putBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE,
+                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", false));
+            editor.apply();
+        }
+
+        /*if (DebugVersion.enabled) {
+            SharedPreferences mySPrefs = getSharedPreferences(context);
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.remove(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE);
+            editor.apply();
+        }*/
+
+        applicationWidgetOneRowChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE,
+                PPApplication.isPixelLauncherDefault(context) ||
+                        PPApplication.isOneUILauncherDefault(context));
+    }
+    static void applicationWidgetListChangeColorsByNightMode(Context context) {
+        // copy bad preference into ok preference
+        SharedPreferences mySPrefs = getSharedPreferences(context);
+        if (mySPrefs.contains("applicationWidgetChangeColorsByNightMode")) {
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.putBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE,
+                    mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", false));
+            editor.apply();
+        }
+
+        /*if (DebugVersion.enabled) {
+            SharedPreferences mySPrefs = getSharedPreferences(context);
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.remove(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE);
+            editor.apply();
+        }*/
+
+        applicationWidgetListChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE,
+                PPApplication.isPixelLauncherDefault(context) ||
+                        PPApplication.isOneUILauncherDefault(context));
+    }
+    static void applicationSamsungEdgeChangeColorsByNightMode(Context context) {
+        /*if (DebugVersion.enabled) {
+            SharedPreferences mySPrefs = getSharedPreferences(context);
+            SharedPreferences.Editor editor = mySPrefs.edit();
+            editor.remove(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE);
+            editor.apply();
+        }*/
+
+        applicationSamsungEdgeChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_SAMSUNG_EDGE_CHANGE_COLOR_BY_NIGHT_MODE,
+                PPApplication.isPixelLauncherDefault(context) ||
+                        PPApplication.isOneUILauncherDefault(context));
+    }
+
+    static void deleteBadPreferences(Context context) {
+        SharedPreferences mySPrefs = getSharedPreferences(context);
+        SharedPreferences.Editor editor = mySPrefs.edit();
+        editor.remove("applicationWidgetChangeColorsByNightMode");
+        editor.apply();
     }
 
     static void loadStartTargetHelps(Context context) {

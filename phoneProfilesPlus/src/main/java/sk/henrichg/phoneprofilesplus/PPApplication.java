@@ -2111,7 +2111,12 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList(context);
             ApplicationPreferences.applicationActivatorIncreaseBrightness(context);
             ApplicationPreferences.applicationWidgetOneRowHigherLayout(context);
-            ApplicationPreferences.applicationWidgetChangeColorsByNightMode(context);
+
+            ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode(context);
+            ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode(context);
+            ApplicationPreferences.applicationWidgetListChangeColorsByNightMode(context);
+            ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode(context);
+
             ApplicationPreferences.applicationForceSetBrightnessAtScreenOn(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
@@ -2136,6 +2141,8 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationEventWifiScanInTimeMultiplyTo(context);
             ApplicationPreferences.applicationEventWifiScanInTimeMultiply(context);
             ApplicationPreferences.notificationShowRestartEventsAsButton(context);
+
+            ApplicationPreferences.deleteBadPreferences(context);
         }
     }
 

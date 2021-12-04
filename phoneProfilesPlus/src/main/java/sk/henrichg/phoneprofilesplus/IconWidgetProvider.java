@@ -61,7 +61,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
         String applicationWidgetIconLightnessT;
         boolean applicationWidgetIconShowProfileDuration;
         int applicationWidgetIconRoundedCornersRadius;
-        boolean applicationWidgetChangeColorsByNightMode;
+        boolean applicationWidgetIconChangeColorsByNightMode;
         synchronized (PPApplication.applicationPreferencesMutex) {
 
             applicationWidgetIconLightness = ApplicationPreferences.applicationWidgetIconLightness;
@@ -78,7 +78,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
             applicationWidgetIconShowProfileDuration = ApplicationPreferences.applicationWidgetIconShowProfileDuration;
             applicationWidgetIconRoundedCorners = ApplicationPreferences.applicationWidgetIconRoundedCorners;
             applicationWidgetIconRoundedCornersRadius = ApplicationPreferences.applicationWidgetIconRoundedCornersRadius;
-            applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
+            applicationWidgetIconChangeColorsByNightMode = ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode;
 
             if (Build.VERSION.SDK_INT >= 31) {
                 if (PPApplication.isPixelLauncherDefault(context) ||
@@ -99,7 +99,7 @@ public class IconWidgetProvider extends AppWidgetProvider {
                     //applicationWidgetChangeColorsByNightMode = ApplicationPreferences.applicationWidgetChangeColorsByNightMode;
                 }
                 if (/*PPApplication.isPixelLauncherDefault(context) ||*/
-                        applicationWidgetChangeColorsByNightMode) {
+                        applicationWidgetIconChangeColorsByNightMode) {
                     int nightModeFlags =
                             context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                     switch (nightModeFlags) {
