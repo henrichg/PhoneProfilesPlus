@@ -2482,6 +2482,8 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 preferences.getString(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_COLOR, "0").equals("1");
         boolean hideProfileNameIcon =
                 preferences.getBoolean(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_HIDE_PROFILE_NAME, false);
+        boolean monochromeIconSamsungEdge =
+                preferences.getString(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_ICON_COLOR, "0").equals("1");
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T) || keyIsWidgetListChangeColorByNightMode) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_LIGHTNESS_T);
@@ -2829,11 +2831,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             } else {
                 if (_preference != null) {
-                    _preference.setEnabled(monochromeIconList);
+                    _preference.setEnabled(monochromeIconSamsungEdge);
                 }
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS);
                 if (_preference != null) {
-                    _preference.setEnabled(monochromeIconList);
+                    _preference.setEnabled(monochromeIconSamsungEdge);
                 }
             }
         }
