@@ -853,20 +853,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 });
             }
 
-            if (!PPApplication.isRooted(true)) {
-                //PreferenceScreen preferenceCategory = findPreference("categoryPermissions");
-                preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
-                //if ((preferenceCategory != null) && (preference != null))
-                //    preferenceCategory.removePreference(preference);
-                if (preference != null)
-                    preference.setEnabled(false);
-            }
-//            preference = findPreference(PREF_GRANT_G1_PERMISSION);
-//            if (preference != null) {
-//                preference.setSummary(getString(R.string.important_info_profile_grant) + " " +
-//                        getString(R.string.profile_preferences_types_G1_show_info));
-//            }
-
         /*}
         else {
             // hide user permissions
@@ -937,6 +923,11 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         synchronized (PPApplication.rootMutex) {
             PPApplication.rootMutex.rootChecked = false;
             rooted = PPApplication._isRooted();
+        }
+        if (!rooted) {
+            preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
+            if (preference != null)
+                preference.setEnabled(false);
         }
         if (rooted) {
             preference = findPreference(PREF_GRANT_ROOT_PERMISSION);
@@ -3132,13 +3123,20 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setSummary(summary);
         }
         if (key.equals(PREF_GRANT_ROOT_PERMISSION)) {
-            String summary = getString(R.string.phone_profiles_pref_grantRootPermission_summary);
-            if (ApplicationPreferences.applicationNeverAskForGrantRoot)
-                summary = getString(R.string.phone_profiles_pref_grantRootPermission_neverAsk_set_summary) + "\n\n" +
-                        summary;
+            String summary = "";
+            boolean rooted = PPApplication.isRooted(true);
+            if (rooted) {
+                summary = getString(R.string.phone_profiles_pref_grantRootPermission_summary);
+                if (ApplicationPreferences.applicationNeverAskForGrantRoot)
+                    summary = getString(R.string.phone_profiles_pref_grantRootPermission_neverAsk_set_summary) + "\n\n" +
+                            summary;
+                else
+                    summary = getString(R.string.phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2) + "\n\n" +
+                            summary;
+                summary = getString(R.string.phone_profiles_pref_device_is_rooted) + "\n\n" + summary;
+            }
             else
-                summary = getString(R.string.phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2) + "\n\n" +
-                        summary;
+                summary = getString(R.string.phone_profiles_pref_device_is_not_rooted);
             preference.setSummary(summary);
         }
 

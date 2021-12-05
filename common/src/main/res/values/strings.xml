@@ -1860,6 +1860,9 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
     <string name="alert_button_install_extender_from_github">Install from GitHub</string>
 
+    <string name="phone_profiles_pref_device_is_rooted">Device is rooted</string>
+    <string name="phone_profiles_pref_device_is_not_rooted">Device is not rooted</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
