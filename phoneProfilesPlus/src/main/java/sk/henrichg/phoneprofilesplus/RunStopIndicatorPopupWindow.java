@@ -1,6 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import androidx.appcompat.widget.SwitchCompat;
 
 class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
 
+    @SuppressLint("SetTextI18n")
     RunStopIndicatorPopupWindow(final DataWrapper dataWrapper, final Activity activity) {
         super(R.layout.popup_window_run_stop_indicator, R.string.editor_activity_targetHelps_trafficLightIcon_title, activity);
 
@@ -16,6 +18,7 @@ class RunStopIndicatorPopupWindow extends GuiInfoPopupWindow {
         //setAnimationStyle(0);
 
         final TextView textView = popupView.findViewById(R.id.run_stop_indicator_popup_window_important_info);
+        textView.setText(activity.getString(R.string.popup_window_events_status_show_info) + " \u21D2");
         textView.setClickable(true);
         textView.setOnClickListener(v -> {
             Intent intentLaunch = new Intent(activity, ImportantInfoActivityForceScroll.class);
