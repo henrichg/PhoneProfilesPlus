@@ -2278,163 +2278,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
     }
 
-    private void setEnabled(String key) {
-
-        Preference preference = prefMng.findPreference(key);
-
-        if (preference == null)
-            return;
-
-        if (getActivity() == null)
-            return;
-
-        Context context = getActivity().getApplicationContext();
-
-        if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/ (android.os.Build.VERSION.SDK_INT < 26)) {
-            if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR)) {
-                boolean show = preferences.getBoolean(key, true);
-                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
-                if (_preference != null)
-                    _preference.setEnabled(show);
-            }
-        }
-
-        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT) ||
-                //key.equals(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON)) {
-            String notificationStyle = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE, "0");
-            if (notificationStyle.equals("0")) {
-                String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
-                //boolean nightMode = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, false);
-                boolean useDecoration = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, true);
-
-                Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(backgroundColor.equals("0") || backgroundColor.equals("5"));
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
-                if (_preference != null) {
-                    //if (Build.VERSION.SDK_INT < 29)
-                    //    _preference.setEnabled(backgroundColor.equals("0") && (!nightMode));
-                    //else
-                    _preference.setEnabled(backgroundColor.equals("0"));
-                }
-
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
-                if (_preference != null) {
-                    //if (Build.VERSION.SDK_INT < 29)
-                    //    _preference.setEnabled(useDecoration && backgroundColor.equals("0") && (!nightMode));
-                    //else
-                    _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
-                }
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON);
-                if (_preference != null) {
-                    //if (Build.VERSION.SDK_INT < 29)
-                    //    _preference.setEnabled(useDecoration && backgroundColor.equals("0") && (!nightMode));
-                    //else
-                    _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
-                }
-
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(backgroundColor.equals("5"));
-
-                _preference = findPreference("notificationBackgroundColorInfo");
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                //_preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE);
-                //if (_preference != null)
-                //    _preference.setEnabled(true);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
-                if (_preference != null)
-                    _preference.setEnabled(useDecoration);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS);
-                SwitchPreferenceCompat __preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
-                if ((_preference != null) && (__preference != null)) {
-                    _preference.setEnabled(__preference.isChecked());
-                }
-            } else {
-                Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                // dislabe, restart events action button is forced for native style
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-
-                _preference = findPreference("notificationBackgroundColorInfo");
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                //_preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE);
-                //if (_preference != null)
-                //    _preference.setEnabled(false);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
-                if (_preference != null)
-                    _preference.setEnabled(true);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS);
-                if (_preference != null)
-                    _preference.setEnabled(false);
-            }
-        }
-        /*if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION)) {
-            boolean useDecoration = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, true);
-            String backgroundColor;// = "0";
-            //if (Build.VERSION.SDK_INT < 29)
-                backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
-            Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
-            if (_preference != null)
-                _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
-        }*/
-
-        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR)) {
-            return;
-        }
-
-        /*
-        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT) ||
-                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING) ||
-                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF)) {
-            preference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT);
-            if (preference != null) {
-                SwitchPreferenceCompat scanningEnabledPreference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING);
-                SwitchPreferenceCompat scanIfWifiOffPreference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF);
-                if ((scanningEnabledPreference != null) && (scanIfWifiOffPreference != null))
-                    preference.setEnabled(scanningEnabledPreference.isChecked() && scanIfWifiOffPreference.isChecked());
-            }
-        }
-        */
-
-        ////////////////////
-
+    private void setEnabledWidgets(String key) {
         boolean keyIsWidgetIconChangeColorByNightMode = false;
         boolean keyIsWidgetOneRowChangeColorByNightMode = false;
         boolean keyIsWidgetListChangeColorByNightMode = false;
@@ -2645,18 +2489,14 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null) {
                     _preference.setEnabled(false);
                 }
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
-                if (_preference != null) {
-                    _preference.setEnabled(monochromeIconIcon);
-                }
             } else {
                 if (_preference != null) {
                     _preference.setEnabled(monochromeIconIcon);
                 }
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
-                if (_preference != null) {
-                    _preference.setEnabled(monochromeIconIcon);
-                }
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CUSTOM_ICON_LIGHTNESS);
+            if (_preference != null) {
+                _preference.setEnabled(monochromeIconIcon);
             }
         }
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_ICON_COLOR) || keyIsWidgetOneRowChangeColorByNightMode) {
@@ -2825,23 +2665,175 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null) {
                     _preference.setEnabled(false);
                 }
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS);
-                if (_preference != null) {
-                    //_preference.setEnabled(false);
-                    _preference.setEnabled(monochromeIconSamsungEdge);
-                }
             } else {
                 if (_preference != null) {
                     _preference.setEnabled(monochromeIconSamsungEdge);
                 }
-                _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS);
-                if (_preference != null) {
-                    _preference.setEnabled(monochromeIconSamsungEdge);
-                }
+            }
+            _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_SAMSUNG_EDGE_CUSTOM_ICON_LIGHTNESS);
+            if (_preference != null) {
+                //_preference.setEnabled(false);
+                _preference.setEnabled(monochromeIconSamsungEdge);
+            }
+        }
+    }
+
+    private void setEnabled(String key) {
+
+        Preference preference = prefMng.findPreference(key);
+
+        if (preference == null)
+            return;
+
+        if (getActivity() == null)
+            return;
+
+        Context context = getActivity().getApplicationContext();
+
+        if (/*(android.os.Build.VERSION.SDK_INT >= 21) &&*/ (android.os.Build.VERSION.SDK_INT < 26)) {
+            if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_IN_STATUS_BAR)) {
+                boolean show = preferences.getBoolean(key, true);
+                Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_NOTIFICATION_HIDE_IN_LOCKSCREEN);
+                if (_preference != null)
+                    _preference.setEnabled(show);
             }
         }
 
-        ////////////////////
+        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT) ||
+                //key.equals(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON)) {
+            String notificationStyle = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE, "0");
+            if (notificationStyle.equals("0")) {
+                String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
+                //boolean nightMode = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE, false);
+                boolean useDecoration = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, true);
+
+                Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(backgroundColor.equals("0") || backgroundColor.equals("5"));
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
+                if (_preference != null) {
+                    //if (Build.VERSION.SDK_INT < 29)
+                    //    _preference.setEnabled(backgroundColor.equals("0") && (!nightMode));
+                    //else
+                    _preference.setEnabled(backgroundColor.equals("0"));
+                }
+
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
+                if (_preference != null) {
+                    //if (Build.VERSION.SDK_INT < 29)
+                    //    _preference.setEnabled(useDecoration && backgroundColor.equals("0") && (!nightMode));
+                    //else
+                    _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
+                }
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON);
+                if (_preference != null) {
+                    //if (Build.VERSION.SDK_INT < 29)
+                    //    _preference.setEnabled(useDecoration && backgroundColor.equals("0") && (!nightMode));
+                    //else
+                    _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
+                }
+
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(backgroundColor.equals("5"));
+
+                _preference = findPreference("notificationBackgroundColorInfo");
+                if (_preference != null)
+                    _preference.setEnabled(true);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+                //_preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE);
+                //if (_preference != null)
+                //    _preference.setEnabled(true);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
+                if (_preference != null)
+                    _preference.setEnabled(useDecoration);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS);
+                SwitchPreferenceCompat __preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
+                if ((_preference != null) && (__preference != null)) {
+                    _preference.setEnabled(__preference.isChecked());
+                }
+            } else {
+                Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+                // dislabe, restart events action button is forced for native style
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+
+                _preference = findPreference("notificationBackgroundColorInfo");
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                //_preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_NIGHT_MODE);
+                //if (_preference != null)
+                //    _preference.setEnabled(false);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_TEXT_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS);
+                if (_preference != null)
+                    _preference.setEnabled(false);
+            }
+        }
+        /*if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION)) {
+            boolean useDecoration = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_USE_DECORATION, true);
+            String backgroundColor;// = "0";
+            //if (Build.VERSION.SDK_INT < 29)
+                backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
+            Preference _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_BUTTON_EXIT);
+            if (_preference != null)
+                _preference.setEnabled(useDecoration && backgroundColor.equals("0"));
+        }*/
+
+        if (key.equals(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_CUSTOM_COLOR)) {
+            return;
+        }
+
+        /*
+        if (key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING) ||
+                key.equals(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF)) {
+            preference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCANNING_IGNORE_HOTSPOT);
+            if (preference != null) {
+                SwitchPreferenceCompat scanningEnabledPreference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_ENABLE_SCANNING);
+                SwitchPreferenceCompat scanIfWifiOffPreference = findPreference(ApplicationPreferences.PREF_APPLICATION_EVENT_WIFI_SCAN_IF_WIFI_OFF);
+                if ((scanningEnabledPreference != null) && (scanIfWifiOffPreference != null))
+                    preference.setEnabled(scanningEnabledPreference.isChecked() && scanIfWifiOffPreference.isChecked());
+            }
+        }
+        */
+
+        setEnabledWidgets(key);
 
         if (key.equals(ApplicationPreferences.PREF_APPLICATION_FORCE_SET_MERGE_RINGER_NOTIFICATION_VOLUMES)) {
             Preference _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_UNLINK_RINGER_NOTIFICATION_VOLUMES);

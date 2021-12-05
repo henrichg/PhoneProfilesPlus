@@ -752,6 +752,7 @@ public class DataWrapper {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     void generateProfileIcon(Profile profile,
                              boolean generateIcon,
                              boolean generateIndicator) {
