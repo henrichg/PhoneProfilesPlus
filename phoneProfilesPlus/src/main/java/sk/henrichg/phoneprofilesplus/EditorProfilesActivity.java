@@ -3596,21 +3596,24 @@ public class EditorProfilesActivity extends AppCompatActivity
                             Intent intent;
                             if (profile != null) {
                                 intent = new Intent(activity.getBaseContext(), ProfilesPrefsActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_PROFILE_ID, profile._id);
                                 intent.putExtra(EXTRA_NEW_PROFILE_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
                                 intent.putExtra(EXTRA_PREDEFINED_PROFILE_INDEX, 0);
                             }
                             else {
                                 intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
                             }
                             activity.startActivity(intent);
 
                             try {
                                 // close Activator
-                                activity.finish();
+                                if (forActivator)
+                                    activity.finish();
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
@@ -3619,13 +3622,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                     dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
                             (dialog, which) -> {
                                 Intent intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
                                 activity.startActivity(intent);
 
                                 try {
                                     // close Activator
-                                    activity.finish();
+                                    if (forActivator)
+                                        activity.finish();
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
                                 }
@@ -3639,21 +3644,24 @@ public class EditorProfilesActivity extends AppCompatActivity
                             Intent intent;
                             if (event != null) {
                                 intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
                                 intent.putExtra(EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
                                 intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, 0);
                             }
                             else {
                                 intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                if (forActivator)
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
                             }
                             activity.startActivity(intent);
 
                             try {
                                 // close Activator
-                                activity.finish();
+                                if (forActivator)
+                                    activity.finish();
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
@@ -3662,13 +3670,15 @@ public class EditorProfilesActivity extends AppCompatActivity
                 dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
                         (dialog, which) -> {
                             Intent intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            if (forActivator)
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
                             activity.startActivity(intent);
 
                             try {
                                 // close Activator
-                                activity.finish();
+                                if (forActivator)
+                                    activity.finish();
                             } catch (Exception e) {
                                 PPApplication.recordException(e);
                             }
