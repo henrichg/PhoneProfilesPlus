@@ -593,6 +593,10 @@ public class EditorProfilesActivity extends AppCompatActivity
                 editorSelectedView = 0;
                 filterProfilesSelectedItem = DSI_PROFILES_ALL;
             }
+            else if (startupSource == PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER) {
+                editorSelectedView = 0;
+                filterProfilesSelectedItem = DSI_EVENTS_ALL;
+            }
             else {
                 editorSelectedView = ApplicationPreferences.editorSelectedView;
                 filterProfilesSelectedItem = ApplicationPreferences.editorProfilesViewSelectedItem;
@@ -3535,6 +3539,7 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     static void showDialogAboutRedText(final Profile profile, final Event event,
+                                       final boolean forProfile,
                                        final boolean forActivator,
                                        final boolean forShowInActivator,
                                        final boolean forRunStopEvent,
@@ -3585,7 +3590,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity);
             dialogBuilder.setTitle(nTitle);
             dialogBuilder.setMessage(nText);
-            if (forActivator) {
+            if (forProfile) {
                 dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_profile_preferences,
                         (dialog, which) -> {
                             Intent intent;
@@ -3610,11 +3615,40 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 PPApplication.recordException(e);
                             }
                         });
-                dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
+                if (forActivator) {
+                    dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
+                            (dialog, which) -> {
+                                Intent intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                                activity.startActivity(intent);
+
+                                try {
+                                    // close Activator
+                                    activity.finish();
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
+                                }
+                            });
+                }
+            }
+            else {
+                //    dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                dialogBuilder.setPositiveButton(R.string.show_dialog_about_red_text_show_event_preferences,
                         (dialog, which) -> {
-                            Intent intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
+                            Intent intent;
+                            if (event != null) {
+                                intent = new Intent(activity.getBaseContext(), EventsPrefsActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_EVENT_ID, event._id);
+                                intent.putExtra(EXTRA_NEW_EVENT_MODE, EditorProfileListFragment.EDIT_MODE_EDIT);
+                                intent.putExtra(EXTRA_PREDEFINED_EVENT_INDEX, 0);
+                            }
+                            else {
+                                intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
+                            }
                             activity.startActivity(intent);
 
                             try {
@@ -3624,9 +3658,23 @@ public class EditorProfilesActivity extends AppCompatActivity
                                 PPApplication.recordException(e);
                             }
                         });
+                /*
+                dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
+                        (dialog, which) -> {
+                            Intent intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_EDITOR_FILTER);
+                            activity.startActivity(intent);
+
+                            try {
+                                // close Activator
+                                activity.finish();
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
+                            }
+                        });
+                 */
             }
-            else
-                dialogBuilder.setPositiveButton(android.R.string.ok, null);
             AlertDialog dialog = dialogBuilder.create();
 
 //            dialog.setOnShowListener(new DialogInterface.OnShowListener() {

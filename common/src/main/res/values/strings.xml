@@ -1326,7 +1326,6 @@
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with bold text.</string>
     <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
     <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
-    <string name="profile_preferences_red_texts_text_3">For this, is not possible to show it in Activator.</string>
     <string name="profile_preferences_red_texts_in_header">Some profiles has errors in it\'s preferences. These profiles are marked with red color. Please fix it.</string>
     <string name="event_preferences_red_texts_in_header">Some events has errors in it\'s preferences. These events are marked with red color. Please fix it.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">for connect to SSID</string>
@@ -1864,6 +1863,9 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_device_is_not_rooted">Device is not rooted</string>
 
     <string name="array_pref_change_image_wallpaper_with">(I) Change to image with</string>
+
+    <string name="show_dialog_about_red_text_show_event_preferences">Show event preferences</string>
+    <string name="profile_preferences_red_texts_text_3">For this, is not possible to change \"Show in Activator\".</string>
 
     <!-- **************************************************************************************** -->
 
