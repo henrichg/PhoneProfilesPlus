@@ -3683,6 +3683,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         });
                  */
             }
+            dialogBuilder.setCancelable(!forActivator);
             AlertDialog dialog = dialogBuilder.create();
 
 //            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
