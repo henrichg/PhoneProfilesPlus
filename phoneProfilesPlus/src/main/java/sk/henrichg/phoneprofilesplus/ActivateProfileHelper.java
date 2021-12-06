@@ -4235,6 +4235,38 @@ class ActivateProfileHelper {
                 }
             }
         }
+        if ((profile._deviceWallpaperChange == 4) && (!profile._deviceWallpaper.isEmpty()))
+        {
+            if (PPApplication.isScreenOn && (myKM != null) && !myKM.isKeyguardLocked()) {
+                try {
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_ATTACH_DATA);
+                    intent.addCategory(Intent.CATEGORY_DEFAULT);
+                    intent.setDataAndType(Uri.parse(profile._deviceWallpaper), "image/*");
+                    intent.putExtra("mimeType", "image/*");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                    PPApplication.setWallpaperChangeTime(appContext);
+                } catch (Exception e) {
+                    PPApplication.recordException(e);
+                }
+            } else {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_ATTACH_DATA);
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                if (GlobalGUIRoutines.activityIntentExists(intent, appContext)) {
+                    intent.setDataAndType(Uri.parse(profile._deviceWallpaper), "image/*");
+                    intent.putExtra("mimeType", "image/*");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    String title = appContext.getString(R.string.profile_activation_interactive_preference_notification_title) + " " + profile._name;
+                    String text = appContext.getString(R.string.profile_activation_interactive_preference_notification_text) + " " +
+                            appContext.getString(R.string.array_pref_change_image_wallpaper_with);
+                    showNotificationForInteractiveParameters(appContext, title, text, intent,
+                            PPApplication.PROFILE_ACTIVATION_WALLPAPER_WITH_NOTIFICATION_ID,
+                            PPApplication.PROFILE_ACTIVATION_WALLPAPER_WITH_NOTIFICATION_TAG);
+                }
+            }
+        }
 
         if (profile._deviceVPNSettingsPrefs == 1)
         {

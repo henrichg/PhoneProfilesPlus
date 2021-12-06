@@ -554,7 +554,8 @@ class Permissions {
         if (profile == null) return true;
 
         try {
-            if (profile._deviceWallpaperChange == 1) {
+            if ((profile._deviceWallpaperChange == 1) ||
+                (profile._deviceWallpaperChange == 4)) {
                 boolean granted = ContextCompat.checkSelfPermission(context, permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
                 if ((permissions != null) && (!granted))
                     permissions.add(new PermissionType(PERMISSION_PROFILE_IMAGE_WALLPAPER, permission.READ_EXTERNAL_STORAGE));

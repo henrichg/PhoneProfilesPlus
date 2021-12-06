@@ -1863,6 +1863,8 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_device_is_rooted">Device is rooted</string>
     <string name="phone_profiles_pref_device_is_not_rooted">Device is not rooted</string>
 
+    <string name="array_pref_change_image_wallpaper_with">(I) Change to image with</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

@@ -5100,7 +5100,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             boolean enabled = !(/*sValue.equals(Profile.SHARED_PROFILE_VALUE_STR) ||*/ sValue.equals(Profile.NO_CHANGE_VALUE_STR));
             Preference preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER);
             if (preference != null)
-                preference.setEnabled(enabled && sValue.equals("1"));
+                preference.setEnabled(enabled && (sValue.equals("1") || sValue.equals("4")));
             preference = prefMng.findPreference(Profile.PREF_PROFILE_DEVICE_WALLPAPER_FOR);
             if (preference != null)
                 preference.setEnabled(enabled && (sValue.equals("1") || sValue.equals("3")));
