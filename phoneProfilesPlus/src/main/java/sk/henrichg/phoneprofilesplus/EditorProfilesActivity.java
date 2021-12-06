@@ -3622,15 +3622,13 @@ public class EditorProfilesActivity extends AppCompatActivity
                     dialogBuilder.setNegativeButton(R.string.show_dialog_about_red_text_show_editor,
                             (dialog, which) -> {
                                 Intent intent = new Intent(activity.getBaseContext(), EditorProfilesActivity.class);
-                                if (forActivator)
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER);
                                 activity.startActivity(intent);
 
                                 try {
                                     // close Activator
-                                    if (forActivator)
-                                        activity.finish();
+                                    activity.finish();
                                 } catch (Exception e) {
                                     PPApplication.recordException(e);
                                 }
