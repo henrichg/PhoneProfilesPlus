@@ -5928,7 +5928,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if ((getActivity() != null) && (!getActivity().isFinishing()))
                 dialog.show();
         }
-        else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
+/*        else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
             dialogBuilder.setTitle(R.string.install_extender_dialog_title);
 
@@ -5986,7 +5986,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             if ((getActivity() != null) && (!getActivity().isFinishing()))
                 dialog.show();
         }
-        else
+        else*/
             installExtenderFromGitHub();
     }
 
