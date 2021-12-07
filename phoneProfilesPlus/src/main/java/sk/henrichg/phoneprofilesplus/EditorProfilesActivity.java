@@ -3563,9 +3563,11 @@ public class EditorProfilesActivity extends AppCompatActivity
 //                        activity.getString(R.string.preferences_red_texts_text_2);
 //            }
             if (forShowInActivator)
-                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_3);
+                nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_3_new);
             else
                 nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
+
+            nText = nText + "\n\n" + activity.getString(R.string.profile_preferences_red_texts_text_4);
         }
 
         if (event != null) {
@@ -3584,6 +3586,8 @@ public class EditorProfilesActivity extends AppCompatActivity
                 nText = nText + " " + activity.getString(R.string.event_preferences_red_texts_text_2);
             else
                 nText = nText + " " + activity.getString(R.string.profile_preferences_red_texts_text_2);
+
+            nText = nText + "\n\n" + activity.getString(R.string.event_preferences_red_texts_text_4);
         }
 
         if ((profile != null) || (event != null)) {
