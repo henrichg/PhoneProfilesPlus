@@ -459,55 +459,52 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         bottomNavigationView = findViewById(R.id.editor_list_bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(
-                new me.ibrahimsn.lib.OnItemSelectedListener() {
-                    @Override
-                    public boolean onItemSelect(int item) {
-                        //int itemId = item.getItemId();
-                        //if (itemId == R.id.menu_profiles_view) {
-                        if (item == 0) {
-                            //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_profiles_view");
-                            String[] filterItems = new String[]{
-                                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_all),
-                                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
-                            };
-                            GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                                    EditorProfilesActivity.this,
-                                    R.layout.highlighted_filter_spinner,
-                                    filterItems);
-                            filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-                            filterSpinner.setAdapter(filterSpinnerAdapter);
-                            EditorProfilesActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
-                            Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                            if (fragment instanceof EditorProfileListFragment)
-                                ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
-                            return true;
-                        //} else if (itemId == R.id.menu_events_view) {
-                        } else if (item == 1) {
-                            //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
-                            String[] filterItems = new String[]{
-                                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_start_order),
-                                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_all),
-                                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_not_stopped),
-                                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_running),
-                                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_paused),
-                                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_stopped)
-                            };
-                            GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                                    EditorProfilesActivity.this,
-                                    R.layout.highlighted_filter_spinner,
-                                    filterItems);
-                            filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-                            filterSpinner.setAdapter(filterSpinnerAdapter);
-                            EditorProfilesActivity.this.selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
-                            Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-                            if (fragment instanceof EditorEventListFragment) {
-                                ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
-                            }
-                            return true;
-                        } else
-                            return false;
-                    }
+                (me.ibrahimsn.lib.OnItemSelectedListener) item -> {
+                    //int itemId = item.getItemId();
+                    //if (itemId == R.id.menu_profiles_view) {
+                    if (item == 0) {
+                        //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_profiles_view");
+                        String[] filterItems = new String[]{
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_all),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                        };
+                        GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                                EditorProfilesActivity.this,
+                                R.layout.highlighted_filter_spinner,
+                                filterItems);
+                        filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                        filterSpinner.setAdapter(filterSpinnerAdapter);
+                        EditorProfilesActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
+                        Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                        if (fragment instanceof EditorProfileListFragment)
+                            ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
+                        return true;
+                    //} else if (itemId == R.id.menu_events_view) {
+                    } else if (item == 1) {
+                        //PPApplication.logE("EditorProfilesActivity.onNavigationItemSelected", "menu_events_view");
+                        String[] filterItems = new String[]{
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_start_order),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_all),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_not_stopped),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_running),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_paused),
+                                EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_stopped)
+                        };
+                        GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                                EditorProfilesActivity.this,
+                                R.layout.highlighted_filter_spinner,
+                                filterItems);
+                        filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                        filterSpinner.setAdapter(filterSpinnerAdapter);
+                        EditorProfilesActivity.this.selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
+                        Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                        if (fragment instanceof EditorEventListFragment) {
+                            ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
+                        }
+                        return true;
+                    } else
+                        return false;
                 });
         // set size of icons of BottomNavigationView
         /*BottomNavigationMenuView menuView = (BottomNavigationMenuView) bottomNavigationView.getChildAt(0);

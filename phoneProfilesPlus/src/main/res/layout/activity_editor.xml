@@ -12,7 +12,7 @@
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/editor_list_bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         app:backgroundColor="?attr/colorPrimary"
         app:indicatorColor="@android:color/transparent"
