@@ -167,8 +167,8 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
             return;
 
         if (Event.getGlobalEventsRunning()) {
+            final Context appContext = context.getApplicationContext();
             if (useHandler) {
-                final Context appContext = context.getApplicationContext();
                 PPApplication.startHandlerThreadBroadcast(/*"LockDeviceAfterScreenOffBroadcastReceiver.doWork"*/);
                 final Handler __handler = new Handler(PPApplication.handlerThreadBroadcast.getLooper());
                 //__handler.post(new PPApplication.PPHandlerThreadRunnable(
@@ -207,9 +207,7 @@ public class LockDeviceAfterScreenOffBroadcastReceiver extends BroadcastReceiver
             } else {
                 //PPApplication.logE("****** EventsHandler.handleEvents", "START run - from=LockDeviceAfterScreenOffBroadcastReceiver.doWork (2)");
 
-                final Context appContext = context.getApplicationContext();
-
-//                PPApplication.logE("[EVENTS_HANDLER_CALL] LockDeviceAfterScreenOffBroadcastReceiver", "sensorType=SENSOR_TYPE_SCREEN (2)");
+                //                PPApplication.logE("[EVENTS_HANDLER_CALL] LockDeviceAfterScreenOffBroadcastReceiver", "sensorType=SENSOR_TYPE_SCREEN (2)");
                 EventsHandler eventsHandler = new EventsHandler(appContext);
                 eventsHandler.handleEvents(EventsHandler.SENSOR_TYPE_SCREEN);
 

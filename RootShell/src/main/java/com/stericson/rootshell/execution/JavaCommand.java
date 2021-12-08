@@ -2,6 +2,7 @@ package com.stericson.rootshell.execution;
 
 import android.content.Context;
 
+@SuppressWarnings("unused")
 public class JavaCommand extends Command
 {
     /**
