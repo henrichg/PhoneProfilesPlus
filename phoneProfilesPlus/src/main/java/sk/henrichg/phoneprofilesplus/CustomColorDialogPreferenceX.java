@@ -101,8 +101,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
             if (colorPreview != null) {
                 int shapeWidth = getContext().getResources()
                         .getDimensionPixelSize(R.dimen.acch_shape_preference_width);
-                @SuppressWarnings("IntegerDivisionInFloatingPointContext")
-                float radius = shapeWidth / 2;
+                float radius = shapeWidth / 2.0f;
 
                 colorPreview.setImageResource(R.drawable.acch_circle);
 
@@ -236,6 +235,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
         int value;
         int defaultValue;
 
+        @SuppressWarnings("unused")
         SavedState(Parcel source)
         {
             super(source);

@@ -7,7 +7,6 @@ package com.kunzisoft.androidclearchroma;
 public enum IndicatorMode {
     DECIMAL(0), HEX(1);
 
-    @SuppressWarnings("CanBeFinal")
     private final int i;
 
     /**

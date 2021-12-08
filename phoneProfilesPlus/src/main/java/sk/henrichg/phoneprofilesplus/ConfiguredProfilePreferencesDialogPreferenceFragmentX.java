@@ -24,7 +24,6 @@ public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends Prefe
 
     private ConfiguredProfilePreferencesAdapterX listAdapter;
 
-    @SuppressWarnings("rawtypes")
     private RefreshListViewAsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")

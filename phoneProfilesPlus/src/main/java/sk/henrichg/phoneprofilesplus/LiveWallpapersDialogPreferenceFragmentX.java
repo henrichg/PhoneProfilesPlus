@@ -31,7 +31,6 @@ public class LiveWallpapersDialogPreferenceFragmentX extends PreferenceDialogFra
 
     private LiveWallpapersDialogPreferenceAdapterX listAdapter;
 
-    @SuppressWarnings("rawtypes")
     private RefreshListView1AsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")

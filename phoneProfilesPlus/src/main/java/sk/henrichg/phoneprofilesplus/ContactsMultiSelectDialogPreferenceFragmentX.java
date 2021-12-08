@@ -28,7 +28,6 @@ public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDial
 
     private ContactsMultiSelectPreferenceAdapterX listAdapter;
 
-    @SuppressWarnings("rawtypes")
     private RefreshListViewAsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")

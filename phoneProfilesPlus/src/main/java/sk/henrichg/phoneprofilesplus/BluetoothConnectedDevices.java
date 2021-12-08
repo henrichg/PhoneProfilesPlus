@@ -17,7 +17,6 @@ import java.util.List;
 class BluetoothConnectedDevices {
 
     private static BluetoothHeadset bluetoothHeadset = null;
-    @SuppressWarnings("deprecation")
     private static BluetoothHealth bluetoothHealth = null;
     private static BluetoothA2dp bluetoothA2dp = null;
 

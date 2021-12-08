@@ -36,7 +36,6 @@ class MobileCellNamesDialogX {
 
     private final MobileCellNamesDialogAdapterX listAdapter;
 
-    @SuppressWarnings("rawtypes")
     private ShowDialogAsyncTask asyncTask = null;
 
     MobileCellNamesDialogX(final Activity activity, final DialogPreference preference, final boolean showFilterItems) {

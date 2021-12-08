@@ -21,7 +21,6 @@ import java.sql.Date;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
-@SuppressWarnings("MagicConstant")
 class EventPreferencesTime extends EventPreferences {
 
     boolean _sunday;
@@ -997,6 +996,7 @@ class EventPreferencesTime extends EventPreferences {
 
                                         calStartTime.setTimeInMillis(twilightDaysSunrise[idx]);
 
+                                        //noinspection MagicConstant
                                         if (calStartTime.get(Calendar.DAY_OF_WEEK) == startDayOfWeek) {
 
                                             //if (inOneHour)
@@ -1033,6 +1033,7 @@ class EventPreferencesTime extends EventPreferences {
 
                                         calStartTime.setTimeInMillis(twilightDaysSunset[idx]);
 
+                                        //noinspection MagicConstant
                                         if (calStartTime.get(Calendar.DAY_OF_WEEK) == startDayOfWeek) {
 
                                             if (inMorning)

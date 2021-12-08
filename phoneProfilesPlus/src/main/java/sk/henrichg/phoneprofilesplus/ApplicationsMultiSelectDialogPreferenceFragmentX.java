@@ -28,7 +28,6 @@ public class ApplicationsMultiSelectDialogPreferenceFragmentX extends Preference
 
     private ApplicationsMultiSelectPreferenceAdapterX listAdapter;
 
-    @SuppressWarnings("rawtypes")
     private RefreshListViewAsyncTask asyncTask = null;
 
     @SuppressLint("InflateParams")
