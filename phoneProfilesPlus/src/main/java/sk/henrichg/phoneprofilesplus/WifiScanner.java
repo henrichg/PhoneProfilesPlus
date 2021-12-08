@@ -145,7 +145,8 @@ class WifiScanner {
                             WifiScanWorker.wifi = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
                         if (ApplicationPreferences.prefEventWifiEnabledForScan) {
-                            // service restarted during scanning, disable wifi
+                            // service restarted during scanning (prefEventWifiEnabledForScan is set to false at end of scan),
+                            // disable wifi
                             //PPApplication.logE("$$$W WifiScanner.doScan", "disable wifi - service restarted");
                             wifiChangeHandler.post(() -> {
                                 try {
@@ -317,6 +318,7 @@ class WifiScanner {
                 }
 
                 setForceOneWifiScan(context, FORCE_ONE_SCAN_DISABLED);
+                WifiScanWorker.setWifiEnabledForScan(context, false);
                 WifiScanWorker.setWaitForResults(context, false);
                 WifiScanWorker.setScanRequest(context, false);
 

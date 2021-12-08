@@ -270,6 +270,9 @@ public class PPApplication extends Application
                                                 //+"|ActivateProfileHelper.execute"
                                                 //+"|ActivateProfileHelper.createBrightnessView"
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
+                                                //+"|$$$B BluetoothScanner"
+                                                //+"|$$$B PhoneProfilesService"
+                                                //+"|BluetoothScanWorker.startCLScan"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

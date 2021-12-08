@@ -3426,6 +3426,7 @@ public class PhoneProfilesService extends Service
         BluetoothScanWorker.setWaitForLEResults(context, false);
         BluetoothScanWorker.setBluetoothEnabledForScan(context, false);
         BluetoothScanWorker.setScanKilled(context, false);
+//        PPApplication.logE("$$$B PhoneProfilesService.cancelBluetoothWorker", "(1) prefEventBluetoothEnabledForScan="+ApplicationPreferences.prefEventBluetoothEnabledForScan);
     }
 
     private void scheduleBluetoothWorker(/*final boolean schedule,*/ /*final boolean cancel,*/ final DataWrapper dataWrapper

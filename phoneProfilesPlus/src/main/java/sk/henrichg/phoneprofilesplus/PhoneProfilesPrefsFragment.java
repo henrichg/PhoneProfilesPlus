@@ -3123,7 +3123,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             preference.setSummary(summary);
         }
         if (key.equals(PREF_GRANT_ROOT_PERMISSION)) {
-            String summary = "";
+            String summary;
             boolean rooted = PPApplication.isRooted(true);
             if (rooted) {
                 summary = getString(R.string.phone_profiles_pref_grantRootPermission_summary);

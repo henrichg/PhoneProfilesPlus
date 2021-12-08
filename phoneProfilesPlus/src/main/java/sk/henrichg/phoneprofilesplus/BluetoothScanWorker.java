@@ -634,12 +634,14 @@ public class BluetoothScanWorker extends Worker {
 
                 if (!startScan) {
                     if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
-                        //PPApplication.logE("BluetoothScanWorker.startCLScan", "disable bluetooth");
-                        if (Permissions.checkBluetoothForEMUI(context))
+//                        PPApplication.logE("BluetoothScanWorker.startCLScan", "disable bluetooth");
+                        if (Permissions.checkBluetoothForEMUI(context)) {
+//                            PPApplication.logE("BluetoothScanWorker.startCLScan", "disable bluetooth (2)");
                             //if (Build.VERSION.SDK_INT >= 26)
                             //    CmdBluetooth.setBluetooth(false);
                             //else
-                                bluetooth.disable();
+                            bluetooth.disable();
+                        }
                     }
                 }
                 setWaitForResults(context, startScan);
