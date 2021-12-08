@@ -91,7 +91,6 @@ class ActivateProfileHelper {
     static final int ZENMODE_PRIORITY = 1;
     static final int ZENMODE_NONE = 2;
     static final int ZENMODE_ALARMS = 3;
-    @SuppressWarnings("WeakerAccess")
     static final int ZENMODE_SILENT = 99;
 
     static final int SUBSCRIPTRION_VOICE = 1;

@@ -21,7 +21,6 @@ import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
 
-@SuppressWarnings("WeakerAccess")
 public class TileChooserListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;

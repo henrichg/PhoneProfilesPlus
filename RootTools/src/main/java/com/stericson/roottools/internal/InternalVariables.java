@@ -37,35 +37,23 @@ class InternalVariables
     // ----------------------
 
 
-    @SuppressWarnings("WeakerAccess")
     protected static boolean nativeToolsReady = false;
-    @SuppressWarnings("WeakerAccess")
     protected static boolean found = false;
-    @SuppressWarnings("WeakerAccess")
     protected static boolean processRunning = false;
 
-    @SuppressWarnings("WeakerAccess")
     protected static String[] space;
-    @SuppressWarnings("WeakerAccess")
     protected static String getSpaceFor;
-    @SuppressWarnings({"WeakerAccess", "unused"})
+    @SuppressWarnings("unused")
     protected static String busyboxVersion;
-    @SuppressWarnings("WeakerAccess")
     protected static String pid_list = "";
-    @SuppressWarnings("WeakerAccess")
     protected static ArrayList<Mount> mounts;
-    @SuppressWarnings("WeakerAccess")
     protected static ArrayList<Symlink> symlinks;
-    @SuppressWarnings("WeakerAccess")
     protected static String inode = "";
-    @SuppressWarnings("WeakerAccess")
     protected static Permissions permissions;
 
     // regex to get pid out of ps line, example:
     // root 2611 0.0 0.0 19408 2104 pts/2 S 13:41 0:00 bash
-    @SuppressWarnings("WeakerAccess")
     protected static final String PS_REGEX = "^\\S+\\s+([0-9]+).*$";
-    @SuppressWarnings("WeakerAccess")
     protected static final Pattern psPattern;
 
     static

@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class NotificationVolume0DialogPreferenceFragmentX  extends PreferenceDialogFragmentCompat {
 
     private NotificationVolume0DialogPreferenceX preference;

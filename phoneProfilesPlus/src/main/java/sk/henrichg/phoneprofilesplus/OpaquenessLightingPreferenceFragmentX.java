@@ -8,7 +8,6 @@ import android.widget.ListView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class OpaquenessLightingPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

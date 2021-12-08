@@ -70,8 +70,8 @@ class BluetoothScanner {
             // check power save mode
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
             boolean isPowerSaveMode = DataWrapper.isPowerSaveMode(context);
+            int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
             if (isPowerSaveMode) {
-                int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     if (ApplicationPreferences.applicationEventBluetoothScanInPowerSaveMode.equals("2")) {
                         // not scan bluetooth in power save mode
@@ -81,7 +81,6 @@ class BluetoothScanner {
                 }
             }
             else {
-                int forceScan = ApplicationPreferences.prefForceOneBluetoothScan;
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     if (ApplicationPreferences.applicationEventBluetoothScanInTimeMultiply.equals("2")) {
                         if (PhoneProfilesService.isNowTimeBetweenTimes(

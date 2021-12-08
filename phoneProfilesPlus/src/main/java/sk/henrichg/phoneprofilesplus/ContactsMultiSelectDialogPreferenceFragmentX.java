@@ -17,7 +17,6 @@ import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.lang.ref.WeakReference;
 
-@SuppressWarnings("WeakerAccess")
 public class ContactsMultiSelectDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

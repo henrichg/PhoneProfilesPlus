@@ -69,7 +69,6 @@ public class Shell {
             this.value = value;
         }
 
-        @SuppressWarnings("WeakerAccess")
         public String getValue() {
             return this.value;
         }
@@ -121,7 +120,6 @@ public class Shell {
 
     public boolean isReading = false;
 
-    @SuppressWarnings({"WeakerAccess"})
     public boolean isClosed = false;
 
     private final int maxCommands = 5000;
@@ -321,7 +319,7 @@ public class Shell {
         }
     }
 
-    @SuppressWarnings({"WeakerAccess", "RedundantThrows"})
+    @SuppressWarnings("RedundantThrows")
     public void close() throws IOException {
         RootShell.log("Request to close shell!");
 
@@ -393,7 +391,6 @@ public class Shell {
         Shell.closeCustomShell();
     }
 
-    @SuppressWarnings("WeakerAccess")
     public int getCommandQueuePosition(Command cmd) {
         return this.commands.indexOf(cmd);
     }
@@ -525,7 +522,6 @@ public class Shell {
      * permissive or not present
      */
     @SuppressLint("ObsoleteSdkInt")
-    @SuppressWarnings("WeakerAccess")
     public synchronized boolean isSELinuxEnforcing() {
         if (isSELinuxEnforcing == null) {
             Boolean enforcing = null;
@@ -654,7 +650,6 @@ public class Shell {
         }
     };
 
-    @SuppressWarnings("WeakerAccess")
     protected void notifyThreads() {
         Thread t = new Thread() {
             public void run() {
@@ -829,7 +824,6 @@ public class Shell {
         }
     };
 
-    @SuppressWarnings("WeakerAccess")
     public void processErrors(Command command) {
         try {
             while (errorStream.ready() && command != null) {
@@ -935,7 +929,6 @@ public class Shell {
         return Shell.startCustomShell(shellPath, 0);
     }
 
-    @SuppressWarnings("WeakerAccess")
     public static Shell startCustomShell(String shellPath, int timeout) throws IOException, TimeoutException, RootDeniedException {
 
         if (Shell.customShell == null) {
@@ -948,7 +941,6 @@ public class Shell {
         return Shell.customShell;
     }
 
-    @SuppressWarnings("WeakerAccess")
     public static Shell startShell() throws IOException, TimeoutException {
         return Shell.startShell(0);
     }
@@ -969,7 +961,7 @@ public class Shell {
         }
     }
 
-    @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
+    @SuppressWarnings("UnusedReturnValue")
     public Shell switchRootShellContext(ShellContext shellContext) throws IOException, TimeoutException, RootDeniedException {
         if (this.shellType == ShellType.ROOT) {
             try {
@@ -988,7 +980,6 @@ public class Shell {
         }
     }
 
-    @SuppressWarnings("WeakerAccess")
     protected static class Worker extends Thread {
 
         public int exit = -911;

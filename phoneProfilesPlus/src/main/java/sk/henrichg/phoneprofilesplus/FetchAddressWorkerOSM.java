@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@SuppressWarnings("WeakerAccess")
 public class FetchAddressWorkerOSM extends Worker {
 
     private final Context context;

@@ -31,13 +31,9 @@ import java.util.Set;
 
 public class Mount
 {
-    @SuppressWarnings("WeakerAccess")
     final File mDevice;
-    @SuppressWarnings("WeakerAccess")
     final File mMountPoint;
-    @SuppressWarnings("WeakerAccess")
     final String mType;
-    @SuppressWarnings("WeakerAccess")
     final Set<String> mFlags;
 
     public Mount(File device, File path, String type, String flagsStr)

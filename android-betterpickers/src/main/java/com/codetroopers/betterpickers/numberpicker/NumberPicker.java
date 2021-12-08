@@ -28,7 +28,6 @@ import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
-@SuppressWarnings("WeakerAccess")
 public class NumberPicker extends LinearLayout implements Button.OnClickListener/*,
                                                             Button.OnLongClickListener*/ {
 

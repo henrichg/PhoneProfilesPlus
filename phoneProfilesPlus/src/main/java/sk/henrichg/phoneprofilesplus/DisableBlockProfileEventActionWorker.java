@@ -11,7 +11,6 @@ import androidx.work.WorkerParameters;
 
 import java.util.concurrent.TimeUnit;
 
-@SuppressWarnings("WeakerAccess")
 public class DisableBlockProfileEventActionWorker extends Worker {
 
     static final String WORK_TAG = "setBlockProfileEventsActionWork";

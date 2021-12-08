@@ -26,7 +26,6 @@ import java.util.Comparator;
 
 import static android.view.View.GONE;
 
-@SuppressWarnings("WeakerAccess")
 public class ActivateProfileListFragment extends Fragment {
 
     DataWrapper activityDataWrapper;

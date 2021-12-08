@@ -14,7 +14,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class ConfiguredProfilePreferencesDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

@@ -34,11 +34,8 @@ public class Runner extends Thread
 
     //private static final String LOG_TAG = "RootTools::Runner";
 
-    @SuppressWarnings("WeakerAccess")
     final Context context;
-    @SuppressWarnings("WeakerAccess")
     final String binaryName;
-    @SuppressWarnings("WeakerAccess")
     final String parameter;
 
     public Runner(Context context, String binaryName, String parameter)

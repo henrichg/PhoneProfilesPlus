@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class SearchStringPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

@@ -18,7 +18,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-@SuppressWarnings("WeakerAccess")
 public class QuickGuideHelpFragment extends Fragment {
 
     //int scrollTo = 0;

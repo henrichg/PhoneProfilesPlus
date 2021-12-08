@@ -25,7 +25,7 @@ import java.util.Vector;
 /**
  * Dialog to set alarm time.
  */
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings("unused")
 public class NumberPickerDialogFragment extends DialogFragment {
 
     private static final String REFERENCE_KEY = "NumberPickerDialogFragment_ReferenceKey";

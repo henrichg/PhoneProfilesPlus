@@ -10,7 +10,6 @@ import android.widget.RadioButton;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class GenerateNotificationDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private GenerateNotificationDialogPreferenceX preference;

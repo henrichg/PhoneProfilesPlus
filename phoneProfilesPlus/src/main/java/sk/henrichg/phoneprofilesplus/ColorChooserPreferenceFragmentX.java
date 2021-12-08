@@ -20,7 +20,6 @@ import com.kunzisoft.androidclearchroma.IndicatorMode;
 import com.kunzisoft.androidclearchroma.colormode.ColorMode;
 import com.kunzisoft.androidclearchroma.view.ChromaColorView;
 
-@SuppressWarnings("WeakerAccess")
 public class ColorChooserPreferenceFragmentX extends PreferenceDialogFragmentCompat
                                                 implements View.OnClickListener {
 

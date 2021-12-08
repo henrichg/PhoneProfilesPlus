@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-@SuppressWarnings("WeakerAccess")
 public class RestartEventsWithDelayWorker extends Worker {
 
     private final Context context;

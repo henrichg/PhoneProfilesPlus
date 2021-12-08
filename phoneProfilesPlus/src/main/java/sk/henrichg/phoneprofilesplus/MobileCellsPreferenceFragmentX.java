@@ -37,7 +37,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class MobileCellsPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

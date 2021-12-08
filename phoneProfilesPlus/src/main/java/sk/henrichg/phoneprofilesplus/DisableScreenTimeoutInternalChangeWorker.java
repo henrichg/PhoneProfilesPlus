@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-@SuppressWarnings("WeakerAccess")
 public class DisableScreenTimeoutInternalChangeWorker extends Worker {
 
     static final String WORK_TAG = "disableScreenTimeoutInternalChangeWork";

@@ -29,7 +29,6 @@ import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-@SuppressWarnings("WeakerAccess")
 public class BluetoothScanWorker extends Worker {
 
     private final Context context;

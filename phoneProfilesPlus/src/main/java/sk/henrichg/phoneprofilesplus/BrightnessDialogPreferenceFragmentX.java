@@ -17,7 +17,6 @@ import com.stericson.rootshell.execution.Command;
 import com.stericson.rootshell.execution.Shell;
 import com.stericson.roottools.RootTools;
 
-@SuppressWarnings("WeakerAccess")
 public class BrightnessDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
                 implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener{
 

@@ -48,7 +48,6 @@ import java.util.ArrayList;
 import java.util.List;
 //import me.drakeet.support.toast.ToastCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     implements SharedPreferences.OnSharedPreferenceChangeListener {
 

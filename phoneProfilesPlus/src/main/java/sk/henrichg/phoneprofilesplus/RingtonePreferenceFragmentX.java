@@ -13,7 +13,6 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     RingtonePreferenceX preference;

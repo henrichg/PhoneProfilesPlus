@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-@SuppressWarnings("WeakerAccess")
 public class WifiScanWorker extends Worker {
 
     private final Context context;

@@ -28,7 +28,6 @@ import androidx.fragment.app.Fragment;
 
 import com.skydoves.expandablelayout.ExpandableLayout;
 
-@SuppressWarnings("WeakerAccess")
 public class ImportantInfoHelpFragment extends Fragment {
 
     boolean firstInstallation = false;

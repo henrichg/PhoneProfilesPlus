@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class VolumeDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat
         implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener{
 

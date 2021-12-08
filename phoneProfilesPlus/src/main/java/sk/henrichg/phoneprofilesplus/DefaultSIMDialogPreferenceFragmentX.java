@@ -11,7 +11,6 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
-@SuppressWarnings("WeakerAccess")
 public class DefaultSIMDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context context;

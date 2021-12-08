@@ -81,7 +81,6 @@ import me.drakeet.support.toast.ToastCompat;
 
 import static android.os.Process.THREAD_PRIORITY_MORE_FAVORABLE;
 
-@SuppressWarnings("WeakerAccess")
 public class PPApplication extends Application
                                         //implements Configuration.Provider
                                         //implements Application.ActivityLifecycleCallbacks

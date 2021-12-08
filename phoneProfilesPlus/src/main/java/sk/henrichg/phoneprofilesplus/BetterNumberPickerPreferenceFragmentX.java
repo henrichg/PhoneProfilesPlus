@@ -9,7 +9,6 @@ import androidx.preference.PreferenceDialogFragmentCompat;
 
 import java.math.BigDecimal;
 
-@SuppressWarnings("WeakerAccess")
 public class BetterNumberPickerPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private PPNumberPicker mNumberPicker;

@@ -11,7 +11,6 @@ import androidx.work.WorkerParameters;
 
 import java.util.concurrent.TimeUnit;
 
-@SuppressWarnings("WeakerAccess")
 public class DisableInternalChangeWorker extends Worker {
 
     static final String WORK_TAG = "disableInternalChangeWork";

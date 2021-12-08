@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class ConnectToSSIDDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

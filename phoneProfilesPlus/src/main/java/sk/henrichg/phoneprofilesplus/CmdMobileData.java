@@ -9,7 +9,6 @@ import com.android.internal.telephony.ITelephony;
 
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class CmdMobileData {
 
     public static void main(String[] args) {

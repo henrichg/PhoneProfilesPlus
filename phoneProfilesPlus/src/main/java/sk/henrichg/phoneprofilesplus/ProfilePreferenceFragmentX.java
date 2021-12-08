@@ -14,7 +14,6 @@ import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.Comparator;
 
-@SuppressWarnings("WeakerAccess")
 public class ProfilePreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private LinearLayout linlaProgress;

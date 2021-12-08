@@ -19,7 +19,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("WeakerAccess")
 public class CalendarsMultiSelectDialogPreferenceFragmentX extends PreferenceDialogFragmentCompat {
 
     private Context prefContext;

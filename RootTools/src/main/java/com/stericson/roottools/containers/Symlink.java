@@ -27,9 +27,7 @@ import java.io.File;
 @SuppressWarnings("unused")
 public class Symlink
 {
-    @SuppressWarnings("WeakerAccess")
     protected final File file;
-    @SuppressWarnings("WeakerAccess")
     protected final File symlinkPath;
 
     public Symlink(File file, File path)
