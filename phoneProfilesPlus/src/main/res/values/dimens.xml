@@ -51,4 +51,7 @@
     <dimen name="fastScrollThumbWidth">8dp</dimen>
 
     <dimen name="chackBox_radioButton_spacing_for_list_items">10dp</dimen>
+
+    <dimen name="bottom_navigation_side_margins">15dp</dimen>
+
 </resources>

@@ -9,17 +9,35 @@
     android:layout_marginStart="@dimen/activity_margin_start"
     android:layout_marginEnd="@dimen/activity_margin_end">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/editor_list_bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:background="?attr/colorPrimary"
+        app:backgroundColor="?attr/colorPrimary"
+        app:indicatorColor="@android:color/transparent"
+        app:textColor="@color/activityWhiteTextColor"
+        app:iconTint="@color/activityWhiteTextColor"
+        app:iconTintActive="@color/accent"
+        app:iconSize="28dp"
+        app:textSize="12sp"
+        app:indicatorRadius="10dp"
+        app:sideMargins="@dimen/bottom_navigation_side_margins"
+        app:itemPadding="10dp"
         app:elevation="0dp"
-        app:itemIconTint="@drawable/bottom_navigation_colors"
-        app:itemTextColor="@drawable/bottom_navigation_colors"
-        app:labelVisibilityMode="labeled"
         app:menu="@menu/editor_bottom_navigation_menu" />
+
+<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
+<!--        android:id="@+id/editor_list_bottom_navigation"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="45dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:background="?attr/colorPrimary"-->
+<!--        app:elevation="0dp"-->
+<!--        app:itemIconTint="@drawable/bottom_navigation_colors"-->
+<!--        app:itemTextColor="@drawable/bottom_navigation_colors"-->
+<!--        app:labelVisibilityMode="labeled"-->
+<!--        app:menu="@menu/editor_bottom_navigation_menu" />-->
     <!--        android:paddingBottom="25dp"-->
     <!--        android:clipToPadding="false"-->
 
