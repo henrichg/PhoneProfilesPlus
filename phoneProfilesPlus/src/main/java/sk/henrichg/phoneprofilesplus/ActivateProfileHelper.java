@@ -36,6 +36,7 @@ import android.nfc.NfcAdapter;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.ServiceManager;
 import android.provider.DocumentsContract;
 import android.provider.Settings;
 import android.provider.Settings.Global;
@@ -56,6 +57,7 @@ import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
+import com.android.internal.telephony.ITelephony;
 import com.noob.noobcameraflash.managers.NoobCameraManager;
 import com.stericson.rootshell.execution.Command;
 import com.stericson.rootshell.execution.Shell;
@@ -5733,7 +5735,70 @@ class ActivateProfileHelper {
 
         }
         else*/
-            return CmdMobileData.isEnabled(appContext, simCard);
+
+        try {
+            boolean enabled = false;
+            if (Permissions.checkPhone(appContext.getApplicationContext())) {
+                boolean ok = false;
+                ITelephony adapter = ITelephony.Stub.asInterface(ServiceManager.getService("phone")); // service list | grep ITelephony
+                if (adapter != null) {
+                    if (/*(Build.VERSION.SDK_INT > 23) &&*/ (simCard > 0)) {
+                        SubscriptionManager mSubscriptionManager = (SubscriptionManager) appContext.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+                        //SubscriptionManager.from(appContext);
+                        if (mSubscriptionManager != null) {
+                            int defaultDataId;// = 0;
+                            //noinspection ConstantConditions
+                            defaultDataId = SubscriptionManager.getDefaultDataSubscriptionId();
+//                            PPApplication.logE("ActivateProfileHelper.isMobileData", "defaultDataId=" + defaultDataId);
+
+                            List<SubscriptionInfo> subscriptionList = null;
+                            try {
+                                // Loop through the subscription list i.e. SIM list.
+                                subscriptionList = mSubscriptionManager.getActiveSubscriptionInfoList();
+                            } catch (SecurityException e) {
+                                PPApplication.recordException(e);
+                            }
+                            if (subscriptionList != null) {
+                                for (int i = 0; i < subscriptionList.size();/*mSubscriptionManager.getActiveSubscriptionInfoCountMax();*/ i++) {
+                                    // Get the active subscription ID for a given SIM card.
+                                    SubscriptionInfo subscriptionInfo = subscriptionList.get(i);
+                                    if (subscriptionInfo != null) {
+                                        int slotIndex = subscriptionInfo.getSimSlotIndex();
+                                        if (simCard == (slotIndex + 1)) {
+                                            int subscriptionId = subscriptionInfo.getSubscriptionId();
+                                            enabled = adapter.getDataEnabled(subscriptionId) && (subscriptionId == defaultDataId);
+//                                            PPApplication.logE("ActivateProfileHelper.isMobileData", "subscriptionId=" + subscriptionId);
+//                                            PPApplication.logE("ActivateProfileHelper.isMobileData", "simCard=" + simCard);
+//                                            PPApplication.logE("ActivateProfileHelper.isMobileData", "slotIndex=" + (slotIndex + 1));
+//                                            PPApplication.logE("ActivateProfileHelper.isMobileData", "enabled=" + enabled);
+                                            ok = true;
+                                        }
+                                        if (ok)
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                        if (!ok) {
+                            //int dataState = adapter.getDataState();
+                            //enabled = dataState == TelephonyManager.DATA_CONNECTED;
+                            enabled = adapter.getDataEnabled(0);
+                        }
+                    }
+                    else {
+                        //int dataState = adapter.getDataState();
+                        //enabled = dataState == TelephonyManager.DATA_CONNECTED;
+                        enabled = adapter.getDataEnabled(0);
+//                        PPApplication.logE("[DUAL_SIM] ActivateProfileHelper.isMobileData", "enabled=" + enabled);
+                    }
+                }
+            }
+            return enabled;
+        } catch (Throwable e) {
+            //Log.e("ActivateProfileHelper.isMobileData", Log.getStackTraceString(e));
+            PPApplication.recordException(e);
+            return false;
+        }
     }
 
     static boolean canSetMobileData(Context context)
