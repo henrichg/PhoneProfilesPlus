@@ -1867,8 +1867,8 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="profile_preferences_red_texts_text_4">Errors are displayed in profile preferences as red texts at top of preference screen. Please fix it.</string>
     <string name="event_preferences_red_texts_text_4">Errors are displayed in event preferences as red texts at top of preference screen. Please fix it.</string>
 
-    <string name="profile_preferences_savedProfilePreferences_title_new">Configured profile parameters</string>
-    <string name="profile_preferences_savedProfilePreferences_summary_new">Click here to show configured profile parameters.</string>
+    <string name="profile_preferences_savedProfilePreferences_title_new">Configured profile preferences</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">Click here to show configured profile preferences.</string>
 
     <!-- **************************************************************************************** -->
 
