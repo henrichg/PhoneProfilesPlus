@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,7 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private final Context context;
     
     // Database Version
-    private static final int DATABASE_VERSION = 2484;
+    private static final int DATABASE_VERSION = 2486;
 
     // Database Name
     private static final String DATABASE_NAME = "phoneProfilesManager";
@@ -3531,76 +3532,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_INTENTS + " SET " + KEY_IN_DO_NOT_DELETE + "=0");
         }
 
-        if (oldVersion < 2476) {
-            ContentValues values = new ContentValues();
-
-            values.put(KEY_IN_NAME, "[OpenVPN Connect - connect URL profile]");
-            values.put(KEY_IN_ACTION, "net.openvpn.openvpn.CONNECT");
-            //values.put(KEY_IN_ACTION, "android.intent.action.VIEW");
-            values.put(KEY_IN_PACKAGE_NAME, "net.openvpn.openvpn");
-            values.put(KEY_IN_CLASS_NAME, "net.openvpn.unified.MainActivity");
-            values.put(KEY_IN_EXTRA_KEY_1, "net.openvpn.openvpn.AUTOSTART_PROFILE_NAME");
-            values.put(KEY_IN_EXTRA_VALUE_1, "AS {your_profile_name}");
-            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
-            values.put(KEY_IN_EXTRA_KEY_2, "net.openvpn.openvpn.AUTOCONNECT");
-            values.put(KEY_IN_EXTRA_VALUE_2, "true");
-            values.put(KEY_IN_EXTRA_TYPE_2, 0); // string
-            values.put(KEY_IN_INTENT_TYPE, 0); // activity
-            values.put(KEY_IN_DO_NOT_DELETE, "1");
-            db.insert(TABLE_INTENTS, null, values);
-
-            values.clear();
-            values.put(KEY_IN_NAME, "[OpenVPN Connect - connect file profile]");
-            values.put(KEY_IN_ACTION, "net.openvpn.openvpn.CONNECT");
-            //values.put(KEY_IN_ACTION, "android.intent.action.VIEW");
-            values.put(KEY_IN_PACKAGE_NAME, "net.openvpn.openvpn");
-            values.put(KEY_IN_CLASS_NAME, "net.openvpn.unified.MainActivity");
-            values.put(KEY_IN_EXTRA_KEY_1, "net.openvpn.openvpn.AUTOSTART_PROFILE_NAME");
-            values.put(KEY_IN_EXTRA_VALUE_1, "PC {your_profile_name}");
-            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
-            values.put(KEY_IN_EXTRA_KEY_2, "net.openvpn.openvpn.AUTOCONNECT");
-            values.put(KEY_IN_EXTRA_VALUE_2, "true");
-            values.put(KEY_IN_EXTRA_TYPE_2, 0); // string
-            values.put(KEY_IN_INTENT_TYPE, 0); // activity
-            values.put(KEY_IN_DO_NOT_DELETE, "1");
-            db.insert(TABLE_INTENTS, null, values);
-
-            values.clear();
-            values.put(KEY_IN_NAME, "[OpenVPN Connect - disconnect]");
-            values.put(KEY_IN_ACTION, "net.openvpn.openvpn.DISCONNECT");
-            values.put(KEY_IN_PACKAGE_NAME, "net.openvpn.openvpn");
-            values.put(KEY_IN_CLASS_NAME, "net.openvpn.unified.MainActivity");
-            values.put(KEY_IN_EXTRA_KEY_1, "net.openvpn.openvpn.STOP");
-            values.put(KEY_IN_EXTRA_VALUE_1, "true");
-            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
-            values.put(KEY_IN_INTENT_TYPE, 0); // activity
-            values.put(KEY_IN_DO_NOT_DELETE, "1");
-            db.insert(TABLE_INTENTS, null, values);
-
-            values.put(KEY_IN_NAME, "[OpenVPN for Android - connect]");
-            values.put(KEY_IN_ACTION, "android.intent.action.MAIN");
-            values.put(KEY_IN_PACKAGE_NAME, "de.blinkt.openvpn");
-            values.put(KEY_IN_CLASS_NAME, "de.blinkt.openvpn.api.ConnectVPN");
-            values.put(KEY_IN_EXTRA_KEY_1, "de.blinkt.openvpn.api.profileName");
-            values.put(KEY_IN_EXTRA_VALUE_1, "{your_profile_name}");
-            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
-            values.put(KEY_IN_INTENT_TYPE, 0); // activity
-            values.put(KEY_IN_DO_NOT_DELETE, "1");
-            db.insert(TABLE_INTENTS, null, values);
-
-            values.put(KEY_IN_NAME, "[OpenVPN for Android - disconnect]");
-            values.put(KEY_IN_ACTION, "android.intent.action.MAIN");
-            values.put(KEY_IN_PACKAGE_NAME, "de.blinkt.openvpn");
-            values.put(KEY_IN_CLASS_NAME, "de.blinkt.openvpn.api.DisconnectVPN");
-            values.put(KEY_IN_EXTRA_KEY_1, "de.blinkt.openvpn.api.profileName");
-            values.put(KEY_IN_EXTRA_VALUE_1, "{your_profile_name}");
-            values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
-            values.put(KEY_IN_INTENT_TYPE, 0); // activity
-            values.put(KEY_IN_DO_NOT_DELETE, "1");
-            db.insert(TABLE_INTENTS, null, values);
-
-        }
-
         if (oldVersion < 2477) {
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_CALLS + "=0");
             db.execSQL("UPDATE " + TABLE_EVENTS + " SET " + KEY_E_RADIO_SWITCH_DEFAULT_SIM_FOR_SMS + "=0");
@@ -3619,6 +3550,171 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("UPDATE " + TABLE_MERGED_PROFILE + " SET " + KEY_END_OF_ACTIVATION_TIME + "=0");
         }
 
+    }
+
+    private void afterUpdateDb(SQLiteDatabase db) {
+        Cursor cursorUpdateDB = null;
+        String intentName;
+        boolean found;
+        ContentValues values = new ContentValues();
+
+        // update volumes by device max value
+        try {
+            intentName = "[OpenVPN Connect - connect URL profile]";
+            cursorUpdateDB = db.rawQuery("SELECT " + KEY_IN_NAME + " FROM " + TABLE_INTENTS +
+                     " WHERE " + KEY_IN_NAME + "=\"" + intentName + "\"",
+                    null);
+            found = false;
+            if (cursorUpdateDB.moveToFirst()) {
+                do {
+                    String name = cursorUpdateDB.getString(cursorUpdateDB.getColumnIndex(KEY_IN_NAME));
+                    if (name.equals(intentName)) {
+                        found = true;
+                        break;
+                    }
+                } while (cursorUpdateDB.moveToNext());
+            }
+            Log.e("DatabaseHandler.afterUpdateDb", "(1) found="+found);
+            if (!found) {
+                values.put(KEY_IN_NAME, intentName);
+                values.put(KEY_IN_ACTION, "net.openvpn.openvpn.CONNECT");
+                //values.put(KEY_IN_ACTION, "android.intent.action.VIEW");
+                values.put(KEY_IN_PACKAGE_NAME, "net.openvpn.openvpn");
+                values.put(KEY_IN_CLASS_NAME, "net.openvpn.unified.MainActivity");
+                values.put(KEY_IN_EXTRA_KEY_1, "net.openvpn.openvpn.AUTOSTART_PROFILE_NAME");
+                values.put(KEY_IN_EXTRA_VALUE_1, "AS {your_profile_name}");
+                values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+                values.put(KEY_IN_EXTRA_KEY_2, "net.openvpn.openvpn.AUTOCONNECT");
+                values.put(KEY_IN_EXTRA_VALUE_2, "true");
+                values.put(KEY_IN_EXTRA_TYPE_2, 0); // string
+                values.put(KEY_IN_INTENT_TYPE, 0); // activity
+                values.put(KEY_IN_DO_NOT_DELETE, "1");
+                db.insert(TABLE_INTENTS, null, values);
+            }
+
+            intentName = "[OpenVPN Connect - connect file profile]";
+            cursorUpdateDB = db.rawQuery("SELECT " + KEY_IN_NAME + " FROM " + TABLE_INTENTS +
+                            " WHERE " + KEY_IN_NAME + "=\"" + intentName + "\"",
+                    null);
+            found = false;
+            if (cursorUpdateDB.moveToFirst()) {
+                do {
+                    String name = cursorUpdateDB.getString(cursorUpdateDB.getColumnIndex(KEY_IN_NAME));
+                    if (name.equals(intentName)) {
+                        found = true;
+                        break;
+                    }
+                } while (cursorUpdateDB.moveToNext());
+            }
+            Log.e("DatabaseHandler.afterUpdateDb", "(2) found="+found);
+            if (!found) {
+                values.clear();
+                values.put(KEY_IN_NAME, intentName);
+                values.put(KEY_IN_ACTION, "net.openvpn.openvpn.CONNECT");
+                //values.put(KEY_IN_ACTION, "android.intent.action.VIEW");
+                values.put(KEY_IN_PACKAGE_NAME, "net.openvpn.openvpn");
+                values.put(KEY_IN_CLASS_NAME, "net.openvpn.unified.MainActivity");
+                values.put(KEY_IN_EXTRA_KEY_1, "net.openvpn.openvpn.AUTOSTART_PROFILE_NAME");
+                values.put(KEY_IN_EXTRA_VALUE_1, "PC {your_profile_name}");
+                values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+                values.put(KEY_IN_EXTRA_KEY_2, "net.openvpn.openvpn.AUTOCONNECT");
+                values.put(KEY_IN_EXTRA_VALUE_2, "true");
+                values.put(KEY_IN_EXTRA_TYPE_2, 0); // string
+                values.put(KEY_IN_INTENT_TYPE, 0); // activity
+                values.put(KEY_IN_DO_NOT_DELETE, "1");
+                db.insert(TABLE_INTENTS, null, values);
+            }
+
+            intentName = "[OpenVPN Connect - disconnect]";
+            cursorUpdateDB = db.rawQuery("SELECT " + KEY_IN_NAME + " FROM " + TABLE_INTENTS +
+                            " WHERE " + KEY_IN_NAME + "=\"" + intentName + "\"",
+                    null);
+            found = false;
+            if (cursorUpdateDB.moveToFirst()) {
+                do {
+                    String name = cursorUpdateDB.getString(cursorUpdateDB.getColumnIndex(KEY_IN_NAME));
+                    if (name.equals(intentName)) {
+                        found = true;
+                        break;
+                    }
+                } while (cursorUpdateDB.moveToNext());
+            }
+            Log.e("DatabaseHandler.afterUpdateDb", "(3) found="+found);
+            if (!found) {
+                values.clear();
+                values.put(KEY_IN_NAME, intentName);
+                values.put(KEY_IN_ACTION, "net.openvpn.openvpn.DISCONNECT");
+                values.put(KEY_IN_PACKAGE_NAME, "net.openvpn.openvpn");
+                values.put(KEY_IN_CLASS_NAME, "net.openvpn.unified.MainActivity");
+                values.put(KEY_IN_EXTRA_KEY_1, "net.openvpn.openvpn.STOP");
+                values.put(KEY_IN_EXTRA_VALUE_1, "true");
+                values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+                values.put(KEY_IN_INTENT_TYPE, 0); // activity
+                values.put(KEY_IN_DO_NOT_DELETE, "1");
+                db.insert(TABLE_INTENTS, null, values);
+            }
+
+            intentName = "[OpenVPN for Android - connect]";
+            cursorUpdateDB = db.rawQuery("SELECT " + KEY_IN_NAME + " FROM " + TABLE_INTENTS +
+                            " WHERE " + KEY_IN_NAME + "=\"" + intentName + "\"",
+                    null);
+            found = false;
+            if (cursorUpdateDB.moveToFirst()) {
+                do {
+                    String name = cursorUpdateDB.getString(cursorUpdateDB.getColumnIndex(KEY_IN_NAME));
+                    if (name.equals(intentName)) {
+                        found = true;
+                        break;
+                    }
+                } while (cursorUpdateDB.moveToNext());
+            }
+            Log.e("DatabaseHandler.afterUpdateDb", "(4) found="+found);
+            if (!found) {
+                values.put(KEY_IN_NAME, intentName);
+                values.put(KEY_IN_ACTION, "android.intent.action.MAIN");
+                values.put(KEY_IN_PACKAGE_NAME, "de.blinkt.openvpn");
+                values.put(KEY_IN_CLASS_NAME, "de.blinkt.openvpn.api.ConnectVPN");
+                values.put(KEY_IN_EXTRA_KEY_1, "de.blinkt.openvpn.api.profileName");
+                values.put(KEY_IN_EXTRA_VALUE_1, "{your_profile_name}");
+                values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+                values.put(KEY_IN_INTENT_TYPE, 0); // activity
+                values.put(KEY_IN_DO_NOT_DELETE, "1");
+                db.insert(TABLE_INTENTS, null, values);
+            }
+
+            intentName = "[OpenVPN for Android - disconnect]";
+            cursorUpdateDB = db.rawQuery("SELECT " + KEY_IN_NAME + " FROM " + TABLE_INTENTS +
+                            " WHERE " + KEY_IN_NAME + "=\"" + intentName + "\"",
+                    null);
+            found = false;
+            if (cursorUpdateDB.moveToFirst()) {
+                do {
+                    String name = cursorUpdateDB.getString(cursorUpdateDB.getColumnIndex(KEY_IN_NAME));
+                    if (name.equals(intentName)) {
+                        found = true;
+                        break;
+                    }
+                } while (cursorUpdateDB.moveToNext());
+            }
+            Log.e("DatabaseHandler.afterUpdateDb", "(5) found="+found);
+            if (!found) {
+                values.put(KEY_IN_NAME, intentName);
+                values.put(KEY_IN_ACTION, "android.intent.action.MAIN");
+                values.put(KEY_IN_PACKAGE_NAME, "de.blinkt.openvpn");
+                values.put(KEY_IN_CLASS_NAME, "de.blinkt.openvpn.api.DisconnectVPN");
+                values.put(KEY_IN_EXTRA_KEY_1, "de.blinkt.openvpn.api.profileName");
+                values.put(KEY_IN_EXTRA_VALUE_1, "{your_profile_name}");
+                values.put(KEY_IN_EXTRA_TYPE_1, 0); // string
+                values.put(KEY_IN_INTENT_TYPE, 0); // activity
+                values.put(KEY_IN_DO_NOT_DELETE, "1");
+                db.insert(TABLE_INTENTS, null, values);
+            }
+
+            cursorUpdateDB.close();
+        } finally {
+            if ((cursorUpdateDB != null) && (!cursorUpdateDB.isClosed()))
+                cursorUpdateDB.close();
+        }
     }
 
     @Override
@@ -3658,6 +3754,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 createIndexes(db);
 
                 updateDb(db, oldVersion);
+
+                afterUpdateDb(db);
 
                 DataWrapper dataWrapper = new DataWrapper(context, false, 0, false, 0, 0, 0f);
 //                PPApplication.logE("[APP_START] DatabaseHandler.onUpgrade", "xxx");
@@ -13020,6 +13118,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                                 updateDb(db, version);
 
+                                afterUpdateDb(db);
                                 afterImportDb(db);
 
                                 db.setTransactionSuccessful();
