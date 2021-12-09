@@ -1514,8 +1514,6 @@ x    <string name="profile_preferences_deviceLocationMode">(G1) Location mode</s
     <string name="profile_preferences_soundsChange">Change sounds</string>
     <string name="profile_preferences_deviceBrightness_automatic">Automatic brightness</string>
     <string name="profile_preferences_deviceBrightness_manual">Manual brightness</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Saved device parameters</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Click here to show saved device parameters.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead of profile icon</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignore and do not pause</string>
@@ -1868,6 +1866,9 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="profile_preferences_red_texts_text_3_new">For this, is not possible to change \"Show in Activator\".</string>
     <string name="profile_preferences_red_texts_text_4">Errors are displayed in profile preferences as red texts at top of preference screen. Please fix it.</string>
     <string name="event_preferences_red_texts_text_4">Errors are displayed in event preferences as red texts at top of preference screen. Please fix it.</string>
+
+    <string name="profile_preferences_savedProfilePreferences_title_new">Configured profile parameters</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">Click here to show configured profile parameters.</string>
 
     <!-- **************************************************************************************** -->
 
