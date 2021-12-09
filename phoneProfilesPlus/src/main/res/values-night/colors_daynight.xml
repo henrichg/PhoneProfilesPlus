@@ -76,6 +76,6 @@
     <color name="altype_error">#FFFF0000</color>
     <color name="altype_other">#FF7F7F7F</color>
 
-    <color name="bottom_navigation_indicator">#80E99B7F</color>
+<!--    <color name="bottom_navigation_indicator">#80E99B7F</color>-->
 
 </resources>
