@@ -3834,21 +3834,27 @@ class ActivateProfileHelper {
                     appIntent = RunApplicationEditorIntentActivityX.createIntent(ppIntent);
                     if (appIntent != null) {
                         if (ppIntent._intentType == 0) {
-                            //noinspection TryWithIdenticalCatches
-                            try {
-                                appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                context.startActivity(appIntent);
-                            } catch (ActivityNotFoundException ee) {
-                                //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (01)");
-                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
-                                        null, profileName, "");
-                            } catch (SecurityException e) {
-                                //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (02)");
-                                PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
-                                        null, profileName, "");
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
+                            /*boolean vpnConnected = false;
+                            if (ppIntent._name.equals("")) {
+
                             }
+                            if (!vpnConnected) {*/
+                                //noinspection TryWithIdenticalCatches
+                                try {
+                                    appIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    context.startActivity(appIntent);
+                                } catch (ActivityNotFoundException ee) {
+                                    //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (01)");
+                                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
+                                            null, profileName, "");
+                                } catch (SecurityException e) {
+                                    //PPApplication.logE("ActivateProfileHelper.doExecuteForRunApplications","intent - ERROR (02)");
+                                    PPApplication.addActivityLog(context, PPApplication.ALTYPE_PROFILE_ERROR_RUN_APPLICATION_INTENT,
+                                            null, profileName, "");
+                                } catch (Exception e) {
+                                    PPApplication.recordException(e);
+                                }
+                            //}
                         }
                         else {
                             try {
