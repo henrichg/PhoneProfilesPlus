@@ -378,5 +378,9 @@ Extender v obchode:
 - It is "plugin", so does NOT work standalone!
 - Designed for co-working with 'PhoneProfilesPlus' application. Without it, this application do nothing.
 
+-----------------------
 
+Ako stiahnut najnovsiu verziu:
 
+https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk
+https://github.com/henrichg/PhoneProfilesPlusExtender/releases/latest/download/PhoneProfilesPlusExtender.apk
