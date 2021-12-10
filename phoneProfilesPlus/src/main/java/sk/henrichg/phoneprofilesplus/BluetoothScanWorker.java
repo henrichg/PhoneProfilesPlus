@@ -630,7 +630,7 @@ public class BluetoothScanWorker extends Worker {
 
             if (Permissions.checkLocation(context)) {
                 boolean startScan = bluetooth.startDiscovery();
-                PPApplication.logE("BluetoothScanWorker.startCLScan", "scanStarted=" + startScan);
+//                PPApplication.logE("BluetoothScanWorker.startCLScan", "scanStarted=" + startScan);
 
                 if (!startScan) {
                     if (ApplicationPreferences.prefEventBluetoothEnabledForScan) {
@@ -843,11 +843,11 @@ public class BluetoothScanWorker extends Worker {
             if (Permissions.hasPermission(context, Manifest.permission.BLUETOOTH)) {
                 if (bluetooth.getState() == BluetoothAdapter.STATE_ON) {
                     Set<BluetoothDevice> boundedDevices = bluetooth.getBondedDevices();
-                    PPApplication.logE("BluetoothScanWorker.fillBoundedDevicesList", "boundedDevices=" + boundedDevices);
+//                    PPApplication.logE("BluetoothScanWorker.fillBoundedDevicesList", "boundedDevices=" + boundedDevices);
                     //boundedDevicesList.clear();
                     if (boundedDevices != null) {
                         for (BluetoothDevice device : boundedDevices) {
-                            PPApplication.logE("BluetoothScanWorker.fillBoundedDevicesList", "device.getName()=" + device.getName());
+//                            PPApplication.logE("BluetoothScanWorker.fillBoundedDevicesList", "device.getName()=" + device.getName());
                             boundedDevicesList.add(new BluetoothDeviceData(device.getName(), device.getAddress(),
                                     getBluetoothType(device), false, 0, true, false));
                         }
