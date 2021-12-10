@@ -7249,7 +7249,6 @@ public class PhoneProfilesService extends Service
 
     //---------------------------
 
-    @SuppressLint("Range")
     private void doSimulatingRingingCall(Intent intent) {
         if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false))
         {
@@ -7327,7 +7326,7 @@ public class PhoneProfilesService extends Service
                 Cursor contactLookupCursor = context.getContentResolver().query(contactLookup, new String[]{ContactsContract.PhoneLookup._ID, ContactsContract.PhoneLookup.CUSTOM_RINGTONE}, null, null, null);
                 if (contactLookupCursor != null) {
                     if (contactLookupCursor.moveToNext()) {
-                        newRingtone = contactLookupCursor.getString(contactLookupCursor.getColumnIndex(ContactsContract.PhoneLookup.CUSTOM_RINGTONE));
+                        newRingtone = contactLookupCursor.getString(contactLookupCursor.getColumnIndexOrThrow(ContactsContract.PhoneLookup.CUSTOM_RINGTONE));
                         if (newRingtone == null)
                             newRingtone = "";
                         else

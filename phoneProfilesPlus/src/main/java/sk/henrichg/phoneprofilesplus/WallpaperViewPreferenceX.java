@@ -240,7 +240,7 @@ public class WallpaperViewPreferenceX extends Preference {
                 new String[] { imageFile }, null);
         //PPApplication.logE("WallpaperViewPreferenceX.getImageContentUri","cursor="+cursor);
         if (cursor != null && cursor.moveToFirst()) {
-            int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.MediaColumns._ID));
             cursor.close();
             //noinspection UnnecessaryLocalVariable
             Uri uri = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + id);

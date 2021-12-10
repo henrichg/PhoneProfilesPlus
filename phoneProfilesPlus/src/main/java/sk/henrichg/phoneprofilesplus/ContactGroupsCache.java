@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
@@ -69,9 +68,9 @@ class ContactGroupsCache {
 
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
-                        long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
+                        long contactGroupId = mCursor.getLong(mCursor.getColumnIndexOrThrow(ContactsContract.Groups._ID));
 
-                        String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
+                        String name = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Groups.TITLE));
                         if (name.equals("My Contacts")) name = context.getString(R.string.contact_group_name_myContacts);
                         if (name.equals("Family")) name = context.getString(R.string.contact_group_name_family);
                         if (name.equals("Friends")) name = context.getString(R.string.contact_group_name_friends);
@@ -79,7 +78,7 @@ class ContactGroupsCache {
                         if (name.equals("Starred in Android")) name = context.getString(R.string.contact_group_name_starred);
                         if (name.equals("Starred")) name = context.getString(R.string.contact_group_name_starred);
 
-                        int count = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT));
+                        int count = mCursor.getInt(mCursor.getColumnIndexOrThrow(ContactsContract.Groups.SUMMARY_COUNT));
 
                         if (count > 0) {
                             ContactGroup aContactGroup = new ContactGroup();
@@ -101,7 +100,7 @@ class ContactGroupsCache {
                         Cursor mCursorGroup = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projectionGroup, selectionGroup, selectionGroupArgs, null);
                         if (mCursorGroup != null) {
                             while (mCursorGroup.moveToNext()) {
-                                long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+                                long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
 //                                if (name.equals("Family")) {
 //                                    Log.e("ContactGroupsCache.getContactGroupList", "contactGroupId=" + contactGroupId);
 //                                    Log.e("ContactGroupsCache.getContactGroupList", "contactId=" + contactId);
@@ -174,7 +173,6 @@ class ContactGroupsCache {
         return name;
     }
 
-    @SuppressLint("Range")
     void getContactGroupListX(Context context) {
         if (cached || caching) return;
 
@@ -232,20 +230,20 @@ class ContactGroupsCache {
                     while (mCursor.moveToNext()) {
 //                        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(3)");
 
-                        long contactGroupId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID));
+                        long contactGroupId = mCursor.getLong(mCursor.getColumnIndexOrThrow(ContactsContract.Groups._ID));
 
-                        String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE));
+                        String name = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Groups.TITLE));
                         if (name != null) {
                             name = translateContactGroup(name, context);
 
-                            String accountType = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.ACCOUNT_TYPE));
+                            String accountType = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Groups.ACCOUNT_TYPE));
 
-                            int count = mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT));
+                            int count = mCursor.getInt(mCursor.getColumnIndexOrThrow(ContactsContract.Groups.SUMMARY_COUNT));
 
-//                        if (mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT)) > 0) {
-//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.groupId=" + mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Groups._ID)));
-//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.name=" + mCursor.getString(mCursor.getColumnIndex(ContactsContract.Groups.TITLE)));
-//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.count=" + mCursor.getInt(mCursor.getColumnIndex(ContactsContract.Groups.SUMMARY_COUNT)));
+//                        if (mCursor.getInt(mCursor.getColumnIndexOrThrow(ContactsContract.Groups.SUMMARY_COUNT)) > 0) {
+//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.groupId=" + mCursor.getLong(mCursor.getColumnIndexOrThrow(ContactsContract.Groups._ID)));
+//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.name=" + mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Groups.TITLE)));
+//                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.count=" + mCursor.getInt(mCursor.getColumnIndexOrThrow(ContactsContract.Groups.SUMMARY_COUNT)));
 //                            PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "aContactGroup.accountType=" + accountType);
 //                        }
 
@@ -297,15 +295,15 @@ class ContactGroupsCache {
                     while (mCursorGroup.moveToNext()) {
 //                        PPApplication.logE("[TEST BATTERY] ContactGroupsCache.getContactGroupListX", "(5)");
 
-                        long groupRowId = mCursorGroup.getLong(mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID));
+                        long groupRowId = mCursorGroup.getLong(mCursorGroup.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.GROUP_ROW_ID));
 //                        PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "groupRowId=" + groupRowId);
 
                         for (long contactGroupId : contactGroupIds) {
                             if (groupRowId == contactGroupId) {
                                 // contact is in contactGroupId group
 
-                                long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
-//                                String contactName = mCursorGroup.getString(mCursorGroup.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.DISPLAY_NAME));
+                                long contactId = mCursorGroup.getLong(mCursorGroup.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+//                                String contactName = mCursorGroup.getString(mCursorGroup.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.DISPLAY_NAME));
 //                                if (/*(contactGroupId == kolegoviaGroupId) &&*/ (contactName.equals("Marek Bobak"))) {
 //                                    PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "contactGroupId=" + contactGroupId);
 //                                    PPApplication.logE("------- ContactGroupsCache.getContactGroupListX", "contactId=" + contactId);

@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.Cursor;
@@ -111,7 +110,6 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
         }
     }
 
-    @SuppressLint("Range")
     static String getSummary(String value, boolean withoutNumbers, Context context) {
         String summary = context.getString(R.string.contacts_multiselect_summary_text_not_selected);
         if (Permissions.checkContacts(context)) {
@@ -136,9 +134,9 @@ public class ContactsMultiSelectDialogPreferenceX extends DialogPreference
                                 //while (phones.moveToNext()) {
                                 if (phones.moveToFirst()) {
                                     found = true;
-                                    summary = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                                    summary = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
                                     if (!withoutNumbers)
-                                        summary = summary + "\n" + phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                        summary = summary + "\n" + phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                     //break;
                                 }
                                 phones.close();

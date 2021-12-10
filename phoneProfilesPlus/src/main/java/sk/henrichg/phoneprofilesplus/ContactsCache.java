@@ -1,6 +1,5 @@
 package sk.henrichg.phoneprofilesplus;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
@@ -26,7 +25,6 @@ class ContactsCache {
         caching = false;
     }
 
-    @SuppressLint("Range")
     void getContactList(Context context)
     {
         if (cached || caching) return;
@@ -75,9 +73,9 @@ class ContactsCache {
                             Cursor mCursor = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_URI, projection, ContactsContract.Contacts._ID + " = " + contactId, null, null);
                             if (mCursor != null) {
                                 if (mCursor.moveToFirst()) {
-                                    name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                                    photoId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
-                                    //hasPhone = Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)));
+                                    name = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
+                                    photoId = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.PHOTO_ID));
+                                    //hasPhone = Integer.parseInt(mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER)));
                                 }
                                 else
                                     name = null;
@@ -101,11 +99,11 @@ class ContactsCache {
                                 if (phones != null) {
                                     if (phones.getCount() > 0) {
                                         while (phones.moveToNext()) {
-                                            String accountType = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET));
+                                            String accountType = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET));
 
                                             //if (accountType.equals(rawAccountType)) {
-                                            long phoneId = phones.getLong(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
-                                            String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                            long phoneId = phones.getLong(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone._ID));
+                                            String phoneNumber = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
 //                                            PPApplication.logE("------- ContactsCache.getContactList", "aContact.name=" + name);
 //                                            PPApplication.logE("------- ContactsCache.getContactList", "aContact.phoneNumber=" + phoneNumber);
@@ -228,13 +226,13 @@ class ContactsCache {
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
                         //try{
-                        long contactId = mCursor.getLong(mCursor.getColumnIndex(ContactsContract.Contacts._ID));
-                        String name = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                        long contactId = mCursor.getLong(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
+                        String name = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
                         if (name != null) {
-//                            String hasPhone = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER));
+//                            String hasPhone = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER));
 //                            PPApplication.logE("------- ContactsCache.getContactList", "hasPhone=" + hasPhone);
-                            String photoId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.PHOTO_ID));
-                            if (Integer.parseInt(mCursor.getString(mCursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
+                            String photoId = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.PHOTO_ID));
+                            if (Integer.parseInt(mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
                                 projection = new String[]{
                                         ContactsContract.CommonDataKinds.Phone._ID,
                                         ContactsContract.CommonDataKinds.Phone.NUMBER,
@@ -243,9 +241,9 @@ class ContactsCache {
                                 Cursor phones = context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
                                 if (phones != null) {
                                     while (phones.moveToNext()) {
-                                        long phoneId = phones.getLong(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
-                                        String phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                                        String accountType = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET));
+                                        long phoneId = phones.getLong(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone._ID));
+                                        String phoneNumber = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                        String accountType = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET));
 
 //                                        PPApplication.logE("------- ContactsCache.getContactList", "aContact.accountType=" + accountType);
 
@@ -367,7 +365,7 @@ class ContactsCache {
                     while (mCursor.moveToNext()) {
 //                        PPApplication.logE("[TEST BATTERY] ContactsCache.getContactList", "(1)");
 
-//                        PPApplication.logE("------- ContactsCache.getContactListX", "accountType=" + mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET)));
+//                        PPApplication.logE("------- ContactsCache.getContactListX", "accountType=" + mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.ACCOUNT_TYPE_AND_DATA_SET)));
 
                         long contactId = mCursor.getLong(0);
                         String phoneNumber = mCursor.getString(1);

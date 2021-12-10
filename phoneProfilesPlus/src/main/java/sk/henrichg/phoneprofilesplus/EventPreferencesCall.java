@@ -672,7 +672,7 @@ class EventPreferencesCall extends EventPreferences {
                 Cursor mCursor = dataWrapper.context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, projection, selection, selectionArgs, null);
                 if (mCursor != null) {
                     while (mCursor.moveToNext()) {
-                        String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+                        String contactId = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
                         String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER};
                         String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?" + " and " +
                                 ContactsContract.CommonDataKinds.Phone.HAS_PHONE_NUMBER + "=1";
@@ -680,7 +680,7 @@ class EventPreferencesCall extends EventPreferences {
                         Cursor phones = dataWrapper.context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
                         if (phones != null) {
                             while (phones.moveToNext()) {
-                                String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                String _phoneNumber = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                 if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                     phoneNumberFound = true;
                                     break;
@@ -761,7 +761,7 @@ class EventPreferencesCall extends EventPreferences {
                             Cursor phones = dataWrapper.context.getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, projection2, selection2, selection2Args, null);
                             if (phones != null) {
                                 while (phones.moveToNext()) {
-                                    String _phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                                    String _phoneNumber = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
                                     if (PhoneNumberUtils.compare(_phoneNumber, phoneNumber)) {
                                         phoneNumberFound = true;
                                         break;

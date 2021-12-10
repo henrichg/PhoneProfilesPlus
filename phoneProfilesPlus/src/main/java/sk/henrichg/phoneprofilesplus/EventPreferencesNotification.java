@@ -1228,7 +1228,7 @@ class EventPreferencesNotification extends EventPreferences {
             //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups mCursor=" + mCursor);
             if (mCursor != null) {
                 while (mCursor.moveToNext()) {
-                    String contactId = mCursor.getString(mCursor.getColumnIndex(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
+                    String contactId = mCursor.getString(mCursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.GroupMembership.CONTACT_ID));
                     String[] projection2 = new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME};
                     String selection2 = ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?";
                     String[] selection2Args = new String[]{contactId};
@@ -1236,7 +1236,7 @@ class EventPreferencesNotification extends EventPreferences {
                     //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups phones=" + phones);
                     if (phones != null) {
                         while (phones.moveToNext()) {
-                            String _contactName = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                            String _contactName = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                             //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contactGroups _contactName=" + _contactName);
 
                             if (text.toLowerCase().contains(_contactName.toLowerCase())) {
@@ -1306,7 +1306,7 @@ class EventPreferencesNotification extends EventPreferences {
                         //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts phones=" + phones);
                         if (phones != null) {
                             while (phones.moveToNext()) {
-                                String _contactName = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                                String _contactName = phones.getString(phones.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                                 //PPApplication.logE("EventPreferencesNotification.isContactConfigured", "_contacts _contactName=" + _contactName);
 
                                 if (text.toLowerCase().contains(_contactName.toLowerCase())) {

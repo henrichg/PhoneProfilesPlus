@@ -34,12 +34,12 @@ class LocationGeofencesPreferenceAdapterX extends CursorAdapter {
         this.context = context;
         this.preferenceFragment = preferenceFragment;
 
-        KEY_G_ID = cursor.getColumnIndex(DatabaseHandler.KEY_G_ID);
-        //KEY_G_LATITUDE = cursor.getColumnIndex(DatabaseHandler.KEY_G_LATITUDE);
-        //KEY_G_LONGITUDE = cursor.getColumnIndex(DatabaseHandler.KEY_G_LONGITUDE);
-        //KEY_G_RADIUS = cursor.getColumnIndex(DatabaseHandler.KEY_G_RADIUS);
-        KEY_G_NAME = cursor.getColumnIndex(DatabaseHandler.KEY_G_NAME);
-        KEY_G_CHECKED = cursor.getColumnIndex(DatabaseHandler.KEY_G_CHECKED);
+        KEY_G_ID = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_ID);
+        //KEY_G_LATITUDE = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_LATITUDE);
+        //KEY_G_LONGITUDE = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_LONGITUDE);
+        //KEY_G_RADIUS = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_RADIUS);
+        KEY_G_NAME = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_NAME);
+        KEY_G_CHECKED = cursor.getColumnIndexOrThrow(DatabaseHandler.KEY_G_CHECKED);
 
         //selectedRB = null;
     }
