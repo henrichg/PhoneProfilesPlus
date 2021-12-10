@@ -2517,10 +2517,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_PREF_INDICATOR_LIGHTNESS);
                 if (_preference != null) {
-                    if (preferenceIndicatorsOneRowEnabled)
-                        _preference.setEnabled(!monochromeIconOneRow);
-                    else
-                        _preference.setEnabled(false);
+                    _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
                 }
             }
         }
@@ -2551,10 +2548,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
                 _preference = prefMng.findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_PREF_INDICATOR_LIGHTNESS);
                 if (_preference != null) {
-                    if (preferenceIndicatorsListEnabled)
-                        _preference.setEnabled(!monochromeIconList);
-                    else
-                        _preference.setEnabled(false);
+                    _preference.setEnabled(preferenceIndicatorsListEnabled);
                 }
             }
         }
@@ -2569,10 +2563,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (changeWidgetListColorsByNightMode) {
                     _preference.setEnabled(false);
                 } else {
-                    if (preferenceIndicatorsListEnabled)
-                        _preference.setEnabled(!monochromeIconList);
-                    else
-                        _preference.setEnabled(false);
+                    _preference.setEnabled(preferenceIndicatorsListEnabled);
                 }
             }
         }
@@ -2587,10 +2578,7 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (changeWidgetOneRowColorsByNightMode) {
                     _preference.setEnabled(false);
                 } else {
-                    if (preferenceIndicatorsOneRowEnabled)
-                        _preference.setEnabled(!monochromeIconOneRow);
-                    else
-                        _preference.setEnabled(false);
+                    _preference.setEnabled(preferenceIndicatorsOneRowEnabled);
                 }
             }
         }
