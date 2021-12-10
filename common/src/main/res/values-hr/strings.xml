@@ -1314,7 +1314,6 @@
     <string name="important_info_android_look_application_settings">Otvorite PhoneProfilesPlus postavke i podesite ih. Pogotovo parametre označene podebljanim tekstom.</string>
     <string name="profile_preferences_red_texts_text_2">Za ovo, ovu opciju nije moguće aktivirati.</string>
     <string name="event_preferences_red_texts_text_2">Za ovo nije moguće promeniti način rada.</string>
-    <string name="profile_preferences_red_texts_text_3">Za ovo, nije moguće prikazati u Aktivatoru.</string>
     <string name="profile_preferences_red_texts_in_header">Neki profili imaju pogreške u svojim postavkama. Ove postavke su označene sa crvenom bojom. Ispravite pogreške.</string>
     <string name="event_preferences_red_texts_in_header">Neki događaji imaju pogreške u svojim postavkama. Ovi događaji su označeni sa crvenom bojom. Ispravite pogreške.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">za povezivanje na SSID</string>
@@ -1503,8 +1502,6 @@
     <string name="profile_preferences_soundsChange">Promijeni zvukove</string>
     <string name="profile_preferences_deviceBrightness_automatic">Auto osvijetljenje</string>
     <string name="profile_preferences_deviceBrightness_manual">Ručno osvetljenje</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Snimljeni parametri uređaja</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Klikni ovdje za prikaz snimljenih parametara uređaja.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Aplikacija umesto ikone profila</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Ako je u status baru prikazana PhoneProfilesPlus aplikacija umesto ikone profila, možete je promeniti. Podesite uređaj \"Postavke\"/\"Obavijesti\"/\"Senka za obavijesti\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignoriraj i nemoj prekidati</string>
@@ -1843,6 +1840,16 @@
     <string name="profile_preferences_disabled">Disabled</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"Never ask again\" for grant root is turned on</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"Never ask again\" for grant root is not turned on</string>
+    <string name="alert_button_install_extender_from_github">Install from GitHub</string>
+    <string name="phone_profiles_pref_device_is_rooted">Device is rooted</string>
+    <string name="phone_profiles_pref_device_is_not_rooted">Device is not rooted</string>
+    <string name="array_pref_change_image_wallpaper_with">(I) Change to image with</string>
+    <string name="show_dialog_about_red_text_show_event_preferences">Show event preferences</string>
+    <string name="profile_preferences_red_texts_text_3_new">For this, is not possible to change \"Show in Activator\".</string>
+    <string name="profile_preferences_red_texts_text_4">Errors are displayed in profile preferences as red texts at top of preference screen. Please fix it.</string>
+    <string name="event_preferences_red_texts_text_4">Errors are displayed in event preferences as red texts at top of preference screen. Please fix it.</string>
+    <string name="profile_preferences_savedProfilePreferences_title_new">Configured profile preferences</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">Click here to show configured profile preferences.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>

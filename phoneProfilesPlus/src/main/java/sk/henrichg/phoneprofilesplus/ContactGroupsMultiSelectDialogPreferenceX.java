@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Parcel;
@@ -84,6 +85,7 @@ public class ContactGroupsMultiSelectDialogPreferenceX extends DialogPreference
         }
     }
 
+    @SuppressLint("Range")
     static String getSummary(String value, Context context) {
         String summary = context.getString(R.string.contacts_multiselect_summary_text_not_selected);
         if (Permissions.checkContacts(context)) {

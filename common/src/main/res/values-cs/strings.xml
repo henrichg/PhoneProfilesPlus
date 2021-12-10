@@ -1314,7 +1314,6 @@
     <string name="important_info_android_look_application_settings">Prosím otevřete Nastavení PhoneProfilesPlus a nakonfigurujte jejich. Speciální parametry označeny tučně.</string>
     <string name="profile_preferences_red_texts_text_2">Pro toto, není možné ho aktivovat.</string>
     <string name="event_preferences_red_texts_text_2">Pro toto, není možné změnit její běh.</string>
-    <string name="profile_preferences_red_texts_text_3">Pro toto, není možné ho zobrazovat v aktivátorů.</string>
     <string name="profile_preferences_red_texts_in_header">Některé profily mají chyby ve svých parametrech. Tyto profily jsou označeny červenou barvou. Prosím opravte je.</string>
     <string name="event_preferences_red_texts_in_header">Některé události mají chyby ve svých parametrech. Tyto události jsou označeny červenou barvou. Prosím opravte je.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">pro připojení ke SSID</string>
@@ -1503,8 +1502,6 @@
     <string name="profile_preferences_soundsChange">Změnit tóny</string>
     <string name="profile_preferences_deviceBrightness_automatic">Automatický jas obrazovky</string>
     <string name="profile_preferences_deviceBrightness_manual">Manuální jas obrazovky</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Uložené parametry zařízení</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Klikněte sem pro zobrazení uložených parametrů zařízení.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Ikona aplikace namísto profilu</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Pokud se ve stavovém řádku namísto ikony profilu zobrazuje ikona aplikace PhoneProfilesPlus, můžete to změnit. Změňte \"Nastavení\" zařízení/\"Upozornění\"/\"Oznamovací roletka\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignorovat a nezastavit</string>
@@ -1843,6 +1840,16 @@
     <string name="profile_preferences_disabled">Zakázáno</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"Příště se již neptat\" pro udělení root práva je zapnuto</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"Příště se již neptat\" pro udělení root práva je vypnuto</string>
+    <string name="alert_button_install_extender_from_github">Instalovat z GitHub</string>
+    <string name="phone_profiles_pref_device_is_rooted">Zařízení je rootováno</string>
+    <string name="phone_profiles_pref_device_is_not_rooted">Zařízení není rootováno</string>
+    <string name="array_pref_change_image_wallpaper_with">(I) Změnit na obrázek s</string>
+    <string name="show_dialog_about_red_text_show_event_preferences">Zobrazit parametry události</string>
+    <string name="profile_preferences_red_texts_text_3_new">Pro toto, není možné změnit \"Zobrazit v Aktivátoru\".</string>
+    <string name="profile_preferences_red_texts_text_4">Chyby se zobrazují v parametrech profilu jako červené texty v horní části obrazovky parametrů. Prosím opravte to.</string>
+    <string name="event_preferences_red_texts_text_4">Chyby se zobrazují v parametrech události jako červené texty v horní části obrazovky parametrů. Prosím opravte to.</string>
+    <string name="profile_preferences_savedProfilePreferences_title_new">Konfigurované parametry profilu</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">Klikněte zde pro zobrazení nakonfigurovaných parametrů profilu.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povolte PhoneProfilesPlusExtender pro:\n• parametr profilu \"Vynutit zastavení aplikací \"\n• parametry události \"Senzor aplikací\", \"Senzor orientace\", \"Senzor SMS/MMS\", \"senzor hovorů\".</string>

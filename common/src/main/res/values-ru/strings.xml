@@ -1314,7 +1314,6 @@
     <string name="important_info_android_look_application_settings">Откройте, пожалуйста, настройки PhoneProfilesPlus и задайте их, особенно параметры, отмеченные жирным текстом.</string>
     <string name="profile_preferences_red_texts_text_2">Поэтому его невозможно активировать.</string>
     <string name="event_preferences_red_texts_text_2">Поэтому невозможно разрешить/запретить его запуск.</string>
-    <string name="profile_preferences_red_texts_text_3">Поэтому его невозможно показать в Активаторе.</string>
     <string name="profile_preferences_red_texts_in_header">Настройки некоторых профилей ошибочны. Такие профили отмечены красным цветом. Пожалуйста, исправьте их.</string>
     <string name="event_preferences_red_texts_in_header">Настройки некоторых событий ошибочны. Такие события отмечены красным цветом. Пожалуйста, исправьте их.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">для подключения к SSID</string>
@@ -1340,7 +1339,7 @@
     <string name="phone_profiles_pref_notificationNotificationStyle">Стиль уведомлений</string>
     <string name="phone_profiles_pref_notificationNotificationStyle_custom">Другой</string>
     <string name="phone_profiles_pref_notificationNotificationStyle_native">Родной</string>
-    <string name="phone_profiles_pref_notificationShowProfileIcon">Показать значок профиля</string>
+    <string name="phone_profiles_pref_notificationShowProfileIcon">Показывать иконку профиля</string>
     <string name="altype_mergedProfileActivation">активация профилей из событий</string>
     <string name="altype_manualRestartEvents">ручной перезапуск событий</string>
     <string name="profile_preferences_configureSoundMode_info">Пожалуйста, настройте также параметр профиля \"Звук профиля\"/\"Звуковой режим\"</string>
@@ -1503,8 +1502,6 @@
     <string name="profile_preferences_soundsChange">Изменить звуки</string>
     <string name="profile_preferences_deviceBrightness_automatic">Автоматическая яркость</string>
     <string name="profile_preferences_deviceBrightness_manual">Ручная яркость</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Сохранённые параметры устройства</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Нажмите сюда, чтобы просмотреть сохранённые параметры устройства.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Значок приложения вместо значка профиля</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Если вместо значка профиля в строке состояния отображается значок PhoneProfilesPlus, вы можете изменить это. Зайдите \"Настройки\"/\"Уведомления\"/\"Скрытые уведомления\"=\"Андроид\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Игнорировать и не приостанавливать</string>
@@ -1783,7 +1780,7 @@
     <string name="important_info_event_event_sensors_waiting">Синий: датчик находится в состоянии ожидания, идёт проверка выполнения условия.</string>
     <string name="important_info_event_event_sensors_passed">Зелёный: условие выполняется.</string>
     <string name="important_info_event_event_sensors_not_pased">Жёлтый: условие не выполняется.</string>
-    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Более высокое расположение</string>
+    <string name="phone_profiles_pref_applicationWidgetHigherLayout">Увеличенный размер</string>
     <string name="profile_preferences_deviceVPNSettingsPrefs">(I) Настройки VPN</string>
     <string name="profile_preferences_deviceVPNInfo">VPN</string>
     <string name="profile_preferences_deviceVPNInfo_summary">Нажмите сюда для просмотра информации о подключении\/отключении VPN, настроенного в приложении OpenVPN.</string>
@@ -1843,6 +1840,16 @@
     <string name="profile_preferences_disabled">Отключено</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">Больше не просить предоставить права суперпользователя - включено</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">Больше не просить предоставить права суперпользователя - не включено</string>
+    <string name="alert_button_install_extender_from_github">Установить с GitHub</string>
+    <string name="phone_profiles_pref_device_is_rooted">Устройство рутировано</string>
+    <string name="phone_profiles_pref_device_is_not_rooted">Устройство не рутировано</string>
+    <string name="array_pref_change_image_wallpaper_with">(I) Изменить на изображение с</string>
+    <string name="show_dialog_about_red_text_show_event_preferences">Показать настройки события</string>
+    <string name="profile_preferences_red_texts_text_3_new">По этой причине изменить параметр \"Показывать в Активаторе\" невозможно.</string>
+    <string name="profile_preferences_red_texts_text_4">Ошибки указаны красным цветом в верхней части экрана настроек профиля. Пожалуйста, исправьте их.</string>
+    <string name="event_preferences_red_texts_text_4">Ошибки указаны красным цветом в верхней части экрана настроек события. Пожалуйста, исправьте их.</string>
+    <string name="profile_preferences_savedProfilePreferences_title_new">Настроенные параметры профиля</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">Нажмите сюда, чтобы посмотреть настроенные параметры профиля.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Разрешите доступ службе PhoneProfilesPlusExtender для использования:\n• параметра профиля \"Принудительная остановка приложений\"\n• параметров события \"Датчик приложений\", \"Датчик ориентации\", \"Датчик SMS/MMS\", \"Датчик вызовов\".</string>

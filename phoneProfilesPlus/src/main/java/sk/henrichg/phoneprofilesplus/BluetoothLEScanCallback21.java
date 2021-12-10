@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
@@ -9,7 +10,7 @@ import android.os.PowerManager;
 
 import java.util.List;
 
-//@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+@SuppressLint("MissingPermission")
 class BluetoothLEScanCallback21 extends ScanCallback {
 
     private final Context context;

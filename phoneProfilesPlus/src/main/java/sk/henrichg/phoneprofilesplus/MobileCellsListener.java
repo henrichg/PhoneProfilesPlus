@@ -179,6 +179,7 @@ class MobileCellsListener extends PhoneStateListener {
         return null;
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onCellInfoChanged(final List<CellInfo> cellInfo)
     {
@@ -375,6 +376,7 @@ class MobileCellsListener extends PhoneStateListener {
         return null;
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onCellLocationChanged (final CellLocation location) {
         super.onCellLocationChanged(location);

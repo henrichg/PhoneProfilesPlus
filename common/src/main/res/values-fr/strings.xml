@@ -1314,7 +1314,6 @@
     <string name="important_info_android_look_application_settings">Veuillez ouvrir les paramètres PhoneProfilesPlus et le configurer. Surtout les paramètres marqués avec du texte en gras.</string>
     <string name="profile_preferences_red_texts_text_2">Pour cela, il n\'est pas possible de l\'activer.</string>
     <string name="event_preferences_red_texts_text_2">Pour cela, il n\'est pas possible de changer son exécution.</string>
-    <string name="profile_preferences_red_texts_text_3">Pour cela, il n\'est pas possible de le montrer dans l\'activateur.</string>
     <string name="profile_preferences_red_texts_in_header">Certains profils ont des erreurs dans leurs préférences. Ces profils sont marqués de couleur rouge. Veuillez les corriger.</string>
     <string name="event_preferences_red_texts_in_header">Certains événements ont des erreurs dans leurs préférences. Ces événements sont marqués de couleur rouge. Veuillez les corriger.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">pour se connecter au SSID</string>
@@ -1503,8 +1502,6 @@
     <string name="profile_preferences_soundsChange">Changer les sons</string>
     <string name="profile_preferences_deviceBrightness_automatic">Luminosité automatique</string>
     <string name="profile_preferences_deviceBrightness_manual">Luminosité manuelle</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Paramètres de l\'appareil enregistrés</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Cliquez ici pour afficher les paramètres sauvegardés de l\'appareil .</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Icône du profil de l\'application</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Si, dans la barre d\'état, l\'application PhoneProfilesPlus est affichée à la place de l\'icône de profil, vous pouvez la modifier. Définissez l\'appareil \"Paramètres\"/\"Notifications\"/\"Apparence de notification\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignorer et ne pas mettre en pause</string>
@@ -1843,6 +1840,16 @@
     <string name="profile_preferences_disabled">Désactivé</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">« Ne plus jamais demander » pour vérifier si le root est autorisé</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">« Ne plus jamais demander » pour vérifier si le root n\'est pas autorisé</string>
+    <string name="alert_button_install_extender_from_github">Install from GitHub</string>
+    <string name="phone_profiles_pref_device_is_rooted">Device is rooted</string>
+    <string name="phone_profiles_pref_device_is_not_rooted">Device is not rooted</string>
+    <string name="array_pref_change_image_wallpaper_with">(I) Change to image with</string>
+    <string name="show_dialog_about_red_text_show_event_preferences">Show event preferences</string>
+    <string name="profile_preferences_red_texts_text_3_new">For this, is not possible to change \"Show in Activator\".</string>
+    <string name="profile_preferences_red_texts_text_4">Errors are displayed in profile preferences as red texts at top of preference screen. Please fix it.</string>
+    <string name="event_preferences_red_texts_text_4">Errors are displayed in event preferences as red texts at top of preference screen. Please fix it.</string>
+    <string name="profile_preferences_savedProfilePreferences_title_new">Configured profile preferences</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">Click here to show configured profile preferences.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>

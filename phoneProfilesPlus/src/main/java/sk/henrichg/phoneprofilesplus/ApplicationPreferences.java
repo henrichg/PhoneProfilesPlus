@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.CheckResult;
 
@@ -1425,7 +1424,6 @@ class ApplicationPreferences {
         // copy bad preference into ok preference
         SharedPreferences mySPrefs = getSharedPreferences(context);
         if (mySPrefs.contains("applicationWidgetChangeColorsByNightMode")) {
-            Log.e("ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode", "applicationWidgetChangeColorsByNightMode exists");
             SharedPreferences.Editor editor = mySPrefs.edit();
             editor.putBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE,
                     mySPrefs.getBoolean("applicationWidgetChangeColorsByNightMode", false));
@@ -1442,8 +1440,6 @@ class ApplicationPreferences {
         applicationWidgetOneRowChangeColorsByNightMode = getSharedPreferences(context).getBoolean(PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE,
                 PPApplication.isPixelLauncherDefault(context) ||
                         PPApplication.isOneUILauncherDefault(context));
-        Log.e("ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode",
-                "applicationWidgetOneRowChangeColorsByNightMode="+applicationWidgetOneRowChangeColorsByNightMode);
     }
     static void applicationWidgetListChangeColorsByNightMode(Context context) {
         // copy bad preference into ok preference

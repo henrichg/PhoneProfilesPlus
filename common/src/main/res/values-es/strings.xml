@@ -1314,7 +1314,6 @@
     <string name="important_info_android_look_application_settings">Por favor, abre los Ajustes de PhoneProfilesPlus y configúrala. Especialmente los parámetros marcados con texto en negrita.</string>
     <string name="profile_preferences_red_texts_text_2">No es posible activar esto.</string>
     <string name="event_preferences_red_texts_text_2">No es posible cambiar la ejecución de esto.</string>
-    <string name="profile_preferences_red_texts_text_3">No es posible mostrar esto en el Activador.</string>
     <string name="profile_preferences_red_texts_in_header">Algunos perfiles tienen errores en sus preferencias. Estos perfiles están marcados en rojo. Por favor, corrígelos.</string>
     <string name="event_preferences_red_texts_in_header">Algunos eventos tienen errores en sus preferencias. Estos perfiles están marcados en rojo. Por favor, corrígelos.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">para conectar a SSID</string>
@@ -1503,8 +1502,6 @@
     <string name="profile_preferences_soundsChange">Cambiar sonidos</string>
     <string name="profile_preferences_deviceBrightness_automatic">Brillo automático</string>
     <string name="profile_preferences_deviceBrightness_manual">Brillo manual</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Parámetros del dispositivo guardados</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Haz clic aquí para mostrar los parámetros del dispositivo guardados.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Aplicación en lugar de icono de perfil</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Si en la barra de estado se muestra el icono de la aplicación PhoneProfilesPlus en lugar del icono de perfil, puedes cambiarlo. Establece el dispositivo \"Configuración\"/\"Notificaciones\"/\"Sombra de notificación\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignorar y no pausar</string>
@@ -1843,6 +1840,16 @@
     <string name="profile_preferences_disabled">Deshabilitado</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"No volver a pedir\" permisos de root está activado</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"No volver a pedir\" permisos de root no está activado</string>
+    <string name="alert_button_install_extender_from_github">Instalar desde GitHub</string>
+    <string name="phone_profiles_pref_device_is_rooted">El dispositivo está rooteado</string>
+    <string name="phone_profiles_pref_device_is_not_rooted">El dispositivo no está rooteado</string>
+    <string name="array_pref_change_image_wallpaper_with">(I) Cambiar a imagen con</string>
+    <string name="show_dialog_about_red_text_show_event_preferences">Mostrar preferencias de evento</string>
+    <string name="profile_preferences_red_texts_text_3_new">Para esto, no es posible cambiar \"Mostrar en Activador\".</string>
+    <string name="profile_preferences_red_texts_text_4">Los errores se muestran en las preferencias de perfil como textos rojos en la parte superior de la pantalla de preferencias. Por favor, corrígelos.</string>
+    <string name="event_preferences_red_texts_text_4">Los errores se muestran en las preferencias de evento como textos rojos en la parte superior de la pantalla de preferencias. Por favor, corrígelos.</string>
+    <string name="profile_preferences_savedProfilePreferences_title_new">Preferencias de perfil configuradas</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">Haz clic aquí para mostrar las preferencias de perfil configuradas.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Permitir a PhoneProfilesPlusExtender:\n• el parámetro de perfil \"Forzar detención\"\n• los parámetros de evento \"sensor de aplicación\", \"sensor de orientación\", \"sensor de SMS/MMS\", \"sensor de llamada\".</string>

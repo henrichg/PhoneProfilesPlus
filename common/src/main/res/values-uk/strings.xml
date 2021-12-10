@@ -1314,7 +1314,6 @@
     <string name="important_info_android_look_application_settings">Відкрийте налаштування PhoneProfilesPlus та налаштуйте його. Особливо параметри, позначені жирним текстом.</string>
     <string name="profile_preferences_red_texts_text_2">Це неможливо активувати.</string>
     <string name="event_preferences_red_texts_text_2">Неможливо змінити його запуск.</string>
-    <string name="profile_preferences_red_texts_text_3">Неможливо показати це в Активаторі.</string>
     <string name="profile_preferences_red_texts_in_header">В деяких профілях є помилки в налаштуваннях. Ці профілі позначені червоним кольором. Виправте це.</string>
     <string name="event_preferences_red_texts_in_header">Деякі події мають помилки в налаштуваннях. Ці події позначені червоним кольором. Будь ласка виправте це.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">щоб під\'єднатись до SSID</string>
@@ -1503,8 +1502,6 @@
     <string name="profile_preferences_soundsChange">Змінити звуки</string>
     <string name="profile_preferences_deviceBrightness_automatic">Яскравість автоматично</string>
     <string name="profile_preferences_deviceBrightness_manual">Яскравість вручну</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Збережені параметри пристрою</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Натисніть тут для показу збережених параметрів пристрою.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Іконка додатку замість іконки профілю</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Якщо, в рядку стану, замість іконки профілю іконка PhoneProfilesPlus, це можна змінити. \"Налаштування\"/ \"Сповіщення\"/ \"Notification shade\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ігнорувати й не призупиняти</string>
@@ -1835,14 +1832,24 @@
     <string name="altype_afterEndOfActivationTime_restartEvents">після досягнення певного часу-перезапуск подій</string>
     <string name="altype_afterEndOfActivationTime_specificProfile">після досягнення певного часу-обумовлений профіль</string>
     <string name="check_releases_open_apkpure">Відкрити APKPure</string>
-    <string name="phone_profiles_pref_category_special_profile_parameters">Special profile parameters</string>
+    <string name="phone_profiles_pref_category_special_profile_parameters">Особливі параметри профілю</string>
     <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn">Примусово встановити яскравість екрану</string>
     <string name="phone_profiles_pref_applicationForceSetBrightnessAtScreenOn_summary">Увімкніть, якщо бажаєте скинути параметри яскравості екрану які взяті з активованого профілю.</string>
-    <string name="phone_profiles_pref_applicationSpecialPreferencesNotAny">There is no special parameter</string>
-    <string name="profile_preferences_forceSetBrightnessAtScreenOn_summary">Enable \"Force set brightness at screen on\" in application settings, if you want to reset screen brightness parameters from activated profile at screen on.</string>
+    <string name="phone_profiles_pref_applicationSpecialPreferencesNotAny">Без особливих параметрів</string>
+    <string name="profile_preferences_forceSetBrightnessAtScreenOn_summary">Увімкніть \"Примусово встановити яскравість екрану\" в налаштуваннях додатку, якщо бажаєте скинути налаштування яскравості, встановлені з налаштувань активованого профілю.</string>
     <string name="profile_preferences_disabled">Вимкнено</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"Ніколи не питати знову\" про надання дозволу root якщо увімкнено</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"Ніколи не питати знову\" про надання дозволу root якщо вимкнуто</string>
+    <string name="alert_button_install_extender_from_github">Install from GitHub</string>
+    <string name="phone_profiles_pref_device_is_rooted">Device is rooted</string>
+    <string name="phone_profiles_pref_device_is_not_rooted">Device is not rooted</string>
+    <string name="array_pref_change_image_wallpaper_with">(I) Change to image with</string>
+    <string name="show_dialog_about_red_text_show_event_preferences">Show event preferences</string>
+    <string name="profile_preferences_red_texts_text_3_new">For this, is not possible to change \"Show in Activator\".</string>
+    <string name="profile_preferences_red_texts_text_4">Errors are displayed in profile preferences as red texts at top of preference screen. Please fix it.</string>
+    <string name="event_preferences_red_texts_text_4">Errors are displayed in event preferences as red texts at top of preference screen. Please fix it.</string>
+    <string name="profile_preferences_savedProfilePreferences_title_new">Configured profile preferences</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">Click here to show configured profile preferences.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>

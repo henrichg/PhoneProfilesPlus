@@ -37,7 +37,7 @@
     <string name="phone_profiles_pref_category_start">启动应用</string>
     <string name="phone_profiles_pref_applicationActivate">启动时激活</string>
     <string name="phone_profiles_pref_applicationClose">激活情景后关闭</string>
-    <string name="phone_profiles_pref_applicationPrefIndicator">配置指示器</string>
+    <string name="phone_profiles_pref_applicationPrefIndicator">设置指示器</string>
     <string name="phone_profiles_pref_applicationHeader">显示激活的情景</string>
     <string name="phone_profiles_pref_applicationAlert">确定激活情景</string>
     <string name="phone_profiles_pref_notificationsToast">显示Toast通知</string>
@@ -86,7 +86,7 @@
     <string name="import_profiles_alert_error">恢复过程中出错</string>
     <string name="export_profiles_alert_title">导出设置</string>
     <string name="export_profiles_alert_error">导出过程中出错</string>
-    <string name="profile_preferences_deviceMobileDataPrefs">(I) 移动数据首选项</string>
+    <string name="profile_preferences_deviceMobileDataPrefs">(I) 移动数据设置</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_color">彩色的</string>
     <string name="phone_profiles_pref_notificationStatusBarStyle_android">原生</string>
     <string name="phone_profiles_pref_applicationLongClickActivation">长按激活情景</string>
@@ -160,7 +160,7 @@
     <string name="event_list_item_menu_stop">停止事件</string>
     <string name="event_list_item_menu_duplicate">制作副本</string>
     <string name="event_list_item_menu_delete">删除</string>
-    <string name="phone_profiles_pref_notificationPrefIndicator">显示首选项指示器</string>
+    <string name="phone_profiles_pref_notificationPrefIndicator">显示设置指示器</string>
     <string name="phone_profiles_pref_applicationHomeLauncher">从主屏幕中启动</string>
     <string name="phone_profiles_pref_applicationWidgetLauncher">从小部件中启动</string>
     <string name="phone_profiles_pref_notificationLauncher">从通知中启动</string>
@@ -346,7 +346,7 @@
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">在蓝牙名称中，</string>
     <string name="calendar_pref_dlg_info_about_wildcards">在搜索字符串中，</string>
     <string name="pref_dlg_info_about_wildcards_3">用 “\u005C” 把这些字符包围起来。</string>
-    <string name="important_info_profile_settings">一些情景设置项需要在系统设置中进行更改，这些首选项标记为“(S)”。</string>
+    <string name="important_info_profile_settings">一些情景设置项需要在系统设置中进行更改，这些设置标记为“(S)”。</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">通知访问</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">进行振动通知的优先事项</string>
     <string name="important_info_news">新闻</string>
@@ -527,7 +527,7 @@
     <string name="permissions_for_play_ringtone_notification_text1">您已从 SD 卡选择铃声/通知音。由于需要某些权限，铃声不会被播放。</string>
     <string name="permissions_for_play_ringtone_notification_text2">请在下一个对话框中授权，然后铃声才会播放。</string>
     <string name="permissions_for_play_ringtone_notification_big_text_notification">播放选定的铃声/通知音需要授予某些必要权限。</string>
-    <string name="important_info_profile_interactive">某些情景首选项是需要交互的，这些首选项将会调用系统设置页面，标记为“(I)”。</string>
+    <string name="important_info_profile_interactive">某些情景设置是需要交互的，这些设置将会调用系统设置页面，标记为“(I)”。</string>
     <string name="important_info_orange_text">注意：本信息中的橙色文本可以点击。点击此文本打开相关设置界面。</string>
     <string name="default_event_name_night_call">夜间电话</string>
     <string name="alert_message_enable_event">未启用事件运行，是否要启用？</string>
@@ -695,13 +695,13 @@
     <string name="editor_activity_targetHelps_deleteAllEventsButton_title">删除所有事件</string>
     <string name="editor_activity_targetHelps_deleteAllEventsButton_description">点击此处删除所有事件。</string>
     <string name="editor_activity_targetHelps_profilePreferences_title">情景设置</string>
-    <string name="editor_activity_targetHelps_profilePreferences_description">单击此按钮打开情景首选项编辑器。</string>
+    <string name="editor_activity_targetHelps_profilePreferences_description">单击此按钮打开情景设置编辑器。</string>
     <string name="editor_activity_targetHelps_profileMenu_title">情景菜单</string>
     <string name="editor_activity_targetHelps_profileMenu_description">单击此按钮打开情景菜单，其中包含以下选项：激活、复制和删除情景。</string>
     <string name="editor_activity_targetHelps_profileOrderHandler_title">排序手柄</string>
     <string name="editor_activity_targetHelps_profileOrderHandler_description">向上/向下拖动排序手柄以更改激活清单中情景的显示顺序。</string>
     <string name="editor_activity_targetHelps_eventPreferences_title">事件设置</string>
-    <string name="editor_activity_targetHelps_eventPreferences_description">单击此按钮可打开事件首选项编辑器。</string>
+    <string name="editor_activity_targetHelps_eventPreferences_description">单击此按钮可打开事件设置编辑器。</string>
     <string name="editor_activity_targetHelps_eventMenu_title">事件菜单</string>
     <string name="editor_activity_targetHelps_eventMenu_description">单击此按钮打开包含选项的事件菜单：启用/停止运行、复制和删除事件。</string>
     <string name="editor_activity_targetHelps_eventOrderHandler_title">排序手柄</string>
@@ -771,7 +771,7 @@
     <string name="ringtone_preference_default_alarm">默认警报</string>
     <string name="ringtone_preference_none">无</string>
     <string name="event_preferences_notificationVibrate">通过振动通知</string>
-    <string name="important_info_profile_grant">某些情景首选项需要 WRITE_SECURE_SETTINGS 权限。 ROOT 不是必需的。这些首选项标有“(G1)”。</string>
+    <string name="important_info_profile_grant">某些情景设置需要 WRITE_SECURE_SETTINGS 权限。 ROOT 不是必需的。这些设置标有“(G1)”。</string>
     <string name="important_info_profile_grant_1_howTo_1">标有(G1) 的情景参数需要 PhoneProfilesPlus 的特殊权限。这是通过安装了 adb 的 PC 完成的。</string>
     <string name="important_info_profile_grant_1_howTo_2">如果您的PC上没有安装adb：</string>
     <string name="important_info_profile_grant_1_howTo_3">从以下位置下载SDK平台工具：</string>
@@ -857,7 +857,7 @@
     <string name="preference_not_allowed_reason_extender_not_upgraded">未升级的PhoneProfilesPlusExtender</string>
     <string name="profile_activation_interactive_preference_notification_title">激活的情景：</string>
     <string name="profile_activation_interactive_preference_notification_text">点击此处打开：</string>
-    <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi 热点首选项</string>
+    <string name="profile_preferences_deviceWiFiAPPrefs">(I) Wi-Fi 热点设置</string>
     <string name="preference_not_allowed_reason_not_supported_android_version">不支持Android版本</string>
     <string name="event_preferences_notifications_inCall">通话中</string>
     <string name="event_preferences_notifications_missedCall">未接来电</string>
@@ -907,7 +907,7 @@
     <string name="shortcut_activate_profile">激活配置:</string>
     <string name="profile_preferences_deviceForceStopApplicationsInfo_summary">它仅在屏幕打开和解锁时才有效。</string>
     <string name="important_info_contact">如果您有任何问题，疑问和建议，请给我发电子邮件：</string>
-    <string name="profile_preferences_deviceNetworkTypePrefs">(I) 移动网络类型首选项</string>
+    <string name="profile_preferences_deviceNetworkTypePrefs">(I) 移动网络类型设置</string>
     <string name="profile_preferences_deviceCloseAllApplications">关闭所有应用程序</string>
     <string name="array_pref_do_not_close">不要关闭</string>
     <string name="array_pref_close">关闭</string>
@@ -921,7 +921,7 @@
     <string name="profile_preferences_category_touchEffects">触摸效果</string>
     <string name="profile_preferences_soundOnTouch">触摸声</string>
     <string name="profile_preferences_dtmfToneWhenDialing">拨号时DTMF音</string>
-    <string name="not_saved_changes_alert_title">偏好改变了</string>
+    <string name="not_saved_changes_alert_title">设置已更改</string>
     <string name="not_saved_changes_alert_message">保存更改？</string>
     <string name="export_profiles_alert_message">备份文件将被保存到用户定义的目录。</string>
     <string name="export_profiles_alert_message_note">注意：备份文件包含敏感的私有数据。将文件分发给第三方，例如在带有密码的zip文件中。</string>
@@ -940,11 +940,11 @@
     <string name="phone_profiles_pref_applicationEventMobileCellsRegistration_stop">停止</string>
     <string name="mobile_cells_registration_pref_dlg_add_event_button">添加活动</string>
     <string name="mobile_cells_registration_pref_dlg_remove_event_button">删除事件</string>
-    <string name="altype_eventPreferencesChanged">事件偏好已更改</string>
+    <string name="altype_eventPreferencesChanged">事件设置已更改</string>
     <string name="altype_eventDeleted">活动已删除</string>
     <string name="altype_profileDeleted">情景已删除</string>
-    <string name="altype_profilePreferencesChanged">情景首选项已更改</string>
-    <string name="altype_sharedProfilePreferencesChanged">共享的情景首选项</string>
+    <string name="altype_profilePreferencesChanged">情景设置已更改</string>
+    <string name="altype_sharedProfilePreferencesChanged">共享的情景设置</string>
     <string name="altype_allEventsDeleted">删除所有事件</string>
     <string name="altype_allProfilesDeleted">所有情景已删除</string>
     <string name="event_preference_wifi_ssidName_type" tools:ignore="TypographyOther">(C) 在系统中配置，(S) 由扫描器返回。</string>
@@ -956,7 +956,7 @@
     <string name="permission_not_ask_button">不询问</string>
     <string name="brightness_pref_dialog_level_chb">更改层级</string>
     <string name="preference_profile_manual_brightness">手动</string>
-    <string name="important_info_event_system_settings">某些事件首选项需要更改系统设置。这些首选项标有“(S)”。</string>
+    <string name="important_info_event_system_settings">某些事件设置需要更改系统设置。这些设置标有“(S)”。</string>
     <string name="preferences_grantPermissions_title">未授予权限</string>
     <string name="preferences_grantPermissions_summary">某些权限未授予。点击这里授予它。</string>
     <string name="event_preferences_no_sensor_is_enabled">没有启用传感器！</string>
@@ -1045,7 +1045,7 @@
     <string name="about_application_support">支持：</string>
     <string name="about_application_support2">联系：</string>
     <string name="about_application_support_subject">支持</string>
-    <string name="dashclock_extension_description">以配置指示器显示激活的情景。触碰时打开激活清单。</string>
+    <string name="dashclock_extension_description">以设置指示器显示激活的情景。触碰时打开激活清单。</string>
     <string name="phone_profiles_pref_applicationWidgetIconCustomIconLightness">使用图标亮度自定义情景图标</string>
     <string name="preferences_not_enabled_accessibility_service_title">无法启用辅助功能服务！</string>
     <string name="profile_preferences_volumeVoiceCall">语音通话音量</string>
@@ -1153,7 +1153,7 @@
     <string name="profile_preferences_volumeAccessibility">辅助功能音量</string>
     <string name="profile_preferences_volumeBluetoothSCO">蓝牙通话音量</string>
     <string name="profile_preferences_enabled">已启用</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">点击这里显示有关首选项类型的信息：(G1)、(R)、(S)、(I)。</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">点击这里显示有关设置类型的信息：(G1)、(R)、(S)、(I)。</string>
     <string name="profile_preferences_types_G1_show_info">点击此处显示更多信息。</string>
     <string name="popup_window_events_status_show_info">点击此处显示更多信息。</string>
     <string name="important_info_profile_type_of_preferences">设置类型:</string>
@@ -1302,11 +1302,11 @@
     <string name="event_preferences_notifications_contacts">联系人</string>
     <string name="event_preferences_notifications_checkText">检查文本</string>
     <string name="event_preferences_notifications_text">文本</string>
-    <string name="profile_preferences_red_texts_title">情景首选项错误</string>
+    <string name="profile_preferences_red_texts_title">情景设置错误</string>
     <string name="profile_preferences_red_texts_text_1">情景</string>
     <string name="event_preferences_red_texts_text_1">事件</string>
-    <string name="event_preferences_red_texts_title">事件首选项错误</string>
-    <string name="preferences_red_texts_text_2">在它的首选项中有一些错误。</string>
+    <string name="event_preferences_red_texts_title">事件设置错误</string>
+    <string name="preferences_red_texts_text_2">在它的设置中有一些错误。</string>
     <string name="preferences_red_texts_text_click">单击此通知以打开它。</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogs">Wi-Fi 和蓝牙确认对话框</string>
     <string name="phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info">对于\"ColorOs\"，可以禁用这些对话框。点击此处显示方法。</string>
@@ -1314,9 +1314,8 @@
     <string name="important_info_android_look_application_settings">请打开 PhoneProfilesPlus 设置并配置它。特别是用粗体字标记的参数。</string>
     <string name="profile_preferences_red_texts_text_2">此项可能无法激活。</string>
     <string name="event_preferences_red_texts_text_2">此项更改可能无法运行。</string>
-    <string name="profile_preferences_red_texts_text_3">此项可能无法在激活清单中显示</string>
-    <string name="profile_preferences_red_texts_in_header">一些情景的首选项有错误。这些情景已标记为红色。请修复它。</string>
-    <string name="event_preferences_red_texts_in_header">一些事件的首选项有错误。这些事件已标记为红色。请修复它。</string>
+    <string name="profile_preferences_red_texts_in_header">一些情景的设置有错误。这些情景已标记为红色。请修复它。</string>
+    <string name="event_preferences_red_texts_in_header">一些事件的设置有错误。这些事件已标记为红色。请修复它。</string>
     <string name="permission_why_profile_connect_to_ssid_preference">连接到 SSID</string>
     <string name="permissions_for_connect_to_ssid_dialog_text1">连接到 SSID 需要一些权限。</string>
     <string name="permissions_for_connect_to_ssid_dialog_text2">请在下一个对话框中授权。然后将显示已配置的 SSID 列表。</string>
@@ -1349,9 +1348,9 @@
     <string name="array_pref_soundModeArray_ZenModeM_On">勿扰模式开启</string>
     <string name="draw_over_apps_permission_notification_title">“在其他应用上显示”权限</string>
     <string name="draw_over_apps_permission_notification_text">您必须授予“在其他应用上显示”权限。它需要在 PhoneProfilesPlus 处于后台时激活。点击此处授权。</string>
-    <string name="profile_preferences_types_G1_permission">(G1) 首选项的授权</string>
-    <string name="preferences_grantG1Preferences_title">未授予(G1) 首选项权限</string>
-    <string name="preferences_grantG1Preferences_summary">未授予 (G1) 首选项的权限。点击此处授权。</string>
+    <string name="profile_preferences_types_G1_permission">(G1) 设置的授权</string>
+    <string name="preferences_grantG1Preferences_title">未授予(G1) 设置权限</string>
+    <string name="preferences_grantG1Preferences_summary">未授予 (G1) 设置的权限。点击此处授权。</string>
     <string name="phone_profiles_pref_grantG1Permission_summary">请授予 PhoneProfilesPlus 的 WRITE_SECTINGS 权限。情景和事件参数以 (G1) 标记。若 ROOT 则不需要。</string>
     <string name="profile_preferences_profile_not_found">找不到情景，已删除？</string>
     <string name="event_preferences_event_not_found">找不到事件，已删除？</string>
@@ -1413,7 +1412,7 @@
     <string name="toast_import_from_pp_ok">从 PhoneProfiles 导入的数据</string>
     <string name="export_pp_data_dialog_profiles_chb">导入情景</string>
     <string name="export_pp_data_dialog_delete_configured_profiles_chb">删除已配置的情景</string>
-    <string name="export_pp_data_dialog_application_preferences_chb">导入应用程序首选项</string>
+    <string name="export_pp_data_dialog_application_preferences_chb">导入应用程序设置</string>
     <string name="export_pp_data_dialog_start_pp">如果PhoneProfiles 未运行，请启动</string>
     <string name="export_data_email_subject">导出设置</string>
     <string name="backup_settings_alert_title">备份设置</string>
@@ -1503,8 +1502,6 @@
     <string name="profile_preferences_soundsChange">更改声音</string>
     <string name="profile_preferences_deviceBrightness_automatic">自动亮度</string>
     <string name="profile_preferences_deviceBrightness_manual">手动亮度</string>
-    <string name="profile_preferences_savedProfilePreferences_title">已保存的设备参数</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">点击这里显示已保存的设备参数。</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">应用程序改为情景图标</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">如果在状态栏显示PhoneProfilesPlus 应用程序而不是情景图标，您可以更改它。设置设备\"设置\"/\"通知\"/\"通知\"=\"Android\"。</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">忽略且不暂停</string>
@@ -1719,7 +1716,7 @@
     <string name="phone_profiles_pref_notificationShowReastartEventsAsButton">\"重启事件\"显示为按钮</string>
     <string name="check_ppp_releases_notification">点击此通知以检查 PhoneProfilesPlus 版本。也许会发布更新版本。</string>
     <string name="check_github_releases_install_info_app_stores_release">"应用程序商店将很快有新版本。"</string>
-    <string name="show_dialog_about_red_text_show_profile_preferences">显示情景首选项</string>
+    <string name="show_dialog_about_red_text_show_profile_preferences">显示情景设置</string>
     <string name="show_dialog_about_red_text_show_editor">显示编辑器</string>
     <string name="array_pref_change_image_wallpaper">更改为图片</string>
     <string name="array_pref_change_live_wallpaper">(I) 更改为动态壁纸</string>
@@ -1843,6 +1840,16 @@
     <string name="profile_preferences_disabled">已禁用</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">“不再询问”Root 授权开启</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">“不再询问”Root 授权未开启</string>
+    <string name="alert_button_install_extender_from_github">从 GitHub 安装</string>
+    <string name="phone_profiles_pref_device_is_rooted">设备已获取root权限</string>
+    <string name="phone_profiles_pref_device_is_not_rooted">设备未获取root权限</string>
+    <string name="array_pref_change_image_wallpaper_with">(I) 更改图像为</string>
+    <string name="show_dialog_about_red_text_show_event_preferences">显示事件设置</string>
+    <string name="profile_preferences_red_texts_text_3_new">为此，无法更改\"在激活清单中显示\"。</string>
+    <string name="profile_preferences_red_texts_text_4">在情景设置中，顶部显示的红色文本为错误提示。 请修复它。</string>
+    <string name="event_preferences_red_texts_text_4">在事件设置中，顶部显示的红色文本为错误提示。 请修复它。</string>
+    <string name="profile_preferences_savedProfilePreferences_title_new">已保存情景设置</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">点此显示已保存的情景设置。</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">允许PhoneProfilesPlusExtender：\n•情景参数“强制停止应用程序”\n•事件参数“应用程序传感器”，“方向传感器”，“SMS / MMS传感器”，“呼叫传感器”。</string>

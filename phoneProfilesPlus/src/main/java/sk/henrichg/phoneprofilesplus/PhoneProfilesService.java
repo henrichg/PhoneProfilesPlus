@@ -7249,6 +7249,7 @@ public class PhoneProfilesService extends Service
 
     //---------------------------
 
+    @SuppressLint("Range")
     private void doSimulatingRingingCall(Intent intent) {
         if (intent.getBooleanExtra(EXTRA_SIMULATE_RINGING_CALL, false))
         {

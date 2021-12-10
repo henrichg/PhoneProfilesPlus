@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
@@ -173,6 +174,7 @@ class ContactGroupsCache {
         return name;
     }
 
+    @SuppressLint("Range")
     void getContactGroupListX(Context context) {
         if (cached || caching) return;
 

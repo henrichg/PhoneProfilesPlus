@@ -1314,7 +1314,6 @@
     <string name="important_info_android_look_application_settings">Prosím otvorte Nastavenia PhoneProfilesPlus a nakonfigurujte ich. Špeciálne parametre označené hrubým písmom.</string>
     <string name="profile_preferences_red_texts_text_2">Pre toto, nie je možné ho aktivovať.</string>
     <string name="event_preferences_red_texts_text_2">Pre toto, nie je možné zmeniť jej beh.</string>
-    <string name="profile_preferences_red_texts_text_3">Pre toto, nie je možné ho zobrazovať v Aktivátore.</string>
     <string name="profile_preferences_red_texts_in_header">Niektoré profily majú chyby vo svojich parametroch. Tieto profily sú označené červenou farbou. Prosím opravte ich.</string>
     <string name="event_preferences_red_texts_in_header">Niektoré udalosti majú chyby vo svojich parametroch. Tieto udalosti sú označené červenou farbou. Prosím opravte ich.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">pre pripojenie ku SSID</string>
@@ -1503,8 +1502,6 @@
     <string name="profile_preferences_soundsChange">Zmeniť tóny</string>
     <string name="profile_preferences_deviceBrightness_automatic">Automatický jas obrazovky</string>
     <string name="profile_preferences_deviceBrightness_manual">Manuálny jas obrazovky</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Uložené parametre zariadenia</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Kliknite sem pre zobrazenie uložených parametrov zariadenia.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Ikona aplikácie namiesto profilu</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Ak sa v stavovom riadku namiesto ikony profilu zobrazuje ikona aplikácie PhoneProfilesPlus, môžete to zmeniť. Zmeňte \"Nastavenia\" zariadenia/\"Upozornenia\"/\"Notifikačná roletka“=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignorovať a nezastaviť</string>
@@ -1843,6 +1840,16 @@
     <string name="profile_preferences_disabled">Zakázané</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"Nikdy viac sa nepýtať\" pre udelenie root práva je zapnuté</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"Nikdy viac sa nepýtať\" pre udelenie root práva je vypnuté</string>
+    <string name="alert_button_install_extender_from_github">Nainštalovať z GitHub</string>
+    <string name="phone_profiles_pref_device_is_rooted">Zariadenie je rootnuté</string>
+    <string name="phone_profiles_pref_device_is_not_rooted">Zariadenie nie je rootnuté</string>
+    <string name="array_pref_change_image_wallpaper_with">(I) Zmeniť na obrázok s</string>
+    <string name="show_dialog_about_red_text_show_event_preferences">Zobraziť nastavenia udalosti</string>
+    <string name="profile_preferences_red_texts_text_3_new">Pre toto, nie je možné zmeniť \"Zobrazuj v Aktivátore\".</string>
+    <string name="profile_preferences_red_texts_text_4">Chyby sa zobrazujú v parametroch profilu ako červené texty v hornej časti obrazovky parametrov. Prosím opravte to.</string>
+    <string name="event_preferences_red_texts_text_4">Chyby sa zobrazujú v parametroch udalosti ako červené texty v hornej časti obrazovky parametrov. Prosím opravte to.</string>
+    <string name="profile_preferences_savedProfilePreferences_title_new">Nakonfigurované parametre profilu</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">Kliknite sem pre zobrazenie nakonfigurovaných parametrov profilu.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Povoľte PhoneProfilesPlusExtender pre:\n• parameter profilu \"Vynútiť zastavenie aplikácií\"\n• parametre udalosti \"Senzor aplikácií\", \"Senzor orientácie\", \"Senzor SMS/MMS\", \"Senzor hovorov\".</string>

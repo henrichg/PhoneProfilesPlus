@@ -1314,7 +1314,6 @@
     <string name="important_info_android_look_application_settings">Bitte öffnen Sie die Einstellungen von PhoneProfilesPlus und konfigurieren Sie diese. Insbesondere Parameter, die mit fettgedrucktem Text gekennzeichnet sind.</string>
     <string name="profile_preferences_red_texts_text_2">Eine Aktivierung ist hierfür nicht möglich.</string>
     <string name="event_preferences_red_texts_text_2">Eine Änderung der Ausführung ist hierfür nicht möglich.</string>
-    <string name="profile_preferences_red_texts_text_3">Eine Anzeige im Starter ist hierfür nicht möglich.</string>
     <string name="profile_preferences_red_texts_in_header">Einige Profile enthalten Fehler in ihren Einstellungen. Diese Profile wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
     <string name="event_preferences_red_texts_in_header">Einige Ereignisse enthalten Fehler in den Einstellungen. Diese Ereignisse wurden mit roter Farbe gekennzeichnet. Bitte korrigieren Sie diese.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">für Verbinden mit SSID</string>
@@ -1503,8 +1502,6 @@
     <string name="profile_preferences_soundsChange">Töne ändern</string>
     <string name="profile_preferences_deviceBrightness_automatic">Automatische Helligkeit</string>
     <string name="profile_preferences_deviceBrightness_manual">Helligkeit manuell einstellen</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Gespeicherte Geräteparameter</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Hier klicken, um gespeicherte Geräteparameter anzuzeigen.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Symbol der Anwendung statt des Profils</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">Wenn in der Statusleiste anstelle des Profilsymbols das Symbol der App PhoneProfilesPlus angezeigt wird, können Sie diese ändern. Gerät-„Einstellungen” ➜ „Benachrichtigungen” ➜ „Benachrichtigungsleiste”＝„Android”</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignorieren und nicht pausieren</string>
@@ -1843,6 +1840,16 @@
     <string name="profile_preferences_disabled">Deaktiviert</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">„Nicht erneut nachfragen” wenn Root-Zugriff aktiviert ist</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">„Nicht erneut nachfragen” wenn Root-Zugriff nicht aktiviert ist</string>
+    <string name="alert_button_install_extender_from_github">Install from GitHub</string>
+    <string name="phone_profiles_pref_device_is_rooted">Device is rooted</string>
+    <string name="phone_profiles_pref_device_is_not_rooted">Device is not rooted</string>
+    <string name="array_pref_change_image_wallpaper_with">(I) Change to image with</string>
+    <string name="show_dialog_about_red_text_show_event_preferences">Show event preferences</string>
+    <string name="profile_preferences_red_texts_text_3_new">For this, is not possible to change \"Show in Activator\".</string>
+    <string name="profile_preferences_red_texts_text_4">Errors are displayed in profile preferences as red texts at top of preference screen. Please fix it.</string>
+    <string name="event_preferences_red_texts_text_4">Errors are displayed in event preferences as red texts at top of preference screen. Please fix it.</string>
+    <string name="profile_preferences_savedProfilePreferences_title_new">Configured profile preferences</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">Click here to show configured profile preferences.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">PhoneProfilesPlusExtender erlauben für:\n• Profilparameter „Anwendungen anhalten erzwingen”\n• Ereignisparameter „Anwendungssensor”, „Orientierungssensor”, „SMS/MMS-Sensor”, „Anrufsensor”</string>

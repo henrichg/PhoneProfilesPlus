@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ public class CheckCriticalPPPReleasesDisableActivity extends AppCompatActivity
     static final String EXTRA_PPP_RELEASE_CRITICAL = "github_release_critical";
     static final String EXTRA_PPP_RELEASE_CODE = "github_release_code";
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

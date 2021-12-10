@@ -271,7 +271,8 @@ public class PPApplication extends Application
                                                 //+"|PhoneProfilesService.registerAllTheTimeRequiredSystemReceivers"
                                                 //+"|$$$B BluetoothScanner"
                                                 //+"|$$$B PhoneProfilesService"
-                                                //+"|BluetoothScanWorker.startCLScan"
+                                                +"|BluetoothScanWorker.startCLScan"
+                                                +"|BluetoothScanWorker.fillBoundedDevicesList"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;

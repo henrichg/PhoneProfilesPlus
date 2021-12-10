@@ -317,7 +317,7 @@
     <string name="array_pref_atEndDo_undoneProfile">プロファイルを元に戻す</string>
     <string name="array_pref_atEndDo_restartEvents">イベントを再始動</string>
     <string name="event_preference_profile_restartEvents">再実行</string>
-    <string name="altype_eventEnd_restartEvents">pause event - restart events</string>
+    <string name="altype_eventEnd_restartEvents">イベント一時停止 - イベント再始動</string>
     <string name="altype_eventEnd_activateProfile_restartEvents">pause event - activate and restart events</string>
     <string name="event_preference_calendar_availability">利用可能</string>
     <string name="array_event_pref_calendarAvailability_noCheck">確認しない</string>
@@ -825,7 +825,7 @@
     <string name="about_application_extender_source_code">Source code - Extender:</string>
     <string name="pref_dlg_info_about_wildcards_4">You can configure more strings. Separate it with character \"|\".</string>
     <string name="editor_activity_targetHelps_backgroundProfileButton_title">既定のプロファイル</string>
-    <string name="editor_activity_targetHelps_backgroundProfileButton_description">This profile will activate when no event is running. Click this to configure it.</string>
+    <string name="editor_activity_targetHelps_backgroundProfileButton_description">このプロファイルは、実行されているイベントが何もないときに有効になります。ここをクリックして設定します。</string>
     <string name="mobile_cell_names_dialog_title">セル名</string>
     <string name="mobile_cell_names_dialog_filter_title">セル名フィルタ</string>
     <string name="mobile_cell_names_dialog_item_show_selected">[ 選択済み ]</string>
@@ -1219,8 +1219,8 @@
     <string name="ignore_battery_optimization_notification_text">Please click here and add PhoneProfilesPlus to \"Not optimized\". It is required for working good with the screen off.</string>
     <string name="array_show_profile_in_activator_not_show">非表示</string>
     <string name="array_show_profile_in_activator_show">表示</string>
-    <string name="editor_activity_targetHelps_showInActivator_title">Show profile in Activator</string>
-    <string name="editor_activity_targetHelps_showInActivator_description">Click this to configure profile parameter \"Show in Activator\".</string>
+    <string name="editor_activity_targetHelps_showInActivator_title">アクティベーターにプロファイルを表示</string>
+    <string name="editor_activity_targetHelps_showInActivator_description">ここをクリックして、プロファイルを\"アクティベーターに表示\"するかを設定します。</string>
     <string name="profile_preferences_alwaysOnDisplay">(R) Always-On display</string>
     <string name="permission_why_profile_always_on_display">for enable/disable Always-On display</string>
     <string name="array_ignore_manual_activation_not_ignore">Do not ignore</string>
@@ -1314,7 +1314,6 @@
     <string name="important_info_android_look_application_settings">Please open PhoneProfilesPlus Settings and configure it. Especially parameters marked with bold text.</string>
     <string name="profile_preferences_red_texts_text_2">For this, is not possible to activate it.</string>
     <string name="event_preferences_red_texts_text_2">For this, is not possible to change it\'s run.</string>
-    <string name="profile_preferences_red_texts_text_3">For this, is not possible to show it in Activator.</string>
     <string name="profile_preferences_red_texts_in_header">Some profiles has errors in it\'s preferences. These profiles are marked with red color. Please fix it.</string>
     <string name="event_preferences_red_texts_in_header">Some events has errors in it\'s preferences. These events are marked with red color. Please fix it.</string>
     <string name="permission_why_profile_connect_to_ssid_preference">for connect to SSID</string>
@@ -1335,8 +1334,8 @@
     <string name="application_is_started_toast">is started</string>
     <string name="popupmenu_title_click_below_toast">Click below to change this parameter</string>
     <string name="duration_end_acronym">de</string>
-    <string name="phone_profiles_pref_notificationStatusBarCategory">Status bar</string>
-    <string name="phone_profiles_pref_notificationNotificationPanelCategory">Notification panel</string>
+    <string name="phone_profiles_pref_notificationStatusBarCategory">ステータスバー</string>
+    <string name="phone_profiles_pref_notificationNotificationPanelCategory">通知パネル</string>
     <string name="phone_profiles_pref_notificationNotificationStyle">通知のスタイル</string>
     <string name="phone_profiles_pref_notificationNotificationStyle_custom">カスタム</string>
     <string name="phone_profiles_pref_notificationNotificationStyle_native">デフォルト</string>
@@ -1503,16 +1502,14 @@
     <string name="profile_preferences_soundsChange">Change sounds</string>
     <string name="profile_preferences_deviceBrightness_automatic">Automatic brightness</string>
     <string name="profile_preferences_deviceBrightness_manual">Manual brightness</string>
-    <string name="profile_preferences_savedProfilePreferences_title">Saved device parameters</string>
-    <string name="profile_preferences_savedProfilePreferences_summary">Click here to show saved device parameters.</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_title">Application instead of profile icon</string>
     <string name="phone_profiles_pref_notificationAppInstedProfileIconInStatusBarInfo_summary">If, in status bar, is displayed PhoneProfilesPlus application instead of profile icon, you can change it. Set device \"Settings\"/\"Notifications\"/\"Notification shade\"=\"Android\".</string>
     <string name="array_ignore_manual_activation_ignore_no_pause">Ignore and do not pause</string>
     <string name="event_preferences_manualProfileActivationAtEnd">[M] Manual profile activation at end</string>
     <string name="critical_github_release_confirm_notification_disable">Critical PhoneProfilesPlus release is required to download it. In it are fixed critical bugs. Are you sure to not show this notification in future?</string>
     <string name="critical_github_release_notification_disable_button">Ignore this version</string>
-    <string name="editor_drawer_order_start_profile_name">Start profile name</string>
-    <string name="editor_drawer_order_end_profile_name">End profile name</string>
+    <string name="editor_drawer_order_start_profile_name">開始するプロファイル名</string>
+    <string name="editor_drawer_order_end_profile_name">終了するプロファイル名</string>
     <string name="donation_paypal_donate_button">Donate</string>
     <string name="normal_github_release">New app. release</string>
     <string name="normal_github_release_notification">Click this notification for download new PhoneProfilesPlus release from it\'s GitHub.</string>
@@ -1618,7 +1615,7 @@
     <string name="mobile_cells_pref_dlg_connected_cell_sim2">Connected cell (SIM 2):</string>
     <string name="event_preferences_mobile_cells_forSimCard">For SIM card</string>
     <string name="editor_activity_targetHelps_profilesBottomMenu_title">Other profiles actions</string>
-    <string name="editor_activity_targetHelps_profilesBottomMenu_description">Click this to open menu with other profiles actions: \"Delete all profiles\"</string>
+    <string name="editor_activity_targetHelps_profilesBottomMenu_description">ここをクリックして、他のプロファイルアクションを開きます: \"すべてのプロファイルを削除\"</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_title">Other events actions</string>
     <string name="editor_activity_targetHelps_eventsBottomMenu_description">Click this to open menu with other events actions: \"Default profile\", \"Delete all events\"</string>
     <string name="profile_preferences_showInActivator_summary">Enable, if you want to show this profile in Activator, List widget, Samsung Edge panel.</string>
@@ -1843,6 +1840,16 @@
     <string name="profile_preferences_disabled">Disabled</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_set_summary">\"Never ask again\" for grant root is turned on</string>
     <string name="phone_profiles_pref_grantRootPermission_neverAsk_notSet_summary_2">\"Never ask again\" for grant root is not turned on</string>
+    <string name="alert_button_install_extender_from_github">Install from GitHub</string>
+    <string name="phone_profiles_pref_device_is_rooted">Device is rooted</string>
+    <string name="phone_profiles_pref_device_is_not_rooted">Device is not rooted</string>
+    <string name="array_pref_change_image_wallpaper_with">(I) Change to image with</string>
+    <string name="show_dialog_about_red_text_show_event_preferences">Show event preferences</string>
+    <string name="profile_preferences_red_texts_text_3_new">For this, is not possible to change \"Show in Activator\".</string>
+    <string name="profile_preferences_red_texts_text_4">Errors are displayed in profile preferences as red texts at top of preference screen. Please fix it.</string>
+    <string name="event_preferences_red_texts_text_4">Errors are displayed in event preferences as red texts at top of preference screen. Please fix it.</string>
+    <string name="profile_preferences_savedProfilePreferences_title_new">Configured profile preferences</string>
+    <string name="profile_preferences_savedProfilePreferences_summary_new">Click here to show configured profile preferences.</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Allow PhoneProfilesPlusExtender for:\n• profile parameter \"Force stop applications\"\n• event parameters \"Application sensor\", \"Orientation sensor\", \"SMS/MMS sensor\", \"Call sensor\".</string>

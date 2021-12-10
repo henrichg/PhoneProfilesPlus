@@ -1,5 +1,6 @@
 package sk.henrichg.phoneprofilesplus;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
@@ -25,6 +26,7 @@ class ContactsCache {
         caching = false;
     }
 
+    @SuppressLint("Range")
     void getContactList(Context context)
     {
         if (cached || caching) return;

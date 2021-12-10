@@ -14,6 +14,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.List;
 
+@SuppressLint("MissingPermission")
 class BluetoothScanner {
 
     private final Context context;

@@ -27,6 +27,7 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+@SuppressLint("Range")
 public class DatabaseHandler extends SQLiteOpenHelper {
 
 
