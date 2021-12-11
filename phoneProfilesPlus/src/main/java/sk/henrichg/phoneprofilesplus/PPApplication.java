@@ -119,12 +119,14 @@ public class PPApplication extends Application
     static final String PRIVACY_POLICY_URL = "https://henrichg.github.io/PhoneProfilesPlus/privacy_policy.html";
 
     static final String GITHUB_PPP_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlus/releases";
-    static final String GITHUB_PPP_DOWNLOAD_URL_1 = "https://github.com/henrichg/PhoneProfilesPlus/releases/download/";
-    static final String GITHUB_PPP_DOWNLOAD_URL_2 = "/PhoneProfilesPlus.apk";
+    static final String GITHUB_PPP_DOWNLOAD_URL = "https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk";
+    //static final String GITHUB_PPP_DOWNLOAD_URL_1 = "https://github.com/henrichg/PhoneProfilesPlus/releases/download/";
+    //static final String GITHUB_PPP_DOWNLOAD_URL_2 = "/PhoneProfilesPlus.apk";
 
     static final String GITHUB_PPPE_RELEASES_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases";
-    static final String GITHUB_PPPE_DOWNLOAD_URL_1 = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases/download/";
-    static final String GITHUB_PPPE_DOWNLOAD_URL_2 = "/PhoneProfilesPlusExtender.apk";
+    static final String GITHUB_PPPE_DOWNLOAD_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases/latest/download/PhoneProfilesPlusExtender.apk";
+    //static final String GITHUB_PPPE_DOWNLOAD_URL_1 = "https://github.com/henrichg/PhoneProfilesPlusExtender/releases/download/";
+    //static final String GITHUB_PPPE_DOWNLOAD_URL_2 = "/PhoneProfilesPlusExtender.apk";
 
     static final String GITHUB_PPP_URL = "https://github.com/henrichg/PhoneProfilesPlus";
     static final String GITHUB_PPPE_URL = "https://github.com/henrichg/PhoneProfilesPlusExtender";

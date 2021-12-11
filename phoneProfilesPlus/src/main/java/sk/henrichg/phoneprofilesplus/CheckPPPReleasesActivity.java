@@ -322,7 +322,8 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
             dialogBuilder.setPositiveButton(buttonText, (dialog, which) -> {
                 String url;
                 if (newVersionDataExists)
-                    url = PPApplication.GITHUB_PPP_DOWNLOAD_URL_1 + newVersionName + PPApplication.GITHUB_PPP_DOWNLOAD_URL_2;
+                    url = PPApplication.GITHUB_PPP_DOWNLOAD_URL;
+                    //url = PPApplication.GITHUB_PPP_DOWNLOAD_URL_1 + newVersionName + PPApplication.GITHUB_PPP_DOWNLOAD_URL_2;
                 else
                     url = PPApplication.GITHUB_PPP_RELEASES_URL;
 

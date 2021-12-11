@@ -5836,7 +5836,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
         dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-            String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
+            //String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
+            String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL;
 
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(url));
