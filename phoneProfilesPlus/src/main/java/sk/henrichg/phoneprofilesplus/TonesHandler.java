@@ -127,7 +127,7 @@ class TonesHandler {
             Cursor cursor = appContext.getContentResolver().query(uri, null, null, null, null);
             if (cursor != null) {
                 if (cursor.moveToFirst()) {
-                    int nameIndex = cursor.getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME);
+                    int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
                     if (nameIndex != -1)
                         displayName = cursor.getString(nameIndex);
                 }

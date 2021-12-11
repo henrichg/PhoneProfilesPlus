@@ -1981,7 +1981,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         long id = cursor.getLong(cursor.getColumnIndexOrThrow(KEY_E_ID));
                         int atEndDo;
 
-                        if (cursor.isNull(cursor.getColumnIndexOrThrow(KEY_E_UNDONE_PROFILE)) || (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_UNDONE_PROFILE)) == 0))
+                        if ((cursor.getColumnIndex(KEY_E_UNDONE_PROFILE) == -1) || (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_E_UNDONE_PROFILE)) == 0))
                             atEndDo = Event.EATENDDO_NONE;
                         else
                             atEndDo = Event.EATENDDO_UNDONE_PROFILE;
@@ -2788,7 +2788,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_CHANGE)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOSYNC)),
-                                cursor.isNull(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) || (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) == 1),
+                                (cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR) != -1) && (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) == 1),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOROTATE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_LOCATION_SERVICE_PREFS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_SPEAKER_PHONE)),
@@ -2798,7 +2798,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_ZEN_MODE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_KEYGUARD)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_ON_TOUCH)),
-                                cursor.isNull(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)) ? 0 : cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)),
+                                (cursor.getColumnIndex(KEY_DEVICE_WIFI_AP) != -1) ? cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)) : 0,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_POWER_SAVE_MODE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ASK_FOR_DURATION)) == 1,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE)),
@@ -4155,7 +4155,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_CHANGE)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOSYNC)),
-                                cursor.isNull(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) || (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) == 1),
+                                (cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR) != -1) && (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) == 1),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOROTATE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_LOCATION_SERVICE_PREFS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_SPEAKER_PHONE)),
@@ -4165,7 +4165,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_ZEN_MODE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_KEYGUARD)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_ON_TOUCH)),
-                                cursor.isNull(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)) ? 0 : cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)),
+                                (cursor.getColumnIndex(KEY_DEVICE_WIFI_AP) != -1) ? cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)) : 0,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_POWER_SAVE_MODE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ASK_FOR_DURATION)) == 1,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE)),
@@ -4398,7 +4398,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._deviceRunApplicationChange = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_CHANGE));
                         profile._deviceRunApplicationPackageName = cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME));
                         profile._deviceAutoSync = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOSYNC));
-                        profile._showInActivator = cursor.isNull(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) || (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) == 1);
+                        profile._showInActivator = (cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR) != -1) && (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) == 1);
                         profile._deviceAutoRotate = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOROTATE));
                         profile._deviceLocationServicePrefs = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_LOCATION_SERVICE_PREFS));
                         profile._volumeSpeakerPhone = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_SPEAKER_PHONE));
@@ -4410,7 +4410,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         profile._volumeZenMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_ZEN_MODE));
                         profile._deviceKeyguard = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_KEYGUARD));
                         profile._vibrationOnTouch = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_ON_TOUCH));
-                        profile._deviceWiFiAP = cursor.isNull(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)) ? 0 : cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP));
+                        profile._deviceWiFiAP = (cursor.getColumnIndex(KEY_DEVICE_WIFI_AP) != -1) ? cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)) : 0;
                         profile._devicePowerSaveMode = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_POWER_SAVE_MODE));
                         profile._askForDuration = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ASK_FOR_DURATION)) == 1;
                         profile._deviceNetworkType = cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE));
@@ -5030,7 +5030,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_CHANGE)),
                                 cursor.getString(cursor.getColumnIndexOrThrow(KEY_DEVICE_RUN_APPLICATION_PACKAGE_NAME)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOSYNC)),
-                                cursor.isNull(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) || (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) == 1),
+                                (cursor.getColumnIndex(KEY_SHOW_IN_ACTIVATOR) != -1) && (cursor.getInt(cursor.getColumnIndexOrThrow(KEY_SHOW_IN_ACTIVATOR)) == 1),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_AUTOROTATE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_LOCATION_SERVICE_PREFS)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_SPEAKER_PHONE)),
@@ -5040,7 +5040,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VOLUME_ZEN_MODE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_KEYGUARD)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_VIBRATE_ON_TOUCH)),
-                                cursor.isNull(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)) ? 0 : cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)),
+                                (cursor.getColumnIndex(KEY_DEVICE_WIFI_AP) != -1) ? cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_WIFI_AP)) : 0,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_POWER_SAVE_MODE)),
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_ASK_FOR_DURATION)) == 1,
                                 cursor.getInt(cursor.getColumnIndexOrThrow(KEY_DEVICE_NETWORK_TYPE)),
@@ -5525,7 +5525,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                             profile._name = "(" + cursor.getString(cursor.getColumnIndexOrThrow(KEY_ACTIVATION_BY_USER_COUNT)) + ")"  + cursor.getString(cursor.getColumnIndexOrThrow(KEY_NAME));
                         else*/
                             profile._name = cursor.getString(cursor.getColumnIndexOrThrow(KEY_NAME));
-                        profile._icon = (cursor.getString(cursor.getColumnIndexOrThrow(KEY_ICON)));
+                        profile._icon = cursor.getString(cursor.getColumnIndexOrThrow(KEY_ICON));
                         // Adding contact to list
                         profileList.add(profile);
                     } while (cursor.moveToNext());
