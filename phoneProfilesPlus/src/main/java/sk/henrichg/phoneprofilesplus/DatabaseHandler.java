@@ -12378,7 +12378,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     values.clear();
                     for (int i = 0; i < columnNamesExportedDB.length; i++) {
                         // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                        if (cursorImportDB.getColumnIndexOrThrow(columnNamesExportedDB[i]) != -1) {
+                        if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
                             String value = cursorExportedDB.getString(i);
                             values.put(columnNamesExportedDB[i], value);
                         }
@@ -12716,7 +12716,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         values.clear();
                         for (int i = 0; i < columnNamesExportedDB.length; i++) {
                             // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                            if (cursorImportDB.getColumnIndexOrThrow(columnNamesExportedDB[i]) != -1) {
+                            if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
                                 if (columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START) ||
                                         columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_END) ||
                                         columnNamesExportedDB[i].equals(KEY_E_FK_PROFILE_START_WHEN_ACTIVATED) ||
@@ -12801,7 +12801,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         values.clear();
                         for (int i = 0; i < columnNamesExportedDB.length; i++) {
                             // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                            if (cursorImportDB.getColumnIndexOrThrow(columnNamesExportedDB[i]) != -1) {
+                            if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
                                 values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
                             }
                         }
@@ -12850,7 +12850,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         values.clear();
                         for (int i = 0; i < columnNamesExportedDB.length; i++) {
                             // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                            if (cursorImportDB.getColumnIndexOrThrow(columnNamesExportedDB[i]) != -1) {
+                            if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
                                 values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
                             }
                         }
@@ -12894,7 +12894,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         values.clear();
                         for (int i = 0; i < columnNamesExportedDB.length; i++) {
                             // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                            if (cursorImportDB.getColumnIndexOrThrow(columnNamesExportedDB[i]) != -1) {
+                            if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
                                 values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
                             }
                         }
@@ -12938,7 +12938,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         values.clear();
                         for (int i = 0; i < columnNamesExportedDB.length; i++) {
                             // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                            if (cursorImportDB.getColumnIndexOrThrow(columnNamesExportedDB[i]) != -1) {
+                            if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
                                 values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
                             }
                         }
@@ -12982,7 +12982,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         values.clear();
                         for (int i = 0; i < columnNamesExportedDB.length; i++) {
                             // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                            if (cursorImportDB.getColumnIndexOrThrow(columnNamesExportedDB[i]) != -1) {
+                            if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
                                 values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
                             }
                         }
@@ -13026,7 +13026,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         values.clear();
                         for (int i = 0; i < columnNamesExportedDB.length; i++) {
                             // put only when columnNamesExportedDB[i] exists in cursorImportDB
-                            if (cursorImportDB.getColumnIndexOrThrow(columnNamesExportedDB[i]) != -1) {
+                            if (cursorImportDB.getColumnIndex(columnNamesExportedDB[i]) != -1) {
                                 values.put(columnNamesExportedDB[i], cursorExportedDB.getString(i));
                             }
                         }
