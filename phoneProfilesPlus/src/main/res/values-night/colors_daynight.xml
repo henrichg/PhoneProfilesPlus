@@ -12,6 +12,7 @@
     <color name="activityWhiteTextColor">#FFFFFFFF</color>
     <color name="activityNormalTextColor">#FFd5d5d5</color>
     <color name="activitySecondaryTextColor">#CFFFFFFF</color>
+    <color name="bootomNavigationTextColor">#FFE0E0E0</color>
     <color name="activityDisabledTextColor">#4DFFFFFF</color>
     <color name="activityCommandBackgroundColor">#1FFFFFFF</color>
     <color name="activityPopupMenuBackgroundColor">#FF1C1C1C</color>
