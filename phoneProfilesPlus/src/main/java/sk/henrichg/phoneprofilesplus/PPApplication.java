@@ -2122,13 +2122,14 @@ public class PPApplication extends Application
             ApplicationPreferences.applicationActivatorAddRestartEventsIntoProfileList(context);
             ApplicationPreferences.applicationActivatorIncreaseBrightness(context);
             ApplicationPreferences.applicationWidgetOneRowHigherLayout(context);
-
             ApplicationPreferences.applicationWidgetIconChangeColorsByNightMode(context);
             ApplicationPreferences.applicationWidgetOneRowChangeColorsByNightMode(context);
             ApplicationPreferences.applicationWidgetListChangeColorsByNightMode(context);
             ApplicationPreferences.applicationSamsungEdgeChangeColorsByNightMode(context);
-
             ApplicationPreferences.applicationForceSetBrightnessAtScreenOn(context);
+            ApplicationPreferences.notificationProfileIconColor(context);
+            ApplicationPreferences.notificationProfileIconLightness(context);
+            ApplicationPreferences.notificationCustomProfileIconLightness(context);
 
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyFrom(context);
             ApplicationPreferences.applicationEventPeriodicScanningScanInTimeMultiplyTo(context);

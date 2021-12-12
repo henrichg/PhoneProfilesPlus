@@ -135,6 +135,26 @@
             app:title="@string/phone_profiles_pref_notificationShowProfileIcon"
             app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
+        <ListPreference
+            app:title="@string/phone_profiles_pref_notificationProfileIconColor"
+            app:summary="0"
+            app:key="notificationProfileIconColor"
+            app:defaultValue="0"
+            app:entries="@array/widgetColorArray"
+            app:entryValues="@array/widgetColorValues"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+            app:title="@string/phone_profiles_pref_notificationProfileIconLightness"
+            app:summary="100%%"
+            app:key="notificationProfileIconLightness"
+            app:defaultValue="100"
+            app:showLighting="true"
+            app:layout="@layout/mp_preference_material_widget" />
+        <SwitchPreferenceCompat
+            app:key="notificationCustomProfileIconLightness"
+            app:title="@string/phone_profiles_pref_notificationProfileCustomIconLightness"
+            app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget" />
 
         <SwitchPreferenceCompat
             app:key="notificationShowRestartEventsAsButton"
