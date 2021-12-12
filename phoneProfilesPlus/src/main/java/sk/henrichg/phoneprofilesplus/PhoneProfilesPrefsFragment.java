@@ -2189,6 +2189,9 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ICON_CHANGE_COLOR_BY_NIGHT_MODE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_ONE_ROW_CHANGE_COLOR_BY_NIGHT_MODE);
         setSummary(ApplicationPreferences.PREF_APPLICATION_WIDGET_LIST_CHANGE_COLOR_BY_NIGHT_MODE);
+        setSummary(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
+        setSummary(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS);
+        setSummary(ApplicationPreferences.PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS);
 
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_FROM);
         setSummary(ApplicationPreferences.PREF_APPLICATION_EVENT_PERIODIC_SCANNING_SCAN_IN_TIME_MULTIPLY_TO);
@@ -2689,7 +2692,10 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE) ||
                 key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON) ||
-                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON)) {
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_SHOW_RESTART_EVENTS_AS_BUTTON) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS) ||
+                key.equals(ApplicationPreferences.PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS)) {
             String notificationStyle = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_NOTIFICATION_STYLE, "0");
             if (notificationStyle.equals("0")) {
                 String backgroundColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_BACKGROUND_COLOR, "0");
@@ -2738,9 +2744,25 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
                 if (_preference != null)
                     _preference.setEnabled(true);
+
+                //TODO
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
                 if (_preference != null)
                     _preference.setEnabled(useDecoration);
+                // show profile icon for Android 12+ is better false
+                boolean showProfileIcon = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                        Build.VERSION.SDK_INT < 31);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled((!useDecoration) || showProfileIcon);
+                String profileIconColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR, "0");
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS);
+                if (_preference != null)
+                    _preference.setEnabled(showProfileIcon && (profileIconColor.equals("1")));
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS);
+                if (_preference != null)
+                    _preference.setEnabled(showProfileIcon && (profileIconColor.equals("1")));
+
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS);
                 SwitchPreferenceCompat __preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR);
                 if ((_preference != null) && (__preference != null)) {
@@ -2776,9 +2798,25 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_LAYOUT_TYPE);
                 if (_preference != null)
                     _preference.setEnabled(false);
+
+                //TODO
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
                 if (_preference != null)
                     _preference.setEnabled(true);
+                // show profile icon for Android 12+ is better false
+                boolean showProfileIcon = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
+                        Build.VERSION.SDK_INT < 31);
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(showProfileIcon);
+                String profileIconColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR, "0");
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS);
+                if (_preference != null)
+                    _preference.setEnabled(showProfileIcon && (profileIconColor.equals("1")));
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_CUSTOM_PROFILE_ICON_LIGHTNESS);
+                if (_preference != null)
+                    _preference.setEnabled(showProfileIcon && (profileIconColor.equals("1")));
+
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PREF_INDICATOR_LIGHTNESS);
                 if (_preference != null)
                     _preference.setEnabled(false);
