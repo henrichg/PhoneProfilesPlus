@@ -63,6 +63,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.palette.graphics.Palette;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -6001,18 +6002,18 @@ public class PhoneProfilesService extends Service
 
         // decorator colot change by iocn is removed, becouse this cause problems with
         // custom icons.
-        /*decoratorColor =*/
+        decoratorColor =
         _addProfileIconToProfileNotification(forFirstStart,
                                                      contentView, contentViewLarge,
                                                      notificationBuilder,
                                                      notificationNotificationStyle, notificationStatusBarStyle,
                                                      notificationShowProfileIcon,
-                                                     //profile,
+                                                     profile,
                                                      isIconResourceID, iconBitmap,
                                                      iconIdentifier,
                                                      //profileIconExists,
                                                      useDecorator,
-                                                     //decoratorColor,
+                                                     decoratorColor,
                                                      appContext);
 
         notificationBuilder.setColor(decoratorColor);
@@ -6373,17 +6374,17 @@ public class PhoneProfilesService extends Service
         }
     }
 
-    private void _addProfileIconToProfileNotification(boolean forFirstStart,
+    private int _addProfileIconToProfileNotification(boolean forFirstStart,
                                                      RemoteViews contentView, RemoteViews contentViewLarge,
                                                      NotificationCompat.Builder notificationBuilder,
                                                      String notificationNotificationStyle, String notificationStatusBarStyle,
                                                      boolean notificationShowProfileIcon,
-                                                     //Profile profile,
+                                                     Profile profile,
                                                      boolean isIconResourceID, Bitmap iconBitmap,
                                                      String iconIdentifier,
                                                      //boolean profileIconExists,
                                                      boolean useDecorator,
-                                                     //int decoratorColor,
+                                                     int decoratorColor,
                                                      Context appContext) {
         if (!forFirstStart) {
             if (isIconResourceID) {
@@ -6488,14 +6489,13 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                /*
                 if ((profile != null) && (profile.getUseCustomColorForIcon()))
                     decoratorColor = profile.getIconCustomColor();
                 else {
                     if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
                         decoratorColor = ProfileIconPreferenceAdapterX.getIconColor(iconIdentifier);
                     }
-                }*/
+                }
 
             } else {
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile icon is custom - external picture");
@@ -6550,7 +6550,6 @@ public class PhoneProfilesService extends Service
                     }
                 }
 
-                /*
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "iconIdentifier="+iconIdentifier);
 //                PPApplication.logE("PhoneProfilesService._showProfileNotification", "iconBitmap="+iconBitmap);
                 if ((iconIdentifier != null) && (!iconIdentifier.isEmpty())) {
@@ -6560,7 +6559,6 @@ public class PhoneProfilesService extends Service
 //                        PPApplication.logE("PhoneProfilesService._showProfileNotification", "decoratorColor="+Integer.toHexString(decoratorColor));
                     }
                 }
-                 */
 
             }
         }
@@ -6598,7 +6596,7 @@ public class PhoneProfilesService extends Service
             }
         }
 
-        //return decoratorColor;
+        return decoratorColor;
     }
 
     static void clearOldProfileNotification() {
