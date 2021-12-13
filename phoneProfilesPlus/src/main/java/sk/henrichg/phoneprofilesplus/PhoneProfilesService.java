@@ -6129,12 +6129,13 @@ public class PhoneProfilesService extends Service
             if (useDecorator) {
                 notificationBuilder.setStyle(new NotificationCompat.DecoratedCustomViewStyle());
 
-                notificationBuilder.setCustomContentView(contentView);
-                notificationBuilder.setCustomBigContentView(contentViewLarge);
+                //notificationBuilder.setCustomContentView(contentView);
+                //notificationBuilder.setCustomBigContentView(contentViewLarge);
             }
             else {
                 notificationBuilder.setStyle(null);
 
+                /*
                 switch (notificationLayoutType) {
                     case "1":
                         // only large layout
@@ -6150,7 +6151,25 @@ public class PhoneProfilesService extends Service
                         notificationBuilder.setCustomBigContentView(contentViewLarge);
                         break;
                 }
+                */
             }
+
+            switch (notificationLayoutType) {
+                case "1":
+                    // only large layout
+                    notificationBuilder.setCustomContentView(contentViewLarge);
+                    break;
+                case "2":
+                    // only small layout
+                    notificationBuilder.setCustomContentView(contentView);
+                    break;
+                default:
+                    // expandable layout
+                    notificationBuilder.setCustomContentView(contentView);
+                    notificationBuilder.setCustomBigContentView(contentViewLarge);
+                    break;
+            }
+
         }
         else {
             notificationBuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(indicators));
