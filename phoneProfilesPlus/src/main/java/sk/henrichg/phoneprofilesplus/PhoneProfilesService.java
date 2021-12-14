@@ -5618,6 +5618,9 @@ public class PhoneProfilesService extends Service
 
         String notificationNotificationStyle;
         boolean notificationShowProfileIcon;
+        String notificationProfileIconColor;
+        String notificationProfileIconLightness;
+        boolean notificationCustomProfileIconLightness;
         boolean notificationShowInStatusBar;
         boolean notificationUseDecoration;
         boolean notificationPrefIndicator;
@@ -5645,6 +5648,10 @@ public class PhoneProfilesService extends Service
                 notificationHideInLockScreen = ApplicationPreferences.notificationHideInLockScreen;
             }
             notificationShowProfileIcon = false; // for small notification at start
+            notificationProfileIconColor = "0";
+            notificationProfileIconLightness = "100";
+            notificationCustomProfileIconLightness = false;
+
             notificationPrefIndicator = false;
             notificationPrefIndicatorLightness = "50";
             notificationStatusBarStyle = "1";
@@ -5671,6 +5678,10 @@ public class PhoneProfilesService extends Service
                 notificationShowRestartEventsAsButton = ApplicationPreferences.notificationShowRestartEventsAsButton;
 
                 notificationShowProfileIcon = ApplicationPreferences.notificationShowProfileIcon /*|| (Build.VERSION.SDK_INT < 24)*/;
+                notificationProfileIconColor = ApplicationPreferences.notificationProfileIconColor;
+                notificationProfileIconLightness = ApplicationPreferences.notificationProfileIconLightness;
+                notificationCustomProfileIconLightness = ApplicationPreferences.notificationCustomProfileIconLightness;
+
                 notificationShowInStatusBar = ApplicationPreferences.notificationShowInStatusBar;
                 notificationPrefIndicator = ApplicationPreferences.notificationPrefIndicator;
                 notificationPrefIndicatorLightness = ApplicationPreferences.notificationPrefIndicatorLightness;
@@ -5861,6 +5872,37 @@ public class PhoneProfilesService extends Service
         Bitmap iconBitmap;
         Bitmap preferencesIndicatorBitmap;
 
+        int monochromeValue = 0xFF;
+        switch (notificationProfileIconLightness) {
+            case "0":
+                monochromeValue = 0x00;
+                break;
+            case "12":
+                monochromeValue = 0x20;
+                break;
+            case "25":
+                monochromeValue = 0x40;
+                break;
+            case "37":
+                monochromeValue = 0x60;
+                break;
+            case "50":
+                monochromeValue = 0x80;
+                break;
+            case "62":
+                monochromeValue = 0xA0;
+                break;
+            case "75":
+                monochromeValue = 0xC0;
+                break;
+            case "87":
+                monochromeValue = 0xE0;
+                break;
+            case "100":
+                monochromeValue = 0xFF;
+                break;
+        }
+
         // ----- get profile icon, preference indicators, profile name
 //        PPApplication.logE("PhoneProfilesService._showProfileNotification", "profile="+profile);
         if (profile != null)
@@ -5883,7 +5925,12 @@ public class PhoneProfilesService extends Service
 
             //noinspection ConstantConditions
             if (!forFirstStart) {
-                profile.generateIconBitmap(appContext, false, 0, false);
+                if (notificationProfileIconColor.equals("0"))
+                    profile.generateIconBitmap(appContext, false, 0, false);
+                else {
+                    profile.generateIconBitmap(appContext, true, monochromeValue, notificationCustomProfileIconLightness);
+                }
+
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationPrefIndicator="+notificationPrefIndicator);
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "notificationNotificationStyle="+notificationNotificationStyle);
                 //PPApplication.logE("PhoneProfilesService._showProfileNotification", "preferencesIndicatorExists="+preferencesIndicatorExists);
@@ -5891,18 +5938,50 @@ public class PhoneProfilesService extends Service
                 if (notificationPrefIndicator && (notificationNotificationStyle.equals("0"))) {
                     //PPApplication.logE("[TEST BATTERY] PhoneProfilesService._showProfileNotification", "generate indicators");
 
-                    float brightnessValue = 0f;
-                    if (notificationPrefIndicatorLightness.equals("0")) brightnessValue = -128f;
-                    if (notificationPrefIndicatorLightness.equals("12")) brightnessValue = -96f;
-                    if (notificationPrefIndicatorLightness.equals("25")) brightnessValue = -64f;
-                    if (notificationPrefIndicatorLightness.equals("37")) brightnessValue = -32f;
-                    if (notificationPrefIndicatorLightness.equals("50")) brightnessValue = 0f;
-                    if (notificationPrefIndicatorLightness.equals("62")) brightnessValue = 32f;
-                    if (notificationPrefIndicatorLightness.equals("75")) brightnessValue = 64f;
-                    if (notificationPrefIndicatorLightness.equals("87")) brightnessValue = 96f;
-                    if (notificationPrefIndicatorLightness.equals("100")) brightnessValue = 128f;
-                    profile.generatePreferencesIndicator(appContext, false, 0,
-                            DataWrapper.IT_FOR_NOTIFICATION, brightnessValue);
+                    float prefIndicatorLightnessValue = 0f;
+                    int prefIndicatorMonochromeValue = 0x00;
+                    switch (notificationPrefIndicatorLightness) {
+                        case "0":
+                            prefIndicatorLightnessValue = -128f;
+                            prefIndicatorMonochromeValue = 0x00;
+                            break;
+                        case "12":
+                            prefIndicatorLightnessValue = -96f;
+                            prefIndicatorMonochromeValue = 0x20;
+                            break;
+                        case "25":
+                            prefIndicatorLightnessValue = -64f;
+                            prefIndicatorMonochromeValue = 0x40;
+                            break;
+                        case "37":
+                            prefIndicatorLightnessValue = -32f;
+                            prefIndicatorMonochromeValue = 0x60;
+                            break;
+                        case "50":
+                            prefIndicatorLightnessValue = 0f;
+                            prefIndicatorMonochromeValue = 0x80;
+                            break;
+                        case "62":
+                            prefIndicatorLightnessValue = 32f;
+                            prefIndicatorMonochromeValue = 0xA0;
+                            break;
+                        case "75":
+                            prefIndicatorLightnessValue = 64f;
+                            prefIndicatorMonochromeValue = 0xC0;
+                            break;
+                        case "87":
+                            prefIndicatorLightnessValue = 96f;
+                            prefIndicatorMonochromeValue = 0xE0;
+                            break;
+                        case "100":
+                            prefIndicatorLightnessValue = 128f;
+                            prefIndicatorMonochromeValue = 0xFF;
+                            break;
+                    }
+                    profile.generatePreferencesIndicator(appContext, notificationProfileIconColor.equals("1"),
+                            prefIndicatorMonochromeValue,
+                            DataWrapper.IT_FOR_NOTIFICATION,
+                            prefIndicatorLightnessValue);
 
                     preferencesIndicatorBitmap = profile._preferencesIndicator;
                 }
@@ -6007,7 +6086,11 @@ public class PhoneProfilesService extends Service
                                                      contentView, contentViewLarge,
                                                      notificationBuilder,
                                                      notificationNotificationStyle, notificationStatusBarStyle,
+
                                                      notificationShowProfileIcon,
+                                                     notificationProfileIconColor,
+                                                     monochromeValue,
+
                                                      profile,
                                                      isIconResourceID, iconBitmap,
                                                      iconIdentifier,
@@ -6016,7 +6099,8 @@ public class PhoneProfilesService extends Service
                                                      decoratorColor,
                                                      appContext);
 
-        notificationBuilder.setColor(decoratorColor);
+        if (notificationProfileIconColor.equals("0"))
+            notificationBuilder.setColor(decoratorColor);
 
         // notification title
         if (notificationNotificationStyle.equals("0")) {
@@ -6378,7 +6462,11 @@ public class PhoneProfilesService extends Service
                                                      RemoteViews contentView, RemoteViews contentViewLarge,
                                                      NotificationCompat.Builder notificationBuilder,
                                                      String notificationNotificationStyle, String notificationStatusBarStyle,
+
                                                      boolean notificationShowProfileIcon,
+                                                     String notificationProfileIconColor,
+                                                     int notificationProfileIconMonochromeValue,
+
                                                      Profile profile,
                                                      boolean isIconResourceID, Bitmap iconBitmap,
                                                      String iconIdentifier,
@@ -6467,6 +6555,9 @@ public class PhoneProfilesService extends Service
 
                     int iconLargeResource = Profile.getIconResource(iconIdentifier);
                     iconBitmap = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
+                    //TODO
+                    if (notificationProfileIconColor.equals("1"))
+                        iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
                     if (notificationNotificationStyle.equals("0")) {
                         try {
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
@@ -6522,18 +6613,34 @@ public class PhoneProfilesService extends Service
 
                 if (notificationNotificationStyle.equals("0")) {
                     try {
+                        //TODO
                         if (iconBitmap != null)
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
-                        else
-                            contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
+                        else {
+                            if (notificationProfileIconColor.equals("0"))
+                                contentViewLarge.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
+                            else {
+                                iconBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_profile_default, true, appContext);
+                                iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
+                                contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                            }
+                        }
                         if ((!notificationShowProfileIcon) && useDecorator)
                             contentViewLarge.setViewVisibility(R.id.notification_activated_profile_icon, View.GONE);
                         //if (profileIconExists) {
                             if (contentView != null) {
+                                //TODO
                                 if (iconBitmap != null)
                                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
-                                else
-                                    contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
+                                else {
+                                    if (notificationProfileIconColor.equals("0"))
+                                        contentView.setImageViewResource(R.id.notification_activated_profile_icon, R.drawable.ic_profile_default);
+                                    else {
+                                        iconBitmap = BitmapManipulator.getBitmapFromResource(R.drawable.ic_profile_default, true, appContext);
+                                        iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
+                                        contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
+                                    }
+                                }
                                 if ((!notificationShowProfileIcon) && useDecorator)
                                     contentView.setViewVisibility(R.id.notification_activated_profile_icon, View.GONE);
                             }
@@ -6546,6 +6653,9 @@ public class PhoneProfilesService extends Service
                     if (notificationShowProfileIcon) {
                         if (iconBitmap == null)
                             iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile_default);
+                        //TODO
+                        if (notificationProfileIconColor.equals("1"))
+                            iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
                         notificationBuilder.setLargeIcon(iconBitmap);
                     }
                 }

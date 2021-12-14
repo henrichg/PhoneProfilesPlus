@@ -104,28 +104,6 @@
             app:layout="@layout/mp_preference_material_widget" />
 
         <SwitchPreferenceCompat
-            app:key="notificationPrefIndicator"
-            app:title="@string/phone_profiles_pref_notificationPrefIndicator"
-            app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForNotification_summary"
-            app:defaultValue="true"
-            app:layout="@layout/mp_preference_material_widget" />
-
-        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
-            app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
-            app:summary="50%%"
-            app:key="notificationPrefIndicatorLightness"
-            app:defaultValue="50"
-            app:showLighting="true"
-            app:dependency="notificationPrefIndicator"
-            app:layout="@layout/mp_preference_material_widget" />
-
-        <SwitchPreferenceCompat
-            app:key="notificationUseDecoration"
-            app:title="@string/phone_profiles_pref_notificationUseDecoration"
-            app:defaultValue="true"
-            app:layout="@layout/mp_preference_material_widget" />
-
-        <SwitchPreferenceCompat
             app:key="notificationShowProfileIcon"
             app:title="@string/phone_profiles_pref_notificationShowProfileIcon"
             app:defaultValue="true"
@@ -149,6 +127,27 @@
             app:key="notificationCustomProfileIconLightness"
             app:title="@string/phone_profiles_pref_notificationProfileCustomIconLightness"
             app:defaultValue="false"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <SwitchPreferenceCompat
+            app:key="notificationPrefIndicator"
+            app:title="@string/phone_profiles_pref_notificationPrefIndicator"
+            app:summary="@string/phone_profiles_pref_applicationPrefIndicatorForNotification_summary"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
+        <sk.henrichg.phoneprofilesplus.OpaquenessLightingPreferenceX
+            app:title="@string/phone_profiles_pref_notificationPrefIndicatorLightness"
+            app:summary="50%%"
+            app:key="notificationPrefIndicatorLightness"
+            app:defaultValue="50"
+            app:showLighting="true"
+            app:dependency="notificationPrefIndicator"
+            app:layout="@layout/mp_preference_material_widget" />
+
+        <SwitchPreferenceCompat
+            app:key="notificationUseDecoration"
+            app:title="@string/phone_profiles_pref_notificationUseDecoration"
+            app:defaultValue="true"
             app:layout="@layout/mp_preference_material_widget" />
 
         <SwitchPreferenceCompat
