@@ -1000,11 +1000,12 @@ public class PPApplication extends Application
         AvoidRescheduleReceiverWorker.enqueueWork();
         PPApplication.logE("##### PPApplication.onCreate", "avoidRescheduleReceiverWorker END of enqueue");
 
-        try {
-            NoobCameraManager.getInstance().init(this);
-        } catch (Exception e) {
-            PPApplication.recordException(e);
-        }
+//        init() moved to ActivateProfileHelpser.execute();
+//        try {
+//            NoobCameraManager.getInstance().init(this);
+//        } catch (Exception e) {
+//            PPApplication.recordException(e);
+//        }
 
         sensorManager = (SensorManager) getApplicationContext().getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = getAccelerometerSensor(getApplicationContext());

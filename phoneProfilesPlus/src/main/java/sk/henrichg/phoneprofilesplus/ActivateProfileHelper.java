@@ -4988,24 +4988,28 @@ class ActivateProfileHelper {
                 switch (profile._cameraFlash) {
                     case 1:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
-                        NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
-                        if (noobCameraManager != null) {
-                            try {
+                        try {
+                            NoobCameraManager.getInstance().init(context);
+                            NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
+                            if (noobCameraManager != null) {
                                 noobCameraManager.turnOnFlash();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                NoobCameraManager.getInstance().release();
                             }
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
                         break;
                     case 2:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
-                        noobCameraManager = NoobCameraManager.getInstance();
-                        if (noobCameraManager != null) {
-                            try {
+                        try {
+                            NoobCameraManager.getInstance().init(context);
+                            NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
+                            if (noobCameraManager != null) {
                                 noobCameraManager.turnOffFlash();
-                            } catch (Exception e) {
-                                PPApplication.recordException(e);
+                                NoobCameraManager.getInstance().release();
                             }
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
                         break;
                 }
