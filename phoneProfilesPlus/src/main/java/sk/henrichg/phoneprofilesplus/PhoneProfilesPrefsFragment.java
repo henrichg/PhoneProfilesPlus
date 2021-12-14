@@ -2746,15 +2746,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     _preference.setEnabled(true);
 
                 //TODO
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
                 if (_preference != null)
                     _preference.setEnabled(useDecoration);
                 // show profile icon for Android 12+ is better false
                 boolean showProfileIcon = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
                         Build.VERSION.SDK_INT < 31);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled((!useDecoration) || showProfileIcon);
                 String profileIconColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR, "0");
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS);
                 if (_preference != null)
@@ -2800,15 +2801,16 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                     _preference.setEnabled(false);
 
                 //TODO
+                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
+                if (_preference != null)
+                    _preference.setEnabled(true);
+
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON);
                 if (_preference != null)
                     _preference.setEnabled(true);
                 // show profile icon for Android 12+ is better false
                 boolean showProfileIcon = preferences.getBoolean(ApplicationPreferences.PREF_NOTIFICATION_SHOW_PROFILE_ICON,
                         Build.VERSION.SDK_INT < 31);
-                _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
-                if (_preference != null)
-                    _preference.setEnabled(showProfileIcon);
                 String profileIconColor = preferences.getString(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR, "0");
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_LIGHTNESS);
                 if (_preference != null)

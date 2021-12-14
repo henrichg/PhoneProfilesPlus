@@ -1870,7 +1870,7 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="profile_preferences_savedProfilePreferences_title_new">Configured profile preferences</string>
     <string name="profile_preferences_savedProfilePreferences_summary_new">Click here to show configured profile preferences.</string>
 
-    <string name="phone_profiles_pref_notificationProfileIconColor">Profile icon color type</string>
+    <string name="phone_profiles_pref_notificationProfileIconColor">Profile icon and preferences indicator color type</string>
     <string name="phone_profiles_pref_notificationProfileIconLightness">Profile icon lightness</string>
     <string name="phone_profiles_pref_notificationProfileCustomIconLightness">Use profile icon lightness for custom profile icons</string>
     <string name="phone_profiles_pref_notificationBackgroundColorCategory">Notification panel - background color</string>
