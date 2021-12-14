@@ -1873,6 +1873,11 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_notificationProfileIconColor">Profile icon color type</string>
     <string name="phone_profiles_pref_notificationProfileIconLightness">Profile icon lightness</string>
     <string name="phone_profiles_pref_notificationProfileCustomIconLightness">Use profile icon lightness for custom profile icons</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorCategory">Notification panel - background color</string>
+    <string name="phone_profiles_pref_notificationTextColorCategory">Notification panel - text color</string>
+    <string name="phone_profiles_pref_notificationProfileIconCategory">Notification panel - profile icon</string>
+    <string name="phone_profiles_pref_notificationPreferencesIndicatorCategory">Notification panel - preferences indicator</string>
+    <string name="phone_profiles_pref_notificationButtonsCategory">Notification panel - buttons</string>
 
     <!-- **************************************************************************************** -->
 

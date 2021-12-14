@@ -70,6 +70,19 @@
 <!--            app:defaultValue="true"-->
 <!--            app:layout="@layout/mp_preference_material_widget" />-->
 
+        <SwitchPreferenceCompat
+            app:key="notificationUseDecoration"
+            app:title="@string/phone_profiles_pref_notificationUseDecoration"
+            app:defaultValue="true"
+            app:layout="@layout/mp_preference_material_widget" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notificationNotificationCategory"
+        app:title="@string/phone_profiles_pref_notificationBackgroundColorCategory"
+        app:layout="@layout/mp_preference_category" >
+
         <Preference
             app:key="notificationBackgroundColorInfo"
             app:title="@string/phone_profiles_pref_notificationBackgroundColor"
@@ -94,6 +107,13 @@
             app:chromaIndicatorMode="HEX"
             app:layout="@layout/mp_preference_material_widget" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notificationNotificationCategory"
+        app:title="@string/phone_profiles_pref_notificationTextColorCategory"
+        app:layout="@layout/mp_preference_category" >
+
         <ListPreference
             app:title="@string/phone_profiles_pref_notificationTextColor"
             app:summary="@string/array_pref_no_change"
@@ -102,6 +122,13 @@
             app:entries="@array/notificationTextColorArray"
             app:entryValues="@array/notificationTextColorValues"
             app:layout="@layout/mp_preference_material_widget" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notificationNotificationCategory"
+        app:title="@string/phone_profiles_pref_notificationProfileIconCategory"
+        app:layout="@layout/mp_preference_category" >
 
         <SwitchPreferenceCompat
             app:key="notificationShowProfileIcon"
@@ -129,6 +156,13 @@
             app:defaultValue="false"
             app:layout="@layout/mp_preference_material_widget" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notificationNotificationCategory"
+        app:title="@string/phone_profiles_pref_notificationPreferencesIndicatorCategory"
+        app:layout="@layout/mp_preference_category" >
+
         <SwitchPreferenceCompat
             app:key="notificationPrefIndicator"
             app:title="@string/phone_profiles_pref_notificationPrefIndicator"
@@ -144,11 +178,12 @@
             app:dependency="notificationPrefIndicator"
             app:layout="@layout/mp_preference_material_widget" />
 
-        <SwitchPreferenceCompat
-            app:key="notificationUseDecoration"
-            app:title="@string/phone_profiles_pref_notificationUseDecoration"
-            app:defaultValue="true"
-            app:layout="@layout/mp_preference_material_widget" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notificationNotificationCategory"
+        app:title="@string/phone_profiles_pref_notificationButtonsCategory"
+        app:layout="@layout/mp_preference_category" >
 
         <SwitchPreferenceCompat
             app:key="notificationShowRestartEventsAsButton"
