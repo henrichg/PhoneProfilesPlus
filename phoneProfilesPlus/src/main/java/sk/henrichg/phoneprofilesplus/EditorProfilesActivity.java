@@ -3291,7 +3291,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .textColor(textColor)
                                         .tintTarget(false)
                                         .drawShadow(true)
-//                                        .transparentTarget(true)
+                                        .transparentTarget(true)
                                         .id(id)
                         );
                         ++id;
@@ -3429,7 +3429,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .textColor(textColor)
                                         .tintTarget(false)
                                         .drawShadow(true)
-//                                        .transparentTarget(true)
+                                        .transparentTarget(true)
                                         .id(id)
                         );
                         ++id;
@@ -3505,7 +3505,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .textColor(textColor)
                                     .tintTarget(false)
                                     .drawShadow(true)
-//                                    .transparentTarget(true)
+                                    .transparentTarget(true)
                                     .id(1)
                     );
                 }
