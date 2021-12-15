@@ -491,12 +491,15 @@ public class ActivateProfileActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.menu_edit_profiles) {
+
+            finish();
+
             Intent intent = new Intent(getApplicationContext(), EditorProfilesActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.putExtra(PPApplication.EXTRA_STARTUP_SOURCE, PPApplication.STARTUP_SOURCE_ACTIVATOR);
             getApplicationContext().startActivity(intent);
 
-            finish();
+            //finish();
 
             return true;
         }
