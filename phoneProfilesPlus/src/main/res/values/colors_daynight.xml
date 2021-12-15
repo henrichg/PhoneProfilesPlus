@@ -32,7 +32,7 @@
     <color name="editorFilterTitleColor">#FF000000</color>
     <color name="editorFilterBackgroundColor">#FFF7F7F7</color>
 
-    <color name="tabTargetHelpOuterCircleColor">#FFDC8160</color>
+    <color name="tabTargetHelpOuterCircleColor">#FFa9634a</color>
     <color name="tabTargetHelpTargetCircleColor">#FFFFFFFF</color>
     <color name="tabTargetHelpTextColor">#FF000000</color>
 

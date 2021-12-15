@@ -33,7 +33,7 @@
     <color name="editorFilterTitleColor">#FFFFFFFF</color>
     <color name="editorFilterBackgroundColor">#FF272727</color>
 
-    <color name="tabTargetHelpOuterCircleColor">#FFE99B7F</color>
+    <color name="tabTargetHelpOuterCircleColor">#FFb37761</color>
     <color name="tabTargetHelpTargetCircleColor">#FF202020</color>
     <color name="tabTargetHelpTextColor">#FF000000</color>
 

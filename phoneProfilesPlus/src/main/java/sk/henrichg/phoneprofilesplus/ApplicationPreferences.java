@@ -1524,12 +1524,14 @@ class ApplicationPreferences {
 
     static void startStopTargetHelps(Context context, boolean start) {
         SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
+
         editor.putBoolean(ActivateProfileActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorActivityStartTargetHelps = start;
         editor.putBoolean(ActivateProfileListFragment.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorFragmentStartTargetHelps = start;
         editor.putBoolean(ActivateProfileListAdapter.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefActivatorAdapterStartTargetHelps = start;
+
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEditorActivityStartTargetHelps = start;
         editor.putBoolean(EditorProfilesActivity.PREF_START_TARGET_HELPS_DEFAULT_PROFILE, start);
@@ -1564,10 +1566,12 @@ class ApplicationPreferences {
         ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsOrder = start;
         editor.putBoolean(EditorEventListAdapter.PREF_START_TARGET_HELPS_STATUS, start);
         ApplicationPreferences.prefEditorEventsAdapterStartTargetHelpsStatus = start;
+
         editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefProfilePrefsActivityStartTargetHelps = start;
         editor.putBoolean(ProfilesPrefsActivity.PREF_START_TARGET_HELPS_SAVE, start);
         ApplicationPreferences.prefProfilePrefsActivityStartTargetHelpsSave = start;
+
         editor.putBoolean(EventsPrefsActivity.PREF_START_TARGET_HELPS, start);
         ApplicationPreferences.prefEventPrefsActivityStartTargetHelps = start;
         editor.apply();

@@ -1879,6 +1879,9 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="phone_profiles_pref_notificationPreferencesIndicatorCategory">Notification panel - preferences indicator</string>
     <string name="phone_profiles_pref_notificationButtonsCategory">Notification panel - buttons</string>
 
+    <string name="editor_activity_targetHelps_bottomNavigation_title">Display changer</string>
+    <string name="editor_activity_targetHelps_bottomNavigation_description">Click this to change display between profiles list and events list.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>

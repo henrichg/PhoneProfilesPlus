@@ -1170,7 +1170,7 @@ public class EditorProfilesActivity extends AppCompatActivity
             dialogBuilder.setPositiveButton(R.string.alert_button_yes, (dialog, which) -> {
                 //PPApplication.logE("PPApplication.exitApp", "from EditorProfileActivity.onOptionsItemSelected shutdown=false");
                 ApplicationPreferences.startStopTargetHelps(getApplicationContext(), true);
-                showTargetHelps();
+                GlobalGUIRoutines.reloadActivity(this, true);
             });
             dialogBuilder.setNegativeButton(R.string.alert_button_no, null);
             AlertDialog dialog = dialogBuilder.create();
@@ -3282,8 +3282,21 @@ public class EditorProfilesActivity extends AppCompatActivity
                                         .id(id)
                         );
                         ++id;
-
  */
+                        targets.add(
+                                TapTarget.forView(bottomNavigationView, getString(R.string.editor_activity_targetHelps_bottomNavigation_title),
+                                        getString(R.string.editor_activity_targetHelps_bottomNavigation_description))
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(false)
+                                        .drawShadow(true)
+//                                        .transparentTarget(true)
+                                        .id(id)
+                        );
+                        ++id;
+
+
                     } else {
                         /*targets.add(
                                 TapTarget.forToolbarNavigationIcon(editorToolbar, getString(R.string.editor_activity_targetHelps_navigationIcon_title), getString(R.string.editor_activity_targetHelps_navigationIcon_description))
@@ -3408,6 +3421,19 @@ public class EditorProfilesActivity extends AppCompatActivity
                         );
                         ++id;
 */
+                        targets.add(
+                                TapTarget.forView(bottomNavigationView, getString(R.string.editor_activity_targetHelps_bottomNavigation_title),
+                                        getString(R.string.editor_activity_targetHelps_bottomNavigation_description))
+                                        .outerCircleColor(outerCircleColor)
+                                        .targetCircleColor(targetCircleColor)
+                                        .textColor(textColor)
+                                        .tintTarget(false)
+                                        .drawShadow(true)
+//                                        .transparentTarget(true)
+                                        .id(id)
+                        );
+                        ++id;
+
                     }
                 }
                 /*if (startTargetHelpsProfilesFilterSpinner) {
@@ -3448,7 +3474,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                     );
                 }
                 if (startTargetHelpsBottomNavigation) {
-                    targets.add(
+                    /*targets.add(
                             TapTarget.forView(bottomNavigationView.findViewById(R.id.menu_profiles_view), getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_title),
                                     getString(R.string.editor_activity_targetHelps_bottomNavigationProfiles_description) + "\n" +
                                     getString(R.string.editor_activity_targetHelps_bottomNavigation_description_2))
@@ -3469,6 +3495,18 @@ public class EditorProfilesActivity extends AppCompatActivity
                                     .tintTarget(true)
                                     .drawShadow(true)
                                     .id(2)
+                    );
+                    */
+                    targets.add(
+                            TapTarget.forView(bottomNavigationView, getString(R.string.editor_activity_targetHelps_bottomNavigation_title),
+                                    getString(R.string.editor_activity_targetHelps_bottomNavigation_description))
+                                    .outerCircleColor(outerCircleColor)
+                                    .targetCircleColor(targetCircleColor)
+                                    .textColor(textColor)
+                                    .tintTarget(false)
+                                    .drawShadow(true)
+//                                    .transparentTarget(true)
+                                    .id(1)
                     );
                 }
 

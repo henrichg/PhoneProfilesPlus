@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        app:backgroundColor="?attr/colorPrimary"
+        app:backgroundColor="@android:color/transparent"
         app:indicatorColor="@android:color/transparent"
         app:textColor="@color/bootomNavigationTextColor"
         app:iconTint="@color/activityWhiteTextColor"
