@@ -43,7 +43,6 @@ import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 
 import com.google.common.util.concurrent.ListenableFuture;
-import com.noob.noobcameraflash.managers.NoobCameraManager;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.look.Slook;
 import com.stericson.rootshell.RootShell;
