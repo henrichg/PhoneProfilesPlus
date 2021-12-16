@@ -1359,44 +1359,53 @@ public class EditorProfilesActivity extends AppCompatActivity
         //if (itemId == R.id.menu_profiles_view) {
         if (item == 0) {
 //            PPApplication.logE("EditorProfilesActivity.selectViewItem", "menu_profiles_view");
-            String[] filterItems = new String[]{
-                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_all),
-                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
-                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
-            };
-            GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                    EditorProfilesActivity.this,
-                    R.layout.highlighted_filter_spinner,
-                    filterItems);
-            filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-            filterSpinner.setAdapter(filterSpinnerAdapter);
-            EditorProfilesActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
-            Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-            if (fragment instanceof EditorProfileListFragment)
-                ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
+            final Handler handler = new Handler(getMainLooper());
+            handler.postDelayed(() -> {
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.selectViewItem (0)");
+                String[] filterItems = new String[]{
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_all),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_show_in_activator),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_profiles) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_profiles_no_show_in_activator),
+                };
+                GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                        EditorProfilesActivity.this,
+                        R.layout.highlighted_filter_spinner,
+                        filterItems);
+                filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                filterSpinner.setAdapter(filterSpinnerAdapter);
+                EditorProfilesActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
+                Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment instanceof EditorProfileListFragment)
+                    ((EditorProfileListFragment) fragment).showHeaderAndBottomToolbar();
+            }, 200);
             return true;
             //} else if (itemId == R.id.menu_events_view) {
         } else if (item == 1) {
 //            PPApplication.logE("EditorProfilesActivity.selectViewItem", "menu_events_view");
-            String[] filterItems = new String[]{
-                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_start_order),
-                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_all),
-                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_not_stopped),
-                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_running),
-                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_paused),
-                    EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_stopped)
-            };
-            GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
-                    EditorProfilesActivity.this,
-                    R.layout.highlighted_filter_spinner,
-                    filterItems);
-            filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
-            filterSpinner.setAdapter(filterSpinnerAdapter);
-            EditorProfilesActivity.this.selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
-            Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
-            if (fragment instanceof EditorEventListFragment) {
-                ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
-            }
+
+            final Handler handler = new Handler(getMainLooper());
+            handler.postDelayed(() -> {
+//                PPApplication.logE("[IN_THREAD_HANDLER] PPApplication.startHandlerThread", "START run - from=EditorProfilesActivity.selectViewItem (1)");
+                String[] filterItems = new String[]{
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_start_order),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_all),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_not_stopped),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_running),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_paused),
+                        EditorProfilesActivity.this.getString(R.string.editor_drawer_title_events) + " - " + EditorProfilesActivity.this.getString(R.string.editor_drawer_list_item_events_stopped)
+                };
+                GlobalGUIRoutines.HighlightedSpinnerAdapter filterSpinnerAdapter = new GlobalGUIRoutines.HighlightedSpinnerAdapter(
+                        EditorProfilesActivity.this,
+                        R.layout.highlighted_filter_spinner,
+                        filterItems);
+                filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
+                filterSpinner.setAdapter(filterSpinnerAdapter);
+                EditorProfilesActivity.this.selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
+                Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
+                if (fragment instanceof EditorEventListFragment) {
+                    ((EditorEventListFragment) fragment).showHeaderAndBottomToolbar();
+                }
+            }, 200);
             return true;
         } else
             return false;
