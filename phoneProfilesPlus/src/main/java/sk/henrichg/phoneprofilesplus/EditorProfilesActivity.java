@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -170,6 +171,8 @@ public class EditorProfilesActivity extends AppCompatActivity
     //private String[] drawerItemsTitle;
     //private String[] drawerItemsSubtitle;
     //private Integer[] drawerItemsIcon;
+
+    boolean filterInitialized;
 
     int editorSelectedView = 0;
     private int filterProfilesSelectedItem = 0;
@@ -507,11 +510,17 @@ public class EditorProfilesActivity extends AppCompatActivity
                 //filterSpinner.setPopupBackgroundResource(R.drawable.popupmenu_background_white);
                 break;
         }*/
+        filterInitialized = false;
         filterSpinner.setAdapter(filterSpinnerAdapter);
         filterSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((GlobalGUIRoutines.HighlightedSpinnerAdapter)filterSpinner.getAdapter()).setSelection(position);
+                if (!filterInitialized) {
+                    filterInitialized = true;
+                    return;
+                }
+                ((GlobalGUIRoutines.HighlightedSpinnerAdapter) filterSpinner.getAdapter()).setSelection(position);
+//                Log.e("EditorProfilesActivity.filterSpinner.onItemSelected", "position=" + position);
                 selectFilterItem(editorSelectedView, position, true, true);
             }
 
@@ -552,6 +561,7 @@ public class EditorProfilesActivity extends AppCompatActivity
         //if ((savedInstanceState != null) || (ApplicationPreferences.applicationEditorSaveEditorState(getApplicationContext())))
         //{
             //filterSelectedItem = ApplicationPreferences.preferences.getInt(SP_EDITOR_DRAWER_SELECTED_ITEM, 1);
+
             if (startupSource == PPApplication.STARTUP_SOURCE_EDITOR_SHOW_IN_ACTIVATOR_FILTER) {
                 editorSelectedView = 0;
                 filterProfilesSelectedItem = DSI_PROFILES_ALL;
@@ -561,10 +571,16 @@ public class EditorProfilesActivity extends AppCompatActivity
                 filterProfilesSelectedItem = DSI_EVENTS_ALL;
             }
             else {
+//                ApplicationPreferences.editorSelectedView(getApplicationContext());
+//                ApplicationPreferences.editorProfilesViewSelectedItem(getApplicationContext());
                 editorSelectedView = ApplicationPreferences.editorSelectedView;
                 filterProfilesSelectedItem = ApplicationPreferences.editorProfilesViewSelectedItem;
             }
+//            ApplicationPreferences.editorEventsViewSelectedItem(getApplicationContext());
             filterEventsSelectedItem = ApplicationPreferences.editorEventsViewSelectedItem;
+//            Log.e("EditorProfilesActivity.onCreate", "editorSelectedView="+editorSelectedView);
+//            Log.e("EditorProfilesActivity.onCreate", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
+//            Log.e("EditorProfilesActivity.onCreate", "filterEventsSelectedItem="+filterEventsSelectedItem);
         //}
 
         startTargetHelps = false;
@@ -1373,6 +1389,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         filterItems);
                 filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                 filterSpinner.setAdapter(filterSpinnerAdapter);
+//                Log.e("EditorProfilesActivity.selectViewItem (0)", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
                 EditorProfilesActivity.this.selectFilterItem(0, filterProfilesSelectedItem, false, startTargetHelps);
                 Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                 if (fragment instanceof EditorProfileListFragment)
@@ -1400,6 +1417,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                         filterItems);
                 filterSpinnerAdapter.setDropDownViewResource(R.layout.highlighted_spinner_dropdown);
                 filterSpinner.setAdapter(filterSpinnerAdapter);
+//                Log.e("EditorProfilesActivity.selectViewItem (1)", "filterProfilesSelectedItem="+filterProfilesSelectedItem);
                 EditorProfilesActivity.this.selectFilterItem(1, filterEventsSelectedItem, false, startTargetHelps);
                 Fragment fragment = EditorProfilesActivity.this.getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
                 if (fragment instanceof EditorEventListFragment) {
@@ -1412,11 +1430,11 @@ public class EditorProfilesActivity extends AppCompatActivity
     }
 
     private void selectFilterItem(int selectedView, int position, boolean fromClickListener, boolean startTargetHelps) {
-        /*if (PPApplication.logEnabled()) {
-            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView=" + editorSelectedView);
-            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView=" + selectedView);
-            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "position=" + position);
-        }*/
+//        if (PPApplication.logEnabled()) {
+//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "editorSelectedView=" + editorSelectedView);
+//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "selectedView=" + selectedView);
+//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "position=" + position);
+//        }
 
         boolean viewChanged = false;
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.editor_list_container);
@@ -1433,16 +1451,18 @@ public class EditorProfilesActivity extends AppCompatActivity
 
         int filterSelectedItem;
         if (selectedView == 0) {
-            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
+//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterProfilesSelectedItem=" + filterProfilesSelectedItem);
             filterSelectedItem = filterProfilesSelectedItem;
         }
         else {
-            //PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
+//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "filterEventsSelectedItem=" + filterEventsSelectedItem);
             filterSelectedItem = filterEventsSelectedItem;
         }
 
         if (viewChanged || (position != filterSelectedItem))
         {
+//            PPApplication.logE("EditorProfilesActivity.selectFilterItem", "items changed");
+
             if (viewChanged) {
                 // stop running AsyncTask
                 if (fragment instanceof EditorProfileListFragment) {
@@ -2775,6 +2795,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             if (changeFilter) {
                                 fragment.scrollToProfile = profile;
                                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
+//                                Log.e("EditorProfilesActivity.redrawProfileListFragment", "position=0");
                                 editorActivity.selectFilterItem(0, 0, false, true);
                             }
                             else
@@ -2958,6 +2979,7 @@ public class EditorProfilesActivity extends AppCompatActivity
                             if (changeFilter) {
                                 fragment.scrollToEvent = event;
                                 ((GlobalGUIRoutines.HighlightedSpinnerAdapter) editorActivity.filterSpinner.getAdapter()).setSelection(0);
+//                                Log.e("EditorProfilesActivity.redrawEventListFragment", "position=0");
                                 editorActivity.selectFilterItem(1, 0, false, true);
                             }
                             else

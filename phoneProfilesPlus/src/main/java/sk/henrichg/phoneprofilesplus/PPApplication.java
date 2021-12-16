@@ -277,6 +277,7 @@ public class PPApplication extends Application
 
                                                 //+"|EditorProfilesActivity.bottomNavigationView.OnItemSelectedListener"
                                                 //+"|EditorProfilesActivity.selectViewItem"
+                                                //+"|EditorProfilesActivity.selectFilterItem"
                                                 ;
 
     static final int ACTIVATED_PROFILES_FIFO_SIZE = 20;
