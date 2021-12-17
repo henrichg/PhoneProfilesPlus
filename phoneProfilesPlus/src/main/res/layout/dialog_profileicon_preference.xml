@@ -75,7 +75,7 @@
                         android:layout_centerVertical="true"
                         android:src="@drawable/ic_button_help"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/menu_help"/>
+                        android:contentDescription="@string/profile_icon_preference_custumIconFromIconPack_help"/>
 
                     <Button
                         android:id="@+id/profileicon_pref_dlg_custom_icon"

@@ -310,7 +310,7 @@
                     android:focusable="true"
                     android:src="@drawable/ic_button_edit"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/application_editor_intent_extra_select_categories"/>
+                    android:contentDescription="@string/application_editor_intent_edit_category_button_tooltip"/>
                 <TextView
                     android:id="@+id/application_editor_intent_category_value"
                     android:layout_width="wrap_content"
@@ -356,7 +356,7 @@
                     android:focusable="true"
                     android:src="@drawable/ic_button_edit"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/application_editor_intent_extra_select_flags"/>
+                    android:contentDescription="@string/application_editor_intent_edit_flags_button_tooltip"/>
                 <TextView
                     android:id="@+id/application_editor_intent_flags_value"
                     android:layout_width="wrap_content"

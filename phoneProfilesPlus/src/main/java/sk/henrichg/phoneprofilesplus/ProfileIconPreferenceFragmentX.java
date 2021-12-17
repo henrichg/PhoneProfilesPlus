@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.GridView;
 
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -75,6 +76,7 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
         });
 
         final AppCompatImageButton helpButton = view.findViewById(R.id.profileicon_pref_dlg_custom_icon_helpIcon);
+        TooltipCompat.setTooltipText(helpButton, getString(R.string.profile_icon_preference_custumIconFromIconPack_help));
         helpButton.setOnClickListener(v -> {
             String helpString = getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_1) + "<br><br>" +
                     getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_2) +

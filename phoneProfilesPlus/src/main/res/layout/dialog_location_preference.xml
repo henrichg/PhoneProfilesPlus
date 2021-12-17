@@ -61,6 +61,7 @@
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_button_settings"
+                    android:contentDescription="@string/location_settings_button_tooltip"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
                 <TextView
@@ -103,6 +104,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_button_add"
+                    android:contentDescription="@string/location_pref_dlg_add_button_tooltip"
                     android:background="?attr/selectableItemBackgroundBorderless" />
 
             </RelativeLayout>

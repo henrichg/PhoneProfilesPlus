@@ -626,13 +626,8 @@
     <string name="phone_profiles_pref_drawOverlaysPermissions_summary">Please search for \"PhoneProfilesPlus\" application and enable it.</string>
     <string name="preference_not_allowed_reason_not_configured_in_system_settings">not configured in System Settings</string>
     <string name="mobile_cells_pref_dlg_last_connected">connected:</string>
-    <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Add Bluetooth name</string>
-    <string name="mobile_cells_pref_dlg_rename_icon">Rename cell</string>
-    <string name="nfc_tag_pref_dlg_add_icon">Add NFC tag</string>
-    <string name="wifi_ssid_pref_dlg_add_wifi_ssid_icon">Add Wi-Fi SSID</string>
     <string name="about_application_application_icon">PhoneProfilesPlus icon</string>
     <string name="applications_editor_dialog_item_icon">Application icon</string>
-    <string name="preference_item_edit_menu">Edit menu</string>
     <string name="preference_item_drag_handle">Order change handle</string>
     <string name="contacts_multiselect_pref_dlg_contact_photo">Contact photo</string>
     <string name="editor_event_list_item_event_status">Event status indicator</string>
@@ -1125,8 +1120,6 @@
     <string name="application_editor_intent_extra_key">Key name</string>
     <string name="application_editor_intent_extra_value">Key value</string>
     <string name="application_editor_intent_extra_type">Key type:</string>
-    <string name="application_editor_intent_extra_select_categories">Select categories</string>
-    <string name="application_editor_intent_extra_select_flags">Select flags</string>
     <string name="application_editor_intent_test_title">Test</string>
     <string name="application_editor_intent_test_activity_bad_data">Error during start of activity.</string>
     <string name="application_editor_intent_intent_type">Intent type:</string>
@@ -1245,7 +1238,6 @@
     <string name="event_preferences_location_radius_label">Radius (meters)</string>
     <string name="toast_predefined_profiles_generated">Predefined profiles generated</string>
     <string name="toast_predefined_events_generated">Predefined events generated</string>
-    <string name="mobile_cells_pref_dlg_sort_icon">Sort cell list</string>
     <string name="tooltip_options_menu">Options menu</string>
     <string name="applications_editor_dialog_add_button_tooltip">Add Intent</string>
     <string name="applications_pref_dlg_add_button_tooltip">Add application</string>
@@ -1883,6 +1875,8 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">It is old, but functional application also in newest Android version.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Click here to install it</string>
 
+    <string name="popup_window_close_button_name">Close</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -1972,6 +1966,15 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 <!--    <string name="editor_activity_targetHelps_bottomNavigationEvents_title">Events</string>-->
 <!--    <string name="editor_activity_targetHelps_bottomNavigationEvents_description">Click this to display list of configured events.</string>-->
 <!--    <string name="editor_activity_targetHelps_bottomNavigation_description_2">Click it, when is activated, to show hidden header and bottom toolbar.</string>-->
+
+<!--    <string name="bluetooth_name_pref_dlg_add_bt_name_icon">Add Bluetooth name</string>-->
+<!--    <string name="mobile_cells_pref_dlg_rename_icon">Rename cell</string>-->
+<!--    <string name="nfc_tag_pref_dlg_add_icon">Add NFC tag</string>-->
+<!--    <string name="wifi_ssid_pref_dlg_add_wifi_ssid_icon">Add Wi-Fi SSID</string>-->
+<!--    <string name="preference_item_edit_menu">Edit menu</string>-->
+<!--    <string name="application_editor_intent_extra_select_categories">Select categories</string>-->
+<!--    <string name="application_editor_intent_extra_select_flags">Select flags</string>-->
+<!--    <string name="mobile_cells_pref_dlg_sort_icon">Sort cell list</string>-->
 
 </resources>
 

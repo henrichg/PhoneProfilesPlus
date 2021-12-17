@@ -38,7 +38,7 @@
             android:padding="5dp"
             android:layout_marginEnd="5dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/preference_item_edit_menu"
+            android:contentDescription="@string/tooltip_options_menu"
             android:src="?attr/editItemMenuIcon"/>
 
     </LinearLayout>
