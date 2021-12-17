@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentCompat {
@@ -71,6 +72,20 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
                 preference.startGallery();
                 //mDialog.dismiss();
             }
+        });
+
+        final AppCompatImageButton helpButton = view.findViewById(R.id.profileicon_pref_dlg_custom_icon_helpIcon);
+        helpButton.setOnClickListener(v -> {
+            String helpString = getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_1) + "<br><br>" +
+                    getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_2) +
+                    " \"ThemeX: Extract Launcher Theme\". " +
+                    getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_3) + "<br><br>" +
+                    "<a href=https://play.google.com/store/apps/details?id=com.redphx.themex>" +
+                    getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4) + " &#8658;</a>";
+            //iconPacksIfo.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT));
+            //iconPacksIfo.setClickable(true);
+            //iconPacksIfo.setMovementMethod(LinkMovementMethod.getInstance());
+            DialogHelpPopupWindowX.showPopup(helpButton, R.string.profile_icon_preference_custumIconFromIconPack_help, (Activity)prefContext, /*getDialog(),*/ helpString, true);
         });
 
         preference.getValuePIDP();
