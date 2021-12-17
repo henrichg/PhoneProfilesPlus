@@ -327,51 +327,6 @@ Toto cele chapem.
 
 -----
 
-- Added expandable layout into "Important informations". System, Profiles, Events sections are expandable.
-- Added help texts about event sensors into "Important information".
-- Added WiFi Hotspot for Android 11+.
-- Added icons representing values for opaqueness and lighting preferences.
-- Added One row widget higher version.
-- Added ability to hide profile icon in PPP notification when style is "Custom" and enabled is decoration.
-- Added "(I) VPN" profile preference.
-- Added predefined Intents for connect/disconnect OpenVPN profile into "Run applications, shortcuts, intents".
-- Added help about grant (G1) permission into README.md.
-- Added change colors of widgets by night mode for Android 12.
-- Added event sensor for check of default sim change, sim on/off.
-- Added exact time to configure profile activation end (addition to profile duration).
-- Added forced rounded corners in widgets for Samsung Une UI 4 launcher.
-- Added double arrow into clickable texts.
-- Added workaround for Huawei devices and screen brightness reset after screen on by system.
-
-- Change: Opaque=100 for all widgets for devices with Android 12 and Pixel Launcher as default home launcher.
-- Change: Display error notification for set WiFI hotspot. This is error about not granted android.permission.TETHER_PRIVILEGED.
-- Change: selectable background changed to rounded for all image buttons.
-- Change: Displayed profile icon also for collapsed notification.
-- Change: Color of decoration set back to accent color, because it is not true icon color, is changed by system.
-- Change: Displayed is custom icon to monochrome when is set status bar icon to "Force native".
-- Change: Better configuration of Intents for application stores. This opens app store application directly.
-
-- Fixed WiFi Hotspot for Android 9, 10.
-- Fixed height of some AlertDialogs.
-- Fixed translation of system contact group names.
-- Fixed not displayed correct event in Editor header after Restart events.
-- Fixed Alarm clock sensor for situation, when PPP is restarted by system.
-- Fixed set screen timeout when is used profile parameter "Screen"/"Lock device"/"Lock device"="Use quick screen off".
-- Fixed profile parameter "Keep screen on".
-- Fixed not displayed notification icon (bug in Pixel 5?) for Pixel devices with Android 12.
-- Fixed change of brightness values when screen gets on.
-- Fixed Permission.grantRootX() when grant root was revoked.
-- Fixed bad dark rectangle outside border, when is displayed popup window.
-- Fixed accessibility service not enabled" notification after restart of PPService.
-- Fixed mobile data enable/disable for Android 12+.
-- Fix: Clear all dual sim parameters when data import is performed in non-dual sim device.
-- Fix: Do not show notification about not enabled accessibility service, when Extender is not installed.
-
-- Updated translations
-- Fixed other bugs
-
-----------------
-
 Extender v obchode:
 
 *** IMPORTANT ***
@@ -384,3 +339,13 @@ Ako stiahnut najnovsiu verziu:
 
 https://github.com/henrichg/PhoneProfilesPlus/releases/latest/download/PhoneProfilesPlus.apk
 https://github.com/henrichg/PhoneProfilesPlusExtender/releases/latest/download/PhoneProfilesPlusExtender.apk
+
+-----------------------
+
+Airplane mod bez rootu:
+
+Hlasaj v:
+/home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid
+pripona suboru: xml
+retazec: BIND_VOICE_INTERACTION
+
