@@ -1870,10 +1870,10 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="editor_activity_targetHelps_bottomNavigation_description">Click this to change display between profiles list and events list.</string>
 
     <string name="profile_icon_preference_custumIconFromIconPack_help">Custom icon from icon pack</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">If you want to using icons from icon pack, install application, which has capability to extract icons from installed icon pack as png files.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">If you want to use icons from icon pack, install application, which has capability to extract icons from installed icon pack as png files.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">For example application</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">It is old, but functional application also in newest Android version.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Click here to install it</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Search it in Google Play.</string>
 
     <string name="popup_window_close_button_name">Close</string>
     <string name="profile_preferences_indicator_image">Profile preferences indicator</string>

@@ -82,8 +82,9 @@ public class ProfileIconPreferenceFragmentX extends PreferenceDialogFragmentComp
                     getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_2) +
                     " \"ThemeX: Extract Launcher Theme\". " +
                     getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_3) + "<br><br>" +
-                    "<a href=https://play.google.com/store/apps/details?id=com.redphx.themex>" +
-                    getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4) + " &#8658;</a>";
+                    getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4);
+                    //"<a href=https://play.google.com/store/apps/details?id=com.redphx.themex>" +
+                    //getString(R.string.profile_icon_preference_custumIconFromIconPack_help_info_4) + " &#8658;</a>";
             //iconPacksIfo.setText(Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT));
             //iconPacksIfo.setClickable(true);
             //iconPacksIfo.setMovementMethod(LinkMovementMethod.getInstance());
