@@ -35,7 +35,7 @@ public class WallpaperViewPreferenceX extends Preference {
 
         prefContext = context;
 
-        setWidgetLayoutResource(R.layout.widget_imageview_preference);
+        setWidgetLayoutResource(R.layout.preference_widget_imageview_preference);
     }
 
     //@Override

@@ -13,7 +13,7 @@
         app:key="applicationAutoStartManager"
         app:title="@string/phone_profiles_pref_systemAutoStartManager"
         app:summary="@string/phone_profiles_pref_systemAutoStartManager_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"/>
 
      <SwitchPreferenceCompat

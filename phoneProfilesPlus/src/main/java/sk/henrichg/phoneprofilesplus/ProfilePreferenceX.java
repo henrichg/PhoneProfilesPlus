@@ -43,7 +43,7 @@ public class ProfilePreferenceX extends DialogPreference {
 
         dataWrapper = new DataWrapper(context.getApplicationContext(), false, 0, false, DataWrapper.IT_FOR_EDITOR, 0, 0f);
 
-        setWidgetLayoutResource(R.layout.widget_profile_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.preference_widget_profile_preference); // resource na layout custom preference - TextView-ImageView
 
         typedArray.recycle();
 

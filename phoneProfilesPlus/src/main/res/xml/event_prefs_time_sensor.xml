@@ -48,7 +48,7 @@
         app:key="eventTimeLocationSystemSettings"
         app:title="@string/phone_profiles_pref_eventLocationSystemSettings"
         app:summary="@string/phone_profiles_pref_eventWiFiLocationSystemSettings_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:dependency="eventTimeEnabled"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
@@ -56,7 +56,7 @@
         app:title="@string/phone_profiles_pref_category_background_scanning"
         app:summary="@string/phone_profiles_pref_eventBackgroundScanningAppSettings_summary"
         app:dependency="eventTimeEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

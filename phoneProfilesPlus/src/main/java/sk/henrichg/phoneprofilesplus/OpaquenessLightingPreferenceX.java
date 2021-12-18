@@ -82,7 +82,7 @@ public class OpaquenessLightingPreferenceX extends DialogPreference {
         prefContext = context;
         //preferenceTitle = getTitle();
 
-        setWidgetLayoutResource(R.layout.widget_opaqueness_lighting_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.preference_widget_opaqueness_lighting_preference); // resource na layout custom preference - TextView-ImageView
 
         typedArray.recycle();
 

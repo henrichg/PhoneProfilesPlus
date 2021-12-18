@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/profile_multiselect_pref_root"
+    android:id="@+id/applications_pref_root"
     android:layout_width="50dp"
     android:layout_height="50dp">
 
     <ImageView
-        android:id="@+id/profile_multiselect_pref_icon"
+        android:id="@+id/applications_pref_icon"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_profile_default"
-        android:contentDescription="@string/empty_string" />
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="@string/preference_widget_application_icon" />
 
     <RelativeLayout
-        android:id="@+id/profile_multiselect_pref_icons"
+        android:id="@+id/applications_pref_icons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <ImageView
-            android:id="@+id/profile_multiselect_pref_icon1"
+            android:id="@+id/applications_pref_icon1"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_profile_default"
-            android:contentDescription="@string/empty_string" />
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/preference_widget_application_icon" />
 
         <ImageView
-            android:id="@+id/profile_multiselect_pref_icon2"
+            android:id="@+id/applications_pref_icon2"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_profile_default"
-            android:contentDescription="@string/empty_string" />
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/preference_widget_application_icon" />
 
         <ImageView
-            android:id="@+id/profile_multiselect_pref_icon3"
+            android:id="@+id/applications_pref_icon3"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_profile_default"
-            android:contentDescription="@string/empty_string" />
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/preference_widget_application_icon" />
 
         <ImageView
-            android:id="@+id/profile_multiselect_pref_icon4"
+            android:id="@+id/applications_pref_icon4"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_profile_default"
-            android:contentDescription="@string/empty_string" />
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/preference_widget_application_icon" />
 
     </RelativeLayout>
 
 </FrameLayout>
+    

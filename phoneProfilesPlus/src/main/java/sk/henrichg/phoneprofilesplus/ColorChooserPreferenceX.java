@@ -44,7 +44,7 @@ public class ColorChooserPreferenceX extends DialogPreference {
         }
         ta.recycle();
 
-        setWidgetLayoutResource(R.layout.widget_color_chooser_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.preference_widget_color_chooser_preference); // resource na layout custom preference - TextView-ImageView
 
         setPositiveButtonText(null);
     }

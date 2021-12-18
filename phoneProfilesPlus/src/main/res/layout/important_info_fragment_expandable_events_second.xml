@@ -117,7 +117,7 @@
             android:adjustViewBounds="true"
             android:scaleType="fitEnd"
             android:src="?attr/runEventsIndicatorAll"
-            android:contentDescription="@string/empty_string" />
+            android:contentDescription="@string/important_infor_traffic_light_icon" />
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"

@@ -57,7 +57,7 @@
     <Preference
         app:title="@string/profile_preferences_deviceDualSIMSupport"
         app:key="prf_pref_deviceRadiosDualSIMSupportCategoryRoot"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"
         app:fragment="sk.henrichg.phoneprofilesplus.ProfilesPrefsActivity$ProfilesPrefsRadiosDualSIMSupport" />
 
@@ -65,7 +65,7 @@
         app:key="prf_pref_deviceWiFiInfo"
         app:title="@string/profile_preferences_deviceWiFi"
         app:summary="@string/profile_preferences_deviceWiFiInfo_summary"
-        app:widgetLayout="@layout/widget_info_preference"
+        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceWiFi"
@@ -86,7 +86,7 @@
         app:key="prf_pref_deviceWiFiAPInfo"
         app:title="@string/profile_preferences_deviceWiFiAP"
         app:summary="@string/profile_preferences_deviceWiFiAPInfo_summary"
-        app:widgetLayout="@layout/widget_info_preference"
+        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
     <ListPreference
         app:title="@string/profile_preferences_deviceWiFiAP"
@@ -151,7 +151,7 @@
         app:title="@string/profile_preferences_deviceVPNInfo"
         app:summary="@string/profile_preferences_deviceVPNInfo_summary"
         app:infoText="@string/empty_string"
-        app:widgetLayout="@layout/widget_info_preference_clickable"
+        app:widgetLayout="@layout/preference_widget_info_preference_clickable"
         app:layout="@layout/mp_preference_material_widget" />
 
     <ListPreference

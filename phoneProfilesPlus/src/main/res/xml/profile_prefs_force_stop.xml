@@ -28,18 +28,18 @@
         app:key="prf_pref_deviceForceStopApplicationInstallExtender"
         app:title="@string/install_extender_dialog_title"
         app:summary="@string/profile_preferences_deviceForceStopApplications_PPPExtender_install_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="prf_pref_deviceForceStopApplicationAccessibilitySettings"
         app:title="@string/profile_preferences_deviceForceStopApplications_AccessibilitySettings_title"
         app:summary="@string/profile_preferences_deviceForceStopApplications_AccessibilitySettingsForExtender_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="prf_pref_deviceForceStopApplicationLaunchExtender"
         app:title="@string/event_preferences_applications_LaunchExtender_title"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

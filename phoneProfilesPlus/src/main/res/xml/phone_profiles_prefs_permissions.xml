@@ -8,13 +8,13 @@
         app:key="permissionsGrantRootPermission"
         app:title="@string/phone_profiles_pref_grantRootPermission"
         app:summary="@string/phone_profiles_pref_grantRootPermission_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"/>
     <Preference
         app:key="permissionsWriteSystemSettingsPermissions"
         app:title="@string/phone_profiles_pref_writeSystemSettingPermissions"
         app:summary="@string/phone_profiles_pref_writeSystemSettingPermissions_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"/>
 <!--    <Preference-->
 <!--        app:key="permissionsAccessNotificationPolicyPermissions"-->
@@ -26,32 +26,32 @@
         app:key="permissionsDrawOverlaysPermissions"
         app:title="@string/phone_profiles_pref_drawOverlaysPermissions"
         app:summary="@string/phone_profiles_pref_drawOverlaysPermissions_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="permissionsGrantG1Permission"
         app:title="@string/profile_preferences_types_G1_permission"
         app:summary="@string/important_info_profile_grant"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"/>
     <Preference
         app:key="permissionsApplicationPermissions"
         app:title="@string/phone_profiles_pref_applicationPermissions"
         app:summary="@string/phone_profiles_pref_applicationPermissions_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget"/>
 
     <Preference
         app:key="applicationColorOsWifiBluetoothDialogsInfo"
         app:title="@string/phone_profiles_pref_applicationColorOsWifiBluetoothDialogs"
         app:summary="@string/phone_profiles_pref_applicationColorOsWifiBluetoothDialogsInfo_info"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="applicationMIUIWifiBluetoothDialogsInfo"
         app:title="@string/phone_profiles_pref_applicationColorOsWifiBluetoothDialogs"
         app:summary="@string/phone_profiles_pref_applicationMIUIWifiBluetoothDialogsInfo_info"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
 </androidx.preference.PreferenceScreen>

@@ -5417,7 +5417,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                 preference = new Preference(context);
                                 preference.setKey(PRF_GRANT_G1_PREFERENCES);
                                 preference.setIconSpaceReserved(false);
-                                preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                                preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                                 preference.setLayoutResource(R.layout.mp_preference_material_widget);
                                 preference.setOrder(-100);
                                 preferenceCategory.addPreference(preference);
@@ -5471,7 +5471,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                                     preference = new Preference(context);
                                     preference.setKey(PRF_GRANT_ROOT);
                                     preference.setIconSpaceReserved(false);
-                                    preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                                    preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                                     preference.setLayoutResource(R.layout.mp_preference_material_widget);
                                     preference.setOrder(-100);
                                     preferenceCategory.addPreference(preference);
@@ -5517,9 +5517,9 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference.setKey(PRF_GRANT_PERMISSIONS);
                             preference.setIconSpaceReserved(false);
                             if (profile._id > 0)
-                                preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                                preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                             else
-                                preference.setWidgetLayoutResource(R.layout.widget_exclamation_preference);
+                                preference.setWidgetLayoutResource(R.layout.preference_widget_exclamation_preference);
                             preference.setLayoutResource(R.layout.mp_preference_material_widget);
                             preference.setOrder(-100);
                             preferenceCategory.addPreference(preference);
@@ -5563,7 +5563,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference = new Preference(context);
                             preference.setKey(PREF_NOTIFICATION_ACCESS_ENABLED);
                             preference.setIconSpaceReserved(false);
-                            preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                            preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                             preference.setLayoutResource(R.layout.mp_preference_material_widget);
                             preference.setOrder(-100);
                             preferenceCategory.addPreference(preference);
@@ -5618,7 +5618,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                             preference = new Preference(context);
                             preference.setKey(PRF_NOT_ENABLED_ACCESSIBILITY_SERVICE);
                             preference.setIconSpaceReserved(false);
-                            preference.setWidgetLayoutResource(R.layout.widget_start_activity_preference);
+                            preference.setWidgetLayoutResource(R.layout.preference_widget_preference_with_subpreferences);
                             preference.setLayoutResource(R.layout.mp_preference_material_widget);
                             preference.setOrder(-97);
                             preferenceCategory.addPreference(preference);

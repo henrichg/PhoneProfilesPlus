@@ -59,7 +59,7 @@ public class ProfileIconPreferenceX extends DialogPreference {
 
         prefContext = context;
 
-        setWidgetLayoutResource(R.layout.widget_profileicon_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.preference_widget_profileicon_preference); // resource na layout custom preference - TextView-ImageView
 
         //typedArray.recycle();
 

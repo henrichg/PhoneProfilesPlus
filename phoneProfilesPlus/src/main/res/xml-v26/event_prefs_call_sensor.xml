@@ -72,21 +72,21 @@
         app:title="@string/install_extender_dialog_title"
         app:summary="@string/event_preferences_call_PPPExtender_install_summary"
         app:dependency="eventCallEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventCallAccessibilitySettings"
         app:title="@string/event_preferences_applications_AccessibilitySettings_title"
         app:summary="@string/event_preferences_call_AccessibilitySettingsForExtender_summary"
         app:dependency="eventCallEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     <Preference
         app:key="eventCallLaunchExtender"
         app:title="@string/event_preferences_applications_LaunchExtender_title"
         app:summary="@string/event_preferences_call_LaunchExtender_summary"
         app:dependency="eventCallEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
     
 </androidx.preference.PreferenceScreen>

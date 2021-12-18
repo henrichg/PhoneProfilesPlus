@@ -8,14 +8,14 @@
         app:key="notificationSystemSettingsActivatedProfile"
         app:title="@string/phone_profiles_pref_notificationSystemSettings"
         app:summary="@string/phone_profiles_pref_notificationSystemSettings_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
     <Preference
         app:key="notificationSystemSettingsAll"
         app:title="@string/phone_profiles_pref_notificationSystemSettings"
         app:summary="@string/phone_profiles_pref_notificationSystemSettingsAll_summary"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
     <PreferenceCategory
@@ -27,7 +27,7 @@
             app:key="notificationStatusBarStyleInfo"
             app:title="@string/phone_profiles_pref_notificationStatusBarStyleInfo_title"
             app:summary="@string/phone_profiles_pref_notificationStatusBarStyleInfo_summary"
-            app:widgetLayout="@layout/widget_info_preference"
+            app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
 
         <ListPreference
@@ -96,7 +96,7 @@
             app:key="notificationBackgroundColorInfo"
             app:title="@string/phone_profiles_pref_notificationBackgroundColor"
             app:summary="@string/phone_profiles_pref_notificationBackgroundColorInfo_summary"
-            app:widgetLayout="@layout/widget_info_preference"
+            app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
 
         <ListPreference

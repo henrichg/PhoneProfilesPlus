@@ -15,7 +15,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_background_5"
         android:visibility="gone"
-        android:contentDescription="@string/empty_string" />
+        tools:ignore="ContentDescription" />
 
     <RelativeLayout
         android:id="@+id/icon_widget_relLa1"
@@ -74,7 +74,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/not_rounded_widget_border"
         android:visibility="gone"
-        android:contentDescription="@string/empty_string" />
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/widget_icon_rounded_border"
@@ -83,7 +83,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/rounded_widget_border_5"
         android:visibility="gone"
-        android:contentDescription="@string/empty_string" />
+        tools:ignore="ContentDescription" />
 
 </FrameLayout>
 

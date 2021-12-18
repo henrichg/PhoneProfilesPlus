@@ -22,13 +22,13 @@
             app:key="applicationUnlinkRingerNotificationVolumesImportantInfo"
             app:title="@string/phone_profiles_pref_applicationUnlinkRingerNotificationVolumes"
             app:summary="@string/phone_profiles_pref_UnlinkRingerNotificationVolumesImportantInfo_importantInfo_summary"
-            app:widgetLayout="@layout/widget_start_activity_preference"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget" />
         <Preference
             app:key="applicationForceSetMergeRingNotificationVolumesInfo"
             app:title="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes"
             app:summary="@string/phone_profiles_pref_applicationForceSetMergeRingNotificationVolumes_info"
-            app:widgetLayout="@layout/widget_info_preference"
+            app:widgetLayout="@layout/preference_widget_info_preference"
             app:layout="@layout/mp_preference_material_widget" />
         <ListPreference
             app:key="applicationForceSetMergeRingNotificationVolumes"
@@ -48,7 +48,7 @@
             app:key="applicationBatteryOptimization"
             app:title="@string/phone_profiles_pref_applicationBatteryOptimization"
             app:summary="@string/phone_profiles_pref_applicationBatteryOptimization_summary"
-            app:widgetLayout="@layout/widget_start_activity_preference"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"/>
         <!--<Preference-->
             <!--app:key="applicationPowerManager"-->
@@ -60,7 +60,7 @@
             app:key="applicationDoNotKillMyApp"
             app:title="@string/phone_profiles_pref_applicationDoNotKillMyApp"
             app:summary="@string/phone_profiles_pref_applicationDoNotKillMyApp_summary1"
-            app:widgetLayout="@layout/widget_start_activity_preference"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"/>
         <!--<ListPreference
             app:key="applicationPowerSaveModeInternal"
@@ -74,7 +74,7 @@
             app:key="applicationSystemPowerSaveMode"
             app:title="@string/phone_profiles_pref_applicationBatterySaver"
             app:summary="@string/phone_profiles_pref_applicationBatterySaver_system"
-            app:widgetLayout="@layout/widget_start_activity_preference"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
 
@@ -86,7 +86,7 @@
             app:key="applicationAutoStartManager"
             app:title="@string/phone_profiles_pref_systemAutoStartManager"
             app:summary="@string/phone_profiles_pref_systemAutoStartManager_summary"
-            app:widgetLayout="@layout/widget_start_activity_preference"
+            app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
             app:layout="@layout/mp_preference_material_widget"/>
     </PreferenceCategory>
 

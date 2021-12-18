@@ -15,7 +15,7 @@
         app:title="@string/phone_profiles_pref_category_background_scanning"
         app:summary="@string/phone_profiles_pref_eventBackgroundScanningAppSettings_summary"
         app:dependency="eventPeriodicEnabled"
-        app:widgetLayout="@layout/widget_start_activity_preference"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.BetterNumberPickerPreferenceX
@@ -33,7 +33,7 @@
         app:title="@string/pref_event_periodic_resulting_interval"
         app:summary="@string/empty_string"
         app:dependency="eventPeriodicEnabled"
-        app:widgetLayout="@layout/widget_info_preference"
+        app:widgetLayout="@layout/preference_widget_info_preference"
         app:layout="@layout/mp_preference_material_widget" />
 
     <sk.henrichg.phoneprofilesplus.DurationDialogPreferenceX

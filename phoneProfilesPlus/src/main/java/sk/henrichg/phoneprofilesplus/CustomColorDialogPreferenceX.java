@@ -54,7 +54,7 @@ public class CustomColorDialogPreferenceX extends DialogPreference {
         chromaIndicatorMode = typedArray.getInteger(
                 R.styleable.ChromaPreference_chromaIndicatorMode, 1);
 
-        setWidgetLayoutResource(R.layout.widget_custom_color_preference); // resource na layout custom preference - TextView-ImageView
+        setWidgetLayoutResource(R.layout.preference_widget_custom_color_preference); // resource na layout custom preference - TextView-ImageView
 
         typedArray.recycle();
     }

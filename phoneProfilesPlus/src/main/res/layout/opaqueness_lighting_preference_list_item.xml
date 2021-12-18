@@ -20,7 +20,7 @@
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/opaqueness_lighting_pref_dlg_item_radiobtn"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/empty_string"
+        android:contentDescription="@string/opaqueness_lightnig_preference_list_item_icon"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_empty" />
 
