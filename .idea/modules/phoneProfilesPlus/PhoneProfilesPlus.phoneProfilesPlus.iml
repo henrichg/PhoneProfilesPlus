@@ -64,7 +64,7 @@
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.5.31" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:1.0" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.8" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.9" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.apps.dashclock:dashclock-api:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: com.linkedin.dexmaker:dexmaker:2.28.1" level="project" />
     <orderEntry type="library" name="Gradle: ch.acra:acra-mail:5.8.4@aar" level="project" />
