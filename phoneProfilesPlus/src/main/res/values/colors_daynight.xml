@@ -57,8 +57,8 @@
 
     <color name="toastBackgroundColor">#FF707070</color>
     <color name="toastTextColor">#FFFFFFFF</color>
+    <color name="toastBorderColor">#FF454545</color>
 
-    <color name="toastBorderColor">#FF707070</color>
     <color name="dialogBorderColor">#FFFFFFFF</color>
     <color name="buttonBorderColor">#FFAAAAAA</color>
 <!--    <color name="alertButtonBorderColor">#FFAAAAAA</color>-->
