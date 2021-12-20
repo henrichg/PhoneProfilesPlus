@@ -43,24 +43,17 @@ class WifiScanner {
                 // application is not started
                 return;
 
-            //PPApplication.logE("%%%% WifiScanner.doScan", "-- START ------------");
+//            PPApplication.logE("%%%% WifiScanner.doScan", "-- START ------------");
 
             //DataWrapper dataWrapper;
 
             //PPApplication.logE("%%%% WifiScanner.doScan", "scannerType=" + scannerType);
 
             // for Airplane mode ON, no scan
-            //if (android.os.Build.VERSION.SDK_INT >= 17) {
-                if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0) {
-                    //PPApplication.logE("%%%% WifiScanner.doScan", "-- END - airplane mode ON -------");
-                    return;
-                }
-            /*} else {
-                if (Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0) {
-                    PPApplication.logE("%%%% WifiScanner.doScan", "-- END - airplane mode ON -------");
-                    return;
-                }
-            }*/
+            if (Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0) {
+//                PPApplication.logE("%%%% WifiScanner.doScan", "-- END - airplane mode ON -------");
+                return;
+            }
 
             // check power save mode
             //boolean isPowerSaveMode = PPApplication.isPowerSaveMode;
@@ -70,7 +63,7 @@ class WifiScanner {
                 if (forceScan != FORCE_ONE_SCAN_FROM_PREF_DIALOG) {
                     if (ApplicationPreferences.applicationEventWifiScanInPowerSaveMode.equals("2")) {
                         // not scan wi-fi in power save mode
-                        //PPApplication.logE("%%%% WifiScanner.doScan", "-- END - power save mode ON -------");
+//                        PPApplication.logE("%%%% WifiScanner.doScan", "-- END - power save mode ON -------");
                         return;
                     }
                 }
@@ -329,11 +322,11 @@ class WifiScanner {
 
             //}
 
-            /*if (PPApplication.logEnabled()) {
-                PPApplication.logE("$$$ WifiScanner.doScan", "after synchronized block - scannerType=" + scannerType);
+//            if (PPApplication.logEnabled()) {
+//                PPApplication.logE("$$$ WifiScanner.doScan", "after synchronized block - scannerType=" + scannerType);
 
-                PPApplication.logE("%%%% WifiScanner.doScan", "-- END ------------");
-            }*/
+//                PPApplication.logE("%%%% WifiScanner.doScan", "-- END ------------");
+//            }
         }
     }
 
