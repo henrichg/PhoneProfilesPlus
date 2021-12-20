@@ -207,32 +207,34 @@ class ActivateProfileHelper {
                 if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_DEVICE_DEFAULT_SIM_CARDS, null, executedProfileSharedPreferences, false, appContext).allowed == PreferenceAllowed.PREFERENCE_ALLOWED) {
 //                    PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.doExecuteForRadios", "profile._deviceDefaultSIMCards="+profile._deviceDefaultSIMCards);
                     String[] splits = profile._deviceDefaultSIMCards.split("\\|");
-                    try {
-                        String voice = splits[0];
-                        if (!voice.equals("0")) {
+                    if (splits.length == 3) {
+                        try {
+                            String voice = splits[0];
+                            if (!voice.equals("0")) {
 //                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.doExecuteForRadios", "voice value="+Integer.parseInt(voice));
-                            setDefaultSimCard(context, SUBSCRIPTRION_VOICE, Integer.parseInt(voice));
+                                setDefaultSimCard(context, SUBSCRIPTRION_VOICE, Integer.parseInt(voice));
+                            }
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
-                    try {
-                        String sms = splits[1];
-                        if (!sms.equals("0")) {
+                        try {
+                            String sms = splits[1];
+                            if (!sms.equals("0")) {
 //                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.doExecuteForRadios", "sms value="+Integer.parseInt(sms));
-                            setDefaultSimCard(context, SUBSCRIPTRION_SMS, Integer.parseInt(sms));
+                                setDefaultSimCard(context, SUBSCRIPTRION_SMS, Integer.parseInt(sms));
+                            }
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
-                    }
-                    try {
-                        String data = splits[2];
-                        if (!data.equals("0")) {
+                        try {
+                            String data = splits[2];
+                            if (!data.equals("0")) {
 //                            PPApplication.logE("[DEFAULT_SIM] ActivateProfileHelper.doExecuteForRadios", "data value="+Integer.parseInt(data));
-                            setDefaultSimCard(context, SUBSCRIPTRION_DATA, Integer.parseInt(data));
+                                setDefaultSimCard(context, SUBSCRIPTRION_DATA, Integer.parseInt(data));
+                            }
+                        } catch (Exception e) {
+                            PPApplication.recordException(e);
                         }
-                    } catch (Exception e) {
-                        PPApplication.recordException(e);
                     }
                 }
             }

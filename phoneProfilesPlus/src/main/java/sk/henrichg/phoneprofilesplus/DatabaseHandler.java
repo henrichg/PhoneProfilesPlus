@@ -12123,7 +12123,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                 if ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED) &&
                                         (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)) {
                                     values.clear();
-                                    values.put(KEY_DEVICE_DEFAULT_SIM_CARDS, 0);
+                                    values.put(KEY_DEVICE_DEFAULT_SIM_CARDS, "0|0|0");
                                     db.update(TABLE_PROFILES, values, KEY_ID + " = ?",
                                             new String[]{String.valueOf(profilesCursor.getInt(profilesCursor.getColumnIndexOrThrow(KEY_ID)))});
                                 }
