@@ -1757,13 +1757,14 @@ class ActivateProfileHelper {
                                 ContentResolver contentResolver = context.getContentResolver();
                                 context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                 contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                //PPApplication.logE("ActivateProfileHelper.setTones", "ring tone granted");
+//                                PPApplication.logE("ActivateProfileHelper.setTones - ringtone", "ring tone granted");
                             } catch (Exception e) {
                                 // java.lang.SecurityException: UID 10157 does not have permission to
                                 // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
                                 // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
                                 //Log.e("ActivateProfileHelper.setTones (1)", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
+//                                PPApplication.logE("ActivateProfileHelper.setTones - ringtone (1)", Log.getStackTraceString(e));
                             }
 
                             RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_RINGTONE, uri);
@@ -1773,12 +1774,14 @@ class ActivateProfileHelper {
                         // java.lang.IllegalArgumentException: Invalid column: _data
                         //Log.e("ActivateProfileHelper.setTones (2)", Log.getStackTraceString(e));
                         //PPApplication.recordException(e);
+//                        PPApplication.logE("ActivateProfileHelper.setTones - ringtone (2)", Log.getStackTraceString(e));
                     }
                     catch (Exception e){
                         //Log.e("ActivateProfileHelper.setTones (3)", Log.getStackTraceString(e));
                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_RINGTONE,
                                 null, profile._name, "");
                         noError = false;
+//                        PPApplication.logE("ActivateProfileHelper.setTones - ringtone (3)", Log.getStackTraceString(e));
                         /*String[] splits = profile._soundRingtone.split("\\|");
                         if (!splits[0].isEmpty()) {
                             try {
@@ -1830,13 +1833,14 @@ class ActivateProfileHelper {
                                 ContentResolver contentResolver = context.getContentResolver();
                                 context.grantUriPermission(PPApplication.PACKAGE_NAME, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                                 contentResolver.takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                //PPApplication.logE("ActivateProfileHelper.setTones", "notification tone granted");
+//                                PPApplication.logE("ActivateProfileHelper.setTones - notification", "notification tone granted");
                             } catch (Exception e) {
                                 // java.lang.SecurityException: UID 10157 does not have permission to
                                 // content://com.android.externalstorage.documents/document/93ED-1CEC%3AMirek%2Fmobil%2F.obr%C3%A1zek%2Fblack.jpg
                                 // [user 0]; you could obtain access using ACTION_OPEN_DOCUMENT or related APIs
                                 //Log.e("BitmapManipulator.resampleBitmapUri", Log.getStackTraceString(e));
                                 //PPApplication.recordException(e);
+//                                PPApplication.logE("ActivateProfileHelper.setTones - notification (1)", Log.getStackTraceString(e));
                             }
 
                             RingtoneManager.setActualDefaultRingtoneUri(appContext, RingtoneManager.TYPE_NOTIFICATION, uri);
@@ -1845,11 +1849,13 @@ class ActivateProfileHelper {
                     catch (IllegalArgumentException e) {
                         // java.lang.IllegalArgumentException: Invalid column: _data
                         //PPApplication.recordException(e);
+//                        PPApplication.logE("ActivateProfileHelper.setTones - notification (2)", Log.getStackTraceString(e));
                     }
                     catch (Exception e){
                         PPApplication.addActivityLog(appContext, PPApplication.ALTYPE_PROFILE_ERROR_SET_TONE_NOTIFICATION,
                                 null, profile._name, "");
                         noError = false;
+//                        PPApplication.logE("ActivateProfileHelper.setTones - notification (3)", Log.getStackTraceString(e));
                         /*String[] splits = profile._soundNotification.split("\\|");
                         if (!splits[0].isEmpty()) {
                             try {
