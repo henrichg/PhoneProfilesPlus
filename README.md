@@ -24,7 +24,7 @@ __Galaxy Store (for Samsung devices), AppGallery (for Huawei devices), Amazon Ap
 
 __[Amazon AppStore application](https://www.amazon.com/gp/mas/get/amazonapp)__
 
-__[APKPure release](https://m.apkpure.com/p/sk.henrichg.phoneprofilesplus)__
+__[APKPure release](https://apkpure.com/p/sk.henrichg.phoneprofilesplus)__
 
 ---
 
