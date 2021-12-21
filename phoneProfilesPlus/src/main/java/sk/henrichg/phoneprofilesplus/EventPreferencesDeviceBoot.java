@@ -97,14 +97,14 @@ class EventPreferencesDeviceBoot extends EventPreferences {
         if (key.equals(PREF_EVENT_DEVICE_BOOT_ENABLED)) {
             SwitchPreferenceCompat preference = prefMng.findPreference(key);
             if (preference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, preferences.getBoolean(key, false), false, false);
             }
         }
 
         if (key.equals(PREF_EVENT_DEVICE_BOOT_PERMANENT_RUN)) {
             SwitchPreferenceCompat permanentRunPreference = prefMng.findPreference(key);
             if (permanentRunPreference != null) {
-                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), false, false, false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(permanentRunPreference, true, preferences.getBoolean(key, false), false, false);
             }
             Preference preference = prefMng.findPreference(PREF_EVENT_DEVICE_BOOT_DURATION);
             if (preference != null) {
@@ -119,7 +119,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
             } catch (Exception e) {
                 delay = 5;
             }
-            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false, false);
+            GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, delay > 5, false, false);
         }
     }
 
@@ -157,7 +157,7 @@ class EventPreferencesDeviceBoot extends EventPreferences {
                 boolean permissionGranted = true;
                 if (enabled)
                     permissionGranted = Permissions.checkEventPermissions(context, null, preferences, EventsHandler.SENSOR_TYPE_DEVICE_BOOT).size() == 0;
-                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted), false);
+                GlobalGUIRoutines.setPreferenceTitleStyleX(preference, enabled, tmp._enabled, false, !(tmp.isRunnable(context) && permissionGranted));
                 preference.setSummary(GlobalGUIRoutines.fromHtml(tmp.getPreferencesDescription(false, false, context), false, false, 0, 0));
             }
         }

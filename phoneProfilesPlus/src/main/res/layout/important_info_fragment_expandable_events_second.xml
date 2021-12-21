@@ -178,19 +178,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
+        android:paddingBottom="10dp"
         android:text="@string/empty_string"
         android:textSize="@dimen/important_info_text_size"
         android:textStyle="bold"
         android:id="@+id/activity_info_notification_event_event_sensors_2" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:text="@string/important_info_event_system_settings"
-        android:textSize="@dimen/important_info_text_size"
-        android:id="@+id/activity_info_notification_event_system_settings" />
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingBottom="10dp"-->
+<!--        android:text="@string/important_info_event_system_settings"-->
+<!--        android:textSize="@dimen/important_info_text_size"-->
+<!--        android:id="@+id/activity_info_notification_event_system_settings" />-->
 
     <TextView
         android:layout_width="wrap_content"

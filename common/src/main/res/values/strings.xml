@@ -352,7 +352,6 @@
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">in Bluetooth name,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">in search string,</string>
     <string name="pref_dlg_info_about_wildcards_3">add \"\u005C\" around these characters.</string>
-    <string name="important_info_profile_settings">Some profile preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Notification access</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Priority with vibration</string>
     <string name="important_info_news">News</string>
@@ -958,7 +957,6 @@
     <string name="permission_not_ask_button">Not ask</string>
     <string name="brightness_pref_dialog_level_chb">Change level</string>
     <string name="preference_profile_manual_brightness">Manual</string>
-    <string name="important_info_event_system_settings">Some event preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>
     <string name="preferences_grantPermissions_title">Not granted permissions</string>
     <string name="preferences_grantPermissions_summary">Some permissions are not granted. Click here to grant it.</string>
     <string name="event_preferences_no_sensor_is_enabled">No sensor is enabled!</string>
@@ -1156,7 +1154,6 @@
     <string name="profile_preferences_volumeAccessibility">Accessibility prompts volume</string>
     <string name="profile_preferences_volumeBluetoothSCO">Bluetooth call volume</string>
     <string name="profile_preferences_enabled">Enabled</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (S), (I).</string>
     <string name="profile_preferences_types_G1_show_info">Click here to show more information.</string>
     <string name="popup_window_events_status_show_info">Click here to show more information.</string>
     <string name="important_info_profile_type_of_preferences">Type of preferences:</string>
@@ -1891,6 +1888,8 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="preference_widget_information_clickable_icon">Information, clickable</string>
     <string name="preference_widget_clickabe_prefernce_icon">Clickable preference with sub preferences</string>
 
+    <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (I).</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
@@ -1989,6 +1988,9 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 <!--    <string name="application_editor_intent_extra_select_categories">Select categories</string>-->
 <!--    <string name="application_editor_intent_extra_select_flags">Select flags</string>-->
 <!--    <string name="mobile_cells_pref_dlg_sort_icon">Sort cell list</string>-->
+
+<!--    <string name="important_info_profile_settings">Some profile preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
+<!--    <string name="important_info_event_system_settings">Some event preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
 
 </resources>
 

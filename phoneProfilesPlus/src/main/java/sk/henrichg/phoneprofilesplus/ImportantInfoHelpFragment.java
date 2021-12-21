@@ -453,7 +453,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             String text = "<ul>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_grant) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_root) + "</li>" +
-                    "<li>" + fragment.getString(R.string.important_info_profile_settings) + "</li>" +
+                    //"<li>" + fragment.getString(R.string.important_info_profile_settings) + "</li>" +
                     "<li>" + fragment.getString(R.string.important_info_profile_interactive) +
                     "</ul>"
             ;

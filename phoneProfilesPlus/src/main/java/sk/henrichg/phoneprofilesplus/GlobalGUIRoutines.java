@@ -324,76 +324,12 @@ class GlobalGUIRoutines {
             activity.recreate();
     }
 
-    /*
-    public static void setPreferenceTitleStyle(Preference preference, boolean enabled,
-                                               boolean bold, boolean addBullet,
-                                               boolean underline, boolean errorColor, boolean systemSettings)
-    {
-        if (preference != null) {
-            CharSequence title = preference.getTitle();
-            if (systemSettings) {
-                String s = title.toString();
-                if (!s.contains("(S)")) {
-                    if (bold && addBullet)
-                        title = TextUtils.concat("• (S) ", title);
-                    else
-                        title = TextUtils.concat("(S) ", title);
-                }
-            }
-            if (addBullet) {
-                if (bold) {
-                    String s = title.toString();
-                    if (!s.startsWith("• "))
-                        title = TextUtils.concat("• ", title);
-                } else {
-                    String s = title.toString();
-                    if (s.startsWith("• "))
-                        title = TextUtils.replace(title, new String[]{"• "}, new CharSequence[]{""});
-                }
-            }
-            Spannable sbt = new SpannableString(title);
-            Object[] spansToRemove = sbt.getSpans(0, title.length(), Object.class);
-            for (Object span : spansToRemove) {
-                if (span instanceof CharacterStyle)
-                    sbt.removeSpan(span);
-            }
-            if (bold || underline) {
-                if (bold) {
-                    sbt.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    sbt.setSpan(new RelativeSizeSpan(1.05f), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-                if (underline) {
-                    if (bold && addBullet)
-                        sbt.setSpan(new UnderlineSpan(), 2, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    else
-                        sbt.setSpan(new UnderlineSpan(), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                }
-                if (errorColor && enabled)
-                    sbt.setSpan(new ForegroundColorSpan(Color.RED), 0, sbt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                preference.setTitle(sbt);
-            } else {
-                preference.setTitle(sbt);
-            }
-        }
-    }
-    */
-
     static void setPreferenceTitleStyleX(androidx.preference.Preference preference, boolean enabled,
                                          boolean bold, //boolean addBullet,
-                                         boolean underline, boolean errorColor,
-                                         @SuppressWarnings("SameParameterValue") boolean systemSettings)
+                                         boolean underline, boolean errorColor)
     {
         if (preference != null) {
             CharSequence title = preference.getTitle();
-            if (systemSettings) {
-                String s = title.toString();
-                if (!s.contains("(S)")) {
-                    if (bold/* && addBullet*/)
-                        title = TextUtils.concat("• (S) ", title);
-                    else
-                        title = TextUtils.concat("(S) ", title);
-                }
-            }
             //if (addBullet) {
                 String s = title.toString();
                 if (bold) {
