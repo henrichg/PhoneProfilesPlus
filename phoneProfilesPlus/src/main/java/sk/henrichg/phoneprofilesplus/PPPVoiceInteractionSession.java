@@ -8,12 +8,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.service.voice.VoiceInteractionSession;
 import androidx.annotation.RequiresApi;
-import com.arlosoft.macrodroid.macro.C6023h;
-import com.arlosoft.macrodroid.macro.Macro;
-import com.arlosoft.macrodroid.triggers.HomeButtonLongPressTrigger;
-import com.arlosoft.macrodroid.triggers.Trigger;
-import java.util.ArrayList;
-import java.util.Iterator;
+//import com.arlosoft.macrodroid.macro.C6023h;
+//import com.arlosoft.macrodroid.macro.Macro;
+//import com.arlosoft.macrodroid.triggers.HomeButtonLongPressTrigger;
+//import com.arlosoft.macrodroid.triggers.Trigger;
+//import java.util.ArrayList;
+//import java.util.Iterator;
 //import kotlin.jvm.internal.C0330j;
 
 @RequiresApi(23)
@@ -28,7 +28,7 @@ public final class PPPVoiceInteractionSession extends VoiceInteractionSession {
 
     public void onHandleAssist(Bundle bundle, AssistStructure assistStructure, AssistContent assistContent) {
         super.onHandleAssist(bundle, assistStructure, assistContent);
-        ArrayList arrayList = new ArrayList();
+        /*ArrayList arrayList = new ArrayList();
         for (Macro next : C6023h.m25685n().mo17464l()) {
             Iterator<Trigger> it = next.mo17345I().iterator();
             while (true) {
@@ -48,7 +48,7 @@ public final class PPPVoiceInteractionSession extends VoiceInteractionSession {
         while (it2.hasNext()) {
             Macro macro = (Macro) it2.next();
             macro.mo17353M(macro.mo17340F());
-        }
+        }*/
     }
 
     public void onPrepareShow(Bundle bundle, int i) {

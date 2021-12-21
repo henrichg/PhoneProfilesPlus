@@ -344,8 +344,14 @@ https://github.com/henrichg/PhoneProfilesPlusExtender/releases/latest/download/P
 
 Airplane mod bez rootu:
 
-Hlasaj v:
+Hladaj v:
 /home/henrisko/Stiahnuté/MacroDroidDeviceAutomation_v5.17.3_apkpure.com_source_from_JADX/sources/com/arlosoft/macrodroid
 pripona suboru: xml
 retazec: BIND_VOICE_INTERACTION
+
+volaj toto:
+Intent intent = new Intent(PPPVoiceService.ACTION_ASSISTANT);
+intent.putExtra("ACTION", "android.settings.VOICE_CONTROL_AIRPLANE_MODE");
+intent.putExtra("airplane_mode_enabled", z3);
+mo15668c0().sendBroadcast(intent);
 

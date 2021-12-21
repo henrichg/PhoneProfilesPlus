@@ -20,7 +20,7 @@ public final class PPPVoiceServiceBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         //C0330j.m960e(intent, "intent");
         String action = intent.getAction();
-        if (action.equals("com.arlosoft.macrodropid.action.ASSISTANT")) {
+        if (action.equals(PPPVoiceService.ACTION_ASSISTANT)) {
             voiceService.showSession(intent.getExtras(), 0);
         }
     }

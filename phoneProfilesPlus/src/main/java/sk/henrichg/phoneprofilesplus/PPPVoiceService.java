@@ -12,6 +12,8 @@ import androidx.annotation.RequiresApi;
 /* compiled from: MacroDroidVoiceService.kt */
 public final class PPPVoiceService extends VoiceInteractionService {
 
+    static final String ACTION_ASSISTANT = PPApplication.PACKAGE_NAME_EXTENDER + ".ACTION_ASSISTANT";
+
     /* renamed from: a */
     @SuppressWarnings("unused")
     public static final PPPVoiceServiceInternal voiceServiceInternal = new PPPVoiceServiceInternal(null);
@@ -33,7 +35,7 @@ public final class PPPVoiceService extends VoiceInteractionService {
 
     public void onReady() {
         super.onReady();
-        registerReceiver(this.voiceServiceBroadcastReceiver, new IntentFilter("com.arlosoft.macrodropid.action.ASSISTANT"));
+        registerReceiver(this.voiceServiceBroadcastReceiver, new IntentFilter(ACTION_ASSISTANT));
     }
 
     public void onShutdown() {
