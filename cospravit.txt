@@ -361,6 +361,7 @@ Alebo asi lepsie: Macrodroid class: common/C5258c1.java
 
 Ak nastavit default asistenta:
 activity.startActivity(new Intent("android.settings.VOICE_INPUT_SETTINGS"));
+- Settings.ACTION_VOICE_INPUT_SETTINGS
 Alebo Macrodroid class: permissions/PermissionRequestActivity.java
 
 
