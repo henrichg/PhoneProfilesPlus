@@ -886,7 +886,7 @@ class ActivateProfileHelper {
                     if (_setAirplaneMode /*&& _isAirplaneMode*/) {
                         // switch ON airplane mode, set it before doExecuteForRadios
                         //PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.executeForRadios", "setAirplaneMode()");
-                        setAirplaneMode(/*context,*/ _isAirplaneMode);
+                        setAirplaneMode(context, _isAirplaneMode);
                         PPApplication.sleep(2500);
                         //PPApplication.logE("ActivateProfileHelper.executeForRadios", "after sleep");
                     }
@@ -5626,7 +5626,7 @@ class ActivateProfileHelper {
         //    return Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0;
     }
 
-    private static void setAirplaneMode(boolean mode)
+    private static void setAirplaneMode(Context context, boolean mode)
     {
         if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
                 (PPApplication.isRooted(false) && PPApplication.settingsBinaryExists(false))) {
@@ -5657,6 +5657,12 @@ class ActivateProfileHelper {
                 }
                 //PPApplication.logE("ActivateProfileHelper.setAirplaneMode", "done");
             }
+        }
+        else {
+            Intent intent = new Intent(PPPVoiceService.ACTION_ASSISTANT);
+            intent.putExtra("ACTION", "android.settings.VOICE_CONTROL_AIRPLANE_MODE");
+            intent.putExtra("airplane_mode_enabled", mode);
+            context.sendBroadcast(intent);
         }
     }
 
