@@ -1890,6 +1890,9 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
     <string name="profile_preferences_preferenceTypesInfo_summary">Click here to show information about types of preferences: (G1), (R), (I).</string>
 
+    <string name="required_extender_release">New PhoneProfilesPlusExtender version</string>
+    <string name="required_extender_release_notification">Click this notification to install new PhoneProfilesPlusExtender release.</string>
+
     <!-- **************************************************************************************** -->
 
     <string name="extender_app_name" translatable="false">PhoneProfilesPlusExtender</string>
