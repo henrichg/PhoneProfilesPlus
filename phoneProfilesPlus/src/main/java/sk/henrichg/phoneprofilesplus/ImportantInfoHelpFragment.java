@@ -141,7 +141,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version_2);
             infoText1.setText(getString(R.string.important_info_accessibility_service_new_version_2) +  " \u21D2");
             infoText1.setVisibility(View.VISIBLE);
-            infoText1.setOnClickListener(v -> installExtender(getActivity()));
+            infoText1.setOnClickListener(v -> installExtender(getActivity(), false));
         }
         else {
             TextView infoText1 = view.findViewById(R.id.activity_info_notification_accessibility_service_new_version);
@@ -718,7 +718,7 @@ public class ImportantInfoHelpFragment extends Fragment {
     }
 
     @SuppressLint("SetTextI18n")
-    static private void installExtenderFromGitHub(Activity activity) {
+    static private void installExtenderFromGitHub(Activity activity, boolean finishActivity) {
         if (activity == null) {
             return;
         }
@@ -747,6 +747,33 @@ public class ImportantInfoHelpFragment extends Fragment {
 
         text.setText(dialogText);
 
+        dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
+            //String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
+            //String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
+            String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL;
+
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            try {
+                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                if (finishActivity)
+                    activity.finish();
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        });
+        dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+            if (finishActivity)
+                activity.finish();
+        });
+        dialogBuilder.setCancelable(false);
+        /*dialogBuilder.setOnCancelListener(dialog -> {
+            if (finishActivity)
+                activity.finish();
+        });*/
+
+        final AlertDialog dialog = dialogBuilder.create();
+
         text = layout.findViewById(R.id.install_ppp_pppe_from_github_dialog_github_releases);
         CharSequence str1 = activity.getString(R.string.install_extender_github_releases);
         CharSequence str2 = str1 + " " + PPApplication.GITHUB_PPPE_RELEASES_URL + " \u21D2";
@@ -765,8 +792,11 @@ public class ImportantInfoHelpFragment extends Fragment {
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 try {
+                    dialog.cancel();
                     //if (activity != null)
-                        activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
+                    if (finishActivity)
+                        activity.finish();
+                    activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
@@ -777,21 +807,6 @@ public class ImportantInfoHelpFragment extends Fragment {
         text.setText(sbt);
         text.setMovementMethod(LinkMovementMethod.getInstance());
 
-        dialogBuilder.setPositiveButton(R.string.alert_button_install, (dialog, which) -> {
-            //String url = PPApplication.GITHUB_PPPE_RELEASES_URL;
-            //String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL_1 + PPApplication.VERSION_NAME_EXTENDER_LATEST + PPApplication.GITHUB_PPPE_DOWNLOAD_URL_2;
-            String url = PPApplication.GITHUB_PPPE_DOWNLOAD_URL;
-
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(url));
-            try {
-                activity.startActivity(Intent.createChooser(i, activity.getString(R.string.web_browser_chooser)));
-            } catch (Exception e) {
-                PPApplication.recordException(e);
-            }
-        });
-        dialogBuilder.setNegativeButton(android.R.string.cancel, null);
-        AlertDialog dialog = dialogBuilder.create();
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
 //            @Override
@@ -808,7 +823,7 @@ public class ImportantInfoHelpFragment extends Fragment {
     }
 
     @SuppressLint("SetTextI18n")
-    static void installExtender(Activity activity) {
+    static void installExtender(Activity activity, boolean finishActivity) {
         if (activity == null) {
             return;
         }
@@ -842,11 +857,21 @@ public class ImportantInfoHelpFragment extends Fragment {
                         Uri.parse("samsungapps://ProductDetail/sk.henrichg.phoneprofilesplusextender"));
                 try {
                     activity.startActivity(intent);
+                    if (finishActivity)
+                        activity.finish();
                 } catch (Exception e) {
                     PPApplication.recordException(e);
                 }
             });
-            dialogBuilder.setNegativeButton(android.R.string.cancel, null);
+            dialogBuilder.setNegativeButton(android.R.string.cancel, (dialog, which) -> {
+                if (finishActivity)
+                    activity.finish();
+            });
+            dialogBuilder.setCancelable(false);
+            /*dialogBuilder.setOnCancelListener(dialog -> {
+                if (finishActivity)
+                    activity.finish();
+            });*/
 
             Button button = layout.findViewById(R.id.install_pppe_from_store_dialog_installFromGitHub);
 
@@ -855,7 +880,7 @@ public class ImportantInfoHelpFragment extends Fragment {
             button.setText(activity.getString(R.string.alert_button_install_extender_from_github));
             button.setOnClickListener(v -> {
                 dialog.cancel();
-                installExtenderFromGitHub(activity);
+                installExtenderFromGitHub(activity, finishActivity);
             });
 
 //        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
@@ -930,7 +955,7 @@ public class ImportantInfoHelpFragment extends Fragment {
                 dialog.show();
         }*/
         else
-            installExtenderFromGitHub(activity);
+            installExtenderFromGitHub(activity, finishActivity);
     }
 
 }

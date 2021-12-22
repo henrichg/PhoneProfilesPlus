@@ -756,7 +756,8 @@
         </service>
 
         <service android:name="sk.henrichg.phoneprofilesplus.PPPVoiceService"
-            android:permission="android.permission.BIND_VOICE_INTERACTION">
+            android:permission="android.permission.BIND_VOICE_INTERACTION"
+            tools:ignore="IntentFilterExportedReceiver">
             <meta-data android:name="android.voice_interaction"
                 android:resource="@xml/assist_metadata"/>
             <intent-filter>

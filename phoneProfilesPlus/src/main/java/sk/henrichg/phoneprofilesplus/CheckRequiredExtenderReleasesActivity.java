@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 //import me.drakeet.support.toast.ToastCompat;
 
@@ -18,7 +17,7 @@ public class CheckRequiredExtenderReleasesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         overridePendingTransition(0, 0);
 
-//        PPApplication.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onCreate", "xxx");
+        PPApplication.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onCreate", "xxx");
 
 //        if (showNotStartedToast()) {
 //            finish();
@@ -36,6 +35,7 @@ public class CheckRequiredExtenderReleasesActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
+        PPApplication.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onStart", "xxx");
 
 //        if (showNotStartedToast()) {
 //            if (!isFinishing())
@@ -48,7 +48,8 @@ public class CheckRequiredExtenderReleasesActivity extends AppCompatActivity
             GlobalGUIRoutines.setTheme(this, true, false/*, false*/, false, false);
             //GlobalGUIRoutines.setLanguage(this);
 
-            ImportantInfoHelpFragment.installExtender(this);
+            PPApplication.logE("[BACKGROUND_ACTIVITY] CheckRequiredExtenderReleasesActivity.onStart", "do installExtender");
+            ImportantInfoHelpFragment.installExtender(this, true);
         }
         else {
             if (isFinishing())

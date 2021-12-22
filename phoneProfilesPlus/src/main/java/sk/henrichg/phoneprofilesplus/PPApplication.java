@@ -249,7 +249,7 @@ public class PPApplication extends Application
                                                 //+"|[BLOCK_ACTIONS]"
                                                 //+"|[ACTIVATOR]"
                                                 //+"|[G1_TEST]"
-                                                //+"|[BACKGROUND_ACTIVITY]"
+                                                +"|[BACKGROUND_ACTIVITY]"
                                                 //+"|[START_PP_SERVICE]"
                                                 //+"|[BRS]"
                                                 //+"|[CONNECTIVITY_TEST]"
