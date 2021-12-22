@@ -63,7 +63,6 @@
     <string name="profile_preferences_soundNotification">Notification sound</string>
     <string name="profile_preferences_soundAlarmChange">Change alarm</string>
     <string name="profile_preferences_soundAlarm">Alarm sound</string>
-    <string name="profile_preferences_deviceAirplaneMode">(R) Airplane mode</string>
     <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
     <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
     <string name="profile_preferences_deviceGPS">(G1)(R) GPS</string>
@@ -1892,6 +1891,8 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
     <string name="required_extender_release">New PhoneProfilesPlusExtender version</string>
     <string name="required_extender_release_notification">Click this notification to install new PhoneProfilesPlusExtender release.</string>
+
+    <string name="profile_preferences_deviceAirplaneMode">Airplane mode</string>
 
     <!-- **************************************************************************************** -->
 
