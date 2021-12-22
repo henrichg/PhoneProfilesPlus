@@ -63,7 +63,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
         long alarmTime;
 
         // TODO remove for release
-        if (DebugVersion.enabled) {
+        /*if (DebugVersion.enabled) {
             alarm.add(Calendar.MINUTE, 1);
 
 //            if (PPApplication.logEnabled()) {
@@ -73,7 +73,7 @@ public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastRec
 //            }
 
             alarmTime = alarm.getTimeInMillis();
-        } else
+        } else*/
         {
             if ((lastAlarm == 0) || (lastAlarm <= alarm.getTimeInMillis())) {
                 // saved alarm is less then actual time
