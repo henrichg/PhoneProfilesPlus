@@ -1,5 +1,7 @@
 package sk.henrichg.phoneprofilesplus;
 
+import static android.app.Notification.DEFAULT_VIBRATE;
+
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -14,34 +16,31 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
-import java.util.Calendar;
-
-import static android.app.Notification.DEFAULT_VIBRATE;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver {
+import java.util.Calendar;
 
-    private static final String PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION = "show_critical_github_release_code_notification";
-    private static final String PREF_CRITICAL_PPP_RELEASE_ALARM = "critical_github_release_alarm";
+public class CheckRequiredExtenderReleasesBroadcastReceiver extends BroadcastReceiver {
+
+    private static final String PREF_REQUIRED_EXTENDER_RELEASE_ALARM = "required_extender_release_alarm";
 
     public void onReceive(Context context, Intent intent) {
-//        PPApplication.logE("[IN_BROADCAST] CheckCriticalPPPReleasesBroadcastReceiver.onReceive", "xxx");
-//        CallsCounter.logCounter(context, "CheckCriticalPPPReleasesBroadcastReceiver.onReceive", "DonationBroadcastReceiver_onReceive");
+//        PPApplication.logE("[IN_BROADCAST] CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "xxx");
+//        CallsCounter.logCounter(context, "CheckRequiredExtenderReleasesBroadcastReceiver.onReceive", "DonationBroadcastReceiver_onReceive");
 
         if (intent != null) {
 
             Context appContext = context.getApplicationContext();
 
             try {
-                CheckCriticalPPPReleasesBroadcastReceiver.doWork(appContext);
+                CheckRequiredExtenderReleasesBroadcastReceiver.doWork(appContext);
             } catch (Exception ignored) {
             }
 
-            CheckCriticalPPPReleasesBroadcastReceiver.setAlarm(appContext);
+            CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm(appContext);
         }
     }
 
@@ -49,21 +48,21 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
     {
         removeAlarm(context);
 
-//        PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "xxx");
+//        PPApplication.logE("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "xxx");
 
         Calendar alarm = Calendar.getInstance();
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(alarm.getTimeInMillis());
-//            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "now=" + result);
+//            Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "now=" + result);
 //        }
 
         long lastAlarm = ApplicationPreferences.
-                getSharedPreferences(context).getLong(PREF_CRITICAL_PPP_RELEASE_ALARM, 0);
+                getSharedPreferences(context).getLong(PREF_REQUIRED_EXTENDER_RELEASE_ALARM, 0);
 //        if (PPApplication.logEnabled()) {
 //            SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //            String result = sdf.format(lastAlarm);
-//            Log.e("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "lastAlarm=" + result);
+//            Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "lastAlarm=" + result);
 //        }
 
         long alarmTime;
@@ -75,7 +74,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //            if (PPApplication.logEnabled()) {
 //                SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                String result = sdf.format(alarm.getTimeInMillis());
-//                Log.e("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//                Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
 //            }
 
             alarmTime = alarm.getTimeInMillis();
@@ -87,13 +86,13 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                 // each day at 12:30
                 //if (PPApplication.applicationFullyStarted) {
                     alarm.set(Calendar.HOUR_OF_DAY, 12);
-                    alarm.set(Calendar.MINUTE, 30);
+                    alarm.set(Calendar.MINUTE, 20);
                     alarm.add(Calendar.DAY_OF_MONTH, 1);
                     alarm.set(Calendar.SECOND, 0);
                     alarm.set(Calendar.MILLISECOND, 0);
                 /*} else {
                     alarm.set(Calendar.HOUR_OF_DAY, 12);
-                    alarm.set(Calendar.MINUTE, 30);
+                    alarm.set(Calendar.MINUTE, 20);
                     alarm.set(Calendar.SECOND, 0);
                     alarm.set(Calendar.MILLISECOND, 0);
                     if (alarm.getTimeInMillis() <= Calendar.getInstance().getTimeInMillis()) {
@@ -104,13 +103,13 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //                if (PPApplication.logEnabled()) {
 //                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                    String result = sdf.format(alarm.getTimeInMillis());
-//                    Log.e("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
+//                    Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "alarm=" + result);
 //                }
 
                 alarmTime = alarm.getTimeInMillis();
 
                 SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-                editor.putLong(PREF_CRITICAL_PPP_RELEASE_ALARM, alarmTime);
+                editor.putLong(PREF_REQUIRED_EXTENDER_RELEASE_ALARM, alarmTime);
                 editor.apply();
             } else {
                 alarmTime = lastAlarm;
@@ -118,15 +117,15 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
 //                if (PPApplication.logEnabled()) {
 //                    SimpleDateFormat sdf = new SimpleDateFormat("EE d.MM.yyyy HH:mm:ss:S");
 //                    String result = sdf.format(alarmTime);
-//                    Log.e("CheckCriticalPPPReleasesBroadcastReceiver.setAlarm", "alarm 2=" + result);
+//                    Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm", "alarm 2=" + result);
 //                }
             }
         }
 
-        //Intent intent = new Intent(_context, CheckGitHubReleasesBroadcastReceiver.class);
+        //Intent intent = new Intent(_context, CheckRequiredExtenderReleasesBroadcastReceiver.class);
         Intent intent = new Intent();
-        intent.setAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
-        //intent.setClass(context, CheckCriticalPPPReleasesBroadcastReceiver.class);
+        intent.setAction(PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES);
+        //intent.setClass(context, CheckRequiredExtenderReleasesBroadcastReceiver.class);
 
         @SuppressLint("UnspecifiedImmutableFlag")
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -157,10 +156,10 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
         try {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
-                //Intent intent = new Intent(_context, CheckCriticalPPPReleasesBroadcastReceiver.class);
+                //Intent intent = new Intent(_context, CheckRequiredExtenderReleasesBroadcastReceiver.class);
                 Intent intent = new Intent();
-                intent.setAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
-                //intent.setClass(context, CheckGitHubReleasesBroadcastReceiver.class);
+                intent.setAction(PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES);
+                //intent.setClass(context, CheckRequiredExtenderReleasesBroadcastReceiver.class);
 
                 @SuppressLint("UnspecifiedImmutableFlag")
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_NO_CREATE);
@@ -212,7 +211,7 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
                     url,
                     response -> {
-//                        PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "response="+response);
+//                        PPApplication.logE("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "response="+response);
 
                         boolean showNotification;
                         boolean critical = true;
@@ -281,8 +280,8 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                 mBuilder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                                 //}
 
-//                                PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "putExtra - versionCodeInReleases=" + versionCodeInReleases);
-//                                PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", "putExtra - critical=" + critical);
+//                                PPApplication.logE("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "putExtra - versionCodeInReleases=" + versionCodeInReleases);
+//                                PPApplication.logE("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", "putExtra - critical=" + critical);
                                 Intent disableIntent = new Intent(appContext, CheckCriticalPPPReleasesDisableActivity.class);
                                 disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CODE, versionCodeInReleases);
                                 disableIntent.putExtra(CheckCriticalPPPReleasesDisableActivity.EXTRA_PPP_RELEASE_CRITICAL, critical);
@@ -304,26 +303,26 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
                                 NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(appContext);
                                 try {
                                     mNotificationManager.notify(
-                                            PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG,
-                                            PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID, notification);
+                                            PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_TAG,
+                                            PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_ID, notification);
                                 } catch (Exception e) {
-                                    //Log.e("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+                                    //Log.e("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                                     PPApplication.recordException(e);
                                 }
                             }
 
                         } catch (Exception e) {
-//                            PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//                            PPApplication.logE("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
                         }
 
                     },
                     error -> {
-//                        PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(error));
+//                        PPApplication.logE("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", Log.getStackTraceString(error));
                     });
             queue.add(stringRequest);
 
         } catch (Exception e) {
-//            PPApplication.logE("CheckCriticalPPPReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
+//            PPApplication.logE("CheckRequiredExtenderReleasesBroadcastReceiver.doWork", Log.getStackTraceString(e));
         }
 
     }
@@ -333,29 +332,10 @@ public class CheckCriticalPPPReleasesBroadcastReceiver extends BroadcastReceiver
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         try {
             notificationManager.cancel(
-                    PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_TAG,
-                    PPApplication.CHECK_CRITICAL_GITHUB_RELEASES_NOTIFICATION_ID);
+                    PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_TAG,
+                    PPApplication.CHECK_REQUIRED_EXTENDER_RELEASES_NOTIFICATION_ID);
         } catch (Exception e) {
             PPApplication.recordException(e);
-        }
-    }
-
-    static void getShowCriticalGitHubReleasesNotification(Context context)
-    {
-        synchronized (PPApplication.applicationGlobalPreferencesMutex) {
-            ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification = ApplicationPreferences.
-                    getSharedPreferences(context).getInt(PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION, 0);
-            //return prefRingerVolume;
-        }
-    }
-
-    static void setShowCriticalGitHubReleasesNotification(Context context, int versionCode)
-    {
-        synchronized (PPApplication.applicationGlobalPreferencesMutex) {
-            SharedPreferences.Editor editor = ApplicationPreferences.getEditor(context);
-            editor.putInt(PREF_SHOW_CRITICAL_PPP_RELEASE_CODE_NOTIFICATION, versionCode);
-            editor.apply();
-            ApplicationPreferences.prefShowCriticalGitHubReleasesCodeNotification = versionCode;
         }
     }
 

@@ -1527,24 +1527,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
 
 
         /////////////////
-        /*
-        if (Build.VERSION.SDK_INT >= 31) {
-            if (PPApplication.isPixelLauncherDefault(getActivity())) {
-                // Pixel Launcher is default
-                // TODO Maybe change color of widgets by night mode will be forced
-                //      also in another launchers.
-                //      But currently is checked only Pixel launcher.
-                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE);
-                if (preference != null)
-                    preference.setEnabled(false);
-            }
-            else {
-                preference = findPreference(ApplicationPreferences.PREF_APPLICATION_WIDGET_CHANGE_COLOR_BY_NIGHT_MODE);
-                if (preference != null)
-                    preference.setEnabled(true);
-            }
-        }
-        */
 
         if (Build.VERSION.SDK_INT >= 31) {
             if (PPApplication.isPixelLauncherDefault(getActivity()) ||
@@ -2745,7 +2727,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null)
                     _preference.setEnabled(true);
 
-                //TODO
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(true);
@@ -2800,7 +2781,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
                 if (_preference != null)
                     _preference.setEnabled(false);
 
-                //TODO
                 _preference = findPreference(ApplicationPreferences.PREF_NOTIFICATION_PROFILE_ICON_COLOR);
                 if (_preference != null)
                     _preference.setEnabled(true);
@@ -3345,7 +3325,6 @@ class PhoneProfilesPrefsFragment extends PreferenceFragmentCompat
             summary = summary + getString(R.string.phone_profiles_pref_notificationsToast);
         }
         if (key.equals("specialProfileParametersCategoryRoot")) {
-            //TODO special profile parameters
             if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI) {
                 summary = summary + getString(R.string.phone_profiles_pref_applicationForceSetBrightnessAtScreenOn);
                 //if (!summary.isEmpty()) summary = summary + " • ";

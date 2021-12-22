@@ -743,6 +743,16 @@ public class PhoneProfilesService extends Service
                     PPApplication.checkCriticalPPPReleasesBroadcastReceiver = null;
                 }
             }
+            if (PPApplication.checkRequiredExtenderReleasesBroadcastReceiver != null) {
+                //CallsCounter.logCounterNoInc(appContext, "PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers->UNREGISTER checkCriticalGitHubReleasesBroadcastReceiver", "PhoneProfilesService_registerAllTheTimeRequiredPPPBroadcastReceivers");
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "UNREGISTER checkRequiredExtenderReleasesBroadcastReceiver");
+                try {
+                    appContext.unregisterReceiver(PPApplication.checkRequiredExtenderReleasesBroadcastReceiver);
+                    PPApplication.checkRequiredExtenderReleasesBroadcastReceiver = null;
+                } catch (Exception e) {
+                    PPApplication.checkRequiredExtenderReleasesBroadcastReceiver = null;
+                }
+            }
         }
         if (register) {
             /*
@@ -877,6 +887,13 @@ public class PhoneProfilesService extends Service
                 IntentFilter intentFilter5 = new IntentFilter();
                 intentFilter5.addAction(PPApplication.ACTION_CHECK_CRITICAL_GITHUB_RELEASES);
                 appContext.registerReceiver(PPApplication.checkCriticalPPPReleasesBroadcastReceiver, intentFilter5);
+            }
+            if (PPApplication.checkRequiredExtenderReleasesBroadcastReceiver == null) {
+                //PPApplication.logE("[RJS] PhoneProfilesService.registerAllTheTimeRequiredPPPBroadcastReceivers", "REGISTER checkRequiredExtenderReleasesBroadcastReceiver");
+                PPApplication.checkRequiredExtenderReleasesBroadcastReceiver = new CheckRequiredExtenderReleasesBroadcastReceiver();
+                IntentFilter intentFilter5 = new IntentFilter();
+                intentFilter5.addAction(PPApplication.ACTION_CHECK_REQUIRED_EXTENDER_RELEASES);
+                appContext.registerReceiver(PPApplication.checkRequiredExtenderReleasesBroadcastReceiver, intentFilter5);
             }
         }
     }
@@ -4402,6 +4419,7 @@ public class PhoneProfilesService extends Service
                 DonationBroadcastReceiver.setAlarm(appContext);
                 CheckPPPReleasesBroadcastReceiver.setAlarm(appContext);
                 CheckCriticalPPPReleasesBroadcastReceiver.setAlarm(appContext);
+                CheckRequiredExtenderReleasesBroadcastReceiver.setAlarm(appContext);
 
                 PPApplication.logE("PhoneProfilesService.doForFirstStart - handler", "application started");
 
@@ -6555,7 +6573,6 @@ public class PhoneProfilesService extends Service
 
                     int iconLargeResource = Profile.getIconResource(iconIdentifier);
                     iconBitmap = BitmapManipulator.getBitmapFromResource(iconLargeResource, true, appContext);
-                    //TODO
                     if (notificationProfileIconColor.equals("1"))
                         iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
                     if (notificationNotificationStyle.equals("0")) {
@@ -6613,7 +6630,6 @@ public class PhoneProfilesService extends Service
 
                 if (notificationNotificationStyle.equals("0")) {
                     try {
-                        //TODO
                         if (iconBitmap != null)
                             contentViewLarge.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                         else {
@@ -6629,7 +6645,6 @@ public class PhoneProfilesService extends Service
                             contentViewLarge.setViewVisibility(R.id.notification_activated_profile_icon, View.GONE);
                         //if (profileIconExists) {
                             if (contentView != null) {
-                                //TODO
                                 if (iconBitmap != null)
                                     contentView.setImageViewBitmap(R.id.notification_activated_profile_icon, iconBitmap);
                                 else {
@@ -6653,7 +6668,6 @@ public class PhoneProfilesService extends Service
                     if (notificationShowProfileIcon) {
                         if (iconBitmap == null)
                             iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile_default);
-                        //TODO
                         if (notificationProfileIconColor.equals("1"))
                             iconBitmap = BitmapManipulator.monochromeBitmap(iconBitmap, notificationProfileIconMonochromeValue);
                         notificationBuilder.setLargeIcon(iconBitmap);

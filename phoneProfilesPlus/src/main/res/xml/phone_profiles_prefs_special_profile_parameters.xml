@@ -4,7 +4,6 @@
     app:key="specialProfileParametersCategory"
     app:title="@string/phone_profiles_pref_category_special_profile_parameters">
 
-<!-- TODO special profile parameters -->
     <SwitchPreferenceCompat
         app:key="applicationForceSetBrightnessAtScreenOn"
         app:title="@string/phone_profiles_pref_applicationForceSetBrightnessAtScreenOn"
