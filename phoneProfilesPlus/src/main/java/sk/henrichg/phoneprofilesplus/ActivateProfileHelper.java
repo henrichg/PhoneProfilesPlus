@@ -5628,35 +5628,35 @@ class ActivateProfileHelper {
 
     private static void setAirplaneMode(Context context, boolean mode)
     {
-        if (PPApplication.isRooted(false)) {
-            if ((!ApplicationPreferences.applicationNeverAskForGrantRoot) && PPApplication.settingsBinaryExists(false)) {
-                // device is rooted
-                synchronized (PPApplication.rootMutex) {
-                    String command1;
-                    String command2;
-                    if (mode) {
-                        command1 = "settings put global airplane_mode_on 1";
-                        command2 = "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state true";
-                    } else {
-                        command1 = "settings put global airplane_mode_on 0";
-                        command2 = "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state false";
-                    }
-                    //if (PPApplication.isSELinuxEnforcing())
-                    //{
-                    //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
-                    //	command2 = PPApplication.getSELinuxEnforceCommand(command2, Shell.ShellContext.SYSTEM_APP);
-                    //}
-                    Command command = new Command(0, true, command1, command2);
-                    try {
-                        RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
-                        PPApplication.commandWait(command, "ActivateProfileHelper.setAirplaneMode");
-                    } catch (Exception e) {
-                        // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
-                        //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
-                        //PPApplication.recordException(e);
-                    }
-                    //PPApplication.logE("ActivateProfileHelper.setAirplaneMode", "done");
+        if (PPApplication.isRooted(false) &&
+            (!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
+            PPApplication.settingsBinaryExists(false)) {
+            // device is rooted
+            synchronized (PPApplication.rootMutex) {
+                String command1;
+                String command2;
+                if (mode) {
+                    command1 = "settings put global airplane_mode_on 1";
+                    command2 = "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state true";
+                } else {
+                    command1 = "settings put global airplane_mode_on 0";
+                    command2 = "am broadcast -a android.intent.action.AIRPLANE_MODE --ez state false";
                 }
+                //if (PPApplication.isSELinuxEnforcing())
+                //{
+                //	command1 = PPApplication.getSELinuxEnforceCommand(command1, Shell.ShellContext.SYSTEM_APP);
+                //	command2 = PPApplication.getSELinuxEnforceCommand(command2, Shell.ShellContext.SYSTEM_APP);
+                //}
+                Command command = new Command(0, true, command1, command2);
+                try {
+                    RootTools.getShell(true, Shell.ShellContext.SYSTEM_APP).add(command);
+                    PPApplication.commandWait(command, "ActivateProfileHelper.setAirplaneMode");
+                } catch (Exception e) {
+                    // com.stericson.rootshell.exceptions.RootDeniedException: Root Access Denied
+                    //Log.e("ActivateProfileHelper.setAirplaneMode", Log.getStackTraceString(e));
+                    //PPApplication.recordException(e);
+                }
+                //PPApplication.logE("ActivateProfileHelper.setAirplaneMode", "done");
             }
         }
         else {
