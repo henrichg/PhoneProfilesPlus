@@ -37,6 +37,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
 import android.os.ServiceManager;
+import android.os.UserHandle;
 import android.provider.DocumentsContract;
 import android.provider.Settings;
 import android.provider.Settings.Global;
@@ -821,6 +822,40 @@ class ActivateProfileHelper {
             }
         }
 
+    }
+
+    static boolean isPPPSetAsDefaultAssistant(Context context) {
+        boolean assistIsSet = false;
+
+        ComponentName compName = null;
+        try {
+            //noinspection RedundantArrayCreation
+            Method declaredMethod = UserHandle.class.getDeclaredMethod("myUserId", new Class[0]);
+            declaredMethod.setAccessible(true);
+            Integer num = (Integer) declaredMethod.invoke((Object) null, new Object[0]);
+            if (num != null) {
+                //noinspection RedundantArrayCreation
+                @SuppressLint("PrivateApi")
+                Object newInstance = Class.forName("com.android.internal.app.AssistUtils").getConstructor(new Class[]{Context.class}).newInstance(new Object[]{context});
+                //noinspection RedundantArrayCreation
+                Method declaredMethod2 = newInstance.getClass().getDeclaredMethod("getAssistComponentForUser", new Class[]{Integer.TYPE});
+                declaredMethod2.setAccessible(true);
+                compName = (ComponentName) declaredMethod2.invoke(newInstance, new Object[]{num});
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (compName != null && compName.getPackageName().equals(context.getPackageName())) {
+            assistIsSet = true;
+        }
+        if (!assistIsSet) {
+            String string = Settings.Secure.getString(context.getContentResolver(), "assistant");
+            if ((string != null) && (string.startsWith(context.getPackageName()))) {
+                assistIsSet = true;
+            }
+        }
+
+        return assistIsSet;
     }
 
     private static void executeForRadios(Profile profile, Context context, SharedPreferences executedProfileSharedPreferences)

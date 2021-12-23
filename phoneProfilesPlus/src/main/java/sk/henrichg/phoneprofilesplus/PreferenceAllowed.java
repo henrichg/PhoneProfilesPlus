@@ -107,37 +107,7 @@ class PreferenceAllowed {
         } else {
             // TODO
             // check if defailt Assistent is set to PPP
-
-            boolean assistIsSet = false;
-
-            ComponentName compName = null;
-            try {
-                //noinspection RedundantArrayCreation
-                Method declaredMethod = UserHandle.class.getDeclaredMethod("myUserId", new Class[0]);
-                declaredMethod.setAccessible(true);
-                Integer num = (Integer) declaredMethod.invoke((Object) null, new Object[0]);
-                if (num != null) {
-                    //noinspection RedundantArrayCreation
-                    @SuppressLint("PrivateApi")
-                    Object newInstance = Class.forName("com.android.internal.app.AssistUtils").getConstructor(new Class[]{Context.class}).newInstance(new Object[]{context});
-                    //noinspection RedundantArrayCreation
-                    Method declaredMethod2 = newInstance.getClass().getDeclaredMethod("getAssistComponentForUser", new Class[]{Integer.TYPE});
-                    declaredMethod2.setAccessible(true);
-                    compName = (ComponentName) declaredMethod2.invoke(newInstance, new Object[]{num});
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            if (compName != null && compName.getPackageName().equals(context.getPackageName())) {
-                assistIsSet = true;
-            }
-            if (!assistIsSet) {
-                String string = Settings.Secure.getString(context.getContentResolver(), "assistant");
-                if ((string != null) && (string.startsWith(context.getPackageName()))) {
-                    assistIsSet = true;
-                }
-            }
-            if (assistIsSet) {
+            if (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) {
                 preferenceAllowed.allowed = PREFERENCE_ALLOWED;
             } else {
                 preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;

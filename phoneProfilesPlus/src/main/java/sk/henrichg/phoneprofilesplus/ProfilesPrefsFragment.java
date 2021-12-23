@@ -88,7 +88,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_DEVICE_WALLPAPER_CATEGORY = "prf_pref_deviceWallpaperCategoryRoot";
     private static final String PREF_PROFILE_DEVICE_RUN_APPLICATION_MIUI_PERMISSIONS = "prf_pref_deviceRunApplicationMIUIPermissions";
     private static final String PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "prf_pref_deviceBrightness_forceSetBrightnessAtScreenOn";
-    private static final String PREF_DECICE_AIRPLANE_MODE_ASSISTANT_SETTINGS = "prf_pref_deviceAirplaneMode_assistantSettings";
+    private static final String PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS = "prf_pref_deviceAirplaneMode_assistantSettings";
 
 
     @Override
@@ -1144,13 +1144,18 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
-        Preference assistantPreference = prefMng.findPreference(PREF_DECICE_AIRPLANE_MODE_ASSISTANT_SETTINGS);
+        Preference assistantPreference = prefMng.findPreference(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS);
         if (assistantPreference != null) {
-            //assistantPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
-            assistantPreference.setOnPreferenceClickListener(preference13 -> {
-                configureAssistant();
-                return false;
-            });
+            if (PPApplication.isRooted(true)) {
+                assistantPreference.setEnabled(false);
+            } else {
+                assistantPreference.setEnabled(true);
+                //assistantPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+                assistantPreference.setOnPreferenceClickListener(preference13 -> {
+                    configureAssistant();
+                    return false;
+                });
+            }
         }
 
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
@@ -4608,6 +4613,22 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        if (key.equals(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS)) {
+            //TODO
+            String summary = getString(R.string.profile_preferences_deviceAirplaneMode_assistantSettings_summary);
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                if (ActivateProfileHelper.isPPPSetAsDefaultAssistant(context)) {
+                    summary = getString(R.string.profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1) +
+                            "\n\n" + summary;
+                }
+                else {
+                    summary = getString(R.string.profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0) +
+                            "\n\n" + summary;
+                }
+                preference.setSummary(summary);
+            }
+        }
         if (key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID)) {
             PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
             Preference preference = prefMng.findPreference(key);
@@ -4861,6 +4882,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         setSummary(Profile.PREF_PROFILE_SOUND_ALARM_CHANGE);
         setSummary(Profile.PREF_PROFILE_SOUND_ALARM);
         setSummary(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+        setSummary(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS);
         setSummary(Profile.PREF_PROFILE_DEVICE_WIFI);
         setSummary(Profile.PREF_PROFILE_DEVICE_BLUETOOTH);
         setSummary(Profile.PREF_PROFILE_DEVICE_SCREEN_TIMEOUT);
