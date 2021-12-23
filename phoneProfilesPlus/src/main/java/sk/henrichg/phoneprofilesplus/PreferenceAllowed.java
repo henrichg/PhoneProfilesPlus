@@ -1,15 +1,20 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Build;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+
+import java.lang.reflect.Method;
 
 class PreferenceAllowed {
     int allowed;
@@ -33,6 +38,7 @@ class PreferenceAllowed {
     static final int PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION = 11;
     static final int PREFERENCE_NOT_ALLOWED_NOT_ROOT_GRANTED = 12;
     static final int PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION = 13;
+    static final int PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT = 14;
 
     String getNotAllowedPreferenceReasonString(Context context) {
         switch (notAllowedReason) {
@@ -52,12 +58,13 @@ class PreferenceAllowed {
             case PREFERENCE_NOT_ALLOWED_NO_SIM_CARD: return context.getString(R.string.preference_not_allowed_reason_no_sim_card);
             case PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION: return context.getString(R.string.preference_not_allowed_reason_not_granted_g1_permission);
             case PREFERENCE_NOT_ALLOWED_NOT_GRANTED_PHONE_PERMISSION: return context.getString(R.string.preference_not_allowed_reason_not_granted_phone_permission);
+            case PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT: return context.getString(R.string.preference_not_allowed_reason_not_set_as_assistant);
             default: return context.getString(R.string.empty_string);
         }
     }
 
     static void isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(PreferenceAllowed preferenceAllowed,
-            Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread) {
+            Profile profile, SharedPreferences sharedPreferences, boolean fromUIThread, Context context) {
 
         boolean applicationNeverAskForGrantRoot = ApplicationPreferences.applicationNeverAskForGrantRoot;
 
@@ -98,11 +105,47 @@ class PreferenceAllowed {
                 preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_SETTINGS_NOT_FOUND;
             }
         } else {
-            preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
-            preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_ROOTED;
-            if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
-                preferenceAllowed.notAllowedRoot = true;
-                //Log.e("Profile.isProfilePreferenceAllowed", "_deviceAirplaneMode");
+            // TODO
+            // check if defailt Assistent is set to PPP
+
+            boolean assistIsSet = false;
+
+            ComponentName compName = null;
+            try {
+                //noinspection RedundantArrayCreation
+                Method declaredMethod = UserHandle.class.getDeclaredMethod("myUserId", new Class[0]);
+                declaredMethod.setAccessible(true);
+                Integer num = (Integer) declaredMethod.invoke((Object) null, new Object[0]);
+                if (num != null) {
+                    //noinspection RedundantArrayCreation
+                    @SuppressLint("PrivateApi")
+                    Object newInstance = Class.forName("com.android.internal.app.AssistUtils").getConstructor(new Class[]{Context.class}).newInstance(new Object[]{context});
+                    //noinspection RedundantArrayCreation
+                    Method declaredMethod2 = newInstance.getClass().getDeclaredMethod("getAssistComponentForUser", new Class[]{Integer.TYPE});
+                    declaredMethod2.setAccessible(true);
+                    compName = (ComponentName) declaredMethod2.invoke(newInstance, new Object[]{num});
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (compName != null && compName.getPackageName().equals(context.getPackageName())) {
+                assistIsSet = true;
+            }
+            if (!assistIsSet) {
+                String string = Settings.Secure.getString(context.getContentResolver(), "assistant");
+                if ((string != null) && (string.startsWith(context.getPackageName()))) {
+                    assistIsSet = true;
+                }
+            }
+            if (assistIsSet) {
+                preferenceAllowed.allowed = PREFERENCE_ALLOWED;
+            } else {
+                preferenceAllowed.allowed = PREFERENCE_NOT_ALLOWED;
+                preferenceAllowed.notAllowedReason = PREFERENCE_NOT_ALLOWED_NOT_SET_AS_ASSISTANT;
+                //if ((profile != null) && (profile._deviceAirplaneMode != 0)) {
+                //    preferenceAllowed.notAllowedRoot = true;
+                    //Log.e("Profile.isProfilePreferenceAllowed", "_deviceAirplaneMode");
+                //}
             }
         }
     }

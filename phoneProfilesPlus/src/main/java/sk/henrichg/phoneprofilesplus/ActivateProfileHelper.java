@@ -5628,9 +5628,11 @@ class ActivateProfileHelper {
 
     private static void setAirplaneMode(Context context, boolean mode)
     {
-        if (PPApplication.isRooted(false) &&
+        boolean isRooted = PPApplication.isRooted(false);
+        boolean settingsBinaryExists = PPApplication.settingsBinaryExists(false);
+        if (isRooted &&
             (!ApplicationPreferences.applicationNeverAskForGrantRoot) &&
-            PPApplication.settingsBinaryExists(false)) {
+            settingsBinaryExists) {
             // device is rooted
             synchronized (PPApplication.rootMutex) {
                 String command1;
@@ -5659,7 +5661,10 @@ class ActivateProfileHelper {
                 //PPApplication.logE("ActivateProfileHelper.setAirplaneMode", "done");
             }
         }
-        else {
+        else
+        /*if (!isRooted ||
+            ApplicationPreferences.applicationNeverAskForGrantRoot ||
+            (!settingsBinaryExists))*/ {
             Intent intent = new Intent(PPPVoiceService.ACTION_ASSISTANT);
             intent.putExtra("ACTION", "android.settings.VOICE_CONTROL_AIRPLANE_MODE");
             intent.putExtra("airplane_mode_enabled", mode);

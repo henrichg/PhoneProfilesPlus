@@ -1893,6 +1893,7 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
     <string name="required_extender_release_notification">Click this notification to install new PhoneProfilesPlusExtender release.</string>
 
     <string name="profile_preferences_deviceAirplaneMode">Airplane mode</string>
+    <string name="preference_not_allowed_reason_not_set_as_assistant">PhoneProfilesPlus is not configured as default Assistant</string>
 
     <!-- **************************************************************************************** -->
 

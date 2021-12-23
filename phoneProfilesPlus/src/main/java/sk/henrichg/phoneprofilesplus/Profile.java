@@ -3920,7 +3920,7 @@ public class Profile {
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
             switch (preferenceKey) {
                 case PREF_PROFILE_DEVICE_AIRPLANE_MODE:
-                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread);
+                    PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, null, sharedPreferences, fromUIThread, context);
                     break;
                 case PREF_PROFILE_DEVICE_WIFI:
                     PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed);
@@ -4043,7 +4043,7 @@ public class Profile {
 
             preferenceAllowed.allowed = PreferenceAllowed.PREFERENCE_NOT_ALLOWED;
 
-            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread);
+            PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE(preferenceAllowed, profile, sharedPreferences, fromUIThread, context);
 //            if (profile._name.equals("Laut"))
 //                PPApplication.logE("[G1_TEST] isProfilePreferenceAllowed", "------- [isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_AIRPLANE_MODE] preferenceAllowed.allowed=" + ((preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_ALLOWED) ? "true" : "false"));
             //PreferenceAllowed.isProfilePreferenceAllowed_PREF_PROFILE_DEVICE_WIFI(preferenceAllowed);
