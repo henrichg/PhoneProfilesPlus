@@ -58,7 +58,6 @@
     <string name="profile_preferences_soundNotification">Мелодія сповіщень</string>
     <string name="profile_preferences_soundAlarmChange">Змінити мелодію будильника</string>
     <string name="profile_preferences_soundAlarm">Мелодія будильника</string>
-    <string name="profile_preferences_deviceAirplaneMode">(R) Режим \"У літаку\"</string>
     <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
     <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
     <string name="profile_preferences_deviceGPS">(G1)(R) GPS</string>
@@ -346,7 +345,6 @@
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">в імені Bluetooth,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">в рядку пошуку,</string>
     <string name="pref_dlg_info_about_wildcards_3">додайте «\u005C» перед цими символами.</string>
-    <string name="important_info_profile_settings">Деякі налаштування профілю потребують внесення змін до системних налаштуваннях. Ці налаштування відмічені «(S)».</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Доступ до сповіщень</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Важливі з вібрацією</string>
     <string name="important_info_news">Новини</string>
@@ -951,7 +949,6 @@
     <string name="permission_not_ask_button">Не запитувати</string>
     <string name="brightness_pref_dialog_level_chb">Змінити рівень</string>
     <string name="preference_profile_manual_brightness">Вручну</string>
-    <string name="important_info_event_system_settings">Деякі налаштування подій потребують внесення змін до системних налаштувань. Ці налаштування відмічені «(S)».</string>
     <string name="preferences_grantPermissions_title">Немає наданих дозволів</string>
     <string name="preferences_grantPermissions_summary">Деякі дозволи не надані. Натисніть тут аби надати дозвіл.</string>
     <string name="event_preferences_no_sensor_is_enabled">Немає увімкнутих датчиків!</string>
@@ -1146,7 +1143,6 @@
     <string name="profile_preferences_volumeAccessibility">Гучність з урахуванням Спец. можливостей</string>
     <string name="profile_preferences_volumeBluetoothSCO">Гучність виклику через Bluetooth</string>
     <string name="profile_preferences_enabled">Увімкнуто</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Натисніть тут щоб показати інформацію про типи налаштувань: (G1), (R), (S), (I).</string>
     <string name="profile_preferences_types_G1_show_info">Натисніть тут щоб показати більше інформації.</string>
     <string name="popup_window_events_status_show_info">Натисніть тут щоб показати більше інформації.</string>
     <string name="important_info_profile_type_of_preferences">Тип налаштувань:</string>
@@ -1837,18 +1833,18 @@
     <string name="event_preferences_red_texts_text_4">Помилки відображаються в налаштуваннях події, як червоний текст вгорі екрану налаштувань. Виправить їх.</string>
     <string name="profile_preferences_savedProfilePreferences_title_new">Налаштовані параметри профілю</string>
     <string name="profile_preferences_savedProfilePreferences_summary_new">Натисніть тут для показу налаштованих параметрів профілю.</string>
-    <string name="phone_profiles_pref_notificationProfileIconColor">Profile icon and preferences indicator color type</string>
-    <string name="phone_profiles_pref_notificationProfileIconLightness">Profile icon lightness</string>
-    <string name="phone_profiles_pref_notificationProfileCustomIconLightness">Use profile icon lightness for custom profile icons</string>
-    <string name="phone_profiles_pref_notificationBackgroundColorCategory">Notification panel - background color</string>
-    <string name="phone_profiles_pref_notificationTextColorCategory">Notification panel - text color</string>
-    <string name="phone_profiles_pref_notificationProfileIconCategory">Notification panel - profile icon</string>
-    <string name="phone_profiles_pref_notificationPreferencesIndicatorCategory">Notification panel - preferences indicator</string>
-    <string name="phone_profiles_pref_notificationButtonsCategory">Notification panel - buttons</string>
-    <string name="editor_activity_targetHelps_bottomNavigation_title">Display changer</string>
-    <string name="editor_activity_targetHelps_bottomNavigation_description">Click this to change display between profiles list and events list.</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help">Custom icon from icon pack</string>
-    <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">If you want to use icons from icon pack, install application, which has capability to extract icons from installed icon pack as png files.</string>
+    <string name="phone_profiles_pref_notificationProfileIconColor">Тип кольору іконки профілю та індикатора налаштувань</string>
+    <string name="phone_profiles_pref_notificationProfileIconLightness">Світлість іконки профілю</string>
+    <string name="phone_profiles_pref_notificationProfileCustomIconLightness">Використовуйте світлість іконки для іконок профіля користувача</string>
+    <string name="phone_profiles_pref_notificationBackgroundColorCategory">Панель сповіщень - Колір тла</string>
+    <string name="phone_profiles_pref_notificationTextColorCategory">Панель сповіщень - колір тексту</string>
+    <string name="phone_profiles_pref_notificationProfileIconCategory">Панель сповіщень - іконка профілю</string>
+    <string name="phone_profiles_pref_notificationPreferencesIndicatorCategory">Панель сповіщень - індикатор налаштувань</string>
+    <string name="phone_profiles_pref_notificationButtonsCategory">Панель сповіщень - кнопки</string>
+    <string name="editor_activity_targetHelps_bottomNavigation_title">Змінити список</string>
+    <string name="editor_activity_targetHelps_bottomNavigation_description">Натисніть цю кнопку для зміни показу між списком профілів і списком подій.</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help">Власна іконка з пакету іконок</string>
+    <string name="profile_icon_preference_custumIconFromIconPack_help_info_1">Якщо Ви бажаєте використовувати іконки з пакету іконок, встановіть додаток, що може витягти іконки з пакету встановлених іконок у вигляді png файлів.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_2">For example application</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_3">It is old, but functional application also in newest Android version.</string>
     <string name="profile_icon_preference_custumIconFromIconPack_help_info_4">Search it in Google Play.</string>
@@ -1867,6 +1863,15 @@
     <string name="preference_widget_information_icon">Information</string>
     <string name="preference_widget_information_clickable_icon">Information, clickable</string>
     <string name="preference_widget_clickabe_prefernce_icon">Clickable preference with sub preferences</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Натисніть тут щоб показати інформацію про типи налаштувань: (G1), (R), (I).</string>
+    <string name="required_extender_release">New PhoneProfilesPlusExtender version</string>
+    <string name="required_extender_release_notification">Click this notification to install new PhoneProfilesPlusExtender release.</string>
+    <string name="profile_preferences_deviceAirplaneMode">Режим \"У літаку\"</string>
+    <string name="preference_not_allowed_reason_not_set_as_assistant">PhoneProfilesPlus is not configured as default Assistant</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings">Assistant settings</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Please, click here to configure PhoneProfilesPlus as default Assistant. It is required for \"Airplane mode\" parameter, when device is not rooted.</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus is default Assistant</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus is not default Assistant</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Дозволи PhoneProfilesPlusExtender до:\n• параметрів профілю \"Примусова зупинка додатків\"\n• параметрам подій \"Датчик додатків\", \"Датчик орієнтації екрану\", \"SMS/MMS датчик\", \"Датчик викликів\".</string>
@@ -1952,4 +1957,6 @@
     <!--    <string name="application_editor_intent_extra_select_categories">Select categories</string>-->
     <!--    <string name="application_editor_intent_extra_select_flags">Select flags</string>-->
     <!--    <string name="mobile_cells_pref_dlg_sort_icon">Sort cell list</string>-->
+    <!--    <string name="important_info_profile_settings">Some profile preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
+    <!--    <string name="important_info_event_system_settings">Some event preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
 </resources>

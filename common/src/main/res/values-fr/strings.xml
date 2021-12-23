@@ -58,7 +58,6 @@
     <string name="profile_preferences_soundNotification">Son de notification</string>
     <string name="profile_preferences_soundAlarmChange">Changer l\'alarme</string>
     <string name="profile_preferences_soundAlarm">Alarme sonore</string>
-    <string name="profile_preferences_deviceAirplaneMode">(R) mode avion</string>
     <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
     <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
     <string name="profile_preferences_deviceGPS">(G1)(R) GPS</string>
@@ -346,7 +345,6 @@
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">Dans l\'id bluetooth,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">dans la chaîne de recherche,</string>
     <string name="pref_dlg_info_about_wildcards_3">ajouter \"\u005C\" devant ces caractères.</string>
-    <string name="important_info_profile_settings">Certaines préférences de profil nécessitent des modifications dans les paramètres système. Ces préférences sont marqués avec \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Accès aux notifications</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Priorité avec vibration</string>
     <string name="important_info_news">Actualités</string>
@@ -951,7 +949,6 @@
     <string name="permission_not_ask_button">Ne pas demander</string>
     <string name="brightness_pref_dialog_level_chb">Changer le niveau</string>
     <string name="preference_profile_manual_brightness">Manuel</string>
-    <string name="important_info_event_system_settings">Certaines préférences d\'événement nécessitent des changements dans les paramètres du système. Ces préférences sont marquées avec \"(S)\".</string>
     <string name="preferences_grantPermissions_title">Permissions non accordées</string>
     <string name="preferences_grantPermissions_summary">Certaines autorisations ne sont pas accordées. Cliquez ici pour les accorder.</string>
     <string name="event_preferences_no_sensor_is_enabled">Aucun capteur activé !</string>
@@ -1146,7 +1143,6 @@
     <string name="profile_preferences_volumeAccessibility">Volume des demandes d\'accessibilité</string>
     <string name="profile_preferences_volumeBluetoothSCO">Volume d\'appel Bluetooth</string>
     <string name="profile_preferences_enabled">Activé</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Cliquez ici pour afficher des informations sur les types de préférences: (G1), (R), (S), (I).</string>
     <string name="profile_preferences_types_G1_show_info">Cliquez ici pour afficher plus d\'informations.</string>
     <string name="popup_window_events_status_show_info">Cliquez ici pour afficher plus d\'informations.</string>
     <string name="important_info_profile_type_of_preferences">Type de préférences :</string>
@@ -1867,6 +1863,15 @@
     <string name="preference_widget_information_icon">Information</string>
     <string name="preference_widget_information_clickable_icon">Information, cliquable</string>
     <string name="preference_widget_clickabe_prefernce_icon">Préférences cliquables avec sous-préférences</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Cliquez ici pour afficher des informations sur les types de préférences: (G1), (R), (I).</string>
+    <string name="required_extender_release">Nouvelle version de PhoneProfilesPlusExtender</string>
+    <string name="required_extender_release_notification">Cliquez sur cette notification pour installer une nouvelle version de PhoneProfilesPlusExtender.</string>
+    <string name="profile_preferences_deviceAirplaneMode">Mode avion</string>
+    <string name="preference_not_allowed_reason_not_set_as_assistant">PhoneProfilesPlus n\'est pas configuré comme Assistant par défaut</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings">Paramètres de l\'assistant</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Veuillez cliquer ici pour configurer PhoneProfilesPlus comme assistant par défaut. C\'est requis pour le paramètre « Mode avion », lorsque l\'appareil n\'est pas rooté.</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus est l\'Assistant par défaut</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus n\'est pas l\'assistant par défaut</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Autoriser PhoneProfilesPlusExtender pour:\n- paramètre de profil \"Applications d\’arrêt forcé\"\n- paramètres d\’événement \"Application sensor\", \"Capteur d\’orientation\", \"SMS/MMS sensor\", \"Call sensor\". </string>
@@ -1952,4 +1957,6 @@
     <!--    <string name="application_editor_intent_extra_select_categories">Select categories</string>-->
     <!--    <string name="application_editor_intent_extra_select_flags">Select flags</string>-->
     <!--    <string name="mobile_cells_pref_dlg_sort_icon">Sort cell list</string>-->
+    <!--    <string name="important_info_profile_settings">Some profile preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
+    <!--    <string name="important_info_event_system_settings">Some event preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
 </resources>

@@ -58,7 +58,6 @@
     <string name="profile_preferences_soundNotification">Zvuk obaveštenja</string>
     <string name="profile_preferences_soundAlarmChange">Promeni alarm</string>
     <string name="profile_preferences_soundAlarm">Zvuk Alarma</string>
-    <string name="profile_preferences_deviceAirplaneMode">(R) Mod u Avionu</string>
     <string name="profile_preferences_deviceWiFi">Wi-Fi</string>
     <string name="profile_preferences_deviceBluetooth">Bluetooth</string>
     <string name="profile_preferences_deviceGPS">(G1)(R) GPS</string>
@@ -346,7 +345,6 @@
     <string name="bluetooth_name_pref_dlg_info_about_wildcards">u Bluetooth imenu,</string>
     <string name="calendar_pref_dlg_info_about_wildcards">u nizu pretrage</string>
     <string name="pref_dlg_info_about_wildcards_3">dodaj \"\u005C\" oko ovih znakova.</string>
-    <string name="important_info_profile_settings">Neki profili zahtevaju promene sistemskih podešavanja. Ova podešavanja su označena sa \"(S)\".</string>
     <string name="profile_preferences_volumeNotificationsAccessSettings_title">Pristup obaveštenjima</string>
     <string name="array_pref_zenModeArray_priorityWithVibration">Prioritetni sa vibracijom</string>
     <string name="important_info_news">Novosti</string>
@@ -951,7 +949,6 @@
     <string name="permission_not_ask_button">Ne pitati</string>
     <string name="brightness_pref_dialog_level_chb">Promeni nivo</string>
     <string name="preference_profile_manual_brightness">Ručno</string>
-    <string name="important_info_event_system_settings">Neki profili zahtevaju promene sistemskih podešavanja. Ova podešavanja su označena sa \"(S)\".</string>
     <string name="preferences_grantPermissions_title">Nema odobrenih dozvola</string>
     <string name="preferences_grantPermissions_summary">Neke dozvole nisu odobrene. Kliknite ovde za odobravanje isith.</string>
     <string name="event_preferences_no_sensor_is_enabled">Nema omogućenih senzora!</string>
@@ -1146,7 +1143,6 @@
     <string name="profile_preferences_volumeAccessibility">Pristupačnost traži glasnoću</string>
     <string name="profile_preferences_volumeBluetoothSCO">Glasnoća Bluetooth poziva</string>
     <string name="profile_preferences_enabled">Omogućeno</string>
-    <string name="profile_preferences_preferenceTypesInfo_summary">Klikni ovde za prikaz informacija o vrsti podešavanja: (G1), (R), (S), (I).</string>
     <string name="profile_preferences_types_G1_show_info">Kliknite ovde da vidite više informacija.</string>
     <string name="popup_window_events_status_show_info">Kliknite ovde da vidite više informacija.</string>
     <string name="important_info_profile_type_of_preferences">Tip podešavanja:</string>
@@ -1867,6 +1863,15 @@
     <string name="preference_widget_information_icon">Information</string>
     <string name="preference_widget_information_clickable_icon">Information, clickable</string>
     <string name="preference_widget_clickabe_prefernce_icon">Clickable preference with sub preferences</string>
+    <string name="profile_preferences_preferenceTypesInfo_summary">Klikni ovde za prikaz informacija o vrsti podešavanja: (G1), (R), (I).</string>
+    <string name="required_extender_release">New PhoneProfilesPlusExtender version</string>
+    <string name="required_extender_release_notification">Click this notification to install new PhoneProfilesPlusExtender release.</string>
+    <string name="profile_preferences_deviceAirplaneMode">Mod u Avionu</string>
+    <string name="preference_not_allowed_reason_not_set_as_assistant">PhoneProfilesPlus is not configured as default Assistant</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings">Assistant settings</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Please, click here to configure PhoneProfilesPlus as default Assistant. It is required for \"Airplane mode\" parameter, when device is not rooted.</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_1">PhoneProfilesPlus is default Assistant</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary_ststus_0">PhoneProfilesPlus is not default Assistant</string>
     <!-- **************************************************************************************** -->
     <!-- PLEASE CHECK END OF STRING CHANGES AND TRANSLATE IT -->
     <string name="extender_accessibility_service_description">Omogući PhoneProfilesPlusExtender za:\n• parametar profila\" Nasilno zaustavi aplikacije\"\n• parametri događaja \"Senzor aplikacije\", \"Senzor orjentacije\", \"SMS/MMS senzor\", \"Senzor poziva\".</string>
@@ -1952,4 +1957,6 @@
     <!--    <string name="application_editor_intent_extra_select_categories">Select categories</string>-->
     <!--    <string name="application_editor_intent_extra_select_flags">Select flags</string>-->
     <!--    <string name="mobile_cells_pref_dlg_sort_icon">Sort cell list</string>-->
+    <!--    <string name="important_info_profile_settings">Some profile preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
+    <!--    <string name="important_info_event_system_settings">Some event preferences require changes in system Settings. These preferences are marked with \"(S)\".</string>-->
 </resources>
