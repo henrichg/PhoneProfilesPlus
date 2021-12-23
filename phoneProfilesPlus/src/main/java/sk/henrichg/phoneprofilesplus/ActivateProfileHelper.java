@@ -832,7 +832,7 @@ class ActivateProfileHelper {
             //noinspection RedundantArrayCreation
             Method declaredMethod = UserHandle.class.getDeclaredMethod("myUserId", new Class[0]);
             declaredMethod.setAccessible(true);
-            Integer num = (Integer) declaredMethod.invoke((Object) null, new Object[0]);
+            Integer num = (Integer) declaredMethod.invoke(null, new Object[0]);
             if (num != null) {
                 //noinspection RedundantArrayCreation
                 @SuppressLint("PrivateApi")

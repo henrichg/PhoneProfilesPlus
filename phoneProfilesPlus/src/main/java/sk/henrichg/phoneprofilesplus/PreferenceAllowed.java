@@ -1,20 +1,15 @@
 package sk.henrichg.phoneprofilesplus;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.os.Build;
-import android.os.UserHandle;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
-
-import java.lang.reflect.Method;
 
 class PreferenceAllowed {
     int allowed;
