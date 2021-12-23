@@ -1448,10 +1448,10 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         if (requestCode == RESULT_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_SETTINGS) {
             setSummary(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS);
         }
-        //TODO
         if (requestCode == RESULT_ASSISTANT_SETTINGS) {
             //disableDependedPref(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
             setSummary(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+            setSummary(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS);
             // show save menu
             ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
             if (activity != null) {
@@ -4614,7 +4614,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
         if (key.equals(PREF_PROFILE_DEVICE_AIRPLANE_MODE_ASSISTANT_SETTINGS)) {
-            //TODO
             String summary = getString(R.string.profile_preferences_deviceAirplaneMode_assistantSettings_summary);
             Preference preference = prefMng.findPreference(key);
             if (preference != null) {
