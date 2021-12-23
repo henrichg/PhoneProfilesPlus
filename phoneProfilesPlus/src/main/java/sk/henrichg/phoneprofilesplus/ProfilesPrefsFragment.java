@@ -63,6 +63,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final int RESULT_UNLINK_VOLUMES_APP_PREFERENCES = 2981;
     private static final int RESULT_ACCESSIBILITY_SETTINGS = 2983;
     private static final int RESULT_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_SETTINGS = 2984;
+    private static final int RESULT_ASSISTANT_SETTINGS = 2985;
 
     private static final String PREF_VOLUME_NOTIFICATION_VOLUME0 = "prf_pref_volumeNotificationVolume0";
 
@@ -87,6 +88,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
     private static final String PREF_DEVICE_WALLPAPER_CATEGORY = "prf_pref_deviceWallpaperCategoryRoot";
     private static final String PREF_PROFILE_DEVICE_RUN_APPLICATION_MIUI_PERMISSIONS = "prf_pref_deviceRunApplicationMIUIPermissions";
     private static final String PREF_PROFILE_DEVICE_BRIGHTNESS_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON = "prf_pref_deviceBrightness_forceSetBrightnessAtScreenOn";
+    private static final String PREF_DECICE_AIRPLANE_MODE_ASSISTANT_SETTINGS = "prf_pref_deviceAirplaneMode_assistantSettings";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -1141,6 +1144,15 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
             }
         }
 
+        Preference assistantPreference = prefMng.findPreference(PREF_DECICE_AIRPLANE_MODE_ASSISTANT_SETTINGS);
+        if (assistantPreference != null) {
+            //assistantPreference.setWidgetLayoutResource(R.layout.start_activity_preference);
+            assistantPreference.setOnPreferenceClickListener(preference13 -> {
+                configureAssistant();
+                return false;
+            });
+        }
+
         //PPApplication.logE("ProfilesPrefsFragment.onActivityCreated", "END");
     }
 
@@ -1430,6 +1442,17 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
         }
         if (requestCode == RESULT_FORCE_SET_BRIGHTNESS_AT_SCREEN_ON_SETTINGS) {
             setSummary(Profile.PREF_PROFILE_DEVICE_BRIGHTNESS);
+        }
+        //TODO
+        if (requestCode == RESULT_ASSISTANT_SETTINGS) {
+            //disableDependedPref(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+            setSummary(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE);
+            // show save menu
+            ProfilesPrefsActivity activity = (ProfilesPrefsActivity)getActivity();
+            if (activity != null) {
+                activity.showSaveMenu = true;
+                activity.invalidateOptionsMenu();
+            }
         }
     }
 
@@ -4493,8 +4516,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
 
     private void setSummaryRadios(String key, Object value, Context context, int phoneCount)
     {
-        if (key.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_AUTOSYNC) ||
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_AUTOSYNC) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_WIFI) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_BLUETOOTH) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_MOBILE_DATA) ||
@@ -4507,7 +4529,6 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 key.equals(Profile.PREF_PROFILE_DEVICE_POWER_SAVE_MODE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_NETWORK_TYPE_PREFS) ||
-                key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID) ||
                 key.equals(Profile.PREF_PROFILE_DEVICE_VPN_SETTINGS_PREFS))
         {
             PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
@@ -4527,26 +4548,12 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
             else
-            if (key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID)) {
-                Preference preference = prefMng.findPreference(key);
-                if (preference != null) {
-                    String sValue = value.toString();
-                    boolean bold = !sValue.equals(Profile.CONNECTTOSSID_JUSTANY);
-
-                    Profile profile = new Profile();
-                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
-                    profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
-                    Permissions.checkProfileRadioPreferences(context, profile, permissions);
-                    boolean _permissionGranted = permissions.size() == 0;
-
-                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, !_permissionGranted);
-                }
-            }
-            else
             {
                 String sValue = value.toString();
                 ListPreference listPreference = prefMng.findPreference(key);
                 if (listPreference != null) {
+                    listPreference.setEnabled(true);
+
                     int index = listPreference.findIndexOfValue(sValue);
                     CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                     listPreference.setSummary(summary);
@@ -4573,6 +4580,65 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 }
             }
         }
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_AIRPLANE_MODE)) {
+            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    boolean errorColor = false;
+                    if (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
+                        preference.setEnabled(false);
+                    else
+                        errorColor = !value.toString().equals("0");
+                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor);
+                } else {
+                    preference.setEnabled(true);
+
+                    String sValue = value.toString();
+                    ListPreference listPreference = prefMng.findPreference(key);
+                    if (listPreference != null) {
+                        int index = listPreference.findIndexOfValue(sValue);
+                        CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
+                        listPreference.setSummary(summary);
+                        GlobalGUIRoutines.setPreferenceTitleStyleX(listPreference, true, index > 0, false, false);
+                    }
+                }
+            }
+        }
+        if (key.equals(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID)) {
+            PreferenceAllowed preferenceAllowed = Profile.isProfilePreferenceAllowed(key, null, preferences, true, context);
+            Preference preference = prefMng.findPreference(key);
+            if (preference != null) {
+                if (preferenceAllowed.allowed != PreferenceAllowed.PREFERENCE_ALLOWED) {
+                    boolean errorColor = false;
+                    if (preferenceAllowed.notAllowedReason != PreferenceAllowed.PREFERENCE_NOT_ALLOWED_NOT_GRANTED_G1_PERMISSION)
+                        preference.setEnabled(false);
+                    else
+                        errorColor = !value.toString().equals("0");
+                    if (preferenceAllowed.allowed == PreferenceAllowed.PREFERENCE_NOT_ALLOWED)
+                        preference.setSummary(getString(R.string.profile_preferences_device_not_allowed) +
+                                ": " + preferenceAllowed.getNotAllowedPreferenceReasonString(context));
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, errorColor, false, errorColor);
+                } else {
+                    preference.setEnabled(true);
+
+                    String sValue = value.toString();
+                    boolean bold = !sValue.equals(Profile.CONNECTTOSSID_JUSTANY);
+
+                    Profile profile = new Profile();
+                    ArrayList<Permissions.PermissionType> permissions = new ArrayList<>();
+                    profile._deviceConnectToSSID = preferences.getString(Profile.PREF_PROFILE_DEVICE_CONNECT_TO_SSID, Profile.CONNECTTOSSID_JUSTANY);
+                    Permissions.checkProfileRadioPreferences(context, profile, permissions);
+                    boolean _permissionGranted = permissions.size() == 0;
+
+                    GlobalGUIRoutines.setPreferenceTitleStyleX(preference, true, bold, false, !_permissionGranted);
+                }
+            }
+        }
+
         if (Build.VERSION.SDK_INT >= 26) {
 
             if (phoneCount > 1) {
@@ -4597,6 +4663,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String sValue = value.toString();
                         ListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
+                            listPreference.setEnabled(true);
+
                             int index = listPreference.findIndexOfValue(sValue);
                             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                             listPreference.setSummary(summary);
@@ -4634,6 +4702,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String sValue = value.toString();
                         ListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
+                            listPreference.setEnabled(true);
+
                             int index = listPreference.findIndexOfValue(sValue);
                             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                             listPreference.setSummary(summary);
@@ -4669,6 +4739,7 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String sValue = value.toString();
                         Preference preference = prefMng.findPreference(key);
                         if (preference != null) {
+                            preference.setEnabled(true);
 
                             //int index = listPreference.findIndexOfValue(sValue);
                             //CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
@@ -4705,6 +4776,8 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                         String sValue = value.toString();
                         ListPreference listPreference = prefMng.findPreference(key);
                         if (listPreference != null) {
+                            listPreference.setEnabled(true);
+
                             int index = listPreference.findIndexOfValue(sValue);
                             CharSequence summary = (index >= 0) ? listPreference.getEntries()[index] : null;
                             listPreference.setSummary(summary);
@@ -5901,6 +5974,47 @@ public class ProfilesPrefsFragment extends PreferenceFragmentCompat
                 Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                 //noinspection deprecation
                 startActivityForResult(intent, RESULT_ACCESSIBILITY_SETTINGS);
+                ok = true;
+            } catch (Exception e) {
+                PPApplication.recordException(e);
+            }
+        }
+        if (!ok) {
+            if (getActivity() != null) {
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+                dialogBuilder.setMessage(R.string.setting_screen_not_found_alert);
+                //dialogBuilder.setIcon(android.R.drawable.ic_dialog_alert);
+                dialogBuilder.setPositiveButton(android.R.string.ok, null);
+                AlertDialog dialog = dialogBuilder.create();
+
+//                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                    @Override
+//                    public void onShow(DialogInterface dialog) {
+//                        Button positive = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+//                        if (positive != null) positive.setAllCaps(false);
+//                        Button negative = ((AlertDialog)dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+//                        if (negative != null) negative.setAllCaps(false);
+//                    }
+//                });
+
+                if (!getActivity().isFinishing())
+                    dialog.show();
+            }
+        }
+    }
+
+    private void configureAssistant() {
+        if (getActivity() == null)
+            return;
+
+        boolean ok = false;
+        if (GlobalGUIRoutines.activityActionExists(Settings.ACTION_ACCESSIBILITY_SETTINGS, getActivity())) {
+            try {
+                //activity.startActivity(new Intent("android.settings.VOICE_INPUT_SETTINGS"));
+
+                Intent intent = new Intent(Settings.ACTION_VOICE_INPUT_SETTINGS);
+                //noinspection deprecation
+                startActivityForResult(intent, RESULT_ASSISTANT_SETTINGS);
                 ok = true;
             } catch (Exception e) {
                 PPApplication.recordException(e);

@@ -4,6 +4,12 @@
     app:title="@string/profile_preferences_category_radios"
     app:key="prf_pref_radiosCategory" >
 
+    <Preference
+        app:key="prf_pref_deviceAirplaneMode_assistantSettings"
+        app:title="@string/profile_preferences_deviceAirplaneMode_assistantSettings"
+        app:summary="@string/profile_preferences_deviceAirplaneMode_assistantSettings_summary"
+        app:widgetLayout="@layout/preference_widget_preference_with_subpreferences"
+        app:layout="@layout/mp_preference_material_widget"/>
     <ListPreference
         app:title="@string/profile_preferences_deviceAirplaneMode"
         app:summary="@string/array_pref_no_change"

@@ -1894,6 +1894,8 @@ x    <string name="phone_profiles_pref_applicationEventBluetoothScanIntervalCate
 
     <string name="profile_preferences_deviceAirplaneMode">Airplane mode</string>
     <string name="preference_not_allowed_reason_not_set_as_assistant">PhoneProfilesPlus is not configured as default Assistant</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings">Assistant settings</string>
+    <string name="profile_preferences_deviceAirplaneMode_assistantSettings_summary">Please, click here to configure PhoneProfilesPlus as default Assistant. It is required for \"Airplane mode\" parameter, when device is not rooted.</string>
 
     <!-- **************************************************************************************** -->
 

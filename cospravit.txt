@@ -355,11 +355,11 @@ intent.putExtra("ACTION", "android.settings.VOICE_CONTROL_AIRPLANE_MODE");
 intent.putExtra("airplane_mode_enabled", z3);
 mo15668c0().sendBroadcast(intent);
 
-Ak zistit default asistenta:
+Ako zistit default asistenta:
 https://stackoverflow.com/questions/40500143/how-to-get-default-device-assistance-app-in-android-by-code
 Alebo asi lepsie: Macrodroid class: common/C5258c1.java
 
-Ak nastavit default asistenta:
+Ako nastavit default asistenta:
 activity.startActivity(new Intent("android.settings.VOICE_INPUT_SETTINGS"));
 - Settings.ACTION_VOICE_INPUT_SETTINGS
 Alebo Macrodroid class: permissions/PermissionRequestActivity.java
