@@ -5027,34 +5027,37 @@ class ActivateProfileHelper {
         }
 
         if (profile._cameraFlash != 0) {
-            if (Permissions.checkProfileCameraFlash(context, profile, null)) {
-                switch (profile._cameraFlash) {
-                    case 1:
+            if (Profile.isProfilePreferenceAllowed(Profile.PREF_PROFILE_CAMERA_FLASH, null, executedProfileSharedPreferences, true, appContext).allowed
+                    == PreferenceAllowed.PREFERENCE_ALLOWED) {
+                if (Permissions.checkProfileCameraFlash(context, profile, null)) {
+                    switch (profile._cameraFlash) {
+                        case 1:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 1");
-                        try {
-                            NoobCameraManager.getInstance().init(context);
-                            NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
-                            if (noobCameraManager != null) {
-                                noobCameraManager.turnOnFlash();
-                                NoobCameraManager.getInstance().release();
+                            try {
+                                NoobCameraManager.getInstance().init(context);
+                                NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
+                                if (noobCameraManager != null) {
+                                    noobCameraManager.turnOnFlash();
+                                    NoobCameraManager.getInstance().release();
+                                }
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
                             }
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
-                        break;
-                    case 2:
+                            break;
+                        case 2:
 //                        PPApplication.logE("[ACTIVATOR] ActivateProfileHelper.execute", "_cameraFlash 2");
-                        try {
-                            NoobCameraManager.getInstance().init(context);
-                            NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
-                            if (noobCameraManager != null) {
-                                noobCameraManager.turnOffFlash();
-                                NoobCameraManager.getInstance().release();
+                            try {
+                                NoobCameraManager.getInstance().init(context);
+                                NoobCameraManager noobCameraManager = NoobCameraManager.getInstance();
+                                if (noobCameraManager != null) {
+                                    noobCameraManager.turnOffFlash();
+                                    NoobCameraManager.getInstance().release();
+                                }
+                            } catch (Exception e) {
+                                PPApplication.recordException(e);
                             }
-                        } catch (Exception e) {
-                            PPApplication.recordException(e);
-                        }
-                        break;
+                            break;
+                    }
                 }
             }
         }
