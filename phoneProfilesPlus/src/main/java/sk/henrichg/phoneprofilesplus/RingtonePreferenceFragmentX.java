@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import androidx.preference.PreferenceDialogFragmentCompat;
@@ -18,6 +19,7 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
     RingtonePreferenceX preference;
 
     private RingtonePreferenceAdapterX listAdapter;
+    private LinearLayout linlaProgress;
     private ListView listView;
 
     private Context prefContext;
@@ -38,6 +40,8 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
     protected void onBindDialogView(View view)
     {
         super.onBindDialogView(view);
+
+        linlaProgress = view.findViewById(R.id.ringtone_pref_dlg_linla_progress);
 
         listView = view.findViewById(R.id.ringtone_pref_dlg_listview);
 
@@ -80,7 +84,15 @@ public class RingtonePreferenceFragmentX extends PreferenceDialogFragmentCompat 
         preference.fragment = null;
     }
 
+//    void showProgress() {
+//        listView.setVisibility(View.GONE);
+//        linlaProgress.setVisibility(View.VISIBLE);
+//    }
+
     void updateListView(boolean alsoSelection) {
+        linlaProgress.setVisibility(View.GONE);
+        listView.setVisibility(View.VISIBLE);
+
         if (listAdapter != null) {
             listAdapter.notifyDataSetChanged();
 

@@ -473,6 +473,18 @@ public class RingtonePreferenceX extends DialogPreference {
             this.prefContextWeakRef = new WeakReference<>(prefContext);
         }
 
+        /*
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+
+            RingtonePreferenceX preference = preferenceWeakRef.get();
+            if ((preference != null) && (preference.fragment != null))
+                preference.fragment.showProgress();
+        }
+        */
+
         @Override
         protected Void doInBackground(Void... params) {
             RingtonePreferenceX preference = preferenceWeakRef.get();
