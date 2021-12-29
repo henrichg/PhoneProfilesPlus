@@ -53,6 +53,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - From Android 7.0
 - minSdkVersion = 24
 - targetSdkVersion = 28
+- compiledSdkVersion = 31
 
 ##### Required external libs - open-source
 
@@ -75,7 +76,7 @@ _*** Please help me with translation, thank you: <https://crowdin.com/project/ph
 - RecyclerView-FastScroll (as module, code modified) - https://github.com/jahirfiquitiva/RecyclerView-FastScroll (original repository: https://github.com/timusus/RecyclerView-FastScroll)
 - RelativePopupWindow (only modified class RelativePopupWindow) - https://github.com/kakajika/RelativePopupWindow
 - SunriseSunset (only modified class SunriseSunset) - https://github.com/caarmen/SunriseSunset
-- android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/anggrayudi/android-hidden-api
+- android-hidden-api (downloaded android.jar copied into folder \<android-sdk\>/android-XX) - https://github.com/Reginer/aosp-android-jar (original repository: https://github.com/anggrayudi/android-hidden-api)
 - FreeReflection (only code from https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/BootstrapClass.java) - https://github.com/tiann/FreeReflection
 - NoobCameraFlash (as module, code modified) - https://github.com/Abhi347/NoobCameraFlash
 - AutoStarter (only modified class AutoStartPermissionHelper.kt) - https://github.com/judemanutd/AutoStarter
