@@ -88,6 +88,7 @@
 
 <!--        <item name="android:textAppearanceButton">@style/NoAllCapsButtonStyle</item>-->
         <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
 
     </style>
 

@@ -151,55 +151,76 @@ public class CheckPPPReleasesActivity extends AppCompatActivity {
     }
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
-    private void showDialog(final Activity activity, final int store) {
+    private void showDialog(final Activity activity, int store) {
 
-        if (store == R.id.menu_check_in_fdroid)
+        PackageManager packageManager = activity.getPackageManager();
+        Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
+        boolean amazonAppStoreInstalled = (intent != null);
+        intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
+        boolean fdroidInstalled = (intent != null);
+        intent = packageManager.getLaunchIntentForPackage("com.sec.android.app.samsungapps");
+        boolean galaxyStoreInstalled = (intent != null);
+        intent = packageManager.getLaunchIntentForPackage("com.huawei.appmarket");
+        boolean appGalleryInstalled = (intent != null);
+
+        boolean displayed = false;
+
+        if (store == R.id.menu_check_in_fdroid) {
             checkInFDroid(activity);
+            displayed = true;
+        }
         else
-        if (store == R.id.menu_check_in_galaxy_store)
-            checkInGalaxyStore(activity);
-        else
-        if (store == R.id.menu_check_in_amazon_appstore)
-            checkInAmazonAppstore(activity);
-        else
-        if (store == R.id.menu_check_in_appgallery)
-            checkInHuaweiAppGallery(activity);
-        else
-        if (store == R.id.menu_check_in_github)
-            checkInGitHub(activity, false);
-        else
-        if (store == R.id.menu_check_in_apkpure)
-            checkInAPKPure(activity);
-        else
-        if (store == -1) {
-            // this is for
-            // - CheckPPPReleasesBroadcastReceiver
-
-            if (PPApplication.deviceIsSamsung)
+        if (store == R.id.menu_check_in_galaxy_store) {
+            if (galaxyStoreInstalled) {
                 checkInGalaxyStore(activity);
-            else
-            if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI)
-                checkInHuaweiAppGallery(activity);
-            else {
-                PackageManager packageManager = activity.getPackageManager();
-                Intent intent = packageManager.getLaunchIntentForPackage("com.amazon.venezia");
-                boolean amazonAppStoreInstalled = (intent != null);
-                intent = packageManager.getLaunchIntentForPackage("org.fdroid.fdroid");
-                boolean fdroidInstalled = (intent != null);
-
-                if (amazonAppStoreInstalled)
-                    checkInAmazonAppstore(activity);
-                else
-                if (fdroidInstalled)
-                    checkInFDroid(activity);
-                else
-                    checkInGitHub(activity, false);
+                displayed = true;
             }
         }
         else
-            // this is for
-            // - CheckCriticalPPPReleasesBroadcastReceiver
+        if (store == R.id.menu_check_in_amazon_appstore) {
+            checkInAmazonAppstore(activity);
+            displayed = true;
+        }
+        else
+        if (store == R.id.menu_check_in_appgallery) {
+            if (appGalleryInstalled) {
+                checkInHuaweiAppGallery(activity);
+                displayed = true;
+            }
+        }
+        else
+        if (store == R.id.menu_check_in_github) {
             checkInGitHub(activity, false);
+            displayed = true;
+        }
+        else
+        if (store == R.id.menu_check_in_apkpure) {
+            checkInAPKPure(activity);
+            displayed = true;
+        }
+
+        if (!displayed) {
+            if (store == -1) {
+                // this is for
+                // - CheckPPPReleasesBroadcastReceiver
+
+                if (PPApplication.deviceIsSamsung && galaxyStoreInstalled)
+                    checkInGalaxyStore(activity);
+                else if (PPApplication.deviceIsHuawei && PPApplication.romIsEMUI && appGalleryInstalled)
+                    checkInHuaweiAppGallery(activity);
+                else {
+                    if (amazonAppStoreInstalled)
+                        checkInAmazonAppstore(activity);
+                    else if (fdroidInstalled)
+                        checkInFDroid(activity);
+                    else
+                        checkInGitHub(activity, false);
+                }
+            } else
+                // this is for
+                // - CheckCriticalPPPReleasesBroadcastReceiver
+                checkInGitHub(activity, false);
+        }
     }
 
     @SuppressLint({"SetTextI18n", "InflateParams"})
